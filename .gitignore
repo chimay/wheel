@@ -1,0 +1,9 @@
+# vim: set filetype=conf
+
+# Html
+
+*.html
+
+# Unison backup
+
+.unison

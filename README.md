@@ -1,13 +1,6 @@
+[//]: # vim: set filetype=markdown:
 
-#+STARTUP: showall
-
-#+TAGS: TOC(t)
-
-* Table of contents                                                     :TOC_2_gh:
-- [[#introduction][Introduction]]
-  - [[#history][History]]
-
-* Introduction
+# Introduction
 
 Doughnut is a plugin for vim aimed at managing buffer groups.
 
@@ -27,7 +20,6 @@ Note that :
 
   - A set of buffer groups is called a torus (a circle of circles)
 
+## History
 
-** History
-
-This project is inspired by [[https://github.com/vim-ctrlspace/vim-ctrlspace][CtrlSpace]].
+This project is inspired by [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace).
