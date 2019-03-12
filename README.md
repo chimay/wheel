@@ -1,4 +1,4 @@
-[//]: # vim: set filetype=markdown:
+<!-- vim: set filetype=markdown: -->
 
 # Introduction
 
@@ -22,4 +22,10 @@ Note that :
 
 ## History
 
-This project is inspired by [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace).
+This project is inspired by :
+
+- [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace), a similar
+pluginfor Vim
+
+- [Torus](https://github.com/chimay/torus), a similar plugin for Emacs,
+itself inspired by MTorus
