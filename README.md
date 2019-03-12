@@ -1,5 +1,9 @@
 <!-- vim: set filetype=markdown: -->
 
+# Work in progress
+
+For now, it’s almost an empty shell.
+
 # Introduction
 
 Doughnut is a plugin for vim aimed at managing buffer groups.
