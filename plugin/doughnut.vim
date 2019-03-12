@@ -37,4 +37,4 @@ endif
 
 let g:DoughnutLoaded = 1
 
-call doughnut#main#Init()
+call doughnut#bakery#init()
