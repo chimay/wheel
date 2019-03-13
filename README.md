@@ -1,5 +1,4 @@
 <!-- vim: set filetype=markdown: -->
-<!-- vim: set fdm=expr: -->
 
 # Work in progress
 
