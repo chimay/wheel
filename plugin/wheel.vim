@@ -1,5 +1,5 @@
 " vim: set filetype=vim:
-" Doughnut - Vim Buffer Groups Manager
+" Wheel - Vim Buffer Groups Manager
 " Maintainer: Chimay
 " Version:    0.1
 "
@@ -27,14 +27,14 @@
 " THE SOFTWARE.
 "
 " Usage:
-" https://github.com/chimay/doughnut/blob/master/README.md
+" https://github.com/chimay/wheel/blob/master/README.md
 
 scriptencoding utf-8
 
-if exists("g:DoughnutLoaded")
+if exists("g:wheel_loaded")
 	finish
 endif
 
-let g:DoughnutLoaded = 1
+let g:wheel_loaded = 1
 
-call doughnut#bakery#init()
+call wheel#bakery#init()

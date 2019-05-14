@@ -2,7 +2,7 @@
 
 " RIWO : Read In Write Out
 
-fun! doughnut#riwo#write(var, file)
+fun! wheel#riwo#write(var, file)
 	redir => content
 		silent! echo a:var
 	redir END

@@ -6,7 +6,7 @@ For now, it’s almost an empty shell.
 
 # Introduction
 
-Doughnut is a plugin for vim aimed at managing buffer groups.
+Wheel is a plugin for vim aimed at managing buffer groups.
 
 In short, this plugin let you organize your buffers by creating as
 many buffer groups as you need, add the buffers you want to it and
