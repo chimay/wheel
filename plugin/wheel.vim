@@ -37,4 +37,4 @@ endif
 
 let g:wheel_loaded = 1
 
-call wheel#bakery#init()
+call wheel#forge#init()
