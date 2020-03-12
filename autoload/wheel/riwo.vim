@@ -2,14 +2,14 @@
 
 " RIWO : Read In Write Out
 
-fun! wheel#riwo#write(var, file)
-	redir => content
-		silent! echo a:var
+fun! wheel#riwo#write(pointer, file)
+	let l:var =  {a:pointer}
+	redir => l:content
+		silent! echo 'let' a:pointer '=' l:var
 	redir END
-	let lines = substitute(content, '\([:,]\)', '\1\n\\', 'g')
-	exe 'edit ' a:file
-	%delete
-	put =lines
-	write
-	bdelete
+	let l:content = substitute(l:content, '[=,]', '\0\n\\', 'g')
+	let l:content = substitute(l:content, '\n\{2,\}', '\n', 'g')
+	exec 'redir! > ' . a:file
+		silent! echo l:content
+	redir END
 endfun
