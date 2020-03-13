@@ -7,6 +7,20 @@ fun! wheel#vortex#reset ()
 	let g:wheel = {}
 endfu
 
+fun! wheel#vortex#template(name)
+	let template = [{}]
+	let template[0].name = a:name
+	return template
+endfun
+
+fun! wheel#vortex#here ()
+	let location = {}
+	let location.file = expand('%:p')
+	let location.line = line('.')
+	let location.col  = col('.')
+	return location
+endfun
+
 fun! wheel#vortex#print ()
 	echo g:wheel
 endfu
@@ -17,10 +31,17 @@ fun! wheel#vortex#add_torus (...)
 	else
 		let torus_name = input("New torus name ? ")
 	endif
-	if ! has_key(g:wheel.toruses, torus_name)
+	if ! has_key(g:wheel, 'names')
+		let g:wheel.names = []
+	endif
+	if ! has_key(g:wheel, 'toruses')
+		let g:wheel.toruses = []
+	endif
+	if index(g:wheel.names, torus_name) < 0
 		echo "Adding torus" torus_name
+		let g:wheel.names += [torus_name]
 		let g:wheel.current = torus_name
-		let g:wheel.toruses[torus_name] = {}
+		let g:wheel.toruses += wheel#vortex#template(torus_name)
 	endif
 endfu
 
@@ -56,12 +77,4 @@ fun! wheel#vortex#add_location ()
 		let g:wheel.toruses[torus_name].circles[circle_name].current = circle_name
 		let g:wheel.toruses[torus_name].circles[circle_name].circles[circle_name] = here
 	endif
-endfun
-
-fun! wheel#vortex#here ()
-	let location = {}
-	let location.file = expand('%:p')
-	let location.line = line('.')
-	let location.col  = col('.')
-	return location
 endfun
