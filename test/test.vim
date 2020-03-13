@@ -1,9 +1,11 @@
 " vim: set filetype=vim:
 
-" let g:toto= {'l' : [1, 2, 3], 'i' : 3}
-" call wheel#riwo#write("g:toto", "~/racine/test/vim/riwo-write")
 
 call wheel#vortex#reset()
-call wheel#vortex#add_torus('tutu')
-call wheel#vortex#add_torus()
+"call wheel#vortex#add_torus('tore')
+"call wheel#vortex#add_torus()
+"call wheel#vortex#add_circle('cercle')
+"call wheel#vortex#add_circle()
+call wheel#vortex#add_here()
 echo g:wheel
+"call wheel#riwo#write("g:wheel", "~/racine/test/vim/riwo-write")
