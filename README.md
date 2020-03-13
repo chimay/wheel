@@ -33,3 +33,7 @@ plugin for Vim
 
 - [Torus](https://github.com/chimay/torus), a similar plugin for Emacs,
 itself inspired by MTorus
+
+# Licence
+
+MIT
