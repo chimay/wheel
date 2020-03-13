@@ -3,13 +3,13 @@
 " RIWO : Read In Write Out
 
 fun! wheel#riwo#write(pointer, file)
-	let l:var =  {a:pointer}
-	redir => l:content
-		silent! echo 'let' a:pointer '=' l:var
+	let var =  {a:pointer}
+	redir => content
+		silent! echo 'let' a:pointer '=' var
 	redir END
-	let l:content = substitute(l:content, '[=,]', '\0\n\\', 'g')
-	let l:content = substitute(l:content, '\n\{2,\}', '\n', 'g')
+	let content = substitute(content, '[=,]', '\0\n\\', 'g')
+	let content = substitute(content, '\n\{2,\}', '\n', 'g')
 	exec 'redir! > ' . a:file
-		silent! echo l:content
+		silent! echo content
 	redir END
 endfun
