@@ -95,7 +95,12 @@ fun! wheel#vortex#add_here()
 	call wheel#vortex#add_location(here)
 endfun
 
-fun! wheel#vortex#add_file(file)
-	exe 'edit ' a:file
+fun! wheel#vortex#add_file(...)
+	if a:0 > 0
+		let file = a:1
+	else
+		let file = input("File to add ? ")
+	endif
+	exe 'edit ' file
 	call wheel#vortex#add_here()
 endfun
