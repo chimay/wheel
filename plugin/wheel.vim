@@ -37,4 +37,4 @@ endif
 
 let g:wheel_loaded = 1
 
-call wheel#forge#init()
+call wheel#vortex#init()
