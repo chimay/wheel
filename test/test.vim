@@ -7,4 +7,4 @@
 call wheel#void#reset()
 call wheel#tree#add_here()
 echo g:wheel
-call wheel#disc#write("g:wheel", "~/racine/test/vim/riwo-write")
+call wheel#disc#write("g:wheel", "~/racine/test/vim/wheel")

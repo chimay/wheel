@@ -2,20 +2,6 @@
 
 " Growing tree:
 
-fun! wheel#tree#template(name)
-	let template = [{}]
-	let template[0].name = a:name
-	return template
-endfun
-
-fun! wheel#tree#here ()
-	let location = {}
-	let location.file = expand('%:p')
-	let location.line = line('.')
-	let location.col  = col('.')
-	return location
-endfun
-
 fun! wheel#tree#add_torus (...)
 	if a:0 > 0
 		let torus_name = a:1
@@ -31,7 +17,7 @@ fun! wheel#tree#add_torus (...)
 		echo "Adding torus" torus_name
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
-		let template = wheel#tree#template(torus_name)
+		let template = wheel#gear#template(torus_name)
 		let g:wheel.toruses  = wheel#gear#insert(template, toruses, index)
 		let g:wheel.glossary += [torus_name]
 		let g:wheel.current  += 1
@@ -54,7 +40,7 @@ fun! wheel#tree#add_circle (...)
 		echo "Adding circle" circle_name
 		let index = cur_torus.current
 		let circles = cur_torus.circles
-		let template = wheel#tree#template(circle_name)
+		let template = wheel#gear#template(circle_name)
 		let cur_torus.circles  = wheel#gear#insert(template, circles, index)
 		let cur_torus.glossary += [circle_name]
 		let cur_torus.current  += 1
@@ -84,7 +70,7 @@ fun! wheel#tree#add_location (location)
 endfun
 
 fun! wheel#tree#add_here()
-	let here = wheel#tree#here()
+	let here = wheel#gear#here()
 	call wheel#tree#add_location(here)
 endfun
 
