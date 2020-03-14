@@ -34,4 +34,4 @@ endif
 
 let g:wheel_loaded = 1
 
-call wheel#vortex#init()
+call wheel#void#init()

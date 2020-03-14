@@ -1,8 +1,8 @@
 " vim: set filetype=vim:
 
-" RIWO : Read In Write Out
+" Storage
 
-fun! wheel#riwo#write(pointer, file)
+fun! wheel#disc#write(pointer, file)
 	let var =  {a:pointer}
 	redir => content
 		silent! echo 'let' a:pointer '=' var
