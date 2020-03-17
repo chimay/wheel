@@ -6,5 +6,7 @@
 
 call wheel#void#reset()
 call wheel#tree#add_here()
-echo g:wheel
+normal 2j
+call wheel#tree#add_here()
+call wheel#centre#print()
 call wheel#disc#write("g:wheel", "~/racine/test/vim/wheel")

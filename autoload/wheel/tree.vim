@@ -70,7 +70,7 @@ fun! wheel#tree#add_location (location)
 endfun
 
 fun! wheel#tree#add_here()
-	let here = wheel#gear#here()
+	let here = wheel#vortex#here()
 	call wheel#tree#add_location(here)
 endfun
 
