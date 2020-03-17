@@ -10,3 +10,6 @@ normal 2j
 call wheel#tree#add_here()
 call wheel#centre#print()
 call wheel#disc#write("g:wheel", "~/racine/test/vim/wheel")
+
+call wheel#vortex#next_torus()
+call wheel#vortex#prev_torus()
