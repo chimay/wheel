@@ -8,6 +8,8 @@ call wheel#void#reset()
 call wheel#tree#add_here()
 normal 2j
 call wheel#tree#add_here()
+normal 3j
+call wheel#tree#add_here()
 call wheel#centre#print()
 call wheel#disc#write("g:wheel", "~/racine/test/vim/wheel")
 
@@ -15,3 +17,5 @@ call wheel#vortex#next_torus()
 call wheel#vortex#prev_torus()
 call wheel#vortex#next_circle()
 call wheel#vortex#prev_circle()
+call wheel#vortex#next_location()
+call wheel#vortex#prev_location()

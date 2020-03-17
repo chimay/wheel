@@ -26,14 +26,6 @@ fun! wheel#vortex#jump ()
 	endif
 endfun
 
-fun! wheel#vortex#next_torus ()
-	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
-		let current = g:wheel.current
-		let g:wheel.current = float2nr(fmod(current + 1, len(g:wheel.toruses)))
-		call wheel#vortex#jump()
-	endif
-endfun
-
 fun! wheel#vortex#prev_torus ()
 	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
 		let current = g:wheel.current
@@ -42,14 +34,11 @@ fun! wheel#vortex#prev_torus ()
 	endif
 endfun
 
-fun! wheel#vortex#next_circle ()
+fun! wheel#vortex#next_torus ()
 	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
-		let cur_torus = g:wheel.toruses[g:wheel.current]
-		if has_key(cur_torus, 'circles') && len(cur_torus.circles) > 0
-			let current = cur_torus.current
-			let cur_torus.current = float2nr(fmod(current + 1, len(cur_torus.circles)))
-			call wheel#vortex#jump()
-		endif
+		let current = g:wheel.current
+		let g:wheel.current = float2nr(fmod(current + 1, len(g:wheel.toruses)))
+		call wheel#vortex#jump()
 	endif
 endfun
 
@@ -64,8 +53,42 @@ fun! wheel#vortex#prev_circle ()
 	endif
 endfun
 
-fun! wheel#vortex#next_location ()
+fun! wheel#vortex#next_circle ()
+	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
+		let cur_torus = g:wheel.toruses[g:wheel.current]
+		if has_key(cur_torus, 'circles') && len(cur_torus.circles) > 0
+			let current = cur_torus.current
+			let cur_torus.current = float2nr(fmod(current + 1, len(cur_torus.circles)))
+			call wheel#vortex#jump()
+		endif
+	endif
 endfun
 
 fun! wheel#vortex#prev_location ()
+	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
+		let cur_torus = g:wheel.toruses[g:wheel.current]
+		if has_key(cur_torus, 'circles') && len(cur_torus.circles) > 0
+			let cur_circle = cur_torus.circles[cur_torus.current]
+			if has_key(cur_circle, 'locations') && len(cur_circle.locations) > 0
+				let current = cur_circle.current
+				let cur_circle.current = float2nr(fmod(current - 1, len(cur_circle.locations)))
+				call wheel#vortex#jump()
+			endif
+		endif
+	endif
 endfun
+
+fun! wheel#vortex#next_location ()
+	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
+		let cur_torus = g:wheel.toruses[g:wheel.current]
+		if has_key(cur_torus, 'circles') && len(cur_torus.circles) > 0
+			let cur_circle = cur_torus.circles[cur_torus.current]
+			if has_key(cur_circle, 'locations') && len(cur_circle.locations) > 0
+				let current = cur_circle.current
+				let cur_circle.current = float2nr(fmod(current + 1, len(cur_circle.locations)))
+				call wheel#vortex#jump()
+			endif
+		endif
+	endif
+endfun
+
