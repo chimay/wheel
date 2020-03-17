@@ -13,3 +13,7 @@ fun! wheel#disc#write(pointer, file)
 		silent! echo content
 	redir END
 endfun
+
+fun! wheel#disc#read(file)
+	exe 'source ' . a:file
+endfun
