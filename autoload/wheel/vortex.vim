@@ -43,9 +43,25 @@ fun! wheel#vortex#prev_torus ()
 endfun
 
 fun! wheel#vortex#next_circle ()
+	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
+		let cur_torus = g:wheel.toruses[g:wheel.current]
+		if has_key(cur_torus, 'circles') && len(cur_torus.circles) > 0
+			let current = cur_torus.current
+			let cur_torus.current = float2nr(fmod(current + 1, len(cur_torus.circles)))
+			call wheel#vortex#jump()
+		endif
+	endif
 endfun
 
 fun! wheel#vortex#prev_circle ()
+	if has_key(g:wheel, 'toruses') && len(g:wheel.toruses) > 0
+		let cur_torus = g:wheel.toruses[g:wheel.current]
+		if has_key(cur_torus, 'circles') && len(cur_torus.circles) > 0
+			let current = cur_torus.current
+			let cur_torus.current = float2nr(fmod(current - 1, len(cur_torus.circles)))
+			call wheel#vortex#jump()
+		endif
+	endif
 endfun
 
 fun! wheel#vortex#next_location ()

@@ -13,3 +13,5 @@ call wheel#disc#write("g:wheel", "~/racine/test/vim/wheel")
 
 call wheel#vortex#next_torus()
 call wheel#vortex#prev_torus()
+call wheel#vortex#next_circle()
+call wheel#vortex#prev_circle()
