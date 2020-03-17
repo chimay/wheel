@@ -24,6 +24,7 @@ fun! wheel#vortex#jump ()
 			endif
 		endif
 	endif
+	call wheel#mandala#dashboard()
 endfun
 
 fun! wheel#vortex#prev_torus ()

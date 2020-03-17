@@ -10,7 +10,7 @@ fun! wheel#void#init ()
 endfu
 
 fun! wheel#void#exit ()
-	call wheel#disc#write(g:wheel, g:wheel_config['file'])
+	call wheel#disc#write('g:wheel', g:wheel_config['file'])
 endfu
 
 fun! wheel#void#reset ()

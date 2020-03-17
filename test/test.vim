@@ -7,8 +7,10 @@
 call wheel#void#reset()
 call wheel#tree#add_here()
 normal 2j
+normal 2h
 call wheel#tree#add_here()
 normal 3j
+normal 4l
 call wheel#tree#add_here()
 call wheel#mandala#print()
 call wheel#disc#write("g:wheel", "~/racine/test/vim/wheel")
