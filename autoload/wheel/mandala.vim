@@ -70,7 +70,7 @@ fun! wheel#mandala#dashboard ()
 	let chaine = cur_torus.name . ' >> '
 	let chaine .= cur_circle.name . ' > '
 	if has_key(cur_location, 'name')
-		let chaine .= cur_location.name ' = '
+		let chaine .= cur_location.name . ' = '
 	endif
 	let chaine .= cur_location.file . ':' . cur_location.line . ':' . cur_location.col
 	echomsg chaine

@@ -1,6 +1,6 @@
 " vim: set filetype=vim:
 
-" Centre of control
+" Mappings
 
 fun! wheel#centre#default_maps ()
 endfun

@@ -1,6 +1,6 @@
 " vim: set filetype=vim:
 
-" Growing tree:
+" Growing tree
 
 fun! wheel#tree#add_torus (...)
 	if a:0 > 0
@@ -82,4 +82,14 @@ fun! wheel#tree#add_file(...)
 	endif
 	exe 'edit ' file
 	call wheel#tree#add_here()
+endfun
+
+fun! wheel#tree#name_location ()
+	if a:0 > 0
+		let location_name = a:1
+	else
+		let location_name = input("Location name ? ")
+	endif
+	let cur_location = wheel#mandala#current_location ()
+	let cur_location.name = location_name
 endfun
