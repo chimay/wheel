@@ -10,12 +10,8 @@ fun! wheel#void#init ()
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
 	endif
-	if ! has_key(g:wheel, 'mapping')
-		let g:wheel_config.mapping = 1
-	endif
-	if ! has_key(g:wheel, 'prefix')
-		let g:wheel_config.prefix = '<D-t>'
-	endif
+	call wheel#centre#commands ()
+	call wheel#centre#mappings ()
 endfu
 
 fun! wheel#void#exit ()
