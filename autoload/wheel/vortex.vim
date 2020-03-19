@@ -12,7 +12,7 @@ fun! wheel#vortex#here ()
 endfun
 
 fun! wheel#vortex#jump ()
-	let cur_location = wheel#referen#current_location()
+	let cur_location = wheel#referen#location()
 	if ! empty(cur_location)
 		exe 'edit ' . cur_location.file
 		exe cur_location.line
@@ -38,7 +38,7 @@ fun! wheel#vortex#next_torus ()
 endfun
 
 fun! wheel#vortex#prev_circle ()
-	let cur_torus = wheel#referen#current_torus()
+	let cur_torus = wheel#referen#torus()
 	if has_key(cur_torus, 'circles') && ! empty(cur_torus.circles)
 		let current = cur_torus.current
 		let cur_torus.current = float2nr(fmod(current - 1, len(cur_torus.circles)))
@@ -47,7 +47,7 @@ fun! wheel#vortex#prev_circle ()
 endfun
 
 fun! wheel#vortex#next_circle ()
-	let cur_torus = wheel#referen#current_torus()
+	let cur_torus = wheel#referen#torus()
 	if has_key(cur_torus, 'circles') && ! empty(cur_torus.circles)
 		let current = cur_torus.current
 		let cur_torus.current = float2nr(fmod(current + 1, len(cur_torus.circles)))
@@ -56,7 +56,7 @@ fun! wheel#vortex#next_circle ()
 endfun
 
 fun! wheel#vortex#prev_location ()
-	let cur_circle = wheel#referen#current_circle()
+	let cur_circle = wheel#referen#circle()
 	if has_key(cur_circle, 'locations') && ! empty(cur_circle.locations) > 0
 		let current = cur_circle.current
 		let cur_circle.current = float2nr(fmod(current - 1, len(cur_circle.locations)))
@@ -65,7 +65,7 @@ fun! wheel#vortex#prev_location ()
 endfun
 
 fun! wheel#vortex#next_location ()
-	let cur_circle = wheel#referen#current_circle()
+	let cur_circle = wheel#referen#circle()
 	if has_key(cur_circle, 'locations') && ! empty(cur_circle.locations) > 0
 		let current = cur_circle.current
 		let cur_circle.current = float2nr(fmod(current + 1, len(cur_circle.locations)))

@@ -7,7 +7,7 @@ endfu
 
 fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
-	let [cur_torus, cur_circle, cur_location] = wheel#referen#current_location('all')
+	let [cur_torus, cur_circle, cur_location] = wheel#referen#location('all')
 	let chaine = cur_torus.name . ' >> '
 	let chaine .= cur_circle.name . ' > '
 	if has_key(cur_location, 'name')

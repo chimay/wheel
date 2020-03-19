@@ -2,7 +2,7 @@
 
 " Status
 
-fun! wheel#referen#current_torus ()
+fun! wheel#referen#torus ()
 	" Current torus
 	let cur_torus = {}
 	if has_key(g:wheel, 'toruses') && ! empty(g:wheel.toruses)
@@ -11,7 +11,7 @@ fun! wheel#referen#current_torus ()
 	return cur_torus
 endfun
 
-fun! wheel#referen#current_circle (...)
+fun! wheel#referen#circle (...)
 	" Current circle
 	let all = 0
 	let cur_torus = {}
@@ -37,7 +37,7 @@ fun! wheel#referen#current_circle (...)
 	endif
 endfun
 
-fun! wheel#referen#current_location (...)
+fun! wheel#referen#location (...)
 	" Current location
 	let all = 0
 	let cur_torus = {}
