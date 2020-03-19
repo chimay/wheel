@@ -23,6 +23,8 @@ fun! wheel#tree#add_torus (...)
 		let g:wheel.toruses  = wheel#gear#insert(template, toruses, index)
 		let g:wheel.glossary += [torus_name]
 		let g:wheel.current  += 1
+	else
+		echomsg 'Torus' torus_name 'already exists in Wheel.'
 	endif
 endfu
 
@@ -50,6 +52,8 @@ fun! wheel#tree#add_circle (...)
 		let cur_torus.circles  = wheel#gear#insert(template, circles, index)
 		let cur_torus.glossary += [circle_name]
 		let cur_torus.current  += 1
+	else
+		echomsg 'Circle' circle_name 'already exists in Torus' cur_torus.name
 	endif
 endfu
 
@@ -74,6 +78,8 @@ fun! wheel#tree#add_location (location)
 		let locations = cur_circle.locations
 		let cur_circle.locations  = wheel#gear#insert([a:location], locations, index)
 		let cur_circle.current  += 1
+	else
+		echomsg 'Location' a:location.file ':' a:location.line ':' a:location.col  'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
 	endif
 endfun
 
@@ -107,7 +113,7 @@ fun! wheel#tree#name_location ()
 	let cur_circle.glossary += location_name
 endfun
 
-fun! wheel#tree#delete_current_torus ()
+fun! wheel#tree#delete_torus ()
 	" Delete current torus
 	let toruses = g:wheel.toruses
 	let cur_index = g:wheel.current
@@ -118,7 +124,7 @@ fun! wheel#tree#delete_current_torus ()
 	let glossary = wheel#gear#remove_element (glossary, cur_name)
 endfun
 
-fun! wheel#tree#delete_current_circle ()
+fun! wheel#tree#delete_circle ()
 	" Delete current circle
 	let [cur_torus, cur_circle] = wheel#referen#current_circle ('all')
 	let circles = cur_torus.circles
@@ -129,14 +135,16 @@ fun! wheel#tree#delete_current_circle ()
 	let glossary = wheel#gear#remove_element (glossary, cur_name)
 endfun
 
-fun! wheel#tree#delete_current_location ()
+fun! wheel#tree#delete_location ()
 	" Delete current location
 	let [cur_torus, cur_circle, cur_location] =
 				\ wheel#referen#current_location ('all')
 	let locations = cur_circle.locations
 	let cur_index = cur_circle.current
-	let glossary = cur_circle.glossary
-	let cur_name = cur_location.name
 	let locations = wheel#gear#remove_at_index (locations, cur_index)
-	let glossary = wheel#gear#remove_element (glossary, cur_name)
+	if has_key(cur_location, 'name')
+		let glossary = cur_circle.glossary
+		let cur_name = cur_location.name
+		let glossary = wheel#gear#remove_element (glossary, cur_name)
+	endif
 endfun
