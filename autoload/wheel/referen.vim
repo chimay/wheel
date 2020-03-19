@@ -3,6 +3,7 @@
 " Status
 
 fun! wheel#referen#current_torus ()
+	" Current torus
 	let cur_torus = {}
 	if has_key(g:wheel, 'toruses') && ! empty(g:wheel.toruses)
 		let cur_torus = g:wheel.toruses[g:wheel.current]
@@ -11,6 +12,7 @@ fun! wheel#referen#current_torus ()
 endfun
 
 fun! wheel#referen#current_circle (...)
+	" Current circle
 	let all = 0
 	let cur_torus = {}
 	let cur_circle = {}
@@ -36,6 +38,7 @@ fun! wheel#referen#current_circle (...)
 endfun
 
 fun! wheel#referen#current_location (...)
+	" Current location
 	let all = 0
 	let cur_torus = {}
 	let cur_circle = {}
@@ -59,19 +62,4 @@ fun! wheel#referen#current_location (...)
 	else
 		return cur_location
 	endif
-endfun
-
-fun! wheel#referen#print ()
-	echo g:wheel
-endfu
-
-fun! wheel#referen#dashboard ()
-	let [cur_torus, cur_circle, cur_location] = wheel#referen#current_location('all')
-	let chaine = cur_torus.name . ' >> '
-	let chaine .= cur_circle.name . ' > '
-	if has_key(cur_location, 'name')
-		let chaine .= cur_location.name . ' = '
-	endif
-	let chaine .= cur_location.file . ':' . cur_location.line . ':' . cur_location.col
-	echomsg chaine
 endfun

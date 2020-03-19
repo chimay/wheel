@@ -17,7 +17,7 @@ fun! wheel#vortex#jump ()
 		exe 'edit ' . cur_location.file
 		exe cur_location.line
 		exe 'normal ' . cur_location.col . '|'
-		call wheel#referen#dashboard()
+		call wheel#status#dashboard()
 	endif
 endfun
 

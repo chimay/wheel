@@ -4,8 +4,17 @@
 
 fun! wheel#void#init ()
 	call wheel#disc#read(g:wheel_config['file'])
-	if ! exists("g:wheel")
+	if ! exists('g:wheel')
 		call wheel#void#reset()
+	endif
+	if ! exists('g:wheel_config')
+		let g:wheel_config = {}
+	endif
+	if ! has_key(g:wheel, 'mapping')
+		let g:wheel_config.mapping = 1
+	endif
+	if ! has_key(g:wheel, 'prefix')
+		let g:wheel_config.prefix = '<D-t>'
 	endif
 endfu
 

@@ -4,6 +4,7 @@
 " Removing from tree
 
 fun! wheel#tree#add_torus (...)
+	" Add torus
 	if a:0 > 0
 		let torus_name = a:1
 	else
@@ -26,10 +27,14 @@ fun! wheel#tree#add_torus (...)
 endfu
 
 fun! wheel#tree#add_circle (...)
+	" Add circle
 	if a:0 > 0
 		let circle_name = a:1
 	else
 		let circle_name = input("New circle name ? ")
+	endif
+	if empty(g:wheel)
+		call wheel#tree#add_torus()
 	endif
 	let cur_torus = g:wheel.toruses[g:wheel.current]
 	if ! has_key(cur_torus, 'circles')
@@ -49,6 +54,7 @@ fun! wheel#tree#add_circle (...)
 endfu
 
 fun! wheel#tree#add_location (location)
+	" Add location
 	if empty(g:wheel)
 		call wheel#tree#add_torus()
 	endif
@@ -59,6 +65,7 @@ fun! wheel#tree#add_location (location)
 	let cur_circle = cur_torus.circles[cur_torus.current]
 	if ! has_key(cur_circle, 'locations')
 		let cur_circle.locations = []
+		let cur_circle.glossary = []
 		let cur_circle.current = -1
 	endif
 	if index(cur_circle.locations, a:location) < 0
@@ -71,11 +78,13 @@ fun! wheel#tree#add_location (location)
 endfun
 
 fun! wheel#tree#add_here()
+	" Add here to locations
 	let here = wheel#vortex#here()
 	call wheel#tree#add_location(here)
 endfun
 
 fun! wheel#tree#add_file(...)
+	" Add file to location
 	if a:0 > 0
 		let file = a:1
 	else
@@ -86,20 +95,48 @@ fun! wheel#tree#add_file(...)
 endfun
 
 fun! wheel#tree#name_location ()
+	" Name current location
 	if a:0 > 0
 		let location_name = a:1
 	else
 		let location_name = input("Location name ? ")
 	endif
-	let cur_location = wheel#referen#current_location ()
+	let [cur_torus, cur_circle, cur_location] =
+				\ wheel#referen#current_location ('all')
 	let cur_location.name = location_name
+	let cur_circle.glossary += location_name
 endfun
 
 fun! wheel#tree#delete_current_torus ()
+	" Delete current torus
+	let toruses = g:wheel.toruses
+	let cur_index = g:wheel.current
+	let glossary = g:wheel.glossary
+	let cur_torus = wheel#referen#current_torus ()
+	let cur_name = cur_torus.name
+	let toruses = wheel#gear#remove_at_index (toruses, cur_index)
+	let glossary = wheel#gear#remove_element (glossary, cur_name)
 endfun
 
 fun! wheel#tree#delete_current_circle ()
+	" Delete current circle
+	let [cur_torus, cur_circle] = wheel#referen#current_circle ('all')
+	let circles = cur_torus.circles
+	let cur_index = cur_torus.current
+	let glossary = cur_torus.glossary
+	let cur_name = cur_circle.name
+	let circles = wheel#gear#remove_at_index (circles, cur_index)
+	let glossary = wheel#gear#remove_element (glossary, cur_name)
 endfun
 
 fun! wheel#tree#delete_current_location ()
+	" Delete current location
+	let [cur_torus, cur_circle, cur_location] =
+				\ wheel#referen#current_location ('all')
+	let locations = cur_circle.locations
+	let cur_index = cur_circle.current
+	let glossary = cur_circle.glossary
+	let cur_name = cur_location.name
+	let locations = wheel#gear#remove_at_index (locations, cur_index)
+	let glossary = wheel#gear#remove_element (glossary, cur_name)
 endfun

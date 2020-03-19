@@ -3,6 +3,8 @@
 " Storage
 
 fun! wheel#disc#write(pointer, file)
+	" Write variable referenced by string pointer to file
+	" in a format that can be :sourced
 	let var =  {a:pointer}
 	redir => content
 		silent! echo 'let' a:pointer '=' var
@@ -15,5 +17,6 @@ fun! wheel#disc#write(pointer, file)
 endfun
 
 fun! wheel#disc#read(file)
+	" Read file
 	exe 'source ' . a:file
 endfun
