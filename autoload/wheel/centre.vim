@@ -25,13 +25,13 @@ endfun
 
 fun! wheel#centre#mappings ()
 	" Define mappings
-	if ! has_key(g:wheel, 'mapping_level')
-		let g:wheel_config.mapping = 1
+	if ! has_key(g:wheel, 'mappings')
+		let g:wheel_config.mappings = 1
 	endif
 	if ! has_key(g:wheel, 'prefix')
 		let g:wheel_config.prefix = '<D-t>'
 	endif
-	if g:wheel_config['mapping_level'] > 0
+	if g:wheel_config['mappings'] > 0
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'a' ':call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . '<c-a>' ':call wheel#tree#add_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'A' ':call wheel#tree#add_torus()<cr>'
