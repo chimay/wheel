@@ -16,7 +16,7 @@ fun! wheel#tree#add_torus (...)
 		let g:wheel.current = -1
 	endif
 	if index(g:wheel.glossary, torus_name) < 0
-		echo "Adding torus" torus_name
+		echomsg "Adding torus" torus_name
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
 		let template = wheel#gear#template(torus_name)
@@ -45,7 +45,7 @@ fun! wheel#tree#add_circle (...)
 		let cur_torus.current = -1
 	endif
 	if index(cur_torus.glossary, circle_name) < 0
-		echo "Adding circle" circle_name
+		echomsg "Adding circle" circle_name
 		let index = cur_torus.current
 		let circles = cur_torus.circles
 		let template = wheel#gear#template(circle_name)
@@ -72,26 +72,37 @@ fun! wheel#tree#add_location (location, ...)
 		let cur_circle.glossary = []
 		let cur_circle.current = -1
 	endif
-	if index(cur_circle.locations, a:location) < 0
-		let index = cur_circle.current
-		let locations = cur_circle.locations
-		let cur_circle.locations  = wheel#gear#insert([a:location], locations, index)
-		let cur_circle.current  += 1
-		let cur_location = cur_circle.locations[cur_circle.current]
-		if ! has_key(cur_location, 'name') || empty(cur_location.name)
+	let locat = a:location
+	let present = 0
+	for loc in cur_circle.locations
+		if locat.file == loc.file &&
+					\ locat.line == loc.line &&
+					\ locat.col == loc.col
+			let present = 1
+		endif
+	endfor
+	if ! present
+		if ! has_key(locat, 'name') || empty(locat.name)
 			if a:0 > 1
 				let location_name = a:1
 			else
 				let location_name = input("New location name ? ")
 			endif
-			if ! empty(location_name)
+			if ! empty(location_name) && index(cur_circle.glossary, location_name) < 0
+				echomsg 'Adding location' locat.file ':' locat.line ':' locat.col  'in Torus' cur_torus.name 'Circle' cur_circle.name
+				let index = cur_circle.current
+				let locations = cur_circle.locations
+				let cur_circle.locations  = wheel#gear#insert([locat], locations, index)
+				let cur_circle.current  += 1
+				let cur_location = cur_circle.locations[cur_circle.current]
 				let cur_location.name = location_name
 				let cur_circle.glossary += [location_name]
+			else
+				echomsg 'Location named' location_name 'already exists in Circle.'
 			endif
 		endif
-		echo "Adding location" cur_location
 	else
-		echomsg 'Location' a:location.file ':' a:location.line ':' a:location.col  'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
+		echomsg 'Location' locat.file ':' locat.line ':' locat.col  'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
 	endif
 endfun
 
