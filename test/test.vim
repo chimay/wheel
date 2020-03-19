@@ -4,7 +4,7 @@
 " let b=[4,5,6]
 " echo wheel#gear#insert(a,b)
 
-call wheel#mandala#print()
+call wheel#referen#print()
 call wheel#disc#write('g:wheel', g:wheel_config['file'])
 call wheel#disc#read("~/racine/test/vim/wheel")
 

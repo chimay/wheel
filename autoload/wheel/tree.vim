@@ -90,6 +90,6 @@ fun! wheel#tree#name_location ()
 	else
 		let location_name = input("Location name ? ")
 	endif
-	let cur_location = wheel#mandala#current_location ()
+	let cur_location = wheel#referen#current_location ()
 	let cur_location.name = location_name
 endfun
