@@ -35,5 +35,14 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'a' ':call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . '<c-a>' ':call wheel#tree#add_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'A' ':call wheel#tree#add_torus()<cr>'
+	elseif g:wheel_config['mappings'] > 1
+		" Tree
+		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
+		nnoremap <D-Del>      :call wheel#tree#delete_current_location()<cr>
+		" Vortex
+		nnoremap <C-PageUp>   :call wheel#vortex#prev_location()<cr>
+		nnoremap <C-PageDown> :call wheel#vortex#next_location()<cr>
+		nnoremap <C-Home>     :call wheel#vortex#prev_circle()<cr>
+		nnoremap <C-End>      :call wheel#vortex#next_circle()<cr>
 	endif
 endfun
