@@ -25,7 +25,7 @@ endfun
 
 fun! wheel#centre#mappings ()
 	" Define mappings
-	if ! has_key(g:wheel, 'mapping')
+	if ! has_key(g:wheel, 'mapping_level')
 		let g:wheel_config.mapping = 1
 	endif
 	if ! has_key(g:wheel, 'prefix')
