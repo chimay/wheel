@@ -141,7 +141,7 @@ fun! wheel#tree#delete_location ()
 				\ wheel#referen#location ('all')
 	let locations = cur_circle.locations
 	let cur_index = cur_circle.current
-	let locations = wheel#gear#remove_at_index (locations, cur_index)
+	let cur_circle.locations = wheel#gear#remove_at_index (locations, cur_index)
 	if has_key(cur_location, 'name')
 		let glossary = cur_circle.glossary
 		let cur_name = cur_location.name
