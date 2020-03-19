@@ -11,9 +11,9 @@ fun! wheel#centre#commands ()
 	com! WheelAddTorus :call wheel#tree#add_torus()
 	com! WheelAddCircle :call wheel#tree#add_circle()
 	com! WheelAddLocation :call wheel#tree#add_location()
-	com! WheelDeleteTorus :call wheel#tree#delete_torus()
-	com! WheelDeleteCircle :call wheel#tree#delete_circle()
-	com! WheelDeleteLocation :call wheel#tree#delete_location()
+	com! WheelDeleteTorus :call wheel#tree#delete_current_torus()
+	com! WheelDeleteCircle :call wheel#tree#delete_current_circle()
+	com! WheelDeleteLocation :call wheel#tree#delete_current_location()
 	" Vortex
 	com! WheelPrevTorus :call wheel#vortex#prev_torus()
 	com! WheelNextTorus :call wheel#vortex#next_torus()
@@ -35,7 +35,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'a' ':call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . '<c-a>' ':call wheel#tree#add_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'A' ':call wheel#tree#add_torus()<cr>'
-	elseif g:wheel_config['mappings'] > 1
+	elseif g:wheel_config['mappings'] > 10
 		" Tree
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
 		nnoremap <D-Del>      :call wheel#tree#delete_current_location()<cr>
