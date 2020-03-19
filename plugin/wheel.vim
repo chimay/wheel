@@ -34,5 +34,4 @@ endif
 
 let g:wheel_loaded = 1
 
-" Done with autocmd VimEnter
-"call wheel#void#init()
+call wheel#void#init()
