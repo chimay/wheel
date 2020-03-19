@@ -73,7 +73,6 @@ fun! wheel#tree#add_location (location, ...)
 		let cur_circle.current = -1
 	endif
 	if index(cur_circle.locations, a:location) < 0
-		echo "Adding location" a:location
 		let index = cur_circle.current
 		let locations = cur_circle.locations
 		let cur_circle.locations  = wheel#gear#insert([a:location], locations, index)
@@ -90,6 +89,7 @@ fun! wheel#tree#add_location (location, ...)
 				let cur_circle.glossary += [location_name]
 			endif
 		endif
+		echo "Adding location" cur_location
 	else
 		echomsg 'Location' a:location.file ':' a:location.line ':' a:location.col  'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
 	endif
