@@ -57,7 +57,7 @@ fun! wheel#tree#add_circle (...)
 	endif
 endfu
 
-fun! wheel#tree#add_location (location)
+fun! wheel#tree#add_location (location, ...)
 	" Add location
 	if empty(g:wheel)
 		call wheel#tree#add_torus()
@@ -78,12 +78,24 @@ fun! wheel#tree#add_location (location)
 		let locations = cur_circle.locations
 		let cur_circle.locations  = wheel#gear#insert([a:location], locations, index)
 		let cur_circle.current  += 1
+		let cur_location = cur_circle.locations[cur_circle.current]
+		if ! has_key(cur_location, 'name') || empty(cur_location.name)
+			if a:0 > 1
+				let location_name = a:1
+			else
+				let location_name = input("New location name ? ")
+			endif
+			if ! empty(location_name)
+				let cur_location.name = location_name
+				let cur_circle.glossary += [location_name]
+			endif
+		endif
 	else
 		echomsg 'Location' a:location.file ':' a:location.line ':' a:location.col  'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
 	endif
 endfun
 
-fun! wheel#tree#add_here()
+fun! wheel#tree#add_here ()
 	" Add here to locations
 	let here = wheel#vortex#here()
 	call wheel#tree#add_location(here)
