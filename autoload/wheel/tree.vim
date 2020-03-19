@@ -1,6 +1,7 @@
 " vim: set filetype=vim:
 
-" Growing tree
+" Adding to tree = toruses / circles / locations
+" Removing from tree
 
 fun! wheel#tree#add_torus (...)
 	if a:0 > 0
@@ -92,4 +93,13 @@ fun! wheel#tree#name_location ()
 	endif
 	let cur_location = wheel#referen#current_location ()
 	let cur_location.name = location_name
+endfun
+
+fun! wheel#tree#delete_current_torus ()
+endfun
+
+fun! wheel#tree#delete_current_circle ()
+endfun
+
+fun! wheel#tree#delete_current_location ()
 endfun

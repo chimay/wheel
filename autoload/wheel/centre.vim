@@ -2,5 +2,8 @@
 
 " Mappings
 
-fun! wheel#centre#default_maps ()
+fun! wheel#centre#commands ()
+endfun
+
+fun! wheel#centre#mappings ()
 endfun
