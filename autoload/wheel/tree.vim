@@ -139,7 +139,7 @@ fun! wheel#tree#rename_torus (...)
 	let cur_torus = wheel#referen#torus ()
 	let cur_torus.name = torus_name
 	if index(g:wheel.glossary, torus_name) < 0
-		let g:wheel.glossary += torus_name
+		let g:wheel.glossary += [torus_name]
 	else
 	endif
 endfun
@@ -163,8 +163,11 @@ fun! wheel#tree#rename_location (...)
 	let [cur_torus, cur_circle, cur_location] =
 				\ wheel#referen#location ('all')
 	let cur_location.name = location_name
+	let glossary = cur_circle.glossary
 	if index(cur_torus.glossary, location_name) < 0
-		let cur_circle.glossary += location_name
+		let cur_circle.glossary += [location_name]
+	else
+		let cur_circle.glossary = wheel#list#replace(location_name,)
 	else
 	endif
 endfun
@@ -175,11 +178,11 @@ fun! wheel#tree#delete_torus ()
 	let toruses = g:wheel.toruses
 	let cur_index = g:wheel.current
 	let cur_length = len(g:wheel.toruses)
-	let g:wheel.toruses = wheel#list#remove_index (cur_index, toruses)
+	let g:wheel.toruses = wheel#list#remove_index(cur_index, toruses)
 	let g:wheel.current = wheel#gear#circular_minus(cur_index, cur_length)
 	let glossary = g:wheel.glossary
 	let cur_name = cur_torus.name
-	let glossary = wheel#list#remove_element (cur_name, glossary)
+	let g:wheel.glossary = wheel#list#remove_element(cur_name, glossary)
 endfun
 
 fun! wheel#tree#delete_circle ()
@@ -188,11 +191,11 @@ fun! wheel#tree#delete_circle ()
 	let circles = cur_torus.circles
 	let cur_index = cur_torus.current
 	let cur_length = len(cur_torus.circles)
-	let cur_torus.circles = wheel#list#remove_index (cur_index, circles)
+	let cur_torus.circles = wheel#list#remove_index(cur_index, circles)
 	let cur_torus.current = wheel#gear#circular_minus(cur_index, cur_length)
 	let glossary = cur_torus.glossary
 	let cur_name = cur_circle.name
-	let glossary = wheel#list#remove_element (cur_name, glossary)
+	let cur_torus.glossary = wheel#list#remove_element(cur_name, glossary)
 endfun
 
 fun! wheel#tree#delete_location ()
@@ -202,9 +205,9 @@ fun! wheel#tree#delete_location ()
 	let locations = cur_circle.locations
 	let cur_index = cur_circle.current
 	let cur_length = len(cur_circle.locations)
-	let cur_circle.locations = wheel#list#remove_index (cur_index, locations)
+	let cur_circle.locations = wheel#list#remove_index(cur_index, locations)
 	let cur_circle.current = wheel#gear#circular_minus(cur_index, cur_length)
 	let glossary = cur_circle.glossary
 	let cur_name = cur_location.name
-	let glossary = wheel#list#remove_element (cur_name, glossary)
+	let cur_circle.glossary = wheel#list#remove_element(cur_name, glossary)
 endfun
