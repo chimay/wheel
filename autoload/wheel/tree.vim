@@ -20,7 +20,7 @@ fun! wheel#tree#add_torus (...)
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
 		let template = wheel#gear#template(torus_name)
-		let g:wheel.toruses  = wheel#list#insert_next(template, toruses, index)
+		let g:wheel.toruses  = wheel#list#insert_next(index, template, toruses)
 		let g:wheel.glossary += [torus_name]
 		let g:wheel.current  += 1
 	else
@@ -49,7 +49,7 @@ fun! wheel#tree#add_circle (...)
 		let index = cur_torus.current
 		let circles = cur_torus.circles
 		let template = wheel#gear#template(circle_name)
-		let cur_torus.circles  = wheel#list#insert_next(template, circles, index)
+		let cur_torus.circles  = wheel#list#insert_next(index, template, circles)
 		let cur_torus.glossary += [circle_name]
 		let cur_torus.current  += 1
 	else
@@ -59,6 +59,8 @@ endfu
 
 fun! wheel#tree#add_location (location, ...)
 	" Add location
+	" If location contains no name,
+	" it will be a:1 if given, or asked otherwise
 	if empty(g:wheel)
 		call wheel#tree#add_torus()
 	endif
@@ -92,7 +94,7 @@ fun! wheel#tree#add_location (location, ...)
 								\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
 					let index = cur_circle.current
 					let locations = cur_circle.locations
-					let cur_circle.locations  = wheel#list#insert_next([locat], locations, index)
+					let cur_circle.locations  = wheel#list#insert_next(index, locat, locations)
 					let cur_circle.current  += 1
 					let cur_location = cur_circle.locations[cur_circle.current]
 					let cur_location.name = location_name
