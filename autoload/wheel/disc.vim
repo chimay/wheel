@@ -26,4 +26,5 @@ fun! wheel#disc#write_all()
 endfun
 
 fun! wheel#disc#read_all()
+	call wheel#disc#read(g:wheel_config['file'])
 endfun
