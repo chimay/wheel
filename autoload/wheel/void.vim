@@ -12,7 +12,7 @@ fun! wheel#void#init ()
 		echomsg 'Creating empty Wheel config.'
 		let g:wheel_config = {}
 	else
-		echomsg 'Wheel config :' join(g:wheel_config, ' ')
+		echo 'Wheel config :' g:wheel_config
 	endif
 	echomsg 'Wheel commands.'
 	call wheel#centre#commands ()
