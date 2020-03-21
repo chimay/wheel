@@ -62,5 +62,7 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-PageDown> :call wheel#vortex#next_location()<cr>
 		nnoremap <C-Home>     :call wheel#vortex#prev_circle()<cr>
 		nnoremap <C-End>      :call wheel#vortex#next_circle()<cr>
+		nnoremap <S-Home>     :call wheel#vortex#prev_torus()<cr>
+		nnoremap <S-End>      :call wheel#vortex#next_torus()<cr>
 	endif
 endfun
