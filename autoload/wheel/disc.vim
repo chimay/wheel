@@ -20,3 +20,10 @@ fun! wheel#disc#read(file)
 	" Read file
 	exe 'source ' . a:file
 endfun
+
+fun! wheel#disc#write_all()
+	call wheel#disc#write('g:wheel', g:wheel_config['file'])
+endfun
+
+fun! wheel#disc#read_all()
+endfun

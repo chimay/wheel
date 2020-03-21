@@ -75,10 +75,7 @@ fun! wheel#tree#add_location (location, ...)
 	let locat = a:location
 	let present = 0
 	for loc in cur_circle.locations
-		if locat.file == loc.file
-					\  && locat.line == loc.line
-					"\ && locat.col == loc.col
-			" Testing columns cause problem, because of virtual columns ?
+		if locat.file == loc.file && locat.line == loc.line
 			let present = 1
 		endif
 	endfor
@@ -89,18 +86,22 @@ fun! wheel#tree#add_location (location, ...)
 			else
 				let location_name = input("New location name ? ")
 			endif
-			if ! empty(location_name) && index(cur_circle.glossary, location_name) < 0
-				echomsg 'Adding location' locat.file ':' locat.line ':' locat.col
-							\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
-				let index = cur_circle.current
-				let locations = cur_circle.locations
-				let cur_circle.locations  = wheel#list#insert_next([locat], locations, index)
-				let cur_circle.current  += 1
-				let cur_location = cur_circle.locations[cur_circle.current]
-				let cur_location.name = location_name
-				let cur_circle.glossary += [location_name]
+			if ! empty(location_name)
+				if index(cur_circle.glossary, location_name) < 0
+					echomsg 'Adding location' locat.file ':' locat.line ':' locat.col
+								\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
+					let index = cur_circle.current
+					let locations = cur_circle.locations
+					let cur_circle.locations  = wheel#list#insert_next([locat], locations, index)
+					let cur_circle.current  += 1
+					let cur_location = cur_circle.locations[cur_circle.current]
+					let cur_location.name = location_name
+					let cur_circle.glossary += [location_name]
+				else
+					echomsg 'Location named' location_name 'already exists in Circle.'
+				endif
 			else
-				echomsg 'Location named' location_name 'already exists in Circle.'
+				echomsg 'Location name must not be an empty string.'
 			endif
 		endif
 	else
@@ -191,9 +192,7 @@ fun! wheel#tree#delete_location ()
 	let locations = cur_circle.locations
 	let cur_index = cur_circle.current
 	let cur_circle.locations = wheel#list#remove_index (locations, cur_index)
-	if has_key(cur_location, 'name')
-		let glossary = cur_circle.glossary
-		let cur_name = cur_location.name
-		let glossary = wheel#list#remove_element (glossary, cur_name)
-	endif
+	let glossary = cur_circle.glossary
+	let cur_name = cur_location.name
+	let glossary = wheel#list#remove_element (glossary, cur_name)
 endfun

@@ -3,7 +3,7 @@
 " Enter the void of initialization
 
 fun! wheel#void#init ()
-	call wheel#disc#read(g:wheel_config['file'])
+	call wheel#disc#read_all()
 	if ! exists('g:wheel')
 		call wheel#void#reset()
 	endif
@@ -15,7 +15,7 @@ fun! wheel#void#init ()
 endfu
 
 fun! wheel#void#exit ()
-	call wheel#disc#write('g:wheel', g:wheel_config['file'])
+	call wheel#disc#write_all()
 endfu
 
 fun! wheel#void#reset ()
