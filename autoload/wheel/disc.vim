@@ -22,9 +22,9 @@ fun! wheel#disc#read(file)
 endfun
 
 fun! wheel#disc#write_all()
-	call wheel#disc#write('g:wheel', g:wheel_config['file'])
+	call wheel#disc#write('g:wheel', g:wheel_config.file)
 endfun
 
 fun! wheel#disc#read_all()
-	call wheel#disc#read(g:wheel_config['file'])
+	call wheel#disc#read(g:wheel_config.file)
 endfun
