@@ -8,6 +8,7 @@ fun! wheel#vortex#here ()
 	let location.file = expand('%:p')
 	let location.line = line('.')
 	let location.col  = col('.')
+	let location.name = fnamemodify(location.file, ':t:r')
 	return location
 endfun
 

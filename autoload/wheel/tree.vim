@@ -8,7 +8,7 @@ fun! wheel#tree#add_torus (...)
 	if a:0 > 0
 		let torus_name = a:1
 	else
-		let torus_name = input("New torus name ? ")
+		let torus_name = input('New torus name ? ')
 	endif
 	if empty(g:wheel)
 		let g:wheel.toruses = []
@@ -33,7 +33,7 @@ fun! wheel#tree#add_circle (...)
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let circle_name = input("New circle name ? ")
+		let circle_name = input('New circle name ? ')
 	endif
 	if empty(g:wheel)
 		call wheel#tree#add_torus()
@@ -57,7 +57,7 @@ fun! wheel#tree#add_circle (...)
 	endif
 endfu
 
-fun! wheel#tree#add_location (location, ...)
+fun! wheel#tree#add_location (location)
 	" Add location
 	" If location contains no name,
 	" it will be a:1 if given, or asked otherwise
@@ -82,29 +82,23 @@ fun! wheel#tree#add_location (location, ...)
 		endif
 	endfor
 	if ! present
-		if ! has_key(locat, 'name') || empty(locat.name)
-			if a:0 > 1
-				let location_name = a:1
-			else
-				let location_name = input("New location name ? ")
-			endif
-			if ! empty(location_name)
-				if index(cur_circle.glossary, location_name) < 0
-					echomsg 'Adding location' locat.file ':' locat.line ':' locat.col
-								\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
-					let index = cur_circle.current
-					let locations = cur_circle.locations
-					let cur_circle.locations  = wheel#list#insert_next(index, locat, locations)
-					let cur_circle.current  += 1
-					let cur_location = cur_circle.locations[cur_circle.current]
-					let cur_location.name = location_name
-					let cur_circle.glossary += [location_name]
-				else
-					echomsg 'Location named' location_name 'already exists in Circle.'
-				endif
-			else
-				echomsg 'Location name must not be an empty string.'
-			endif
+		let chaine = 'New location name [' . locat.name . '] ? '
+		let location_name = input(chaine)
+		if empty(location_name)
+			let location_name = locat.name
+		endif
+		if index(cur_circle.glossary, location_name) < 0
+			echomsg 'Adding location' locat.file ':' locat.line ':' locat.col
+						\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
+			let index = cur_circle.current
+			let locations = cur_circle.locations
+			let cur_circle.locations  = wheel#list#insert_next(index, locat, locations)
+			let cur_circle.current  += 1
+			let cur_location = cur_circle.locations[cur_circle.current]
+			let cur_location.name = location_name
+			let cur_circle.glossary += [location_name]
+		else
+			echomsg 'Location named' location_name 'already exists in Circle.'
 		endif
 	else
 		echomsg 'Location' locat.file ':' locat.line ':' locat.col
@@ -134,7 +128,7 @@ fun! wheel#tree#rename_torus (...)
 	if a:0 > 0
 		let torus_name = a:1
 	else
-		let torus_name = input("Torus name ? ")
+		let torus_name = input('Torus name ? ')
 	endif
 	let cur_torus = wheel#referen#torus ()
 	let old_name = cur_torus.name
@@ -149,7 +143,7 @@ fun! wheel#tree#rename_circle (...)
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let circle_name = input("Circle name ? ")
+		let circle_name = input('Circle name ? ')
 	endif
 	let [cur_torus, cur_circle] = wheel#referen#circle ('all')
 	let old_name = cur_circle.name
@@ -163,7 +157,7 @@ fun! wheel#tree#rename_location (...)
 	if a:0 > 0
 		let location_name = a:1
 	else
-		let location_name = input("Location name ? ")
+		let location_name = input('Location name ? ')
 	endif
 	let [cur_torus, cur_circle, cur_location] = wheel#referen#location ('all')
 	let old_name = cur_location.name
