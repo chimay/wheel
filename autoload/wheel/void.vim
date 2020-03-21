@@ -11,6 +11,8 @@ fun! wheel#void#init ()
 	if ! exists('g:wheel_config')
 		echomsg 'Creating empty Wheel config.'
 		let g:wheel_config = {}
+	else
+		echomsg 'Wheel config :' join(g:wheel_config, ' ')
 	endif
 	echomsg 'Wheel commands.'
 	call wheel#centre#commands ()
