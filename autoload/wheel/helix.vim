@@ -1,5 +1,13 @@
 " vim: set filetype=vim:
 
 " Indexes
-" Helix : torus >> circle > location
-" Grid : torus >> circle
+
+fun! wheel#helix#locations ()
+	" Index of locations
+	" Format : torus >> circle > location
+endfu
+
+fun! wheel#helix#circles ()
+	" Index of circles
+	" Format : torus >> circle
+endfu

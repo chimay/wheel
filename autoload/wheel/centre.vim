@@ -36,6 +36,12 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'a' ':call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . '<c-a>' ':call wheel#tree#add_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config['prefix'] . 'A' ':call wheel#tree#add_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config['prefix'] . '<left>' ':call wheel#vortex#prev_location()<cr>'
+		exe 'nnoremap ' . g:wheel_config['prefix'] . '<right>' ':call wheel#vortex#next_location()<cr>'
+		exe 'nnoremap ' . g:wheel_config['prefix'] . '<c-left>' ':call wheel#vortex#prev_circle()<cr>'
+		exe 'nnoremap ' . g:wheel_config['prefix'] . '<c-right>' ':call wheel#vortex#next_circle()<cr>'
+		exe 'nnoremap ' . g:wheel_config['prefix'] . '<s-left>' ':call wheel#vortex#prev_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config['prefix'] . '<s-right>' ':call wheel#vortex#next_torus()<cr>'
 	elseif g:wheel_config['mappings'] > 10
 		" Tree
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>

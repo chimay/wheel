@@ -78,6 +78,7 @@ fun! wheel#tree#add_location (location, ...)
 		if locat.file == loc.file
 					\  && locat.line == loc.line
 					"\ && locat.col == loc.col
+			" Testing columns cause problem, because of virtual columns ?
 			let present = 1
 		endif
 	endfor
@@ -89,7 +90,8 @@ fun! wheel#tree#add_location (location, ...)
 				let location_name = input("New location name ? ")
 			endif
 			if ! empty(location_name) && index(cur_circle.glossary, location_name) < 0
-				echomsg 'Adding location' locat.file ':' locat.line ':' locat.col  'in Torus' cur_torus.name 'Circle' cur_circle.name
+				echomsg 'Adding location' locat.file ':' locat.line ':' locat.col
+							\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
 				let index = cur_circle.current
 				let locations = cur_circle.locations
 				let cur_circle.locations  = wheel#gear#insert([locat], locations, index)
@@ -102,7 +104,8 @@ fun! wheel#tree#add_location (location, ...)
 			endif
 		endif
 	else
-		echomsg 'Location' locat.file ':' locat.line ':' locat.col  'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
+		echomsg 'Location' locat.file ':' locat.line ':' locat.col
+					\ 'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
 	endif
 endfun
 
