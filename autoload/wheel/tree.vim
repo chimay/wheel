@@ -137,20 +137,24 @@ fun! wheel#tree#rename_torus (...)
 		let torus_name = input("Torus name ? ")
 	endif
 	let cur_torus = wheel#referen#torus ()
+	let old_name = cur_torus.name
 	let cur_torus.name = torus_name
-	if index(g:wheel.glossary, torus_name) < 0
-		let g:wheel.glossary += [torus_name]
-	else
-	endif
+	let glossary = g:wheel.glossary
+	let g:wheel.glossary = wheel#list#replace(old_name, torus_name, glossary)
 endfun
 
 fun! wheel#tree#rename_circle (...)
 	" Rename current circle
 	if a:0 > 0
-		let location_name = a:1
+		let circle_name = a:1
 	else
-		let location_name = input("Circle name ? ")
+		let circle_name = input("Circle name ? ")
 	endif
+	let [cur_torus, cur_circle] = wheel#referen#circle ('all')
+	let old_name = cur_circle.name
+	let cur_circle.name = circle_name
+	let glossary = cur_torus.glossary
+	let cur_torus.glossary = wheel#list#replace(old_name, location_name, glossary)
 endfun
 
 fun! wheel#tree#rename_location (...)
@@ -160,16 +164,11 @@ fun! wheel#tree#rename_location (...)
 	else
 		let location_name = input("Location name ? ")
 	endif
-	let [cur_torus, cur_circle, cur_location] =
-				\ wheel#referen#location ('all')
+	let [cur_torus, cur_circle, cur_location] = wheel#referen#location ('all')
+	let old_name = cur_location.name
 	let cur_location.name = location_name
 	let glossary = cur_circle.glossary
-	if index(cur_torus.glossary, location_name) < 0
-		let cur_circle.glossary += [location_name]
-	else
-		let cur_circle.glossary = wheel#list#replace(location_name,)
-	else
-	endif
+	let cur_circle.glossary = wheel#list#replace(old_name, location_name, glossary)
 endfun
 
 fun! wheel#tree#delete_torus ()
