@@ -12,7 +12,9 @@ fun! wheel#void#init ()
 		echomsg 'Creating empty Wheel config.'
 		let g:wheel_config = {}
 	else
-		echo 'Wheel config :' g:wheel_config
+		echo 'Wheel config / file :' g:wheel_config.file
+		echo 'Wheel config / prefix :' g:wheel_config.prefix
+		echo 'Wheel config / mappings :' g:wheel_config.mappings
 	endif
 	echomsg 'Wheel commands.'
 	call wheel#centre#commands ()
