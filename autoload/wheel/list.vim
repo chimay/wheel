@@ -1,19 +1,29 @@
 " vim: set filetype=vim:
 
-fun! wheel#list#insert_next (sublist, mainlist, ...)
-	" Insert sublist in list just after index = a:1
+fun! wheel#list#insert_next (index, list, new)
+	" Insert new element in list just after index
 	" index = 0 by default
-	if a:0 > 0
-		let index = a:1
-	else
-		let index = 0
+	let index = a:index + 1
+	let list = a:list
+	let new = a:new
+	if index < len(list)
+		call insert(list, new, index)
+	elseif index == len(list)
+		call extend(list, [new])
 	endif
-	let li = a:mainlist
-	return li[0:index] + a:sublist + li[index + 1:-1]
+	return list
 endfun
 
-fun! wheel#list#insert_after (sublist, mainlist, element)
+fun! wheel#list#insert_after (element, list, new)
 	" Insert sublist in list just after element
+	let index = index(list, element)
+	call wheel#insert_next (index, list, new)
+endfun
+
+fun! wheel#list#replace (list, elt, repl)
+	" Replace elt by repl in list
+	let index = indexnlist, elt)
+	let list[index] = repl
 endfun
 
 fun! wheel#list#remove_index (list, ...)

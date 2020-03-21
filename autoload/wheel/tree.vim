@@ -127,8 +127,8 @@ fun! wheel#tree#add_file(...)
 	call wheel#tree#add_here()
 endfun
 
-fun! wheel#tree#name_torus ()
-	" Name or rename current torus
+fun! wheel#tree#rename_torus ()
+	" Rename current torus
 	if a:0 > 0
 		let torus_name = a:1
 	else
@@ -143,12 +143,12 @@ fun! wheel#tree#name_torus ()
 	endif
 endfun
 
-fun! wheel#tree#name_circle ()
-	" Name or rename current circle
+fun! wheel#tree#rename_circle ()
+	" Rename current circle
 endfun
 
-fun! wheel#tree#name_location ()
-	" Name or rename current location
+fun! wheel#tree#rename_location ()
+	" Rename current location
 	if a:0 > 0
 		let location_name = a:1
 	else
