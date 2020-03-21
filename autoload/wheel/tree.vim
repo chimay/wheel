@@ -140,6 +140,7 @@ fun! wheel#tree#rename_torus (...)
 	let old_name = cur_torus.name
 	let cur_torus.name = torus_name
 	let glossary = g:wheel.glossary
+	echomsg old_name torus_name join(glossary, ' ')
 	let g:wheel.glossary = wheel#list#replace(old_name, torus_name, glossary)
 endfun
 
@@ -154,7 +155,7 @@ fun! wheel#tree#rename_circle (...)
 	let old_name = cur_circle.name
 	let cur_circle.name = circle_name
 	let glossary = cur_torus.glossary
-	let cur_torus.glossary = wheel#list#replace(old_name, location_name, glossary)
+	let cur_torus.glossary = wheel#list#replace(old_name, circle_name, glossary)
 endfun
 
 fun! wheel#tree#rename_location (...)
