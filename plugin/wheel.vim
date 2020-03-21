@@ -33,5 +33,3 @@ if exists("g:wheel_loaded")
 endif
 
 let g:wheel_loaded = 1
-
-call wheel#void#init()
