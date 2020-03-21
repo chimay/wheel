@@ -26,10 +26,10 @@ endfun
 
 fun! wheel#centre#mappings ()
 	" Define mappings
-	if ! has_key(g:wheel, 'mappings')
+	if ! has_key(g:wheel_config, 'mappings')
 		let g:wheel_config.mappings = 1
 	endif
-	if ! has_key(g:wheel, 'prefix')
+	if ! has_key(g:wheel_config, 'prefix')
 		let g:wheel_config.prefix = '<D-t>'
 	endif
 	if g:wheel_config.mappings > 0
