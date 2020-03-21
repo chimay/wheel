@@ -20,7 +20,7 @@ fun! wheel#tree#add_torus (...)
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
 		let template = wheel#gear#template(torus_name)
-		let g:wheel.toruses  = wheel#gear#insert(template, toruses, index)
+		let g:wheel.toruses  = wheel#list#insert_next(template, toruses, index)
 		let g:wheel.glossary += [torus_name]
 		let g:wheel.current  += 1
 	else
@@ -49,7 +49,7 @@ fun! wheel#tree#add_circle (...)
 		let index = cur_torus.current
 		let circles = cur_torus.circles
 		let template = wheel#gear#template(circle_name)
-		let cur_torus.circles  = wheel#gear#insert(template, circles, index)
+		let cur_torus.circles  = wheel#list#insert_next(template, circles, index)
 		let cur_torus.glossary += [circle_name]
 		let cur_torus.current  += 1
 	else
@@ -94,7 +94,7 @@ fun! wheel#tree#add_location (location, ...)
 							\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
 				let index = cur_circle.current
 				let locations = cur_circle.locations
-				let cur_circle.locations  = wheel#gear#insert([locat], locations, index)
+				let cur_circle.locations  = wheel#list#insert_next([locat], locations, index)
 				let cur_circle.current  += 1
 				let cur_location = cur_circle.locations[cur_circle.current]
 				let cur_location.name = location_name
@@ -126,8 +126,28 @@ fun! wheel#tree#add_file(...)
 	call wheel#tree#add_here()
 endfun
 
+fun! wheel#tree#name_torus ()
+	" Name or rename current torus
+	if a:0 > 0
+		let torus_name = a:1
+	else
+		let torus_name = input("Torus name ? ")
+	endif
+	let [cur_torus, cur_circle, cur_location] =
+				\ wheel#referen#location ('all')
+	let cur_torus.name = torus_name
+	if index(g:wheel.glossary, torus_name) < 0
+		let g:wheel.glossary += torus_name
+	else
+	endif
+endfun
+
+fun! wheel#tree#name_circle ()
+	" Name or rename current circle
+endfun
+
 fun! wheel#tree#name_location ()
-	" Name current location
+	" Name or rename current location
 	if a:0 > 0
 		let location_name = a:1
 	else
@@ -136,7 +156,10 @@ fun! wheel#tree#name_location ()
 	let [cur_torus, cur_circle, cur_location] =
 				\ wheel#referen#location ('all')
 	let cur_location.name = location_name
-	let cur_circle.glossary += location_name
+	if index(cur_torus.glossary, location_name) < 0
+		let cur_circle.glossary += location_name
+	else
+	endif
 endfun
 
 fun! wheel#tree#delete_torus ()
@@ -146,8 +169,8 @@ fun! wheel#tree#delete_torus ()
 	let glossary = g:wheel.glossary
 	let cur_torus = wheel#referen#torus ()
 	let cur_name = cur_torus.name
-	let toruses = wheel#gear#remove_at_index (toruses, cur_index)
-	let glossary = wheel#gear#remove_element (glossary, cur_name)
+	let toruses = wheel#list#remove_index (toruses, cur_index)
+	let glossary = wheel#list#remove_element (glossary, cur_name)
 endfun
 
 fun! wheel#tree#delete_circle ()
@@ -157,8 +180,8 @@ fun! wheel#tree#delete_circle ()
 	let cur_index = cur_torus.current
 	let glossary = cur_torus.glossary
 	let cur_name = cur_circle.name
-	let circles = wheel#gear#remove_at_index (circles, cur_index)
-	let glossary = wheel#gear#remove_element (glossary, cur_name)
+	let circles = wheel#list#remove_index (circles, cur_index)
+	let glossary = wheel#list#remove_element (glossary, cur_name)
 endfun
 
 fun! wheel#tree#delete_location ()
@@ -167,10 +190,10 @@ fun! wheel#tree#delete_location ()
 				\ wheel#referen#location ('all')
 	let locations = cur_circle.locations
 	let cur_index = cur_circle.current
-	let cur_circle.locations = wheel#gear#remove_at_index (locations, cur_index)
+	let cur_circle.locations = wheel#list#remove_index (locations, cur_index)
 	if has_key(cur_location, 'name')
 		let glossary = cur_circle.glossary
 		let cur_name = cur_location.name
-		let glossary = wheel#gear#remove_element (glossary, cur_name)
+		let glossary = wheel#list#remove_element (glossary, cur_name)
 	endif
 endfun
