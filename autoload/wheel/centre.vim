@@ -33,6 +33,7 @@ fun! wheel#centre#mappings ()
 		let g:wheel_config.prefix = '<D-t>'
 	endif
 	if g:wheel_config.mappings > 0
+		echomsg 'Level 1 mappings'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'a' ':call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-a>' ':call wheel#tree#add_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'A' ':call wheel#tree#add_torus()<cr>'
