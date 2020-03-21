@@ -35,21 +35,16 @@ endfun
 
 fun! wheel#list#remove_index (index, list)
 	" Remove element at index from list
-	if a:0 > 0
-		let index = a:1
-	else
-		let index = 0
-	endif
-	if index == 0
-		let li = a:list[1:-1]
-	else
-		let li = a:list[0 : index - 1] + a:list[index + 1 : -1]
-	endif
-	return li
+	let index = a:index
+	let list = a:list
+	call remove(list, index)
+	return list
 endfun
 
 fun! wheel#list#remove_element (element, list)
 	" Remove element from list
+	let element = a:element
+	let list = a:list
 	let index = index(list, element)
-	call wheel#list#remove_index(list, index)
+	call wheel#list#remove_index(index, list)
 endfu
