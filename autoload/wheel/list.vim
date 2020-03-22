@@ -46,5 +46,5 @@ fun! wheel#list#remove_element (element, list)
 	let element = a:element
 	let list = a:list
 	let index = index(list, element)
-	call wheel#list#remove_index(index, list)
+	return wheel#list#remove_index(index, list)
 endfu
