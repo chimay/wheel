@@ -27,12 +27,13 @@ fun! wheel#vortex#jump ()
 		if empty(buffer)
 			" echomsg 'Opening file ' location.file
 			exe 'silent edit ' . location.file
-			exe location.line
-			exe 'normal ' . location.col . '|'
 		else
 			" echomsg 'Switching to buffer ' location.file
 			exe 'silent b ' . buffer
 		endif
+		exe location.line
+		exe 'normal ' . location.col . '|'
+		norm zz
 		call wheel#status#dashboard()
 	endif
 endfun
