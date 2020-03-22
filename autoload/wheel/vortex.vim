@@ -21,11 +21,18 @@ fun! wheel#vortex#update ()
 endfun
 
 fun! wheel#vortex#jump ()
-	let cur_location = wheel#referen#location()
-	if ! empty(cur_location)
-		exe 'edit ' . cur_location.file
-		exe cur_location.line
-		exe 'normal ' . cur_location.col . '|'
+	let location = wheel#referen#location()
+	if ! empty(location)
+		let buffer = bufname(location.file)
+		if empty(buffer)
+			" echomsg 'Opening file ' location.file
+			exe 'silent edit ' . location.file
+			exe location.line
+			exe 'normal ' . location.col . '|'
+		else
+			" echomsg 'Switching to buffer ' location.file
+			exe 'silent b ' . buffer
+		endif
 		call wheel#status#dashboard()
 	endif
 endfun
