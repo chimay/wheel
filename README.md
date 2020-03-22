@@ -2,7 +2,7 @@
 
 # Work in progress
 
-For now, it’s almost an empty shell.
+The core functionality begins to work. A lot of extras has to be done.
 
 # Introduction
 
