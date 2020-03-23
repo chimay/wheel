@@ -105,12 +105,15 @@ endfun
 
 fun! wheel#vortex#switch_torus ()
 	" Switch torus
+	let torus_name = input('Switch to torus : ', '', 'custom,wheel#complete#torus')
 endfun
 
 fun! wheel#vortex#switch_circle ()
 	" Switch circle
+	let circle_name = input('Switch to circle : ', '', 'custom,wheel#complete#circle')
 endfun
 
 fun! wheel#vortex#switch_location ()
 	" Switch location
+	let torus_name = input('Switch to location : ', '', 'custom,wheel#complete#location')
 endfun
