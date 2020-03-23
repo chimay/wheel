@@ -52,7 +52,7 @@ fun! wheel#tree#add_circle (...)
 		let glossary = cur_torus.glossary
 		let template = wheel#gear#template(circle_name)
 		let cur_torus.circles  = wheel#list#insert_next(index, template, circles)
-		let cur_torus.glossary += wheel#list#insert_next(index, circle_name, glossary)
+		let cur_torus.glossary = wheel#list#insert_next(index, circle_name, glossary)
 		let cur_torus.current  += 1
 	else
 		echomsg 'Circle' circle_name 'already exists in Torus' cur_torus.name
