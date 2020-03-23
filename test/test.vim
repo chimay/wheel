@@ -30,3 +30,23 @@ command! -nargs=* -complete=custom,Complete TestQargs :call TestArgs(<q-args>)
 command! -nargs=* -complete=custom,Complete TestFargs :call TestArgs(<f-args>)
 
 command! -nargs=* -complete=customlist,CompleteList TestFargs :call TestArgs(<f-args>)
+
+fun! Plus(a, b)
+	return a:a + a:b
+endfu
+
+fun! Minus(a, b)
+	return a:a - a:b
+endfu
+
+" Ne marche pas
+fun! Fonctionnelle(fn, value)
+	fun! l:A(arg)
+		return a:fn(arg, a:value)
+	endfun
+	return A
+endfun
+
+fun! ArgumentConstant(fn, value)
+	return {arg -> a:fn(arg, a:value) }
+endfu
