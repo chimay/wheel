@@ -6,6 +6,9 @@ fun! wheel#list#insert_next (index, new, list)
 	let index = a:index + 1
 	let list = a:list
 	let new = a:new
+	if empty(list)
+		return add(list, new)
+	endif
 	if index < len(list)
 		return insert(list, new, index)
 	elseif index == len(list)

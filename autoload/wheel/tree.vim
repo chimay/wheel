@@ -19,9 +19,10 @@ fun! wheel#tree#add_torus (...)
 		echomsg "Adding torus" torus_name
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
+		let glossary = g:wheel.glossary
 		let template = wheel#gear#template(torus_name)
 		let g:wheel.toruses  = wheel#list#insert_next(index, template, toruses)
-		let g:wheel.glossary += [torus_name]
+		let g:wheel.glossary = wheel#list#insert_next(index, torus_name, glossary)
 		let g:wheel.current  += 1
 	else
 		echomsg 'Torus' torus_name 'already exists in Wheel.'
@@ -48,9 +49,10 @@ fun! wheel#tree#add_circle (...)
 		echomsg "Adding circle" circle_name
 		let index = cur_torus.current
 		let circles = cur_torus.circles
+		let glossary = cur_torus.glossary
 		let template = wheel#gear#template(circle_name)
 		let cur_torus.circles  = wheel#list#insert_next(index, template, circles)
-		let cur_torus.glossary += [circle_name]
+		let cur_torus.glossary += wheel#list#insert_next(index, circle_name, glossary)
 		let cur_torus.current  += 1
 	else
 		echomsg 'Circle' circle_name 'already exists in Torus' cur_torus.name
@@ -88,15 +90,17 @@ fun! wheel#tree#add_location (location)
 			let location_name = locat.name
 		endif
 		if index(cur_circle.glossary, location_name) < 0
-			echomsg 'Adding location' locat.file ':' locat.line ':' locat.col
+			echomsg 'Adding location' locat.name ':' locat.file ':' locat.line ':' locat.col
 						\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
 			let index = cur_circle.current
 			let locations = cur_circle.locations
+			let glossary = cur_circle.glossary
 			let cur_circle.locations  = wheel#list#insert_next(index, locat, locations)
 			let cur_circle.current  += 1
 			let cur_location = cur_circle.locations[cur_circle.current]
 			let cur_location.name = location_name
-			let cur_circle.glossary += [location_name]
+			let cur_circle.glossary =
+						\ wheel#list#insert_next(index, location_name, glossary)
 		else
 			echomsg 'Location named' location_name 'already exists in Circle.'
 		endif

@@ -7,21 +7,6 @@ fun! wheel#centre#commands ()
 	" Status
 	com! WheelDashboard :call wheel#status#dashboard()
 	com! WheelPrint :call wheel#status#print()
-	" Tree
-	com! WheelAddTorus :call wheel#tree#add_torus()
-	com! WheelAddCircle :call wheel#tree#add_circle()
-	com! WheelAddLocation :call wheel#tree#add_location()
-	com! WheelNameLocation :call wheel#tree#name_location()
-	com! WheelDeleteTorus :call wheel#tree#delete_torus()
-	com! WheelDeleteCircle :call wheel#tree#delete_circle()
-	com! WheelDeleteLocation :call wheel#tree#delete_location()
-	" Vortex
-	com! WheelPrevTorus :call wheel#vortex#prev_torus()
-	com! WheelNextTorus :call wheel#vortex#next_torus()
-	com! WheelPrevCircle :call wheel#vortex#prev_circle()
-	com! WheelNextCircle :call wheel#vortex#next_circle()
-	com! WheelPrevLocation :call wheel#vortex#prev_location()
-	com! WheelNextLocation :call wheel#vortex#next_location()
 endfun
 
 fun! wheel#centre#mappings ()
