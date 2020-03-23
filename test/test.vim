@@ -11,7 +11,8 @@
 "au bufwritepost ~/racine/public/wheel/**.vim echomsg "Wheel buffer"
 
 fun! Complete(Arglead,Cmdline,CursorPos)
-	return "toto\ntutu\ntiti\n"
+	let list = ['toto', 'tutu', 'titi']
+	return join(list, "\n")
 endfun
 
 fun! CompleteList(arglead,cmdline,cursorPos)
@@ -31,6 +32,9 @@ command! -nargs=* -complete=custom,Complete TestFargs :call TestArgs(<f-args>)
 
 command! -nargs=* -complete=customlist,CompleteList TestFargs :call TestArgs(<f-args>)
 
+com! In      :echo input('Var ? ', '', 'custom,Complete')
+com! Inlist  :echo input('Var ? ', '', 'customlist,CompleteList')
+
 fun! Plus(a, b)
 	return a:a + a:b
 endfu
@@ -40,12 +44,12 @@ fun! Minus(a, b)
 endfu
 
 " Ne marche pas
-fun! Fonctionnelle(fn, value)
-	fun! l:A(arg)
-		return a:fn(arg, a:value)
-	endfun
-	return A
-endfun
+" fun! Fonctionnelle(fn, value)
+" 	fun! l:A(arg)
+" 		return a:fn(arg, a:value)
+" 	endfun
+" 	return A
+" endfun
 
 fun! ArgumentConstant(fn, value)
 	return {arg -> a:fn(arg, a:value) }
