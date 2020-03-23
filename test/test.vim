@@ -9,3 +9,9 @@
 " call wheel#vortex#prev_location()
 
 "au bufwritepost ~/racine/public/wheel/**.vim echomsg "Wheel buffer"
+
+fun! TestArgs (...)
+	echo join(a:000, '/')
+endfun
+
+command -nargs=* TestArgs :call TestArgs(<args>)
