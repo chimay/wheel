@@ -14,11 +14,13 @@ fun! wheel#disc#write(pointer, file)
 	exec 'redir! > ' . a:file
 		silent! echo content
 	redir END
+	echomsg 'Variable' a:pointer 'wrote to ' a:file
 endfun
 
 fun! wheel#disc#read(file)
 	" Read file
 	exe 'source ' . a:file
+	echomsg 'File' a:file 'sourced'
 endfun
 
 fun! wheel#disc#write_all()

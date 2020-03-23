@@ -102,3 +102,14 @@ fun! wheel#vortex#next_location ()
 	endif
 endfun
 
+fun! wheel#vortex#switch_torus ()
+	" Switch torus
+endfun
+
+fun! wheel#vortex#switch_circle ()
+	" Switch circle
+endfun
+
+fun! wheel#vortex#switch_location ()
+	" Switch location
+endfun
