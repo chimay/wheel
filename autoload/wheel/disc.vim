@@ -11,7 +11,7 @@ fun! wheel#disc#write (pointer, file)
 	redir END
 	let content = substitute(content, '[=,]', '\0\n\\', 'g')
 	let content = substitute(content, '\n\{2,\}', '\n', 'g')
-	exec 'redir! > ' . a:file
+	exec 'redir! > ' . expand(a:file)
 		silent! echo content
 	redir END
 	echomsg 'Variable' a:pointer 'wrote to ' a:file
@@ -30,8 +30,8 @@ fun! wheel#disc#roll_backups (file, backups)
 	let filelist = add(filelist, a:file)
 	let command = 'cp -f '
 	while len(filelist) > 1
-		let second = remove(filelist, 0)
-		let first = filelist[0]
+		let second = expand(remove(filelist, 0))
+		let first = expand(filelist[0])
 		let copy = command . first . ' ' . second
 		if filereadable(expand(first))
 			echomsg copy
