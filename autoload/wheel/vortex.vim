@@ -33,7 +33,8 @@ fun! wheel#vortex#jump ()
 		endif
 		exe location.line
 		exe 'normal ' . location.col . '|'
-		norm zv
+		doau BufEnter *
+		"norm zv
 		norm zz
 		call wheel#status#dashboard()
 	endif
