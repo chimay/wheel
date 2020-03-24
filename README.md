@@ -4,6 +4,13 @@
 
 The core functionality begins to work. A lot of extras has to be done.
 
+## TODO
+
+- commands with arguments
+  + WheelNext [torus|circle|location]
+  + WheelPrev [torus|circle|location]
+  + WheelSwitch [torus|circle|location]
+
 # Introduction
 
 Wheel is a plugin for vim or neovim aimed at managing buffer groups.
