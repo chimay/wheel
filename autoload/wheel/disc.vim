@@ -33,8 +33,8 @@ fun! wheel#disc#roll_backups (file, backups)
 		let second = expand(remove(filelist, 0))
 		let first = expand(filelist[0])
 		let copy = command . first . ' ' . second
-		if filereadable(expand(first))
-			echomsg copy
+		if filereadable(first)
+			"echomsg copy
 			call system(copy)
 		endif
 	endwhile
