@@ -34,7 +34,7 @@ fun! wheel#vortex#jump ()
 		exe location.line
 		exe 'normal ' . location.col . '|'
 		doau BufEnter *
-minpac		"norm zv
+		"norm zv
 		norm zz
 		call wheel#status#dashboard()
 	endif
