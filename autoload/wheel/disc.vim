@@ -58,5 +58,13 @@ fun! wheel#disc#write_all ()
 endfun
 
 fun! wheel#disc#read_all ()
-	call wheel#disc#read(g:wheel_config.file)
+	if exists('g:wheel_config')
+		if has_key(g:wheel_config, 'file')
+			call wheel#disc#read(g:wheel_config.file)
+		else
+			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+		endif
+	else
+		echomsg 'Please initialize g:wheel_config = {}'
+	endif
 endfun
