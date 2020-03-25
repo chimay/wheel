@@ -20,7 +20,7 @@ fun! wheel#tree#add_torus (...)
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
 		let glossary = g:wheel.glossary
-		let template = wheel#gear#template(torus_name)
+		let template = wheel#void#template(torus_name)
 		let g:wheel.toruses  = wheel#chain#insert_next(index, template, toruses)
 		let g:wheel.glossary = wheel#chain#insert_next(index, torus_name, glossary)
 		let g:wheel.current  += 1
@@ -50,7 +50,7 @@ fun! wheel#tree#add_circle (...)
 		let index = cur_torus.current
 		let circles = cur_torus.circles
 		let glossary = cur_torus.glossary
-		let template = wheel#gear#template(circle_name)
+		let template = wheel#void#template(circle_name)
 		let cur_torus.circles  = wheel#chain#insert_next(index, template, circles)
 		let cur_torus.glossary = wheel#chain#insert_next(index, circle_name, glossary)
 		let cur_torus.current  += 1
