@@ -2,7 +2,7 @@
 
 " Enter the void, and become wheel
 
-fun! wheel#void#minimum ()
+fun! wheel#void#foundation ()
 	if ! exists('g:wheel')
 		let g:wheel = {}
 	endif
@@ -43,10 +43,10 @@ fun! wheel#void#template(name)
 endfun
 
 fun! wheel#void#init ()
+	call wheel#void#foundation ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
 	endif
-	call wheel#void#minimum ()
 	call wheel#centre#commands ()
 	call wheel#centre#mappings ()
 	call wheel#vortex#jump ()
