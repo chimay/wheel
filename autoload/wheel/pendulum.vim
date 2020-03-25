@@ -21,6 +21,7 @@ fun! wheel#pendulum#newer ()
 	let g:wheel_history = wheel#chain#rotate_right (history)
 	let coordin = g:wheel_history[0]
 	call wheel#vortex#tune(coordin)
+	call wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#older ()
@@ -29,4 +30,5 @@ fun! wheel#pendulum#older ()
 	let g:wheel_history = wheel#chain#rotate_left (history)
 	let coordin = g:wheel_history[0]
 	call wheel#vortex#tune(coordin)
+	call wheel#vortex#jump ()
 endfun
