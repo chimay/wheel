@@ -54,3 +54,7 @@ endfu
 fun! ArgumentConstant(fn, value)
 	return {arg -> a:fn(arg, a:value) }
 endfu
+
+fun! Retour ()
+	return
+endfu

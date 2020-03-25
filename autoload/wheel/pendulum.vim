@@ -17,6 +17,7 @@ endfu
 
 fun! wheel#pendulum#newer ()
 	" Go to newer entry in history
+	call wheel#vortex#update ()
 	let history = g:wheel_history
 	let g:wheel_history = wheel#chain#rotate_right (history)
 	let coordin = g:wheel_history[0]
@@ -26,8 +27,19 @@ endfun
 
 fun! wheel#pendulum#older ()
 	" Go to older entry in history
+	call wheel#vortex#update ()
 	let history = g:wheel_history
 	let g:wheel_history = wheel#chain#rotate_left (history)
+	let coordin = g:wheel_history[0]
+	call wheel#vortex#tune(coordin)
+	call wheel#vortex#jump ()
+endfun
+
+fun! wheel#pendulum#alternate ()
+	" Alternate last two entries in history
+	call wheel#vortex#update ()
+	let history = g:wheel_history
+	let g:wheel_history = wheel#chain#swap (history)
 	let coordin = g:wheel_history[0]
 	call wheel#vortex#tune(coordin)
 	call wheel#vortex#jump ()

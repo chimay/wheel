@@ -63,3 +63,12 @@ fun! wheel#chain#rotate_right (list)
 	" Rotate list to the right
 	return [a:list[-1]] + a:list[:-2]
 endfu
+
+fun! wheel#chain#swap (list)
+	" Swap first and second element of list
+	if len(a:list) > 1
+		return [a:list[1]] + [a:list[0]] + a:list[2:]
+	else
+		return a:list
+	endif
+endfun
