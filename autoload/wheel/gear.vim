@@ -26,7 +26,10 @@ fun! wheel#gear#project_root (marker)
 	" where current buffer belongs
 	let dir = expand('%:p:h')
 	exe 'lcd ' . dir
-	while ! filereadable(a:marker) && dir != '/'
+	while ! filereadable(a:marker) && ! isdirectory(a:marker)
+		if dir == '/'
+			break
+		endif
 		lcd ..
 		let dir = getcwd()
 	endwhile
