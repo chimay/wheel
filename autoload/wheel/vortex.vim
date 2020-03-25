@@ -41,8 +41,8 @@ fun! wheel#vortex#jump ()
 			call wheel#gear#project_root(marker)
 		endif
 		normal! zv
-		call wheel#mandala#golden_view ()
 		doautocmd User WheelAfterJump
+		call wheel#mandala#golden_view ()
 		call wheel#status#dashboard()
 	endif
 endfun
