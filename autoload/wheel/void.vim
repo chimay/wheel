@@ -7,7 +7,7 @@ fun! wheel#void#foundation ()
 		let g:wheel = {}
 	endif
 	if ! exists('g:wheel_history')
-		let g:wheel_history = {}
+		let g:wheel_history = []
 	endif
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}

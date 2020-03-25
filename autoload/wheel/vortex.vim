@@ -37,6 +37,7 @@ fun! wheel#vortex#jump ()
 			let marker = g:wheel_config.project_marker
 			call wheel#gear#project_root(marker)
 		endif
+		call wheel#pendulum#record ()
 		normal! zv
 		doautocmd User WheelAfterJump
 		call wheel#mandala#golden_view ()
