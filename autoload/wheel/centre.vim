@@ -34,6 +34,8 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . 'd :call wheel#tree#delete_location()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-d> :call wheel#tree#delete_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'D :call wheel#tree#delete_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . '<tab> :call wheel#pendulum#newer<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . '<backtab> :call wheel#pendulum#older<cr>'
 	endif
 	if g:wheel_config.mappings > 10
 		" Tree
