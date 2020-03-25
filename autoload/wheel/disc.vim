@@ -45,6 +45,8 @@ fun! wheel#disc#write_all ()
 	endif
 	if ! has_key(g:wheel_config, 'autowrite')
 		let g:wheel_config.autowrite = 0
+	endif
+	if g:wheel_config.autowrite == 0
 		return
 	endif
 	if ! has_key(g:wheel_config, 'backups')
@@ -65,6 +67,8 @@ fun! wheel#disc#read_all ()
 	endif
 	if ! has_key(g:wheel_config, 'autoread')
 		let g:wheel_config.autoread = 0
+	endif
+	if g:wheel_config.autoread == 0
 		return
 	endif
 	if has_key(g:wheel_config, 'file')
