@@ -1,5 +1,7 @@
 " vim: ft=vim fdm=indent:
 
+" Lists operations
+
 fun! wheel#chain#insert_next (index, new, list)
 	" Insert new element in list just after index
 	" index = 0 by default

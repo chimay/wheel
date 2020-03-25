@@ -2,16 +2,23 @@
 
 " Storage
 
-fun! wheel#disc#write (pointer, file)
+fun! wheel#disc#write (pointer, file, ...)
 	" Write variable referenced by string pointer to file
 	" in a format that can be :sourced
+	" If optional argument 1 is :
+	" '>' : replace file content (default)
+	" '>>' : add to file content
+	let mode = '>'
+	if a:0 > 0
+		let mode = a:1
+	endif
 	let var =  {a:pointer}
 	redir => content
 		silent! echo 'let' a:pointer '=' var
 	redir END
 	let content = substitute(content, '[=,]', '\0\n\\', 'g')
 	let content = substitute(content, '\n\{2,\}', '\n', 'g')
-	exec 'redir! > ' . expand(a:file)
+	exec 'redir! ' . mode . ' ' . expand(a:file)
 		silent! echo content
 	redir END
 	echomsg 'Variable' a:pointer 'wrote to ' a:file
@@ -55,7 +62,8 @@ fun! wheel#disc#write_all ()
 	endif
 	if has_key(g:wheel_config, 'file')
 		call wheel#disc#roll_backups(g:wheel_config.file, g:wheel_config.backups)
-		call wheel#disc#write('g:wheel', g:wheel_config.file)
+		call wheel#disc#write('g:wheel', g:wheel_config.file, '>')
+		call wheel#disc#write('g:wheel_history', g:wheel_config.file, '>>')
 	else
 		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 	endif
