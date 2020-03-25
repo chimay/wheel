@@ -9,6 +9,7 @@ fun! wheel#void#init ()
 	endif
 	call wheel#centre#commands ()
 	call wheel#centre#mappings ()
+	call wheel#vortex#jump ()
 endfu
 
 fun! wheel#void#exit ()
