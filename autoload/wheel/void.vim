@@ -33,6 +33,9 @@ fun! wheel#void#foundation ()
 	if ! has_key(g:wheel_config, 'project_marker')
 		let g:wheel_config.project_marker = '.git'
 	endif
+	if ! has_key(g:wheel_config, 'max_history')
+		let g:wheel_config.max_history = 50
+	endif
 endfu
 
 fun! wheel#void#template(name)
