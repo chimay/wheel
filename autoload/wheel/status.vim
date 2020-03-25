@@ -12,5 +12,6 @@ fun! wheel#status#dashboard ()
 	let chaine .= cur_circle.name . ' > '
 	let chaine .= cur_location.name . ' : '
 	let chaine .= cur_location.file . ':' . cur_location.line . ':' . cur_location.col
-	exe 'silent !echo ' . chaine
+	echomsg chaine
+	redraw!
 endfun
