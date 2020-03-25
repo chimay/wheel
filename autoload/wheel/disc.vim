@@ -20,7 +20,6 @@ endfun
 fun! wheel#disc#read (file)
 	" Read file
 	exe 'source ' . a:file
-	echomsg 'File' a:file 'sourced'
 endfun
 
 fun! wheel#disc#roll_backups (file, backups)
@@ -41,30 +40,36 @@ fun! wheel#disc#roll_backups (file, backups)
 endfun
 
 fun! wheel#disc#write_all ()
-	if exists('g:wheel_config')
-		if ! has_key(g:wheel_config, 'backups')
-			let g:wheel_config.backups = 3
-			echomsg 'Using default of' g:wheel_config.backups 'backups'
-		endif
+	if ! exists('g:wheel_config')
+		let g:wheel_config = {}
+	endif
+	if ! has_key(g:wheel_config, 'autowrite')
+		let g:wheel_config.autowrite = 0
+		return
+	endif
+	if ! has_key(g:wheel_config, 'backups')
+		let g:wheel_config.backups = 3
+		echomsg 'Using default of' g:wheel_config.backups 'backups'
+	endif
+	if has_key(g:wheel_config, 'file')
 		call wheel#disc#roll_backups(g:wheel_config.file, g:wheel_config.backups)
-		if has_key(g:wheel_config, 'file')
-			call wheel#disc#write('g:wheel', g:wheel_config.file)
-		else
-			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
-		endif
+		call wheel#disc#write('g:wheel', g:wheel_config.file)
 	else
-		echomsg 'Please initialize g:wheel_config = {}'
+		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 	endif
 endfun
 
 fun! wheel#disc#read_all ()
-	if exists('g:wheel_config')
-		if has_key(g:wheel_config, 'file')
-			call wheel#disc#read(g:wheel_config.file)
-		else
-			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
-		endif
+	if ! exists('g:wheel_config')
+		let g:wheel_config = {}
+	endif
+	if ! has_key(g:wheel_config, 'autoread')
+		let g:wheel_config.autoread = 0
+		return
+	endif
+	if has_key(g:wheel_config, 'file')
+		call wheel#disc#read(g:wheel_config.file)
 	else
-		echomsg 'Please initialize g:wheel_config = {}'
+		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 	endif
 endfun

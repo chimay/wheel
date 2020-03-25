@@ -16,7 +16,6 @@ fun! wheel#mandala#golden_view ()
 	let target = (s:golden * top + bottom) / (1 + s:golden)
 	let target = float2nr(round(target))
 	let delta = target - here
-	echo top bottom here target delta
 	if delta > 0
 		exe 'normal! ' . delta . ''
 	elseif delta < 0

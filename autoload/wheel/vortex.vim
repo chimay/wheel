@@ -111,20 +111,30 @@ fun! wheel#vortex#next_location ()
 	endif
 endfun
 
-fun! wheel#vortex#switch_torus ()
+fun! wheel#vortex#switch_torus (...)
 	" Switch torus
 	call wheel#vortex#update ()
-	let torus_name = input('Switch to torus : ', '', 'custom,wheel#complete#torus')
+	if a:0 > 0
+		let torus_name = a:1
+	else
+		let torus_name =
+					\ input('Switch to torus : ', '', 'custom,wheel#complete#torus')
+	endif
 	let glossary = g:wheel.glossary
 	let index = index(glossary, torus_name)
 	let g:wheel.current = index
 	call wheel#vortex#jump ()
 endfun
 
-fun! wheel#vortex#switch_circle ()
+fun! wheel#vortex#switch_circle (...)
 	" Switch circle
 	call wheel#vortex#update ()
-	let circle_name = input('Switch to circle : ', '', 'custom,wheel#complete#circle')
+	if a:0 > 0
+		let circle_name = a:1
+	else
+		let circle_name =
+					\ input('Switch to circle : ', '', 'custom,wheel#complete#circle')
+	endif
 	let cur_torus = wheel#referen#torus ()
 	let glossary = cur_torus.glossary
 	let index = index(glossary, circle_name)
@@ -132,10 +142,15 @@ fun! wheel#vortex#switch_circle ()
 	call wheel#vortex#jump ()
 endfun
 
-fun! wheel#vortex#switch_location ()
+fun! wheel#vortex#switch_location (...)
 	" Switch location
 	call wheel#vortex#update ()
-	let location_name = input('Switch to location : ', '', 'custom,wheel#complete#location')
+	if a:0 > 0
+		let location_name = a:1
+	else
+		let location_name =
+					\ input('Switch to location : ', '', 'custom,wheel#complete#location')
+	endif
 	let cur_circle = wheel#referen#circle ()
 	let glossary = cur_circle.glossary
 	let index = index(glossary, location_name)

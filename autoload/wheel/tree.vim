@@ -177,6 +177,7 @@ fun! wheel#tree#delete_torus ()
 	let cur_index = g:wheel.current
 	let cur_length = len(toruses)
 	let g:wheel.toruses = wheel#chain#remove_index(cur_index, toruses)
+	let cur_length -= 1
 	let g:wheel.current = wheel#gear#circular_minus(cur_index, cur_length)
 	let glossary = g:wheel.glossary
 	let cur_name = cur_torus.name
@@ -190,6 +191,7 @@ fun! wheel#tree#delete_circle ()
 	let cur_index = cur_torus.current
 	let cur_length = len(circles)
 	let cur_torus.circles = wheel#chain#remove_index(cur_index, circles)
+	let cur_length -= 1
 	let cur_torus.current = wheel#gear#circular_minus(cur_index, cur_length)
 	let glossary = cur_torus.glossary
 	let cur_name = cur_circle.name
@@ -204,6 +206,7 @@ fun! wheel#tree#delete_location ()
 	let cur_index = cur_circle.current
 	let cur_length = len(locations)
 	let cur_circle.locations = wheel#chain#remove_index(cur_index, locations)
+	let cur_length -= 1
 	let cur_circle.current = wheel#gear#circular_minus(cur_index, cur_length)
 	let glossary = cur_circle.glossary
 	let cur_name = cur_location.name

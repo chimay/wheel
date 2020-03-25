@@ -7,9 +7,6 @@ fun! wheel#void#init ()
 	if ! exists('g:wheel')
 		call wheel#void#reset()
 	endif
-	if ! exists('g:wheel_config')
-		let g:wheel_config = {}
-	endif
 	call wheel#centre#commands ()
 	call wheel#centre#mappings ()
 endfu
