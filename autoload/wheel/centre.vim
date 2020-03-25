@@ -1,4 +1,4 @@
-" vim: set filetype=vim:
+" vim: ft=vim fdm=indent:
 
 " Command, Mappings
 

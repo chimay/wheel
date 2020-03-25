@@ -1,4 +1,4 @@
-" vim: set filetype=vim:
+" vim: ft=vim fdm=indent:
 
 " Move to elements
 " Move elements
@@ -29,13 +29,20 @@ fun! wheel#vortex#jump ()
 			exe 'silent edit ' . location.file
 		else
 			" echomsg 'Switching to buffer ' location.file
-			exe 'silent b ' . buffer
+			exe 'silent buffer ' . buffer
 		endif
 		exe location.line
 		exe 'normal ' . location.col . '|'
-		doau BufEnter
-		"norm zv
+		if has_key(g:wheel_config, 'cd_project') && g:wheel_config.cd_project > 0
+			if ! has_key(g:wheel_config, 'project_marker')
+				let g:wheel_config.project_marker = '.git'
+			endif
+			let marker = g:wheel_config.project_marker
+			call wheel#gear#project_root(marker)
+		endif
+		norm zv
 		norm zz
+		doautocmd User WheelAfterJump
 		call wheel#status#dashboard()
 	endif
 endfun

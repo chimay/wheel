@@ -1,4 +1,4 @@
-" vim: set filetype=vim:
+" vim: ft=vim fdm=indent:
 
 " Helpers
 
@@ -19,4 +19,15 @@ fun! wheel#gear#circular_minus (index, length)
 		let index += a:length
 	endif
 	return index
+endfun
+
+fun! wheel#gear#project_root (marker)
+	" Change local directory to root of project
+	" where current buffer belongs
+	let dir = expand('%:p:h')
+	exe 'lcd ' . dir
+	while ! filereadable(a:marker) && dir != '/'
+		lcd ..
+		let dir = getcwd()
+	endwhile
 endfun
