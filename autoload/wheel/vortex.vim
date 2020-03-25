@@ -32,7 +32,7 @@ fun! wheel#vortex#jump ()
 			exe 'silent buffer ' . buffer
 		endif
 		exe location.line
-		exe 'normal ' . location.col . '|'
+		exe 'normal! ' . location.col . '|'
 		if has_key(g:wheel_config, 'cd_project') && g:wheel_config.cd_project > 0
 			if ! has_key(g:wheel_config, 'project_marker')
 				let g:wheel_config.project_marker = '.git'
@@ -40,8 +40,8 @@ fun! wheel#vortex#jump ()
 			let marker = g:wheel_config.project_marker
 			call wheel#gear#project_root(marker)
 		endif
-		norm zv
-		norm zz
+		normal! zv
+		call wheel#mandala#golden_view ()
 		doautocmd User WheelAfterJump
 		call wheel#status#dashboard()
 	endif
