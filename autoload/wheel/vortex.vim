@@ -109,6 +109,36 @@ fun! wheel#vortex#next_location ()
 	endif
 endfun
 
+fun! wheel#vortex#tune_torus (torus_name)
+	" Adjust wheel variables to torus_name
+	let glossary = g:wheel.glossary
+	let index = index(glossary, a:torus_name)
+	let g:wheel.current = index
+endfun
+
+fun! wheel#vortex#tune_circle (circle_name)
+	" Adjust wheel variables to circle_name
+	let cur_torus = wheel#referen#torus ()
+	let glossary = cur_torus.glossary
+	let index = index(glossary, a:circle_name)
+	let cur_torus.current = index
+endfun
+
+fun! wheel#vortex#tune_location (location_name)
+	" Adjust wheel variables to location_name
+	let cur_circle = wheel#referen#circle ()
+	let glossary = cur_circle.glossary
+	let index = index(glossary, a:location_name)
+	let cur_circle.current = index
+endfun
+
+fun! wheel#vortex#tune (coordin)
+	" Switch to coordin = [torus, circle, location]
+	call wheel#vortex#tune_torus (a:coordin[0])
+	call wheel#vortex#tune_circle (a:coordin[1])
+	call wheel#vortex#tune_location (a:coordin[2])
+endfun
+
 fun! wheel#vortex#switch_torus (...)
 	" Switch torus
 	call wheel#vortex#update ()
@@ -118,9 +148,7 @@ fun! wheel#vortex#switch_torus (...)
 		let torus_name =
 					\ input('Switch to torus : ', '', 'custom,wheel#complete#torus')
 	endif
-	let glossary = g:wheel.glossary
-	let index = index(glossary, torus_name)
-	let g:wheel.current = index
+	call wheel#vortex#tune_torus (torus_name)
 	call wheel#vortex#jump ()
 endfun
 
@@ -133,10 +161,7 @@ fun! wheel#vortex#switch_circle (...)
 		let circle_name =
 					\ input('Switch to circle : ', '', 'custom,wheel#complete#circle')
 	endif
-	let cur_torus = wheel#referen#torus ()
-	let glossary = cur_torus.glossary
-	let index = index(glossary, circle_name)
-	let cur_torus.current = index
+	call wheel#vortex#tune_circle (circle_name)
 	call wheel#vortex#jump ()
 endfun
 
@@ -149,9 +174,6 @@ fun! wheel#vortex#switch_location (...)
 		let location_name =
 					\ input('Switch to location : ', '', 'custom,wheel#complete#location')
 	endif
-	let cur_circle = wheel#referen#circle ()
-	let glossary = cur_circle.glossary
-	let index = index(glossary, location_name)
-	let cur_circle.current = index
+	call wheel#vortex#tune_location (location_name)
 	call wheel#vortex#jump ()
 endfun
