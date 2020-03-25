@@ -53,3 +53,13 @@ fun! wheel#chain#remove_element (element, list)
 	let index = index(list, element)
 	return wheel#chain#remove_index(index, list)
 endfu
+
+fun! wheel#chain#rotate_left (list)
+	" Rotate list to the left
+	return a:list[1:] + [a:list[0]]
+endfu
+
+fun! wheel#chain#rotate_right (list)
+	" Rotate list to the right
+	return [a:list[-1]] + a:list[:-2]
+endfu

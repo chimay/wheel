@@ -10,3 +10,23 @@ fun! wheel#pendulum#record ()
 	let max = g:wheel_config.max_history
 	let g:wheel_history = g:wheel_history[:max - 1]
 endfu
+
+fun! wheel#pendulum#newer ()
+	" Go to newer entry in history
+	let history = g:wheel_history
+	let g:wheel_history = wheel#chain#rotate_right (history)
+	let coordin = g:wheel_history[0]
+	call wheel#vortex#switch_torus(coordin[0])
+	call wheel#vortex#switch_circle(coordin[1])
+	call wheel#vortex#switch_location(coordin[2])
+endfun
+
+fun! wheel#pendulum#older ()
+	" Go to older entry in history
+	let history = g:wheel_history
+	let g:wheel_history = wheel#chain#rotate_left (history)
+	let coordin = g:wheel_history[0]
+	call wheel#vortex#switch_torus(coordin[0])
+	call wheel#vortex#switch_circle(coordin[1])
+	call wheel#vortex#switch_location(coordin[2])
+endfun

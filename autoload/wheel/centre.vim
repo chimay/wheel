@@ -49,5 +49,8 @@ fun! wheel#centre#mappings ()
 		nnoremap <D-Space>    :call wheel#vortex#switch_location()<cr>
 		nnoremap <C-Space>    :call wheel#vortex#switch_circle()<cr>
 		nnoremap <S-Space>    :call wheel#vortex#switch_torus()<cr>
+		" Pendulum
+		nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
+		nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
 	endif
 endfun
