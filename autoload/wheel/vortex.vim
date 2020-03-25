@@ -33,10 +33,7 @@ fun! wheel#vortex#jump ()
 		endif
 		exe location.line
 		exe 'normal! ' . location.col . '|'
-		if has_key(g:wheel_config, 'cd_project') && g:wheel_config.cd_project > 0
-			if ! has_key(g:wheel_config, 'project_marker')
-				let g:wheel_config.project_marker = '.git'
-			endif
+		if g:wheel_config.cd_project > 0
 			let marker = g:wheel_config.project_marker
 			call wheel#gear#project_root(marker)
 		endif

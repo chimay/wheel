@@ -2,13 +2,6 @@
 
 " Helpers
 
-fun! wheel#gear#template(name)
-	" Generate template to add to g:wheel lists
-	let template = {}
-	let template.name = a:name
-	return template
-endfun
-
 fun! wheel#gear#circular_plus (index, length)
 	return float2nr(fmod(a:index + 1, a:length))
 endfun
