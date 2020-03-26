@@ -40,7 +40,7 @@ fun! wheel#vortex#jump ()
 		call wheel#pendulum#record ()
 		normal! zv
 		doautocmd User WheelAfterJump
-		call wheel#mandala#golden_view ()
+		call wheel#spiral#golden_view ()
 		call wheel#status#dashboard()
 	endif
 endfun
