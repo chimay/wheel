@@ -19,6 +19,7 @@ fun! wheel#mandala#toruses ()
 	let names = g:wheel.glossary
 	let content = join(names, "\n")
 	put =content
+	norm gg
 	nnoremap <buffer> <tab> :call wheel#line#torus('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#torus('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -31,6 +32,7 @@ fun! wheel#mandala#circles ()
 	let names = torus.glossary
 	let content = join(names, "\n")
 	put =content
+	norm gg
 	nnoremap <buffer> <tab> :call wheel#line#circle('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#circle('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -43,6 +45,7 @@ fun! wheel#mandala#locations ()
 	let names = circle.glossary
 	let content = join(names, "\n")
 	put =content
+	norm gg
 	nnoremap <buffer> <tab> :call wheel#line#location('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#location('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -55,6 +58,7 @@ fun! wheel#mandala#helix ()
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
 	put =content
+	norm gg
 	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -67,6 +71,7 @@ fun! wheel#mandala#grid ()
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")
 	put =content
+	norm gg
 	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
