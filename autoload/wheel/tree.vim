@@ -101,6 +101,7 @@ fun! wheel#tree#add_location (location)
 			let cur_location.name = location_name
 			let cur_circle.glossary =
 						\ wheel#chain#insert_next(index, location_name, glossary)
+			call wheel#pendulum#record ()
 		else
 			echomsg 'Location named' location_name 'already exists in Circle.'
 		endif
