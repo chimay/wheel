@@ -4,6 +4,7 @@
 " Move elements
 
 fun! wheel#vortex#here ()
+	" Location of cursor
 	let location = {}
 	let location.file = expand('%:p')
 	let location.line = line('.')
@@ -13,6 +14,7 @@ fun! wheel#vortex#here ()
 endfun
 
 fun! wheel#vortex#update ()
+	" Update current location to cursor
 	let location = wheel#referen#location()
 	if ! empty(location) && location.file == expand('%:p')
 		let location.line = line('.')
@@ -21,6 +23,7 @@ fun! wheel#vortex#update ()
 endfun
 
 fun! wheel#vortex#jump ()
+	" Jump to current location
 	let location = wheel#referen#location()
 	if ! empty(location)
 		let buffer = bufname(location.file)
@@ -44,6 +47,8 @@ fun! wheel#vortex#jump ()
 		call wheel#status#dashboard()
 	endif
 endfun
+
+" Next / Previous
 
 fun! wheel#vortex#prev_torus ()
 	if has_key(g:wheel, 'toruses') && ! empty(g:wheel.toruses)
@@ -109,6 +114,8 @@ fun! wheel#vortex#next_location ()
 	endif
 endfun
 
+" Tune
+
 fun! wheel#vortex#tune_torus (torus_name)
 	" Adjust wheel variables to torus_name
 	if has_key(g:wheel, 'glossary') && ! empty(g:wheel.glossary)
@@ -148,7 +155,7 @@ fun! wheel#vortex#tune_location (location_name)
 endfun
 
 fun! wheel#vortex#tune (coordin)
-	" Switch to coordin = [torus, circle, location]
+	" Adjust wheel to coordin = [torus, circle, location]
 	let indexes = [-1, -1, -1]
 	let indexes[0] = wheel#vortex#tune_torus (a:coordin[0])
 	if indexes[0] >= 0
@@ -159,6 +166,8 @@ fun! wheel#vortex#tune (coordin)
 	endif
 	return indexes
 endfun
+
+" Switch : tune and jump
 
 fun! wheel#vortex#switch_torus (...)
 	" Switch torus

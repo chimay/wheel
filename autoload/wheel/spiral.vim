@@ -3,6 +3,7 @@
 " Golden mean
 
 let s:golden = (1 + sqrt(5)) / 2
+lockvar s:golden
 
 fun! wheel#spiral#golden_view ()
 	" Position cursor so that
