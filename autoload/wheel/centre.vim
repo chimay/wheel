@@ -31,6 +31,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . '<space> :call wheel#vortex#switch_location()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-space> :call wheel#vortex#switch_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<s-space> :call wheel#vortex#switch_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . '<s-cr> :call wheel#mandala#toruses()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'd :call wheel#tree#delete_location()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-d> :call wheel#tree#delete_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'D :call wheel#tree#delete_torus()<cr>'
