@@ -50,7 +50,7 @@ fun! wheel#helix#files ()
 			for circle in torus.circles
 				for location in circle.locations
 					let filename = location.file
-					let helix = add(files, filename)
+					let files = add(files, filename)
 				endfor
 			endfor
 		endfor
