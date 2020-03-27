@@ -19,18 +19,21 @@ fun! wheel#gear#project_root (markers)
 	" where current buffer belongs
 	if type(a:markers) == 1
 		let markers = [a:markers]
-	else
+	elseif type(a:markers) == 3
 		let markers = a:markers
+	else
+		echomsg 'Wheel Project root : argument must be either a string or a list.'
 	endif
 	let dir = expand('%:p:h')
 	exe 'lcd ' . dir
+	let found = 0
 	while 1
 		for mark in markers
 			if filereadable(mark) || isdirectory(mark)
-				break
+				let found = 1
 			endif
 		endfor
-		if dir ==# '/'
+		if found || dir == '/'
 			break
 		endif
 		lcd ..
