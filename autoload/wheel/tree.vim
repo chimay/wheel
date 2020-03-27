@@ -135,6 +135,7 @@ fun! wheel#tree#rename_torus (...)
 	let glossary = g:wheel.glossary
 	echomsg old_name torus_name join(glossary, ' ')
 	let g:wheel.glossary = wheel#chain#replace(old_name, torus_name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 endfun
 
 fun! wheel#tree#rename_circle (...)
@@ -149,6 +150,7 @@ fun! wheel#tree#rename_circle (...)
 	let cur_circle.name = circle_name
 	let glossary = cur_torus.glossary
 	let cur_torus.glossary = wheel#chain#replace(old_name, circle_name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 endfun
 
 fun! wheel#tree#rename_location (...)
@@ -163,6 +165,7 @@ fun! wheel#tree#rename_location (...)
 	let cur_location.name = location_name
 	let glossary = cur_circle.glossary
 	let cur_circle.glossary = wheel#chain#replace(old_name, location_name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 endfun
 
 fun! wheel#tree#delete_torus ()
@@ -177,6 +180,7 @@ fun! wheel#tree#delete_torus ()
 	let glossary = g:wheel.glossary
 	let cur_name = cur_torus.name
 	let g:wheel.glossary = wheel#chain#remove_element(cur_name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 endfun
 
 fun! wheel#tree#delete_circle ()
@@ -191,6 +195,7 @@ fun! wheel#tree#delete_circle ()
 	let glossary = cur_torus.glossary
 	let cur_name = cur_circle.name
 	let cur_torus.glossary = wheel#chain#remove_element(cur_name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 endfun
 
 fun! wheel#tree#delete_location ()
@@ -206,4 +211,5 @@ fun! wheel#tree#delete_location ()
 	let glossary = cur_circle.glossary
 	let cur_name = cur_location.name
 	let cur_circle.glossary = wheel#chain#remove_element(cur_name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 endfun
