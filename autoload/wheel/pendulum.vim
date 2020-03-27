@@ -3,12 +3,12 @@
 " History
 
 fun! wheel#pendulum#timestamp ()
-	" Timestamp in seconds.nanoseconds
-	return str2nr(strftime('%s'))
+	" Timestamp in seconds since epoch
+	 return str2nr(strftime('%s'))
 endfu
 
 fun! wheel#pendulum#date_hour (timestamp)
-	" Timestamp date & hour format
+	" Timestamp in date & hour format
 	if has_key(g:wheel_config, 'debug') && g:wheel_config.debug > 0
 		return strftime('%Y %B %d %A %H:%M:%S', a:timestamp)
 	else
