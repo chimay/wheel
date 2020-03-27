@@ -24,12 +24,18 @@ fun! wheel#void#foundation ()
 	if ! exists('g:wheel_helix')
 		let g:wheel_helix = {}
 	endif
+	if ! has_key(g:wheel_helix, 'table')
+		let g:wheel_helix.table = []
+	endif
 	if ! has_key(g:wheel_helix, 'timestamp')
 		let g:wheel_helix.timestamp = -1
 	endif
 	" Grid : index of circles
 	if ! exists('g:wheel_grid')
 		let g:wheel_grid = {}
+	endif
+	if ! has_key(g:wheel_grid, 'table')
+		let g:wheel_grid.table = []
 	endif
 	if ! has_key(g:wheel_grid, 'timestamp')
 		let g:wheel_grid.timestamp = -1
