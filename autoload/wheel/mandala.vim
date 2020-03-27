@@ -4,6 +4,7 @@
 
 fun! wheel#mandala#open ()
 	new
+	setlocal cursorline
 	setlocal nobuflisted noswapfile
 	setlocal buftype=nofile
 	setlocal bufhidden=delete

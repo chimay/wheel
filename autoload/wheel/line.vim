@@ -107,7 +107,7 @@ fun! wheel#line#history (...)
 	endif
 	let line = getline('.')
 	let list = split(line, ' ')
-	let coordin = [list[3], list[5], list[7]]
+	let coordin = [list[6], list[8], list[10]]
 	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else

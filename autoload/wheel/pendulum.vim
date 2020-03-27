@@ -9,7 +9,7 @@ endfu
 
 fun! wheel#pendulum#date_hour (timestamp)
 	" Timestamp date & hour format
-	return strftime('%Y-%m-%d %H:%M', a:timestamp)
+	return strftime('%Y %B %d %A %H:%M', a:timestamp)
 endfu
 
 fun! wheel#pendulum#is_in_history (entry)
