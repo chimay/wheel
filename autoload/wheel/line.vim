@@ -99,3 +99,24 @@ fun! wheel#line#grid (...)
 	call wheel#vortex#tune_circle(coordin[1])
 	call wheel#vortex#jump ()
 endfun
+
+fun! wheel#line#history (...)
+	let mode = 'close'
+	if a:0 > 0
+		let mode = a:1
+	endif
+	let line = getline('.')
+	let list = split(line, ' ')
+	let coordin = [list[3], list[5], list[7]]
+	if mode ==# 'close'
+		call wheel#mandala#close ()
+	else
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
+	endif
+	call wheel#vortex#tune(coordin)
+	call wheel#vortex#jump ()
+endfun

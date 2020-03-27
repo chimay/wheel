@@ -85,3 +85,17 @@ fun! wheel#mandala#grid ()
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 endfun
+
+fun! wheel#mandala#history ()
+	" Choose a location coordinate in history
+	" Each coordinate = [torus, circle, location]
+	call wheel#vortex#update ()
+	call wheel#mandala#open ()
+	let names = wheel#pendulum#locations ()
+	let content = join(names, "\n")
+	put =content
+	norm gg
+	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
+	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
+	nnoremap <buffer> q :call wheel#mandala#close()<cr>
+endfun

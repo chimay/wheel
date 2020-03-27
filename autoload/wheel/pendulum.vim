@@ -52,6 +52,7 @@ fun! wheel#pendulum#newer ()
 	call wheel#vortex#update ()
 	let history = g:wheel_history
 	let g:wheel_history = wheel#chain#rotate_right (history)
+	let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
 	let coordin = g:wheel_history[0].coordin
 	call wheel#vortex#tune(coordin)
 	call wheel#vortex#jump ()
@@ -62,6 +63,7 @@ fun! wheel#pendulum#older ()
 	call wheel#vortex#update ()
 	let history = g:wheel_history
 	let g:wheel_history = wheel#chain#rotate_left (history)
+	let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
 	let coordin = g:wheel_history[0].coordin
 	call wheel#vortex#tune(coordin)
 	call wheel#vortex#jump ()
@@ -76,6 +78,7 @@ fun! wheel#pendulum#alternate ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let g:wheel_history = wheel#chain#swap (history)
+		let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
 		let coordin = g:wheel_history[0].coordin
 		call wheel#vortex#tune(coordin)
 	endif
@@ -102,3 +105,18 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 	" Alternate in same torus but other circle
 endfun
 
+fun! wheel#pendulum#locations ()
+	" Index of locations coordinates in the history
+	" Each coordinate is a string : date hour | torus >> circle > location
+	let history = g:wheel_history
+	let strings = []
+	for entry in history
+		let coordin = entry.coordin
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour . ' | '
+		let entry .= coordin[0] . ' >> ' . coordin[1] . ' > ' . coordin[2]
+		let strings = add(strings, entry)
+	endfor
+	return strings
+endfu
