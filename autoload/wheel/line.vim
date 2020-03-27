@@ -7,7 +7,7 @@ fun! wheel#line#torus (...)
 		let mode = a:1
 	endif
 	let torus_name = getline('.')
-	if mode == 'close'
+	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
 		if winnr('$') > 1
@@ -26,7 +26,7 @@ fun! wheel#line#circle (...)
 		let mode = a:1
 	endif
 	let circle_name = getline('.')
-	if mode == 'close'
+	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
 		if winnr('$') > 1
@@ -45,7 +45,7 @@ fun! wheel#line#location (...)
 		let mode = a:1
 	endif
 	let location_name = getline('.')
-	if mode == 'close'
+	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
 		if winnr('$') > 1
@@ -65,7 +65,7 @@ fun! wheel#line#helix (...)
 	let line = getline('.')
 	let list = split(line, ' ')
 	let coordin = [list[0], list[2], list[4]]
-	if mode == 'close'
+	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
 		if winnr('$') > 1
@@ -86,7 +86,7 @@ fun! wheel#line#grid (...)
 	let line = getline('.')
 	let list = split(line, ' ')
 	let coordin = [list[0], list[2]]
-	if mode == 'close'
+	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
 		if winnr('$') > 1

@@ -79,7 +79,7 @@ fun! wheel#tree#add_location (location)
 	let locat = a:location
 	let present = 0
 	for loc in cur_circle.locations
-		if locat.file == loc.file && locat.line == loc.line
+		if locat.file ==## loc.file && locat.line ==## loc.line
 			let present = 1
 		endif
 	endfor

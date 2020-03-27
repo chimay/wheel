@@ -30,6 +30,20 @@ fun! wheel#helix#grid ()
 	return grid
 endfu
 
+fun! wheel#helix#files ()
+	" Index of files in the wheel
+	let files = []
+	for torus in g:wheel.toruses
+		for circle in torus.circles
+			for location in circle.locations
+				let filename = location.file
+				let helix = add(files, filename)
+			endfor
+		endfor
+	endfor
+	return files
+endfu
+
 fun! wheel#helix#locations ()
 	" Index of locations coordinates in the wheel
 	" Each coordinate is a string torus >> circle > location

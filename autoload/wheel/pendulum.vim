@@ -37,10 +37,36 @@ endfun
 
 fun! wheel#pendulum#alternate ()
 	" Alternate last two entries in history
-	call wheel#vortex#update ()
-	let history = g:wheel_history
-	let g:wheel_history = wheel#chain#swap (history)
-	let coordin = g:wheel_history[0]
-	call wheel#vortex#tune(coordin)
+	" If outside the wheel, just jump inside
+	let files = wheel#helix#files ()
+	let filename = expand('%:p')
+	if index(files, filename) >= 0
+		call wheel#vortex#update ()
+		let history = g:wheel_history
+		let g:wheel_history = wheel#chain#swap (history)
+		let coordin = g:wheel_history[0]
+		call wheel#vortex#tune(coordin)
+	endif
 	call wheel#vortex#jump ()
 endfun
+
+fun! wheel#pendulum#alternate_same_torus ()
+	" Alternate entries in same torus
+endfun
+
+fun! wheel#pendulum#alternate_same_circle ()
+	" Alternate entries in same circle
+endfun
+
+fun! wheel#pendulum#alternate_other_torus ()
+	" Alternate last two toruses
+endfun
+
+fun! wheel#pendulum#alternate_other_circle ()
+	" Alternate last two circles
+endfun
+
+fun! wheel#pendulum#alternate_same_torus_other_circle ()
+	" Alternate in same torus but other circle
+endfun
+

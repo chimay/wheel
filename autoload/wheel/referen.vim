@@ -17,7 +17,7 @@ fun! wheel#referen#circle (...)
 	let cur_torus = {}
 	let cur_circle = {}
 	if a:0 > 0
-		if a:1 == 'all' || a:1 == 'a' || a:1 == 1
+		if a:1 ==# 'all' || a:1 ==# 'a' || a:1 ==# 1
 			let all = 1
 		endif
 	endif
@@ -30,7 +30,7 @@ fun! wheel#referen#circle (...)
 			endif
 		endif
 	endif
-	if all == 1
+	if all ==# 1
 		return [cur_torus, cur_circle]
 	else
 		return cur_circle
@@ -44,7 +44,7 @@ fun! wheel#referen#location (...)
 	let cur_circle = {}
 	let cur_location = {}
 	if a:0 > 0
-		if a:1 == 'all' || a:1 == 'a' || a:1 == 1
+		if a:1 ==# 'all' || a:1 ==# 'a' || a:1 ==# 1
 			let all = 1
 		endif
 	endif
@@ -57,7 +57,7 @@ fun! wheel#referen#location (...)
 			endif
 		endif
 	endif
-	if all == 1
+	if all ==# 1
 		return [cur_torus, cur_circle, cur_location]
 	else
 		return cur_location

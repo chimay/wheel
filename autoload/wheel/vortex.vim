@@ -16,7 +16,7 @@ endfun
 fun! wheel#vortex#update ()
 	" Update current location to cursor
 	let location = wheel#referen#location()
-	if ! empty(location) && location.file == expand('%:p')
+	if ! empty(location) && location.file ==# expand('%:p')
 		let location.line = line('.')
 		let location.col  = col('.')
 	endif

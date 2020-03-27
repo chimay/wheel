@@ -20,7 +20,7 @@ fun! wheel#gear#project_root (marker)
 	let dir = expand('%:p:h')
 	exe 'lcd ' . dir
 	while ! filereadable(a:marker) && ! isdirectory(a:marker)
-		if dir == '/'
+		if dir ==# '/'
 			break
 		endif
 		lcd ..
