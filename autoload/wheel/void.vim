@@ -2,6 +2,22 @@
 
 " Enter the void, and become wheel
 
+fun! wheel#void#template(name, ...)
+	" Generate template to add to g:wheel lists
+	" Name = name in argument
+	" Optional arguments : keys initialized as empty list
+	let template = {}
+	let template.name = a:name
+	let template.glossary = []
+	let template.current = -1
+	if a:0 > 0
+		for key in a:000
+			let template[key] = []
+		endfor
+	endif
+	return template
+endfun
+
 fun! wheel#void#foundation ()
 	" Initialize wheel variables
 	" Wheel
@@ -83,22 +99,6 @@ fun! wheel#void#foundation ()
 		let g:wheel_config.max_history = 50
 	endif
 endfu
-
-fun! wheel#void#template(name, ...)
-	" Generate template to add to g:wheel lists
-	" Name = name in argument
-	" Optional arguments : keys initialized as empty list
-	let template = {}
-	let template.name = a:name
-	let template.glossary = []
-	let template.current = -1
-	if a:0 > 0
-		for key in a:000
-			let template[key] = []
-		endfor
-	endif
-	return template
-endfun
 
 fun! wheel#void#init ()
 	call wheel#void#foundation ()
