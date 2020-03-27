@@ -5,10 +5,10 @@
 " Removing
 
 fun! wheel#tree#isin (location, circle)
-	let locat = a:location
+	let local = a:location
 	let present = 0
-	for elt in circle.locations
-		if locat.file ==# elt.file && locat.line == elt.line
+	for elt in a:circle.locations
+		if local.file ==# elt.file && local.line == elt.line
 			let present = 1
 		endif
 	endfor
