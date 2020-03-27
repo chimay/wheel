@@ -1,7 +1,19 @@
 " vim: ft=vim fdm=indent:
 
 " Adding to tree = toruses / circles / locations
-" Removing from tree
+" Renaming
+" Removing
+
+fun! wheel#tree#isin (location, circle)
+	let locat = a:location
+	let present = 0
+	for elt in circle.locations
+		if locat.file ==# elt.file && locat.line == elt.line
+			let present = 1
+		endif
+	endfor
+	return present
+endfu
 
 fun! wheel#tree#add_torus (...)
 	" Add torus
@@ -10,20 +22,16 @@ fun! wheel#tree#add_torus (...)
 	else
 		let torus_name = input('New torus name ? ')
 	endif
-	if empty(g:wheel)
-		let g:wheel.toruses = []
-		let g:wheel.glossary = []
-		let g:wheel.current = -1
-	endif
 	if index(g:wheel.glossary, torus_name) < 0
 		echomsg "Adding torus" torus_name
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
 		let glossary = g:wheel.glossary
-		let template = wheel#void#template(torus_name)
+		let template = wheel#void#template(torus_name, 'circles')
 		let g:wheel.toruses  = wheel#chain#insert_next(index, template, toruses)
 		let g:wheel.glossary = wheel#chain#insert_next(index, torus_name, glossary)
 		let g:wheel.current  += 1
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
 		echomsg 'Torus' torus_name 'already exists in Wheel.'
 	endif
@@ -36,21 +44,16 @@ fun! wheel#tree#add_circle (...)
 	else
 		let circle_name = input('New circle name ? ')
 	endif
-	if empty(g:wheel)
+	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
 	let cur_torus = g:wheel.toruses[g:wheel.current]
-	if ! has_key(cur_torus, 'circles')
-		let cur_torus.circles = []
-		let cur_torus.glossary = []
-		let cur_torus.current = -1
-	endif
 	if index(cur_torus.glossary, circle_name) < 0
 		echomsg "Adding circle" circle_name
 		let index = cur_torus.current
 		let circles = cur_torus.circles
 		let glossary = cur_torus.glossary
-		let template = wheel#void#template(circle_name)
+		let template = wheel#void#template(circle_name, 'locations')
 		let cur_torus.circles  = wheel#chain#insert_next(index, template, circles)
 		let cur_torus.glossary = wheel#chain#insert_next(index, circle_name, glossary)
 		let cur_torus.current  += 1
@@ -61,41 +64,30 @@ endfu
 
 fun! wheel#tree#add_location (location)
 	" Add location
-	" If location contains no name,
-	" it will be a:1 if given, or asked otherwise
-	if empty(g:wheel)
+	" Location name will be a:1 if given, or asked otherwise
+	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
 	let cur_torus = g:wheel.toruses[g:wheel.current]
-	if ! has_key(cur_torus, 'circles')
+	if empty(cur_torus.circles)
 		call wheel#tree#add_circle()
 	endif
+	let local = a:location
 	let cur_circle = cur_torus.circles[cur_torus.current]
-	if ! has_key(cur_circle, 'locations')
-		let cur_circle.locations = []
-		let cur_circle.glossary = []
-		let cur_circle.current = -1
-	endif
-	let locat = a:location
-	let present = 0
-	for loc in cur_circle.locations
-		if locat.file ==# loc.file && locat.line ==# loc.line
-			let present = 1
-		endif
-	endfor
+	let present = wheel#tree#isin(local, cur_circle)
 	if ! present
-		let chaine = 'New location name [' . locat.name . '] ? '
+		let chaine = 'New location name [' . local.name . '] ? '
 		let location_name = input(chaine)
 		if empty(location_name)
-			let location_name = locat.name
+			let location_name = local.name
 		endif
 		if index(cur_circle.glossary, location_name) < 0
-			echomsg 'Adding location' locat.name ':' locat.file ':' locat.line ':' locat.col
+			echomsg 'Adding location' local.name ':' local.file ':' local.line ':' local.col
 						\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
 			let index = cur_circle.current
 			let locations = cur_circle.locations
 			let glossary = cur_circle.glossary
-			let cur_circle.locations  = wheel#chain#insert_next(index, locat, locations)
+			let cur_circle.locations  = wheel#chain#insert_next(index, local, locations)
 			let cur_circle.current  += 1
 			let cur_location = cur_circle.locations[cur_circle.current]
 			let cur_location.name = location_name
@@ -106,7 +98,7 @@ fun! wheel#tree#add_location (location)
 			echomsg 'Location named' location_name 'already exists in Circle.'
 		endif
 	else
-		echomsg 'Location' locat.file ':' locat.line ':' locat.col
+		echomsg 'Location' local.file ':' local.line
 					\ 'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
 	endif
 endfun

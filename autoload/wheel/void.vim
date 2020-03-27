@@ -3,15 +3,45 @@
 " Enter the void, and become wheel
 
 fun! wheel#void#foundation ()
+	" Initialize wheel variables
+	" Wheel
 	if ! exists('g:wheel')
 		let g:wheel = {}
 	endif
+	if ! has_key(g:wheel, 'toruses')
+		let g:wheel.toruses = []
+	endif
+	if ! has_key(g:wheel, 'glossary')
+		let g:wheel.glossary = []
+	endif
+	if ! has_key(g:wheel, 'current')
+		let g:wheel.current = -1
+	endif
+	if ! has_key(g:wheel, 'timestamp')
+		let g:wheel.timestamp = -1
+	endif
+	" Helix : index of locations
+	if ! exists('g:wheel_helix')
+		let g:wheel_helix = {}
+	endif
+	if ! has_key(g:wheel_helix, 'timestamp')
+		let g:wheel_helix.timestamp = -1
+	endif
+	" Grid : index of circles
+	if ! exists('g:wheel_grid')
+		let g:wheel_grid = {}
+	endif
+	if ! has_key(g:wheel_grid, 'timestamp')
+		let g:wheel_grid.timestamp = -1
+	endif
+	" History
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
 	endif
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
 	endif
+	" Config
 	if ! has_key(g:wheel_config, 'autowrite')
 		let g:wheel_config.autowrite = 0
 	endif
@@ -38,10 +68,19 @@ fun! wheel#void#foundation ()
 	endif
 endfu
 
-fun! wheel#void#template(name)
+fun! wheel#void#template(name, ...)
 	" Generate template to add to g:wheel lists
+	" Name = name in argument
+	" Optional arguments : keys initialized as empty list
 	let template = {}
 	let template.name = a:name
+	let template.glossary = []
+	let template.current = -1
+	if a:0 > 0
+		for key in a:000
+			let template[key] = []
+		endfor
+	endif
 	return template
 endfun
 

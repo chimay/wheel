@@ -2,6 +2,11 @@
 
 " History
 
+fun! wheel#pendulum#timestamp ()
+	" Timestamp in seconds.nanoseconds
+	return str2nr(strftime('%s'))
+endfu
+
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
 	let history = g:wheel_history

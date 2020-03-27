@@ -13,7 +13,7 @@ fun! wheel#chain#insert_next (index, new, list)
 	endif
 	if index < len(list)
 		return insert(list, new, index)
-	elseif index ==# len(list)
+	elseif index == len(list)
 		return add(list, new)
 	endif
 endfun
