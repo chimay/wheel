@@ -4,11 +4,11 @@
 " Renaming
 " Removing
 
-fun! wheel#tree#isin (location, circle)
+fun! wheel#tree#is_in_circle (location, circle)
 	let local = a:location
 	let present = 0
 	for elt in a:circle.locations
-		if local.file ==# elt.file && local.line == elt.line
+		if elt.file ==# local.file && elt.line == local.line
 			let present = 1
 		endif
 	endfor
@@ -75,7 +75,7 @@ fun! wheel#tree#add_location (location)
 	endif
 	let local = a:location
 	let cur_circle = cur_torus.circles[cur_torus.current]
-	let present = wheel#tree#isin(local, cur_circle)
+	let present = wheel#tree#is_in_circle(local, cur_circle)
 	if ! present
 		let chaine = 'New location name [' . local.name . '] ? '
 		let location_name = input(chaine)

@@ -54,10 +54,10 @@ fun! wheel#void#foundation ()
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
 	endif
+	" Config
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
 	endif
-	" Config
 	if ! has_key(g:wheel_config, 'autowrite')
 		let g:wheel_config.autowrite = 0
 	endif
