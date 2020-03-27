@@ -31,6 +31,7 @@ fun! wheel#gear#project_root (markers)
 		for mark in markers
 			if filereadable(mark) || isdirectory(mark)
 				let found = 1
+				break
 			endif
 		endfor
 		if found || dir == '/'

@@ -6,6 +6,8 @@ fun! wheel#line#filter ()
 	let words = split(first)
 	let lines = getline(2,'$')
 	let matches = []
+	for elt in words
+	endfor
 endfu
 
 fun! wheel#line#torus (...)
