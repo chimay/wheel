@@ -10,11 +10,16 @@ fun! wheel#mandala#open ()
 endfun
 
 fun! wheel#mandala#close ()
-	quit!
+	if winnr('$') > 1
+		quit!
+	else
+		bdelete!
+	endif
 endfun
 
 fun! wheel#mandala#toruses ()
 	" Choose a torus to swith to in a buffer
+	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let names = g:wheel.glossary
 	let content = join(names, "\n")
@@ -27,6 +32,7 @@ endfun
 
 fun! wheel#mandala#circles ()
 	" Choose a circle to swith to in a buffer
+	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let torus = wheel#referen#torus()
 	let names = torus.glossary
@@ -40,6 +46,7 @@ endfun
 
 fun! wheel#mandala#locations ()
 	" Choose a location to swith to in a buffer
+	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let circle = wheel#referen#circle()
 	let names = circle.glossary
@@ -54,6 +61,7 @@ endfun
 fun! wheel#mandala#helix ()
 	" Choose a location coordinate to swith to in a buffer
 	" Each coordinate = [torus, circle, location]
+	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
@@ -67,6 +75,7 @@ endfun
 fun! wheel#mandala#grid ()
 	" Choose a circle coordinate to swith to in a buffer
 	" Each coordinate = [torus, circle]
+	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")

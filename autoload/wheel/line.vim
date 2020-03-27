@@ -10,7 +10,11 @@ fun! wheel#line#torus (...)
 	if mode == 'close'
 		call wheel#mandala#close ()
 	else
-		wincmd p
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
 	endif
 	call wheel#vortex#switch_torus(torus_name)
 endfun
@@ -25,7 +29,11 @@ fun! wheel#line#circle (...)
 	if mode == 'close'
 		call wheel#mandala#close ()
 	else
-		wincmd p
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
 	endif
 	call wheel#vortex#switch_circle(circle_name)
 endfun
@@ -40,7 +48,11 @@ fun! wheel#line#location (...)
 	if mode == 'close'
 		call wheel#mandala#close ()
 	else
-		wincmd p
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
 	endif
 	call wheel#vortex#switch_location(location_name)
 endfun
@@ -56,7 +68,11 @@ fun! wheel#line#helix (...)
 	if mode == 'close'
 		call wheel#mandala#close ()
 	else
-		wincmd p
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
 	endif
 	call wheel#vortex#tune(coordin)
 	call wheel#vortex#jump ()
@@ -73,7 +89,11 @@ fun! wheel#line#grid (...)
 	if mode == 'close'
 		call wheel#mandala#close ()
 	else
-		wincmd p
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
 	endif
 	call wheel#vortex#tune_torus(coordin[0])
 	call wheel#vortex#tune_circle(coordin[1])
