@@ -44,7 +44,7 @@ endfu
 
 fun! wheel#helix#files ()
 	" Index of files in the wheel
-	if g:wheel.timestamp >= g:wheel_grid.timestamp
+	if g:wheel.timestamp >= g:wheel_files.timestamp
 		let files = []
 		for torus in g:wheel.toruses
 			for circle in torus.circles
