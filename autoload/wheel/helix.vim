@@ -5,7 +5,7 @@
 fun! wheel#helix#helix ()
 	" Index of locations coordinates in the wheel
 	" Each coordinate = [torus, circle, location]
-	if g:wheel.timestamp > g:wheel_helix.timestamp
+	if g:wheel.timestamp >= g:wheel_helix.timestamp
 		let helix = []
 		for torus in g:wheel.toruses
 			for circle in torus.circles
@@ -16,7 +16,7 @@ fun! wheel#helix#helix ()
 			endfor
 		endfor
 		let g:wheel_helix.table = helix
-		let g:wheel_helix.timestamp = g:wheel.timestamp
+		let g:wheel_helix.timestamp = wheel#pendulum#timestamp()
 	else
 		let helix = g:wheel_helix.table
 	endif
@@ -26,7 +26,7 @@ endfu
 fun! wheel#helix#grid ()
 	" Index of circles coordinates in the wheel
 	" Each coordinate = [torus, circle]
-	if g:wheel.timestamp > g:wheel_grid.timestamp
+	if g:wheel.timestamp >= g:wheel_grid.timestamp
 		let grid = []
 		for torus in g:wheel.toruses
 			for circle in torus.circles
@@ -35,7 +35,7 @@ fun! wheel#helix#grid ()
 			endfor
 		endfor
 		let g:wheel_grid.table = grid
-		let g:wheel_grid.timestamp = g:wheel.timestamp
+		let g:wheel_grid.timestamp = wheel#pendulum#timestamp()
 	else
 		let grid = g:wheel_grid.table
 	endif
@@ -44,7 +44,7 @@ endfu
 
 fun! wheel#helix#files ()
 	" Index of files in the wheel
-	if g:wheel.timestamp > g:wheel_grid.timestamp
+	if g:wheel.timestamp >= g:wheel_grid.timestamp
 		let files = []
 		for torus in g:wheel.toruses
 			for circle in torus.circles
@@ -55,7 +55,7 @@ fun! wheel#helix#files ()
 			endfor
 		endfor
 		let g:wheel_files.table = files
-		let g:wheel_files.timestamp = g:wheel.timestamp
+		let g:wheel_files.timestamp = wheel#pendulum#timestamp()
 	else
 		let files = g:wheel_files.table
 	endif
