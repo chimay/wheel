@@ -57,6 +57,7 @@ fun! wheel#tree#add_circle (...)
 		let cur_torus.circles  = wheel#chain#insert_next(index, template, circles)
 		let cur_torus.glossary = wheel#chain#insert_next(index, circle_name, glossary)
 		let cur_torus.current  += 1
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
 		echomsg 'Circle' circle_name 'already exists in Torus' cur_torus.name
 	endif
@@ -93,6 +94,7 @@ fun! wheel#tree#add_location (location)
 			let cur_location.name = location_name
 			let cur_circle.glossary =
 						\ wheel#chain#insert_next(index, location_name, glossary)
+			let g:wheel.timestamp = wheel#pendulum#timestamp ()
 			call wheel#pendulum#record ()
 		else
 			echomsg 'Location named' location_name 'already exists in Circle.'
