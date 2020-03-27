@@ -28,7 +28,7 @@ fun! wheel#pendulum#remove_if_present (entry)
 	let history = g:wheel_history
 	for elt in g:wheel_history
 		if elt.coordin == entry.coordin
-			let g:wheel_history = wheel#chain#remove_element(entry, history)
+			let g:wheel_history = wheel#chain#remove_element(elt, history)
 		endif
 	endfor
 endfu
