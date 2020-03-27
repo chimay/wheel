@@ -37,8 +37,8 @@ fun! wheel#vortex#jump ()
 		exe location.line
 		exe 'normal! ' . location.col . '|'
 		if g:wheel_config.cd_project > 0
-			let marker = g:wheel_config.project_marker
-			call wheel#gear#project_root(marker)
+			let markers = g:wheel_config.project_markers
+			call wheel#gear#project_root(markers)
 		endif
 		call wheel#pendulum#record ()
 		normal! zv
