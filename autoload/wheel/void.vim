@@ -40,6 +40,16 @@ fun! wheel#void#foundation ()
 	if ! has_key(g:wheel_grid, 'timestamp')
 		let g:wheel_grid.timestamp = -1
 	endif
+	" Files in wheel
+	if ! exists('g:wheel_files')
+		let g:wheel_files = {}
+	endif
+	if ! has_key(g:wheel_files, 'table')
+		let g:wheel_files.table = []
+	endif
+	if ! has_key(g:wheel_files, 'timestamp')
+		let g:wheel_files.timestamp = -1
+	endif
 	" History
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
