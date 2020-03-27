@@ -24,11 +24,10 @@ fun! wheel#gear#project_root (markers)
 	endif
 	let dir = expand('%:p:h')
 	exe 'lcd ' . dir
-	let found = 0
-	while ! found
+	while 1
 		for mark in markers
 			if filereadable(mark) || isdirectory(mark)
-				let found = 1
+				break
 			endif
 		endfor
 		if dir ==# '/'
