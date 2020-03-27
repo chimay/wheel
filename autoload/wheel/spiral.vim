@@ -20,8 +20,8 @@ fun! wheel#spiral#golden_view ()
 	let target = float2nr(round(target))
 	let delta = target - here
 	if delta > 0
-		exe 'normal! ' . delta . ''
+		exe 'normal! ' . delta . "\<c-y>"
 	elseif delta < 0
-		exe 'normal! ' . -delta . ''
+		exe 'normal! ' . -delta . "\<c-e>"
 	endif
 endfu
