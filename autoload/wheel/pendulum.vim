@@ -23,6 +23,16 @@ fun! wheel#pendulum#is_in_history (entry)
 	return present
 endfu
 
+fun! wheel#pendulum#remove_if_present (entry)
+	let entry = a:entry
+	let history = g:wheel_history
+	for elt in g:wheel_history
+		if elt.coordin == entry.coordin
+			let g:wheel_history = wheel#chain#remove_element(entry, history)
+		endif
+	endfor
+endfu
+
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
 	let history = g:wheel_history
@@ -31,9 +41,7 @@ fun! wheel#pendulum#record ()
 	let entry = {}
 	let entry.coordin = coordin
 	let entry.timestamp = wheel#pendulum#timestamp ()
-	if wheel#pendulum#is_in_history (entry)
-		let g:wheel_history = wheel#chain#remove_element(entry, history)
-	endif
+	call wheel#pendulum#remove_if_present (entry)
 	let g:wheel_history = insert(g:wheel_history, entry, 0)
 	let max = g:wheel_config.max_history
 	let g:wheel_history = g:wheel_history[:max - 1]
