@@ -14,12 +14,23 @@ fun! wheel#gear#circular_minus (index, length)
 	return index
 endfun
 
-fun! wheel#gear#project_root (marker)
+fun! wheel#gear#project_root (markers)
 	" Change local directory to root of project
 	" where current buffer belongs
+	if type(a:markers) == 1
+		let markers = [a:markers]
+	else
+		let markers = a:markers
+	endif
 	let dir = expand('%:p:h')
 	exe 'lcd ' . dir
-	while ! filereadable(a:marker) && ! isdirectory(a:marker)
+	let found = 0
+	while ! found
+		for mark in markers
+			if filereadable(mark) || isdirectory(mark)
+				let found = 1
+			endif
+		endfor
 		if dir ==# '/'
 			break
 		endif
