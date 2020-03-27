@@ -58,6 +58,7 @@ fun! wheel#line#location (...)
 endfun
 
 fun! wheel#line#helix (...)
+	" Switch to helix location in current line
 	let mode = 'close'
 	if a:0 > 0
 		let mode = a:1
@@ -79,6 +80,7 @@ fun! wheel#line#helix (...)
 endfun
 
 fun! wheel#line#grid (...)
+	" Switch to grid circle in current line
 	let mode = 'close'
 	if a:0 > 0
 		let mode = a:1
@@ -101,6 +103,7 @@ fun! wheel#line#grid (...)
 endfun
 
 fun! wheel#line#history (...)
+	" Switch to history location in current line
 	let mode = 'close'
 	if a:0 > 0
 		let mode = a:1
