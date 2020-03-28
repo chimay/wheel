@@ -42,7 +42,9 @@ fun! wheel#mandala#filter ()
 	let lines = wheel#mandala#matches ()
 	2,$delete
 	put =lines
-	2
+	if line('$') > 1
+		2
+	endif
 endfu
 
 fun! wheel#mandala#insert_maps ()
