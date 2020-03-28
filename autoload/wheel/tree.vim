@@ -33,7 +33,7 @@ fun! wheel#tree#add_torus (...)
 		let g:wheel.current  += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
-		echomsg 'Torus' torus_name 'already exists in Wheel.'
+		echomsg 'Torus' torus_name 'already exists in wheel.'
 	endif
 endfu
 
@@ -59,7 +59,7 @@ fun! wheel#tree#add_circle (...)
 		let cur_torus.current  += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
-		echomsg 'Circle' circle_name 'already exists in Torus' cur_torus.name
+		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
 	endif
 endfu
 
@@ -84,7 +84,7 @@ fun! wheel#tree#add_location (location)
 		endif
 		if index(cur_circle.glossary, location_name) < 0
 			echomsg 'Adding location' local.name ':' local.file ':' local.line ':' local.col
-						\ 'in Torus' cur_torus.name 'Circle' cur_circle.name
+						\ 'in torus' cur_torus.name 'circle' cur_circle.name
 			let index = cur_circle.current
 			let locations = cur_circle.locations
 			let glossary = cur_circle.glossary
@@ -97,11 +97,11 @@ fun! wheel#tree#add_location (location)
 			let g:wheel.timestamp = wheel#pendulum#timestamp ()
 			call wheel#pendulum#record ()
 		else
-			echomsg 'Location named' location_name 'already exists in Circle.'
+			echomsg 'Location named' location_name 'already exists in circle.'
 		endif
 	else
 		echomsg 'Location' local.file ':' local.line
-					\ 'already exists in Torus' cur_torus.name 'Circle' cur_circle.name
+					\ 'already exists in torus' cur_torus.name 'circle' cur_circle.name
 	endif
 endfun
 
@@ -129,13 +129,17 @@ fun! wheel#tree#rename_torus (...)
 	else
 		let torus_name = input('Torus name ? ')
 	endif
-	let cur_torus = wheel#referen#torus ()
-	let old_name = cur_torus.name
-	let cur_torus.name = torus_name
-	let glossary = g:wheel.glossary
-	echomsg old_name torus_name join(glossary, ' ')
-	let g:wheel.glossary = wheel#chain#replace(old_name, torus_name, glossary)
-	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	if index(g:wheel.glossary, torus_name) < 0
+		let cur_torus = wheel#referen#torus ()
+		let old_name = cur_torus.name
+		echomsg 'Renaming torus' old_name '->' torus_name
+		let cur_torus.name = torus_name
+		let glossary = g:wheel.glossary
+		let g:wheel.glossary = wheel#chain#replace(old_name, torus_name, glossary)
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	else
+		echomsg 'Torus' torus_name 'already exists in wheel.'
+	endif
 endfun
 
 fun! wheel#tree#rename_circle (...)
@@ -146,11 +150,16 @@ fun! wheel#tree#rename_circle (...)
 		let circle_name = input('Circle name ? ')
 	endif
 	let [cur_torus, cur_circle] = wheel#referen#circle ('all')
-	let old_name = cur_circle.name
-	let cur_circle.name = circle_name
-	let glossary = cur_torus.glossary
-	let cur_torus.glossary = wheel#chain#replace(old_name, circle_name, glossary)
-	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	if index(cur_torus.glossary, circle_name) < 0
+		let old_name = cur_circle.name
+		let cur_circle.name = circle_name
+		echomsg 'Renaming circle' old_name '->' circle_name
+		let glossary = cur_torus.glossary
+		let cur_torus.glossary = wheel#chain#replace(old_name, circle_name, glossary)
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	else
+		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
+	endif
 endfun
 
 fun! wheel#tree#rename_location (...)
@@ -161,11 +170,16 @@ fun! wheel#tree#rename_location (...)
 		let location_name = input('Location name ? ')
 	endif
 	let [cur_torus, cur_circle, cur_location] = wheel#referen#location ('all')
-	let old_name = cur_location.name
-	let cur_location.name = location_name
-	let glossary = cur_circle.glossary
-	let cur_circle.glossary = wheel#chain#replace(old_name, location_name, glossary)
-	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	if index(cur_circle.glossary, location_name) < 0
+		let old_name = cur_location.name
+		let cur_location.name = location_name
+		echomsg 'Renaming location' old_name '->' location_name
+		let glossary = cur_circle.glossary
+		let cur_circle.glossary = wheel#chain#replace(old_name, location_name, glossary)
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	else
+		echomsg 'Location named' location_name 'already exists in circle.'
+	endif
 endfun
 
 fun! wheel#tree#delete_torus ()
