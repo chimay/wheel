@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-fun! wheel#check#glossaries ()
+fun! wheel#checknfix#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
 	" Names in toruses, circles and locations are considered to be the right ones
 	let success = 1
@@ -77,7 +77,7 @@ fun! wheel#check#glossaries ()
 	return success
 endfun
 
-fun! wheel#check#history ()
+fun! wheel#checknfix#history ()
 	" Check history
 	let success = 1
 	let history = deepcopy(g:wheel_history)
@@ -89,7 +89,8 @@ fun! wheel#check#history ()
 		if index(helix, coordin) < 0
 			let success = 0
 			echomsg 'Removing' join(coordin, ', ') 'from history.'
-			let history = wheel#chain#remove_element(coordin, g:wheel_history)
+			let g:wheel_history =
+						\ wheel#chain#remove_element(history[ind], g:wheel_history)
 		endif
 		let ind += 1
 	endwhile
