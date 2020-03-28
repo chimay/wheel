@@ -1,0 +1,69 @@
+*wheel.txt* Buffer Group Manager for Vim and Neovim
+*wheel*
+
+CONTENTS				*wheel-contents*
+
+Introduction			|wheel-introduction|
+Goal					|wheel-goal|
+History					|wheel-history|
+
+==============================================================================
+INTRODUCTION											*wheel-introduction*
+
+Wheel is a plugin for vim or neovim aimed at managing buffer groups.
+
+In short, this plugin let you organize your buffers by creating as
+many buffer groups as you need, add the buffers you want to it and
+quickly navigate between :
+
+- Buffers of the same group
+- Buffer groups
+
+Note that :
+
+- A location contains a name, a filename, as well as a line & column number
+- A buffer group, in fact a location group, is called a circle
+- A set of buffer groups is called a torus (a circle of circles)
+- The list of toruses is called the wheel
+
+## Why do you need three levels of grouping ?
+
+At first glance, managing groups with circles in a torus seems to
+be sufficient. But with time, the torus grows big, and a third level
+helps you to organize your files by groups and categories:
+
+  - The wheel contains all the toruses
+  - Each torus contains a category of files, e.g.:
+    + configuration, development, publication
+  - Each circle contains a project, e.g.:
+    + emacs or vifm circles in configuration torus
+    + shell or elisp in development torus
+    + tea or art in publication torus
+
+==============================================================================
+Goal													*wheel-goal*
+
+Torus helps you to organize your files in groups that you create
+yourself, following your workflow. You only add the files you want,
+where you want. For instance, if you have a "organize" group with
+agenda & todo files, you can quickly alternate them, or display them
+in two windows. Then, if you suddenly got an idea to tune emacs, you
+switch to the "emacs" group with your favorites configuration files in
+it. Same process, to cycle, alternate or display the files. Note that
+the toruses containing all these groups can be saved on a file and
+loaded later. Over time, your groups will grow and adapt to your
+style.
+
+==============================================================================
+History													*wheel-history*
+
+This project is inspired by :
+
+- CtrlSpace : https://github.com/vim-ctrlspace/vim-ctrlspace, a similar
+plugin for Vim
+
+- Torus : https://github.com/chimay/torus, a similar plugin for Emacs,
+itself inspired by MTorus
+
+==============================================================================
+vim: tw=78
