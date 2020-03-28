@@ -137,6 +137,7 @@ fun! wheel#tree#rename_torus (...)
 		let glossary = g:wheel.glossary
 		let g:wheel.glossary = wheel#chain#replace(old_name, torus_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#pendulum#rename(0, old_name, torus_name)
 	else
 		echomsg 'Torus' torus_name 'already exists in wheel.'
 	endif
@@ -157,6 +158,7 @@ fun! wheel#tree#rename_circle (...)
 		let glossary = cur_torus.glossary
 		let cur_torus.glossary = wheel#chain#replace(old_name, circle_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#pendulum#rename(1, old_name, circle_name)
 	else
 		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
 	endif
@@ -177,6 +179,7 @@ fun! wheel#tree#rename_location (...)
 		let glossary = cur_circle.glossary
 		let cur_circle.glossary = wheel#chain#replace(old_name, location_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#pendulum#rename(2, old_name, location_name)
 	else
 		echomsg 'Location named' location_name 'already exists in circle.'
 	endif

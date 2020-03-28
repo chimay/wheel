@@ -19,7 +19,7 @@ fun! wheel#checknfix#glossaries ()
 			if ind < len(glossary)
 				echomsg 'Fixing' glossary[ind] '->' torus.name
 				let glossary[ind] = torus.name
-			elseif ind = len(glossary)
+			elseif ind == len(glossary)
 				echomsg 'Adding' torus.name
 				let glossary = add(glossary, torus.name)
 			else
@@ -41,7 +41,7 @@ fun! wheel#checknfix#glossaries ()
 			if ind < len(glossary)
 				echomsg 'Fixing' glossary[ind] '->' circle.name
 				let glossary[ind] = circle.name
-			elseif ind = len(glossary)
+			elseif ind == len(glossary)
 				echomsg 'Adding' circle.name
 				let glossary = add(glossary, circle.name)
 			else
@@ -63,7 +63,7 @@ fun! wheel#checknfix#glossaries ()
 			if ind < len(glossary)
 				echomsg 'Fixing' glossary[ind] '->' location.name
 				let glossary[ind] = location.name
-			elseif ind = len(glossary)
+			elseif ind == len(glossary)
 				echomsg 'Adding' location.name
 				let glossary = add(glossary, location.name)
 			else

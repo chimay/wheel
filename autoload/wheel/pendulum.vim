@@ -37,6 +37,24 @@ fun! wheel#pendulum#remove_if_present (entry)
 	endfor
 endfu
 
+fun! wheel#pendulum#rename(index, old, new)
+	" Rename all occurences old -> new in history
+	" index = 0 : rename torus
+	" index = 1 : rename circle
+	" index = 2 : rename location
+	let index = a:index
+	let old = a:old
+	let new = a:new
+	for elem in g:wheel_history
+		echomsg join(elem.coordin)
+		let coordin = elem.coordin
+		if coordin[index] == old
+			echomsg 'History : renaming' join(elem.coordin)
+			let elem.coordin[index] = new
+		endif
+	endfor
+endfun
+
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
 	let history = g:wheel_history

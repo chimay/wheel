@@ -4,6 +4,7 @@
 
 fun! wheel#mandala#open ()
 	new
+	let g:wheel_mandala = []
 	setlocal cursorline
 	setlocal nobuflisted noswapfile
 	setlocal buftype=nofile
@@ -15,7 +16,7 @@ fun! wheel#mandala#matches ()
 	let first = getline(1)
 	let wordlist = split(first)
 	if empty(g:wheel_mandala)
-		let linelist = getline(2,'$')
+		let linelist = getline(2, '$')
 		let g:wheel_mandala = linelist
 	else
 		let linelist = g:wheel_mandala

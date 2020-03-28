@@ -24,16 +24,16 @@ fun! wheel#chain#insert_after (element, new, list)
 	return wheel#chain#insert_next (index, a:list, a:new)
 endfun
 
-fun! wheel#chain#replace (element, repl, list)
-	" Replace element by repl in list
-	let element = a:element
-	let repl = a:repl
+fun! wheel#chain#replace (old, new, list)
+	" Replace old by new in list
+	let old = a:old
+	let new = a:new
 	let list = a:list
-	let index = index(list, element)
+	let index = index(list, old)
 	if index >= 0
-		let list[index] = repl
+		let list[index] = new
 	else
-		echomsg 'List' join(list,  ', ') 'does not contain' element
+		echomsg 'List' join(list,  ', ') 'does not contain' old
 	endif
 	return list
 endfun
