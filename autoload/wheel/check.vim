@@ -76,3 +76,22 @@ fun! wheel#check#glossaries ()
 	" Return
 	return success
 endfun
+
+fun! wheel#check#history ()
+	" Check history
+	let success = 1
+	let history = deepcopy(g:wheel_history)
+	let helix = wheel#helix#helix()
+	let ind = 0
+	let length = len(history)
+	while ind < length
+		let coordin = history[ind].coordin
+		if index(helix, coordin) < 0
+			let success = 0
+			echomsg 'Removing' join(coordin, ', ') 'from history.'
+			let history = wheel#chain#remove_element(coordin, g:wheel_history)
+		endif
+		let ind += 1
+	endwhile
+	return success
+endfun
