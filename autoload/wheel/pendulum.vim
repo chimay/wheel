@@ -46,10 +46,8 @@ fun! wheel#pendulum#rename(index, old, new)
 	let old = a:old
 	let new = a:new
 	for elem in g:wheel_history
-		echomsg join(elem.coordin)
 		let coordin = elem.coordin
 		if coordin[index] == old
-			echomsg 'History : renaming' join(elem.coordin)
 			let elem.coordin[index] = new
 		endif
 	endfor
