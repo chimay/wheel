@@ -26,7 +26,7 @@ Note that :
 - A set of buffer groups is called a torus (a circle of circles)
 - The list of toruses is called the wheel
 
-## Why do you need three levels of grouping ?
+Why do you need three levels of grouping ?
 
 At first glance, managing groups with circles in a torus seems to
 be sufficient. But with time, the torus grows big, and a third level
