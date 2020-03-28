@@ -5,7 +5,7 @@
 let s:golden = (1 + sqrt(5)) / 2
 lockvar s:golden
 
-fun! wheel#spiral#golden_view ()
+fun! wheel#spiral#cursor ()
 	" Position cursor so that
 	" 1.618 x (top - cursor) = cursor - bottom
 	" 2.618 x cursor = bottom + 1.618 x top
