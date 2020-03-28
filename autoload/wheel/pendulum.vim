@@ -9,7 +9,7 @@ endfu
 
 fun! wheel#pendulum#date_hour (timestamp)
 	" Timestamp in date & hour format
-	if has_key(g:wheel_config, 'debug') && g:wheel_config.debug > 0
+	if g:wheel_config.debug > 0
 		return strftime('%Y %B %d %A %H:%M:%S', a:timestamp)
 	else
 		return strftime('%Y %B %d %A %H:%M', a:timestamp)
