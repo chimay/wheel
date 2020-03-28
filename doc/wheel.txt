@@ -8,7 +8,7 @@ Goal					|wheel-goal|
 History					|wheel-history|
 
 ==============================================================================
-INTRODUCTION											*wheel-introduction*
+INTRODUCTION							*wheel-introduction*
 
 Wheel is a plugin for vim or neovim aimed at managing buffer groups.
 
@@ -41,7 +41,7 @@ helps you to organize your files by groups and categories:
     + tea or art in publication torus
 
 ==============================================================================
-Goal													*wheel-goal*
+Goal									*wheel-goal*
 
 Torus helps you to organize your files in groups that you create
 yourself, following your workflow. You only add the files you want,
@@ -55,7 +55,7 @@ loaded later. Over time, your groups will grow and adapt to your
 style.
 
 ==============================================================================
-History													*wheel-history*
+History									*wheel-history*
 
 This project is inspired by :
 
