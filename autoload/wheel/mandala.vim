@@ -42,6 +42,7 @@ fun! wheel#mandala#filter ()
 	let lines = wheel#mandala#matches ()
 	2,$delete
 	put =lines
+	2
 endfu
 
 fun! wheel#mandala#insert_maps ()
