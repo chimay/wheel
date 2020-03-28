@@ -10,7 +10,42 @@ fun! wheel#mandala#open ()
 	setlocal bufhidden=delete
 endfun
 
+fun! wheel#mandala#matches ()
+	" Return lines matching words of first line
+	let first = getline(1)
+	let wordlist = split(first)
+	if empty(g:wheel_mandala)
+		let linelist = getline(2,'$')
+		let g:wheel_mandala = linelist
+	else
+		let linelist = g:wheel_mandala
+	endif
+	let candidates = []
+	for line in linelist
+		let match = 1
+		for word in wordlist
+			let pattern = '.*' . word . '.*'
+			if line !~ pattern
+				let match = 0
+				break
+			endif
+		endfor
+		if match
+			let candidates = add(candidates, line)
+		endif
+	endfor
+	return candidates
+endfu
+
+fun! wheel#mandala#filter ()
+	" Keep lines matching words of first line
+	let lines = wheel#line#matches ()
+	2,$delete
+	put =lines
+endfu
+
 fun! wheel#mandala#close ()
+	let g:wheel_mandala = []
 	if winnr('$') > 1
 		quit!
 	else
@@ -25,7 +60,7 @@ fun! wheel#mandala#toruses ()
 	let names = g:wheel.glossary
 	let content = join(names, "\n")
 	put =content
-	norm gg
+	norm! gg
 	nnoremap <buffer> <tab> :call wheel#line#torus('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#torus('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -39,7 +74,7 @@ fun! wheel#mandala#circles ()
 	let names = torus.glossary
 	let content = join(names, "\n")
 	put =content
-	norm gg
+	norm! gg
 	nnoremap <buffer> <tab> :call wheel#line#circle('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#circle('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -53,7 +88,7 @@ fun! wheel#mandala#locations ()
 	let names = circle.glossary
 	let content = join(names, "\n")
 	put =content
-	norm gg
+	norm! gg
 	nnoremap <buffer> <tab> :call wheel#line#location('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#location('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -67,7 +102,7 @@ fun! wheel#mandala#helix ()
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
 	put =content
-	norm gg
+	norm! gg
 	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -81,7 +116,7 @@ fun! wheel#mandala#grid ()
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")
 	put =content
-	norm gg
+	norm! gg
 	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
@@ -95,8 +130,13 @@ fun! wheel#mandala#history ()
 	let names = wheel#pendulum#locations ()
 	let content = join(names, "\n")
 	put =content
-	norm gg
+	norm! gg
 	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
+	nnoremap <buffer> i ggi
+	inoremap <buffer> <space> :call wheel#line#filter()<cr>
+	inoremap <buffer> <esc> <esc>:call wheel#line#filter()<cr>
+	inoremap <buffer> <c-c> <esc>:call wheel#line#filter()<cr>
+	inoremap <buffer> <cr> <esc>:call wheel#line#filter()<cr>
 endfun

@@ -1,15 +1,5 @@
 " vim: ft=vim fdm=indent:
 
-fun! wheel#line#filter ()
-	" Keep lines matching words of first line
-	let first = getline(1)
-	let words = split(first)
-	let lines = getline(2,'$')
-	let matches = []
-	for elt in words
-	endfor
-endfu
-
 fun! wheel#line#torus (...)
 	" Switch to torus whose name is in current line
 	let mode = 'close'

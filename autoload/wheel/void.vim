@@ -70,6 +70,10 @@ fun! wheel#void#foundation ()
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
 	endif
+	" Menu content
+	if ! exists('g:wheel_mandala')
+		let g:wheel_mandala = []
+	endif
 	" Config
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
