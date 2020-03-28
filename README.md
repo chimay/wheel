@@ -71,9 +71,9 @@ g:wheel_config = '<d-w>'
 
 Most mappings respect the following convention :
 
-- prefix + letter     : location operation
-- prefix + <C-letter> : circle operation
-- prefix + <S-letter> : location operation
+- prefix + `letter`     : location operation
+- prefix + `<C-letter>` : circle operation
+- prefix + `<S-letter>` : location operation
 
 ## First Circles
 
