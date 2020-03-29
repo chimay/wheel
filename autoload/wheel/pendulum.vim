@@ -16,6 +16,45 @@ fun! wheel#pendulum#date_hour (timestamp)
 	endif
 endfu
 
+fun! wheel#pendulum#index ()
+	" History index
+	" Each entry is a string : date hour | torus >> circle > location
+	let history = g:wheel_history
+	let strings = []
+	for entry in history
+		let coordin = entry.coordin
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour . ' | '
+		let entry .= coordin[0] . ' >> ' . coordin[1] . ' > ' . coordin[2]
+		let strings = add(strings, entry)
+	endfor
+	return strings
+endfu
+
+fun! wheel#pendulum#compare (one, two)
+	" Comparison of history entries : used to sort index
+	return a:two.timestamp - a:one.timestamp
+endfu
+
+fun! wheel#pendulum#sorted ()
+	" Sorted history index
+	" Each entry is a string : date hour | torus >> circle > location
+	let history = deepcopy(g:wheel_history)
+	let Compare = function('wheel#pendulum#compare')
+	let history = sort(history, Compare)
+	let strings = []
+	for entry in history
+		let coordin = entry.coordin
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour . ' | '
+		let entry .= coordin[0] . ' >> ' . coordin[1] . ' > ' . coordin[2]
+		let strings = add(strings, entry)
+	endfor
+	return strings
+endfu
+
 fun! wheel#pendulum#is_in_history (entry)
 	let present = 0
 	let entry = a:entry
@@ -123,19 +162,3 @@ endfun
 fun! wheel#pendulum#alternate_same_torus_other_circle ()
 	" Alternate in same torus but other circle
 endfun
-
-fun! wheel#pendulum#locations ()
-	" Index of locations coordinates in the history
-	" Each coordinate is a string : date hour | torus >> circle > location
-	let history = g:wheel_history
-	let strings = []
-	for entry in history
-		let coordin = entry.coordin
-		let timestamp = entry.timestamp
-		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour . ' | '
-		let entry .= coordin[0] . ' >> ' . coordin[1] . ' > ' . coordin[2]
-		let strings = add(strings, entry)
-	endfor
-	return strings
-endfu

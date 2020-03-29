@@ -150,8 +150,7 @@ fun! wheel#mandala#history ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
-	let names = wheel#pendulum#locations ()
-	let names = reverse(sort(names))
+	let names = wheel#pendulum#sorted ()
 	let content = join(names, "\n")
 	put =content
 	norm! gg
