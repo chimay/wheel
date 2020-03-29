@@ -11,8 +11,8 @@
 fun! wheel#tree#is_in_circle (location, circle)
 	let local = a:location
 	let present = 0
-	for elt in a:circle.locations
-		if elt.file ==# local.file && elt.line == local.line
+	for elem in a:circle.locations
+		if elem.file ==# local.file && elem.line == local.line
 			let present = 1
 		endif
 	endfor

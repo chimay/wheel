@@ -58,8 +58,8 @@ endfu
 fun! wheel#pendulum#is_in_history (entry)
 	let present = 0
 	let entry = a:entry
-	for elt in g:wheel_history
-		if elt.coordin == entry.coordin
+	for elem in g:wheel_history
+		if elem.coordin == entry.coordin
 			let present = 1
 		endif
 	endfor
@@ -69,9 +69,9 @@ endfu
 fun! wheel#pendulum#remove_if_present (entry)
 	let entry = a:entry
 	let history = g:wheel_history
-	for elt in g:wheel_history
-		if elt.coordin == entry.coordin
-			let g:wheel_history = wheel#chain#remove_element(elt, history)
+	for elem in g:wheel_history
+		if elem.coordin == entry.coordin
+			let g:wheel_history = wheel#chain#remove_element(elem, history)
 		endif
 	endfor
 endfu
@@ -136,29 +136,125 @@ fun! wheel#pendulum#alternate ()
 	if index(files, filename) >= 0
 		call wheel#vortex#update ()
 		let history = g:wheel_history
-		let g:wheel_history[1].timestamp = wheel#pendulum#timestamp ()
-		let coordin = g:wheel_history[1].coordin
-		call wheel#vortex#tune(coordin)
+		if len(history) > 1
+			let coordin = history[1].coordin
+			call wheel#vortex#tune(coordin)
+		endif
 	endif
 	call wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_same_torus ()
 	" Alternate entries in same torus
+	let files = wheel#helix#files ()
+	let filename = expand('%:p')
+	if index(files, filename) >= 0
+		call wheel#vortex#update ()
+		let history = g:wheel_history
+		let length = len(history)
+		let [torus, circle, location] = wheel#referen#location('all')
+		let current = [torus.name, circle.name, location.name]
+		let target = []
+		for ind in range(1, length)
+			let coordin = history[ind].coordin
+			if coordin[0] ==# current[0]
+				let target = coordin
+				break
+			endif
+		endfor
+		call wheel#vortex#tune(target)
+	endif
+	call wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_same_circle ()
 	" Alternate entries in same circle
+	let files = wheel#helix#files ()
+	let filename = expand('%:p')
+	if index(files, filename) >= 0
+		call wheel#vortex#update ()
+		let history = g:wheel_history
+		let length = len(history)
+		let [torus, circle, location] = wheel#referen#location('all')
+		let current = [torus.name, circle.name, location.name]
+		let target = []
+		for ind in range(1, length)
+			let coordin = history[ind].coordin
+			if coordin[0] ==# current[0] && coordin[1] ==# current[1]
+				let target = coordin
+				break
+			endif
+		endfor
+		call wheel#vortex#tune(target)
+	endif
+	call wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_other_torus ()
 	" Alternate last two toruses
+	let files = wheel#helix#files ()
+	let filename = expand('%:p')
+	if index(files, filename) >= 0
+		call wheel#vortex#update ()
+		let history = g:wheel_history
+		let length = len(history)
+		let [torus, circle, location] = wheel#referen#location('all')
+		let current = [torus.name, circle.name, location.name]
+		let target = []
+		for ind in range(1, length)
+			let coordin = history[ind].coordin
+			if coordin[0] !=# current[0]
+				let target = coordin
+				break
+			endif
+		endfor
+		call wheel#vortex#tune(target)
+	endif
+	call wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_other_circle ()
 	" Alternate last two circles
+	let files = wheel#helix#files ()
+	let filename = expand('%:p')
+	if index(files, filename) >= 0
+		call wheel#vortex#update ()
+		let history = g:wheel_history
+		let length = len(history)
+		let [torus, circle, location] = wheel#referen#location('all')
+		let current = [torus.name, circle.name, location.name]
+		let target = []
+		for ind in range(1, length)
+			let coordin = history[ind].coordin
+			if coordin[0] !=# current[0] || coordin[1] !=# current[1]
+				let target = coordin
+				break
+			endif
+		endfor
+		call wheel#vortex#tune(target)
+	endif
+	call wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_same_torus_other_circle ()
 	" Alternate in same torus but other circle
+	let files = wheel#helix#files ()
+	let filename = expand('%:p')
+	if index(files, filename) >= 0
+		call wheel#vortex#update ()
+		let history = g:wheel_history
+		let length = len(history)
+		let [torus, circle, location] = wheel#referen#location('all')
+		let current = [torus.name, circle.name, location.name]
+		let target = []
+		for ind in range(1, length)
+			let coordin = history[ind].coordin
+			if coordin[0] ==# current[0] && coordin[1] !=# current[1]
+				let target = coordin
+				break
+			endif
+		endfor
+		call wheel#vortex#tune(target)
+	endif
+	call wheel#vortex#jump ()
 endfun

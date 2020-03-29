@@ -71,6 +71,11 @@ fun! wheel#centre#mappings ()
 		nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
 		nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
 		nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
+		nnoremap <D-^>          :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
+		nnoremap <C-S-PageUp>   :call wheel#pendulum#alternate_same_torus()<cr>
+		nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
+		nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
+		nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
 		" Mandala
 		nnoremap <Space>      :call wheel#mandala#locations()<cr>
 		nnoremap <C-Space>    :call wheel#mandala#circles()<cr>
