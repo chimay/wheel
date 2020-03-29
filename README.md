@@ -64,6 +64,16 @@ plugin for Vim
 - [Torus](https://github.com/chimay/torus), a similar plugin for Emacs,
 itself inspired by MTorus
 
+# Installation
+
+## Using minpac
+
+Simply add this line to your initialisation file :
+
+```
+call minpac#add('chimay/wheel', { 'type' : 'start' })
+```
+
 # Step by Step
 
 In the following discussion, I assume that you have kept the default
