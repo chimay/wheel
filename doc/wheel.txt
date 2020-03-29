@@ -4,8 +4,8 @@
 CONTENTS				*wheel-contents*
 
 Introduction			|wheel-introduction|
-Goal					|wheel-goal|
-History					|wheel-history|
+Goal				|wheel-goal|
+History				|wheel-history|
 Step by step			|wheel-step-by-step|
 
 ==============================================================================
@@ -69,6 +69,12 @@ itself inspired by MTorus
 ==============================================================================
 STEP BY STEP						*wheel-step-by-step*
 
+Mnemonic			|wheel-mnemonic|
+First circles			|wheel-first-circles|
+Moving around			|wheel-moving-around|
+Square the circle		|wheel-square-the-circle|
+
+
 In the following discussion, I assume that you have kept the default
 mapping prefix :
 
@@ -76,7 +82,8 @@ mapping prefix :
 g:wheel_config = '<d-w>'
 ```
 
-## Mnemonic
+------------------------------------------------------------------------------
+MNEMONIC						*wheel-mnemonic*
 
 Most mappings respect the following convention :
 
@@ -84,7 +91,8 @@ Most mappings respect the following convention :
 - prefix + `<C-letter>` : circle operation
 - prefix + `<S-letter>` : location operation
 
-## First Circles
+------------------------------------------------------------------------------
+FIRST CIRCLES					    *wheel-first-circles*
 
 Let’s say we have the files `Juice`, `Tea`, `Coffee` and we want to
 group them. So, we go `Juice` and type `<D-w>a` to add a location to the
@@ -117,9 +125,10 @@ or display them in split windows.
 If you want to create another torus, let’s say `Books`, simply launch
 `<D-w><S-a>`, and answer `Books` to the prompt.
 
-## Moving around
+------------------------------------------------------------------------------
+MOVING AROUND					     *wheel-moving-around*
 
-### Cycling
+Cycling~
 
 You can cycle the files of a circle with `<D-w><Left>` and
 `<D-w><Right>`. These are often used bindings, so I suggest you map them
@@ -133,7 +142,7 @@ To cycle the toruses, use `<D-w><S-left>` and `<D-w><S-right>`. These are
 often used bindings, so I suggest you map them to a more convient key,
 like `<S-Home>` and `<S-End>`
 
-### Switch using completion
+Switch using completion~
 
 You can also switch location by completion with `<D-w><CR>`.
 
@@ -141,7 +150,7 @@ You can also switch circle by completion with `<D-w><C-CR>`.
 
 You can also switch torus by completion with `<D-w><S-CR>`.
 
-### Switch using a special buffer
+Switch using a special buffer~
 
 You can also switch location by chosing it in a special buffer. The
 default mapping is `<D-w><Space>`. Pressing enter on a line will switch
@@ -152,7 +161,8 @@ To choose a given circle in a special buffer, use `<D-w><C-space>`.
 
 To choose a given torus in a special buffer, use `<D-w><S-space>`.
 
-## Square the Circle
+------------------------------------------------------------------------------
+SQUARE THE CIRCLE				*wheel-square-the-circle*
 
 Over time, the number of circles will grow. Completion is great, but
 if you just want to alternate the two last circles in history, you’ll
@@ -170,4 +180,4 @@ Finally, `TODO` alternate two last history
 files, regardless of their circles.
 
 ==============================================================================
-vim: tw=78
+vim:tw=78:ts=8:ft=help:norl:noet:fen:
