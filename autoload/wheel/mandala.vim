@@ -151,6 +151,7 @@ fun! wheel#mandala#history ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let names = wheel#pendulum#locations ()
+	let names = reverse(sort(names))
 	let content = join(names, "\n")
 	put =content
 	norm! gg
