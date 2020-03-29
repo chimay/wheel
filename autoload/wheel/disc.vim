@@ -48,6 +48,7 @@ endfun
 
 fun! wheel#disc#write_all ()
 	" Write all wheel variables to g:wheel_config.file
+	call wheel#vortex#update ()
 	if has_key(g:wheel_config, 'file')
 		call wheel#disc#roll_backups(g:wheel_config.file, g:wheel_config.backups)
 		call wheel#disc#write('g:wheel', g:wheel_config.file, '>')
