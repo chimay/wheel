@@ -21,6 +21,8 @@ fun! wheel#tree#add_torus (...)
 		let torus_name = a:1
 	else
 		let torus_name = input('New torus name ? ')
+		" Replace spaces par non-breaking spaces
+		let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	endif
 	if index(g:wheel.glossary, torus_name) < 0
 		echomsg "Adding torus" torus_name
@@ -43,6 +45,8 @@ fun! wheel#tree#add_circle (...)
 		let circle_name = a:1
 	else
 		let circle_name = input('New circle name ? ')
+		" Replace spaces par non-breaking spaces
+		let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	endif
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
@@ -78,7 +82,9 @@ fun! wheel#tree#add_location (location)
 	let present = wheel#tree#is_in_circle(local, cur_circle)
 	if ! present
 		let chaine = 'New location name [' . local.name . '] ? '
-		let location_name = input(chaine)
+		let location_name = input(chaine, local.name)
+		" Replace spaces par non-breaking spaces
+		let location_name = substitute(location_name, ' ', ' ', 'g')
 		if empty(location_name)
 			let location_name = local.name
 		endif
@@ -106,17 +112,28 @@ fun! wheel#tree#add_location (location)
 endfun
 
 fun! wheel#tree#add_here ()
-	" Add here to locations
+	" Add here to circle
 	let here = wheel#vortex#here()
 	call wheel#tree#add_location(here)
 endfun
 
-fun! wheel#tree#add_file(...)
-	" Add file to location
+fun! wheel#tree#add_file (...)
+	" Add file to circle
 	if a:0 > 0
 		let file = a:1
 	else
-		let file = input("File to add ? ")
+		let file = input('File to add ? ', '', 'file')
+	endif
+	exe 'edit ' file
+	call wheel#tree#add_here()
+endfun
+
+fun! wheel#tree#add_buffer (...)
+	" Add buffer to circle
+	if a:0 > 0
+		let file = a:1
+	else
+		let file = input('Buffer to add ? ', '', 'buffer')
 	endif
 	exe 'edit ' file
 	call wheel#tree#add_here()
@@ -128,6 +145,8 @@ fun! wheel#tree#rename_torus (...)
 		let torus_name = a:1
 	else
 		let torus_name = input('Torus name ? ')
+		" Replace spaces par non-breaking spaces
+		let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	endif
 	if index(g:wheel.glossary, torus_name) < 0
 		let cur_torus = wheel#referen#torus ()
@@ -149,6 +168,8 @@ fun! wheel#tree#rename_circle (...)
 		let circle_name = a:1
 	else
 		let circle_name = input('Circle name ? ')
+		" Replace spaces par non-breaking spaces
+		let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	endif
 	let [cur_torus, cur_circle] = wheel#referen#circle ('all')
 	if index(cur_torus.glossary, circle_name) < 0
@@ -170,6 +191,8 @@ fun! wheel#tree#rename_location (...)
 		let location_name = a:1
 	else
 		let location_name = input('Location name ? ')
+		" Replace spaces par non-breaking spaces
+		let location_name = substitute(location_name, ' ', ' ', 'g')
 	endif
 	let [cur_torus, cur_circle, cur_location] = wheel#referen#location ('all')
 	if index(cur_circle.glossary, location_name) < 0

@@ -48,11 +48,15 @@ fun! wheel#mandala#filter ()
 	endif
 endfu
 
-fun! wheel#mandala#insert_maps ()
-	" Define local insert maps in menu buffer
+fun! wheel#mandala#common_maps ()
+	" Define local common maps in menu buffer
+	" Normal maps
 	nnoremap <buffer> i ggA
 	nnoremap <buffer> a ggA
+	" Insert maps
 	inoremap <buffer> <space> <esc>:call wheel#mandala#filter()<cr>ggA<space>
+	inoremap <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter()<cr>ggA
+	inoremap <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter()<cr>ggA
 	inoremap <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <buffer> <c-c> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
@@ -78,7 +82,7 @@ fun! wheel#mandala#toruses ()
 	nnoremap <buffer> <tab> :call wheel#line#torus('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#torus('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	call wheel#mandala#insert_maps ()
+	call wheel#mandala#common_maps ()
 endfun
 
 fun! wheel#mandala#circles ()
@@ -93,7 +97,7 @@ fun! wheel#mandala#circles ()
 	nnoremap <buffer> <tab> :call wheel#line#circle('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#circle('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	call wheel#mandala#insert_maps ()
+	call wheel#mandala#common_maps ()
 endfun
 
 fun! wheel#mandala#locations ()
@@ -108,7 +112,7 @@ fun! wheel#mandala#locations ()
 	nnoremap <buffer> <tab> :call wheel#line#location('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#location('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	call wheel#mandala#insert_maps ()
+	call wheel#mandala#common_maps ()
 endfun
 
 fun! wheel#mandala#helix ()
@@ -123,7 +127,7 @@ fun! wheel#mandala#helix ()
 	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	call wheel#mandala#insert_maps ()
+	call wheel#mandala#common_maps ()
 endfun
 
 fun! wheel#mandala#grid ()
@@ -138,7 +142,7 @@ fun! wheel#mandala#grid ()
 	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	call wheel#mandala#insert_maps ()
+	call wheel#mandala#common_maps ()
 endfun
 
 fun! wheel#mandala#history ()
@@ -153,5 +157,5 @@ fun! wheel#mandala#history ()
 	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	call wheel#mandala#insert_maps ()
+	call wheel#mandala#common_maps ()
 endfun

@@ -97,9 +97,8 @@ fun! wheel#pendulum#alternate ()
 	if index(files, filename) >= 0
 		call wheel#vortex#update ()
 		let history = g:wheel_history
-		let g:wheel_history = wheel#chain#swap (history)
-		let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
-		let coordin = g:wheel_history[0].coordin
+		let g:wheel_history[1].timestamp = wheel#pendulum#timestamp ()
+		let coordin = g:wheel_history[1].coordin
 		call wheel#vortex#tune(coordin)
 	endif
 	call wheel#vortex#jump ()

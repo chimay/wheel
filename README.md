@@ -4,6 +4,12 @@
 
 The core functionality begins to work. A lot of extras has to be done.
 
+## TODO
+
+- create interactive menus
+  + add : here, file, buffer, circle, torus
+  + ...
+
 # Introduction
 
 Wheel is a plugin for Vim or Neovim aimed at managing buffer groups.
