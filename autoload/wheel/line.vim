@@ -1,5 +1,8 @@
 " vim: ft=vim fdm=indent:
 
+" Action of the cursor line :
+" - Going to an element
+
 fun! wheel#line#torus (...)
 	" Switch to torus whose name is in current line
 	let mode = 'close'

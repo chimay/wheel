@@ -1,8 +1,10 @@
 " vim: ft=vim fdm=indent:
 
-" Menu in a wheel buffer
+" Special Buffer menus
+" Filter and choose an element
 
 fun! wheel#mandala#open ()
+	" Open a wheel buffer
 	new
 	let g:wheel_mandala = []
 	setlocal cursorline
@@ -63,6 +65,7 @@ fun! wheel#mandala#common_maps ()
 endfu
 
 fun! wheel#mandala#close ()
+	" Close the wheel buffer
 	let g:wheel_mandala = []
 	if winnr('$') > 1
 		quit!
