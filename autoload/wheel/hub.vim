@@ -4,13 +4,15 @@
 
 fun! wheel#hub#alternate ()
 	" Choose an alternate action
-	let index = inputlist(['Alternate :',
+	let index = inputlist(
+				\ [
+				\ 'Alternate :',
 				\ '1. Anywhere',
 				\ '2. In same circle',
 				\ '3. In same torus',
 				\ '4. In other circle',
 				\ '5. In other torus',
-				\ '6. In same circle but other torus'
+				\ '6. In same torus but other circle'
 				\ ])
 	if index == 1
 		call wheel#pendulum#alternate ()
