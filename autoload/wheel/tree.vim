@@ -4,6 +4,10 @@
 " Renaming
 " Removing
 
+" Notes
+"
+" To insert a non-breaking space : C-v x a 0
+
 fun! wheel#tree#is_in_circle (location, circle)
 	let local = a:location
 	let present = 0
@@ -119,10 +123,11 @@ endfun
 
 fun! wheel#tree#add_file (...)
 	" Add file to circle
+	call wheel#vortex#update ()
 	if a:0 > 0
 		let file = a:1
 	else
-		let file = input('File to add ? ', '', 'file')
+		let file = input('File to add ? ', '', 'file_in_path')
 	endif
 	exe 'edit ' file
 	call wheel#tree#add_here()
@@ -130,12 +135,13 @@ endfun
 
 fun! wheel#tree#add_buffer (...)
 	" Add buffer to circle
+	call wheel#vortex#update ()
 	if a:0 > 0
-		let file = a:1
+		let buffer = a:1
 	else
-		let file = input('Buffer to add ? ', '', 'buffer')
+		let buffer = input('Buffer to add ? ', '', 'buffer')
 	endif
-	exe 'edit ' file
+	exe 'buffer ' buffer
 	call wheel#tree#add_here()
 endfun
 

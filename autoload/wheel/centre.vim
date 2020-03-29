@@ -16,6 +16,8 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . 'a :call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-a> :call wheel#tree#add_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'A :call wheel#tree#add_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . 'f :call wheel#tree#add_file()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . 'b :call wheel#tree#add_buffer()<cr>'
 		" Vortex : move to elements
 		exe 'nnoremap ' . g:wheel_config.prefix . '<left> :call wheel#vortex#prev_location()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<right> :call wheel#vortex#next_location()<cr>'
