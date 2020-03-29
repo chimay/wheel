@@ -2,8 +2,29 @@
 
 " Menus
 
+fun! wheel#hub#add ()
+	" Choose an object to add
+	let index = inputlist(
+				\ [
+				\ 'Add :',
+				\ '1. Location at cursor',
+				\ '2. File',
+				\ '3. Buffer'
+				\ ])
+	if index == 1
+		call wheel#tree#add_here ()
+	elseif index == 2
+		call wheel#tree#add_file ()
+	elseif index == 3
+		call wheel#tree#add_buffer ()
+	else
+		echomsg 'Choice must be between 1 and 3'
+	endif
+	return index
+endfun
+
 fun! wheel#hub#alternate ()
-	" Choose an alternate action
+	" Choose a way to alternate
 	let index = inputlist(
 				\ [
 				\ 'Alternate :',
