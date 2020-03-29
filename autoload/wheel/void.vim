@@ -114,7 +114,9 @@ fun! wheel#void#init ()
 	endif
 	call wheel#centre#commands ()
 	call wheel#centre#mappings ()
-	call wheel#vortex#jump ()
+	if argc()  = 0
+		call wheel#vortex#jump ()
+	endif
 endfu
 
 fun! wheel#void#exit ()
