@@ -7,8 +7,11 @@ The core functionality begins to work. A lot of extras has to be done.
 ## TODO
 
 - create interactive menus
-  + add : here, file, buffer, circle, torus
-  + ...
+- t:wheel, w:wheel containing local wheel coordinates
+- modes
+  + 1 location per tab
+  + 1 circle per tab
+  + 1 torus per tab
 
 # Introduction
 
