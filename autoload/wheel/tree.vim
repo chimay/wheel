@@ -216,17 +216,20 @@ endfun
 
 fun! wheel#tree#delete_torus ()
 	" Delete current torus
-	let cur_torus = wheel#referen#torus ()
-	let toruses = g:wheel.toruses
-	let cur_index = g:wheel.current
-	let cur_length = len(toruses)
-	let g:wheel.toruses = wheel#chain#remove_index(cur_index, toruses)
-	let cur_length -= 1
-	let g:wheel.current = wheel#gear#circular_minus(cur_index, cur_length)
-	let glossary = g:wheel.glossary
-	let cur_name = cur_torus.name
-	let g:wheel.glossary = wheel#chain#remove_element(cur_name, glossary)
-	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	let confirm = confirm('Delete current torus ?', "&Yes\n&No", 2)
+	if confirm == 1
+		let cur_torus = wheel#referen#torus ()
+		let toruses = g:wheel.toruses
+		let cur_index = g:wheel.current
+		let cur_length = len(toruses)
+		let g:wheel.toruses = wheel#chain#remove_index(cur_index, toruses)
+		let cur_length -= 1
+		let g:wheel.current = wheel#gear#circular_minus(cur_index, cur_length)
+		let glossary = g:wheel.glossary
+		let cur_name = cur_torus.name
+		let g:wheel.glossary = wheel#chain#remove_element(cur_name, glossary)
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	endif
 endfun
 
 fun! wheel#tree#delete_circle ()

@@ -51,6 +51,14 @@ endfu
 " 	return A
 " endfun
 
+echo function('Plus', [3])(4)
+let Plus3 = function('Plus', [3])
+echo Plus3(4)
+
+echo function('Minus', [3])(2)
+let TreeMinus = function('Minus', [3])
+echo TreeMinus(2)
+
 fun! ArgumentConstant(fn, value)
 	return {arg -> a:fn(arg, a:value) }
 endfu

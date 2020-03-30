@@ -41,3 +41,17 @@ fun! wheel#gear#project_root (markers)
 		let dir = getcwd()
 	endwhile
 endfun
+
+fun! wheel#gear#word_filter (wordlist, index, value)
+	" Whether value matches all words of wordlist
+	" index is not used, it’s just for compatibility with filter()
+	let match = 1
+	for word in a:wordlist
+		let pattern = '.*' . word . '.*'
+		if a:value !~ pattern
+			let match = 0
+			break
+		endif
+	endfor
+	return match
+endfun

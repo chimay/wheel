@@ -6,43 +6,15 @@
 fun! wheel#mandala#open ()
 	" Open a wheel buffer
 	new
-	let g:wheel_mandala = []
 	setlocal cursorline
 	setlocal nobuflisted noswapfile
 	setlocal buftype=nofile
 	setlocal bufhidden=delete
 endfun
 
-fun! wheel#mandala#matches ()
-	" Return lines matching words of first line
-	let first = getline(1)
-	let wordlist = split(first)
-	if empty(g:wheel_mandala)
-		let linelist = getline(2, '$')
-		let g:wheel_mandala = linelist
-	else
-		let linelist = g:wheel_mandala
-	endif
-	let candidates = []
-	for line in linelist
-		let match = 1
-		for word in wordlist
-			let pattern = '.*' . word . '.*'
-			if line !~ pattern
-				let match = 0
-				break
-			endif
-		endfor
-		if match
-			let candidates = add(candidates, line)
-		endif
-	endfor
-	return candidates
-endfu
-
 fun! wheel#mandala#filter ()
 	" Keep lines matching words of first line
-	let lines = wheel#mandala#matches ()
+	let lines = wheel#line#filter ()
 	2,$delete
 	put =lines
 	if line('$') > 1
@@ -66,7 +38,6 @@ endfu
 
 fun! wheel#mandala#close ()
 	" Close the wheel buffer
-	let g:wheel_mandala = []
 	if winnr('$') > 1
 		quit!
 	else

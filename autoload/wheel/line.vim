@@ -3,6 +3,21 @@
 " Action of the cursor line :
 " - Going to an element
 
+fun! wheel#line#filter ()
+	" Return lines matching words of first line
+	if ! exists('b:wheel_menu') || empty(b:wheel_menu)
+		let linelist = getline(2, '$')
+		let b:wheel_menu = linelist
+	else
+		let linelist = b:wheel_menu
+	endif
+	let first = getline(1)
+	let wordlist = split(first)
+	let Matches = function('wheel#gear#word_filter', [wordlist])
+	let candidates = filter(linelist, Matches)
+	return candidates
+endfu
+
 fun! wheel#line#torus (...)
 	" Switch to torus whose name is in current line
 	let mode = 'close'
