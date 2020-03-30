@@ -81,24 +81,24 @@ fun! wheel#tree#add_location (location)
 	if empty(cur_torus.circles)
 		call wheel#tree#add_circle()
 	endif
-	let local = a:location
 	let cur_circle = cur_torus.circles[cur_torus.current]
+	let local = a:location
 	let present = wheel#tree#is_in_circle(local, cur_circle)
 	if ! present
 		let chaine = 'New location name [' . local.name . '] ? '
 		let location_name = input(chaine, local.name)
-		" Replace spaces par non-breaking spaces
-		let location_name = substitute(location_name, ' ', ' ', 'g')
 		if empty(location_name)
 			let location_name = local.name
 		endif
+		" Replace spaces par non-breaking spaces
+		let location_name = substitute(location_name, ' ', ' ', 'g')
 		if index(cur_circle.glossary, location_name) < 0
 			echomsg 'Adding location' local.name ':' local.file ':' local.line ':' local.col
 						\ 'in torus' cur_torus.name 'circle' cur_circle.name
 			let index = cur_circle.current
 			let locations = cur_circle.locations
 			let glossary = cur_circle.glossary
-			let cur_circle.locations  = wheel#chain#insert_next(index, local, locations)
+			let cur_circle.locations = wheel#chain#insert_next(index, local, locations)
 			let cur_circle.current  += 1
 			let cur_location = cur_circle.locations[cur_circle.current]
 			let cur_location.name = location_name
