@@ -234,31 +234,37 @@ endfun
 
 fun! wheel#tree#delete_circle ()
 	" Delete current circle
-	let [cur_torus, cur_circle] = wheel#referen#circle ('all')
-	let circles = cur_torus.circles
-	let cur_index = cur_torus.current
-	let cur_length = len(circles)
-	let cur_torus.circles = wheel#chain#remove_index(cur_index, circles)
-	let cur_length -= 1
-	let cur_torus.current = wheel#gear#circular_minus(cur_index, cur_length)
-	let glossary = cur_torus.glossary
-	let cur_name = cur_circle.name
-	let cur_torus.glossary = wheel#chain#remove_element(cur_name, glossary)
-	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	let confirm = confirm('Delete current circle ?', "&Yes\n&No", 2)
+	if confirm == 1
+		let [cur_torus, cur_circle] = wheel#referen#circle ('all')
+		let circles = cur_torus.circles
+		let cur_index = cur_torus.current
+		let cur_length = len(circles)
+		let cur_torus.circles = wheel#chain#remove_index(cur_index, circles)
+		let cur_length -= 1
+		let cur_torus.current = wheel#gear#circular_minus(cur_index, cur_length)
+		let glossary = cur_torus.glossary
+		let cur_name = cur_circle.name
+		let cur_torus.glossary = wheel#chain#remove_element(cur_name, glossary)
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	endif
 endfun
 
 fun! wheel#tree#delete_location ()
 	" Delete current location
-	let [cur_torus, cur_circle, cur_location] =
-				\ wheel#referen#location ('all')
-	let locations = cur_circle.locations
-	let cur_index = cur_circle.current
-	let cur_length = len(locations)
-	let cur_circle.locations = wheel#chain#remove_index(cur_index, locations)
-	let cur_length -= 1
-	let cur_circle.current = wheel#gear#circular_minus(cur_index, cur_length)
-	let glossary = cur_circle.glossary
-	let cur_name = cur_location.name
-	let cur_circle.glossary = wheel#chain#remove_element(cur_name, glossary)
-	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	let confirm = confirm('Delete current location ?', "&Yes\n&No", 2)
+	if confirm == 1
+		let [cur_torus, cur_circle, cur_location] =
+					\ wheel#referen#location ('all')
+		let locations = cur_circle.locations
+		let cur_index = cur_circle.current
+		let cur_length = len(locations)
+		let cur_circle.locations = wheel#chain#remove_index(cur_index, locations)
+		let cur_length -= 1
+		let cur_circle.current = wheel#gear#circular_minus(cur_index, cur_length)
+		let glossary = cur_circle.glossary
+		let cur_name = cur_location.name
+		let cur_circle.glossary = wheel#chain#remove_element(cur_name, glossary)
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	endif
 endfun
