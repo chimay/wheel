@@ -229,6 +229,7 @@ fun! wheel#tree#delete_torus ()
 		let cur_name = cur_torus.name
 		let g:wheel.glossary = wheel#chain#remove_element(cur_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#checknfix#history ()
 	endif
 endfun
 
@@ -247,6 +248,7 @@ fun! wheel#tree#delete_circle ()
 		let cur_name = cur_circle.name
 		let cur_torus.glossary = wheel#chain#remove_element(cur_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#checknfix#history ()
 	endif
 endfun
 
@@ -266,5 +268,6 @@ fun! wheel#tree#delete_location ()
 		let cur_name = cur_location.name
 		let cur_circle.glossary = wheel#chain#remove_element(cur_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#checknfix#history ()
 	endif
 endfun
