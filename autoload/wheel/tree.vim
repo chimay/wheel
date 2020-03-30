@@ -222,8 +222,6 @@ fun! wheel#tree#delete_torus ()
 		let toruses = g:wheel.toruses
 		let cur_index = g:wheel.current
 		let cur_length = len(toruses)
-		let cur_name = cur_torus.name
-		call wheel#pendulum#delete(0, cur_name)
 		let g:wheel.toruses = wheel#chain#remove_index(cur_index, toruses)
 		let cur_length -= 1
 		let g:wheel.current = wheel#gear#circular_minus(cur_index, cur_length)
@@ -231,6 +229,8 @@ fun! wheel#tree#delete_torus ()
 		let cur_name = cur_torus.name
 		let g:wheel.glossary = wheel#chain#remove_element(cur_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#vortex#jump ()
+		call wheel#pendulum#delete(0, cur_name)
 	endif
 endfun
 
@@ -242,8 +242,6 @@ fun! wheel#tree#delete_circle ()
 		let circles = cur_torus.circles
 		let cur_index = cur_torus.current
 		let cur_length = len(circles)
-		let cur_name = cur_circle.name
-		call wheel#pendulum#delete(1, cur_name)
 		let cur_torus.circles = wheel#chain#remove_index(cur_index, circles)
 		let cur_length -= 1
 		let cur_torus.current = wheel#gear#circular_minus(cur_index, cur_length)
@@ -251,6 +249,8 @@ fun! wheel#tree#delete_circle ()
 		let cur_name = cur_circle.name
 		let cur_torus.glossary = wheel#chain#remove_element(cur_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#vortex#jump ()
+		call wheel#pendulum#delete(1, cur_name)
 	endif
 endfun
 
@@ -263,8 +263,6 @@ fun! wheel#tree#delete_location ()
 		let locations = cur_circle.locations
 		let cur_index = cur_circle.current
 		let cur_length = len(locations)
-		let cur_name = cur_location.name
-		call wheel#pendulum#delete(2, cur_name)
 		let cur_circle.locations = wheel#chain#remove_index(cur_index, locations)
 		let cur_length -= 1
 		let cur_circle.current = wheel#gear#circular_minus(cur_index, cur_length)
@@ -272,5 +270,7 @@ fun! wheel#tree#delete_location ()
 		let cur_name = cur_location.name
 		let cur_circle.glossary = wheel#chain#remove_element(cur_name, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#vortex#jump ()
+		call wheel#pendulum#delete(2, cur_name)
 	endif
 endfun
