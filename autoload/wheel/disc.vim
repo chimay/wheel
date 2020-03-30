@@ -27,6 +27,9 @@ endfun
 fun! wheel#disc#read (file)
 	" Read file
 	exe 'source ' . a:file
+	if argc() == 0
+		call wheel#vortex#jump ()
+	endif
 endfun
 
 fun! wheel#disc#roll_backups (file, backups)
