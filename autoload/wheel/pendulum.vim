@@ -92,6 +92,23 @@ fun! wheel#pendulum#rename(index, old, new)
 	endfor
 endfun
 
+fun! wheel#pendulum#delete(index, old)
+	" Delete all occurences of old in history
+	" index = 0 : delete torus
+	" index = 1 : delete circle
+	" index = 2 : delete location
+	let index = a:index
+	let old = a:old
+	let history = deepcopy(g:wheel_history)
+	for elem in history
+		let coordin = elem.coordin
+		if coordin[index] == old
+			let g:wheel_history =
+						\ wheel#chain#remove_element(elem, g:wheel_history)
+		endif
+	endfor
+endfun
+
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
 	let history = g:wheel_history
