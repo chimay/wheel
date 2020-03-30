@@ -112,8 +112,7 @@ endfun
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
 	let history = g:wheel_history
-	let [torus, circle, location] = wheel#referen#location('all')
-	let coordin = [torus.name, circle.name, location.name]
+	let coordin = wheel#referen#names()
 	let entry = {}
 	let entry.coordin = coordin
 	let entry.timestamp = wheel#pendulum#timestamp ()
@@ -169,8 +168,7 @@ fun! wheel#pendulum#alternate_same_torus ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
-		let [torus, circle, location] = wheel#referen#location('all')
-		let current = [torus.name, circle.name, location.name]
+		let current = wheel#referen#names ()
 		let target = []
 		for ind in range(1, length)
 			let coordin = history[ind].coordin
@@ -192,8 +190,7 @@ fun! wheel#pendulum#alternate_same_circle ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
-		let [torus, circle, location] = wheel#referen#location('all')
-		let current = [torus.name, circle.name, location.name]
+		let current = wheel#referen#names ()
 		let target = []
 		for ind in range(1, length)
 			let coordin = history[ind].coordin
@@ -215,8 +212,7 @@ fun! wheel#pendulum#alternate_other_torus ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
-		let [torus, circle, location] = wheel#referen#location('all')
-		let current = [torus.name, circle.name, location.name]
+		let current = wheel#referen#names ()
 		let target = []
 		for ind in range(1, length)
 			let coordin = history[ind].coordin
@@ -238,8 +234,7 @@ fun! wheel#pendulum#alternate_other_circle ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
-		let [torus, circle, location] = wheel#referen#location('all')
-		let current = [torus.name, circle.name, location.name]
+		let current = wheel#referen#names ()
 		let target = []
 		for ind in range(1, length)
 			let coordin = history[ind].coordin
@@ -261,8 +256,7 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
-		let [torus, circle, location] = wheel#referen#location('all')
-		let current = [torus.name, circle.name, location.name]
+		let current = wheel#referen#names ()
 		let target = []
 		for ind in range(1, length)
 			let coordin = history[ind].coordin

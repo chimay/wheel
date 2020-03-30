@@ -60,3 +60,8 @@ fun! wheel#referen#location (...)
 		return cur_location
 	endif
 endfun
+
+fun! wheel#referen#names ()
+	let [torus, circle, location] = wheel#referen#location('all')
+	return [torus.name, circle.name, location.name]
+endfun
