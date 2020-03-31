@@ -24,17 +24,33 @@ fun! wheel#vortex#update ()
 	endif
 endfun
 
+fun! wheel#vortex#windows (...)
+	" Return list of window(s) id(s) displaying filename
+	" filename is passed as argument, or
+	" defaults to current location filename
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = wheel#referen#location().file
+	endif
+	return win_findbuf(bufnr(filename))
+endfun
+
 fun! wheel#vortex#jump ()
 	" Jump to current location
-	let location = wheel#referen#location()
+	let location = wheel#referen#location ()
 	if ! empty(location)
+		let windows = wheel#vortex#windows ()
 		let buffer = bufname(location.file)
-		if empty(buffer)
-			" echomsg 'Opening file ' location.file
-			exe 'silent edit ' . location.file
-		else
-			" echomsg 'Switching to buffer ' location.file
+		if ! empty(windows)
+			echomsg 'Switching to window ' windows[0]
+			call win_gotoid(windows[0])
+		elseif bufloaded(location.file)
+			echomsg 'Switching to buffer ' buffer
 			exe 'silent buffer ' . buffer
+		else
+			echomsg 'Opening file ' location.file
+			exe 'silent edit ' . location.file
 		endif
 		exe location.line
 		exe 'normal! ' . location.col . '|'
