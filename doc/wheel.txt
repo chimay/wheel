@@ -151,9 +151,10 @@ like `<S-Home>` and `<S-End>`
 Switch using completion~
 
 You can switch :
-- location by completion with `<M-w><CR>`
-- circle by completion with `<M-w><C-CR>`
-- torus by completion with `<M-w><S-CR>`
+
+- location with completion with `<M-w><CR>`
+- circle with completion with `<M-w><C-CR>`
+- torus with completion with `<M-w><S-CR>`
 
 Switch using a special buffer~
 
