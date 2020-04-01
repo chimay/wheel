@@ -5,7 +5,7 @@ CONTENTS				*wheel-contents*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
-Configuration			*wheel-configuration*
+Configuration			|wheel-configuration|
 Functions			|wheel-functions|
 Mappings			|wheel-mappings|
 
