@@ -4,12 +4,18 @@
 CONTENTS				*wheel-contents*
 
 Introduction			|wheel-introduction|
-Goal				|wheel-goal|
-History				|wheel-history|
 Step by step			|wheel-step-by-step|
 
 ==============================================================================
 INTRODUCTION						*wheel-introduction*
+
+
+Goal				|wheel-goal|
+Features			|wheel-features|
+History				|wheel-history|
+
+------------------------------------------------------------------------------
+GOAL								*wheel-goal*
 
 Wheel is a plugin for vim or neovim aimed at managing buffer groups.
 
@@ -27,7 +33,7 @@ Note that :
 - A set of buffer groups is called a torus (a circle of circles)
 - The list of toruses is called the wheel
 
-Why do you need three levels of grouping ?
+Why do you need three levels of grouping ?~
 
 At first glance, managing groups with circles in a torus seems to
 be sufficient. But with time, the torus grows big, and a third level
@@ -41,21 +47,31 @@ helps you to organize your files by groups and categories:
     + shell or elisp in development torus
     + tea or art in publication torus
 
-==============================================================================
-GOAL								*wheel-goal*
-
+A wheel that follows you~
+    ~
 Torus helps you to organize your files in groups that you create
 yourself, following your workflow. You only add the files you want,
-where you want. For instance, if you have a "organize" group with
-agenda & todo files, you can quickly alternate them, or display them
-in two windows. Then, if you suddenly got an idea to tune emacs, you
-switch to the "emacs" group with your favorites configuration files in
-it. Same process, to cycle, alternate or display the files. Note that
-the toruses containing all these groups can be saved on a file and
-loaded later. Over time, your groups will grow and adapt to your
-style.
+where you want. For instance, if you have a "organize" group with agenda
+& todo files, you can quickly alternate them, or display them in two
+windows. Then, if you suddenly got an idea to tune vim, you switch to the
+"vim" group with your favorites configuration files in it. Same process,
+to cycle, alternate or display the files. Over time, your groups will
+grow and adapt to your style.
 
-==============================================================================
+------------------------------------------------------------------------------
+FEATURES						     *wheel-features*
+
+- Easy navigation
+  + Jump to matching window if available
+- May be saved in torus file
+-  Moving elements
+-  Display files
+  + In header-line tabs
+  + In split windows
+-  Autogroup
+-  Batch operations
+
+------------------------------------------------------------------------------
 HISTORY								*wheel-history*
 
 This project is inspired by :
@@ -168,16 +184,22 @@ Over time, the number of circles will grow. Completion is great, but
 if you just want to alternate the two last circles in history, you’ll
 probably prefer `<D-w>^`.
 
-You can also alternate two last files inside the same circle with
-`TODO`. So, you have the square :
+If you press `<D-w><C-^>`, you can choose the alternate mode in a menu :
+
+- Alternate anywhere
+- Alternate in the same circle
+- Alternate in the same torus
+- Alternate in another circle
+- Alternate in another torus
+- Alternate in same torus but another circle
+
+A common case is to alternate two files in the same circle, and two
+circles in the same torus. So, you have the square :
 
 | circle 1, file 1 | circle 1, file 2 |
 | circle 2, file 3 | circle 2, file 4 |
 
 at your fingertips.
-
-Finally, `TODO` alternate two last history
-files, regardless of their circles.
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:

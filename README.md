@@ -7,55 +7,68 @@ The core functionality begins to work. A lot of extras has to be done.
 ## TODO
 
 - create interactive menus
-- t:wheel, w:wheel containing local wheel coordinates
 - modes
   + 1 location per tab
   + 1 circle per tab
   + 1 torus per tab
+- moving things
+- autogroup
+- batch
 
 # Introduction
 
+## Goal
+
 Wheel is a plugin for Vim or Neovim aimed at managing buffer groups.
 
-In short, this plugin let you organize your buffers by creating as
-many buffer groups as you need, add the buffers you want to it and
-quickly navigate between :
+In short, this plugin let you organize your buffers by creating as many
+buffer groups as you need, add the buffers you want to it and quickly
+navigate between :
 
-- Buffers of the same group
-- Buffer groups
+- Buffers of the same group - Buffer groups
 
 Note that :
 
-- A location contains a name, a filename, as well as a line & column number
-- A buffer group, in fact a location group, is called a circle
-- A set of buffer groups, or a category, is called a torus (a circle of circles)
-- The list of toruses is called the wheel
+- A location contains a name, a filename, as well as a line & column
+number - A buffer group, in fact a location group, is called a circle -
+A set of buffer groups, or a category, is called a torus (a circle of
+circles) - The list of toruses is called the wheel
 
-## Goal
+### Why do you need three levels of grouping ?
 
-Wheel helps you to organize your files in groups that you create yourself,
-following your workflow. You only add the files you want, where you
-want. For instance, if you have a "organize" group with agenda & todo
-files, you can quickly alternate them. Then, if you suddenly got an
-idea to tune Vim, you switch to the "vim" group with your favorites
-configuration files in it. Same process, to cycle, alternate or display
-the files. Note that the toruses containing all these groups can be
-saved on a file and loaded later. Over time, your groups will grow and
-adapt to your style.
+At first glance, managing groups with circles in a torus seems to be
+sufficient. But with time, the torus grows big, and a third level helps
+you to organize your files by groups and categories:
 
-## Why do you need three levels of grouping ?
-
-At first glance, managing groups with circles in a torus seems to
-be sufficient. But with time, the torus grows big, and a third level
-helps you to organize your files by groups and categories:
-
-  - The wheel contains all the toruses
-  - Each torus contains a category of files, e.g.:
+  - The wheel contains all the toruses - Each torus contains a category
+  of files, e.g.:
     + configuration, development, publication
   - Each circle contains a project, e.g.:
-    + emacs or vifm circles in configuration torus
-    + shell or elisp in development torus
-    + tea or art in publication torus
+    + emacs or vifm circles in configuration torus + shell or elisp in
+    development torus + tea or art in publication torus
+
+### A wheel that follows you
+
+Torus helps you to organize your files in groups that you create
+yourself, following your workflow. You only add the files you want,
+where you want. For instance, if you have a "organize" group with agenda
+& todo files, you can quickly alternate them, or display them in two
+windows. Then, if you suddenly got an idea to tune vim, you switch to the
+"vim" group with your favorites configuration files in it. Same process,
+to cycle, alternate or display the files. Over time, your groups will
+grow and adapt to your style.
+
+## Features
+
+- Easy navigation
+  + Jump to matching window if available
+- May be saved in torus file
+- TODO Moving elements
+- TODO Display files
+  + In header-line tabs
+  + In split windows
+- TODO Autogroup
+- TODO Batch operations
 
 ## History
 
@@ -75,6 +88,39 @@ Simply add this line to your initialisation file :
 
 ```
 call minpac#add('chimay/wheel', { 'type' : 'start' })
+```
+
+
+# Configuration
+
+Here is an example of configuration :
+
+```
+" Initialize config dict
+let g:wheel_config={}
+" Auto read torus file on startup if > 0
+let g:wheel_config.autoread = 1
+" Auto write torus file on exit if > 0
+let g:wheel_config.autowrite = 1
+" The file where toruses and circles will be stored and read
+let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
+" The bigger it is, the more mappings available
+let g:wheel_config.mappings = 2
+" Prefix for mappings
+"let g:wheel_config.prefix = '<d-w>'
+" Number of backups for the wheel file
+let g:wheel_config.backups = 3
+" Auto cd to project root if > 0
+let g:wheel_config.cd_project = 1
+" Marker of project root
+"let g:wheel_config.project_markers = '.git'
+" List of markers: the project dir is found as soon as one marker is found in it
+let g:wheel_config.project_markers = ['.git', '.my-project-root']
+" Maximum number of elements in history
+let g:wheel_config.max_history = 50
+
+" Autocommands executed after jumping to a location
+"autocmd User WheelAfterJump norm zMzx
 ```
 
 # Step by Step
@@ -168,16 +214,22 @@ Over time, the number of circles will grow. Completion is great, but
 if you just want to alternate the two last circles in history, you’ll
 probably prefer `<D-w>^`.
 
-You can also alternate two last files inside the same circle with
-`TODO`. So, you have the square :
+If you press `<D-w><C-^>`, you can choose the alternate mode in a menu :
+
+- Alternate anywhere
+- Alternate in the same circle
+- Alternate in the same torus
+- Alternate in another circle
+- Alternate in another torus
+- Alternate in same torus but another circle
+
+A common case is to alternate two files in the same circle, and two
+circles in the same torus. So, you have the square :
 
 | circle 1, file 1 | circle 1, file 2 |
 | circle 2, file 3 | circle 2, file 4 |
 
 at your fingertips.
-
-Finally, `TODO` alternate two last history
-files, regardless of their circles.
 
 # Licence
 
