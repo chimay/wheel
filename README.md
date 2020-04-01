@@ -109,7 +109,7 @@ let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
 " The bigger it is, the more mappings available
 let g:wheel_config.mappings = 2
 " Prefix for mappings
-"let g:wheel_config.prefix = '<d-w>'
+"let g:wheel_config.prefix = '<M-w>'
 " Number of backups for the wheel file
 let g:wheel_config.backups = 3
 " Auto cd to project root if > 0
@@ -131,7 +131,7 @@ In the following discussion, I assume that you have kept the default
 mapping prefix :
 
 ```
-g:wheel_config.prefix = '<d-w>'
+g:wheel_config.prefix = '<M-w>'
 ```
 
 ## Mnemonic
