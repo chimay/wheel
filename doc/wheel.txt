@@ -276,7 +276,7 @@ Maximum number of elements in the wheel history : >
 <
 
 ------------------------------------------------------------------------------
-AUTOCOMMANDS				   *wheel-config-max_autocommands*
+AUTOCOMMANDS				   *wheel-config-autocommands*
 
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
