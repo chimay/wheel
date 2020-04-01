@@ -245,14 +245,15 @@ first initialize it : >
 ------------------------------------------------------------------------------
 AUTOREAD					    *wheel-config-autoread*
 
->
+Auto read torus file on startup if non null : >
     let g:wheel_config.autoread = 1
 <
 
 ------------------------------------------------------------------------------
 AUTOWRITE					    *wheel-config-autowrite*
 
->
+
+" Auto write torus file on exit if non null : >
     let g:wheel_config.autowrite = 1
 <
 
@@ -326,16 +327,18 @@ Level 10			|wheel-mappings-level-10|
 ------------------------------------------------------------------------------
 LEVELS						    *wheel-mappings-levels*
 
-The mappings are separated in levels. The option `g:wheel_config.prefix`
-is an integer which decide how many functions will be bound to keys ;
-the higher it is, the more mappings available :
+The mappings are organized in levels :
 
 - Level 0 : basic
 - Level 1 : common
 - Level 2 : advanced
 - Level 10 : non-prefix mappings
 
-So, if you want a level of 2 : >
+If you set the option `g:wheel_config.prefix` to an integer `N`, all
+mappings of level less or equal to `N` will be bound to keys. So, the
+higher this option, the more mappings available.
+
+E.g., if you want a level of 2 : >
     let g:wheel_config.prefix = 2
 <
 
