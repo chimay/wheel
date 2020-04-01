@@ -199,7 +199,7 @@ FUNCTIONS					        *wheel-functions*
 ==============================================================================
 MAPPINGS						    *wheel-mappings*
 
-Levels				*wheel-levels*
+Levels				|wheel-levels|
 Prefix				|wheel-prefix|
 Mnemonic			|wheel-mnemonic|
 
