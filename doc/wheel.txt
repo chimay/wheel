@@ -303,7 +303,12 @@ the higher it is, the more mappings available :
 - Level 2 : advanced
 - Level 10 : non-prefix mappings
 
-Level 1 or 2 is fine for most usages.
+So, if you want a level of 2 : >
+    let g:wheel_config.prefix = 2
+<
+
+Level 1 or 2 is fine for most usages. See |wheel-mapping-level-0| and
+subsequent for more information.
 
 ------------------------------------------------------------------------------
 PREFIX						    *wheel-mappings-prefix*
@@ -334,28 +339,28 @@ LEVEL 0						*wheel-mappings-level-0*
 Add~
 
 | Prefix + | With default prefix | Action                             |
-| `a`        | `<M-w>a`              | Add location to the current circle |
-| `<C-a>`    | `<M-w><C-a>`          | Add circle to the current torus    |
-| `A`        | `<M-w>A`              | Add torus to the wheel             |
-| `f`        | `<M-w>f`              | Add file                           |
-| `b`        | `<M-w>b`              | Add buffer                         |
-| `<D-a>`    | `<M-w><D-a>`          | Add menu                           |
+| a        | <M-w>a              | Add location to the current circle |
+| <C-a>    | <M-w><C-a>          | Add circle to the current torus    |
+| A        | <M-w>A              | Add torus to the wheel             |
+| f        | <M-w>f              | Add file                           |
+| b        | <M-w>b              | Add buffer                         |
+| <D-a>    | <M-w><D-a>          | Add menu                           |
 
 Navigation : next / previous~
 
 | Prefix +    | With default prefix | Action                  |
-| `<left>`      | `<M-w><left>`         | Go to previous location |
-| `<right>`     | `<M-w><right>`        | Go to next location     |
-| `<C-left>`    | `<M-w><C-left>`       | Go to previous circle   |
-| `<C-right>`   | `<M-w><C-right>`      | Go to next circle       |
-| `<S-left>`    | `<M-w><S-left>`       | Go to previous torus    |
-| `<S-right>`   | `<M-w><S-right>`      | Go to next torus        |
+| <left>      | <M-w><left>         | Go to previous location |
+| <right>     | <M-w><right>        | Go to next location     |
+| <C-left>    | <M-w><C-left>       | Go to previous circle   |
+| <C-right>   | <M-w><C-right>      | Go to next circle       |
+| <S-left>    | <M-w><S-left>       | Go to previous torus    |
+| <S-right>   | <M-w><S-right>      | Go to next torus        |
 
 Read / Write file~
 
 | Prefix + | With default prefix | Action             |
-| `r`        | `<M-w>r`              | Load wheel file    |
-| `w`        | `<M-w>w`              | Save wheel in file |
+| r        | <M-w>r              | Load wheel file    |
+| w        | <M-w>w              | Save wheel in file |
 
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
@@ -363,37 +368,65 @@ LEVEL 1						*wheel-mappings-level-1*
 Rename~
 
 | Prefix + | With default prefix | Action                  |
-| `n`        | `<M-w>n`              | Rename current location |
-| `<C-n>`    | `<M-w><C-n>`          | Rename current circle   |
-| `N`        | `<M-w>N`              | Rename current torus    |
+| n        | <M-w>n              | Rename current location |
+| <C-n>    | <M-w><C-n>          | Rename current circle   |
+| N        | <M-w>N              | Rename current torus    |
 
 Delete~
 
 | Prefix + | With default prefix | Action                  |
-| `d`        | `<M-w>d`              | Delete current location |
-| `<C-d>`    | `<M-w><C-d>`          | Delete current circle   |
-| `D`        | `<M-w>D`              | Delete current torus    |
+| d        | <M-w>d              | Delete current location |
+| <C-d>    | <M-w><C-d>          | Delete current circle   |
+| D        | <M-w>D              | Delete current torus    |
 
 Navigation : switch~
 
 | Prefix + | With default prefix | Action             |
-| `<CR>`     | `<M-w><CR>`           | Switch to location |
-| `<C-CR>`   | `<M-w><C-CR>`         | Switch to circle   |
-| `<S-CR>`   | `<M-w><S-CR>`         | Switch to torus    |
+| <CR>     | <M-w><CR>           | Switch to location |
+| <C-CR>   | <M-w><C-CR>         | Switch to circle   |
+| <S-CR>   | <M-w><S-CR>         | Switch to torus    |
 
 History~
 
 | Prefix +      | With default prefix | Action                          |
-| `<tab>`         | `<M-w><tab>`          | Go to newer location in history |
-| `<backspace>`   | `<M-w><backspace>`    | Go to older location in history |
-| `^`             | `<M-w>^`              | Alternate last two locations    |
-| `<C-^>`         | `<M-w><C-^>`          | Menu to alternate locations     |
+| <tab>         | <M-w><tab>          | Go to newer location in history |
+| <backspace>   | <M-w><backspace>    | Go to older location in history |
+| ^             | <M-w>^              | Alternate last two locations    |
+| <C-^>         | <M-w><C-^>          | Menu to alternate locations     |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
 
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
+
+The level 10 offers quicker mappings for the most used wheel functions. You
+can set the mapping level to 10 to activate them, or adapt them to your taste
+and add them to your init file.
+
+| Mapping        | Action                                |
+| <D-Insert>     | Add location to the current circle    |
+| <D-Del>        | Delete current location               |
+| <C-PageUp>     | Go to previous location               |
+| <C-PageDown>   | Go to next location                   |
+| <C-Home>       | Go to previous circle                 |
+| <C-End>        | Go to next circle                     |
+| <S-Home>       | Go to previous torus                  |
+| <S-End>        | Go to next torus                      |
+| <Space>        | Choose location in special buffer     |
+| <C-Space>      | Choose circle in special buffer       |
+| <S-Space>      | Choose torus in special buffer        |
+| <D-Space>      | Switch to location with completion    |
+| <D-=>          | Switch to circle                      |
+| <D-*>          | Switch to torus                       |
+| <S-PageUp>     | Go to newer location in history       |
+| <S-PageDown>   | Go to older location in history       |
+| <C-^>          | Alternate last two locations          |
+| <D-^>          | Alternate in same torus, other circle |
+| <C-S-PageUp>   | Alternate in same torus               |
+| <C-S-PageDown> | Alternate in same circle              |
+| <C-S-Home>     | Alternate in other torus              |
+| <C-S-End>      | Alternate in other circle             |
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:
