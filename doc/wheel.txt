@@ -192,7 +192,7 @@ at your fingertips.
 ==============================================================================
 SPECIAL BUFFERS					    *wheel-special-buffers*
 
-Introduction			*wheel-special-buffers-introduction*
+Introduction			|wheel-special-buffers-introduction|
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 
