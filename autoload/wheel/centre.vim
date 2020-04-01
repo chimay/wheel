@@ -62,7 +62,7 @@ fun! wheel#centre#mappings ()
 	if g:wheel_config.mappings >= 2
 	endif
 	" Without prefix
-	if g:wheel_config.mappings > 10
+	if g:wheel_config.mappings >= 10
 		" Tree
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
 		nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
