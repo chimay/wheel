@@ -88,7 +88,7 @@ fun! wheel#void#foundation ()
 		let g:wheel_config.mappings = 1
 	endif
 	if ! has_key(g:wheel_config, 'prefix')
-		let g:wheel_config.prefix = '<D-w>'
+		let g:wheel_config.prefix = '<M-w>'
 	endif
 	if ! has_key(g:wheel_config, 'backups')
 		let g:wheel_config.backups = 3
