@@ -157,14 +157,7 @@ You can switch :
 
 Switch using a special buffer~
 
-You can also switch location by chosing it in a special buffer. The
-default mapping is `<M-w><Space>`. Pressing enter on a line will switch
-to the matching location. Going to insert mode will allow you to filter
-the lines with one or more words.
-
-To choose a given :
-- circle in a special buffer, use `<M-w><C-space>`.
-- torus in a special buffer, use `<M-w><S-space>`.
+You can also switch location, circle or torus by chosing it in |wheel-special-buffers|.
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
