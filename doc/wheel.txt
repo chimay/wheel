@@ -209,7 +209,7 @@ DICTIONARY					  *wheel-config-dictionary*
 Customization is done using the `g:wheel_config` dictionary. You must
 first initialize it : >
 
-    let g:wheel_config={}
+    let g:wheel_config = {}
 <
 
 ------------------------------------------------------------------------------
@@ -288,6 +288,7 @@ MAPPINGS						    *wheel-mappings*
 Levels				|wheel-mappings-levels|
 Prefix				|wheel-mappings-prefix|
 Mnemonic			|wheel-mappings-mnemonic|
+Level 0				|wheel-mappings-level-0|
 
 ------------------------------------------------------------------------------
 LEVELS						    *wheel-mappings-levels*
@@ -328,6 +329,72 @@ Most mappings respect the following convention :
 - prefix + `<C-letter>` : circle operation
 - prefix + `<S-letter>` : location operation
 
+------------------------------------------------------------------------------
+LEVEL 0						*wheel-mappings-level-0*
+
+Add~
+
+| Prefix + | With Default prefix | Action                             |
+| `a`        | `<D-w>a`              | Add location to the current circle |
+| `<C-a>`    | `<D-w><C-a>`          | Add circle to the current torus    |
+| `A`        | `<D-w>A`              | Add torus to the wheel             |
+| `f`        | `<D-w>f`              | Add file                           |
+| `b`        | `<D-w>b`              | Add buffer                         |
+| `<D-a>`    | `<D-w><D-a>`          | Add menu                           |
+
+Navigation : next / previous~
+
+| Prefix +    | With Default prefix | Action                  |
+| `<left>`      | `<D-w><left>`         | Go to previous location |
+| `<right>`     | `<D-w><right>`        | Go to next location     |
+| `<C-left>`    | `<D-w><C-left>`       | Go to previous circle   |
+| `<C-right>`   | `<D-w><C-right>`      | Go to next circle       |
+| `<S-left>`    | `<D-w><S-left>`       | Go to previous torus    |
+| `<S-right>`   | `<D-w><S-right>`      | Go to next torus        |
+
+Read / Write file~
+
+| Prefix + | With Default prefix | Action             |
+| `r`        | `<D-w>r`              | Load wheel file    |
+| `w`        | `<D-w>w`              | Save wheel in file |
+
+------------------------------------------------------------------------------
+LEVEL 1						*wheel-mappings-level-1*
+
+Rename~
+
+| Prefix + | With Default prefix | Action                  |
+| `n`        | `<D-w>n`              | Rename current location |
+| `<C-n>`    | `<D-w><C-n>`          | Rename current circle   |
+| `N`        | `<D-w>N`              | Rename current torus    |
+
+Delete~
+
+| Prefix + | With Default prefix | Action                  |
+| `d`         | `<D-w>d`             | Delete current location |
+| `<C-d>`     | `<D-w><C-d>`         | Delete current circle   |
+| `D`         | `<D-w>D`             | Delete current torus    |
+
+Navigation : switch~
+
+| Prefix + | With Default prefix | Action             |
+| `<CR>`     | `<D-w><CR>`           | Switch to location |
+| `<C-CR>`   | `<D-w><C_CR>`         | Switch to circle   |
+| `<S-CR>`   | `<D-w><S-CR>`         | Switch to torus    |
+
+History~
+
+| Prefix +      | With Default prefix | Action                          |
+| `<tab>`         | `<D-w><tab>`          | Go to newer location in history |
+| `<backspace>`   | `<D-w><backspace>`    | Go to older location in history |
+| `^`             | `<D-w>^`              | Alternate last two locations    |
+| `<C-^>`         | `<D-w><C-^>`          | Menu to alternate locations     |
+
+------------------------------------------------------------------------------
+LEVEL 2						*wheel-mappings-level-2*
+
+------------------------------------------------------------------------------
+LEVEL 10					*wheel-mappings-level-10*
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:

@@ -7,11 +7,11 @@ The core functionality begins to work. A lot of extras has to be done.
 ## TODO
 
 - create interactive menus
+- moving things
 - modes
   + 1 location per tab
   + 1 circle per tab
   + 1 torus per tab
-- moving things
 - autogroup
 - batch
 
