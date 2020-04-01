@@ -13,12 +13,12 @@ Mappings			|wheel-mappings|
 INTRODUCTION						*wheel-introduction*
 
 
-Goal				|wheel-goal|
-Features			|wheel-features|
-History				|wheel-history|
+Goal				|wheel-introduction-goal|
+Features			|wheel-introduction-features|
+History				|wheel-introduction-history|
 
 ------------------------------------------------------------------------------
-GOAL							*wheel-goal*
+GOAL						*wheel-introduction-goal*
 
 Wheel is a plugin for vim or neovim aimed at managing buffer groups.
 
@@ -62,7 +62,7 @@ to cycle, alternate or display the files. Over time, your groups will
 grow and adapt to your style.
 
 ------------------------------------------------------------------------------
-FEATURES					   *wheel-features*
+FEATURES				*wheel-introduction-features*
 
 - Easy navigation
   + Jump to matching window if available
@@ -75,7 +75,7 @@ FEATURES					   *wheel-features*
 -  Batch operations
 
 ------------------------------------------------------------------------------
-HISTORY								*wheel-history*
+HISTORY						*wheel-introduction-history*
 
 This project is inspired by :
 
@@ -88,12 +88,12 @@ itself inspired by MTorus
 ==============================================================================
 STEP BY STEP						*wheel-step-by-step*
 
-First circles			|wheel-first-circles|
-Moving around			|wheel-moving-around|
-Square the circle		|wheel-square-the-circle|
+First circles			|wheel-sbs-first-circles|
+Moving around			|wheel-sbs-moving-around|
+Square the circle		|wheel-sbs-square-the-circle|
 
 ------------------------------------------------------------------------------
-FIRST CIRCLES				    	    *wheel-first-circles*
+FIRST CIRCLES				    	    *wheel-sbs-first-circles*
 
 In the following discussion, I assume that you have kept the default
 mapping prefix `<D-w>`.
@@ -130,7 +130,7 @@ If you want to create another torus, let’s say `Books`, simply launch
 `<D-w><S-a>`, and answer `Books` to the prompt.
 
 ------------------------------------------------------------------------------
-MOVING AROUND					     *wheel-moving-around*
+MOVING AROUND					     *wheel-sbs-moving-around*
 
 Cycling~
 
@@ -166,7 +166,7 @@ To choose a given circle in a special buffer, use `<D-w><C-space>`.
 To choose a given torus in a special buffer, use `<D-w><S-space>`.
 
 ------------------------------------------------------------------------------
-SQUARE THE CIRCLE				*wheel-square-the-circle*
+SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
 
 Over time, the number of circles will grow. Completion is great, but
 if you just want to alternate the two last circles in history, you’ll
@@ -192,6 +192,30 @@ at your fingertips.
 ==============================================================================
 CONFIGURATION					    *wheel-configuration*
 
+Dictionary				|wheel-config-dictionary|
+Autoread				|wheel-config-autoread|
+
+------------------------------------------------------------------------------
+DICTIONARY					  *wheel-config-dictionary*
+
+Customization is done using the `g:wheel_config` dictionary. You must
+first initialize it : >
+
+    let g:wheel_config={}
+<
+
+------------------------------------------------------------------------------
+AUTOREAD					    *wheel-config-autoread*
+
+------------------------------------------------------------------------------
+AUTOWRITE					    *wheel-config-autowrite*
+
+------------------------------------------------------------------------------
+FILE						    *wheel-config-file*
+
+------------------------------------------------------------------------------
+MAPPINGS					    *wheel-config-mappings*
+
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
 
@@ -199,12 +223,12 @@ FUNCTIONS					        *wheel-functions*
 ==============================================================================
 MAPPINGS						    *wheel-mappings*
 
-Levels				|wheel-levels|
-Prefix				|wheel-prefix|
-Mnemonic			|wheel-mnemonic|
+Levels				|wheel-mappings-levels|
+Prefix				|wheel-mappings-prefix|
+Mnemonic			|wheel-mappings-mnemonic|
 
 ------------------------------------------------------------------------------
-LEVELS							    *wheel-levels*
+LEVELS						    *wheel-mappings-levels*
 
 The mappings are separated in levels. The option >g:wheel_config.prefix<,
 is an integer which decide how many functions will be bound to keys :
@@ -218,16 +242,23 @@ the higher it is, the more mappings available :
 Level 1 or 2 is fine for most usages.
 
 ------------------------------------------------------------------------------
-PREFIX							   *wheel-prefix*
+PREFIX						    *wheel-mappings-prefix*
 
 Default mappings of levels 0, 1, 2 use a prefix key. This prefix is `<D-w>` by
-default. You can customize it, e.g. to `<M-w>` :
+default. You can customize it :
+>
+    let g:wheel_config.prefix = '<my-wonderful-prefix>'
+<
+
+The `<D-...>` mappings work well with Neovim, but may have some
+, e.g. to `<M-w>`
+
 >
     let g:wheel_config.prefix = '<m-w>'
 <
 
 ------------------------------------------------------------------------------
-MNEMONIC						*wheel-mnemonic*
+MNEMONIC					*wheel-mappings-mnemonic*
 
 - prefix + `letter`     : location operation
 - prefix + `<C-letter>` : circle operation
