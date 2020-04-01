@@ -250,8 +250,8 @@ default. You can customize it :
     let g:wheel_config.prefix = '<my-wonderful-prefix>'
 <
 
-The `<D-...>` mappings work well with Neovim, but may have some
-, e.g. to `<M-w>`
+The `<D-...>` mappings work well with Neovim, but may have some issue with
+Vim. In that case, you can change it, e.g. to `<M-w>` :
 
 >
     let g:wheel_config.prefix = '<m-w>'
