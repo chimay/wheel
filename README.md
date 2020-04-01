@@ -61,6 +61,7 @@ grow and adapt to your style.
 ## Features
 
 - Easy navigation
+  + On demand loading of files
   + Jump to matching window if available
 - May be saved in torus file
 - TODO Moving elements

@@ -65,6 +65,7 @@ grow and adapt to your style.
 FEATURES				*wheel-introduction-features*
 
 - Easy navigation
+  + On demand loading of files
   + Jump to matching window if available
 - May be saved in torus file
 -  Moving elements
@@ -335,7 +336,7 @@ LEVEL 0						*wheel-mappings-level-0*
 
 Add~
 
-| Prefix + | With Default prefix | Action                             |
+| Prefix + | With default prefix | Action                             |
 | `a`        | `<D-w>a`              | Add location to the current circle |
 | `<C-a>`    | `<D-w><C-a>`          | Add circle to the current torus    |
 | `A`        | `<D-w>A`              | Add torus to the wheel             |
@@ -345,7 +346,7 @@ Add~
 
 Navigation : next / previous~
 
-| Prefix +    | With Default prefix | Action                  |
+| Prefix +    | With default prefix | Action                  |
 | `<left>`      | `<D-w><left>`         | Go to previous location |
 | `<right>`     | `<D-w><right>`        | Go to next location     |
 | `<C-left>`    | `<D-w><C-left>`       | Go to previous circle   |
@@ -355,7 +356,7 @@ Navigation : next / previous~
 
 Read / Write file~
 
-| Prefix + | With Default prefix | Action             |
+| Prefix + | With default prefix | Action             |
 | `r`        | `<D-w>r`              | Load wheel file    |
 | `w`        | `<D-w>w`              | Save wheel in file |
 
@@ -364,28 +365,28 @@ LEVEL 1						*wheel-mappings-level-1*
 
 Rename~
 
-| Prefix + | With Default prefix | Action                  |
+| Prefix + | With default prefix | Action                  |
 | `n`        | `<D-w>n`              | Rename current location |
 | `<C-n>`    | `<D-w><C-n>`          | Rename current circle   |
 | `N`        | `<D-w>N`              | Rename current torus    |
 
 Delete~
 
-| Prefix + | With Default prefix | Action                  |
-| `d`         | `<D-w>d`             | Delete current location |
-| `<C-d>`     | `<D-w><C-d>`         | Delete current circle   |
-| `D`         | `<D-w>D`             | Delete current torus    |
+| Prefix + | With default prefix | Action                  |
+| `d`        | `<D-w>d`              | Delete current location |
+| `<C-d>`    | `<D-w><C-d>`          | Delete current circle   |
+| `D`        | `<D-w>D`              | Delete current torus    |
 
 Navigation : switch~
 
-| Prefix + | With Default prefix | Action             |
+| Prefix + | With default prefix | Action             |
 | `<CR>`     | `<D-w><CR>`           | Switch to location |
 | `<C-CR>`   | `<D-w><C_CR>`         | Switch to circle   |
 | `<S-CR>`   | `<D-w><S-CR>`         | Switch to torus    |
 
 History~
 
-| Prefix +      | With Default prefix | Action                          |
+| Prefix +      | With default prefix | Action                          |
 | `<tab>`         | `<D-w><tab>`          | Go to newer location in history |
 | `<backspace>`   | `<D-w><backspace>`    | Go to older location in history |
 | `^`             | `<D-w>^`              | Alternate last two locations    |
