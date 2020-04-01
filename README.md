@@ -8,6 +8,7 @@ The core functionality begins to work. A lot of extras has to be done.
 
 - create interactive menus
 - moving things
+  + reordering buffer
 - modes
   + 1 location per tab
   + 1 circle per tab
@@ -227,8 +228,9 @@ If you press `<D-w><C-^>`, you can choose the alternate mode in a menu :
 A common case is to alternate two files in the same circle, and two
 circles in the same torus. So, you have the square :
 
-| circle 1, file 1 | circle 1, file 2 |
-| circle 2, file 3 | circle 2, file 4 |
+---|---
+circle 1, file 1 | circle 1, file 2
+circle 2, file 3 | circle 2, file 4
 
 at your fingertips.
 

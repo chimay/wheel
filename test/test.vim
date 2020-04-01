@@ -107,3 +107,9 @@ endfu
 " }}}2
 
 " }}}1
+
+" Autocommands {{{1
+
+au BufWriteCmd <buffer> echo 'autocommand replacing write'
+
+" }}}1

@@ -190,6 +190,41 @@ circles in the same torus. So, you have the square :
 at your fingertips.
 
 ==============================================================================
+SPECIAL BUFFERS					    *wheel-special-buffers*
+
+Introduction			*wheel-special-buffers-introduction*
+Navigation buffers		|wheel-special-buffers-navigation|
+Reordering buffers		|wheel-special-buffers-reordering|
+
+------------------------------------------------------------------------------
+INTRODUCTION				*wheel-special-buffers-introduction*
+
+Special buffers allow you to perform Wheel operations intuitively. The type of
+action depends on the context :
+
+- Navigation buffers allow you to filter and jump to a location, circle or torus
+- Reordering buffers allow you to reorder locations, circles or toruses
+
+------------------------------------------------------------------------------
+NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
+
+The navigation buffers allow you to quickly jump to a Wheel element
+by pressing enter on the matching line. If you go to insert mode,
+each word you enter on the first line will filter the elements.
+
+The default mappings are :
+
+- `<M-w><Space>`: jump to location
+- `<M-w><C-space>` : jump to circle
+- `<M-w><S-space>` : jump to torus
+
+------------------------------------------------------------------------------
+REORDERING BUFFERS			*wheel-special-buffers-reordering*
+
+The navigation buffers allow you to quickly reorder Wheel elements by
+reordering the buffer lines.
+
+==============================================================================
 CONFIGURATION					    *wheel-configuration*
 
 Dictionary				|wheel-config-dictionary|
