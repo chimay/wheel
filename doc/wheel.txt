@@ -139,21 +139,20 @@ You can cycle the files of a circle with `<M-w><Left>` and
 `<M-w><Right>`. These are often used bindings, so I suggest you map them
 to a more convient key, like `<C-PageUp>` and `<C-PageDown>`
 
-To cycle the circles, use `<M-w><C-left>` and `<M-w><C-right>`. These are
+To cycle the circles, use `<M-w><C-Left>` and `<M-w><C-Right>`. These are
 often used bindings, so I suggest you map them to a more convient key,
 like `<C-Home>` and `<C-End>`
 
-To cycle the toruses, use `<M-w><S-left>` and `<M-w><S-right>`. These are
+To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>`. These are
 often used bindings, so I suggest you map them to a more convient key,
 like `<S-Home>` and `<S-End>`
 
 Switch using completion~
 
-You can also switch location by completion with `<M-w><CR>`.
-
-You can also switch circle by completion with `<M-w><C-CR>`.
-
-You can also switch torus by completion with `<M-w><S-CR>`.
+You can switch :
+- location by completion with `<M-w><CR>`
+- circle by completion with `<M-w><C-CR>`
+- torus by completion with `<M-w><S-CR>`
 
 Switch using a special buffer~
 
@@ -162,9 +161,9 @@ default mapping is `<M-w><Space>`. Pressing enter on a line will switch
 to the matching location. Going to insert mode will allow you to filter
 the lines with one or more words.
 
-To choose a given circle in a special buffer, use `<M-w><C-space>`.
-
-To choose a given torus in a special buffer, use `<M-w><S-space>`.
+To choose a given :
+- circle in a special buffer, use `<M-w><C-space>`.
+- torus in a special buffer, use `<M-w><S-space>`.
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
@@ -315,7 +314,7 @@ default. You can customize it : >
 <
 
 I like to set it to `<D-w>`, but since the `<D-...>` mappings don't seem
-to work in terminal, or with Gvim, it' not the default. It' working on
+to work in terminal or with Gvim, it is not the default. It's working on
 Neovim-qt, though : >
     let g:wheel_config.prefix = '<D-w>'
 <
@@ -379,7 +378,7 @@ Navigation : switch~
 
 | Prefix + | With default prefix | Action             |
 | `<CR>`     | `<M-w><CR>`           | Switch to location |
-| `<C-CR>`   | `<M-w><C_CR>`         | Switch to circle   |
+| `<C-CR>`   | `<M-w><C-CR>`         | Switch to circle   |
 | `<S-CR>`   | `<M-w><S-CR>`         | Switch to torus    |
 
 History~
