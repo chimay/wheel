@@ -294,7 +294,7 @@ Level 1				|wheel-mappings-level-1|
 ------------------------------------------------------------------------------
 LEVELS						    *wheel-mappings-levels*
 
-The mappings are separated in levels. The option ’g:wheel_config.prefix’,
+The mappings are separated in levels. The option `g:wheel_config.prefix`,
 is an integer which decide how many functions will be bound to keys :
 the higher it is, the more mappings available :
 
