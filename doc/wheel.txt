@@ -260,6 +260,8 @@ The `<D-...>` mappings work well with Neovim, but may have some
 ------------------------------------------------------------------------------
 MNEMONIC					*wheel-mappings-mnemonic*
 
+Most mappings respect the following convention :
+
 - prefix + `letter`     : location operation
 - prefix + `<C-letter>` : circle operation
 - prefix + `<S-letter>` : location operation
