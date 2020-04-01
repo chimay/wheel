@@ -5,6 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
+Special buffers			|wheel-special-buffers|
 Configuration			|wheel-configuration|
 Functions			|wheel-functions|
 Mappings			|wheel-mappings|
