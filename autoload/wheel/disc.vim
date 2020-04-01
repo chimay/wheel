@@ -53,7 +53,7 @@ fun! wheel#disc#write_all ()
 	" Write all wheel variables to g:wheel_config.file
 	call wheel#vortex#update ()
 	if has_key(g:wheel_config, 'file')
-		echomsg 'Writing wheel vars to file ...'
+		echomsg 'Writing wheel variables to file ...'
 		call wheel#disc#roll_backups(g:wheel_config.file, g:wheel_config.backups)
 		call wheel#disc#write('g:wheel', g:wheel_config.file, '>')
 		call wheel#disc#write('g:wheel_helix', g:wheel_config.file, '>>')
@@ -68,7 +68,7 @@ endfun
 fun! wheel#disc#read_all ()
 	" Read all wheel variables from g:wheel_config.file
 	if has_key(g:wheel_config, 'file')
-		echomsg 'Reading wheel vars from file ...'
+		echomsg 'Reading wheel variables from file ...'
 		call wheel#disc#read(g:wheel_config.file)
 	else
 		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
