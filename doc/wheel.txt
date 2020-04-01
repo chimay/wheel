@@ -194,6 +194,14 @@ CONFIGURATION					    *wheel-configuration*
 
 Dictionary				|wheel-config-dictionary|
 Autoread				|wheel-config-autoread|
+Autowrite				|wheel-config-autowrite|
+File					|wheel-config-file|
+Mappings				|wheel-config-mappings|
+Backups					|wheel-config-backups|
+Cd project				|wheel-config-cd_project|
+Project markers				|wheel-config-project_markers|
+Max history 				|wheel-config-max_history|
+Autocommands				|wheel-config-autocommands|
 
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
@@ -207,14 +215,68 @@ first initialize it : >
 ------------------------------------------------------------------------------
 AUTOREAD					    *wheel-config-autoread*
 
+>
+    let g:wheel_config.autoread = 1
+<
+
 ------------------------------------------------------------------------------
 AUTOWRITE					    *wheel-config-autowrite*
+
+>
+    let g:wheel_config.autowrite = 1
+<
 
 ------------------------------------------------------------------------------
 FILE						    *wheel-config-file*
 
+File to save or load `g:wheel` : >
+    let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
+<
+
+Note that the directory `~/.local/share/wheel` must exist.
+
 ------------------------------------------------------------------------------
 MAPPINGS					    *wheel-config-mappings*
+
+Determine how many default mappings are available : >
+    let g:wheel_config.mappings = 10
+<
+
+See |wheel-mappings-levels| for more information.
+
+------------------------------------------------------------------------------
+BACKUPS						    *wheel-config-backups*
+
+Number of backup for the wheel file, in case things get messed up
+accidentally : >
+    let g:wheel_config.backups = 3
+<
+
+------------------------------------------------------------------------------
+CD PROJECT					*wheel-config-cd_project*
+
+Try to change dir to project root it > 0 : >
+    let g:wheel_config.cd_project = 1
+<
+
+------------------------------------------------------------------------------
+PROJECT MARKERS				*wheel-config-project_markers*
+
+File(s) or directories(s) marking a project root. Can take a string or
+list value. : >
+    let g:wheel_config.project_markers = '.git'
+    let g:wheel_config.project_markers = ['.git', '.my-project-root']
+<
+
+------------------------------------------------------------------------------
+MAX HISTORY				   *wheel-config-max_history*
+
+Maximum number of elements in the wheel history : >
+    let g:wheel_config.max_history = 50
+<
+
+------------------------------------------------------------------------------
+AUTOCOMMANDS				   *wheel-config-max_autocommands*
 
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
@@ -254,7 +316,7 @@ The `<D-...>` mappings work well with Neovim, but may have some issue with
 Vim. In that case, you can change it, e.g. to `<M-w>` :
 
 >
-    let g:wheel_config.prefix = '<m-w>'
+    let g:wheel_config.prefix = '<M-w>'
 <
 
 ------------------------------------------------------------------------------
