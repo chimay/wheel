@@ -43,13 +43,13 @@ fun! wheel#vortex#jump ()
 		let windows = wheel#vortex#windows ()
 		let buffer = bufname(location.file)
 		if ! empty(windows)
-			echomsg 'Switching to window ' windows[0]
+			"echomsg 'Switching to window ' windows[0]
 			call win_gotoid(windows[0])
 		elseif bufloaded(location.file)
-			echomsg 'Switching to buffer ' buffer
+			"echomsg 'Switching to buffer ' buffer
 			exe 'silent buffer ' . buffer
 		else
-			echomsg 'Opening file ' location.file
+			"echomsg 'Opening file ' location.file
 			exe 'silent edit ' . location.file
 		endif
 		exe location.line

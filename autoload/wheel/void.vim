@@ -108,6 +108,7 @@ fun! wheel#void#foundation ()
 endfu
 
 fun! wheel#void#init ()
+	echomsg 'Wheel hello !'
 	call wheel#void#foundation ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
@@ -117,6 +118,7 @@ fun! wheel#void#init ()
 endfu
 
 fun! wheel#void#exit ()
+	echomsg 'Wheel bye !'
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
 	endif
