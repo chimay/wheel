@@ -129,7 +129,7 @@ In the following discussion, I assume that you have kept the default
 mapping prefix :
 
 ```
-g:wheel_config = '<d-w>'
+g:wheel_config.prefix = '<d-w>'
 ```
 
 ## Mnemonic

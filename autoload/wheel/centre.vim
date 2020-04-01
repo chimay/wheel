@@ -12,7 +12,7 @@ endfun
 fun! wheel#centre#mappings ()
 	" Define mappings
 	" Basic
-	if g:wheel_config.mappings > 0
+	if g:wheel_config.mappings >= 0
 		" Tree : add
 		exe 'nnoremap ' . g:wheel_config.prefix . 'a :call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-a> :call wheel#tree#add_circle()<cr>'
@@ -32,7 +32,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . 'w :call wheel#disc#write_all()<cr>'
 	endif
 	" Common
-	if g:wheel_config.mappings > 1
+	if g:wheel_config.mappings >= 1
 		" Tree : rename, delete
 		exe 'nnoremap ' . g:wheel_config.prefix . 'n :call wheel#tree#rename_location()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-n> :call wheel#tree#rename_circle()<cr>'
@@ -59,7 +59,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . 'h :call wheel#mandala#history()<cr>'
 	endif
 	" Advanced
-	if g:wheel_config.mappings > 2
+	if g:wheel_config.mappings >= 2
 	endif
 	" Without prefix
 	if g:wheel_config.mappings > 10

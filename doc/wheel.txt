@@ -5,6 +5,9 @@ CONTENTS				*wheel-contents*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
+Configuration			*wheel-configuration*
+Functions			|wheel-functions|
+Mappings			|wheel-mappings|
 
 ==============================================================================
 INTRODUCTION						*wheel-introduction*
@@ -15,7 +18,7 @@ Features			|wheel-features|
 History				|wheel-history|
 
 ------------------------------------------------------------------------------
-GOAL								*wheel-goal*
+GOAL							*wheel-goal*
 
 Wheel is a plugin for vim or neovim aimed at managing buffer groups.
 
@@ -59,7 +62,7 @@ to cycle, alternate or display the files. Over time, your groups will
 grow and adapt to your style.
 
 ------------------------------------------------------------------------------
-FEATURES						     *wheel-features*
+FEATURES					   *wheel-features*
 
 - Easy navigation
   + Jump to matching window if available
@@ -85,31 +88,16 @@ itself inspired by MTorus
 ==============================================================================
 STEP BY STEP						*wheel-step-by-step*
 
-Mnemonic			|wheel-mnemonic|
 First circles			|wheel-first-circles|
 Moving around			|wheel-moving-around|
 Square the circle		|wheel-square-the-circle|
 
+------------------------------------------------------------------------------
+FIRST CIRCLES				    	    *wheel-first-circles*
 
 In the following discussion, I assume that you have kept the default
-mapping prefix :
-
-```
-g:wheel_config = '<d-w>'
-```
-
-------------------------------------------------------------------------------
-MNEMONIC						*wheel-mnemonic*
-
-Most mappings respect the following convention :
-
-- prefix + `letter`     : location operation
-- prefix + `<C-letter>` : circle operation
-- prefix + `<S-letter>` : location operation
-
-------------------------------------------------------------------------------
-FIRST CIRCLES					    *wheel-first-circles*
-
+mapping prefix `<D-w>`.
+>
 Let’s say we have the files `Juice`, `Tea`, `Coffee` and we want to
 group them. So, we go `Juice` and type `<D-w>a` to add a location to the
 wheel. If no torus is present in the wheel, it will create it and ask
@@ -200,6 +188,51 @@ circles in the same torus. So, you have the square :
 | circle 2, file 3 | circle 2, file 4 |
 
 at your fingertips.
+
+==============================================================================
+CONFIGURATION					    *wheel-configuration*
+
+==============================================================================
+FUNCTIONS					        *wheel-functions*
+
+
+==============================================================================
+MAPPINGS						    *wheel-mappings*
+
+Levels				*wheel-levels*
+Prefix				|wheel-prefix|
+Mnemonic			|wheel-mnemonic|
+
+------------------------------------------------------------------------------
+LEVELS							    *wheel-levels*
+
+The mappings are separated in levels. The option >g:wheel_config.prefix<,
+is an integer which decide how many functions will be bound to keys :
+the higher it is, the more mappings available :
+
+- Level 0 : basic
+- Level 1 : common
+- Level 2 : advanced
+- Level 10 : non-prefix mappings
+
+Level 1 or 2 is fine for most usages.
+
+------------------------------------------------------------------------------
+PREFIX							   *wheel-prefix*
+
+Default mappings of levels 0, 1, 2 use a prefix key. This prefix is `<D-w>` by
+default. You can customize it, e.g. to `<M-w>` :
+>
+    let g:wheel_config.prefix = '<m-w>'
+<
+
+------------------------------------------------------------------------------
+MNEMONIC						*wheel-mnemonic*
+
+- prefix + `letter`     : location operation
+- prefix + `<C-letter>` : circle operation
+- prefix + `<S-letter>` : location operation
+
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:
