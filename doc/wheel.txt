@@ -329,9 +329,9 @@ LEVELS						    *wheel-mappings-levels*
 
 The mappings are organized in levels :
 
-- Level 0 : basic
-- Level 1 : common
-- Level 2 : advanced
+- Level 0  : basic
+- Level 1  : common
+- Level 2  : advanced
 - Level 10 : non-prefix mappings
 
 If you set the option `g:wheel_config.prefix` to an integer `N`, all
@@ -342,7 +342,7 @@ E.g., if you want a level of 2 : >
     let g:wheel_config.prefix = 2
 <
 
-Level 1 or 2 is fine for most usages. See |wheel-mapping-level-0| and
+Level 1 or 2 is fine for most usages. See |wheel-mappings-level-0| and
 subsequent for more information.
 
 ------------------------------------------------------------------------------
