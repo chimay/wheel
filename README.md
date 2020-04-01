@@ -145,14 +145,14 @@ Most mappings respect the following convention :
 ## First Circles
 
 Let’s say we have the files `Juice`, `Tea`, `Coffee` and we want to
-group them. So, we go `Juice` and type `<D-w>a` to add a location to the
+group them. So, we go `Juice` and type `<M-w>a` to add a location to the
 wheel. If no torus is present in the wheel, it will create it and ask
 for a name. Let’s say we name it `Food`. If no group (no circle) is
 found in the torus, it will be created and prompt for a name. Let’s say
 we choose `Drinks`. Finally, our file `Juice` is added to the group. Its
 name is the filename without extension by default.
 
-Then, we go to `Tea` and type `<D-w>a` again. This time, it will just
+Then, we go to `Tea` and type `<M-w>a` again. This time, it will just
 ask us if we want to keep the default location name. Press enter, and
 `Tea` is added to the `Drinks` group.
 
@@ -160,63 +160,63 @@ Same process with `Coffee`. We now have a circle `Drink` containing
 three files.
 
 If you want to create another circle, let’s say `Fruits`, simply launch
-`<D-w><C-a>`, and answer `Fruits` to the prompt. You can then add the
+`<M-w><C-a>`, and answer `Fruits` to the prompt. You can then add the
 files `Apple`, `Pear` and `Orange` to it. You can even also add `Juice`:
 a file can be added to more than one circle.
 
 Now, suppose that in the `Juice` file, you have a Pineapple
 and a Mango sections, and you want to compare them. Just go to
-the Pineapple section, and use `<D-w>a`. It will add the location
+the Pineapple section, and use `<M-w>a`. It will add the location
 `Juice:pineapple-line:pineapple-col` to the current circle. Then, go to
 the Mango section, and do the same. The `Juice:mango-line:mango-col`
 will also be added to the circle. You can then easily alternate both,
 or display them in split windows.
 
 If you want to create another torus, let’s say `Books`, simply launch
-`<D-w><S-a>`, and answer `Books` to the prompt.
+`<M-w><S-a>`, and answer `Books` to the prompt.
 
 ## Moving around
 
 ### Cycling
 
-You can cycle the files of a circle with `<D-w><Left>` and
-`<D-w><Right>`. These are often used bindings, so I suggest you map them
+You can cycle the files of a circle with `<M-w><Left>` and
+`<M-w><Right>`. These are often used bindings, so I suggest you map them
 to a more convient key, like `<C-PageUp>` and `<C-PageDown>`
 
-To cycle the circles, use `<D-w><C-left>` and `<D-w><C-right>`. These are
+To cycle the circles, use `<M-w><C-left>` and `<M-w><C-right>`. These are
 often used bindings, so I suggest you map them to a more convient key,
 like `<C-Home>` and `<C-End>`
 
-To cycle the toruses, use `<D-w><S-left>` and `<D-w><S-right>`. These are
+To cycle the toruses, use `<M-w><S-left>` and `<M-w><S-right>`. These are
 often used bindings, so I suggest you map them to a more convient key,
 like `<S-Home>` and `<S-End>`
 
 ### Switch using completion
 
-You can also switch location by completion with `<D-w><CR>`.
+You can also switch location by completion with `<M-w><CR>`.
 
-You can also switch circle by completion with `<D-w><C-CR>`.
+You can also switch circle by completion with `<M-w><C-CR>`.
 
-You can also switch torus by completion with `<D-w><S-CR>`.
+You can also switch torus by completion with `<M-w><S-CR>`.
 
 ### Switch using a special buffer
 
 You can also switch location by chosing it in a special buffer. The
-default mapping is `<D-w><Space>`. Pressing enter on a line will switch
+default mapping is `<M-w><Space>`. Pressing enter on a line will switch
 to the matching location. Going to insert mode will allow you to filter
 the lines with one or more words.
 
-To choose a given circle in a special buffer, use `<D-w><C-space>`.
+To choose a given circle in a special buffer, use `<M-w><C-space>`.
 
-To choose a given torus in a special buffer, use `<D-w><S-space>`.
+To choose a given torus in a special buffer, use `<M-w><S-space>`.
 
 ## Square the Circle
 
 Over time, the number of circles will grow. Completion is great, but
 if you just want to alternate the two last circles in history, you’ll
-probably prefer `<D-w>^`.
+probably prefer `<M-w>^`.
 
-If you press `<D-w><C-^>`, you can choose the alternate mode in a menu :
+If you press `<M-w><C-^>`, you can choose the alternate mode in a menu :
 
 - Alternate anywhere
 - Alternate in the same circle
