@@ -27,11 +27,11 @@ endfun
 fun! wheel#vortex#jump ()
 	" Jump to current location
 	let location = wheel#referen#location ()
-	let window = wheel#square#tour ()
 	if ! empty(location)
+		let window = wheel#square#tour ()
 		let buffer = bufname(location.file)
 		if window
-			"echomsg 'Switching to window '
+			"echomsg 'Switching to window ' window
 			call win_gotoid(window)
 		elseif bufloaded(location.file)
 			"echomsg 'Switching to buffer ' buffer

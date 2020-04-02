@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Alternate locations, circles, toruses
+" Windows
 
 fun! wheel#square#glasses (filename)
 	" Return list of window(s) id(s) displaying filename
@@ -40,8 +40,6 @@ fun! wheel#square#tour ()
 			let new = glasses[index]
 			call win_gotoid(new)
 			let new_delta = abs(line - line('.'))
-			echomsg 'old' old old_delta
-			echomsg 'new' new new_delta
 			if new_delta < old_delta
 				let old_delta = new_delta
 				let old = new
