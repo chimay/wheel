@@ -196,8 +196,8 @@ Reordering buffers		|wheel-special-buffers-reordering|
 ------------------------------------------------------------------------------
 INTRODUCTION				*wheel-special-buffers-introduction*
 
-Special buffers allow you to perform Wheel operations intuitively. The type of
-action depends on the context :
+Special buffers allow you to perform Wheel operations intuitively, using
+full power of your editor. The type of action depends on the context :
 
 - Navigation buffers allow you to filter and jump to a location, circle or torus
 - Reordering buffers allow you to reorder locations, circles or toruses
@@ -205,9 +205,10 @@ action depends on the context :
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
 
-The navigation buffers allow you to quickly jump to a Wheel element
-by pressing enter on the matching line. If you go to insert mode,
-each word you enter on the first line will filter the elements.
+The navigation buffers allow you to quickly jump to a Wheel element by
+pressing enter on the matching line. You can use Vim / Neovim search
+to find it. You can also go to insert mode and filter the elements with
+each word you enter on the first line.
 
 The default mappings are :
 
@@ -219,7 +220,10 @@ The default mappings are :
 REORDERING BUFFERS			*wheel-special-buffers-reordering*
 
 The navigation buffers allow you to quickly reorder Wheel elements by
-reordering the buffer lines.
+reordering the buffer lines. You can use yank/delete/paste operations to
+perform the reordering, or use |:sort|.
+
+To validate your change, simply |:write| the buffer.
 
 ==============================================================================
 CONFIGURATION					    *wheel-configuration*
