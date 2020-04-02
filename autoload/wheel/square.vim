@@ -2,24 +2,54 @@
 
 " Alternate locations, circles, toruses
 
-fun! wheel#square#tour (filename)
+fun! wheel#square#glasses (filename)
 	" Return list of window(s) id(s) displaying filename
 	return win_findbuf(bufnr(a:filename))
 endfun
 
-fun! wheel#square#window (...)
-	" Return best candidate amongst window(s) id(s) displaying filename
-	" filename is passed as argument or defaults to current location
-	if a:0 > 0
-		let filename = a:1
+" Not working
+fun! wheel#square#window ()
+	" Return closest candidate amongst windows displaying current location
+	" Return 0 if no window display filename
+	let filename = wheel#referen#location().file
+	let glasses = wheel#square#glasses (filename)
+	" Get cursor line in window id ?
+	if ! empty (glasses)
+		return glasses[0]
 	else
-		let filename = wheel#referen#location().file
+		return []
 	endif
-	let windows = wheel#square#tour (filename)
-	" Cursor line in windows ?
-	if ! empty (windows)
-		return windows[0]
-	else
+endfun
+
+fun! wheel#square#tour ()
+	" Return closest candidate amongst windows displaying current location
+	" by exploring each one
+	" Return 0 if no window display filename
+	let original = win_getid()
+	let location = wheel#referen#location()
+	let filename = location.file
+	let line = location.line
+	let glasses = wheel#square#glasses (filename)
+	if empty(glasses)
 		return 0
+	else
+		let old = glasses[0]
+		call win_gotoid(old)
+		let old_delta = abs(line - line('.'))
+		for index in range(1, len(glasses) - 1)
+			let new = glasses[index]
+			call win_gotoid(new)
+			let new_delta = abs(line - line('.'))
+			echomsg 'old' old old_delta
+			echomsg 'new' new new_delta
+			if new_delta < old_delta
+				let old_delta = new_delta
+				let old = new
+			else
+				call win_gotoid(old)
+			endif
+		endfor
+		call win_gotoid(original)
+		return old
 	endif
 endfun
