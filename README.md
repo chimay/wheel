@@ -120,7 +120,6 @@ let g:wheel_config.cd_project = 1
 let g:wheel_config.project_markers = ['.git', '.my-project-root']
 " Maximum number of elements in history
 let g:wheel_config.max_history = 50
-
 " Autocommands executed after jumping to a location
 "autocmd User WheelAfterJump norm zMzx
 ```
@@ -228,9 +227,10 @@ If you press `<M-w><C-^>`, you can choose the alternate mode in a menu :
 A common case is to alternate two files in the same circle, and two
 circles in the same torus. So, you have the square :
 
-circle 1, file 1 | circle 1, file 2
------------------|-----------------
-circle 2, file 3 | circle 2, file 4
+              | File 1	        | File 2
+--------------|-----------------|-----------------
+Circle Drinks | Juice           | Tea
+Circle Fruits | Apple           | Pear
 
 at your fingertips.
 
