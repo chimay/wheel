@@ -227,7 +227,7 @@ If you press `<M-w><C-^>`, you can choose the alternate mode in a menu :
 A common case is to alternate two files in the same circle, and two
 circles in the same torus. So, you have the square :
 
-              | File 1	        | File 2
+ Alternate    | File 1	        | File 2
 --------------|-----------------|-----------------
 Circle Drinks | Juice           | Tea
 Circle Fruits | Apple           | Pear
