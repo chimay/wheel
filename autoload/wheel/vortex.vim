@@ -29,12 +29,12 @@ fun! wheel#vortex#jump ()
 	let location = wheel#referen#location ()
 	if ! empty(location)
 		let window = wheel#square#tour ()
-		let buffer = bufname(location.file)
 		if window
 			"echomsg 'Switching to window ' window
 			call win_gotoid(window)
 		elseif bufloaded(location.file)
 			"echomsg 'Switching to buffer ' buffer
+			let buffer = bufname(location.file)
 			exe 'silent buffer ' . buffer
 		else
 			"echomsg 'Opening file ' location.file
