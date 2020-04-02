@@ -3,13 +3,19 @@
 " Special Buffer menus
 " Filter and choose an element
 
-fun! wheel#mandala#open ()
+fun! wheel#mandala#open (...)
 	" Open a wheel buffer
+	let type = 'wheel-jump'
+	if a:0 > 0
+		let type = a:1
+	endif
 	new
 	setlocal cursorline
-	setlocal nobuflisted noswapfile
+	setlocal nobuflisted
+	setlocal noswapfile
 	setlocal buftype=nofile
 	setlocal bufhidden=delete
+	let &filetype = type
 endfun
 
 fun! wheel#mandala#filter ()

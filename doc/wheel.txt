@@ -221,7 +221,7 @@ REORDERING BUFFERS			*wheel-special-buffers-reordering*
 
 The navigation buffers allow you to quickly reorder Wheel elements by
 reordering the buffer lines. You can use yank/delete/paste operations to
-perform the reordering, or use |:sort|.
+perform the reordering, or sort them with |:sort|.
 
 To validate your change, simply |:write| the buffer.
 
