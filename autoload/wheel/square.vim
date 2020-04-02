@@ -7,20 +7,6 @@ fun! wheel#square#glasses (filename)
 	return win_findbuf(bufnr(a:filename))
 endfun
 
-" Not working
-fun! wheel#square#window ()
-	" Return closest candidate amongst windows displaying current location
-	" Return 0 if no window display filename
-	let filename = wheel#referen#location().file
-	let glasses = wheel#square#glasses (filename)
-	" Get cursor line in window id ?
-	if ! empty (glasses)
-		return glasses[0]
-	else
-		return []
-	endif
-endfun
-
 fun! wheel#square#tour ()
 	" Return closest candidate amongst windows displaying current location
 	" by exploring each one
@@ -43,8 +29,6 @@ fun! wheel#square#tour ()
 			if new_delta < old_delta
 				let old_delta = new_delta
 				let old = new
-			else
-				call win_gotoid(old)
 			endif
 		endfor
 		call win_gotoid(original)
