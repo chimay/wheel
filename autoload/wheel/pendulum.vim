@@ -59,7 +59,7 @@ fun! wheel#pendulum#is_in_history (entry)
 	let present = 0
 	let entry = a:entry
 	for elem in g:wheel_history
-		if elem.coordin == entry.coordin
+		if elem.coordin ==# entry.coordin
 			let present = 1
 		endif
 	endfor
@@ -86,7 +86,7 @@ fun! wheel#pendulum#rename(index, old, new)
 	let new = a:new
 	for elem in g:wheel_history
 		let coordin = elem.coordin
-		if coordin[index] == old
+		if coordin[index] ==# old
 			let elem.coordin[index] = new
 		endif
 	endfor

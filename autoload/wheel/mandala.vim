@@ -52,7 +52,7 @@ fun! wheel#mandala#close ()
 endfun
 
 fun! wheel#mandala#toruses ()
-	" Choose a torus to swith to in a buffer
+	" Choose a torus to switch to in a buffer
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let names = g:wheel.glossary
@@ -66,7 +66,7 @@ fun! wheel#mandala#toruses ()
 endfun
 
 fun! wheel#mandala#circles ()
-	" Choose a circle to swith to in a buffer
+	" Choose a circle to switch to in a buffer
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let torus = wheel#referen#torus()
@@ -81,7 +81,7 @@ fun! wheel#mandala#circles ()
 endfun
 
 fun! wheel#mandala#locations ()
-	" Choose a location to swith to in a buffer
+	" Choose a location to switch to in a buffer
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
 	let circle = wheel#referen#circle()
@@ -96,7 +96,7 @@ fun! wheel#mandala#locations ()
 endfun
 
 fun! wheel#mandala#helix ()
-	" Choose a location coordinate to swith to in a buffer
+	" Choose a location coordinate to switch to in a buffer
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
@@ -111,7 +111,7 @@ fun! wheel#mandala#helix ()
 endfun
 
 fun! wheel#mandala#grid ()
-	" Choose a circle coordinate to swith to in a buffer
+	" Choose a circle coordinate to switch to in a buffer
 	" Each coordinate = [torus, circle]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
@@ -136,6 +136,43 @@ fun! wheel#mandala#history ()
 	norm! gg
 	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
+	nnoremap <buffer> q :call wheel#mandala#close()<cr>
+	call wheel#mandala#common_maps ()
+endfun
+
+fun! wheel#mandala#reorder_toruses ()
+	" Reorder toruses in a buffer
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-reorder')
+	let names = g:wheel.glossary
+	let content = join(names, "\n")
+	put =content
+	norm! gg
+	nnoremap <buffer> q :call wheel#mandala#close()<cr>
+	call wheel#mandala#common_maps ()
+endfun
+
+fun! wheel#mandala#reorder_circles ()
+	" Reorder circles in a buffer
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-reorder')
+	let torus = wheel#referen#torus()
+	let names = torus.glossary
+	let content = join(names, "\n")
+	put =content
+	norm! gg
+	nnoremap <buffer> q :call wheel#mandala#close()<cr>
+	call wheel#mandala#common_maps ()
+endfun
+
+fun! wheel#mandala#reorder_locations ()
+	" Reorder locations in a buffer
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-reorder')
+	let names = wheel#helix#locations ()
+	let content = join(names, "\n")
+	put =content
+	norm! gg
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 	call wheel#mandala#common_maps ()
 endfun

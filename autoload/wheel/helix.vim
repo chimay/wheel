@@ -68,7 +68,7 @@ fun! wheel#helix#rename_file(old, new)
 	let new = a:new
 	let files = g:wheel_files.table
 	for index in range(len(files))
-		if files[index] == old
+		if files[index] ==# old
 			let files[index] = new
 		endif
 	endfor

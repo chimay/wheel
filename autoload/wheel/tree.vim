@@ -239,12 +239,13 @@ fun! wheel#tree#rename_file (...)
 		for torus in g:wheel.toruses
 			for circle in torus.circles
 				for location in circle.locations
-					if location.file == old_name
+					if location.file ==# old_name
 						let location.file = filename
 					endif
 				endfor
 			endfor
 		endfor
+		let g:wheel.timestamp = wheel#pendulum#timestamp()
 		call wheel#helix#rename_file(old_name, filename)
 	endif
 endfun
