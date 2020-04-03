@@ -21,7 +21,7 @@ endfun
 fun! wheel#mandala#filter ()
 	" Keep lines matching words of first line
 	let lines = wheel#line#filter ()
-	2,$delete
+	2,$delete _
 	put =lines
 	if line('$') > 1
 		2

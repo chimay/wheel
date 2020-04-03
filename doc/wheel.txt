@@ -273,7 +273,7 @@ File to save or load the wheel : >
 
 Note that the directory `~/.local/share/wheel` must exist.
 
-It is recommended to define this file and regurlarly save it, either manually
+It is recommended to define this file and regularly save it, either manually
 or automatically, using the autowrite config.
 
 ------------------------------------------------------------------------------
