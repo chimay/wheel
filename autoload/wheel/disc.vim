@@ -1,6 +1,7 @@
 " vim: ft=vim fdm=indent:
 
 " Storage
+" Note : use expand to expand '~' in filenames
 
 fun! wheel#disc#write (pointer, file, ...)
 	" Write variable referenced by string pointer to file
@@ -30,6 +31,9 @@ fun! wheel#disc#read (file)
 	if argc() == 0
 		call wheel#vortex#jump ()
 	endif
+endfun
+
+fun! wheel#disc#rename (file)
 endfun
 
 fun! wheel#disc#roll_backups (file, backups)

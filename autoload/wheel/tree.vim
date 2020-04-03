@@ -25,9 +25,9 @@ fun! wheel#tree#add_torus (...)
 		let torus_name = a:1
 	else
 		let torus_name = input('New torus name ? ')
-		" Replace spaces par non-breaking spaces
-		let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	endif
+	" Replace spaces par non-breaking spaces
+	let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	if index(g:wheel.glossary, torus_name) < 0
 		echomsg "Adding torus" torus_name
 		let index = g:wheel.current
@@ -49,9 +49,9 @@ fun! wheel#tree#add_circle (...)
 		let circle_name = a:1
 	else
 		let circle_name = input('New circle name ? ')
-		" Replace spaces par non-breaking spaces
-		let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	endif
+	" Replace spaces par non-breaking spaces
+	let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
@@ -85,16 +85,18 @@ fun! wheel#tree#add_location (location)
 	let local = a:location
 	let present = wheel#tree#is_in_circle(local, cur_circle)
 	if ! present
-		let chaine = 'New location name [' . local.name . '] ? '
-		let location_name = input(chaine, local.name)
+		let string = 'New location name [' . local.name . '] ? '
+		let location_name = input(string, local.name)
 		if empty(location_name)
 			let location_name = local.name
 		endif
 		" Replace spaces par non-breaking spaces
 		let location_name = substitute(location_name, ' ', ' ', 'g')
 		if index(cur_circle.glossary, location_name) < 0
-			echomsg 'Adding location' local.name ':' local.file ':' local.line ':' local.col
-						\ 'in torus' cur_torus.name 'circle' cur_circle.name
+			let string = 'Adding location ' . local.name . ' : '
+			let string .= local.file . ':' . local.line . ':' . local.col
+			let string .= ' in torus ' . cur_torus.name . ' circle ' . cur_circle.name
+			echomsg string
 			let index = cur_circle.current
 			let locations = cur_circle.locations
 			let glossary = cur_circle.glossary
@@ -150,10 +152,10 @@ fun! wheel#tree#rename_torus (...)
 	if a:0 > 0
 		let torus_name = a:1
 	else
-		let torus_name = input('Torus name ? ')
-		" Replace spaces par non-breaking spaces
-		let torus_name = substitute(torus_name, ' ', ' ', 'g')
+		let torus_name = input('Rename torus as ? ')
 	endif
+	" Replace spaces par non-breaking spaces
+	let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	if index(g:wheel.glossary, torus_name) < 0
 		let cur_torus = wheel#referen#torus ()
 		let old_name = cur_torus.name
@@ -173,10 +175,10 @@ fun! wheel#tree#rename_circle (...)
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let circle_name = input('Circle name ? ')
-		" Replace spaces par non-breaking spaces
-		let circle_name = substitute(circle_name, ' ', ' ', 'g')
+		let circle_name = input('Rename circle as ? ')
 	endif
+	" Replace spaces par non-breaking spaces
+	let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	let [cur_torus, cur_circle] = wheel#referen#circle ('all')
 	if index(cur_torus.glossary, circle_name) < 0
 		let old_name = cur_circle.name
@@ -196,10 +198,10 @@ fun! wheel#tree#rename_location (...)
 	if a:0 > 0
 		let location_name = a:1
 	else
-		let location_name = input('Location name ? ')
-		" Replace spaces par non-breaking spaces
-		let location_name = substitute(location_name, ' ', ' ', 'g')
+		let location_name = input('Rename location as ? ')
 	endif
+	" Replace spaces par non-breaking spaces
+	let location_name = substitute(location_name, ' ', ' ', 'g')
 	let [cur_torus, cur_circle, cur_location] = wheel#referen#location ('all')
 	if index(cur_circle.glossary, location_name) < 0
 		let old_name = cur_location.name
@@ -211,6 +213,40 @@ fun! wheel#tree#rename_location (...)
 		call wheel#pendulum#rename(2, old_name, location_name)
 	else
 		echomsg 'Location named' location_name 'already exists in circle.'
+	endif
+endfun
+
+fun! wheel#tree#rename_file (...)
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = input('Rename file as ? ')
+	endif
+	" Replace spaces by underscores
+	" Non breaking spaces would be confusing in the user’s filesystem
+	let filename = substitute(filename, ' ', '_', 'g')
+	if filename[0] != '/'
+		let filename = expand('%:p:h') . '/' . filename
+	endif
+	let location = wheel#referen#location ()
+	let old_name = location.file
+	let command = 'mv -i '
+	let rename = command . old_name . ' ' . filename
+	"echomsg rename
+	call system(rename)
+	if ! v:shell_error
+		for torus in g:wheel.toruses
+			for circle in torus.circles
+				for location in circle.locations
+					if location.file == old_name
+						let string = torus.name . ' >> ' . circle.name . ' > ' . location.name
+						let string .=  ' : ' . location.file . ' -> ' . filename
+						echomsg string
+						let location.file = filename
+					endif
+				endfor
+			endfor
+		endfor
 	endif
 endfun
 

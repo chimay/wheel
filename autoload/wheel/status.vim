@@ -8,10 +8,10 @@ endfu
 fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
 	let [cur_torus, cur_circle, cur_location] = wheel#referen#location('all')
-	let chaine = cur_torus.name . ' >> '
-	let chaine .= cur_circle.name . ' > '
-	let chaine .= cur_location.name . ' : '
-	let chaine .= cur_location.file . ':' . cur_location.line . ':' . cur_location.col
-	echomsg chaine
+	let string = cur_torus.name . ' >> '
+	let string .= cur_circle.name . ' > '
+	let string .= cur_location.name . ' : '
+	let string .= cur_location.file . ':' . cur_location.line . ':' . cur_location.col
+	echomsg string
 	redraw!
 endfun

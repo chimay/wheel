@@ -110,6 +110,7 @@ endfu
 
 " Autocommands {{{1
 
-au BufWriteCmd <buffer> echo 'autocommand replacing write'
+" Use noau w to really write the file
+"au BufWriteCmd <buffer> echo 'autocommand replacing write'
 
 " }}}1

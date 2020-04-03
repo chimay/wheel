@@ -49,7 +49,7 @@ fun! wheel#vortex#jump ()
 		normal! zv
 		silent doautocmd User WheelAfterJump
 		call wheel#spiral#cursor ()
-		call wheel#status#dashboard()
+		call wheel#status#dashboard ()
 	endif
 endfun
 
