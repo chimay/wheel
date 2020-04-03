@@ -2,12 +2,12 @@
 
 " Windows
 
-fun! wheel#square#glasses (filename)
+fun! wheel#mosaic#glasses (filename)
 	" Return list of window(s) id(s) displaying filename
 	return win_findbuf(bufnr(a:filename))
 endfun
 
-fun! wheel#square#tour ()
+fun! wheel#mosaic#tour ()
 	" Return closest candidate amongst windows displaying current location
 	" by exploring each one
 	" Return 0 if no window display filename
@@ -15,7 +15,7 @@ fun! wheel#square#tour ()
 	let location = wheel#referen#location()
 	let filename = location.file
 	let line = location.line
-	let glasses = wheel#square#glasses (filename)
+	let glasses = wheel#mosaic#glasses (filename)
 	if empty(glasses)
 		return 0
 	else
