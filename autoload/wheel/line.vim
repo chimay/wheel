@@ -18,13 +18,14 @@ fun! wheel#line#filter ()
 	return candidates
 endfu
 
-fun! wheel#line#torus (...)
-	" Switch to torus whose name is in current line
+fun! wheel#line#jump (level, ...)
+	" Switch to element whose name is in current line
+	" level may be 'torus', 'circle' or 'location'
 	let mode = 'close'
 	if a:0 > 0
 		let mode = a:1
 	endif
-	let torus_name = getline('.')
+	let name = getline('.')
 	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
@@ -34,45 +35,7 @@ fun! wheel#line#torus (...)
 			bdelete!
 		endif
 	endif
-	call wheel#vortex#switch_torus(torus_name)
-endfun
-
-fun! wheel#line#circle (...)
-	" Switch to circle whose name is in current line
-	let mode = 'close'
-	if a:0 > 0
-		let mode = a:1
-	endif
-	let circle_name = getline('.')
-	if mode ==# 'close'
-		call wheel#mandala#close ()
-	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
-	endif
-	call wheel#vortex#switch_circle(circle_name)
-endfun
-
-fun! wheel#line#location (...)
-	" Switch to location whose name is in current line
-	let mode = 'close'
-	if a:0 > 0
-		let mode = a:1
-	endif
-	let location_name = getline('.')
-	if mode ==# 'close'
-		call wheel#mandala#close ()
-	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
-	endif
-	call wheel#vortex#switch_location(location_name)
+	call wheel#vortex#switch_{a:level}(name)
 endfun
 
 fun! wheel#line#helix (...)

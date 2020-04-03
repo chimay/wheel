@@ -59,8 +59,8 @@ fun! wheel#mandala#toruses ()
 	let content = join(names, "\n")
 	put =content
 	norm! gg
-	nnoremap <buffer> <tab> :call wheel#line#torus('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#torus('close')<cr>
+	nnoremap <buffer> <tab> :call wheel#line#jump('torus', 'open')<cr>
+	nnoremap <buffer> <cr> :call wheel#line#jump('torus', 'close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 	call wheel#mandala#common_maps ()
 endfun
@@ -74,8 +74,8 @@ fun! wheel#mandala#circles ()
 	let content = join(names, "\n")
 	put =content
 	norm! gg
-	nnoremap <buffer> <tab> :call wheel#line#circle('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#circle('close')<cr>
+	nnoremap <buffer> <tab> :call wheel#line#jump('circle', 'open')<cr>
+	nnoremap <buffer> <cr> :call wheel#line#jump('circle', 'close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 	call wheel#mandala#common_maps ()
 endfun
@@ -89,8 +89,8 @@ fun! wheel#mandala#locations ()
 	let content = join(names, "\n")
 	put =content
 	norm! gg
-	nnoremap <buffer> <tab> :call wheel#line#location('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#location('close')<cr>
+	nnoremap <buffer> <tab> :call wheel#line#jump('location', 'open')<cr>
+	nnoremap <buffer> <cr> :call wheel#line#jump('location', 'close')<cr>
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 	call wheel#mandala#common_maps ()
 endfun
