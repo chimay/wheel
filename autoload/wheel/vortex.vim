@@ -28,7 +28,7 @@ fun! wheel#vortex#jump ()
 	" Jump to current location
 	let location = wheel#referen#location ()
 	if ! empty(location)
-		let window = wheel#square#tour ()
+		let window = wheel#mosaic#tour ()
 		if window
 			"echomsg 'Switching to window ' window
 			call win_gotoid(window)
