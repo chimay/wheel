@@ -235,6 +235,7 @@ fun! wheel#tree#rename_file (...)
 	"echomsg rename
 	call system(rename)
 	if ! v:shell_error
+		exe 'file ' . filename
 		for torus in g:wheel.toruses
 			for circle in torus.circles
 				for location in circle.locations
