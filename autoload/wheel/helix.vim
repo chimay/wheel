@@ -62,6 +62,19 @@ fun! wheel#helix#files ()
 	return files
 endfu
 
+fun! wheel#helix#rename_file(old, new)
+	" Rename all occurences old -> new filename
+	let old = a:old
+	let new = a:new
+	let files = g:wheel_files.table
+	for index in range(len(files))
+		if files[index] == old
+			let files[index] = new
+		endif
+	endfor
+	let g:wheel_files.timestamp = wheel#pendulum#timestamp()
+endfun
+
 fun! wheel#helix#locations ()
 	" Index of locations coordinates in the wheel
 	" Each coordinate is a string torus >> circle > location

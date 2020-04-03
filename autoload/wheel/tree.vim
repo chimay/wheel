@@ -240,14 +240,12 @@ fun! wheel#tree#rename_file (...)
 			for circle in torus.circles
 				for location in circle.locations
 					if location.file == old_name
-						let string = torus.name . ' >> ' . circle.name . ' > ' . location.name
-						let string .=  ' : ' . location.file . ' -> ' . filename
-						echomsg string
 						let location.file = filename
 					endif
 				endfor
 			endfor
 		endfor
+		call wheel#helix#rename_file(old_name, filename)
 	endif
 endfun
 
