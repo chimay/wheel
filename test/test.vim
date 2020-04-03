@@ -100,10 +100,6 @@ endfun
 
 call d.iam('Bar')
 
-fun! Retour ()
-	return
-endfu
-
 " }}}2
 
 " }}}1

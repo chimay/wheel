@@ -56,7 +56,7 @@ endfun
 " Next / Previous
 
 fun! wheel#vortex#prev_torus ()
-	if has_key(g:wheel, 'toruses') && ! empty(g:wheel.toruses)
+	if ! empty(g:wheel.toruses)
 		call wheel#vortex#update ()
 		let current = g:wheel.current
 		let length = len(g:wheel.toruses)
@@ -66,7 +66,7 @@ fun! wheel#vortex#prev_torus ()
 endfun
 
 fun! wheel#vortex#next_torus ()
-	if has_key(g:wheel, 'toruses') && ! empty(g:wheel.toruses)
+	if ! empty(g:wheel.toruses)
 		call wheel#vortex#update ()
 		let current = g:wheel.current
 		let length = len(g:wheel.toruses)
@@ -77,7 +77,7 @@ endfun
 
 fun! wheel#vortex#prev_circle ()
 	let cur_torus = wheel#referen#torus()
-	if has_key(cur_torus, 'circles') && ! empty(cur_torus.circles)
+	if ! empty(cur_torus.circles)
 		call wheel#vortex#update ()
 		let current = cur_torus.current
 		let length = len(cur_torus.circles)
@@ -88,7 +88,7 @@ endfun
 
 fun! wheel#vortex#next_circle ()
 	let cur_torus = wheel#referen#torus()
-	if has_key(cur_torus, 'circles') && ! empty(cur_torus.circles)
+	if ! empty(cur_torus.circles)
 		call wheel#vortex#update ()
 		let current = cur_torus.current
 		let length = len(cur_torus.circles)
@@ -99,7 +99,7 @@ endfun
 
 fun! wheel#vortex#prev_location ()
 	let cur_circle = wheel#referen#circle()
-	if has_key(cur_circle, 'locations') && ! empty(cur_circle.locations) > 0
+	if ! empty(cur_circle.locations) > 0
 		call wheel#vortex#update ()
 		let current = cur_circle.current
 		let length = len(cur_circle.locations)
@@ -110,7 +110,7 @@ endfun
 
 fun! wheel#vortex#next_location ()
 	let cur_circle = wheel#referen#circle()
-	if has_key(cur_circle, 'locations') && ! empty(cur_circle.locations) > 0
+	if ! empty(cur_circle.locations) > 0
 		call wheel#vortex#update ()
 		let current = cur_circle.current
 		let length = len(cur_circle.locations)
@@ -123,7 +123,7 @@ endfun
 
 fun! wheel#vortex#tune_torus (torus_name)
 	" Adjust wheel variables to torus_name
-	if has_key(g:wheel, 'glossary') && ! empty(g:wheel.glossary)
+	if ! empty(g:wheel.glossary)
 		let glossary = g:wheel.glossary
 		let index = index(glossary, a:torus_name)
 		if index >= 0
@@ -136,7 +136,7 @@ endfun
 fun! wheel#vortex#tune_circle (circle_name)
 	" Adjust wheel variables to circle_name
 	let cur_torus = wheel#referen#torus ()
-	if has_key(cur_torus, 'glossary') && ! empty(cur_torus.glossary)
+	if ! empty(cur_torus.glossary)
 		let glossary = cur_torus.glossary
 		let index = index(glossary, a:circle_name)
 		if index >= 0
@@ -149,7 +149,7 @@ endfun
 fun! wheel#vortex#tune_location (location_name)
 	" Adjust wheel variables to location_name
 	let cur_circle = wheel#referen#circle ()
-	if has_key(cur_circle, 'glossary') && ! empty(cur_circle.glossary) > 0
+	if ! empty(cur_circle.glossary) > 0
 		let glossary = cur_circle.glossary
 		let index = index(glossary, a:location_name)
 		if index >= 0
