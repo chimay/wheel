@@ -17,8 +17,8 @@ fun! wheel#disc#write (pointer, file, ...)
 	redir => content
 		silent! echo 'let' a:pointer '=' var
 	redir END
-	let content = substitute(content, '[=,]', '\0\n\\', 'g')
-	let content = substitute(content, '\n\{2,\}', '\n', 'g')
+	let content = substitute(content, '\m[=,]', '\0\n\\', 'g')
+	let content = substitute(content, '\m\n\{2,\}', '\n', 'g')
 	exec 'redir! ' . mode . ' ' . expand(a:file)
 		silent! echo content
 	redir END

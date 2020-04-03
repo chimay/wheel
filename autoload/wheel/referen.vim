@@ -2,6 +2,11 @@
 
 " Status
 
+fun! wheel#referen#wheel ()
+	" Wheel
+	return g:wheel
+endfun
+
 fun! wheel#referen#torus ()
 	" Current torus
 	let cur_torus = {}
@@ -62,6 +67,15 @@ fun! wheel#referen#location (...)
 endfun
 
 fun! wheel#referen#names ()
+	" Names of current torus, circle and location
 	let [torus, circle, location] = wheel#referen#location('all')
 	return [torus.name, circle.name, location.name]
+endfun
+
+fun! wheel#referen#elements (dict)
+	" Elements of dict :
+	" - toruses if dict is the wheel
+	" - circles if dict is a torus
+	" - locations if dict is a circle
+	if has_key(dict, )
 endfun
