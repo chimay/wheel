@@ -1,5 +1,12 @@
 " vim: ft=vim fdm=indent:
 
+" Reference to objects in wheel
+
+if ! exists('s:levels')
+	let s:levels = ['wheel', 'torus', 'circle', 'location']
+	lockvar s:levels
+endif
+
 " Status
 
 fun! wheel#referen#wheel ()
@@ -72,10 +79,31 @@ fun! wheel#referen#names ()
 	return [torus.name, circle.name, location.name]
 endfun
 
+" Hierarchy
+
+fun! wheel#referen#upper (string)
+	" Current upper element in hierarchy
+endfun
+
+fun! wheel#referen#lower (string)
+	" Current lower element in hierarchy
+endfun
+
+" Elements
+
 fun! wheel#referen#elements (dict)
-	" Elements of dict :
+	" Elements list of dict :
 	" - toruses if dict is the wheel
 	" - circles if dict is a torus
 	" - locations if dict is a circle
-	if has_key(dict, )
+	let dict = a:dict
+	if has_key(dict, 'toruses')
+		return dict.toruses
+	elseif has_key(dict, 'circles')
+		return dict.circles
+	elseif has_key(dict, 'locations')
+		return dict.locations
+	else
+		return []
+	endif
 endfun

@@ -59,7 +59,7 @@ fun! wheel#mandala#toruses ()
 	let names = g:wheel.glossary
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#jump('torus', 'open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#jump('torus', 'close')<cr>
 	call wheel#mandala#common_maps ()
@@ -73,7 +73,7 @@ fun! wheel#mandala#circles ()
 	let names = torus.glossary
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#jump('circle', 'open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#jump('circle', 'close')<cr>
 	call wheel#mandala#common_maps ()
@@ -87,7 +87,7 @@ fun! wheel#mandala#locations ()
 	let names = circle.glossary
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#jump('location', 'open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#jump('location', 'close')<cr>
 	call wheel#mandala#common_maps ()
@@ -101,7 +101,7 @@ fun! wheel#mandala#helix ()
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
 	call wheel#mandala#common_maps ()
@@ -115,7 +115,7 @@ fun! wheel#mandala#grid ()
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
 	call wheel#mandala#common_maps ()
@@ -129,7 +129,7 @@ fun! wheel#mandala#history ()
 	let names = wheel#pendulum#sorted ()
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
 	call wheel#mandala#common_maps ()
@@ -142,7 +142,7 @@ fun! wheel#mandala#reorder_toruses ()
 	let names = g:wheel.glossary
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	call wheel#mandala#common_maps ()
 endfun
 
@@ -154,7 +154,7 @@ fun! wheel#mandala#reorder_circles ()
 	let names = torus.glossary
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	call wheel#mandala#common_maps ()
 endfun
 
@@ -166,6 +166,6 @@ fun! wheel#mandala#reorder_locations ()
 	let names = circle.glossary
 	let content = join(names, "\n")
 	put =content
-	norm! gg
+	normal! gg
 	call wheel#mandala#common_maps ()
 endfun
