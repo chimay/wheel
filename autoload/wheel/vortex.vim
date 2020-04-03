@@ -107,42 +107,34 @@ endfun
 
 " Tune
 
-fun! wheel#vortex#tune_torus (torus_name)
-	" Adjust wheel variables to torus_name
-	if ! empty(g:wheel.glossary)
-		let glossary = g:wheel.glossary
-		let index = index(glossary, a:torus_name)
+fun! wheel#vortex#frequency (level, name)
+	" Adjust wheel variables of level to name
+	let level = a:level
+	let name = a:name
+	let upper = wheel#referen#upper(level)
+	if ! empty(upper.glossary)
+		let glossary = upper.glossary
+		let index = index(glossary, name)
 		if index >= 0
-			let g:wheel.current = index
+			let upper.current = index
 		endif
 		return index
 	endif
+endfun
+
+fun! wheel#vortex#tune_torus (torus_name)
+	" Adjust wheel variables to torus_name
+	return wheel#vortex#frequency('torus', a:torus_name)
 endfun
 
 fun! wheel#vortex#tune_circle (circle_name)
 	" Adjust wheel variables to circle_name
-	let cur_torus = wheel#referen#torus ()
-	if ! empty(cur_torus.glossary)
-		let glossary = cur_torus.glossary
-		let index = index(glossary, a:circle_name)
-		if index >= 0
-			let cur_torus.current = index
-		endif
-		return index
-	endif
+	return wheel#vortex#frequency('circle', a:circle_name)
 endfun
 
 fun! wheel#vortex#tune_location (location_name)
 	" Adjust wheel variables to location_name
-	let cur_circle = wheel#referen#circle ()
-	if ! empty(cur_circle.glossary) > 0
-		let glossary = cur_circle.glossary
-		let index = index(glossary, a:location_name)
-		if index >= 0
-			let cur_circle.current = index
-		endif
-		return index
-	endif
+	return wheel#vortex#frequency('location', a:location_name)
 endfun
 
 fun! wheel#vortex#tune (coordin)
