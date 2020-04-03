@@ -279,10 +279,15 @@ or automatically, using the autowrite config.
 ------------------------------------------------------------------------------
 BACKUPS						    *wheel-config-backups*
 
-Number of backup for the wheel file, in case things get messed up
-accidentally : >
+Number of backup for the wheel file : >
     let g:wheel_config.backups = 3
 <
+
+Assuming your wheel file is `auto.vim`, the backups will be named
+`auto.vim.1`, `auto.vim.2`, `auto.vim.3`, and so on.
+
+It is recommended to use backups, in case things get messed up
+accidentally.
 
 ------------------------------------------------------------------------------
 MAPPINGS					    *wheel-config-mappings*
