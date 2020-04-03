@@ -55,6 +55,10 @@ endfun
 
 " Next / Previous
 
+fun! wheel#vortex#previous (level)
+	" Previous element in level
+endfun
+
 fun! wheel#vortex#prev_torus ()
 	if ! empty(g:wheel.toruses)
 		call wheel#vortex#update ()

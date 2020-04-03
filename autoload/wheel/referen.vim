@@ -73,6 +73,13 @@ fun! wheel#referen#location (...)
 	endif
 endfun
 
+fun! wheel#referen#current (level)
+	" Current level = wheel, torus, circle, location
+	return wheel#referen#{a:level} ()
+endfun
+
+" Coordinates
+
 fun! wheel#referen#names ()
 	" Names of current torus, circle and location
 	let [torus, circle, location] = wheel#referen#location('all')
@@ -81,15 +88,21 @@ endfun
 
 " Hierarchy
 
-fun! wheel#referen#upper (string)
+fun! wheel#referen#upper (level)
 	" Current upper element in hierarchy
+	let index = index(s:levels, a:level) - 1
+	let index = max([index, 0])
+	return wheel#referen#{s:levels[index]} ()
 endfun
 
-fun! wheel#referen#lower (string)
+fun! wheel#referen#lower (level)
 	" Current lower element in hierarchy
+	let index = index(s:levels, a:level) + 1
+	let index = min([index, 3])
+	return wheel#referen#{s:levels[index]} ()
 endfun
 
-" Elements
+" Element lists
 
 fun! wheel#referen#elements (dict)
 	" Elements list of dict :

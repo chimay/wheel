@@ -2,8 +2,10 @@
 
 " Golden mean
 
-let s:golden = (1 + sqrt(5)) / 2
-lockvar s:golden
+if ! exists('s:levels')
+	let s:golden = (1 + sqrt(5)) / 2
+	lockvar s:golden
+endif
 
 fun! wheel#spiral#cursor ()
 	" Position cursor so that
