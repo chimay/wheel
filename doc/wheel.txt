@@ -232,8 +232,9 @@ Dictionary				|wheel-config-dictionary|
 Autoread				|wheel-config-autoread|
 Autowrite				|wheel-config-autowrite|
 File					|wheel-config-file|
-Mappings				|wheel-config-mappings|
 Backups					|wheel-config-backups|
+Mappings				|wheel-config-mappings|
+Prefix					|wheel-config-prefix|
 Cd project				|wheel-config-cd_project|
 Project markers				|wheel-config-project_markers|
 Max history 				|wheel-config-max_history|
@@ -272,6 +273,17 @@ File to save or load the wheel : >
 
 Note that the directory `~/.local/share/wheel` must exist.
 
+It is recommended to define this file and regurlarly save it, either manually
+or automatically, using the autowrite config.
+
+------------------------------------------------------------------------------
+BACKUPS						    *wheel-config-backups*
+
+Number of backup for the wheel file, in case things get messed up
+accidentally : >
+    let g:wheel_config.backups = 3
+<
+
 ------------------------------------------------------------------------------
 MAPPINGS					    *wheel-config-mappings*
 
@@ -282,12 +294,13 @@ Determine how many default mappings are available : >
 See |wheel-mappings-levels| for more information.
 
 ------------------------------------------------------------------------------
-BACKUPS						    *wheel-config-backups*
+PREFIX						    *wheel-config-prefix*
 
-Number of backup for the wheel file, in case things get messed up
-accidentally : >
-    let g:wheel_config.backups = 3
+Prefix for mappings of level 0, 1, 2 : >
+    let g:wheel_config.prefix = '<my-wonderful-prefix>'
 <
+
+See |wheel-mappings-prefix| for more information.
 
 ------------------------------------------------------------------------------
 CD PROJECT					*wheel-config-cd_project*
@@ -314,6 +327,14 @@ Maximum number of elements in the wheel history : >
 
 ------------------------------------------------------------------------------
 AUTOCOMMANDS				   *wheel-config-autocommands*
+
+The user autocommands `WheelAfterJump` are executed at the end of each
+navigation operation in the Wheel ; basically, each time you jump to
+another file using wheel functions.
+
+This example fold everything except the cursor line : >
+    autocmd User WheelAfterJump norm zMzx
+<
 
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
