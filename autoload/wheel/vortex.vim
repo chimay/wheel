@@ -57,70 +57,52 @@ endfun
 
 fun! wheel#vortex#previous (level)
 	" Previous element in level
+	let level = a:level
+	let upper = wheel#referen#upper(level)
+	if ! empty(upper)
+		call wheel#vortex#update ()
+		let index = upper.current
+		let length = len(wheel#referen#elements(upper))
+		let upper.current = wheel#gear#circular_minus(index, length)
+		call wheel#vortex#jump()
+	endif
+endfun
+
+fun! wheel#vortex#next (level)
+	" Next element in level
+	let level = a:level
+	let upper = wheel#referen#upper(level)
+	if ! empty(upper)
+		call wheel#vortex#update ()
+		let index = upper.current
+		let length = len(wheel#referen#elements(upper))
+		let upper.current = wheel#gear#circular_plus(index, length)
+		call wheel#vortex#jump()
+	endif
 endfun
 
 fun! wheel#vortex#prev_torus ()
-	if ! empty(g:wheel.toruses)
-		call wheel#vortex#update ()
-		let current = g:wheel.current
-		let length = len(g:wheel.toruses)
-		let g:wheel.current = wheel#gear#circular_minus(current, length)
-		call wheel#vortex#jump()
-	endif
+	call wheel#vortex#previous ('torus')
 endfun
 
 fun! wheel#vortex#next_torus ()
-	if ! empty(g:wheel.toruses)
-		call wheel#vortex#update ()
-		let current = g:wheel.current
-		let length = len(g:wheel.toruses)
-		let g:wheel.current = wheel#gear#circular_plus(current, length)
-		call wheel#vortex#jump()
-	endif
+	call wheel#vortex#next ('torus')
 endfun
 
 fun! wheel#vortex#prev_circle ()
-	let cur_torus = wheel#referen#torus()
-	if ! empty(cur_torus.circles)
-		call wheel#vortex#update ()
-		let current = cur_torus.current
-		let length = len(cur_torus.circles)
-		let cur_torus.current = wheel#gear#circular_minus(current, length)
-		call wheel#vortex#jump()
-	endif
+	call wheel#vortex#previous ('circle')
 endfun
 
 fun! wheel#vortex#next_circle ()
-	let cur_torus = wheel#referen#torus()
-	if ! empty(cur_torus.circles)
-		call wheel#vortex#update ()
-		let current = cur_torus.current
-		let length = len(cur_torus.circles)
-		let cur_torus.current = wheel#gear#circular_plus(current, length)
-		call wheel#vortex#jump()
-	endif
+	call wheel#vortex#next ('circle')
 endfun
 
 fun! wheel#vortex#prev_location ()
-	let cur_circle = wheel#referen#circle()
-	if ! empty(cur_circle.locations) > 0
-		call wheel#vortex#update ()
-		let current = cur_circle.current
-		let length = len(cur_circle.locations)
-		let cur_circle.current = wheel#gear#circular_minus(current, length)
-		call wheel#vortex#jump()
-	endif
+	call wheel#vortex#previous ('location')
 endfun
 
 fun! wheel#vortex#next_location ()
-	let cur_circle = wheel#referen#circle()
-	if ! empty(cur_circle.locations) > 0
-		call wheel#vortex#update ()
-		let current = cur_circle.current
-		let length = len(cur_circle.locations)
-		let cur_circle.current = wheel#gear#circular_plus(current, length)
-		call wheel#vortex#jump()
-	endif
+	call wheel#vortex#next ('location')
 endfun
 
 " Tune
