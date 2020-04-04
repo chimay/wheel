@@ -70,10 +70,6 @@ fun! wheel#void#foundation ()
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
 	endif
-	" Menu content
-	if ! exists('g:wheel_mandala')
-		let g:wheel_mandala = []
-	endif
 	" Config
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
@@ -107,6 +103,18 @@ fun! wheel#void#foundation ()
 	endif
 endfu
 
+fun! wheel#void#lighten ()
+	" Unlet wheel variables
+	" No need to save them in viminfo or shada files
+	" since you can save them in g:wheel_config.file
+	unlet g:wheel
+	unlet g:wheel_helix
+	unlet g:wheel_grid
+	unlet g:wheel_files
+	unlet g:wheel_history
+	unlet g:wheel_config
+endfu
+
 fun! wheel#void#init ()
 	echomsg 'Wheel hello !'
 	call wheel#void#foundation ()
@@ -122,4 +130,5 @@ fun! wheel#void#exit ()
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
 	endif
+	call wheel#void#lighten ()
 endfu
