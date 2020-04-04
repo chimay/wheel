@@ -154,11 +154,11 @@ endfun
 " Rename
 
 fun! wheel#tree#rename (level, new)
-	" Rename name of current level -> new name
+	" Rename current element at level -> new
 	let level = a:level
 	let new = a:new
 	let upper = wheel#referen#upper (level)
-	let current = wheel#referen#{level} ()
+	let current = wheel#referen#current (level)
 	" Replace spaces by non-breaking spaces
 	let new = substitute(new, ' ', ' ', 'g')
 	if index(upper.glossary, new) < 0
@@ -241,23 +241,35 @@ endfun
 
 " Delete
 
+fun! wheel#tree#delete (level)
+	" Delete current element at level
+	let level = a:level
+	let upper = wheel#referen#upper (level)
+	let elements = wheel#referen#elements (upper)
+	let length = len(elements)
+	let upper_level_name = wheel#referen#upper_level_name (level)
+	let key = wheel#referen#list_key (upper_level_name)
+	let current = wheel#referen#current (level)
+	let index = upper.current
+	let upper[key] = wheel#chain#remove_index(index, elements)
+	let length -= 1
+	let upper.current = wheel#gear#circular_minus(index, length)
+	if empty(elements)
+		let upper.current = -1
+	endif
+	let glossary = upper.glossary
+	let name = current.name
+	let upper.glossary = wheel#chain#remove_element(name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	call wheel#vortex#jump ()
+	call wheel#pendulum#delete(level, name)
+endfun
+
 fun! wheel#tree#delete_torus ()
 	" Delete current torus
 	let confirm = confirm('Delete current torus ?', "&Yes\n&No", 2)
 	if confirm == 1
-		let cur_torus = wheel#referen#torus ()
-		let toruses = g:wheel.toruses
-		let cur_index = g:wheel.current
-		let cur_length = len(toruses)
-		let g:wheel.toruses = wheel#chain#remove_index(cur_index, toruses)
-		let cur_length -= 1
-		let g:wheel.current = wheel#gear#circular_minus(cur_index, cur_length)
-		let glossary = g:wheel.glossary
-		let cur_name = cur_torus.name
-		let g:wheel.glossary = wheel#chain#remove_element(cur_name, glossary)
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		call wheel#vortex#jump ()
-		call wheel#pendulum#delete(0, cur_name)
+		call wheel#tree#delete('torus')
 	endif
 endfun
 
@@ -265,19 +277,7 @@ fun! wheel#tree#delete_circle ()
 	" Delete current circle
 	let confirm = confirm('Delete current circle ?', "&Yes\n&No", 2)
 	if confirm == 1
-		let [cur_torus, cur_circle] = wheel#referen#circle ('all')
-		let circles = cur_torus.circles
-		let cur_index = cur_torus.current
-		let cur_length = len(circles)
-		let cur_torus.circles = wheel#chain#remove_index(cur_index, circles)
-		let cur_length -= 1
-		let cur_torus.current = wheel#gear#circular_minus(cur_index, cur_length)
-		let glossary = cur_torus.glossary
-		let cur_name = cur_circle.name
-		let cur_torus.glossary = wheel#chain#remove_element(cur_name, glossary)
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		call wheel#vortex#jump ()
-		call wheel#pendulum#delete(1, cur_name)
+		call wheel#tree#delete('circle')
 	endif
 endfun
 
@@ -285,19 +285,6 @@ fun! wheel#tree#delete_location ()
 	" Delete current location
 	let confirm = confirm('Delete current location ?', "&Yes\n&No", 2)
 	if confirm == 1
-		let [cur_torus, cur_circle, cur_location] =
-					\ wheel#referen#location ('all')
-		let locations = cur_circle.locations
-		let cur_index = cur_circle.current
-		let cur_length = len(locations)
-		let cur_circle.locations = wheel#chain#remove_index(cur_index, locations)
-		let cur_length -= 1
-		let cur_circle.current = wheel#gear#circular_minus(cur_index, cur_length)
-		let glossary = cur_circle.glossary
-		let cur_name = cur_location.name
-		let cur_circle.glossary = wheel#chain#remove_element(cur_name, glossary)
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		call wheel#vortex#jump ()
-		call wheel#pendulum#delete(2, cur_name)
+		call wheel#tree#delete('location')
 	endif
 endfun

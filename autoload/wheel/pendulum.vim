@@ -99,12 +99,19 @@ fun! wheel#pendulum#rename(level, old, new)
 	endfor
 endfun
 
-fun! wheel#pendulum#delete(index, old)
+fun! wheel#pendulum#delete(level, old)
 	" Delete all occurences of old in history
-	" index = 0 : delete torus
-	" index = 1 : delete circle
-	" index = 2 : delete location
-	let index = a:index
+	" level = 0 or torus    : delete torus
+	" level = 1 or circle   : delete circle
+	" level = 2 or location : delete location
+	if type(a:level) == v:t_number
+		let index = a:level
+	elseif type(a:level) == v:t_string
+		let index = wheel#referen#coordin_index (a:level)
+	else
+		echomsg 'Pendulum delete : level arg must be number or string'
+		return
+	end
 	let old = a:old
 	let history = deepcopy(g:wheel_history)
 	for elem in history

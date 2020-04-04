@@ -2,17 +2,26 @@
 
 " Reference to objects in wheel
 
+" Notes :
+"
+" const = let & lockvar
+
 if ! exists('s:levels')
-	let s:levels = ['wheel', 'torus', 'circle', 'location']
-	lockvar s:levels
+	const s:levels = ['wheel', 'torus', 'circle', 'location']
 endif
 
 if ! exists('s:coordin')
-	let s:coordin = [ 'torus', 'circle', 'location']
-	lockvar s:coordin
+	const s:coordin = [ 'torus', 'circle', 'location']
 endif
 
-" Status
+if ! exists('s:list_keys')
+	const s:list_keys =
+				\{ 'wheel' : 'toruses',
+				\ 'torus' : 'circles',
+				\ 'circle' : 'locations'}
+endif
+
+" Current elements
 
 fun! wheel#referen#wheel ()
 	" Wheel
@@ -83,12 +92,12 @@ fun! wheel#referen#current (level)
 	return wheel#referen#{a:level} ()
 endfun
 
+" Coordinates
+
 fun! wheel#referen#coordin_index (level)
 	" Return index of level in coordinates
 	return index(s:coordin, a:level)
 endfun
-
-" Coordinates
 
 fun! wheel#referen#names ()
 	" Names of current torus, circle and location
@@ -143,6 +152,11 @@ fun! wheel#referen#lower_level_name (level)
 endfun
 
 " Element lists
+
+fun! wheel#referen#list_key (level)
+	" Name of key containing list of elements
+	return s:list_keys[a:level]
+endfun
 
 fun! wheel#referen#elements (dict)
 	" Elements list of dict :
