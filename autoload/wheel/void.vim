@@ -105,7 +105,7 @@ endfu
 
 fun! wheel#void#lighten ()
 	" Unlet wheel variables
-	" No need to save them in viminfo or shada files
+	" No need to save them in viminfo or shada file
 	" since you can save them in g:wheel_config.file
 	unlet g:wheel
 	unlet g:wheel_helix
