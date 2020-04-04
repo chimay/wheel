@@ -197,7 +197,9 @@ Reordering buffers		|wheel-special-buffers-reordering|
 INTRODUCTION				*wheel-special-buffers-introduction*
 
 Special buffers allow you to perform Wheel operations intuitively, using
-full power of your editor. The type of action depends on the context :
+full power of your editor : search, yank, paste, completion, and so on.
+
+The type of action depends on the context :
 
 - Navigation buffers allow you to filter and jump to a location, circle or torus
 - Reordering buffers allow you to reorder locations, circles or toruses

@@ -17,9 +17,9 @@ endfun
 fun! wheel#gear#project_root (markers)
 	" Change local directory to root of project
 	" where current buffer belongs
-	if type(a:markers) == 1
+	if type(a:markers) == v:t_string
 		let markers = [a:markers]
-	elseif type(a:markers) == 3
+	elseif type(a:markers) == v:t_list
 		let markers = a:markers
 	else
 		echomsg 'Wheel Project root : argument must be either a string or a list.'

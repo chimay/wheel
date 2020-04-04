@@ -7,6 +7,11 @@ if ! exists('s:levels')
 	lockvar s:levels
 endif
 
+if ! exists('s:coordin')
+	let s:coordin = [ 'torus', 'circle', 'location']
+	lockvar s:coordin
+endif
+
 " Status
 
 fun! wheel#referen#wheel ()
@@ -78,6 +83,11 @@ fun! wheel#referen#current (level)
 	return wheel#referen#{a:level} ()
 endfun
 
+fun! wheel#referen#coordin_index (level)
+	" Return index of level in coordinates
+	return index(s:coordin, a:level)
+endfun
+
 " Coordinates
 
 fun! wheel#referen#names ()
@@ -90,16 +100,46 @@ endfun
 
 fun! wheel#referen#upper (level)
 	" Current upper element in hierarchy
-	let index = index(s:levels, a:level) - 1
-	let index = max([index, 0])
+	let index = index(s:levels, a:level)
+	if index < 1 || index > 3
+		echomsg 'Wheel referen upper : level must be torus, circle or location.'
+		return
+	endif
+	let index -= 1
 	return wheel#referen#{s:levels[index]} ()
 endfun
 
 fun! wheel#referen#lower (level)
 	" Current lower element in hierarchy
-	let index = index(s:levels, a:level) + 1
-	let index = min([index, 3])
+	let index = index(s:levels, a:level)
+	if index > 2 || index < 0
+		echomsg 'Wheel referen lower : level index must be wheel, torus or circle.'
+		return
+	endif
+	let index += 1
 	return wheel#referen#{s:levels[index]} ()
+endfun
+
+fun! wheel#referen#upper_level_name (level)
+	" Level name of upper element in hierarchy
+	let index = index(s:levels, a:level)
+	if index < 1 || index > 3
+		echomsg 'Wheel referen upper level name : level must be torus, circle or location.'
+		return
+	endif
+	let index -= 1
+	return s:levels[index]
+endfun
+
+fun! wheel#referen#lower_level_name (level)
+	" Level name of lower element in hierarchy
+	let index = index(s:levels, a:level)
+	if index > 2 || index < 0
+		echomsg 'Wheel referen lower level name : level index must be wheel, torus or circle.'
+		return
+	endif
+	let index += 1
+	return s:levels[index]
 endfun
 
 " Element lists

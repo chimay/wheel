@@ -8,6 +8,8 @@
 "
 " To insert a non-breaking space : C-v x a 0
 
+" Helpers
+
 fun! wheel#tree#is_in_circle (location, circle)
 	let local = a:location
 	let present = 0
@@ -19,6 +21,8 @@ fun! wheel#tree#is_in_circle (location, circle)
 	return present
 endfu
 
+" Add
+
 fun! wheel#tree#add_torus (...)
 	" Add torus
 	if a:0 > 0
@@ -26,7 +30,7 @@ fun! wheel#tree#add_torus (...)
 	else
 		let torus_name = input('New torus name ? ')
 	endif
-	" Replace spaces par non-breaking spaces
+	" Replace spaces by non-breaking spaces
 	let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	if index(g:wheel.glossary, torus_name) < 0
 		echomsg "Adding torus" torus_name
@@ -50,7 +54,7 @@ fun! wheel#tree#add_circle (...)
 	else
 		let circle_name = input('New circle name ? ')
 	endif
-	" Replace spaces par non-breaking spaces
+	" Replace spaces by non-breaking spaces
 	let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
@@ -90,7 +94,7 @@ fun! wheel#tree#add_location (location)
 		if empty(location_name)
 			let location_name = local.name
 		endif
-		" Replace spaces par non-breaking spaces
+		" Replace spaces by non-breaking spaces
 		let location_name = substitute(location_name, ' ', ' ', 'g')
 		if index(cur_circle.glossary, location_name) < 0
 			let string = 'Adding location ' . local.name . ' : '
@@ -147,6 +151,30 @@ fun! wheel#tree#add_buffer (...)
 	call wheel#tree#add_here()
 endfun
 
+" Rename
+
+fun! wheel#tree#rename (level, new)
+	" Rename name of current level -> new name
+	let level = a:level
+	let new = a:new
+	let upper = wheel#referen#upper (level)
+	let current = wheel#referen#{level} ()
+	" Replace spaces by non-breaking spaces
+	let new = substitute(new, ' ', ' ', 'g')
+	if index(upper.glossary, new) < 0
+		let old = current.name
+		let current.name = new
+		echomsg 'Renaming' level old '->' new
+		let glossary = upper.glossary
+		let upper.glossary = wheel#chain#replace(old, new, glossary)
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#pendulum#rename(level, old, new)
+	else
+		let upper_level_name = wheel#referen#upper_level_name(a:level)
+		echomsg a:level a:new 'already exists in' upper_level_name
+	endif
+endfun
+
 fun! wheel#tree#rename_torus (...)
 	" Rename current torus
 	if a:0 > 0
@@ -154,20 +182,7 @@ fun! wheel#tree#rename_torus (...)
 	else
 		let torus_name = input('Rename torus as ? ')
 	endif
-	" Replace spaces par non-breaking spaces
-	let torus_name = substitute(torus_name, ' ', ' ', 'g')
-	if index(g:wheel.glossary, torus_name) < 0
-		let cur_torus = wheel#referen#torus ()
-		let old_name = cur_torus.name
-		echomsg 'Renaming torus' old_name '->' torus_name
-		let cur_torus.name = torus_name
-		let glossary = g:wheel.glossary
-		let g:wheel.glossary = wheel#chain#replace(old_name, torus_name, glossary)
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		call wheel#pendulum#rename(0, old_name, torus_name)
-	else
-		echomsg 'Torus' torus_name 'already exists in wheel.'
-	endif
+	call wheel#tree#rename('torus', torus_name)
 endfun
 
 fun! wheel#tree#rename_circle (...)
@@ -177,20 +192,7 @@ fun! wheel#tree#rename_circle (...)
 	else
 		let circle_name = input('Rename circle as ? ')
 	endif
-	" Replace spaces par non-breaking spaces
-	let circle_name = substitute(circle_name, ' ', ' ', 'g')
-	let [cur_torus, cur_circle] = wheel#referen#circle ('all')
-	if index(cur_torus.glossary, circle_name) < 0
-		let old_name = cur_circle.name
-		let cur_circle.name = circle_name
-		echomsg 'Renaming circle' old_name '->' circle_name
-		let glossary = cur_torus.glossary
-		let cur_torus.glossary = wheel#chain#replace(old_name, circle_name, glossary)
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		call wheel#pendulum#rename(1, old_name, circle_name)
-	else
-		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
-	endif
+	call wheel#tree#rename('circle', circle_name)
 endfun
 
 fun! wheel#tree#rename_location (...)
@@ -200,20 +202,7 @@ fun! wheel#tree#rename_location (...)
 	else
 		let location_name = input('Rename location as ? ')
 	endif
-	" Replace spaces par non-breaking spaces
-	let location_name = substitute(location_name, ' ', ' ', 'g')
-	let [cur_torus, cur_circle, cur_location] = wheel#referen#location ('all')
-	if index(cur_circle.glossary, location_name) < 0
-		let old_name = cur_location.name
-		let cur_location.name = location_name
-		echomsg 'Renaming location' old_name '->' location_name
-		let glossary = cur_circle.glossary
-		let cur_circle.glossary = wheel#chain#replace(old_name, location_name, glossary)
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		call wheel#pendulum#rename(2, old_name, location_name)
-	else
-		echomsg 'Location named' location_name 'already exists in circle.'
-	endif
+	call wheel#tree#rename('location', location_name)
 endfun
 
 fun! wheel#tree#rename_file (...)
@@ -249,6 +238,8 @@ fun! wheel#tree#rename_file (...)
 		call wheel#helix#rename_file(old_name, filename)
 	endif
 endfun
+
+" Delete
 
 fun! wheel#tree#delete_torus ()
 	" Delete current torus
