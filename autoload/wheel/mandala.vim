@@ -7,7 +7,7 @@
 
 fun! wheel#mandala#open (...)
 	" Open a wheel buffer
-	let type = 'wheel-jump'
+	let type = 'wheel'
 	if a:0 > 0
 		let type = a:1
 	endif
@@ -58,13 +58,17 @@ fun! wheel#mandala#filter_maps ()
 	inoremap <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
 endfun
 
+fun! wheel#mandala#reorder_maps ()
+	" Define local reorder maps in menu buffer
+endfun
+
 " Jump
 
 fun! wheel#mandala#choose (level)
 	" Choose an element of level to switch to in a buffer
 	let level = a:level
 	call wheel#vortex#update ()
-	call wheel#mandala#open ()
+	call wheel#mandala#open ('wheel-choose')
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	let upper = wheel#referen#upper (level)
@@ -146,37 +150,33 @@ endfun
 
 " Reorder
 
-fun! wheel#mandala#reorder_toruses ()
-	" Reorder toruses in a buffer
+fun! wheel#mandala#reorder (level)
+	" Reorder level elements in a buffer
+	let level = a:level
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-reorder')
-	let names = g:wheel.glossary
-	let content = join(names, "\n")
-	put =content
-	normal! gg
 	call wheel#mandala#common_maps ()
+	call wheel#mandala#reorder_maps ()
+	let upper = wheel#referen#upper(level)
+	if ! empty(upper) && ! empty(upper.glossary)
+		let names = upper.glossary
+		let elements = wheel#referen#elements(upper)
+		let content = join(names, "\n")
+		put =content
+		normal! gg
+	else
+		echomsg 'Wheel mandala reorder : empty or incomplete' level
+	endif
+endfun
+
+fun! wheel#mandala#reorder_toruses ()
+	" Reorder toruses in a buffer
 endfun
 
 fun! wheel#mandala#reorder_circles ()
 	" Reorder circles in a buffer
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-reorder')
-	let torus = wheel#referen#torus()
-	let names = torus.glossary
-	let content = join(names, "\n")
-	put =content
-	normal! gg
-	call wheel#mandala#common_maps ()
 endfun
 
 fun! wheel#mandala#reorder_locations ()
 	" Reorder locations in a buffer
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-reorder')
-	let circle = wheel#referen#circle()
-	let names = circle.glossary
-	let content = join(names, "\n")
-	put =content
-	normal! gg
-	call wheel#mandala#common_maps ()
 endfun
