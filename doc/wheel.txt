@@ -68,7 +68,7 @@ FEATURES				*wheel-introduction-features*
 - Easy navigation
   + On demand loading of files
   + Jump to matching tab & window if available
-  + Auto *:lcd* to project root of current file
+  + Auto |:lcd| to project root of current file
 - May be saved in torus file
 -  Moving elements
 -  Display files
