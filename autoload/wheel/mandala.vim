@@ -3,6 +3,8 @@
 " Special Buffer menus
 " Filter and choose an element
 
+" Special Buffer
+
 fun! wheel#mandala#open (...)
 	" Open a wheel buffer
 	let type = 'wheel-jump'
@@ -37,60 +39,60 @@ fun! wheel#mandala#filter ()
 	endif
 endfu
 
-fun! wheel#mandala#common_maps ()
+" Maps
+
+fun! wheel#mandala#common_maps (...)
 	" Define local common maps in menu buffer
-	" Normal maps
 	nnoremap <buffer> i ggA
 	nnoremap <buffer> a ggA
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	" Insert maps
+endfu
+
+fun! wheel#mandala#filter_maps ()
+	" Define local filter maps in menu buffer
 	inoremap <buffer> <space> <esc>:call wheel#mandala#filter()<cr>ggA<space>
 	inoremap <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter()<cr>ggA
 	inoremap <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter()<cr>ggA
 	inoremap <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <buffer> <c-c> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
-endfu
+endfun
 
-fun! wheel#mandala#toruses ()
-	" Choose a torus to switch to in a buffer
+" Jump
+
+fun! wheel#mandala#choose (level)
+	" Choose an element of level to switch to in a buffer
+	let level = a:level
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
-	let names = g:wheel.glossary
+	let upper = wheel#referen#upper (level)
+	let names = upper.glossary
 	let content = join(names, "\n")
 	put =content
 	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#jump('torus', 'open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#jump('torus', 'close')<cr>
+	let string = "nnoremap <buffer> <tab> :call wheel#line#jump('"
+	let string .= level . "', 'open')<cr>"
+	exe string
+	let string = "nnoremap <buffer> <cr> :call wheel#line#jump('"
+	let string .= level . "', 'close')<cr>"
+	exe string
 	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+endfun
+
+fun! wheel#mandala#toruses ()
+	" Choose a torus to switch to in a buffer
+	call wheel#mandala#choose ('torus')
 endfun
 
 fun! wheel#mandala#circles ()
 	" Choose a circle to switch to in a buffer
-	call wheel#vortex#update ()
-	call wheel#mandala#open ()
-	let torus = wheel#referen#torus()
-	let names = torus.glossary
-	let content = join(names, "\n")
-	put =content
-	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#jump('circle', 'open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#jump('circle', 'close')<cr>
-	call wheel#mandala#common_maps ()
+	call wheel#mandala#choose ('circle')
 endfun
 
 fun! wheel#mandala#locations ()
 	" Choose a location to switch to in a buffer
-	call wheel#vortex#update ()
-	call wheel#mandala#open ()
-	let circle = wheel#referen#circle()
-	let names = circle.glossary
-	let content = join(names, "\n")
-	put =content
-	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#jump('location', 'open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#jump('location', 'close')<cr>
-	call wheel#mandala#common_maps ()
+	call wheel#mandala#choose ('location')
 endfun
 
 fun! wheel#mandala#helix ()
@@ -105,6 +107,7 @@ fun! wheel#mandala#helix ()
 	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
 	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
 endfun
 
 fun! wheel#mandala#grid ()
@@ -119,6 +122,7 @@ fun! wheel#mandala#grid ()
 	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
 	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
 endfun
 
 fun! wheel#mandala#history ()
@@ -133,7 +137,10 @@ fun! wheel#mandala#history ()
 	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
 	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
 endfun
+
+" Reorder
 
 fun! wheel#mandala#reorder_toruses ()
 	" Reorder toruses in a buffer
