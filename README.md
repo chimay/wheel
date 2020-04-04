@@ -1,5 +1,31 @@
 <!-- vim: set filetype=markdown: -->
 
+<!-- vim-markdown-toc GFM -->
+
+* [Work in progress](#work-in-progress)
+	* [TODO](#todo)
+* [Introduction](#introduction)
+	* [Goal](#goal)
+		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
+		* [A wheel that follows you](#a-wheel-that-follows-you)
+	* [Features](#features)
+	* [History](#history)
+* [Installation](#installation)
+	* [Using minpac](#using-minpac)
+* [Configuration](#configuration)
+* [Step by Step](#step-by-step)
+	* [Prefix](#prefix)
+	* [Mnemonic](#mnemonic)
+	* [First Circles](#first-circles)
+	* [Moving around](#moving-around)
+		* [Cycling](#cycling)
+		* [Switch using completion](#switch-using-completion)
+		* [Switch using a special buffer](#switch-using-a-special-buffer)
+	* [Square the Circle](#square-the-circle)
+* [Licence](#licence)
+
+<!-- vim-markdown-toc -->
+
 # Work in progress
 
 The core functionality begins to work. A lot of extras has to be done.
