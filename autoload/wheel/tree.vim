@@ -253,9 +253,10 @@ fun! wheel#tree#delete (level)
 	let index = upper.current
 	let upper[key] = wheel#chain#remove_index(index, elements)
 	let length -= 1
-	let upper.current = wheel#gear#circular_minus(index, length)
 	if empty(elements)
 		let upper.current = -1
+	else
+		let upper.current = wheel#gear#circular_minus(index, length)
 	endif
 	let glossary = upper.glossary
 	let name = current.name

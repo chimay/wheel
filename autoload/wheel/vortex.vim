@@ -62,8 +62,13 @@ fun! wheel#vortex#previous (level)
 	if ! empty(upper)
 		call wheel#vortex#update ()
 		let index = upper.current
-		let length = len(wheel#referen#elements(upper))
-		let upper.current = wheel#gear#circular_minus(index, length)
+		let elements = wheel#referen#elements(upper)
+		let length = len(elements)
+		if empty(elements)
+			let upper.current = -1
+		else
+			let upper.current = wheel#gear#circular_minus(index, length)
+		endif
 		call wheel#vortex#jump()
 	endif
 endfun
@@ -75,8 +80,13 @@ fun! wheel#vortex#next (level)
 	if ! empty(upper)
 		call wheel#vortex#update ()
 		let index = upper.current
-		let length = len(wheel#referen#elements(upper))
-		let upper.current = wheel#gear#circular_plus(index, length)
+		let elements = wheel#referen#elements(upper)
+		let length = len(elements)
+		if empty(elements)
+			let upper.current = -1
+		else
+			let upper.current = wheel#gear#circular_plus(index, length)
+		endif
 		call wheel#vortex#jump()
 	endif
 endfun

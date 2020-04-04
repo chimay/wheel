@@ -90,6 +90,8 @@ grow and adapt to your style.
 - Easy navigation
   + On demand loading of files
   + Jump to matching window if available
+  + Choose file, group or category in special buffer
+    * Filter candidates
   + Auto `:lcd` to project root of current file
 - May be saved in torus file
 - TODO Moving elements

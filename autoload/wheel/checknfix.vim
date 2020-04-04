@@ -1,5 +1,15 @@
 " vim: ft=vim fdm=indent:
 
+fun! wheel#checknfix#fresh_wheel ()
+	" Fresh empty wheel variables
+	unlet g:wheel
+	unlet g:wheel_helix
+	unlet g:wheel_grid
+	unlet g:wheel_files
+	unlet g:wheel_history
+	call wheel#void#foundation ()
+endfun
+
 fun! wheel#checknfix#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
 	" Names in toruses, circles and locations are considered to be the right ones

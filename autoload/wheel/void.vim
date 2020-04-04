@@ -116,6 +116,7 @@ fun! wheel#void#lighten ()
 endfu
 
 fun! wheel#void#init ()
+	" Main init function
 	echomsg 'Wheel hello !'
 	call wheel#void#foundation ()
 	if g:wheel_config.autoread > 0
@@ -126,6 +127,7 @@ fun! wheel#void#init ()
 endfu
 
 fun! wheel#void#exit ()
+	" Main exit function
 	echomsg 'Wheel bye !'
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
