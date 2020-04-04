@@ -2,6 +2,8 @@
 
 " Changes of internal structure
 
-fun! wheel#cuboctahedron#reorder_toruses (names)
-	" Reorder toruses following names
+fun! wheel#cuboctahedron#reorder (level, names)
+	" Reorder current elements at level, following names
+	let upper = wheel#referen#upper (level)
+	let elements = wheel#referen#elements (upper)
 endfun

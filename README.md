@@ -64,6 +64,7 @@ grow and adapt to your style.
 - Easy navigation
   + On demand loading of files
   + Jump to matching window if available
+  + Auto `:lcd` to project root of current file
 - May be saved in torus file
 - TODO Moving elements
 - TODO Display files
@@ -88,16 +89,17 @@ itself inspired by MTorus
 
 Simply add this line to your initialisation file :
 
-```
+```vim
 call minpac#add('chimay/wheel', { 'type' : 'start' })
 ```
 
+and it’s done.
 
 # Configuration
 
 Here is an example of configuration :
 
-```
+```vim
 " Initialize config dict
 let g:wheel_config={}
 " Auto read torus file on startup if > 0
@@ -124,14 +126,20 @@ let g:wheel_config.max_history = 50
 "autocmd User WheelAfterJump norm zMzx
 ```
 
+as a starting point.
+
 # Step by Step
+
+## Prefix
 
 In the following discussion, I assume that you have kept the default
 mapping prefix :
 
-```
+```vim
 g:wheel_config.prefix = '<M-w>'
 ```
+
+Just replace it by your prefix if you’ve changed it.
 
 ## Mnemonic
 
