@@ -122,13 +122,15 @@ fun! wheel#vortex#frequency (level, name)
 	let level = a:level
 	let name = a:name
 	let upper = wheel#referen#upper(level)
-	if ! empty(upper.glossary)
+	if ! empty(upper) && ! empty(upper.glossary)
 		let glossary = upper.glossary
 		let index = index(glossary, name)
 		if index >= 0
 			let upper.current = index
 		endif
 		return index
+	else
+		echomsg 'Wheel vortex frequency : empty or incomplete' level
 	endif
 endfun
 

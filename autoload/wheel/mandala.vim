@@ -65,19 +65,23 @@ fun! wheel#mandala#choose (level)
 	let level = a:level
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
-	let upper = wheel#referen#upper (level)
-	let names = upper.glossary
-	let content = join(names, "\n")
-	put =content
-	normal! gg
-	let string = "nnoremap <buffer> <tab> :call wheel#line#jump('"
-	let string .= level . "', 'open')<cr>"
-	exe string
-	let string = "nnoremap <buffer> <cr> :call wheel#line#jump('"
-	let string .= level . "', 'close')<cr>"
-	exe string
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
+	let upper = wheel#referen#upper (level)
+	if ! empty(upper) && ! empty(upper.glossary)
+		let names = upper.glossary
+		let content = join(names, "\n")
+		put =content
+		normal! gg
+		let string = "nnoremap <buffer> <tab> :call wheel#line#jump('"
+		let string .= level . "', 'open')<cr>"
+		exe string
+		let string = "nnoremap <buffer> <cr> :call wheel#line#jump('"
+		let string .= level . "', 'close')<cr>"
+		exe string
+	else
+		echomsg 'Wheel mandala choose : empty or incomplete' level
+	endif
 endfun
 
 fun! wheel#mandala#toruses ()
