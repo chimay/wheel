@@ -2,23 +2,37 @@
 
 " Reference to objects in wheel
 
-" Notes :
-"
-" const = let & lockvar
-
 if ! exists('s:levels')
-	const s:levels = ['wheel', 'torus', 'circle', 'location']
+	if exists(':const')
+		const s:levels = ['wheel', 'torus', 'circle', 'location']
+	else
+		let s:levels = ['wheel', 'torus', 'circle', 'location']
+		lockvar s:levels
+	endif
 endif
 
 if ! exists('s:coordin')
-	const s:coordin = [ 'torus', 'circle', 'location']
+	if exists(':const')
+		const s:coordin = [ 'torus', 'circle', 'location']
+	else
+		let s:coordin = [ 'torus', 'circle', 'location']
+		lockvar s:coordin
+	endif
 endif
 
 if ! exists('s:list_keys')
-	const s:list_keys =
-				\{ 'wheel' : 'toruses',
-				\ 'torus' : 'circles',
-				\ 'circle' : 'locations'}
+	if exists(':const')
+		const s:list_keys =
+					\{ 'wheel' : 'toruses',
+					\ 'torus' : 'circles',
+					\ 'circle' : 'locations'}
+	else
+		let s:list_keys =
+					\{ 'wheel' : 'toruses',
+					\ 'torus' : 'circles',
+					\ 'circle' : 'locations'}
+		lockvar s:list_keys
+	endif
 endif
 
 " Current elements
