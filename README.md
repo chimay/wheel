@@ -32,7 +32,8 @@ The core functionality begins to work. A lot of extras has to be done.
 
 ## TODO
 
-- create interactive menus
+- interactive menus
+  + use folding for torus/circle/location tree
 - moving things
   + reordering buffer
 - modes

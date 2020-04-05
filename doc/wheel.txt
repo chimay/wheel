@@ -212,8 +212,12 @@ NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
 
 The navigation buffers allow you to quickly jump to a Wheel element by
 pressing enter on the matching line. You can use Vim / Neovim search
-to find it. You can also go to insert mode and filter the elements with
-each word you enter on the first line.
+to find it.
+
+You can also go to insert mode and filter the elements with each word
+you enter on the first line. Typing `<Space>`, `<Esc>` or `<CR>` will
+update the candidates. Note that `<C-c>` is not mapped, in case you need
+to go to normal mode without triggering the filter function.
 
 The default mappings are :
 

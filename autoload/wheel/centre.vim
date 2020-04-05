@@ -19,7 +19,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . 'A :call wheel#tree#add_torus()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'f :call wheel#tree#add_file()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'b :call wheel#tree#add_buffer()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<d-a> :call wheel#hub#add()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . '<m-a> :call wheel#hub#add()<cr>'
 		" Vortex : move to elements
 		exe 'nnoremap ' . g:wheel_config.prefix . '<left> :call wheel#vortex#prev_location()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<right> :call wheel#vortex#next_location()<cr>'
@@ -57,6 +57,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . '<s-space> :call wheel#mandala#toruses()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 's :call wheel#mandala#helix()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-s> :call wheel#mandala#grid()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . '<m-s> :call wheel#mandala#tree()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'h :call wheel#mandala#history()<cr>'
 	endif
 	" Advanced

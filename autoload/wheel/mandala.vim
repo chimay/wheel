@@ -42,33 +42,64 @@ endfu
 " Maps
 
 fun! wheel#mandala#common_maps (...)
-	" Define local common maps in menu buffer
+	" Define local common maps in wheel buffer
 	nnoremap <buffer> i ggA
 	nnoremap <buffer> a ggA
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 endfu
 
 fun! wheel#mandala#filter_maps ()
-	" Define local filter maps in menu buffer
+	" Define local filter maps in wheel buffer
 	inoremap <buffer> <space> <esc>:call wheel#mandala#filter()<cr>ggA<space>
 	inoremap <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter()<cr>ggA
 	inoremap <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter()<cr>ggA
 	inoremap <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
-	inoremap <buffer> <c-c> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
+	" <C-c> is not mapped, in case you need a regular esc
 endfun
 
 fun! wheel#mandala#reorder_maps ()
-	" Define local reorder maps in menu buffer
+	" Define local reorder maps in wheel buffer
 endfun
 
-" Jump
+" Folding
+
+fun! wheel#mandala#folding_options ()
+	" Folding options for wheel buffers
+	setlocal foldenable
+	setlocal foldminlines=1
+	setlocal foldlevel=0
+	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+	setlocal foldclose=
+	setlocal foldmethod=marker
+	setlocal foldmarker=>,<
+	setlocal foldcolumn=2
+	setlocal foldtext=wheel#mandala#folding_text()
+endfun
+
+fun! wheel#mandala#folding_text ()
+	" Folding text for wheel buffers
+	let numlines = v:foldend - v:foldstart
+	let line = getline(v:foldstart)
+	if v:foldlevel == 1
+		let level = 'Torus'
+	elseif v:foldlevel == 2
+		let level = 'Circle'
+	elseif v:foldlevel == 3
+		let level = 'Location'
+	endif
+	let text = level . ' ' . line . ' ' . numlines . ' lines ' . v:folddashes
+	return text
+endfun
+
+" Choose
 
 fun! wheel#mandala#choose (level)
-	" Choose an element of level to switch to in a buffer
+	" Choose an element of level to switch to
 	let level = a:level
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-choose')
+	let string = 'wheel-choose-' . level
+	call wheel#mandala#open (string)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	let upper = wheel#referen#upper (level)
@@ -89,22 +120,22 @@ fun! wheel#mandala#choose (level)
 endfun
 
 fun! wheel#mandala#toruses ()
-	" Choose a torus to switch to in a buffer
+	" Choose a torus to switch to
 	call wheel#mandala#choose ('torus')
 endfun
 
 fun! wheel#mandala#circles ()
-	" Choose a circle to switch to in a buffer
+	" Choose a circle to switch to
 	call wheel#mandala#choose ('circle')
 endfun
 
 fun! wheel#mandala#locations ()
-	" Choose a location to switch to in a buffer
+	" Choose a location to switch to
 	call wheel#mandala#choose ('location')
 endfun
 
 fun! wheel#mandala#helix ()
-	" Choose a location coordinate to switch to in a buffer
+	" Choose a location coordinate to switch to
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
@@ -118,8 +149,24 @@ fun! wheel#mandala#helix ()
 	call wheel#mandala#filter_maps ()
 endfun
 
+fun! wheel#mandala#tree ()
+	" Choose an element in the wheel tree
+	" Each coordinate = [torus, circle, location]
+	call wheel#vortex#update ()
+	call wheel#mandala#open ()
+	call wheel#mandala#folding_options ()
+	let names = wheel#helix#tree ()
+	let content = join(names, "\n")
+	put =content
+	normal! gg
+	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
+	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+endfun
+
 fun! wheel#mandala#grid ()
-	" Choose a circle coordinate to switch to in a buffer
+	" Choose a circle coordinate to switch to
 	" Each coordinate = [torus, circle]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()

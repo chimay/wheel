@@ -87,6 +87,29 @@ fun! wheel#helix#locations ()
 	return strings
 endfu
 
+fun! wheel#helix#tree ()
+	" Tree of elements in the wheel
+	let helix = wheel#helix#helix ()
+	let strings = []
+	for torus in g:wheel.toruses
+		let entry = torus.name . ' >>'
+		let strings = add(strings, entry)
+		for circle in torus.circles
+			let entry = circle.name . ' >'
+			let strings = add(strings, entry)
+			for location in circle.locations
+				let entry = location.name
+				let strings = add(strings, entry)
+			endfor
+			let entry = '<'
+			let strings = add(strings, entry)
+		endfor
+		let entry = '<<'
+		let strings = add(strings, entry)
+	endfor
+	return strings
+endfu
+
 fun! wheel#helix#circles ()
 	" Index of circles coordinates in the wheel
 	" Each coordinate is a string torus >> circle
