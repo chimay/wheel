@@ -220,7 +220,7 @@ fun! wheel#tree#rename_file (...)
 	let location = wheel#referen#location ()
 	let old_name = location.file
 	let command = 'mv -i '
-	let rename = command . old_name . ' ' . filename
+	let rename = command . shellescape(old_name) . ' ' . shellescape(filename)
 	"echomsg rename
 	call system(rename)
 	if ! v:shell_error

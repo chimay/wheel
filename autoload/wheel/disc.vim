@@ -45,7 +45,7 @@ fun! wheel#disc#roll_backups (file, backups)
 	while len(filelist) > 1
 		let second = expand(remove(filelist, 0))
 		let first = expand(filelist[0])
-		let copy = command . first . ' ' . second
+		let copy = command . shellescape(first) . ' ' . shellescape(second)
 		if filereadable(first)
 			"echomsg copy
 			call system(copy)
