@@ -22,8 +22,12 @@ fun! wheel#cuboctahedron#reorder (level)
 		endif
 		call add(new_list, elem)
 	endfor
-	let upper[key] = []
-	let upper[key] = new_list
-	let upper.glossary = new_names
-	return new_list
+	if len(new_list) != len(old_list)
+		echomsg 'Some elements seem to be deleted : changes not written'
+	else
+		let upper[key] = []
+		let upper[key] = new_list
+		let upper.glossary = new_names
+		return new_list
+	endif
 endfun
