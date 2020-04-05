@@ -151,7 +151,7 @@ let g:wheel_config.project_markers = ['.git', '.my-project-root']
 " Maximum number of elements in history
 let g:wheel_config.max_history = 50
 " Autocommands executed after jumping to a location
-"autocmd User WheelAfterJump norm zMzx
+autocmd User WheelAfterJump norm zMzx
 ```
 
 as a starting point.

@@ -34,6 +34,7 @@ fun! wheel#mandala#filter ()
 	let lines = wheel#line#filter ()
 	2,$delete _
 	put =lines
+	setlocal nomodified
 	if line('$') > 1
 		2
 	endif
@@ -68,8 +69,21 @@ fun! wheel#mandala#jump_maps (level)
 	exe string
 endfun
 
-fun! wheel#mandala#reorder_maps (level)
+fun! wheel#mandala#reorder_maps ()
 	" Define local reorder maps in wheel buffer
+endfun
+
+fun! wheel#mandala#reorder_write (level)
+	" Define reorder autocommands in wheel buffer
+	setlocal buftype=
+	let string = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
+	let string .= a:level . "')"
+	" Need a name when writing, even with BufWriteCmd
+	file /wheel/reorder
+	augroup wheel
+		autocmd!
+		exe string
+	augroup END
 endfun
 
 " Folding
@@ -120,6 +134,7 @@ fun! wheel#mandala#choose (level)
 		let names = upper.glossary
 		let content = join(names, "\n")
 		put =content
+		setlocal nomodified
 		normal! gg
 	else
 		echomsg 'Wheel mandala choose : empty or incomplete' level
@@ -149,6 +164,7 @@ fun! wheel#mandala#helix ()
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
 	put =content
+	setlocal nomodified
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
@@ -164,6 +180,7 @@ fun! wheel#mandala#grid ()
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")
 	put =content
+	setlocal nomodified
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
@@ -180,6 +197,7 @@ fun! wheel#mandala#tree ()
 	let names = wheel#helix#tree ()
 	let content = join(names, "\n")
 	put =content
+	setlocal nomodified
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#tree('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#tree('close')<cr>
@@ -195,6 +213,7 @@ fun! wheel#mandala#history ()
 	let names = wheel#pendulum#sorted ()
 	let content = join(names, "\n")
 	put =content
+	setlocal nomodified
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
@@ -210,13 +229,14 @@ fun! wheel#mandala#reorder (level)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-reorder')
 	call wheel#mandala#common_maps ()
-	call wheel#mandala#reorder_maps ()
+	call wheel#mandala#reorder_write (level)
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary
 		let elements = wheel#referen#elements(upper)
 		let content = join(names, "\n")
 		put =content
+		setlocal nomodified
 		normal! gg
 	else
 		echomsg 'Wheel mandala reorder : empty or incomplete' level
