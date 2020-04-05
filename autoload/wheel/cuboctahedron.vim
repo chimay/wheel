@@ -29,6 +29,7 @@ fun! wheel#cuboctahedron#reorder (level)
 		let upper[key] = new_list
 		let upper.glossary = new_names
 		setlocal nomodified
+		echomsg 'Changes written to wheel'
 		return new_list
 	endif
 endfun
