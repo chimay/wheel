@@ -224,6 +224,9 @@ The default mappings are :
 - `<M-w><Space>`: jump to location
 - `<M-w><C-space>` : jump to circle
 - `<M-w><S-space>` : jump to torus
+- `<M-w>s` : index of toruses >> circles > locations
+- `<M-w><C-s>` : index of toruses >> circles
+- `<M-w><M-s>` : use folds to display tree of toruses, circles and locations
 
 ------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*
@@ -420,7 +423,7 @@ Add~
 | A        | <M-w>A              | Add torus to the wheel             |
 | f        | <M-w>f              | Add file                           |
 | b        | <M-w>b              | Add buffer                         |
-| <D-a>    | <M-w><D-a>          | Add menu                           |
+| <M-a>    | <M-w><M-a>          | Add menu                           |
 
 Navigation : next / previous~
 

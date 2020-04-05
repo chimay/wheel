@@ -159,8 +159,8 @@ fun! wheel#mandala#tree ()
 	let content = join(names, "\n")
 	put =content
 	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
+	nnoremap <buffer> <tab> :call wheel#line#tree('open')<cr>
+	nnoremap <buffer> <cr> :call wheel#line#tree('close')<cr>
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 endfun

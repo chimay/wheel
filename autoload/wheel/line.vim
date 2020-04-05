@@ -60,6 +60,61 @@ fun! wheel#line#helix (...)
 	call wheel#vortex#jump ()
 endfun
 
+fun! wheel#line#tree (...)
+	" Switch to helix tree element in current line
+	let mode = 'close'
+	if a:0 > 0
+		let mode = a:1
+	endif
+	let cursor_line = getline('.')
+	let cursor_list = split(cursor_line, ' ')
+	if foldlevel('.') == 2 && len(cursor_list) == 1
+		let location = getline('.')
+		normal! [z
+		let line = getline('.')
+		let list = split(line, ' ')
+		let circle = list[0]
+		normal! [z
+		let line = getline('.')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus, circle, location]
+	elseif foldlevel('.') == 2
+		let line = getline('.')
+		let list = split(line, ' ')
+		let circle = list[0]
+		normal! [z
+		let line = getline('.')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus, circle]
+	elseif foldlevel('.') == 1
+		let line = getline('.')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus]
+	endif
+	if mode ==# 'close'
+		call wheel#mandala#close ()
+	else
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
+	endif
+	let length = len(coordin)
+	if length == 3
+		call wheel#vortex#tune(coordin)
+	elseif length == 2
+		call wheel#vortex#tune_torus(coordin[0])
+		call wheel#vortex#tune_circle(coordin[1])
+	elseif length == 1
+		call wheel#vortex#tune_torus(coordin[0])
+	endif
+	call wheel#vortex#jump ()
+endfun
+
 fun! wheel#line#grid (...)
 	" Switch to grid circle in current line
 	let mode = 'close'

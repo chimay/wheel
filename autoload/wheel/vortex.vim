@@ -127,6 +127,8 @@ fun! wheel#vortex#frequency (level, name)
 		let index = index(glossary, name)
 		if index >= 0
 			let upper.current = index
+		else
+			echomsg 'Wheel vortex frequency : element not found'
 		endif
 		return index
 	else
