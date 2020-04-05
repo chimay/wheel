@@ -5,6 +5,12 @@
 
 " Helpers
 
+fun! wheel#gear#remove_empty_folds (candidates)
+	" Remove empty folds
+	for index in range(len(a:candidates))
+	endfor
+endfun
+
 fun! wheel#line#filter ()
 	" Return lines matching words of first line
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
@@ -16,8 +22,11 @@ fun! wheel#line#filter ()
 	endif
 	let first = getline(1)
 	let wordlist = split(first)
-	let Matches = function('wheel#gear#fold_filter', [wordlist])
+	let Matches = function('wheel#gear#filter', [wordlist])
 	let candidates = filter(linelist, Matches)
+	" Remove non-matching empty folds
+	let candidates = wheel#gear#remove_empty_folds(candidates)
+	" Return
 	return candidates
 endfu
 

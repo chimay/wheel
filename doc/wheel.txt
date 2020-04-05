@@ -226,7 +226,14 @@ The default mappings are :
 - `<M-w><S-space>` : jump to torus
 - `<M-w>s` : index of toruses >> circles > locations
 - `<M-w><C-s>` : index of toruses >> circles
-- `<M-w><M-s>` : use folds to display tree of toruses, circles and locations
+
+Folding~
+
+The map `<M-w><M-s>` opens a dedicated buffer where folds are used to
+reflect the tree structure of the Wheel : toruses, circles and locations.
+
+Filtering in that buffer will keep surrounding folds ; only non mathing
+empty folds will be removed.
 
 ------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*

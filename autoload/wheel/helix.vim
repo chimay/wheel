@@ -92,20 +92,16 @@ fun! wheel#helix#tree ()
 	let helix = wheel#helix#helix ()
 	let strings = []
 	for torus in g:wheel.toruses
-		let entry = torus.name . ' >'
+		let entry = torus.name . ' >1'
 		let strings = add(strings, entry)
 		for circle in torus.circles
-			let entry = circle.name . ' >'
+			let entry = circle.name . ' >2'
 			let strings = add(strings, entry)
 			for location in circle.locations
 				let entry = location.name
 				let strings = add(strings, entry)
 			endfor
-			let entry = '<'
-			let strings = add(strings, entry)
 		endfor
-		let entry = '<'
-		let strings = add(strings, entry)
 	endfor
 	return strings
 endfu

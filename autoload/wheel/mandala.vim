@@ -81,7 +81,16 @@ fun! wheel#mandala#folding_text ()
 	" Folding text for wheel buffers
 	let numlines = v:foldend - v:foldstart
 	let line = getline(v:foldstart)
-	let text = line . ' level ' . v:foldlevel . ' :: ' . numlines . ' lines ' . v:folddashes
+	if v:foldlevel == 1
+		let level = 'torus'
+	elseif v:foldlevel == 2
+		let level = 'circle'
+	elseif v:foldlevel == 3
+		let level = 'location'
+	endif
+	let repl = ':: ' . level
+	let line = substitute(line, '\m>[12]', repl, '')
+	let text = line . ' :: ' . numlines . ' lines ' . v:folddashes
 	return text
 endfun
 
@@ -131,7 +140,7 @@ fun! wheel#mandala#helix ()
 	" Choose a location coordinate to switch to
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
-	call wheel#mandala#open ()
+	call wheel#mandala#open ('wheel-location-index')
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
 	put =content
@@ -146,7 +155,7 @@ fun! wheel#mandala#tree ()
 	" Choose an element in the wheel tree
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
-	call wheel#mandala#open ()
+	call wheel#mandala#open ('wheel-tree')
 	call wheel#mandala#folding_options ()
 	let names = wheel#helix#tree ()
 	let content = join(names, "\n")
@@ -162,7 +171,7 @@ fun! wheel#mandala#grid ()
 	" Choose a circle coordinate to switch to
 	" Each coordinate = [torus, circle]
 	call wheel#vortex#update ()
-	call wheel#mandala#open ()
+	call wheel#mandala#open ('wheel-circle-index')
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")
 	put =content
