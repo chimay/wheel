@@ -43,12 +43,12 @@ fun! wheel#gear#project_root (markers)
 endfun
 
 fun! wheel#gear#filter (wordlist, index, value)
-	" Whether value matches all words of wordlist
+	" Whether value matches all words of wordlist. Keep surrounding folds.
 	" index is not used, it’s just for compatibility with filter()
+	let marker = split(&foldmarker, ',')[0]
 	let length = strchars(a:value)
 	let prelast = strcharpart(a:value, length - 2, 1)
-	" Keep surrounding folds
-	if prelast == '>'
+	if prelast == marker
 		return 1
 	endif
 	" Words
@@ -62,3 +62,55 @@ fun! wheel#gear#filter (wordlist, index, value)
 	endfor
 	return match
 endfun
+
+fun! wheel#gear#word_filter (wordlist, index, value)
+	" Whether value matches all words of wordlist
+	" index is not used, it’s just for compatibility with filter()
+	let match = 1
+	for word in a:wordlist
+		let pattern = '.*' . word . '.*'
+		if a:value !~ pattern
+			let match = 0
+			break
+		endif
+	endfor
+	return match
+endfun
+
+fun! wheel#gear#fold_filter (wordlist, candidates)
+	" Remove non-matching empty folds
+	let marker = split(&foldmarker, ',')[0]
+	let wordlist = a:wordlist
+	let candidates = a:candidates
+	let filtered = []
+	for index in range(len(candidates) - 1)
+		" --- Current line
+		let cur_value = candidates[index]
+		let cur_length = strchars(cur_value)
+		" ending = >1 or >2 if fold start
+		let cur_prelast = strcharpart(cur_value, cur_length - 2, 1)
+		let cur_last = strcharpart(cur_value, cur_length - 1, 1)
+		" --- Next line
+		let next_value = candidates[index + 1]
+		let next_length = strchars(next_value)
+		let next_prelast = strcharpart(next_value, next_length - 2, 1)
+		let next_last = strcharpart(next_value, next_length - 1, 1)
+		" --- Comparison
+		" if empty fold, value and next will contain marker
+		" and current fold level will be >= than next one
+		if cur_prelast == marker && next_prelast == marker && cur_last >= next_last
+			" Add line only if matches wordlist
+			if wheel#gear#word_filter(wordlist, index, cur_value)
+				call add(filtered, cur_value)
+			endif
+		else
+			call add(filtered, cur_value)
+		endif
+	endfor
+	let value = candidates[-1]
+	if wheel#gear#word_filter(wordlist, -1, value)
+		call add(filtered, value)
+	endif
+	return filtered
+endfun
+

@@ -5,29 +5,24 @@
 
 " Helpers
 
-fun! wheel#gear#remove_empty_folds (candidates)
-	" Remove empty folds
-	for index in range(len(a:candidates))
-	endfor
-endfun
-
 fun! wheel#line#filter ()
 	" Return lines matching words of first line
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
-		let linelist = getline(2, '$')
-		let b:wheel_lines = copy(linelist)
+		let b:wheel_lines = getline(2, '$')
 		lockvar b:wheel_lines
-	else
-		let linelist = copy(b:wheel_lines)
 	endif
+	let linelist = copy(b:wheel_lines)
 	let first = getline(1)
 	let wordlist = split(first)
+	if empty(wordlist)
+		return linelist
+	endif
 	let Matches = function('wheel#gear#filter', [wordlist])
 	let candidates = filter(linelist, Matches)
-	" Remove non-matching empty folds
-	let candidates = wheel#gear#remove_empty_folds(candidates)
+	let filtered = wheel#gear#fold_filter(wordlist, candidates)
+	let filtered = wheel#gear#fold_filter(wordlist, filtered)
 	" Return
-	return candidates
+	return filtered
 endfu
 
 " Folds in treeish buffers
