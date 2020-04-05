@@ -5,11 +5,11 @@
 
 fun! wheel#line#filter ()
 	" Return lines matching words of first line
-	if ! exists('b:wheel_menu') || empty(b:wheel_menu)
+	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
 		let linelist = getline(2, '$')
-		let b:wheel_menu = copy(linelist)
+		let b:wheel_lines = copy(linelist)
 	else
-		let linelist = copy(b:wheel_menu)
+		let linelist = copy(b:wheel_lines)
 	endif
 	let first = getline(1)
 	let wordlist = split(first)

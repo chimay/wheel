@@ -91,5 +91,6 @@ fun! wheel#centre#mappings ()
 		nnoremap <Space>      :call wheel#mandala#locations()<cr>
 		nnoremap <C-Space>    :call wheel#mandala#circles()<cr>
 		nnoremap <S-Space>    :call wheel#mandala#toruses()<cr>
+		nnoremap <D-s>        :call wheel#mandala#tree()<cr>
 	endif
 endfun
