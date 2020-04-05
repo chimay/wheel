@@ -59,8 +59,9 @@ endfun
 fun! wheel#gear#fold_filter (wordlist, index, value)
 	" Whether value matches all words of wordlist ; keep fold parents
 	" index is not used, it’s just for compatibility with filter()
-	let length = strlen(a:value)
-	if a:value[length - 1] == '>' || a:value == '<'
+	let length = strchars(a:value)
+	let last = strcharpart(a:value, length -1, 1)
+	if last == '>' || a:value == '<'
 		return 1
 	endif
 	let match = 1
