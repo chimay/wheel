@@ -75,7 +75,7 @@ you to organize your files by groups and categories:
 
 ### A wheel that follows you
 
-Torus helps you to organize your files in groups that you create
+Wheel helps you to organize your files in groups that you create
 yourself, following your workflow. You only add the files you want,
 where you want. For instance, if you have a "organize" group with agenda
 & todo files, you can quickly alternate them, or display them in two
@@ -91,8 +91,9 @@ grow and adapt to your style.
   + Jump to matching window if available
   + Choose file, group or category in special buffer
     * Filter candidates
+	* Folding matching wheel tree structure
   + Auto `:lcd` to project root of current file
-- May be saved in torus file
+- May be saved in wheel file
 - TODO Moving elements
 - TODO Display files
   + In header-line tabs
