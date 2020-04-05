@@ -28,6 +28,7 @@ fun! wheel#cuboctahedron#reorder (level)
 		let upper[key] = []
 		let upper[key] = new_list
 		let upper.glossary = new_names
+		setlocal nomodified
 		return new_list
 	endif
 endfun
