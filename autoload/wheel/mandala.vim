@@ -81,7 +81,7 @@ fun! wheel#mandala#folding_text ()
 	" Folding text for wheel buffers
 	let numlines = v:foldend - v:foldstart
 	let line = getline(v:foldstart)
-	let text = line . ' level ' . v:foldlevel . ' ' . numlines . ' lines ' . v:folddashes
+	let text = line . ' level ' . v:foldlevel . ' :: ' . numlines . ' lines ' . v:folddashes
 	return text
 endfun
 

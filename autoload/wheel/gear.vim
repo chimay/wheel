@@ -55,3 +55,21 @@ fun! wheel#gear#word_filter (wordlist, index, value)
 	endfor
 	return match
 endfun
+
+fun! wheel#gear#fold_filter (wordlist, index, value)
+	" Whether value matches all words of wordlist ; keep fold parents
+	" index is not used, it’s just for compatibility with filter()
+	let length = strlen(a:value)
+	if a:value[length - 1] == '>' || a:value == '<'
+		return 1
+	endif
+	let match = 1
+	for word in a:wordlist
+		let pattern = '.*' . word . '.*'
+		if a:value !~ pattern
+			let match = 0
+			break
+		endif
+	endfor
+	return match
+endfun

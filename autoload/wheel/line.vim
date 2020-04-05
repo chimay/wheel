@@ -3,20 +3,60 @@
 " Action of the cursor line :
 " - Going to an element
 
+" Helpers
+
 fun! wheel#line#filter ()
 	" Return lines matching words of first line
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
 		let linelist = getline(2, '$')
 		let b:wheel_lines = copy(linelist)
+		lockvar b:wheel_lines
 	else
 		let linelist = copy(b:wheel_lines)
 	endif
 	let first = getline(1)
 	let wordlist = split(first)
-	let Matches = function('wheel#gear#word_filter', [wordlist])
+	let Matches = function('wheel#gear#fold_filter', [wordlist])
 	let candidates = filter(linelist, Matches)
 	return candidates
 endfu
+
+" Folds in treeish buffers
+
+fun! wheel#line#fold_coordin ()
+	" Return coordin of line in treeish buffer
+	let cursor_line = getline('.')
+	let cursor_list = split(cursor_line, ' ')
+	if foldlevel('.') == 2 && len(cursor_list) == 1
+		let location = getline('.')
+		normal! [z
+		let line = getline('.')
+		let list = split(line, ' ')
+		let circle = list[0]
+		normal! [z
+		let line = getline('.')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus, circle, location]
+	elseif foldlevel('.') == 2
+		let line = getline('.')
+		let list = split(line, ' ')
+		let circle = list[0]
+		normal! [z
+		let line = getline('.')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus, circle]
+	elseif foldlevel('.') == 1
+		let line = getline('.')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus]
+	endif
+	return coordin
+endfun
+
+" Jump
 
 fun! wheel#line#jump (level, ...)
 	" Switch to element whose name is in current line
@@ -66,34 +106,7 @@ fun! wheel#line#tree (...)
 	if a:0 > 0
 		let mode = a:1
 	endif
-	let cursor_line = getline('.')
-	let cursor_list = split(cursor_line, ' ')
-	if foldlevel('.') == 2 && len(cursor_list) == 1
-		let location = getline('.')
-		normal! [z
-		let line = getline('.')
-		let list = split(line, ' ')
-		let circle = list[0]
-		normal! [z
-		let line = getline('.')
-		let list = split(line, ' ')
-		let torus = list[0]
-		let coordin = [torus, circle, location]
-	elseif foldlevel('.') == 2
-		let line = getline('.')
-		let list = split(line, ' ')
-		let circle = list[0]
-		normal! [z
-		let line = getline('.')
-		let list = split(line, ' ')
-		let torus = list[0]
-		let coordin = [torus, circle]
-	elseif foldlevel('.') == 1
-		let line = getline('.')
-		let list = split(line, ' ')
-		let torus = list[0]
-		let coordin = [torus]
-	endif
+	let coordin = wheel#line#fold_coordin ()
 	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else

@@ -81,7 +81,7 @@ fun! wheel#helix#locations ()
 	let helix = wheel#helix#helix ()
 	let strings = []
 	for coordin in helix
-		let entry = coordin[0] . ' >> ' . coordin[1] . ' > ' . coordin[2]
+		let entry = coordin[0] . ' > ' . coordin[1] . ' > ' . coordin[2]
 		let strings = add(strings, entry)
 	endfor
 	return strings

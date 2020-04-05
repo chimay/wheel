@@ -49,6 +49,11 @@ echo function('Minus', [3])(2)
 let TreeMinus = function('Minus', [3])
 echo TreeMinus(2)
 
+fun! Multi (fn)
+	let r = a:fn(1, 2) + a:fn(3, 4)
+	return r
+endfun
+
 " }}}2
 
 " Lambda {{{2

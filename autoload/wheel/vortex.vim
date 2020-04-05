@@ -38,7 +38,7 @@ fun! wheel#vortex#jump ()
 			exe 'silent buffer ' . buffer
 		else
 			"echomsg 'Opening file ' location.file
-			exe 'silent edit ' . location.file
+			exe 'silent edit ' . fnameescape(location.file)
 		endif
 		call cursor(location.line, location.col)
 		if g:wheel_config.cd_project > 0
