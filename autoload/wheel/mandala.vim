@@ -58,7 +58,17 @@ fun! wheel#mandala#filter_maps ()
 	" <C-c> is not mapped, in case you need a regular esc
 endfun
 
-fun! wheel#mandala#reorder_maps ()
+fun! wheel#mandala#jump_maps (level)
+	" Define maps to jump to element in current line
+	let string = "nnoremap <buffer> <tab> :call wheel#line#jump('"
+	let string .= a:level . "', 'open')<cr>"
+	exe string
+	let string = "nnoremap <buffer> <cr> :call wheel#line#jump('"
+	let string .= a:level . "', 'close')<cr>"
+	exe string
+endfun
+
+fun! wheel#mandala#reorder_maps (level)
 	" Define local reorder maps in wheel buffer
 endfun
 
@@ -104,18 +114,13 @@ fun! wheel#mandala#choose (level)
 	call wheel#mandala#open (string)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
+	call wheel#mandala#jump_maps (level)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary
 		let content = join(names, "\n")
 		put =content
 		normal! gg
-		let string = "nnoremap <buffer> <tab> :call wheel#line#jump('"
-		let string .= level . "', 'open')<cr>"
-		exe string
-		let string = "nnoremap <buffer> <cr> :call wheel#line#jump('"
-		let string .= level . "', 'close')<cr>"
-		exe string
 	else
 		echomsg 'Wheel mandala choose : empty or incomplete' level
 	endif
@@ -151,6 +156,21 @@ fun! wheel#mandala#helix ()
 	call wheel#mandala#filter_maps ()
 endfun
 
+fun! wheel#mandala#grid ()
+	" Choose a circle coordinate to switch to
+	" Each coordinate = [torus, circle]
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-circle-index')
+	let names = wheel#helix#circles ()
+	let content = join(names, "\n")
+	put =content
+	normal! gg
+	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
+	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+endfun
+
 fun! wheel#mandala#tree ()
 	" Choose an element in the wheel tree
 	" Each coordinate = [torus, circle, location]
@@ -163,21 +183,6 @@ fun! wheel#mandala#tree ()
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#tree('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#tree('close')<cr>
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-endfun
-
-fun! wheel#mandala#grid ()
-	" Choose a circle coordinate to switch to
-	" Each coordinate = [torus, circle]
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-circle-index')
-	let names = wheel#helix#circles ()
-	let content = join(names, "\n")
-	put =content
-	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 endfun
