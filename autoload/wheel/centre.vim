@@ -59,6 +59,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-s> :call wheel#mandala#grid()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<m-s> :call wheel#mandala#tree()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'h :call wheel#mandala#history()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . 'o :call wheel#mandala#locations()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . '<C-o> :call wheel#mandala#circles()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . 'O :call wheel#mandala#toruses()<cr>'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2

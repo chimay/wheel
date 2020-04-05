@@ -236,6 +236,7 @@ fun! wheel#mandala#reorder (level)
 		let elements = wheel#referen#elements(upper)
 		let content = join(names, "\n")
 		put =content
+		1 delete _
 		setlocal nomodified
 		normal! gg
 	else
@@ -245,12 +246,15 @@ endfun
 
 fun! wheel#mandala#reorder_toruses ()
 	" Reorder toruses in a buffer
+	call wheel#mandala#reorder ('torus')
 endfun
 
 fun! wheel#mandala#reorder_circles ()
 	" Reorder circles in a buffer
+	call wheel#mandala#reorder ('circle')
 endfun
 
 fun! wheel#mandala#reorder_locations ()
 	" Reorder locations in a buffer
+	call wheel#mandala#reorder ('location')
 endfun

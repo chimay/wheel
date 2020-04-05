@@ -64,6 +64,7 @@ fun! wheel#disc#write_all ()
 		call wheel#disc#write('g:wheel_grid', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_files', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_history', g:wheel_config.file, '>>')
+		echomsg 'Writing done !'
 	else
 		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 	endif
