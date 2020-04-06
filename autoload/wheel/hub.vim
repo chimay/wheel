@@ -2,18 +2,6 @@
 
 " Menus
 
-if ! exists('s:meta')
-	let s:meta = {
-				\ 'Add menu' : 'wheel#hub#add',
-				\ 'Rename menu' : 'wheel#hub#rename',
-				\ 'Delete menu' : 'wheel#hub#delete',
-				\ 'Jump menu' : 'wheel#hub#jump',
-				\ 'Alternate menu' : 'wheel#hub#alternate',
-				\ 'Reorder menu' : 'wheel#hub#reorder',
-				\}
-	lockvar s:meta
-endif
-
 if ! exists('s:add')
 	let s:add = {
 				\ 'Add a new torus' : 'wheel#tree#add_torus',
@@ -89,13 +77,31 @@ if ! exists('s:main')
 	lockvar s:main
 endif
 
+if ! exists('s:meta')
+	let s:meta = {
+				\ 'Add menu' : 'wheel#hub#add',
+				\ 'Rename menu' : 'wheel#hub#rename',
+				\ 'Delete menu' : 'wheel#hub#delete',
+				\ 'Jump menu' : 'wheel#hub#jump',
+				\ 'Alternate menu' : 'wheel#hub#alternate',
+				\ 'Reorder menu' : 'wheel#hub#reorder',
+				\}
+	lockvar s:meta
+endif
+
+if ! exists('s:all')
+	let s:all = copy(s:main)
+	call extend(s:all, s:meta)
+	lockvar s:all
+endif
+
 " Helpers
 
 fun! wheel#hub#call ()
 	" Calls s:meta[key]
 	let key = getline('.')
 	call wheel#mandala#close ()
-	exe 'call ' . s:meta[key] . '()'
+	exe 'call ' . s:all[key] . '()'
 endfun
 
 " Buffer menus
