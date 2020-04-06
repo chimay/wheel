@@ -545,6 +545,8 @@ can set the mapping level to 10 to activate them, or adapt them to your taste
 and add them to your init file.
 
 | Mapping        | Action                                |
+| <D-=>          | Meta menu                             |
+| <D-m>          | Main menu                             |
 | <D-Insert>     | Add location to the current circle    |
 | <D-Del>        | Delete current location               |
 | <C-PageUp>     | Go to previous location               |
