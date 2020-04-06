@@ -2,6 +2,18 @@
 
 " Menus
 
+if ! exists('s:meta')
+	let s:meta = {
+				\ 'Add menu' : 'wheel#hub#add',
+				\ 'Rename menu' : 'wheel#hub#rename',
+				\ 'Delete menu' : 'wheel#hub#delete',
+				\ 'Jump menu' : 'wheel#hub#jump',
+				\ 'Alternate menu' : 'wheel#hub#alternate',
+				\ 'Reorder menu' : 'wheel#hub#reorder',
+				\}
+	lockvar s:meta
+endif
+
 if ! exists('s:add')
 	let s:add = {
 				\ 'Add a new torus' : 'wheel#tree#add_torus',
@@ -66,15 +78,15 @@ if ! exists('s:reorder')
 	lockvar s:reorder
 endif
 
-if ! exists('s:meta')
-	let s:meta = {}
-	call extend(s:meta, s:add)
-	call extend(s:meta, s:rename)
-	call extend(s:meta, s:delete)
-	call extend(s:meta, s:jump)
-	call extend(s:meta, s:alternate)
-	call extend(s:meta, s:reorder)
-	lockvar s:meta
+if ! exists('s:main')
+	let s:main = {}
+	call extend(s:main, s:add)
+	call extend(s:main, s:rename)
+	call extend(s:main, s:delete)
+	call extend(s:main, s:jump)
+	call extend(s:main, s:alternate)
+	call extend(s:main, s:reorder)
+	lockvar s:main
 endif
 
 " Helpers
@@ -89,7 +101,7 @@ endfun
 " Buffer menus
 
 fun! wheel#hub#menu (pointer)
-	" Meta hub menu in wheel buffer
+	" Hub menu in wheel buffer
 	let string = 'wheel-menu-' . a:pointer
 	call wheel#mandala#open (string)
 	call wheel#mandala#common_maps ()
@@ -102,6 +114,11 @@ endfun
 fun! wheel#hub#meta ()
 	" Meta hub menu in wheel buffer
 	call wheel#hub#menu('s:meta')
+endfun
+
+fun! wheel#hub#main ()
+	" Main hub menu in wheel buffer
+	call wheel#hub#menu('s:main')
 endfun
 
 fun! wheel#hub#add ()

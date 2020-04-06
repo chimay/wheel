@@ -217,9 +217,9 @@ The type of action depends on the context :
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menu*
 
-The main menu is the meta menu, triggered with `<M-w>m` by default. From
-there, you can filter the lines and launch the action you want by
-pressing `<enter>` on its line :
+The main menu is triggered with `<M-w>m` by default. From there, you can
+filter the lines and launch the action you want by pressing `<enter>`
+on its line :
 
 - Add a new element to the wheel
 - Rename an element
@@ -227,6 +227,8 @@ pressing `<enter>` on its line :
 - Navigation buffer, choose and jump to an element
 - Alternate last two elements
 - Reorder elements
+
+There is also the meta menu, i.e. a menu of menus, launched with `<M-w>=`
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*

@@ -13,6 +13,9 @@ fun! wheel#centre#mappings ()
 	" Define mappings
 	" Basic
 	if g:wheel_config.mappings >= 0
+		" Hub : menus
+		exe 'nnoremap ' . g:wheel_config.prefix . '= :call wheel#hub#meta()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . 'm :call wheel#hub#main()<cr>'
 		" Tree : add
 		exe 'nnoremap ' . g:wheel_config.prefix . 'a :call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-a> :call wheel#tree#add_circle()<cr>'
@@ -48,8 +51,6 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . '<tab> :call wheel#pendulum#newer()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<backspace> :call wheel#pendulum#older()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '^ :call wheel#pendulum#alternate()<cr>'
-		" Hub : menus
-		exe 'nnoremap ' . g:wheel_config.prefix . 'm :call wheel#hub#meta()<cr>'
 		" Mandala : buffer menus
 		exe 'nnoremap ' . g:wheel_config.prefix . '<space> :call wheel#mandala#locations()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-space> :call wheel#mandala#circles()<cr>'
@@ -68,7 +69,8 @@ fun! wheel#centre#mappings ()
 	" Without prefix
 	if g:wheel_config.mappings >= 10
 		" Hub : Menus
-		nnoremap <D-m>        :call wheel#hub#meta()<cr>
+		nnoremap <D-=>        :call wheel#hub#meta()<cr>
+		nnoremap <D-m>        :call wheel#hub#main()<cr>
 		" Tree
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
 		nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
