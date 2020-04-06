@@ -45,6 +45,18 @@ if ! exists('s:jump')
 	lockvar s:jump
 endif
 
+if ! exists('s:alternate')
+	let s:alternate = {
+				\ 'Alternate' : 'wheel#pendulum#alternate',
+				\ 'Alternate in same torus' : 'wheel#pendulum#alternate_same_torus',
+				\ 'Alternate in same circle' : 'wheel#pendulum#alternate_same_circle',
+				\ 'Alternate in other torus' : 'wheel#pendulum#alternate_other_torus',
+				\ 'Alternate in other circle' : 'wheel#pendulum#alternate_other_circle',
+				\ 'Alternate in same torus, other circle' : 'wheel#pendulum#alternate_same_torus_other_circle',
+				\}
+	lockvar s:alternate
+endif
+
 if ! exists('s:reorder')
 	let s:reorder = {
 				\ 'Reorder toruses' : 'wheel#mandala#reorder_toruses',
@@ -60,6 +72,7 @@ if ! exists('s:meta')
 	call extend(s:meta, s:rename)
 	call extend(s:meta, s:delete)
 	call extend(s:meta, s:jump)
+	call extend(s:meta, s:alternate)
 	call extend(s:meta, s:reorder)
 	lockvar s:meta
 endif
