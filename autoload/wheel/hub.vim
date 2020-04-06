@@ -86,7 +86,7 @@ fun! wheel#hub#call ()
 	exe 'call ' . s:meta[key] . '()'
 endfun
 
-" Menus
+" Buffer menus
 
 fun! wheel#hub#menu (pointer)
 	" Meta hub menu in wheel buffer
@@ -122,6 +122,11 @@ endfun
 fun! wheel#hub#jump ()
 	" Jump hub menu in wheel buffer
 	call wheel#hub#menu('s:jump')
+endfun
+
+fun! wheel#hub#alternate ()
+	" alternate hub menu in wheel buffer
+	call wheel#hub#menu('s:alternate')
 endfun
 
 fun! wheel#hub#reorder ()

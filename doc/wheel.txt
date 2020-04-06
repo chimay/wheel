@@ -197,6 +197,7 @@ at your fingertips.
 SPECIAL BUFFERS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
+Menu buffers			*wheel-special-buffers-menu*
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 Bath buffers			|wheel-special-buffers-batch|
@@ -209,8 +210,23 @@ full power of your editor : search, yank, paste, completion, and so on.
 
 The type of action depends on the context :
 
+- Menu buffers allow you to filter and launch an action
 - Navigation buffers allow you to filter and jump to a location, circle or torus
 - Reordering buffers allow you to reorder locations, circles or toruses
+
+------------------------------------------------------------------------------
+MENU BUFFERS				*wheel-special-buffers-menu*
+
+The main menu is the meta menu, triggered with `<M-w>m` by default. From
+there, you can filter the lines and launch the action you want by
+pressing `<enter>` on its line :
+
+- Add a new element to the wheel
+- Rename an element
+- Delete an element
+- Navigation buffer, choose and jump to an element
+- Alternate last two elements
+- Reorder elements
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
@@ -480,6 +496,13 @@ Read / Write file~
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
 
+The most important mapping is `<M-w>m` : it launches a menu in a
+special buffer, and from there you can trigger all sort of actions on
+the Wheel. See |wheel-special-buffers-menu| for more information.
+
+| Prefix + | With default prefix | Action                  |
+| m        | <M-w>m              | Main menu               |
+
 Rename~
 
 | Prefix + | With default prefix | Action                  |
@@ -545,7 +568,7 @@ and add them to your init file.
 
 Here is the default level 10, if you wish to customize it : >
 
- " Meta menu
+ " Meta menu : the most important one
  nnoremap <D-m>        :call wheel#hub#meta()<cr>
  " Add / Delete
  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
