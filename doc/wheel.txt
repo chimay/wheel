@@ -516,5 +516,35 @@ and add them to your init file.
 | <C-S-Home>     | Alternate in other torus              |
 | <C-S-End>      | Alternate in other circle             |
 
+Here is the default level 10, if you wish to customize it : >
+ " Add / Delete
+ nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
+ nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
+ " Navigation
+ nnoremap <C-PageUp>   :call wheel#vortex#prev_location()<cr>
+ nnoremap <C-PageDown> :call wheel#vortex#next_location()<cr>
+ nnoremap <C-Home>     :call wheel#vortex#prev_circle()<cr>
+ nnoremap <C-End>      :call wheel#vortex#next_circle()<cr>
+ nnoremap <S-Home>     :call wheel#vortex#prev_torus()<cr>
+ nnoremap <S-End>      :call wheel#vortex#next_torus()<cr>
+ nnoremap <D-Space>    :call wheel#vortex#switch_location()<cr>
+ nnoremap <D-=>        :call wheel#vortex#switch_circle()<cr>
+ nnoremap <D-*>        :call wheel#vortex#switch_torus()<cr>
+ " History
+ nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
+ nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
+ nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
+ nnoremap <D-^>          :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
+ nnoremap <C-S-PageUp>   :call wheel#pendulum#alternate_same_torus()<cr>
+ nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
+ nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
+ nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
+ " Special buffers
+ nnoremap <Space>      :call wheel#mandala#locations()<cr>
+ nnoremap <C-Space>    :call wheel#mandala#circles()<cr>
+ nnoremap <S-Space>    :call wheel#mandala#toruses()<cr>
+ nnoremap <D-s>        :call wheel#mandala#tree()<cr>
+<
+
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:
