@@ -70,6 +70,7 @@ FEATURES				*wheel-introduction-features*
   + Jump to matching tab & window if available
   + Choose file, group or category in special buffer
     * Filter candidates
+    * Folding matching wheel tree structure
   + Auto |:lcd| to project root of current file
 - May be saved in torus file
 - Reordering elements
