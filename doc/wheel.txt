@@ -570,8 +570,9 @@ and add them to your init file.
 
 Here is the default level 10, if you wish to customize it : >
 
- " Meta menu : the most important one
- nnoremap <D-m>        :call wheel#hub#meta()<cr>
+ " Menus
+ nnoremap <D-=>        :call wheel#hub#meta()<cr>
+ nnoremap <D-m>        :call wheel#hub#main()<cr>
  " Add / Delete
  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
  nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
