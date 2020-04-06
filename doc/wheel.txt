@@ -197,7 +197,7 @@ at your fingertips.
 SPECIAL BUFFERS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
-Menu buffers			*wheel-special-buffers-menu*
+Menu buffers			|wheel-special-buffers-menu|
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 Bath buffers			|wheel-special-buffers-batch|
