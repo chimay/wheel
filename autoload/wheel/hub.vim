@@ -11,6 +11,15 @@ if ! exists('s:meta')
 	lockvar s:meta
 endif
 
+" Helpers
+
+fun! wheel#hub#call ()
+	" Calls s:meta[key]
+	let key = getline('.')
+	call wheel#mandala#close ()
+	exe 'call ' . s:meta[key] . '()'
+endfun
+
 " Inputlist
 
 fun! wheel#hub#add ()
@@ -68,12 +77,12 @@ endfun
 
 fun! wheel#hub#meta ()
 	" Meta hub menu in wheel buffer
-	let menu = keys(s:meta)
-	echo menu
-	return
 	call wheel#mandala#open ('wheel-menu-meta')
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
+	nnoremap <buffer> <cr> :call wheel#hub#call()<cr>
+	let menu = keys(s:meta)
+	echo menu
 	call append('.', menu)
 endfun
 

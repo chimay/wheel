@@ -50,6 +50,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . '<backspace> :call wheel#pendulum#older()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '^ :call wheel#pendulum#alternate()<cr>'
 		" Hub : menus
+		exe 'nnoremap ' . g:wheel_config.prefix . '= :call wheel#hub#meta()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<C-^> :call wheel#hub#alternate()<cr>'
 		" Mandala : buffer menus
 		exe 'nnoremap ' . g:wheel_config.prefix . '<space> :call wheel#mandala#locations()<cr>'

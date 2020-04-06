@@ -20,6 +20,7 @@ fun! wheel#line#filter ()
 	call wheel#scroll#record(wordlist)
 	let Matches = function('wheel#gear#filter', [wordlist])
 	let candidates = filter(linelist, Matches)
+	" two times : cleans a level each time
 	let filtered = wheel#gear#fold_filter(wordlist, candidates)
 	let filtered = wheel#gear#fold_filter(wordlist, filtered)
 	" Return
