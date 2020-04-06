@@ -240,7 +240,7 @@ empty folds will be removed.
 ------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*
 
-The navigation buffers allow you to quickly reorder Wheel elements by
+The reordering buffers allow you to quickly reorder Wheel elements by
 reordering the buffer lines. You can use yank/delete/paste operations to
 perform the reordering, or sort them with |:sort|.
 
