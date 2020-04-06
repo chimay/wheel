@@ -469,6 +469,15 @@ Most mappings respect the following convention :
 ------------------------------------------------------------------------------
 LEVEL 0						*wheel-mappings-level-0*
 
+Menus~
+
+The most important mapping is `<M-w>m` : it launches a menu in a
+special buffer, and from there you can trigger all sort of actions on
+the Wheel. See |wheel-special-buffers-menu| for more information.
+
+| Prefix + | With default prefix | Action                  |
+| m        | <M-w>m              | Main menu               |
+
 Add~
 
 | Prefix + | With default prefix | Action                             |
@@ -497,13 +506,6 @@ Read / Write file~
 
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
-
-The most important mapping is `<M-w>m` : it launches a menu in a
-special buffer, and from there you can trigger all sort of actions on
-the Wheel. See |wheel-special-buffers-menu| for more information.
-
-| Prefix + | With default prefix | Action                  |
-| m        | <M-w>m              | Main menu               |
 
 Rename~
 
