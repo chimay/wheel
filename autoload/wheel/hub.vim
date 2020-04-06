@@ -98,7 +98,7 @@ endif
 " Helpers
 
 fun! wheel#hub#call ()
-	" Calls s:meta[key]
+	" Calls function corresponding to current menu line
 	let key = getline('.')
 	call wheel#mandala#close ()
 	exe 'call ' . s:all[key] . '()'
