@@ -7,6 +7,9 @@ if ! exists('s:meta')
 				\ 'Jump to torus' : 'wheel#mandala#toruses',
 				\ 'Jump to circle' : 'wheel#mandala#circles',
 				\ 'Jump to location' : 'wheel#mandala#locations',
+				\ 'Reorder toruses' : 'wheel#mandala#reorder_toruses',
+				\ 'Reorder circles' : 'wheel#mandala#reorder_circles',
+				\ 'Reorder locations' : 'wheel#mandala#reorder_locations',
 				\}
 	lockvar s:meta
 endif
