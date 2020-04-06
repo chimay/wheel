@@ -33,6 +33,10 @@ fun! wheel#line#fold_coordin ()
 	" Return coordin of line in treeish buffer
 	let cursor_line = getline('.')
 	let cursor_list = split(cursor_line, ' ')
+	if empty(cursor_line)
+		echomsg 'Wheel line fold_coordin : empty line'
+		return
+	endif
 	if foldlevel('.') == 2 && len(cursor_list) == 1
 		let location = getline('.')
 		normal! [z
@@ -92,6 +96,10 @@ fun! wheel#line#helix (...)
 	endif
 	let line = getline('.')
 	let list = split(line, ' ')
+	if len(list) < 5
+		echomsg 'Helix line is too short'
+		return
+	endif
 	let coordin = [list[0], list[2], list[4]]
 	if mode ==# 'close'
 		call wheel#mandala#close ()
@@ -142,6 +150,10 @@ fun! wheel#line#grid (...)
 	endif
 	let line = getline('.')
 	let list = split(line, ' ')
+	if len(list) < 3
+		echomsg 'Grid line is too short'
+		return
+	endif
 	let coordin = [list[0], list[2]]
 	if mode ==# 'close'
 		call wheel#mandala#close ()
@@ -165,6 +177,10 @@ fun! wheel#line#history (...)
 	endif
 	let line = getline('.')
 	let list = split(line, ' ')
+	if len(list) < 11
+		echomsg 'History line is too short'
+		return
+	endif
 	let coordin = [list[6], list[8], list[10]]
 	if mode ==# 'close'
 		call wheel#mandala#close ()
