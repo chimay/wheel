@@ -545,6 +545,8 @@ and add them to your init file.
 
 Here is the default level 10, if you wish to customize it : >
 
+ " Meta menu
+ nnoremap <D-m>        :call wheel#hub#meta()<cr>
  " Add / Delete
  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
  nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
@@ -555,9 +557,6 @@ Here is the default level 10, if you wish to customize it : >
  nnoremap <C-End>      :call wheel#vortex#next_circle()<cr>
  nnoremap <S-Home>     :call wheel#vortex#prev_torus()<cr>
  nnoremap <S-End>      :call wheel#vortex#next_torus()<cr>
- nnoremap <D-Space>    :call wheel#vortex#switch_location()<cr>
- nnoremap <D-=>        :call wheel#vortex#switch_circle()<cr>
- nnoremap <D-*>        :call wheel#vortex#switch_torus()<cr>
  " History
  nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
  nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
@@ -571,7 +570,7 @@ Here is the default level 10, if you wish to customize it : >
  nnoremap <Space>      :call wheel#mandala#locations()<cr>
  nnoremap <C-Space>    :call wheel#mandala#circles()<cr>
  nnoremap <S-Space>    :call wheel#mandala#toruses()<cr>
- nnoremap <D-s>        :call wheel#mandala#tree()<cr>
+ nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
 <
 
 ==============================================================================
