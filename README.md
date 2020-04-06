@@ -41,7 +41,6 @@ The core functionality begins to work. A lot of extras has to be done.
   + 1 circle per tab
   + 1 torus per tab
 - autogroup
-- batch
 
 # Introduction
 
@@ -102,7 +101,6 @@ grow and adapt to your style.
   + In header-line tabs
   + In split windows
 - TODO Autogroup
-- TODO Batch operations
 
 ## History
 
