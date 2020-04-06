@@ -74,6 +74,9 @@ fun! wheel#gear#fold_filter (wordlist, candidates)
 	let wordlist = a:wordlist
 	let candidates = a:candidates
 	let filtered = []
+	if empty(candidates)
+		return []
+	endif
 	for index in range(len(candidates) - 1)
 		" --- Current line
 		let cur_value = candidates[index]

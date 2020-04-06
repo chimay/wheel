@@ -1,10 +1,5 @@
 " vim: ft=vim fdm=indent:
 
-fun! wheel#status#print ()
-	" Print global variables
-	echo g:wheel
-endfu
-
 fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
 	let [cur_torus, cur_circle, cur_location] = wheel#referen#location('all')

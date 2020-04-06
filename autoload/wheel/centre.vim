@@ -5,8 +5,8 @@
 fun! wheel#centre#commands ()
 	" Define commands
 	" Status
-	com! WheelDashboard :call wheel#status#dashboard()
-	com! WheelPrint :call wheel#status#print()
+	command! WheelDashboard call wheel#status#dashboard()
+	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
 endfun
 
 fun! wheel#centre#mappings ()
