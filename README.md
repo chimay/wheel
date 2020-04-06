@@ -101,6 +101,7 @@ grow and adapt to your style.
   + In header-line tabs
   + In split windows
 - TODO Autogroup
+- Batch operations
 
 ## History
 
