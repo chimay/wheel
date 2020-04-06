@@ -2,6 +2,8 @@
 
 " Menus
 
+" Inputlist
+
 fun! wheel#hub#add ()
 	" Choose an object to add
 	let index = inputlist(
@@ -51,4 +53,15 @@ fun! wheel#hub#alternate ()
 		echomsg 'Choice must be between 1 and 6'
 	endif
 	return index
+endfun
+
+" Mandala
+
+fun! wheel#hub#meta ()
+endfun
+
+fun! wheel#hub#choose ()
+endfun
+
+fun! wheel#hub#reorder ()
 endfun

@@ -33,7 +33,9 @@ The core functionality begins to work. A lot of extras has to be done.
 ## TODO
 
 - moving things
-  + reordering buffer
+  + location to circle
+  + circle to torus
+  + restructuring buffer ?
 - modes
   + 1 location per tab
   + 1 circle per tab
@@ -94,6 +96,7 @@ grow and adapt to your style.
 	* Folding matching wheel tree structure
   + Auto `:lcd` to project root of current file
 - May be saved in wheel file
+- Reordering elements
 - TODO Moving elements
 - TODO Display files
   + In header-line tabs

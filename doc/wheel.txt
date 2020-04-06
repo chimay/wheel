@@ -72,12 +72,13 @@ FEATURES				*wheel-introduction-features*
     * Filter candidates
   + Auto |:lcd| to project root of current file
 - May be saved in torus file
--  Moving elements
--  Display files
+- Reordering elements
+- Moving elements
+- Display files
   + In header-line tabs
   + In split windows
--  Autogroup
--  Batch operations
+- Autogroup
+- Batch operations
 
 ------------------------------------------------------------------------------
 HISTORY						*wheel-introduction-history*
