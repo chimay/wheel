@@ -251,6 +251,7 @@ To validate your change, simply |:write| the buffer.
 BATCH BUFFERS				*wheel-special-buffers-batch*
 
 The command : >
+
  WheelBatch <command>
 <
 
@@ -285,6 +286,7 @@ first initialize it : >
 AUTOREAD					    *wheel-config-autoread*
 
 Auto read torus file on startup if non null : >
+
     let g:wheel_config.autoread = 1
 <
 
@@ -293,6 +295,7 @@ AUTOWRITE					    *wheel-config-autowrite*
 
 
 " Auto write torus file on exit if non null : >
+
     let g:wheel_config.autowrite = 1
 <
 
@@ -300,6 +303,7 @@ AUTOWRITE					    *wheel-config-autowrite*
 FILE						    *wheel-config-file*
 
 File to save or load the wheel : >
+
     let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
 <
 
@@ -312,6 +316,7 @@ or automatically, using the autowrite config.
 BACKUPS						    *wheel-config-backups*
 
 Number of backup for the wheel file : >
+
     let g:wheel_config.backups = 3
 <
 
@@ -325,6 +330,7 @@ accidentally.
 MAPPINGS					    *wheel-config-mappings*
 
 Determine how many default mappings are available : >
+
     let g:wheel_config.mappings = 10
 <
 
@@ -334,6 +340,7 @@ See |wheel-mappings-levels| for more information.
 PREFIX						    *wheel-config-prefix*
 
 Prefix for mappings of level 0, 1, 2 : >
+
     let g:wheel_config.prefix = '<my-wonderful-prefix>'
 <
 
@@ -343,6 +350,7 @@ See |wheel-mappings-prefix| for more information.
 CD PROJECT					*wheel-config-cd_project*
 
 Try to change dir to project root it > 0 : >
+
     let g:wheel_config.cd_project = 1
 <
 
@@ -351,6 +359,7 @@ PROJECT MARKERS				*wheel-config-project_markers*
 
 File(s) or directories(s) marking a project root. Can take a string or
 list value. : >
+
     let g:wheel_config.project_markers = '.git'
     let g:wheel_config.project_markers = ['.git', '.my-project-root']
 <
@@ -359,6 +368,7 @@ list value. : >
 MAX HISTORY				   *wheel-config-max_history*
 
 Maximum number of elements in the wheel history : >
+
     let g:wheel_config.max_history = 50
 <
 
@@ -370,6 +380,7 @@ navigation operation in the Wheel ; basically, each time you jump to
 another file using wheel functions.
 
 This example fold everything except the cursor line : >
+
     autocmd User WheelAfterJump norm zMzx
 <
 
@@ -403,6 +414,7 @@ mappings of level less or equal to `N` will be bound to keys. So, the
 higher this option, the more mappings available.
 
 E.g., if you want a level of 2 : >
+
     let g:wheel_config.prefix = 2
 <
 
@@ -414,12 +426,14 @@ PREFIX						    *wheel-mappings-prefix*
 
 Default mappings of levels 0, 1, 2 use a prefix key. This prefix is `<M-w>` by
 default. You can customize it : >
+
     let g:wheel_config.prefix = '<my-wonderful-prefix>'
 <
 
 I like to set it to `<D-w>`, but since the `<D-...>` mappings don't seem
 to work in terminal or with Gvim, it is not the default. It's working on
 Neovim-qt, though : >
+
     let g:wheel_config.prefix = '<D-w>'
 <
 
@@ -528,6 +542,7 @@ and add them to your init file.
 | <C-S-End>      | Alternate in other circle             |
 
 Here is the default level 10, if you wish to customize it : >
+
  " Add / Delete
  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
  nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
