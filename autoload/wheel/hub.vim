@@ -2,6 +2,15 @@
 
 " Menus
 
+if ! exists('s:meta')
+	let s:meta = {
+				\ 'Jump to torus' : 'wheel#mandala#toruses',
+				\ 'Jump to circle' : 'wheel#mandala#circles',
+				\ 'Jump to location' : 'wheel#mandala#locations',
+				\}
+	lockvar s:meta
+endif
+
 " Inputlist
 
 fun! wheel#hub#add ()
@@ -58,6 +67,14 @@ endfun
 " Mandala
 
 fun! wheel#hub#meta ()
+	" Meta hub menu in wheel buffer
+	let menu = keys(s:meta)
+	echo menu
+	return
+	call wheel#mandala#open ('wheel-menu-meta')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call append('.', menu)
 endfun
 
 fun! wheel#hub#choose ()
