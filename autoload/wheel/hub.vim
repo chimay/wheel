@@ -2,6 +2,36 @@
 
 " Menus
 
+if ! exists('s:add')
+	let s:add = {
+				\ 'Add a new torus' : 'wheel#tree#add_torus',
+				\ 'Add a new circle' : 'wheel#tree#add_circle',
+				\ 'Add here as new location' : 'wheel#tree#add_here',
+				\ 'Add a new file' : 'wheel#tree#add_file',
+				\ 'Add a new buffer' : 'wheel#tree#add_buffer',
+				\}
+	lockvar s:add
+endif
+
+if ! exists('s:rename')
+	let s:rename = {
+				\ 'Rename torus' : 'wheel#tree#rename_torus',
+				\ 'Rename circle' : 'wheel#tree#rename_circle',
+				\ 'Rename location' : 'wheel#tree#rename_location',
+				\ 'Rename file' : 'wheel#tree#rename_file',
+				\}
+	lockvar s:rename
+endif
+
+if ! exists('s:delete')
+	let s:delete = {
+				\ 'Delete torus' : 'wheel#tree#delete_torus',
+				\ 'Delete circle' : 'wheel#tree#delete_circle',
+				\ 'Delete location' : 'wheel#tree#delete_location',
+				\}
+	lockvar s:delete
+endif
+
 if ! exists('s:jump')
 	let s:jump = {
 				\ 'Jump to torus' : 'wheel#mandala#toruses',
@@ -25,7 +55,11 @@ if ! exists('s:reorder')
 endif
 
 if ! exists('s:meta')
-	let s:meta = copy(s:jump)
+	let s:meta = {}
+	call extend(s:meta, s:add)
+	call extend(s:meta, s:rename)
+	call extend(s:meta, s:delete)
+	call extend(s:meta, s:jump)
 	call extend(s:meta, s:reorder)
 	lockvar s:meta
 endif
@@ -57,10 +91,27 @@ fun! wheel#hub#meta ()
 	call wheel#hub#menu('s:meta')
 endfun
 
-fun! wheel#hub#choose ()
+fun! wheel#hub#add ()
+	" Jump hub menu in wheel buffer
+	call wheel#hub#menu('s:add')
+endfun
+
+fun! wheel#hub#rename ()
+	" Jump hub menu in wheel buffer
+	call wheel#hub#menu('s:rename')
+endfun
+
+fun! wheel#hub#delete ()
+	" Jump hub menu in wheel buffer
+	call wheel#hub#menu('s:delete')
+endfun
+
+fun! wheel#hub#jump ()
 	" Jump hub menu in wheel buffer
 	call wheel#hub#menu('s:jump')
 endfun
 
 fun! wheel#hub#reorder ()
+	" Reorder hub menu in wheel buffer
+	call wheel#hub#menu('s:reorder')
 endfun

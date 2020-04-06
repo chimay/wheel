@@ -19,7 +19,6 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . 'A :call wheel#tree#add_torus()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'f :call wheel#tree#add_file()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'b :call wheel#tree#add_buffer()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<m-a> :call wheel#hub#add()<cr>'
 		" Vortex : move to elements
 		exe 'nnoremap ' . g:wheel_config.prefix . '<left> :call wheel#vortex#prev_location()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<right> :call wheel#vortex#next_location()<cr>'
@@ -51,7 +50,6 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . '^ :call wheel#pendulum#alternate()<cr>'
 		" Hub : menus
 		exe 'nnoremap ' . g:wheel_config.prefix . 'm :call wheel#hub#meta()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<C-^> :call wheel#hub#alternate()<cr>'
 		" Mandala : buffer menus
 		exe 'nnoremap ' . g:wheel_config.prefix . '<space> :call wheel#mandala#locations()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-space> :call wheel#mandala#circles()<cr>'
@@ -69,6 +67,8 @@ fun! wheel#centre#mappings ()
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
+		" Hub : Menus
+		nnoremap <D-m>        :call wheel#hub#meta()<cr>
 		" Tree
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
 		nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
@@ -93,7 +93,5 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-Space>    :call wheel#mandala#circles()<cr>
 		nnoremap <S-Space>    :call wheel#mandala#toruses()<cr>
 		nnoremap <D-Space>        :call wheel#mandala#tree()<cr>
-		" Meta
-		nnoremap <D-m>        :call wheel#hub#meta()<cr>
 	endif
 endfun
