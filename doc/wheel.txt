@@ -477,6 +477,7 @@ the Wheel. See |wheel-special-buffers-menu| for more information.
 
 | Prefix + | With default prefix | Action                  |
 | m        | <M-w>m              | Main menu               |
+| =        | <M-w>=              | Meta menu               |
 
 Add~
 
