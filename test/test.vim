@@ -29,27 +29,37 @@ com! Inlist  :echo input('Var ? ', '', 'customlist,CompleteList')
 
 " }}}1
 
+" Dictionaries {{{1
+
+let s:a = {'un':1, 'deux': 2}
+let s:b = {'trois':1, 'quatre': 2}
+call extend(s:a, s:b, 'error')
+echo s:a
+echo s:b
+
+" }}}1
+
 " Functions {{{1
 
-fun! Plus(a, b)
+fun! s:Plus(a, b)
 	return a:a + a:b
 endfu
 
-fun! Minus(a, b)
+fun! s:Minus(a, b)
 	return a:a - a:b
 endfu
 
 " Func ref {{{2
 
-echo function('Plus', [3])(4)
-let Plus3 = function('Plus', [3])
-echo Plus3(4)
+echo function('s:Plus', [3])(4)
+let s:Plus3 = function('s:Plus', [3])
+echo s:Plus3(4)
 
-echo function('Minus', [3])(2)
-let TreeMinus = function('Minus', [3])
-echo TreeMinus(2)
+echo function('s:Minus', [3])(2)
+let s:TreeMinus = function('s:Minus', [3])
+echo s:TreeMinus(2)
 
-fun! Multi (fn)
+fun! s:Multi (fn)
 	let r = a:fn(1, 2) + a:fn(3, 4)
 	return r
 endfun
@@ -59,10 +69,10 @@ endfun
 " Lambda {{{2
 
 echo {a -> 2 * a}(2)
-let L = {a -> 2 * a}
-echo L(3)
+let s:L = {a -> 2 * a}
+echo s:L(3)
 
-fun! ArgumentConstant(fn, value)
+fun! s:ArgumentConstant(fn, value)
 	return {arg -> a:fn(arg, a:value) }
 endfu
 
@@ -70,40 +80,40 @@ endfu
 
 " Closure {{{2
 
-fun! Fonctionnelle(fn, value)
-	fun! Fun(arg) closure
-		return a:fn(a:arg, a:value)
-	endfun
-	return funcref('Fun')
-endfun
-
-echo Fonctionnelle(function('Minus'), 3)(7)
-let F = Fonctionnelle(function('Minus'), 3)
-echo F(5)
+" fun! s:Fonctionnelle(fn, value)
+" 	fun! Fun(arg) closure
+" 		return a:fn(a:arg, a:value)
+" 	endfun
+" 	return funcref('Fun')
+" endfun
+"
+" echo s:Fonctionnelle(function('s:Minus'), 3)(7)
+" let F = Fonctionnelle(function('s:Minus'), 3)
+" echo F(5)
 
 " }}}2
 
 " Dict func {{{2
 
-fun! Dico (arg) dict
-	echo self.name a:arg
-endfun
-
-let d = {'name' : 'john'}
-let d.fn = function('Dico')
-call d.fn('Doe')
-
-let F = function('Dico', d)
-call F('Smith')
-
-let G = function('Dico', [], d)
-call G('Foo')
-
-fun! d.iam (arg) dict
-	echo self.name a:arg
-endfun
-
-call d.iam('Bar')
+" fun! Dico (arg) dict
+" 	echo self.name a:arg
+" endfun
+"
+" let d = {'name' : 'john'}
+" let d.fn = function('Dico')
+" call d.fn('Doe')
+"
+" let F = function('Dico', d)
+" call F('Smith')
+"
+" let G = function('Dico', [], d)
+" call G('Foo')
+"
+" fun! d.iam (arg) dict
+" 	echo self.name a:arg
+" endfun
+"
+" call d.iam('Bar')
 
 " }}}2
 

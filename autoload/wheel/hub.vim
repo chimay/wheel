@@ -2,8 +2,8 @@
 
 " Menus
 
-if ! exists('s:meta')
-	let s:meta = {
+if ! exists('s:jump')
+	let s:jump = {
 				\ 'Jump to torus' : 'wheel#mandala#toruses',
 				\ 'Jump to circle' : 'wheel#mandala#circles',
 				\ 'Jump to location' : 'wheel#mandala#locations',
@@ -11,10 +11,22 @@ if ! exists('s:meta')
 				\ 'Jump to circle in index' : 'wheel#mandala#grid',
 				\ 'Jump to element in wheel tree' : 'wheel#mandala#tree',
 				\ 'Jump to location in history' : 'wheel#mandala#history',
+				\}
+	lockvar s:jump
+endif
+
+if ! exists('s:reorder')
+	let s:reorder = {
 				\ 'Reorder toruses' : 'wheel#mandala#reorder_toruses',
 				\ 'Reorder circles' : 'wheel#mandala#reorder_circles',
 				\ 'Reorder locations' : 'wheel#mandala#reorder_locations',
 				\}
+	lockvar s:reorder
+endif
+
+if ! exists('s:meta')
+	let s:meta = copy(s:jump)
+	call extend(s:meta, s:reorder)
 	lockvar s:meta
 endif
 
@@ -27,73 +39,27 @@ fun! wheel#hub#call ()
 	exe 'call ' . s:meta[key] . '()'
 endfun
 
-" Inputlist
+" Menus
 
-fun! wheel#hub#add ()
-	" Choose an object to add
-	let index = inputlist(
-				\ [
-				\ 'Add :',
-				\ '1. Location at cursor',
-				\ '2. File',
-				\ '3. Buffer'
-				\ ])
-	if index == 1
-		call wheel#tree#add_here ()
-	elseif index == 2
-		call wheel#tree#add_file ()
-	elseif index == 3
-		call wheel#tree#add_buffer ()
-	else
-		echomsg 'Choice must be between 1 and 3'
-	endif
-	return index
-endfun
-
-fun! wheel#hub#alternate ()
-	" Choose a way to alternate
-	let index = inputlist(
-				\ [
-				\ 'Alternate :',
-				\ '1. Anywhere',
-				\ '2. In same circle',
-				\ '3. In same torus',
-				\ '4. In other circle',
-				\ '5. In other torus',
-				\ '6. In same torus but other circle'
-				\ ])
-	if index == 1
-		call wheel#pendulum#alternate ()
-	elseif index == 2
-		call wheel#pendulum#alternate_same_circle ()
-	elseif index == 3
-		call wheel#pendulum#alternate_same_torus ()
-	elseif index == 4
-		call wheel#pendulum#alternate_other_circle ()
-	elseif index == 5
-		call wheel#pendulum#alternate_other_torus ()
-	elseif index == 6
-		call wheel#pendulum#alternate_same_torus_other_circle ()
-	else
-		echomsg 'Choice must be between 1 and 6'
-	endif
-	return index
-endfun
-
-" Mandala
-
-fun! wheel#hub#meta ()
+fun! wheel#hub#menu (pointer)
 	" Meta hub menu in wheel buffer
-	call wheel#mandala#open ('wheel-menu-meta')
+	let string = 'wheel-menu-' . a:pointer
+	call wheel#mandala#open (string)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	nnoremap <buffer> <cr> :call wheel#hub#call()<cr>
-	let menu = keys(s:meta)
-	echo menu
+	let menu = sort(keys({a:pointer}))
 	call append('.', menu)
 endfun
 
+fun! wheel#hub#meta ()
+	" Meta hub menu in wheel buffer
+	call wheel#hub#menu('s:meta')
+endfun
+
 fun! wheel#hub#choose ()
+	" Jump hub menu in wheel buffer
+	call wheel#hub#menu('s:jump')
 endfun
 
 fun! wheel#hub#reorder ()
