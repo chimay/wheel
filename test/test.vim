@@ -107,6 +107,19 @@ call d.iam('Bar')
 
 " }}}2
 
+" Recursivity {{{2
+
+fun! s:Factorial (n)
+	if a:n == 0
+		return 1
+	else
+		return a:n * s:Factorial(a:n -1)
+endfun
+
+echo 'Factorial 5 :' s:Factorial(5)
+
+" }}}2
+
 " }}}1
 
 " Autocommands {{{1

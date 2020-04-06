@@ -44,6 +44,7 @@ The core functionality begins to work. A lot of extras has to be done.
   + 1 torus per tab
   + mix of above
 - autogroup
+- grep & sync wheel with current file
 
 # Introduction
 

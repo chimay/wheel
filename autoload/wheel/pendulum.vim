@@ -76,6 +76,19 @@ fun! wheel#pendulum#remove_if_present (entry)
 	endfor
 endfu
 
+fun! wheel#pendulum#record ()
+	" Add current torus, circle, location to history
+	let history = g:wheel_history
+	let coordin = wheel#referen#names()
+	let entry = {}
+	let entry.coordin = coordin
+	let entry.timestamp = wheel#pendulum#timestamp ()
+	call wheel#pendulum#remove_if_present (entry)
+	let g:wheel_history = insert(g:wheel_history, entry, 0)
+	let max = g:wheel_config.max_history
+	let g:wheel_history = g:wheel_history[:max - 1]
+endfu
+
 fun! wheel#pendulum#rename(level, old, new)
 	" Rename all occurences old -> new in history
 	" level = 0 or torus    : rename torus
@@ -122,19 +135,6 @@ fun! wheel#pendulum#delete(level, old)
 		endif
 	endfor
 endfun
-
-fun! wheel#pendulum#record ()
-	" Add current torus, circle, location to history
-	let history = g:wheel_history
-	let coordin = wheel#referen#names()
-	let entry = {}
-	let entry.coordin = coordin
-	let entry.timestamp = wheel#pendulum#timestamp ()
-	call wheel#pendulum#remove_if_present (entry)
-	let g:wheel_history = insert(g:wheel_history, entry, 0)
-	let max = g:wheel_config.max_history
-	let g:wheel_history = g:wheel_history[:max - 1]
-endfu
 
 fun! wheel#pendulum#newer ()
 	" Go to newer entry in history

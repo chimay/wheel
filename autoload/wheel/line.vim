@@ -17,6 +17,7 @@ fun! wheel#line#filter ()
 	if empty(wordlist)
 		return linelist
 	endif
+	call wheel#scroll#record(wordlist)
 	let Matches = function('wheel#gear#filter', [wordlist])
 	let candidates = filter(linelist, Matches)
 	let filtered = wheel#gear#fold_filter(wordlist, candidates)
