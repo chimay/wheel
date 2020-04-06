@@ -32,7 +32,6 @@ The core functionality begins to work. A lot of extras has to be done.
 
 ## TODO
 
-- hub : buffer menus
 - input history in special buffers
 - copy / moving things
   + location to circle
