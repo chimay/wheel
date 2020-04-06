@@ -228,7 +228,7 @@ on its line :
 - Alternate last two elements
 - Reorder elements
 
-There is also the meta menu, i.e. the menu of menus, launched with `<M-w>=`
+There is also the meta menu, i.e. the menu of menus, launched with `<M-w>=`.
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
