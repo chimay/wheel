@@ -42,27 +42,6 @@ fun! wheel#gear#project_root (markers)
 	endwhile
 endfun
 
-fun! wheel#gear#filter (wordlist, index, value)
-	" Whether value matches all words of wordlist. Keep surrounding folds.
-	" index is not used, it’s just for compatibility with filter()
-	let marker = split(&foldmarker, ',')[0]
-	let length = strchars(a:value)
-	let prelast = strcharpart(a:value, length - 2, 1)
-	if prelast == marker
-		return 1
-	endif
-	" Words
-	let match = 1
-	for word in a:wordlist
-		let pattern = '.*' . word . '.*'
-		if a:value !~ pattern
-			let match = 0
-			break
-		endif
-	endfor
-	return match
-endfun
-
 fun! wheel#gear#word_filter (wordlist, index, value)
 	" Whether value matches all words of wordlist
 	" index is not used, it’s just for compatibility with filter()
@@ -75,6 +54,18 @@ fun! wheel#gear#word_filter (wordlist, index, value)
 		endif
 	endfor
 	return match
+endfun
+
+fun! wheel#gear#filter (wordlist, index, value)
+	" Whether value matches all words of wordlist. Keep surrounding folds.
+	" index is not used, it’s just for compatibility with filter()
+	let marker = split(&foldmarker, ',')[0]
+	let length = strchars(a:value)
+	let prelast = strcharpart(a:value, length - 2, 1)
+	if prelast == marker
+		return 1
+	endif
+	return wheel#gear#word_filter(a:wordlist, a:index, a:value)
 endfun
 
 fun! wheel#gear#fold_filter (wordlist, candidates)
