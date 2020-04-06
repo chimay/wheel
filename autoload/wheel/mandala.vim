@@ -59,6 +59,12 @@ fun! wheel#mandala#filter_maps ()
 	" <C-c> is not mapped, in case you need a regular esc
 endfun
 
+fun! wheel#mandala#input_history_maps ()
+	" Define local input history maps in wheel buffer
+	" Use Up / Down & M-p / M-n
+	" C-p / C-n is taken by (neo)vim completion
+endfun
+
 fun! wheel#mandala#jump_maps (level)
 	" Define maps to jump to element in current line
 	let string = "nnoremap <buffer> <tab> :call wheel#line#jump('"

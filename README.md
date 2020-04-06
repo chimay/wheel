@@ -32,7 +32,9 @@ The core functionality begins to work. A lot of extras has to be done.
 
 ## TODO
 
-- moving things
+- hub : buffer menus
+- input history in special buffers
+- copy / moving things
   + location to circle
   + circle to torus
   + restructuring buffer ?
@@ -40,6 +42,7 @@ The core functionality begins to work. A lot of extras has to be done.
   + 1 location per tab
   + 1 circle per tab
   + 1 torus per tab
+  + mix of above
 - autogroup
 
 # Introduction

@@ -70,6 +70,10 @@ fun! wheel#void#foundation ()
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
 	endif
+	" Input history
+	if ! exists('g:wheel_input')
+		let g:wheel_input = []
+	endif
 	" Config
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
@@ -112,6 +116,7 @@ fun! wheel#void#lighten ()
 	unlet g:wheel_grid
 	unlet g:wheel_files
 	unlet g:wheel_history
+	unlet g:wheel_input
 	unlet g:wheel_config
 endfu
 
