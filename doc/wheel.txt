@@ -76,8 +76,10 @@ FEATURES				*wheel-introduction-features*
 - Reordering elements
 - Moving elements
 - Display files
-  + In header-line tabs
-  + In split windows
+  + 1 location per tab
+  + 1 circle per tab
+  + 1 torus per tab
+  + Mix of above
 - Autogroup
 - Batch operations
 

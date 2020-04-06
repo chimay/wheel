@@ -89,18 +89,20 @@ grow and adapt to your style.
 
 - Easy navigation
   + On demand loading of files
-  + Jump to matching window if available
+  + Jump to matching tab & window if available
   + Choose file, group or category in special buffer
     * Filter candidates
 	* Folding matching wheel tree structure
   + Auto `:lcd` to project root of current file
 - May be saved in wheel file
 - Reordering elements
-- TODO Moving elements
-- TODO Display files
-  + In header-line tabs
-  + In split windows
-- TODO Autogroup
+- Moving elements
+- Display files
+  + 1 location per tab
+  + 1 circle per tab
+  + 1 torus per tab
+  + Mix of above
+- Autogroup
 - Batch operations
 
 ## History
