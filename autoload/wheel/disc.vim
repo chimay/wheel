@@ -33,9 +33,6 @@ fun! wheel#disc#read (file)
 	endif
 endfun
 
-fun! wheel#disc#rename (file)
-endfun
-
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups of g:wheel_config.file
 	let suffixes = range(a:backups, 1, -1)
