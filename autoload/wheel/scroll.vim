@@ -46,14 +46,14 @@ fun! wheel#scroll#filtered_newer ()
 	let before = strcharpart(line, 0, col)
 	let pattern = '\m^' . before
 	let reversed = reverse(copy(g:wheel_input))
-	let index = match(reversed, pattern, 1)
-	if index > 0
+	let index = match(reversed, pattern, 0)
+	echomsg 'pattern' pattern 'index : ' index '|' join(g:wheel_input) '|' join(reversed)
+	if index >= 0
 		let reversed = wheel#chain#roll_right (index, reversed)
 		let g:wheel_input = reverse(copy(reversed))
-		echomsg 'index : ' index '|' join(reversed) '|' join(g:wheel_input)
 		call setline('.', g:wheel_input[0])
-		call cursor(1, col)
 	endif
+	call cursor(1, col + 1)
 	startinsert
 endfun
 
@@ -67,12 +67,11 @@ fun! wheel#scroll#filtered_older ()
 	let before = strcharpart(line, 0, col)
 	let pattern = '\m^' . before
 	let index = match(g:wheel_input, pattern, 1)
-	if index > 0
+	echomsg 'pattern' pattern 'index : ' index '|' join(g:wheel_input)
+	if index >= 0
 		let g:wheel_input = wheel#chain#roll_left (index, g:wheel_input)
-		echomsg 'index : ' index '|' join(g:wheel_input)
 		call setline('.', g:wheel_input[0])
-		call cursor(1, col)
 	endif
+	call cursor(1, col + 1)
 	startinsert
 endfun
-
