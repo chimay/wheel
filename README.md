@@ -32,12 +32,11 @@ The core functionality begins to work. A lot of extras has to be done.
 
 ## TODO
 
-- input history in special buffers
 - copy / moving things
   + location to circle
   + circle to torus
   + restructuring buffer ?
-- modes
+- layout
   + 1 location per tab
   + 1 circle per tab
   + 1 torus per tab
