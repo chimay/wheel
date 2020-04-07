@@ -223,7 +223,7 @@ The type of action depends on the context :
 
 Filtering~
 
-In mostof special buffers, the first line is left empty : it is used as
+In most special buffers, the first line is left empty : it is used as
 an input line to filter the buffer. You can go to insert mode and filter
 the elements with each word you enter on the input (first) line. Typing
 `<Space>`, `<Esc>` or `<CR>` will update the candidates. Note that `<C-c>`
