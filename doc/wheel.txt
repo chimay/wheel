@@ -99,6 +99,7 @@ STEP BY STEP						*wheel-step-by-step*
 
 First circles			|wheel-sbs-first-circles|
 Moving around			|wheel-sbs-moving-around|
+Explore the menus		|wheel-sbs-explore-the-menus|
 Square the circle		|wheel-sbs-square-the-circle|
 
 ------------------------------------------------------------------------------
@@ -145,15 +146,14 @@ Cycling~
 
 You can cycle the files of a circle with `<M-w><Left>` and
 `<M-w><Right>`. These are often used bindings, so I suggest you map them
-to a more convient key, like `<C-PageUp>` and `<C-PageDown>`
+to a more convient key, like `<C-PageUp>` and `<C-PageDown>`. See
+|wheel-mappings-level-10|.
 
-To cycle the circles, use `<M-w><C-Left>` and `<M-w><C-Right>`. These are
-often used bindings, so I suggest you map them to a more convient key,
-like `<C-Home>` and `<C-End>`
+To cycle the circles, use `<M-w><C-Left>` and `<M-w><C-Right>`. You can
+also map them to a more convient key, like `<C-Home>` and `<C-End>`.
 
-To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>`. These are
-often used bindings, so I suggest you map them to a more convient key,
-like `<S-Home>` and `<S-End>`
+To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>` or
+map them to `<S-Home>` and `<S-End>`.
 
 Switch using completion~
 
@@ -166,6 +166,13 @@ You can switch :
 Switch using a special buffer~
 
 You can also switch location, circle or torus by chosing it in |wheel-special-buffers|.
+
+------------------------------------------------------------------------------
+EXPLORE THE MENUS				*wheel-sbs-explore-the-menus*
+
+At that stage, I suggest you explore the Wheel main menu. Press `<M-w>m`
+and a new buffer will appear, listing the actions you can perform on the
+wheel. Lines can be filtered in insert mode.
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
@@ -233,8 +240,18 @@ the beginning of the inserted line, until the cursor.
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menu*
 
+Each menu has its own dedicated buffer. You can filter the menu lines
+by entering words in insert mode.
+
+Main menu~
+
 The main menu is triggered with `<M-w>m` by default. From there, you
-can launch the action you want by pressing `<enter>` on its line :
+can launch the action you want by pressing `<enter>` on its line.
+
+Meta menu~
+
+Press `<M-w>=` to open the meta menu : each line in this buffer will
+launch a sub-menu. Each sub-menu holds the actions of the same category :
 
 - Add a new element to the wheel
 - Rename an element
@@ -242,8 +259,6 @@ can launch the action you want by pressing `<enter>` on its line :
 - Navigation buffer, choose and jump to an element
 - Alternate last two elements
 - Reorder elements
-
-There is also the meta menu, i.e. the menu of menus, launched with `<M-w>=`.
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
