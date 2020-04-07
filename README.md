@@ -89,6 +89,10 @@ grow and adapt to your style.
 
 ## Features
 
+- Add
+  + Files from anywhere in the filesystem
+  + A file in more than one group
+  + file:line-1 and file:line-2 in the same group
 - Easy navigation
   + On demand loading of files
   + Jump to matching tab & window if available
