@@ -110,11 +110,12 @@ endif
 fun! wheel#hub#call ()
 	" Calls function corresponding to current menu line
 	let key = getline('.')
+	let value = s:all[key]
 	call wheel#mandala#close ()
-	if key =~ ')'
-		exe 'call ' . s:all[key]
+	if value =~ ')'
+		exe 'call ' . value
 	else
-		exe 'call ' . s:all[key] . '()'
+		exe 'call ' . value . '()'
 	endif
 endfun
 
