@@ -22,8 +22,10 @@ fun! wheel#cuboctahedron#reorder (level)
 		endif
 		call add(new_list, elem)
 	endfor
-	if len(new_list) != len(old_list)
-		echomsg 'Some elements seem to be deleted : changes not written'
+	if len(new_list) < len(old_list)
+		echomsg 'Some elements seem to be missing : changes not written'
+	elseif len(new_list) > len(old_list)
+		echomsg 'Elements in excess : changes not written'
 	else
 		let upper[key] = []
 		let upper[key] = new_list
