@@ -29,14 +29,22 @@ fun! wheel#mandala#close ()
 	endif
 endfun
 
-fun! wheel#mandala#filter ()
+fun! wheel#mandala#filter (...)
 	" Keep lines matching words of first line
+	let mode = 'normal'
+	if a:0 > 0
+		let mode = a:1
+	endif
 	let lines = wheel#line#filter ()
 	2,$ delete _
 	put =lines
 	setlocal nomodified
 	if line('$') > 1
 		2
+	endif
+	if mode == 'insert'
+		call cursor(1,1)
+		startinsert!
 	endif
 endfu
 
@@ -51,9 +59,9 @@ endfu
 
 fun! wheel#mandala#filter_maps ()
 	" Define local filter maps in wheel buffer
-	inoremap <buffer> <space> <esc>:call wheel#mandala#filter()<cr>ggA<space>
-	inoremap <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter()<cr>ggA
-	inoremap <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter()<cr>ggA
+	inoremap <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
+	inoremap <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
+	inoremap <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
 	inoremap <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular esc
@@ -67,6 +75,9 @@ fun! wheel#mandala#input_history_maps ()
 	inoremap <buffer> <down> <esc>:call wheel#scroll#newer()<cr>
 	inoremap <buffer> <M-p> <esc>:call wheel#scroll#older()<cr>
 	inoremap <buffer> <M-n> <esc>:call wheel#scroll#newer()<cr>
+	" C-r / C-s : next / prev matching line
+	inoremap <buffer> <C-r> <esc>:call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <C-s> <esc>:call wheel#scroll#filtered_newer()<cr>
 endfun
 
 fun! wheel#mandala#jump_maps (level)

@@ -3,7 +3,7 @@
 " Input history
 
 fun! wheel#scroll#record (input)
-	" Add input = word or word list to input history
+	" Add input = string or list to beginning of input history
 	if type(a:input) == v:t_list
 		for elem in a:input
 			call wheel#scroll#record (elem)
@@ -35,3 +35,24 @@ fun! wheel#scroll#older ()
 	call setline('.', g:wheel_input[0])
 	startinsert!
 endfun
+
+fun! wheel#scroll#filtered_newer ()
+	" Replace current line by newer element in input history
+	let line = getline('.')
+	let index = match(g:wheel_input, line)
+	let g:wheel_input = wheel#chain#roll_right (index, g:wheel_input)
+	call cursor(1,1)
+	call setline('.', g:wheel_input[0])
+	startinsert!
+endfun
+
+fun! wheel#scroll#filtered_older ()
+	" Replace current line by older element in input history
+	let line = getline('.')
+	let index = match(g:wheel_input, line)
+	let g:wheel_input = wheel#chain#roll_left (index, g:wheel_input)
+	call cursor(1,1)
+	call setline('.', g:wheel_input[0])
+	startinsert!
+endfun
+

@@ -64,6 +64,28 @@ fun! wheel#chain#rotate_right (list)
 	return [a:list[-1]] + a:list[:-2]
 endfu
 
+fun! wheel#chain#roll_left (index, list)
+	" Roll index in list -> left = beginning
+	let index = a:index
+	let list = a:list
+	if index > 0 && index < len(list)
+		return list[index:] + list[0:index-1]
+	else
+		return list
+	endif
+endfu
+
+fun! wheel#chain#roll_right (index, list)
+	" Roll index of list -> right = end
+	let index = a:index
+	let list = a:list
+	if index > 0 && index < len(list)
+		return list[index+1:-1] + list[0:index]
+	else
+		return list
+	endif
+endfu
+
 fun! wheel#chain#swap (list)
 	" Swap first and second element of list
 	if len(a:list) > 1
