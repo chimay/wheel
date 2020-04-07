@@ -22,7 +22,9 @@ endfun
 
 fun! wheel#scroll#newer ()
 	" Replace current line by newer element in input history
-	let g:wheel_input = wheel#chain#rotate_right (g:wheel_input)
+	if ! empty(getline('.'))
+		let g:wheel_input = wheel#chain#rotate_right (g:wheel_input)
+	endif
 	call cursor(1,1)
 	call setline('.', g:wheel_input[0])
 	startinsert!
@@ -30,7 +32,9 @@ endfun
 
 fun! wheel#scroll#older ()
 	" Replace current line by older element in input history
-	let g:wheel_input = wheel#chain#rotate_left (g:wheel_input)
+	if ! empty(getline('.'))
+		let g:wheel_input = wheel#chain#rotate_left (g:wheel_input)
+	endif
 	call cursor(1,1)
 	call setline('.', g:wheel_input[0])
 	startinsert!
