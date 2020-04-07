@@ -254,18 +254,3 @@ fun! wheel#mandala#reorder (level)
 		echomsg 'Wheel mandala reorder : empty or incomplete' level
 	endif
 endfun
-
-fun! wheel#mandala#reorder_toruses ()
-	" Reorder toruses in a buffer
-	call wheel#mandala#reorder ('torus')
-endfun
-
-fun! wheel#mandala#reorder_circles ()
-	" Reorder circles in a buffer
-	call wheel#mandala#reorder ('circle')
-endfun
-
-fun! wheel#mandala#reorder_locations ()
-	" Reorder locations in a buffer
-	call wheel#mandala#reorder ('location')
-endfun
