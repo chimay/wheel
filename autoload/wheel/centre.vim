@@ -75,11 +75,11 @@ fun! wheel#centre#mappings ()
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
 		nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
 		" Vortex
-		nnoremap <C-PageUp>   :call wheel#vortex#prev('location')<cr>
+		nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
 		nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
-		nnoremap <C-Home>     :call wheel#vortex#prev('circle')<cr>
+		nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
 		nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
-		nnoremap <S-Home>     :call wheel#vortex#prev('torus')<cr>
+		nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
 		nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
 		" Pendulum
 		nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
