@@ -87,7 +87,7 @@ fun! wheel#chain#roll_right (index, list)
 	" Roll index of list -> right = end
 	let index = a:index
 	let list = a:list
-	if index >= 0 && index < len(list)
+	if index >= 0 && index < len(list) - 1
 		return list[index+1:-1] + list[0:index]
 	else
 		return list
