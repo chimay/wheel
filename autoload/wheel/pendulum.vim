@@ -78,6 +78,7 @@ endfu
 
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
+	" Put new entry at the beginning of the list
 	let history = g:wheel_history
 	let coordin = wheel#referen#names()
 	let entry = {}

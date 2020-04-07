@@ -17,7 +17,7 @@ fun! wheel#line#filter ()
 	if empty(wordlist)
 		return linelist
 	endif
-	call wheel#scroll#record(wordlist)
+	call wheel#scroll#record(first)
 	let Matches = function('wheel#gear#filter', [wordlist])
 	let candidates = filter(linelist, Matches)
 	" two times : cleans a level each time

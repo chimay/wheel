@@ -19,3 +19,19 @@ fun! wheel#scroll#record (input)
 		echomsg 'Wheel scroll record : bad input format'
 	endif
 endfun
+
+fun! wheel#scroll#newer ()
+	" Replace current line by newer element in input history
+	let g:wheel_input = wheel#chain#rotate_right (g:wheel_input)
+	call cursor(1,1)
+	call setline('.', g:wheel_input[0])
+	startinsert!
+endfun
+
+fun! wheel#scroll#older ()
+	" Replace current line by older element in input history
+	let g:wheel_input = wheel#chain#rotate_left (g:wheel_input)
+	call cursor(1,1)
+	call setline('.', g:wheel_input[0])
+	startinsert!
+endfun

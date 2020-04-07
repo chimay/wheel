@@ -63,6 +63,10 @@ fun! wheel#mandala#input_history_maps ()
 	" Define local input history maps in wheel buffer
 	" Use Up / Down & M-p / M-n
 	" C-p / C-n is taken by (neo)vim completion
+	inoremap <buffer> <up> <esc>:call wheel#scroll#older()<cr>
+	inoremap <buffer> <down> <esc>:call wheel#scroll#newer()<cr>
+	inoremap <buffer> <M-p> <esc>:call wheel#scroll#older()<cr>
+	inoremap <buffer> <M-n> <esc>:call wheel#scroll#newer()<cr>
 endfun
 
 fun! wheel#mandala#jump_maps (level)
@@ -134,6 +138,7 @@ fun! wheel#mandala#choose (level)
 	call wheel#mandala#open (string)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 	call wheel#mandala#jump_maps (level)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
@@ -167,6 +172,9 @@ fun! wheel#mandala#helix ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-location-index')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
 	put =content
@@ -174,8 +182,6 @@ fun! wheel#mandala#helix ()
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
 endfun
 
 fun! wheel#mandala#grid ()
@@ -183,6 +189,9 @@ fun! wheel#mandala#grid ()
 	" Each coordinate = [torus, circle]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-circle-index')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")
 	put =content
@@ -190,8 +199,6 @@ fun! wheel#mandala#grid ()
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
 endfun
 
 fun! wheel#mandala#tree ()
@@ -199,6 +206,9 @@ fun! wheel#mandala#tree ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tree')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 	call wheel#mandala#folding_options ()
 	let names = wheel#helix#tree ()
 	let content = join(names, "\n")
@@ -207,8 +217,6 @@ fun! wheel#mandala#tree ()
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#tree('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#tree('close')<cr>
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
 endfun
 
 fun! wheel#mandala#history ()
@@ -216,6 +224,9 @@ fun! wheel#mandala#history ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ()
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 	let names = wheel#pendulum#sorted ()
 	let content = join(names, "\n")
 	put =content
@@ -223,8 +234,6 @@ fun! wheel#mandala#history ()
 	normal! gg
 	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
 endfun
 
 " Reorder
