@@ -91,30 +91,6 @@ fun! wheel#vortex#next (level)
 	endif
 endfun
 
-fun! wheel#vortex#prev_torus ()
-	call wheel#vortex#previous ('torus')
-endfun
-
-fun! wheel#vortex#next_torus ()
-	call wheel#vortex#next ('torus')
-endfun
-
-fun! wheel#vortex#prev_circle ()
-	call wheel#vortex#previous ('circle')
-endfun
-
-fun! wheel#vortex#next_circle ()
-	call wheel#vortex#next ('circle')
-endfun
-
-fun! wheel#vortex#prev_location ()
-	call wheel#vortex#previous ('location')
-endfun
-
-fun! wheel#vortex#next_location ()
-	call wheel#vortex#next ('location')
-endfun
-
 " Tune
 
 fun! wheel#vortex#frequency (level, name)
