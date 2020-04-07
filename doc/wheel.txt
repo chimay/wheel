@@ -172,7 +172,7 @@ EXPLORE THE MENUS				*wheel-sbs-explore-the-menus*
 
 At this stage, I suggest you explore the Wheel main menu. Press `<M-w>m`
 and a new buffer will appear, listing the actions you can perform on the
-wheel. Lines can be filtered in insert mode.
+wheel. Lines can be filtered in insert mode. See |wheel-special-buffers-menus|
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
@@ -204,7 +204,7 @@ at your fingertips.
 SPECIAL BUFFERS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
-Menu buffers			|wheel-special-buffers-menu|
+Menu buffers			|wheel-special-buffers-menus|
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 Bath buffers			|wheel-special-buffers-batch|
@@ -238,7 +238,7 @@ The keys `<C-r>`/`<C-s>` will insert the previous/next input matching
 the beginning of the inserted line, until the cursor.
 
 ------------------------------------------------------------------------------
-MENU BUFFERS				*wheel-special-buffers-menu*
+MENU BUFFERS				*wheel-special-buffers-menus*
 
 Each menu has its own dedicated buffer. You can filter the menu lines
 by entering words in insert mode.
