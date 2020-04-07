@@ -170,7 +170,7 @@ You can also switch location, circle or torus by chosing it in |wheel-special-bu
 ------------------------------------------------------------------------------
 EXPLORE THE MENUS				*wheel-sbs-explore-the-menus*
 
-At that stage, I suggest you explore the Wheel main menu. Press `<M-w>m`
+At this stage, I suggest you explore the Wheel main menu. Press `<M-w>m`
 and a new buffer will appear, listing the actions you can perform on the
 wheel. Lines can be filtered in insert mode.
 
