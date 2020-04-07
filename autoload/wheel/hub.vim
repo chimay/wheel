@@ -59,9 +59,9 @@ endif
 
 if ! exists('s:tabwin')
 	let s:tabwin = {
-				\ 'One torus per tab' : "wheel#mosaictabs('torus')",
-				\ 'One circle per tab' : "wheel#mosaictabs('circle')",
-				\ 'One location per tab' : "wheel#mosaictabs('location')",
+				\ 'One torus per tab' : "wheel#mosaic#tabs('torus')",
+				\ 'One circle per tab' : "wheel#mosaic#tabs('circle')",
+				\ 'One location per tab' : "wheel#mosaic#tabs('location')",
 				\}
 	lockvar s:tabwin
 endif
