@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Windows
+" Windows & Tabs
 
 fun! wheel#mosaic#glasses (filename)
 	" Return list of window(s) id(s) displaying filename
@@ -34,4 +34,24 @@ fun! wheel#mosaic#tour ()
 		call win_gotoid(original)
 		return old
 	endif
+endfun
+
+fun! wheel#mosaic#grid (level)
+	" One window of level per window : grid split
+	let width = winwidth(0)
+	let height = winheight(0)
+	" nr2float ?
+	let ratio = round(width) / round(height)
+endfun
+
+fun! wheel#mosaic#tabs (level)
+	" One element of level per tab
+	let level = a:level
+	let upper = wheel#referen#upper (level)
+	let elements = wheel#referen#elements (upper)
+	let length = len(elements)
+	for index in range(length)
+		tabnew
+		call wheel#vortex#next(level)
+	endfor
 endfun

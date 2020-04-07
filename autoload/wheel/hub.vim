@@ -57,6 +57,9 @@ if ! exists('s:alternate')
 	lockvar s:alternate
 endif
 
+if ! exists('s:tabwin')
+endif
+
 if ! exists('s:reorder')
 	let s:reorder = {
 				\ 'Reorder toruses' : 'wheel#mandala#reorder_toruses',
@@ -101,7 +104,11 @@ fun! wheel#hub#call ()
 	" Calls function corresponding to current menu line
 	let key = getline('.')
 	call wheel#mandala#close ()
-	exe 'call ' . s:all[key] . '()'
+	if key =~ ')'
+		exe 'call ' . s:all[key]
+	else
+		exe 'call ' . s:all[key] . '()'
+	endif
 endfun
 
 " Buffer menus
