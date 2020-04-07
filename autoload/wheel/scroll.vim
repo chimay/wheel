@@ -47,6 +47,10 @@ fun! wheel#scroll#filtered_newer ()
 	endif
 	let col = col('.')
 	let line = getline('.')
+	if empty(line)
+		call wheel#scroll#newer ()
+		return
+	endif
 	let before = strcharpart(line, 0, col)
 	let pattern = '\m^' . before
 	let reversed = reverse(copy(g:wheel_input))
@@ -68,6 +72,10 @@ fun! wheel#scroll#filtered_older ()
 	endif
 	let col = col('.')
 	let line = getline('.')
+	if empty(line)
+		call wheel#scroll#older ()
+		return
+	endif
 	let before = strcharpart(line, 0, col)
 	let pattern = '\m^' . before
 	let index = match(g:wheel_input, pattern, 1)
