@@ -39,8 +39,16 @@ endfun
 fun! wheel#scroll#filtered_newer ()
 	" Replace current line by newer element in input history
 	let line = getline('.')
-	let index = match(g:wheel_input, line)
+	let pattern = '\m^' . line
+	let reversed = reverse(copy(g:wheel_input))
+	let index = match(reversed, pattern)
+	if index < 0
+		return
+	endif
+	let index = len(reversed) - index
+	let index -= 1
 	let g:wheel_input = wheel#chain#roll_right (index, g:wheel_input)
+	echomsg 'index : ' index '|' join(reversed) '|' join(g:wheel_input)
 	call cursor(1,1)
 	call setline('.', g:wheel_input[0])
 	startinsert!
@@ -49,7 +57,11 @@ endfun
 fun! wheel#scroll#filtered_older ()
 	" Replace current line by older element in input history
 	let line = getline('.')
-	let index = match(g:wheel_input, line)
+	let pattern = '\m^' . line
+	let index = match(g:wheel_input, pattern)
+	if index < 0
+		return
+	endif
 	let g:wheel_input = wheel#chain#roll_left (index, g:wheel_input)
 	call cursor(1,1)
 	call setline('.', g:wheel_input[0])

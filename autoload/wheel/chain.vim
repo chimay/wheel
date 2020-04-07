@@ -56,12 +56,20 @@ endfu
 
 fun! wheel#chain#rotate_left (list)
 	" Rotate list to the left
-	return a:list[1:] + [a:list[0]]
+	if len(a:list) > 1
+		return a:list[1:] + [a:list[0]]
+	else
+		return a:list
+	endif
 endfu
 
 fun! wheel#chain#rotate_right (list)
 	" Rotate list to the right
-	return [a:list[-1]] + a:list[:-2]
+	if len(a:list) > 1
+		return [a:list[-1]] + a:list[:-2]
+	else
+		return a:list
+	endif
 endfu
 
 fun! wheel#chain#roll_left (index, list)
