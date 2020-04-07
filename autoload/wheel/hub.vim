@@ -58,6 +58,12 @@ if ! exists('s:alternate')
 endif
 
 if ! exists('s:tabwin')
+	let s:tabwin = {
+				\ 'One torus per tab' : "wheel#mosaictabs('torus')",
+				\ 'One circle per tab' : "wheel#mosaictabs('circle')",
+				\ 'One location per tab' : "wheel#mosaictabs('location')",
+				\}
+	lockvar s:tabwin
 endif
 
 if ! exists('s:reorder')
@@ -76,6 +82,7 @@ if ! exists('s:main')
 	call extend(s:main, s:delete)
 	call extend(s:main, s:jump)
 	call extend(s:main, s:alternate)
+	call extend(s:main, s:tabwin)
 	call extend(s:main, s:reorder)
 	lockvar s:main
 endif
