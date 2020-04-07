@@ -23,12 +23,12 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . 'f :call wheel#tree#add_file()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'b :call wheel#tree#add_buffer()<cr>'
 		" Vortex : move to elements
-		exe 'nnoremap ' . g:wheel_config.prefix . '<left> :call wheel#vortex#prev_location()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<right> :call wheel#vortex#next_location()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<c-left> :call wheel#vortex#prev_circle()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<c-right> :call wheel#vortex#next_circle()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<s-left> :call wheel#vortex#prev_torus()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<s-right> :call wheel#vortex#next_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . "<left> :call wheel#vortex#prev('location')()<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<right> :call wheel#vortex#next('location')()<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<c-left> :call wheel#vortex#prev('circle')()<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<c-right> :call wheel#vortex#next('circle')()<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<s-left> :call wheel#vortex#prev('torus')()<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<s-right> :call wheel#vortex#next('torus')()<cr>"
 		" Disc : load / save wheel
 		exe 'nnoremap ' . g:wheel_config.prefix . 'r :call wheel#disc#read_all()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'w :call wheel#disc#write_all()<cr>'

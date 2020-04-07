@@ -141,7 +141,7 @@ endfun
 
 " Choose
 
-fun! wheel#mandala#choose (level)
+fun! wheel#mandala#jump (level)
 	" Choose an element of level to switch to
 	let level = a:level
 	call wheel#vortex#update ()
@@ -165,17 +165,17 @@ endfun
 
 fun! wheel#mandala#toruses ()
 	" Choose a torus to switch to
-	call wheel#mandala#choose ('torus')
+	call wheel#mandala#jump ('torus')
 endfun
 
 fun! wheel#mandala#circles ()
 	" Choose a circle to switch to
-	call wheel#mandala#choose ('circle')
+	call wheel#mandala#jump ('circle')
 endfun
 
 fun! wheel#mandala#locations ()
 	" Choose a location to switch to
-	call wheel#mandala#choose ('location')
+	call wheel#mandala#jump ('location')
 endfun
 
 fun! wheel#mandala#helix ()
