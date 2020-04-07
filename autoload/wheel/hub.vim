@@ -34,9 +34,9 @@ endif
 
 if ! exists('s:jump')
 	let s:jump = {
-				\ 'Jump to torus' : "wheel#mandala('torus')",
-				\ 'Jump to circle' : "wheel#mandala('circle')",
-				\ 'Jump to location' : "wheel#mandala('location')",
+				\ 'Jump to torus' : "wheel#mandala#jump('torus')",
+				\ 'Jump to circle' : "wheel#mandala#jump('circle')",
+				\ 'Jump to location' : "wheel#mandala#jump('location')",
 				\ 'Jump to location in index' : 'wheel#mandala#helix',
 				\ 'Jump to circle in index' : 'wheel#mandala#grid',
 				\ 'Jump to element in wheel tree' : 'wheel#mandala#tree',
@@ -68,9 +68,9 @@ endif
 
 if ! exists('s:reorder')
 	let s:reorder = {
-				\ 'Reorder toruses' : 'wheel#mandala#reorder_toruses',
-				\ 'Reorder circles' : 'wheel#mandala#reorder_circles',
-				\ 'Reorder locations' : 'wheel#mandala#reorder_locations',
+				\ 'Reorder toruses' : "wheel#mandala#reorder('torus')",
+				\ 'Reorder circles' : "wheel#mandala#reorder('circle')",
+				\ 'Reorder locations' : "wheel#mandala#reorder('location')",
 				\}
 	lockvar s:reorder
 endif
