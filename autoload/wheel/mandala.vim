@@ -163,21 +163,6 @@ fun! wheel#mandala#jump (level)
 	endif
 endfun
 
-fun! wheel#mandala#toruses ()
-	" Choose a torus to switch to
-	call wheel#mandala#jump ('torus')
-endfun
-
-fun! wheel#mandala#circles ()
-	" Choose a circle to switch to
-	call wheel#mandala#jump ('circle')
-endfun
-
-fun! wheel#mandala#locations ()
-	" Choose a location to switch to
-	call wheel#mandala#jump ('location')
-endfun
-
 fun! wheel#mandala#helix ()
 	" Choose a location coordinate to switch to
 	" Each coordinate = [torus, circle, location]

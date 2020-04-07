@@ -34,9 +34,9 @@ endif
 
 if ! exists('s:jump')
 	let s:jump = {
-				\ 'Jump to torus' : 'wheel#mandala#toruses',
-				\ 'Jump to circle' : 'wheel#mandala#circles',
-				\ 'Jump to location' : 'wheel#mandala#locations',
+				\ 'Jump to torus' : "wheel#mandala('torus')",
+				\ 'Jump to circle' : "wheel#mandala('circle')",
+				\ 'Jump to location' : "wheel#mandala('location')",
 				\ 'Jump to location in index' : 'wheel#mandala#helix',
 				\ 'Jump to circle in index' : 'wheel#mandala#grid',
 				\ 'Jump to element in wheel tree' : 'wheel#mandala#tree',

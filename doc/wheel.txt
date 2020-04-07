@@ -605,20 +605,20 @@ and add them to your init file.
 
 Here is the default level 10, if you wish to customize it : >
 
- " Menus
+ " Hub : Menus
  nnoremap <D-=>        :call wheel#hub#meta()<cr>
  nnoremap <D-m>        :call wheel#hub#main()<cr>
- " Add / Delete
+ " Tree
  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
  nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
- " Navigation
- nnoremap <C-PageUp>   :call wheel#vortex#prev_location()<cr>
- nnoremap <C-PageDown> :call wheel#vortex#next_location()<cr>
- nnoremap <C-Home>     :call wheel#vortex#prev_circle()<cr>
- nnoremap <C-End>      :call wheel#vortex#next_circle()<cr>
- nnoremap <S-Home>     :call wheel#vortex#prev_torus()<cr>
- nnoremap <S-End>      :call wheel#vortex#next_torus()<cr>
- " History
+ " Vortex
+ nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
+ nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
+ nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
+ nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
+ nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
+ nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
+ " Pendulum
  nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
  nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
  nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
@@ -627,11 +627,11 @@ Here is the default level 10, if you wish to customize it : >
  nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
  nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
  nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
- " Special buffers
- nnoremap <Space>      :call wheel#mandala#locations()<cr>
- nnoremap <C-Space>    :call wheel#mandala#circles()<cr>
- nnoremap <S-Space>    :call wheel#mandala#toruses()<cr>
- nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
+ " Mandala
+ nnoremap <Space>      :call wheel#mandala#jump('location')<cr>
+ nnoremap <C-Space>    :call wheel#mandala#jump('circle')<cr>
+ nnoremap <S-Space>    :call wheel#mandala#jump('torus')<cr>
+ nnoremap <D-Space>        :call wheel#mandala#tree()<cr>
 <
 
 ==============================================================================
