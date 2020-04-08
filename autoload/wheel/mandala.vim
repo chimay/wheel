@@ -271,7 +271,7 @@ fun! wheel#mandala#reorder (level)
 	" Reorder level elements in a buffer
 	let level = a:level
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-reorder')
+	call wheel#mandala#open ('wheel-reorder-' . level)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#reorder_write (level)
 	let upper = wheel#referen#upper(level)
