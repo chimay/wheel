@@ -22,6 +22,7 @@
 		* [Switch using a special buffer](#switch-using-a-special-buffer)
 	* [Square the Circle](#square-the-circle)
 * [TODO](#todo)
+* [Warning](#warning)
 * [Licence](#licence)
 
 <!-- vim-markdown-toc -->
@@ -293,6 +294,10 @@ at your fingertips.
   + split : grid, main left, etc
 - autogroup
 - grep & sync wheel with current file
+
+# Warning
+
+Despite abundant testing, some bugs might remain, so be careful.
 
 # Licence
 

@@ -9,7 +9,6 @@ fun! wheel#line#filter ()
 	" Return lines matching words of first line
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
 		let b:wheel_lines = getline(2, '$')
-		lockvar b:wheel_lines
 	endif
 	let linelist = copy(b:wheel_lines)
 	let first = getline(1)
@@ -26,6 +25,37 @@ fun! wheel#line#filter ()
 	" Return
 	return filtered
 endfu
+
+fun! wheel#line#toggle ()
+	" Toggle selection of current line
+	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
+		let b:wheel_lines = getline(2, '$')
+	endif
+	if ! exists('b:wheel_selected')
+		let b:wheel_selected = []
+	endif
+	let line = getline('.')
+	if line !~ '\m^\* '
+		let name = line
+	else
+		let name = substitute(line, '\m^\* ', '', '')
+	endif
+	let index = index(b:wheel_selected, name)
+	if index < 0
+		call add(b:wheel_selected, name)
+		let selected_line = substitute(line, '\m^', '* ', '')
+		call setline('.', selected_line)
+		" Update b:wheel_lines
+		let pos = index(b:wheel_lines, line)
+		let b:wheel_lines[pos] = selected_line
+	else
+		call remove(b:wheel_selected, index)
+		call setline('.', name)
+		" Update b:wheel_lines
+		let pos = index(b:wheel_lines, line)
+		let b:wheel_lines[pos] = name
+	endif
+endfun
 
 " Folds in treeish buffers
 
@@ -66,13 +96,20 @@ fun! wheel#line#fold_coordin ()
 	return coordin
 endfun
 
-" Jump
+" Switch
 
 fun! wheel#line#switch (level, ...)
-	" Switch to element whose name is in current line
+	" Switch to element(s) on current or selected line(s)
 	" level may be 'torus', 'circle' or 'location'
-	let mode = 'close'
+	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
+		let selected = getline('.')
+	elseif type(b:wheel_selected) == v:t_list
+		let selected = b:wheel_selected
+	else
+		echomsg 'Wheel line switch : bad format for b:wheel_selected'
+	endif
 	let level = a:level
+	let mode = 'close'
 	if a:0 > 0
 		let mode = a:1
 	endif
@@ -80,7 +117,6 @@ fun! wheel#line#switch (level, ...)
 	if a:0 > 1
 		let target = a:2
 	endif
-	let name = getline('.')
 	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
@@ -90,14 +126,35 @@ fun! wheel#line#switch (level, ...)
 			bdelete!
 		endif
 	endif
-	if target == 'tab'
-		tabnew
-	elseif target == 'horizontal_split'
-		split
-	elseif target == 'vertical_split'
-		vsplit
+	call wheel#line#select_switch (level, selected, target)
+endfun
+
+fun! wheel#line#select_switch (level, selected, target)
+	" Switch to selected element(s)
+	" level may be 'torus', 'circle' or 'location'
+	let level = a:level
+	let selected = a:selected
+	let target = a:target
+	if type(selected) == v:t_string
+		if target == 'tab'
+			tabnew
+		elseif target == 'horizontal_split'
+			split
+		elseif target == 'vertical_split'
+			vsplit
+		endif
+		call wheel#vortex#switch(level, selected)
+	elseif type(selected) == v:t_list
+		if target != 'current'
+			for elem in selected
+				call wheel#line#select_switch (level, elem, target)
+			endfor
+		else
+			call wheel#line#select_switch (level, selected[0], target)
+		endif
+	else
+		echomsg 'Wheel line select switch : wrond size of selected'
 	endif
-	call wheel#vortex#switch(level, name)
 endfun
 
 fun! wheel#line#helix (...)

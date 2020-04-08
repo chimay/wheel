@@ -15,7 +15,7 @@ fun! CompleteList(arglead,cmdline,cursorPos)
 endfun
 
 fun! TestArgs (...)
-	echo join(a:000, '/')
+	echo 'test args : ' join(a:000, '/')
 endfun
 
 command! -nargs=* -complete=custom,Complete TestArgs :call TestArgs(<args>)
@@ -34,12 +34,38 @@ com! Inlist  :echo input('Var ? ', '', 'customlist,CompleteList')
 let s:a = {'un':1, 'deux': 2}
 let s:b = {'trois':1, 'quatre': 2}
 call extend(s:a, s:b, 'error')
-echo s:a
-echo s:b
+echo 'script a : ' s:a
+echo 'script b : ' s:b
+
+" }}}1
+
+" Brace names {{{1
+
+let s:a = 'win'
+let s:b = 's:a'
+
+echo 'Brace name {s:b} : ' {s:b}
+echo 'Brace name winnr = {s:a}nr : ' {a}nr()
 
 " }}}1
 
 " Functions {{{1
+
+" Optional arguments {{{2
+
+fun! s:Fun (...)
+	return s:Called (a:000)
+endfun
+
+fun! s:Called (...)
+	return a:000
+endfun
+
+echo 'Optional args : ' s:Fun (1, 2)
+
+" }}}2
+
+" Func ref {{{2
 
 fun! s:Plus(a, b)
 	return a:a + a:b
@@ -49,15 +75,13 @@ fun! s:Minus(a, b)
 	return a:a - a:b
 endfu
 
-" Func ref {{{2
-
-echo function('s:Plus', [3])(4)
+echo 'plus 3 : ' function('s:Plus', [3])(4)
 let s:Plus3 = function('s:Plus', [3])
-echo s:Plus3(4)
+echo 'plus3 : ' s:Plus3(4)
 
-echo function('s:Minus', [3])(2)
+echo 'minus 3 : ' function('s:Minus', [3])(2)
 let s:TreeMinus = function('s:Minus', [3])
-echo s:TreeMinus(2)
+echo 'minus3 : ' s:TreeMinus(2)
 
 fun! s:Multi (fn)
 	let r = a:fn(1, 2) + a:fn(3, 4)
@@ -68,9 +92,9 @@ endfun
 
 " Lambda {{{2
 
-echo {a -> 2 * a}(2)
+echo 'lambda : ' {a -> 2 * a}(2)
 let s:L = {a -> 2 * a}
-echo s:L(3)
+echo 'lambda var : ' s:L(3)
 
 fun! s:ArgumentConstant(fn, value)
 	return {arg -> a:fn(arg, a:value) }
@@ -80,16 +104,16 @@ endfu
 
 " Closure {{{2
 
-" fun! s:Fonctionnelle(fn, value)
-" 	fun! Fun(arg) closure
-" 		return a:fn(a:arg, a:value)
-" 	endfun
-" 	return funcref('Fun')
-" endfun
-"
-" echo s:Fonctionnelle(function('s:Minus'), 3)(7)
-" let F = Fonctionnelle(function('s:Minus'), 3)
-" echo F(5)
+fun! s:Fonctionnelle(fn, value)
+	fun! Fun(arg) closure
+		return a:fn(a:arg, a:value)
+	endfun
+	return funcref('Fun')
+endfun
+
+echo 'functional : ' s:Fonctionnelle(function('s:Minus'), 3)(7)
+let s:F = s:Fonctionnelle(function('s:Minus'), 3)
+echo 'functional : ' s:F(5)
 
 " }}}2
 

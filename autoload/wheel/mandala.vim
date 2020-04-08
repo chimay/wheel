@@ -121,6 +121,7 @@ fun! wheel#mandala#switch_maps (level)
 	let string = "nnoremap <buffer> v :call wheel#line#switch('"
 	let string .= a:level . "', 'close', 'vertical_split')<cr>"
 	exe string
+	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
 endfun
 
 fun! wheel#mandala#reorder_maps ()

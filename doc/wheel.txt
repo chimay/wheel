@@ -298,6 +298,7 @@ in previous used window. You can also use the keys :
 - `t` : open buffer in a new tab
 - `s` : open buffer in a new split
 - `v` : open buffer in a new vsplit
+- `<tab>` : same as `<enter>`, but without closing the navigation buffer
 
 The default mappings launching navigation buffers are :
 
@@ -315,6 +316,12 @@ reflect the tree structure of the Wheel : toruses, circles and locations.
 
 Filtering in that buffer will keep surrounding folds ; only non mathing
 empty folds will be removed.
+
+Selection~
+
+Pressing `<Space>` will toggle the selection of the current line. If a
+line is selected, it will begin with an asterisk. You can then open all
+selected files in tabs, splits or vertical splits.
 
 ------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*
