@@ -40,10 +40,10 @@ navigate between :
 
 Note that :
 
-- A location contains a name, a filename, as well as a line & column
-number - A buffer group, in fact a location group, is called a circle -
-A set of buffer groups, or a category, is called a torus (a circle of
-circles) - The list of toruses is called the wheel
+- A location contains a name, a filename, as well as a line & column number
+- A buffer group, in fact a location group, is called a circle
+- A set of buffer groups, or a category, is called a torus (a circle of circles)
+- The list of toruses is called the wheel
 
 ### Why do you need three levels of grouping ?
 
