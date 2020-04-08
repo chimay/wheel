@@ -75,7 +75,9 @@ fun! wheel#mandala#input_history_maps ()
 	inoremap <buffer> <down> <esc>:call wheel#scroll#newer()<cr>
 	inoremap <buffer> <M-p> <esc>:call wheel#scroll#older()<cr>
 	inoremap <buffer> <M-n> <esc>:call wheel#scroll#newer()<cr>
-	" C-r / C-s : next / prev matching line
+	" PageUp / PageDown & C-r / C-s : next / prev matching line
+	inoremap <buffer> <PageUp> <esc>:call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <PageDown> <esc>:call wheel#scroll#filtered_newer()<cr>
 	inoremap <buffer> <C-r> <esc>:call wheel#scroll#filtered_older()<cr>
 	inoremap <buffer> <C-s> <esc>:call wheel#scroll#filtered_newer()<cr>
 endfun

@@ -239,8 +239,9 @@ Input history~
 An input history is available in insert mode. You can insert the
 previous/next input with `<Up>`/`<Down>` or `<M-p>`/`<M-n>`.
 
-The keys `<C-r>`/`<C-s>` will insert the previous/next input matching
-the beginning of the inserted line, until the cursor.
+The keys `<PageUp>`/`PageDown` or `<C-r>`/`<C-s>` will insert the
+previous/next input matching the beginning of the inserted line, until
+the cursor.
 
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menus*
