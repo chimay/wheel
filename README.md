@@ -2,8 +2,6 @@
 
 <!-- vim-markdown-toc GFM -->
 
-* [Work in progress](#work-in-progress)
-	* [TODO](#todo)
 * [Introduction](#introduction)
 	* [Goal](#goal)
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
@@ -14,7 +12,8 @@
 	* [Using minpac](#using-minpac)
 * [Configuration](#configuration)
 * [Step by Step](#step-by-step)
-	* [Prefix](#prefix)
+	* [Documentation](#documentation)
+	* [One map to ring them all](#one-map-to-ring-them-all)
 	* [Mnemonic](#mnemonic)
 	* [First Circles](#first-circles)
 	* [Moving around](#moving-around)
@@ -22,25 +21,10 @@
 		* [Switch using completion](#switch-using-completion)
 		* [Switch using a special buffer](#switch-using-a-special-buffer)
 	* [Square the Circle](#square-the-circle)
+* [TODO](#todo)
 * [Licence](#licence)
 
 <!-- vim-markdown-toc -->
-
-# Work in progress
-
-The core functionality begins to work. A lot of extras has to be done.
-
-## TODO
-
-- copy / moving things
-  + location to circle
-  + circle to torus
-  + restructuring buffer ?
-- layout
-  + tab & split
-  + split : grid, main left, etc
-- autogroup
-- grep & sync wheel with current file
 
 # Introduction
 
@@ -167,6 +151,14 @@ as a starting point.
 
 # Step by Step
 
+## Documentation
+
+Your guide on the wheel tracks :
+
+```vim
+ :help wheel.txt
+ ```
+
 ## Prefix
 
 In the following discussion, I assume that you have kept the default
@@ -177,6 +169,17 @@ g:wheel_config.prefix = '<M-w>'
 ```
 
 Just replace it by your prefix if you’ve changed it.
+
+## One map to ring them all
+
+To get an overview of the Wheel, I suggest you take a look at the main
+menu. Press `<M-w>m` and a new buffer will appear, listing the actions
+you can perform. Insert mode is used to filter the lines. Press enter
+in normal mode to trigger an action (if you know what you’re doing),
+or `q` to quit the menu.
+
+If you prefer the meta menu leading you to thematic sub-menus, you can
+launch it with `<M-w>=`.
 
 ## Mnemonic
 
@@ -278,6 +281,18 @@ Circle Drinks | Juice           | Tea
 Circle Fruits | Apple           | Pear
 
 at your fingertips.
+
+# TODO
+
+- copy / moving things
+  + location to circle
+  + circle to torus
+  + restructuring buffer ?
+- layout
+  + tab & split
+  + split : grid, main left, etc
+- autogroup
+- grep & sync wheel with current file
 
 # Licence
 

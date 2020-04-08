@@ -102,17 +102,35 @@ itself inspired by MTorus
 ==============================================================================
 STEP BY STEP						*wheel-step-by-step*
 
+Prefix				|wheel-sbs-prefix|
+One map to ring them all	|wheel-sbs-one-map-to-ring-them-all|
 First circles			|wheel-sbs-first-circles|
 Moving around			|wheel-sbs-moving-around|
-Explore the menus		|wheel-sbs-explore-the-menus|
 Square the circle		|wheel-sbs-square-the-circle|
+
+------------------------------------------------------------------------------
+PREFIX						*wheel-sbs-prefix*
+
+In the following discussion, I assume that you have kept the default
+mapping prefix `<M-w>`.
+
+------------------------------------------------------------------------------
+ONE MAP TO RING THEM ALL		*wheel-sbs-one-map-to-ring-them-all*
+
+To get an overview of the Wheel, I suggest you take a look at the main
+menu. Press `<M-w>m` and a new buffer will appear, listing the actions
+you can perform. Insert mode is used to filter the lines. Press enter
+in normal mode to trigger an action (if you know what you’re doing),
+or `q` to quit the menu.
+
+If you prefer the meta menu leading you to thematic sub-menus, you can
+launch it with `<M-w>=`.
+
+To learn more about menus, see |wheel-special-buffers-menus|.
 
 ------------------------------------------------------------------------------
 FIRST CIRCLES				    	    *wheel-sbs-first-circles*
 
-In the following discussion, I assume that you have kept the default
-mapping prefix `<M-w>`.
->
 Let’s say we have the files `Juice`, `Tea`, `Coffee` and we want to
 group them. So, we go `Juice` and type `<M-w>a` to add a location to the
 wheel. If no torus is present in the wheel, it will create it and ask
@@ -171,13 +189,6 @@ You can switch :
 Switch using a special buffer~
 
 You can also switch location, circle or torus by chosing it in |wheel-special-buffers|.
-
-------------------------------------------------------------------------------
-EXPLORE THE MENUS				*wheel-sbs-explore-the-menus*
-
-At this stage, I suggest you explore the Wheel main menu. Press `<M-w>m`
-and a new buffer will appear, listing the actions you can perform on the
-wheel. Lines can be filtered in insert mode. See |wheel-special-buffers-menus|
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
