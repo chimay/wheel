@@ -74,6 +74,38 @@ fun! wheel#mosaic#tabs (level)
 	call wheel#vortex#next (level)
 endfun
 
+fun! wheel#mosaic#hor_split (level)
+	" One element of level per horizontal split
+	let level = a:level
+	let upper = wheel#referen#upper (level)
+	let elements = wheel#referen#elements (upper)
+	let length = len(elements)
+	call wheel#mosaic#only ()
+	call wheel#vortex#jump ()
+	for index in range(length - 1)
+		split
+		call wheel#vortex#next (level)
+	endfor
+	wincmd t
+	call wheel#vortex#next (level)
+endfun
+
+fun! wheel#mosaic#ver_split (level)
+	" One element of level per vertical split
+	let level = a:level
+	let upper = wheel#referen#upper (level)
+	let elements = wheel#referen#elements (upper)
+	let length = len(elements)
+	call wheel#mosaic#only ()
+	call wheel#vortex#jump ()
+	for index in range(length - 1)
+		vsplit
+		call wheel#vortex#next (level)
+	endfor
+	wincmd t
+	call wheel#vortex#next (level)
+endfun
+
 fun! wheel#mosaic#grid (level)
 	" One window of level per window : grid split
 	let width = winwidth(0)

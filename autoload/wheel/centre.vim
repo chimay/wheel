@@ -71,6 +71,12 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
 		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"
+		exe 'nnoremap ' . prefix . "s :call wheel#mosaic#hor_split('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-s> :call wheel#mosaic#hor_split('circle')<cr>"
+		exe 'nnoremap ' . prefix . "S :call wheel#mosaic#hor_split('torus')<cr>"
+		exe 'nnoremap ' . prefix . "v :call wheel#mosaic#ver_split('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-v> :call wheel#mosaic#ver_split('circle')<cr>"
+		exe 'nnoremap ' . prefix . "V :call wheel#mosaic#ver_split('torus')<cr>"
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
