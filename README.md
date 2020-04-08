@@ -229,15 +229,13 @@ If you want to create another torus, let’s say `Books`, simply launch
 
 You can cycle the files of a circle with `<M-w><Left>` and
 `<M-w><Right>`. These are often used bindings, so I suggest you map them
-to a more convient key, like `<C-PageUp>` and `<C-PageDown>`
+to a more convenient key, like `<C-PageUp>` and `<C-PageDown>`
 
-To cycle the circles, use `<M-w><C-left>` and `<M-w><C-right>`. These are
-often used bindings, so I suggest you map them to a more convient key,
-like `<C-Home>` and `<C-End>`
+To cycle the circles, use `<M-w><C-Left>` and `<M-w><C-Right>`. You can
+also map them to a more convenient key, like `<C-Home>` and `<C-End>`.
 
-To cycle the toruses, use `<M-w><S-left>` and `<M-w><S-right>`. These are
-often used bindings, so I suggest you map them to a more convient key,
-like `<S-Home>` and `<S-End>`
+To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>` or
+map them to `<S-Home>` and `<S-End>`.
 
 ### Switch using completion
 

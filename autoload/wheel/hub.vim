@@ -75,6 +75,8 @@ if ! exists('s:reorder')
 	lockvar s:reorder
 endif
 
+" Main menu
+
 if ! exists('s:main')
 	let s:main = {}
 	call extend(s:main, s:add)
@@ -86,6 +88,8 @@ if ! exists('s:main')
 	call extend(s:main, s:reorder)
 	lockvar s:main
 endif
+
+" Meta menu
 
 if ! exists('s:meta')
 	let s:meta = {
@@ -99,6 +103,8 @@ if ! exists('s:meta')
 				\}
 	lockvar s:meta
 endif
+
+" All
 
 if ! exists('s:all')
 	let s:all = copy(s:main)
