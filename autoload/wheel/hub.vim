@@ -96,7 +96,7 @@ if ! exists('s:meta')
 				\ 'Add menu' : "wheel#hub#menu('s:add')",
 				\ 'Rename menu' : "wheel#hub#menu('s:rename')",
 				\ 'Delete menu' : "wheel#hub#menu('s:delete')",
-				\ 'Jump menu' : "wheel#hub#menu('s:switch')",
+				\ 'Switch menu' : "wheel#hub#menu('s:switch')",
 				\ 'Alternate menu' : "wheel#hub#menu('s:alternate')",
 				\ 'Tabs & Windows menu' : "wheel#hub#menu('s:tabwin')",
 				\ 'Reorder menu' : "wheel#hub#menu('s:reorder')",
