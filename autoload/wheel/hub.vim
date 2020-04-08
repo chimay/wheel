@@ -59,9 +59,9 @@ endif
 
 if ! exists('s:tabwin')
 	let s:tabwin = {
-				\ 'One torus per tab' : "wheel#mosaic#tabs('torus')",
-				\ 'One circle per tab' : "wheel#mosaic#tabs('circle')",
-				\ 'One location per tab' : "wheel#mosaic#tabs('location')",
+				\ 'Display toruses on tabs' : "wheel#mosaic#tabs('torus')",
+				\ 'Display circles on tabs' : "wheel#mosaic#tabs('circle')",
+				\ 'Display locations on tabs' : "wheel#mosaic#tabs('location')",
 				\}
 	lockvar s:tabwin
 endif
@@ -89,12 +89,13 @@ endif
 
 if ! exists('s:meta')
 	let s:meta = {
-				\ 'Add menu' : 'wheel#hub#add',
-				\ 'Rename menu' : 'wheel#hub#rename',
-				\ 'Delete menu' : 'wheel#hub#delete',
-				\ 'Jump menu' : 'wheel#hub#jump',
-				\ 'Alternate menu' : 'wheel#hub#alternate',
-				\ 'Reorder menu' : 'wheel#hub#reorder',
+				\ 'Add menu' : "wheel#hub#('add')",
+				\ 'Rename menu' : "wheel#hub#('rename')",
+				\ 'Delete menu' : "wheel#hub#('delete')",
+				\ 'Jump menu' : "wheel#hub#('jump')",
+				\ 'Alternate menu' : "wheel#hub#('alternate')",
+				\ 'Tabs & Windows menu' : "wheel#hub#('tabwin')",
+				\ 'Reorder menu' : "wheel#hub#('reorder')",
 				\}
 	lockvar s:meta
 endif
@@ -140,34 +141,4 @@ endfun
 fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer
 	call wheel#hub#menu('s:main')
-endfun
-
-fun! wheel#hub#add ()
-	" Jump hub menu in wheel buffer
-	call wheel#hub#menu('s:add')
-endfun
-
-fun! wheel#hub#rename ()
-	" Jump hub menu in wheel buffer
-	call wheel#hub#menu('s:rename')
-endfun
-
-fun! wheel#hub#delete ()
-	" Jump hub menu in wheel buffer
-	call wheel#hub#menu('s:delete')
-endfun
-
-fun! wheel#hub#jump ()
-	" Jump hub menu in wheel buffer
-	call wheel#hub#menu('s:jump')
-endfun
-
-fun! wheel#hub#alternate ()
-	" alternate hub menu in wheel buffer
-	call wheel#hub#menu('s:alternate')
-endfun
-
-fun! wheel#hub#reorder ()
-	" Reorder hub menu in wheel buffer
-	call wheel#hub#menu('s:reorder')
 endfun
