@@ -54,7 +54,7 @@ fun! wheel#disc#write_all ()
 	" Write all wheel variables to g:wheel_config.file
 	call wheel#vortex#update ()
 	if has_key(g:wheel_config, 'file')
-		if argc() == 0
+		if argc() == 0 && has('nvim')
 			echomsg 'Writing wheel variables to file ...'
 		endif
 		call wheel#disc#roll_backups(g:wheel_config.file, g:wheel_config.backups)
@@ -64,7 +64,9 @@ fun! wheel#disc#write_all ()
 		call wheel#disc#write('g:wheel_files', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_history', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_input', g:wheel_config.file, '>>')
-		echomsg 'Writing done !'
+		if argc() == 0 && has('nvim')
+			echomsg 'Writing done !'
+		endif
 	else
 		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 	endif
@@ -73,7 +75,7 @@ endfun
 fun! wheel#disc#read_all ()
 	" Read all wheel variables from g:wheel_config.file
 	if has_key(g:wheel_config, 'file')
-		if argc() == 0
+		if argc() == 0 && has('nvim')
 			echomsg 'Reading wheel variables from file ...'
 		endif
 		call wheel#disc#read(g:wheel_config.file)

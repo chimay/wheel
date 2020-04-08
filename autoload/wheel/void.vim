@@ -122,7 +122,7 @@ endfu
 
 fun! wheel#void#init ()
 	" Main init function
-	if argc() == 0
+	if argc() == 0 && has('nvim')
 		echomsg 'Wheel hello !'
 	endif
 	call wheel#void#foundation ()
@@ -135,7 +135,7 @@ endfu
 
 fun! wheel#void#exit ()
 	" Main exit function
-	if argc() == 0
+	if argc() == 0 && has('nvim')
 		echomsg 'Wheel bye !'
 	endif
 	if g:wheel_config.autowrite > 0
