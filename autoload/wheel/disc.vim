@@ -27,9 +27,8 @@ endfun
 
 fun! wheel#disc#read (file)
 	" Read file
-	exe 'source ' . a:file
-	if argc() == 0
-		call wheel#vortex#jump ()
+	if filereadable(file)
+		exe 'source ' . a:file
 	endif
 endfun
 
@@ -79,6 +78,9 @@ fun! wheel#disc#read_all ()
 			echomsg 'Reading wheel variables from file ...'
 		endif
 		call wheel#disc#read(g:wheel_config.file)
+		if argc() == 0
+			call wheel#vortex#jump ()
+		endif
 	else
 		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 	endif
