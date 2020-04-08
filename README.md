@@ -55,8 +55,9 @@ you to organize your files by groups and categories:
 - Each torus contains a category of files, e.g.:
   + configuration, development, publication
 - Each circle contains a project, e.g.:
-  + emacs or vifm circles in configuration torus + shell or elisp in
-  development torus + tea or art in publication torus
+  + emacs or vifm circles in configuration torus
+  + shell or elisp in development torus
+  + tea or art in publication torus
 
 ### A wheel that follows you
 
