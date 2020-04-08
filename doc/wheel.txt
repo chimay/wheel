@@ -610,7 +610,7 @@ Here is the default level 10, if you wish to customize it : >
  nnoremap <D-m>        :call wheel#hub#main()<cr>
  " Tree
  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
- nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
+ nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
  " Vortex
  nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
  nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>

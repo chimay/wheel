@@ -40,9 +40,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . "<c-n> :call wheel#tree#rename('circle')<cr>"
 		exe 'nnoremap ' . g:wheel_config.prefix . "N :call wheel#tree#rename('torus')<cr>"
 		exe 'nnoremap ' . g:wheel_config.prefix . '<m-n> :call wheel#tree#rename_file()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'd :call wheel#tree#delete_location()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<c-d> :call wheel#tree#delete_circle()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'D :call wheel#tree#delete_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . "d :call wheel#tree#delete('location')<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<c-d> :call wheel#tree#delete('circle')<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "D :call wheel#tree#delete('torus')<cr>"
 		" Vortex : move to elements
 		exe 'nnoremap ' . g:wheel_config.prefix . "<cr> :call wheel#vortex#switch('location')<cr>"
 		exe 'nnoremap ' . g:wheel_config.prefix . "<c-cr> :call wheel#vortex#switch('circle')<cr>"
@@ -73,7 +73,7 @@ fun! wheel#centre#mappings ()
 		nnoremap <D-m>        :call wheel#hub#main()<cr>
 		" Tree
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
-		nnoremap <D-Del>      :call wheel#tree#delete_location()<cr>
+		nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
 		" Vortex
 		nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
 		nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>

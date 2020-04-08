@@ -153,7 +153,7 @@ endfun
 
 " Rename
 
-fun! wheel#tree#rename (level, new)
+fun! wheel#tree#rename (level, ...)
 	" Rename current element at level -> new
 	let level = a:level
 	let prompt = 'Rename ' . level . ' as ? '
@@ -219,6 +219,11 @@ endfun
 fun! wheel#tree#delete (level)
 	" Delete current element at level
 	let level = a:level
+	let prompt = 'Delete current' level ' ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm != 1
+		return
+	endif
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
@@ -239,28 +244,4 @@ fun! wheel#tree#delete (level)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#vortex#jump ()
 	call wheel#pendulum#delete(level, name)
-endfun
-
-fun! wheel#tree#delete_torus ()
-	" Delete current torus
-	let confirm = confirm('Delete current torus ?', "&Yes\n&No", 2)
-	if confirm == 1
-		call wheel#tree#delete('torus')
-	endif
-endfun
-
-fun! wheel#tree#delete_circle ()
-	" Delete current circle
-	let confirm = confirm('Delete current circle ?', "&Yes\n&No", 2)
-	if confirm == 1
-		call wheel#tree#delete('circle')
-	endif
-endfun
-
-fun! wheel#tree#delete_location ()
-	" Delete current location
-	let confirm = confirm('Delete current location ?', "&Yes\n&No", 2)
-	if confirm == 1
-		call wheel#tree#delete('location')
-	endif
 endfun

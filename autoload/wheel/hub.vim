@@ -25,9 +25,9 @@ endif
 
 if ! exists('s:delete')
 	let s:delete = {
-				\ 'Delete torus' : 'wheel#tree#delete_torus',
-				\ 'Delete circle' : 'wheel#tree#delete_circle',
-				\ 'Delete location' : 'wheel#tree#delete_location',
+				\ 'Delete torus' : "wheel#tree#delete('torus')",
+				\ 'Delete circle' : "wheel#tree#delete('circle')",
+				\ 'Delete location' : "wheel#tree#delete('location')",
 				\}
 	lockvar s:delete
 endif
