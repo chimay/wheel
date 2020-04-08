@@ -81,7 +81,7 @@ grow and adapt to your style.
   + Jump to matching tab & window if available
   + Choose file, group or category in special buffer
     * Filter candidates
-	* Folding matching wheel tree structure
+	* Folds matching wheel tree structure
   + Auto `:lcd` to project root of current file
 - May be saved in wheel file
 - Reordering elements
