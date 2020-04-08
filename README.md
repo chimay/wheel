@@ -32,11 +32,12 @@
 
 Wheel is a plugin for Vim or Neovim aimed at managing buffer groups.
 
-In short, this plugin let you organize your buffers by creating as many
-buffer groups as you need, add the buffers you want to it and quickly
-navigate between :
+In short, it let you organize your buffers by creating as many buffer
+groups as you need, add the buffers you want to it and quickly navigate
+between :
 
-- Buffers of the same group - Buffer groups
+- Buffers of the same group
+- Buffer groups
 
 Note that :
 
