@@ -130,7 +130,8 @@ endfun
 
 fun! wheel#hub#menu (pointer)
 	" Hub menu in wheel buffer
-	let string = 'wheel-menu-' . a:pointer
+	let type = substitute(a:pointer, 's:', '', '')
+	let string = 'wheel-menu-' . type
 	call wheel#mandala#open (string)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()

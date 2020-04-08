@@ -29,6 +29,24 @@ fun! wheel#mandala#close ()
 	endif
 endfun
 
+fun! wheel#mandala#wrap_up ()
+	" Line up, or line 1 -> end of file
+	if line('.') == 1
+		call cursor(line('$'), 1)
+	else
+		normal! k
+	endif
+endfun
+
+fun! wheel#mandala#wrap_down ()
+	" Line down, or line end of file -> 1
+	if line('.') == line('$')
+		call cursor(1, 1)
+	else
+		normal! j
+	endif
+endfun
+
 fun! wheel#mandala#filter (...)
 	" Keep lines matching words of first line
 	let mode = 'normal'
@@ -55,6 +73,10 @@ fun! wheel#mandala#common_maps (...)
 	nnoremap <buffer> i ggA
 	nnoremap <buffer> a ggA
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
+	nnoremap <buffer> j :call wheel#mandala#wrap_down()<cr>
+	nnoremap <buffer> k :call wheel#mandala#wrap_up()<cr>
+	nnoremap <buffer> <down> :call wheel#mandala#wrap_down()<cr>
+	nnoremap <buffer> <up> :call wheel#mandala#wrap_up()<cr>
 endfu
 
 fun! wheel#mandala#filter_maps ()
