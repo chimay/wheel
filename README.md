@@ -37,10 +37,8 @@ The core functionality begins to work. A lot of extras has to be done.
   + circle to torus
   + restructuring buffer ?
 - layout
-  + 1 location per tab
-  + 1 circle per tab
-  + 1 torus per tab
-  + mix of above
+  + tab & split
+  + split : grid, main left, etc
 - autogroup
 - grep & sync wheel with current file
 

@@ -11,57 +11,62 @@ endfun
 
 fun! wheel#centre#mappings ()
 	" Define mappings
+	let prefix = g:wheel_config.prefix
 	" Basic
 	if g:wheel_config.mappings >= 0
 		" Hub : menus
-		exe 'nnoremap ' . g:wheel_config.prefix . '= :call wheel#hub#meta()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'm :call wheel#hub#main()<cr>'
+		exe 'nnoremap ' . prefix . '= :call wheel#hub#meta()<cr>'
+		exe 'nnoremap ' . prefix . 'm :call wheel#hub#main()<cr>'
 		" Tree : add
-		exe 'nnoremap ' . g:wheel_config.prefix . 'a :call wheel#tree#add_here()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<c-a> :call wheel#tree#add_circle()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'A :call wheel#tree#add_torus()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'f :call wheel#tree#add_file()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'b :call wheel#tree#add_buffer()<cr>'
+		exe 'nnoremap ' . prefix . 'a :call wheel#tree#add_here()<cr>'
+		exe 'nnoremap ' . prefix . '<c-a> :call wheel#tree#add_circle()<cr>'
+		exe 'nnoremap ' . prefix . 'A :call wheel#tree#add_torus()<cr>'
+		exe 'nnoremap ' . prefix . 'f :call wheel#tree#add_file()<cr>'
+		exe 'nnoremap ' . prefix . 'b :call wheel#tree#add_buffer()<cr>'
 		" Vortex : move to elements
-		exe 'nnoremap ' . g:wheel_config.prefix . "<left> :call wheel#vortex#previous('location')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<right> :call wheel#vortex#next('location')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<c-left> :call wheel#vortex#previous('circle')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<c-right> :call wheel#vortex#next('circle')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<s-left> :call wheel#vortex#previous('torus')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<s-right> :call wheel#vortex#next('torus')<cr>"
+		exe 'nnoremap ' . prefix . "<left> :call wheel#vortex#previous('location')<cr>"
+		exe 'nnoremap ' . prefix . "<right> :call wheel#vortex#next('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-left> :call wheel#vortex#previous('circle')<cr>"
+		exe 'nnoremap ' . prefix . "<c-right> :call wheel#vortex#next('circle')<cr>"
+		exe 'nnoremap ' . prefix . "<s-left> :call wheel#vortex#previous('torus')<cr>"
+		exe 'nnoremap ' . prefix . "<s-right> :call wheel#vortex#next('torus')<cr>"
 		" Disc : load / save wheel
-		exe 'nnoremap ' . g:wheel_config.prefix . 'r :call wheel#disc#read_all()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'w :call wheel#disc#write_all()<cr>'
+		exe 'nnoremap ' . prefix . 'r :call wheel#disc#read_all()<cr>'
+		exe 'nnoremap ' . prefix . 'w :call wheel#disc#write_all()<cr>'
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1
 		" Tree : rename, delete
-		exe 'nnoremap ' . g:wheel_config.prefix . "n :call wheel#tree#rename('location')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<c-n> :call wheel#tree#rename('circle')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "N :call wheel#tree#rename('torus')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . '<m-n> :call wheel#tree#rename_file()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . "d :call wheel#tree#delete('location')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<c-d> :call wheel#tree#delete('circle')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "D :call wheel#tree#delete('torus')<cr>"
+		exe 'nnoremap ' . prefix . "n :call wheel#tree#rename('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-n> :call wheel#tree#rename('circle')<cr>"
+		exe 'nnoremap ' . prefix . "N :call wheel#tree#rename('torus')<cr>"
+		exe 'nnoremap ' . prefix . '<m-n> :call wheel#tree#rename_file()<cr>'
+		exe 'nnoremap ' . prefix . "d :call wheel#tree#delete('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-d> :call wheel#tree#delete('circle')<cr>"
+		exe 'nnoremap ' . prefix . "D :call wheel#tree#delete('torus')<cr>"
 		" Vortex : move to elements
-		exe 'nnoremap ' . g:wheel_config.prefix . "<cr> :call wheel#vortex#switch('location')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<c-cr> :call wheel#vortex#switch('circle')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<s-cr> :call wheel#vortex#switch('torus')<cr>"
+		exe 'nnoremap ' . prefix . "<cr> :call wheel#vortex#switch('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-cr> :call wheel#vortex#switch('circle')<cr>"
+		exe 'nnoremap ' . prefix . "<s-cr> :call wheel#vortex#switch('torus')<cr>"
 		" Pendulum : history
-		exe 'nnoremap ' . g:wheel_config.prefix . '<tab> :call wheel#pendulum#newer()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<backspace> :call wheel#pendulum#older()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '^ :call wheel#pendulum#alternate()<cr>'
+		exe 'nnoremap ' . prefix . '<tab> :call wheel#pendulum#newer()<cr>'
+		exe 'nnoremap ' . prefix . '<backspace> :call wheel#pendulum#older()<cr>'
+		exe 'nnoremap ' . prefix . '^ :call wheel#pendulum#alternate()<cr>'
+		" Tabs & Windows
+		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
+		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"
 		" Mandala : buffer menus
-		exe 'nnoremap ' . g:wheel_config.prefix . "<space> :call wheel#mandala#jump('location')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<c-space> :call wheel#mandala#jump('circle')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<s-space> :call wheel#mandala#jump('torus')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . 's :call wheel#mandala#helix()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<c-s> :call wheel#mandala#grid()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<m-s> :call wheel#mandala#tree()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . 'h :call wheel#mandala#history()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . "o :call wheel#mandala#reorder('location')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "<C-o> :call wheel#mandala#reorder('circle')<cr>"
-		exe 'nnoremap ' . g:wheel_config.prefix . "O :call wheel#mandala#reorder('torus')<cr>"
+		exe 'nnoremap ' . prefix . "<space> :call wheel#mandala#jump('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-space> :call wheel#mandala#jump('circle')<cr>"
+		exe 'nnoremap ' . prefix . "<s-space> :call wheel#mandala#jump('torus')<cr>"
+		exe 'nnoremap ' . prefix . 's :call wheel#mandala#helix()<cr>'
+		exe 'nnoremap ' . prefix . '<c-s> :call wheel#mandala#grid()<cr>'
+		exe 'nnoremap ' . prefix . '<m-s> :call wheel#mandala#tree()<cr>'
+		exe 'nnoremap ' . prefix . 'h :call wheel#mandala#history()<cr>'
+		exe 'nnoremap ' . prefix . "o :call wheel#mandala#reorder('location')<cr>"
+		exe 'nnoremap ' . prefix . "<C-o> :call wheel#mandala#reorder('circle')<cr>"
+		exe 'nnoremap ' . prefix . "O :call wheel#mandala#reorder('torus')<cr>"
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
