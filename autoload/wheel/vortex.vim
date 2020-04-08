@@ -93,7 +93,7 @@ endfun
 
 " Tune
 
-fun! wheel#vortex#frequency (level, name)
+fun! wheel#vortex#tune (level, name)
 	" Adjust wheel variables of level to name
 	let level = a:level
 	let name = a:name
@@ -112,34 +112,19 @@ fun! wheel#vortex#frequency (level, name)
 	endif
 endfun
 
-fun! wheel#vortex#tune_torus (torus_name)
-	" Adjust wheel variables to torus_name
-	return wheel#vortex#frequency('torus', a:torus_name)
-endfun
-
-fun! wheel#vortex#tune_circle (circle_name)
-	" Adjust wheel variables to circle_name
-	return wheel#vortex#frequency('circle', a:circle_name)
-endfun
-
-fun! wheel#vortex#tune_location (location_name)
-	" Adjust wheel variables to location_name
-	return wheel#vortex#frequency('location', a:location_name)
-endfun
-
-fun! wheel#vortex#tune (coordin)
+fun! wheel#vortex#chord (coordin)
 	" Adjust wheel to coordin = [torus, circle, location]
 	let indexes = [-1, -1, -1]
-	if len(a:coordin) >= 3
-		let indexes[0] = wheel#vortex#tune_torus (a:coordin[0])
+	if len(a:coordin) == 3
+		let indexes[0] = wheel#vortex#tune ('torus', a:coordin[0])
 		if indexes[0] >= 0
-			let indexes[1] = wheel#vortex#tune_circle (a:coordin[1])
+			let indexes[1] = wheel#vortex#tune ('circle', a:coordin[1])
 		endif
 		if indexes[1] >= 0
-			let indexes[2] = wheel#vortex#tune_location (a:coordin[2])
+			let indexes[2] = wheel#vortex#tune ('location', a:coordin[2])
 		endif
 	else
-		echomsg 'Tuning wheel : [' join(a:coordin) '] does not contain enough elements.'
+		echomsg 'Tuning wheel : [' join(a:coordin) '] should contain 3 elements.'
 	endif
 	return indexes
 endfun
@@ -155,7 +140,7 @@ fun! wheel#vortex#switch_torus (...)
 		let torus_name =
 					\ input('Switch to torus : ', '', 'custom,wheel#complete#torus')
 	endif
-	let index = wheel#vortex#tune_torus (torus_name)
+	let index = wheel#vortex#tune ('torus', torus_name)
 	if index >= 0
 		call wheel#vortex#jump ()
 	endif
@@ -170,7 +155,7 @@ fun! wheel#vortex#switch_circle (...)
 		let circle_name =
 					\ input('Switch to circle : ', '', 'custom,wheel#complete#circle')
 	endif
-	let index = wheel#vortex#tune_circle (circle_name)
+	let index = wheel#vortex#tune ('circle', circle_name)
 	if index >= 0
 		call wheel#vortex#jump ()
 	endif
@@ -185,7 +170,7 @@ fun! wheel#vortex#switch_location (...)
 		let location_name =
 					\ input('Switch to location : ', '', 'custom,wheel#complete#location')
 	endif
-	let index = wheel#vortex#tune_location (location_name)
+	let index = wheel#vortex#tune ('location', location_name)
 	if index >= 0
 		call wheel#vortex#jump ()
 	endif

@@ -144,7 +144,7 @@ fun! wheel#pendulum#newer ()
 	let g:wheel_history = wheel#chain#rotate_right (history)
 	let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
 	let coordin = g:wheel_history[0].coordin
-	call wheel#vortex#tune(coordin)
+	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump ()
 endfun
 
@@ -155,7 +155,7 @@ fun! wheel#pendulum#older ()
 	let g:wheel_history = wheel#chain#rotate_left (history)
 	let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
 	let coordin = g:wheel_history[0].coordin
-	call wheel#vortex#tune(coordin)
+	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump ()
 endfun
 
@@ -169,7 +169,7 @@ fun! wheel#pendulum#alternate ()
 		let history = g:wheel_history
 		if len(history) > 1
 			let coordin = history[1].coordin
-			call wheel#vortex#tune(coordin)
+			call wheel#vortex#chord(coordin)
 		endif
 	endif
 	call wheel#vortex#jump ()
@@ -192,7 +192,7 @@ fun! wheel#pendulum#alternate_same_torus ()
 				break
 			endif
 		endfor
-		call wheel#vortex#tune(target)
+		call wheel#vortex#chord(target)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -214,7 +214,7 @@ fun! wheel#pendulum#alternate_same_circle ()
 				break
 			endif
 		endfor
-		call wheel#vortex#tune(target)
+		call wheel#vortex#chord(target)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -236,7 +236,7 @@ fun! wheel#pendulum#alternate_other_torus ()
 				break
 			endif
 		endfor
-		call wheel#vortex#tune(target)
+		call wheel#vortex#chord(target)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -258,7 +258,7 @@ fun! wheel#pendulum#alternate_other_circle ()
 				break
 			endif
 		endfor
-		call wheel#vortex#tune(target)
+		call wheel#vortex#chord(target)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -280,7 +280,7 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 				break
 			endif
 		endfor
-		call wheel#vortex#tune(target)
+		call wheel#vortex#chord(target)
 	endif
 	call wheel#vortex#jump ()
 endfun

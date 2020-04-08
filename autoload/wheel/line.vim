@@ -110,7 +110,7 @@ fun! wheel#line#helix (...)
 			bdelete!
 		endif
 	endif
-	call wheel#vortex#tune(coordin)
+	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump ()
 endfun
 
@@ -132,12 +132,12 @@ fun! wheel#line#tree (...)
 	endif
 	let length = len(coordin)
 	if length == 3
-		call wheel#vortex#tune(coordin)
+		call wheel#vortex#chord(coordin)
 	elseif length == 2
-		call wheel#vortex#tune_torus(coordin[0])
-		call wheel#vortex#tune_circle(coordin[1])
+		call wheel#vortex#tune('torus', coordin[0])
+		call wheel#vortex#tune('circle', coordin[1])
 	elseif length == 1
-		call wheel#vortex#tune_torus(coordin[0])
+		call wheel#vortex#tune('torus', coordin[0])
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -164,8 +164,8 @@ fun! wheel#line#grid (...)
 			bdelete!
 		endif
 	endif
-	call wheel#vortex#tune_torus(coordin[0])
-	call wheel#vortex#tune_circle(coordin[1])
+	call wheel#vortex#tune('torus', coordin[0])
+	call wheel#vortex#tune('circle', coordin[1])
 	call wheel#vortex#jump ()
 endfun
 
@@ -191,6 +191,6 @@ fun! wheel#line#history (...)
 			bdelete!
 		endif
 	endif
-	call wheel#vortex#tune(coordin)
+	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump ()
 endfun
