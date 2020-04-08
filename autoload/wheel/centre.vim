@@ -36,6 +36,17 @@ fun! wheel#centre#mappings ()
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1
+		" Mandala : buffer menus
+		exe 'nnoremap ' . prefix . "<space> :call wheel#mandala#switch('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-space> :call wheel#mandala#switch('circle')<cr>"
+		exe 'nnoremap ' . prefix . "<s-space> :call wheel#mandala#switch('torus')<cr>"
+		exe 'nnoremap ' . prefix . 'x :call wheel#mandala#helix()<cr>'
+		exe 'nnoremap ' . prefix . '<c-x> :call wheel#mandala#grid()<cr>'
+		exe 'nnoremap ' . prefix . '<m-x> :call wheel#mandala#tree()<cr>'
+		exe 'nnoremap ' . prefix . 'h :call wheel#mandala#history()<cr>'
+		exe 'nnoremap ' . prefix . "o :call wheel#mandala#reorder('location')<cr>"
+		exe 'nnoremap ' . prefix . "<C-o> :call wheel#mandala#reorder('circle')<cr>"
+		exe 'nnoremap ' . prefix . "O :call wheel#mandala#reorder('torus')<cr>"
 		" Tree : rename, delete
 		exe 'nnoremap ' . prefix . "n :call wheel#tree#rename('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-n> :call wheel#tree#rename('circle')<cr>"
@@ -52,22 +63,11 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . '<tab> :call wheel#pendulum#newer()<cr>'
 		exe 'nnoremap ' . prefix . '<backspace> :call wheel#pendulum#older()<cr>'
 		exe 'nnoremap ' . prefix . '^ :call wheel#pendulum#alternate()<cr>'
-		" Mandala : buffer menus
-		exe 'nnoremap ' . prefix . "<space> :call wheel#mandala#switch('location')<cr>"
-		exe 'nnoremap ' . prefix . "<c-space> :call wheel#mandala#switch('circle')<cr>"
-		exe 'nnoremap ' . prefix . "<s-space> :call wheel#mandala#switch('torus')<cr>"
-		exe 'nnoremap ' . prefix . 's :call wheel#mandala#helix()<cr>'
-		exe 'nnoremap ' . prefix . '<c-s> :call wheel#mandala#grid()<cr>'
-		exe 'nnoremap ' . prefix . '<m-s> :call wheel#mandala#tree()<cr>'
-		exe 'nnoremap ' . prefix . 'h :call wheel#mandala#history()<cr>'
-		exe 'nnoremap ' . prefix . "o :call wheel#mandala#reorder('location')<cr>"
-		exe 'nnoremap ' . prefix . "<C-o> :call wheel#mandala#reorder('circle')<cr>"
-		exe 'nnoremap ' . prefix . "O :call wheel#mandala#reorder('torus')<cr>"
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Tabs & Windows
-		exe 'nnoremap ' . prefix . "o :call wheel#mosaic#only()<cr>"
+		exe 'nnoremap ' . prefix . "1 :call wheel#mosaic#only()<cr>"
 		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
 		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"

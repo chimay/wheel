@@ -38,10 +38,10 @@ fun! wheel#mosaic#tour ()
 	endif
 endfun
 
-" Layouts
+" Helpers
 
-fun! wheel#mosaic#only ()
-	" One tab, one window
+fun! wheel#mosaic#one_tab ()
+	" One tab
 	if tabpagenr('$') > 1
 		let prompt = 'Remove all tabs except current one ?'
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
@@ -49,6 +49,10 @@ fun! wheel#mosaic#only ()
 			tabonly
 		endif
 	endif
+endfun
+
+fun! wheel#mosaic#one_window ()
+	" One window
 	if winnr('$') > 1
 		let prompt = 'Remove all windows except current one ?'
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
@@ -58,13 +62,21 @@ fun! wheel#mosaic#only ()
 	endif
 endfun
 
+" Layouts
+
+fun! wheel#mosaic#only (...)
+	" One tab, one window
+	call wheel#mosaic#one_tab ()
+	call wheel#mosaic#one_window ()
+endfun
+
 fun! wheel#mosaic#tabs (level)
 	" One element of level per tab
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
-	call wheel#mosaic#only ()
+	call wheel#mosaic#one_tab ()
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
 		tabnew
@@ -80,7 +92,7 @@ fun! wheel#mosaic#hor_split (level)
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
-	call wheel#mosaic#only ()
+	call wheel#mosaic#one_window ()
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
 		split
@@ -96,7 +108,7 @@ fun! wheel#mosaic#ver_split (level)
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
-	call wheel#mosaic#only ()
+	call wheel#mosaic#one_window ()
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
 		vsplit
