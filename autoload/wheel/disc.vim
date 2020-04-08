@@ -27,8 +27,9 @@ endfun
 
 fun! wheel#disc#read (file)
 	" Read file
+	let file = a:file
 	if filereadable(file)
-		exe 'source ' . a:file
+		exe 'source ' . file
 	endif
 endfun
 
