@@ -122,7 +122,9 @@ endfu
 
 fun! wheel#void#init ()
 	" Main init function
-	echomsg 'Wheel hello !'
+	if argc() == 0
+		echomsg 'Wheel hello !'
+	endif
 	call wheel#void#foundation ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
