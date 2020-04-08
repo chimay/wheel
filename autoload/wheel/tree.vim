@@ -219,7 +219,7 @@ endfun
 fun! wheel#tree#delete (level)
 	" Delete current element at level
 	let level = a:level
-	let prompt = 'Delete current' level ' ?'
+	let prompt = 'Delete current ' . level . ' ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm != 1
 		return
