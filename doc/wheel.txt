@@ -654,9 +654,9 @@ Here is the default level 10, if you wish to customize it : >
  nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
  nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
  " Mandala
- nnoremap <Space>      :call wheel#mandala#jump('location')<cr>
- nnoremap <C-Space>    :call wheel#mandala#jump('circle')<cr>
- nnoremap <S-Space>    :call wheel#mandala#jump('torus')<cr>
+ nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
+ nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
+ nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
  nnoremap <D-Space>        :call wheel#mandala#tree()<cr>
 <
 

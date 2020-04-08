@@ -82,21 +82,21 @@ fun! wheel#mandala#input_history_maps ()
 	inoremap <buffer> <C-s> <esc>:call wheel#scroll#filtered_newer()<cr>
 endfun
 
-fun! wheel#mandala#jump_maps (level)
-	" Define maps to jump to element in current line
-	let string = "nnoremap <buffer> <tab> :call wheel#line#jump('"
+fun! wheel#mandala#switch_maps (level)
+	" Define maps to switch to element in current line
+	let string = "nnoremap <buffer> <tab> :call wheel#line#switch('"
 	let string .= a:level . "', 'open')<cr>"
 	exe string
-	let string = "nnoremap <buffer> <cr> :call wheel#line#jump('"
+	let string = "nnoremap <buffer> <cr> :call wheel#line#switch('"
 	let string .= a:level . "', 'close')<cr>"
 	exe string
-	let string = "nnoremap <buffer> t :call wheel#line#jump('"
+	let string = "nnoremap <buffer> t :call wheel#line#switch('"
 	let string .= a:level . "', 'close', 'tab')<cr>"
 	exe string
-	let string = "nnoremap <buffer> s :call wheel#line#jump('"
+	let string = "nnoremap <buffer> s :call wheel#line#switch('"
 	let string .= a:level . "', 'close', 'horizontal_split')<cr>"
 	exe string
-	let string = "nnoremap <buffer> v :call wheel#line#jump('"
+	let string = "nnoremap <buffer> v :call wheel#line#switch('"
 	let string .= a:level . "', 'close', 'vertical_split')<cr>"
 	exe string
 endfun
@@ -152,7 +152,7 @@ endfun
 
 " Choose
 
-fun! wheel#mandala#jump (level)
+fun! wheel#mandala#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
 	call wheel#vortex#update ()
@@ -161,7 +161,7 @@ fun! wheel#mandala#jump (level)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#jump_maps (level)
+	call wheel#mandala#switch_maps (level)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary

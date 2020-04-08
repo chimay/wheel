@@ -32,17 +32,17 @@ if ! exists('s:delete')
 	lockvar s:delete
 endif
 
-if ! exists('s:jump')
-	let s:jump = {
-				\ 'Jump to torus' : "wheel#mandala#jump('torus')",
-				\ 'Jump to circle' : "wheel#mandala#jump('circle')",
-				\ 'Jump to location' : "wheel#mandala#jump('location')",
-				\ 'Jump to location in index' : 'wheel#mandala#helix',
-				\ 'Jump to circle in index' : 'wheel#mandala#grid',
-				\ 'Jump to element in wheel tree' : 'wheel#mandala#tree',
-				\ 'Jump to location in history' : 'wheel#mandala#history',
+if ! exists('s:switch')
+	let s:switch = {
+				\ 'Switch to torus' : "wheel#mandala#switch('torus')",
+				\ 'Switch to circle' : "wheel#mandala#switch('circle')",
+				\ 'Switch to location' : "wheel#mandala#switch('location')",
+				\ 'Switch to location in index' : 'wheel#mandala#helix',
+				\ 'Switch to circle in index' : 'wheel#mandala#grid',
+				\ 'Switch to element in wheel tree' : 'wheel#mandala#tree',
+				\ 'Switch to location in history' : 'wheel#mandala#history',
 				\}
-	lockvar s:jump
+	lockvar s:switch
 endif
 
 if ! exists('s:alternate')
@@ -82,7 +82,7 @@ if ! exists('s:main')
 	call extend(s:main, s:add)
 	call extend(s:main, s:rename)
 	call extend(s:main, s:delete)
-	call extend(s:main, s:jump)
+	call extend(s:main, s:switch)
 	call extend(s:main, s:alternate)
 	call extend(s:main, s:tabwin)
 	call extend(s:main, s:reorder)
@@ -96,7 +96,7 @@ if ! exists('s:meta')
 				\ 'Add menu' : "wheel#hub#menu('s:add')",
 				\ 'Rename menu' : "wheel#hub#menu('s:rename')",
 				\ 'Delete menu' : "wheel#hub#menu('s:delete')",
-				\ 'Jump menu' : "wheel#hub#menu('s:jump')",
+				\ 'Jump menu' : "wheel#hub#menu('s:switch')",
 				\ 'Alternate menu' : "wheel#hub#menu('s:alternate')",
 				\ 'Tabs & Windows menu' : "wheel#hub#menu('s:tabwin')",
 				\ 'Reorder menu' : "wheel#hub#menu('s:reorder')",

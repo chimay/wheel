@@ -53,9 +53,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . '<backspace> :call wheel#pendulum#older()<cr>'
 		exe 'nnoremap ' . prefix . '^ :call wheel#pendulum#alternate()<cr>'
 		" Mandala : buffer menus
-		exe 'nnoremap ' . prefix . "<space> :call wheel#mandala#jump('location')<cr>"
-		exe 'nnoremap ' . prefix . "<c-space> :call wheel#mandala#jump('circle')<cr>"
-		exe 'nnoremap ' . prefix . "<s-space> :call wheel#mandala#jump('torus')<cr>"
+		exe 'nnoremap ' . prefix . "<space> :call wheel#mandala#switch('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-space> :call wheel#mandala#switch('circle')<cr>"
+		exe 'nnoremap ' . prefix . "<s-space> :call wheel#mandala#switch('torus')<cr>"
 		exe 'nnoremap ' . prefix . 's :call wheel#mandala#helix()<cr>'
 		exe 'nnoremap ' . prefix . '<c-s> :call wheel#mandala#grid()<cr>'
 		exe 'nnoremap ' . prefix . '<m-s> :call wheel#mandala#tree()<cr>'
@@ -97,9 +97,9 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
 		nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
 		" Mandala
-		nnoremap <Space>      :call wheel#mandala#jump('location')<cr>
-		nnoremap <C-Space>    :call wheel#mandala#jump('circle')<cr>
-		nnoremap <S-Space>    :call wheel#mandala#jump('torus')<cr>
+		nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
+		nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
+		nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
 		nnoremap <D-Space>        :call wheel#mandala#tree()<cr>
 	endif
 endfun

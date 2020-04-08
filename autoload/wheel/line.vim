@@ -68,7 +68,7 @@ endfun
 
 " Jump
 
-fun! wheel#line#jump (level, ...)
+fun! wheel#line#switch (level, ...)
 	" Switch to element whose name is in current line
 	" level may be 'torus', 'circle' or 'location'
 	let mode = 'close'
