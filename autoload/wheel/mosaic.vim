@@ -1,6 +1,8 @@
 " vim: ft=vim fdm=indent:
 
-" Windows & Tabs
+" Tabs & Windows
+
+" Buffers & Windows
 
 fun! wheel#mosaic#glasses (filename)
 	" Return list of window(s) id(s) displaying filename
@@ -36,12 +38,24 @@ fun! wheel#mosaic#tour ()
 	endif
 endfun
 
-fun! wheel#mosaic#grid (level)
-	" One window of level per window : grid split
-	let width = winwidth(0)
-	let height = winheight(0)
-	" nr2float ?
-	let ratio = round(width) / round(height)
+" Layouts
+
+fun! wheel#mosaic#only ()
+	" One tab, one window
+	if tabpagenr('$') > 1
+		let prompt = 'Remove all tabs except current one ?'
+		let confirm = confirm(prompt, "&Yes\n&No", 2)
+		if confirm == 1
+			tabonly
+		endif
+	endif
+	if winnr('$') > 1
+		let prompt = 'Remove all windows except current one ?'
+		let confirm = confirm(prompt, "&Yes\n&No", 2)
+		if confirm == 1
+			only
+		endif
+	endif
 endfun
 
 fun! wheel#mosaic#tabs (level)
@@ -50,8 +64,20 @@ fun! wheel#mosaic#tabs (level)
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
-	for index in range(length)
+	call wheel#mosaic#only ()
+	call wheel#vortex#jump ()
+	for index in range(length - 1)
 		tabnew
-		call wheel#vortex#next(level)
+		call wheel#vortex#next (level)
 	endfor
+	1 tabnext
+	call wheel#vortex#next (level)
+endfun
+
+fun! wheel#mosaic#grid (level)
+	" One window of level per window : grid split
+	let width = winwidth(0)
+	let height = winheight(0)
+	" nr2float ?
+	let ratio = round(width) / round(height)
 endfun
