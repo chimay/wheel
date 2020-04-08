@@ -35,6 +35,9 @@ fun! wheel#line#toggle ()
 		let b:wheel_selected = []
 	endif
 	let line = getline('.')
+	if empty(line)
+		return
+	endif
 	if line !~ '\m^\* '
 		let name = line
 	else
