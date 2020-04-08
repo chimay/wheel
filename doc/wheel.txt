@@ -71,7 +71,7 @@ FEATURES				*wheel-introduction-features*
   + file:line-1 and file:line-2 in the same group
 - Easy navigation
   + On demand loading of files
-  + Jump to matching tab & window if available
+  + Switch to matching tab & window if available
   + Choose file, group or category in special buffer
     * Filter candidates
     * Folds matching wheel tree structure
@@ -83,7 +83,7 @@ FEATURES				*wheel-introduction-features*
   + 1 location per tab
   + 1 circle per tab
   + 1 torus per tab
-  + split : grid, main left, ...
+  + split : vertical, horizontal, grid, main, ...
   + Mix of above
 - Autogroup
 - Batch operations
@@ -234,10 +234,10 @@ INTRODUCTION				*wheel-special-buffers-introduction*
 Special buffers allow you to perform Wheel operations intuitively, using
 full power of your editor : search, yank, paste, completion, and so on.
 
-The type of action depends on the context :
+The available actions depend on the context :
 
-- Menu buffers allow you to launch an action
-- Navigation buffers allow you to jump to a location, circle or torus
+- Menu buffers allow you to launch a wheel function
+- Navigation buffers allow you to switch to a location, circle or torus
 - Reordering buffers allow you to reorder locations, circles or toruses
 
 Filtering~
@@ -277,24 +277,29 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Add a new element to the wheel
 - Rename an element
 - Delete an element
-- Navigation buffer, choose and jump to an element
+- Navigation buffer, choose and switch to an element
 - Alternate last two elements
 - Reorder elements
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
 
-The navigation buffers allow you to quickly jump to a Wheel element by
-pressing enter on the matching line. You can use Vim / Neovim search
-to find it.
+The navigation buffers allow you to quickly switch to a Wheel location
+by pressing `<enter>` on the matching line. The buffer will be opened
+in previous used window. You can also use the keys :
 
-The default mappings are :
+- `t` : open buffer in a new tab
+- `s` : open buffer in a new split
+- `v` : open buffer in a new vsplit
 
-- `<M-w><Space>`: jump to location
-- `<M-w><C-space>` : jump to circle
-- `<M-w><S-space>` : jump to torus
-- `<M-w>s` : index of toruses >> circles > locations
-- `<M-w><C-s>` : index of toruses >> circles
+The default mappings launching navigation buffers are :
+
+- `<M-w><Space>`   : switch to location
+- `<M-w><C-space>` : switch to current location of the chosen circle
+- `<M-w><S-space>` : switch to current location of the chosen torus
+- `<M-w>s`         : index of toruses >> circles > locations
+- `<M-w><C-s>`     : index of toruses >> circles
+- `<M-w><M-s>`     : index with folds (see below)
 
 Folding~
 

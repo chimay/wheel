@@ -90,7 +90,7 @@ grow and adapt to your style.
   + 1 location per tab
   + 1 circle per tab
   + 1 torus per tab
-  + split : grid, main left, etc
+  + split : vertical, horizontal, grid, main, ...
   + Mix of above
 - Autogroup
 - Batch operations
