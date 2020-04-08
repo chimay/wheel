@@ -166,7 +166,7 @@ In the following discussion, I assume that you have kept the default
 mapping prefix :
 
 ```vim
-g:wheel_config.prefix = '<M-w>'
+let g:wheel_config.prefix = '<M-w>'
 ```
 
 Just replace it by your prefix if you’ve changed it.

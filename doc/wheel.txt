@@ -74,7 +74,7 @@ FEATURES				*wheel-introduction-features*
   + Jump to matching tab & window if available
   + Choose file, group or category in special buffer
     * Filter candidates
-    * Folding matching wheel tree structure
+    * Folds matching wheel tree structure
   + Auto |:lcd| to project root of current file
 - May be saved in wheel file
 - Reordering elements
@@ -112,7 +112,10 @@ Square the circle		|wheel-sbs-square-the-circle|
 PREFIX						*wheel-sbs-prefix*
 
 In the following discussion, I assume that you have kept the default
-mapping prefix `<M-w>`.
+mapping prefix : >
+
+ let g:wheel_config.prefix = '<M-w>'
+<
 
 ------------------------------------------------------------------------------
 ONE MAP TO RING THEM ALL		*wheel-sbs-one-map-to-ring-them-all*
