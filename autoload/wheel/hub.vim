@@ -62,6 +62,12 @@ if ! exists('s:tabwin')
 				\ 'Display toruses on tabs' : "wheel#mosaic#tabs('torus')",
 				\ 'Display circles on tabs' : "wheel#mosaic#tabs('circle')",
 				\ 'Display locations on tabs' : "wheel#mosaic#tabs('location')",
+				\ 'Display toruses on horizontal splits' : "wheel#mosaic#horizontal_split('torus')",
+				\ 'Display circles on horizontal splits' : "wheel#mosaic#horizontal_split('circle')",
+				\ 'Display locations on horizontal splits' : "wheel#mosaic#horizontal_split('location')",
+				\ 'Display toruses on vertical splits' : "wheel#mosaic#vertical_split('torus')",
+				\ 'Display circles on vertical splits' : "wheel#mosaic#vertical_split('circle')",
+				\ 'Display locations on vertical splits' : "wheel#mosaic#vertical_split('location')",
 				\}
 	lockvar s:tabwin
 endif
