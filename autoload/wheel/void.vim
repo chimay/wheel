@@ -135,7 +135,9 @@ endfu
 
 fun! wheel#void#exit ()
 	" Main exit function
-	echomsg 'Wheel bye !'
+	if argc() == 0
+		echomsg 'Wheel bye !'
+	endif
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
 	endif
