@@ -474,6 +474,11 @@ This example fold everything except the cursor line : >
     autocmd User WheelAfterJump norm zMzx
 <
 
+To enable autowrite, you need to add an autocommand on vim leave : >
+
+    au VimLeave * call wheel#void#exit()
+<
+
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
 
