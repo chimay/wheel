@@ -570,8 +570,8 @@ History~
 
 Tabs & Windows~
 
-You can display all the current circle, one location per tab. Same idea with
-circles and toruses.
+You can display all locations of the current circle, one location per
+tab. Same idea with circles and toruses.
 
 | Prefix + | With default prefix | Action               |
 | t        | <M-w>t              | One location per tab |
