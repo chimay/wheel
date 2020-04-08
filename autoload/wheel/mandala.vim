@@ -90,6 +90,15 @@ fun! wheel#mandala#jump_maps (level)
 	let string = "nnoremap <buffer> <cr> :call wheel#line#jump('"
 	let string .= a:level . "', 'close')<cr>"
 	exe string
+	let string = "nnoremap <buffer> t :call wheel#line#jump('"
+	let string .= a:level . "', 'close', 'tab')<cr>"
+	exe string
+	let string = "nnoremap <buffer> s :call wheel#line#jump('"
+	let string .= a:level . "', 'close', 'horizontal_split')<cr>"
+	exe string
+	let string = "nnoremap <buffer> v :call wheel#line#jump('"
+	let string .= a:level . "', 'close', 'vertical_split')<cr>"
+	exe string
 endfun
 
 fun! wheel#mandala#reorder_maps ()

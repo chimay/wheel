@@ -76,6 +76,10 @@ fun! wheel#line#jump (level, ...)
 	if a:0 > 0
 		let mode = a:1
 	endif
+	let target = 'current'
+	if a:0 > 1
+		let target = a:2
+	endif
 	let name = getline('.')
 	if mode ==# 'close'
 		call wheel#mandala#close ()
@@ -85,6 +89,13 @@ fun! wheel#line#jump (level, ...)
 		else
 			bdelete!
 		endif
+	endif
+	if target == 'tab'
+		tabnew
+	elseif target == 'horizontal_split'
+		split
+	elseif target == 'vertical_split'
+		vsplit
 	endif
 	call wheel#vortex#switch(level, name)
 endfun
