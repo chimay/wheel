@@ -156,7 +156,12 @@ endfun
 fun! wheel#tree#rename (level, new)
 	" Rename current element at level -> new
 	let level = a:level
-	let new = a:new
+	let prompt = 'Rename ' . level . ' as ? '
+	if a:0 > 0
+		let new = a:1
+	else
+		let new = input(prompt)
+	endif
 	let upper = wheel#referen#upper (level)
 	let current = wheel#referen#current (level)
 	" Replace spaces by non-breaking spaces
@@ -173,36 +178,6 @@ fun! wheel#tree#rename (level, new)
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
 		echomsg a:level a:new 'already exists in' upper_level_name
 	endif
-endfun
-
-fun! wheel#tree#rename_torus (...)
-	" Rename current torus
-	if a:0 > 0
-		let torus_name = a:1
-	else
-		let torus_name = input('Rename torus as ? ')
-	endif
-	call wheel#tree#rename('torus', torus_name)
-endfun
-
-fun! wheel#tree#rename_circle (...)
-	" Rename current circle
-	if a:0 > 0
-		let circle_name = a:1
-	else
-		let circle_name = input('Rename circle as ? ')
-	endif
-	call wheel#tree#rename('circle', circle_name)
-endfun
-
-fun! wheel#tree#rename_location (...)
-	" Rename current location
-	if a:0 > 0
-		let location_name = a:1
-	else
-		let location_name = input('Rename location as ? ')
-	endif
-	call wheel#tree#rename('location', location_name)
 endfun
 
 fun! wheel#tree#rename_file (...)

@@ -15,9 +15,9 @@ endif
 
 if ! exists('s:rename')
 	let s:rename = {
-				\ 'Rename torus' : 'wheel#tree#rename_torus',
-				\ 'Rename circle' : 'wheel#tree#rename_circle',
-				\ 'Rename location' : 'wheel#tree#rename_location',
+				\ 'Rename torus' : "wheel#tree#rename('torus')",
+				\ 'Rename circle' : "wheel#tree#rename('circle')",
+				\ 'Rename location' : "wheel#tree#rename('location')",
 				\ 'Rename file' : 'wheel#tree#rename_file',
 				\}
 	lockvar s:rename
