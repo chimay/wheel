@@ -89,13 +89,13 @@ endif
 
 if ! exists('s:meta')
 	let s:meta = {
-				\ 'Add menu' : "wheel#hub#('add')",
-				\ 'Rename menu' : "wheel#hub#('rename')",
-				\ 'Delete menu' : "wheel#hub#('delete')",
-				\ 'Jump menu' : "wheel#hub#('jump')",
-				\ 'Alternate menu' : "wheel#hub#('alternate')",
-				\ 'Tabs & Windows menu' : "wheel#hub#('tabwin')",
-				\ 'Reorder menu' : "wheel#hub#('reorder')",
+				\ 'Add menu' : "wheel#hub#menu('add')",
+				\ 'Rename menu' : "wheel#hub#menu('rename')",
+				\ 'Delete menu' : "wheel#hub#menu('delete')",
+				\ 'Jump menu' : "wheel#hub#menu('jump')",
+				\ 'Alternate menu' : "wheel#hub#menu('alternate')",
+				\ 'Tabs & Windows menu' : "wheel#hub#menu('tabwin')",
+				\ 'Reorder menu' : "wheel#hub#menu('reorder')",
 				\}
 	lockvar s:meta
 endif
