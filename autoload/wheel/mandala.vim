@@ -193,7 +193,7 @@ fun! wheel#mandala#switch (level)
 		setlocal nomodified
 		normal! gg
 	else
-		echomsg 'Wheel mandala choose : empty or incomplete' level
+		echomsg 'Wheel mandala switch : empty or incomplete' level
 	endif
 endfun
 

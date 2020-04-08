@@ -30,6 +30,8 @@ fun! wheel#disc#read (file)
 	let file = a:file
 	if filereadable(file)
 		exe 'source ' . file
+	else
+		echomsg 'Could not read' file
 	endif
 endfun
 
