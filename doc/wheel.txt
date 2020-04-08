@@ -384,6 +384,11 @@ AUTOWRITE					    *wheel-config-autowrite*
     let g:wheel_config.autowrite = 1
 <
 
+To enable it, you need to add an autocommand on vim leave : >
+
+    au VimLeave * call wheel#void#exit()
+<
+
 ------------------------------------------------------------------------------
 FILE						    *wheel-config-file*
 
