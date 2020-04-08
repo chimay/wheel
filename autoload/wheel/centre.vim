@@ -44,9 +44,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . g:wheel_config.prefix . '<c-d> :call wheel#tree#delete_circle()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . 'D :call wheel#tree#delete_torus()<cr>'
 		" Vortex : move to elements
-		exe 'nnoremap ' . g:wheel_config.prefix . '<cr> :call wheel#vortex#switch_location()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<c-cr> :call wheel#vortex#switch_circle()<cr>'
-		exe 'nnoremap ' . g:wheel_config.prefix . '<s-cr> :call wheel#vortex#switch_torus()<cr>'
+		exe 'nnoremap ' . g:wheel_config.prefix . "<cr> :call wheel#vortex#switch('location')<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<c-cr> :call wheel#vortex#switch('circle')<cr>"
+		exe 'nnoremap ' . g:wheel_config.prefix . "<s-cr> :call wheel#vortex#switch('torus')<cr>"
 		" Pendulum : history
 		exe 'nnoremap ' . g:wheel_config.prefix . '<tab> :call wheel#pendulum#newer()<cr>'
 		exe 'nnoremap ' . g:wheel_config.prefix . '<backspace> :call wheel#pendulum#older()<cr>'

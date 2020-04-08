@@ -131,46 +131,18 @@ endfun
 
 " Switch : tune and jump
 
-fun! wheel#vortex#switch_torus (...)
+fun! wheel#vortex#switch (level, ...)
 	" Switch torus
 	call wheel#vortex#update ()
+	let level = a:level
+	let prompt = 'Switch to ' . level . ' : '
+	let complete =  'custom,wheel#complete#' . level
 	if a:0 > 0
-		let torus_name = a:1
+		let name = a:1
 	else
-		let torus_name =
-					\ input('Switch to torus : ', '', 'custom,wheel#complete#torus')
+		let name = input(prompt, '', complete)
 	endif
-	let index = wheel#vortex#tune ('torus', torus_name)
-	if index >= 0
-		call wheel#vortex#jump ()
-	endif
-endfun
-
-fun! wheel#vortex#switch_circle (...)
-	" Switch circle
-	call wheel#vortex#update ()
-	if a:0 > 0
-		let circle_name = a:1
-	else
-		let circle_name =
-					\ input('Switch to circle : ', '', 'custom,wheel#complete#circle')
-	endif
-	let index = wheel#vortex#tune ('circle', circle_name)
-	if index >= 0
-		call wheel#vortex#jump ()
-	endif
-endfun
-
-fun! wheel#vortex#switch_location (...)
-	" Switch location
-	call wheel#vortex#update ()
-	if a:0 > 0
-		let location_name = a:1
-	else
-		let location_name =
-					\ input('Switch to location : ', '', 'custom,wheel#complete#location')
-	endif
-	let index = wheel#vortex#tune ('location', location_name)
+	let index = wheel#vortex#tune (level, name)
 	if index >= 0
 		call wheel#vortex#jump ()
 	endif

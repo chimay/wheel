@@ -89,8 +89,8 @@ fun! wheel#tree#add_location (location)
 	let local = a:location
 	let present = wheel#tree#is_in_circle(local, cur_circle)
 	if ! present
-		let string = 'New location name [' . local.name . '] ? '
-		let location_name = input(string, local.name)
+		let prompt = 'New location name [' . local.name . '] ? '
+		let location_name = input(prompt, local.name)
 		if empty(location_name)
 			let location_name = local.name
 		endif

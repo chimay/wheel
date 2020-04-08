@@ -72,6 +72,7 @@ fun! wheel#line#jump (level, ...)
 	" Switch to element whose name is in current line
 	" level may be 'torus', 'circle' or 'location'
 	let mode = 'close'
+	let level = a:level
 	if a:0 > 0
 		let mode = a:1
 	endif
@@ -85,7 +86,7 @@ fun! wheel#line#jump (level, ...)
 			bdelete!
 		endif
 	endif
-	call wheel#vortex#switch_{a:level}(name)
+	call wheel#vortex#switch(level, name)
 endfun
 
 fun! wheel#line#helix (...)
