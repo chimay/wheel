@@ -51,12 +51,12 @@ At first glance, managing groups with circles in a torus seems to be
 sufficient. But with time, the torus grows big, and a third level helps
 you to organize your files by groups and categories:
 
-  - The wheel contains all the toruses - Each torus contains a category
-  of files, e.g.:
-    + configuration, development, publication
-  - Each circle contains a project, e.g.:
-    + emacs or vifm circles in configuration torus + shell or elisp in
-    development torus + tea or art in publication torus
+- The wheel contains all the toruses
+- Each torus contains a category of files, e.g.:
+  + configuration, development, publication
+- Each circle contains a project, e.g.:
+  + emacs or vifm circles in configuration torus + shell or elisp in
+  development torus + tea or art in publication torus
 
 ### A wheel that follows you
 
