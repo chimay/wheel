@@ -52,10 +52,6 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . '<tab> :call wheel#pendulum#newer()<cr>'
 		exe 'nnoremap ' . prefix . '<backspace> :call wheel#pendulum#older()<cr>'
 		exe 'nnoremap ' . prefix . '^ :call wheel#pendulum#alternate()<cr>'
-		" Tabs & Windows
-		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
-		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
-		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"
 		" Mandala : buffer menus
 		exe 'nnoremap ' . prefix . "<space> :call wheel#mandala#jump('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-space> :call wheel#mandala#jump('circle')<cr>"
@@ -70,6 +66,10 @@ fun! wheel#centre#mappings ()
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
+		" Tabs & Windows
+		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
+		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10

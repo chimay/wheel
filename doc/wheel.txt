@@ -568,6 +568,9 @@ History~
 | ^             | <M-w>^              | Alternate last two locations    |
 | <C-^>         | <M-w><C-^>          | Menu to alternate locations     |
 
+------------------------------------------------------------------------------
+LEVEL 2						*wheel-mappings-level-2*
+
 Tabs & Windows~
 
 You can display all locations of the current circle, one location per
@@ -577,9 +580,6 @@ tab. Same idea with circles and toruses.
 | t        | <M-w>t              | One location per tab |
 | <C-t>    | <M-w><C-t>          | One circle per tab   |
 | T        | <M-w>T              | One torus per tab    |
-
-------------------------------------------------------------------------------
-LEVEL 2						*wheel-mappings-level-2*
 
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
