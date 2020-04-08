@@ -104,11 +104,11 @@ fun! wheel#vortex#tune (level, name)
 		if index >= 0
 			let upper.current = index
 		else
-			echomsg 'Wheel vortex frequency : element not found'
+			echomsg 'Wheel vortex tune : element not found'
 		endif
 		return index
 	else
-		echomsg 'Wheel vortex frequency : empty or incomplete' level
+		echomsg 'Wheel vortex tune : empty or incomplete' level
 	endif
 endfun
 
