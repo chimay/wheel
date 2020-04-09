@@ -290,10 +290,10 @@ at your fingertips.
   + circle to torus
   + restructuring buffer ?
 - layout
-  + tab & split
   + split : grid, main left, etc
 - autogroup
 - grep & sync wheel with current file
+  + bufenter within current circle : sync wheel with buffer
 
 # Warning
 
