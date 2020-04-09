@@ -7,49 +7,48 @@
 
 fun! wheel#line#coordin ()
 	" Return coordin of line in treeish buffer
+	let position = getcurpos()
 	let cursor_line = getline('.')
-	let cursor_list = split(cursor_line, ' ')
+	let cursor_line = substitute(cursor_line, '\m^\* ', '', '')
+	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
-		echomsg 'Wheel line path : empty line'
+		echomsg 'Wheel line coordin : empty line'
 		return
 	endif
 	if foldlevel('.') == 2 && len(cursor_list) == 1
-		let location = getline('.')
+		" location line : search circle & torus
+		let location = cursor_line
 		normal! [z
 		let line = getline('.')
 		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line, ' ')
+		let list = split(line)
 		let circle = list[0]
 		normal! [z
 		let line = getline('.')
 		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line, ' ')
+		let list = split(line)
 		let torus = list[0]
 		let coordin = [torus, circle, location]
 	elseif foldlevel('.') == 2
-		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line, ' ')
-		let circle = list[0]
+		" circle line : search torus
+		let circle = cursor_list[0]
 		normal! [z
 		let line = getline('.')
 		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line, ' ')
+		let list = split(line)
 		let torus = list[0]
 		let coordin = [torus, circle]
 	elseif foldlevel('.') == 1
-		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line, ' ')
-		let torus = list[0]
+		" torus line
+		let torus = cursor_list[0]
 		let coordin = [torus]
 	elseif foldlevel('.') == 0
-		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
-		let coordin = line
+		" simple name line of level depending of buffer
+		let coordin = cursor_line
 	else
 		echomsg 'Wheel line coordin : wrong fold level'
 	endif
+	call setpos('.', position)
 	return coordin
 endfun
 
@@ -61,8 +60,8 @@ fun! wheel#line#toggle ()
 	if ! exists('b:wheel_selected')
 		let b:wheel_selected = []
 	endif
-	let coordin = wheel#line#coordin ()
-	if empty(coordin)
+	let line = getline('.')
+	if empty(line)
 		return
 	endif
 	if line !~ '\m^\* '
@@ -70,9 +69,10 @@ fun! wheel#line#toggle ()
 	else
 		let name = substitute(line, '\m^\* ', '', '')
 	endif
-	let index = index(b:wheel_selected, name)
+	let coordin = wheel#line#coordin ()
+	let index = index(b:wheel_selected, coordin)
 	if index < 0
-		call add(b:wheel_selected, name)
+		call add(b:wheel_selected, coordin)
 		let selected_line = substitute(line, '\m^', '* ', '')
 		call setline('.', selected_line)
 		" Update b:wheel_lines
@@ -205,7 +205,7 @@ fun! wheel#line#helix (dict)
 	" dict keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let list = split(a:dict.selected, ' ')
+	let list = split(a:dict.selected)
 	if len(list) < 5
 		echomsg 'Helix line is too short'
 		return
@@ -221,7 +221,7 @@ fun! wheel#line#grid (dict)
 	" dict keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let list = split(a:dict.selected, ' ')
+	let list = split(a:dict.selected)
 	if len(list) < 3
 		echomsg 'Grid line is too short'
 		return
@@ -233,23 +233,14 @@ fun! wheel#line#grid (dict)
 	call wheel#vortex#jump ()
 endfun
 
-fun! wheel#line#tree (...)
+fun! wheel#line#tree (dict)
 	" Switch to helix tree element in current line
-	let mode = 'close'
-	if a:0 > 0
-		let mode = a:1
-	endif
-	let coordin = wheel#line#coordin ()
-	if mode ==# 'close'
-		call wheel#mandala#close ()
-	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
-	endif
+	" dict keys :
+	" - selected : where to switch
+	" - target : current, tab, horizontal_split, vertical_split
+	let coordin = a:dict.selected
 	let length = len(coordin)
+	call wheel#line#target (a:dict.target)
 	if length == 3
 		call wheel#vortex#chord(coordin)
 	elseif length == 2
@@ -266,7 +257,7 @@ fun! wheel#line#history (dict)
 	" dict keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let list = split(a:dict.selected, ' ')
+	let list = split(a:dict.selected)
 	if len(list) < 11
 		echomsg 'History line is too short'
 		return

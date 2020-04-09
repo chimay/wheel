@@ -242,13 +242,13 @@ fun! wheel#mandala#tree ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
 	call wheel#mandala#folding_options ()
+	let dict = {'action' : function('wheel#line#tree')}
+	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#tree ()
 	let content = join(names, "\n")
 	put =content
 	setlocal nomodified
 	call cursor(1,1)
-	nnoremap <buffer> <tab> :call wheel#line#tree('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#tree('close')<cr>
 endfun
 
 fun! wheel#mandala#history ()
