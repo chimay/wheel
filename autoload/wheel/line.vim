@@ -234,7 +234,11 @@ fun! wheel#line#grid (dict)
 endfun
 
 fun! wheel#line#tree (dict)
-	" Switch to helix tree element in current line
+	" Switch to dict.selected
+	" Possible vallues of selected :
+	" - [torus]
+	" - [torus, circle]
+	" - [torus, circle, location]
 	" dict keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
