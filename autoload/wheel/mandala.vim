@@ -177,7 +177,7 @@ endfun
 
 " Switch
 
-f_nameun! wheel#mandala#switch (level)
+fun! wheel#mandala#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
 	call wheel#vortex#update ()
@@ -198,7 +198,7 @@ f_nameun! wheel#mandala#switch (level)
 		echomsg 'Wheel mandala switch : empty or incomplete' level
 	endif
 endfun
-_name
+
 fun! wheel#mandala#helix ()
 	" Choose a location coordinate to switch to
 	" Each coordinate = [torus, circle, location]
