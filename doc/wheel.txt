@@ -491,7 +491,11 @@ this autocommand : >
     autocmd BufWinEnter * call wheel#vortex#follow()
 <
 
-It will work for all buffers belonging to the current circle.
+It will work for all buffers belonging to the current circle. It is useful
+when you search with grep and the quickfix window.
+
+Be aware that it will update the wheel cursor position of your buffer, which
+is sensible after all.
 
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
