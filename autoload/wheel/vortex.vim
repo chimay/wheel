@@ -62,10 +62,10 @@ fun! wheel#vortex#follow ()
 	let index = index(files, cur_file)
 	if index >= 0
 		let circle.current = index
+		let position = getcurpos()
+		call wheel#vortex#jump ()
+		call setpos('.', position)
 	endif
-	let position = getcurpos()
-	call wheel#vortex#jump ()
-	call setpos('.', position)
 endfun
 
 " Next / Previous
