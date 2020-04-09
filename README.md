@@ -292,8 +292,6 @@ at your fingertips.
 - layout
   + split : grid, main left, etc
 - autogroup
-- grep & sync wheel with current file
-  + bufenter within current circle : sync wheel with buffer
 
 # Warning
 
