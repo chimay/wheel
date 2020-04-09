@@ -632,16 +632,18 @@ Tabs & Windows~
 You can display all locations of the current circle, one location per
 tab. Same idea with circles and toruses.
 
-| Prefix + | With default prefix | Action                            |
-| t        | <M-w>t              | One location per tab              |
-| <C-t>    | <M-w><C-t>          | One circle per tab                |
-| T        | <M-w>T              | One torus per tab                 |
-| s        | <M-w>s              | One location per horizontal split |
-| <C-s>    | <M-w><C-s>          | One circle per horizontal split   |
-| S        | <M-w>S              | One torus per horizontal split    |
-| v        | <M-w>v              | One location per vertical split   |
-| <C-v>    | <M-w><C-v>          | One circle per vertical split     |
-| V        | <M-w>V              | One torus per vertical split      |
+| Prefix + | With default prefix | Action                               |
+| t        | <M-w>t              | One location per tab                 |
+| <C-t>    | <M-w><C-t>          | One circle per tab                   |
+| T        | <M-w>T              | One torus per tab                    |
+| s        | <M-w>s              | One location per horizontal split    |
+| <C-s>    | <M-w><C-s>          | One circle per horizontal split      |
+| S        | <M-w>S              | One torus per horizontal split       |
+| v        | <M-w>v              | One location per vertical split      |
+| <C-v>    | <M-w><C-v>          | One circle per vertical split        |
+| V        | <M-w>V              | One torus per vertical split         |
+| P        | <M-w>P              | Toruses in tabs, circles in windows  |
+| <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
 
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
