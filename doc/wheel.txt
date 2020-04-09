@@ -465,6 +465,8 @@ Maximum number of elements in the wheel history : >
 ------------------------------------------------------------------------------
 AUTOCOMMANDS				   *wheel-config-autocommands*
 
+After jump~
+
 The user autocommands `WheelAfterJump` are executed at the end of each
 navigation operation in the Wheel ; basically, each time you jump to
 another file using wheel functions.
@@ -474,10 +476,22 @@ This example fold everything except the cursor line : >
     autocmd User WheelAfterJump norm zMzx
 <
 
+Auto write~
+
 To enable autowrite, you need to add an autocommand on vim leave : >
 
-    au VimLeave * call wheel#void#exit()
+    autocmd VimLeave * call wheel#void#exit()
 <
+
+Auto follow~
+
+If you wish the wheel to auto-follow the buffers you enter, you can add
+this autocommand : >
+
+    autocmd BufWinEnter * call wheel#vortex#follow()
+<
+
+It will work for all buffers belonging to the current circle.
 
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
