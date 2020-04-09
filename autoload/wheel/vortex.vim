@@ -63,7 +63,9 @@ fun! wheel#vortex#follow ()
 	if index >= 0
 		let circle.current = index
 	endif
+	let position = getcurpos()
 	call wheel#vortex#jump ()
+	call setpos('.', position)
 endfun
 
 " Next / Previous
