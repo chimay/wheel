@@ -187,6 +187,8 @@ fun! wheel#line#switch (dict)
 			let dict.selected = selected[0]
 			call {Fun} (dict)
 		endif
+	else
+		echomsg 'Wheel line switch : bad switch function'
 	endif
 endfun
 

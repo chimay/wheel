@@ -71,7 +71,7 @@ fun! wheel#mosaic#zoom (...)
 endfun
 
 fun! wheel#mosaic#tabs (level)
-	" One element of level per tab
+	" One level element per tab
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -87,7 +87,7 @@ fun! wheel#mosaic#tabs (level)
 endfun
 
 fun! wheel#mosaic#hor_split (level)
-	" One element of level per horizontal split
+	" One level element per horizontal split
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -103,7 +103,7 @@ fun! wheel#mosaic#hor_split (level)
 endfun
 
 fun! wheel#mosaic#ver_split (level)
-	" One element of level per vertical split
+	" One level element per vertical split
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -120,6 +120,7 @@ endfun
 
 fun! wheel#mosaic#grid (level)
 	" One window of level per window : grid split
+	" TODO
 	let width = winwidth(0)
 	let height = winheight(0)
 	" nr2float ?

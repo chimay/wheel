@@ -185,6 +185,7 @@ fun! wheel#referen#elements (dict)
 	elseif has_key(dict, 'locations')
 		return dict.locations
 	else
+		echomsg 'Wheel referen elements : arg should be the wheel, a torus or a circle'
 		return []
 	endif
 endfun
