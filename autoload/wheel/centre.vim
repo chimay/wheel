@@ -67,7 +67,7 @@ fun! wheel#centre#mappings ()
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Tabs & Windows
-		exe 'nnoremap ' . prefix . "1 :call wheel#mosaic#only()<cr>"
+		exe 'nnoremap ' . prefix . "z :call wheel#mosaic#zoom()<cr>"
 		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
 		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"

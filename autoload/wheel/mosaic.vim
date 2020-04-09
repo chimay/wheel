@@ -64,7 +64,7 @@ endfun
 
 " Layouts
 
-fun! wheel#mosaic#only (...)
+fun! wheel#mosaic#zoom (...)
 	" One tab, one window
 	call wheel#mosaic#one_tab ()
 	call wheel#mosaic#one_window ()
