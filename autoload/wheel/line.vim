@@ -5,26 +5,53 @@
 
 " Helpers
 
-fun! wheel#line#filter ()
-	" Return lines matching words of first line
-	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
-		let b:wheel_lines = getline(2, '$')
+fun! wheel#line#coordin ()
+	" Return coordin of line in treeish buffer
+	let cursor_line = getline('.')
+	let cursor_list = split(cursor_line, ' ')
+	if empty(cursor_line)
+		echomsg 'Wheel line path : empty line'
+		return
 	endif
-	let linelist = copy(b:wheel_lines)
-	let first = getline(1)
-	let wordlist = split(first)
-	if empty(wordlist)
-		return linelist
+	if foldlevel('.') == 2 && len(cursor_list) == 1
+		let location = getline('.')
+		normal! [z
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line, ' ')
+		let circle = list[0]
+		normal! [z
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus, circle, location]
+	elseif foldlevel('.') == 2
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line, ' ')
+		let circle = list[0]
+		normal! [z
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus, circle]
+	elseif foldlevel('.') == 1
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line, ' ')
+		let torus = list[0]
+		let coordin = [torus]
+	elseif foldlevel('.') == 0
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let coordin = line
+	else
+		echomsg 'Wheel line coordin : wrong fold level'
 	endif
-	call wheel#scroll#record(first)
-	let Matches = function('wheel#gear#filter', [wordlist])
-	let candidates = filter(linelist, Matches)
-	" two times : cleans a level each time
-	let filtered = wheel#gear#fold_filter(wordlist, candidates)
-	let filtered = wheel#gear#fold_filter(wordlist, filtered)
-	" Return
-	return filtered
-endfu
+	return coordin
+endfun
 
 fun! wheel#line#toggle ()
 	" Toggle selection of current line
@@ -34,8 +61,8 @@ fun! wheel#line#toggle ()
 	if ! exists('b:wheel_selected')
 		let b:wheel_selected = []
 	endif
-	let line = getline('.')
-	if empty(line)
+	let coordin = wheel#line#coordin ()
+	if empty(coordin)
 		return
 	endif
 	if line !~ '\m^\* '
@@ -60,8 +87,29 @@ fun! wheel#line#toggle ()
 	endif
 endfun
 
+fun! wheel#line#filter ()
+	" Return lines matching words of first line
+	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
+		let b:wheel_lines = getline(2, '$')
+	endif
+	let linelist = copy(b:wheel_lines)
+	let first = getline(1)
+	let wordlist = split(first)
+	if empty(wordlist)
+		return linelist
+	endif
+	call wheel#scroll#record(first)
+	let Matches = function('wheel#gear#filter', [wordlist])
+	let candidates = filter(linelist, Matches)
+	" two times : cleans a level each time
+	let filtered = wheel#gear#fold_filter(wordlist, candidates)
+	let filtered = wheel#gear#fold_filter(wordlist, filtered)
+	" Return
+	return filtered
+endfu
+
 fun! wheel#line#target (target)
-	" Open target tab/win for switch
+	" Open target tab/win before* switching
 	let target = a:target
 	if target == 'tab'
 		tabnew
@@ -71,45 +119,6 @@ fun! wheel#line#target (target)
 		vsplit
 	endif
 endfu
-
-" Folds in treeish buffers
-
-fun! wheel#line#fold_coordin ()
-	" Return coordin of line in treeish buffer
-	let cursor_line = getline('.')
-	let cursor_list = split(cursor_line, ' ')
-	if empty(cursor_line)
-		echomsg 'Wheel line fold_coordin : empty line'
-		return
-	endif
-	if foldlevel('.') == 2 && len(cursor_list) == 1
-		let location = getline('.')
-		normal! [z
-		let line = getline('.')
-		let list = split(line, ' ')
-		let circle = list[0]
-		normal! [z
-		let line = getline('.')
-		let list = split(line, ' ')
-		let torus = list[0]
-		let coordin = [torus, circle, location]
-	elseif foldlevel('.') == 2
-		let line = getline('.')
-		let list = split(line, ' ')
-		let circle = list[0]
-		normal! [z
-		let line = getline('.')
-		let list = split(line, ' ')
-		let torus = list[0]
-		let coordin = [torus, circle]
-	elseif foldlevel('.') == 1
-		let line = getline('.')
-		let list = split(line, ' ')
-		let torus = list[0]
-		let coordin = [torus]
-	endif
-	return coordin
-endfun
 
 " Switch
 
@@ -143,7 +152,7 @@ fun! wheel#line#switch (dict)
 		let Fun = 'wheel#line#name'
 	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
-		let selected = [getline('.')]
+		let selected = [wheel#line#coordin ()]
 	elseif type(b:wheel_selected) == v:t_list
 		let selected = b:wheel_selected
 	else
@@ -230,7 +239,7 @@ fun! wheel#line#tree (...)
 	if a:0 > 0
 		let mode = a:1
 	endif
-	let coordin = wheel#line#fold_coordin ()
+	let coordin = wheel#line#coordin ()
 	if mode ==# 'close'
 		call wheel#mandala#close ()
 	else
