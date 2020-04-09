@@ -53,6 +53,19 @@ fun! wheel#vortex#jump ()
 	endif
 endfun
 
+fun! wheel#vortex#follow ()
+	" Set current location to match current file it this file is in current circle
+	let circle = wheel#referen#circle ()
+	let locations = deepcopy(circle.locations)
+	let files = map(locations, {_,value -> value.file})
+	let cur_file = expand('%:p')
+	let index = index(files, cur_file)
+	if index >= 0
+		let circle.current = index
+	endif
+	call wheel#vortex#jump ()
+endfun
+
 " Next / Previous
 
 fun! wheel#vortex#previous (level)
