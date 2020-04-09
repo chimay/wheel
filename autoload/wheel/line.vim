@@ -130,6 +130,7 @@ fun! wheel#line#switch (dict)
 		let target = dict.target
 	else
 		let target = 'current'
+		let dict.target = target
 	endif
 	if has_key(dict, 'close')
 		let close = dict.close
@@ -160,41 +161,66 @@ fun! wheel#line#switch (dict)
 	if type(Fun) == v:t_func
 		if target != 'current'
 			for elem in selected
-				call Fun (level, elem, target)
+				let dict.selected = elem
+				call Fun (dict)
 			endfor
 		else
-			call Fun (level, selected[0], target)
+			let dict.selected = selected[0]
+			call Fun (dict)
 		endif
 	elseif type(Fun) == v:t_string
 		if target != 'current'
 			for elem in selected
-				call {Fun} (level, elem, target)
+				let dict.selected = elem
+				call {Fun} (dict)
 			endfor
 		else
-			call {Fun} (level, selected[0], target)
+			let dict.selected = selected[0]
+			call {Fun} (dict)
 		endif
 	endif
 endfun
 
-fun! wheel#line#name (level, selected, target)
-	" Switch to selected element(s) by name
-	" level = 'torus', 'circle' or 'location'
-	" target may be tab, horizontal or vertical split
-	call wheel#line#target (a:target)
-	call wheel#vortex#switch(a:level, a:selected)
+fun! wheel#line#name (dict)
+	" Switch to dict.selected by name
+	" dict keys :
+	" - selected : where to switch
+	" - level : torus, circle or location
+	" - target : current, tab, horizontal_split, vertical_split
+	call wheel#line#target (a:dict.target)
+	call wheel#vortex#switch(a:dict.level, a:dict.selected)
 endfun
 
-fun! wheel#line#helix (level, selected, target)
-	" Switch to torus > circle > location
-	" Level is just for compatibility with wheel#line#switch
-	let list = split(a:selected, ' ')
+fun! wheel#line#helix (dict)
+	" Switch to dict.selected = torus > circle > location
+	" dict keys :
+	" - selected : where to switch
+	" - target : current, tab, horizontal_split, vertical_split
+	let list = split(a:dict.selected, ' ')
 	if len(list) < 5
 		echomsg 'Helix line is too short'
 		return
 	endif
 	let coordin = [list[0], list[2], list[4]]
-	call wheel#line#target (a:target)
+	call wheel#line#target (a:dict.target)
 	call wheel#vortex#chord(coordin)
+	call wheel#vortex#jump ()
+endfun
+
+fun! wheel#line#grid (dict)
+	" Switch to dict.selected = torus > circle
+	" dict keys :
+	" - selected : where to switch
+	" - target : current, tab, horizontal_split, vertical_split
+	let list = split(a:dict.selected, ' ')
+	if len(list) < 3
+		echomsg 'Grid line is too short'
+		return
+	endif
+	let coordin = [list[0], list[2]]
+	call wheel#line#target (a:dict.target)
+	call wheel#vortex#tune('torus', coordin[0])
+	call wheel#vortex#tune('circle', coordin[1])
 	call wheel#vortex#jump ()
 endfun
 
@@ -226,55 +252,18 @@ fun! wheel#line#tree (...)
 	call wheel#vortex#jump ()
 endfun
 
-fun! wheel#line#grid (...)
-	" Switch to grid circle in current line
-	let mode = 'close'
-	if a:0 > 0
-		let mode = a:1
-	endif
-	let line = getline('.')
-	let list = split(line, ' ')
-	if len(list) < 3
-		echomsg 'Grid line is too short'
-		return
-	endif
-	let coordin = [list[0], list[2]]
-	if mode ==# 'close'
-		call wheel#mandala#close ()
-	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
-	endif
-	call wheel#vortex#tune('torus', coordin[0])
-	call wheel#vortex#tune('circle', coordin[1])
-	call wheel#vortex#jump ()
-endfun
-
-fun! wheel#line#history (...)
-	" Switch to history location in current line
-	let mode = 'close'
-	if a:0 > 0
-		let mode = a:1
-	endif
-	let line = getline('.')
-	let list = split(line, ' ')
+fun! wheel#line#history (dict)
+	" Switch to dict.selected history location
+	" dict keys :
+	" - selected : where to switch
+	" - target : current, tab, horizontal_split, vertical_split
+	let list = split(a:dict.selected, ' ')
 	if len(list) < 11
 		echomsg 'History line is too short'
 		return
 	endif
 	let coordin = [list[6], list[8], list[10]]
-	if mode ==# 'close'
-		call wheel#mandala#close ()
-	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
-	endif
+	call wheel#line#target (a:dict.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump ()
 endfun

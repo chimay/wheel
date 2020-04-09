@@ -177,7 +177,7 @@ endfun
 
 " Switch
 
-fun! wheel#mandala#switch (level)
+f_nameun! wheel#mandala#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
 	call wheel#vortex#update ()
@@ -193,12 +193,12 @@ fun! wheel#mandala#switch (level)
 		let content = join(names, "\n")
 		put =content
 		setlocal nomodified
-		normal! gg
+		call cursor(1,1)
 	else
 		echomsg 'Wheel mandala switch : empty or incomplete' level
 	endif
 endfun
-
+_name
 fun! wheel#mandala#helix ()
 	" Choose a location coordinate to switch to
 	" Each coordinate = [torus, circle, location]
@@ -213,7 +213,7 @@ fun! wheel#mandala#helix ()
 	let content = join(names, "\n")
 	put =content
 	setlocal nomodified
-	normal! gg
+	call cursor(1,1)
 endfun
 
 fun! wheel#mandala#grid ()
@@ -224,13 +224,13 @@ fun! wheel#mandala#grid ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	let dict = {'action' : function('wheel#line#grid')}
+	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#circles ()
 	let content = join(names, "\n")
 	put =content
 	setlocal nomodified
-	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#grid('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#grid('close')<cr>
+	call cursor(1,1)
 endfun
 
 fun! wheel#mandala#tree ()
@@ -246,7 +246,7 @@ fun! wheel#mandala#tree ()
 	let content = join(names, "\n")
 	put =content
 	setlocal nomodified
-	normal! gg
+	call cursor(1,1)
 	nnoremap <buffer> <tab> :call wheel#line#tree('open')<cr>
 	nnoremap <buffer> <cr> :call wheel#line#tree('close')<cr>
 endfun
@@ -259,13 +259,13 @@ fun! wheel#mandala#history ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	let dict = {'action' : function('wheel#line#history')}
+	call wheel#mandala#switch_maps (dict)
 	let names = wheel#pendulum#sorted ()
 	let content = join(names, "\n")
 	put =content
 	setlocal nomodified
-	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#history('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#history('close')<cr>
+	call cursor(1,1)
 endfun
 
 " Reorder
@@ -285,7 +285,7 @@ fun! wheel#mandala#reorder (level)
 		put =content
 		1 delete _
 		setlocal nomodified
-		normal! gg
+		call cursor(1,1)
 	else
 		echomsg 'Wheel mandala reorder : empty or incomplete' level
 	endif

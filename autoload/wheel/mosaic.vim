@@ -82,7 +82,7 @@ fun! wheel#mosaic#tabs (level)
 		tabnew
 		call wheel#vortex#next (level)
 	endfor
-	1 tabnext
+	tabrewind
 	call wheel#vortex#next (level)
 endfun
 
