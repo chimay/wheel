@@ -160,7 +160,7 @@ fun! wheel#line#switch (dict)
 	if type(Fun) == v:t_func
 		if target != 'current'
 			for elem in selected
-				call Fun (level, selected, target)
+				call Fun (level, elem, target)
 			endfor
 		else
 			call Fun (level, selected[0], target)
