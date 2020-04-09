@@ -1,5 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Layouts in tabs and windows
+" Mixed layouts of tabs and windows
 
-
+fun! wheel#pyramid#steps ()
+endfun

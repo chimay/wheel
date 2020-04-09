@@ -101,26 +101,43 @@ endfun
 
 " Switch
 
-fun! wheel#line#switch (level, ...)
+fun! wheel#line#switch (dict)
 	" Switch to element(s) on current or selected line(s)
-	" level may be 'torus', 'circle' or 'location'
+	" dict keys :
+	" - level : torus, circle or location
+	" - target : current, tab, horizontal_split, vertical_split
+	" - close : whether to close special buffer
+	" - action : switch function or name of switch function
+	let dict = copy(a:dict)
+	if has_key(dict, 'level')
+		let level = dict.level
+	else
+		echomsg 'Wheel line switch : dict must have a level key'
+		return
+	endif
+	if has_key(dict, 'target')
+		let target = dict.target
+	else
+		let target = 'current'
+	endif
+	if has_key(dict, 'close')
+		let close = dict.close
+	else
+		let close = 1
+	endif
+	if has_key(dict, 'action')
+		let action = dict.action
+	else
+		let action = 'wheel#line#name'
+	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
-		let selected = getline('.')
+		let selected = [getline('.')]
 	elseif type(b:wheel_selected) == v:t_list
 		let selected = b:wheel_selected
 	else
 		echomsg 'Wheel line switch : bad format for b:wheel_selected'
 	endif
-	let level = a:level
-	let mode = 'close'
-	if a:0 > 0
-		let mode = a:1
-	endif
-	let target = 'current'
-	if a:0 > 1
-		let target = a:2
-	endif
-	if mode ==# 'close'
+	if close
 		call wheel#mandala#close ()
 	else
 		if winnr('$') > 1
@@ -129,35 +146,40 @@ fun! wheel#line#switch (level, ...)
 			bdelete!
 		endif
 	endif
-	call wheel#line#select_switch (level, selected, target)
+	if type(action) == v:t_func
+		if target != 'current'
+			for elem in selected
+				call action (level, selected, target)
+			endfor
+		else
+			call action (level, selected[0], target)
+		endif
+	elseif type(action) == v:t_string
+		if target != 'current'
+			for elem in selected
+				call {action} (level, elem, target)
+			endfor
+		else
+			call {action} (level, selected[0], target)
+		endif
+	endif
 endfun
 
-fun! wheel#line#select_switch (level, selected, target)
-	" Switch to selected element(s)
-	" level may be 'torus', 'circle' or 'location'
+fun! wheel#line#name (level, selected, target)
+	" Switch to selected element(s) by name
+	" level = 'torus', 'circle' or 'location'
+	" target may be tab, horizontal or vertical split
 	let level = a:level
 	let selected = a:selected
 	let target = a:target
-	if type(selected) == v:t_string
-		if target == 'tab'
-			tabnew
-		elseif target == 'horizontal_split'
-			split
-		elseif target == 'vertical_split'
-			vsplit
-		endif
-		call wheel#vortex#switch(level, selected)
-	elseif type(selected) == v:t_list
-		if target != 'current'
-			for elem in selected
-				call wheel#line#select_switch (level, elem, target)
-			endfor
-		else
-			call wheel#line#select_switch (level, selected[0], target)
-		endif
-	else
-		echomsg 'Wheel line select switch : wrond size of selected'
+	if target == 'tab'
+		tabnew
+	elseif target == 'horizontal_split'
+		split
+	elseif target == 'vertical_split'
+		vsplit
 	endif
+	call wheel#vortex#switch(level, selected)
 endfun
 
 fun! wheel#line#helix (...)

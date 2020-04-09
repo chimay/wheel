@@ -132,7 +132,7 @@ endfun
 " Switch : tune and jump
 
 fun! wheel#vortex#switch (level, ...)
-	" Switch torus
+	" Switch element
 	call wheel#vortex#update ()
 	let level = a:level
 	let prompt = 'Switch to ' . level . ' : '

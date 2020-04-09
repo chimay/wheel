@@ -104,23 +104,23 @@ fun! wheel#mandala#input_history_maps ()
 	inoremap <buffer> <C-s> <esc>:call wheel#scroll#filtered_newer()<cr>
 endfun
 
-fun! wheel#mandala#switch_maps (level)
+fun! wheel#mandala#switch_maps (dict)
 	" Define maps to switch to element in current line
-	let string = "nnoremap <buffer> <tab> :call wheel#line#switch('"
-	let string .= a:level . "', 'open')<cr>"
-	exe string
-	let string = "nnoremap <buffer> <cr> :call wheel#line#switch('"
-	let string .= a:level . "', 'close')<cr>"
-	exe string
-	let string = "nnoremap <buffer> t :call wheel#line#switch('"
-	let string .= a:level . "', 'close', 'tab')<cr>"
-	exe string
-	let string = "nnoremap <buffer> s :call wheel#line#switch('"
-	let string .= a:level . "', 'close', 'horizontal_split')<cr>"
-	exe string
-	let string = "nnoremap <buffer> v :call wheel#line#switch('"
-	let string .= a:level . "', 'close', 'vertical_split')<cr>"
-	exe string
+	let dict = copy(a:dict)
+	let map  =  'nnoremap <buffer> '
+	let pre  = ' :call wheel#line#switch('
+	let post = ')<cr>'
+	let dict.close = 0
+	exe map . '<tab>' . pre . string(dict) . post
+	let dict.close = 1
+	exe map . '<cr>' . pre . string(dict) . post
+	let dict.target = 'tab'
+	exe map . 't' . pre . string(dict) . post
+	let dict.target = 'horizontal_split'
+	exe map . 's' . pre . string(dict) . post
+	let dict.target = 'vertical_split'
+	exe map . 'v' . pre . string(dict) . post
+	" Toggle select current line
 	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
 endfun
 
@@ -184,7 +184,8 @@ fun! wheel#mandala#switch (level)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#switch_maps (level)
+	let dict = {'level' : level}
+	call wheel#mandala#switch_maps (dict)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary
