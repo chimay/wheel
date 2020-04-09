@@ -1,7 +1,9 @@
 " vim: ft=vim fdm=indent:
 
 " Special Buffer menus
-" Filter and choose an element
+" Filter
+" Select
+" Trigger action
 
 " Special Buffer
 
@@ -173,14 +175,13 @@ fun! wheel#mandala#folding_text ()
 	return text
 endfun
 
-" Choose
+" Switch
 
 fun! wheel#mandala#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
 	call wheel#vortex#update ()
-	let string = 'wheel-choose-' . level
-	call wheel#mandala#open (string)
+	call wheel#mandala#open ('wheel-switch-' . level)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
@@ -206,13 +207,13 @@ fun! wheel#mandala#helix ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	let dict = {'action' : function('wheel#line#helix')}
+	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#locations ()
 	let content = join(names, "\n")
 	put =content
 	setlocal nomodified
 	normal! gg
-	nnoremap <buffer> <tab> :call wheel#line#helix('open')<cr>
-	nnoremap <buffer> <cr> :call wheel#line#helix('close')<cr>
 endfun
 
 fun! wheel#mandala#grid ()

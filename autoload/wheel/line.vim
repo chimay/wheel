@@ -60,6 +60,18 @@ fun! wheel#line#toggle ()
 	endif
 endfun
 
+fun! wheel#line#target (target)
+	" Open target tab/win for switch
+	let target = a:target
+	if target == 'tab'
+		tabnew
+	elseif target == 'horizontal_split'
+		split
+	elseif target == 'vertical_split'
+		vsplit
+	endif
+endfu
+
 " Folds in treeish buffers
 
 fun! wheel#line#fold_coordin ()
@@ -112,8 +124,7 @@ fun! wheel#line#switch (dict)
 	if has_key(dict, 'level')
 		let level = dict.level
 	else
-		echomsg 'Wheel line switch : dict must have a level key'
-		return
+		let level = 'none'
 	endif
 	if has_key(dict, 'target')
 		let target = dict.target
@@ -126,9 +137,9 @@ fun! wheel#line#switch (dict)
 		let close = 1
 	endif
 	if has_key(dict, 'action')
-		let action = dict.action
+		let Fun = dict.action
 	else
-		let action = 'wheel#line#name'
+		let Fun = 'wheel#line#name'
 	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
 		let selected = [getline('.')]
@@ -146,21 +157,21 @@ fun! wheel#line#switch (dict)
 			bdelete!
 		endif
 	endif
-	if type(action) == v:t_func
+	if type(Fun) == v:t_func
 		if target != 'current'
 			for elem in selected
-				call action (level, selected, target)
+				call Fun (level, selected, target)
 			endfor
 		else
-			call action (level, selected[0], target)
+			call Fun (level, selected[0], target)
 		endif
-	elseif type(action) == v:t_string
+	elseif type(Fun) == v:t_string
 		if target != 'current'
 			for elem in selected
-				call {action} (level, elem, target)
+				call {Fun} (level, elem, target)
 			endfor
 		else
-			call {action} (level, selected[0], target)
+			call {Fun} (level, selected[0], target)
 		endif
 	endif
 endfun
@@ -169,41 +180,20 @@ fun! wheel#line#name (level, selected, target)
 	" Switch to selected element(s) by name
 	" level = 'torus', 'circle' or 'location'
 	" target may be tab, horizontal or vertical split
-	let level = a:level
-	let selected = a:selected
-	let target = a:target
-	if target == 'tab'
-		tabnew
-	elseif target == 'horizontal_split'
-		split
-	elseif target == 'vertical_split'
-		vsplit
-	endif
-	call wheel#vortex#switch(level, selected)
+	call wheel#line#target (a:target)
+	call wheel#vortex#switch(a:level, a:selected)
 endfun
 
-fun! wheel#line#helix (...)
-	" Switch to helix location in current line
-	let mode = 'close'
-	if a:0 > 0
-		let mode = a:1
-	endif
-	let line = getline('.')
-	let list = split(line, ' ')
+fun! wheel#line#helix (level, selected, target)
+	" Switch to torus > circle > location
+	" Level is just for compatibility with wheel#line#switch
+	let list = split(a:selected, ' ')
 	if len(list) < 5
 		echomsg 'Helix line is too short'
 		return
 	endif
 	let coordin = [list[0], list[2], list[4]]
-	if mode ==# 'close'
-		call wheel#mandala#close ()
-	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
-	endif
+	call wheel#line#target (a:target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump ()
 endfun
