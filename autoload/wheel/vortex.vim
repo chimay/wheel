@@ -9,9 +9,6 @@ fun! wheel#vortex#here ()
 	let location.file = expand('%:p')
 	let location.line = line('.')
 	let location.col  = col('.')
-	let location.name = fnamemodify(location.file, ':t:r')
-	" Replace spaces par non-breaking spaces
-	let location.name = substitute(location.name, ' ', ' ', 'g')
 	return location
 endfun
 

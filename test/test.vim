@@ -45,7 +45,19 @@ let s:a = 'win'
 let s:b = 's:a'
 
 echo 'Brace name {s:b} : ' {s:b}
-echo 'Brace name winnr = {s:a}nr : ' {a}nr()
+echo 'Brace name winnr = {s:a}nr : ' {s:a}nr()
+
+" }}}1
+
+" Identity {{{1
+
+fun! s:Function (list, dict)
+	let list = a:list
+	let dict = a:dict
+	echomsg 'is ? ' list is a:list dict is a:dict
+endfun
+
+call s:Function([1,2], {'i':1,'ii':2})
 
 " }}}1
 
@@ -53,7 +65,7 @@ echo 'Brace name winnr = {s:a}nr : ' {a}nr()
 
 " Optional arguments {{{2
 
-fun! s:Fun (...)
+fun! s:Function (...)
 	return s:Called (a:000)
 endfun
 
@@ -61,7 +73,7 @@ fun! s:Called (...)
 	return a:000
 endfun
 
-echo 'Optional args : ' s:Fun (1, 2)
+echo 'Optional args : ' s:Function (1, 2)
 
 " }}}2
 
@@ -105,10 +117,10 @@ endfu
 " Closure {{{2
 
 fun! s:Fonctionnelle(fn, value)
-	fun! Fun(arg) closure
+	fun! Function(arg) closure
 		return a:fn(a:arg, a:value)
 	endfun
-	return funcref('Fun')
+	return funcref('Function')
 endfun
 
 echo 'functional : ' s:Fonctionnelle(function('s:Minus'), 3)(7)

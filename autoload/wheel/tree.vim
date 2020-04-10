@@ -11,6 +11,7 @@
 " Helpers
 
 fun! wheel#tree#is_in_circle (location, circle)
+	" Whether location is in circle
 	let local = a:location
 	let present = 0
 	for elem in a:circle.locations
@@ -19,6 +20,23 @@ fun! wheel#tree#is_in_circle (location, circle)
 		endif
 	endfor
 	return present
+endfu
+
+fun! wheel#tree#name (location)
+	" Fill the name key of location and return it
+	let location = a:location
+	if ! has_key(location, 'name') || empty(location.name)
+		let default = fnamemodify(location.file, ':t:r')
+		let prompt = 'Location name ? '
+		" Replace spaces par non-breaking spaces
+		let default = substitute(default, ' ', ' ', 'g')
+		let location.name = input(prompt, default)
+		if empty(location.name)
+			echomsg 'Location must have a name.'
+			let location.name = default
+		endif
+	endif
+	return location.name
 endfu
 
 " Add
@@ -32,17 +50,24 @@ fun! wheel#tree#add_torus (...)
 	endif
 	" Replace spaces by non-breaking spaces
 	let torus_name = substitute(torus_name, ' ', ' ', 'g')
+	if empty(torus_name)
+		redraw!
+		echomsg 'Torus name cannot be empty. Will be called torus.'
+		let torus_name = 'torus'
+	endif
 	if index(g:wheel.glossary, torus_name) < 0
+		redraw!
 		echomsg "Adding torus" torus_name
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
 		let glossary = g:wheel.glossary
 		let template = wheel#void#template(torus_name, 'circles')
-		let g:wheel.toruses  = wheel#chain#insert_next(index, template, toruses)
-		let g:wheel.glossary = wheel#chain#insert_next(index, torus_name, glossary)
-		let g:wheel.current  += 1
+		call wheel#chain#insert_next(index, template, toruses)
+		call wheel#chain#insert_next(index, torus_name, glossary)
+		let g:wheel.current += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
+		redraw!
 		echomsg 'Torus' torus_name 'already exists in wheel.'
 	endif
 endfu
@@ -56,28 +81,34 @@ fun! wheel#tree#add_circle (...)
 	endif
 	" Replace spaces by non-breaking spaces
 	let circle_name = substitute(circle_name, ' ', ' ', 'g')
+	if empty(circle_name)
+		redraw!
+		echomsg 'Circle name cannot be empty. Will be called circle.'
+		let circle_name = 'circle'
+	endif
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
 	let cur_torus = g:wheel.toruses[g:wheel.current]
 	if index(cur_torus.glossary, circle_name) < 0
+		redraw!
 		echomsg "Adding circle" circle_name
 		let index = cur_torus.current
 		let circles = cur_torus.circles
 		let glossary = cur_torus.glossary
 		let template = wheel#void#template(circle_name, 'locations')
-		let cur_torus.circles  = wheel#chain#insert_next(index, template, circles)
-		let cur_torus.glossary = wheel#chain#insert_next(index, circle_name, glossary)
-		let cur_torus.current  += 1
+		call wheel#chain#insert_next(index, template, circles)
+		call wheel#chain#insert_next(index, circle_name, glossary)
+		let cur_torus.current += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
+		redraw!
 		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
 	endif
 endfu
 
 fun! wheel#tree#add_location (location)
 	" Add location
-	" Location name will be a:1 if given, or asked otherwise
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
@@ -89,33 +120,27 @@ fun! wheel#tree#add_location (location)
 	let local = a:location
 	let present = wheel#tree#is_in_circle(local, cur_circle)
 	if ! present
-		let prompt = 'New location name [' . local.name . '] ? '
-		let location_name = input(prompt, local.name)
-		if empty(location_name)
-			let location_name = local.name
-		endif
-		" Replace spaces by non-breaking spaces
-		let location_name = substitute(location_name, ' ', ' ', 'g')
+		let location_name = wheel#tree#name (local)
 		if index(cur_circle.glossary, location_name) < 0
-			let string = 'Adding location ' . local.name . ' : '
-			let string .= local.file . ':' . local.line . ':' . local.col
-			let string .= ' in torus ' . cur_torus.name . ' circle ' . cur_circle.name
-			echomsg string
+			redraw!
+			let info = 'Adding location ' . local.name . ' : '
+			let info .= local.file . ':' . local.line . ':' . local.col
+			let info .= ' in torus ' . cur_torus.name . ' circle ' . cur_circle.name
+			echomsg info
 			let index = cur_circle.current
 			let locations = cur_circle.locations
 			let glossary = cur_circle.glossary
-			let cur_circle.locations = wheel#chain#insert_next(index, local, locations)
-			let cur_circle.current  += 1
-			let cur_location = cur_circle.locations[cur_circle.current]
-			let cur_location.name = location_name
-			let cur_circle.glossary =
-						\ wheel#chain#insert_next(index, location_name, glossary)
+			call wheel#chain#insert_next(index, local, locations)
+			let cur_circle.current += 1
+			call wheel#chain#insert_next(index, location_name, glossary)
 			let g:wheel.timestamp = wheel#pendulum#timestamp ()
 			call wheel#pendulum#record ()
 		else
+			redraw!
 			echomsg 'Location named' location_name 'already exists in circle.'
 		endif
 	else
+		redraw!
 		echomsg 'Location' local.file ':' local.line
 					\ 'already exists in torus' cur_torus.name 'circle' cur_circle.name
 	endif
@@ -175,6 +200,7 @@ fun! wheel#tree#rename (level, ...)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename(level, old, new)
 	else
+		redraw!
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
 		echomsg a:level a:new 'already exists in' upper_level_name
 	endif
