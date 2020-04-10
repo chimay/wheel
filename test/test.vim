@@ -61,6 +61,20 @@ call s:Function([1,2], {'i':1,'ii':2})
 
 " }}}1
 
+" Execute string {{{1
+
+fun! s:Function (arg)
+	let string = 'let var = ' . string(a:arg)
+	echo 'string : ' string
+	exe string
+	echo 'Exe string -> var : ' var
+endfun
+
+call s:Function({'a':1,'b':2})
+call s:Function('abc')
+
+" }}}1
+
 " Functions {{{1
 
 " Optional arguments {{{2

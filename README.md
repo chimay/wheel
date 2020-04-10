@@ -285,7 +285,6 @@ at your fingertips.
 
 # TODO
 
-- reorganize
 - tabline
 - layout
   + split : grid, main left, etc

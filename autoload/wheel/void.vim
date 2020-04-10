@@ -20,7 +20,7 @@ fun! wheel#void#template(name, ...)
 	return template
 endfun
 
-" Variables
+" Initialize individual variables
 
 fun! wheel#void#wheel ()
 	" Initialize wheel
@@ -128,6 +128,8 @@ fun! wheel#void#config ()
 	endif
 endfun
 
+" Initialize all variables
+
 fun! wheel#void#foundation ()
 	" Initialize wheel variables
 	call wheel#void#wheel ()
@@ -138,6 +140,8 @@ fun! wheel#void#foundation ()
 	call wheel#void#input ()
 	call wheel#void#config ()
 endfun
+
+" Unlet variables
 
 fun! wheel#void#lighten ()
 	" Unlet wheel variables
@@ -151,6 +155,8 @@ fun! wheel#void#lighten ()
 	unlet g:wheel_input
 	unlet g:wheel_config
 endfu
+
+" Init & Exit
 
 fun! wheel#void#init ()
 	" Main init function

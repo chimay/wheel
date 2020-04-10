@@ -145,7 +145,7 @@ fun! wheel#mandala#reorganize_write ()
 	setlocal buftype=
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
 	" Need a name when writing, even with BufWriteCmd
-	file /wheel/reorder
+	file /wheel/reorganize
 	augroup wheel
 		autocmd!
 		exe autocommand
@@ -299,7 +299,7 @@ endfun
 fun! wheel#mandala#reorganize ()
 	" Reorganize the wheel tree
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-restructure')
+	call wheel#mandala#open ('wheel-reorganize')
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#reorganize_write ()
 	call wheel#mandala#folding_options ()

@@ -226,6 +226,7 @@ Introduction			|wheel-special-buffers-introduction|
 Menu buffers			|wheel-special-buffers-menus|
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
+Reorganizing buffers		|wheel-special-buffers-reorganizing|
 Bath buffers			|wheel-special-buffers-batch|
 
 ------------------------------------------------------------------------------
@@ -239,6 +240,7 @@ The available actions depend on the context :
 - Menu buffers allow you to launch a wheel function
 - Navigation buffers allow you to switch to a location, circle or torus
 - Reordering buffers allow you to reorder locations, circles or toruses
+- Reorganize buffer allows you to move and copy around locations, circles and toruses
 
 Wrapping up things~
 
@@ -330,7 +332,33 @@ The reordering buffers allow you to quickly reorder Wheel elements by
 reordering the buffer lines. You can use yank/delete/paste operations to
 perform the reordering, or sort them with |:sort|.
 
+Please yank/delete entire lines, or your data could loose their integrity.
+
 To validate your change, simply |:write| the buffer.
+
+If something goes wrong, you can quit the buffer and re-read the wheel
+variables with `<M-w>r`.
+
+------------------------------------------------------------------------------
+REORGANIZING BUFFERS			*wheel-special-buffers-reorganizing*
+
+The reorganizing buffer allows you to quickly move or copy Wheel elements
+by moving or copying the buffer lines. All elements of the wheel are
+represented, and folds are used to reflect the tree structure of the
+Wheel :
+
+- torus names
+- circle names
+- locations (the dictionary lines)
+
+Please move or copy entire lines, or your data could loose their
+integrity.  Be aware that removing a line will remove the corresponding
+element from the wheel.
+
+To validate your change, simply |:write| the buffer.
+
+If something goes wrong, you can quit the buffer and re-read the wheel
+variables with `<M-w>r`.
 
 ------------------------------------------------------------------------------
 BATCH BUFFERS				*wheel-special-buffers-batch*

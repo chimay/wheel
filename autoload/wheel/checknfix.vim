@@ -89,7 +89,7 @@ fun! wheel#checknfix#glossaries ()
 endfun
 
 fun! wheel#checknfix#history ()
-	" Check history
+" Check history
 	let success = 1
 	let history = deepcopy(g:wheel_history)
 	let helix = wheel#helix#helix()

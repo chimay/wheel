@@ -2,58 +2,6 @@
 
 " Changes of internal structure
 
-" Helpers
-
-fun! wheel#cuboctahedron#add_line ()
-	" Add current line of reorganize buffer to wheel
-	" TODO
-	let position = getcurpos()
-	let cursor_line = getline('.')
-	let cursor_line = substitute(cursor_line, '\m^\* ', '', '')
-	let cursor_list = split(cursor_line)
-	if empty(cursor_line)
-		echomsg 'Wheel line coordin : empty line'
-		return
-	endif
-	if foldlevel('.') == 2 && len(cursor_list) == 1
-		" location line : search circle & torus
-		let location = cursor_line
-		normal! [z
-		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line)
-		let circle = list[0]
-		normal! [z
-		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line)
-		let torus = list[0]
-		let coordin = [torus, circle, location]
-	elseif foldlevel('.') == 2
-		" circle line : search torus
-		let circle = cursor_list[0]
-		normal! [z
-		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
-		let list = split(line)
-		let torus = list[0]
-		let coordin = [torus, circle]
-	elseif foldlevel('.') == 1
-		" torus line
-		let torus = cursor_list[0]
-		let coordin = [torus]
-	elseif foldlevel('.') == 0
-		" simple name line of level depending of buffer
-		let coordin = cursor_line
-	else
-		echomsg 'Wheel line coordin : wrong fold level'
-	endif
-	call setpos('.', position)
-	return coordin
-endfun
-
-" Buffers
-
 fun! wheel#cuboctahedron#reorder (level)
 	" Reorder current elements at level, after buffer content
 	let level = a:level
@@ -91,14 +39,46 @@ endfun
 fun! wheel#cuboctahedron#reorganize ()
 	" Rebuild wheel by adding elements contained in buffer
 	" Follow folding tree
+	" Backups
 	let b:wheel_backup = deepcopy(g:wheel)
+	" The add_* will record new timestamps ; let’s keep the old ones
+	let history = deepcopy(g:wheel_history)
+	" Start from empty wheel
+	unlet g:wheel
+	call wheel#void#wheel ()
 	" Loop over buffer lines
+	let linelist = getline(1, '$')
+	let marker = split(&foldmarker, ',')[0]
+	let pat_fold_one = '\m' . marker . '1$'
+	let pat_fold_two = '\m' . marker . '2$'
+	let pat_dict = '\m^{.*}'
+	for line in linelist
+		if line =~ pat_fold_one
+			" torus line
+			let torus = split(line)[0]
+			call wheel#tree#add_torus(torus)
+		elseif line =~ pat_fold_two
+			" circle line
+			let circle = split(line)[0]
+			call wheel#tree#add_circle(circle)
+		elseif line =~ pat_dict
+			" location line
+			let runme = 'let location = ' . line
+			exe runme
+			call wheel#tree#add_location(location)
+		endif
+	endfor
 	" Rebuild location index
 	call wheel#helix#helix ()
 	" Rebuild circle index
 	call wheel#helix#grid ()
 	" Rebuild file index
 	call wheel#helix#files ()
+	" Restore history timestamps
+	let g:wheel_history = history
 	" Remove invalid entries from history
 	call wheel#checknfix#history ()
+	" Info
+	setlocal nomodified
+	echomsg 'Changes written to wheel'
 endfun
