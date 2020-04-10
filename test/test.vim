@@ -174,3 +174,9 @@ echo 'Factorial 5 :' s:Factorial(5)
 "au BufWriteCmd <buffer> echo 'autocommand replacing write'
 
 " }}}1
+
+" Wheel {{{1
+
+" {'file': '/home/david/racine/public/wheel/test/test.vim', 'col': 8, 'name': 'test', 'line': 54}
+
+" }}}1

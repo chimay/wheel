@@ -61,9 +61,9 @@ fun! wheel#tree#add_torus (...)
 		let index = g:wheel.current
 		let toruses = g:wheel.toruses
 		let glossary = g:wheel.glossary
-		let template = wheel#void#template(torus_name, 'circles')
-		call wheel#chain#insert_next(index, template, toruses)
-		call wheel#chain#insert_next(index, torus_name, glossary)
+		let template = wheel#void#template (torus_name, 'circles')
+		call wheel#chain#insert_next (index, template, toruses)
+		call wheel#chain#insert_next (index, torus_name, glossary)
 		let g:wheel.current += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
@@ -74,6 +74,9 @@ endfu
 
 fun! wheel#tree#add_circle (...)
 	" Add circle
+	if empty(g:wheel.toruses)
+		call wheel#tree#add_torus()
+	endif
 	if a:0 > 0
 		let circle_name = a:1
 	else
@@ -86,9 +89,6 @@ fun! wheel#tree#add_circle (...)
 		echomsg 'Circle name cannot be empty. Will be called circle.'
 		let circle_name = 'circle'
 	endif
-	if empty(g:wheel.toruses)
-		call wheel#tree#add_torus()
-	endif
 	let cur_torus = g:wheel.toruses[g:wheel.current]
 	if index(cur_torus.glossary, circle_name) < 0
 		redraw!
@@ -96,9 +96,9 @@ fun! wheel#tree#add_circle (...)
 		let index = cur_torus.current
 		let circles = cur_torus.circles
 		let glossary = cur_torus.glossary
-		let template = wheel#void#template(circle_name, 'locations')
-		call wheel#chain#insert_next(index, template, circles)
-		call wheel#chain#insert_next(index, circle_name, glossary)
+		let template = wheel#void#template (circle_name, 'locations')
+		call wheel#chain#insert_next (index, template, circles)
+		call wheel#chain#insert_next (index, circle_name, glossary)
 		let cur_torus.current += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	else
@@ -130,9 +130,9 @@ fun! wheel#tree#add_location (location)
 			let index = cur_circle.current
 			let locations = cur_circle.locations
 			let glossary = cur_circle.glossary
-			call wheel#chain#insert_next(index, local, locations)
+			call wheel#chain#insert_next (index, local, locations)
 			let cur_circle.current += 1
-			call wheel#chain#insert_next(index, location_name, glossary)
+			call wheel#chain#insert_next (index, location_name, glossary)
 			let g:wheel.timestamp = wheel#pendulum#timestamp ()
 			call wheel#pendulum#record ()
 		else

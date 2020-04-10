@@ -288,7 +288,7 @@ at your fingertips.
 - copy / moving things
   + location to circle
   + circle to torus
-  + restructuring buffer ?
+  + restructuring buffer
 - layout
   + split : grid, main left, etc
 - autogroup
