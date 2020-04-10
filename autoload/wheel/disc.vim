@@ -37,9 +37,8 @@ fun! wheel#disc#writefile (varname, file, ...)
 		let mode = a:1
 	endif
 	let string = 'let ' . a:varname . ' = ' . string({a:varname})
-	let string = substitute(string, '\m[=,]', '\0\n\\', 'g')
-	let string = substitute(string, '\m\n\{2,\}', '\n', 'g')
-	let list = split(string, "\n")
+	let string = substitute(string, '\m[=,]', '\0\\', 'g')
+	let list = split(string, '\m[=,]\zs')
 	if mode == '>>'
 		call writefile(list, file, 'a')
 	else
