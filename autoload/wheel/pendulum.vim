@@ -184,15 +184,15 @@ fun! wheel#pendulum#alternate_same_torus ()
 		let history = g:wheel_history
 		let length = len(history)
 		let current = wheel#referen#names ()
-		let target = []
+		let destination = []
 		for ind in range(1, length - 1)
 			let coordin = history[ind].coordin
 			if coordin[0] ==# current[0]
-				let target = coordin
+				let destination = coordin
 				break
 			endif
 		endfor
-		call wheel#vortex#chord(target)
+		call wheel#vortex#chord(destination)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -206,15 +206,15 @@ fun! wheel#pendulum#alternate_same_circle ()
 		let history = g:wheel_history
 		let length = len(history)
 		let current = wheel#referen#names ()
-		let target = []
+		let destination = []
 		for ind in range(1, length - 1)
 			let coordin = history[ind].coordin
 			if coordin[0] ==# current[0] && coordin[1] ==# current[1]
-				let target = coordin
+				let destination = coordin
 				break
 			endif
 		endfor
-		call wheel#vortex#chord(target)
+		call wheel#vortex#chord(destination)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -228,15 +228,15 @@ fun! wheel#pendulum#alternate_other_torus ()
 		let history = g:wheel_history
 		let length = len(history)
 		let current = wheel#referen#names ()
-		let target = []
+		let destination = []
 		for ind in range(1, length - 1)
 			let coordin = history[ind].coordin
 			if coordin[0] !=# current[0]
-				let target = coordin
+				let destination = coordin
 				break
 			endif
 		endfor
-		call wheel#vortex#chord(target)
+		call wheel#vortex#chord(destination)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -250,15 +250,15 @@ fun! wheel#pendulum#alternate_other_circle ()
 		let history = g:wheel_history
 		let length = len(history)
 		let current = wheel#referen#names ()
-		let target = []
+		let destination = []
 		for ind in range(1, length - 1)
 			let coordin = history[ind].coordin
 			if coordin[0] !=# current[0] || coordin[1] !=# current[1]
-				let target = coordin
+				let destination = coordin
 				break
 			endif
 		endfor
-		call wheel#vortex#chord(target)
+		call wheel#vortex#chord(destination)
 	endif
 	call wheel#vortex#jump ()
 endfun
@@ -272,15 +272,15 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 		let history = g:wheel_history
 		let length = len(history)
 		let current = wheel#referen#names ()
-		let target = []
+		let destination = []
 		for ind in range(1, length - 1)
 			let coordin = history[ind].coordin
 			if coordin[0] ==# current[0] && coordin[1] !=# current[1]
-				let target = coordin
+				let destination = coordin
 				break
 			endif
 		endfor
-		call wheel#vortex#chord(target)
+		call wheel#vortex#chord(destination)
 	endif
 	call wheel#vortex#jump ()
 endfun

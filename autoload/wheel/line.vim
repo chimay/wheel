@@ -130,11 +130,6 @@ fun! wheel#line#switch (dict)
 	" - close : whether to close special buffer
 	" - action : switch function or name of switch function
 	let dict = copy(a:dict)
-	if has_key(dict, 'level')
-		let level = dict.level
-	else
-		let level = 'none'
-	endif
 	if has_key(dict, 'target')
 		let target = dict.target
 	else

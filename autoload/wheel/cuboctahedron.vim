@@ -35,3 +35,51 @@ fun! wheel#cuboctahedron#reorder (level)
 		return new_list
 	endif
 endfun
+
+fun! wheel#cuboctahedron#restructure ()
+	" Rebuild wheel by adding elements following folding in buffer
+	" TODO
+	let position = getcurpos()
+	let cursor_line = getline('.')
+	let cursor_line = substitute(cursor_line, '\m^\* ', '', '')
+	let cursor_list = split(cursor_line)
+	if empty(cursor_line)
+		echomsg 'Wheel line coordin : empty line'
+		return
+	endif
+	if foldlevel('.') == 2 && len(cursor_list) == 1
+		" location line : search circle & torus
+		let location = cursor_line
+		normal! [z
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line)
+		let circle = list[0]
+		normal! [z
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line)
+		let torus = list[0]
+		let coordin = [torus, circle, location]
+	elseif foldlevel('.') == 2
+		" circle line : search torus
+		let circle = cursor_list[0]
+		normal! [z
+		let line = getline('.')
+		let line = substitute(line, '\m^\* ', '', '')
+		let list = split(line)
+		let torus = list[0]
+		let coordin = [torus, circle]
+	elseif foldlevel('.') == 1
+		" torus line
+		let torus = cursor_list[0]
+		let coordin = [torus]
+	elseif foldlevel('.') == 0
+		" simple name line of level depending of buffer
+		let coordin = cursor_line
+	else
+		echomsg 'Wheel line coordin : wrong fold level'
+	endif
+	call setpos('.', position)
+	return coordin
+endfun

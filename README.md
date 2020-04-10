@@ -285,10 +285,8 @@ at your fingertips.
 
 # TODO
 
-- copy / moving things
-  + location to circle
-  + circle to torus
-  + restructuring buffer
+- restructuring buffer
+- tabline
 - layout
   + split : grid, main left, etc
 - autogroup
