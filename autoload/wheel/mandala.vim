@@ -201,7 +201,11 @@ fun! wheel#mandala#switch (level)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary
-		call appendbufline('%', 1, names)
+		if exists('*appendbufline')
+			call appendbufline('%', 1, names)
+		else
+			put =names
+		endif
 		setlocal nomodified
 		call cursor(1,1)
 	else
@@ -220,7 +224,11 @@ fun! wheel#mandala#helix ()
 	let dict = {'action' : function('wheel#line#helix')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#locations ()
-	call appendbufline('%', 1, names)
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -236,7 +244,11 @@ fun! wheel#mandala#grid ()
 	let dict = {'action' : function('wheel#line#grid')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#circles ()
-	call appendbufline('%', 1, names)
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -252,7 +264,11 @@ fun! wheel#mandala#tree ()
 	let dict = {'action' : function('wheel#line#tree')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#tree ()
-	call appendbufline('%', 1, names)
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -268,7 +284,11 @@ fun! wheel#mandala#history ()
 	let dict = {'action' : function('wheel#line#history')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#pendulum#sorted ()
-	call appendbufline('%', 1, names)
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -285,7 +305,11 @@ fun! wheel#mandala#reorder (level)
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary
-		call appendbufline('%', 0, names)
+		if exists('*appendbufline')
+			call appendbufline('%', 0, names)
+		else
+			put =names
+		endif
 		global /^$/delete
 		setlocal nomodified
 		call cursor(1,1)
@@ -304,7 +328,11 @@ fun! wheel#mandala#reorganize ()
 	call wheel#mandala#reorganize_write ()
 	call wheel#mandala#folding_options ()
 	let names = wheel#helix#full ()
-	call appendbufline('%', 0, names)
+	if exists('*appendbufline')
+		call appendbufline('%', 0, names)
+	else
+		put =names
+	endif
 	global /^$/delete
 	setlocal nomodified
 	call cursor(1,1)
