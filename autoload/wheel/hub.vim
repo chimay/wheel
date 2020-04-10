@@ -125,7 +125,7 @@ fun! wheel#hub#call ()
 	let key = getline('.')
 	let value = s:all[key]
 	call wheel#mandala#close ()
-	if value =~ ')'
+	if value =~ '\m)'
 		exe 'call ' . value
 	else
 		exe 'call ' . value . '()'

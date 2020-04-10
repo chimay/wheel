@@ -4,7 +4,7 @@
 " Note : use expand to expand '~' in filenames
 
 fun! wheel#disc#write (pointer, file, ...)
-	" Write variable referenced by string pointer to file
+	" Write variable referenced by pointer to file
 	" in a format that can be :sourced
 	" If optional argument 1 is :
 	" '>' : replace file content (default)
@@ -23,6 +23,27 @@ fun! wheel#disc#write (pointer, file, ...)
 		silent! echo content
 	redir END
 	"echomsg 'Variable' a:pointer 'wrote to ' a:file
+endfun
+
+fun! wheel#disc#writefile (varname, file, ...)
+	" Write variable referenced by varname to file
+	" in a format that can be :sourced
+	" If optional argument 1 is :
+	" '>' : replace file content (default)
+	" '>>' : add to file content
+	let mode = '>'
+	if a:0 > 0
+		let mode = a:1
+	endif
+	let string = 'let ' . a:varname . ' = ' . string({a:varname})
+	let string = substitute(string, '\m[=,]', '\0\n\\', 'g')
+	let string = substitute(string, '\m\n\{2,\}', '\n', 'g')
+	let list = split(string, "\n")
+	if mode == '>>'
+		call writefile(list, a:file, 'a')
+	else
+		call writefile(list, a:file)
+	endif
 endfun
 
 fun! wheel#disc#read (file)
