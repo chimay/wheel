@@ -53,6 +53,9 @@ endfun
 fun! wheel#vortex#follow ()
 	" Set current location to match current file it this file is in current circle
 	let circle = wheel#referen#circle ()
+	if empty(circle) || ! has_key(circle, 'locations')
+		return
+	endif
 	let locations = deepcopy(circle.locations)
 	let files = map(locations, {_,value -> value.file})
 	let cur_file = expand('%:p')
