@@ -68,8 +68,8 @@ if ! exists('s:tabwin')
 				\ 'Display toruses on vertical splits' : "wheel#mosaic#ver_split('torus')",
 				\ 'Display circles on vertical splits' : "wheel#mosaic#ver_split('circle')",
 				\ 'Display locations on vertical splits' : "wheel#mosaic#ver_split('location')",
-				\ 'Display toruses on tabs and circles on splits' : "wheel#pyramid#steps('torus')",
-				\ 'Display circles on tabs and locations on splits' : "wheel#pyramid#steps('circle')",
+				\ 'Mix : toruses on tabs and circles on splits' : "wheel#pyramid#steps('torus')",
+				\ 'Mix : circles on tabs and locations on splits' : "wheel#pyramid#steps('circle')",
 				\}
 	lockvar s:tabwin
 endif
