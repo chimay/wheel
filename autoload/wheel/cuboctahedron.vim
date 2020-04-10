@@ -91,5 +91,14 @@ endfun
 fun! wheel#cuboctahedron#reorganize ()
 	" Rebuild wheel by adding elements contained in buffer
 	" Follow folding tree
-	let b:wheel_copy = deepcopy(g:wheel)
+	let b:wheel_backup = deepcopy(g:wheel)
+	" Loop over buffer lines
+	" Rebuild location index
+	call wheel#helix#helix ()
+	" Rebuild circle index
+	call wheel#helix#grid ()
+	" Rebuild file index
+	call wheel#helix#files ()
+	" Remove invalid entries from history
+	call wheel#checknfix#history ()
 endfun

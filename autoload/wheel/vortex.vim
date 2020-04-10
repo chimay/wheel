@@ -80,7 +80,8 @@ fun! wheel#vortex#follow ()
 		call wheel#vortex#jump ()
 		call setpos('.', position)
 		redraw!
-		echomsg 'Wheel follows :' string(circle.locations[circle.current])
+		"echomsg 'Wheel follows :' string(circle.locations[circle.current])
+		return circle.locations[circle.current]
 	endif
 endfun
 

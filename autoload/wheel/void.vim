@@ -2,6 +2,8 @@
 
 " Enter the void, and become wheel
 
+" Helpers
+
 fun! wheel#void#template(name, ...)
 	" Generate template to add to g:wheel lists
 	" Name = name in argument
@@ -18,9 +20,10 @@ fun! wheel#void#template(name, ...)
 	return template
 endfun
 
-fun! wheel#void#foundation ()
-	" Initialize wheel variables
-	" Wheel
+" Variables
+
+fun! wheel#void#wheel ()
+	" Initialize wheel
 	if ! exists('g:wheel')
 		let g:wheel = {}
 	endif
@@ -36,7 +39,10 @@ fun! wheel#void#foundation ()
 	if ! has_key(g:wheel, 'timestamp')
 		let g:wheel.timestamp = -1
 	endif
-	" Helix : index of locations
+endfun
+
+fun! wheel#void#helix ()
+	" Initialize helix : index of locations
 	if ! exists('g:wheel_helix')
 		let g:wheel_helix = {}
 	endif
@@ -46,7 +52,10 @@ fun! wheel#void#foundation ()
 	if ! has_key(g:wheel_helix, 'timestamp')
 		let g:wheel_helix.timestamp = -1
 	endif
-	" Grid : index of circles
+endfun
+
+fun! wheel#void#grid ()
+	" Initialize grid : index of circles
 	if ! exists('g:wheel_grid')
 		let g:wheel_grid = {}
 	endif
@@ -56,7 +65,10 @@ fun! wheel#void#foundation ()
 	if ! has_key(g:wheel_grid, 'timestamp')
 		let g:wheel_grid.timestamp = -1
 	endif
-	" Files in wheel
+endfun
+
+fun! wheel#void#files ()
+	" Initialize index of files
 	if ! exists('g:wheel_files')
 		let g:wheel_files = {}
 	endif
@@ -66,15 +78,24 @@ fun! wheel#void#foundation ()
 	if ! has_key(g:wheel_files, 'timestamp')
 		let g:wheel_files.timestamp = -1
 	endif
-	" History
+endfun
+
+fun! wheel#void#history ()
+	" Initialize history
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
 	endif
-	" Input history
+endfun
+
+fun! wheel#void#input ()
+	" Initialize input history
 	if ! exists('g:wheel_input')
 		let g:wheel_input = []
 	endif
-	" Config
+endfun
+
+fun! wheel#void#config ()
+	" Initialize config
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
 	endif
@@ -105,7 +126,18 @@ fun! wheel#void#foundation ()
 	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0
 	endif
-endfu
+endfun
+
+fun! wheel#void#foundation ()
+	" Initialize wheel variables
+	call wheel#void#wheel ()
+	call wheel#void#helix ()
+	call wheel#void#grid ()
+	call wheel#void#files ()
+	call wheel#void#history ()
+	call wheel#void#input ()
+	call wheel#void#config ()
+endfun
 
 fun! wheel#void#lighten ()
 	" Unlet wheel variables

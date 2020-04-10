@@ -7,6 +7,7 @@ fun! wheel#checknfix#fresh_wheel ()
 	unlet g:wheel_grid
 	unlet g:wheel_files
 	unlet g:wheel_history
+	unlet g:wheel_input
 	call wheel#void#foundation ()
 endfun
 
@@ -99,8 +100,7 @@ fun! wheel#checknfix#history ()
 		if index(helix, coordin) < 0
 			let success = 0
 			echomsg 'Removing' join(coordin, ', ') 'from history.'
-			let g:wheel_history =
-						\ wheel#chain#remove_element(history[ind], g:wheel_history)
+			call wheel#chain#remove_element(history[ind], g:wheel_history)
 		endif
 		let ind += 1
 	endwhile
