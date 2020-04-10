@@ -56,10 +56,21 @@ fun! wheel#vortex#follow ()
 	if empty(circle) || ! has_key(circle, 'locations')
 		return
 	endif
-	let locations = deepcopy(circle.locations)
-	let files = map(locations, {_,value -> value.file})
 	let cur_file = expand('%:p')
-	let index = index(files, cur_file)
+	let locations = deepcopy(circle.locations)
+	call filter(locations, {_,value -> value.file == cur_file})
+	if empty(locations)
+		return
+	endif
+	let cur_line = line('.')
+	let lines = map(deepcopy(locations), {_,val -> val.line})
+	let deltas = map(deepcopy(locations), {_,val -> abs(val.line - cur_line)})
+	let minim = min(deltas)
+	let ind = index(deltas, minim)
+	let minline = lines[ind]
+	call filter(locations, {_,value -> value.line == minline})
+	let local = locations[0]
+	let index = index(circle.locations, local)
 	if index >= 0
 		let circle.current = index
 		let position = getcurpos()

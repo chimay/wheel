@@ -4,8 +4,8 @@
 
 " Helpers
 
-fun! wheel#cuboctahedron#reorganize_line ()
-	" Treat current line in reorganize buffer
+fun! wheel#cuboctahedron#add_line ()
+	" Add current line of reorganize buffer to wheel
 	" TODO
 	let position = getcurpos()
 	let cursor_line = getline('.')

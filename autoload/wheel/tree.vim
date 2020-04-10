@@ -194,6 +194,7 @@ fun! wheel#tree#rename (level, ...)
 	if index(upper.glossary, new) < 0
 		let old = current.name
 		let current.name = new
+		redraw!
 		echomsg 'Renaming' level old '->' new
 		let glossary = upper.glossary
 		let upper.glossary = wheel#chain#replace(old, new, glossary)
