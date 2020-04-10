@@ -76,6 +76,7 @@ fun! wheel#vortex#follow ()
 		let position = getcurpos()
 		call wheel#vortex#jump ()
 		call setpos('.', position)
+		call wheel#vortex#update ()
 	endif
 endfun
 
