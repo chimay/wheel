@@ -41,9 +41,9 @@ fun! wheel#disc#writefile (varname, file, ...)
 	let string = substitute(string, '\m\n\{2,\}', '\n', 'g')
 	let list = split(string, "\n")
 	if mode == '>>'
-		call writefile(list, a:file, 'a')
+		call writefile(list, file, 'a')
 	else
-		call writefile(list, a:file)
+		call writefile(list, file)
 	endif
 endfun
 
