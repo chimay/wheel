@@ -111,11 +111,11 @@ endfu
 fun! wheel#line#target (target)
 	" Open target tab/win before* switching
 	let target = a:target
-	if target == 'tab'
+	if target ==# 'tab'
 		tabnew
-	elseif target == 'horizontal_split'
+	elseif target ==# 'horizontal_split'
 		split
-	elseif target == 'vertical_split'
+	elseif target ==# 'vertical_split'
 		vsplit
 	endif
 endfu

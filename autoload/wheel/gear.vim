@@ -34,7 +34,7 @@ fun! wheel#gear#project_root (markers)
 				break
 			endif
 		endfor
-		if found || dir == '/'
+		if found || dir ==# '/'
 			break
 		endif
 		lcd ..
@@ -61,7 +61,7 @@ fun! wheel#gear#filter (wordlist, index, value)
 	let marker = split(&foldmarker, ',')[0]
 	let length = strchars(a:value)
 	let prelast = strcharpart(a:value, length - 2, 1)
-	if prelast == marker
+	if prelast ==# marker
 		return 1
 	endif
 	return wheel#gear#word_filter(a:wordlist, a:index, a:value)
@@ -91,7 +91,7 @@ fun! wheel#gear#fold_filter (wordlist, candidates)
 		" --- Comparison
 		" if empty fold, value and next will contain marker
 		" and current fold level will be >= than next one
-		if cur_prelast == marker && next_prelast == marker && cur_last >= next_last
+		if cur_prelast ==# marker && next_prelast ==# marker && cur_last >= next_last
 			" Add line only if matches wordlist
 			if wheel#gear#word_filter(wordlist, index, cur_value)
 				call add(filtered, cur_value)

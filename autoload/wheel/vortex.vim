@@ -58,6 +58,9 @@ fun! wheel#vortex#follow ()
 	endif
 	let cur_file = expand('%:p')
 	let locations = deepcopy(circle.locations)
+	if cur_file ==# locations[circle.current].file
+		return
+	endif
 	call filter(locations, {_,value -> value.file == cur_file})
 	if empty(locations)
 		return
@@ -76,7 +79,8 @@ fun! wheel#vortex#follow ()
 		let position = getcurpos()
 		call wheel#vortex#jump ()
 		call setpos('.', position)
-		call wheel#vortex#update ()
+		redraw!
+		echomsg 'Wheel follows :' string(circle.locations[circle.current])
 	endif
 endfun
 
