@@ -56,7 +56,8 @@ fun! wheel#mandala#filter (...)
 		let mode = a:1
 	endif
 	let lines = wheel#line#filter ()
-	2,$ delete _
+" 	2,$ delete _
+	call deletebufline('%', 2, '$')
 	put =lines
 	setlocal nomodified
 	if line('$') > 1
@@ -126,20 +127,28 @@ fun! wheel#mandala#switch_maps (dict)
 	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
 endfun
 
-fun! wheel#mandala#reorder_maps ()
-	" Define local reorder maps in wheel buffer
-endfun
-
 fun! wheel#mandala#reorder_write (level)
 	" Define reorder autocommands in wheel buffer
 	setlocal buftype=
-	let string = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
-	let string .= a:level . "')"
+	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
+	let autocommand .= a:level . "')"
 	" Need a name when writing, even with BufWriteCmd
 	file /wheel/reorder
 	augroup wheel
 		autocmd!
-		exe string
+		exe autocommand
+	augroup END
+endfun
+
+fun! wheel#mandala#reorganize_write ()
+	" Define reorganize autocommands in wheel buffer
+	setlocal buftype=
+	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
+	" Need a name when writing, even with BufWriteCmd
+	file /wheel/reorder
+	augroup wheel
+		autocmd!
+		exe autocommand
 	augroup END
 endfun
 
@@ -169,8 +178,10 @@ fun! wheel#mandala#folding_text ()
 	elseif v:foldlevel == 3
 		let level = 'location'
 	endif
+	let marker = split(&foldmarker, ',')[0]
+	let pattern = '\m' . marker . '[12]'
 	let repl = ':: ' . level
-	let line = substitute(line, '\m>[12]', repl, '')
+	let line = substitute(line, pattern, repl, '')
 	let text = line . ' :: ' . numlines . ' lines ' . v:folddashes
 	return text
 endfun
@@ -190,8 +201,7 @@ fun! wheel#mandala#switch (level)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary
-		let content = join(names, "\n")
-		put =content
+		call appendbufline('%', 1, names)
 		setlocal nomodified
 		call cursor(1,1)
 	else
@@ -210,8 +220,7 @@ fun! wheel#mandala#helix ()
 	let dict = {'action' : function('wheel#line#helix')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#locations ()
-	let content = join(names, "\n")
-	put =content
+	call appendbufline('%', 1, names)
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -227,15 +236,13 @@ fun! wheel#mandala#grid ()
 	let dict = {'action' : function('wheel#line#grid')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#circles ()
-	let content = join(names, "\n")
-	put =content
+	call appendbufline('%', 1, names)
 	setlocal nomodified
 	call cursor(1,1)
 endfun
 
 fun! wheel#mandala#tree ()
 	" Choose an element in the wheel tree
-	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tree')
 	call wheel#mandala#common_maps ()
@@ -245,8 +252,7 @@ fun! wheel#mandala#tree ()
 	let dict = {'action' : function('wheel#line#tree')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#tree ()
-	let content = join(names, "\n")
-	put =content
+	call appendbufline('%', 1, names)
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -262,8 +268,7 @@ fun! wheel#mandala#history ()
 	let dict = {'action' : function('wheel#line#history')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#pendulum#sorted ()
-	let content = join(names, "\n")
-	put =content
+	call appendbufline('%', 1, names)
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -280,13 +285,27 @@ fun! wheel#mandala#reorder (level)
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let names = upper.glossary
-		let elements = wheel#referen#elements(upper)
-		let content = join(names, "\n")
-		put =content
-		1 delete _
+		call appendbufline('%', 0, names)
+		global /^$/delete
 		setlocal nomodified
 		call cursor(1,1)
 	else
 		echomsg 'Wheel mandala reorder : empty or incomplete' level
 	endif
+endfun
+
+" Reorganize
+
+fun! wheel#mandala#reorganize ()
+	" Reorganize the wheel tree
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-restructure')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#reorganize_write ()
+	call wheel#mandala#folding_options ()
+	let names = wheel#helix#full ()
+	call appendbufline('%', 0, names)
+	global /^$/delete
+	setlocal nomodified
+	call cursor(1,1)
 endfun

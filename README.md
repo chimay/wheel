@@ -285,7 +285,7 @@ at your fingertips.
 
 # TODO
 
-- restructuring buffer
+- reorganize
 - tabline
 - layout
   + split : grid, main left, etc

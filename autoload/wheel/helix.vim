@@ -79,41 +79,60 @@ fun! wheel#helix#locations ()
 	" Index of locations coordinates in the wheel
 	" Each coordinate is a string torus >> circle > location
 	let helix = wheel#helix#helix ()
-	let strings = []
+	let lines = []
 	for coordin in helix
 		let entry = coordin[0] . ' > ' . coordin[1] . ' > ' . coordin[2]
-		let strings = add(strings, entry)
+		let lines = add(lines, entry)
 	endfor
-	return strings
-endfu
-
-fun! wheel#helix#tree ()
-	" Tree of elements in the wheel
-	let helix = wheel#helix#helix ()
-	let strings = []
-	for torus in g:wheel.toruses
-		let entry = torus.name . ' >1'
-		let strings = add(strings, entry)
-		for circle in torus.circles
-			let entry = circle.name . ' >2'
-			let strings = add(strings, entry)
-			for location in circle.locations
-				let entry = location.name
-				let strings = add(strings, entry)
-			endfor
-		endfor
-	endfor
-	return strings
+	return lines
 endfu
 
 fun! wheel#helix#circles ()
 	" Index of circles coordinates in the wheel
 	" Each coordinate is a string torus >> circle
 	let grid = wheel#helix#grid ()
-	let strings = []
+	let lines = []
 	for coordin in grid
 		let entry = coordin[0] . ' >> ' . coordin[1]
-		let strings = add(strings, entry)
+		let lines = add(lines, entry)
 	endfor
-	return strings
+	return lines
+endfu
+
+fun! wheel#helix#tree ()
+	" Tree of elements in the wheel
+	let helix = wheel#helix#helix ()
+	let lines = []
+	for torus in g:wheel.toruses
+		let entry = torus.name . ' >1'
+		let lines = add(lines, entry)
+		for circle in torus.circles
+			let entry = circle.name . ' >2'
+			let lines = add(lines, entry)
+			for location in circle.locations
+				let entry = location.name
+				let lines = add(lines, entry)
+			endfor
+		endfor
+	endfor
+	return lines
+endfu
+
+fun! wheel#helix#full ()
+	" Full description of elements in the wheel
+	let helix = wheel#helix#helix ()
+	let lines = []
+	for torus in g:wheel.toruses
+		let entry = torus.name . ' >1'
+		let lines = add(lines, entry)
+		for circle in torus.circles
+			let entry = circle.name . ' >2'
+			let lines = add(lines, entry)
+			for location in circle.locations
+				let entry = string(location)
+				let lines = add(lines, entry)
+			endfor
+		endfor
+	endfor
+	return lines
 endfu
