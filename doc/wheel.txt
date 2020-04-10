@@ -339,6 +339,12 @@ To validate your change, simply |:write| the buffer.
 The number of lines will be checked and, if there is missing or excedent
 lines, Wheel will refuse to apply your change.
 
+The default mappings launching reordering buffers are :
+
+- `<M-w>o`   : reorder locations
+- `<M-w><C-o>` : reorder circles
+- `<M-w>O` : reorder toruses
+
 If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
 
@@ -367,6 +373,8 @@ integrity. Be aware that removing a line will remove the corresponding
 element from the wheel.
 
 To validate your change, simply |:write| the buffer.
+
+The default mapping is `<M-w><M-o>`.
 
 If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
