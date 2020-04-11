@@ -74,11 +74,12 @@ if ! exists('s:tabwin')
 	lockvar s:tabwin
 endif
 
-if ! exists('s:reorder')
+if ! exists('s:reorganize')
 	let s:reorder = {
 				\ 'Reorder toruses' : "wheel#mandala#reorder('torus')",
 				\ 'Reorder circles' : "wheel#mandala#reorder('circle')",
 				\ 'Reorder locations' : "wheel#mandala#reorder('location')",
+				\ 'Reorganize wheel' : 'wheel#mandala#reorganize',
 				\}
 	lockvar s:reorder
 endif
@@ -93,7 +94,7 @@ if ! exists('s:main')
 	call extend(s:main, s:switch)
 	call extend(s:main, s:alternate)
 	call extend(s:main, s:tabwin)
-	call extend(s:main, s:reorder)
+	call extend(s:main, s:reorganize)
 	lockvar s:main
 endif
 
@@ -107,7 +108,7 @@ if ! exists('s:meta')
 				\ 'Switch menu' : "wheel#hub#menu('s:switch')",
 				\ 'Alternate menu' : "wheel#hub#menu('s:alternate')",
 				\ 'Tabs & Windows menu' : "wheel#hub#menu('s:tabwin')",
-				\ 'Reorder menu' : "wheel#hub#menu('s:reorder')",
+				\ 'Reorganize menu' : "wheel#hub#menu('s:reorganize')",
 				\}
 	lockvar s:meta
 endif
