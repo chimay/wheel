@@ -12,6 +12,30 @@ fun! wheel#vortex#here ()
 	return location
 endfun
 
+fun! wheel#vortex#closest ()
+	" Find closest location to current buffer & position
+	" The search is done in current circle
+	let circle = wheel#referen#circle ()
+	if empty(circle) || ! has_key(circle, 'locations')
+		return [-1, {}]
+	endif
+	let cur_file = expand('%:p')
+	let locations = deepcopy(circle.locations)
+	call filter(locations, {_,value -> value.file == cur_file})
+	if empty(locations)
+		return [-1, {}]
+	endif
+	let cur_line = line('.')
+	let lines = map(deepcopy(locations), {_,val -> val.line})
+	let deltas = map(deepcopy(locations), {_,val -> abs(val.line - cur_line)})
+	let minim = min(deltas)
+	let where = index(deltas, minim)
+	let minline = lines[where]
+	let closest = filter(locations, {_,value -> value.line == minline})[0]
+	let index = index(circle.locations, closest)
+	return [index, closest]
+endfun
+
 fun! wheel#vortex#update ()
 	" Update current location to cursor
 	let location = wheel#referen#location()
@@ -51,38 +75,24 @@ fun! wheel#vortex#jump ()
 endfun
 
 fun! wheel#vortex#follow ()
-	" Set current location to match current file it this file is in current circle
-	let circle = wheel#referen#circle ()
-	if empty(circle) || ! has_key(circle, 'locations')
-		return
-	endif
+	" Try to set current location to match current file
+	" Search for current file in current circle
 	let cur_file = expand('%:p')
-	let locations = deepcopy(circle.locations)
-	if cur_file ==# locations[circle.current].file
+	let cur_loc_file = wheel#referen#location().file
+	if cur_file ==# cur_loc_file
 		return
 	endif
-	call filter(locations, {_,value -> value.file == cur_file})
-	if empty(locations)
+	let [index, location] = wheel#vortex#closest ()
+	if index < 0
 		return
 	endif
-	let cur_line = line('.')
-	let lines = map(deepcopy(locations), {_,val -> val.line})
-	let deltas = map(deepcopy(locations), {_,val -> abs(val.line - cur_line)})
-	let minim = min(deltas)
-	let ind = index(deltas, minim)
-	let minline = lines[ind]
-	call filter(locations, {_,value -> value.line == minline})
-	let local = locations[0]
-	let index = index(circle.locations, local)
-	if index >= 0
-		let circle.current = index
-		let position = getcurpos()
-		call wheel#vortex#jump ()
-		call setpos('.', position)
-		redraw!
-		"echomsg 'Wheel follows :' string(circle.locations[circle.current])
-		return circle.locations[circle.current]
-	endif
+	let circle = wheel#referen#circle ()
+	let circle.current = index
+	let position = getcurpos()
+	call wheel#vortex#jump ()
+	call setpos('.', position)
+	redraw!
+	echomsg 'Wheel follows :' string(location)
 endfun
 
 " Next / Previous
