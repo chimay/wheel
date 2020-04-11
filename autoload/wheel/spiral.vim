@@ -9,6 +9,8 @@ endif
 
 fun! wheel#spiral#height ()
 	" Window height / (1 + golden ratio)
+	" If you open a split window with this height,
+	" the ration old window / new window height will be s:golden
 	return winheight(0) / (1 + s:golden)
 endfun
 

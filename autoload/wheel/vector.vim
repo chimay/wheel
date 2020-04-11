@@ -60,7 +60,6 @@ fun! wheel#vector#grep (...)
 	let runme .= "'"
 	let runme .= ' ' . files
 	exe runme
-	echomsg runme
 	" Open quickfix
 	let height = float2nr(wheel#spiral#height ())
 	exe 'copen ' . height
