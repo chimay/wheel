@@ -56,8 +56,11 @@ fun! wheel#mandala#filter (...)
 		let mode = a:1
 	endif
 	let lines = wheel#line#filter ()
-" 	2,$ delete _
-	call deletebufline('%', 2, '$')
+	if exists('*deletebufline')
+		call deletebufline('%', 2, '$')
+	else
+		2,$ delete _
+	endif
 	put =lines
 	setlocal nomodified
 	if line('$') > 1
