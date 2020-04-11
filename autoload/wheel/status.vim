@@ -15,5 +15,5 @@ endfun
 
 fun! wheel#status#tabline ()
 	" Tab line text
-	" TODO
+	let g:wheel_shelve.tabline_backup = &tabline
 endfun

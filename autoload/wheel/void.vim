@@ -94,6 +94,13 @@ fun! wheel#void#input ()
 	endif
 endfun
 
+fun! wheel#void#shelve ()
+	" Initialize shelve
+	if ! exists('g:wheel_shelve')
+		let g:wheel_shelve = {}
+	endif
+endfun
+
 fun! wheel#void#config ()
 	" Initialize config
 	if ! exists('g:wheel_config')
@@ -138,6 +145,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#files ()
 	call wheel#void#history ()
 	call wheel#void#input ()
+	call wheel#void#shelve ()
 	call wheel#void#config ()
 endfun
 
@@ -153,6 +161,7 @@ fun! wheel#void#lighten ()
 	unlet g:wheel_files
 	unlet g:wheel_history
 	unlet g:wheel_input
+	unlet g:wheel_shelve
 	unlet g:wheel_config
 endfu
 
@@ -178,6 +187,6 @@ fun! wheel#void#exit ()
 	endif
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
+		call wheel#void#lighten ()
 	endif
-	call wheel#void#lighten ()
 endfu
