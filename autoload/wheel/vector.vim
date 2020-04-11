@@ -38,7 +38,6 @@ endfun
 
 fun! wheel#vector#grep (...)
 	" Grep in all files of circle
-	" TODO
 	if a:0 > 0
 		let pattern = a:1
 	else
@@ -46,13 +45,23 @@ fun! wheel#vector#grep (...)
 	endif
 	let locations = deepcopy(wheel#referen#circle().locations)
 	let files = map(locations, {_,value -> value.file})
+	" Remove current directory part
+	let directory = getcwd() . '/'
+	for index in range(len(files))
+		let path = files[index]
+		let files[index] = substitute(path, directory, '', '')
+	endfor
+	" File list as string
 	let files = join(files)
+	" Run grep
 	let runme = 'silent grep! '
 	let runme .= "'"
 	let runme .= pattern
 	let runme .= "'"
 	let runme .= ' ' . files
 	exe runme
+	echomsg runme
+	" Open quickfix
 	let height = float2nr(wheel#spiral#height ())
-	exe 'silent! copen ' . height
+	exe 'copen ' . height
 endfun
