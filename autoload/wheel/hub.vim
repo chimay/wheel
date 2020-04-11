@@ -75,13 +75,13 @@ if ! exists('s:tabwin')
 endif
 
 if ! exists('s:reorganize')
-	let s:reorder = {
+	let s:reorganize = {
 				\ 'Reorder toruses' : "wheel#mandala#reorder('torus')",
 				\ 'Reorder circles' : "wheel#mandala#reorder('circle')",
 				\ 'Reorder locations' : "wheel#mandala#reorder('location')",
 				\ 'Reorganize wheel' : 'wheel#mandala#reorganize',
 				\}
-	lockvar s:reorder
+	lockvar s:reorganize
 endif
 
 " Main menu
