@@ -286,9 +286,10 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Add a new element to the wheel
 - Rename an element
 - Delete an element
-- Navigation buffer, choose and switch to an element
+- Switch to an element
 - Alternate last two elements
-- Reorder elements
+- Display elements in tabs & windows
+- Reorganize elements
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*

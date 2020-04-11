@@ -57,8 +57,8 @@ if ! exists('s:alternate')
 	lockvar s:alternate
 endif
 
-if ! exists('s:tabwin')
-	let s:tabwin = {
+if ! exists('s:display')
+	let s:display = {
 				\ 'Display toruses on tabs' : "wheel#mosaic#tabs('torus')",
 				\ 'Display circles on tabs' : "wheel#mosaic#tabs('circle')",
 				\ 'Display locations on tabs' : "wheel#mosaic#tabs('location')",
@@ -68,10 +68,10 @@ if ! exists('s:tabwin')
 				\ 'Display toruses on vertical splits' : "wheel#mosaic#ver_split('torus')",
 				\ 'Display circles on vertical splits' : "wheel#mosaic#ver_split('circle')",
 				\ 'Display locations on vertical splits' : "wheel#mosaic#ver_split('location')",
-				\ 'Mix : toruses on tabs and circles on splits' : "wheel#pyramid#steps('torus')",
-				\ 'Mix : circles on tabs and locations on splits' : "wheel#pyramid#steps('circle')",
+				\ 'Mix : display toruses on tabs and circles on splits' : "wheel#pyramid#steps('torus')",
+				\ 'Mix : display circles on tabs and locations on splits' : "wheel#pyramid#steps('circle')",
 				\}
-	lockvar s:tabwin
+	lockvar s:display
 endif
 
 if ! exists('s:reorganize')
@@ -93,7 +93,7 @@ if ! exists('s:main')
 	call extend(s:main, s:delete)
 	call extend(s:main, s:switch)
 	call extend(s:main, s:alternate)
-	call extend(s:main, s:tabwin)
+	call extend(s:main, s:display)
 	call extend(s:main, s:reorganize)
 	lockvar s:main
 endif
@@ -107,7 +107,7 @@ if ! exists('s:meta')
 				\ 'Delete menu' : "wheel#hub#menu('s:delete')",
 				\ 'Switch menu' : "wheel#hub#menu('s:switch')",
 				\ 'Alternate menu' : "wheel#hub#menu('s:alternate')",
-				\ 'Tabs & Windows menu' : "wheel#hub#menu('s:tabwin')",
+				\ 'Display in tabs & windows menu' : "wheel#hub#menu('s:display')",
 				\ 'Reorganize menu' : "wheel#hub#menu('s:reorganize')",
 				\}
 	lockvar s:meta
