@@ -285,6 +285,7 @@ at your fingertips.
 
 # TODO
 
+- grep in locations of current circle
 - tabline
 - layout
   + split : grid, main left, etc

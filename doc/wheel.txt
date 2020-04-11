@@ -6,6 +6,7 @@ CONTENTS			*wheel*
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
 Special buffers			|wheel-special-buffers|
+Batch mode			|wheel-batch-operations|
 Configuration			|wheel-configuration|
 Functions			|wheel-functions|
 Mappings			|wheel-mappings|
@@ -303,6 +304,8 @@ in previous used window. You can also use the keys :
 - `v` : open buffer in a new vsplit
 - `<tab>` : same as `<enter>`, but without closing the navigation buffer
 
+Mappings~
+
 The default mappings launching navigation buffers are :
 
 - `<M-w><Space>`   : switch to location
@@ -340,11 +343,15 @@ To validate your change, simply |:write| the buffer.
 The number of lines will be checked and, if there is missing or excedent
 lines, Wheel will refuse to apply your change.
 
+Mappings~
+
 The default mappings launching reordering buffers are :
 
 - `<M-w>o`   : reorder locations
 - `<M-w><C-o>` : reorder circles
 - `<M-w>O` : reorder toruses
+
+Pressed the wrong button ?~
 
 If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
@@ -375,7 +382,11 @@ element from the wheel.
 
 To validate your change, simply |:write| the buffer.
 
+Mappings~
+
 The default mapping is `<M-w><M-o>`.
+
+Pressed the wrong button ?~
 
 If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
@@ -390,6 +401,29 @@ The command : >
 
 uses the argument list to execute `<command>` on each location of the
 current circle. The ouput is displayed in a dedicated buffer.
+
+==============================================================================
+BATCH OPERATIONS				    *wheel-batch-operations*
+
+Batch command			|wheel-batch-command|
+Grep search			|wheel-batch-grep|
+
+------------------------------------------------------------------------------
+BATCH COMMAND					    *wheel-batch-command*
+
+The command : >
+
+ WheelBatch <command>
+<
+
+uses the argument list to execute `<command>` on each location of the
+current circle. The command can be a vim `:command` or an external shell
+`!command`. The ouput is displayed in a dedicated buffer.
+
+------------------------------------------------------------------------------
+GREP SEARCH					    *wheel-batch-grep*
+
+TODO
 
 ==============================================================================
 CONFIGURATION					    *wheel-configuration*
@@ -548,6 +582,10 @@ is sensible after all.
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
 
+The functions used as User Interface are listed :
+
+- In the mappings of autoload/wheel/centre.vim
+- In the menus of autoload/wheel/hub.vim
 
 ==============================================================================
 MAPPINGS						    *wheel-mappings*
