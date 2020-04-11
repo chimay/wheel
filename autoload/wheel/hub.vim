@@ -68,8 +68,8 @@ if ! exists('s:display')
 				\ 'Display toruses on vertical splits' : "wheel#mosaic#ver_split('torus')",
 				\ 'Display circles on vertical splits' : "wheel#mosaic#ver_split('circle')",
 				\ 'Display locations on vertical splits' : "wheel#mosaic#ver_split('location')",
-				\ 'Mix : display toruses on tabs and circles on splits' : "wheel#pyramid#steps('torus')",
-				\ 'Mix : display circles on tabs and locations on splits' : "wheel#pyramid#steps('circle')",
+				\ 'Mix : display toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
+				\ 'Mix : display circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
 				\}
 	lockvar s:display
 endif

@@ -81,4 +81,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	" Info
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
+	" Jump to first entry in history
+	call wheel#vortex#chord(history[0].coordin)
+	call wheel#vortex#jump ()
 endfun
