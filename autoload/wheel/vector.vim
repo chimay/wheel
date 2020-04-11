@@ -35,3 +35,8 @@ fun! wheel#vector#argdo (command)
 		put =output
 	endif
 endfun
+
+fun! wheel#vector#grep ()
+	" Grep in all files of circle
+	" TODO
+endfun

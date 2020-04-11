@@ -73,8 +73,6 @@ endfu
 
 fun! wheel#mandala#common_maps (...)
 	" Define local common maps in wheel buffer
-	nnoremap <buffer> i ggA
-	nnoremap <buffer> a ggA
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 	nnoremap <buffer> j :call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> k :call wheel#mandala#wrap_up()<cr>
@@ -84,6 +82,10 @@ endfu
 
 fun! wheel#mandala#filter_maps ()
 	" Define local filter maps in wheel buffer
+	" Normal mode
+	nnoremap <buffer> i ggA
+	nnoremap <buffer> a ggA
+	" Insert mode
 	inoremap <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
 	inoremap <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
 	inoremap <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
