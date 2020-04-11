@@ -9,6 +9,9 @@ fun! wheel#disc#write (pointer, file, ...)
 	" If optional argument 1 is :
 	" '>' : replace file content (default)
 	" '>>' : add to file content
+	if ! exists(a:pointer)
+		return
+	endif
 	let file = expand(a:file)
 	let mode = '>'
 	if a:0 > 0
@@ -31,6 +34,9 @@ fun! wheel#disc#writefile (varname, file, ...)
 	" If optional argument 1 is :
 	" '>' : replace file content (default)
 	" '>>' : add to file content
+	if ! exists(a:varname)
+		return
+	endif
 	let file = expand(a:file)
 	let mode = '>'
 	if a:0 > 0

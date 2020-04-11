@@ -49,6 +49,7 @@ fun! wheel#mosaic#one_tab ()
 			tabonly
 		endif
 	endif
+	let g:wheel_shelve.layout.tab = 'none'
 endfun
 
 fun! wheel#mosaic#one_window ()
@@ -60,6 +61,7 @@ fun! wheel#mosaic#one_window ()
 			only
 		endif
 	endif
+	let g:wheel_shelve.layout.window = 'none'
 endfun
 
 " Layouts
@@ -84,6 +86,7 @@ fun! wheel#mosaic#tabs (level)
 	endfor
 	tabrewind
 	call wheel#vortex#next (level)
+	let g:wheel_shelve.layout.tab = level
 endfun
 
 fun! wheel#mosaic#hor_split (level)
@@ -100,6 +103,8 @@ fun! wheel#mosaic#hor_split (level)
 	endfor
 	wincmd t
 	call wheel#vortex#next (level)
+	let g:wheel_shelve.layout.split = level
+	let g:wheel_shelve.layout.split_mode = 'horizontal'
 endfun
 
 fun! wheel#mosaic#ver_split (level)
@@ -116,6 +121,8 @@ fun! wheel#mosaic#ver_split (level)
 	endfor
 	wincmd t
 	call wheel#vortex#next (level)
+	let g:wheel_shelve.layout.window = level
+	let g:wheel_shelve.layout.split = 'vertical'
 endfun
 
 fun! wheel#mosaic#grid (level)
@@ -125,4 +132,6 @@ fun! wheel#mosaic#grid (level)
 	let height = winheight(0)
 	" nr2float ?
 	let ratio = round(width) / round(height)
+	let g:wheel_shelve.layout.window = level
+	let g:wheel_shelve.layout.split = 'grid'
 endfun
