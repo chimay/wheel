@@ -148,6 +148,10 @@ let g:wheel_config.project_markers = ['.git', '.my-project-root']
 let g:wheel_config.max_history = 50
 " Autocommands executed after jumping to a location
 autocmd User WheelAfterJump norm zMzx
+" Autocommands on vim leave, for autowriting
+autocmd VimLeave * call wheel#void#exit()
+" Autocommand for current wheel location to auto follow buffer change
+autocmd BufWinEnter * call wheel#vortex#follow()
 ```
 
 as a starting point.
