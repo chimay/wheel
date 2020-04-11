@@ -36,7 +36,23 @@ fun! wheel#vector#argdo (command)
 	endif
 endfun
 
-fun! wheel#vector#grep ()
+fun! wheel#vector#grep (...)
 	" Grep in all files of circle
 	" TODO
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let pattern = input('Pattern ? ')
+	endif
+	let locations = deepcopy(wheel#referen#circle().locations)
+	let files = map(locations, {_,value -> value.file})
+	let files = join(files)
+	let runme = 'silent grep! '
+	let runme .= "'"
+	let runme .= pattern
+	let runme .= "'"
+	let runme .= ' ' . files
+	exe runme
+	let height = float2nr(wheel#spiral#height ())
+	exe 'silent! copen ' . height
 endfun

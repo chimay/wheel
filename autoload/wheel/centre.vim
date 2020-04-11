@@ -7,6 +7,7 @@ fun! wheel#centre#commands ()
 	" Status
 	command! WheelDashboard call wheel#status#dashboard()
 	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
+	command! -nargs=+ WheelGrep call wheel#vector#grep(<q-args>)
 endfun
 
 fun! wheel#centre#mappings ()
@@ -87,17 +88,23 @@ fun! wheel#centre#mappings ()
 		" Hub : Menus
 		nnoremap <D-=>        :call wheel#hub#meta()<cr>
 		nnoremap <D-m>        :call wheel#hub#main()<cr>
-		" Tree
+		" Mandala : special buffers
+		nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
+		nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
+		nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
+		nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
+		nnoremap <M-Space>    :call wheel#mandala#reorganize()<cr>
+		" Tree : add, rename, delete
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
 		nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
-		" Vortex
+		" Vortex : switch
 		nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
 		nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
 		nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
 		nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
 		nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
 		nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
-		" Pendulum
+		" Pendulum : history
 		nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
 		nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
 		nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
@@ -106,10 +113,8 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
 		nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
 		nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
-		" Mandala
-		nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
-		nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
-		nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
-		nnoremap <D-Space>        :call wheel#mandala#tree()<cr>
+		" Batch
+		nnoremap <D-b>          :WheelBatch<space>
+		nnoremap <D-g>          :WheelGrep<space>
 	endif
 endfun

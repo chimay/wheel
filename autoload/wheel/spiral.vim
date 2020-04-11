@@ -2,10 +2,15 @@
 
 " Golden mean
 
-if ! exists('s:levels')
+if ! exists('s:golden')
 	let s:golden = (1 + sqrt(5)) / 2
 	lockvar s:golden
 endif
+
+fun! wheel#spiral#height ()
+	" Window height / (1 + golden ratio)
+	return winheight(0) / (1 + s:golden)
+endfun
 
 fun! wheel#spiral#cursor ()
 	" Position cursor so that

@@ -394,13 +394,7 @@ variables with `<M-w>r`.
 ------------------------------------------------------------------------------
 BATCH BUFFERS				*wheel-special-buffers-batch*
 
-The command : >
-
- WheelBatch <command>
-<
-
-uses the argument list to execute `<command>` on each location of the
-current circle. The ouput is displayed in a dedicated buffer.
+See |wheel-batch-command|.
 
 ==============================================================================
 BATCH OPERATIONS				    *wheel-batch-operations*
@@ -413,7 +407,7 @@ BATCH COMMAND					    *wheel-batch-command*
 
 The command : >
 
- WheelBatch <command>
+ WheelBatch my_command
 <
 
 uses the argument list to execute `<command>` on each location of the
@@ -423,7 +417,13 @@ current circle. The command can be a vim `:command` or an external shell
 ------------------------------------------------------------------------------
 GREP SEARCH					    *wheel-batch-grep*
 
-TODO
+The command : >
+
+ WheelGrep my_pattern
+<
+
+launches a |:grep| search in the current circle files. The results are
+displayed in the usual |quickfix| window.
 
 ==============================================================================
 CONFIGURATION					    *wheel-configuration*
@@ -749,6 +749,11 @@ tab. Same idea with circles and toruses.
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
 
+Reorganizing buffer~
+
+| Prefix + | With default prefix | Action                    |
+| <M-o>    | <M-w><M-o>          | Reorganize wheel elements |
+
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
 
@@ -756,48 +761,55 @@ The level 10 offers quicker mappings for the most used wheel functions. You
 can set the mapping level to 10 to activate them, or adapt them to your taste
 and add them to your init file.
 
-| Mapping        | Action                                |
-| <D-=>          | Meta menu                             |
-| <D-m>          | Main menu                             |
-| <D-Insert>     | Add location to the current circle    |
-| <D-Del>        | Delete current location               |
-| <C-PageUp>     | Go to previous location               |
-| <C-PageDown>   | Go to next location                   |
-| <C-Home>       | Go to previous circle                 |
-| <C-End>        | Go to next circle                     |
-| <S-Home>       | Go to previous torus                  |
-| <S-End>        | Go to next torus                      |
-| <Space>        | Choose location in special buffer     |
-| <C-Space>      | Choose circle in special buffer       |
-| <S-Space>      | Choose torus in special buffer        |
-| <D-Space>      | Switch to location with completion    |
-| <D-=>          | Switch to circle                      |
-| <D-*>          | Switch to torus                       |
-| <S-PageUp>     | Go to newer location in history       |
-| <S-PageDown>   | Go to older location in history       |
-| <C-^>          | Alternate last two locations          |
-| <D-^>          | Alternate in same torus, other circle |
-| <C-S-PageUp>   | Alternate in same torus               |
-| <C-S-PageDown> | Alternate in same circle              |
-| <C-S-Home>     | Alternate in other torus              |
-| <C-S-End>      | Alternate in other circle             |
+| Mapping        | Action                                  |
+| <D-=>          | Meta menu                               |
+| <D-m>          | Main menu                               |
+| <Space>        | Choose location in special buffer       |
+| <C-Space>      | Choose circle in special buffer         |
+| <S-Space>      | Choose torus in special buffer          |
+| <D-Space>      | Choose element in wheel folding tree    |
+| <M-Space>      | Reorganize wheel elements               |
+| <D-Insert>     | Add location to the current circle      |
+| <D-Del>        | Delete current location                 |
+| <C-PageUp>     | Go to previous location                 |
+| <C-PageDown>   | Go to next location                     |
+| <C-Home>       | Go to previous circle                   |
+| <C-End>        | Go to next circle                       |
+| <S-Home>       | Go to previous torus                    |
+| <S-End>        | Go to next torus                        |
+| <S-PageUp>     | Go to newer location in history         |
+| <S-PageDown>   | Go to older location in history         |
+| <C-^>          | Alternate last two locations            |
+| <D-^>          | Alternate in same torus, other circle   |
+| <C-S-PageUp>   | Alternate in same torus                 |
+| <C-S-PageDown> | Alternate in same circle                |
+| <C-S-Home>     | Alternate in other torus                |
+| <C-S-End>      | Alternate in other circle               |
+| <D-b>          | Batch operation in current circle files |
+| <D-g>          | Grep in current circle files            |
 
 Here is the default level 10, if you wish to customize it : >
 
  " Hub : Menus
  nnoremap <D-=>        :call wheel#hub#meta()<cr>
  nnoremap <D-m>        :call wheel#hub#main()<cr>
- " Tree
+ " Mandala : special buffers
+ nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
+ nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
+ nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
+ nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
+ nnoremap <M-Space>    :call wheel#mandala#reorganize()<cr>
+ " Tree : add, rename, delete
  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
  nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
- " Vortex
+ " Vortex : switch
  nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
  nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
  nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
  nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
  nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
  nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
- " Pendulum
+ " Pendulum : history
  nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
  nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
  nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
@@ -806,11 +818,9 @@ Here is the default level 10, if you wish to customize it : >
  nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
  nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
  nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
- " Mandala
- nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
- nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
- nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
- nnoremap <D-Space>        :call wheel#mandala#tree()<cr>
+ " Batch
+ nnoremap <D-b>          :WheelBatch<space>
+ nnoremap <D-g>          :WheelGrep<space>
 <
 
 ==============================================================================
