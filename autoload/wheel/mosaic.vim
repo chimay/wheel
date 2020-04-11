@@ -62,6 +62,7 @@ fun! wheel#mosaic#one_window ()
 		endif
 	endif
 	let g:wheel_shelve.layout.window = 'none'
+	let g:wheel_shelve.layout.split = 'none'
 endfun
 
 " Layouts
