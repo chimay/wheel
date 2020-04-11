@@ -99,6 +99,9 @@ fun! wheel#void#shelve ()
 	if ! exists('g:wheel_shelve')
 		let g:wheel_shelve = {}
 	endif
+	if ! has_key(g:wheel_shelve, 'layout')
+		let g:wheel_shelve.layout = {}
+	endif
 endfun
 
 fun! wheel#void#config ()
