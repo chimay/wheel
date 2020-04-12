@@ -89,14 +89,16 @@ grow and adapt to your style.
 - Reordering elements
 - Moving elements
 - Display files
-  + 1 location per tab
-  + 1 circle per tab
-  + 1 torus per tab
+  + 1 location per tab / split
+  + 1 circle per tab / split
+  + 1 torus per tab / split
   + split : vertical, horizontal, grid, main, ...
   + Mix of above
+    * circles on tabs, locations on split
+    * toruses on tabs, circles on split
 - Batch operations
 - Grep on group files
-- Yank wheel
+- Yank wheel using TextYankPost event
 
 As you see, some features go beyond a buffer manager. Why include
 these ? Because once the framework is there, it’s easy to add new
