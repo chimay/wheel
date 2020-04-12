@@ -84,6 +84,13 @@ if ! exists('s:reorganize')
 	lockvar s:reorganize
 endif
 
+if ! exists('s:yank')
+	let s:yank = {
+				\ 'Yank wheel' : 'wheel#mandala#yank',
+				\}
+	lockvar s:yank
+endif
+
 " Main menu
 
 if ! exists('s:main')
@@ -95,6 +102,7 @@ if ! exists('s:main')
 	call extend(s:main, s:alternate)
 	call extend(s:main, s:display)
 	call extend(s:main, s:reorganize)
+	call extend(s:main, s:yank)
 	lockvar s:main
 endif
 
@@ -109,6 +117,7 @@ if ! exists('s:meta')
 				\ 'Alternate menu' : "wheel#hub#menu('s:alternate')",
 				\ 'Display in tabs & windows menu' : "wheel#hub#menu('s:display')",
 				\ 'Reorganize menu' : "wheel#hub#menu('s:reorganize')",
+				\ 'Yank menu' : "wheel#hub#menu('s:yank')",
 				\}
 	lockvar s:meta
 endif
