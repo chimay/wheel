@@ -34,6 +34,11 @@ fun! wheel#codex#add ()
 	call wheel#codex#register ('"', 'begin')
 	call wheel#codex#register ('+')
 	call wheel#codex#register ('*')
+	call wheel#codex#register (':')
+	call wheel#codex#register ('/')
+	call wheel#codex#register ('.')
+	call wheel#codex#register ('%')
+	call wheel#codex#register ('#')
 	let max = g:wheel_config.max_yanks
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
