@@ -309,6 +309,7 @@ fun! wheel#mandala#yank ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	setlocal nofoldenable
 	nnoremap <buffer> <cr> :call wheel#line#paste ('close')<cr>
 	nnoremap <buffer> <tab> :call wheel#line#paste ('open')<cr>
 	let names = wheel#codex#lines ()
