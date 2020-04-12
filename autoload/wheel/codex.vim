@@ -14,6 +14,7 @@ fun! wheel#codex#register (register, ...)
 	endif
 	let yanks = g:wheel_yank
 	let content = getreg(a:register)
+	let content = escape(content, "'")
 	if strchars(content) > g:wheel_config.max_yank_size
 		return
 	endif
