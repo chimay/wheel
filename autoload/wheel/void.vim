@@ -155,6 +155,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#files ()
 	call wheel#void#history ()
 	call wheel#void#input ()
+	call wheel#void#yank ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 endfun
