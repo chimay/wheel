@@ -229,7 +229,8 @@ Menu buffers			|wheel-special-buffers-menus|
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 Reorganizing buffers		|wheel-special-buffers-reorganizing|
-Bath buffers			|wheel-special-buffers-batch|
+Yank buffer			|wheel-special-buffers-yank|
+Batch buffer			|wheel-special-buffers-batch|
 
 ------------------------------------------------------------------------------
 INTRODUCTION				*wheel-special-buffers-introduction*
@@ -393,7 +394,17 @@ If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
 
 ------------------------------------------------------------------------------
-BATCH BUFFERS				*wheel-special-buffers-batch*
+YANK BUFFER				*wheel-special-buffers-yank*
+
+Each buffer line is a list of lines that will be yanked if you press
+`<enter>`. Can be filtered in insert mode.
+
+Mappings~
+
+The default mapping is `<M-w>y`.
+
+------------------------------------------------------------------------------
+BATCH BUFFER				*wheel-special-buffers-batch*
 
 See |wheel-batch-command|.
 
