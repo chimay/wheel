@@ -95,8 +95,8 @@ grow and adapt to your style.
   + split : vertical, horizontal, grid, main, ...
   + Mix of above
 - Batch operations
+- Grep on group files
 - Yank wheel
-- Autogroup
 
 As you see, some features go beyond a buffer manager. Why include
 these ? Because once the framework is there, it’s easy to add new
@@ -302,7 +302,6 @@ at your fingertips.
 # TODO
 
 - tabline
-- yank wheel
 - layout
   + split : grid, main left, etc
 - autogroup

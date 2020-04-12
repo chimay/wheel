@@ -87,8 +87,8 @@ FEATURES				*wheel-introduction-features*
   + 1 torus per tab
   + split : vertical, horizontal, grid, main, ...
   + Mix of above
-- Autogroup
 - Batch operations
+- Grep on group files
 
 ------------------------------------------------------------------------------
 HISTORY						*wheel-introduction-history*
