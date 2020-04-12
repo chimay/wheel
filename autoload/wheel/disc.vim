@@ -94,6 +94,7 @@ fun! wheel#disc#write_all ()
 		call wheel#disc#write('g:wheel_files', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_history', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_input', g:wheel_config.file, '>>')
+		call wheel#disc#write('g:wheel_yank', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_shelve', g:wheel_config.file, '>>')
 		if argc() == 0 && has('nvim')
 			echomsg 'Writing done !'

@@ -94,8 +94,15 @@ grow and adapt to your style.
   + 1 torus per tab
   + split : vertical, horizontal, grid, main, ...
   + Mix of above
-- Autogroup
 - Batch operations
+- Yank wheel
+- Autogroup
+
+As you see, some features go beyond a buffer manager. Why include
+these ? Because once the framework is there, it’s easy to add new
+functionalities. UNIX’s philosophy is respected however, on a module
+level : each file in `autoload/wheel` deals with a specific kind of
+problem, and do it well ; the magic is when modules talk together.
 
 ## History
 
@@ -290,6 +297,7 @@ at your fingertips.
 # TODO
 
 - tabline
+- yank wheel
 - layout
   + split : grid, main left, etc
 - autogroup

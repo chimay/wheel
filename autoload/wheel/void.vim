@@ -94,6 +94,13 @@ fun! wheel#void#input ()
 	endif
 endfun
 
+fun! wheel#void#yank ()
+	" Initialize input history
+	if ! exists('g:wheel_yank')
+		let g:wheel_yank = []
+	endif
+endfun
+
 fun! wheel#void#shelve ()
 	" Initialize shelve
 	if ! exists('g:wheel_shelve')
