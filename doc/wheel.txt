@@ -8,6 +8,7 @@ Step by step			|wheel-step-by-step|
 Special buffers			|wheel-special-buffers|
 Batch mode			|wheel-batch-operations|
 Configuration			|wheel-configuration|
+Autocommands			|wheel-autocommands|
 Functions			|wheel-functions|
 Mappings			|wheel-mappings|
 
@@ -438,7 +439,8 @@ Prefix					|wheel-config-prefix|
 Cd project				|wheel-config-cd_project|
 Project markers				|wheel-config-project_markers|
 Max history 				|wheel-config-max_history|
-Autocommands				|wheel-config-autocommands|
+Max yanks 				|wheel-config-max_yanks|
+Max yank size 				|wheel-config-max_yank_size|
 
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
@@ -545,9 +547,39 @@ Maximum number of elements in the wheel history : >
 <
 
 ------------------------------------------------------------------------------
-AUTOCOMMANDS				   *wheel-config-autocommands*
+MAX YANKS				   *wheel-config-max_yanks*
 
-After jump~
+Maximum number of elements in the yank wheel : >
+
+    let g:wheel_config.max_yanks = 50
+<
+
+------------------------------------------------------------------------------
+MAX YANK SIZE				   *wheel-config-max_yank_size*
+
+Maximum size of elements in the yank wheel : >
+
+    let g:wheel_config.max_yank_size = 500
+<
+
+==============================================================================
+AUTOCOMMANDS					   *wheel-autocommands*
+
+Auto write			|wheel-autocommands-auto-write|
+After jump			|wheel-autocommands-after-jump|
+Auto follow			|wheel-autocommands-auto-follow|
+Yank wheel			|wheel-autocommands-yank|
+
+------------------------------------------------------------------------------
+AUTO WRITE				*wheel-autocommands-auto-write*
+
+To enable autowrite, you need to add an autocommand on vim leave : >
+
+    autocmd VimLeave * call wheel#void#exit()
+<
+
+------------------------------------------------------------------------------
+AFTER JUMP				*wheel-autocommands-after-jump*
 
 The user autocommands `WheelAfterJump` are executed at the end of each
 navigation operation in the Wheel ; basically, each time you jump to
@@ -558,14 +590,8 @@ This example fold everything except the cursor line : >
     autocmd User WheelAfterJump norm zMzx
 <
 
-Auto write~
-
-To enable autowrite, you need to add an autocommand on vim leave : >
-
-    autocmd VimLeave * call wheel#void#exit()
-<
-
-Auto follow~
+------------------------------------------------------------------------------
+AUTO FOLLOW		    		*wheel-autocommands-auto-follow*
 
 If you wish the wheel to auto-follow the buffers you enter, you can add
 this autocommand : >
@@ -578,6 +604,15 @@ when you search with grep and the quickfix window.
 
 Be aware that it will update the wheel cursor position of your buffer, which
 is sensible after all.
+
+------------------------------------------------------------------------------
+YANK WHEEL					*wheel-autocommands-yank*
+
+If you want to record your yanks/delete, you can add this autommand to
+your init file : >
+
+ autocmd TextYankPost * call wheel#codex#add()
+<
 
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
@@ -749,6 +784,11 @@ tab. Same idea with circles and toruses.
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
 
+Yank wheel~
+
+| Prefix + | With default prefix | Action                               |
+| y        | <M-w>y              | Paste an element of yank wheel       |
+
 Reorganizing buffer~
 
 | Prefix + | With default prefix | Action                    |
@@ -818,6 +858,8 @@ Here is the default level 10, if you wish to customize it : >
  nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
  nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
  nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
+ " Yank wheel
+ nnoremap <D-y>          :call wheel#mandala#yank()<cr>
  " Batch
  nnoremap <D-b>          :WheelBatch<space>
  nnoremap <D-g>          :WheelGrep<space>
