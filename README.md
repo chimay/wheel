@@ -158,10 +158,10 @@ let g:wheel_config.max_yanks = 70
 " Maximum size of elements in yank wheel
 let g:wheel_config.max_yank_size = 500
 
-" Autocommands executed after jumping to a location
-autocmd User WheelAfterJump norm zMzx
 " Autocommands on vim leave, for autowriting
 autocmd VimLeave * call wheel#void#exit()
+" Autocommands executed after jumping to a location
+autocmd User WheelAfterJump norm zMzx
 " Autocommand for current wheel location to auto follow buffer change
 autocmd BufWinEnter * call wheel#vortex#follow()
 " Autocommand to record your yanks in the yank wheel"
