@@ -279,11 +279,8 @@ fun! wheel#line#paste (...)
 	else
 		let close = 1
 	endif
-	echomsg 'close : ' close
 	let line = getline('.')
 	let runme = 'let content = ' . line
-	echomsg 'runme : ' runme
-	echomsg 'runme : ' runme
 	exe runme
 	if close == 'close'
 		call wheel#mandala#close ()
