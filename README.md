@@ -164,6 +164,8 @@ autocmd User WheelAfterJump norm zMzx
 autocmd VimLeave * call wheel#void#exit()
 " Autocommand for current wheel location to auto follow buffer change
 autocmd BufWinEnter * call wheel#vortex#follow()
+" Autocommand to record your yanks in the yank wheel"
+autocmd TextYankPost * call wheel#codex#add()
 ```
 
 as a starting point.
