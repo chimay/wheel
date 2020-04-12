@@ -92,7 +92,7 @@ grow and adapt to your style.
   + 1 location per tab / split
   + 1 circle per tab / split
   + 1 torus per tab / split
-  + split : vertical, horizontal, grid, main, ...
+  + Split : vertical, horizontal, grid, main, ...
   + Mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
