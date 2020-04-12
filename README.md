@@ -153,6 +153,11 @@ let g:wheel_config.cd_project = 1
 let g:wheel_config.project_markers = ['.git', '.my-project-root']
 " Maximum number of elements in history
 let g:wheel_config.max_history = 50
+" Maximum number of elements in yank wheel
+let g:wheel_config.max_yanks = 70
+" Maximum size of elements in yank wheel
+let g:wheel_config.max_yank_size = 500
+
 " Autocommands executed after jumping to a location
 autocmd User WheelAfterJump norm zMzx
 " Autocommands on vim leave, for autowriting

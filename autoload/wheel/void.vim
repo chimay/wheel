@@ -140,6 +140,12 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'max_history')
 		let g:wheel_config.max_history = 50
 	endif
+	if ! has_key(g:wheel_config, 'max_yanks')
+		let g:wheel_config.max_yanks = 50
+	endif
+	if ! has_key(g:wheel_config, 'max_yank_size')
+		let g:wheel_config.max_yank_size = 500
+	endif
 	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0
 	endif

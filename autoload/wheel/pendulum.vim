@@ -56,6 +56,7 @@ fun! wheel#pendulum#sorted ()
 endfu
 
 fun! wheel#pendulum#is_in_history (entry)
+	" Whether entry is in history
 	let present = 0
 	let entry = a:entry
 	for elem in g:wheel_history
