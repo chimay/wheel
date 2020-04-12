@@ -17,7 +17,6 @@ fun! wheel#codex#register (register, ...)
 	if strchars(content) > g:wheel_config.max_yank_size
 		return
 	endif
-	let content = substitute(content, "'", '\\\0', 'g')
 	let content = split(content, "\n")
 	let index = index(yanks, content)
 	if index < 0
@@ -37,4 +36,13 @@ fun! wheel#codex#add ()
 	call wheel#codex#register ('*')
 	let max = g:wheel_config.max_yanks
 	let g:wheel_yank = g:wheel_yank[:max - 1]
+endfun
+
+fun! wheel#codex#lines ()
+	" List of strings to display in yank special buffer
+	let lines = []
+	for elem in g:wheel_yank
+		call add(lines, string(elem))
+	endfor
+	return lines
 endfun

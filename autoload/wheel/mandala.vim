@@ -20,6 +20,8 @@ fun! wheel#mandala#open (...)
 	setlocal buftype=nofile
 	setlocal bufhidden=delete
 	let &filetype = type
+	" For wheel yank
+	setlocal nowrap
 endfun
 
 fun! wheel#mandala#close ()
@@ -289,6 +291,27 @@ fun! wheel#mandala#history ()
 	let dict = {'action' : function('wheel#line#history')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#pendulum#sorted ()
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
+	setlocal nomodified
+	call cursor(1,1)
+endfun
+
+" Yank wheel
+
+fun! wheel#mandala#yank ()
+	" Choose a yank wheel element to paste
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-yank')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
+	nnoremap <buffer> <cr> :call wheel#line#paste ('close')<cr>
+	nnoremap <buffer> <tab> :call wheel#line#paste ('open')<cr>
+	let names = wheel#codex#lines ()
 	if exists('*appendbufline')
 		call appendbufline('%', 1, names)
 	else

@@ -78,7 +78,11 @@ fun! wheel#vortex#follow ()
 	" Try to set current location to match current file
 	" Search for current file in current circle
 	let cur_file = expand('%:p')
-	let cur_loc_file = wheel#referen#location().file
+	let cur_location = wheel#referen#location()
+	if empty(cur_location)
+		return
+	endif
+	let cur_loc_file = cur_location.file
 	if cur_file ==# cur_loc_file
 		return
 	endif

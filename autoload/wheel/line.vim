@@ -2,6 +2,7 @@
 
 " Action of the cursor line :
 " - Going to an element
+" - Paste
 
 " Helpers
 
@@ -267,4 +268,32 @@ fun! wheel#line#history (dict)
 	call wheel#line#target (a:dict.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump ()
+endfun
+
+" Paste
+
+fun! wheel#line#paste (...)
+	" Paste line
+	if a:0 > 0
+		let close = a:1
+	else
+		let close = 1
+	endif
+	echomsg 'close : ' close
+	let line = getline('.')
+	let runme = 'let content = ' . line
+	echomsg 'runme : ' runme
+	echomsg 'runme : ' runme
+	exe runme
+	if close == 'close'
+		call wheel#mandala#close ()
+	else
+		if winnr('$') > 1
+			wincmd p
+		else
+			bdelete!
+		endif
+	endif
+	put =content
+	let @" = join(content, "\n")
 endfun
