@@ -3,14 +3,36 @@
 " Yank wheel
 " Take advantage of TextYankPost event
 
-fun! wheel#codex#add ()
-	" Insert most used registers at the beginning of g:wheel_yank
-	let yanks = g:wheel_yank
-	let register = getreg('"')
-	if strchars(register) <= g:wheel_config.max_yank_size
-		let index = index(yanks, register)
-		call insert(yanks, register)
+fun! wheel#codex#register (register, ...)
+	" Add register to yank wheel
+	" If mode == begin and register content is already in yank wheel,
+	" move it at the beginning of the list
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
 	endif
+	let yanks = g:wheel_yank
+	let content = getreg(a:register)
+	if strchars(content) > g:wheel_config.max_yank_size
+		return
+	endif
+	let index = index(yanks, content)
+	if index < 0
+		call insert(yanks, content)
+	else
+		if mode == 'begin'
+			call remove(yanks, index)
+			call insert(yanks, content)
+		endif
+	endif
+endfun
+
+fun! wheel#codex#add ()
+	" Insert most used registers in yank wheel
+	call wheel#codex#register ('"', 'begin')
+	call wheel#codex#register ('+')
+	call wheel#codex#register ('*')
 	let max = g:wheel_config.max_yanks
-	let g:wheel_yanks = g:wheel_yanks[:max - 1]
+	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
