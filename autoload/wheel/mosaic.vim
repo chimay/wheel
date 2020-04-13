@@ -90,8 +90,13 @@ fun! wheel#mosaic#tabs (level)
 	let g:wheel_shelve.layout.tab = level
 endfun
 
-fun! wheel#mosaic#hor_split (level)
+fun! wheel#mosaic#split (level, ...)
 	" One level element per horizontal split
+	if a:0 > 0
+		let Fun = a:1
+	else
+		let Fun = 'wheel#mosaic#horizontal'
+	endif
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -99,31 +104,30 @@ fun! wheel#mosaic#hor_split (level)
 	call wheel#mosaic#one_window ()
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
-		split
-		call wheel#vortex#next (level)
-	endfor
-	wincmd t
-	call wheel#vortex#next (level)
-	let g:wheel_shelve.layout.split = level
-	let g:wheel_shelve.layout.split_mode = 'horizontal'
-endfun
-
-fun! wheel#mosaic#ver_split (level)
-	" One level element per vertical split
-	let level = a:level
-	let upper = wheel#referen#upper (level)
-	let elements = wheel#referen#elements (upper)
-	let length = len(elements)
-	call wheel#mosaic#one_window ()
-	call wheel#vortex#jump ()
-	for index in range(length - 1)
-		vsplit
+		if type(Split) == v:t_func
+			call Fun (level)
+		elseif type(Split) == v:t_string
+			call {Fun} (level)
+		else
+			echomsg 'Wheel mosaic split : bad function'
+		endif
 		call wheel#vortex#next (level)
 	endfor
 	wincmd t
 	call wheel#vortex#next (level)
 	let g:wheel_shelve.layout.window = level
-	let g:wheel_shelve.layout.split = 'vertical'
+	let mode = substitute
+	let g:wheel_shelve.layout.split_mode = 'horizontal'
+endfun
+
+fun! wheel#mosaic#horizontal (level)
+	" One level element per horizontal split
+	split
+endfun
+
+fun! wheel#mosaic#vertical (level)
+	" One level element per vertical split
+	vsplit
 endfun
 
 fun! wheel#mosaic#grid (level)

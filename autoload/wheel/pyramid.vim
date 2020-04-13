@@ -8,7 +8,7 @@ fun! wheel#pyramid#steps (level, ...)
 	if a:0 > 0
 		let Split = a:1
 	else
-		let Split = function('wheel#mosaic#hor_split')
+		let Split = function('wheel#mosaic#split')
 	endif
 	let one = a:level
 	let two = wheel#referen#lower_level_name (a:level)
