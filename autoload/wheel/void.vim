@@ -134,6 +134,7 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'project_markers')
 		let g:wheel_config.project_markers = '.git'
 	endif
+	" Maxim
 	if ! has_key(g:wheel_config, 'maxim')
 		let g:wheel_config.maxim = {}
 	endif
@@ -149,7 +150,8 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'yank_size')
 		let g:wheel_config.maxim.yank_size = 500
 	endif
-	if ! has_key(g:wheel_config.maxim, 'debug')
+	" Debug
+	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0
 	endif
 endfun
