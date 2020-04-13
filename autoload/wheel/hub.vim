@@ -111,14 +111,14 @@ endif
 
 if ! exists('s:meta')
 	let s:meta = {
-				\ 'Add menu' : "wheel#hub#menu('s:add')",
-				\ 'Rename menu' : "wheel#hub#menu('s:rename')",
-				\ 'Delete menu' : "wheel#hub#menu('s:delete')",
-				\ 'Switch menu' : "wheel#hub#menu('s:switch')",
-				\ 'Alternate menu' : "wheel#hub#menu('s:alternate')",
-				\ 'Display in tabs & windows menu' : "wheel#hub#menu('s:display')",
-				\ 'Reorganize menu' : "wheel#hub#menu('s:reorganize')",
-				\ 'Yank menu' : "wheel#hub#menu('s:yank')",
+				\ 'Add' : "wheel#hub#menu('s:add')",
+				\ 'Rename' : "wheel#hub#menu('s:rename')",
+				\ 'Delete' : "wheel#hub#menu('s:delete')",
+				\ 'Switch' : "wheel#hub#menu('s:switch')",
+				\ 'Alternate' : "wheel#hub#menu('s:alternate')",
+				\ 'Display in tabs & windows' : "wheel#hub#menu('s:display')",
+				\ 'Reorganize' : "wheel#hub#menu('s:reorganize')",
+				\ 'Yank' : "wheel#hub#menu('s:yank')",
 				\}
 	lockvar s:meta
 endif
