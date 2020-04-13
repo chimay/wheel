@@ -68,6 +68,7 @@ fun! wheel#mosaic#one_window ()
 	endif
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
+	let w:coordin = [0, 0]
 	return 1
 endfun
 
@@ -115,11 +116,14 @@ fun! wheel#mosaic#split (level, ...)
 	endif
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
-		call wheel#mosaic#{action} (level)
+		let alright = wheel#mosaic#{action} (level)
+		if ! alright
+			break
+		endif
 		call wheel#vortex#next (level)
 	endfor
 	wincmd t
-	call wheel#vortex#next (level)
+	call wheel#vortex#follow ()
 	let g:wheel_shelve.layout.window = level
 	let g:wheel_shelve.layout.split = action
 endfun
@@ -128,12 +132,34 @@ endfun
 
 fun! wheel#mosaic#horizontal (level)
 	" Horizontal split
-	split
+	" w:coordin = [row number, col number]
+	if ! exists('w:coordin')
+		let w:coordin = [0, 0]
+	endif
+	let next = w:coordin[1] + 1
+	if next <= g:wheel_config.maxim.horizontal - 1
+		split
+		let w:coordin = [0, next]
+		return 1
+	else
+		return 0
+	endif
 endfun
 
 fun! wheel#mosaic#vertical (level)
 	" Vertical split
-	vsplit
+	" w:coordin = [row number, col number]
+	if ! exists('w:coordin')
+		let w:coordin = [0, 0]
+	endif
+	let next = w:coordin[0] + 1
+	if next <= g:wheel_config.maxim.vertical - 1
+		vsplit
+		let w:coordin = [next, 0]
+		return 1
+	else
+		return 0
+	endif
 endfun
 
 fun! wheel#mosaic#grid (level)

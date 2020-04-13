@@ -180,6 +180,19 @@ echo 'Factorial 5 :' s:Factorial(5)
 
 " }}}2
 
+" Vim vars {{{1
+
+fun! Vars ()
+	echo 'v:count' v:count
+	let count = 'my count'
+	echo 'count' count
+	echo 'v:count' v:count
+endfun
+
+call Vars ()
+
+" }}}1
+
 " }}}1
 
 " Autocommands {{{1
