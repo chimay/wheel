@@ -399,12 +399,24 @@ variables with `<M-w>r`.
 ------------------------------------------------------------------------------
 YANK BUFFER				*wheel-special-buffers-yank*
 
-Each buffer line is a list of lines that will be yanked if you press
-`<enter>`. Can be filtered in insert mode.
+List mode~
 
-Mappings~
+The yank wheel buffer in list mode is launched by `<M-w>y`.
 
-The default mapping is `<M-w>y`.
+Each line of the special buffer is one of your yanks, represented as a
+list, one element per line. To paste a yank, just press `<enter>` or `p`.
+
+You can filter the elements in insert mode.
+
+Plain mode~
+
+The yank wheel buffer in plain mode is launched by `<M-w><M-y>`.
+
+All your yanks are concatenated and displayed in the special buffer.
+To paste a line, just press `<enter>` or `p`. You can also go to visual
+mode and paste your selection.
+
+You can filter the elements in insert mode.
 
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-special-buffers-batch*
