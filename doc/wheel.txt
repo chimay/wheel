@@ -579,7 +579,7 @@ MAX NUMBER OF ELEMENTS IN INPUT HISTORY		   *wheel-config-maxim-input*
 
 Maximum number of elements in the wheel history : >
 
-    let g:wheel_config.maxim.history = 50
+    let g:wheel_config.maxim.input = 100
 <
 
 ------------------------------------------------------------------------------
@@ -587,7 +587,7 @@ MAX NUMBER OF ELEMENTS IN YANK WHEEL		   *wheel-config-maxim-yanks*
 
 Maximum number of elements in the yank wheel : >
 
-    let g:wheel_config.maxim.yanks = 50
+    let g:wheel_config.maxim.yanks = 300
 <
 
 ------------------------------------------------------------------------------
@@ -595,13 +595,13 @@ MAX SIZE OF A YANK IN YANK WHEEL	   *wheel-config-maxim-yank_size*
 
 Maximum size of elements in the yank wheel : >
 
-    let g:wheel_config.maxim.yank_size = 500
+    let g:wheel_config.maxim.yank_size = 3000
 <
 
 ------------------------------------------------------------------------------
 EXAMPLE					    *wheel-config-example*
 
-Here is an example of complete configuration : >
+Here is an example of a complete configuration : >
 
   " Init
   let g:wheel_config={}
