@@ -468,7 +468,7 @@ Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max yanks 				|wheel-config-maxim-yanks|
 Max yank size 				|wheel-config-maxim-yank_size|
-Example					|wheel-con
+Example					|wheel-config-example|
 
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
