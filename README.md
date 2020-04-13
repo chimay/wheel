@@ -166,6 +166,12 @@ let g:wheel_config.maxim.input = 100
 let g:wheel_config.maxim.yanks = 300
 " Maximum size of elements in yank wheel
 let g:wheel_config.maxim.yank_size = 3000
+" Maximum number of tabs
+let g:wheel_config.maxim.tabs = 10
+" Maximum number of horizontal splits
+let g:wheel_config.maxim.horizontal = 3
+" Maximum number of vertical splits
+let g:wheel_config.maxim.vertical = 4
 
 " Autocommands on vim leave, for autowriting
 autocmd VimLeave * call wheel#void#exit()

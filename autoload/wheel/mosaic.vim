@@ -114,12 +114,12 @@ fun! wheel#mosaic#split (level, ...)
 endfun
 
 fun! wheel#mosaic#horizontal (level)
-	" One level element per horizontal split
+	" Horizontal split
 	split
 endfun
 
 fun! wheel#mosaic#vertical (level)
-	" One level element per vertical split
+	" Vertical split
 	vsplit
 endfun
 
