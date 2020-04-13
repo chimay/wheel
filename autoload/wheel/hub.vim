@@ -86,7 +86,8 @@ endif
 
 if ! exists('s:yank')
 	let s:yank = {
-				\ 'Yank wheel' : 'wheel#mandala#yank',
+				\ 'Yank wheel in list mode' : "wheel#mandala#yank('list')",
+				\ 'Yank wheel in plain mode' : "wheel#mandala#yank('list')",
 				\}
 	lockvar s:yank
 endif

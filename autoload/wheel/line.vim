@@ -157,11 +157,7 @@ fun! wheel#line#switch (dict)
 	if close
 		call wheel#mandala#close ()
 	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
+		call wheel#mandala#previous ()
 	endif
 	if type(Fun) == v:t_func
 		if target != 'current'
@@ -273,7 +269,7 @@ endfun
 " Paste
 
 fun! wheel#line#paste (...)
-	" Paste line
+	" Paste line from yank buffer
 	if a:0 > 0
 		let close = a:1
 	else
@@ -285,12 +281,25 @@ fun! wheel#line#paste (...)
 	if close == 'close'
 		call wheel#mandala#close ()
 	else
-		if winnr('$') > 1
-			wincmd p
-		else
-			bdelete!
-		endif
+		call wheel#mandala#previous ()
 	endif
 	put =content
 	let @" = join(content, "\n")
+endfun
+
+fun! wheel#line#yank (...)
+	" Yank and paste line from yank buffer
+	if a:0 > 0
+		let close = a:1
+	else
+		let close = 1
+	endif
+	let content = getline('.')
+	if close == 'close'
+		call wheel#mandala#close ()
+	else
+		call wheel#mandala#previous ()
+	endif
+	put =content
+	let @" = content
 endfun

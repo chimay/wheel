@@ -99,7 +99,7 @@ fun! wheel#checknfix#history ()
 		let coordin = history[ind].coordin
 		if index(helix, coordin) < 0
 			let success = 0
-			echomsg 'Removing' join(coordin, ', ') 'from history.'
+			echomsg 'Removing [' join(coordin, ', ') '] from history.'
 			call wheel#chain#remove_element(history[ind], g:wheel_history)
 		endif
 		let ind += 1

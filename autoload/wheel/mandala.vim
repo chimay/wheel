@@ -1,7 +1,8 @@
 " vim: ft=vim fdm=indent:
 
-" Special Buffer menus
-" Filter
+" Special Wheel Buffers
+
+" Search, Filter
 " Select
 " Trigger action
 
@@ -9,25 +10,30 @@
 
 fun! wheel#mandala#open (...)
 	" Open a wheel buffer
-	let type = 'wheel'
 	if a:0 > 0
 		let type = a:1
+	else
+		let type = 'wheel'
 	endif
 	new
-	setlocal cursorline
-	setlocal nobuflisted
-	setlocal noswapfile
-	setlocal buftype=nofile
-	setlocal bufhidden=delete
-	let &filetype = type
-	" For wheel yank
-	setlocal nowrap
+	call wheel#mandala#common_options (type)
 endfun
 
 fun! wheel#mandala#close ()
 	" Close the wheel buffer
+	" Delete buffer if only one window
 	if winnr('$') > 1
 		quit!
+	else
+		bdelete!
+	endif
+endfun
+
+fun! wheel#mandala#previous ()
+	" Go to previous window
+	" Delete buffer if only one window
+	if winnr('$') > 1
+		wincmd p
 	else
 		bdelete!
 	endif
@@ -74,10 +80,28 @@ fun! wheel#mandala#filter (...)
 	endif
 endfu
 
+" Options
+
+fun! wheel#mandala#common_options (type)
+	" Set local common options
+	setlocal cursorline
+	setlocal nobuflisted
+	setlocal noswapfile
+	setlocal buftype=nofile
+	setlocal bufhidden=delete
+	let &filetype = a:type
+endfun
+
+fun! wheel#mandala#yank_options ()
+	" Set local yank options
+	setlocal nowrap
+	setlocal nofoldenable
+endfun
+
 " Maps
 
 fun! wheel#mandala#common_maps (...)
-	" Define local common maps in wheel buffer
+	" Define local common maps
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 	nnoremap <buffer> j :call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> k :call wheel#mandala#wrap_up()<cr>
@@ -86,7 +110,7 @@ fun! wheel#mandala#common_maps (...)
 endfu
 
 fun! wheel#mandala#filter_maps ()
-	" Define local filter maps in wheel buffer
+	" Define local filter maps
 	" Normal mode
 	nnoremap <buffer> i ggA
 	nnoremap <buffer> a ggA
@@ -100,7 +124,7 @@ fun! wheel#mandala#filter_maps ()
 endfun
 
 fun! wheel#mandala#input_history_maps ()
-	" Define local input history maps in wheel buffer
+	" Define local input history maps
 	" Use Up / Down & M-p / M-n
 	" C-p / C-n is taken by (neo)vim completion
 	inoremap <buffer> <up> <esc>:call wheel#scroll#older()<cr>
@@ -115,7 +139,7 @@ fun! wheel#mandala#input_history_maps ()
 endfun
 
 fun! wheel#mandala#switch_maps (dict)
-	" Define maps to switch to element in current line
+	" Define local switch maps
 	let dict = copy(a:dict)
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#line#switch('
@@ -133,6 +157,24 @@ fun! wheel#mandala#switch_maps (dict)
 	" Toggle select current line
 	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
 endfun
+
+fun! wheel#mandala#yank_maps (mode)
+	" Define local yank maps
+	if a:mode == 'list'
+		nnoremap <buffer> <cr> :call wheel#line#paste ('close')<cr>
+		nnoremap <buffer> <tab> :call wheel#line#paste ('open')<cr>
+		nnoremap <buffer> p :call wheel#line#paste ('open')<cr>
+	elseif a:mode == 'plain'
+		nnoremap <buffer> <cr> :call wheel#line#yank ('close')<cr>
+		nnoremap <buffer> <tab> :call wheel#line#yank ('open')<cr>
+		nnoremap <buffer> p :call wheel#line#yank ('open')<cr>
+		vnoremap <buffer> <cr> :norm gvy<esc>:call wheel#mandala#close()<cr>p
+		vnoremap <buffer> <tab> :norm gvy<esc>:call wheel#mandala#previous()<cr>p
+		vnoremap <buffer> p :norm gvy<esc>:call wheel#mandala#previous()<cr>p
+	endif
+endfun
+
+" Write commands
 
 fun! wheel#mandala#reorder_write (level)
 	" Define reorder autocommands in wheel buffer
@@ -302,22 +344,17 @@ endfun
 
 " Yank wheel
 
-fun! wheel#mandala#yank ()
+fun! wheel#mandala#yank (mode)
 	" Choose a yank wheel element to paste
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-yank')
+	call wheel#mandala#open ('wheel-yank-' . a:mode)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
-	setlocal nofoldenable
-	nnoremap <buffer> <cr> :call wheel#line#paste ('close')<cr>
-	nnoremap <buffer> <tab> :call wheel#line#paste ('open')<cr>
-	let names = wheel#codex#lines ()
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
+	call wheel#mandala#yank_options ()
+	call wheel#mandala#yank_maps (a:mode)
+	let names = wheel#codex#lines (a:mode)
+	put =names
 	setlocal nomodified
 	call cursor(1,1)
 endfun

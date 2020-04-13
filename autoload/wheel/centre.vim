@@ -81,7 +81,8 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
 		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
 		" Yank wheel
-		exe 'nnoremap ' . prefix . "y :call wheel#mandala#yank()<cr>"
+		exe 'nnoremap ' . prefix . "y :call wheel#mandala#yank('list')<cr>"
+		exe 'nnoremap ' . prefix . "<m-y> :call wheel#mandala#yank('plain')<cr>"
 		" Reorganize
 		exe 'nnoremap ' . prefix . '<m-o> :call wheel#mandala#reorganize()<cr>'
 	endif
@@ -116,7 +117,8 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
 		nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
 		" Yank
-		nnoremap <D-y>          :call wheel#mandala#yank()<cr>
+		nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
+		nnoremap <D-y>          :call wheel#mandala#yank('plain')<cr>
 		" Batch
 		nnoremap <D-b>          :WheelBatch<space>
 		nnoremap <D-g>          :WheelGrep<space>

@@ -39,11 +39,17 @@ fun! wheel#codex#add ()
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
 
-fun! wheel#codex#lines ()
+fun! wheel#codex#lines (mode)
 	" List of strings to display in yank special buffer
 	let lines = []
-	for elem in g:wheel_yank
-		call add(lines, string(elem))
-	endfor
+	if a:mode == 'list'
+		for elem in g:wheel_yank
+			call add(lines, string(elem))
+		endfor
+	elseif a:mode == 'plain'
+		for elem in g:wheel_yank
+			call add(lines, join(elem, "\n"))
+		endfor
+	endif
 	return lines
 endfun
