@@ -65,9 +65,9 @@ if ! exists('s:display')
 				\ 'Display toruses on horizontal splits' : "wheel#mosaic#split('torus')",
 				\ 'Display circles on horizontal splits' : "wheel#mosaic#split('circle')",
 				\ 'Display locations on horizontal splits' : "wheel#mosaic#split('location')",
-				\ 'Display toruses on vertical splits' : "wheel#mosaic#split('torus', 'wheel#mosaic#vertical')",
-				\ 'Display circles on vertical splits' : "wheel#mosaic#split('circle', 'wheel#mosaic#vertical')",
-				\ 'Display locations on vertical splits' : "wheel#mosaic#split('location', 'wheel#mosaic#vertical')",
+				\ 'Display toruses on vertical splits' : "wheel#mosaic#split('torus', 'vertical')",
+				\ 'Display circles on vertical splits' : "wheel#mosaic#split('circle', 'vertical')",
+				\ 'Display locations on vertical splits' : "wheel#mosaic#split('location', 'vertical')",
 				\ 'Mix : display toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
 				\ 'Mix : display circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
 				\}

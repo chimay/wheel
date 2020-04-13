@@ -75,9 +75,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "s :call wheel#mosaic#split('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-s> :call wheel#mosaic#split('circle')<cr>"
 		exe 'nnoremap ' . prefix . "S :call wheel#mosaic#split('torus')<cr>"
-		exe 'nnoremap ' . prefix . "v :call wheel#mosaic#split('location', 'wheel#mosaic#vertical')<cr>"
-		exe 'nnoremap ' . prefix . "<c-v> :call wheel#mosaic#split('circle', 'wheel#mosaic#vertical')<cr>"
-		exe 'nnoremap ' . prefix . "V :call wheel#mosaic#split('torus', 'wheel#mosaic#vertical')<cr>"
+		exe 'nnoremap ' . prefix . "v :call wheel#mosaic#split('location', 'vertical')<cr>"
+		exe 'nnoremap ' . prefix . "<c-v> :call wheel#mosaic#split('circle', 'vertical')<cr>"
+		exe 'nnoremap ' . prefix . "V :call wheel#mosaic#split('torus', 'vertical')<cr>"
 		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
 		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
 		" Yank wheel
