@@ -47,9 +47,12 @@ fun! wheel#mosaic#one_tab ()
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
 		if confirm == 1
 			tabonly
+		else
+			return 0
 		endif
 	endif
 	let g:wheel_shelve.layout.tab = 'none'
+	return 1
 endfun
 
 fun! wheel#mosaic#one_window ()
@@ -59,18 +62,22 @@ fun! wheel#mosaic#one_window ()
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
 		if confirm == 1
 			only
+		else
+			return 0
 		endif
 	endif
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
+	return 1
 endfun
 
 " Layouts
 
 fun! wheel#mosaic#zoom (...)
 	" One tab, one window
-	call wheel#mosaic#one_tab ()
-	call wheel#mosaic#one_window ()
+	let tab = wheel#mosaic#one_tab ()
+	let window = wheel#mosaic#one_window ()
+	return tab && window
 endfun
 
 fun! wheel#mosaic#tabs (level)
@@ -79,7 +86,9 @@ fun! wheel#mosaic#tabs (level)
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
-	call wheel#mosaic#one_tab ()
+	if ! wheel#mosaic#one_tab ()
+		return
+	endif
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
 		tabnew
@@ -101,7 +110,9 @@ fun! wheel#mosaic#split (level, ...)
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
-	call wheel#mosaic#one_window ()
+	if ! wheel#mosaic#one_window ()
+		return
+	endif
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
 		call wheel#mosaic#{action} (level)
@@ -112,6 +123,8 @@ fun! wheel#mosaic#split (level, ...)
 	let g:wheel_shelve.layout.window = level
 	let g:wheel_shelve.layout.split = action
 endfun
+
+" Split flavors
 
 fun! wheel#mosaic#horizontal (level)
 	" Horizontal split
