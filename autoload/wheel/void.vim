@@ -4,19 +4,13 @@
 
 " Helpers
 
-fun! wheel#void#template(name, ...)
+fun! wheel#void#template(init)
 	" Generate template to add to g:wheel lists
 	" Name = name in argument
 	" Optional arguments : keys initialized as empty list
-	let template = {}
-	let template.name = a:name
+	let template = a:init
 	let template.glossary = []
 	let template.current = -1
-	if a:0 > 0
-		for key in a:000
-			let template[key] = []
-		endfor
-	endif
 	return template
 endfun
 

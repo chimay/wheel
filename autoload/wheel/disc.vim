@@ -34,6 +34,7 @@ fun! wheel#disc#writefile (varname, file, ...)
 	" If optional argument 1 is :
 	" '>' : replace file content (default)
 	" '>>' : add to file content
+	" Similar to wheel#disc#write but with writefile()
 	if ! exists(a:varname)
 		return
 	endif
