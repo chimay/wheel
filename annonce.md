@@ -41,7 +41,6 @@ Note that :
   + 1 torus per tab
   + split : vertical, horizontal, grid, main, ...
   + Mix of above
-- Autogroup
 - Batch operations
 
 # Installation

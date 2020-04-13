@@ -87,7 +87,7 @@ fun! wheel#pendulum#record ()
 	let entry.timestamp = wheel#pendulum#timestamp ()
 	call wheel#pendulum#remove_if_present (entry)
 	let g:wheel_history = insert(g:wheel_history, entry, 0)
-	let max = g:wheel_config.max_history
+	let max = g:wheel_config.maxim.history
 	let g:wheel_history = g:wheel_history[:max - 1]
 endfu
 

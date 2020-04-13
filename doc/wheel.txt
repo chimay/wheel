@@ -464,9 +464,10 @@ Mappings				|wheel-config-mappings|
 Prefix					|wheel-config-prefix|
 Cd project				|wheel-config-cd_project|
 Project markers				|wheel-config-project_markers|
-Max history 				|wheel-config-max_history|
-Max yanks 				|wheel-config-max_yanks|
-Max yank size 				|wheel-config-max_yank_size|
+Max history 				|wheel-config-maxim-history|
+Max input history 			|wheel-config-maxim-input|
+Max yanks 				|wheel-config-maxim-yanks|
+Max yank size 				|wheel-config-maxim-yank_size|
 
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
@@ -565,27 +566,27 @@ list value. : >
 <
 
 ------------------------------------------------------------------------------
-MAX HISTORY				   *wheel-config-max_history*
+MAX HISTORY				   *wheel-config-maxim-history*
 
 Maximum number of elements in the wheel history : >
 
-    let g:wheel_config.max_history = 50
+    let g:wheel_config.maxim.history = 50
 <
 
 ------------------------------------------------------------------------------
-MAX YANKS				   *wheel-config-max_yanks*
+MAX YANKS				   *wheel-config-maxim-yanks*
 
 Maximum number of elements in the yank wheel : >
 
-    let g:wheel_config.max_yanks = 50
+    let g:wheel_config.maxim.yanks = 50
 <
 
 ------------------------------------------------------------------------------
-MAX YANK SIZE				   *wheel-config-max_yank_size*
+MAX YANK SIZE				   *wheel-config-maxim-yank_size*
 
 Maximum size of elements in the yank wheel : >
 
-    let g:wheel_config.max_yank_size = 500
+    let g:wheel_config.maxim.yank_size = 500
 <
 
 ==============================================================================

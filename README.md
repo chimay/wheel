@@ -154,11 +154,13 @@ let g:wheel_config.cd_project = 1
 " List of markers: the project dir is found as soon as one marker is found in it
 let g:wheel_config.project_markers = ['.git', '.my-project-root']
 " Maximum number of elements in history
-let g:wheel_config.max_history = 50
+let g:wheel_config.maxim.history = 50
+" Maximum number of elements in input history
+let g:wheel_config.maxim.input = 50
 " Maximum number of elements in yank wheel
-let g:wheel_config.max_yanks = 70
+let g:wheel_config.maxim.yanks = 70
 " Maximum size of elements in yank wheel
-let g:wheel_config.max_yank_size = 500
+let g:wheel_config.maxim.yank_size = 500
 
 " Autocommands on vim leave, for autowriting
 autocmd VimLeave * call wheel#void#exit()

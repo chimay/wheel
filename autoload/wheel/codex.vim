@@ -14,7 +14,7 @@ fun! wheel#codex#register (register, ...)
 	endif
 	let yanks = g:wheel_yank
 	let content = getreg(a:register)
-	if strchars(content) > g:wheel_config.max_yank_size
+	if strchars(content) > g:wheel_config.maxim.yank_size
 		return
 	endif
 	let content = split(content, "\n")
@@ -35,7 +35,7 @@ fun! wheel#codex#add ()
 	call wheel#codex#register ('+')
 	call wheel#codex#register ('*')
 	call wheel#codex#register ('"', 'begin')
-	let max = g:wheel_config.max_yanks
+	let max = g:wheel_config.maxim.yanks
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
 

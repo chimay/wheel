@@ -13,7 +13,7 @@ fun! wheel#scroll#record (input)
 			call wheel#chain#remove_element(a:input, g:wheel_input)
 		endif
 		call insert(g:wheel_input, a:input)
-		let max = g:wheel_config.max_history
+		let max = g:wheel_config.maxim.input
 		let g:wheel_input = g:wheel_input[:max - 1]
 	else
 		echomsg 'Wheel scroll record : bad input format'
