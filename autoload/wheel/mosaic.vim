@@ -72,6 +72,17 @@ fun! wheel#mosaic#one_window ()
 	return 1
 endfun
 
+fun! wheel#mosaic#rowcol ()
+	" Number of rows and cols for grid layout
+	" TODO
+	let width = winwidth(0)
+	let height = winheight(0)
+	" nr2float ?
+	let ratio = round(width) / round(height)
+	let g:wheel_shelve.layout.window = level
+	let g:wheel_shelve.layout.split = 'grid'
+endfun
+
 " Layouts
 
 fun! wheel#mosaic#zoom (...)
@@ -116,7 +127,7 @@ fun! wheel#mosaic#split (level, ...)
 	endif
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
-		let alright = wheel#mosaic#{action} (level)
+		let alright = wheel#mosaic#{action} ()
 		if ! alright
 			break
 		endif
@@ -130,7 +141,7 @@ endfun
 
 " Split flavors
 
-fun! wheel#mosaic#horizontal (level)
+fun! wheel#mosaic#horizontal ()
 	" Horizontal split
 	" w:coordin = [row number, col number]
 	if ! exists('w:coordin')
@@ -146,7 +157,7 @@ fun! wheel#mosaic#horizontal (level)
 	endif
 endfun
 
-fun! wheel#mosaic#vertical (level)
+fun! wheel#mosaic#vertical ()
 	" Vertical split
 	" w:coordin = [row number, col number]
 	if ! exists('w:coordin')
@@ -162,13 +173,44 @@ fun! wheel#mosaic#vertical (level)
 	endif
 endfun
 
-fun! wheel#mosaic#grid (level)
-	" One window of level per window : grid split
-	" TODO
-	let width = winwidth(0)
-	let height = winheight(0)
-	" nr2float ?
-	let ratio = round(width) / round(height)
-	let g:wheel_shelve.layout.window = level
-	let g:wheel_shelve.layout.split = 'grid'
+fun! wheel#mosaic#main_left ()
+	" Main window on top
+	" w:coordin = [row number, col number]
+	if ! exists('w:coordin')
+		let w:coordin = [0, 0]
+	endif
+	if w:coordin == [0, 0]
+		vsplit
+		let w:coordin = [0, 1]
+		return 1
+	endif
+	let next = w:coordin[0] + 1
+	if next <= g:wheel_config.maxim.horizontal - 1
+		split
+		let w:coordin = [next, 1]
+		return 1
+	else
+		return 0
+	endif
+endfun
+
+fun! wheel#mosaic#main_top ()
+	" Main window on top
+	" w:coordin = [row number, col number]
+	if ! exists('w:coordin')
+		let w:coordin = [0, 0]
+	endif
+	if w:coordin == [0, 0]
+		split
+		let w:coordin = [1, 0]
+		return 1
+	endif
+	let next = w:coordin[1] + 1
+	if next <= g:wheel_config.maxim.vertical - 1
+		vsplit
+		let w:coordin = [1, next]
+		return 1
+	else
+		return 0
+	endif
 endfun
