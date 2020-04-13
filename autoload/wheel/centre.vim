@@ -118,7 +118,7 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
 		" Yank
 		nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
-		nnoremap <D-y>          :call wheel#mandala#yank('plain')<cr>
+		nnoremap <D-p>          :call wheel#mandala#yank('plain')<cr>
 		" Batch
 		nnoremap <D-b>          :WheelBatch<space>
 		nnoremap <D-g>          :WheelGrep<space>
