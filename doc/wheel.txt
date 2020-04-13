@@ -468,6 +468,7 @@ Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max yanks 				|wheel-config-maxim-yanks|
 Max yank size 				|wheel-config-maxim-yank_size|
+Example					|wheel-con
 
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
@@ -587,6 +588,55 @@ MAX YANK SIZE				   *wheel-config-maxim-yank_size*
 Maximum size of elements in the yank wheel : >
 
     let g:wheel_config.maxim.yank_size = 500
+<
+
+------------------------------------------------------------------------------
+EXAMPLE					    *wheel-config-example*
+
+Here is an example of complete configuration : >
+
+  " Init
+  let g:wheel_config={}
+  let g:wheel_config.maxim={}
+
+  " Auto read torus file on startup if > 0
+  let g:wheel_config.autoread = 1
+  " Auto write torus file on exit if > 0
+  let g:wheel_config.autowrite = 1
+  " The file where toruses and circles will be stored and read
+  let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
+  " Number of backups for the wheel file
+  let g:wheel_config.backups = 5
+  " The bigger it is, the more mappings available
+  let g:wheel_config.mappings = 10
+  " Prefix for mappings
+  let g:wheel_config.prefix = '<M-w>'
+  " Auto cd to project root if > 0
+  let g:wheel_config.cd_project = 1
+  " Marker of project root
+  "let g:wheel_config.project_markers = '.git'
+  "let g:wheel_config.project_markers = '.racine-projet'
+  " List of markers
+  " The project dir is found as soon as one marker is found in it
+  let g:wheel_config.project_markers = ['.git', '.racine-projet']
+
+  " Maximum number of elements in history
+  let g:wheel_config.maxim.history = 50
+  " Maximum number of elements in input history
+  let g:wheel_config.maxim.input = 100
+  " Maximum number of elements in yank wheel
+  let g:wheel_config.maxim.yanks = 300
+  " Maximum size of elements in yank wheel
+  let g:wheel_config.maxim.yank_size = 3000
+
+  " Autocommands on vim leave, for autowriting
+  autocmd VimLeave * call wheel#void#exit()
+  " Autocommands executed after jumping to a location
+  autocmd User WheelAfterJump norm zMzx
+  " Autocommand for current wheel location to auto follow buffer change
+  autocmd BufWinEnter * call wheel#vortex#follow()
+  " Autocommand to record your yanks in the yank wheel"
+  autocmd TextYankPost * call wheel#codex#add()
 <
 
 ==============================================================================
