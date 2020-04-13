@@ -70,6 +70,7 @@ if ! exists('s:display')
 				\ 'Display locations on vertical splits' : "wheel#mosaic#split('location', 'vertical')",
 				\ 'Mix : display toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
 				\ 'Mix : display circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
+				\ 'Zoom : one tab, one window' : 'wheel#mosaic#zoom()',
 				\}
 	lockvar s:display
 endif
