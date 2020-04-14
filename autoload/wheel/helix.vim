@@ -2,9 +2,30 @@
 
 " Indexes
 
+fun! wheel#helix#album ()
+	" Full index of toruses, circles & locations in the wheel
+	" Each entry = [torus.name, circle.name, location]
+	if g:wheel.timestamp >= g:wheel_album.timestamp
+		let album = []
+		for torus in g:wheel.toruses
+			for circle in torus.circles
+				for location in circle.locations
+					let entry = [torus.name, circle.name, location]
+					let album = add(album, entry)
+				endfor
+			endfor
+		endfor
+		let g:wheel_album.table = album
+		let g:wheel_album.timestamp = wheel#pendulum#timestamp()
+	else
+		let album = g:wheel_album.table
+	endif
+	return album
+endfu
+
 fun! wheel#helix#helix ()
 	" Index of locations coordinates in the wheel
-	" Each coordinate = [torus, circle, location]
+	" Each coordinate = [torus.name, circle.name, location.name]
 	if g:wheel.timestamp >= g:wheel_helix.timestamp
 		let helix = []
 		for torus in g:wheel.toruses
@@ -25,7 +46,7 @@ endfu
 
 fun! wheel#helix#grid ()
 	" Index of circles coordinates in the wheel
-	" Each coordinate = [torus, circle]
+	" Each coordinate = [torus.name, circle.name]
 	if g:wheel.timestamp >= g:wheel_grid.timestamp
 		let grid = []
 		for torus in g:wheel.toruses
@@ -78,8 +99,8 @@ endfun
 " For special buffers
 
 fun! wheel#helix#locations ()
-	" Index of locations for special buffer
-	" Each coordinate is a string torus >> circle > location
+	" Description of elements for location index buffer
+	" Each coordinate is a string torus > circle > location
 	let helix = wheel#helix#helix ()
 	let lines = []
 	for coordin in helix
@@ -90,12 +111,12 @@ fun! wheel#helix#locations ()
 endfu
 
 fun! wheel#helix#circles ()
-	" Index of circles for special buffer
-	" Each coordinate is a string torus >> circle
+	" Description of elements for circle index buffer
+	" Each coordinate is a string torus > circle
 	let grid = wheel#helix#grid ()
 	let lines = []
 	for coordin in grid
-		let entry = coordin[0] . ' >> ' . coordin[1]
+		let entry = coordin[0] . ' > ' . coordin[1]
 		let lines = add(lines, entry)
 	endfor
 	return lines
@@ -103,7 +124,6 @@ endfu
 
 fun! wheel#helix#tree ()
 	" Description of elements for tree buffer
-	let helix = wheel#helix#helix ()
 	let lines = []
 	for torus in g:wheel.toruses
 		let entry = torus.name . ' >1'
@@ -122,7 +142,6 @@ endfu
 
 fun! wheel#helix#reorganize ()
 	" Description of elements for reorganize buffer
-	let helix = wheel#helix#helix ()
 	let lines = []
 	for torus in g:wheel.toruses
 		let entry = torus.name . ' >1'

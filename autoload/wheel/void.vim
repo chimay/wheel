@@ -35,6 +35,19 @@ fun! wheel#void#wheel ()
 	endif
 endfun
 
+fun! wheel#void#album ()
+	" Initialize album : full index of locations
+	if ! exists('g:wheel_album')
+		let g:wheel_album = {}
+	endif
+	if ! has_key(g:wheel_album, 'table')
+		let g:wheel_album.table = []
+	endif
+	if ! has_key(g:wheel_album, 'timestamp')
+		let g:wheel_album.timestamp = -1
+	endif
+endfun
+
 fun! wheel#void#helix ()
 	" Initialize helix : index of locations
 	if ! exists('g:wheel_helix')
@@ -161,6 +174,7 @@ endfun
 fun! wheel#void#foundation ()
 	" Initialize wheel variables
 	call wheel#void#wheel ()
+	call wheel#void#album ()
 	call wheel#void#helix ()
 	call wheel#void#grid ()
 	call wheel#void#files ()

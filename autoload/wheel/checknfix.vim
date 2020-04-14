@@ -8,6 +8,7 @@ fun! wheel#checknfix#fresh_wheel ()
 		call wheel#disc#write_all ()
 	endif
 	unlet g:wheel
+	unlet g:wheel_album
 	unlet g:wheel_helix
 	unlet g:wheel_grid
 	unlet g:wheel_files
