@@ -52,6 +52,7 @@ fun! wheel#mosaic#one_tab ()
 		endif
 	endif
 	let g:wheel_shelve.layout.tab = 'none'
+	call wheel#vortex#follow ()
 	return 1
 endfun
 
@@ -69,6 +70,7 @@ fun! wheel#mosaic#one_window ()
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
 	let w:coordin = [0, 0]
+	call wheel#vortex#follow ()
 	return 1
 endfun
 
@@ -107,7 +109,7 @@ fun! wheel#mosaic#tabs (level)
 		call wheel#vortex#next (level)
 	endfor
 	tabrewind
-	call wheel#vortex#next (level)
+	call wheel#vortex#follow ()
 	let g:wheel_shelve.layout.tab = level
 endfun
 
@@ -118,6 +120,11 @@ fun! wheel#mosaic#split (level, ...)
 	else
 		let action = 'horizontal'
 	endif
+	if a:0 > 1
+		let dict = a:2
+	else
+		let dict = {}
+	endif
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -127,7 +134,7 @@ fun! wheel#mosaic#split (level, ...)
 	endif
 	call wheel#vortex#jump ()
 	for index in range(length - 1)
-		let alright = wheel#mosaic#{action} ()
+		let alright = wheel#mosaic#{action} (dict)
 		if ! alright
 			break
 		endif
@@ -141,14 +148,15 @@ endfun
 
 " Split flavors
 
-fun! wheel#mosaic#horizontal ()
+fun! wheel#mosaic#horizontal (...)
 	" Horizontal split
 	" w:coordin = [row number, col number]
+	" Optional argument if for compatibility only
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	let next = w:coordin[1] + 1
-	if next <= g:wheel_config.maxim.horizontal - 1
+	if next < g:wheel_config.maxim.horizontal
 		split
 		let w:coordin = [0, next]
 		return 1
@@ -157,14 +165,15 @@ fun! wheel#mosaic#horizontal ()
 	endif
 endfun
 
-fun! wheel#mosaic#vertical ()
+fun! wheel#mosaic#vertical (...)
 	" Vertical split
 	" w:coordin = [row number, col number]
+	" Optional argument if for compatibility only
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	let next = w:coordin[0] + 1
-	if next <= g:wheel_config.maxim.vertical - 1
+	if next < g:wheel_config.maxim.vertical
 		vsplit
 		let w:coordin = [next, 0]
 		return 1
@@ -173,9 +182,10 @@ fun! wheel#mosaic#vertical ()
 	endif
 endfun
 
-fun! wheel#mosaic#main_left ()
+fun! wheel#mosaic#main_left (...)
 	" Main window on top
 	" w:coordin = [row number, col number]
+	" Optional argument if for compatibility only
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
@@ -185,7 +195,7 @@ fun! wheel#mosaic#main_left ()
 		return 1
 	endif
 	let next = w:coordin[0] + 1
-	if next <= g:wheel_config.maxim.horizontal - 1
+	if next < g:wheel_config.maxim.horizontal
 		split
 		let w:coordin = [next, 1]
 		return 1
@@ -194,9 +204,10 @@ fun! wheel#mosaic#main_left ()
 	endif
 endfun
 
-fun! wheel#mosaic#main_top ()
+fun! wheel#mosaic#main_top (...)
 	" Main window on top
 	" w:coordin = [row number, col number]
+	" Optional argument if for compatibility only
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
@@ -206,7 +217,7 @@ fun! wheel#mosaic#main_top ()
 		return 1
 	endif
 	let next = w:coordin[1] + 1
-	if next <= g:wheel_config.maxim.vertical - 1
+	if next < g:wheel_config.maxim.vertical
 		vsplit
 		let w:coordin = [1, next]
 		return 1
