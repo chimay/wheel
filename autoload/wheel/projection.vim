@@ -32,8 +32,10 @@ fun! wheel#projection#follow ()
 		endif
 	endif
 	let coordin = wheel#projection#closest ()
-	call wheel#vortex#chord(coordin)
-	redraw!
-	echomsg 'Wheel follows :' string(coordin)
+	if ! empty(coordin)
+		call wheel#vortex#chord(coordin)
+		redraw!
+		echomsg 'Wheel follows :' string(coordin)
+	endif
 endfun
 
