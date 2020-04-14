@@ -34,8 +34,15 @@ fun! wheel#projection#follow ()
 	let coordin = wheel#projection#closest ()
 	if ! empty(coordin)
 		call wheel#vortex#chord(coordin)
+		if g:wheel_config.cd_project > 0
+			let markers = g:wheel_config.project_markers
+			call wheel#gear#project_root(markers)
+		endif
+		call wheel#pendulum#record ()
+		let info = 'Wheel follows : '
+		let info .= coordin[0] . ' > ' . coordin[1] . ' > ' . coordin[2]
 		redraw!
-		echomsg 'Wheel follows :' string(coordin)
+		echomsg info
 	endif
 endfun
 
