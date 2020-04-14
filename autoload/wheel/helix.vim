@@ -69,6 +69,7 @@ fun! wheel#helix#files ()
 				endfor
 			endfor
 		endfor
+		let files = uniq(sort(files))
 		let g:wheel_files.table = files
 		let g:wheel_files.timestamp = wheel#pendulum#timestamp()
 	else
