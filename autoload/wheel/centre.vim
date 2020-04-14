@@ -68,7 +68,7 @@ fun! wheel#centre#mappings ()
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Tabs & Windows
-		exe 'nnoremap ' . prefix . "z :call wheel#mosaic#zoom()<cr>"
+		exe 'nnoremap ' . prefix . 'z :call wheel#mosaic#zoom()<cr>'
 		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
 		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"
@@ -122,5 +122,9 @@ fun! wheel#centre#mappings ()
 		" Batch
 		nnoremap <D-b>          :WheelBatch<space>
 		nnoremap <D-g>          :WheelGrep<space>
+	endif
+	" Debug
+	if g:wheel_config.mappings >= 20
+		exe 'nnoremap ' . prefix . "0 :call wheel#checknfix#fresh_wheel()<cr>"
 	endif
 endfun
