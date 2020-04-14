@@ -90,6 +90,7 @@ fun! wheel#disc#write_all ()
 		endif
 		call wheel#disc#roll_backups(g:wheel_config.file, g:wheel_config.backups)
 		call wheel#disc#write('g:wheel', g:wheel_config.file, '>')
+		call wheel#disc#write('g:wheel_album', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_helix', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_grid', g:wheel_config.file, '>>')
 		call wheel#disc#write('g:wheel_files', g:wheel_config.file, '>>')
