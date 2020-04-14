@@ -271,18 +271,18 @@ fun! wheel#mosaic#rows (dict)
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
-	let next_row = w:coordin[0]
-	let next_col = w:coordin[1] + 1
-	if next_col < a:dict.cols
+	let row = w:coordin[0]
+	let col = w:coordin[1]
+	if col < a:dict.cols - 1
 		vsplit
-		let w:coordin = [next_row, next_col]
+		let w:coordin = [row, col + 1]
+		return 1
+	elseif row < a:dict.rows - 1
+		split
+		let w:coordin = [row + 1, 0]
+		return 1
 	else
-		let next_row = w:coordin[0] + 1
-		let next_col = w:coordin[1]
-		if next_row < a:dict.rows
-			split
-			let w:coordin = [0, next_col]
-		endif
+		return 0
 	endif
 endfun
 
