@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Golden mean
+" Golden mean, ratio
 
 if ! exists('s:golden')
 	let s:golden = (1 + sqrt(5)) / 2
@@ -9,9 +9,16 @@ endif
 
 fun! wheel#spiral#height ()
 	" Window height / (1 + golden ratio)
-	" If you open a split window with this height,
-	" the ration old window / new window height will be s:golden
+	" If you open a horizontal split window with this height,
+	" the ratio old window / new window height will be s:golden
 	return winheight(0) / (1 + s:golden)
+endfun
+
+fun! wheel#spiral#width ()
+	" Window width / (1 + golden ratio)
+	" If you open a vertical split window with this width,
+	" the ratio old window / new window width will be s:golden
+	return winwidth(0) / (1 + s:golden)
 endfun
 
 fun! wheel#spiral#cursor ()

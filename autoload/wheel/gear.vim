@@ -27,7 +27,7 @@ fun! wheel#gear#project_root (markers)
 	let dir = expand('%:p:h')
 	exe 'lcd ' . dir
 	let found = 0
-	while 1
+	while v:true
 		for mark in markers
 			if filereadable(mark) || isdirectory(mark)
 				let found = 1

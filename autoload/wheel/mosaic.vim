@@ -38,6 +38,17 @@ fun! wheel#mosaic#tour ()
 	endif
 endfun
 
+fun! wheel#mosaic#ratio ()
+	" Window width / height
+	" Real usable window width
+	" Credit : https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script
+	let width=winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn
+	let height = winheight(0)
+	" Use round as nr2float
+	" Where is nr2float btw ?
+	return round(width) / round(height)
+endfun
+
 " Helpers
 
 fun! wheel#mosaic#one_tab ()
@@ -52,7 +63,7 @@ fun! wheel#mosaic#one_tab ()
 		endif
 	endif
 	let g:wheel_shelve.layout.tab = 'none'
-	call wheel#vortex#follow ()
+	call wheel#projection#follow ()
 	return 1
 endfun
 
@@ -70,18 +81,33 @@ fun! wheel#mosaic#one_window ()
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
 	let w:coordin = [0, 0]
-	call wheel#vortex#follow ()
+	call wheel#projection#follow ()
 	return 1
 endfun
 
-fun! wheel#mosaic#rowcol ()
+fun! wheel#mosaic#rowcol (level)
 	" Number of rows and cols for grid layout
-	let width = winwidth(0)
-	let height = winheight(0)
-	" nr2float ?
-	let ratio = round(width) / round(height)
-	let g:wheel_shelve.layout.window = level
-	let g:wheel_shelve.layout.split = 'grid'
+	let ratio = wheel#mosaic#ratio ()
+	let rows = g:wheel_config.maxim.horizontal
+	let cols = g:wheel_config.maxim.vertical
+	let upper = wheel#referen#upper (a:level)
+	let elements = wheel#referen#elements (upper)
+	let length = len(elements)
+	while v:true
+		let course = round(cols) / round(rows)
+		if course > ratio && (cols - 1) * rows >= length
+			let cols -= 1
+		elseif course < ratio && cols * (rows - 1) >= length
+			let rows -= 1
+		elseif (cols - 1) * rows >= length
+			let cols -= 1
+		elseif cols * (rows - 1) >= length
+			let rows -= 1
+		else
+			break
+		endif
+	endwhile
+	return [rows, cols]
 endfun
 
 " Layouts
@@ -108,7 +134,7 @@ fun! wheel#mosaic#tabs (level)
 		call wheel#vortex#next (level)
 	endfor
 	tabrewind
-	call wheel#vortex#follow ()
+	call wheel#projection#follow ()
 	let g:wheel_shelve.layout.tab = level
 endfun
 
@@ -140,9 +166,23 @@ fun! wheel#mosaic#split (level, ...)
 		call wheel#vortex#next (level)
 	endfor
 	wincmd t
-	call wheel#vortex#follow ()
+	call wheel#projection#follow ()
 	let g:wheel_shelve.layout.window = level
 	let g:wheel_shelve.layout.split = action
+endfun
+
+fun! wheel#mosaic#grid (level)
+	" Grid layout
+	let dict = {}
+	let [dict.rows, dict.cols] = wheel#mosaic#rowcol (a:level)
+	call wheel#mosaic#split(a:level, 'rows', dict)
+endfun
+
+fun! wheel#mosaic#transposed_grid (level)
+	" Transposed grid layout
+	let dict = {}
+	let [dict.rows, dict.cols] = wheel#mosaic#rowcol (a:level)
+	call wheel#mosaic#split(a:level, 'cols', dict)
 endfun
 
 " Split flavors
@@ -154,10 +194,10 @@ fun! wheel#mosaic#horizontal (...)
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
-	let next = w:coordin[1] + 1
+	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
 		split
-		let w:coordin = [0, next]
+		let w:coordin = [next, 0]
 		return 1
 	else
 		return 0
@@ -171,10 +211,10 @@ fun! wheel#mosaic#vertical (...)
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
-	let next = w:coordin[0] + 1
+	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
 		vsplit
-		let w:coordin = [next, 0]
+		let w:coordin = [0, next]
 		return 1
 	else
 		return 0
@@ -222,5 +262,34 @@ fun! wheel#mosaic#main_top (...)
 		return 1
 	else
 		return 0
+	endif
+endfun
+
+fun! wheel#mosaic#rows (dict)
+	" Grid as row_1, row_2, ...
+	" w:coordin = [row number, col number]
+	if ! exists('w:coordin')
+		let w:coordin = [0, 0]
+	endif
+	let next_row = w:coordin[0]
+	let next_col = w:coordin[1] + 1
+	if next_col < a:dict.cols
+		vsplit
+		let w:coordin = [next_row, next_col]
+	else
+		let next_row = w:coordin[0] + 1
+		let next_col = w:coordin[1]
+		if next_row < a:dict.rows
+			split
+			let w:coordin = [0, next_col]
+		endif
+	endif
+endfun
+
+fun! wheel#mosaic#cols (dict)
+	" Grid as col_1, col_2, ...
+	" w:coordin = [row number, col number]
+	if ! exists('w:coordin')
+		let w:coordin = [0, 0]
 	endif
 endfun
