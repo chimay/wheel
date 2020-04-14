@@ -21,20 +21,20 @@ fun! wheel#mosaic#tour ()
 	if empty(glasses)
 		return 0
 	else
-		let old = glasses[0]
-		call win_gotoid(old)
-		let old_delta = abs(line - line('.'))
+		let best = glasses[0]
+		call win_gotoid(best)
+		let best_delta = abs(line - line('.'))
 		for index in range(1, len(glasses) - 1)
 			let new = glasses[index]
 			call win_gotoid(new)
 			let new_delta = abs(line - line('.'))
-			if new_delta < old_delta
-				let old_delta = new_delta
-				let old = new
+			if new_delta < best_delta
+				let best_delta = new_delta
+				let best = new
 			endif
 		endfor
 		call win_gotoid(original)
-		return old
+		return best
 	endif
 endfun
 
@@ -76,7 +76,6 @@ endfun
 
 fun! wheel#mosaic#rowcol ()
 	" Number of rows and cols for grid layout
-	" TODO
 	let width = winwidth(0)
 	let height = winheight(0)
 	" nr2float ?
