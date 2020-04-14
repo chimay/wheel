@@ -75,8 +75,10 @@ fun! wheel#helix#rename_file(old, new)
 	let g:wheel_files.timestamp = wheel#pendulum#timestamp()
 endfun
 
+" For special buffers
+
 fun! wheel#helix#locations ()
-	" Index of locations coordinates in the wheel
+	" Index of locations for special buffer
 	" Each coordinate is a string torus >> circle > location
 	let helix = wheel#helix#helix ()
 	let lines = []
@@ -88,7 +90,7 @@ fun! wheel#helix#locations ()
 endfu
 
 fun! wheel#helix#circles ()
-	" Index of circles coordinates in the wheel
+	" Index of circles for special buffer
 	" Each coordinate is a string torus >> circle
 	let grid = wheel#helix#grid ()
 	let lines = []
@@ -100,7 +102,7 @@ fun! wheel#helix#circles ()
 endfu
 
 fun! wheel#helix#tree ()
-	" Tree of elements in the wheel
+	" Description of elements for tree buffer
 	let helix = wheel#helix#helix ()
 	let lines = []
 	for torus in g:wheel.toruses
