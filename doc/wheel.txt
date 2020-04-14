@@ -642,17 +642,6 @@ Here is an example of a complete configuration : >
   let g:wheel_config.maxim.horizontal = 3
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
-
-  " Autocommands on vim leave, for autowriting
-  autocmd VimLeave * call wheel#void#exit()
-  " Autocommands executed after jumping to a location
-  autocmd User WheelAfterJump norm zMzx
-  " For current wheel location to auto follow buffer change
-  autocmd BufWinEnter * call wheel#projection#follow()
-  " Update location line & col before leaving a window
-  autocmd BufWinLeave * call wheel#vortex#update()
-  " To record your yanks in the yank wheel
-  autocmd TextYankPost * call wheel#codex#add()
 <
 
 ==============================================================================
@@ -661,7 +650,9 @@ AUTOCOMMANDS					   *wheel-autocommands*
 Auto write			|wheel-autocommands-auto-write|
 After jump			|wheel-autocommands-after-jump|
 Auto follow			|wheel-autocommands-auto-follow|
+Auto update			|wheel-autocommands-auto-update|
 Yank wheel			|wheel-autocommands-yank|
+Example				|wheel-autocommands-example|
 
 ------------------------------------------------------------------------------
 AUTO WRITE				*wheel-autocommands-auto-write*
@@ -689,7 +680,7 @@ AUTO FOLLOW		    		*wheel-autocommands-auto-follow*
 If you wish the wheel to auto-follow the buffers you enter, you can add
 this autocommand : >
 
-    autocmd BufWinEnter * call wheel#vortex#follow()
+    autocmd BufWinEnter * call wheel#projection#follow()
 <
 
 It will work for all buffers belonging to the current circle. It is useful
@@ -699,12 +690,37 @@ Be aware that it will update the wheel cursor position of your buffer, which
 is sensible after all.
 
 ------------------------------------------------------------------------------
+AUTO UPDATE					*wheel-autocommands-update*
+
+If you want to update your cursor position each time you leave a window : >
+
+  autocmd BufWinLeave * call wheel#vortex#update()
+<
+
+------------------------------------------------------------------------------
 YANK WHEEL					*wheel-autocommands-yank*
 
 If you want to record your yanks/delete, you can add this autommand to
 your init file : >
 
  autocmd TextYankPost * call wheel#codex#add()
+<
+
+------------------------------------------------------------------------------
+EXAMPLES				    *wheel-autocommands-examples*
+
+Here is an example of a complete autocommands configuration : >
+
+  " Autocommands on vim leave, for autowriting
+  autocmd VimLeave * call wheel#void#exit()
+  " Autocommands executed after jumping to a location
+  autocmd User WheelAfterJump norm zMzx
+  " For current wheel location to auto follow buffer change
+  autocmd BufWinEnter * call wheel#projection#follow()
+  " Update location line & col before leaving a window
+  autocmd BufWinLeave * call wheel#vortex#update()
+  " To record your yanks in the yank wheel
+  autocmd TextYankPost * call wheel#codex#add()
 <
 
 ==============================================================================

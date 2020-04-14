@@ -177,8 +177,10 @@ let g:wheel_config.maxim.vertical = 4
 autocmd VimLeave * call wheel#void#exit()
 " Autocommands executed after jumping to a location
 autocmd User WheelAfterJump norm zMzx
-" Autocommand for current wheel location to auto follow buffer change
-autocmd BufWinEnter * call wheel#vortex#follow()
+" For current wheel location to auto follow buffer change
+autocmd BufWinEnter * call wheel#projection#follow()
+" Update location line & col before leaving a window
+autocmd BufWinLeave * call wheel#vortex#update()
 " Autocommand to record your yanks in the yank wheel"
 autocmd TextYankPost * call wheel#codex#add()
 ```
