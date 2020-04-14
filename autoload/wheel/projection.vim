@@ -3,7 +3,7 @@
 
 fun! wheel#projection#closest ()
 	" Find closest location to current buffer file & position
-	" The search is done in g:wheel_album
+	" The search is done in album index
 	let cur_file = expand('%:p')
 	let cur_line = line('.')
 	let album = deepcopy(wheel#helix#album ())

@@ -5,21 +5,15 @@
 fun! wheel#helix#album ()
 	" Full index of toruses, circles & locations in the wheel
 	" Each entry = [torus.name, circle.name, location]
-	if g:wheel.timestamp >= g:wheel_album.timestamp
-		let album = []
-		for torus in g:wheel.toruses
-			for circle in torus.circles
-				for location in circle.locations
-					let entry = [torus.name, circle.name, location]
-					let album = add(album, entry)
-				endfor
+	let album = []
+	for torus in g:wheel.toruses
+		for circle in torus.circles
+			for location in circle.locations
+				let entry = [torus.name, circle.name, location]
+				let album = add(album, entry)
 			endfor
 		endfor
-		let g:wheel_album.table = album
-		let g:wheel_album.timestamp = wheel#pendulum#timestamp()
-	else
-		let album = g:wheel_album.table
-	endif
+	endfor
 	return album
 endfu
 
