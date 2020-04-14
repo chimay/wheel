@@ -129,7 +129,8 @@ fun! wheel#mosaic#tabs (level)
 		return
 	endif
 	call wheel#vortex#jump ()
-	for index in range(length - 1)
+	let maxtabs = g:wheel_config.maxim.tabs
+	for index in range(min([maxtabs, length - 1]))
 		tabnew
 		call wheel#vortex#next (level)
 	endfor
