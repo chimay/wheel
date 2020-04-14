@@ -49,7 +49,7 @@ fun! wheel#pendulum#sorted ()
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
 		let entry = date_hour . ' | '
-		let entry .= coordin[0] . ' >> ' . coordin[1] . ' > ' . coordin[2]
+		let entry .= coordin[0] . ' > ' . coordin[1] . ' > ' . coordin[2]
 		let strings = add(strings, entry)
 	endfor
 	return strings
