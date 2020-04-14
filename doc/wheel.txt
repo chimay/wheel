@@ -690,7 +690,7 @@ Be aware that it will update the wheel cursor position of your buffer, which
 is sensible after all.
 
 ------------------------------------------------------------------------------
-AUTO UPDATE					*wheel-autocommands-update*
+AUTO UPDATE				*wheel-autocommands-auto-update*
 
 If you want to update your cursor position each time you leave a window : >
 
