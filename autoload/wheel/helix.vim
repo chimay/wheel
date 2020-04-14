@@ -118,8 +118,8 @@ fun! wheel#helix#tree ()
 	return lines
 endfu
 
-fun! wheel#helix#full ()
-	" Full description of elements in the wheel
+fun! wheel#helix#reorganize ()
+	" Description of elements for reorganize buffer
 	let helix = wheel#helix#helix ()
 	let lines = []
 	for torus in g:wheel.toruses

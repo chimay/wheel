@@ -393,7 +393,7 @@ fun! wheel#mandala#reorganize ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#reorganize_write ()
 	call wheel#mandala#folding_options ()
-	let names = wheel#helix#full ()
+	let names = wheel#helix#reorganize ()
 	if exists('*appendbufline')
 		call appendbufline('%', 0, names)
 	else
