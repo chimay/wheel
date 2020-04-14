@@ -683,11 +683,12 @@ this autocommand : >
     autocmd BufWinEnter * call wheel#projection#follow()
 <
 
-It will work for all buffers belonging to the current circle. It is useful
-when you search with grep and the quickfix window.
+It will work for all buffer filenames belonging to the wheel. It is
+useful when you search with grep and the quickfix window, or when you
+edit a file with a classic vim command.
 
-Be aware that it will update the wheel cursor position of your buffer, which
-is sensible after all.
+Be aware that it will update the wheel cursor position of your buffer,
+which makes sense.
 
 ------------------------------------------------------------------------------
 AUTO UPDATE				*wheel-autocommands-auto-update*
