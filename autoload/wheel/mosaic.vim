@@ -172,18 +172,16 @@ fun! wheel#mosaic#split (level, ...)
 	let g:wheel_shelve.layout.split = action
 endfun
 
-fun! wheel#mosaic#grid (level)
+fun! wheel#mosaic#split_grid (level)
 	" Grid layout
 	let dict = {}
-	let [dict.rows, dict.cols] = wheel#mosaic#rowcol (a:level)
-	call wheel#mosaic#split(a:level, 'rows', dict)
+	let dict.maxim = wheel#mosaic#rowcol (a:level)
+	call wheel#mosaic#split(a:level, 'grid', dict)
 endfun
 
-fun! wheel#mosaic#transposed_grid (level)
+fun! wheel#mosaic#split_transposed_grid (level)
 	" Transposed grid layout
-	let dict = {}
-	let [dict.rows, dict.cols] = wheel#mosaic#rowcol (a:level)
-	call wheel#mosaic#split(a:level, 'cols', dict)
+	call wheel#mosaic#split(a:level, 'transposed_grid', dict)
 endfun
 
 " Split flavors
@@ -266,31 +264,54 @@ fun! wheel#mosaic#main_top (...)
 	endif
 endfun
 
-fun! wheel#mosaic#rows (dict)
+fun! wheel#mosaic#grid (dict)
 	" Grid as row_1, row_2, ...
-	" w:coordin = [row number, col number]
-	if ! exists('w:coordin')
-		let w:coordin = [0, 0]
+	" dict.done = [last_done_row, last_done_col]
+	" dict.maxim = [max_row, max_col]
+	let dict = a:dict
+	if ! has_key(dict, 'done')
+		let dict.done = [0, 0]
 	endif
-	let row = w:coordin[0]
-	let col = w:coordin[1]
-	if col < a:dict.cols - 1
-		vsplit
-		let w:coordin = [row, col + 1]
-		return 1
-	elseif row < a:dict.rows - 1
-		split
-		let w:coordin = [row + 1, 0]
-		return 1
+	echomsg string(dict)
+	let row = dict.done[0]
+	let col = dict.done[1]
+	let max_row = dict.maxim[0]
+	let max_col = dict.maxim[1]
+	wincmd t
+	if row == 0
+		if col > 0
+			exe col . 'wincmd l'
+		endif
+		if col < max_col - 1
+			vsplit
+			let dict.done = [row, col + 1]
+			return 1
+		else
+			exe col . 'wincmd h'
+			split
+			let dict.done = [1, 0]
+			return 1
+		endif
 	else
-		return 0
+		if col < max_col - 1
+			exe (col + 1) . 'wincmd l'
+			if row > 1
+				exe (row - 1) . 'wincmd j'
+			endif
+			split
+			let dict.done = [row, col + 1]
+			return 1
+		elseif row < max_row - 1
+			exe row . 'wincmd j'
+			split
+			let dict.done = [row + 1, 0]
+			return 1
+		else
+			return 0
+		endif
 	endif
 endfun
 
-fun! wheel#mosaic#cols (dict)
+fun! wheel#mosaic#transposed_grid (dict)
 	" Grid as col_1, col_2, ...
-	" w:coordin = [row number, col number]
-	if ! exists('w:coordin')
-		let w:coordin = [0, 0]
-	endif
 endfun
