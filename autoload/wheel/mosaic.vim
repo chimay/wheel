@@ -359,3 +359,12 @@ fun! wheel#mosaic#transposed_grid (dict)
 		endif
 	endif
 endfun
+
+" Rotate windows, like in bspwm
+
+fun! wheel#mosaic#rotate_clockwise ()
+endfun
+
+
+fun! wheel#mosaic#rotate_counter_clockwise ()
+endfun

@@ -876,7 +876,7 @@ History~
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
 
-Tabs & Windows~
+Tabs~
 
 You can display all locations of the current circle, one location per
 tab. Same idea with circles and toruses.
@@ -885,12 +885,27 @@ tab. Same idea with circles and toruses.
 | t        | <M-w>t              | One location per tab                 |
 | <C-t>    | <M-w><C-t>          | One circle per tab                   |
 | T        | <M-w>T              | One torus per tab                    |
-| s        | <M-w>s              | One location per horizontal split    |
-| <C-s>    | <M-w><C-s>          | One circle per horizontal split      |
-| S        | <M-w>S              | One torus per horizontal split       |
-| v        | <M-w>v              | One location per vertical split      |
-| <C-v>    | <M-w><C-v>          | One circle per vertical split        |
-| V        | <M-w>V              | One torus per vertical split         |
+
+Windows~
+
+You can display all locations of the current circle, one location per
+window. Same idea with circles and toruses.
+
+| Prefix + | With default prefix | Action                            |
+| s        | <M-w>s              | One location per horizontal split |
+| <C-s>    | <M-w><C-s>          | One circle per horizontal split   |
+| S        | <M-w>S              | One torus per horizontal split    |
+| v        | <M-w>v              | One location per vertical split   |
+| <C-v>    | <M-w><C-v>          | One circle per vertical split     |
+| V        | <M-w>V              | One torus per vertical split      |
+| l        | <M-w>l              | Locations in main left layout     |
+| <C-l>    | <M-w><C-l>          | Circles in main left layout       |
+| L        | <M-w>L              | Toruses in main left layout       |
+
+Tabs & Windows~
+
+| Prefix + | With default prefix | Action                               |
+| z        | <M-w>z              | Zoom : one tab, one window           |
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
 

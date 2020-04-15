@@ -67,19 +67,24 @@ fun! wheel#centre#mappings ()
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
-		" Tabs & Windows
-		exe 'nnoremap ' . prefix . 'z :call wheel#mosaic#zoom()<cr>'
+		" Tabs
 		exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
 		exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"
+		" Windows
 		exe 'nnoremap ' . prefix . "s :call wheel#mosaic#split('location')<cr>"
 		exe 'nnoremap ' . prefix . "<c-s> :call wheel#mosaic#split('circle')<cr>"
 		exe 'nnoremap ' . prefix . "S :call wheel#mosaic#split('torus')<cr>"
 		exe 'nnoremap ' . prefix . "v :call wheel#mosaic#split('location', 'vertical')<cr>"
 		exe 'nnoremap ' . prefix . "<c-v> :call wheel#mosaic#split('circle', 'vertical')<cr>"
 		exe 'nnoremap ' . prefix . "V :call wheel#mosaic#split('torus', 'vertical')<cr>"
-		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
-		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
+		exe 'nnoremap ' . prefix . "l :call wheel#mosaic#split('location', 'main_left')<cr>"
+		exe 'nnoremap ' . prefix . "<c-l> :call wheel#mosaic#split('circle', 'main_left')<cr>"
+		exe 'nnoremap ' . prefix . "L :call wheel#mosaic#split('torus', 'main_left')<cr>"
+		" Tabs & Windows
+		exe 'nnoremap ' . prefix . 'z :call wheel#mosaic#zoom()<cr>'
+		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus', 'wheel#mosaic#main_left')<cr>"
+		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle', 'wheel#mosaic#main_left')<cr>"
 		" Yank wheel
 		exe 'nnoremap ' . prefix . "y :call wheel#mandala#yank('list')<cr>"
 		exe 'nnoremap ' . prefix . "<m-y> :call wheel#mandala#yank('plain')<cr>"
