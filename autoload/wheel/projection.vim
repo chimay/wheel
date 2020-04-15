@@ -1,13 +1,19 @@
 " vim: ft=vim fdm=indent:
 
 
-fun! wheel#projection#closest ()
+fun! wheel#projection#closest (level)
 	" Find closest location to current buffer file & position
 	" The search is done in album index
+	" Search in given current level = wheel, torus or circle
+	let narrow = wheel#referen#coordin_index(a:level)
+	let narrow_name = wheel#referen#names()[narrow]
 	let cur_file = expand('%:p')
 	let cur_line = line('.')
 	let album = deepcopy(wheel#helix#album ())
 	call filter(album, {_,value -> value[2].file == cur_file})
+	if narrow >= 0
+		call filter(album, {_,value -> value[narrow] == narrow_name})
+	endif
 	if empty(album)
 		return []
 	endif
@@ -21,9 +27,15 @@ fun! wheel#projection#closest ()
 	return coordin
 endfun
 
-fun! wheel#projection#follow ()
+fun! wheel#projection#follow (...)
 	" Try to set current location to match current file
 	" Choose location closest to current line
+	" Optional argument : search only in given current level
+	if a:0 > 0
+		let level = a:1
+	else
+		let level = 'wheel'
+	endif
 	let cur_file = expand('%:p')
 	let cur_location = wheel#referen#location()
 	if ! empty(cur_location)
@@ -31,7 +43,7 @@ fun! wheel#projection#follow ()
 			return
 		endif
 	endif
-	let coordin = wheel#projection#closest ()
+	let coordin = wheel#projection#closest (level)
 	if ! empty(coordin)
 		call wheel#vortex#chord(coordin)
 		if g:wheel_config.cd_project > 0

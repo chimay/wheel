@@ -123,6 +123,7 @@ fun! wheel#mosaic#tabs (level)
 	" One level element per tab
 	let level = a:level
 	let upper = wheel#referen#upper (level)
+	let upper_level = wheel#referen#upper_level_name (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
 	if ! wheel#mosaic#one_tab ()
@@ -135,7 +136,7 @@ fun! wheel#mosaic#tabs (level)
 		call wheel#vortex#next (level, 'new')
 	endfor
 	tabrewind
-	call wheel#projection#follow ()
+	call wheel#projection#follow (upper_level)
 	let g:wheel_shelve.layout.tab = level
 endfun
 
@@ -153,6 +154,7 @@ fun! wheel#mosaic#split (level, ...)
 	endif
 	let level = a:level
 	let upper = wheel#referen#upper (level)
+	let upper_level = wheel#referen#upper_level_name (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
 	if ! wheel#mosaic#one_window ()
@@ -167,7 +169,7 @@ fun! wheel#mosaic#split (level, ...)
 		call wheel#vortex#next (level, 'new')
 	endfor
 	wincmd t
-	call wheel#projection#follow ()
+	call wheel#projection#follow (upper_level)
 	let g:wheel_shelve.layout.window = level
 	let g:wheel_shelve.layout.split = action
 endfun
