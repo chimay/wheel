@@ -243,7 +243,10 @@ The available actions depend on the context :
 - Menu buffers allow you to launch a wheel function
 - Navigation buffers allow you to switch to a location, circle or torus
 - Reordering buffers allow you to reorder locations, circles or toruses
-- Reorganize buffer allows you to move and copy around locations, circles and toruses
+- Reorganize buffer allows you fine grain operations
+  + Move and copy around locations, circles and toruses
+  + Change locations settings like name, line, col
+  + Be sure you know what you’re doing
 
 Wrapping up things~
 
@@ -289,10 +292,13 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Add a new element to the wheel
 - Rename an element
 - Delete an element
-- Switch to an element
+- Switch to an element (navigation)
 - Alternate last two elements
+- Display elements in tabs
+- Display elements in windows
 - Display elements in tabs & windows
 - Reorganize elements
+- Paste from yank wheel
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
@@ -313,9 +319,13 @@ The default mappings launching navigation buffers are :
 - `<M-w><Space>`   : switch to location
 - `<M-w><C-space>` : switch to current location of the chosen circle
 - `<M-w><S-space>` : switch to current location of the chosen torus
-- `<M-w>x`         : index of toruses >> circles > locations
-- `<M-w><C-x>`     : index of toruses >> circles
+- `<M-w>x`         : index of toruses > circles > locations
+- `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
+
+Menus~
+
+The navigation buffers can also be launched from the main & meta menus.
 
 Folding~
 
@@ -353,6 +363,10 @@ The default mappings launching reordering buffers are :
 - `<M-w><C-o>` : reorder circles
 - `<M-w>O` : reorder toruses
 
+Menus~
+
+The reordering buffers can also be launched from the main & meta menus.
+
 Pressed the wrong button ?~
 
 If something goes wrong, you can quit the buffer and re-read the wheel
@@ -388,6 +402,10 @@ Mappings~
 
 The default mapping is `<M-w><M-o>`.
 
+Menus~
+
+The reorganizing buffer can also be launched from the main & meta menus.
+
 Pressed the wrong button ?~
 
 If something goes wrong, you can quit the buffer and re-read the wheel
@@ -414,6 +432,10 @@ To paste a line, just press `<enter>` or `p`. You can also go to visual
 mode and paste your selection.
 
 You can filter the elements in insert mode.
+
+Menus~
+
+The yank wheel buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-special-buffers-batch*
