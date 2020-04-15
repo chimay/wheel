@@ -911,8 +911,9 @@ Tabs & Windows~
 
 Yank wheel~
 
-| Prefix + | With default prefix | Action                               |
-| y        | <M-w>y              | Paste an element of yank wheel       |
+| Prefix + | With default prefix | Action                                        |
+| y        | <M-w>y              | Paste an element of yank wheel in list mode   |
+| <M-y>    | <M-w><M-y>          | Paste an element of yank wheel in insert mode |
 
 Reorganizing buffer~
 

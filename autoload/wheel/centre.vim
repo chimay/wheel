@@ -133,9 +133,13 @@ fun! wheel#centre#mappings ()
 		" Batch
 		nnoremap <D-b>          :WheelBatch<space>
 		nnoremap <D-g>          :WheelGrep<space>
+		" Windows
+		nnoremap <D-t>          :call wheel#moaic#tabs('location')
+		nnoremap <D-l>          :call wheel#moaic#split('location', 'main_left')
+		nnoremap <D-&>          :call wheel#pyramid#steps('circle')
 		" Rotate windows
-		nnoremap <M-PageUp>      :call wheel#mosaic#rotate_counter_clockwise()<cr>
-		nnoremap <M-PageDown>    :call wheel#mosaic#rotate_clockwise()<cr>
+		nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
+		nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
