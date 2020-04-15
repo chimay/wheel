@@ -134,6 +134,7 @@ fun! wheel#centre#mappings ()
 		nnoremap <D-b>          :WheelBatch<space>
 		nnoremap <D-g>          :WheelGrep<space>
 		" Windows
+		nnoremap <D-z>          :call wheel#mosaic#zoom()<cr>
 		nnoremap <D-t>          :call wheel#mosaic#tabs('location')<cr>
 		nnoremap <D-l>          :call wheel#mosaic#split('location', 'main_left')<cr>
 		nnoremap <D-&>          :call wheel#pyramid#steps('circle')<cr>
