@@ -128,11 +128,11 @@ fun! wheel#mosaic#tabs (level)
 	if ! wheel#mosaic#one_tab ()
 		return
 	endif
-	call wheel#vortex#jump ()
+	call wheel#vortex#jump ('new')
 	let maxtabs = g:wheel_config.maxim.tabs
 	for index in range(min([maxtabs, length - 1]))
 		tabnew
-		call wheel#vortex#next (level)
+		call wheel#vortex#next (level, 'new')
 	endfor
 	tabrewind
 	call wheel#projection#follow ()
@@ -158,13 +158,13 @@ fun! wheel#mosaic#split (level, ...)
 	if ! wheel#mosaic#one_window ()
 		return
 	endif
-	call wheel#vortex#jump ()
+	call wheel#vortex#jump ('new')
 	for index in range(length - 1)
 		let alright = wheel#mosaic#{action} (dict)
 		if ! alright
 			break
 		endif
-		call wheel#vortex#next (level)
+		call wheel#vortex#next (level, 'new')
 	endfor
 	wincmd t
 	call wheel#projection#follow ()

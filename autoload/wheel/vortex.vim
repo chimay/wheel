@@ -23,6 +23,8 @@ endfun
 
 fun! wheel#vortex#jump (...)
 	" Jump to current location
+	" Optional argument :
+	" if new, do not search for buffer in tabs & windows
 	if a:0 > 0
 		let mode = a:1
 	else
@@ -30,7 +32,11 @@ fun! wheel#vortex#jump (...)
 	endif
 	let location = wheel#referen#location ()
 	if ! empty(location)
-		let window = wheel#mosaic#tour ()
+		if mode != 'new'
+			let window = wheel#mosaic#tour ()
+		else
+			let window = 0
+		endif
 		if window
 			"echomsg 'Switching to window ' window
 			call win_gotoid(window)
@@ -57,8 +63,13 @@ endfun
 
 " Next / Previous
 
-fun! wheel#vortex#previous (level)
+fun! wheel#vortex#previous (level, ...)
 	" Previous element in level
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
 	let level = a:level
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
@@ -71,12 +82,17 @@ fun! wheel#vortex#previous (level)
 		else
 			let upper.current = wheel#gear#circular_minus(index, length)
 		endif
-		call wheel#vortex#jump()
+		call wheel#vortex#jump(mode)
 	endif
 endfun
 
-fun! wheel#vortex#next (level)
+fun! wheel#vortex#next (level, ...)
 	" Next element in level
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
 	let level = a:level
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
@@ -89,7 +105,7 @@ fun! wheel#vortex#next (level)
 		else
 			let upper.current = wheel#gear#circular_plus(index, length)
 		endif
-		call wheel#vortex#jump()
+		call wheel#vortex#jump(mode)
 	endif
 endfun
 
@@ -135,6 +151,8 @@ endfun
 
 fun! wheel#vortex#switch (level, ...)
 	" Switch element
+	" Optional argument 0 : name of element
+	" Optional argument 1 : jump mode
 	call wheel#vortex#update ()
 	let level = a:level
 	let prompt = 'Switch to ' . level . ' : '
@@ -144,8 +162,13 @@ fun! wheel#vortex#switch (level, ...)
 	else
 		let name = input(prompt, '', complete)
 	endif
+	if a:0 > 1
+		let mode = a:2
+	else
+		let mode = 'default'
+	endif
 	let index = wheel#vortex#tune (level, name)
 	if index >= 0
-		call wheel#vortex#jump ()
+		call wheel#vortex#jump (mode)
 	endif
 endfun

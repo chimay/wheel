@@ -81,6 +81,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "l :call wheel#mosaic#split('location', 'main_left')<cr>"
 		exe 'nnoremap ' . prefix . "<c-l> :call wheel#mosaic#split('circle', 'main_left')<cr>"
 		exe 'nnoremap ' . prefix . "L :call wheel#mosaic#split('torus', 'main_left')<cr>"
+		exe 'nnoremap ' . prefix . "g :call wheel#mosaic#split_grid('location')<cr>"
+		exe 'nnoremap ' . prefix . "<c-g> :call wheel#mosaic#split_grid('circle')<cr>"
+		exe 'nnoremap ' . prefix . "G :call wheel#mosaic#split_grid('torus')<cr>"
 		" Tabs & Windows
 		exe 'nnoremap ' . prefix . 'z :call wheel#mosaic#zoom()<cr>'
 		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus', 'wheel#mosaic#main_left')<cr>"
