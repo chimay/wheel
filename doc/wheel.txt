@@ -79,12 +79,9 @@ FEATURES				*wheel-introduction-features*
     * Folds matching wheel tree structure
   + Auto |:lcd| to project root of current file
 - May be saved in wheel file
-- Reordering elements
-- Moving elements
+- Reorganizing elements
 - Display files
-  + 1 location per tab / split
-  + 1 circle per tab / split
-  + 1 torus per tab / split
+  + Split levels : torus, circle, location
   + Split : vertical, horizontal, grid, main
   + Mix of above
     * circles on tabs, locations on split

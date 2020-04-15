@@ -80,19 +80,16 @@ grow and adapt to your style.
   + file:line-1 and file:line-2 in the same group
 - Easy navigation
   + On demand loading of files
-  + Jump to matching tab & window if available
+  + Switch to matching tab & window if available
   + Choose file, group or category in special buffer
     * Filter candidates
 	* Folds matching wheel tree structure
   + Auto `:lcd` to project root of current file
 - May be saved in wheel file
-- Reordering elements
-- Moving elements
+- Reorganizing elements
 - Display files
-  + 1 location per tab / split
-  + 1 circle per tab / split
-  + 1 torus per tab / split
-  + Split : vertical, horizontal, grid, main
+  + Split levels : torus, circle, location
+  + Split layout : vertical, horizontal, grid, main
   + Mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
