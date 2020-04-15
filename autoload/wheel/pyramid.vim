@@ -15,9 +15,12 @@ fun! wheel#pyramid#steps (level, ...)
 	let two = wheel#referen#lower_level_name (a:level)
 	call wheel#mosaic#tabs (one)
 	let tabnum = tabpagenr('$')
-	for tabind in range(tabnum)
+	for tabind in range(tabnum - 1)
 		call wheel#mosaic#split(two, fun)
 		tabnext
 		call wheel#vortex#next (one, 'new')
 	endfor
+	call wheel#mosaic#split(two, fun)
+	tabrewind
+	call wheel#projection#follow ()
 endfun
