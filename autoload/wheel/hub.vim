@@ -80,8 +80,12 @@ if ! exists('s:windows')
 				\ 'Toruses on splits, main top layout' : "wheel#mosaic#split('torus', 'main_top')",
 				\ 'Circles on splits, main top layout' : "wheel#mosaic#split('circle', 'main_top')",
 				\ 'Locations on splits, main top layout' : "wheel#mosaic#split('location', 'main_top')",
-				\ 'Mix : toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
-				\ 'Mix : circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
+				\ 'Toruses on splits, grid layout' : "wheel#mosaic#split_grid('torus')",
+				\ 'Circles on splits, grid layout' : "wheel#mosaic#split_grid('circle')",
+				\ 'Locations on splits, grid layout' : "wheel#mosaic#split_grid('location')",
+				\ 'Toruses on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('torus')",
+				\ 'Circles on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('circle')",
+				\ 'Locations on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('location')",
 				\}
 	lockvar s:windows
 endif
