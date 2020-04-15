@@ -9,12 +9,13 @@ fun! wheel#pyramid#steps (level, ...)
 	if a:0 > 0
 		let fun = a:1
 	else
-		let fun = 'horizontal'
+		let fun = 'main_left'
 	endif
 	let one = a:level
 	let two = wheel#referen#lower_level_name (a:level)
 	call wheel#mosaic#tabs (one)
-	for tab in range(tabpagenr('$'))
+	let tabnum = tabpagenr('$')
+	for tabind in range(tabnum)
 		call wheel#mosaic#split(two, fun)
 		tabnext
 		call wheel#vortex#next (one, 'new')
