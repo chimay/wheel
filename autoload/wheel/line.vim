@@ -158,6 +158,7 @@ fun! wheel#line#switch (dict)
 		let dict.mode = 'default'
 	else
 		let dict.mode = 'new'
+	endif
 	if close
 		call wheel#mandala#close ()
 	else
