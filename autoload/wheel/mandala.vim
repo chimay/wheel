@@ -59,9 +59,10 @@ endfun
 
 fun! wheel#mandala#filter (...)
 	" Keep lines matching words of first line
-	let mode = 'normal'
 	if a:0 > 0
 		let mode = a:1
+	else
+		let mode = 'normal'
 	endif
 	let lines = wheel#line#filter ()
 	if exists('*deletebufline')

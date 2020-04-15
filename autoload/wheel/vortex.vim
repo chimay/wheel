@@ -21,8 +21,13 @@ fun! wheel#vortex#update ()
 	endif
 endfun
 
-fun! wheel#vortex#jump ()
+fun! wheel#vortex#jump (...)
 	" Jump to current location
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
 	let location = wheel#referen#location ()
 	if ! empty(location)
 		let window = wheel#mosaic#tour ()

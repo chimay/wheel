@@ -14,7 +14,6 @@ fun! wheel#pyramid#steps (level, ...)
 	let two = wheel#referen#lower_level_name (a:level)
 	call wheel#mosaic#tabs (one)
 	for tab in range(tabpagenr('$'))
-		echomsg tabpagenr()
 		if type(Split) == v:t_func
 			call Split (two)
 		elseif type(Split) == v:t_string

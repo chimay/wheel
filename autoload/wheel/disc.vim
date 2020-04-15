@@ -13,18 +13,19 @@ fun! wheel#disc#write (pointer, file, ...)
 		return
 	endif
 	let file = expand(a:file)
-	let mode = '>'
 	if a:0 > 0
 		let mode = a:1
+	else
+		let mode = '>'
 	endif
 	let var =  {a:pointer}
 	redir => content
-		silent! echo 'let' a:pointer '=' var
+	silent! echo 'let' a:pointer '=' var
 	redir END
 	let content = substitute(content, '\m[=,]', '\0\n\\', 'g')
 	let content = substitute(content, '\m\n\{2,\}', '\n', 'g')
 	exec 'redir! ' . mode . ' ' . file
-		silent! echo content
+	silent! echo content
 	redir END
 endfun
 
@@ -39,9 +40,10 @@ fun! wheel#disc#writefile (varname, file, ...)
 		return
 	endif
 	let file = expand(a:file)
-	let mode = '>'
 	if a:0 > 0
 		let mode = a:1
+	else
+		let mode = '>'
 	endif
 	let string = 'let ' . a:varname . ' = ' . string({a:varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')

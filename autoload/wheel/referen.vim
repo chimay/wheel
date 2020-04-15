@@ -54,13 +54,13 @@ endfun
 fun! wheel#referen#circle (...)
 	" Current circle
 	let all = 0
-	let cur_torus = {}
-	let cur_circle = {}
 	if a:0 > 0
 		if a:1 ==# 'all' || a:1 ==# 'a' || a:1 == 1
 			let all = 1
 		endif
 	endif
+	let cur_torus = {}
+	let cur_circle = {}
 	if ! empty(g:wheel.toruses)
 		let cur_torus = g:wheel.toruses[g:wheel.current]
 		if ! empty(cur_torus.circles)
@@ -77,14 +77,14 @@ endfun
 fun! wheel#referen#location (...)
 	" Current location
 	let all = 0
-	let cur_torus = {}
-	let cur_circle = {}
-	let cur_location = {}
 	if a:0 > 0
 		if a:1 ==# 'all' || a:1 ==# 'a' || a:1 == 1
 			let all = 1
 		endif
 	endif
+	let cur_torus = {}
+	let cur_circle = {}
+	let cur_location = {}
 	if ! empty(g:wheel.toruses)
 		let cur_torus = g:wheel.toruses[g:wheel.current]
 		if ! empty(cur_torus.circles)
