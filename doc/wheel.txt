@@ -898,6 +898,9 @@ window. Same idea with circles and toruses.
 | l        | <M-w>l              | Locations in main left layout     |
 | <C-l>    | <M-w><C-l>          | Circles in main left layout       |
 | L        | <M-w>L              | Toruses in main left layout       |
+| g        | <M-w>g              | Locations in grid layout          |
+| <C-g>    | <M-w><C-g>          | Circles in grid layout            |
+| G        | <M-w>G              | Toruses in grid layout            |
 
 Tabs & Windows~
 
