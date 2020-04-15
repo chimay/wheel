@@ -927,32 +927,40 @@ The level 10 offers quicker mappings for the most used wheel functions. You
 can set the mapping level to 10 to activate them, or adapt them to your taste
 and add them to your init file.
 
-| Mapping        | Action                                  |
-| <D-=>          | Meta menu                               |
-| <D-m>          | Main menu                               |
-| <Space>        | Choose location in special buffer       |
-| <C-Space>      | Choose circle in special buffer         |
-| <S-Space>      | Choose torus in special buffer          |
-| <D-Space>      | Choose element in wheel folding tree    |
-| <M-Space>      | Reorganize wheel elements               |
-| <D-Insert>     | Add location to the current circle      |
-| <D-Del>        | Delete current location                 |
-| <C-PageUp>     | Go to previous location                 |
-| <C-PageDown>   | Go to next location                     |
-| <C-Home>       | Go to previous circle                   |
-| <C-End>        | Go to next circle                       |
-| <S-Home>       | Go to previous torus                    |
-| <S-End>        | Go to next torus                        |
-| <S-PageUp>     | Go to newer location in history         |
-| <S-PageDown>   | Go to older location in history         |
-| <C-^>          | Alternate last two locations            |
-| <D-^>          | Alternate in same torus, other circle   |
-| <C-S-PageUp>   | Alternate in same torus                 |
-| <C-S-PageDown> | Alternate in same circle                |
-| <C-S-Home>     | Alternate in other torus                |
-| <C-S-End>      | Alternate in other circle               |
-| <D-b>          | Batch operation in current circle files |
-| <D-g>          | Grep in current circle files            |
+| Mapping        | Action                                      |
+| <D-=>          | Meta menu                                   |
+| <D-m>          | Main menu                                   |
+| <Space>        | Choose location in special buffer           |
+| <C-Space>      | Choose circle in special buffer             |
+| <S-Space>      | Choose torus in special buffer              |
+| <D-Space>      | Choose element in wheel folding tree        |
+| <M-Space>      | Reorganize wheel elements                   |
+| <D-Insert>     | Add location to the current circle          |
+| <D-Del>        | Delete current location                     |
+| <C-PageUp>     | Go to previous location                     |
+| <C-PageDown>   | Go to next location                         |
+| <C-Home>       | Go to previous circle                       |
+| <C-End>        | Go to next circle                           |
+| <S-Home>       | Go to previous torus                        |
+| <S-End>        | Go to next torus                            |
+| <S-PageUp>     | Go to newer location in history             |
+| <S-PageDown>   | Go to older location in history             |
+| <C-^>          | Alternate last two locations                |
+| <D-^>          | Alternate in same torus, other circle       |
+| <C-S-PageUp>   | Alternate in same torus                     |
+| <C-S-PageDown> | Alternate in same circle                    |
+| <C-S-Home>     | Alternate in other torus                    |
+| <C-S-End>      | Alternate in other circle                   |
+| <D-y>          | Paste yank wheel element in list mode       |
+| <D-p>          | Paste yank wheel element in plain mode      |
+| <D-b>          | Batch operation in current circle files     |
+| <D-g>          | Grep in current circle files                |
+| <D-z>          | Zoom : one tab, one window                  |
+| <D-t>          | One location per tab                        |
+| <D-l>          | One location per window, main left layout   |
+| <D-&>          | One circle per tab, one location per window |
+| <M-PageUp>     | Rotate windows counter-clockwise            |
+| <M-PageDown>   | Rotate windows clockwise                    |
 
 Here is the default level 10, if you wish to customize it : >
 
