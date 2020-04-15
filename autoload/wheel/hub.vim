@@ -185,6 +185,7 @@ fun! wheel#hub#menu (pointer)
 	call wheel#mandala#open (string)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 	nnoremap <buffer> <cr> :call wheel#hub#call()<cr>
 	let menu = sort(keys({a:pointer}))
 	call append('.', menu)

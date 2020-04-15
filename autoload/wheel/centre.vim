@@ -133,6 +133,9 @@ fun! wheel#centre#mappings ()
 		" Batch
 		nnoremap <D-b>          :WheelBatch<space>
 		nnoremap <D-g>          :WheelGrep<space>
+		" Rotate windows
+		nnoremap <M-PageUp>      :call wheel#mosaic#rotate_counter_clockwise()<cr>
+		nnoremap <M-PageDown>    :call wheel#mosaic#rotate_clockwise()<cr>
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
