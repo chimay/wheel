@@ -11,9 +11,11 @@ endfun
 
 fun! wheel#mosaic#tour ()
 	" Return closest candidate amongst windows displaying current location
+	" Prefer windows in current tab page
 	" by exploring each one
 	" Return 0 if no window display filename
 	let original = win_getid()
+	let tabnum = tabpagenr()
 	let location = wheel#referen#location()
 	let filename = location.file
 	let line = location.line
@@ -24,12 +26,18 @@ fun! wheel#mosaic#tour ()
 		let best = glasses[0]
 		call win_gotoid(best)
 		let best_delta = abs(line - line('.'))
+		let best_tab = tabpagenr()
 		for index in range(1, len(glasses) - 1)
 			let new = glasses[index]
 			call win_gotoid(new)
+			let new_tab = tabpagenr()
+			if best_tab == tabnum && new_tab != tabnum
+				continue
+			endif
 			let new_delta = abs(line - line('.'))
 			if new_delta < best_delta
 				let best_delta = new_delta
+				let best_tab = new_tab
 				let best = new
 			endif
 		endfor
