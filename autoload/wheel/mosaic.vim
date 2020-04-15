@@ -181,6 +181,8 @@ endfun
 
 fun! wheel#mosaic#split_transposed_grid (level)
 	" Transposed grid layout
+	let dict = {}
+	let dict.maxim = wheel#mosaic#rowcol (a:level)
 	call wheel#mosaic#split(a:level, 'transposed_grid', dict)
 endfun
 
@@ -272,7 +274,6 @@ fun! wheel#mosaic#grid (dict)
 	if ! has_key(dict, 'done')
 		let dict.done = [0, 0]
 	endif
-	echomsg string(dict)
 	let row = dict.done[0]
 	let col = dict.done[1]
 	let max_row = dict.maxim[0]
@@ -314,4 +315,47 @@ endfun
 
 fun! wheel#mosaic#transposed_grid (dict)
 	" Grid as col_1, col_2, ...
+	" dict.done = [last_done_row, last_done_col]
+	" dict.maxim = [max_row, max_col]
+	let dict = a:dict
+	if ! has_key(dict, 'done')
+		let dict.done = [0, 0]
+	endif
+	let row = dict.done[0]
+	let col = dict.done[1]
+	let max_row = dict.maxim[0]
+	let max_col = dict.maxim[1]
+	wincmd t
+	if col == 0
+		if row > 0
+			exe row . 'wincmd j'
+		endif
+		if row < max_row - 1
+			split
+			let dict.done = [row + 1, col]
+			return 1
+		else
+			exe row . 'wincmd k'
+			vsplit
+			let dict.done = [0, 1]
+			return 1
+		endif
+	else
+		if row < max_row - 1
+			exe (row + 1) . 'wincmd j'
+			if col > 1
+				exe (col - 1) . 'wincmd l'
+			endif
+			vsplit
+			let dict.done = [row + 1, col]
+			return 1
+		elseif col < max_col - 1
+			exe col . 'wincmd l'
+			vsplit
+			let dict.done = [0, col + 1]
+			return 1
+		else
+			return 0
+		endif
+	endif
 endfun
