@@ -838,6 +838,7 @@ Most mappings respect the following convention :
 - prefix + `letter`     : location operation
 - prefix + `<C-letter>` : circle operation
 - prefix + `<S-letter>` : location operation
+- prefix + `<M-letter>` : alternative operation
 
 ------------------------------------------------------------------------------
 LEVEL 0						*wheel-mappings-level-0*
@@ -849,27 +850,33 @@ special buffer, and from there you can trigger all sort of actions on
 the Wheel. See |wheel-special-buffers-menu| for more information.
 
 | Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
 | m        | <M-w>m              | Main menu               |
 | =        | <M-w>=              | Meta menu               |
 
 Add~
 
-| Prefix + | With default prefix | Action                             |
-| a        | <M-w>a              | Add location to the current circle |
-| <C-a>    | <M-w><C-a>          | Add circle to the current torus    |
-| A        | <M-w>A              | Add torus to the wheel             |
-| f        | <M-w>f              | Add file                           |
-| b        | <M-w>b              | Add buffer                         |
+| Prefix +   | With default prefix   | Action                             |
+| ---------- | --------------------- | ---------------------------------- |
+| a          | <M-w>a                | Add location to the current circle |
+| <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
+| A          | <M-w>A                | Add torus to the wheel             |
+| ---------- | --------------------- | ---------------------------------- |
+| f          | <M-w>f                | Add file                           |
+| b          | <M-w>b                | Add buffer                         |
 
 Navigation : next / previous~
 
-| Prefix +    | With default prefix | Action                  |
-| <left>      | <M-w><left>         | Go to previous location |
-| <right>     | <M-w><right>        | Go to next location     |
-| <C-left>    | <M-w><C-left>       | Go to previous circle   |
-| <C-right>   | <M-w><C-right>      | Go to next circle       |
-| <S-left>    | <M-w><S-left>       | Go to previous torus    |
-| <S-right>   | <M-w><S-right>      | Go to next torus        |
+| Prefix +   | With default prefix   | Action                  |
+| ---------- | --------------------- | ------------------------|
+| <left>     | <M-w><left>           | Go to previous location |
+| <right>    | <M-w><right>          | Go to next location     |
+| ---------- | --------------------- | ------------------------|
+| <C-left>   | <M-w><C-left>         | Go to previous circle   |
+| <C-right>  | <M-w><C-right>        | Go to next circle       |
+| ---------- | --------------------- | ------------------------|
+| <S-left>   | <M-w><S-left>         | Go to previous torus    |
+| <S-right>  | <M-w><S-right>        | Go to next torus        |
 
 Read / Write file~
 
@@ -882,21 +889,26 @@ LEVEL 1						*wheel-mappings-level-1*
 
 Special buffers~
 
-| Prefix +  | With default prefix | Action                                  |
-| <Space>   | <M-w><Space>        | Switch to location                      |
-| <C-Space> | <M-w><C-Space>      | Switch to circle                        |
-| <S-Space> | <M-w><S-Space>      | Switch to torus                         |
-| x         | <M-w>x              | Index of toruses >> circles > locations |
-| <C-x>     | <M-w><C-x>          | Index of toruses >> circles             |
-| <M-x>     | <M-w><M-x>          | Index with folds                        |
-| h         | <M-w>h              | History index                           |
-| o         | <M-w>o              | Reorder locations in current circle     |
-| <C-o>     | <M-w><C-o>          | Reorder circles in current torus        |
-| O         | <M-w>O              | Reorder toruses in wheel                |
+| Prefix +   | With default prefix   | Action                                 |
+| ---------- | --------------------- | -------------------------------------- |
+| <Space>    | <M-w><Space>          | Switch to location                     |
+| <C-Space>  | <M-w><C-Space>        | Switch to circle                       |
+| <S-Space>  | <M-w><S-Space>        | Switch to torus                        |
+| ---------- | --------------------- | -------------------------------------- |
+| x          | <M-w>x                | Index of toruses > circles > locations |
+| <C-x>      | <M-w><C-x>            | Index of toruses > circles             |
+| <M-x>      | <M-w><M-x>            | Index with folds                       |
+| ---------- | --------------------- | -------------------------------------- |
+| h          | <M-w>h                | History index                          |
+| ---------- | --------------------- | -------------------------------------- |
+| o          | <M-w>o                | Reorder locations in current circle    |
+| <C-o>      | <M-w><C-o>            | Reorder circles in current torus       |
+| O          | <M-w>O                | Reorder toruses in wheel               |
 
 Rename~
 
 | Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
 | n        | <M-w>n              | Rename current location |
 | <C-n>    | <M-w><C-n>          | Rename current circle   |
 | N        | <M-w>N              | Rename current torus    |
@@ -904,6 +916,7 @@ Rename~
 Delete~
 
 | Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
 | d        | <M-w>d              | Delete current location |
 | <C-d>    | <M-w><C-d>          | Delete current circle   |
 | D        | <M-w>D              | Delete current torus    |
@@ -911,16 +924,18 @@ Delete~
 Navigation~
 
 | Prefix +  | With default prefix | Action             |
+| --------- | ------------------- | ------------------ |
 | <CR>      | <M-w><CR>           | Switch to location |
 | <C-CR>    | <M-w><C-CR>         | Switch to circle   |
 | <S-CR>    | <M-w><S-CR>         | Switch to torus    |
 
 History~
 
-| Prefix +      | With default prefix | Action                          |
-| <tab>         | <M-w><tab>          | Go to newer location in history |
-| <backspace>   | <M-w><backspace>    | Go to older location in history |
-| ^             | <M-w>^              | Alternate last two locations    |
+| Prefix +    | With default prefix | Action                          |
+| ----------- | ------------------- | ------------------------------- |
+| <tab>       | <M-w><tab>          | Go to newer location in history |
+| <backspace> | <M-w><backspace>    | Go to older location in history |
+| ^           | <M-w>^              | Alternate last two locations    |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
@@ -930,33 +945,39 @@ Tabs~
 You can display all locations of the current circle, one location per
 tab. Same idea with circles and toruses.
 
-| Prefix + | With default prefix | Action                               |
-| t        | <M-w>t              | One location per tab                 |
-| <C-t>    | <M-w><C-t>          | One circle per tab                   |
-| T        | <M-w>T              | One torus per tab                    |
+| Prefix + | With default prefix | Action               |
+| -------- | ------------------- | -------------------- |
+| t        | <M-w>t              | One location per tab |
+| <C-t>    | <M-w><C-t>          | One circle per tab   |
+| T        | <M-w>T              | One torus per tab    |
 
 Windows~
 
 You can display all locations of the current circle, one location per
 window. Same idea with circles and toruses.
 
-| Prefix + | With default prefix | Action                            |
-| s        | <M-w>s              | One location per horizontal split |
-| <C-s>    | <M-w><C-s>          | One circle per horizontal split   |
-| S        | <M-w>S              | One torus per horizontal split    |
-| v        | <M-w>v              | One location per vertical split   |
-| <C-v>    | <M-w><C-v>          | One circle per vertical split     |
-| V        | <M-w>V              | One torus per vertical split      |
-| l        | <M-w>l              | Locations in main left layout     |
-| <C-l>    | <M-w><C-l>          | Circles in main left layout       |
-| L        | <M-w>L              | Toruses in main left layout       |
-| g        | <M-w>g              | Locations in grid layout          |
-| <C-g>    | <M-w><C-g>          | Circles in grid layout            |
-| G        | <M-w>G              | Toruses in grid layout            |
+| Prefix +   | With default prefix   | Action                           |
+| ---------- | --------------------- | -------------------------------- |
+| s          | <M-w>s                | Locations in horizontal splits   |
+| <C-s>      | <M-w><C-s>            | Circles in horizontal splits     |
+| S          | <M-w>S                | Toruses in horizontal splits     |
+| ---------- | --------------------- | -------------------------------- |
+| v          | <M-w>v                | Location in vertical splits      |
+| <C-v>      | <M-w><C-v>            | Circles in vertical splits       |
+| V          | <M-w>V                | Toruses in vertical splits       |
+| ---------- | --------------------- | -------------------------------- |
+| l          | <M-w>l                | Locations in main left layout    |
+| <C-l>      | <M-w><C-l>            | Circles in main left layout      |
+| L          | <M-w>L                | Toruses in main left layout      |
+| ---------- | --------------------- | -------------------------------- |
+| g          | <M-w>g                | Locations in grid layout         |
+| <C-g>      | <M-w><C-g>            | Circles in grid layout           |
+| G          | <M-w>G                | Toruses in grid layout           |
 
 Tabs & Windows~
 
 | Prefix + | With default prefix | Action                               |
+| -------- | ------------------- | ------------------------------------ |
 | z        | <M-w>z              | Zoom : one tab, one window           |
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
@@ -964,12 +985,14 @@ Tabs & Windows~
 Yank wheel~
 
 | Prefix + | With default prefix | Action                                        |
+| -------- | ------------------- | --------------------------------------------- |
 | y        | <M-w>y              | Paste an element of yank wheel in list mode   |
 | <M-y>    | <M-w><M-y>          | Paste an element of yank wheel in insert mode |
 
 Reorganizing buffer~
 
 | Prefix + | With default prefix | Action                    |
+| -------- | ------------------- | ------------------------- |
 | <M-o>    | <M-w><M-o>          | Reorganize wheel elements |
 
 ------------------------------------------------------------------------------
@@ -980,33 +1003,42 @@ can set the mapping level to 10 to activate them, or adapt them to your taste
 and add them to your init file.
 
 | Mapping        | Action                                      |
+| -------------- | ------------------------------------------- |
 | <D-=>          | Meta menu                                   |
 | <D-m>          | Main menu                                   |
+| -------------- | ------------------------------------------- |
 | <Space>        | Choose location in special buffer           |
 | <C-Space>      | Choose circle in special buffer             |
 | <S-Space>      | Choose torus in special buffer              |
 | <D-Space>      | Choose element in wheel folding tree        |
 | <M-Space>      | Reorganize wheel elements                   |
+| -------------- | ------------------------------------------- |
 | <D-Insert>     | Add location to the current circle          |
 | <D-Del>        | Delete current location                     |
+| -------------- | ------------------------------------------- |
 | <C-PageUp>     | Go to previous location                     |
 | <C-PageDown>   | Go to next location                         |
 | <C-Home>       | Go to previous circle                       |
 | <C-End>        | Go to next circle                           |
 | <S-Home>       | Go to previous torus                        |
 | <S-End>        | Go to next torus                            |
+| -------------- | ------------------------------------------- |
 | <S-PageUp>     | Go to newer location in history             |
 | <S-PageDown>   | Go to older location in history             |
+| -------------- | ------------------------------------------- |
 | <C-^>          | Alternate last two locations                |
 | <D-^>          | Alternate in same torus, other circle       |
 | <C-S-PageUp>   | Alternate in same torus                     |
 | <C-S-PageDown> | Alternate in same circle                    |
 | <C-S-Home>     | Alternate in other torus                    |
 | <C-S-End>      | Alternate in other circle                   |
+| -------------- | ------------------------------------------- |
 | <D-y>          | Paste yank wheel element in list mode       |
 | <D-p>          | Paste yank wheel element in plain mode      |
+| -------------- | ------------------------------------------- |
 | <D-b>          | Batch operation in current circle files     |
 | <D-g>          | Grep in current circle files                |
+| -------------- | ------------------------------------------- |
 | <D-z>          | Zoom : one tab, one window                  |
 | <D-t>          | One location per tab                        |
 | <D-l>          | One location per window, main left layout   |
