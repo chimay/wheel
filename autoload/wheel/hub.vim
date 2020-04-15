@@ -57,11 +57,17 @@ if ! exists('s:alternate')
 	lockvar s:alternate
 endif
 
-if ! exists('s:display')
-	let s:display = {
+if ! exists('s:tabs')
+	let s:tabs = {
 				\ 'Display toruses on tabs' : "wheel#mosaic#tabs('torus')",
 				\ 'Display circles on tabs' : "wheel#mosaic#tabs('circle')",
 				\ 'Display locations on tabs' : "wheel#mosaic#tabs('location')",
+				\}
+	lockvar s:tabs
+endif
+
+if ! exists('s:windows')
+	let s:windows = {
 				\ 'Display toruses on horizontal splits' : "wheel#mosaic#split('torus')",
 				\ 'Display circles on horizontal splits' : "wheel#mosaic#split('circle')",
 				\ 'Display locations on horizontal splits' : "wheel#mosaic#split('location')",
@@ -76,9 +82,17 @@ if ! exists('s:display')
 				\ 'Display locations on splits, main top layout' : "wheel#mosaic#split('location', 'main_top')",
 				\ 'Mix : display toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
 				\ 'Mix : display circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
+				\}
+	lockvar s:windows
+endif
+
+if ! exists('s:tabnwin')
+	let s:tabnwin = {
+				\ 'Mix : display toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
+				\ 'Mix : display circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
 				\ 'Zoom : one tab, one window' : 'wheel#mosaic#zoom()',
 				\}
-	lockvar s:display
+	lockvar s:tabnwin
 endif
 
 if ! exists('s:reorganize')
@@ -123,7 +137,9 @@ if ! exists('s:meta')
 				\ 'Delete' : "wheel#hub#menu('s:delete')",
 				\ 'Switch' : "wheel#hub#menu('s:switch')",
 				\ 'Alternate' : "wheel#hub#menu('s:alternate')",
-				\ 'Display in tabs & windows' : "wheel#hub#menu('s:display')",
+				\ 'Tabs' : "wheel#hub#menu('s:tabs')",
+				\ 'Window layouts' : "wheel#hub#menu('s:windows')",
+				\ 'Mix of tabs & windows' : "wheel#hub#menu('s:tabnwin')",
 				\ 'Reorganize' : "wheel#hub#menu('s:reorganize')",
 				\ 'Yank' : "wheel#hub#menu('s:yank')",
 				\}
