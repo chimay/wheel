@@ -137,12 +137,12 @@ To learn more about menus, see |wheel-special-buffers-menus|.
 FIRST CIRCLES				    	    *wheel-sbs-first-circles*
 
 Let’s say we have the files `Juice`, `Tea`, `Coffee` and we want to
-group them. So, we go `Juice` and type `<M-w>a` to add a location to the
-wheel. If no torus is present in the wheel, it will create it and ask
-for a name. Let’s say we name it `Food`. If no group (no circle) is
-found in the torus, it will be created and prompt for a name. Let’s say
-we choose `Drinks`. Finally, our file `Juice` is added to the group. Its
-name is the filename without extension by default.
+group them. So, we go to `Juice` and type `<M-w>a` to add a location to
+the wheel. If no category (no torus) is present in the wheel, it will
+create it and ask for a name. Let’s say we name it `Food`. If no group
+(no circle) is found in the torus, it will be created and prompt for a
+name. Let’s say we choose `Drinks`. Finally, our file `Juice` is added
+to the group. Its name is the filename without extension by default.
 
 Then, we go to `Tea` and type `<M-w>a` again. This time, it will just
 ask us if we want to keep the default location name. Press enter, and
@@ -150,11 +150,6 @@ ask us if we want to keep the default location name. Press enter, and
 
 Same process with `Coffee`. We now have a circle `Drink` containing
 three files.
-
-If you want to create another circle, let’s say `Fruits`, simply launch
-`<M-w><C-a>`, and answer `Fruits` to the prompt. You can then add the
-files `Apple`, `Pear` and `Orange` to it. You can even also add `Juice`:
-a file can be added to more than one circle.
 
 Now, suppose that in the `Juice` file, you have a Pineapple
 and a Mango sections, and you want to compare them. Just go to
@@ -164,8 +159,13 @@ the Mango section, and do the same. The `Juice:mango-line:mango-col`
 will also be added to the circle. You can then easily alternate both,
 or display them in split windows.
 
-If you want to create another torus, let’s say `Books`, simply launch
-`<M-w><S-a>`, and answer `Books` to the prompt.
+If you want to create another group (circle), let’s say `Fruits`,
+simply launch `<M-w><C-a>`, and answer `Fruits` to the prompt. You can
+then add the files `Apple`, `Pear` and `Orange` to it. You can even also
+add `Juice`: a file can be added to more than one circle.
+
+If you want to create another category (torus), let’s say `Books`,
+simply launch `<M-w><S-a>`, and answer `Books` to the prompt.
 
 ------------------------------------------------------------------------------
 MOVING AROUND					     *wheel-sbs-moving-around*
