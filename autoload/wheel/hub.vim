@@ -86,6 +86,8 @@ if ! exists('s:windows')
 				\ 'Toruses on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('torus')",
 				\ 'Circles on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('circle')",
 				\ 'Locations on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('location')",
+				\ 'Rotate windows clockwise' : 'wheel#mosaic#rotate_clockwise()',
+				\ 'Rotate windows counter-clockwise' : 'wheel#mosaic#rotate_counter_clockwise()',
 				\}
 	lockvar s:windows
 endif
