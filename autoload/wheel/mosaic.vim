@@ -49,6 +49,41 @@ fun! wheel#mosaic#ratio ()
 	return round(width) / round(height)
 endfun
 
+fun! wheel#mosaic#tab_buffers ()
+	" List of buffers in current tab, starting with current one
+	let cur_buf = bufnr('%')
+	let buffers = tabpagebuflist()
+	let index = index(buffers, cur_buf)
+	let buffers = wheel#chain#roll_left(index, buffers)
+	return buffers
+endfun
+
+" Rotate window buffers, like in bspwm
+
+fun! wheel#mosaic#rotate_clockwise ()
+	" Rotate buffers of current tab page clockwise
+	" Useful for main left & main top layouts
+	wincmd t
+	let buffers = wheel#mosaic#tab_buffers ()
+	let buffers = wheel#chain#rotate_right (buffers)
+	for bufnum in buffers
+		exe 'buffer ' . bufnum
+		wincmd w
+	endfor
+endfun
+
+fun! wheel#mosaic#rotate_counter_clockwise ()
+	" Rotate buffers of current tab page counter-clockwise
+	" Useful for main left & main top layouts
+	wincmd t
+	let buffers = wheel#mosaic#tab_buffers ()
+	let buffers = wheel#chain#rotate_left (buffers)
+	for bufnum in buffers
+		exe 'buffer ' . bufnum
+		wincmd w
+	endfor
+endfun
+
 " Helpers
 
 fun! wheel#mosaic#one_tab ()
@@ -360,13 +395,4 @@ fun! wheel#mosaic#transposed_grid (dict)
 			return 0
 		endif
 	endif
-endfun
-
-" Rotate windows, like in bspwm
-
-fun! wheel#mosaic#rotate_clockwise ()
-endfun
-
-
-fun! wheel#mosaic#rotate_counter_clockwise ()
 endfun
