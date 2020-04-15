@@ -321,9 +321,6 @@ at your fingertips.
 # TODO
 
 - tabline
-- layout
-  + split : grid, main left, etc
-- autogroup
 
 # Warning
 
