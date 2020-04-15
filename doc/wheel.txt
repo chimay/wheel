@@ -487,6 +487,9 @@ Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max yanks 				|wheel-config-maxim-yanks|
 Max yank size 				|wheel-config-maxim-yank_size|
+Max number of tabs			|wheel-config-maxim-tabs|
+Max number of horizontal splits		|wheel-config-maxim-horizontal|
+Max number of vertical splits		|wheel-config-maxim-vertical|
 Example					|wheel-config-example|
 
 ------------------------------------------------------------------------------
