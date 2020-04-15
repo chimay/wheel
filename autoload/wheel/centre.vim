@@ -134,9 +134,9 @@ fun! wheel#centre#mappings ()
 		nnoremap <D-b>          :WheelBatch<space>
 		nnoremap <D-g>          :WheelGrep<space>
 		" Windows
-		nnoremap <D-t>          :call wheel#moaic#tabs('location')
-		nnoremap <D-l>          :call wheel#moaic#split('location', 'main_left')
-		nnoremap <D-&>          :call wheel#pyramid#steps('circle')
+		nnoremap <D-t>          :call wheel#moaic#tabs('location')<cr>
+		nnoremap <D-l>          :call wheel#moaic#split('location', 'main_left')<cr>
+		nnoremap <D-&>          :call wheel#pyramid#steps('circle')<cr>
 		" Rotate windows
 		nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
 		nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
