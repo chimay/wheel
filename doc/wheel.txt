@@ -495,7 +495,8 @@ DICTIONARY					  *wheel-config-dictionary*
 Customization is done using the `g:wheel_config` dictionary. You must
 first initialize it : >
 
-    let g:wheel_config = {}
+    let g:wheel_config       = {}
+    let g:wheel_config.maxim = {}
 <
 
 ------------------------------------------------------------------------------
