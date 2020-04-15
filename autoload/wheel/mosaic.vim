@@ -35,7 +35,7 @@ fun! wheel#mosaic#tour ()
 				continue
 			endif
 			let new_delta = abs(line - line('.'))
-			if new_delta < best_delta
+			if new_delta < best_delta || (best_tab != tabnum && new_tab == tabnum)
 				let best_delta = new_delta
 				let best_tab = new_tab
 				let best = new
