@@ -619,6 +619,30 @@ Maximum size of elements in the yank wheel : >
 <
 
 ------------------------------------------------------------------------------
+MAX NUMBER OF TABS			    *wheel-config-maxim-tabs*
+
+Maximum number of tabs in tab layouts : >
+
+  let g:wheel_config.maxim.tabs = 12
+<
+
+------------------------------------------------------------------------------
+MAX NUMBER OR HORIZONTAL SPLITS		    *wheel-config-maxim-horizontal*
+
+Maximum number of horizontal splits : >
+
+  let g:wheel_config.maxim.horizontal = 3
+<
+
+------------------------------------------------------------------------------
+MAX NUMBER OR VERTICAL SPLITS		    *wheel-config-maxim-vertical*
+
+Maximum number of vertical splits : >
+
+  let g:wheel_config.maxim.vertical = 4
+<
+
+------------------------------------------------------------------------------
 EXAMPLE					    *wheel-config-example*
 
 Here is an example of a complete configuration : >
@@ -652,10 +676,12 @@ Here is an example of a complete configuration : >
   let g:wheel_config.maxim.history = 50
   " Maximum number of elements in input history
   let g:wheel_config.maxim.input = 100
+
   " Maximum number of elements in yank wheel
   let g:wheel_config.maxim.yanks = 300
   " Maximum size of elements in yank wheel
   let g:wheel_config.maxim.yank_size = 3000
+
   " Maximum number of tabs
   let g:wheel_config.maxim.tabs = 12
   " Maximum number of horizontal splits
