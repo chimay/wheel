@@ -59,37 +59,37 @@ endif
 
 if ! exists('s:tabs')
 	let s:tabs = {
-				\ 'Display toruses on tabs' : "wheel#mosaic#tabs('torus')",
-				\ 'Display circles on tabs' : "wheel#mosaic#tabs('circle')",
-				\ 'Display locations on tabs' : "wheel#mosaic#tabs('location')",
+				\ 'Toruses on tabs' : "wheel#mosaic#tabs('torus')",
+				\ 'Circles on tabs' : "wheel#mosaic#tabs('circle')",
+				\ 'Locations on tabs' : "wheel#mosaic#tabs('location')",
 				\}
 	lockvar s:tabs
 endif
 
 if ! exists('s:windows')
 	let s:windows = {
-				\ 'Display toruses on horizontal splits' : "wheel#mosaic#split('torus')",
-				\ 'Display circles on horizontal splits' : "wheel#mosaic#split('circle')",
-				\ 'Display locations on horizontal splits' : "wheel#mosaic#split('location')",
-				\ 'Display toruses on vertical splits' : "wheel#mosaic#split('torus', 'vertical')",
-				\ 'Display circles on vertical splits' : "wheel#mosaic#split('circle', 'vertical')",
-				\ 'Display locations on vertical splits' : "wheel#mosaic#split('location', 'vertical')",
-				\ 'Display toruses on splits, main left layout' : "wheel#mosaic#split('torus', 'main_left')",
-				\ 'Display circles on splits, main left laout' : "wheel#mosaic#split('circle', 'main_left')",
-				\ 'Display locations on splits, main left layout' : "wheel#mosaic#split('location', 'main_left')",
-				\ 'Display toruses on splits, main top layout' : "wheel#mosaic#split('torus', 'main_top')",
-				\ 'Display circles on splits, main top laout' : "wheel#mosaic#split('circle', 'main_top')",
-				\ 'Display locations on splits, main top layout' : "wheel#mosaic#split('location', 'main_top')",
-				\ 'Mix : display toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
-				\ 'Mix : display circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
+				\ 'Toruses on horizontal splits' : "wheel#mosaic#split('torus')",
+				\ 'Circles on horizontal splits' : "wheel#mosaic#split('circle')",
+				\ 'Locations on horizontal splits' : "wheel#mosaic#split('location')",
+				\ 'Toruses on vertical splits' : "wheel#mosaic#split('torus', 'vertical')",
+				\ 'Circles on vertical splits' : "wheel#mosaic#split('circle', 'vertical')",
+				\ 'Locations on vertical splits' : "wheel#mosaic#split('location', 'vertical')",
+				\ 'Toruses on splits, main left layout' : "wheel#mosaic#split('torus', 'main_left')",
+				\ 'Circles on splits, main left laout' : "wheel#mosaic#split('circle', 'main_left')",
+				\ 'Locations on splits, main left layout' : "wheel#mosaic#split('location', 'main_left')",
+				\ 'Toruses on splits, main top layout' : "wheel#mosaic#split('torus', 'main_top')",
+				\ 'Circles on splits, main top laout' : "wheel#mosaic#split('circle', 'main_top')",
+				\ 'Locations on splits, main top layout' : "wheel#mosaic#split('location', 'main_top')",
+				\ 'Mix : toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
+				\ 'Mix : circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
 				\}
 	lockvar s:windows
 endif
 
 if ! exists('s:tabnwin')
 	let s:tabnwin = {
-				\ 'Mix : display toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
-				\ 'Mix : display circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
+				\ 'Mix : toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
+				\ 'Mix : circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
 				\ 'Zoom : one tab, one window' : 'wheel#mosaic#zoom()',
 				\}
 	lockvar s:tabnwin
