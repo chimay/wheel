@@ -160,6 +160,10 @@ fun! wheel#mandala#switch_maps (dict)
 	exe map . 's' . pre . string(dict) . post
 	let dict.target = 'vertical_split'
 	exe map . 'v' . pre . string(dict) . post
+	let dict.target = 'horizontal_golden'
+	exe map . 'S' . pre . string(dict) . post
+	let dict.target = 'vertical_golden'
+	exe map . 'V' . pre . string(dict) . post
 	" Leave open after switch
 	let dict.close = v:false
 	let dict.target = 'within'
@@ -170,6 +174,10 @@ fun! wheel#mandala#switch_maps (dict)
 	exe map . 'gs' . pre . string(dict) . post
 	let dict.target = 'vertical_split'
 	exe map . 'gv' . pre . string(dict) . post
+	let dict.target = 'horizontal_golden'
+	exe map . 'gS' . pre . string(dict) . post
+	let dict.target = 'vertical_golden'
+	exe map . 'gV' . pre . string(dict) . post
 endfun
 
 fun! wheel#mandala#yank_maps (mode)

@@ -7,6 +7,8 @@ if ! exists('s:golden')
 	lockvar s:golden
 endif
 
+" Helpers
+
 fun! wheel#spiral#height ()
 	" Window height / (1 + golden ratio)
 	" If you open a horizontal split window with this height,
@@ -20,6 +22,8 @@ fun! wheel#spiral#width ()
 	" the ratio old window / new window width will be s:golden
 	return winwidth(0) / (1 + s:golden)
 endfun
+
+" Cursor
 
 fun! wheel#spiral#cursor ()
 	" Position cursor so that
@@ -41,3 +45,19 @@ fun! wheel#spiral#cursor ()
 		exe 'normal! ' . -delta . "\<c-e>"
 	endif
 endfu
+
+" Splits
+
+fun! wheel#spiral#horizontal ()
+	" Horizontal split with golden ratio
+	let height = wheel#spiral#height ()
+	let height = float2nr(ceil(height))
+	exe height . 'split'
+endfun
+
+fun! wheel#spiral#vertical ()
+	" Vertical split with golden ratio
+	let width = wheel#spiral#width ()
+	let width = float2nr(ceil(width))
+	exe width . 'vsplit'
+endfun

@@ -146,7 +146,7 @@ fun! wheel#line#filter ()
 endfu
 
 fun! wheel#line#target (target)
-	" Open target tab/win before switching
+	" Open target tab / win before switching
 	let target = a:target
 	if target ==# 'tab'
 		tabnew
@@ -154,8 +154,10 @@ fun! wheel#line#target (target)
 		split
 	elseif target ==# 'vertical_split'
 		vsplit
-" 	elseif target ==# 'within'
-" 		echomsg 'Wheel target : replacing buffer in current window'
+	elseif target ==# 'horizontal_golden'
+		call wheel#spiral#horizontal ()
+	elseif target ==# 'vertical_golden'
+		call wheel#spiral#vertical ()
 	endif
 endfu
 
