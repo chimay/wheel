@@ -42,6 +42,7 @@ if ! exists('s:switch')
 				\ 'Switch to element in wheel tree' : 'wheel#mandala#tree',
 				\ 'Switch to location in history' : 'wheel#mandala#history',
 				\ 'Switch to most recently used file (mru)' : 'wheel#mandala#attic',
+				\ 'Switch to result of locate search' : 'wheel#mandala#locate',
 				\}
 	lockvar s:switch
 endif

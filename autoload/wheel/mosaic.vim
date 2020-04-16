@@ -209,7 +209,7 @@ fun! wheel#mosaic#split (level, ...)
 	if a:0 > 1
 		let dict = a:2
 	else
-		let dict = {}
+		let dict = {'golden' : v:false}
 	endif
 	if ! wheel#mosaic#one_window ()
 		return

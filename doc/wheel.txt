@@ -1044,6 +1044,13 @@ Tabs & Windows~
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
 
+Search for files
+
+| Prefix + | With default prefix | Action                                      |
+| -------- | ------------------- | ------------------------------------------- |
+| ?        | <M-w>M              | Most recently used files not found in wheel |
+| /        | <M-w>/              | Search files with locate                    |
+
 Yank wheel~
 
 | Prefix + | With default prefix | Action                                        |

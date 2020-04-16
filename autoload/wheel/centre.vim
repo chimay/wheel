@@ -92,7 +92,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
 		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
 		" MRU
-		exe 'nnoremap ' . prefix . 'M :call wheel#mandala#attic()<cr>'
+		exe 'nnoremap ' . prefix . '? :call wheel#mandala#attic()<cr>'
+		" Locate
+		exe 'nnoremap ' . prefix . '/ :call wheel#mandala#locate()<cr>'
 		" Yank wheel
 		exe 'nnoremap ' . prefix . "y :call wheel#mandala#yank('list')<cr>"
 		exe 'nnoremap ' . prefix . "<m-y> :call wheel#mandala#yank('plain')<cr>"
