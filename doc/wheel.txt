@@ -1060,7 +1060,7 @@ Search for files~
 
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
-| ?        | <M-w>M              | Most recently used files not found in wheel |
+| ?        | <M-w>?              | Most recently used files not found in wheel |
 | /        | <M-w>/              | Search files with locate                    |
 
 Yank wheel~
