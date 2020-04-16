@@ -91,6 +91,8 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . 'z :call wheel#mosaic#zoom()<cr>'
 		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
 		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
+		" MRU
+		exe 'nnoremap ' . prefix . 'M :call wheel#mandala#attic()<cr>'
 		" Yank wheel
 		exe 'nnoremap ' . prefix . "y :call wheel#mandala#yank('list')<cr>"
 		exe 'nnoremap ' . prefix . "<m-y> :call wheel#mandala#yank('plain')<cr>"
