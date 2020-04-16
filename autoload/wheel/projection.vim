@@ -5,13 +5,13 @@ fun! wheel#projection#closest (level)
 	" Find closest location to current buffer file & position
 	" The search is done in album index
 	" Search in given current level = wheel, torus or circle
-	let narrow = wheel#referen#coordin_index(a:level)
-	let narrow_name = wheel#referen#names()[narrow]
 	let cur_file = expand('%:p')
 	let cur_line = line('.')
 	let album = deepcopy(wheel#helix#album ())
 	call filter(album, {_,value -> value[2].file == cur_file})
+	let narrow = wheel#referen#coordin_index(a:level)
 	if narrow >= 0
+		let narrow_name = wheel#referen#names()[narrow]
 		call filter(album, {_,value -> value[narrow] == narrow_name})
 	endif
 	if empty(album)

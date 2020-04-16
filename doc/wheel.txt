@@ -692,12 +692,12 @@ Here is an example of a complete configuration : >
   let g:wheel_config={}
   let g:wheel_config.maxim={}
 
+  " The file where toruses and circles will be stored and read
+  let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
   " Auto read torus file on startup if > 0
   let g:wheel_config.autoread = 1
   " Auto write torus file on exit if > 0
   let g:wheel_config.autowrite = 1
-  " The file where toruses and circles will be stored and read
-  let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
   " Number of backups for the wheel file
   let g:wheel_config.backups = 5
   " The bigger it is, the more mappings available
@@ -722,6 +722,9 @@ Here is an example of a complete configuration : >
   let g:wheel_config.maxim.yanks = 300
   " Maximum size of elements in yank wheel
   let g:wheel_config.maxim.yank_size = 3000
+
+  " Maximum number of elements in mru
+  let g:wheel_config.maxim.mru = 120
 
   " Maximum number of tabs
   let g:wheel_config.maxim.tabs = 12
