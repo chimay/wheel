@@ -251,8 +251,9 @@ endfun
 
 fun! wheel#mosaic#horizontal (...)
 	" Horizontal split
+	" Optional argument : dict containing golden value
+	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
-	" Optional argument for compatibility only
 	if a:0 > 0
 		let dict = a:1
 	else
@@ -277,8 +278,9 @@ endfun
 
 fun! wheel#mosaic#vertical (...)
 	" Vertical split
+	" Optional argument : dict containing golden value
+	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
-	" Optional argument for compatibility only
 	if a:0 > 0
 		let dict = a:1
 	else
@@ -303,6 +305,8 @@ endfun
 
 fun! wheel#mosaic#main_left (...)
 	" Main window on left
+	" Optional argument : dict containing golden value
+	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
 	if a:0 > 0
 		let dict = a:1
@@ -337,6 +341,8 @@ endfun
 
 fun! wheel#mosaic#main_top (...)
 	" Main window on top
+	" Optional argument : dict containing golden value
+	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
 	if a:0 > 0
 		let dict = a:1

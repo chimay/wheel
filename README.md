@@ -90,11 +90,11 @@ grow and adapt to your style.
 - Display files
   + Split levels : torus, circle, location
   + Split layout
-    * vertical
-    * horizontal
-    * grid
+    * vertical, golden vertical
+    * horizontal, golden horizontal
     * main left, golden left
     * main top, golden top
+    * grid
   + Mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
