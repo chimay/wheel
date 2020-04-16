@@ -70,7 +70,9 @@ endfun
 
 fu! wheel#status#guitablabel ()
 	" Gui label of a tab
-	if ! has('nvim')
+	if has('nvim')
+		" find a doc of nvim-qt for how to do it
+	else
 		return wheel#status#tablabel (v:lnum)
 	endif
 endfu
