@@ -305,7 +305,7 @@ fun! wheel#line#paste_plain (...)
 	if a:0 > 0
 		let close = a:1
 	else
-		let close = 1
+		let close = 'close'
 	endif
 	let content = getline('.')
 	if close == 'close'
@@ -322,7 +322,7 @@ fun! wheel#line#paste_visual (...)
 	if a:0 > 0
 		let close = a:1
 	else
-		let close = 1
+		let close = 'close'
 	endif
 	normal! gvy
 	if close == 'close'
@@ -330,5 +330,5 @@ fun! wheel#line#paste_visual (...)
 	else
 		call wheel#mandala#previous ()
 	endif
-	normal p
+	put "
 endfun

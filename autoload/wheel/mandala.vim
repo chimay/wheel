@@ -169,9 +169,10 @@ fun! wheel#mandala#yank_maps (mode)
 		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('close')<cr>
 		nnoremap <buffer> <tab> :call wheel#line#paste_plain ('open')<cr>
 		nnoremap <buffer> p :call wheel#line#paste_plain ('open')<cr>
-		vnoremap <buffer> <cr> :call wheel#line#paste_visual('close')<cr>
-		vnoremap <buffer> <tab> :call wheel#line#paste_visual('open')<cr>
-		vnoremap <buffer> p :call wheel#line#paste_visual('open')<cr>
+		" Visual mode
+		vnoremap <buffer> <cr> :<c-u>call wheel#line#paste_visual('close')<cr>
+		vnoremap <buffer> <tab> :<c-u>call wheel#line#paste_visual('open')<cr>
+		vnoremap <buffer> p :<c-u>call wheel#line#paste_visual('open')<cr>
 	endif
 endfun
 
