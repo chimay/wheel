@@ -4,40 +4,47 @@
 
 " Buffers & Windows
 
-fun! wheel#mosaic#glasses (filename)
+fun! wheel#mosaic#glasses (filename, ...)
 	" Return list of window(s) id(s) displaying filename
-	return win_findbuf(bufnr(a:filename))
+	" Optional argument : if tab, search only in current tab
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'all'
+	endif
+	let wins = win_findbuf(bufnr(a:filename))
+	if mode == 'tab'
+		let tabnum = tabpagenr()
+		call filter(wins, {_, val -> win_id2tabwin(val)[0] == tabnum})
+	endif
+	return wins
 endfun
 
 fun! wheel#mosaic#tour ()
 	" Return closest candidate amongst windows displaying current location
-	" Prefer windows in current tab page
 	" by exploring each one
+	" Prefer windows in current tab page
 	" Return 0 if no window display filename
 	let original = win_getid()
-	let tabnum = tabpagenr()
 	let location = wheel#referen#location()
 	let filename = location.file
 	let line = location.line
-	let glasses = wheel#mosaic#glasses (filename)
+	let glasses = wheel#mosaic#glasses (filename, 'tab')
+	if empty(glasses)
+		let glasses = wheel#mosaic#glasses (filename, 'all')
+	endif
 	if empty(glasses)
 		return 0
 	else
 		let best = glasses[0]
 		call win_gotoid(best)
 		let best_delta = abs(line - line('.'))
-		let best_tab = tabpagenr()
 		for index in range(1, len(glasses) - 1)
 			let new = glasses[index]
 			call win_gotoid(new)
-			let new_tab = tabpagenr()
-			if best_tab == tabnum && new_tab != tabnum
-				continue
-			endif
 			let new_delta = abs(line - line('.'))
-			if new_delta < best_delta || (best_tab != tabnum && new_tab == tabnum)
+			if new_delta < best_delta
 				let best_delta = new_delta
-				let best_tab = new_tab
 				let best = new
 			endif
 		endfor
