@@ -4,13 +4,23 @@
 " - Going to an element
 " - Paste
 
+if ! exists('s:selected_mark')
+	let s:selected_mark = '* '
+	lockvar s:selected_mark
+endif
+
+if ! exists('s:selected_pattern')
+	let s:selected_pattern = '\m^\* '
+	lockvar s:selected_pattern
+endif
+
 " Helpers
 
 fun! wheel#line#coordin ()
-	" Return coordin of line in treeish buffer
+	" Return coordin of line in plain or folded special buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
-	let cursor_line = substitute(cursor_line, '\m^\* ', '', '')
+	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
 		echomsg 'Wheel line coordin : empty line'
@@ -21,12 +31,12 @@ fun! wheel#line#coordin ()
 		let location = cursor_line
 		normal! [z
 		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
+		let line = substitute(line, s:selected_pattern, '', '')
 		let list = split(line)
 		let circle = list[0]
 		normal! [z
 		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
+		let line = substitute(line, s:selected_pattern, '', '')
 		let list = split(line)
 		let torus = list[0]
 		let coordin = [torus, circle, location]
@@ -35,7 +45,7 @@ fun! wheel#line#coordin ()
 		let circle = cursor_list[0]
 		normal! [z
 		let line = getline('.')
-		let line = substitute(line, '\m^\* ', '', '')
+		let line = substitute(line, s:selected_pattern, '', '')
 		let list = split(line)
 		let torus = list[0]
 		let coordin = [torus, circle]
@@ -65,16 +75,16 @@ fun! wheel#line#toggle ()
 	if empty(line)
 		return
 	endif
-	if line !~ '\m^\* '
+	if line !~ s:selected_pattern
 		let name = line
 	else
-		let name = substitute(line, '\m^\* ', '', '')
+		let name = substitute(line, s:selected_pattern, '', '')
 	endif
 	let coordin = wheel#line#coordin ()
 	let index = index(b:wheel_selected, coordin)
 	if index < 0
 		call add(b:wheel_selected, coordin)
-		let selected_line = substitute(line, '\m^', '* ', '')
+		let selected_line = substitute(line, '\m^', s:selected_mark, '')
 		call setline('.', selected_line)
 		" Update b:wheel_lines
 		let pos = index(b:wheel_lines, line)
@@ -86,6 +96,30 @@ fun! wheel#line#toggle ()
 		let pos = index(b:wheel_lines, line)
 		let b:wheel_lines[pos] = name
 	endif
+endfun
+
+fun! wheel#line#deselect ()
+	" Deselect all selected lines
+	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
+		let b:wheel_lines = getline(2, '$')
+	endif
+	let b:wheel_selected = []
+	let buflines = getline(2,'$')
+	for index in range(len(buflines))
+		let line = buflines[index]
+		if line =~ s:selected_pattern
+			let buflines[index] = substitute(line, s:selected_pattern, '', '')
+		endif
+	endfor
+	for index in range(len(b:wheel_lines))
+		let line = b:wheel_lines[index]
+		if line =~ s:selected_pattern
+			let b:wheel_lines[index] = substitute(line, s:selected_pattern, '', '')
+		endif
+	endfor
+	2,$ delete _
+	put =buflines
+	call cursor(1, 1)
 endfun
 
 fun! wheel#line#filter ()
@@ -110,7 +144,7 @@ fun! wheel#line#filter ()
 endfu
 
 fun! wheel#line#target (target)
-	" Open target tab/win before* switching
+	" Open target tab/win before switching
 	let target = a:target
 	if target ==# 'tab'
 		tabnew
@@ -118,6 +152,8 @@ fun! wheel#line#target (target)
 		split
 	elseif target ==# 'vertical_split'
 		vsplit
+" 	elseif target ==# 'within'
+" 		echomsg 'Wheel target : replacing buffer in current window'
 	endif
 endfu
 
@@ -187,6 +223,8 @@ fun! wheel#line#switch (dict)
 	call win_gotoid(mandala)
 	if close
 		call wheel#mandala#close ()
+	else
+		call wheel#line#deselect ()
 	endif
 endfun
 

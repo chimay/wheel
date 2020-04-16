@@ -165,11 +165,11 @@ fun! wheel#mandala#switch_maps (dict)
 	let dict.target = 'within'
 	exe map . '<tab>' . pre . string(dict) . post
 	let dict.target = 'tab'
-	exe map . 't' . pre . string(dict) . post
+	exe map . 'gt' . pre . string(dict) . post
 	let dict.target = 'horizontal_split'
-	exe map . 's' . pre . string(dict) . post
+	exe map . 'gs' . pre . string(dict) . post
 	let dict.target = 'vertical_split'
-	exe map . 'v' . pre . string(dict) . post
+	exe map . 'gv' . pre . string(dict) . post
 endfun
 
 fun! wheel#mandala#yank_maps (mode)
