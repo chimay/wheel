@@ -113,6 +113,7 @@ fun! wheel#mosaic#one_tab ()
 		endif
 	endif
 	let g:wheel_shelve.layout.tab = 'none'
+	let g:wheel_shelve.layout.tabnames = []
 	call wheel#projection#follow ()
 	return 1
 endfun
@@ -171,17 +172,22 @@ endfun
 
 fun! wheel#mosaic#tabs (level)
 	" One level element per tab
-	let level = a:level
-	let upper = wheel#referen#upper (level)
-	let upper_level = wheel#referen#upper_level_name (level)
-	let elements = wheel#referen#elements (upper)
-	let length = len(elements)
 	if ! wheel#mosaic#one_tab ()
 		return
 	endif
-	call wheel#vortex#jump ('new')
+	let level = a:level
 	let maxtabs = g:wheel_config.maxim.tabs
-	for index in range(min([maxtabs, length - 1]))
+	let upper = wheel#referen#upper (level)
+	let upper_level = wheel#referen#upper_level_name (level)
+	let name = wheel#referen#{level} ().name
+	let glossary = copy(upper.glossary)
+	let pos = index(glossary, name)
+	let glossary = wheel#chain#roll_left (pos, glossary)
+	let g:wheel_shelve.layout.tabnames = glossary[:maxtabs - 1]
+	let elements = wheel#referen#elements (upper)
+	let length = len(elements)
+	call wheel#vortex#jump ('new')
+	for index in range(min([maxtabs - 1, length - 1]))
 		tabnew
 		call wheel#vortex#next (level, 'new')
 	endfor
@@ -205,14 +211,14 @@ fun! wheel#mosaic#split (level, ...)
 	else
 		let dict = {}
 	endif
+	if ! wheel#mosaic#one_window ()
+		return
+	endif
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let upper_level = wheel#referen#upper_level_name (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
-	if ! wheel#mosaic#one_window ()
-		return
-	endif
 	call wheel#vortex#jump ('new')
 	for index in range(length - 1)
 		let alright = wheel#mosaic#{action} (dict)

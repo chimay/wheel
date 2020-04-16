@@ -495,6 +495,7 @@ Max yank size 				|wheel-config-maxim-yank_size|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
+Tabline					|wheel-config-tabline|
 Example					|wheel-config-example|
 
 ------------------------------------------------------------------------------
@@ -648,6 +649,14 @@ MAX NUMBER OR VERTICAL SPLITS		    *wheel-config-maxim-vertical*
 Maximum number of vertical splits : >
 
   let g:wheel_config.maxim.vertical = 4
+<
+
+------------------------------------------------------------------------------
+TABLINE					*wheel-config-tabline*
+
+If you want wheel to manage your tabline, use this function : >
+
+  set tabline=%!wheel#status#tabline()
 <
 
 ------------------------------------------------------------------------------
