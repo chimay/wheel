@@ -338,6 +338,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>x`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
+- `<M-w>M`         : most recently used files not found in wheel (mru)
 
 Menus~
 

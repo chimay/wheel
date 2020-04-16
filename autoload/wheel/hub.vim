@@ -41,7 +41,7 @@ if ! exists('s:switch')
 				\ 'Switch to circle in index' : 'wheel#mandala#grid',
 				\ 'Switch to element in wheel tree' : 'wheel#mandala#tree',
 				\ 'Switch to location in history' : 'wheel#mandala#history',
-				\ 'Switch to MRU File' : 'wheel#mandala#attic',
+				\ 'Switch to most recently used file (mru)' : 'wheel#mandala#attic',
 				\}
 	lockvar s:switch
 endif
