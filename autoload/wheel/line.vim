@@ -286,18 +286,19 @@ fun! wheel#line#paste_list (...)
 	if a:0 > 0
 		let close = a:1
 	else
-		let close = 1
+		let close = 'close'
 	endif
 	let line = getline('.')
 	let runme = 'let content = ' . line
 	exe runme
-	if close == 'close'
-		call wheel#mandala#close ()
-	else
-		call wheel#mandala#previous ()
-	endif
+	let mandala = win_getid()
+	wincmd p
 	put =content
 	let @" = join(content, "\n")
+	call win_gotoid(mandala)
+	if close == 'close'
+		call wheel#mandala#close ()
+	endif
 endfun
 
 fun! wheel#line#paste_plain (...)
@@ -308,13 +309,14 @@ fun! wheel#line#paste_plain (...)
 		let close = 'close'
 	endif
 	let content = getline('.')
-	if close == 'close'
-		call wheel#mandala#close ()
-	else
-		call wheel#mandala#previous ()
-	endif
+	let mandala = win_getid()
+	wincmd p
 	put =content
 	let @" = content
+	call win_gotoid(mandala)
+	if close == 'close'
+		call wheel#mandala#close ()
+	endif
 endfun
 
 fun! wheel#line#paste_visual (...)
@@ -325,10 +327,11 @@ fun! wheel#line#paste_visual (...)
 		let close = 'close'
 	endif
 	normal! gvy
+	let mandala = win_getid()
+	wincmd p
+	put "
+	call win_gotoid(mandala)
 	if close == 'close'
 		call wheel#mandala#close ()
-	else
-		call wheel#mandala#previous ()
 	endif
-	put "
 endfun
