@@ -100,6 +100,7 @@ grow and adapt to your style.
 - Batch operations
 - Grep on group files
 - MRU files not found in wheel
+- Search files with locate
 - Yank wheel using TextYankPost event
 
 As you see, some features go beyond a buffer manager. Why include
