@@ -330,5 +330,5 @@ fun! wheel#line#paste_visual (...)
 	else
 		call wheel#mandala#previous ()
 	endif
-	put "
+	normal p
 endfun
