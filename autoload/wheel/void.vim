@@ -157,6 +157,9 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'yank_size')
 		let g:wheel_config.maxim.yank_size = 500
 	endif
+	if ! has_key(g:wheel_config.maxim, 'mru')
+		let g:wheel_config.maxim.mru = 50
+	endif
 	" Debug
 	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0
