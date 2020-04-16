@@ -493,9 +493,9 @@ displayed in the usual |quickfix| window.
 CONFIGURATION					    *wheel-configuration*
 
 Dictionary				|wheel-config-dictionary|
+File					|wheel-config-file|
 Autoread				|wheel-config-autoread|
 Autowrite				|wheel-config-autowrite|
-File					|wheel-config-file|
 Backups					|wheel-config-backups|
 Mappings				|wheel-config-mappings|
 Prefix					|wheel-config-prefix|
@@ -504,6 +504,7 @@ Project markers				|wheel-config-project_markers|
 Locate database				|wheel-config-locate-db|
 Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
+Max MRU					|wheel-config-maxim-mru|
 Max yanks 				|wheel-config-maxim-yanks|
 Max yank size 				|wheel-config-maxim-yank_size|
 Max number of tabs			|wheel-config-maxim-tabs|
@@ -521,6 +522,19 @@ first initialize it : >
     let g:wheel_config       = {}
     let g:wheel_config.maxim = {}
 <
+
+------------------------------------------------------------------------------
+FILE						    *wheel-config-file*
+
+File to save or load the wheel : >
+
+    let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
+<
+
+Note that the directory `~/.local/share/wheel` must exist.
+
+It is recommended to define this file and regularly save it, either manually
+or automatically, using the autowrite config.
 
 ------------------------------------------------------------------------------
 AUTOREAD					    *wheel-config-autoread*
@@ -543,19 +557,6 @@ To enable it, you need to add an autocommand on vim leave : >
 
     autocmd VimLeave * call wheel#void#exit()
 <
-
-------------------------------------------------------------------------------
-FILE						    *wheel-config-file*
-
-File to save or load the wheel : >
-
-    let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
-<
-
-Note that the directory `~/.local/share/wheel` must exist.
-
-It is recommended to define this file and regularly save it, either manually
-or automatically, using the autowrite config.
 
 ------------------------------------------------------------------------------
 BACKUPS						    *wheel-config-backups*
@@ -631,6 +632,14 @@ MAX NUMBER OF ELEMENTS IN INPUT HISTORY		   *wheel-config-maxim-input*
 Maximum number of elements in the wheel history : >
 
     let g:wheel_config.maxim.input = 100
+<
+
+------------------------------------------------------------------------------
+MAX NUMBER OF ELEMENTS IN MRU			*wheel-config-maxim-mru*
+
+Maximum number of elements in mru : >
+
+  let g:wheel_config.maxim.mru = 120
 <
 
 ------------------------------------------------------------------------------
@@ -724,19 +733,21 @@ Here is an example of a complete configuration : >
   " List of markers
   " The project dir is found as soon as one marker is found in it
   let g:wheel_config.project_markers = ['.git', '.racine-projet']
+  " Locate database ; default one if left empty
+  let g:wheel_config.locate_db = '~/racine/index/locate/racine.db'
 
   " Maximum number of elements in history
   let g:wheel_config.maxim.history = 50
   " Maximum number of elements in input history
   let g:wheel_config.maxim.input = 100
 
+  " Maximum number of elements in mru
+  let g:wheel_config.maxim.mru = 120
+
   " Maximum number of elements in yank wheel
   let g:wheel_config.maxim.yanks = 300
   " Maximum size of elements in yank wheel
   let g:wheel_config.maxim.yank_size = 3000
-
-  " Maximum number of elements in mru
-  let g:wheel_config.maxim.mru = 120
 
   " Maximum number of tabs
   let g:wheel_config.maxim.tabs = 12
