@@ -159,11 +159,8 @@ fun! wheel#line#switch (dict)
 	else
 		let dict.mode = 'new'
 	endif
-	if close
-		call wheel#mandala#close ()
-	else
-		call wheel#mandala#previous ()
-	endif
+	let mandala = win_getid()
+	wincmd p
 	if type(Fun) == v:t_func
 		if target != 'current'
 			for elem in selected
@@ -186,6 +183,10 @@ fun! wheel#line#switch (dict)
 		endif
 	else
 		echomsg 'Wheel line switch : bad switch function'
+	endif
+	call win_gotoid(mandala)
+	if close
+		call wheel#mandala#close ()
 	endif
 endfun
 
@@ -271,10 +272,17 @@ fun! wheel#line#history (dict)
 	call wheel#vortex#jump (a:dict.mode)
 endfun
 
+" Edit
+
+fun! wheel#line#edit ()
+	" Edit current or selected line(s)
+	" TODO
+endfun
+
 " Paste
 
-fun! wheel#line#paste (...)
-	" Paste line from yank buffer
+fun! wheel#line#paste_list (...)
+	" Paste line from yank buffer in list mode
 	if a:0 > 0
 		let close = a:1
 	else
@@ -292,8 +300,8 @@ fun! wheel#line#paste (...)
 	let @" = join(content, "\n")
 endfun
 
-fun! wheel#line#yank (...)
-	" Yank and paste line from yank buffer
+fun! wheel#line#paste_plain (...)
+	" Paste line from yank buffer in plain mode
 	if a:0 > 0
 		let close = a:1
 	else
@@ -307,4 +315,20 @@ fun! wheel#line#yank (...)
 	endif
 	put =content
 	let @" = content
+endfun
+
+fun! wheel#line#paste_visual (...)
+	" Paste visual selection from yank buffer in plain mode
+	if a:0 > 0
+		let close = a:1
+	else
+		let close = 1
+	endif
+	normal! gvy
+	if close == 'close'
+		call wheel#mandala#close ()
+	else
+		call wheel#mandala#previous ()
+	endif
+	put "
 endfun

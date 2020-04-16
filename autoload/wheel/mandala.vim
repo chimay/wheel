@@ -31,11 +31,11 @@ endfun
 
 fun! wheel#mandala#previous ()
 	" Go to previous window
-	" Delete buffer if only one window
+	" Go to alternate buffer if only one window
 	if winnr('$') > 1
 		wincmd p
 	else
-		bdelete!
+		buffer #
 	endif
 endfun
 
@@ -162,16 +162,16 @@ endfun
 fun! wheel#mandala#yank_maps (mode)
 	" Define local yank maps
 	if a:mode == 'list'
-		nnoremap <buffer> <cr> :call wheel#line#paste ('close')<cr>
-		nnoremap <buffer> <tab> :call wheel#line#paste ('open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste ('open')<cr>
+		nnoremap <buffer> <cr> :call wheel#line#paste_list ('close')<cr>
+		nnoremap <buffer> <tab> :call wheel#line#paste_list ('open')<cr>
+		nnoremap <buffer> p :call wheel#line#paste_list ('open')<cr>
 	elseif a:mode == 'plain'
-		nnoremap <buffer> <cr> :call wheel#line#yank ('close')<cr>
-		nnoremap <buffer> <tab> :call wheel#line#yank ('open')<cr>
-		nnoremap <buffer> p :call wheel#line#yank ('open')<cr>
-		vnoremap <buffer> <cr> :norm gvy<esc>:call wheel#mandala#close()<cr>p
-		vnoremap <buffer> <tab> :norm gvy<esc>:call wheel#mandala#previous()<cr>p
-		vnoremap <buffer> p :norm gvy<esc>:call wheel#mandala#previous()<cr>p
+		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('close')<cr>
+		nnoremap <buffer> <tab> :call wheel#line#paste_plain ('open')<cr>
+		nnoremap <buffer> p :call wheel#line#paste_plain ('open')<cr>
+		vnoremap <buffer> <cr> :call wheel#line#paste_visual('close')<cr>
+		vnoremap <buffer> <tab> :call wheel#line#paste_visual('open')<cr>
+		vnoremap <buffer> p :call wheel#line#paste_visual('open')<cr>
 	endif
 endfun
 
