@@ -4,6 +4,8 @@
 " - Going to an element
 " - Paste
 
+" Script vars
+
 if ! exists('s:selected_mark')
 	let s:selected_mark = '* '
 	lockvar s:selected_mark
@@ -195,8 +197,12 @@ fun! wheel#line#switch (dict)
 	else
 		let dict.mode = 'new'
 	endif
-	let mandala = win_getid()
-	wincmd p
+	if close
+		call wheel#mandala#close ()
+	else
+		let mandala = win_getid()
+		wincmd p
+	endif
 	if type(Fun) == v:t_func
 		if target != 'current'
 			for elem in selected
@@ -220,10 +226,8 @@ fun! wheel#line#switch (dict)
 	else
 		echomsg 'Wheel line switch : bad switch function'
 	endif
-	call win_gotoid(mandala)
-	if close
-		call wheel#mandala#close ()
-	else
+	if ! close
+		call win_gotoid(mandala)
 		call wheel#line#deselect ()
 	endif
 endfun

@@ -21,11 +21,11 @@ endfun
 
 fun! wheel#mandala#close ()
 	" Close the wheel buffer
-	" Delete buffer if only one window
+	" Go to alternate buffer if only one window
 	if winnr('$') > 1
 		quit!
 	else
-		bdelete!
+		buffer #
 	endif
 endfun
 
