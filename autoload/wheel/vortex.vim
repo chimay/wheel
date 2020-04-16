@@ -35,7 +35,7 @@ fun! wheel#vortex#jump (...)
 		if mode != 'new'
 			let window = wheel#mosaic#tour ()
 		else
-			let window = 0
+			let window = v:false
 		endif
 		if window
 			"echomsg 'Switching to window ' window

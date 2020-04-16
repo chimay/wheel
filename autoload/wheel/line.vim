@@ -140,7 +140,7 @@ fun! wheel#line#switch (dict)
 	if has_key(dict, 'close')
 		let close = dict.close
 	else
-		let close = 1
+		let close = v:true
 	endif
 	if has_key(dict, 'action')
 		let Fun = dict.action
@@ -282,7 +282,7 @@ endfun
 " Paste
 
 fun! wheel#line#paste_list (...)
-	" Paste line from yank buffer in list mode
+	" Paste elements in current line from yank buffer in list mode
 	if a:0 > 0
 		let close = a:1
 	else

@@ -139,15 +139,20 @@ fun! wheel#mandala#input_history_maps ()
 	inoremap <buffer> <C-s> <esc>:call wheel#scroll#filtered_newer()<cr>
 endfun
 
+fun! wheel#mandala#select_maps ()
+	" Define local toggle selection maps
+	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
+endfun
+
 fun! wheel#mandala#switch_maps (dict)
 	" Define local switch maps
 	let dict = copy(a:dict)
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#line#switch('
 	let post = ')<cr>'
-	let dict.close = 0
-	exe map . '<tab>' . pre . string(dict) . post
-	let dict.close = 1
+	" Close after switch
+	let dict.close = v:true
+	let dict.target = 'within'
 	exe map . '<cr>' . pre . string(dict) . post
 	let dict.target = 'tab'
 	exe map . 't' . pre . string(dict) . post
@@ -155,8 +160,16 @@ fun! wheel#mandala#switch_maps (dict)
 	exe map . 's' . pre . string(dict) . post
 	let dict.target = 'vertical_split'
 	exe map . 'v' . pre . string(dict) . post
-	" Toggle select current line
-	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
+	" Leave open after switch
+	let dict.close = v:false
+	let dict.target = 'within'
+	exe map . '<tab>' . pre . string(dict) . post
+	let dict.target = 'tab'
+	exe map . 't' . pre . string(dict) . post
+	let dict.target = 'horizontal_split'
+	exe map . 's' . pre . string(dict) . post
+	let dict.target = 'vertical_split'
+	exe map . 'v' . pre . string(dict) . post
 endfun
 
 fun! wheel#mandala#yank_maps (mode)
@@ -247,6 +260,7 @@ fun! wheel#mandala#switch (level)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
 	let dict = {'level' : level}
 	call wheel#mandala#switch_maps (dict)
 	let upper = wheel#referen#upper (level)
@@ -272,6 +286,7 @@ fun! wheel#mandala#helix ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
 	let dict = {'action' : function('wheel#line#helix')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#locations ()
@@ -292,6 +307,7 @@ fun! wheel#mandala#grid ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
 	let dict = {'action' : function('wheel#line#grid')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#helix#circles ()
@@ -311,6 +327,7 @@ fun! wheel#mandala#tree ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
 	call wheel#mandala#folding_options ()
 	let dict = {'action' : function('wheel#line#tree')}
 	call wheel#mandala#switch_maps (dict)
@@ -332,6 +349,7 @@ fun! wheel#mandala#history ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
 	let dict = {'action' : function('wheel#line#history')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#pendulum#sorted ()
