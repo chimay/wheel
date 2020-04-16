@@ -95,15 +95,15 @@ fun! wheel#void#yank ()
 	endif
 endfun
 
-fun! wheel#void#mru ()
-	" Initialize list of most recently used files
-	if ! exists('g:wheel_mru')
-		let g:wheel_mru = []
+fun! wheel#void#attic ()
+	" Initialize most recently used files
+	if ! exists('g:wheel_attic')
+		let g:wheel_attic = []
 	endif
 endfun
 
 fun! wheel#void#shelve ()
-	" Initialize shelve
+	" Initialize shelve : misc status variables
 	if ! exists('g:wheel_shelve')
 		let g:wheel_shelve = {}
 	endif
@@ -174,7 +174,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#history ()
 	call wheel#void#input ()
 	call wheel#void#yank ()
-	call wheel#void#mru ()
+	call wheel#void#attic ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 endfun
