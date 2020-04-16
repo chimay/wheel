@@ -99,6 +99,7 @@ grow and adapt to your style.
     * toruses on tabs, circles on split
 - Batch operations
 - Grep on group files
+- MRU files not found in wheel
 - Yank wheel using TextYankPost event
 
 As you see, some features go beyond a buffer manager. Why include

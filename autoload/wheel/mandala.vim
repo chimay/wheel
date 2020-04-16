@@ -197,11 +197,6 @@ fun! wheel#mandala#yank_maps (mode)
 	endif
 endfun
 
-fun! wheel#mandala#attic_maps ()
-	" Define local most recently used files maps
-	nnoremap <buffer> <cr> :call wheel#line#edit ()<cr>
-endfun
-
 " Write commands
 
 fun! wheel#mandala#reorder_write (level)
@@ -358,7 +353,7 @@ fun! wheel#mandala#history ()
 	" Choose a location coordinate in history
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
-	call wheel#mandala#open ()
+	call wheel#mandala#open ('wheel-history')
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
@@ -373,6 +368,34 @@ fun! wheel#mandala#history ()
 	endif
 	setlocal nomodified
 	call cursor(1,1)
+endfun
+
+" Most recenty used
+
+fun! wheel#mandala#attic ()
+	" Most recenty used files
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-mru')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
+	let dict = {'action' : function('wheel#line#attic')}
+	call wheel#mandala#switch_maps (dict)
+	let names = wheel#attic#sorted ()
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
+	setlocal nomodified
+	call cursor(1,1)
+endfun
+
+" Locate
+
+fun! wheel#mandala#locate ()
+	" Search files using locate
 endfun
 
 " Yank wheel
@@ -390,28 +413,6 @@ fun! wheel#mandala#yank (mode)
 	put =names
 	setlocal nomodified
 	call cursor(1,1)
-endfun
-
-" Most recenty used
-
-fun! wheel#mandala#attic ()
-	" Most recenty used files
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-mru')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#attic_maps ()
-	let names = wheel#attic#sorted ()
-	put =names
-	setlocal nomodified
-	call cursor(1,1)
-endfun
-
-" Locate
-
-fun! wheel#mandala#locate ()
-	" Search files using locate
 endfun
 
 " Reorder

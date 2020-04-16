@@ -34,13 +34,13 @@ fun! wheel#line#coordin ()
 		normal! [z
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
-		let list = split(line)
-		let circle = list[0]
+		let fields = split(line)
+		let circle = fields[0]
 		normal! [z
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
-		let list = split(line)
-		let torus = list[0]
+		let fields = split(line)
+		let torus = fields[0]
 		let coordin = [torus, circle, location]
 	elseif foldlevel('.') == 2
 		" circle line : search torus
@@ -48,8 +48,8 @@ fun! wheel#line#coordin ()
 		normal! [z
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
-		let list = split(line)
-		let torus = list[0]
+		let fields = split(line)
+		let torus = fields[0]
 		let coordin = [torus, circle]
 	elseif foldlevel('.') == 1
 		" torus line
@@ -249,12 +249,12 @@ fun! wheel#line#helix (dict)
 	" dict keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let list = split(a:dict.selected)
-	if len(list) < 5
+	let fields = split(a:dict.selected)
+	if len(fields) < 5
 		echomsg 'Helix line is too short'
 		return
 	endif
-	let coordin = [list[0], list[2], list[4]]
+	let coordin = [fields[0], fields[2], fields[4]]
 	call wheel#line#target (a:dict.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (a:dict.use)
@@ -265,12 +265,12 @@ fun! wheel#line#grid (dict)
 	" dict keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let list = split(a:dict.selected)
-	if len(list) < 3
+	let fields = split(a:dict.selected)
+	if len(fields) < 3
 		echomsg 'Grid line is too short'
 		return
 	endif
-	let coordin = [list[0], list[2]]
+	let coordin = [fields[0], fields[2]]
 	call wheel#line#target (a:dict.target)
 	call wheel#vortex#tune('torus', coordin[0])
 	call wheel#vortex#tune('circle', coordin[1])
@@ -305,21 +305,33 @@ fun! wheel#line#history (dict)
 	" dict keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let list = split(a:dict.selected)
-	if len(list) < 11
+	let fields = split(a:dict.selected)
+	if len(fields) < 11
 		echomsg 'History line is too short'
 		return
 	endif
-	let coordin = [list[6], list[8], list[10]]
+	let coordin = [fields[6], fields[8], fields[10]]
 	call wheel#line#target (a:dict.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (a:dict.use)
 endfun
 
+fun! wheel#line#attic (dict)
+	" Edit dict.selected MRU file
+	let fields = split(a:dict.selected)
+	if len(fields) < 7
+		echomsg 'MRU line is too short'
+		return
+	endif
+	let filename = fields[6]
+	call wheel#line#target (a:dict.target)
+	exe 'edit ' . filename
+endfun
+
 " Paste
 
 fun! wheel#line#paste_list (...)
-	" Paste elements in current line from yank buffer in list mode
+	" Paste elements in current line from yank buffer in fields mode
 	if a:0 > 0
 		let close = a:1
 	else
@@ -367,28 +379,6 @@ fun! wheel#line#paste_visual (...)
 	let mandala = win_getid()
 	wincmd p
 	put "
-	call win_gotoid(mandala)
-	if close == 'close'
-		call wheel#mandala#close ()
-	endif
-endfun
-
-" Edit
-
-fun! wheel#line#edit ()
-	" Edit current or selected line(s)
-	" For MRU, locate
-	if a:0 > 0
-		let close = a:1
-	else
-		let close = 'close'
-	endif
-	let line = getline('.')
-	let fields = split(line)
-	let filename = fields[6]
-	let mandala = win_getid()
-	wincmd p
-	exe 'edit ' . filename
 	call win_gotoid(mandala)
 	if close == 'close'
 		call wheel#mandala#close ()

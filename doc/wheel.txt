@@ -93,6 +93,7 @@ FEATURES				*wheel-introduction-features*
     * toruses on tabs, circles on split
 - Batch operations
 - Grep on group files
+- MRU files not found in wheel
 - Yank wheel using TextYankPost event
 
 ------------------------------------------------------------------------------
