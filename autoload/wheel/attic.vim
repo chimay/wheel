@@ -28,6 +28,10 @@ fun! wheel#attic#record (...)
 	else
 		let filename = expand('%:p')
 	endif
+	if empty(filename)
+		" Do not add empty filenames
+		return
+	endif
 	let wheel_files = wheel#helix#files ()
 	let in_wheel = index(wheel_files, filename)
 	if in_wheel >= 0
