@@ -407,6 +407,7 @@ fun! wheel#mandala#locate ()
 		let runme = 'locate ' . pattern
 	else
 		let runme = 'locate -d ' . expand(database) . ' ' . pattern
+	endif
 	let names = systemlist(runme)
 	if exists('*appendbufline')
 		call appendbufline('%', 1, names)

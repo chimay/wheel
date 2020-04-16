@@ -328,6 +328,13 @@ fun! wheel#line#attic (dict)
 	exe 'edit ' . filename
 endfun
 
+fun! wheel#line#locate (dict)
+	" Edit dict.selected MRU file
+	let filename = a:dict.selected
+	call wheel#line#target (a:dict.target)
+	exe 'edit ' . filename
+endfun
+
 " Paste
 
 fun! wheel#line#paste_list (...)
