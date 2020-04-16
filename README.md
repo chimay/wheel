@@ -89,7 +89,12 @@ grow and adapt to your style.
 - Reorganizing elements
 - Display files
   + Split levels : torus, circle, location
-  + Split layout : vertical, horizontal, grid, main
+  + Split layout
+    * vertical
+    * horizontal
+    * grid
+    * main left, golden left
+    * main top, golden top
   + Mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split

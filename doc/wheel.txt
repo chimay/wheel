@@ -82,7 +82,12 @@ FEATURES				*wheel-introduction-features*
 - Reorganizing elements
 - Display files
   + Split levels : torus, circle, location
-  + Split : vertical, horizontal, grid, main
+  + Split
+    * vertical
+    * horizontal
+    * grid
+    * main left, golden left
+    * main top, golden top
   + Mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
