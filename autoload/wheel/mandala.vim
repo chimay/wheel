@@ -389,8 +389,17 @@ endfun
 
 " Most recenty used
 
-fun! wheel#mandala#mru ()
+fun! wheel#mandala#attic ()
 	" Most recenty used files
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-mru')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
+	let names = wheel#attic#sorted ()
+	put =names
+	setlocal nomodified
+	call cursor(1,1)
 endfun
 
 " Locate

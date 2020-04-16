@@ -2,6 +2,8 @@
 
 " Most recently used files
 
+" Helpers
+
 fun! wheel#attic#remove_if_present (entry)
 	let entry = a:entry
 	let attic = g:wheel_attic
@@ -11,6 +13,8 @@ fun! wheel#attic#remove_if_present (entry)
 		endif
 	endfor
 endfu
+
+" Operations
 
 fun! wheel#attic#record (...)
 	" Add file path to most recently used file list
@@ -22,7 +26,7 @@ fun! wheel#attic#record (...)
 	if a:0 > 0
 		let filename = a:1
 	else
-		let filename = expand('%:p:h')
+		let filename = expand('%:p')
 	endif
 	let attic = g:wheel_attic
 	let entry = {}
@@ -33,3 +37,24 @@ fun! wheel#attic#record (...)
 	let max = g:wheel_config.maxim.mru
 	let g:wheel_attic = g:wheel_attic[:max - 1]
 endfu
+
+" Presentation
+
+fun! wheel#attic#sorted ()
+	" Sorted most recenty used files index
+	" Each entry is a string : date hour | filename
+	let attic = deepcopy(g:wheel_attic)
+	let Compare = function('wheel#pendulum#compare')
+	let attic = sort(attic, Compare)
+	let strings = []
+	for entry in attic
+		let filename = entry.file
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour . ' | '
+		let entry .= filename
+		let strings = add(strings, entry)
+	endfor
+	return strings
+endfu
+
