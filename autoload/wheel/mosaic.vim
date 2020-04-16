@@ -184,7 +184,10 @@ fun! wheel#mosaic#tabs (level)
 endfun
 
 fun! wheel#mosaic#split (level, ...)
-	" One level element per horizontal split
+	" One level element per split
+	" Optional arguments :
+	" 1. action to obtain split layout
+	" 2. dict to pass as argument -> action(dict)
 	if a:0 > 0
 		let action = a:1
 	else
@@ -217,6 +220,19 @@ fun! wheel#mosaic#split (level, ...)
 	let g:wheel_shelve.layout.split = action
 endfun
 
+fun! wheel#mosaic#golden (level, ...)
+	" Grid layout
+	" Optional argument : action to obtain split layout
+	if a:0 > 0
+		let action = a:1
+	else
+		let action = 'main_left'
+	endif
+	let dict = {}
+	let dict.golden = v:true
+	call wheel#mosaic#split(a:level, action, dict)
+endfun
+
 fun! wheel#mosaic#split_grid (level)
 	" Grid layout
 	let dict = {}
@@ -236,7 +252,7 @@ endfun
 fun! wheel#mosaic#horizontal (...)
 	" Horizontal split
 	" w:coordin = [row number, col number]
-	" Optional argument if for compatibility only
+	" Optional argument for compatibility only
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
@@ -253,7 +269,7 @@ endfun
 fun! wheel#mosaic#vertical (...)
 	" Vertical split
 	" w:coordin = [row number, col number]
-	" Optional argument if for compatibility only
+	" Optional argument for compatibility only
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
@@ -270,18 +286,30 @@ endfun
 fun! wheel#mosaic#main_left (...)
 	" Main window on top
 	" w:coordin = [row number, col number]
-	" Optional argument if for compatibility only
+	if a:0 > 0
+		let dict = a:1
+	else
+		let dict = {'golden': v:false}
+	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	if w:coordin == [0, 0]
-		vsplit
+		if dict.golden
+			call wheel#spiral#vertical ()
+		else
+			vsplit
+		endif
 		let w:coordin = [0, 1]
 		return 1
 	endif
 	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
-		split
+		if dict.golden
+			call wheel#spiral#horizontal ()
+		else
+			split
+		endif
 		let w:coordin = [next, 1]
 		return 1
 	else
@@ -292,18 +320,30 @@ endfun
 fun! wheel#mosaic#main_top (...)
 	" Main window on top
 	" w:coordin = [row number, col number]
-	" Optional argument if for compatibility only
+	if a:0 > 0
+		let dict = a:1
+	else
+		let dict = {'golden': v:false}
+	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	if w:coordin == [0, 0]
-		split
+		if dict.golden
+			call wheel#spiral#horizontal ()
+		else
+			split
+		endif
 		let w:coordin = [1, 0]
 		return 1
 	endif
 	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
-		vsplit
+		if dict.golden
+			call wheel#spiral#vertical ()
+		else
+			vsplit
+		endif
 		let w:coordin = [1, next]
 		return 1
 	else

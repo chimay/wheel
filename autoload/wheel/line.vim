@@ -195,9 +195,9 @@ fun! wheel#line#switch (dict)
 		echomsg 'Wheel line switch : bad format for b:wheel_selected'
 	endif
 	if len(selected) == 1
-		let dict.mode = 'default'
+		let dict.use = 'default'
 	else
-		let dict.mode = 'new'
+		let dict.use = 'new'
 	endif
 	if close
 		call wheel#mandala#close ()
@@ -241,7 +241,7 @@ fun! wheel#line#name (dict)
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	call wheel#line#target (a:dict.target)
-	call wheel#vortex#switch(a:dict.level, a:dict.selected, a:dict.mode)
+	call wheel#vortex#switch(a:dict.level, a:dict.selected, a:dict.use)
 endfun
 
 fun! wheel#line#helix (dict)
@@ -257,7 +257,7 @@ fun! wheel#line#helix (dict)
 	let coordin = [list[0], list[2], list[4]]
 	call wheel#line#target (a:dict.target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (a:dict.mode)
+	call wheel#vortex#jump (a:dict.use)
 endfun
 
 fun! wheel#line#grid (dict)
@@ -274,7 +274,7 @@ fun! wheel#line#grid (dict)
 	call wheel#line#target (a:dict.target)
 	call wheel#vortex#tune('torus', coordin[0])
 	call wheel#vortex#tune('circle', coordin[1])
-	call wheel#vortex#jump (a:dict.mode)
+	call wheel#vortex#jump (a:dict.use)
 endfun
 
 fun! wheel#line#tree (dict)
@@ -297,7 +297,7 @@ fun! wheel#line#tree (dict)
 	elseif length == 1
 		call wheel#vortex#tune('torus', coordin[0])
 	endif
-	call wheel#vortex#jump (a:dict.mode)
+	call wheel#vortex#jump (a:dict.use)
 endfun
 
 fun! wheel#line#history (dict)
@@ -313,7 +313,7 @@ fun! wheel#line#history (dict)
 	let coordin = [list[6], list[8], list[10]]
 	call wheel#line#target (a:dict.target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (a:dict.mode)
+	call wheel#vortex#jump (a:dict.use)
 endfun
 
 " Edit

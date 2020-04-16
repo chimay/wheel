@@ -122,7 +122,7 @@ fun! wheel#vortex#tune (level, name)
 		if index >= 0
 			let upper.current = index
 		else
-			echomsg 'Wheel vortex tune : element not found'
+			echomsg 'Wheel vortex tune :' name 'not found'
 		endif
 		return index
 	else
