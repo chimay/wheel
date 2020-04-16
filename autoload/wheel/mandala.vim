@@ -370,8 +370,6 @@ fun! wheel#mandala#history ()
 	call cursor(1,1)
 endfun
 
-" Most recenty used
-
 fun! wheel#mandala#attic ()
 	" Most recenty used files
 	call wheel#vortex#update ()
@@ -392,10 +390,31 @@ fun! wheel#mandala#attic ()
 	call cursor(1,1)
 endfun
 
-" Locate
-
 fun! wheel#mandala#locate ()
 	" Search files using locate
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-locate')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
+	let dict = {'action' : function('wheel#line#locate')}
+	call wheel#mandala#switch_maps (dict)
+	let prompt = 'Search for file matching : '
+	let pattern = input(prompt)
+	let database = g:wheel_config.locate_db
+	if empty(database)
+		let runme = 'locate ' . pattern
+	else
+		let runme = 'locate -d ' . expand(database) . ' ' . pattern
+	let names = systemlist(runme)
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
+	setlocal nomodified
+	call cursor(1,1)
 endfun
 
 " Yank wheel

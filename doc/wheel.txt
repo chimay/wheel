@@ -500,6 +500,7 @@ Mappings				|wheel-config-mappings|
 Prefix					|wheel-config-prefix|
 Cd project				|wheel-config-cd_project|
 Project markers				|wheel-config-project_markers|
+Locate database				|wheel-config-locate-db|
 Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max yanks 				|wheel-config-maxim-yanks|
@@ -605,6 +606,14 @@ list value. : >
 
     let g:wheel_config.project_markers = '.git'
     let g:wheel_config.project_markers = ['.git', '.my-project-root']
+<
+
+------------------------------------------------------------------------------
+LOCATE DATABASE			    		*wheel-config-locate-db*
+
+If you want to use a custom database when using locate : >
+
+  let g:wheel_config.locate_db = '~/my_locate.db'
 <
 
 ------------------------------------------------------------------------------
@@ -743,6 +752,7 @@ Auto write			|wheel-autocommands-auto-write|
 After jump			|wheel-autocommands-after-jump|
 Auto follow			|wheel-autocommands-auto-follow|
 Auto update			|wheel-autocommands-auto-update|
+MRU files			|wheel-autocommands-mru-files|
 Yank wheel			|wheel-autocommands-yank|
 Example				|wheel-autocommands-example|
 
@@ -788,6 +798,15 @@ AUTO UPDATE				*wheel-autocommands-auto-update*
 If you want to update your cursor position each time you leave a window : >
 
   autocmd BufWinLeave * call wheel#vortex#update()
+<
+
+------------------------------------------------------------------------------
+MRU files				    *wheel-autocommands-mru-files*
+
+If you want to record a list of the files you edited without adding them
+to the wheel : >
+
+  autocmd BufRead * call wheel#attic#record()
 <
 
 ------------------------------------------------------------------------------

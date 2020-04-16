@@ -141,6 +141,9 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'project_markers')
 		let g:wheel_config.project_markers = '.git'
 	endif
+	if ! has_key(g:wheel_config, 'locate_db')
+		let g:wheel_config.locate_db = ''
+	endif
 	" Maxim
 	if ! has_key(g:wheel_config, 'maxim')
 		let g:wheel_config.maxim = {}
