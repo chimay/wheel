@@ -253,12 +253,21 @@ fun! wheel#mosaic#horizontal (...)
 	" Horizontal split
 	" w:coordin = [row number, col number]
 	" Optional argument for compatibility only
+	if a:0 > 0
+		let dict = a:1
+	else
+		let dict = {'golden': v:false}
+	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
-		split
+		if dict.golden
+			call wheel#spiral#horizontal ()
+		else
+			split
+		endif
 		let w:coordin = [next, 0]
 		return 1
 	else
@@ -270,12 +279,21 @@ fun! wheel#mosaic#vertical (...)
 	" Vertical split
 	" w:coordin = [row number, col number]
 	" Optional argument for compatibility only
+	if a:0 > 0
+		let dict = a:1
+	else
+		let dict = {'golden': v:false}
+	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
-		vsplit
+		if dict.golden
+			call wheel#spiral#vertical ()
+		else
+			vsplit
+		endif
 		let w:coordin = [0, next]
 		return 1
 	else
@@ -284,7 +302,7 @@ fun! wheel#mosaic#vertical (...)
 endfun
 
 fun! wheel#mosaic#main_left (...)
-	" Main window on top
+	" Main window on left
 	" w:coordin = [row number, col number]
 	if a:0 > 0
 		let dict = a:1
