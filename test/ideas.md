@@ -7,7 +7,6 @@
 List of most recently used files
 
 todo :
-- excluding files belonging to the wheel
 - maps, menus
 
 ## Locate
