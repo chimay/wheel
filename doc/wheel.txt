@@ -338,7 +338,8 @@ The default mappings launching navigation buffers are :
 - `<M-w>x`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
-- `<M-w>M`         : most recently used files not found in wheel (mru)
+- `<M-w>?`         : most recently used files not found in wheel (mru)
+- `<M-w>/`         : search files with `locate`
 
 Menus~
 
@@ -611,7 +612,7 @@ list value. : >
 ------------------------------------------------------------------------------
 LOCATE DATABASE			    		*wheel-config-locate-db*
 
-If you want to use a custom database when using locate : >
+If you want to use a custom database when using `locate` : >
 
   let g:wheel_config.locate_db = '~/my_locate.db'
 <
@@ -1044,7 +1045,7 @@ Tabs & Windows~
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
 
-Search for files
+Search for files~
 
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
