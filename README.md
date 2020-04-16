@@ -21,7 +21,6 @@
 		* [Switch using completion](#switch-using-completion)
 		* [Switch using a special buffer](#switch-using-a-special-buffer)
 	* [Square the Circle](#square-the-circle)
-* [TODO](#todo)
 * [Warning](#warning)
 * [Licence](#licence)
 
@@ -319,10 +318,6 @@ Circle Drinks | Juice           | Tea
 Circle Fruits | Apple           | Pear
 
 at your fingertips.
-
-# TODO
-
-- tabline
 
 # Warning
 

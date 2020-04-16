@@ -654,9 +654,19 @@ Maximum number of vertical splits : >
 ------------------------------------------------------------------------------
 TABLINE					*wheel-config-tabline*
 
+Text~
+
 If you want wheel to manage your tabline, use this function : >
 
   set tabline=%!wheel#status#tabline()
+<
+
+Gui tabs of gvim~
+
+If you are using gui tabs in gvim, you can ask wheel to manage the
+labels : >
+
+  set guitablabel=%{wheel#status#guitablabel()}
 <
 
 ------------------------------------------------------------------------------
