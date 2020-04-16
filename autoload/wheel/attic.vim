@@ -28,6 +28,12 @@ fun! wheel#attic#record (...)
 	else
 		let filename = expand('%:p')
 	endif
+	let wheel_files = wheel#helix#files ()
+	let in_wheel = index(wheel_files, filename)
+	if in_wheel >= 0
+		" Only add non wheel files
+		return
+	endif
 	let attic = g:wheel_attic
 	let entry = {}
 	let entry.file = filename

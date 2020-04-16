@@ -197,6 +197,11 @@ fun! wheel#mandala#yank_maps (mode)
 	endif
 endfun
 
+fun! wheel#mandala#attic_maps ()
+	" Define local most recently used files maps
+	nnoremap <buffer> <cr> :call wheel#line#edit ()<cr>
+endfun
+
 " Write commands
 
 fun! wheel#mandala#reorder_write (level)
@@ -396,6 +401,7 @@ fun! wheel#mandala#attic ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#attic_maps ()
 	let names = wheel#attic#sorted ()
 	put =names
 	setlocal nomodified

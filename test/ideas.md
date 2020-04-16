@@ -2,9 +2,13 @@
 
 # TODO
 
-## MRU
+## Most recently used files
 
-List of most recently used files, excluding files belonging to the wheel
+List of most recently used files
+
+todo :
+- excluding files belonging to the wheel
+- maps, menus
 
 ## Locate
 

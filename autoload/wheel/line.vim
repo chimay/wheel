@@ -316,14 +316,6 @@ fun! wheel#line#history (dict)
 	call wheel#vortex#jump (a:dict.use)
 endfun
 
-" Edit
-
-fun! wheel#line#edit ()
-	" Edit current or selected line(s)
-	" For MRU, locate
-	" TODO
-endfun
-
 " Paste
 
 fun! wheel#line#paste_list (...)
@@ -375,6 +367,28 @@ fun! wheel#line#paste_visual (...)
 	let mandala = win_getid()
 	wincmd p
 	put "
+	call win_gotoid(mandala)
+	if close == 'close'
+		call wheel#mandala#close ()
+	endif
+endfun
+
+" Edit
+
+fun! wheel#line#edit ()
+	" Edit current or selected line(s)
+	" For MRU, locate
+	if a:0 > 0
+		let close = a:1
+	else
+		let close = 'close'
+	endif
+	let line = getline('.')
+	let fields = split(line)
+	let filename = fields[6]
+	let mandala = win_getid()
+	wincmd p
+	exe 'edit ' . filename
 	call win_gotoid(mandala)
 	if close == 'close'
 		call wheel#mandala#close ()
