@@ -320,6 +320,7 @@ endfun
 
 fun! wheel#line#edit ()
 	" Edit current or selected line(s)
+	" For MRU, locate
 	" TODO
 endfun
 

@@ -95,6 +95,13 @@ fun! wheel#void#yank ()
 	endif
 endfun
 
+fun! wheel#void#mru ()
+	" Initialize list of most recently used files
+	if ! exists('g:wheel_mru')
+		let g:wheel_mru = []
+	endif
+endfun
+
 fun! wheel#void#shelve ()
 	" Initialize shelve
 	if ! exists('g:wheel_shelve')
@@ -167,6 +174,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#history ()
 	call wheel#void#input ()
 	call wheel#void#yank ()
+	call wheel#void#mru ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 endfun

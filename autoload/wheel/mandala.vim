@@ -387,6 +387,18 @@ fun! wheel#mandala#yank (mode)
 	call cursor(1,1)
 endfun
 
+" Most recenty used
+
+fun! wheel#mandala#mru ()
+	" Most recenty used files
+endfun
+
+" Locate
+
+fun! wheel#mandala#locate ()
+	" Search files using locate
+endfun
+
 " Reorder
 
 fun! wheel#mandala#reorder (level)

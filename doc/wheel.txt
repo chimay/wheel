@@ -315,7 +315,17 @@ in previous used window. You can also use the keys :
 - `t` : open buffer in a new tab
 - `s` : open buffer in a new split
 - `v` : open buffer in a new vsplit
-- `<tab>` : same as `<enter>`, but without closing the navigation buffer
+- `S` : open buffer in a new split with golden ratio
+- `V` : open buffer in a new vsplit with golden ratio
+
+Same keys as above, but leave the navigation buffer opened :
+
+- `<tab>` : same as `<enter>`
+- `gt` : same as `t`
+- `gs` : same as `s`
+- `gv` : same as `v`
+- `gS` : same as `S`
+- `gV` : same as `V`
 
 Mappings~
 
