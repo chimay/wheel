@@ -669,6 +669,10 @@ labels : >
   set guitablabel=%{wheel#status#guitablabel()}
 <
 
+Gui tabs of nvim-qt~
+
+TODO
+
 ------------------------------------------------------------------------------
 EXAMPLE					    *wheel-config-example*
 
