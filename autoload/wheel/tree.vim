@@ -203,7 +203,7 @@ fun! wheel#tree#rename (level, ...)
 	else
 		redraw!
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
-		echomsg a:level a:new 'already exists in' upper_level_name
+		echomsg a:level new 'already exists in' upper_level_name
 	endif
 endfun
 
