@@ -112,6 +112,7 @@ fun! wheel#centre#mappings ()
 		nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
 		nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
 		nnoremap <M-Space>    :call wheel#mandala#helix()<cr>
+		nnoremap <D-h>        :call wheel#mandala#history()<cr>
 		nnoremap <D-r>        :call wheel#mandala#reorganize()<cr>
 		" Tree : add, rename, delete
 		nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>

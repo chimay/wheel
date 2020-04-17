@@ -69,10 +69,14 @@ endfun
 
 fun! wheel#vector#quickfix ()
 	" Quickfix list to be displayed
+	" Each line has the format :
+	" buffer-number | file | line | col | text
 	let quickfix = getqflist()
 	let list = []
 	for elem in quickfix
-		let record = bufname(elem.bufnr) . ' | '
+		let bufnr = elem.bufnr
+		let record = bufnr . ' | '
+		let record .= bufname(bufnr) . ' | '
 		let record .= elem.lnum . ' | '
 		let record .= elem.col . ' | '
 		let record .= elem.text

@@ -316,6 +316,10 @@ fun! wheel#line#history (dict)
 	call wheel#vortex#jump (a:dict.use)
 endfun
 
+fun! wheel#line#grep ()
+	" Switch to current quickfix line
+endfun
+
 fun! wheel#line#attic (dict)
 	" Edit dict.selected MRU file
 	let fields = split(a:dict.selected)
