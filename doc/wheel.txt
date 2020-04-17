@@ -490,6 +490,10 @@ The command : >
 launches a |:grep| search in the current circle files. The results are
 displayed in the usual |quickfix| window.
 
+Mapping~
+
+Default mapping : `<M-w>*`
+
 ==============================================================================
 CONFIGURATION					    *wheel-configuration*
 
