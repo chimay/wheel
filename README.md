@@ -193,7 +193,7 @@ as a starting point.
 Your guide on the wheel tracks :
 
 ```vim
- :help wheel.txt
+ :help [wheel.txt](https://github.com/chimay/wheel/blob/master/doc/wheel.txt)
  ```
 
 ## Prefix
