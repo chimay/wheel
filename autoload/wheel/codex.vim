@@ -48,7 +48,11 @@ fun! wheel#codex#lines (mode)
 		endfor
 	elseif a:mode == 'plain'
 		for elem in g:wheel_yank
-			call add(lines, join(elem, "\n"))
+			let plain = join(elem, "\n")
+			" Only add if some text is there
+			if plain =~ '\m\w'
+				call add(lines, plain)
+			endif
 		endfor
 	endif
 	return lines
