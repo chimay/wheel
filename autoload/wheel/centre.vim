@@ -7,7 +7,7 @@ fun! wheel#centre#commands ()
 	" Status
 	command! WheelDashboard call wheel#status#dashboard()
 	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
-	command! -nargs=+ WheelGrep call wheel#vector#grep(<q-args>)
+	command! -nargs=+ WheelGrep call wheel#mandala#grep(<q-args>)
 endfun
 
 fun! wheel#centre#mappings ()

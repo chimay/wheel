@@ -1092,7 +1092,9 @@ and add them to your init file.
 | <C-Space>      | Choose circle in special buffer             |
 | <S-Space>      | Choose torus in special buffer              |
 | <D-Space>      | Choose element in wheel folding tree        |
-| <M-Space>      | Reorganize wheel elements                   |
+| <M-Space>      | Index of toruses > circles > locations      |
+| <D-h>          | History index                               |
+| <D-r>          | Reorganize wheel elements                   |
 | -------------- | ------------------------------------------- |
 | <D-Insert>     | Add location to the current circle          |
 | <D-Del>        | Delete current location                     |
@@ -1124,6 +1126,7 @@ and add them to your init file.
 | <D-t>          | One location per tab                        |
 | <D-l>          | One location per window, main left layout   |
 | <D-&>          | One circle per tab, one location per window |
+| -------------- | ------------------------------------------- |
 | <M-PageUp>     | Rotate windows counter-clockwise            |
 | <M-PageDown>   | Rotate windows clockwise                    |
 
@@ -1138,6 +1141,7 @@ Here is the default level 10, if you wish to customize it : >
   nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
   nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
   nnoremap <M-Space>    :call wheel#mandala#helix()<cr>
+  nnoremap <D-h>        :call wheel#mandala#history()<cr>
   nnoremap <D-r>        :call wheel#mandala#reorganize()<cr>
   " Tree : add, rename, delete
   nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>

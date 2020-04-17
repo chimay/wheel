@@ -316,8 +316,19 @@ fun! wheel#line#history (dict)
 	call wheel#vortex#jump (a:dict.use)
 endfun
 
-fun! wheel#line#grep ()
+fun! wheel#line#grep (dict)
 	" Switch to current quickfix line
+	let fields = split(a:dict.selected)
+	if len(fields) < 9
+		echomsg 'Grep line is too short'
+		return
+	endif
+	let bufnr = fields[0]
+	let line = fields[4]
+	let col = fields[6]
+	call wheel#line#target (a:dict.target)
+	exe 'buffer ' . bufnr
+	call cursor(line, col)
 endfun
 
 fun! wheel#line#attic (dict)
