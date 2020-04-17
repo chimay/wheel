@@ -56,7 +56,9 @@ fun! wheel#line#coordin ()
 		let torus = cursor_list[0]
 		let coordin = [torus]
 	elseif foldlevel('.') == 0
-		" simple name line of level depending of buffer
+		" Can be used as :
+		" - simple name line of level depending of buffer
+		" - generic line (grep, mru, ...) with :setlocal nofoldenable
 		let coordin = cursor_line
 	else
 		echomsg 'Wheel line coordin : wrong fold level'
