@@ -832,7 +832,7 @@ your init file : >
 <
 
 ------------------------------------------------------------------------------
-EXAMPLES				    *wheel-autocommands-examples*
+EXAMPLES				    *wheel-autocommands-example*
 
 Here is an example of a complete autocommands configuration : >
 
@@ -1124,11 +1124,13 @@ and add them to your init file.
 | <C-S-Home>     | Alternate in other torus                    |
 | <C-S-End>      | Alternate in other circle                   |
 | -------------- | ------------------------------------------- |
+| <D-g>          | Grep in current circle files                |
+| <D-f>          | Outline in current circle files             |
+| -------------- | ------------------------------------------- |
 | <D-y>          | Paste yank wheel element in list mode       |
 | <D-p>          | Paste yank wheel element in plain mode      |
 | -------------- | ------------------------------------------- |
 | <D-b>          | Batch operation in current circle files     |
-| <D-g>          | Grep in current circle files                |
 | -------------- | ------------------------------------------- |
 | <D-z>          | Zoom : one tab, one window                  |
 | <D-t>          | One location per tab                        |
