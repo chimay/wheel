@@ -2,13 +2,8 @@
 
 # TODO
 
-## Most recently used files
+## Tags
 
-List of most recently used files
+## Outline
 
-todo :
-- maps, menus
-
-## Locate
-
-Use locate to find file. Configurable db
+Use folding marker
