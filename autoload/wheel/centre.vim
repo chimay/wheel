@@ -136,12 +136,14 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
 		nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
 		nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
+		" Search in files
+		nnoremap <D-g>          :call wheel#mandala#grep()<cr>
+		nnoremap <D-f>          :call wheel#mandala#outline()<cr>
 		" Yank
 		nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
 		nnoremap <D-p>          :call wheel#mandala#yank('plain')<cr>
 		" Batch
 		nnoremap <D-b>          :WheelBatch<space>
-		nnoremap <D-g>          :WheelGrep<space>
 		" Windows
 		nnoremap <D-z>          :call wheel#mosaic#zoom()<cr>
 		nnoremap <D-t>          :call wheel#mosaic#tabs('location')<cr>

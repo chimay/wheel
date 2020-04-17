@@ -378,7 +378,7 @@ fun! wheel#mandala#grep (...)
 	if a:0 > 0
 		let pattern = a:1
 	else
-		let pattern = input('Pattern ? ')
+		let pattern = input('Search in circle files for pattern ? ')
 	endif
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-grep')

@@ -472,7 +472,7 @@ BATCH COMMAND					    *wheel-batch-command*
 
 The command : >
 
- WheelBatch my_command
+ :WheelBatch {my_command}
 <
 
 uses the argument list to execute `my_command` on each location of the
@@ -484,7 +484,7 @@ GREP SEARCH					    *wheel-batch-grep*
 
 The command : >
 
- WheelGrep my_pattern
+ :WheelGrep {my_pattern}
 <
 
 launches a |:grep| search in the current circle files. The results are
@@ -1170,12 +1170,14 @@ Here is the default level 10, if you wish to customize it : >
   nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
   nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
   nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
+  " Search in files
+  nnoremap <D-g>          :call wheel#mandala#grep()<cr>
+  nnoremap <D-f>          :call wheel#mandala#outline()<cr>
   " Yank
   nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
   nnoremap <D-p>          :call wheel#mandala#yank('plain')<cr>
   " Batch
   nnoremap <D-b>          :WheelBatch<space>
-  nnoremap <D-g>          :WheelGrep<space>
   " Windows
   nnoremap <D-z>          :call wheel#mosaic#zoom()<cr>
   nnoremap <D-t>          :call wheel#mosaic#tabs('location')<cr>
@@ -1200,6 +1202,12 @@ COMMANDS					*wheel-commands*
 :WheelDashboard					*:WheelDashboard*
 	Print information of the current wheel status in the format
 	`torus > circle > location`.
+
+
+:WheelBatch {my_command}		       *:WheelBatch*
+	Use the argument list to execute {my_command} on each location of the
+	current circle. The command can be a vim `:command` or an external shell
+	`!command`. The ouput is displayed in a dedicated buffer.
 
 :WheelGrep {pattern}				*:WheelGrep*
 	Search {pattern} with `:grep` and display results in a special
