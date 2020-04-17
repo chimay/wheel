@@ -11,6 +11,7 @@ Configuration			|wheel-configuration|
 Autocommands			|wheel-autocommands|
 Functions			|wheel-functions|
 Mappings			|wheel-mappings|
+Commands			|wheel-commands|
 
 ==============================================================================
 INTRODUCTION						*wheel-introduction*
@@ -1185,6 +1186,17 @@ For debug only.
 
 | Prefix + | With default prefix | Action                               |
 | Z        | <M-w>Z              | Reset wheel variables to empty wheel |
+
+==============================================================================
+COMMANDS					*wheel-commands*
+
+:WheelDashboard					*:WheelDashboard*
+	Print information of the current wheel status in the format
+	`torus > circle > location`.
+
+:WheelGrep {pattern}				*:WheelGrep*
+	Search {pattern} with `:grep` and display results in a special
+	buffer that can be filtered.
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:noet:fen:
