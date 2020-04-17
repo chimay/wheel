@@ -381,6 +381,7 @@ fun! wheel#mandala#grep (pattern)
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
 	call wheel#mandala#select_maps ()
+	setlocal nofoldenable
 	let dict = {'action' : function('wheel#line#grep')}
 	call wheel#mandala#switch_maps (dict)
 	call wheel#vector#grep(a:pattern)
