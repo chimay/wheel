@@ -103,11 +103,11 @@ grow and adapt to your style.
 - Search files with locate
 - Yank wheel using TextYankPost event
 
-As you see, some features go beyond a buffer manager. Why include
-these ? Because once the framework is there, it’s easy to add new
-functionalities. UNIX’s philosophy is respected however, on a module
-level : each file in `autoload/wheel` deals with a specific kind of
-problem, and do it well ; the magic is when modules talk together.
+As you see, some features go far beyond a buffer manager. Why include
+these ? Because once the filtering framework is there, it’s easy to
+add new functionalities. UNIX’s philosophy is respected however, on a
+module level : each file in `autoload/wheel` deals with a specific kind
+of problem, and do it well ; the magic is when modules talk together.
 
 ## History
 
