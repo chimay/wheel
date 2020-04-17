@@ -1129,48 +1129,49 @@ and add them to your init file.
 
 Here is the default level 10, if you wish to customize it : >
 
-    " Hub : Menus
-    nnoremap <D-=>        :call wheel#hub#meta()<cr>
-    nnoremap <D-m>        :call wheel#hub#main()<cr>
-    " Mandala : special buffers
-    nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
-    nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
-    nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
-    nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
-    nnoremap <M-Space>    :call wheel#mandala#reorganize()<cr>
-    " Tree : add, rename, delete
-    nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
-    nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
-    " Vortex : switch
-    nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
-    nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
-    nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
-    nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
-    nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
-    nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
-    " Pendulum : history
-    nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
-    nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
-    nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
-    nnoremap <D-^>          :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
-    nnoremap <C-S-PageUp>   :call wheel#pendulum#alternate_same_torus()<cr>
-    nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
-    nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
-    nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
-    " Yank
-    nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
-    nnoremap <D-p>          :call wheel#mandala#yank('plain')<cr>
-    " Batch
-    nnoremap <D-b>          :WheelBatch<space>
-    nnoremap <D-g>          :WheelGrep<space>
-    " Windows
-    nnoremap <D-z>          :call wheel#mosaic#zoom()<cr>
-    nnoremap <D-t>          :call wheel#mosaic#tabs('location')<cr>
-    nnoremap <D-l>          :call wheel#mosaic#split('location', 'main_left')<cr>
-    nnoremap <D-&>          :call wheel#pyramid#steps('circle')<cr>
-    " Rotate windows
-    nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
-    nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
+  " Hub : Menus
+  nnoremap <D-=>        :call wheel#hub#meta()<cr>
+  nnoremap <D-m>        :call wheel#hub#main()<cr>
+  " Mandala : special buffers
+  nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
+  nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
+  nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
+  nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
+  nnoremap <M-Space>    :call wheel#mandala#helix()<cr>
+  nnoremap <D-r>        :call wheel#mandala#reorganize()<cr>
+  " Tree : add, rename, delete
+  nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
+  nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
+  " Vortex : switch
+  nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
+  nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
+  nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
+  nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
+  nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
+  nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
+  " Pendulum : history
+  nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
+  nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
+  nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
+  nnoremap <D-^>          :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
+  nnoremap <C-S-PageUp>   :call wheel#pendulum#alternate_same_torus()<cr>
+  nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
+  nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
+  nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
+  " Yank
+  nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
+  nnoremap <D-p>          :call wheel#mandala#yank('plain')<cr>
+  " Batch
+  nnoremap <D-b>          :WheelBatch<space>
+  nnoremap <D-g>          :WheelGrep<space>
+  " Windows
+  nnoremap <D-z>          :call wheel#mosaic#zoom()<cr>
+  nnoremap <D-t>          :call wheel#mosaic#tabs('location')<cr>
+  nnoremap <D-l>          :call wheel#mosaic#split('location', 'main_left')<cr>
+  nnoremap <D-&>          :call wheel#pyramid#steps('circle')<cr>
+  " Rotate windows
+  nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
+  nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
 <
 
 ------------------------------------------------------------------------------
