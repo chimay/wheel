@@ -190,10 +190,11 @@ as a starting point.
 
 ## Documentation
 
-Your guide on the wheel tracks :
+[Your guide](https://github.com/chimay/wheel/blob/master/doc/wheel.txt)
+on the wheel tracks :
 
 ```vim
- :help [wheel.txt](https://github.com/chimay/wheel/blob/master/doc/wheel.txt)
+ :help wheel.txt
  ```
 
 ## Prefix
