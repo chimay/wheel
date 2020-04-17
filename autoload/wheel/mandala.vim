@@ -373,7 +373,7 @@ fun! wheel#mandala#history ()
 	call cursor(1,1)
 endfun
 
-fun! wheel#mandala#grep (pattern)
+fun! wheel#mandala#grep ()
 	" Grep results
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-grep')
@@ -384,7 +384,7 @@ fun! wheel#mandala#grep (pattern)
 	setlocal nofoldenable
 	let dict = {'action' : function('wheel#line#grep')}
 	call wheel#mandala#switch_maps (dict)
-	call wheel#vector#grep(a:pattern)
+	call wheel#vector#grep()
 	let names = wheel#vector#quickfix ()
 	if exists('*appendbufline')
 		call appendbufline('%', 1, names)
