@@ -125,6 +125,14 @@ if ! exists('s:reorganize')
 	lockvar s:reorganize
 endif
 
+if ! exists('s:search')
+	let s:search = {
+				\ 'Search in circle files' : 'wheel#mandala#grep()',
+				\ 'Outline : folds headers in circle files' : 'wheel#mandala#outline()',
+				\}
+	lockvar s:search
+endif
+
 if ! exists('s:yank')
 	let s:yank = {
 				\ 'Yank wheel in list mode' : "wheel#mandala#yank('list')",
@@ -163,6 +171,7 @@ if ! exists('s:meta')
 				\ 'Window layouts' : "wheel#hub#menu('s:windows')",
 				\ 'Mix of tabs & windows' : "wheel#hub#menu('s:tabnwin')",
 				\ 'Reorganize' : "wheel#hub#menu('s:reorganize')",
+				\ 'Search' : "wheel#hub#menu('s:search')",
 				\ 'Yank' : "wheel#hub#menu('s:yank')",
 				\}
 	lockvar s:meta

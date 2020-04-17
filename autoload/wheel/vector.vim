@@ -40,14 +40,10 @@ endfun
 
 " Grep
 
-fun! wheel#vector#grep (...)
+fun! wheel#vector#grep (pattern)
 	" Grep in all files of circle
 	" Display result in quickfix window
-	if a:0 > 0
-		let pattern = a:1
-	else
-		let pattern = input('Pattern ? ')
-	endif
+	let pattern = a:pattern
 	let locations = deepcopy(wheel#referen#circle().locations)
 	let files = map(locations, {_,value -> value.file})
 	" Remove current directory part
