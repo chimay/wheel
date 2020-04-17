@@ -180,6 +180,8 @@ echo 'Factorial 5 :' s:Factorial(5)
 
 " }}}2
 
+" }}}1
+
 " Vim vars {{{1
 
 fun! Vars ()

@@ -91,6 +91,9 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . 'z :call wheel#mosaic#zoom()<cr>'
 		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
 		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
+		" Grep
+		exe 'nnoremap ' . prefix . '* :call wheel#mandala#grep()<cr>'
+		exe 'nnoremap ' . prefix . '# :call wheel#mandala#outline()<cr>'
 		" MRU
 		exe 'nnoremap ' . prefix . '? :call wheel#mandala#attic()<cr>'
 		" Locate

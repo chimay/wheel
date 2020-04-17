@@ -395,6 +395,12 @@ fun! wheel#mandala#grep (pattern)
 	call cursor(1,1)
 endfun
 
+fun! wheel#mandala#outline ()
+	" Outline fold headers
+	let marker = split(&foldmarker, ',')[0]
+	call wheel#mandala#grep (marker)
+endfun
+
 fun! wheel#mandala#attic ()
 	" Most recenty used files
 	call wheel#vortex#update ()

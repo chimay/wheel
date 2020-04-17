@@ -1057,6 +1057,13 @@ Tabs & Windows~
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
 
+Search in files~
+
+| Prefix + | With default prefix | Action                                          |
+| -------- | ------------------- | ----------------------------------------------- |
+| *        | <M-w>*              | Search in circle files with grep                |
+| #        | <M-w>#              | Outlines : search folds headers in circle files |
+
 Search for files~
 
 | Prefix + | With default prefix | Action                                      |
