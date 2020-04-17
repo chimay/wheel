@@ -154,6 +154,7 @@ if ! exists('s:main')
 	call extend(s:main, s:windows)
 	call extend(s:main, s:tabnwin)
 	call extend(s:main, s:reorganize)
+	call extend(s:main, s:search)
 	call extend(s:main, s:yank)
 	lockvar s:main
 endif
@@ -171,7 +172,7 @@ if ! exists('s:meta')
 				\ 'Window layouts' : "wheel#hub#menu('s:windows')",
 				\ 'Mix of tabs & windows' : "wheel#hub#menu('s:tabnwin')",
 				\ 'Reorganize' : "wheel#hub#menu('s:reorganize')",
-				\ 'Search' : "wheel#hub#menu('s:search')",
+				\ 'Search in files' : "wheel#hub#menu('s:search')",
 				\ 'Yank' : "wheel#hub#menu('s:yank')",
 				\}
 	lockvar s:meta
