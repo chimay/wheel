@@ -7,6 +7,9 @@
 " Trigger action
 
 " Special Buffer
+" A mandala is made of lines, like a buffer
+
+" Helpers
 
 fun! wheel#mandala#open (...)
 	" Open a wheel buffer
@@ -361,6 +364,27 @@ fun! wheel#mandala#history ()
 	let dict = {'action' : function('wheel#line#history')}
 	call wheel#mandala#switch_maps (dict)
 	let names = wheel#pendulum#sorted ()
+	if exists('*appendbufline')
+		call appendbufline('%', 1, names)
+	else
+		put =names
+	endif
+	setlocal nomodified
+	call cursor(1,1)
+endfun
+
+fun! wheel#mandala#grep (pattern)
+	" Grep results
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-grep')
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
+	call wheel#mandala#select_maps ()
+	let dict = {'action' : function('wheel#line#grep')}
+	call wheel#mandala#switch_maps (dict)
+	call wheel#vector#grep(a:pattern)
+	let names = wheel#vector#quickfix ()
 	if exists('*appendbufline')
 		call appendbufline('%', 1, names)
 	else

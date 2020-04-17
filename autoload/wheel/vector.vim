@@ -2,6 +2,8 @@
 
 " Batch
 
+" Arg list
+
 fun! wheel#vector#reset ()
 	" Reset argument list
 	if argc() > 0
@@ -36,6 +38,8 @@ fun! wheel#vector#argdo (command)
 	endif
 endfun
 
+" Grep
+
 fun! wheel#vector#grep (...)
 	" Grep in all files of circle
 	" Display result in quickfix window
@@ -61,7 +65,24 @@ fun! wheel#vector#grep (...)
 	let runme .= "'"
 	let runme .= ' ' . files
 	exe runme
-	" Open quickfix
+endfun
+
+fun! wheel#vector#quickfix ()
+	" Quickfix list to be displayed
+	let quickfix = getqflist()
+	let list = []
+	for elem in quickfix
+		let record = bufname(elem.bufnr) . ' | '
+		let record .= elem.lnum . ' | '
+		let record .= elem.col . ' | '
+		let record .= elem.text
+		call add(list, record)
+	endfor
+	return list
+endfun
+
+fun! wheel#vector#copen ()
+	" Open quickfix with a golden ratio
 	let height = float2nr(wheel#spiral#height ())
 	exe 'copen ' . height
 endfun
