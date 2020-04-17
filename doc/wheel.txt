@@ -836,7 +836,7 @@ your init file : >
 <
 
 ------------------------------------------------------------------------------
-EXAMPLES				    *wheel-autocommands-example*
+EXAMPLE					    *wheel-autocommands-example*
 
 Here is an example of a complete autocommands configuration : >
 
