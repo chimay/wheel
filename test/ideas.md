@@ -6,4 +6,4 @@
 
 ## Outline
 
-Use folding marker
+Origami : use folding marker

@@ -38,6 +38,7 @@ endfun
 
 fun! wheel#vector#grep (...)
 	" Grep in all files of circle
+	" Display result in quickfix window
 	if a:0 > 0
 		let pattern = a:1
 	else
