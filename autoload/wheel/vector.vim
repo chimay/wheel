@@ -44,6 +44,7 @@ fun! wheel#vector#grep (pattern)
 	" Grep in all files of circle
 	" Display result in quickfix window
 	let pattern = a:pattern
+	let pattern = escape(pattern, '#')
 	let locations = deepcopy(wheel#referen#circle().locations)
 	let files = map(locations, {_,value -> value.file})
 	" Remove current directory part

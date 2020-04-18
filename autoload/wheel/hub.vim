@@ -165,17 +165,17 @@ endif
 
 if ! exists('s:meta')
 	let s:meta = {
-				\ 'Add' : "wheel#hub#submenu('s:add')",
-				\ 'Rename' : "wheel#hub#submenu('s:rename')",
-				\ 'Delete' : "wheel#hub#submenu('s:delete')",
-				\ 'Switch' : "wheel#hub#submenu('s:switch')",
-				\ 'Alternate' : "wheel#hub#submenu('s:alternate')",
-				\ 'Tabs' : "wheel#hub#submenu('s:tabs')",
-				\ 'Window layouts' : "wheel#hub#submenu('s:windows')",
-				\ 'Mix of tabs & windows' : "wheel#hub#submenu('s:tabnwin')",
-				\ 'Reorganize' : "wheel#hub#submenu('s:reorganize')",
-				\ 'Search in files' : "wheel#hub#submenu('s:search')",
-				\ 'Yank' : "wheel#hub#submenu('s:yank')",
+				\ 'Add' : 's:add',
+				\ 'Rename' : 's:rename',
+				\ 'Delete' : 's:delete',
+				\ 'Switch' : 's:switch',
+				\ 'Alternate' : 's:alternate',
+				\ 'Tabs' : 's:tabs',
+				\ 'Window layouts' : 's:windows',
+				\ 'Mix of tabs & windows' : 's:tabnwin',
+				\ 'Reorganize' : 's:reorganize',
+				\ 'Search in files' : 's:search',
+				\ 'Yank' : 's:yank',
 				\}
 	lockvar s:meta
 endif
@@ -194,26 +194,6 @@ endfun
 
 " Helpers
 
-fun! wheel#hub#call (dictname, ...)
-	" Calls function corresponding to current menu line
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'close'
-	endif
-	let dict = {a:dictname}
-	let key = getline('.')
-	let value = dict[key]
-	if mode == 'close'
-		call wheel#mandala#close ()
-	endif
-	if value =~ '\m)'
-		exe 'call ' . value
-	else
-		call {value}()
-	endif
-endfun
-
 fun! wheel#hub#menu (dictname)
 	" Menu in wheel buffer
 	let dictname = a:dictname
@@ -221,7 +201,6 @@ fun! wheel#hub#menu (dictname)
 	let string = 'wheel-menu-' . type
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
-	exe "nnoremap <buffer> <cr> :call wheel#hub#call('" . dictname . "')<cr>"
 	let menu = sort(keys({dictname}))
 	call wheel#mandala#fill(menu)
 endfun
@@ -229,11 +208,55 @@ endfun
 fun! wheel#hub#submenu (dictname)
 	" Submenu, reusing current wheel buffer
 	" Welcome to the yellow submenu !
+	let dictname = a:dictname
 	call wheel#layer#push ()
 	let menu = sort(keys({dictname}))
 	call wheel#mandala#replace(menu)
-	exe "nnoremap <buffer> <cr> :call wheel#hub#call('" . dictname . "')<cr>"
-	nnoremap <buffer> <backspace> :call wheel#layer#pop ()
+	call wheel#hub#maps (dictname)
+	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
+endfun
+
+fun! wheel#hub#call (conf)
+	" Calls function corresponding to menu line
+	let conf = a:conf
+	let menu = {conf.menu}
+	let key = getline('.')
+	if conf.close
+		call wheel#mandala#close ()
+	else
+		let mandala = win_getid()
+		wincmd p
+	endif
+	let value = menu[key]
+	if value =~ '\m)'
+		exe 'call ' . value
+	else
+		call {value}()
+	endif
+	if ! conf.close
+		call win_gotoid(mandala)
+	endif
+endfun
+
+fun! wheel#hub#metacall (dictname)
+	" Calls sub menu corresponding to meta menu line
+	let dict = {a:dictname}
+	let key = getline('.')
+	if ! empty(key)
+		let value = dict[key]
+		call wheel#hub#submenu(value)
+	endif
+endfun
+
+fun! wheel#hub#maps (dictname)
+	" Define local menu maps
+	let conf = {'menu' : a:dictname, 'close' : 1}
+	let map  =  'nnoremap <buffer> '
+	let pre  = ' :call wheel#hub#call('
+	let post = ')<cr>'
+	exe map . '<cr>' . pre . string(conf) . post
+	let conf.close = 0
+	exe map . 'g<cr>' . pre . string(conf) . post
 endfun
 
 " Menus
@@ -241,9 +264,12 @@ endfun
 fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer
 	call wheel#hub#menu('s:main')
+	call wheel#hub#maps('s:main')
 endfun
 
 fun! wheel#hub#meta ()
 	" Meta hub menu in wheel buffer
 	call wheel#hub#menu('s:meta')
+	nnoremap <buffer> <cr> :call wheel#hub#metacall('s:meta')<cr>
+	nnoremap <buffer> <tab> :call wheel#hub#metacall('s:meta')<cr>
 endfun

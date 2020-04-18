@@ -299,7 +299,8 @@ by entering words in insert mode.
 Main menu~
 
 The main menu is triggered with `<M-w>m` by default. From there, you
-can launch the action you want by pressing `<enter>` on its line.
+can launch the action you want by pressing `<enter>` on its line. Same
+thing for `g<enter>`, but it will leave the special buffer opened.
 
 Meta menu~
 
@@ -317,6 +318,10 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Reorganize elements
 - Search in files
 - Paste from yank wheel
+
+In these sub-menus, you can launch the action you want by pressing
+`<enter>` on its line. Same thing for `g<enter>`, but it will leave the
+special buffer opened.
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*

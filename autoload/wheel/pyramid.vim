@@ -18,7 +18,7 @@ fun! wheel#pyramid#steps (level, ...)
 	for tabind in range(tabnum - 1)
 		call wheel#mosaic#split(two, fun)
 		tabnext
-		call wheel#vortex#next (one, 'new')
+		call wheel#projection#follow ()
 	endfor
 	call wheel#mosaic#split(two, fun)
 	tabrewind
