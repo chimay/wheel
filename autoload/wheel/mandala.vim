@@ -37,6 +37,32 @@ fun! wheel#mandala#fill (content)
 	call cursor(1,1)
 endfun
 
+fun! wheel#mandala#replace (content, ...)
+	" Replace buffer lines with content
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'all'
+	endif
+	let content = a:content
+	if mode == 'all'
+		let begin = 1
+	elseif mode == 'not_first'
+		let begin = 2
+	endif
+	if exists('*deletebufline')
+		call deletebufline('%', begin, '$')
+	else
+		exe begin . ',$ delete _'
+	endif
+	" Cannot use appendbufline : does not work with yanks
+	put =content
+	setlocal nomodified
+	if line('$') > 1
+		2
+	endif
+endfun
+
 fun! wheel#mandala#close ()
 	" Close the wheel buffer
 	" Go to alternate buffer if only one window
@@ -83,16 +109,7 @@ fun! wheel#mandala#filter (...)
 		let mode = 'normal'
 	endif
 	let lines = wheel#line#filter ()
-	if exists('*deletebufline')
-		call deletebufline('%', 2, '$')
-	else
-		2,$ delete _
-	endif
-	put =lines
-	setlocal nomodified
-	if line('$') > 1
-		2
-	endif
+	call wheel#mandala#replace(lines, 'not_first')
 	if mode == 'insert'
 		call cursor(1,1)
 		startinsert!
