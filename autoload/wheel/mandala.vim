@@ -294,24 +294,23 @@ endfun
 
 " Templates
 
-fun! wheel#mandala#template (type)
+fun! wheel#mandala#template (...)
 	" Templates
-	if a:type == 'switch'
-		call wheel#mandala#common_maps ()
-		call wheel#mandala#filter_maps ()
-		call wheel#mandala#input_history_maps ()
+	if a:0 > 0
+		let type = a:1
+	else
+		let type = 'generic'
+	endif
+	call wheel#mandala#common_maps ()
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
+	" By default, tell whee#line#coordin it’s not a tree buffer
+	" Overridden by folding_options
+	setlocal nofoldenable
+	if type == 'switch'
 		call wheel#mandala#select_maps ()
-		" By default, tell whee#line#coordin it’s not a tree buffer
-		" Overridden by folding_options
-		setlocal nofoldenable
-	elseif a:type == 'yank'
-		call wheel#mandala#common_maps ()
-		call wheel#mandala#filter_maps ()
-		call wheel#mandala#input_history_maps ()
+	elseif type == 'yank'
 		call wheel#mandala#yank_options ()
-		" By default, tell whee#line#coordin it’s not a tree buffer
-		" Overridden by folding_options
-		setlocal nofoldenable
 	endif
 endfun
 
