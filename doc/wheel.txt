@@ -254,7 +254,11 @@ full power of your editor : search, yank, paste, completion, and so on.
 The available actions depend on the context :
 
 - Menu buffers allow you to launch a wheel function
-- Navigation buffers allow you to switch to a location, circle or torus
+- Navigation buffers allow you to switch to a :
+  + location, circle or torus
+  + MRU file, locate file
+  + grep result
+  + and so on
 - Reordering buffers allow you to reorder locations, circles or toruses
 - Reorganize buffer allows you fine grain operations
   + Move and copy around locations, circles and toruses
