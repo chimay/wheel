@@ -21,7 +21,9 @@ endif
 fun! wheel#line#coordin ()
 	" Return coordin of line in plain or folded special buffer
 	if &foldenable == 0
-		return getline('.')
+		let cursor_line = getline('.')
+		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
+		return cursor_line
 	endif
 	let position = getcurpos()
 	let cursor_line = getline('.')

@@ -271,5 +271,4 @@ fun! wheel#hub#meta ()
 	" Meta hub menu in wheel buffer
 	call wheel#hub#menu('s:meta')
 	nnoremap <buffer> <cr> :call wheel#hub#metacall('s:meta')<cr>
-	nnoremap <buffer> <tab> :call wheel#hub#metacall('s:meta')<cr>
 endfun

@@ -6,13 +6,24 @@ fun! wheel#layer#push ()
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
 		let b:wheel_stack.contents = []
+		let b:wheel_stack.selected = []
 		let b:wheel_stack.mappings = []
 	endif
 	" Content stack
-	let lines = getline(1, '$')
-	call filter(lines, {_,val -> ! empty(val)})
 	let contents = b:wheel_stack.contents
+	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
+		let lines = getline(1, '$')
+	else
+		let lines = b:wheel_lines
+	endif
 	call insert(contents, lines)
+	" Selected lines
+	let selected = b:wheel_stack.selected
+	if exists('b:wheel_selected')
+		call insert(selected, b:wheel_selected)
+	else
+		call insert(selected, [wheel#line#coordin ()])
+	endif
 	" Map stack
 	let mappings = b:wheel_stack.mappings
 	let enter = maparg('<enter>', 'n')
