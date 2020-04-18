@@ -42,8 +42,7 @@ endfun
 fun! wheel#hub#submenu (dictname)
 	" Submenu
 	let dictname = a:dictname
-	call wheel#layer#floor ('menu/' . dictname)
-	call wheel#hub#maps (dictname)
+	call wheel#layer#staircase ('menu/' . dictname)
 endfun
 
 fun! wheel#hub#main ()

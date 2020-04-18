@@ -48,16 +48,11 @@ fun! wheel#layer#pop ()
 		let lines = wheel#chain#pop (contents)
 	endif
 	call wheel#mandala#replace (lines)
+	call wheel#line#sync_select ()
 	" Restore mappings
 	let mappings = b:wheel_stack.mappings
 	if ! empty(mappings)
 		let mapdict = wheel#chain#pop (mappings)
-		if ! empty(maparg('<cr>', 'n'))
-			nunmap <buffer> <cr>
-		endif
-		if ! empty(maparg('g<cr>', 'n'))
-			nunmap <buffer> g<cr>
-		endif
 		exe 'nnoremap <buffer> <cr> ' . mapdict.enter
 		exe 'nnoremap <buffer> g<cr> ' . mapdict.g_enter
 	endif
@@ -71,10 +66,12 @@ fun! wheel#layer#call (conf)
 	" - travel : whether to apply action in previous buffer
 	let conf = a:conf
 	let menu = wheel#storage#fetch (conf.menu)
+	let close = conf.close
+	let travel = conf.travel
 	let key = getline('.')
-	if conf.close
+	if close
 		call wheel#mandala#close ()
-	elseif conf.travel
+	elseif travel
 		let mandala = win_getid()
 		wincmd p
 	endif
@@ -84,12 +81,31 @@ fun! wheel#layer#call (conf)
 	else
 		call {value}()
 	endif
-	if ! conf.close && conf.travel
-		call win_gotoid(mandala)
+	if ! close && travel
+		call win_gotoid (mandala)
 	endif
 endfun
 
-fun! wheel#layer#floor (dictname)
+fun! wheel#layer#floor_maps (dictname)
+	" Define local maps for first layer
+	nnoremap <buffer> <tab> :call wheel#layer#staircase (dictname)
+endfun
+
+fun! wheel#layer#ceiling_maps (dictname)
+	" Define local maps for second layer
+	let dictname = a:dictname
+	let conf = {'menu' : dictname, 'close' : 1, 'travel' : 1}
+	let map  =  'nnoremap <buffer> '
+	let pre  = ' :call wheel#layer#call('
+	let post = ')<cr>'
+	exe map . '<cr>' . pre . string(conf) . post
+	let conf.close = 0
+	exe map . 'g<cr>' . pre . string(conf) . post
+	let conf.travel = 0
+	exe map . '<tab>' . pre . string(conf) . post
+endfun
+
+fun! wheel#layer#staircase (dictname)
 	" Replace buffer content by a new layer
 	" Reuse current wheel buffer
 	let dictname = a:dictname
@@ -97,6 +113,6 @@ fun! wheel#layer#floor (dictname)
 	let dict = wheel#storage#fetch (dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#replace (menu)
-	call wheel#line#sync_select ()
+	call wheel#layer#ceiling_maps (dictname)
 	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfun
