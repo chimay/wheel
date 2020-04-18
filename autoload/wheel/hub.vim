@@ -232,14 +232,12 @@ fun! wheel#hub#pop ()
 	endif
 	let contents = b:wheel_stack.contents
 	if ! empty(contents)
-		let lines = contents[0]
-		call remove(contents, 0)
+		let lines = wheel#chain#pop (contents)
 	endif
 	call wheel#mandala#replace (lines)
 	let mappings = b:wheel_stack.mappings
 	if ! empty(mappings)
-		let mapdict = mappings[0]
-		call remove(mappings, 0)
+		let mapdict = wheel#chain#pop (mappings)
 	endif
 	exe 'nnoremap <cr> ' . mapdict.enter
 	exe 'nnoremap g<cr> ' . mapdict.g_enter

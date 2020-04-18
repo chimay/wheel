@@ -54,6 +54,13 @@ fun! wheel#chain#remove_element (element, list)
 	return wheel#chain#remove_index(index, list)
 endfu
 
+fun! wheel#chain#pop (list)
+	" Remove first element from list ; return it
+	let elem = a:list[0]
+	call remove(a:list, 0)
+	return elem
+endfu
+
 fun! wheel#chain#rotate_left (list)
 	" Rotate list to the left
 	if len(a:list) > 1
