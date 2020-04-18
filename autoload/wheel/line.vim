@@ -20,6 +20,9 @@ endif
 
 fun! wheel#line#coordin ()
 	" Return coordin of line in plain or folded special buffer
+	if &foldenable == 0
+		return getline('.')
+	endif
 	let position = getcurpos()
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -56,9 +59,6 @@ fun! wheel#line#coordin ()
 		let torus = cursor_list[0]
 		let coordin = [torus]
 	elseif foldlevel('.') == 0
-		" Can be used as :
-		" - simple name line of level depending of buffer
-		" - generic line (grep, mru, ...) with :setlocal nofoldenable
 		let coordin = cursor_line
 	else
 		echomsg 'Wheel line coordin : wrong fold level'

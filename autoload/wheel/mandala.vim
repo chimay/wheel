@@ -114,7 +114,6 @@ endfun
 fun! wheel#mandala#yank_options ()
 	" Set local yank options
 	setlocal nowrap
-	setlocal nofoldenable
 endfun
 
 " Maps
@@ -285,6 +284,17 @@ fun! wheel#mandala#template (type)
 		call wheel#mandala#filter_maps ()
 		call wheel#mandala#input_history_maps ()
 		call wheel#mandala#select_maps ()
+		" By default, tell whee#line#coordin it’s not a tree buffer
+		" Overridden by folding_options
+		setlocal nofoldenable
+	elseif a:type == 'yank'
+		call wheel#mandala#common_maps ()
+		call wheel#mandala#filter_maps ()
+		call wheel#mandala#input_history_maps ()
+		call wheel#mandala#yank_options ()
+		" By default, tell whee#line#coordin it’s not a tree buffer
+		" Overridden by folding_options
+		setlocal nofoldenable
 	endif
 endfun
 
@@ -365,7 +375,6 @@ fun! wheel#mandala#grep (...)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-grep')
 	call wheel#mandala#template ('switch')
-	setlocal nofoldenable
 	let dict = {'action' : function('wheel#line#grep')}
 	call wheel#mandala#switch_maps (dict)
 		call wheel#vector#grep(pattern)
@@ -418,10 +427,7 @@ fun! wheel#mandala#yank (mode)
 	" Choose a yank wheel element to paste
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-yank-' . a:mode)
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#yank_options ()
+	call wheel#mandala#template('yank')
 	call wheel#mandala#yank_maps (a:mode)
 	let lines = wheel#codex#lines (a:mode)
 	" Appendbufline does not work with lists of list
