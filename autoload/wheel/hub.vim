@@ -2,6 +2,8 @@
 
 " Menus
 
+" Sub menus variables
+
 if ! exists('s:add')
 	let s:add = {
 				\ 'Add a new torus' : 'wheel#tree#add_torus',
@@ -49,7 +51,7 @@ endif
 
 if ! exists('s:alternate')
 	let s:alternate = {
-				\ 'Alternate' : 'wheel#pendulum#alternate',
+				\ 'Alternate anywhere' : 'wheel#pendulum#alternate',
 				\ 'Alternate in same torus' : 'wheel#pendulum#alternate_same_torus',
 				\ 'Alternate in same circle' : 'wheel#pendulum#alternate_same_circle',
 				\ 'Alternate in other torus' : 'wheel#pendulum#alternate_other_torus',
@@ -141,7 +143,7 @@ if ! exists('s:yank')
 	lockvar s:yank
 endif
 
-" Main menu
+" Main menu variable
 
 if ! exists('s:main')
 	let s:main = {}
@@ -159,7 +161,7 @@ if ! exists('s:main')
 	lockvar s:main
 endif
 
-" Meta menu
+" Meta menu variable
 
 if ! exists('s:meta')
 	let s:meta = {
@@ -178,25 +180,29 @@ if ! exists('s:meta')
 	lockvar s:meta
 endif
 
-" All menus keys & values : main & meta
+" Interface
 
-if ! exists('s:all')
-	let s:all = copy(s:main)
-	call extend(s:all, s:meta)
-	lockvar s:all
-endif
+fun! wheel#hub#variable (name)
+	" Return script variable called name
+	if a:name =~ '\m^s:'
+		return {a:name}
+	else
+		return s:{a:name}
+	endif
+endfun
 
 " Helpers
 
-fun! wheel#hub#call ()
+fun! wheel#hub#call (dictname)
 	" Calls function corresponding to current menu line
+	let dict = {a:dictname}
 	let key = getline('.')
-	let value = s:all[key]
+	let value = dict[key]
 	call wheel#mandala#close ()
 	if value =~ '\m)'
 		exe 'call ' . value
 	else
-		exe 'call ' . value . '()'
+		call {value}()
 	endif
 endfun
 
@@ -204,21 +210,23 @@ endfun
 
 fun! wheel#hub#menu (pointer)
 	" Hub menu in wheel buffer
-	let type = substitute(a:pointer, 's:', '', '')
+	let pointer = a:pointer
+	let type = substitute(pointer, 's:', '', '')
 	let string = 'wheel-menu-' . type
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
-	nnoremap <buffer> <cr> :call wheel#hub#call()<cr>
-	let menu = sort(keys({a:pointer}))
+	let runme = "nnoremap <buffer> <cr> :call wheel#hub#call('" . pointer . "')<cr>"
+	exe runme
+	let menu = sort(keys({pointer}))
 	call wheel#mandala#fill(menu)
-endfun
-
-fun! wheel#hub#meta ()
-	" Meta hub menu in wheel buffer
-	call wheel#hub#menu('s:meta')
 endfun
 
 fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer
 	call wheel#hub#menu('s:main')
+endfun
+
+fun! wheel#hub#meta ()
+	" Meta hub menu in wheel buffer
+	call wheel#hub#menu('s:meta')
 endfun

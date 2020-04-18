@@ -29,6 +29,14 @@ com! Inlist  :echo input('Var ? ', '', 'customlist,CompleteList')
 
 " }}}1
 
+" Script variables {{{1
+
+" Does not work
+"source autoload/wheel/hub.vim
+"echo 'alternate : ' s:alternate
+
+" }}}1
+
 " Dictionaries {{{1
 
 let s:a = {'un':1, 'deux': 2}
