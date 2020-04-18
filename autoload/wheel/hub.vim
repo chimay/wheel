@@ -2,35 +2,14 @@
 
 " Menus
 
-" Helpers
-
-fun! wheel#hub#call (conf)
-	" Calls function corresponding to menu line
-	let conf = a:conf
-	let menu = wheel#storage#fetch ('menu/' . conf.menu)
-	let key = getline('.')
-	if conf.close
-		call wheel#mandala#close ()
-	elseif conf.travel
-		let mandala = win_getid()
-		wincmd p
-	endif
-	let value = menu[key]
-	if value =~ '\m)'
-		exe 'call ' . value
-	else
-		call {value}()
-	endif
-	if ! conf.close && conf.travel
-		call win_gotoid(mandala)
-	endif
-endfun
+" Maps
 
 fun! wheel#hub#maps (dictname)
 	" Define local menu maps
-	let conf = {'menu' : a:dictname, 'close' : 1, 'travel' : 1}
+	let varname = 'menu/' . a:dictname
+	let conf = {'menu' : varname, 'close' : 1, 'travel' : 1}
 	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#hub#call('
+	let pre  = ' :call wheel#layer#call('
 	let post = ')<cr>'
 	exe map . '<cr>' . pre . string(conf) . post
 	let conf.close = 0
@@ -39,9 +18,10 @@ endfun
 
 fun! wheel#hub#meta_maps (dictname)
 	" Define local meta maps
-	let conf = {'menu' : a:dictname, 'close' : 0, 'travel' : 0}
+	let varname = 'menu/' . a:dictname
+	let conf = {'menu' : varname, 'close' : 0, 'travel' : 0}
 	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#hub#call('
+	let pre  = ' :call wheel#layer#call('
 	let post = ')<cr>'
 	exe map . '<cr>' . pre . string(conf) . post
 endfun
@@ -57,6 +37,13 @@ fun! wheel#hub#menu (dictname)
 	let dict = wheel#storage#fetch('menu/' . dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#fill(menu)
+endfun
+
+fun! wheel#hub#submenu (dictname)
+	" Submenu
+	let dictname = a:dictname
+	call wheel#layer#floor ('menu/' . dictname)
+	call wheel#hub#maps (dictname)
 endfun
 
 fun! wheel#hub#main ()

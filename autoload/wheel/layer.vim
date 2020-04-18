@@ -63,6 +63,32 @@ fun! wheel#layer#pop ()
 	endif
 endfun
 
+fun! wheel#layer#call (conf)
+	" Calls function corresponding to menu line
+	" conf is a dictionary, whose keys can be :
+	" - menu : name of a menu variable in storage.vim
+	" - close : whether to close wheel buffer
+	" - travel : whether to apply action in previous buffer
+	let conf = a:conf
+	let menu = wheel#storage#fetch (conf.menu)
+	let key = getline('.')
+	if conf.close
+		call wheel#mandala#close ()
+	elseif conf.travel
+		let mandala = win_getid()
+		wincmd p
+	endif
+	let value = menu[key]
+	if value =~ '\m)'
+		exe 'call ' . value
+	else
+		call {value}()
+	endif
+	if ! conf.close && conf.travel
+		call win_gotoid(mandala)
+	endif
+endfun
+
 fun! wheel#layer#floor (dictname)
 	" Replace buffer content by a new layer
 	" Reuse current wheel buffer
@@ -71,5 +97,6 @@ fun! wheel#layer#floor (dictname)
 	let dict = wheel#storage#fetch (dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#replace (menu)
+	call wheel#line#sync_select ()
 	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfun

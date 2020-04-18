@@ -163,17 +163,17 @@ endif
 
 if ! exists('s:menu_meta')
 	let s:menu_meta = {
-				\ 'Add' : "wheel#layer#floor('menu/add')",
-				\ 'Rename' : "wheel#layer#floor('menu/rename')",
-				\ 'Delete' : "wheel#layer#floor('menu/delete')",
-				\ 'Switch' : "wheel#layer#floor('menu/switch')",
-				\ 'Alternate' : "wheel#layer#floor('menu/alternate')",
-				\ 'Tabs' : "wheel#layer#floor('menu/tabs')",
-				\ 'Window layouts' : "wheel#layer#floor('menu/windows')",
-				\ 'Mix of tabs & windows' : "wheel#layer#floor('menu/tabnwin')",
-				\ 'Reorganize' : "wheel#layer#floor('menu/reorganize')",
-				\ 'Search in files' : "wheel#layer#floor('menu/search')",
-				\ 'Yank' : "wheel#layer#floor('menu/yank')",
+				\ 'Add' : "wheel#hub#submenu('add')",
+				\ 'Rename' : "wheel#hub#submenu('rename')",
+				\ 'Delete' : "wheel#hub#submenu('delete')",
+				\ 'Switch' : "wheel#hub#submenu('switch')",
+				\ 'Alternate' : "wheel#hub#submenu('alternate')",
+				\ 'Tabs' : "wheel#hub#submenu('tabs')",
+				\ 'Window layouts' : "wheel#hub#submenu('windows')",
+				\ 'Mix of tabs & windows' : "wheel#hub#submenu('tabnwin')",
+				\ 'Reorganize' : "wheel#hub#submenu('reorganize')",
+				\ 'Search in files' : "wheel#hub#submenu('search')",
+				\ 'Yank' : "wheel#hub#submenu('yank')",
 				\}
 	lockvar s:menu_meta
 endif
