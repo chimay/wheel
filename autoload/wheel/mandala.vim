@@ -22,6 +22,21 @@ fun! wheel#mandala#open (...)
 	call wheel#mandala#common_options (type)
 endfun
 
+fun! wheel#mandala#fill (content)
+	" Fill buffer with content
+	" Content can be :
+	" - a monoline string
+	" - a list of lines
+	let content = a:content
+	if exists('*appendbufline')
+		call appendbufline('%', 1, content)
+	else
+		put =content
+	endif
+	setlocal nomodified
+	call cursor(1,1)
+endfun
+
 fun! wheel#mandala#close ()
 	" Close the wheel buffer
 	" Go to alternate buffer if only one window
@@ -261,6 +276,18 @@ fun! wheel#mandala#folding_text ()
 	return text
 endfun
 
+" Templates
+
+fun! wheel#mandala#template (type)
+	" Templates
+	if a:type == 'switch'
+		call wheel#mandala#common_maps ()
+		call wheel#mandala#filter_maps ()
+		call wheel#mandala#input_history_maps ()
+		call wheel#mandala#select_maps ()
+	endif
+endfun
+
 " Switch
 
 fun! wheel#mandala#switch (level)
@@ -268,22 +295,13 @@ fun! wheel#mandala#switch (level)
 	let level = a:level
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-switch-' . level)
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	let dict = {'level' : level}
 	call wheel#mandala#switch_maps (dict)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
-		let names = upper.glossary
-		if exists('*appendbufline')
-			call appendbufline('%', 1, names)
-		else
-			put =names
-		endif
-		setlocal nomodified
-		call cursor(1,1)
+		let lines = upper.glossary
+		call wheel#mandala#fill(lines)
 	else
 		echomsg 'Wheel mandala switch : empty or incomplete' level
 	endif
@@ -294,20 +312,11 @@ fun! wheel#mandala#helix ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-location-index')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	let dict = {'action' : function('wheel#line#helix')}
 	call wheel#mandala#switch_maps (dict)
-	let names = wheel#helix#locations ()
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
-	setlocal nomodified
-	call cursor(1,1)
+	let lines = wheel#helix#locations ()
+	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#mandala#grid ()
@@ -315,41 +324,23 @@ fun! wheel#mandala#grid ()
 	" Each coordinate = [torus, circle]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-circle-index')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	let dict = {'action' : function('wheel#line#grid')}
 	call wheel#mandala#switch_maps (dict)
-	let names = wheel#helix#circles ()
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
-	setlocal nomodified
-	call cursor(1,1)
+	let lines = wheel#helix#circles ()
+	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#mandala#tree ()
 	" Choose an element in the wheel tree
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tree')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	call wheel#mandala#folding_options ()
 	let dict = {'action' : function('wheel#line#tree')}
 	call wheel#mandala#switch_maps (dict)
-	let names = wheel#helix#tree ()
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
-	setlocal nomodified
-	call cursor(1,1)
+	let lines = wheel#helix#tree ()
+	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#mandala#history ()
@@ -357,20 +348,11 @@ fun! wheel#mandala#history ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-history')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	let dict = {'action' : function('wheel#line#history')}
 	call wheel#mandala#switch_maps (dict)
-	let names = wheel#pendulum#sorted ()
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
-	setlocal nomodified
-	call cursor(1,1)
+	let lines = wheel#pendulum#sorted ()
+	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#mandala#grep (...)
@@ -382,27 +364,21 @@ fun! wheel#mandala#grep (...)
 	endif
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-grep')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	setlocal nofoldenable
 	let dict = {'action' : function('wheel#line#grep')}
 	call wheel#mandala#switch_maps (dict)
 		call wheel#vector#grep(pattern)
-	let names = wheel#vector#quickfix ()
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
-	setlocal nomodified
-	call cursor(1,1)
+	let lines = wheel#vector#quickfix ()
+	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#mandala#outline ()
 	" Outline fold headers
 	let marker = split(&foldmarker, ',')[0]
+	if &grepprg !~ '^grep'
+		let marker = escape(marker, '{')
+	endif
 	call wheel#mandala#grep (marker)
 endfun
 
@@ -410,30 +386,18 @@ fun! wheel#mandala#attic ()
 	" Most recenty used files
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-mru')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	let dict = {'action' : function('wheel#line#attic')}
 	call wheel#mandala#switch_maps (dict)
-	let names = wheel#attic#sorted ()
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
-	setlocal nomodified
-	call cursor(1,1)
+	let lines = wheel#attic#sorted ()
+	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#mandala#locate ()
 	" Search files using locate
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-locate')
-	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-	call wheel#mandala#select_maps ()
+	call wheel#mandala#template ('switch')
 	let dict = {'action' : function('wheel#line#locate')}
 	call wheel#mandala#switch_maps (dict)
 	let prompt = 'Search for file matching : '
@@ -444,14 +408,8 @@ fun! wheel#mandala#locate ()
 	else
 		let runme = 'locate -d ' . expand(database) . ' ' . pattern
 	endif
-	let names = systemlist(runme)
-	if exists('*appendbufline')
-		call appendbufline('%', 1, names)
-	else
-		put =names
-	endif
-	setlocal nomodified
-	call cursor(1,1)
+	let lines = systemlist(runme)
+	call wheel#mandala#fill(lines)
 endfun
 
 " Yank wheel
@@ -465,8 +423,9 @@ fun! wheel#mandala#yank (mode)
 	call wheel#mandala#input_history_maps ()
 	call wheel#mandala#yank_options ()
 	call wheel#mandala#yank_maps (a:mode)
-	let names = wheel#codex#lines (a:mode)
-	put =names
+	let lines = wheel#codex#lines (a:mode)
+	" Appendbufline does not work with lists of list
+	put =lines
 	setlocal nomodified
 	call cursor(1,1)
 endfun
@@ -482,15 +441,10 @@ fun! wheel#mandala#reorder (level)
 	call wheel#mandala#reorder_write (level)
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper) && ! empty(upper.glossary)
-		let names = upper.glossary
-		if exists('*appendbufline')
-			call appendbufline('%', 0, names)
-		else
-			put =names
-		endif
+		let lines = upper.glossary
+		call wheel#mandala#fill(lines)
 		global /^$/delete
 		setlocal nomodified
-		call cursor(1,1)
 	else
 		echomsg 'Wheel mandala reorder : empty or incomplete' level
 	endif
@@ -505,13 +459,8 @@ fun! wheel#mandala#reorganize ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#reorganize_write ()
 	call wheel#mandala#folding_options ()
-	let names = wheel#helix#reorganize ()
-	if exists('*appendbufline')
-		call appendbufline('%', 0, names)
-	else
-		put =names
-	endif
+	let lines = wheel#helix#reorganize ()
+	call wheel#mandala#fill(lines)
 	global /^$/delete
 	setlocal nomodified
-	call cursor(1,1)
 endfun
