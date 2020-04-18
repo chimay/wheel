@@ -178,7 +178,7 @@ if ! exists('s:meta')
 	lockvar s:meta
 endif
 
-" All
+" All menus keys & values : main & meta
 
 if ! exists('s:all')
 	let s:all = copy(s:main)
@@ -198,6 +198,24 @@ fun! wheel#hub#call ()
 	else
 		exe 'call ' . value . '()'
 	endif
+endfun
+
+fun! wheel#hub#push ()
+	" Push buffer content to the stack
+	" Save modified local maps
+	if ! exists(b:wheel_stack)
+		let b:wheel_stack = {}
+		let b:wheel_stack.contents = []
+		let b:wheel_stack.maps = {}
+	endif
+	let lines = getline(1, '$')
+	let contents = b:wheel_stack.contents
+	call insert(contents, lines)
+endfun
+
+fun! wheel#hub#pop ()
+	" Pop buffer content from the stack
+	" Restore modified local maps
 endfun
 
 " Buffer menus

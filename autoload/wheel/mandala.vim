@@ -234,7 +234,7 @@ endfun
 " Write commands
 
 fun! wheel#mandala#reorder_write (level)
-	" Define reorder autocommands in wheel buffer
+	" Define reorder autocommands
 	setlocal buftype=
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
 	let autocommand .= a:level . "')"
@@ -247,7 +247,7 @@ fun! wheel#mandala#reorder_write (level)
 endfun
 
 fun! wheel#mandala#reorganize_write ()
-	" Define reorganize autocommands in wheel buffer
+	" Define reorganize autocommands
 	setlocal buftype=
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
 	" Need a name when writing, even with BufWriteCmd

@@ -553,8 +553,8 @@ File to save or load the wheel : >
 
 Note that the directory `~/.local/share/wheel` must exist.
 
-It is recommended to define this file and regularly save it, either manually
-or automatically, using the autowrite config.
+It is highly recommended to define this file and regularly save it,
+either manually or automatically, using the autowrite config.
 
 ------------------------------------------------------------------------------
 AUTOREAD					    *wheel-config-autoread*
@@ -814,7 +814,7 @@ AUTO FOLLOW		    		*wheel-autocommands-auto-follow*
 If you wish the wheel to auto-follow the buffers you enter, you can add
 this autocommand : >
 
-    autocmd BufWinEnter * call wheel#projection#follow()
+    autocmd BufEnter * call wheel#projection#follow()
 <
 
 It will work for all buffer filenames belonging to the wheel. It is
@@ -827,9 +827,9 @@ which makes sense.
 ------------------------------------------------------------------------------
 AUTO UPDATE				*wheel-autocommands-auto-update*
 
-If you want to update your cursor position each time you leave a window : >
+If you want to update your cursor position each time you leave a buffer : >
 
-  autocmd BufWinLeave * call wheel#vortex#update()
+  autocmd BufLeave * call wheel#vortex#update()
 <
 
 ------------------------------------------------------------------------------
@@ -860,9 +860,9 @@ Here is an example of a complete autocommands configuration : >
   " Autocommands executed after jumping to a location
   autocmd User WheelAfterJump norm zMzx
   " For current wheel location to auto follow buffer change
-  autocmd BufWinEnter * call wheel#projection#follow()
+  autocmd BufEnter * call wheel#projection#follow()
   " Update location line & col before leaving a window
-  autocmd BufWinLeave * call wheel#vortex#update()
+  autocmd BufLeave * call wheel#vortex#update()
   " Add current file to MRU files
   autocmd BufRead * call wheel#attic#record()
   " To record your yanks in the yank wheel
