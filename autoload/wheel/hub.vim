@@ -243,8 +243,7 @@ fun! wheel#hub#metacall (dictname)
 	let dict = {a:dictname}
 	let key = getline('.')
 	if ! empty(key)
-		let value = dict[key]
-		call wheel#hub#submenu(value)
+		call wheel#hub#submenu(dict[key])
 	endif
 endfun
 
