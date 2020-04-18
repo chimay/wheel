@@ -165,25 +165,26 @@ endif
 
 if ! exists('s:meta')
 	let s:meta = {
-				\ 'Add' : "wheel#hub#menu('s:add')",
-				\ 'Rename' : "wheel#hub#menu('s:rename')",
-				\ 'Delete' : "wheel#hub#menu('s:delete')",
-				\ 'Switch' : "wheel#hub#menu('s:switch')",
-				\ 'Alternate' : "wheel#hub#menu('s:alternate')",
-				\ 'Tabs' : "wheel#hub#menu('s:tabs')",
-				\ 'Window layouts' : "wheel#hub#menu('s:windows')",
-				\ 'Mix of tabs & windows' : "wheel#hub#menu('s:tabnwin')",
-				\ 'Reorganize' : "wheel#hub#menu('s:reorganize')",
-				\ 'Search in files' : "wheel#hub#menu('s:search')",
-				\ 'Yank' : "wheel#hub#menu('s:yank')",
+				\ 'Add' : "wheel#hub#submenu('s:add')",
+				\ 'Rename' : "wheel#hub#submenu('s:rename')",
+				\ 'Delete' : "wheel#hub#submenu('s:delete')",
+				\ 'Switch' : "wheel#hub#submenu('s:switch')",
+				\ 'Alternate' : "wheel#hub#submenu('s:alternate')",
+				\ 'Tabs' : "wheel#hub#submenu('s:tabs')",
+				\ 'Window layouts' : "wheel#hub#submenu('s:windows')",
+				\ 'Mix of tabs & windows' : "wheel#hub#submenu('s:tabnwin')",
+				\ 'Reorganize' : "wheel#hub#submenu('s:reorganize')",
+				\ 'Search in files' : "wheel#hub#submenu('s:search')",
+				\ 'Yank' : "wheel#hub#submenu('s:yank')",
 				\}
 	lockvar s:meta
 endif
 
-" Interface
+" Public Interface
 
 fun! wheel#hub#variable (name)
 	" Return script variable called name
+	" The leading s: can be omitted
 	if a:name =~ '\m^s:'
 		return {a:name}
 	else
@@ -193,12 +194,19 @@ endfun
 
 " Helpers
 
-fun! wheel#hub#call (dictname)
+fun! wheel#hub#call (dictname, ...)
 	" Calls function corresponding to current menu line
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'close'
+	endif
 	let dict = {a:dictname}
 	let key = getline('.')
 	let value = dict[key]
-	call wheel#mandala#close ()
+	if mode == 'close'
+		call wheel#mandala#close ()
+	endif
 	if value =~ '\m)'
 		exe 'call ' . value
 	else
@@ -206,20 +214,29 @@ fun! wheel#hub#call (dictname)
 	endif
 endfun
 
-" Buffer menus
-
-fun! wheel#hub#menu (pointer)
-	" Hub menu in wheel buffer
-	let pointer = a:pointer
-	let type = substitute(pointer, 's:', '', '')
+fun! wheel#hub#menu (dictname)
+	" Menu in wheel buffer
+	let dictname = a:dictname
+	let type = substitute(dictname, 's:', '', '')
 	let string = 'wheel-menu-' . type
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
-	let runme = "nnoremap <buffer> <cr> :call wheel#hub#call('" . pointer . "')<cr>"
-	exe runme
-	let menu = sort(keys({pointer}))
+	exe "nnoremap <buffer> <cr> :call wheel#hub#call('" . dictname . "')<cr>"
+	let menu = sort(keys({dictname}))
 	call wheel#mandala#fill(menu)
 endfun
+
+fun! wheel#hub#submenu (dictname)
+	" Submenu, reusing current wheel buffer
+	" Welcome to the yellow submenu !
+	call wheel#layer#push ()
+	let menu = sort(keys({dictname}))
+	call wheel#mandala#replace(menu)
+	exe "nnoremap <buffer> <cr> :call wheel#hub#call('" . dictname . "')<cr>"
+	nnoremap <buffer> <backspace> :call wheel#layer#pop ()
+endfun
+
+" Menus
 
 fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer

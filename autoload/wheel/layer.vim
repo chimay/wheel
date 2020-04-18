@@ -30,11 +30,13 @@ fun! wheel#layer#pop ()
 	if ! exists('b:wheel_stack')
 		return
 	endif
+	" Restore content
 	let contents = b:wheel_stack.contents
 	if ! empty(contents)
 		let lines = wheel#chain#pop (contents)
 	endif
 	call wheel#mandala#replace (lines)
+	" Restore mappings
 	let mappings = b:wheel_stack.mappings
 	if ! empty(mappings)
 		let mapdict = wheel#chain#pop (mappings)
