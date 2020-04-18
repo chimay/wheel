@@ -4,18 +4,6 @@
 
 " Maps
 
-fun! wheel#hub#maps (dictname)
-	" Define local menu maps
-	let varname = 'menu/' . a:dictname
-	let conf = {'menu' : varname, 'close' : 1, 'travel' : 1}
-	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#layer#call('
-	let post = ')<cr>'
-	exe map . '<cr>' . pre . string(conf) . post
-	let conf.close = 0
-	exe map . 'g<cr>' . pre . string(conf) . post
-endfun
-
 fun! wheel#hub#meta_maps (dictname)
 	" Define local meta maps
 	let varname = 'menu/' . a:dictname
@@ -48,7 +36,7 @@ endfun
 fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer
 	call wheel#hub#menu('main')
-	call wheel#hub#maps('main')
+	call wheel#layer#ceiling_maps ('menu/main')
 endfun
 
 fun! wheel#hub#meta ()

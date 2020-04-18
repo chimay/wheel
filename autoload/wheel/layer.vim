@@ -108,6 +108,7 @@ endfun
 fun! wheel#layer#staircase (dictname)
 	" Replace buffer content by a new layer
 	" Reuse current wheel buffer
+	" Define menu maps
 	let dictname = a:dictname
 	call wheel#layer#push ()
 	let dict = wheel#storage#fetch (dictname)
