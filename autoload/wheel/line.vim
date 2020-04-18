@@ -82,9 +82,9 @@ fun! wheel#line#toggle ()
 		return
 	endif
 	if line !~ s:selected_pattern
-		let name = line
+		let record = line
 	else
-		let name = substitute(line, s:selected_pattern, '', '')
+		let record = substitute(line, s:selected_pattern, '', '')
 	endif
 	let coordin = wheel#line#coordin ()
 	let index = index(b:wheel_selected, coordin)
@@ -97,11 +97,49 @@ fun! wheel#line#toggle ()
 		let b:wheel_lines[pos] = selected_line
 	else
 		call remove(b:wheel_selected, index)
-		call setline('.', name)
+		call setline('.', record)
 		" Update b:wheel_lines
 		let pos = index(b:wheel_lines, line)
-		let b:wheel_lines[pos] = name
+		let b:wheel_lines[pos] = record
 	endif
+endfun
+
+fun! wheel#line#sync_select ()
+	" Sync buffer lines from b:wheel_selected
+	if ! exists('b:wheel_selected')
+		return
+	endif
+	for linum in range(line('$'))
+		call cursor(linum, 1)
+		let line = getline('.')
+		if empty(line)
+			continue
+		endif
+		if line !~ s:selected_pattern
+			let record = line
+		else
+			let record = substitute(line, s:selected_pattern, '', '')
+		endif
+		let coordin = wheel#line#coordin ()
+		let index = index(b:wheel_selected, coordin)
+		if index >= 0
+			let selected_line = substitute(record, '\m^', s:selected_mark, '')
+			call setline('.', selected_line)
+			if exists('b:wheel_lines')
+				" Update b:wheel_lines
+				let pos = index(b:wheel_lines, line)
+				let b:wheel_lines[pos] = selected_line
+			endif
+		else
+			call setline('.', record)
+			if exists('b:wheel_lines')
+				" Update b:wheel_lines
+				let pos = index(b:wheel_lines, line)
+				let b:wheel_lines[pos] = record
+			endif
+		endif
+	endfor
+	call cursor(1, 1)
 endfun
 
 fun! wheel#line#deselect ()
@@ -173,7 +211,7 @@ fun! wheel#line#switch (dict)
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
-	" - action : switch function or name of switch function
+	" - action : switch function or record of switch function
 	let dict = copy(a:dict)
 	if has_key(dict, 'target')
 		let target = dict.target
@@ -239,7 +277,7 @@ fun! wheel#line#switch (dict)
 endfun
 
 fun! wheel#line#name (dict)
-	" Switch to dict.selected by name
+	" Switch to dict.selected by record
 	" dict keys :
 	" - selected : where to switch
 	" - level : torus, circle or location
