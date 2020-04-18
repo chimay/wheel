@@ -16,19 +16,22 @@ Commands			|wheel-commands|
 ==============================================================================
 INTRODUCTION						*wheel-introduction*
 
-
-Goal				|wheel-introduction-goal|
+What is it ?			|wheel-introduction-what|
+Buffer groups			|wheel-introduction-buffer-groups|
 Features			|wheel-introduction-features|
 History				|wheel-introduction-history|
 
 ------------------------------------------------------------------------------
-GOAL						*wheel-introduction-goal*
+WHAT IS IT					*wheel-introduction-what*
 
-Wheel is a plugin for vim or neovim aimed at managing buffer groups.
+Wheel is a navigation plugin for Vim or Neovim. It makes abundant use
+of special buffers, in which you can filter and select elements.
 
-In short, this plugin let you organize your buffers by creating as
-many buffer groups as you need, add the buffers you want to it and
-quickly navigate between :
+------------------------------------------------------------------------------
+BUFFER GROUPS				*wheel-introduction-buffer-groups*
+
+Wheel let you organize your buffers by creating as many buffer groups as
+you need, add the buffers you want to it and quickly navigate between :
 
 - Buffers of the same group
 - Buffer groups
@@ -56,14 +59,13 @@ helps you to organize your files by groups and categories:
 
 A wheel that follows you~
     ~
-Wheel helps you to organize your files in groups that you create
-yourself, following your workflow. You only add the files you want,
-where you want. For instance, if you have a "organize" group with agenda
-& todo files, you can quickly alternate them, or display them in two
-windows. Then, if you suddenly got an idea to tune vim, you switch to the
-"vim" group with your favorites configuration files in it. Same process,
-to cycle, alternate or display the files. Over time, your groups will
-grow and adapt to your style.
+Wheel is designed to follow your workflow : you only add the files
+you want, where you want. For instance, if you have a `organize` group
+with agenda & todo files, you can quickly alternate them, or display
+them in two windows. Then, if you suddenly got an idea to tune vim,
+you switch to the `vim` group with your favorites configuration files in
+it. Same process, to cycle, alternate or display the files. Over time,
+your groups will grow and adapt to your style.
 
 ------------------------------------------------------------------------------
 FEATURES				*wheel-introduction-features*

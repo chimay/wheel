@@ -3,7 +3,7 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Introduction](#introduction)
-	* [Goal](#goal)
+	* [Buffer groups & categories](#buffer-groups--categories)
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		* [A wheel that follows you](#a-wheel-that-follows-you)
 	* [Features](#features)
@@ -28,13 +28,13 @@
 
 # Introduction
 
-## Goal
+Wheel is a navigation plugin for Vim or Neovim. It makes abundant use
+of special buffers, in which you can filter and select elements.
 
-Wheel is a plugin for Vim or Neovim aimed at managing buffer groups.
+## Buffer groups & categories
 
-In short, it let you organize your buffers by creating as many buffer
-groups as you need, add the buffers you want to it and quickly navigate
-between :
+Wheel let you organize your buffers by creating as many buffer groups as
+you need, add the buffers you want to it and quickly navigate between :
 
 - Buffers of the same group
 - Buffer groups
@@ -62,14 +62,13 @@ you to organize your files by groups and categories:
 
 ### A wheel that follows you
 
-Wheel helps you to organize your files in groups that you create
-yourself, following your workflow. You only add the files you want,
-where you want. For instance, if you have a "organize" group with agenda
-& todo files, you can quickly alternate them, or display them in two
-windows. Then, if you suddenly got an idea to tune vim, you switch to the
-"vim" group with your favorites configuration files in it. Same process,
-to cycle, alternate or display the files. Over time, your groups will
-grow and adapt to your style.
+Wheel is designed to follow your workflow : you only add the files
+you want, where you want. For instance, if you have a `organize` group
+with agenda & todo files, you can quickly alternate them, or display
+them in two windows. Then, if you suddenly got an idea to tune vim,
+you switch to the `vim` group with your favorites configuration files in
+it. Same process, to cycle, alternate or display the files. Over time,
+your groups will grow and adapt to your style.
 
 ## Features
 
