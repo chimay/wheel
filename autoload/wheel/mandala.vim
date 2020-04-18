@@ -52,7 +52,7 @@ fun! wheel#mandala#replace (content, ...)
 	endif
 	" Cannot use appendbufline : does not work with yanks
 	put =content
-	2,$ global /^$/ delete _
+	silent 2,$ global /^$/ delete _
 	setlocal nomodified
 	if line('$') > 1
 		2
@@ -461,7 +461,7 @@ fun! wheel#mandala#reorder (level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let lines = upper.glossary
 		call wheel#mandala#fill(lines)
-		global /^$/ delete
+		silent global /^$/ delete
 		setlocal nomodified
 	else
 		echomsg 'Wheel mandala reorder : empty or incomplete' level
@@ -479,6 +479,6 @@ fun! wheel#mandala#reorganize ()
 	call wheel#mandala#folding_options ()
 	let lines = wheel#helix#reorganize ()
 	call wheel#mandala#fill(lines)
-	global /^$/ delete
+	silent global /^$/ delete
 	setlocal nomodified
 endfun

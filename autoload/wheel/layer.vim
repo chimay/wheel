@@ -62,3 +62,14 @@ fun! wheel#layer#pop ()
 		exe 'nnoremap <buffer> g<cr> ' . mapdict.g_enter
 	endif
 endfun
+
+fun! wheel#layer#floor (dictname)
+	" Replace buffer content by a new layer
+	" Reuse current wheel buffer
+	let dictname = a:dictname
+	call wheel#layer#push ()
+	let dict = wheel#storage#fetch (dictname)
+	let menu = sort(keys(dict))
+	call wheel#mandala#replace (menu)
+	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
+endfun

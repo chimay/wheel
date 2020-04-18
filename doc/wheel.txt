@@ -1170,7 +1170,7 @@ Here is the default level 10, if you wish to customize it : >
 
   " Hub : Menus
   nnoremap <D-=>        :call wheel#hub#meta()<cr>
-  nnoremap <D-m>        :call wheel#hub#main()<cr>
+  nnoremap <D-m>        :call wheel#hub#menu('main')<cr>
   " Mandala : special buffers
   nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
   nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
