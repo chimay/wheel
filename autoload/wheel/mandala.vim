@@ -185,7 +185,7 @@ fun! wheel#mandala#switch_maps (dict)
 	" Leave open after switch
 	let dict.close = v:false
 	let dict.target = 'within'
-	exe map . '<tab>' . pre . string(dict) . post
+	exe map . 'g<cr>' . pre . string(dict) . post
 	let dict.target = 'tab'
 	exe map . 'gt' . pre . string(dict) . post
 	let dict.target = 'horizontal_split'

@@ -77,18 +77,25 @@ grow and adapt to your style.
   + Files from anywhere in the filesystem
   + A file in more than one group
   + file:line-1 and file:line-2 in the same group
+- May be saved in wheel file
 - Easy navigation
   + On demand loading of files
   + Switch to matching tab & window if available
   + Choose file, group or category in special buffer
     * Filter candidates
-	* Folds matching wheel tree structure
-  + Auto `:lcd` to project root of current file
-- May be saved in wheel file
+    * Folds matching wheel tree structure
+  + Auto |:lcd| to project root of current file
+- Search files
+  + MRU files not found in wheel
+  + Using locate
+- Search inside files
+  + Grep on group files
+  + Outline : folds headers in group files
+- Yank wheel using TextYankPost event
 - Reorganizing elements
 - Display files
   + Split levels : torus, circle, location
-  + Split layout
+  + Split
     * vertical, golden vertical
     * horizontal, golden horizontal
     * main left, golden left
@@ -98,16 +105,14 @@ grow and adapt to your style.
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
 - Batch operations
-- Grep on group files
-- MRU files not found in wheel
-- Search files with locate
-- Yank wheel using TextYankPost event
 
-As you see, some features go far beyond a buffer manager. Why include
-these ? Because once the filtering framework is there, it’s easy to
-add new functionalities. UNIX’s philosophy is respected however, on a
-module level : each file in `autoload/wheel` deals with a specific kind
-of problem, and do it well ; the magic is when modules talk together.
+As you see, the group manager is the core, but it goes far beyond that :
+you need a quick navigation framework to travel in the wheel, and once
+it is there, it’s easy to add new functionalities.
+
+UNIX’s philosophy is respected however, on a module level : each file in
+`autoload/wheel` deals with a specific kind of problem, and do it well ;
+the magic is when modules talk together.
 
 ## History
 

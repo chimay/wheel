@@ -72,6 +72,7 @@ FEATURES				*wheel-introduction-features*
   + Files from anywhere in the filesystem
   + A file in more than one group
   + file:line-1 and file:line-2 in the same group
+- May be saved in wheel file
 - Easy navigation
   + On demand loading of files
   + Switch to matching tab & window if available
@@ -79,7 +80,13 @@ FEATURES				*wheel-introduction-features*
     * Filter candidates
     * Folds matching wheel tree structure
   + Auto |:lcd| to project root of current file
-- May be saved in wheel file
+- Search files
+  + MRU files not found in wheel
+  + Using locate
+- Search inside files
+  + Grep on group files
+  + Outline : folds headers in group files
+- Yank wheel using TextYankPost event
 - Reorganizing elements
 - Display files
   + Split levels : torus, circle, location
@@ -93,9 +100,6 @@ FEATURES				*wheel-introduction-features*
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
 - Batch operations
-- Grep on group files
-- MRU files not found in wheel
-- Yank wheel using TextYankPost event
 
 ------------------------------------------------------------------------------
 HISTORY						*wheel-introduction-history*
@@ -323,7 +327,7 @@ in previous used window. You can also use the keys :
 
 Same keys as above, but leave the navigation buffer opened :
 
-- `<tab>` : same as `<enter>`
+- `g<enter>` : same as `<enter>`
 - `gt` : same as `t`
 - `gs` : same as `s`
 - `gv` : same as `v`

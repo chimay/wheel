@@ -2,8 +2,14 @@
 
 # TODO
 
+## Contextual actions menu from a mandala buffer
+
+- <tab> to launch actions menu, like in unite
+- Navigating between mandala buffers
+- Stack of buffer contents
+- Save & Restore maps :
+  + <cr>
+
 ## Tags
 
-## Outline
-
-Origami : use folding marker
+Tag file ?
