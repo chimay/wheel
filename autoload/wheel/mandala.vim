@@ -28,12 +28,7 @@ fun! wheel#mandala#fill (content)
 	" - a monoline string
 	" - a list of lines
 	let content = a:content
-	if exists('*appendbufline')
-		call appendbufline('%', 1, content)
-	else
-		put =content
-	endif
-	setlocal nomodified
+	call append(1, content)
 	call cursor(1,1)
 endfun
 
