@@ -4,10 +4,15 @@
 
 *.html
 
+# Tags
+
+doc/tags
+
 # Unison backup
 
 .unison
 
+# Greniers
+
 autoload/wheel/Grenier
-doc/tags
 doc/Grenier
