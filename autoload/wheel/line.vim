@@ -7,12 +7,12 @@
 " Script vars
 
 if ! exists('s:selected_mark')
-	let s:selected_mark = wheel#glyph#fetch('selected/mark')
+	let s:selected_mark = wheel#crystal#fetch('selected/mark')
 	lockvar s:selected_mark
 endif
 
 if ! exists('s:selected_pattern')
-	let s:selected_pattern = wheel#glyph#fetch('selected/pattern')
+	let s:selected_pattern = wheel#crystal#fetch('selected/pattern')
 	lockvar s:selected_pattern
 endif
 

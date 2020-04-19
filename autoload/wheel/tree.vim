@@ -227,6 +227,7 @@ fun! wheel#tree#rename_file (...)
 	call system(rename)
 	if ! v:shell_error
 		exe 'file ' . filename
+		write!
 		for torus in g:wheel.toruses
 			for circle in torus.circles
 				for location in circle.locations

@@ -5,12 +5,12 @@
 " Script vars
 
 if ! exists('s:selected_mark')
-	let s:selected_mark = wheel#glyph#fetch('selected/mark')
+	let s:selected_mark = wheel#crystal#fetch('selected/mark')
 	lockvar s:selected_mark
 endif
 
 if ! exists('s:selected_pattern')
-	let s:selected_pattern = wheel#glyph#fetch('selected/pattern')
+	let s:selected_pattern = wheel#crystal#fetch('selected/pattern')
 	lockvar s:selected_pattern
 endif
 
@@ -99,7 +99,7 @@ fun! wheel#layer#call (settings)
 	" - travel : whether to apply action in previous buffer
 	" - deselect : whether to deselect all line before calling function
 	let settings = a:settings
-	let menu = wheel#glyph#fetch (settings.menu)
+	let menu = wheel#crystal#fetch (settings.menu)
 	let close = settings.close
 	let travel = settings.travel
 	" Deselect
@@ -151,7 +151,7 @@ fun! wheel#layer#staircase (settings)
 	let settings = a:settings
 	let dictname = settings.menu
 	call wheel#layer#push ()
-	let dict = wheel#glyph#fetch (dictname)
+	let dict = wheel#crystal#fetch (dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#replace (menu)
 	call wheel#layer#overlay (settings)

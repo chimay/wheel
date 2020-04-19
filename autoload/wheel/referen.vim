@@ -5,17 +5,17 @@
 " Script vars
 
 if ! exists('s:levels')
-	let s:levels = wheel#glyph#fetch('referen/levels')
+	let s:levels = wheel#crystal#fetch('referen/levels')
 	lockvar s:levels
 endif
 
 if ! exists('s:coordin')
-	let s:coordin = wheel#glyph#fetch('referen/coordin')
+	let s:coordin = wheel#crystal#fetch('referen/coordin')
 	lockvar s:coordin
 endif
 
 if ! exists('s:list_keys')
-	let s:list_keys = wheel#glyph#fetch('referen/list_keys')
+	let s:list_keys = wheel#crystal#fetch('referen/list_keys')
 	lockvar s:list_keys
 endif
 
