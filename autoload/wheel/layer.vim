@@ -71,16 +71,16 @@ fun! wheel#layer#pop ()
 	" Don’t restore selection markers by default
 endfun
 
-fun! wheel#layer#call (conf)
+fun! wheel#layer#call (settings)
 	" Calls function corresponding to menu line
-	" conf is a dictionary, whose keys can be :
+	" settings is a dictionary, whose keys can be :
 	" - menu : name of a menu variable in storage.vim
 	" - close : whether to close wheel buffer
 	" - travel : whether to apply action in previous buffer
-	let conf = a:conf
-	let menu = wheel#glyph#fetch (conf.menu)
-	let close = conf.close
-	let travel = conf.travel
+	let settings = a:settings
+	let menu = wheel#glyph#fetch (settings.menu)
+	let close = settings.close
+	let travel = settings.travel
 	let key = getline('.')
 	if close
 		call wheel#mandala#close ()
@@ -107,14 +107,14 @@ endfun
 fun! wheel#layer#roof_maps (dictname)
 	" Define local maps for second layer
 	let dictname = a:dictname
-	let conf = {'menu' : dictname, 'close' : 1, 'travel' : 1}
+	let settings = {'menu' : dictname, 'close' : 1, 'travel' : 1}
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#layer#call('
 	let post = ')<cr>'
-	exe map . '<cr>' . pre . string(conf) . post
-	let conf.close = 0
-	exe map . 'g<cr>' . pre . string(conf) . post
-	exe map . '<space>' . pre . string(conf) . post
+	exe map . '<cr>' . pre . string(settings) . post
+	let settings.close = 0
+	exe map . 'g<cr>' . pre . string(settings) . post
+	exe map . '<space>' . pre . string(settings) . post
 endfun
 
 fun! wheel#layer#staircase (dictname)

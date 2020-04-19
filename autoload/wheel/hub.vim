@@ -5,11 +5,11 @@
 fun! wheel#hub#meta_maps (dictname)
 	" Define local meta maps
 	let varname = 'menu/' . a:dictname
-	let conf = {'menu' : varname, 'close' : 0, 'travel' : 0}
+	let settings = {'menu' : varname, 'close' : 0, 'travel' : 0}
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#layer#call('
 	let post = ')<cr>'
-	exe map . '<cr>' . pre . string(conf) . post
+	exe map . '<cr>' . pre . string(settings) . post
 endfun
 
 fun! wheel#hub#menu (dictname)
