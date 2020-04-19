@@ -396,6 +396,8 @@ fun! wheel#mandala#grep (...)
 		call wheel#vector#grep(pattern)
 	let lines = wheel#vector#quickfix ()
 	call wheel#mandala#fill(lines)
+	" Context menu
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
 endfun
 
 fun! wheel#mandala#outline ()

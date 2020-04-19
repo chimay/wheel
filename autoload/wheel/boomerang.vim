@@ -57,7 +57,12 @@ endfun
 
 fun! wheel#boomerang#grep (action)
 	" Grep actions
-	if wheel#boomerang#switch (acion)
+	let action = a:action
+	if wheel#boomerang#switch (action)
 		return
+	endif
+	if action == 'quickfix'
+		call wheel#mandala#close ()
+		call wheel#vector#copen ()
 	endif
 endfun

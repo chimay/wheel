@@ -81,6 +81,7 @@ FEATURES				*wheel-introduction-features*
   + Choose file, group or category in special buffer
     * Filter candidates
     * Folds matching wheel tree structure
+    * Context menus
   + Auto |:lcd| to project root of current file
 - Search files
   + MRU files not found in wheel
@@ -239,6 +240,7 @@ SPECIAL BUFFERS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
 Menu buffers			|wheel-special-buffers-menus|
+Context menus			|wheel-special-buffers-context|
 Navigation buffers		|wheel-special-buffers-navigation|
 Yank buffer			|wheel-special-buffers-yank|
 Reordering buffers		|wheel-special-buffers-reordering|
@@ -319,9 +321,18 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Search in files
 - Paste from yank wheel
 
-In these sub-menus, you can launch the action you want by pressing
-`<enter>` on its line. Same thing for `g<enter>`, but it will leave the
-special buffer opened.
+In these sub-menus, you can use the keys :
+
+- `<enter>` : launch the action on the cursor line
+- `g<enter>` : launch action and leave the special buffer opened
+- `<backspace>` : leads you back to the meta menu.
+
+------------------------------------------------------------------------------
+CONTEXT MENUS				*wheel-special-buffers-context*
+
+Some special buffers have context menu support. In that case, pressing
+`<tab>` will open a menu where you can choose the action you want to
+apply to the selected or cursor line(s).
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
@@ -344,6 +355,9 @@ Same keys as above, but leave the navigation buffer opened :
 - `gv` : same as `v`
 - `gS` : same as `S`
 - `gV` : same as `V`
+
+The navigation buffers also have context menus support.
+See |wheel-special-buffers-context|.
 
 Mappings~
 

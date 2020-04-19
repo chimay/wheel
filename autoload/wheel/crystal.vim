@@ -237,6 +237,14 @@ if ! exists('s:context_switch')
 	lockvar s:context_switch
 endif
 
+if ! exists('s:context_grep')
+	let s:context_grep = {
+				\ 'Open quickfix' : "wheel#boomerang#grep('quickfix')",
+				\}
+	call extend(s:context_grep, s:context_switch)
+	lockvar s:context_grep
+endif
+
 " Public Interface
 
 fun! wheel#crystal#fetch (varname)
