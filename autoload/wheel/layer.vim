@@ -99,6 +99,19 @@ fun! wheel#layer#call (settings)
 	endif
 endfun
 
+fun! wheel#layer#overlay (dictname)
+	" Define local maps for overlay
+	let dictname = a:dictname
+	let settings = {'menu' : dictname, 'close' : 1, 'travel' : 1}
+	let map  =  'nnoremap <buffer> '
+	let pre  = ' :call wheel#layer#call('
+	let post = ')<cr>'
+	exe map . '<cr>' . pre . string(settings) . post
+	let settings.close = 0
+	exe map . 'g<cr>' . pre . string(settings) . post
+	exe map . '<space>' . pre . string(settings) . post
+endfun
+
 fun! wheel#layer#staircase (dictname)
 	" Replace buffer content by a new layer
 	" Reuse current wheel buffer
@@ -108,5 +121,6 @@ fun! wheel#layer#staircase (dictname)
 	let dict = wheel#glyph#fetch (dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#replace (menu)
+	call wheel#layer#overlay (dictname)
 	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfun
