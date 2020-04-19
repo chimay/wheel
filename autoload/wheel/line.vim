@@ -207,7 +207,7 @@ endfu
 
 fun! wheel#line#switch (settings)
 	" Switch to element(s) on current or selected line(s)
-	" Settings keys :
+	" settings keys :
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
