@@ -178,6 +178,15 @@ if ! exists('s:menu_meta')
 	lockvar s:menu_meta
 endif
 
+" Contextual menus
+
+if ! exists('s:context_switch')
+	let s:context_switch = {
+				\ 'Switch' : "wheel#boomerang#switch('within')",
+				\}
+	lockvar s:context_switch
+endif
+
 " Public Interface
 
 fun! wheel#glyph#fetch (varname)

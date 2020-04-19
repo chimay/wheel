@@ -880,7 +880,7 @@ FUNCTIONS					        *wheel-functions*
 The functions used as User Interface are listed :
 
 - In the mappings of autoload/wheel/centre.vim
-- In the menus of autoload/wheel/hub.vim
+- In the menus of autoload/wheel/glyph.vim
 
 ==============================================================================
 MAPPINGS						    *wheel-mappings*

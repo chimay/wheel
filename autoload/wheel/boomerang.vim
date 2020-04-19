@@ -9,3 +9,11 @@ fun! wheel#boomerang#common ()
 	" Sync selection with top (begin) of stack
 	let b:wheel_selected = stack.selected[0]
 endfun
+
+fun! wheel#boomerang#switch ()
+	" Switch context menu
+endfun
+
+fun! wheel#boomerang#grep ()
+	" Grep context menu
+endfun
