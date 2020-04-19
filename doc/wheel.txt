@@ -253,7 +253,7 @@ INTRODUCTION				*wheel-special-buffers-introduction*
 Special buffers allow you to perform Wheel operations intuitively, using
 full power of your editor : search, yank, paste, completion, and so on.
 
-The available actions depend on the context :
+The available actions depend on the buffer type :
 
 - Menu buffers allow you to launch a wheel function
 - Navigation buffers allow you to switch to a :
