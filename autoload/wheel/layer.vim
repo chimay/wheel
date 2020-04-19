@@ -7,6 +7,7 @@ fun! wheel#layer#push ()
 		let b:wheel_stack = {}
 		let b:wheel_stack.contents = []
 		let b:wheel_stack.selected = []
+		let b:wheel_stack.settings = []
 		let b:wheel_stack.mappings = []
 	endif
 	" Content stack
@@ -23,6 +24,13 @@ fun! wheel#layer#push ()
 		call insert(selected, b:wheel_selected)
 	else
 		call insert(selected, [wheel#line#coordin ()])
+	endif
+	" Buffer settings
+	let settings = b:wheel_stack.settings
+	if exists('b:wheel_settings')
+		call insert(settings, b:wheel_settings)
+	else
+		call insert(settings, {})
 	endif
 	" Map stack
 	let mappings = b:wheel_stack.mappings
@@ -44,11 +52,15 @@ fun! wheel#layer#pop ()
 	endif
 	" Restore content
 	let contents = b:wheel_stack.contents
-	if ! empty(contents)
-		let lines = wheel#chain#pop (contents)
+	if empty(contents)
+		return
 	endif
+	let lines = wheel#chain#pop (contents)
 	call wheel#mandala#replace (lines)
-	call wheel#line#sync_select ()
+	let b:wheel_lines = lines
+	" Restore settings
+	let settings = b:wheel_stack.settings
+	let b:wheel_settings = wheel#chain#pop (settings)
 	" Restore mappings
 	let mappings = b:wheel_stack.mappings
 	if ! empty(mappings)
@@ -56,6 +68,7 @@ fun! wheel#layer#pop ()
 		exe 'nnoremap <buffer> <cr> ' . mapdict.enter
 		exe 'nnoremap <buffer> g<cr> ' . mapdict.g_enter
 	endif
+	" Don’t restore selection markers by default
 endfun
 
 fun! wheel#layer#call (conf)
@@ -102,8 +115,6 @@ fun! wheel#layer#roof_maps (dictname)
 	let conf.close = 0
 	exe map . 'g<cr>' . pre . string(conf) . post
 	exe map . '<space>' . pre . string(conf) . post
-	let conf.travel = 0
-	exe map . '<tab>' . pre . string(conf) . post
 endfun
 
 fun! wheel#layer#staircase (dictname)

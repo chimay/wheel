@@ -2,8 +2,6 @@
 
 " Menus
 
-" Maps
-
 fun! wheel#hub#meta_maps (dictname)
 	" Define local meta maps
 	let varname = 'menu/' . a:dictname
@@ -13,8 +11,6 @@ fun! wheel#hub#meta_maps (dictname)
 	let post = ')<cr>'
 	exe map . '<cr>' . pre . string(conf) . post
 endfun
-
-" Menus
 
 fun! wheel#hub#menu (dictname)
 	" Menu in wheel buffer

@@ -174,40 +174,40 @@ fun! wheel#mandala#select_maps ()
 	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
 endfun
 
-fun! wheel#mandala#switch_maps (dict)
+fun! wheel#mandala#switch_maps (settings)
 	" Define local switch maps
-	let dict = copy(a:dict)
+	let settings = copy(a:settings)
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#line#switch('
 	let post = ')<cr>'
 	" Close after switch
-	let dict.close = v:true
-	let dict.target = 'within'
-	exe map . '<cr>' . pre . string(dict) . post
-	let dict.target = 'tab'
-	exe map . 't' . pre . string(dict) . post
-	let dict.target = 'horizontal_split'
-	exe map . 's' . pre . string(dict) . post
-	let dict.target = 'vertical_split'
-	exe map . 'v' . pre . string(dict) . post
-	let dict.target = 'horizontal_golden'
-	exe map . 'S' . pre . string(dict) . post
-	let dict.target = 'vertical_golden'
-	exe map . 'V' . pre . string(dict) . post
+	let settings.close = v:true
+	let settings.target = 'current'
+	exe map . '<cr>' . pre . string(settings) . post
+	let settings.target = 'tab'
+	exe map . 't' . pre . string(settings) . post
+	let settings.target = 'horizontal_split'
+	exe map . 's' . pre . string(settings) . post
+	let settings.target = 'vertical_split'
+	exe map . 'v' . pre . string(settings) . post
+	let settings.target = 'horizontal_golden'
+	exe map . 'S' . pre . string(settings) . post
+	let settings.target = 'vertical_golden'
+	exe map . 'V' . pre . string(settings) . post
 	" Leave open after switch
-	let dict.close = v:false
-	let dict.target = 'within'
-	exe map . 'g<cr>' . pre . string(dict) . post
-	let dict.target = 'tab'
-	exe map . 'gt' . pre . string(dict) . post
-	let dict.target = 'horizontal_split'
-	exe map . 'gs' . pre . string(dict) . post
-	let dict.target = 'vertical_split'
-	exe map . 'gv' . pre . string(dict) . post
-	let dict.target = 'horizontal_golden'
-	exe map . 'gS' . pre . string(dict) . post
-	let dict.target = 'vertical_golden'
-	exe map . 'gV' . pre . string(dict) . post
+	let settings.close = v:false
+	let settings.target = 'current'
+	exe map . 'g<cr>' . pre . string(settings) . post
+	let settings.target = 'tab'
+	exe map . 'gt' . pre . string(settings) . post
+	let settings.target = 'horizontal_split'
+	exe map . 'gs' . pre . string(settings) . post
+	let settings.target = 'vertical_split'
+	exe map . 'gv' . pre . string(settings) . post
+	let settings.target = 'horizontal_golden'
+	exe map . 'gS' . pre . string(settings) . post
+	let settings.target = 'vertical_golden'
+	exe map . 'gV' . pre . string(settings) . post
 endfun
 
 fun! wheel#mandala#yank_maps (mode)
@@ -297,6 +297,12 @@ fun! wheel#mandala#template (...)
 	else
 		let type = 'generic'
 	endif
+	if a:0 > 1
+		let settings = a:2
+		let b:wheel_settings = settings
+	else
+		echomsg 'Wheel mandala' type 'template : missing settings'
+	endif
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
@@ -305,8 +311,10 @@ fun! wheel#mandala#template (...)
 	setlocal nofoldenable
 	if type == 'switch'
 		call wheel#mandala#select_maps ()
+		call wheel#mandala#switch_maps (settings)
 	elseif type == 'yank'
 		call wheel#mandala#yank_options ()
+		call wheel#mandala#yank_maps (settings.mode)
 	endif
 endfun
 
@@ -317,9 +325,8 @@ fun! wheel#mandala#switch (level)
 	let level = a:level
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-switch-' . level)
-	call wheel#mandala#template ('switch')
-	let dict = {'level' : level}
-	call wheel#mandala#switch_maps (dict)
+	let settings = {'level' : level}
+	call wheel#mandala#template ('switch', settings)
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let lines = upper.glossary
@@ -334,9 +341,8 @@ fun! wheel#mandala#helix ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-location-index')
-	call wheel#mandala#template ('switch')
-	let dict = {'action' : function('wheel#line#helix')}
-	call wheel#mandala#switch_maps (dict)
+	let settings = {'action' : function('wheel#line#helix')}
+	call wheel#mandala#template ('switch', settings)
 	let lines = wheel#helix#locations ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -346,9 +352,8 @@ fun! wheel#mandala#grid ()
 	" Each coordinate = [torus, circle]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-circle-index')
-	call wheel#mandala#template ('switch')
-	let dict = {'action' : function('wheel#line#grid')}
-	call wheel#mandala#switch_maps (dict)
+	let settings = {'action' : function('wheel#line#grid')}
+	call wheel#mandala#template ('switch', settings)
 	let lines = wheel#helix#circles ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -357,10 +362,9 @@ fun! wheel#mandala#tree ()
 	" Choose an element in the wheel tree
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tree')
-	call wheel#mandala#template ('switch')
+	let settings = {'action' : function('wheel#line#tree')}
+	call wheel#mandala#template ('switch', settings)
 	call wheel#mandala#folding_options ()
-	let dict = {'action' : function('wheel#line#tree')}
-	call wheel#mandala#switch_maps (dict)
 	let lines = wheel#helix#tree ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -370,9 +374,8 @@ fun! wheel#mandala#history ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-history')
-	call wheel#mandala#template ('switch')
-	let dict = {'action' : function('wheel#line#history')}
-	call wheel#mandala#switch_maps (dict)
+	let settings = {'action' : function('wheel#line#history')}
+	call wheel#mandala#template ('switch', settings)
 	let lines = wheel#pendulum#sorted ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -386,9 +389,8 @@ fun! wheel#mandala#grep (...)
 	endif
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-grep')
-	call wheel#mandala#template ('switch')
-	let dict = {'action' : function('wheel#line#grep')}
-	call wheel#mandala#switch_maps (dict)
+	let settings = {'action' : function('wheel#line#grep')}
+	call wheel#mandala#template ('switch', settings)
 		call wheel#vector#grep(pattern)
 	let lines = wheel#vector#quickfix ()
 	call wheel#mandala#fill(lines)
@@ -407,9 +409,8 @@ fun! wheel#mandala#attic ()
 	" Most recenty used files
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-mru')
-	call wheel#mandala#template ('switch')
-	let dict = {'action' : function('wheel#line#attic')}
-	call wheel#mandala#switch_maps (dict)
+	let settings = {'action' : function('wheel#line#attic')}
+	call wheel#mandala#template ('switch', settings)
 	let lines = wheel#attic#sorted ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -418,9 +419,8 @@ fun! wheel#mandala#locate ()
 	" Search files using locate
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-locate')
-	call wheel#mandala#template ('switch')
-	let dict = {'action' : function('wheel#line#locate')}
-	call wheel#mandala#switch_maps (dict)
+	let settings = {'action' : function('wheel#line#locate')}
+	call wheel#mandala#template ('switch', settings)
 	let prompt = 'Search for file matching : '
 	let pattern = input(prompt)
 	let database = g:wheel_config.locate_db
@@ -437,11 +437,12 @@ endfun
 
 fun! wheel#mandala#yank (mode)
 	" Choose a yank wheel element to paste
+	let mode = a:mode
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-yank-' . a:mode)
-	call wheel#mandala#template('yank')
-	call wheel#mandala#yank_maps (a:mode)
-	let lines = wheel#codex#lines (a:mode)
+	call wheel#mandala#open ('wheel-yank-' . mode)
+	let settings = {'mode' : mode}
+	call wheel#mandala#template('yank', settings)
+	let lines = wheel#codex#lines (mode)
 	" Appendbufline does not work with lists of list
 	put =lines
 	setlocal nomodified

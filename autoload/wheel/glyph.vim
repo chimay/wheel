@@ -182,7 +182,7 @@ endif
 
 if ! exists('s:context_switch')
 	let s:context_switch = {
-				\ 'Switch' : "wheel#boomerang#switch('within')",
+				\ 'Switch' : "wheel#boomerang#switch('current')",
 				\}
 	lockvar s:context_switch
 endif

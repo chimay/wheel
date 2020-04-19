@@ -205,27 +205,27 @@ endfu
 
 " Switch
 
-fun! wheel#line#switch (dict)
+fun! wheel#line#switch (settings)
 	" Switch to element(s) on current or selected line(s)
-	" dict keys :
+	" Settings keys :
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
 	" - action : switch function or record of switch function
-	let dict = copy(a:dict)
-	if has_key(dict, 'target')
-		let target = dict.target
+	let settings = copy(a:settings)
+	if has_key(settings, 'target')
+		let target = settings.target
 	else
 		let target = 'current'
-		let dict.target = target
+		let settings.target = target
 	endif
-	if has_key(dict, 'close')
-		let close = dict.close
+	if has_key(settings, 'close')
+		let close = settings.close
 	else
 		let close = v:true
 	endif
-	if has_key(dict, 'action')
-		let Fun = dict.action
+	if has_key(settings, 'action')
+		let Fun = settings.action
 	else
 		let Fun = 'wheel#line#name'
 	endif
@@ -237,9 +237,9 @@ fun! wheel#line#switch (dict)
 		echomsg 'Wheel line switch : bad format for b:wheel_selected'
 	endif
 	if len(selected) == 1
-		let dict.use = 'default'
+		let settings.use = 'default'
 	else
-		let dict.use = 'new'
+		let settings.use = 'new'
 	endif
 	if close
 		call wheel#mandala#close ()
@@ -250,22 +250,22 @@ fun! wheel#line#switch (dict)
 	if type(Fun) == v:t_func
 		if target != 'current'
 			for elem in selected
-				let dict.selected = elem
-				call Fun (dict)
+				let settings.selected = elem
+				call Fun (settings)
 			endfor
 		else
-			let dict.selected = selected[0]
-			call Fun (dict)
+			let settings.selected = selected[0]
+			call Fun (settings)
 		endif
 	elseif type(Fun) == v:t_string
 		if target != 'current'
 			for elem in selected
-				let dict.selected = elem
-				call {Fun} (dict)
+				let settings.selected = elem
+				call {Fun} (settings)
 			endfor
 		else
-			let dict.selected = selected[0]
-			call {Fun} (dict)
+			let settings.selected = selected[0]
+			call {Fun} (settings)
 		endif
 	else
 		echomsg 'Wheel line switch : bad switch function'
@@ -276,61 +276,61 @@ fun! wheel#line#switch (dict)
 	endif
 endfun
 
-fun! wheel#line#name (dict)
-	" Switch to dict.selected by record
-	" dict keys :
+fun! wheel#line#name (settings)
+	" Switch to settings.selected by record
+	" settings keys :
 	" - selected : where to switch
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
-	call wheel#line#target (a:dict.target)
-	call wheel#vortex#switch(a:dict.level, a:dict.selected, a:dict.use)
+	call wheel#line#target (a:settings.target)
+	call wheel#vortex#switch(a:settings.level, a:settings.selected, a:settings.use)
 endfun
 
-fun! wheel#line#helix (dict)
-	" Switch to dict.selected = torus > circle > location
-	" dict keys :
+fun! wheel#line#helix (settings)
+	" Switch to settings.selected = torus > circle > location
+	" settings keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:dict.selected)
+	let fields = split(a:settings.selected)
 	if len(fields) < 5
 		echomsg 'Helix line is too short'
 		return
 	endif
 	let coordin = [fields[0], fields[2], fields[4]]
-	call wheel#line#target (a:dict.target)
+	call wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (a:dict.use)
+	call wheel#vortex#jump (a:settings.use)
 endfun
 
-fun! wheel#line#grid (dict)
-	" Switch to dict.selected = torus > circle
-	" dict keys :
+fun! wheel#line#grid (settings)
+	" Switch to settings.selected = torus > circle
+	" settings keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:dict.selected)
+	let fields = split(a:settings.selected)
 	if len(fields) < 3
 		echomsg 'Grid line is too short'
 		return
 	endif
 	let coordin = [fields[0], fields[2]]
-	call wheel#line#target (a:dict.target)
+	call wheel#line#target (a:settings.target)
 	call wheel#vortex#tune('torus', coordin[0])
 	call wheel#vortex#tune('circle', coordin[1])
-	call wheel#vortex#jump (a:dict.use)
+	call wheel#vortex#jump (a:settings.use)
 endfun
 
-fun! wheel#line#tree (dict)
-	" Switch to dict.selected
+fun! wheel#line#tree (settings)
+	" Switch to settings.selected
 	" Possible vallues of selected :
 	" - [torus]
 	" - [torus, circle]
 	" - [torus, circle, location]
-	" dict keys :
+	" settings keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let coordin = a:dict.selected
+	let coordin = a:settings.selected
 	let length = len(coordin)
-	call wheel#line#target (a:dict.target)
+	call wheel#line#target (a:settings.target)
 	if length == 3
 		call wheel#vortex#chord(coordin)
 	elseif length == 2
@@ -339,28 +339,28 @@ fun! wheel#line#tree (dict)
 	elseif length == 1
 		call wheel#vortex#tune('torus', coordin[0])
 	endif
-	call wheel#vortex#jump (a:dict.use)
+	call wheel#vortex#jump (a:settings.use)
 endfun
 
-fun! wheel#line#history (dict)
-	" Switch to dict.selected history location
-	" dict keys :
+fun! wheel#line#history (settings)
+	" Switch to settings.selected history location
+	" settings keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:dict.selected)
+	let fields = split(a:settings.selected)
 	if len(fields) < 11
 		echomsg 'History line is too short'
 		return
 	endif
 	let coordin = [fields[6], fields[8], fields[10]]
-	call wheel#line#target (a:dict.target)
+	call wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (a:dict.use)
+	call wheel#vortex#jump (a:settings.use)
 endfun
 
-fun! wheel#line#grep (dict)
-	" Switch to current quickfix line
-	let fields = split(a:dict.selected)
+fun! wheel#line#grep (settings)
+	" Switch to settings.selected quickfix line
+	let fields = split(a:settings.selected)
 	if len(fields) < 9
 		echomsg 'Grep line is too short'
 		return
@@ -368,27 +368,27 @@ fun! wheel#line#grep (dict)
 	let bufnr = fields[0]
 	let line = fields[4]
 	let col = fields[6]
-	call wheel#line#target (a:dict.target)
+	call wheel#line#target (a:settings.target)
 	exe 'buffer ' . bufnr
 	call cursor(line, col)
 endfun
 
-fun! wheel#line#attic (dict)
-	" Edit dict.selected MRU file
-	let fields = split(a:dict.selected)
+fun! wheel#line#attic (settings)
+	" Edit settings.selected MRU file
+	let fields = split(a:settings.selected)
 	if len(fields) < 7
 		echomsg 'MRU line is too short'
 		return
 	endif
 	let filename = fields[6]
-	call wheel#line#target (a:dict.target)
+	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
 endfun
 
-fun! wheel#line#locate (dict)
-	" Edit dict.selected MRU file
-	let filename = a:dict.selected
-	call wheel#line#target (a:dict.target)
+fun! wheel#line#locate (settings)
+	" Edit settings.selected MRU file
+	let filename = a:settings.selected
+	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
 endfun
 
