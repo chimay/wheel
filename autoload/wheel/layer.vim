@@ -65,7 +65,7 @@ fun! wheel#layer#call (conf)
 	" - close : whether to close wheel buffer
 	" - travel : whether to apply action in previous buffer
 	let conf = a:conf
-	let menu = wheel#storage#fetch (conf.menu)
+	let menu = wheel#glyph#fetch (conf.menu)
 	let close = conf.close
 	let travel = conf.travel
 	let key = getline('.')
@@ -112,7 +112,7 @@ fun! wheel#layer#staircase (dictname)
 	" Define menu maps
 	let dictname = a:dictname
 	call wheel#layer#push ()
-	let dict = wheel#storage#fetch (dictname)
+	let dict = wheel#glyph#fetch (dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#replace (menu)
 	call wheel#layer#roof_maps (dictname)

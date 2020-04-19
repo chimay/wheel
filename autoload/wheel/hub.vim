@@ -22,7 +22,7 @@ fun! wheel#hub#menu (dictname)
 	let string = 'wheel-menu-' . dictname
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
-	let dict = wheel#storage#fetch('menu/' . dictname)
+	let dict = wheel#glyph#fetch('menu/' . dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#fill(menu)
 endfun
