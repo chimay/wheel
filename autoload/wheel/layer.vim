@@ -86,12 +86,12 @@ fun! wheel#layer#call (conf)
 	endif
 endfun
 
-fun! wheel#layer#floor_maps (dictname)
+fun! wheel#layer#door_maps (dictname)
 	" Define local maps for first layer
 	nnoremap <buffer> <tab> :call wheel#layer#staircase (dictname)
 endfun
 
-fun! wheel#layer#ceiling_maps (dictname)
+fun! wheel#layer#roof_maps (dictname)
 	" Define local maps for second layer
 	let dictname = a:dictname
 	let conf = {'menu' : dictname, 'close' : 1, 'travel' : 1}
@@ -101,6 +101,7 @@ fun! wheel#layer#ceiling_maps (dictname)
 	exe map . '<cr>' . pre . string(conf) . post
 	let conf.close = 0
 	exe map . 'g<cr>' . pre . string(conf) . post
+	exe map . '<space>' . pre . string(conf) . post
 	let conf.travel = 0
 	exe map . '<tab>' . pre . string(conf) . post
 endfun
@@ -114,6 +115,6 @@ fun! wheel#layer#staircase (dictname)
 	let dict = wheel#storage#fetch (dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#replace (menu)
-	call wheel#layer#ceiling_maps (dictname)
+	call wheel#layer#roof_maps (dictname)
 	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfun

@@ -36,7 +36,7 @@ endfun
 fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer
 	call wheel#hub#menu('main')
-	call wheel#layer#ceiling_maps ('menu/main')
+	call wheel#layer#roof_maps ('menu/main')
 endfun
 
 fun! wheel#hub#meta ()
