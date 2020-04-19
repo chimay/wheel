@@ -3,23 +3,11 @@
 " Context menus,
 " acting back on a wheel buffer
 
-fun! wheel#boomerang#maps (dictname)
-	" Define local maps for menus
-	let dictname = 'menu/' . a:dictname
-	let settings = {'menu' : dictname, 'close' : 0, 'travel' : 1, 'deselect' : 0}
-	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#layer#call('
-	let post = ')<cr>'
-	exe map . '<cr>' . pre . string(settings) . post
-	let settings.close = 0
-	exe map . 'g<cr>' . pre . string(settings) . post
-	exe map . '<space>' . pre . string(settings) . post
-endfun
-
 fun! wheel#boomerang#menu (dictname)
 	" Context menu
 	let dictname = 'context/' . a:dictname
-	let settings = {'menu' : dictname, 'close' : 1, 'travel' : 1, 'deselect' : 0}
+	" Close = 0 by default, to be able to catch wheel buffer variables
+	let settings = {'menu' : dictname, 'close' : 0, 'travel' : 0, 'deselect' : 0}
 	call wheel#layer#staircase(settings)
 endfun
 
@@ -45,6 +33,18 @@ fun! wheel#boomerang#switch (action)
 	let settings = b:wheel_settings
 	if action == 'current'
 		let settings.target = 'current'
+		call wheel#line#switch (settings)
+	elseif action == 'horizontal_split'
+		let settings.target = 'horizontal_split'
+		call wheel#line#switch (settings)
+	elseif action == 'vertical_split'
+		let settings.target = 'vertical_split'
+		call wheel#line#switch (settings)
+	elseif action == 'horizontal_golden'
+		let settings.target = 'horizontal_golden'
+		call wheel#line#switch (settings)
+	elseif action == 'vertical_golden'
+		let settings.target = 'vertical_golden'
 		call wheel#line#switch (settings)
 	endif
 endfun

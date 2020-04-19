@@ -229,8 +229,10 @@ if ! exists('s:context_switch')
 	let s:context_switch = {
 				\ 'Switch' : "wheel#boomerang#switch('current')",
 				\ 'Switch in tab' : "wheel#boomerang#switch('tab')",
-				\ 'Switch in horizontal split' : "wheel#boomerang#switch('horizontal')",
-				\ 'Switch in vertical split' : "wheel#boomerang#switch('vertical')",
+				\ 'Switch in horizontal split' : "wheel#boomerang#switch('horizontal_split')",
+				\ 'Switch in vertical split' : "wheel#boomerang#switch('vertical_split')",
+				\ 'Switch in horizontal golden' : "wheel#boomerang#switch('horizontal_golden')",
+				\ 'Switch in vertical golden' : "wheel#boomerang#switch('vertical_golden')",
 				\}
 	lockvar s:context_switch
 endif

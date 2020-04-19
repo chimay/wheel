@@ -52,7 +52,8 @@ fun! wheel#layer#push ()
 	let mappings = stack.mappings
 	let enter = maparg('<enter>', 'n')
 	let g_enter = maparg('g<enter>', 'n')
-	let mapdict = {'enter': enter, 'g_enter': g_enter}
+	let space = maparg('<space>', 'n')
+	let mapdict = {'enter': enter, 'g_enter': g_enter, 'space' : space}
 	call insert(mappings, mapdict)
 	" Reset b:wheel_lines to filter the new content
 	if exists('b:wheel_lines')
@@ -82,8 +83,15 @@ fun! wheel#layer#pop ()
 	let mappings = stack.mappings
 	if ! empty(mappings)
 		let mapdict = wheel#chain#pop (mappings)
-		exe 'nnoremap <buffer> <cr> ' . mapdict.enter
-		exe 'nnoremap <buffer> g<cr> ' . mapdict.g_enter
+		if ! empty(mapdict.enter)
+			exe 'nnoremap <buffer> <cr> ' . mapdict.enter
+		endif
+		if ! empty(mapdict.g_enter)
+			exe 'nnoremap <buffer> g<cr> ' . mapdict.g_enter
+		endif
+		if ! empty(mapdict.space)
+			exe 'nnoremap <buffer> <space> ' . mapdict.space
+		endif
 	endif
 	" Restore selection
 	let selected = stack.selected
@@ -102,28 +110,35 @@ fun! wheel#layer#call (settings)
 	let menu = wheel#crystal#fetch (settings.menu)
 	let close = settings.close
 	let travel = settings.travel
+	" Cursor line
+	let cursor_line = getline('.')
+	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
+	if empty(cursor_line)
+		echomsg 'Wheel layer call : you selected an empty line'
+		return
+	endif
+	let key = cursor_line
 	" Deselect
 	if settings.deselect
 		let position = getcurpos()
 		call wheel#line#deselect ()
 		call setpos('.', position)
 	endif
-	" Cursor line
-	let cursor_line = getline('.')
-	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
-	let key = cursor_line
+	" Close & travel
 	if close
 		call wheel#mandala#close ()
 	elseif travel
 		let mandala = win_getid()
 		wincmd p
 	endif
+	" Call
 	let value = menu[key]
 	if value =~ '\m)'
 		exe 'call ' . value
 	else
 		call {value}()
 	endif
+	" Goto mandala if needed
 	if ! close && travel
 		call win_gotoid (mandala)
 	endif
@@ -135,8 +150,9 @@ fun! wheel#layer#overlay (settings)
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#layer#call('
 	let post = ')<cr>'
-	let settings.close = 1
+	" Close : default in settings
 	exe map . '<cr>' . pre . string(settings) . post
+	" Open
 	let settings.close = 0
 	exe map . 'g<cr>' . pre . string(settings) . post
 	exe map . '<space>' . pre . string(settings) . post

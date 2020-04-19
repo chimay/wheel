@@ -14,11 +14,9 @@ fun! wheel#hub#meta_maps (dictname)
 	" Define local maps for meta menu
 	let dictname = 'menu/' . a:dictname
 	let settings = {'menu' : dictname, 'close' : 0, 'travel' : 0, 'deselect' : 1}
-	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#layer#call('
-	let post = ')<cr>'
-	exe map . '<cr>' . pre . string(settings) . post
+	call wheel#layer#overlay (settings)
 	let b:wheel_settings = settings
+	return
 endfun
 
 fun! wheel#hub#menu (dictname)
