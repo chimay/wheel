@@ -13,15 +13,17 @@ fun! wheel#vector#reset ()
 		endif
 	endif
 	% argdelete
-	return 1
+	return v:true
 endfun
 
 fun! wheel#vector#locations ()
 	" Add all locations of current circle to arguments
 	let ret = wheel#vector#reset ()
-	let locations = deepcopy(wheel#referen#circle().locations)
-	let files = map(locations, {_,val -> fnameescape(val.file)})
-	exe 'argadd ' join(files)
+	if ret
+		let locations = deepcopy(wheel#referen#circle().locations)
+		let files = map(locations, {_,val -> fnameescape(val.file)})
+		exe 'argadd ' join(files)
+	endif
 	return ret
 endfun
 

@@ -62,7 +62,7 @@ fun! wheel#gear#filter (wordlist, index, value)
 	let length = strchars(a:value)
 	let prelast = strcharpart(a:value, length - 2, 1)
 	if prelast ==# marker
-		return 1
+		return v:true
 	endif
 	return wheel#gear#word_filter(a:wordlist, a:index, a:value)
 endfun

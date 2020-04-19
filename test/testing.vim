@@ -179,7 +179,7 @@ echo 'functional : ' s:F(5)
 
 fun! s:Factorial (n)
 	if a:n == 0
-		return 1
+		return v:true
 	else
 		return a:n * s:Factorial(a:n -1)
 endfun

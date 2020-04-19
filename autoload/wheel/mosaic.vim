@@ -115,7 +115,7 @@ fun! wheel#mosaic#one_tab ()
 	let g:wheel_shelve.layout.tab = 'none'
 	let g:wheel_shelve.layout.tabnames = []
 	call wheel#projection#follow ()
-	return 1
+	return v:true
 endfun
 
 fun! wheel#mosaic#one_window ()
@@ -133,7 +133,7 @@ fun! wheel#mosaic#one_window ()
 	let g:wheel_shelve.layout.split = 'none'
 	let w:coordin = [0, 0]
 	call wheel#projection#follow ()
-	return 1
+	return v:true
 endfun
 
 fun! wheel#mosaic#rowcol (level)
@@ -283,7 +283,7 @@ fun! wheel#mosaic#horizontal (...)
 			split
 		endif
 		let w:coordin = [next, 0]
-		return 1
+		return v:true
 	else
 		return 0
 	endif
@@ -310,7 +310,7 @@ fun! wheel#mosaic#vertical (...)
 			vsplit
 		endif
 		let w:coordin = [0, next]
-		return 1
+		return v:true
 	else
 		return 0
 	endif
@@ -336,7 +336,7 @@ fun! wheel#mosaic#main_left (...)
 			vsplit
 		endif
 		let w:coordin = [0, 1]
-		return 1
+		return v:true
 	endif
 	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
@@ -346,7 +346,7 @@ fun! wheel#mosaic#main_left (...)
 			split
 		endif
 		let w:coordin = [next, 1]
-		return 1
+		return v:true
 	else
 		return 0
 	endif
@@ -372,7 +372,7 @@ fun! wheel#mosaic#main_top (...)
 			split
 		endif
 		let w:coordin = [1, 0]
-		return 1
+		return v:true
 	endif
 	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
@@ -382,7 +382,7 @@ fun! wheel#mosaic#main_top (...)
 			vsplit
 		endif
 		let w:coordin = [1, next]
-		return 1
+		return v:true
 	else
 		return 0
 	endif
@@ -408,12 +408,12 @@ fun! wheel#mosaic#grid (dict)
 		if col < max_col - 1
 			vsplit
 			let dict.done = [row, col + 1]
-			return 1
+			return v:true
 		else
 			exe col . 'wincmd h'
 			split
 			let dict.done = [1, 0]
-			return 1
+			return v:true
 		endif
 	else
 		if col < max_col - 1
@@ -423,12 +423,12 @@ fun! wheel#mosaic#grid (dict)
 			endif
 			split
 			let dict.done = [row, col + 1]
-			return 1
+			return v:true
 		elseif row < max_row - 1
 			exe row . 'wincmd j'
 			split
 			let dict.done = [row + 1, 0]
-			return 1
+			return v:true
 		else
 			return 0
 		endif
@@ -455,12 +455,12 @@ fun! wheel#mosaic#transposed_grid (dict)
 		if row < max_row - 1
 			split
 			let dict.done = [row + 1, col]
-			return 1
+			return v:true
 		else
 			exe row . 'wincmd k'
 			vsplit
 			let dict.done = [0, 1]
-			return 1
+			return v:true
 		endif
 	else
 		if row < max_row - 1
@@ -470,12 +470,12 @@ fun! wheel#mosaic#transposed_grid (dict)
 			endif
 			vsplit
 			let dict.done = [row + 1, col]
-			return 1
+			return v:true
 		elseif col < max_col - 1
 			exe col . 'wincmd l'
 			vsplit
 			let dict.done = [0, col + 1]
-			return 1
+			return v:true
 		else
 			return 0
 		endif
