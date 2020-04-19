@@ -4,17 +4,21 @@
 
 fun! wheel#hub#menu_maps (dictname)
 	" Define local maps for menus
-	call wheel#layer#overlay ('menu/' . dictname)
+	let dictname = 'menu/' . a:dictname
+	let settings = {'menu' : dictname, 'close' : 1, 'travel' : 1, 'deselect' : 1}
+	call wheel#layer#overlay (settings)
+	let b:wheel_settings = settings
 endfun
 
 fun! wheel#hub#meta_maps (dictname)
 	" Define local maps for meta menu
-	let varname = 'menu/' . a:dictname
-	let settings = {'menu' : varname, 'close' : 0, 'travel' : 0}
+	let dictname = 'menu/' . a:dictname
+	let settings = {'menu' : dictname, 'close' : 0, 'travel' : 0, 'deselect' : 1}
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#layer#call('
 	let post = ')<cr>'
 	exe map . '<cr>' . pre . string(settings) . post
+	let b:wheel_settings = settings
 endfun
 
 fun! wheel#hub#menu (dictname)
@@ -30,14 +34,16 @@ endfun
 
 fun! wheel#hub#submenu (dictname)
 	" Submenu
-	let dictname = a:dictname
-	call wheel#layer#staircase ('menu/' . dictname)
+	let dictname = 'menu/' . a:dictname
+	let settings = {'menu' : dictname, 'close' : 1, 'travel' : 1, 'deselect' : 1}
+	call wheel#layer#staircase (settings)
 endfun
 
 fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer
 	call wheel#hub#menu('main')
 	call wheel#hub#menu_maps ('main')
+	nunmap <buffer> <space>
 endfun
 
 fun! wheel#hub#meta ()

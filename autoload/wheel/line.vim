@@ -7,12 +7,12 @@
 " Script vars
 
 if ! exists('s:selected_mark')
-	let s:selected_mark = '* '
+	let s:selected_mark = wheel#glyph#fetch('selected/mark')
 	lockvar s:selected_mark
 endif
 
 if ! exists('s:selected_pattern')
-	let s:selected_pattern = '\m^\* '
+	let s:selected_pattern = wheel#glyph#fetch('selected/pattern')
 	lockvar s:selected_pattern
 endif
 
@@ -211,7 +211,7 @@ fun! wheel#line#switch (settings)
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
-	" - action : switch function or record of switch function
+	" - action : switch function or name of switch function
 	let settings = copy(a:settings)
 	if has_key(settings, 'target')
 		let target = settings.target

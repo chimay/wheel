@@ -3,7 +3,7 @@
 " Golden mean, ratio
 
 if ! exists('s:golden')
-	let s:golden = (1 + sqrt(5)) / 2
+	let s:golden = wheel#glyph#fetch('golden-ratio')
 	lockvar s:golden
 endif
 

@@ -2,37 +2,21 @@
 
 " Reference to objects in wheel
 
+" Script vars
+
 if ! exists('s:levels')
-	if exists(':const')
-		const s:levels = ['wheel', 'torus', 'circle', 'location']
-	else
-		let s:levels = ['wheel', 'torus', 'circle', 'location']
-		lockvar s:levels
-	endif
+	let s:levels = wheel#glyph#fetch('referen/levels')
+	lockvar s:levels
 endif
 
 if ! exists('s:coordin')
-	if exists(':const')
-		const s:coordin = [ 'torus', 'circle', 'location']
-	else
-		let s:coordin = [ 'torus', 'circle', 'location']
-		lockvar s:coordin
-	endif
+	let s:coordin = wheel#glyph#fetch('referen/coordin')
+	lockvar s:coordin
 endif
 
 if ! exists('s:list_keys')
-	if exists(':const')
-		const s:list_keys =
-					\{ 'wheel' : 'toruses',
-					\ 'torus' : 'circles',
-					\ 'circle' : 'locations'}
-	else
-		let s:list_keys =
-					\{ 'wheel' : 'toruses',
-					\ 'torus' : 'circles',
-					\ 'circle' : 'locations'}
-		lockvar s:list_keys
-	endif
+	let s:list_keys = wheel#glyph#fetch('referen/list_keys')
+	lockvar s:list_keys
 endif
 
 " Current elements

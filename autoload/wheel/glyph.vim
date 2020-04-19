@@ -1,5 +1,50 @@
 " vim: ft=vim fdm=indent:
 
+" Internal Variables
+
+" Wheel levels
+
+if ! exists('s:referen_levels')
+	if exists(':const')
+		const s:referen_levels = ['wheel', 'torus', 'circle', 'location']
+	else
+		let s:referen_levels = ['wheel', 'torus', 'circle', 'location']
+		lockvar s:referen_levels
+	endif
+endif
+
+if ! exists('s:referen_coordin')
+	let s:referen_coordin = [ 'torus', 'circle', 'location']
+	lockvar s:referen_coordin
+endif
+
+if ! exists('s:referen_list_keys')
+	let s:referen_list_keys =
+				\{ 'wheel' : 'toruses',
+				\ 'torus' : 'circles',
+				\ 'circle' : 'locations'}
+	lockvar s:referen_list_keys
+endif
+
+" Golden ratio
+
+if ! exists('s:golden_ratio')
+	let s:golden_ratio = (1 + sqrt(5)) / 2
+	lockvar s:golden_ratio
+endif
+
+" Patterns
+
+if ! exists('s:selected_mark')
+	let s:selected_mark = '* '
+	lockvar s:selected_mark
+endif
+
+if ! exists('s:selected_pattern')
+	let s:selected_pattern = '\m^\* '
+	lockvar s:selected_pattern
+endif
+
 " Menus
 
 if ! exists('s:menu_add')
@@ -183,6 +228,9 @@ endif
 if ! exists('s:context_switch')
 	let s:context_switch = {
 				\ 'Switch' : "wheel#boomerang#switch('current')",
+				\ 'Switch in tab' : "wheel#boomerang#switch('tab')",
+				\ 'Switch in horizontal split' : "wheel#boomerang#switch('horizontal')",
+				\ 'Switch in vertical split' : "wheel#boomerang#switch('vertical')",
 				\}
 	lockvar s:context_switch
 endif
@@ -194,6 +242,7 @@ fun! wheel#glyph#fetch (varname)
 	" The leading s: can be omitted
 	let varname = a:varname
 	let varname = substitute(varname, '/', '_', 'g')
+	let varname = substitute(varname, '-', '_', 'g')
 	if varname =~ '\m^s:'
 		return {varname}
 	else

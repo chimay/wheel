@@ -208,6 +208,8 @@ fun! wheel#mandala#switch_maps (settings)
 	exe map . 'gS' . pre . string(settings) . post
 	let settings.target = 'vertical_golden'
 	exe map . 'gV' . pre . string(settings) . post
+	" Context menu
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('switch')<cr>
 endfun
 
 fun! wheel#mandala#yank_maps (mode)
@@ -300,13 +302,13 @@ fun! wheel#mandala#template (...)
 	if a:0 > 1
 		let settings = a:2
 		let b:wheel_settings = settings
-	else
+	elseif type == 'switch' || type == 'yank'
 		echomsg 'Wheel mandala' type 'template : missing settings'
 	endif
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
-	" By default, tell whee#line#coordin it’s not a tree buffer
+	" By default, tell wheel#line#coordin it’s not a tree buffer
 	" Overridden by folding_options
 	setlocal nofoldenable
 	if type == 'switch'
