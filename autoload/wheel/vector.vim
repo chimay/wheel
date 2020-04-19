@@ -9,7 +9,7 @@ fun! wheel#vector#reset ()
 	if argc() > 0
 		let confirm = confirm('Overwrite old argument list ?', "&Yes\n&No", 2)
 		if confirm != 1
-			return 0
+			return v:false
 		endif
 	endif
 	% argdelete

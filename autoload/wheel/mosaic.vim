@@ -24,7 +24,7 @@ fun! wheel#mosaic#tour ()
 	" Return closest candidate amongst windows displaying current location
 	" by exploring each one
 	" Prefer windows in current tab page
-	" Return 0 if no window display filename
+	" return v:false if no window display filename
 	let original = win_getid()
 	let location = wheel#referen#location()
 	let filename = location.file
@@ -34,7 +34,7 @@ fun! wheel#mosaic#tour ()
 		let glasses = wheel#mosaic#glasses (filename, 'all')
 	endif
 	if empty(glasses)
-		return 0
+		return v:false
 	else
 		let best = glasses[0]
 		call win_gotoid(best)
@@ -109,7 +109,7 @@ fun! wheel#mosaic#one_tab ()
 		if confirm == 1
 			tabonly
 		else
-			return 0
+			return v:false
 		endif
 	endif
 	let g:wheel_shelve.layout.tab = 'none'
@@ -126,7 +126,7 @@ fun! wheel#mosaic#one_window ()
 		if confirm == 1
 			only
 		else
-			return 0
+			return v:false
 		endif
 	endif
 	let g:wheel_shelve.layout.window = 'none'
@@ -285,7 +285,7 @@ fun! wheel#mosaic#horizontal (...)
 		let w:coordin = [next, 0]
 		return v:true
 	else
-		return 0
+		return v:false
 	endif
 endfun
 
@@ -312,7 +312,7 @@ fun! wheel#mosaic#vertical (...)
 		let w:coordin = [0, next]
 		return v:true
 	else
-		return 0
+		return v:false
 	endif
 endfun
 
@@ -348,7 +348,7 @@ fun! wheel#mosaic#main_left (...)
 		let w:coordin = [next, 1]
 		return v:true
 	else
-		return 0
+		return v:false
 	endif
 endfun
 
@@ -384,7 +384,7 @@ fun! wheel#mosaic#main_top (...)
 		let w:coordin = [1, next]
 		return v:true
 	else
-		return 0
+		return v:false
 	endif
 endfun
 
@@ -430,7 +430,7 @@ fun! wheel#mosaic#grid (dict)
 			let dict.done = [row + 1, 0]
 			return v:true
 		else
-			return 0
+			return v:false
 		endif
 	endif
 endfun
@@ -477,7 +477,7 @@ fun! wheel#mosaic#transposed_grid (dict)
 			let dict.done = [0, col + 1]
 			return v:true
 		else
-			return 0
+			return v:false
 		endif
 	endif
 endfun
