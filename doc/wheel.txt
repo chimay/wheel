@@ -438,9 +438,9 @@ Mappings~
 
 The default mappings launching reordering buffers are :
 
-- `<M-w>o`   : reorder locations
+- `<M-w>o`     : reorder locations
 - `<M-w><C-o>` : reorder circles
-- `<M-w>O` : reorder toruses
+- `<M-w>O`     : reorder toruses
 
 Menus~
 
