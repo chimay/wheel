@@ -35,6 +35,10 @@ fun! wheel#boomerang#switch (action)
 		let settings.target = 'current'
 		call wheel#line#switch (settings)
 		return v:true
+	elseif action == 'tab'
+		let settings.target = 'tab'
+		call wheel#line#switch (settings)
+		return v:true
 	elseif action == 'horizontal_split'
 		let settings.target = 'horizontal_split'
 		call wheel#line#switch (settings)

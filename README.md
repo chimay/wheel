@@ -83,6 +83,7 @@ your groups will grow and adapt to your style.
   + Choose file, group or category in special buffer
     * Filter candidates
     * Folds matching wheel tree structure
+    * Context menus
   + Auto |:lcd| to project root of current file
 - Search files
   + MRU files not found in wheel
