@@ -180,7 +180,7 @@ endif
 
 " Public Interface
 
-fun! wheel#storage#fetch (varname)
+fun! wheel#glyph#fetch (varname)
 	" Return script variable called varname
 	" The leading s: can be omitted
 	let varname = a:varname
