@@ -64,10 +64,9 @@ fun! wheel#layer#push ()
 	let space = maparg('<space>', 'n')
 	let mapdict = {'enter': enter, 'g_enter': g_enter, 'space' : space}
 	call insert(mappings, mapdict)
-	" Reset b:wheel_lines to filter the new content
-	if exists('b:wheel_lines')
-		unlet b:wheel_lines
-	endif
+	" Reset buffer variables
+	" Fresh filter and so on
+	call wheel#void#lighten('buffer')
 endfun
 
 fun! wheel#layer#pop ()
@@ -111,7 +110,7 @@ fun! wheel#layer#pop ()
 	" Restore selection
 	let selected = stack.selected
 	let b:wheel_selected = wheel#chain#pop(selected)
-	call wheel#line#sync_select ()
+	"call wheel#line#sync_select ()
 endfun
 
 fun! wheel#layer#call (settings)
@@ -180,4 +179,5 @@ fun! wheel#layer#staircase (settings)
 	call wheel#mandala#replace (menu, 'blank')
 	call wheel#layer#overlay (settings)
 	let b:wheel_settings = settings
+	call cursor(1, 1)
 endfun

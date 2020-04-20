@@ -2,6 +2,30 @@
 
 " Batch
 
+" Helpers
+
+fun! wheel#vector#files (sieve)
+	" Current circle files
+	" Filter files with sieve
+	let sieve = a:sieve
+	if sieve !~ '^\\m'
+		let sieve = '\m' . sieve
+	endif
+	" Locations files
+	let locations = deepcopy(wheel#referen#circle().locations)
+	let files = map(locations, {_, val -> fnameescape(val.file)})
+	" Remove current directory part
+	let directory = '^' . getcwd() . '/'
+	for index in range(len(files))
+		let path = files[index]
+		let files[index] = substitute(path, directory, '', '')
+	endfor
+	" Filter with sieve
+	call filter(files, {_, val -> val =~ sieve})
+	" Done
+	return files
+endfu
+
 " Arg list
 
 fun! wheel#vector#reset ()
@@ -16,20 +40,26 @@ fun! wheel#vector#reset ()
 	return v:true
 endfun
 
-fun! wheel#vector#locations ()
-	" Add all locations of current circle to arguments
+fun! wheel#vector#argadd (sieve)
+	" Add files of current circle to arguments
+	" Filter files with sieve
 	let ret = wheel#vector#reset ()
 	if ret
-		let locations = deepcopy(wheel#referen#circle().locations)
-		let files = map(locations, {_,val -> fnameescape(val.file)})
+		let files = wheel#vector#files (a:sieve)
 		exe 'argadd ' join(files)
 	endif
 	return ret
 endfun
 
-fun! wheel#vector#argdo (command)
+fun! wheel#vector#argdo (command, ...)
 	" Execute command on each location of the circle
-	let ret = wheel#vector#locations ()
+	" Filter files with optional argument
+	if a:0 > 0
+		let sieve = a:1
+	else
+		let sieve = '\m.'
+	endif
+	let ret = wheel#vector#argadd (sieve)
 	if ret
 		redir => output
 		exe 'silent argdo ' a:command
@@ -42,19 +72,21 @@ endfun
 
 " Grep
 
-fun! wheel#vector#grep (pattern)
+fun! wheel#vector#grep (pattern, ...)
 	" Grep in all files of circle
-	" Display result in quickfix window
+	" Filter files with optional argument
+	if a:0 > 0
+		let sieve = a:1
+	else
+		let sieve = '\m.'
+	endif
 	let pattern = a:pattern
 	let pattern = escape(pattern, '#')
-	let locations = deepcopy(wheel#referen#circle().locations)
-	let files = map(locations, {_,value -> value.file})
-	" Remove current directory part
-	let directory = getcwd() . '/'
-	for index in range(len(files))
-		let path = files[index]
-		let files[index] = substitute(path, directory, '', '')
-	endfor
+	let files = wheel#vector#files (sieve)
+	if empty(files)
+		echomsg 'Wheel vector grep : no file matching filter'
+		return v:false
+	endif
 	" File list as string
 	let files = join(files)
 	" Run grep
@@ -64,6 +96,7 @@ fun! wheel#vector#grep (pattern)
 	let runme .= "'"
 	let runme .= ' ' . files
 	exe runme
+	return v:true
 endfun
 
 fun! wheel#vector#quickfix ()

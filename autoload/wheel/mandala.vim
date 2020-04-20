@@ -29,7 +29,7 @@ fun! wheel#mandala#fill (content)
 	" - a list of lines
 	let content = a:content
 	"call append(1, content)
-	" Cannot use append : does not work with yanks
+	" Cannot use setline or append : does not work with yanks
 	put =content
 	call cursor(1,1)
 endfun
@@ -52,7 +52,7 @@ fun! wheel#mandala#replace (content, ...)
 	else
 		2,$ delete _
 	endif
-	" Cannot use append : does not work with yanks
+	" Cannot use setline or append : does not work with yanks
 	put =content
 	if first == 'blank'
 		call setline(1, '')
@@ -115,8 +115,12 @@ fun! wheel#mandala#filter (...)
 	endif
 	let lines = wheel#line#filter ()
 	call wheel#mandala#replace(lines)
-	if mode == 'insert'
-		call cursor(1,1)
+	if mode == 'normal'
+		if line('$') > 1
+			call cursor(2, 1)
+		endif
+	elseif mode == 'insert'
+		call cursor(1, 1)
 		startinsert!
 	endif
 endfu
@@ -398,24 +402,39 @@ fun! wheel#mandala#grep (...)
 	else
 		let pattern = input('Search in circle files for pattern ? ')
 	endif
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-grep')
-	let settings = {'action' : function('wheel#line#grep')}
-	call wheel#mandala#template ('switch', settings)
-		call wheel#vector#grep(pattern)
-	let lines = wheel#vector#quickfix ()
-	call wheel#mandala#fill(lines)
-	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
+	if a:0 > 1
+		let sieve = a:2
+	else
+		let sieve = '\m.'
+	endif
+	let ret = wheel#vector#grep(pattern, sieve)
+	if ret
+		call wheel#vortex#update ()
+		call wheel#mandala#open ('wheel-grep')
+		let settings = {'action' : function('wheel#line#grep')}
+		call wheel#mandala#template ('switch', settings)
+		let lines = wheel#vector#quickfix ()
+		call wheel#mandala#fill(lines)
+		" Context menu
+		nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
+	endif
 endfun
 
 fun! wheel#mandala#outline ()
 	" Outline fold headers
-	let marker = split(&foldmarker, ',')[0]
-	if &grepprg !~ '^grep'
-		let marker = escape(marker, '{')
+	let prompt = 'Outline mode ? '
+	let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode", 1)
+	if mode == 1
+		let marker = split(&foldmarker, ',')[0]
+		if &grepprg !~ '^grep'
+			let marker = escape(marker, '{')
+		endif
+		call wheel#mandala#grep (marker)
+	elseif mode == 2
+		call wheel#mandala#grep ('^#', '\.md$')
+	elseif mode == 3
+		call wheel#mandala#grep ('^\*', '\.org$')
 	endif
-	call wheel#mandala#grep (marker)
 endfun
 
 fun! wheel#mandala#attic ()

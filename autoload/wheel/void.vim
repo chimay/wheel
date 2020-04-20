@@ -89,7 +89,7 @@ fun! wheel#void#input ()
 endfun
 
 fun! wheel#void#yank ()
-	" Initialize input history
+	" Initialize yank history
 	if ! exists('g:wheel_yank')
 		let g:wheel_yank = []
 	endif
@@ -187,18 +187,41 @@ endfun
 
 " Unlet variables
 
-fun! wheel#void#lighten ()
+fun! wheel#void#lighten (...)
 	" Unlet wheel variables
-	" No need to save them in viminfo or shada file
-	" since you can save them in g:wheel_config.file
-	unlet g:wheel
-	unlet g:wheel_helix
-	unlet g:wheel_grid
-	unlet g:wheel_files
-	unlet g:wheel_history
-	unlet g:wheel_input
-	unlet g:wheel_shelve
-	unlet g:wheel_config
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'global'
+	endif
+	if mode == 'global'
+		" No need to save them in viminfo or shada file
+		" since you can save them in g:wheel_config.file
+		let varlist = [
+					\ 'g:wheel',
+					\ 'g:wheel_helix',
+					\ 'g:wheel_grid',
+					\ 'g:wheel_files',
+					\ 'g:wheel_history',
+					\ 'g:wheel_input',
+					\ 'g:wheel_yank',
+					\ 'g:wheel_attic',
+					\ 'g:wheel_shelve',
+					\ 'g:wheel_config',
+					\]
+	elseif mode == 'buffer'
+		" Clear buffer variables
+		" Not wheel stack, since we need it for layers
+		let varlist = [
+					\ 'b:wheel_lines',
+					\ 'b:wheel_settings',
+					\]
+	endif
+	for varname in varlist
+		if exists(varname)
+			unlet {varname}
+		endif
+	endfor
 endfu
 
 " Init & Exit
