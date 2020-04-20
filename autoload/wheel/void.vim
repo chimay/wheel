@@ -249,3 +249,23 @@ fun! wheel#void#exit ()
 		call wheel#void#lighten ()
 	endif
 endfu
+
+" Fresh empty wheel, for testing
+
+fun! wheel#void#fresh_wheel ()
+	" Fresh empty wheel variables
+	let prompt = 'Write old wheel to file before emptying wheel ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 1)
+	if confirm == 1
+		call wheel#disc#write_all ()
+	endif
+	unlet g:wheel
+	unlet g:wheel_helix
+	unlet g:wheel_grid
+	unlet g:wheel_files
+	unlet g:wheel_history
+	unlet g:wheel_input
+	unlet g:wheel_yank
+	unlet g:wheel_shelve
+	call wheel#void#foundation ()
+endfun

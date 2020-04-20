@@ -157,7 +157,7 @@ fun! wheel#layer#overlay (settings)
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#layer#call('
 	let post = ')<cr>'
-	" Close : default in settings
+	" Open / Close : default in settings
 	exe map . '<cr>' . pre . string(settings) . post
 	" Open
 	let settings.close = 0

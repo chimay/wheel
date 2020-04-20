@@ -155,6 +155,6 @@ fun! wheel#centre#mappings ()
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
-		exe 'nnoremap ' . prefix . "Z :call wheel#checknfix#fresh_wheel()<cr>"
+		exe 'nnoremap ' . prefix . "Z :call wheel#void#fresh_wheel()<cr>"
 	endif
 endfun
