@@ -109,6 +109,7 @@ fun! wheel#line#sync_select ()
 	if ! exists('b:wheel_selected')
 		return
 	endif
+	let position = getcurpos()
 	for linum in range(line('$'))
 		call cursor(linum, 1)
 		let line = getline('.')
@@ -139,7 +140,7 @@ fun! wheel#line#sync_select ()
 			endif
 		endif
 	endfor
-	call cursor(1, 1)
+	call setpos('.', position)
 endfun
 
 fun! wheel#line#deselect ()

@@ -28,34 +28,43 @@ fun! wheel#mandala#fill (content)
 	" - a monoline string
 	" - a list of lines
 	let content = a:content
-	call append(1, content)
+	"call append(1, content)
+	" Cannot use append : does not work with yanks
+	put =content
 	call cursor(1,1)
 endfun
 
 fun! wheel#mandala#replace (content, ...)
 	" Replace buffer lines with content
+	" Optional argument handle the first line filtering input :
+	" - keep : keep input
+	" - blank : blank input
+	" - delete : delete first line
 	if a:0 > 0
-		let mode = a:1
+		let first = a:1
 	else
-		let mode = 'all'
+		let first = 'keep'
 	endif
+	let position = getcurpos()
 	let content = a:content
-	if mode == 'all'
-		let begin = 1
-	elseif mode == 'not_first'
-		let begin = 2
-	endif
 	if exists('*deletebufline')
-		call deletebufline('%', begin, '$')
+		call deletebufline('%', 2, '$')
 	else
-		exe begin . ',$ delete _'
+		2,$ delete _
 	endif
-	" Cannot use appendbufline : does not work with yanks
+	" Cannot use append : does not work with yanks
 	put =content
+	if first == 'blank'
+		call setline(1, '')
+	elseif first == 'delete'
+		1 delete _
+	endif
 	silent 2,$ global /^$/ delete _
 	setlocal nomodified
-	if line('$') > 1
-		2
+	if line('$') > position[1]
+		call setpos('.', position)
+	else
+		1
 	endif
 endfun
 
@@ -105,7 +114,7 @@ fun! wheel#mandala#filter (...)
 		let mode = 'normal'
 	endif
 	let lines = wheel#line#filter ()
-	call wheel#mandala#replace(lines, 'not_first')
+	call wheel#mandala#replace(lines)
 	if mode == 'insert'
 		call cursor(1,1)
 		startinsert!

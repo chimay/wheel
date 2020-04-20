@@ -21,30 +21,35 @@ fun! wheel#layer#push ()
 	" Save modified local maps
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
-		let b:wheel_stack.contents = []
+		let b:wheel_stack.full = []
+		let b:wheel_stack.current = []
 		let b:wheel_stack.positions = []
 		let b:wheel_stack.selected = []
 		let b:wheel_stack.settings = []
 		let b:wheel_stack.mappings = []
 	endif
 	let stack = b:wheel_stack
+	" Full content, without filtering
+	let full = stack.full
+	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
+		let lines = getline(2, '$')
+	else
+		let lines = b:wheel_lines
+	endif
+	call insert(full, lines)
+	" Current content
+	let current = stack.current
+	let now = getline(1, '$')
+	call insert(current, now)
 	" Position
 	let positions = stack.positions
 	call insert(positions, getcurpos())
 	" Selected lines
 	let selected = stack.selected
-	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
-		call wheel#line#toggle ()
+	if ! exists('b:wheel_selected')
+		let b:wheel_selected = []
 	endif
 	call insert(selected, b:wheel_selected)
-	" Content stack
-	let contents = stack.contents
-	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
-		let lines = getline(1, '$')
-	else
-		let lines = b:wheel_lines
-	endif
-	call insert(contents, lines)
 	" Buffer settings
 	let settings = stack.settings
 	if exists('b:wheel_settings')
@@ -72,14 +77,16 @@ fun! wheel#layer#pop ()
 		return
 	endif
 	let stack = b:wheel_stack
-	" Restore content
-	let contents = stack.contents
-	if empty(contents)
+	" Full content, without filtering
+	let full = stack.full
+	if empty(full) || empty(full[0])
 		return
 	endif
-	let lines = wheel#chain#pop (contents)
-	call wheel#mandala#replace (lines)
-	let b:wheel_lines = lines
+	let b:wheel_lines = wheel#chain#pop (full)
+	" Current content
+	let current = stack.current
+	let now = wheel#chain#pop (current)
+	call wheel#mandala#replace (now, 'delete')
 	" Restore cursor position
 	let positions = stack.positions
 	let pos = wheel#chain#pop (positions)
@@ -170,7 +177,7 @@ fun! wheel#layer#staircase (settings)
 	call wheel#layer#push ()
 	let dict = wheel#crystal#fetch (dictname)
 	let menu = sort(keys(dict))
-	call wheel#mandala#replace (menu)
+	call wheel#mandala#replace (menu, 'blank')
 	call wheel#layer#overlay (settings)
 	let b:wheel_settings = settings
 endfun
