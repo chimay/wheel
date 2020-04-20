@@ -120,7 +120,7 @@ fun! wheel#layer#call (settings)
 	" - close : whether to close wheel buffer
 	" - travel : whether to apply action in previous buffer
 	let settings = a:settings
-	let dict = wheel#crystal#fetch (settings.dict)
+	let dict = wheel#crystal#fetch (settings.linefun)
 	let close = settings.close
 	let travel = settings.travel
 	" Cursor line
@@ -172,7 +172,7 @@ fun! wheel#layer#staircase (settings)
 	" Reuse current wheel buffer
 	" Define dict maps
 	let settings = a:settings
-	let dictname = settings.dict
+	let dictname = settings.linefun
 	call wheel#layer#push ()
 	let dict = wheel#crystal#fetch (dictname)
 	let lines = sort(keys(dict))
