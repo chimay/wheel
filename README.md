@@ -90,7 +90,10 @@ your groups will grow and adapt to your style.
   + Using locate
 - Search inside files
   + Grep on group files
-  + Outline : folds headers in group files
+  + Outline
+    * folds headers in group files
+    * markdown headers
+    * org mode headers
 - Yank wheel using TextYankPost event
 - Reorganizing elements
 - Display files
