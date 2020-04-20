@@ -227,7 +227,11 @@ fun! wheel#tree#rename_file (...)
 	call system(rename)
 	if ! v:shell_error
 		exe 'file ' . filename
-		write!
+		let prompt = 'Write as new file ?'
+		let confirm = confirm(prompt, "&Yes\n&No", 2)
+		if confirm == 1
+			write!
+		endif
 		for torus in g:wheel.toruses
 			for circle in torus.circles
 				for location in circle.locations

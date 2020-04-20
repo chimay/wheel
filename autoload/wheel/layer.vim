@@ -22,11 +22,15 @@ fun! wheel#layer#push ()
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
 		let b:wheel_stack.contents = []
+		let b:wheel_stack.positions = []
 		let b:wheel_stack.selected = []
 		let b:wheel_stack.settings = []
 		let b:wheel_stack.mappings = []
 	endif
 	let stack = b:wheel_stack
+	" Position
+	let positions = stack.positions
+	call insert(positions, getcurpos())
 	" Selected lines
 	let selected = stack.selected
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
@@ -76,6 +80,10 @@ fun! wheel#layer#pop ()
 	let lines = wheel#chain#pop (contents)
 	call wheel#mandala#replace (lines)
 	let b:wheel_lines = lines
+	" Restore cursor position
+	let positions = stack.positions
+	let pos = wheel#chain#pop (positions)
+	call setpos('.', pos)
 	" Restore settings
 	let settings = stack.settings
 	let b:wheel_settings = wheel#chain#pop (settings)
@@ -105,7 +113,6 @@ fun! wheel#layer#call (settings)
 	" - menu : name of a menu variable in storage.vim
 	" - close : whether to close wheel buffer
 	" - travel : whether to apply action in previous buffer
-	" - deselect : whether to deselect all line before calling function
 	let settings = a:settings
 	let menu = wheel#crystal#fetch (settings.menu)
 	let close = settings.close
@@ -118,12 +125,6 @@ fun! wheel#layer#call (settings)
 		return
 	endif
 	let key = cursor_line
-	" Deselect
-	if settings.deselect
-		let position = getcurpos()
-		call wheel#line#deselect ()
-		call setpos('.', position)
-	endif
 	" Close & travel
 	if close
 		call wheel#mandala#close ()

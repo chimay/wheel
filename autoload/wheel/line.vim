@@ -149,18 +149,21 @@ fun! wheel#line#deselect ()
 	endif
 	let b:wheel_selected = []
 	let buflines = getline(2,'$')
+	" Deselect current buffer lines
 	for index in range(len(buflines))
 		let line = buflines[index]
 		if line =~ s:selected_pattern
 			let buflines[index] = substitute(line, s:selected_pattern, '', '')
 		endif
 	endfor
+	" Deselect original buffer lines, without filter
 	for index in range(len(b:wheel_lines))
 		let line = b:wheel_lines[index]
 		if line =~ s:selected_pattern
 			let b:wheel_lines[index] = substitute(line, s:selected_pattern, '', '')
 		endif
 	endfor
+	" Update buffer
 	2,$ delete _
 	put =buflines
 	call cursor(1, 1)

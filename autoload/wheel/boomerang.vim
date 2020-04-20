@@ -7,7 +7,7 @@ fun! wheel#boomerang#menu (dictname)
 	" Context menu
 	let dictname = 'context/' . a:dictname
 	" Close = 0 by default, to be able to catch wheel buffer variables
-	let settings = {'menu' : dictname, 'close' : 0, 'travel' : 0, 'deselect' : 0}
+	let settings = {'menu' : dictname, 'close' : 0, 'travel' : 0}
 	call wheel#layer#staircase(settings)
 endfun
 
