@@ -114,13 +114,13 @@ fun! wheel#layer#pop ()
 endfun
 
 fun! wheel#layer#call (settings)
-	" Calls function corresponding to menu line
+	" Calls function whose value is given by the key on cursor line
 	" settings is a dictionary, whose keys can be :
-	" - menu : name of a menu variable in storage.vim
+	" - dict : name of a dictionary variable in storage.vim
 	" - close : whether to close wheel buffer
 	" - travel : whether to apply action in previous buffer
 	let settings = a:settings
-	let menu = wheel#crystal#fetch (settings.menu)
+	let dict = wheel#crystal#fetch (settings.dict)
 	let close = settings.close
 	let travel = settings.travel
 	" Cursor line
@@ -139,7 +139,7 @@ fun! wheel#layer#call (settings)
 		wincmd p
 	endif
 	" Call
-	let value = menu[key]
+	let value = dict[key]
 	if value =~ '\m)'
 		exe 'call ' . value
 	else
@@ -170,13 +170,13 @@ endfun
 fun! wheel#layer#staircase (settings)
 	" Replace buffer content by a new layer
 	" Reuse current wheel buffer
-	" Define menu maps
+	" Define dict maps
 	let settings = a:settings
-	let dictname = settings.menu
+	let dictname = settings.dict
 	call wheel#layer#push ()
 	let dict = wheel#crystal#fetch (dictname)
-	let menu = sort(keys(dict))
-	call wheel#mandala#replace (menu, 'blank')
+	let lines = sort(keys(dict))
+	call wheel#mandala#replace (lines, 'blank')
 	call wheel#layer#overlay (settings)
 	let b:wheel_settings = settings
 	call cursor(1, 1)

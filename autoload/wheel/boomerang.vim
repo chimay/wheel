@@ -32,7 +32,7 @@ fun! wheel#boomerang#menu (dictname)
 	endif
 	let dictname = 'context/' . a:dictname
 	" Close = 0 by default, to be able to catch wheel buffer variables
-	let settings = {'menu' : dictname, 'close' : 0, 'travel' : 0}
+	let settings = {'dict' : dictname, 'close' : 0, 'travel' : 0}
 	call wheel#layer#staircase(settings)
 	call wheel#boomerang#sync ()
 	" Let wheel#overlay#call handle open / close
