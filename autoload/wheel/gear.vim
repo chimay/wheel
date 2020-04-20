@@ -14,7 +14,7 @@ fun! wheel#gear#circular_minus (index, length)
 	return index
 endfun
 
-fun! wheel#gear#restore_cursor (position)
+fun! wheel#gear#restore_cursor (position, ...)
 	" Restore cursor position
 	if a:0 > 0
 		let default = a:1
