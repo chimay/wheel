@@ -14,6 +14,21 @@ fun! wheel#gear#circular_minus (index, length)
 	return index
 endfun
 
+fun! wheel#gear#restore_cursor (position)
+	" Restore cursor position
+	if a:0 > 0
+		let default = a:1
+	else
+		let default = '$'
+	endif
+	let position = a:position
+	if line('$') > position[1]
+		call setpos('.', position)
+	else
+		call cursor(default, 1)
+	endif
+endfun
+
 fun! wheel#gear#project_root (markers)
 	" Change local directory to root of project
 	" where current buffer belongs
@@ -106,4 +121,3 @@ fun! wheel#gear#fold_filter (wordlist, candidates)
 	endif
 	return filtered
 endfun
-

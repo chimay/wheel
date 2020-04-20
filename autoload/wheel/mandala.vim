@@ -61,11 +61,7 @@ fun! wheel#mandala#replace (content, ...)
 	endif
 	silent 2,$ global /^$/ delete _
 	setlocal nomodified
-	if line('$') > position[1]
-		call setpos('.', position)
-	else
-		1
-	endif
+	call wheel#gear#restore_cursor (position, 1)
 endfun
 
 fun! wheel#mandala#close ()

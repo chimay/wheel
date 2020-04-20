@@ -89,7 +89,7 @@ fun! wheel#layer#pop ()
 	" Restore cursor position
 	let positions = stack.positions
 	let pos = wheel#chain#pop (positions)
-	call setpos('.', pos)
+	call wheel#gear#restore_cursor (position)
 	" Restore settings
 	let settings = stack.settings
 	let b:wheel_settings = wheel#chain#pop (settings)

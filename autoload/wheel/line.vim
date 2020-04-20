@@ -65,7 +65,7 @@ fun! wheel#line#coordin ()
 	else
 		echomsg 'Wheel line coordin : wrong fold level'
 	endif
-	call setpos('.', position)
+	call wheel#gear#restore_cursor (position)
 	return coordin
 endfun
 
@@ -140,7 +140,7 @@ fun! wheel#line#sync_select ()
 			endif
 		endif
 	endfor
-	call setpos('.', position)
+	call wheel#gear#restore_cursor (position)
 endfun
 
 fun! wheel#line#deselect ()
@@ -150,6 +150,8 @@ fun! wheel#line#deselect ()
 	endif
 	let b:wheel_selected = []
 	let buflines = getline(2,'$')
+	" Cursor position
+	let position = getcurpos()
 	" Deselect current buffer lines
 	for index in range(len(buflines))
 		let line = buflines[index]
@@ -167,7 +169,7 @@ fun! wheel#line#deselect ()
 	" Update buffer
 	2,$ delete _
 	put =buflines
-	call cursor(1, 1)
+	call wheel#gear#restore_cursor (position)
 endfun
 
 fun! wheel#line#filter ()
@@ -278,7 +280,7 @@ fun! wheel#line#switch (settings)
 	if ! close
 		call win_gotoid(mandala)
 		call wheel#line#deselect ()
-		call setpos('.', position)
+		call wheel#gear#restore_cursor (position)
 	endif
 endfun
 
