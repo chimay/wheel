@@ -248,6 +248,7 @@ fun! wheel#line#switch (settings)
 	if close
 		call wheel#mandala#close ()
 	else
+		let position = getcurpos()
 		let mandala = win_getid()
 		wincmd p
 	endif
@@ -277,6 +278,7 @@ fun! wheel#line#switch (settings)
 	if ! close
 		call win_gotoid(mandala)
 		call wheel#line#deselect ()
+		call setpos('.', position)
 	endif
 endfun
 
