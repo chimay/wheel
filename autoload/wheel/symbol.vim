@@ -19,18 +19,14 @@ fun! wheel#symbol#read (file)
 	endif
 	call filter(lines, {_,val -> val !~ '\m^!'})
 	let table = []
+	let regex =  '\m\t/\zs[^/]\+\ze/\(;"\)\?\t'
+	let to_replace =  '\m\t\zs/[^/]\+/\(;"\)\?\t\ze'
 	for record in lines
+		let pattern = matchstr(record, regex)
+		let record = substitute(record, to_replace, '', '')
 		let fields = split(record, "\t")
-		let start = match(fields, '\m^/')
-		let end = match(fields, '\m/;"$')
-		if end < 0
-			let end = match(fields, '\m/$')
-		endif
-		let pattern = [join(fields[start:end])]
-		let fused = fields[0:start - 1] + pattern + fields[end+1:]
-		" title, file, type, search pattern
-		let entry = fused[0:1] + [fused[3]] + [fused[2]]
-		call add(table, entry)
+		call add(fields, pattern)
+		call add(table, fields)
 	endfor
 	return table
 endfun

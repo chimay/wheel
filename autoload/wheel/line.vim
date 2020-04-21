@@ -410,15 +410,11 @@ fun! wheel#line#symbol (settings)
 		return
 	endif
 	let filename = fields[1]
-	let pattern = trim(fields[3], '/')
-	let pattern = substitute(pattern, '/;"', '', '')
-	let pattern = '\m' . pattern
+	let pattern = fields[3]
+	let pattern = '\M' . pattern
 	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
-	let ret = search(pattern, 'w')
-	echomsg 'pattern :' pattern
-	echomsg ret
-	return ret
+	return search(pattern, 'w')
 endfun
 
 " Paste
