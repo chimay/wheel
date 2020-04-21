@@ -7,6 +7,7 @@
 		* [Main menu](#main-menu)
 		* [Meta menu](#meta-menu)
 		* [Switch element in the wheel](#switch-element-in-the-wheel)
+		* [History](#history)
 		* [MRU](#mru)
 		* [Grep and context menus](#grep-and-context-menus)
 		* [Outline](#outline)
@@ -15,7 +16,7 @@
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		* [A wheel that follows you](#a-wheel-that-follows-you)
 	* [Features](#features)
-	* [History](#history)
+	* [History](#history-1)
 * [Installation](#installation)
 	* [Using minpac](#using-minpac)
 * [Configuration](#configuration)
@@ -52,6 +53,10 @@ of special buffers, in which you can filter and select elements.
 ### Switch element in the wheel
 
 ![Switch](screencast/switch.gif)
+
+### History
+
+![History](screencast/history.gif)
 
 ### MRU
 
