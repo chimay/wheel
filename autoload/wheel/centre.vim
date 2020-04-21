@@ -98,6 +98,8 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . '? :call wheel#mandala#attic()<cr>'
 		" Locate
 		exe 'nnoremap ' . prefix . '/ :call wheel#mandala#locate()<cr>'
+		" Tags
+		exe 'nnoremap ' . prefix . '% :call wheel#mandala#symbol()<cr>'
 		" Yank wheel
 		exe 'nnoremap ' . prefix . "y :call wheel#mandala#yank('list')<cr>"
 		exe 'nnoremap ' . prefix . "<m-y> :call wheel#mandala#yank('plain')<cr>"
@@ -136,9 +138,14 @@ fun! wheel#centre#mappings ()
 		nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
 		nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
 		nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
-		" Search in files
+		" Search inside files
 		nnoremap <D-g>          :call wheel#mandala#grep()<cr>
-		nnoremap <D-f>          :call wheel#mandala#outline()<cr>
+		nnoremap <D-o>          :call wheel#mandala#outline()<cr>
+		" Tags
+		nnoremap <D-a>          :call wheel#mandala#symbol()<cr>
+		" Search for files
+		nnoremap <D-u>          :call wheel#mandala#attic()<cr>
+		nnoremap <D-f>          :call wheel#mandala#locate()<cr>
 		" Yank
 		nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
 		nnoremap <D-p>          :call wheel#mandala#yank('plain')<cr>

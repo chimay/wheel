@@ -100,7 +100,7 @@ fun! wheel#helix#locations ()
 	let helix = wheel#helix#helix ()
 	let lines = []
 	for coordin in helix
-		let entry = coordin[0] . ' > ' . coordin[1] . ' > ' . coordin[2]
+		let entry = join(coordin, ' > ')
 		let lines = add(lines, entry)
 	endfor
 	return lines

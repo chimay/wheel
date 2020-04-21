@@ -299,12 +299,11 @@ fun! wheel#line#helix (settings)
 	" settings keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:settings.selected)
-	if len(fields) < 5
+	let coordin = split(a:settings.selected, ' > ')
+	if len(coordin) < 3
 		echomsg 'Helix line is too short'
 		return
 	endif
-	let coordin = [fields[0], fields[2], fields[4]]
 	call wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (a:settings.use)
@@ -315,12 +314,11 @@ fun! wheel#line#grid (settings)
 	" settings keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:settings.selected)
-	if len(fields) < 3
+	let coordin = split(a:settings.selected, ' > ')
+	if len(coordin) < 2
 		echomsg 'Grid line is too short'
 		return
 	endif
-	let coordin = [fields[0], fields[2]]
 	call wheel#line#target (a:settings.target)
 	call wheel#vortex#tune('torus', coordin[0])
 	call wheel#vortex#tune('circle', coordin[1])
@@ -355,12 +353,16 @@ fun! wheel#line#history (settings)
 	" settings keys :
 	" - selected : where to switch
 	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:settings.selected)
-	if len(fields) < 11
+	let fields = split(a:settings.selected, ' | ')
+	if len(fields) < 2
 		echomsg 'History line is too short'
 		return
 	endif
-	let coordin = [fields[6], fields[8], fields[10]]
+	let coordin = split(fields[1], ' > ')
+	if len(coordin) < 3
+		echomsg 'History : coordinates should contain 3 elements'
+		return
+	endif
 	call wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (a:settings.use)
@@ -368,14 +370,14 @@ endfun
 
 fun! wheel#line#grep (settings)
 	" Switch to settings.selected quickfix line
-	let fields = split(a:settings.selected)
-	if len(fields) < 9
+	let fields = split(a:settings.selected, ' | ')
+	if len(fields) < 5
 		echomsg 'Grep line is too short'
 		return
 	endif
 	let bufnr = fields[0]
-	let line = fields[4]
-	let col = fields[6]
+	let line = fields[2]
+	let col = fields[3]
 	call wheel#line#target (a:settings.target)
 	exe 'buffer ' . bufnr
 	call cursor(line, col)
@@ -384,7 +386,7 @@ endfun
 fun! wheel#line#attic (settings)
 	" Edit settings.selected MRU file
 	let fields = split(a:settings.selected)
-	if len(fields) < 7
+	if len(fields) < 2
 		echomsg 'MRU line is too short'
 		return
 	endif
@@ -398,6 +400,25 @@ fun! wheel#line#locate (settings)
 	let filename = a:settings.selected
 	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
+endfun
+
+fun! wheel#line#symbol (settings)
+	" Go to settings.selected tag
+	let fields = split(a:settings.selected, ' | ')
+	if len(fields) < 4
+		echomsg 'Tag line is too short'
+		return
+	endif
+	let filename = fields[1]
+	let pattern = trim(fields[3], '/')
+	let pattern = substitute(pattern, '/;"', '', '')
+	let pattern = '\m' . pattern
+	call wheel#line#target (a:settings.target)
+	exe 'edit ' . filename
+	let ret = search(pattern, 'w')
+	echomsg 'pattern :' pattern
+	echomsg ret
+	return ret
 endfun
 
 " Paste

@@ -468,6 +468,12 @@ endfun
 
 fun! wheel#mandala#symbol ()
 	" Tags file
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-tags')
+	let settings = {'action' : function('wheel#line#symbol')}
+	call wheel#mandala#template ('switch', settings)
+	let lines = wheel#symbol#mandala ()
+	call wheel#mandala#fill(lines)
 endfun
 
 " Yank wheel
