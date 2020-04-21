@@ -410,7 +410,7 @@ fun! wheel#line#symbol (settings)
 		return
 	endif
 	let filename = fields[1]
-	let pattern = fields[3]
+	let pattern = fields[-1]
 	let pattern = '\M' . pattern
 	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
