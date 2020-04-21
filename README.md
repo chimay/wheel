@@ -8,6 +8,7 @@
 		* [Meta menu](#meta-menu)
 		* [Switch element in the wheel](#switch-element-in-the-wheel)
 		* [Tree view](#tree-view)
+		* [Reordering](#reordering)
 		* [Reorganizing](#reorganizing)
 		* [History](#history)
 		* [MRU](#mru)
@@ -59,6 +60,10 @@ of special buffers, in which you can filter and select elements.
 ### Tree view
 
 ![Tree](screencast/tree.gif)
+
+### Reordering
+
+![Reordering](screencast/reordering.gif)
 
 ### Reorganizing
 
