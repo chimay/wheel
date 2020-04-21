@@ -90,10 +90,24 @@ fun! wheel#referen#current (level)
 	return wheel#referen#{a:level} ()
 endfun
 
+" Emptiness
+
+fun! wheel#referen#empty (level)
+	" Whether current level element is empty
+	" Wheel can be wheel, torus or circle
+	let level = a:level
+	let elem = wheel#referen#{level} ()
+	let empty = empty(elem.glossary)
+	return empty
+endfun
+
 " Coordinates
 
 fun! wheel#referen#coordin_index (level)
 	" Return index of level in coordinates
+	" torus -> 0
+	" circle -> 1
+	" location -> 2
 	return index(s:coordin, a:level)
 endfun
 

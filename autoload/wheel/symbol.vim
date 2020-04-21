@@ -4,6 +4,7 @@
 
 fun! wheel#symbol#files ()
 	" Tags file(s) related to current directory
+	" All built in
 	let files = tagfiles ()
 	return files
 endfun
