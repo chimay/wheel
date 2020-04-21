@@ -334,6 +334,11 @@ endfun
 fun! wheel#mandala#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
+	if wheel#referen#empty_upper (level)
+		let upper = wheel#referen#upper_level_name (level)
+		echomsg 'Wheel mandala switch : empty' upper
+		return
+	endif
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-switch-' . level)
 	let settings = {'level' : level}

@@ -90,17 +90,6 @@ fun! wheel#referen#current (level)
 	return wheel#referen#{a:level} ()
 endfun
 
-" Emptiness
-
-fun! wheel#referen#empty (level)
-	" Whether current level element is empty
-	" Wheel can be wheel, torus or circle
-	let level = a:level
-	let elem = wheel#referen#{level} ()
-	let empty = empty(elem.glossary)
-	return empty
-endfun
-
 " Coordinates
 
 fun! wheel#referen#coordin_index (level)
@@ -171,6 +160,23 @@ fun! wheel#referen#lower_level_name (level)
 	endif
 	let index += 1
 	return s:levels[index]
+endfun
+
+" Emptiness
+
+fun! wheel#referen#empty (level)
+	" Whether current level element is empty
+	" Wheel can be wheel, torus or circle
+	let level = a:level
+	let elem = wheel#referen#{level} ()
+	let empty = empty(elem.glossary)
+	return empty
+endfun
+
+fun! wheel#referen#empty_upper (level)
+	" Whether upper level element is empty
+	" Wheel can be torus, circle or location
+	return empty(wheel#referen#{a:level}())
 endfun
 
 " Element lists
