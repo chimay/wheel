@@ -3,7 +3,6 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Introduction](#introduction)
-	* [What does it look like ?](#what-does-it-look-like-)
 	* [Buffer groups & categories](#buffer-groups--categories)
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		* [A wheel that follows you](#a-wheel-that-follows-you)
@@ -31,12 +30,6 @@
 
 Wheel is a navigation plugin for Vim or Neovim. It makes abundant use
 of special buffers, in which you can filter and select elements.
-
-## What does it look like ?
-
-![](screencast/menu-main.gif)
-![](screencast/menu-meta.gif)
-
 
 ## Buffer groups & categories
 
