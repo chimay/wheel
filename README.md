@@ -4,6 +4,9 @@
 
 * [Introduction](#introduction)
 	* [What does it look like ?](#what-does-it-look-like-)
+		* [Main menu](#main-menu)
+		* [Meta menu](#meta-menu)
+		* [MRU](#mru)
 	* [Buffer groups & categories](#buffer-groups--categories)
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		* [A wheel that follows you](#a-wheel-that-follows-you)
@@ -34,8 +37,17 @@ of special buffers, in which you can filter and select elements.
 
 ## What does it look like ?
 
+### Main menu
+
 ![Main menu](screencast/menu-main.gif)
+
+### Meta menu
+
 ![Meta menu](screencast/menu-meta.gif)
+
+### MRU
+
+![MRU Files](screencast/mru-files.gif)
 
 ## Buffer groups & categories
 
