@@ -37,6 +37,8 @@ fun! wheel#boomerang#menu (dictname)
 	call wheel#boomerang#sync ()
 	" Let wheel#overlay#call handle open / close
 	let b:wheel_settings.close = 0
+	" No more layers
+	nunmap <buffer> <tab>
 endfun
 
 fun! wheel#boomerang#switch (action)
