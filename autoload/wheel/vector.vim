@@ -15,7 +15,7 @@ fun! wheel#vector#files (sieve)
 	let locations = deepcopy(wheel#referen#circle().locations)
 	let files = map(locations, {_, val -> fnameescape(val.file)})
 	" Remove current directory part
-	let directory = '^' . getcwd() . '/'
+	let directory = '\n^' . getcwd() . '/'
 	for index in range(len(files))
 		let path = files[index]
 		let files[index] = substitute(path, directory, '', '')
@@ -61,11 +61,11 @@ fun! wheel#vector#argdo (command, ...)
 	endif
 	let ret = wheel#vector#argadd (sieve)
 	if ret
-		redir => output
-		exe 'silent argdo ' a:command
-		redir END
+		let runme = 'silent! argdo ' . a:command
+		let output = execute(runme)
 		call wheel#mandala#open('wheel-argdo')
 		call wheel#mandala#common_maps ()
+		setlocal nofoldenable
 		put =output
 	endif
 endfun

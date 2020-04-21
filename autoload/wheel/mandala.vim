@@ -461,6 +461,10 @@ fun! wheel#mandala#locate ()
 	call wheel#mandala#fill(lines)
 endfun
 
+fun! wheel#mandala#symbol ()
+	" Tags file
+endfun
+
 " Yank wheel
 
 fun! wheel#mandala#yank (mode)

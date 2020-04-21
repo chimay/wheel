@@ -100,11 +100,17 @@ endfun
 fun! wheel#referen#names ()
 	" Names of current torus, circle and location
 	let [torus, circle, location] = wheel#referen#location('all')
-	if has_key(torus, 'name') && has_key(circle, 'name') && has_key(location, 'name')
-		return [torus.name, circle.name, location.name]
-	else
-		return []
+	let names = []
+	if has_key(torus, 'name')
+		call add(names, torus.name)
+		if has_key(circle, 'name')
+			call add(names, circle.name)
+			if has_key(location, 'name')
+				call add(names, location.name)
+			endif
+		endif
 	endif
+	return names
 endfun
 
 " Hierarchy
