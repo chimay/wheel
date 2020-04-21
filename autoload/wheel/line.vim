@@ -409,12 +409,9 @@ fun! wheel#line#symbol (settings)
 		echomsg 'Tag line is too short'
 		return
 	endif
-	let filename = fields[1]
-	let pattern = fields[-1]
-	let pattern = '\M' . pattern
+	let ident = fields[0]
 	call wheel#line#target (a:settings.target)
-	exe 'edit ' . filename
-	return search(pattern, 'w')
+	exe 'tag ' . ident
 endfun
 
 " Paste

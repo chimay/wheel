@@ -4,8 +4,9 @@
 
 fun! wheel#symbol#files ()
 	" Tags file(s) related to current directory
-	" All built in
 	let files = tagfiles ()
+	" No emacs TAGS
+	call filter(files, {_, val -> val !=# 'TAGS' })
 	return files
 endfun
 
@@ -23,15 +24,20 @@ fun! wheel#symbol#read (file)
 	else
 		let tagdir = ''
 	endif
-	call filter(lines, {_,val -> val !~ '\m^!'})
+	call filter(lines, {_,val -> val !~ '\m^!_TAG_'})
 	let table = []
-	let regex =  '\m\t/\zs[^/]\+\ze/\(;"\)\?\t'
-	let to_replace =  '\m\t\zs/[^/]\+/\(;"\)\?\t\ze'
+	let regex =  '\m^[^\t]\+\t[^\t]\+\t\zs.\+\ze'
+	let final = '\m/\%(;"\)\?\zs[^/;"]*\ze$'
+	let remove = '\m/\%(;"\)\?[^/;"]*$'
 	for record in lines
 		let pattern = matchstr(record, regex)
-		let record = substitute(record, to_replace, '', '')
+		let optional = matchstr(pattern, final, '', '')
+		let optional = substitute(optional, '^\t', '', '')
+		let pattern = substitute(pattern, remove, '', '')
+		let record = substitute(record, regex, '', '')
 		let fields = split(record, "\t")
 		let fields[1] = tagdir . fields[1]
+		call add(fields, optional)
 		call add(fields, pattern)
 		call add(table, fields)
 	endfor
