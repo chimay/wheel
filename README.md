@@ -7,6 +7,7 @@
 		* [Main menu](#main-menu)
 		* [Meta menu](#meta-menu)
 		* [MRU](#mru)
+		* [Grep and context menus](#grep-and-context-menus)
 	* [Buffer groups & categories](#buffer-groups--categories)
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		* [A wheel that follows you](#a-wheel-that-follows-you)
@@ -48,6 +49,10 @@ of special buffers, in which you can filter and select elements.
 ### MRU
 
 ![MRU Files](screencast/mru-files.gif)
+
+### Grep and context menus
+
+![MRU Files](screencast/grep-context.gif)
 
 ## Buffer groups & categories
 
