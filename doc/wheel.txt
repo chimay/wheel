@@ -90,9 +90,10 @@ FEATURES				*wheel-introduction-features*
 - Search inside files
   + Grep on group files
   + Outline
-    * folds headers in group files (based on fold markers)
-    * markdown headers
-    * org mode headers
+    * Folds headers in group files (based on fold markers)
+    * Markdown headers
+    * Org mode headers
+  + Tags
 - Yank wheel using TextYankPost event
 - Reorganizing elements
 - Display files
@@ -1294,6 +1295,7 @@ Autoload files~
 | scroll.vim        | Input history                        |
 | spiral.vim        | Golden ratio                         |
 | status.vim        | Print wheel status                   |
+| symbol.vim        | Tags                                 |
 | tree.vim          | Add, rename, delete elements         |
 | vector.vim        | Batch operations                     |
 | void.vim          | Initiaze & reset variables           |

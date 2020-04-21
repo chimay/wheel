@@ -17,6 +17,12 @@ fun! wheel#symbol#read (file)
 	else
 		echomsg 'Wheel symbol read : tags file non readable'
 	endif
+	if file =~ '\m/'
+		" If tagfile is not in project root dir, we need the full path
+		let tagdir = fnamemodify(file, ':p:h') . '/'
+	else
+		let tagdir = ''
+	endif
 	call filter(lines, {_,val -> val !~ '\m^!'})
 	let table = []
 	let regex =  '\m\t/\zs[^/]\+\ze/\(;"\)\?\t'
@@ -25,6 +31,7 @@ fun! wheel#symbol#read (file)
 		let pattern = matchstr(record, regex)
 		let record = substitute(record, to_replace, '', '')
 		let fields = split(record, "\t")
+		let fields[1] = tagdir . fields[1]
 		call add(fields, pattern)
 		call add(table, fields)
 	endfor
