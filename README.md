@@ -6,9 +6,11 @@
 	* [What does it look like ?](#what-does-it-look-like-)
 		* [Main menu](#main-menu)
 		* [Meta menu](#meta-menu)
+		* [Switch element in the wheel](#switch-element-in-the-wheel)
 		* [MRU](#mru)
 		* [Grep and context menus](#grep-and-context-menus)
 		* [Outline](#outline)
+		* [Tags](#tags)
 	* [Buffer groups & categories](#buffer-groups--categories)
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		* [A wheel that follows you](#a-wheel-that-follows-you)
@@ -47,6 +49,10 @@ of special buffers, in which you can filter and select elements.
 
 ![Meta menu](screencast/menu-meta.gif)
 
+### Switch element in the wheel
+
+![Switch](screencast/switch.gif)
+
 ### MRU
 
 ![MRU Files](screencast/mru-files.gif)
@@ -58,6 +64,10 @@ of special buffers, in which you can filter and select elements.
 ### Outline
 
 ![Outline](screencast/outline.gif)
+
+### Tags
+
+![Tags](screencast/tags.gif)
 
 ## Buffer groups & categories
 
