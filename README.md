@@ -7,6 +7,8 @@
 		* [Main menu](#main-menu)
 		* [Meta menu](#meta-menu)
 		* [Switch element in the wheel](#switch-element-in-the-wheel)
+		* [Tree view](#tree-view)
+		* [Reorganizing](#reorganizing)
 		* [History](#history)
 		* [MRU](#mru)
 		* [Grep and context menus](#grep-and-context-menus)
@@ -53,6 +55,14 @@ of special buffers, in which you can filter and select elements.
 ### Switch element in the wheel
 
 ![Switch](screencast/switch.gif)
+
+### Tree view
+
+![Tree](screencast/tree.gif)
+
+### Reorganizing
+
+![Reorganizing](screencast/reorganizing.gif)
 
 ### History
 
