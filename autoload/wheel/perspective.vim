@@ -14,18 +14,13 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-if ! exists('s:fold_markers')
-	let s:fold_markers = wheel#crystal#fetch('fold/markers')
-	lockvar s:fold_markers
-endif
-
 if ! exists('s:level_1')
-	let s:level_1 = ' ' . s:fold_markers[0] . '1'
+	let s:level_1 = wheel#crystal#fetch('fold/one')
 	lockvar s:level_1
 endif
 
 if ! exists('s:level_2')
-	let s:level_2 = ' ' . s:fold_markers[0] . '2'
+	let s:level_2 = wheel#crystal#fetch('fold/two')
 	lockvar s:level_2
 endif
 

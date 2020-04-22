@@ -45,11 +45,6 @@ if ! exists('s:separator_level')
 	lockvar s:separator_level
 endif
 
-if ! exists('s:fold_markers')
-	let s:fold_markers = ['>', '<']
-	lockvar s:fold_markers
-endif
-
 if ! exists('s:selected_mark')
 	let s:selected_mark = '* '
 	lockvar s:selected_mark
@@ -58,6 +53,23 @@ endif
 if ! exists('s:selected_pattern')
 	let s:selected_pattern = '\m^\* '
 	lockvar s:selected_pattern
+endif
+
+" Folds
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = ['>', '<']
+	lockvar s:fold_markers
+endif
+
+if ! exists('s:fold_one')
+	let s:fold_one = ' ' . s:fold_markers[0] . '1'
+	lockvar s:fold_one
+endif
+
+if ! exists('s:fold_two')
+	let s:fold_two = ' ' . s:fold_markers[0] . '2'
+	lockvar s:fold_two
 endif
 
 " Menus

@@ -8,7 +8,7 @@ if ! exists('s:fold_markers')
 endif
 
 if ! exists('s:level_1')
-	let s:level_1 = ' ' . s:fold_markers[0] . '1'
+	let s:level_1 = wheel#crystal#fetch('fold/one')
 	lockvar s:level_1
 endif
 
@@ -37,6 +37,7 @@ fun! wheel#hub#menu (dictname)
 	let string = 'wheel-menu-' . dictname
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
+	call wheel#mandala#folding_options ()
 	let dict = wheel#crystal#fetch('menu/' . dictname)
 	let menu = sort(keys(dict))
 	call wheel#mandala#fill(menu)
