@@ -109,26 +109,6 @@ fun! wheel#pendulum#delete(level, old)
 	endfor
 endfun
 
-" Presentation
-
-fun! wheel#pendulum#sorted ()
-	" Sorted history index
-	" Each entry is a string : date hour | torus >> circle > location
-	let history = deepcopy(g:wheel_history)
-	let Compare = function('wheel#pendulum#compare')
-	let history = sort(history, Compare)
-	let strings = []
-	for entry in history
-		let coordin = entry.coordin
-		let timestamp = entry.timestamp
-		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour . ' | '
-		let entry .= coordin[0] . ' > ' . coordin[1] . ' > ' . coordin[2]
-		let strings = add(strings, entry)
-	endfor
-	return strings
-endfu
-
 " Navigation in history
 
 fun! wheel#pendulum#newer ()

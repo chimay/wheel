@@ -54,14 +54,3 @@ fun! wheel#symbol#table ()
 	endfor
 	return table
 endfun
-
-fun! wheel#symbol#mandala ()
-	" Lines to be displayed in special buffer
-	let table = wheel#symbol#table ()
-	let lines = []
-	for record in table
-		let suit = join(record, ' | ')
-		call add(lines, suit)
-	endfor
-	return lines
-endfun

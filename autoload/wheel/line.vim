@@ -209,9 +209,9 @@ fun! wheel#line#target (target)
 	endif
 endfu
 
-" Switch
+" Teleport
 
-fun! wheel#line#switch (settings)
+fun! wheel#line#teleport (settings)
 	" Switch to element(s) on current or selected line(s)
 	" settings keys :
 	" - level : torus, circle or location
@@ -233,7 +233,7 @@ fun! wheel#line#switch (settings)
 	if has_key(settings, 'action')
 		let Fun = settings.action
 	else
-		let Fun = 'wheel#line#name'
+		let Fun = 'wheel#line#switch'
 	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
 		let selected = [wheel#line#coordin ()]
@@ -284,7 +284,7 @@ fun! wheel#line#switch (settings)
 	endif
 endfun
 
-fun! wheel#line#name (settings)
+fun! wheel#line#switch (settings)
 	" Switch to settings.selected by record
 	" settings keys :
 	" - selected : where to switch

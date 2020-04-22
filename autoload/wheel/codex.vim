@@ -38,22 +38,3 @@ fun! wheel#codex#add ()
 	let max = g:wheel_config.maxim.yanks
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
-
-fun! wheel#codex#lines (mode)
-	" List of strings to display in yank special buffer
-	let lines = []
-	if a:mode == 'list'
-		for elem in g:wheel_yank
-			call add(lines, string(elem))
-		endfor
-	elseif a:mode == 'plain'
-		for elem in g:wheel_yank
-			let plain = join(elem, "\n")
-			" Only add if some text is there
-			if plain =~ '\m\w'
-				call add(lines, plain)
-			endif
-		endfor
-	endif
-	return lines
-endfun

@@ -47,27 +47,27 @@ fun! wheel#boomerang#switch (action)
 	let settings = b:wheel_settings
 	if action == 'current'
 		let settings.target = 'current'
-		call wheel#line#switch (settings)
+		call wheel#line#teleport (settings)
 		return v:true
 	elseif action == 'tab'
 		let settings.target = 'tab'
-		call wheel#line#switch (settings)
+		call wheel#line#teleport (settings)
 		return v:true
 	elseif action == 'horizontal_split'
 		let settings.target = 'horizontal_split'
-		call wheel#line#switch (settings)
+		call wheel#line#teleport (settings)
 		return v:true
 	elseif action == 'vertical_split'
 		let settings.target = 'vertical_split'
-		call wheel#line#switch (settings)
+		call wheel#line#teleport (settings)
 		return v:true
 	elseif action == 'horizontal_golden'
 		let settings.target = 'horizontal_golden'
-		call wheel#line#switch (settings)
+		call wheel#line#teleport (settings)
 		return v:true
 	elseif action == 'vertical_golden'
 		let settings.target = 'vertical_golden'
-		call wheel#line#switch (settings)
+		call wheel#line#teleport (settings)
 		return v:true
 	endif
 	return v:false

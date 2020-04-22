@@ -187,7 +187,7 @@ fun! wheel#mandala#switch_maps (settings)
 	" Define local switch maps
 	let settings = copy(a:settings)
 	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#line#switch('
+	let pre  = ' :call wheel#line#teleport('
 	let post = ')<cr>'
 	" Close after switch
 	let settings.close = v:true
@@ -343,9 +343,8 @@ fun! wheel#mandala#switch (level)
 	call wheel#mandala#open ('wheel-switch-' . level)
 	let settings = {'level' : level}
 	call wheel#mandala#template ('switch', settings)
-	let upper = wheel#referen#upper (level)
-	if ! empty(upper) && ! empty(upper.glossary)
-		let lines = upper.glossary
+	let lines = wheel#perspective#switch (level)
+	if ! empty(lines)
 		call wheel#mandala#fill(lines)
 	else
 		echomsg 'Wheel mandala switch : empty or incomplete' level
@@ -359,7 +358,7 @@ fun! wheel#mandala#helix ()
 	call wheel#mandala#open ('wheel-location-index')
 	let settings = {'action' : function('wheel#line#helix')}
 	call wheel#mandala#template ('switch', settings)
-	let lines = wheel#helix#locations ()
+	let lines = wheel#perspective#helix ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -370,7 +369,7 @@ fun! wheel#mandala#grid ()
 	call wheel#mandala#open ('wheel-circle-index')
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#mandala#template ('switch', settings)
-	let lines = wheel#helix#circles ()
+	let lines = wheel#perspective#grid ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -381,7 +380,7 @@ fun! wheel#mandala#tree ()
 	let settings = {'action' : function('wheel#line#tree')}
 	call wheel#mandala#template ('switch', settings)
 	call wheel#mandala#folding_options ()
-	let lines = wheel#helix#tree ()
+	let lines = wheel#perspective#tree ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -392,7 +391,7 @@ fun! wheel#mandala#history ()
 	call wheel#mandala#open ('wheel-history')
 	let settings = {'action' : function('wheel#line#history')}
 	call wheel#mandala#template ('switch', settings)
-	let lines = wheel#pendulum#sorted ()
+	let lines = wheel#perspective#pendulum ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -414,7 +413,7 @@ fun! wheel#mandala#grep (...)
 		call wheel#mandala#open ('wheel-grep')
 		let settings = {'action' : function('wheel#line#grep')}
 		call wheel#mandala#template ('switch', settings)
-		let lines = wheel#vector#quickfix ()
+		let lines = wheel#perspective#grep ()
 		call wheel#mandala#fill(lines)
 		" Context menu
 		nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
@@ -444,7 +443,7 @@ fun! wheel#mandala#attic ()
 	call wheel#mandala#open ('wheel-mru')
 	let settings = {'action' : function('wheel#line#attic')}
 	call wheel#mandala#template ('switch', settings)
-	let lines = wheel#attic#sorted ()
+	let lines = wheel#perspective#attic ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -472,7 +471,7 @@ fun! wheel#mandala#symbol ()
 	call wheel#mandala#open ('wheel-tags')
 	let settings = {'action' : function('wheel#line#symbol')}
 	call wheel#mandala#template ('switch', settings)
-	let lines = wheel#symbol#mandala ()
+	let lines = wheel#perspective#symbol ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -485,7 +484,7 @@ fun! wheel#mandala#yank (mode)
 	call wheel#mandala#open ('wheel-yank-' . mode)
 	let settings = {'mode' : mode}
 	call wheel#mandala#template('yank', settings)
-	let lines = wheel#codex#lines (mode)
+	let lines = wheel#perspective#yank (mode)
 	" Appendbufline does not work with lists of list
 	put =lines
 	setlocal nomodified
@@ -501,9 +500,8 @@ fun! wheel#mandala#reorder (level)
 	call wheel#mandala#open ('wheel-reorder-' . level)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#reorder_write (level)
-	let upper = wheel#referen#upper(level)
-	if ! empty(upper) && ! empty(upper.glossary)
-		let lines = upper.glossary
+	let lines = wheel#perspective#switch (level)
+	if ! empty(lines)
 		call wheel#mandala#fill(lines)
 		silent global /^$/ delete
 		setlocal nomodified
@@ -521,7 +519,7 @@ fun! wheel#mandala#reorganize ()
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#reorganize_write ()
 	call wheel#mandala#folding_options ()
-	let lines = wheel#helix#reorganize ()
+	let lines = wheel#perspective#reorganize ()
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete
 	setlocal nomodified
