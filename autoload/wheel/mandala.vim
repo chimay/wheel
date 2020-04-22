@@ -13,6 +13,7 @@
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	let s:fold_markers = join(s:fold_markers, ',')
 	lockvar s:fold_markers
 endif
 
@@ -282,7 +283,7 @@ fun! wheel#mandala#folding_options ()
 	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 	setlocal foldclose=
 	setlocal foldmethod=marker
-	setlocal foldmarker=>,<
+	let &foldmarker = s:fold_markers
 	setlocal foldcolumn=2
 	setlocal foldtext=wheel#mandala#folding_text()
 endfun

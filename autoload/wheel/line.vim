@@ -259,10 +259,12 @@ fun! wheel#line#navigation (settings)
 			for elem in selected
 				let settings.selected = elem
 				call Fun (settings)
+				normal! zv
 			endfor
 		else
 			let settings.selected = selected[0]
 			call Fun (settings)
+			normal! zv
 		endif
 	elseif type(Fun) == v:t_string
 		if target != 'current'
@@ -412,7 +414,6 @@ fun! wheel#line#symbol (settings)
 	let ident = fields[0]
 	call wheel#line#target (a:settings.target)
 	exe 'tag ' . ident
-	normal! zv
 endfun
 
 " Paste
