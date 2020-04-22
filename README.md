@@ -10,6 +10,7 @@
 		* [Tree view](#tree-view)
 		* [Reordering](#reordering)
 		* [Reorganizing](#reorganizing)
+		* [Layouts](#layouts)
 		* [History](#history)
 		* [MRU](#mru)
 		* [Grep and context menus](#grep-and-context-menus)
@@ -68,6 +69,10 @@ of special buffers, in which you can filter and select elements.
 ### Reorganizing
 
 ![Reorganizing](screencast/reorganizing.gif)
+
+### Layouts
+
+![Layout](screencast/layout.gif)
 
 ### History
 
