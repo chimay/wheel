@@ -92,19 +92,19 @@ if ! exists('s:menu_delete')
 	lockvar s:menu_delete
 endif
 
-if ! exists('s:menu_switch')
-	let s:menu_switch = {
-				\ 'Switch to torus' : "wheel#mandala#switch('torus')",
-				\ 'Switch to circle' : "wheel#mandala#switch('circle')",
-				\ 'Switch to location' : "wheel#mandala#switch('location')",
-				\ 'Switch to location in index' : 'wheel#mandala#helix',
-				\ 'Switch to circle in index' : 'wheel#mandala#grid',
-				\ 'Switch to element in wheel tree' : 'wheel#mandala#tree',
-				\ 'Switch to location in history' : 'wheel#mandala#history',
-				\ 'Switch to most recently used file (mru)' : 'wheel#mandala#attic',
-				\ 'Switch to result of locate search' : 'wheel#mandala#locate',
+if ! exists('s:menu_navigation')
+	let s:menu_navigation = {
+				\ 'Navigate to torus' : "wheel#mandala#switch('torus')",
+				\ 'Navigate to circle' : "wheel#mandala#switch('circle')",
+				\ 'Navigate to location' : "wheel#mandala#switch('location')",
+				\ 'Navigate to location in index' : 'wheel#mandala#helix',
+				\ 'Navigate to circle in index' : 'wheel#mandala#grid',
+				\ 'Navigate to element in wheel tree' : 'wheel#mandala#tree',
+				\ 'Navigate to location in history' : 'wheel#mandala#history',
+				\ 'Navigate to most recently used file (mru)' : 'wheel#mandala#attic',
+				\ 'Navigate to result of locate search' : 'wheel#mandala#locate',
 				\}
-	lockvar s:menu_switch
+	lockvar s:menu_navigation
 endif
 
 if ! exists('s:menu_alternate')
@@ -201,21 +201,32 @@ if ! exists('s:menu_yank')
 	lockvar s:menu_yank
 endif
 
+" List of menu variables
+
+if ! exists('s:menu_list')
+	let s:menu_list = [
+				\ 'add',
+				\ 'rename',
+				\ 'delete',
+				\ 'navigation',
+				\ 'alternate',
+				\ 'tabs',
+				\ 'windows',
+				\ 'tabnwin',
+				\ 'reorganize',
+				\ 'search',
+				\ 'yank',
+				\]
+	lockvar s:menu_list
+endif
+
 " Main menu
 
 if ! exists('s:menu_main')
 	let s:menu_main = {}
-	call extend(s:menu_main, s:menu_add)
-	call extend(s:menu_main, s:menu_rename)
-	call extend(s:menu_main, s:menu_delete)
-	call extend(s:menu_main, s:menu_switch)
-	call extend(s:menu_main, s:menu_alternate)
-	call extend(s:menu_main, s:menu_tabs)
-	call extend(s:menu_main, s:menu_windows)
-	call extend(s:menu_main, s:menu_tabnwin)
-	call extend(s:menu_main, s:menu_reorganize)
-	call extend(s:menu_main, s:menu_search)
-	call extend(s:menu_main, s:menu_yank)
+	for name in s:menu_list
+		call extend(s:menu_main, s:menu_{name})
+	endfor
 	lockvar s:menu_main
 endif
 
@@ -226,7 +237,7 @@ if ! exists('s:menu_meta')
 				\ 'Add' : "wheel#hub#submenu('add')",
 				\ 'Rename' : "wheel#hub#submenu('rename')",
 				\ 'Delete' : "wheel#hub#submenu('delete')",
-				\ 'Switch' : "wheel#hub#submenu('switch')",
+				\ 'Navigation' : "wheel#hub#submenu('navigation')",
 				\ 'Alternate' : "wheel#hub#submenu('alternate')",
 				\ 'Tabs' : "wheel#hub#submenu('tabs')",
 				\ 'Window layouts' : "wheel#hub#submenu('windows')",
@@ -240,23 +251,23 @@ endif
 
 " Contextual menus
 
-if ! exists('s:context_switch')
-	let s:context_switch = {
-				\ 'Switch' : "wheel#boomerang#switch('current')",
-				\ 'Switch in tab(s)' : "wheel#boomerang#switch('tab')",
-				\ 'Switch in horizontal split(s)' : "wheel#boomerang#switch('horizontal_split')",
-				\ 'Switch in vertical split(s)' : "wheel#boomerang#switch('vertical_split')",
-				\ 'Switch in horizontal golden split(s)' : "wheel#boomerang#switch('horizontal_golden')",
-				\ 'Switch in vertical golden split(s)' : "wheel#boomerang#switch('vertical_golden')",
+if ! exists('s:context_navigation')
+	let s:context_navigation = {
+				\ 'Open' : "wheel#boomerang#navigation('current')",
+				\ 'Open in tab(s)' : "wheel#boomerang#navigation('tab')",
+				\ 'Open in horizontal split(s)' : "wheel#boomerang#navigation('horizontal_split')",
+				\ 'Open in vertical split(s)' : "wheel#boomerang#navigation('vertical_split')",
+				\ 'Open in horizontal golden split(s)' : "wheel#boomerang#navigation('horizontal_golden')",
+				\ 'Open in vertical golden split(s)' : "wheel#boomerang#navigation('vertical_golden')",
 				\}
-	lockvar s:context_switch
+	lockvar s:context_navigation
 endif
 
 if ! exists('s:context_grep')
 	let s:context_grep = {
 				\ 'Open quickfix' : "wheel#boomerang#grep('quickfix')",
 				\}
-	call extend(s:context_grep, s:context_switch)
+	call extend(s:context_grep, s:context_navigation)
 	lockvar s:context_grep
 endif
 

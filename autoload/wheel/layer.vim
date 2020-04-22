@@ -62,7 +62,13 @@ fun! wheel#layer#push ()
 	let enter = maparg('<enter>', 'n')
 	let g_enter = maparg('g<enter>', 'n')
 	let space = maparg('<space>', 'n')
-	let mapdict = {'enter': enter, 'g_enter': g_enter, 'space' : space}
+	let tab = maparg('<tab>', 'n')
+	let mapdict = {
+				\ 'enter': enter,
+				\ 'g_enter': g_enter,
+				\ 'space' : space,
+				\ 'tab' : tab,
+				\}
 	call insert(mappings, mapdict)
 	" Reset buffer variables
 	" Fresh filter and so on
@@ -105,6 +111,9 @@ fun! wheel#layer#pop ()
 		endif
 		if ! empty(mapdict.space)
 			exe 'nnoremap <buffer> <space> ' . mapdict.space
+		endif
+		if ! empty(mapdict.tab)
+			exe 'nnoremap <buffer> <tab> ' . mapdict.tab
 		endif
 	endif
 	" Restore selection

@@ -9,6 +9,13 @@
 " Special Buffer
 " A mandala is made of lines, like a buffer
 
+" Script vars
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	lockvar s:fold_markers
+endif
+
 " Helpers
 
 fun! wheel#mandala#open (...)
@@ -183,13 +190,13 @@ fun! wheel#mandala#select_maps ()
 	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
 endfun
 
-fun! wheel#mandala#switch_maps (settings)
-	" Define local switch maps
+fun! wheel#mandala#navigation_maps (settings)
+	" Define local navigationation maps
 	let settings = copy(a:settings)
 	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#line#teleport('
+	let pre  = ' :call wheel#line#navigation('
 	let post = ')<cr>'
-	" Close after switch
+	" Close after navigation
 	let settings.close = v:true
 	let settings.target = 'current'
 	exe map . '<cr>' . pre . string(settings) . post
@@ -203,7 +210,7 @@ fun! wheel#mandala#switch_maps (settings)
 	exe map . 'S' . pre . string(settings) . post
 	let settings.target = 'vertical_golden'
 	exe map . 'V' . pre . string(settings) . post
-	" Leave open after switch
+	" Leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'current'
 	exe map . 'g<cr>' . pre . string(settings) . post
@@ -218,7 +225,7 @@ fun! wheel#mandala#switch_maps (settings)
 	let settings.target = 'vertical_golden'
 	exe map . 'gV' . pre . string(settings) . post
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('switch')<cr>
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('navigation')<cr>
 endfun
 
 fun! wheel#mandala#yank_maps (mode)
@@ -311,7 +318,7 @@ fun! wheel#mandala#template (...)
 	if a:0 > 1
 		let settings = a:2
 		let b:wheel_settings = settings
-	elseif type == 'switch' || type == 'yank'
+	elseif type == 'navigation' || type == 'yank'
 		echomsg 'Wheel mandala' type 'template : missing settings'
 	endif
 	call wheel#mandala#common_maps ()
@@ -320,16 +327,16 @@ fun! wheel#mandala#template (...)
 	" By default, tell wheel#line#coordin it’s not a tree buffer
 	" Overridden by folding_options
 	setlocal nofoldenable
-	if type == 'switch'
+	if type == 'navigation'
 		call wheel#mandala#select_maps ()
-		call wheel#mandala#switch_maps (settings)
+		call wheel#mandala#navigation_maps (settings)
 	elseif type == 'yank'
 		call wheel#mandala#yank_options ()
 		call wheel#mandala#yank_maps (settings.mode)
 	endif
 endfun
 
-" Switch
+" navigation
 
 fun! wheel#mandala#switch (level)
 	" Choose an element of level to switch to
@@ -342,7 +349,7 @@ fun! wheel#mandala#switch (level)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-switch-' . level)
 	let settings = {'level' : level}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	let lines = wheel#perspective#switch (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)
@@ -352,23 +359,23 @@ fun! wheel#mandala#switch (level)
 endfun
 
 fun! wheel#mandala#helix ()
-	" Choose a location coordinate to switch to
+	" Choose a location coordinate
 	" Each coordinate = [torus, circle, location]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-location-index')
 	let settings = {'action' : function('wheel#line#helix')}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	let lines = wheel#perspective#helix ()
 	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#mandala#grid ()
-	" Choose a circle coordinate to switch to
+	" Choose a circle coordinate
 	" Each coordinate = [torus, circle]
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-circle-index')
 	let settings = {'action' : function('wheel#line#grid')}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	let lines = wheel#perspective#grid ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -378,7 +385,7 @@ fun! wheel#mandala#tree ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tree')
 	let settings = {'action' : function('wheel#line#tree')}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	call wheel#mandala#folding_options ()
 	let lines = wheel#perspective#tree ()
 	call wheel#mandala#fill(lines)
@@ -390,7 +397,7 @@ fun! wheel#mandala#history ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-history')
 	let settings = {'action' : function('wheel#line#history')}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	let lines = wheel#perspective#pendulum ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -412,7 +419,7 @@ fun! wheel#mandala#grep (...)
 		call wheel#vortex#update ()
 		call wheel#mandala#open ('wheel-grep')
 		let settings = {'action' : function('wheel#line#grep')}
-		call wheel#mandala#template ('switch', settings)
+		call wheel#mandala#template ('navigation', settings)
 		let lines = wheel#perspective#grep ()
 		call wheel#mandala#fill(lines)
 		" Context menu
@@ -442,7 +449,7 @@ fun! wheel#mandala#attic ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-mru')
 	let settings = {'action' : function('wheel#line#attic')}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	let lines = wheel#perspective#attic ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -452,7 +459,7 @@ fun! wheel#mandala#locate ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-locate')
 	let settings = {'action' : function('wheel#line#locate')}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	let prompt = 'Search for file matching : '
 	let pattern = input(prompt)
 	let database = g:wheel_config.locate_db
@@ -470,7 +477,7 @@ fun! wheel#mandala#symbol ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tags')
 	let settings = {'action' : function('wheel#line#symbol')}
-	call wheel#mandala#template ('switch', settings)
+	call wheel#mandala#template ('navigation', settings)
 	let lines = wheel#perspective#symbol ()
 	call wheel#mandala#fill(lines)
 endfun

@@ -194,7 +194,7 @@ fun! wheel#line#filter ()
 endfu
 
 fun! wheel#line#target (target)
-	" Open target tab / win before switching
+	" Open target tab / win before navigationation
 	let target = a:target
 	if target ==# 'tab'
 		tabnew
@@ -209,15 +209,15 @@ fun! wheel#line#target (target)
 	endif
 endfu
 
-" Teleport
+" navigation
 
-fun! wheel#line#teleport (settings)
-	" Switch to element(s) on current or selected line(s)
+fun! wheel#line#navigation (settings)
+	" navigation to element(s) on current or selected line(s)
 	" settings keys :
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
-	" - action : switch function or name of switch function
+	" - action : navigationation function name or funcref
 	let settings = copy(a:settings)
 	if has_key(settings, 'target')
 		let target = settings.target
@@ -240,7 +240,7 @@ fun! wheel#line#teleport (settings)
 	elseif type(b:wheel_selected) == v:t_list
 		let selected = b:wheel_selected
 	else
-		echomsg 'Wheel line switch : bad format for b:wheel_selected'
+		echomsg 'Wheel line navigation : bad format for b:wheel_selected'
 	endif
 	if len(selected) == 1
 		let settings.use = 'default'
@@ -275,7 +275,7 @@ fun! wheel#line#teleport (settings)
 			call {Fun} (settings)
 		endif
 	else
-		echomsg 'Wheel line switch : bad switch function'
+		echomsg 'Wheel line navigation : bad function'
 	endif
 	if ! close
 		call win_gotoid(mandala)
@@ -295,9 +295,9 @@ fun! wheel#line#switch (settings)
 endfun
 
 fun! wheel#line#helix (settings)
-	" Switch to settings.selected = torus > circle > location
+	" Go to settings.selected = torus > circle > location
 	" settings keys :
-	" - selected : where to switch
+	" - selected : where to go
 	" - target : current, tab, horizontal_split, vertical_split
 	let coordin = split(a:settings.selected, ' > ')
 	if len(coordin) < 3
@@ -310,9 +310,9 @@ fun! wheel#line#helix (settings)
 endfun
 
 fun! wheel#line#grid (settings)
-	" Switch to settings.selected = torus > circle
+	" Go to settings.selected = torus > circle
 	" settings keys :
-	" - selected : where to switch
+	" - selected : where to go
 	" - target : current, tab, horizontal_split, vertical_split
 	let coordin = split(a:settings.selected, ' > ')
 	if len(coordin) < 2
@@ -326,13 +326,13 @@ fun! wheel#line#grid (settings)
 endfun
 
 fun! wheel#line#tree (settings)
-	" Switch to settings.selected
+	" Go to settings.selected
 	" Possible vallues of selected :
 	" - [torus]
 	" - [torus, circle]
 	" - [torus, circle, location]
 	" settings keys :
-	" - selected : where to switch
+	" - selected : where to go
 	" - target : current, tab, horizontal_split, vertical_split
 	let coordin = a:settings.selected
 	let length = len(coordin)
@@ -349,9 +349,9 @@ fun! wheel#line#tree (settings)
 endfun
 
 fun! wheel#line#history (settings)
-	" Switch to settings.selected history location
+	" Go to settings.selected history location
 	" settings keys :
-	" - selected : where to switch
+	" - selected : where to go
 	" - target : current, tab, horizontal_split, vertical_split
 	let fields = split(a:settings.selected, ' | ')
 	if len(fields) < 2
@@ -369,7 +369,7 @@ fun! wheel#line#history (settings)
 endfun
 
 fun! wheel#line#grep (settings)
-	" Switch to settings.selected quickfix line
+	" Go to settings.selected quickfix line
 	let fields = split(a:settings.selected, ' | ')
 	if len(fields) < 5
 		echomsg 'Grep line is too short'
@@ -412,6 +412,7 @@ fun! wheel#line#symbol (settings)
 	let ident = fields[0]
 	call wheel#line#target (a:settings.target)
 	exe 'tag ' . ident
+	normal! zv
 endfun
 
 " Paste

@@ -1,5 +1,17 @@
 " vim: ft=vim fdm=indent:
 
+" Script vars
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	lockvar s:fold_markers
+endif
+
+if ! exists('s:level_1')
+	let s:level_1 = ' ' . s:fold_markers[0] . '1'
+	lockvar s:level_1
+endif
+
 " Menus
 
 fun! wheel#hub#menu_maps (dictname)

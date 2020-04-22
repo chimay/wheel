@@ -317,7 +317,7 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Add a new element to the wheel
 - Rename an element
 - Delete an element
-- Switch to an element (navigation)
+- Navigation : go to an element
 - Alternate last two elements
 - Display elements in tabs
 - Display elements in windows

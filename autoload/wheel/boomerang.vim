@@ -38,36 +38,37 @@ fun! wheel#boomerang#menu (dictname)
 	" Let wheel#overlay#call handle open / close
 	let b:wheel_settings.close = 0
 	" No more layers
+	" Tab mapping will be restored by wheel#layer#pop if we go back
 	nunmap <buffer> <tab>
 endfun
 
-fun! wheel#boomerang#switch (action)
-	" Switch actions
+fun! wheel#boomerang#navigation (action)
+	" navigation actions
 	let action = a:action
 	let settings = b:wheel_settings
 	if action == 'current'
 		let settings.target = 'current'
-		call wheel#line#teleport (settings)
+		call wheel#line#navigation (settings)
 		return v:true
 	elseif action == 'tab'
 		let settings.target = 'tab'
-		call wheel#line#teleport (settings)
+		call wheel#line#navigation (settings)
 		return v:true
 	elseif action == 'horizontal_split'
 		let settings.target = 'horizontal_split'
-		call wheel#line#teleport (settings)
+		call wheel#line#navigation (settings)
 		return v:true
 	elseif action == 'vertical_split'
 		let settings.target = 'vertical_split'
-		call wheel#line#teleport (settings)
+		call wheel#line#navigation (settings)
 		return v:true
 	elseif action == 'horizontal_golden'
 		let settings.target = 'horizontal_golden'
-		call wheel#line#teleport (settings)
+		call wheel#line#navigation (settings)
 		return v:true
 	elseif action == 'vertical_golden'
 		let settings.target = 'vertical_golden'
-		call wheel#line#teleport (settings)
+		call wheel#line#navigation (settings)
 		return v:true
 	endif
 	return v:false
@@ -76,7 +77,7 @@ endfun
 fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action
-	if wheel#boomerang#switch (action)
+	if wheel#boomerang#navigation (action)
 		return
 	endif
 	if action == 'quickfix'
