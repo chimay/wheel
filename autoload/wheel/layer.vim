@@ -181,7 +181,7 @@ fun! wheel#layer#overlay (settings)
 endfun
 
 fun! wheel#layer#staircase (settings)
-	" Replace buffer content by a new layer
+	" Replace buffer content by a {line -> fun} layer
 	" Reuse current wheel buffer
 	" Define dict maps
 	let settings = a:settings

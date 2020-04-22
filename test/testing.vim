@@ -57,6 +57,15 @@ echo 'Brace name winnr = {s:a}nr : ' {s:a}nr()
 
 " }}}1
 
+" Eval {{{1
+
+let s:ptr='winnr()'
+echo 'eval :' eval(a)
+
+exe 'echo "coucou"'
+
+" }}}1
+
 " Identity {{{1
 
 fun! s:Function (list, dict)
