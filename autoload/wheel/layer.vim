@@ -140,6 +140,10 @@ fun! wheel#layer#call (settings)
 		return
 	endif
 	let key = cursor_line
+	if ! has_key(dict, key)
+		echomsg 'Wheel layer call : key not found'
+		return
+	endif
 	" Close & travel
 	if close
 		call wheel#mandala#close ()

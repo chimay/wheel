@@ -298,6 +298,8 @@ fun! wheel#mandala#folding_text ()
 		let level = 'circle'
 	elseif v:foldlevel == 3
 		let level = 'location'
+	else
+		let level = 'none'
 	endif
 	let marker = split(&foldmarker, ',')[0]
 	let pattern = '\m' . marker . '[12]'

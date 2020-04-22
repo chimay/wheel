@@ -200,16 +200,16 @@ fun! wheel#mosaic#split (level, ...)
 	" One level element per split
 	" Optional arguments :
 	" 1. action to obtain split layout
-	" 2. dict to pass as argument -> action(dict)
+	" 2. settings to pass as argument -> action(settings)
 	if a:0 > 0
 		let action = a:1
 	else
 		let action = 'horizontal'
 	endif
 	if a:0 > 1
-		let dict = a:2
+		let settings = a:2
 	else
-		let dict = {'golden' : v:false}
+		let settings = {'golden' : v:false}
 	endif
 	if ! wheel#mosaic#one_window ()
 		return
@@ -221,7 +221,7 @@ fun! wheel#mosaic#split (level, ...)
 	let length = len(elements)
 	call wheel#vortex#jump ('new')
 	for index in range(length - 1)
-		let alright = wheel#mosaic#{action} (dict)
+		let alright = wheel#mosaic#{action} (settings)
 		if ! alright
 			break
 		endif
@@ -241,43 +241,43 @@ fun! wheel#mosaic#golden (level, ...)
 	else
 		let action = 'main_left'
 	endif
-	let dict = {}
-	let dict.golden = v:true
-	call wheel#mosaic#split(a:level, action, dict)
+	let settings = {}
+	let settings.golden = v:true
+	call wheel#mosaic#split(a:level, action, settings)
 endfun
 
 fun! wheel#mosaic#split_grid (level)
 	" Grid layout
-	let dict = {}
-	let dict.maxim = wheel#mosaic#rowcol (a:level)
-	call wheel#mosaic#split(a:level, 'grid', dict)
+	let settings = {}
+	let settings.maxim = wheel#mosaic#rowcol (a:level)
+	call wheel#mosaic#split(a:level, 'grid', settings)
 endfun
 
 fun! wheel#mosaic#split_transposed_grid (level)
 	" Transposed grid layout
-	let dict = {}
-	let dict.maxim = wheel#mosaic#rowcol (a:level)
-	call wheel#mosaic#split(a:level, 'transposed_grid', dict)
+	let settings = {}
+	let settings.maxim = wheel#mosaic#rowcol (a:level)
+	call wheel#mosaic#split(a:level, 'transposed_grid', settings)
 endfun
 
 " Split flavors
 
 fun! wheel#mosaic#horizontal (...)
 	" Horizontal split
-	" Optional argument : dict containing golden value
+	" Optional argument : settings containing golden value
 	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
 	if a:0 > 0
-		let dict = a:1
+		let settings = a:1
 	else
-		let dict = {'golden': v:false}
+		let settings = {'golden': v:false}
 	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
-		if dict.golden
+		if settings.golden
 			call wheel#spiral#horizontal ()
 		else
 			split
@@ -291,20 +291,20 @@ endfun
 
 fun! wheel#mosaic#vertical (...)
 	" Vertical split
-	" Optional argument : dict containing golden value
+	" Optional argument : settings containing golden value
 	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
 	if a:0 > 0
-		let dict = a:1
+		let settings = a:1
 	else
-		let dict = {'golden': v:false}
+		let settings = {'golden': v:false}
 	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
-		if dict.golden
+		if settings.golden
 			call wheel#spiral#vertical ()
 		else
 			vsplit
@@ -318,19 +318,19 @@ endfun
 
 fun! wheel#mosaic#main_left (...)
 	" Main window on left
-	" Optional argument : dict containing golden value
+	" Optional argument : settings containing golden value
 	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
 	if a:0 > 0
-		let dict = a:1
+		let settings = a:1
 	else
-		let dict = {'golden': v:false}
+		let settings = {'golden': v:false}
 	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	if w:coordin == [0, 0]
-		if dict.golden
+		if settings.golden
 			call wheel#spiral#vertical ()
 		else
 			vsplit
@@ -340,7 +340,7 @@ fun! wheel#mosaic#main_left (...)
 	endif
 	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
-		if dict.golden
+		if settings.golden
 			call wheel#spiral#horizontal ()
 		else
 			split
@@ -354,19 +354,19 @@ endfun
 
 fun! wheel#mosaic#main_top (...)
 	" Main window on top
-	" Optional argument : dict containing golden value
+	" Optional argument : settings containing golden value
 	" golden : whether split is equal or golden ratio
 	" w:coordin = [row number, col number]
 	if a:0 > 0
-		let dict = a:1
+		let settings = a:1
 	else
-		let dict = {'golden': v:false}
+		let settings = {'golden': v:false}
 	endif
 	if ! exists('w:coordin')
 		let w:coordin = [0, 0]
 	endif
 	if w:coordin == [0, 0]
-		if dict.golden
+		if settings.golden
 			call wheel#spiral#horizontal ()
 		else
 			split
@@ -376,7 +376,7 @@ fun! wheel#mosaic#main_top (...)
 	endif
 	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
-		if dict.golden
+		if settings.golden
 			call wheel#spiral#vertical ()
 		else
 			vsplit
@@ -388,18 +388,18 @@ fun! wheel#mosaic#main_top (...)
 	endif
 endfun
 
-fun! wheel#mosaic#grid (dict)
+fun! wheel#mosaic#grid (settings)
 	" Grid as row_1, row_2, ...
-	" dict.done = [last_done_row, last_done_col]
-	" dict.maxim = [max_row, max_col]
-	let dict = a:dict
-	if ! has_key(dict, 'done')
-		let dict.done = [0, 0]
+	" settings.done = [last_done_row, last_done_col]
+	" settings.maxim = [max_row, max_col]
+	let settings = a:settings
+	if ! has_key(settings, 'done')
+		let settings.done = [0, 0]
 	endif
-	let row = dict.done[0]
-	let col = dict.done[1]
-	let max_row = dict.maxim[0]
-	let max_col = dict.maxim[1]
+	let row = settings.done[0]
+	let col = settings.done[1]
+	let max_row = settings.maxim[0]
+	let max_col = settings.maxim[1]
 	wincmd t
 	if row == 0
 		if col > 0
@@ -407,12 +407,12 @@ fun! wheel#mosaic#grid (dict)
 		endif
 		if col < max_col - 1
 			vsplit
-			let dict.done = [row, col + 1]
+			let settings.done = [row, col + 1]
 			return v:true
 		else
 			exe col . 'wincmd h'
 			split
-			let dict.done = [1, 0]
+			let settings.done = [1, 0]
 			return v:true
 		endif
 	else
@@ -422,12 +422,12 @@ fun! wheel#mosaic#grid (dict)
 				exe (row - 1) . 'wincmd j'
 			endif
 			split
-			let dict.done = [row, col + 1]
+			let settings.done = [row, col + 1]
 			return v:true
 		elseif row < max_row - 1
 			exe row . 'wincmd j'
 			split
-			let dict.done = [row + 1, 0]
+			let settings.done = [row + 1, 0]
 			return v:true
 		else
 			return v:false
@@ -435,18 +435,18 @@ fun! wheel#mosaic#grid (dict)
 	endif
 endfun
 
-fun! wheel#mosaic#transposed_grid (dict)
+fun! wheel#mosaic#transposed_grid (settings)
 	" Grid as col_1, col_2, ...
-	" dict.done = [last_done_row, last_done_col]
-	" dict.maxim = [max_row, max_col]
-	let dict = a:dict
-	if ! has_key(dict, 'done')
-		let dict.done = [0, 0]
+	" settings.done = [last_done_row, last_done_col]
+	" settings.maxim = [max_row, max_col]
+	let settings = a:settings
+	if ! has_key(settings, 'done')
+		let settings.done = [0, 0]
 	endif
-	let row = dict.done[0]
-	let col = dict.done[1]
-	let max_row = dict.maxim[0]
-	let max_col = dict.maxim[1]
+	let row = settings.done[0]
+	let col = settings.done[1]
+	let max_row = settings.maxim[0]
+	let max_col = settings.maxim[1]
 	wincmd t
 	if col == 0
 		if row > 0
@@ -454,12 +454,12 @@ fun! wheel#mosaic#transposed_grid (dict)
 		endif
 		if row < max_row - 1
 			split
-			let dict.done = [row + 1, col]
+			let settings.done = [row + 1, col]
 			return v:true
 		else
 			exe row . 'wincmd k'
 			vsplit
-			let dict.done = [0, 1]
+			let settings.done = [0, 1]
 			return v:true
 		endif
 	else
@@ -469,12 +469,12 @@ fun! wheel#mosaic#transposed_grid (dict)
 				exe (col - 1) . 'wincmd l'
 			endif
 			vsplit
-			let dict.done = [row + 1, col]
+			let settings.done = [row + 1, col]
 			return v:true
 		elseif col < max_col - 1
 			exe col . 'wincmd l'
 			vsplit
-			let dict.done = [0, col + 1]
+			let settings.done = [0, col + 1]
 			return v:true
 		else
 			return v:false
