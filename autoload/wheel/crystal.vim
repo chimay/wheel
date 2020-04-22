@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Internal Variables
+" Internal Variables made crystal clear
 
 " Wheel levels
 
@@ -33,7 +33,22 @@ if ! exists('s:golden_ratio')
 	lockvar s:golden_ratio
 endif
 
-" Patterns
+" Strings
+
+if ! exists('s:separator_field')
+	let s:separator_field = ' | '
+	lockvar s:separator_field
+endif
+
+if ! exists('s:separator_level')
+	let s:separator_level = ' > '
+	lockvar s:separator_level
+endif
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = ['>', '<']
+	lockvar s:fold_markers
+endif
 
 if ! exists('s:selected_mark')
 	let s:selected_mark = '* '

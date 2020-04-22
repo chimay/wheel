@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Golden mean, ratio
+" Script vars
 
 if ! exists('s:golden')
 	let s:golden = wheel#crystal#fetch('golden-ratio')
