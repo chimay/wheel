@@ -92,7 +92,6 @@ fun! wheel#hub#main ()
 	call wheel#hub#menu_maps ('main')
 	nunmap <buffer> <space>
 	call wheel#hub#folding_options ()
-	let dict = wheel#crystal#fetch('menu/main')
 	let menu = []
 	for elem in s:menu_list
 		let header = elem . s:level_1
