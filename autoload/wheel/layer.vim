@@ -141,6 +141,7 @@ fun! wheel#layer#call (settings)
 	endif
 	let key = cursor_line
 	if ! has_key(dict, key)
+		normal! zv
 		echomsg 'Wheel layer call : key not found'
 		return
 	endif
