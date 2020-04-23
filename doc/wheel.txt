@@ -917,7 +917,8 @@ The functions used as User Interface are listed :
 ASYNC COMMAND					*wheel-functions-async-command*
 
 wheel#wave#start({command})			*wheel-wave-start*
-	Start an async command and dispay its output in a special buffer.
+	Neovim only, for now.
+	Start an async command and display its output in a special buffer.
 	You can filter buffer content, as usual.
 	Still experimental.
 
