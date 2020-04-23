@@ -902,10 +902,24 @@ Here is an example of a complete autocommands configuration : >
 ==============================================================================
 FUNCTIONS					        *wheel-functions*
 
+User interface			|wheel-functions-user-interface|
+Async command			|wheel-functions-async-command|
+
+------------------------------------------------------------------------------
+USER INTERFACE				*wheel-functions-user-interface*
+
 The functions used as User Interface are listed :
 
 - In the mappings of autoload/wheel/centre.vim
 - In the menus of autoload/wheel/crystal.vim
+
+------------------------------------------------------------------------------
+ASYNC COMMAND					*wheel-functions-async-command*
+
+wheel#wave#start({command})			*wheel-wave-start*
+	Start an async command and dispay its output in a special buffer.
+	You can filter buffer content, as usual.
+	Still experimental.
 
 ==============================================================================
 MAPPINGS						    *wheel-mappings*
