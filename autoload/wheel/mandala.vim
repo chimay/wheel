@@ -76,7 +76,7 @@ fun! wheel#mandala#close ()
 	" Close the wheel buffer
 	" Go to alternate buffer if only one window
 	if winnr('$') > 1
-		quit!
+		quit
 	else
 		buffer #
 	endif
