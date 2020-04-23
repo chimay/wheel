@@ -1,6 +1,10 @@
 " vim: ft=vim fdm=indent:
 
-" Job control
+" Job control, neovim
+
+if ! has('nvim')
+	finish
+endif
 
 " Callback
 
