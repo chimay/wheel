@@ -186,9 +186,15 @@ the magic is when modules talk together.
 
 This project is inspired by :
 
-- [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace), a workspace plugin for Vim
-- [Unite](https://github.com/Shougo/unite.vim) / [Denite](https://github.com/Shougo/denite.nvim), a search plugin from arbitray sources
-- [Torus](https://github.com/chimay/torus), a similar plugin for Emacs, itself inspired by MTorus
+- [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace), a workspace
+plugin for Vim
+
+- [Unite](https://github.com/Shougo/unite.vim) and its successor
+[Denite](https://github.com/Shougo/denite.nvim), a search plugin for
+arbitray sources
+
+- [Torus](https://github.com/chimay/torus), a similar plugin for Emacs,
+itself inspired by MTorus
 
 # Installation
 
