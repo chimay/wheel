@@ -23,6 +23,7 @@
 	* [History](#history-1)
 * [Installation](#installation)
 	* [Using minpac](#using-minpac)
+	* [Using plug](#using-plug)
 * [Configuration](#configuration)
 * [Step by Step](#step-by-step)
 	* [Documentation](#documentation)
@@ -185,11 +186,9 @@ the magic is when modules talk together.
 
 This project is inspired by :
 
-- [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace), a similar
-plugin for Vim
-
-- [Torus](https://github.com/chimay/torus), a similar plugin for Emacs,
-itself inspired by MTorus
+- [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace), a workspace plugin for Vim
+- [Unite](https://github.com/Shougo/unite.vim) / [Denite](https://github.com/Shougo/denite.nvim), a search plugin from arbitray sources
+- [Torus](https://github.com/chimay/torus), a similar plugin for Emacs, itself inspired by MTorus
 
 # Installation
 
@@ -202,6 +201,14 @@ call minpac#add('chimay/wheel', { 'type' : 'start' })
 ```
 
 and it’s done.
+
+## Using plug
+
+The syntax should be similar with other git oriented plugin manager :
+
+```vim
+Plug 'chimay/wheel'
+```
 
 # Configuration
 
