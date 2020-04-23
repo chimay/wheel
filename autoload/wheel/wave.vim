@@ -6,6 +6,29 @@ if ! has('nvim')
 	finish
 endif
 
+" Helpers
+
+fun! wheel#wave#common_options (type)
+	" Set local common options
+	setlocal cursorline
+	setlocal nobuflisted
+	setlocal noswapfile
+	setlocal buftype=nofile
+	setlocal bufhidden=wipe
+	let &filetype = a:type
+endfun
+
+fun! wheel#wave#open (...)
+	" Open a wheel buffer
+	if a:0 > 0
+		let type = a:1
+	else
+		let type = 'wheel'
+	endif
+	new
+	call wheel#wave#common_options (type)
+endfun
+
 " Callback
 
 fun! s:Out (chan, data, event) dict
@@ -57,7 +80,7 @@ fun! wheel#wave#new (command)
 	let job = {}
 	let job.index = len(g:wheel_wave)
 	let job.name = command[0]
-	new
+	call wheel#wave#open ('wheel-wave')
 	let job.bufnum = bufnr('%')
 	call extend(job, s:callbacks)
     let jobid = jobstart(command, job)
