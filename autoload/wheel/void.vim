@@ -88,17 +88,24 @@ fun! wheel#void#input ()
 	endif
 endfun
 
-fun! wheel#void#yank ()
-	" Initialize yank history
-	if ! exists('g:wheel_yank')
-		let g:wheel_yank = []
-	endif
-endfun
-
 fun! wheel#void#attic ()
 	" Initialize most recently used files
 	if ! exists('g:wheel_attic')
 		let g:wheel_attic = []
+	endif
+endfun
+
+fun! wheel#void#wave ()
+	" Initialize jobs dictionary
+	if ! exists('g:wheel_wave')
+		let g:wheel_wave = []
+	endif
+endfun
+
+fun! wheel#void#yank ()
+	" Initialize yank history
+	if ! exists('g:wheel_yank')
+		let g:wheel_yank = []
 	endif
 endfun
 
@@ -179,8 +186,9 @@ fun! wheel#void#foundation ()
 	call wheel#void#files ()
 	call wheel#void#history ()
 	call wheel#void#input ()
-	call wheel#void#yank ()
 	call wheel#void#attic ()
+	call wheel#void#wave ()
+	call wheel#void#yank ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 endfun
@@ -204,8 +212,9 @@ fun! wheel#void#lighten (...)
 					\ 'g:wheel_files',
 					\ 'g:wheel_history',
 					\ 'g:wheel_input',
-					\ 'g:wheel_yank',
 					\ 'g:wheel_attic',
+					\ 'g:wheel_wave',
+					\ 'g:wheel_yank',
 					\ 'g:wheel_shelve',
 					\ 'g:wheel_config',
 					\]

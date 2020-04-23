@@ -137,7 +137,7 @@ fun! wheel#mandala#common_options (type)
 	setlocal nobuflisted
 	setlocal noswapfile
 	setlocal buftype=nofile
-	setlocal bufhidden=delete
+	setlocal bufhidden=wipe
 	let &filetype = a:type
 endfun
 

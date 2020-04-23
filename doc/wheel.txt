@@ -118,7 +118,7 @@ This project is inspired by :
 plugin for Vim
 
 - Unite : https://github.com/Shougo/unite.vim and its successor Denite
-(Shougo/denite.nvim), a search plugin from arbitray sources
+(Shougo/denite.nvim), a search plugin for arbitray sources
 
 - Torus : https://github.com/chimay/torus, a similar plugin for Emacs,
 itself inspired by MTorus
