@@ -43,6 +43,8 @@ endfun
 fun! wheel#wave#common_maps ()
 	" Define local common maps
 	nnoremap <buffer> q :call wheel#wave#close()<cr>
+	call wheel#mandala#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 endfu
 
 " Callback
