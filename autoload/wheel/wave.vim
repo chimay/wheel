@@ -82,8 +82,8 @@ let s:callbacks = {
 
 " Main
 
-fun! wheel#wave#new (command)
-	" Template of a job
+fun! wheel#wave#start (command)
+	" Start a new job
 	if type(a:command) == v:t_list
 		let command = a:command
 	elseif type(a:command) == v:t_string
