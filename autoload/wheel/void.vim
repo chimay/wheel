@@ -274,6 +274,8 @@ fun! wheel#void#fresh_wheel ()
 	unlet g:wheel_files
 	unlet g:wheel_history
 	unlet g:wheel_input
+	unlet g:wheel_attic
+	unlet g:wheel_wave
 	unlet g:wheel_yank
 	unlet g:wheel_shelve
 	call wheel#void#foundation ()

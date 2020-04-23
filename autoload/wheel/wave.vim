@@ -35,6 +35,8 @@ fun! wheel#wave#common_options (type)
 	setlocal nobuflisted
 	setlocal noswapfile
 	setlocal buftype=nofile
+	setlocal bufhidden=
+	file /wheel/wave
 	let &filetype = a:type
 endfun
 
@@ -93,7 +95,7 @@ fun! wheel#wave#new (command)
 	call map(command, {_,val->expand(val)})
 	let job = {}
 	let job.index = len(g:wheel_wave)
-	let job.name = command[0]
+	let job.name = fnamemodify(command[0], ':t:r')
 	call wheel#wave#open ('wheel-wave')
 	call wheel#wave#common_maps ()
 	let job.bufnum = bufnr('%')
