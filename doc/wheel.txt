@@ -117,6 +117,9 @@ This project is inspired by :
 - CtrlSpace : https://github.com/vim-ctrlspace/vim-ctrlspace, a similar
 plugin for Vim
 
+- Unite : https://github.com/Shougo/unite.vim / Denite
+(Shougo/denite.nvim), a search plugin from arbitray sources
+
 - Torus : https://github.com/chimay/torus, a similar plugin for Emacs,
 itself inspired by MTorus
 
