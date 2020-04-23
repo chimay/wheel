@@ -6,17 +6,7 @@ if ! has('nvim')
 	finish
 endif
 
-" Helpers
-
-fun! wheel#wave#common_options (type)
-	" Set local common options
-	setlocal cursorline
-	setlocal nobuflisted
-	setlocal noswapfile
-	setlocal buftype=nofile
-	setlocal bufhidden=wipe
-	let &filetype = a:type
-endfun
+" Buffer
 
 fun! wheel#wave#open (...)
 	" Open a wheel buffer
@@ -28,6 +18,30 @@ fun! wheel#wave#open (...)
 	new
 	call wheel#wave#common_options (type)
 endfun
+
+fun! wheel#wave#close ()
+	" Close the wheel buffer
+	" Go to alternate buffer if only one window
+	if winnr('$') > 1
+		quit
+	else
+		buffer #
+	endif
+endfun
+
+fun! wheel#wave#common_options (type)
+	" Set local common options
+	setlocal cursorline
+	setlocal nobuflisted
+	setlocal noswapfile
+	setlocal buftype=nofile
+	let &filetype = a:type
+endfun
+
+fun! wheel#wave#common_maps ()
+	" Define local common maps
+	nnoremap <buffer> q :call wheel#wave#close()<cr>
+endfu
 
 " Callback
 
@@ -81,6 +95,7 @@ fun! wheel#wave#new (command)
 	let job.index = len(g:wheel_wave)
 	let job.name = command[0]
 	call wheel#wave#open ('wheel-wave')
+	call wheel#wave#common_maps ()
 	let job.bufnum = bufnr('%')
 	call extend(job, s:callbacks)
     let jobid = jobstart(command, job)
