@@ -148,7 +148,7 @@ endfun
 
 " Maps
 
-fun! wheel#mandala#common_maps (...)
+fun! wheel#mandala#common_maps ()
 	" Define local common maps
 	nnoremap <buffer> q :call wheel#mandala#close()<cr>
 	nnoremap <buffer> j :call wheel#mandala#wrap_down()<cr>
