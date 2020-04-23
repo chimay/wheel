@@ -6,6 +6,11 @@ if ! has('nvim')
 	finish
 endif
 
+if ! exists('*appendbufline')
+	echomsg 'You need appendbufline to handle jobs'
+	finish
+endif
+
 " Buffer
 
 fun! wheel#wave#open (...)
