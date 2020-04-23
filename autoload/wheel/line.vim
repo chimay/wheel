@@ -377,11 +377,11 @@ fun! wheel#line#grep (settings)
 		echomsg 'Grep line is too short'
 		return
 	endif
-	let bufnr = fields[0]
+	let bufnum = fields[0]
 	let line = fields[2]
 	let col = fields[3]
 	call wheel#line#target (a:settings.target)
-	exe 'buffer ' . bufnr
+	exe 'buffer ' . bufnum
 	call cursor(line, col)
 endfun
 

@@ -128,9 +128,9 @@ fun! wheel#perspective#grep ()
 	let quickfix = getqflist()
 	let list = []
 	for elem in quickfix
-		let bufnr = elem.bufnr
-		let record = bufnr . s:field_separ
-		let record .= bufname(bufnr) . s:field_separ
+		let bufnum = elem.bufnr
+		let record = bufnum . s:field_separ
+		let record .= bufname(bufnum) . s:field_separ
 		let record .= elem.lnum . s:field_separ
 		let record .= elem.col . s:field_separ
 		let record .= elem.text

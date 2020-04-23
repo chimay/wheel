@@ -33,8 +33,8 @@ fu! wheel#status#tablabel (index)
 	" Modified indicator
 	let buflist = tabpagebuflist(index)
 	let modified = ''
-	for bufnr in buflist
-		if getbufvar(bufnr, "&modified")
+	for bufnum in buflist
+		if getbufvar(bufnum, "&modified")
 			let modified = '[+]'
 			break
 		endif

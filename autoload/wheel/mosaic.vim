@@ -66,9 +66,9 @@ endfun
 
 fun! wheel#mosaic#tab_buffers ()
 	" List of buffers in current tab, starting with current one
-	let cur_buf = bufnr('%')
+	let bufnum = bufnr('%')
 	let buffers = tabpagebuflist()
-	let index = index(buffers, cur_buf)
+	let index = index(buffers, bufnum)
 	let buffers = wheel#chain#roll_left(index, buffers)
 	return buffers
 endfun
