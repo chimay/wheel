@@ -326,12 +326,12 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Add a new element to the wheel
 - Rename an element
 - Delete an element
-- Navigation : go to an element
 - Alternate last two elements
 - Display elements in tabs
 - Display elements in windows
 - Display elements in tabs & windows
 - Reorganize elements
+- Sailing : navigation buffers
 - Search in files
 - Paste from yank wheel
 
