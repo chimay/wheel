@@ -291,8 +291,8 @@ the elements with each word you enter on the input (first) line. Typing
 is not mapped, in case you need to go to normal mode without triggering
 the filter function.
 
-Beginning a filtering word with a bang "!" is a logical not : all lines
-matching this word will be removed.
+A bang "!" beginning a filtering word is a logical not : all lines matching
+this word will be removed from the buffer.
 
 Input history~
 
