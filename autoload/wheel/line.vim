@@ -209,9 +209,9 @@ fun! wheel#line#target (target)
 	endif
 endfu
 
-" navigation
+" Navigation
 
-fun! wheel#line#navigation (settings)
+fun! wheel#line#sailing (settings)
 	" navigation to element(s) on current or selected line(s)
 	" settings keys :
 	" - level : torus, circle or location

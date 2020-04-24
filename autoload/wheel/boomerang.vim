@@ -48,27 +48,27 @@ fun! wheel#boomerang#navigation (action)
 	let settings = b:wheel_settings
 	if action == 'current'
 		let settings.target = 'current'
-		call wheel#line#navigation (settings)
+		call wheel#line#sailing (settings)
 		return v:true
 	elseif action == 'tab'
 		let settings.target = 'tab'
-		call wheel#line#navigation (settings)
+		call wheel#line#sailing (settings)
 		return v:true
 	elseif action == 'horizontal_split'
 		let settings.target = 'horizontal_split'
-		call wheel#line#navigation (settings)
+		call wheel#line#sailing (settings)
 		return v:true
 	elseif action == 'vertical_split'
 		let settings.target = 'vertical_split'
-		call wheel#line#navigation (settings)
+		call wheel#line#sailing (settings)
 		return v:true
 	elseif action == 'horizontal_golden'
 		let settings.target = 'horizontal_golden'
-		call wheel#line#navigation (settings)
+		call wheel#line#sailing (settings)
 		return v:true
 	elseif action == 'vertical_golden'
 		let settings.target = 'vertical_golden'
-		call wheel#line#navigation (settings)
+		call wheel#line#sailing (settings)
 		return v:true
 	endif
 	return v:false

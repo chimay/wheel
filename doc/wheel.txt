@@ -1114,6 +1114,9 @@ window. Same idea with circles and toruses.
 | g          | <M-w>g                | Locations in grid layout         |
 | <C-g>      | <M-w><C-g>            | Circles in grid layout           |
 | G          | <M-w>G                | Toruses in grid layout           |
+| ---------- | --------------------- | -------------------------------- |
+| <up>       | <M-w><up>             | Rotate windows counter-clockwise |
+| <down>     | <M-w><down>           | Rotate windows clockwise         |
 
 Tabs & Windows~
 
@@ -1163,14 +1166,6 @@ and add them to your init file.
 | <D-=>          | Meta menu                                   |
 | <D-m>          | Main menu                                   |
 | -------------- | ------------------------------------------- |
-| <Space>        | Choose location in special buffer           |
-| <C-Space>      | Choose circle in special buffer             |
-| <S-Space>      | Choose torus in special buffer              |
-| <D-Space>      | Choose element in wheel folding tree        |
-| <M-Space>      | Index of toruses > circles > locations      |
-| <D-h>          | History index                               |
-| <D-r>          | Reorganize wheel elements                   |
-| -------------- | ------------------------------------------- |
 | <D-Insert>     | Add location to the current circle          |
 | <D-Del>        | Delete current location                     |
 | -------------- | ------------------------------------------- |
@@ -1191,8 +1186,21 @@ and add them to your init file.
 | <C-S-Home>     | Alternate in other torus                    |
 | <C-S-End>      | Alternate in other circle                   |
 | -------------- | ------------------------------------------- |
+| <Space>        | Choose location in special buffer           |
+| <C-Space>      | Choose circle in special buffer             |
+| <S-Space>      | Choose torus in special buffer              |
+| <D-Space>      | Choose element in wheel folding tree        |
+| <M-Space>      | Index of toruses > circles > locations      |
+| <D-h>          | History index                               |
+| -------------- | ------------------------------------------- |
+| <D-r>          | Reorganize wheel elements                   |
+| -------------- | ------------------------------------------- |
 | <D-g>          | Grep in current circle files                |
 | <D-f>          | Outline in current circle files             |
+| <D-a>          | Tags                                        |
+| -------------- | ------------------------------------------- |
+| <D-u>          | Most Recently Used files not found in wheel |
+| <D-f>          | Locate                                      |
 | -------------- | ------------------------------------------- |
 | <D-y>          | Paste yank wheel element in list mode       |
 | <D-p>          | Paste yank wheel element in plain mode      |
