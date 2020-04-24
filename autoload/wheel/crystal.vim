@@ -14,15 +14,17 @@ if ! exists('s:referen_levels')
 endif
 
 if ! exists('s:referen_coordin')
-	let s:referen_coordin = [ 'torus', 'circle', 'location']
+	let s:referen_coordin = ['torus', 'circle', 'location']
 	lockvar s:referen_coordin
 endif
 
 if ! exists('s:referen_list_keys')
 	let s:referen_list_keys =
-				\{ 'wheel' : 'toruses',
+				\{
+				\ 'wheel' : 'toruses',
 				\ 'torus' : 'circles',
-				\ 'circle' : 'locations'}
+				\ 'circle' : 'locations',
+				\ }
 	lockvar s:referen_list_keys
 endif
 
