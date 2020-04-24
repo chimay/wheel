@@ -1,7 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Context menus,
-" acting back on a wheel buffer
+" Context menus, acting back on a wheel buffer
 
 fun! wheel#boomerang#sync ()
 	" Sync buffer variables with top of stack
@@ -33,7 +32,7 @@ fun! wheel#boomerang#menu (dictname)
 	let dictname = 'context/' . a:dictname
 	" Close = 0 by default, to be able to catch wheel buffer variables
 	let settings = {'linefun' : dictname, 'close' : 0, 'travel' : 0}
-	call wheel#layer#staircase(settings)
+	call wheel#tower#staircase(settings)
 	call wheel#boomerang#sync ()
 	" Let wheel#overlay#call handle open / close
 	let b:wheel_settings.close = 0

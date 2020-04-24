@@ -24,7 +24,7 @@ fun! wheel#hub#menu_maps (dictname)
 	" Define local maps for menus
 	let dictname = 'menu/' . a:dictname
 	let settings = {'linefun' : dictname, 'close' : 1, 'travel' : 1}
-	call wheel#layer#overlay (settings)
+	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
 endfun
 
@@ -32,7 +32,7 @@ fun! wheel#hub#meta_maps (dictname)
 	" Define local maps for meta menu
 	let dictname = 'menu/' . a:dictname
 	let settings = {'linefun' : dictname, 'close' : 0, 'travel' : 0}
-	call wheel#layer#overlay (settings)
+	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
 	return
 endfun
@@ -83,7 +83,7 @@ fun! wheel#hub#submenu (dictname)
 	" Submenu
 	let dictname = 'menu/' . a:dictname
 	let settings = {'linefun' : dictname, 'close' : 1, 'travel' : 1}
-	call wheel#layer#staircase (settings)
+	call wheel#tower#staircase (settings)
 endfun
 
 fun! wheel#hub#main ()
