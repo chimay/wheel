@@ -184,7 +184,7 @@ fun! wheel#line#filter ()
 		return linelist
 	endif
 	call wheel#scroll#record(first)
-	let Matches = function('wheel#gear#filter', [wordlist])
+	let Matches = function('wheel#gear#tree_filter', [wordlist])
 	let candidates = filter(linelist, Matches)
 	" two times : cleans a level each time
 	let filtered = wheel#gear#fold_filter(wordlist, candidates)

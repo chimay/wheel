@@ -8,7 +8,7 @@ fun! wheel#boomerang#sync ()
 	" Selection
 	let stack = b:wheel_stack
 	if ! empty(stack.selected)
-		let b:wheel_selected = stack.selected[0]
+		let b:wheel_selected = deepcopy(stack.selected[0])
 	endif
 	" If selection is empty, take the old cursor line
 	if empty(b:wheel_selected)
@@ -18,7 +18,7 @@ fun! wheel#boomerang#sync ()
 	endif
 	" Sync settings with top of stack
 	if ! empty(stack.settings)
-		let b:wheel_settings = stack.settings[0]
+		let b:wheel_settings = deepcopy(stack.settings[0])
 	endif
 endfun
 
@@ -42,8 +42,8 @@ fun! wheel#boomerang#menu (dictname)
 	nunmap <buffer> <tab>
 endfun
 
-fun! wheel#boomerang#navigation (action)
-	" navigation actions
+fun! wheel#boomerang#sailing (action)
+	" Sailing actions
 	let action = a:action
 	let settings = b:wheel_settings
 	if action == 'current'
@@ -77,7 +77,7 @@ endfun
 fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action
-	if wheel#boomerang#navigation (action)
+	if wheel#boomerang#sailing (action)
 		return
 	endif
 	if action == 'quickfix'

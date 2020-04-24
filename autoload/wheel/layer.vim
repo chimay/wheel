@@ -119,7 +119,6 @@ fun! wheel#layer#pop ()
 	" Restore selection
 	let selected = stack.selected
 	let b:wheel_selected = wheel#chain#pop(selected)
-	"call wheel#line#sync_select ()
 endfun
 
 fun! wheel#layer#call (settings)

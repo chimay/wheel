@@ -1,13 +1,14 @@
 " vim: ft=vim fdm=indent:
 
 " Generic Wheel Buffers
-
+"
+" A mandala is made of lines, like a buffer
+"
+" Sane defaults : may be overriden by more specific buffers
+"
 " Search, Filter
 " Select
 " Trigger action
-
-" Special Buffer
-" A mandala is made of lines, like a buffer
 
 " Script vars
 
@@ -17,7 +18,7 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" Helpers
+" Buffer
 
 fun! wheel#mandala#open (...)
 	" Open a wheel buffer
@@ -28,6 +29,16 @@ fun! wheel#mandala#open (...)
 	endif
 	new
 	call wheel#mandala#common_options (type)
+endfun
+
+fun! wheel#mandala#close ()
+	" Close the wheel buffer
+	" Go to alternate buffer if only one window
+	if winnr('$') > 1
+		quit
+	else
+		buffer #
+	endif
 endfun
 
 fun! wheel#mandala#fill (content)
@@ -72,18 +83,8 @@ fun! wheel#mandala#replace (content, ...)
 	call wheel#gear#restore_cursor (position, 1)
 endfun
 
-fun! wheel#mandala#close ()
-	" Close the wheel buffer
-	" Go to alternate buffer if only one window
-	if winnr('$') > 1
-		quit
-	else
-		buffer #
-	endif
-endfun
-
 fun! wheel#mandala#previous ()
-	" Go to previous window
+	" Go to previous window, before wheel buffer opening
 	" Go to alternate buffer if only one window
 	if winnr('$') > 1
 		wincmd p
@@ -141,11 +142,6 @@ fun! wheel#mandala#common_options (type)
 	let &filetype = a:type
 endfun
 
-fun! wheel#mandala#yank_options ()
-	" Set local yank options
-	setlocal nowrap
-endfun
-
 " Maps
 
 fun! wheel#mandala#common_maps ()
@@ -186,93 +182,6 @@ fun! wheel#mandala#input_history_maps ()
 	inoremap <buffer> <M-s> <esc>:call wheel#scroll#filtered_newer()<cr>
 endfun
 
-fun! wheel#mandala#select_maps ()
-	" Define local toggle selection maps
-	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
-endfun
-
-fun! wheel#mandala#navigation_maps (settings)
-	" Define local navigationation maps
-	let settings = copy(a:settings)
-	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#line#sailing('
-	let post = ')<cr>'
-	" Close after navigation
-	let settings.close = v:true
-	let settings.target = 'current'
-	exe map . '<cr>' . pre . string(settings) . post
-	let settings.target = 'tab'
-	exe map . 't' . pre . string(settings) . post
-	let settings.target = 'horizontal_split'
-	exe map . 's' . pre . string(settings) . post
-	let settings.target = 'vertical_split'
-	exe map . 'v' . pre . string(settings) . post
-	let settings.target = 'horizontal_golden'
-	exe map . 'S' . pre . string(settings) . post
-	let settings.target = 'vertical_golden'
-	exe map . 'V' . pre . string(settings) . post
-	" Leave open after navigation
-	let settings.close = v:false
-	let settings.target = 'current'
-	exe map . 'g<cr>' . pre . string(settings) . post
-	let settings.target = 'tab'
-	exe map . 'gt' . pre . string(settings) . post
-	let settings.target = 'horizontal_split'
-	exe map . 'gs' . pre . string(settings) . post
-	let settings.target = 'vertical_split'
-	exe map . 'gv' . pre . string(settings) . post
-	let settings.target = 'horizontal_golden'
-	exe map . 'gS' . pre . string(settings) . post
-	let settings.target = 'vertical_golden'
-	exe map . 'gV' . pre . string(settings) . post
-	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('navigation')<cr>
-endfun
-
-fun! wheel#mandala#yank_maps (mode)
-	" Define local yank maps
-	if a:mode == 'list'
-		nnoremap <buffer> <cr> :call wheel#line#paste_list ('close')<cr>
-		nnoremap <buffer> <tab> :call wheel#line#paste_list ('open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste_list ('open')<cr>
-	elseif a:mode == 'plain'
-		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('close')<cr>
-		nnoremap <buffer> <tab> :call wheel#line#paste_plain ('open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste_plain ('open')<cr>
-		" Visual mode
-		vnoremap <buffer> <cr> :<c-u>call wheel#line#paste_visual('close')<cr>
-		vnoremap <buffer> <tab> :<c-u>call wheel#line#paste_visual('open')<cr>
-		vnoremap <buffer> p :<c-u>call wheel#line#paste_visual('open')<cr>
-	endif
-endfun
-
-" Write commands
-
-fun! wheel#mandala#reorder_write (level)
-	" Define reorder autocommands
-	setlocal buftype=
-	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
-	let autocommand .= a:level . "')"
-	" Need a name when writing, even with BufWriteCmd
-	file /wheel/reorder
-	augroup wheel
-		autocmd!
-		exe autocommand
-	augroup END
-endfun
-
-fun! wheel#mandala#reorganize_write ()
-	" Define reorganize autocommands
-	setlocal buftype=
-	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
-	" Need a name when writing, even with BufWriteCmd
-	file /wheel/reorganize
-	augroup wheel
-		autocmd!
-		exe autocommand
-	augroup END
-endfun
-
 " Folding
 
 fun! wheel#mandala#folding_options ()
@@ -309,20 +218,12 @@ fun! wheel#mandala#folding_text ()
 	return text
 endfun
 
-" Templates
+" Template
 
 fun! wheel#mandala#template (...)
-	" Templates
+	" Template with filter & input history
 	if a:0 > 0
-		let type = a:1
-	else
-		let type = 'generic'
-	endif
-	if a:0 > 1
-		let settings = a:2
-		let b:wheel_settings = settings
-	elseif type == 'navigation' || type == 'yank'
-		echomsg 'Wheel mandala' type 'template : missing settings'
+		let b:wheel_settings = a:1
 	endif
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
@@ -330,11 +231,4 @@ fun! wheel#mandala#template (...)
 	" By default, tell wheel#line#coordin it’s not a tree buffer
 	" Overridden by folding_options
 	setlocal nofoldenable
-	if type == 'navigation'
-		call wheel#mandala#select_maps ()
-		call wheel#mandala#navigation_maps (settings)
-	elseif type == 'yank'
-		call wheel#mandala#yank_options ()
-		call wheel#mandala#yank_maps (settings.mode)
-	endif
 endfun

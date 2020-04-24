@@ -2,6 +2,57 @@
 
 " Navigation buffers
 
+" Helpers
+
+fun! wheel#sailing#maps (settings)
+	" Define local maps
+	let settings = copy(a:settings)
+	let map  =  'nnoremap <buffer> '
+	let pre  = ' :call wheel#line#sailing('
+	let post = ')<cr>'
+	" Close after navigation
+	let settings.close = v:true
+	let settings.target = 'current'
+	exe map . '<cr>' . pre . string(settings) . post
+	let settings.target = 'tab'
+	exe map . 't' . pre . string(settings) . post
+	let settings.target = 'horizontal_split'
+	exe map . 's' . pre . string(settings) . post
+	let settings.target = 'vertical_split'
+	exe map . 'v' . pre . string(settings) . post
+	let settings.target = 'horizontal_golden'
+	exe map . 'S' . pre . string(settings) . post
+	let settings.target = 'vertical_golden'
+	exe map . 'V' . pre . string(settings) . post
+	" Leave open after navigation
+	let settings.close = v:false
+	let settings.target = 'current'
+	exe map . 'g<cr>' . pre . string(settings) . post
+	let settings.target = 'tab'
+	exe map . 'gt' . pre . string(settings) . post
+	let settings.target = 'horizontal_split'
+	exe map . 'gs' . pre . string(settings) . post
+	let settings.target = 'vertical_split'
+	exe map . 'gv' . pre . string(settings) . post
+	let settings.target = 'horizontal_golden'
+	exe map . 'gS' . pre . string(settings) . post
+	let settings.target = 'vertical_golden'
+	exe map . 'gV' . pre . string(settings) . post
+	" Define local toggle selection maps
+	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
+	" Context menu
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('sailing')<cr>
+endfun
+
+fun! wheel#sailing#template (settings)
+	" Template
+	let settings = a:settings
+	call wheel#mandala#template (settings)
+	call wheel#sailing#maps (settings)
+endfun
+
+" Buffers
+
 fun! wheel#sailing#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
@@ -13,7 +64,7 @@ fun! wheel#sailing#switch (level)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-switch-' . level)
 	let settings = {'level' : level}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	let lines = wheel#perspective#switch (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)
@@ -28,7 +79,7 @@ fun! wheel#sailing#helix ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-location-index')
 	let settings = {'action' : function('wheel#line#helix')}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	let lines = wheel#perspective#helix ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -39,7 +90,7 @@ fun! wheel#sailing#grid ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-circle-index')
 	let settings = {'action' : function('wheel#line#grid')}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	let lines = wheel#perspective#grid ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -49,7 +100,7 @@ fun! wheel#sailing#tree ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tree')
 	let settings = {'action' : function('wheel#line#tree')}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()
 	let lines = wheel#perspective#tree ()
 	call wheel#mandala#fill(lines)
@@ -61,7 +112,7 @@ fun! wheel#sailing#history ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-history')
 	let settings = {'action' : function('wheel#line#history')}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	let lines = wheel#perspective#pendulum ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -83,7 +134,7 @@ fun! wheel#sailing#grep (...)
 		call wheel#vortex#update ()
 		call wheel#mandala#open ('wheel-grep')
 		let settings = {'action' : function('wheel#line#grep')}
-		call wheel#mandala#template ('navigation', settings)
+		call wheel#sailing#template (settings)
 		let lines = wheel#perspective#grep ()
 		call wheel#mandala#fill(lines)
 		" Context menu
@@ -100,11 +151,11 @@ fun! wheel#sailing#outline ()
 		if &grepprg !~ '^grep'
 			let marker = escape(marker, '{')
 		endif
-		call wheel#mandala#grep (marker)
+		call wheel#sailing#grep (marker)
 	elseif mode == 2
-		call wheel#mandala#grep ('^#', '\.md$')
+		call wheel#sailing#grep ('^#', '\.md$')
 	elseif mode == 3
-		call wheel#mandala#grep ('^\*', '\.org$')
+		call wheel#sailing#grep ('^\*', '\.org$')
 	endif
 endfun
 
@@ -113,7 +164,7 @@ fun! wheel#sailing#attic ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-mru')
 	let settings = {'action' : function('wheel#line#attic')}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	let lines = wheel#perspective#attic ()
 	call wheel#mandala#fill(lines)
 endfun
@@ -123,7 +174,7 @@ fun! wheel#sailing#locate ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-locate')
 	let settings = {'action' : function('wheel#line#locate')}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	let prompt = 'Search for file matching : '
 	let pattern = input(prompt)
 	let database = g:wheel_config.locate_db
@@ -141,7 +192,7 @@ fun! wheel#sailing#symbol ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tags')
 	let settings = {'action' : function('wheel#line#symbol')}
-	call wheel#mandala#template ('navigation', settings)
+	call wheel#sailing#template (settings)
 	let lines = wheel#perspective#symbol ()
 	call wheel#mandala#fill(lines)
 endfun

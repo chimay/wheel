@@ -291,6 +291,9 @@ the elements with each word you enter on the input (first) line. Typing
 is not mapped, in case you need to go to normal mode without triggering
 the filter function.
 
+Beginning a filtering word with a bang "!" is a logical not : all lines
+matching this word will be removed.
+
 Input history~
 
 An input history is available in insert mode. You can insert the
@@ -1217,47 +1220,48 @@ and add them to your init file.
 
 Here is the default level 10, if you wish to customize it : >
 
-    " Hub : Menus
+    " Menus
     nnoremap <D-=>        :call wheel#hub#meta()<cr>
     nnoremap <D-m>        :call wheel#hub#main()<cr>
-    " Mandala : special buffers
-    nnoremap <Space>      :call wheel#mandala#switch('location')<cr>
-    nnoremap <C-Space>    :call wheel#mandala#switch('circle')<cr>
-    nnoremap <S-Space>    :call wheel#mandala#switch('torus')<cr>
-    nnoremap <D-Space>    :call wheel#mandala#tree()<cr>
-    nnoremap <M-Space>    :call wheel#mandala#helix()<cr>
-    nnoremap <D-h>        :call wheel#mandala#history()<cr>
-    nnoremap <D-r>        :call wheel#mandala#reorganize()<cr>
-    " Tree : add, rename, delete
+    " Add, Delete
     nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
     nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
-    " Vortex : switch
+    " Next / Previous
     nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
     nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
     nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
     nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
     nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
     nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
-    " Pendulum : history
+    " History
     nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
     nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
+    " Alternate
     nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
     nnoremap <D-^>          :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
     nnoremap <C-S-PageUp>   :call wheel#pendulum#alternate_same_torus()<cr>
     nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
     nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
     nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
+    " Navigation buffers
+    nnoremap <Space>      :call wheel#sailing#switch('location')<cr>
+    nnoremap <C-Space>    :call wheel#sailing#switch('circle')<cr>
+    nnoremap <S-Space>    :call wheel#sailing#switch('torus')<cr>
+    nnoremap <D-Space>    :call wheel#sailing#tree()<cr>
+    nnoremap <M-Space>    :call wheel#sailing#helix()<cr>
+    nnoremap <D-h>        :call wheel#sailing#history()<cr>
+    " Reshaping buffers
+    nnoremap <D-r>        :call wheel#shape#reorganize()<cr>
     " Search inside files
-    nnoremap <D-g>          :call wheel#mandala#grep()<cr>
-    nnoremap <D-o>          :call wheel#mandala#outline()<cr>
-    " Tags
-    nnoremap <D-a>          :call wheel#mandala#symbol()<cr>
+    nnoremap <D-g>          :call wheel#sailing#grep()<cr>
+    nnoremap <D-o>          :call wheel#sailing#outline()<cr>
+    nnoremap <D-a>          :call wheel#sailing#symbol()<cr>
     " Search for files
-    nnoremap <D-u>          :call wheel#mandala#attic()<cr>
-    nnoremap <D-f>          :call wheel#mandala#locate()<cr>
+    nnoremap <D-u>          :call wheel#sailing#attic()<cr>
+    nnoremap <D-f>          :call wheel#sailing#locate()<cr>
     " Yank
-    nnoremap <D-y>          :call wheel#mandala#yank('list')<cr>
-    nnoremap <D-p>          :call wheel#mandala#yank('plain')<cr>
+    nnoremap <D-y>          :call wheel#clipper#yank('list')<cr>
+    nnoremap <D-p>          :call wheel#clipper#yank('plain')<cr>
     " Batch
     nnoremap <D-b>          :WheelBatch<space>
     " Windows
@@ -1305,24 +1309,27 @@ Autoload files~
 | centre.vim        | Mappings                               |
 | chain.vim         | List helpers                           |
 | checknfix.vim     | Check & Fix variables                  |
+| clipper.vim       | Yank buffers                           |
 | codex.vim         | Yank wheel                             |
 | complete.vim      | Input completion                       |
 | crystal.vim       | Internal variables                     |
-| cuboctahedron.vim | Structure : reordering, reorganizing   |
+| cuboctahedron.vim | Reshaping : reorder, reorganize        |
 | disc.vim          | Read & Write wheel file                |
 | gear.vim          | Generic helpers                        |
 | helix.vim         | Indexes                                |
 | hub.vim           | Menus                                  |
 | layer.vim         | Stack in special buffers               |
 | line.vim          | Activate line                          |
-| mandala.vim       | Special buffers                        |
+| mandala.vim       | Generic special buffers                |
 | mosaic.vim        | Layouts                                |
 | pendulum.vim      | History                                |
 | perspective.vim   | Content generators for special buffers |
 | projection.vim    | Following buffers                      |
 | pyramid.vim       | Mix of tabs & splits layouts           |
 | referen.vim       | References to current elements         |
+| sailing.vim       | Navigation buffers                     |
 | scroll.vim        | Input history                          |
+| shape.vim         | Reshaping buffers                      |
 | spiral.vim        | Golden ratio                           |
 | status.vim        | Print wheel status                     |
 | symbol.vim        | Tags                                   |

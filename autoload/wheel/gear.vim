@@ -2,6 +2,8 @@
 
 " Helpers
 
+" Rotating
+
 fun! wheel#gear#circular_plus (index, length)
 	return (a:index + 1) % a:length
 endfun
@@ -13,6 +15,8 @@ fun! wheel#gear#circular_minus (index, length)
 	endif
 	return index
 endfun
+
+" Cursor
 
 fun! wheel#gear#restore_cursor (position, ...)
 	" Restore cursor position
@@ -28,6 +32,8 @@ fun! wheel#gear#restore_cursor (position, ...)
 		call cursor(default, 1)
 	endif
 endfun
+
+" Directory
 
 fun! wheel#gear#project_root (markers)
 	" Change local directory to root of project
@@ -57,21 +63,30 @@ fun! wheel#gear#project_root (markers)
 	endwhile
 endfun
 
-fun! wheel#gear#word_filter (wordlist, index, value)
+" Filter
+
+fun! wheel#gear#word_filter (wordlist, value)
 	" Whether value matches all words of wordlist
-	" index is not used, it’s just for compatibility with filter()
+	" Word beginning by a ! means logical not
 	let match = 1
 	for word in a:wordlist
-		if a:value !~ word
-			let match = 0
-			break
+		if word !~ '\m^!'
+			if a:value !~ word
+				let match = 0
+				break
+			endif
+		else
+			if a:value =~ word[1:]
+				let match = 0
+				break
+			endif
 		endif
 	endfor
 	return match
 endfun
 
-fun! wheel#gear#filter (wordlist, index, value)
-	" Whether value matches all words of wordlist. Keep surrounding folds.
+fun! wheel#gear#tree_filter (wordlist, index, value)
+	" Like word_filter, but keep surrounding folds
 	" index is not used, it’s just for compatibility with filter()
 	let marker = split(&foldmarker, ',')[0]
 	let length = strchars(a:value)
@@ -79,7 +94,7 @@ fun! wheel#gear#filter (wordlist, index, value)
 	if prelast ==# marker
 		return v:true
 	endif
-	return wheel#gear#word_filter(a:wordlist, a:index, a:value)
+	return wheel#gear#word_filter(a:wordlist, a:value)
 endfun
 
 fun! wheel#gear#fold_filter (wordlist, candidates)
@@ -108,7 +123,7 @@ fun! wheel#gear#fold_filter (wordlist, candidates)
 		" and current fold level will be >= than next one
 		if cur_prelast ==# marker && next_prelast ==# marker && cur_last >= next_last
 			" Add line only if matches wordlist
-			if wheel#gear#word_filter(wordlist, index, cur_value)
+			if wheel#gear#word_filter(wordlist, cur_value)
 				call add(filtered, cur_value)
 			endif
 		else
@@ -116,7 +131,7 @@ fun! wheel#gear#fold_filter (wordlist, candidates)
 		endif
 	endfor
 	let value = candidates[-1]
-	if wheel#gear#word_filter(wordlist, -1, value)
+	if wheel#gear#word_filter(wordlist, value)
 		call add(filtered, value)
 	endif
 	return filtered

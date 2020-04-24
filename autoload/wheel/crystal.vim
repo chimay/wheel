@@ -104,19 +104,19 @@ if ! exists('s:menu_delete')
 	lockvar s:menu_delete
 endif
 
-if ! exists('s:menu_navigation')
-	let s:menu_navigation = {
-				\ 'Navigate to torus' : "wheel#mandala#switch('torus')",
-				\ 'Navigate to circle' : "wheel#mandala#switch('circle')",
-				\ 'Navigate to location' : "wheel#mandala#switch('location')",
-				\ 'Navigate to location in index' : 'wheel#mandala#helix',
-				\ 'Navigate to circle in index' : 'wheel#mandala#grid',
-				\ 'Navigate to element in wheel tree' : 'wheel#mandala#tree',
-				\ 'Navigate to location in history' : 'wheel#mandala#history',
-				\ 'Navigate to most recently used file (mru)' : 'wheel#mandala#attic',
-				\ 'Navigate to result of locate search' : 'wheel#mandala#locate',
+if ! exists('s:menu_sailing')
+	let s:menu_sailing = {
+				\ 'Navigate to torus' : "wheel#sailing#switch('torus')",
+				\ 'Navigate to circle' : "wheel#sailing#switch('circle')",
+				\ 'Navigate to location' : "wheel#sailing#switch('location')",
+				\ 'Navigate to location in index' : 'wheel#sailing#helix',
+				\ 'Navigate to circle in index' : 'wheel#sailing#grid',
+				\ 'Navigate to element in wheel tree' : 'wheel#sailing#tree',
+				\ 'Navigate to location in history' : 'wheel#sailing#history',
+				\ 'Navigate to most recently used file (mru)' : 'wheel#sailing#attic',
+				\ 'Navigate to result of locate search' : 'wheel#sailing#locate',
 				\}
-	lockvar s:menu_navigation
+	lockvar s:menu_sailing
 endif
 
 if ! exists('s:menu_alternate')
@@ -189,26 +189,26 @@ endif
 
 if ! exists('s:menu_reorganize')
 	let s:menu_reorganize = {
-				\ 'Reorder toruses' : "wheel#mandala#reorder('torus')",
-				\ 'Reorder circles' : "wheel#mandala#reorder('circle')",
-				\ 'Reorder locations' : "wheel#mandala#reorder('location')",
-				\ 'Reorganize wheel' : 'wheel#mandala#reorganize',
+				\ 'Reorder toruses' : "wheel#shape#reorder('torus')",
+				\ 'Reorder circles' : "wheel#shape#reorder('circle')",
+				\ 'Reorder locations' : "wheel#shape#reorder('location')",
+				\ 'Reorganize wheel' : 'wheel#shape#reorganize',
 				\}
 	lockvar s:menu_reorganize
 endif
 
 if ! exists('s:menu_search')
 	let s:menu_search = {
-				\ 'Search in circle files' : 'wheel#mandala#grep()',
-				\ 'Outline : folds headers in circle files' : 'wheel#mandala#outline()',
+				\ 'Search in circle files' : 'wheel#sailing#grep()',
+				\ 'Outline : folds headers in circle files' : 'wheel#sailing#outline()',
 				\}
 	lockvar s:menu_search
 endif
 
 if ! exists('s:menu_yank')
 	let s:menu_yank = {
-				\ 'Yank wheel in list mode' : "wheel#mandala#yank('list')",
-				\ 'Yank wheel in plain mode' : "wheel#mandala#yank('plain')",
+				\ 'Yank wheel in list mode' : "wheel#clipper#yank('list')",
+				\ 'Yank wheel in plain mode' : "wheel#clipper#yank('plain')",
 				\}
 	lockvar s:menu_yank
 endif
@@ -220,7 +220,7 @@ if ! exists('s:menu_list')
 				\ 'add',
 				\ 'rename',
 				\ 'delete',
-				\ 'navigation',
+				\ 'sailing',
 				\ 'alternate',
 				\ 'tabs',
 				\ 'windows',
@@ -249,7 +249,7 @@ if ! exists('s:menu_meta')
 				\ 'Add' : "wheel#hub#submenu('add')",
 				\ 'Rename' : "wheel#hub#submenu('rename')",
 				\ 'Delete' : "wheel#hub#submenu('delete')",
-				\ 'Navigation' : "wheel#hub#submenu('navigation')",
+				\ 'Navigation' : "wheel#hub#submenu('sailing')",
 				\ 'Alternate' : "wheel#hub#submenu('alternate')",
 				\ 'Tabs' : "wheel#hub#submenu('tabs')",
 				\ 'Window layouts' : "wheel#hub#submenu('windows')",
@@ -263,23 +263,23 @@ endif
 
 " Contextual menus
 
-if ! exists('s:context_navigation')
-	let s:context_navigation = {
-				\ 'Open' : "wheel#boomerang#navigation('current')",
-				\ 'Open in tab(s)' : "wheel#boomerang#navigation('tab')",
-				\ 'Open in horizontal split(s)' : "wheel#boomerang#navigation('horizontal_split')",
-				\ 'Open in vertical split(s)' : "wheel#boomerang#navigation('vertical_split')",
-				\ 'Open in horizontal golden split(s)' : "wheel#boomerang#navigation('horizontal_golden')",
-				\ 'Open in vertical golden split(s)' : "wheel#boomerang#navigation('vertical_golden')",
+if ! exists('s:context_sailing')
+	let s:context_sailing = {
+				\ 'Open' : "wheel#boomerang#sailing('current')",
+				\ 'Open in tab(s)' : "wheel#boomerang#sailing('tab')",
+				\ 'Open in horizontal split(s)' : "wheel#boomerang#sailing('horizontal_split')",
+				\ 'Open in vertical split(s)' : "wheel#boomerang#sailing('vertical_split')",
+				\ 'Open in horizontal golden split(s)' : "wheel#boomerang#sailing('horizontal_golden')",
+				\ 'Open in vertical golden split(s)' : "wheel#boomerang#sailing('vertical_golden')",
 				\}
-	lockvar s:context_navigation
+	lockvar s:context_sailing
 endif
 
 if ! exists('s:context_grep')
 	let s:context_grep = {
 				\ 'Open quickfix' : "wheel#boomerang#grep('quickfix')",
 				\}
-	call extend(s:context_grep, s:context_navigation)
+	call extend(s:context_grep, s:context_sailing)
 	lockvar s:context_grep
 endif
 
