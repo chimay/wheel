@@ -78,7 +78,7 @@ fun! s:Exit (chan, data, event) dict
 	let text = printf('%s %s : %s', self.name, a:event, '...')
 	let last = line('$')
 	call appendbufline(bufnum, last, text)
-	call remove(g:wheel_wave, self.index)
+	call wheel#chain#remove_element(self, g:wheel_wave)
 endfun
 
 let s:callbacks = {
@@ -101,13 +101,32 @@ fun! wheel#wave#start (command)
 	endif
 	call map(command, {_,val->expand(val)})
 	let job = {}
-	let job.index = len(g:wheel_wave)
 	let job.name = fnamemodify(command[0], ':t:r')
 	call wheel#wave#open ('wheel-wave')
 	call wheel#wave#common_maps ()
 	let job.bufnum = bufnr('%')
+	let job.pty = v:true
 	call extend(job, s:callbacks)
     let jobid = jobstart(command, job)
+	if jobid < 0
+		echomsg 'Wheel wave start : failed to start' command[0]
+		return
+	endif
 	let job.ident = jobid
 	call add(g:wheel_wave, job)
+	return job
+endfun
+
+fun! wheel#wave#send (job, text)
+	" Send text to job
+	let job = a:job
+	let text = a:text
+	return chansend(job.ident, text)
+endfun
+
+fun! wheel#wave#stop (job)
+	" Stop job
+	let job = a:job
+	call jobstop(job.ident)
+	call wheel#chain#remove_element(job, g:wheel_wave)
 endfun

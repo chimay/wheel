@@ -51,7 +51,11 @@ fun! wheel#chain#remove_element (element, list)
 	let element = a:element
 	let list = a:list
 	let index = index(list, element)
-	return wheel#chain#remove_index(index, list)
+	if index >= 0
+		return wheel#chain#remove_index(index, list)
+	else
+		return v:false
+	endif
 endfu
 
 fun! wheel#chain#pop (list)
