@@ -106,15 +106,15 @@ endif
 
 if ! exists('s:menu_sailing')
 	let s:menu_sailing = {
-				\ 'Navigate to torus' : "wheel#sailing#switch('torus')",
-				\ 'Navigate to circle' : "wheel#sailing#switch('circle')",
-				\ 'Navigate to location' : "wheel#sailing#switch('location')",
-				\ 'Navigate to location in index' : 'wheel#sailing#helix',
-				\ 'Navigate to circle in index' : 'wheel#sailing#grid',
-				\ 'Navigate to element in wheel tree' : 'wheel#sailing#tree',
-				\ 'Navigate to location in history' : 'wheel#sailing#history',
-				\ 'Navigate to most recently used file (mru)' : 'wheel#sailing#attic',
-				\ 'Navigate to result of locate search' : 'wheel#sailing#locate',
+				\ 'Sail to torus' : "wheel#sailing#switch('torus')",
+				\ 'Sail to circle' : "wheel#sailing#switch('circle')",
+				\ 'Sail to location' : "wheel#sailing#switch('location')",
+				\ 'Sail to location in index' : 'wheel#sailing#helix',
+				\ 'Sail to circle in index' : 'wheel#sailing#grid',
+				\ 'Sail to element in wheel tree' : 'wheel#sailing#tree',
+				\ 'Sail to location in history' : 'wheel#sailing#history',
+				\ 'Sail to most recently used file (mru)' : 'wheel#sailing#attic',
+				\ 'Sail to result of locate search' : 'wheel#sailing#locate',
 				\}
 	lockvar s:menu_sailing
 endif
@@ -198,9 +198,11 @@ if ! exists('s:menu_reorganize')
 endif
 
 if ! exists('s:menu_search')
+	" Search inside files
 	let s:menu_search = {
 				\ 'Search in circle files' : 'wheel#sailing#grep()',
 				\ 'Outline : folds headers in circle files' : 'wheel#sailing#outline()',
+				\ 'Tags' : 'wheel#sailing#symbol()',
 				\}
 	lockvar s:menu_search
 endif
@@ -249,7 +251,7 @@ if ! exists('s:menu_meta')
 				\ 'Add' : "wheel#hub#submenu('add')",
 				\ 'Rename' : "wheel#hub#submenu('rename')",
 				\ 'Delete' : "wheel#hub#submenu('delete')",
-				\ 'Navigation' : "wheel#hub#submenu('sailing')",
+				\ 'Sailing' : "wheel#hub#submenu('sailing')",
 				\ 'Alternate' : "wheel#hub#submenu('alternate')",
 				\ 'Tabs' : "wheel#hub#submenu('tabs')",
 				\ 'Window layouts' : "wheel#hub#submenu('windows')",
