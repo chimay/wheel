@@ -194,7 +194,7 @@ fun! wheel#sailing#find ()
 	let settings = {'action' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
 	let prompt = 'Find file matching : '
-	let pattern = input(prompt)
+	let pattern = '*' . input(prompt) . '*'
 	let pattern = escape(pattern, '*')
 	let command = ['find', '.', '-type', 'f', '-name', pattern]
 	let settings = {'new_buffer' : v:false}
