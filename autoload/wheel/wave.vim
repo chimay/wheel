@@ -58,6 +58,7 @@ fun! s:Out (chan, data, event) dict
 	" Callback ou stdout event
 	let bufnum = self.bufnum
 	let data = join(a:data[:-2])
+	let data = substitute(data, "\<c-m>", ' ', '')
 	let text = printf('%s %s : %s', self.name, a:event, data)
 	let last = line('$')
 	call appendbufline(bufnum, last, text)
@@ -89,8 +90,13 @@ let s:callbacks = {
 
 " Main
 
-fun! wheel#wave#start (command)
+fun! wheel#wave#start (command, ...)
 	" Start a new job
+	if a:0 > 0
+		let options = a:1
+	else
+		let options = {}
+	endif
 	if type(a:command) == v:t_list
 		let command = a:command
 	elseif type(a:command) == v:t_string
@@ -107,6 +113,7 @@ fun! wheel#wave#start (command)
 	let job.bufnum = bufnr('%')
 	let job.pty = v:true
 	call extend(job, s:callbacks)
+	call extend(job, options)
     let jobid = jobstart(command, job)
 	if jobid < 0
 		echomsg 'Wheel wave start : failed to start' command[0]
