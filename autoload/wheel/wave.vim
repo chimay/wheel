@@ -13,73 +13,46 @@ endif
 
 " Buffer
 
-fun! wheel#wave#open (...)
-	" Open a wheel buffer
-	if a:0 > 0
-		let type = a:1
-	else
-		let type = 'wheel'
-	endif
-	new
-	call wheel#wave#common_options (type)
-endfun
-
-fun! wheel#wave#close ()
-	" Close the wheel buffer
-	" Go to alternate buffer if only one window
-	if winnr('$') > 1
-		quit
-	else
-		buffer #
-	endif
-endfun
-
-fun! wheel#wave#common_options (type)
-	" Set local common options
-	setlocal cursorline
-	setlocal nobuflisted
-	setlocal noswapfile
-	setlocal buftype=nofile
+fun! wheel#wave#template ()
+	" Job buffer template
+	call wheel#mandala#template ()
 	setlocal bufhidden=
-	file /wheel/wave
-	let &filetype = a:type
+	exe 'file ' . '/wheel/wave/' . bufnr('%')
+	let b:wheel_lines = []
 endfun
-
-fun! wheel#wave#common_maps ()
-	" Define local common maps
-	nnoremap <buffer> q :call wheel#wave#close()<cr>
-	call wheel#mandala#filter_maps ()
-	call wheel#mandala#input_history_maps ()
-endfu
 
 " Callback
 
 fun! s:Out (chan, data, event) dict
 	" Callback ou stdout event
 	let bufnum = self.bufnum
-	let data = join(a:data[:-2])
-	let data = substitute(data, "\<c-m>", ' ', '')
-	let text = printf('%s %s : %s', self.name, a:event, data)
+	let data = join(a:data)
+	let text = split(data, "\r")
 	let last = line('$')
+	let text = text[:-2]
 	call appendbufline(bufnum, last, text)
+	call extend(b:wheel_lines, text)
 endfun
 
 fun! s:Err (chan, data, event) dict
 	" Callback ou stderr event
 	let bufnum = self.bufnum
-	let data = join(a:data[:-2])
-	let text = printf('%s %s : %s', self.name, a:event, data)
+	let data = join(a:data)
+	let text = split(data, "\r")
 	let last = line('$')
 	call appendbufline(bufnum, last, text)
+	call extend(b:wheel_lines, text)
 endfun
 
 fun! s:Exit (chan, data, event) dict
 	" Callback ou exit event
 	let bufnum = self.bufnum
-	let text = printf('%s %s : %s', self.name, a:event, '...')
+	let code = a:data
+	let text = printf('%s %s : %s', self.name, a:event, code)
 	let last = line('$')
 	call appendbufline(bufnum, last, text)
 	call wheel#chain#remove_element(self, g:wheel_wave)
+	call add(b:wheel_lines, text)
 endfun
 
 let s:callbacks = {
@@ -105,11 +78,14 @@ fun! wheel#wave#start (command, ...)
 		echomsg 'Wheel wave new : bad command format'
 		return
 	endif
-	call map(command, {_,val->expand(val)})
+	" Buffer
+	call wheel#mandala#open ('wheel-wave')
+	call wheel#wave#template ()
+	" Expand tilde in filenames
+	call map(command, {_, val -> expand(val)})
+	" Job
 	let job = {}
 	let job.name = fnamemodify(command[0], ':t:r')
-	call wheel#wave#open ('wheel-wave')
-	call wheel#wave#common_maps ()
 	let job.bufnum = bufnr('%')
 	let job.pty = v:true
 	call extend(job, s:callbacks)

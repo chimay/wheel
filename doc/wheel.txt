@@ -294,6 +294,9 @@ the filter function.
 A bang "!" beginning a filtering word is a logical not : all lines matching
 this word will be removed from the buffer.
 
+A pipe "|" in the middle of a word is a logical or. So, `one|two` will
+display lines containing `one` or `two`.
+
 Input history~
 
 An input history is available in insert mode. You can insert the

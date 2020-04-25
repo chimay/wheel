@@ -4,12 +4,12 @@
 
 " Helpers
 
-fun! wheel#clipper#yank_options ()
+fun! wheel#clipper#options ()
 	" Set local yank options
 	setlocal nowrap
 endfun
 
-fun! wheel#clipper#yank_maps (mode)
+fun! wheel#clipper#maps (mode)
 	" Define local yank maps
 	if a:mode == 'list'
 		nnoremap <buffer> <cr> :call wheel#line#paste_list ('close')<cr>
@@ -30,8 +30,8 @@ fun! wheel#clipper#template (settings)
 	" Template
 	let settings = a:settings
 	call wheel#mandala#template (settings)
-	call wheel#clipper#yank_options ()
-	call wheel#clipper#yank_maps (settings.mode)
+	call wheel#clipper#options ()
+	call wheel#clipper#maps (settings.mode)
 endfun
 
 " Buffer

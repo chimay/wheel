@@ -68,8 +68,11 @@ endfun
 fun! wheel#gear#word_filter (wordlist, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
+	" Pipe | in word meand logical or
+	let wordlist = copy(a:wordlist)
+	call map(wordlist, {_, val -> substitute(val, '|', '\\|', 'g')})
 	let match = 1
-	for word in a:wordlist
+	for word in wordlist
 		if word !~ '\m^!'
 			if a:value !~ word
 				let match = 0
