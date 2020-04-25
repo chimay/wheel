@@ -2,7 +2,7 @@
 
 # vim: set filetype=sh:
 
-for i in $(seq 5)
+for i in $(seq 100)
 do
 	echo $i
 	sleep 1

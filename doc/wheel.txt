@@ -1221,11 +1221,11 @@ and add them to your init file.
 Here is the default level 10, if you wish to customize it : >
 
     " Menus
-    nnoremap <D-=>        :call wheel#hub#meta()<cr>
-    nnoremap <D-m>        :call wheel#hub#main()<cr>
+    nnoremap <M-=>        :call wheel#hub#meta()<cr>
+    nnoremap <M-m>        :call wheel#hub#main()<cr>
     " Add, Delete
-    nnoremap <D-Insert>   :call wheel#tree#add_here()<cr>
-    nnoremap <D-Del>      :call wheel#tree#delete('location')<cr>
+    nnoremap <M-Insert>   :call wheel#tree#add_here()<cr>
+    nnoremap <M-Del>      :call wheel#tree#delete('location')<cr>
     " Next / Previous
     nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
     nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
@@ -1251,24 +1251,24 @@ Here is the default level 10, if you wish to customize it : >
     nnoremap <M-Space>    :call wheel#sailing#helix()<cr>
     nnoremap <D-h>        :call wheel#sailing#history()<cr>
     " Reshaping buffers
-    nnoremap <D-r>        :call wheel#shape#reorganize()<cr>
+    nnoremap <M-r>        :call wheel#shape#reorganize()<cr>
     " Search inside files
-    nnoremap <D-g>          :call wheel#sailing#grep()<cr>
-    nnoremap <D-o>          :call wheel#sailing#outline()<cr>
-    nnoremap <D-a>          :call wheel#sailing#symbol()<cr>
+    nnoremap <M-g>          :call wheel#sailing#grep()<cr>
+    nnoremap <M-o>          :call wheel#sailing#outline()<cr>
+    nnoremap <M-t>          :call wheel#sailing#symbol()<cr>
     " Search for files
-    nnoremap <D-u>          :call wheel#sailing#attic()<cr>
-    nnoremap <D-f>          :call wheel#sailing#locate()<cr>
+    nnoremap <M-u>          :call wheel#sailing#attic()<cr>
+    nnoremap <M-l>          :call wheel#sailing#locate()<cr>
     " Yank
-    nnoremap <D-y>          :call wheel#clipper#yank('list')<cr>
-    nnoremap <D-p>          :call wheel#clipper#yank('plain')<cr>
+    nnoremap <M-y>          :call wheel#clipper#yank('list')<cr>
+    nnoremap <M-p>          :call wheel#clipper#yank('plain')<cr>
     " Batch
-    nnoremap <D-b>          :WheelBatch<space>
+    nnoremap <M-b>          :WheelBatch<space>
     " Windows
-    nnoremap <D-z>          :call wheel#mosaic#zoom()<cr>
-    nnoremap <D-t>          :call wheel#mosaic#tabs('location')<cr>
-    nnoremap <D-l>          :call wheel#mosaic#split('location', 'main_left')<cr>
-    nnoremap <D-&>          :call wheel#pyramid#steps('circle')<cr>
+    nnoremap <M-z>          :call wheel#mosaic#zoom()<cr>
+    nnoremap <M-Home>       :call wheel#mosaic#tabs('location')<cr>
+    nnoremap <M-End>        :call wheel#mosaic#split('location', 'main_left')<cr>
+    nnoremap <M-&>          :call wheel#pyramid#steps('circle')<cr>
     " Rotate windows
     nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
     nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
