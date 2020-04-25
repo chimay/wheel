@@ -97,8 +97,13 @@ endfun
 
 fun! wheel#void#wave ()
 	" Initialize jobs dictionary
+	" For neovim
 	if ! exists('g:wheel_wave')
 		let g:wheel_wave = []
+	endif
+	" Same thing for vim
+	if ! exists('g:wheel_ripple')
+		let g:wheel_ripple = []
 	endif
 endfun
 
@@ -214,6 +219,7 @@ fun! wheel#void#lighten (...)
 					\ 'g:wheel_input',
 					\ 'g:wheel_attic',
 					\ 'g:wheel_wave',
+					\ 'g:wheel_ripple',
 					\ 'g:wheel_yank',
 					\ 'g:wheel_shelve',
 					\ 'g:wheel_config',

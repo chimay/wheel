@@ -201,8 +201,7 @@ fun! wheel#sailing#find ()
 	if has('nvim')
 		call wheel#wave#start(command, settings)
 	else
-		redraw!
-		echomsg 'Async for vim : TODO'
+		call wheel#ripple#start(command, settings)
 	endif
 endfun
 

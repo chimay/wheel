@@ -3,6 +3,7 @@
 " Job control, vim 8
 
 if has('nvim')
+	echomsg 'Wheel ripple is for vim : see wave for neovim'
 	finish
 endif
 
@@ -11,6 +12,15 @@ if ! exists('*appendbufline')
 	finish
 endif
 
+" Callback
+
+fun! wheel#ripple#callback_exit (chan, code)
+	" Callback ou exit event
+	let text = printf('%s %s : %s', self.name, a:event, a:code)
+	call wheel#chain#pop (g:wheel_ripple)
+	echomsg text
+endfun
+
 " Buffer
 
 fun! wheel#ripple#template ()
@@ -18,46 +28,8 @@ fun! wheel#ripple#template ()
 	call wheel#mandala#template ()
 	setlocal bufhidden=
 	exe 'file ' . '/wheel/ripple/' . bufnr('%')
-	let b:wheel_lines = []
+	call append(0, '')
 endfun
-
-" Callback
-
-fun! s:Out (chan, data, event) dict
-	" Callback ou stdout event
-	let bufnum = self.bufnum
-	let data = join(a:data)
-	let text = split(data, "\r")
-	let last = line('$')
-	let text = text[:-2]
-	call appendbufline(bufnum, last, text)
-	call extend(b:wheel_lines, text)
-endfun
-
-fun! s:Err (chan, data, event) dict
-	" Callback ou stderr event
-	let bufnum = self.bufnum
-	let data = join(a:data)
-	let text = split(data, "\r")
-	let last = line('$')
-	call appendbufline(bufnum, last, text)
-	call extend(b:wheel_lines, text)
-endfun
-
-fun! s:Exit (chan, data, event) dict
-	" Callback ou exit event
-	let bufnum = self.bufnum
-	let code = a:data
-	let text = printf('%s %s : %s', self.name, a:event, code)
-	call wheel#chain#remove_element(self, g:wheel_ripple)
-	echomsg text
-endfun
-
-let s:callbacks = {
-			\ 'on_stdout' : function('s:Out'),
-			\ 'on_stderr' : function('s:Err'),
-			\ 'on_exit' : function('s:Exit')
-			\}
 
 " Main
 
@@ -84,32 +56,12 @@ fun! wheel#ripple#start (command, ...)
 	" Expand tilde in filenames
 	call map(command, {_, val -> expand(val)})
 	" Job
-	let job = {}
-	let job.name = fnamemodify(command[0], ':t:r')
-	let job.bufnum = bufnr('%')
-	let job.pty = v:true
-	call extend(job, s:callbacks)
-	call extend(job, options)
-	let jobid = jobstart(command, job)
-	if jobid < 0
-		echomsg 'Wheel ripple start : failed to start' command[0]
-		return
-	endif
-	let job.ident = jobid
+	let jobopts = {}
+	let jobopts.out_io = 'buffer'
+	let bufname = bufname(bufnr('%'))
+	let jobopts.out_name = bufname
+	let jobopts.exit_cb = 'wheel#ripple#callback_exit'
+	let job = job_start(command, jobopts)
 	call add(g:wheel_ripple, job)
 	return job
-endfun
-
-fun! wheel#ripple#send (job, text)
-	" Send text to job
-	let job = a:job
-	let text = a:text
-	return chansend(job.ident, text)
-endfun
-
-fun! wheel#ripple#stop (job)
-	" Stop job
-	let job = a:job
-	call jobstop(job.ident)
-	call wheel#chain#remove_element(job, g:wheel_ripple)
 endfun

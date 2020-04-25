@@ -3,6 +3,7 @@
 " Job control, neovim
 
 if ! has('nvim')
+	echomsg 'Wheel wave is for neovim : see ripple for vim'
 	finish
 endif
 
