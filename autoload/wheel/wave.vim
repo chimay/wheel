@@ -49,10 +49,8 @@ fun! s:Exit (chan, data, event) dict
 	let bufnum = self.bufnum
 	let code = a:data
 	let text = printf('%s %s : %s', self.name, a:event, code)
-	let last = line('$')
-	call appendbufline(bufnum, last, text)
 	call wheel#chain#remove_element(self, g:wheel_wave)
-	call add(b:wheel_lines, text)
+	echomsg text
 endfun
 
 let s:callbacks = {
@@ -79,7 +77,9 @@ fun! wheel#wave#start (command, ...)
 		return
 	endif
 	" Buffer
-	call wheel#mandala#open ('wheel-wave')
+	if ! has_key(options, 'new_buffer') || options.new_buffer
+		call wheel#mandala#open ('wheel-wave')
+	endif
 	call wheel#wave#template ()
 	" Expand tilde in filenames
 	call map(command, {_, val -> expand(val)})
@@ -90,7 +90,7 @@ fun! wheel#wave#start (command, ...)
 	let job.pty = v:true
 	call extend(job, s:callbacks)
 	call extend(job, options)
-    let jobid = jobstart(command, job)
+	let jobid = jobstart(command, job)
 	if jobid < 0
 		echomsg 'Wheel wave start : failed to start' command[0]
 		return

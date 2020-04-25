@@ -122,15 +122,15 @@ fun! wheel#sailing#grep (...)
 	if a:0 > 0
 		let pattern = a:1
 	else
-		let pattern = input('Search in circle files for pattern ? ')
+		let pattern = input('Grep circle files for pattern ? ')
 	endif
 	if a:0 > 1
 		let sieve = a:2
 	else
 		let sieve = '\m.'
 	endif
-	let ret = wheel#vector#grep(pattern, sieve)
-	if ret
+	let bool = wheel#vector#grep(pattern, sieve)
+	if bool
 		call wheel#vortex#update ()
 		call wheel#mandala#open ('wheel-grep')
 		let settings = {'action' : function('wheel#line#grep')}
@@ -175,7 +175,7 @@ fun! wheel#sailing#locate ()
 	call wheel#mandala#open ('wheel-locate')
 	let settings = {'action' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
-	let prompt = 'Search for file matching : '
+	let prompt = 'Locate file matching : '
 	let pattern = input(prompt)
 	let database = g:wheel_config.locate_db
 	if empty(database)
@@ -185,6 +185,25 @@ fun! wheel#sailing#locate ()
 	endif
 	let lines = systemlist(runme)
 	call wheel#mandala#fill(lines)
+endfun
+
+fun! wheel#sailing#find ()
+	" Search files in current directory using find
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-find')
+	let settings = {'action' : function('wheel#line#find')}
+	call wheel#sailing#template (settings)
+	let prompt = 'Find file matching : '
+	let pattern = input(prompt)
+	let pattern = escape(pattern, '*')
+	let command = ['find', '.', '-type', 'f', '-name', pattern]
+	let settings = {'new_buffer' : v:false}
+	if has('nvim')
+		call wheel#wave#start(command, settings)
+	else
+		redraw!
+		echomsg 'Async for vim : TODO'
+	endif
 endfun
 
 fun! wheel#sailing#symbol ()

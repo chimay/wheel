@@ -102,6 +102,7 @@ fun! wheel#centre#mappings ()
 		" Search for files
 		exe 'nnoremap ' . prefix . '? :call wheel#sailing#attic()<cr>'
 		exe 'nnoremap ' . prefix . '/ :call wheel#sailing#locate()<cr>'
+		exe 'nnoremap ' . prefix . '& :call wheel#sailing#find()<cr>'
 		" Yank wheel
 		exe 'nnoremap ' . prefix . "y :call wheel#clipper#yank('list')<cr>"
 		exe 'nnoremap ' . prefix . "<m-y> :call wheel#clipper#yank('plain')<cr>"
@@ -149,6 +150,7 @@ fun! wheel#centre#mappings ()
 		" Search for files
 		nnoremap <M-u>          :call wheel#sailing#attic()<cr>
 		nnoremap <M-l>          :call wheel#sailing#locate()<cr>
+		nnoremap <M-f>          :call wheel#sailing#find()<cr>
 		" Yank
 		nnoremap <M-y>          :call wheel#clipper#yank('list')<cr>
 		nnoremap <M-p>          :call wheel#clipper#yank('plain')<cr>

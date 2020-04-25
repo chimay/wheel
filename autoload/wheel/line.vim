@@ -212,7 +212,7 @@ endfu
 " Navigation
 
 fun! wheel#line#sailing (settings)
-	" navigation to element(s) on current or selected line(s)
+	" Go to element(s) on current or selected line(s)
 	" settings keys :
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
@@ -287,13 +287,14 @@ fun! wheel#line#sailing (settings)
 endfun
 
 fun! wheel#line#switch (settings)
-	" Switch to settings.selected by record
+	" Switch to settings.selected element in wheel
 	" settings keys :
 	" - selected : where to switch
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
-	call wheel#line#target (a:settings.target)
-	call wheel#vortex#switch(a:settings.level, a:settings.selected, a:settings.use)
+	let settings = a:settings
+	call wheel#line#target (settings.target)
+	call wheel#vortex#switch(settings.level, settings.selected, settings.use)
 endfun
 
 fun! wheel#line#helix (settings)
@@ -328,7 +329,7 @@ fun! wheel#line#grid (settings)
 endfun
 
 fun! wheel#line#tree (settings)
-	" Go to settings.selected
+	" Go to settings.selected in tree view
 	" Possible vallues of selected :
 	" - [torus]
 	" - [torus, circle]
@@ -398,8 +399,16 @@ fun! wheel#line#attic (settings)
 endfun
 
 fun! wheel#line#locate (settings)
-	" Edit settings.selected MRU file
+	" Edit settings.selected locate file
 	let filename = a:settings.selected
+	call wheel#line#target (a:settings.target)
+	exe 'edit ' . filename
+endfun
+
+fun! wheel#line#find (settings)
+	" Edit settings.selected locate file
+	let filename = a:settings.selected
+	let filename = trim(filename, ' ')
 	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
 endfun
