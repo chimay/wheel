@@ -140,7 +140,7 @@ fun! wheel#centre#mappings ()
 		nnoremap <S-Space>    :call wheel#sailing#switch('torus')<cr>
 		nnoremap <D-Space>    :call wheel#sailing#tree()<cr>
 		nnoremap <M-Space>    :call wheel#sailing#helix()<cr>
-		nnoremap <D-h>        :call wheel#sailing#history()<cr>
+		nnoremap <M-h>        :call wheel#sailing#history()<cr>
 		" Reshaping buffers
 		nnoremap <M-r>        :call wheel#shape#reorganize()<cr>
 		" Search inside files
