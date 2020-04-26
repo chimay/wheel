@@ -119,12 +119,15 @@ fun! wheel#void#shelve ()
 	if ! exists('g:wheel_shelve')
 		let g:wheel_shelve = {}
 	endif
+	" For tabs and windows layouts
 	if ! has_key(g:wheel_shelve, 'layout')
 		let g:wheel_shelve.layout = {}
 	endif
+	" Backup some vars if needed
 	if ! has_key(g:wheel_shelve, 'backup')
 		let g:wheel_shelve.backup = {}
 	endif
+	" Mandala buffers
 	if ! has_key(g:wheel_shelve, 'buffers')
 		let g:wheel_shelve.buffers = []
 	endif
@@ -203,38 +206,24 @@ endfun
 
 " Unlet variables
 
-fun! wheel#void#lighten (...)
+fun! wheel#void#lighten ()
 	" Unlet wheel variables
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'global'
-	endif
-	if mode == 'global'
-		" No need to save them in viminfo or shada file
-		" since you can save them in g:wheel_config.file
-		let varlist = [
-					\ 'g:wheel',
-					\ 'g:wheel_helix',
-					\ 'g:wheel_grid',
-					\ 'g:wheel_files',
-					\ 'g:wheel_history',
-					\ 'g:wheel_input',
-					\ 'g:wheel_attic',
-					\ 'g:wheel_wave',
-					\ 'g:wheel_ripple',
-					\ 'g:wheel_yank',
-					\ 'g:wheel_shelve',
-					\ 'g:wheel_config',
-					\]
-	elseif mode == 'buffer'
-		" Clear buffer variables
-		" Not wheel stack, since we need it for layers
-		let varlist = [
-					\ 'b:wheel_lines',
-					\ 'b:wheel_settings',
-					\]
-	endif
+	" No need to save them in viminfo or shada file
+	" since you can save them in g:wheel_config.file
+	let varlist = [
+				\ 'g:wheel',
+				\ 'g:wheel_helix',
+				\ 'g:wheel_grid',
+				\ 'g:wheel_files',
+				\ 'g:wheel_history',
+				\ 'g:wheel_input',
+				\ 'g:wheel_attic',
+				\ 'g:wheel_wave',
+				\ 'g:wheel_ripple',
+				\ 'g:wheel_yank',
+				\ 'g:wheel_shelve',
+				\ 'g:wheel_config',
+				\]
 	for varname in varlist
 		if exists(varname)
 			unlet {varname}
@@ -262,6 +251,9 @@ fun! wheel#void#exit ()
 	if argc() == 0 && has('nvim')
 		echomsg 'Wheel bye !'
 	endif
+	" Clear temporary variables
+	let g:wheel_shelve.buffers = []
+	" Write and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
 		call wheel#void#lighten ()

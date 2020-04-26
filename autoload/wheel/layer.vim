@@ -4,9 +4,8 @@
 
 " Stack
 
-fun! wheel#layer#push ()
-	" Push buffer content to the stack
-	" Save modified local maps
+fun! wheel#layer#init ()
+	" Init stack
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
 		let b:wheel_stack.full = []
@@ -16,6 +15,41 @@ fun! wheel#layer#push ()
 		let b:wheel_stack.settings = []
 		let b:wheel_stack.mappings = []
 	endif
+endfun
+
+fun! wheel#layer#fresh ()
+	" Fresh empty layer
+	" Clear all buffer variables
+	let varnames = [
+				\ 'b:wheel_lines',
+				\ 'b:wheel_selected',
+				\ 'b:wheel_stack',
+				\ ]
+	for varname in varlist
+		if exists(varname)
+			unlet {varname}
+		endif
+	endfor
+endfun
+
+fun! wheel#layer#lighten ()
+	" Clear buffer variables, but not the stack
+	" since we need it for layers
+	let varnames = [
+				\ 'b:wheel_lines',
+				\ 'b:wheel_selected',
+				\ ]
+	for varname in varlist
+		if exists(varname)
+			unlet {varname}
+		endif
+	endfor
+endfun
+
+fun! wheel#layer#push ()
+	" Push buffer content to the stack
+	" Save modified local maps
+	call wheel#layer#init ()
 	let stack = b:wheel_stack
 	" Full content, without filtering
 	let full = stack.full
@@ -60,7 +94,7 @@ fun! wheel#layer#push ()
 	call insert(mappings, mapdict)
 	" Reset buffer variables
 	" Fresh filter and so on
-	call wheel#void#lighten('buffer')
+	call wheel#layer#lighten()
 endfun
 
 fun! wheel#layer#pop ()

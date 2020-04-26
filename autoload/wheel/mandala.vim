@@ -27,7 +27,14 @@ fun! wheel#mandala#open (...)
 	else
 		let type = 'wheel'
 	endif
-	new
+	let buffers = g:wheel_shelve.buffers
+	if ! empty(buffers)
+		exe 'sbuffer ' . buffer[0]
+	else
+		new
+		let bufnum = bufnr('%')
+		call insert(buffers, bufnum)
+	endif
 	call wheel#mandala#common_options (type)
 endfun
 
