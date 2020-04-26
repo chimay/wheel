@@ -42,8 +42,9 @@
 
 # Introduction
 
-Wheel is a navigation plugin for Vim or Neovim. It makes abundant use
-of special buffers, in which you can filter and select elements.
+Wheel is a navigation plugin for Vim and Neovim. It is buffer group
+oriented and makes abundant use of special buffers, in which you can
+filter and select elements.
 
 ## What does it look like ?
 
@@ -152,6 +153,7 @@ your groups will grow and adapt to your style.
 - Search files
   + MRU files not found in wheel
   + Using locate
+  + Using find
 - Search inside files
   + Grep on group files
   + Outline
@@ -210,7 +212,7 @@ and it’s done.
 
 ## Using plug
 
-The syntax should be similar with other git oriented plugin manager :
+The syntax should be similar with other git oriented plugin managers :
 
 ```vim
 Plug 'chimay/wheel'

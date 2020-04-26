@@ -16,7 +16,7 @@ endif
 
 fun! wheel#ripple#callback_exit (chan, code)
 	" Callback ou exit event
-	let text = printf('%s %s : %s', self.name, a:event, a:code)
+	let text = printf('%s %s', a:chan, a:code)
 	call wheel#chain#pop (g:wheel_ripple)
 	echomsg text
 endfun

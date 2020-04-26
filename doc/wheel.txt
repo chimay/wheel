@@ -87,6 +87,7 @@ FEATURES				*wheel-introduction-features*
 - Search files
   + MRU files not found in wheel
   + Using locate
+  + Using find
 - Search inside files
   + Grep on group files
   + Outline
