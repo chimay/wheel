@@ -196,7 +196,7 @@ fun! wheel#sailing#find ()
 	let prompt = 'Find file matching : '
 	let pattern = '*' . input(prompt) . '*'
 	let pattern = escape(pattern, '*')
-	let command = ['find', '.', '-type', 'f', '-name', pattern]
+	let command = ['find', '.', '-type', 'f', '-path', pattern]
 	let settings = {'new_buffer' : v:false}
 	if has('nvim')
 		call wheel#wave#start(command, settings)

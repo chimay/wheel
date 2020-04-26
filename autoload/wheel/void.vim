@@ -125,6 +125,9 @@ fun! wheel#void#shelve ()
 	if ! has_key(g:wheel_shelve, 'backup')
 		let g:wheel_shelve.backup = {}
 	endif
+	if ! has_key(g:wheel_shelve, 'buffers')
+		let g:wheel_shelve.buffers = []
+	endif
 endfun
 
 fun! wheel#void#config ()
@@ -246,10 +249,10 @@ fun! wheel#void#init ()
 	if argc() == 0 && has('nvim')
 		echomsg 'Wheel hello !'
 	endif
-	call wheel#void#foundation ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
 	endif
+	call wheel#void#foundation ()
 	call wheel#centre#commands ()
 	call wheel#centre#mappings ()
 endfu
