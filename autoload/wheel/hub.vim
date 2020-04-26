@@ -90,7 +90,6 @@ fun! wheel#hub#main ()
 	" Main hub menu in wheel buffer
 	call wheel#hub#menu('main')
 	call wheel#hub#menu_maps ('main')
-	nunmap <buffer> <space>
 	call wheel#hub#folding_options ()
 	let menu = []
 	for elem in s:menu_list

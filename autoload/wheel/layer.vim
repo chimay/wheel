@@ -30,6 +30,29 @@ fun! wheel#layer#fresh ()
 			unlet {varname}
 		endif
 	endfor
+	" Clear normal maps
+	let keylist = [
+				\ 'q',
+				\ 'j', 'k', '<down>', '<up>',
+				\ 'i', 'a',
+				\ ]
+	for keyname in varlist
+		if ! empty(maparg(keyname))
+			exe 'nunmap <buffer> ' . keyname
+		endif
+	endfor
+	" Clear insert maps
+	let keylist = [
+				\ '<space>', '<c-w>', '<c-u>',
+				\ '<esc>', '<cr>',
+				\ '<up>', '<down>', '<m-p>', '<m-n>',
+				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
+				\ ]
+	for keyname in varlist
+		if ! empty(maparg(keyname))
+			exe 'iunmap <buffer> ' . keyname
+		endif
+	endfor
 endfun
 
 fun! wheel#layer#lighten ()
