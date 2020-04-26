@@ -20,7 +20,7 @@ endfun
 fun! wheel#layer#fresh ()
 	" Fresh empty layer
 	" Clear all buffer variables
-	let varnames = [
+	let varlist = [
 				\ 'b:wheel_lines',
 				\ 'b:wheel_selected',
 				\ 'b:wheel_stack',

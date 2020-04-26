@@ -29,7 +29,9 @@ fun! wheel#mandala#open (...)
 	endif
 	let buffers = g:wheel_shelve.buffers
 	if ! empty(buffers)
-		exe 'sbuffer ' . buffer[0]
+		exe 'sbuffer ' . buffers[0]
+		1,$ delete _
+		call wheel#layer#fresh ()
 	else
 		new
 		let bufnum = bufnr('%')
@@ -145,7 +147,7 @@ fun! wheel#mandala#common_options (type)
 	setlocal nobuflisted
 	setlocal noswapfile
 	setlocal buftype=nofile
-	setlocal bufhidden=wipe
+	setlocal bufhidden=
 	let &filetype = a:type
 endfun
 
