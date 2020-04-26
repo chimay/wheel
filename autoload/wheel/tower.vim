@@ -36,6 +36,7 @@ fun! wheel#tower#call (settings)
 	let key = cursor_line
 	if ! has_key(dict, key)
 		normal! zv
+		call wheel#spiral#cursor ()
 		echomsg 'Wheel layer call : key not found'
 		return
 	endif

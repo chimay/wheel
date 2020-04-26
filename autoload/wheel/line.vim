@@ -260,21 +260,27 @@ fun! wheel#line#sailing (settings)
 				let settings.selected = elem
 				call Fun (settings)
 				normal! zv
+				call wheel#spiral#cursor ()
 			endfor
 		else
 			let settings.selected = selected[0]
 			call Fun (settings)
 			normal! zv
+			call wheel#spiral#cursor ()
 		endif
 	elseif type(Fun) == v:t_string
 		if target != 'current'
 			for elem in selected
 				let settings.selected = elem
 				call {Fun} (settings)
+				normal! zv
+				call wheel#spiral#cursor ()
 			endfor
 		else
 			let settings.selected = selected[0]
 			call {Fun} (settings)
+			normal! zv
+			call wheel#spiral#cursor ()
 		endif
 	else
 		echomsg 'Wheel line navigation : bad function'
