@@ -1196,8 +1196,8 @@ and add them to your init file.
 | <Space>        | Choose location in special buffer           |
 | <C-Space>      | Choose circle in special buffer             |
 | <S-Space>      | Choose torus in special buffer              |
-| <D-Space>      | Choose element in wheel folding tree        |
-| <M-Space>      | Index of toruses > circles > locations      |
+| <M-x>          | Choose element in wheel folding tree        |
+| <D-x>          | Index of toruses > circles > locations      |
 | <M-h>          | History index                               |
 | -------------- | ------------------------------------------- |
 | <M-r>          | Reorganize wheel elements                   |
