@@ -36,16 +36,17 @@ fun! wheel#layer#fresh ()
 				\ 'j', 'k', '<down>', '<up>',
 				\ 'i', 'a',
 				\ '<cr>', '<space>', '<tab>',
-				\ 's', 'v', 't',
-				\ 'S', 'V',
-				\ 'gs', 'gv', 'gt',
-				\ 'gS', 'gV',
 				\ 'g<cr>',
+				\ 'v',
+				\ 'gs', 'gv', 'gt',
+				\ 'S', 'V',
+				\ 'gS', 'gV',
 				\ ]
+	echomsg string(keylist)
 	for keyname in keylist
 		if ! empty(maparg(keyname, 'n'))
-			" Errors on S, V : why ?
-			exe 'silent nunmap <buffer> ' . keyname
+			" Errors on some mappings, why ?
+			exe 'silent! nunmap <buffer> ' . keyname
 		endif
 	endfor
 	" Clear insert maps
@@ -57,7 +58,7 @@ fun! wheel#layer#fresh ()
 				\ ]
 	for insname in inslist
 		if ! empty(maparg(insname, 'i'))
-			exe 'iunmap <buffer> ' . insname
+			exe 'silent! iunmap <buffer> ' . insname
 		endif
 	endfor
 endfun
