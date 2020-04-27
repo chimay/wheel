@@ -67,6 +67,11 @@ fun! wheel#mandala#recall ()
 	endif
 	let current = bufnr('%')
 	let bufnum = buffers[0]
+	if ! bufexists(bufnum)
+		echomsg 'Wheel mandala recall : non existent wheel buffer'
+		call remove(buffers, 0)
+		return v:false
+	endif
 	let winnum =  bufwinnr(bufnum)
 	if index(buffers, current) >= 0
 		exe 'buffer ' bufnum
