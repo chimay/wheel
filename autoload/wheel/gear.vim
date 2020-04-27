@@ -139,3 +139,18 @@ fun! wheel#gear#fold_filter (wordlist, candidates)
 	endif
 	return filtered
 endfun
+
+" Unmap
+
+fun! wheel#gear#unmap (key, mode)
+	" Unmap buffer mapping key in mode
+	" Dictionary with map caracteristics
+	let key = a:key
+	let mode = a:mode
+	let dict = maparg(key, mode, 0, 1)
+	if ! empty(dict) && dict.buffer
+		let pre = mode . 'unmap <buffer> '
+		let runme = pre . key
+		exe runme
+	endif
+endfun

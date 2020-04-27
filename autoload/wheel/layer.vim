@@ -36,30 +36,24 @@ fun! wheel#layer#fresh ()
 				\ 'j', 'k', '<down>', '<up>',
 				\ 'i', 'a',
 				\ '<cr>', '<space>', '<tab>',
-				\ 'g<cr>',
-				\ 'v',
-				\ 'gs', 'gv', 'gt',
+				\ 't', 's', 'v',
 				\ 'S', 'V',
+				\ 'g<cr>',
+				\ 'gt', 'gs', 'gv',
 				\ 'gS', 'gV',
 				\ ]
-	echomsg string(keylist)
 	for keyname in keylist
-		if ! empty(maparg(keyname, 'n'))
-			" Errors on some mappings, why ?
-			exe 'silent! nunmap <buffer> ' . keyname
-		endif
+		call wheel#gear#unmap(keyname, 'n')
 	endfor
 	" Clear insert maps
-	let inslist = [
+	let ins_keylist = [
 				\ '<space>', '<c-w>', '<c-u>',
 				\ '<esc>', '<cr>',
 				\ '<up>', '<down>', '<m-p>', '<m-n>',
 				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
 				\ ]
-	for insname in inslist
-		if ! empty(maparg(insname, 'i'))
-			exe 'silent! iunmap <buffer> ' . insname
-		endif
+	for ins_keyname in ins_keylist
+		call wheel#gear#unmap(ins_keyname, 'i')
 	endfor
 endfun
 
