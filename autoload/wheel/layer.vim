@@ -37,12 +37,15 @@ fun! wheel#layer#fresh ()
 				\ 'i', 'a',
 				\ '<cr>', '<space>', '<tab>',
 				\ 's', 'v', 't',
-				\ 'gs', 'gv', 'gS', 'gV', 'gt',
+				\ 'S', 'V',
+				\ 'gs', 'gv', 'gt',
+				\ 'gS', 'gV',
 				\ 'g<cr>',
 				\ ]
 	for keyname in keylist
 		if ! empty(maparg(keyname, 'n'))
-			exe 'nunmap <buffer> ' . keyname
+			" Errors on S, V : why ?
+			exe 'silent nunmap <buffer> ' . keyname
 		endif
 	endfor
 	" Clear insert maps
