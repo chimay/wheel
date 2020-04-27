@@ -35,8 +35,12 @@ fun! wheel#layer#fresh ()
 				\ 'q',
 				\ 'j', 'k', '<down>', '<up>',
 				\ 'i', 'a',
+				\ '<cr>', '<space>', '<tab>',
+				\ 's', 'v', 'S', 'V', 't',
+				\ 'gs', 'gv', 'gS', 'gV', 'gt',
+				\ 'g<cr>',
 				\ ]
-	for keyname in varlist
+	for keyname in keylist
 		if ! empty(maparg(keyname))
 			exe 'nunmap <buffer> ' . keyname
 		endif
@@ -48,7 +52,7 @@ fun! wheel#layer#fresh ()
 				\ '<up>', '<down>', '<m-p>', '<m-n>',
 				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
 				\ ]
-	for keyname in varlist
+	for keyname in keylist
 		if ! empty(maparg(keyname))
 			exe 'iunmap <buffer> ' . keyname
 		endif
