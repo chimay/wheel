@@ -37,39 +37,43 @@ fun! wheel#mandala#push ()
 		call wheel#mandala#recall ()
 	endif
 	" Saved buffer
-	let saved = bufnr('%')
+	let saved = buffers[0]
 	" Create new buffer
 	enew
-	" New buffer
 	let bufnum = bufnr('%')
+	" New buffer
 	if bufnum == saved
-		echomsg 'Wheel mandala push : no need to save an empty buffer'
+		echomsg 'Wheel mandala push : buffer' bufnum 'already in stack'
 		return v:false
 	endif
 	" Push
 	call insert(buffers, bufnum)
 	call wheel#mandala#common_maps ()
+	echomsg 'Buffer' saved 'saved'
 	return v:true
 endfun
 
 fun! wheel#mandala#pop ()
 	" Pop wheel buffer
 	let buffers = g:wheel_shelve.buffers
+	" Do not pop empty stack
 	if empty(buffers)
 		return v:false
 	endif
+	" Do not pop one element stack
 	if len(buffers) == 1
-		echomsg 'Wheel mandala pop : last wheel buffer is not to be removed.'
+		echomsg 'Wheel mandala pop : last remaining wheel buffer'
 		return v:false
 	endif
-	let current = bufnr('%')
-	if index(buffers, current) < 0
-		split
-	endif
+	" Pop
 	let removed = wheel#chain#pop(buffers)
-	let bufnum = buffers[0]
-	exe 'buffer ' bufnum
+	let current = bufnr('%')
+	if current == removed || index(buffers, current) >= 0
+		let bufnum = buffers[0]
+		exe 'buffer ' bufnum
+	endif
 	exe 'bwipe ' removed
+	echomsg 'Buffer' removed 'removed'
 	return removed
 endfun
 
