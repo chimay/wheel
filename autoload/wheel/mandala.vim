@@ -20,8 +20,13 @@ endif
 
 " Buffer
 
-fun! wheel#mandala#push ()
+fun! wheel#mandala#push (...)
 	" Push new wheel buffer
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'goback'
+	endif
 	let buffers = g:wheel_shelve.buffers
 	call wheel#mandala#check ()
 	" First one
@@ -30,6 +35,10 @@ fun! wheel#mandala#push ()
 		let bufnum = bufnr('%')
 		call insert(buffers, bufnum)
 		call wheel#mandala#common_maps ()
+		if mode == 'goback'
+			buffer #
+		endif
+		echomsg 'Buffer' bufnum 'added'
 		return v:true
 	endif
 	" Current buffer
@@ -69,7 +78,7 @@ fun! wheel#mandala#pop ()
 	endif
 	" Do not pop one element stack
 	if len(buffers) == 1
-		echomsg 'Wheel mandala pop : last remaining wheel buffer'
+		echomsg 'Wheel mandala pop :' buffers[0] 'is last remaining wheel buffer'
 		return v:false
 	endif
 	" Pop
@@ -141,7 +150,7 @@ fun! wheel#mandala#open (...)
 		call wheel#layer#fresh ()
 	else
 		new
-		call wheel#mandala#push ()
+		call wheel#mandala#push ('rest')
 	endif
 	call wheel#mandala#common_options (type)
 endfun
