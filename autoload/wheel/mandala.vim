@@ -115,7 +115,7 @@ fun! wheel#mandala#recall ()
 endfun
 
 fun! wheel#mandala#check ()
-	" Check if current wheel buffer exists
+	" Remove non existent buffers from stack
 	let buffers = g:wheel_shelve.buffers
 	for bufnum in buffers
 		if ! bufexists(bufnum)
