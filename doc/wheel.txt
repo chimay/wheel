@@ -248,6 +248,7 @@ at your fingertips.
 SPECIAL BUFFERS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
+Buffer stack			|wheel-special-buffers-stack|
 Menu buffers			|wheel-special-buffers-menus|
 Context menus			|wheel-special-buffers-context|
 Navigation buffers		|wheel-special-buffers-navigation|
@@ -308,6 +309,15 @@ previous/next input matching the beginning of the inserted line, until
 the cursor.
 
 ------------------------------------------------------------------------------
+BUFFERS STACK				*wheel-special-buffers-stack*
+
+Wheel manages a special buffer stack. You can :
+
+- Save your current special buffer with `<M-w><Tab>`
+- Cycle the special buffers with `<M-w><M-Space>`
+- Remove the current special buffer with `<M-w><Backspace>`
+
+------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menus*
 
 Each menu has its own dedicated buffer. You can filter the menu lines
@@ -351,6 +361,8 @@ CONTEXT MENUS				*wheel-special-buffers-context*
 Some special buffers have context menu support. In that case, pressing
 `<tab>` will open a menu where you can choose the action you want to
 apply to the selected or cursor line(s).
+
+If you change your mind and wish to come back, just press `<backspace>`.
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
@@ -1343,7 +1355,7 @@ Autoload files~
 | gear.vim          | Generic helpers                        |
 | helix.vim         | Indexes                                |
 | hub.vim           | Menus                                  |
-| layer.vim         | Stack in special buffers               |
+| layer.vim         | Layers stack in special buffers        |
 | line.vim          | Activate line                          |
 | mandala.vim       | Generic special buffers                |
 | mosaic.vim        | Layouts                                |
