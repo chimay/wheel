@@ -78,7 +78,7 @@ fun! wheel#mandala#pop ()
 	endif
 	" Do not pop one element stack
 	if len(buffers) == 1
-		echomsg 'Wheel mandala pop :' buffers[0] 'is last remaining wheel buffer'
+		echomsg 'Wheel mandala pop :' buffers[0] 'is the last remaining wheel buffer'
 		return v:false
 	endif
 	" Pop
