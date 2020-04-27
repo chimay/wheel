@@ -58,7 +58,7 @@ endfun
 fun! wheel#layer#lighten ()
 	" Clear buffer variables, but not the stack
 	" since we need it for layers
-	let varnames = [
+	let varlist = [
 				\ 'b:wheel_lines',
 				\ 'b:wheel_selected',
 				\ ]

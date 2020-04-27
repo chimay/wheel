@@ -60,7 +60,7 @@ echo 'Brace name winnr = {s:a}nr : ' {s:a}nr()
 " Eval {{{1
 
 let s:ptr='winnr()'
-echo 'eval :' eval(a)
+echo 'eval :' eval(s:ptr)
 
 exe 'echo "coucou"'
 
@@ -197,18 +197,28 @@ echo 'Factorial 5 :' s:Factorial(5)
 
 " }}}2
 
+" Range {{{2
+
+fun! s:Range () range
+	echo 'range : ' a:firstline a:lastline
+endfun
+
+2,4call s:Range()
+
+" }}}2
+
 " }}}1
 
 " Vim vars {{{1
 
-fun! Vars ()
+fun! s:Vars ()
 	echo 'v:count' v:count
 	let count = 'my count'
 	echo 'count' count
 	echo 'v:count' v:count
 endfun
 
-call Vars ()
+call s:Vars ()
 
 " }}}1
 
