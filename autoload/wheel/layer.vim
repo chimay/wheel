@@ -31,7 +31,7 @@ fun! wheel#layer#fresh ()
 		endif
 	endfor
 	" Clear normal maps
-	let keylist = [
+	let normal_keys = [
 				\ 'q',
 				\ 'j', 'k', '<down>', '<up>',
 				\ 'i', 'a',
@@ -42,19 +42,15 @@ fun! wheel#layer#fresh ()
 				\ 'gt', 'gs', 'gv',
 				\ 'gS', 'gV',
 				\ ]
-	for keyname in keylist
-		call wheel#gear#unmap(keyname, 'n')
-	endfor
+	call wheel#gear#unmap(normal_keys, 'n')
 	" Clear insert maps
-	let ins_keylist = [
+	let insert_keys = [
 				\ '<space>', '<c-w>', '<c-u>',
 				\ '<esc>', '<cr>',
 				\ '<up>', '<down>', '<m-p>', '<m-n>',
 				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
 				\ ]
-	for ins_keyname in ins_keylist
-		call wheel#gear#unmap(ins_keyname, 'i')
-	endfor
+	call wheel#gear#unmap(insert_keys, 'i')
 endfun
 
 fun! wheel#layer#lighten ()
