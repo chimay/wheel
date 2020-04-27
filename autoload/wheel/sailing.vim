@@ -2,6 +2,13 @@
 
 " Navigation buffers
 
+" Script vars
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " Helpers
 
 fun! wheel#sailing#maps (settings)
@@ -117,12 +124,36 @@ fun! wheel#sailing#history ()
 	call wheel#mandala#fill(lines)
 endfun
 
+fun! wheel#sailing#occur (...)
+	" Lines matching pattern
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let pattern = input('Lines matching pattern : ')
+	endif
+	" To be run before opening the wheel buffer
+	let position = getcurpos()
+	let runme = 'global /' . pattern . '/'
+	let lines = execute(runme)
+	let lines = split(lines, "\n")
+	for index in range(len(lines))
+		let lines[index] = trim(lines[index], ' ')
+		let lines[index] = substitute(lines[index], '\s\+', s:field_separ, '')
+		call wheel#gear#restore_cursor(position)
+	endfor
+	" Wheel buffer
+	call wheel#mandala#open ('wheel-occur')
+	let settings = {'action' : function('wheel#line#occur')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+endfun
+
 fun! wheel#sailing#grep (...)
 	" Grep results
 	if a:0 > 0
 		let pattern = a:1
 	else
-		let pattern = input('Grep circle files for pattern ? ')
+		let pattern = input('Grep circle files for pattern : ')
 	endif
 	if a:0 > 1
 		let sieve = a:2
@@ -157,6 +188,16 @@ fun! wheel#sailing#outline ()
 	elseif mode == 3
 		call wheel#sailing#grep ('^\*', '\.org$')
 	endif
+endfun
+
+fun! wheel#sailing#symbol ()
+	" Tags file
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-tags')
+	let settings = {'action' : function('wheel#line#symbol')}
+	call wheel#sailing#template (settings)
+	let lines = wheel#perspective#symbol ()
+	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#sailing#attic ()
@@ -203,14 +244,4 @@ fun! wheel#sailing#find ()
 	else
 		call wheel#ripple#start(command, settings)
 	endif
-endfun
-
-fun! wheel#sailing#symbol ()
-	" Tags file
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-tags')
-	let settings = {'action' : function('wheel#line#symbol')}
-	call wheel#sailing#template (settings)
-	let lines = wheel#perspective#symbol ()
-	call wheel#mandala#fill(lines)
 endfun

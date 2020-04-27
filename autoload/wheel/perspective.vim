@@ -139,6 +139,19 @@ fun! wheel#perspective#grep ()
 	return list
 endfun
 
+" From symbol
+
+fun! wheel#perspective#symbol ()
+	" Tags for special buffer
+	let table = wheel#symbol#table ()
+	let lines = []
+	for record in table
+		let suit = join(record, s:field_separ)
+		call add(lines, suit)
+	endfor
+	return lines
+endfun
+
 " From attic
 
 fun! wheel#perspective#attic ()
@@ -158,19 +171,6 @@ fun! wheel#perspective#attic ()
 	endfor
 	return strings
 endfu
-
-" From symbol
-
-fun! wheel#perspective#symbol ()
-	" Tags for special buffer
-	let table = wheel#symbol#table ()
-	let lines = []
-	for record in table
-		let suit = join(record, s:field_separ)
-		call add(lines, suit)
-	endfor
-	return lines
-endfun
 
 " From codex
 

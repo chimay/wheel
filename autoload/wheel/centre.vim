@@ -96,6 +96,7 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
 		exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
 		" Search inside files
+		exe 'nnoremap ' . prefix . ': :call wheel#sailing#occur()<cr>'
 		exe 'nnoremap ' . prefix . '* :call wheel#sailing#grep()<cr>'
 		exe 'nnoremap ' . prefix . '# :call wheel#sailing#outline()<cr>'
 		exe 'nnoremap ' . prefix . '% :call wheel#sailing#symbol()<cr>'
@@ -150,6 +151,7 @@ fun! wheel#centre#mappings ()
 		" Reshaping buffers
 		nnoremap <M-r>        :call wheel#shape#reorganize()<cr>
 		" Search inside files
+		nnoremap <M-c>          :call wheel#sailing#occur()<cr>
 		nnoremap <M-g>          :call wheel#sailing#grep()<cr>
 		nnoremap <M-o>          :call wheel#sailing#outline()<cr>
 		nnoremap <M-t>          :call wheel#sailing#symbol()<cr>

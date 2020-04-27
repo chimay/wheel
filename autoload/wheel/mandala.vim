@@ -127,8 +127,11 @@ endfun
 fun! wheel#mandala#cycle ()
 	" Cycle wheel buffers
 	let buffers = g:wheel_shelve.buffers
-	let buffers = wheel#chain#rotate_left(buffers)
-	let g:wheel_shelve.buffers = buffers
+	let current = bufnr('%')
+	if index(buffers, current) >= 0
+		let buffers = wheel#chain#rotate_left(buffers)
+		let g:wheel_shelve.buffers = buffers
+	endif
 	call wheel#mandala#recall ()
 endfun
 

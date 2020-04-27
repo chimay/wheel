@@ -16,6 +16,11 @@ if ! exists('s:selected_pattern')
 	lockvar s:selected_pattern
 endif
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " Helpers
 
 fun! wheel#line#coordin ()
@@ -362,7 +367,7 @@ fun! wheel#line#history (settings)
 	" settings keys :
 	" - selected : where to go
 	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:settings.selected, ' | ')
+	let fields = split(a:settings.selected, s:field_separ)
 	if len(fields) < 2
 		echomsg 'History line is too short'
 		return
@@ -377,9 +382,16 @@ fun! wheel#line#history (settings)
 	call wheel#vortex#jump (a:settings.use)
 endfun
 
+fun! wheel#line#occur (settings)
+	" Go to line given by selected
+	let fields = split(a:settings.selected, s:field_separ)
+	let line = fields[0]
+	call cursor(line, 1)
+endfun
+
 fun! wheel#line#grep (settings)
 	" Go to settings.selected quickfix line
-	let fields = split(a:settings.selected, ' | ')
+	let fields = split(a:settings.selected, s:field_separ)
 	if len(fields) < 5
 		echomsg 'Grep line is too short'
 		return
@@ -421,7 +433,7 @@ endfun
 
 fun! wheel#line#symbol (settings)
 	" Go to settings.selected tag
-	let fields = split(a:settings.selected, ' | ')
+	let fields = split(a:settings.selected, s:field_separ)
 	if len(fields) < 4
 		echomsg 'Tag line is too short'
 		return
