@@ -27,23 +27,32 @@ fun! wheel#mandala#open (...)
 	else
 		let type = 'wheel'
 	endif
-	let buffers = g:wheel_shelve.buffers
-	if empty(buffers)
+	if wheel#mandala#recall ()
+		1,$ delete _
+		call wheel#layer#fresh ()
+	else
+		let buffers = g:wheel_shelve.buffers
 		new
 		let bufnum = bufnr('%')
 		call insert(buffers, bufnum)
-	else
-		let bufnum = buffers[0]
-		let winnum =  bufwinnr(bufnum)
-		if winnum < 0
-			exe 'sbuffer ' . bufnum
-		else
-			exe winnum . 'wincmd w'
-		endif
-		1,$ delete _
-		call wheel#layer#fresh ()
 	endif
 	call wheel#mandala#common_options (type)
+endfun
+
+fun! wheel#mandala#recall ()
+	" Recall wheel buffer
+	let buffers = g:wheel_shelve.buffers
+	if empty(buffers)
+		return v:false
+	endif
+	let bufnum = buffers[0]
+	let winnum =  bufwinnr(bufnum)
+	if winnum < 0
+		exe 'sbuffer ' . bufnum
+	else
+		exe winnum . 'wincmd w'
+	endif
+	return v:true
 endfun
 
 fun! wheel#mandala#close ()

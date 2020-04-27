@@ -108,6 +108,8 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "<m-y> :call wheel#clipper#yank('plain')<cr>"
 		" Reorganize
 		exe 'nnoremap ' . prefix . '<m-o> :call wheel#shape#reorganize()<cr>'
+		" Recall wheel buffer
+		exe 'nnoremap ' . prefix . '<backspace> :call wheel#mandala#recall()<cr>'
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
@@ -164,6 +166,8 @@ fun! wheel#centre#mappings ()
 		" Rotate windows
 		nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
 		nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
+		" Recall wheel buffer
+		nnoremap <M-Backspace>  :call wheel#mandala#recall()<cr>
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

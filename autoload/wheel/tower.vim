@@ -69,7 +69,7 @@ fun! wheel#tower#overlay (settings)
 	" Open / Close : default in settings
 	exe map . '<cr>' . pre . string(settings) . post
 	" Open
-	let settings.close = 0
+	let settings.close = v:false
 	exe map . 'g<cr>' . pre . string(settings) . post
 	exe map . '<space>' . pre . string(settings) . post
 	" Go back

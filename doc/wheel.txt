@@ -1161,6 +1161,12 @@ Reorganizing buffer~
 | -------- | ------------------- | ------------------------- |
 | <M-o>    | <M-w><M-o>          | Reorganize wheel elements |
 
+Recall buffer~
+
+| Prefix +    | With default prefix | Action                    |
+| --------    | ------------------- | ------------------------- |
+| <Backspace> | <M-w><Backspace>    | Recall last wheel buffer  |
+
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
 
@@ -1223,7 +1229,8 @@ and add them to your init file.
 | <M-PageUp>     | Rotate windows counter-clockwise            |
 | <M-PageDown>   | Rotate windows clockwise                    |
 
-Here is the default level 10, if you wish to customize it : >
+Below is the default level 10. To customize it, first set your mapping
+level to less than 10, then copy and adapt the following lines : >
 
     " Menus
     nnoremap <M-=>        :call wheel#hub#meta()<cr>
@@ -1277,6 +1284,8 @@ Here is the default level 10, if you wish to customize it : >
     " Rotate windows
     nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
     nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
+    " Recall wheel buffer
+    nnoremap <M-Backspace>  :call wheel#mandala#recall()<cr>
 <
 
 ------------------------------------------------------------------------------

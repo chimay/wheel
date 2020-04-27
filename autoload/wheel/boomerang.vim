@@ -30,12 +30,12 @@ fun! wheel#boomerang#menu (dictname)
 		endif
 	endif
 	let dictname = 'context/' . a:dictname
-	" Close = 0 by default, to be able to catch wheel buffer variables
-	let settings = {'linefun' : dictname, 'close' : 0, 'travel' : 0}
+	" Close = v:false by default, to be able to catch wheel buffer variables
+	let settings = {'linefun' : dictname, 'close' : v:false, 'travel' : v:false}
 	call wheel#tower#staircase(settings)
 	call wheel#boomerang#sync ()
-	" Let wheel#overlay#call handle open / close
-	let b:wheel_settings.close = 0
+	" Let wheel#tower#call handle open / close
+	let b:wheel_settings.close = v:false
 	" No more layers
 	" Tab mapping will be restored by wheel#layer#pop if we go back
 	nunmap <buffer> <tab>
