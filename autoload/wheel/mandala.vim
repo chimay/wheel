@@ -23,23 +23,33 @@ endif
 fun! wheel#mandala#push ()
 	" Push new wheel buffer
 	let buffers = g:wheel_shelve.buffers
-	" Current buffer
-	let current = bufnr('%')
-	" Create new buffer
-	if index(buffers, current) < 0
+	" First one
+	if empty(buffers)
 		new
-	else
-		enew
+		let bufnum = bufnr('%')
+		call insert(buffers, bufnum)
+		call wheel#mandala#common_maps ()
+		return v:true
 	endif
+	" Open wheel buffer if needed
+	let current = bufnr('%')
+	if index(buffers, current) < 0
+		call wheel#mandala#recall ()
+	endif
+	" Saved buffer
+	let saved = bufnr('%')
+	" Create new buffer
+	enew
 	" New buffer
 	let bufnum = bufnr('%')
-	if bufnum == current
-		echomsg 'Wheel mandala push : no need to push an empty buffer'
+	if bufnum == saved
+		echomsg 'Wheel mandala push : no need to save an empty buffer'
 		return v:false
 	endif
 	" Push
 	call insert(buffers, bufnum)
 	call wheel#mandala#common_maps ()
+	return v:true
 endfun
 
 fun! wheel#mandala#pop ()
