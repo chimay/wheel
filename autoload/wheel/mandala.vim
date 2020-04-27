@@ -115,7 +115,7 @@ fun! wheel#mandala#recall ()
 endfun
 
 fun! wheel#mandala#check ()
-	" Check if current wheel buffer
+	" Check if current wheel buffer exists
 	let buffers = g:wheel_shelve.buffers
 	if empty(buffers)
 		return
