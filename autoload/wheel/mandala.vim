@@ -38,14 +38,18 @@ endfun
 
 fun! wheel#mandala#pop ()
 	" Pop wheel buffer
+	let buffers = g:wheel_shelve.buffers
 	if empty(buffers)
 		return v:false
 	endif
-	let buffers = g:wheel_shelve.buffers
+	if len(buffers) == 1
+		echomsg 'Wheel mandala pop : last wheel buffer is not to be removed.'
+		return v:false
+	endif
 	let removed = wheel#chain#pop(buffers)
-	exe 'bwipe ' removed
 	let bufnum = buffers[0]
 	exe 'buffer ' bufnum
+	exe 'bwipe ' removed
 	return removed
 endfun
 
