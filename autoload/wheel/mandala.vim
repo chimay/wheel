@@ -95,16 +95,13 @@ endfun
 
 fun! wheel#mandala#recall ()
 	" Recall wheel buffer
+	call wheel#mandala#check ()
 	let buffers = g:wheel_shelve.buffers
 	if empty(buffers)
+		echomsg 'wheel mandala recall : no more buffer left'
 		return v:false
 	endif
 	let current = bufnr('%')
-	call wheel#mandala#check ()
-	if empty(buffers)
-		echomsg 'wheel mandala recall : no more buffer left'
-		return
-	endif
 	let bufnum = buffers[0]
 	let winnum =  bufwinnr(bufnum)
 	if index(buffers, current) >= 0
