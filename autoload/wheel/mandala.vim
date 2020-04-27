@@ -36,7 +36,7 @@ fun! wheel#mandala#push (...)
 		call insert(buffers, bufnum)
 		call wheel#mandala#common_maps ()
 		if mode == 'goback'
-			buffer #
+			silent buffer #
 		endif
 		echomsg 'Buffer' bufnum 'added'
 		return v:true
@@ -61,7 +61,7 @@ fun! wheel#mandala#push (...)
 	call insert(buffers, new_buf)
 	call wheel#mandala#common_maps ()
 	if ! in_wheel_buf
-		buffer #
+		silent buffer #
 	endif
 	echomsg 'Buffer' saved 'saved'
 	return v:true
@@ -86,9 +86,9 @@ fun! wheel#mandala#pop ()
 	let current = bufnr('%')
 	if current == removed || index(buffers, current) >= 0
 		let bufnum = buffers[0]
-		exe 'buffer ' bufnum
+		exe 'silent buffer ' bufnum
 	endif
-	exe 'bwipe ' removed
+	exe 'silent bwipe ' removed
 	echomsg 'Buffer' removed 'removed'
 	return removed
 endfun
@@ -108,9 +108,9 @@ fun! wheel#mandala#recall ()
 	let bufnum = buffers[0]
 	let winnum =  bufwinnr(bufnum)
 	if index(buffers, current) >= 0
-		exe 'buffer ' bufnum
+		exe 'silent buffer ' bufnum
 	elseif winnum < 0
-		exe 'sbuffer ' . bufnum
+		exe 'silent sbuffer ' . bufnum
 	else
 		exe winnum . 'wincmd w'
 	endif
