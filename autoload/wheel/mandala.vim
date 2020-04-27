@@ -23,41 +23,48 @@ endif
 fun! wheel#mandala#push ()
 	" Push new wheel buffer
 	let buffers = g:wheel_shelve.buffers
+	call wheel#mandala#check ()
 	" First one
 	if empty(buffers)
-		new
+		enew
 		let bufnum = bufnr('%')
 		call insert(buffers, bufnum)
 		call wheel#mandala#common_maps ()
 		return v:true
 	endif
-	" Open wheel buffer if needed
+	" Current buffer
 	let current = bufnr('%')
-	if index(buffers, current) < 0
-		call wheel#mandala#recall ()
+	if index(buffers, current) >= 0
+		let in_wheel_buf = v:true
+	else
+		let in_wheel_buf = v:false
 	endif
 	" Saved buffer
 	let saved = buffers[0]
-	" Create new buffer
-	enew
-	let bufnum = bufnr('%')
 	" New buffer
-	if bufnum == saved
-		echomsg 'Wheel mandala push : buffer' bufnum 'already in stack'
+	enew
+	let new_buf = bufnr('%')
+	if new_buf == saved
+		echomsg 'Wheel mandala push : buffer' new_buf 'already in stack'
 		return v:false
 	endif
 	" Push
-	call insert(buffers, bufnum)
+	call insert(buffers, new_buf)
 	call wheel#mandala#common_maps ()
+	if ! in_wheel_buf
+		buffer #
+	endif
 	echomsg 'Buffer' saved 'saved'
 	return v:true
 endfun
 
 fun! wheel#mandala#pop ()
 	" Pop wheel buffer
+	call wheel#mandala#check ()
 	let buffers = g:wheel_shelve.buffers
 	" Do not pop empty stack
 	if empty(buffers)
+		echomsg 'wheel mandala pop : no more buffer left'
 		return v:false
 	endif
 	" Do not pop one element stack
@@ -84,12 +91,12 @@ fun! wheel#mandala#recall ()
 		return v:false
 	endif
 	let current = bufnr('%')
-	let bufnum = buffers[0]
-	if ! bufexists(bufnum)
-		echomsg 'Wheel mandala recall : non existent wheel buffer'
-		call remove(buffers, 0)
-		return v:false
+	call wheel#mandala#check ()
+	if empty(buffers)
+		echomsg 'wheel mandala recall : no more buffer left'
+		return
 	endif
+	let bufnum = buffers[0]
 	let winnum =  bufwinnr(bufnum)
 	if index(buffers, current) >= 0
 		exe 'buffer ' bufnum
@@ -99,6 +106,19 @@ fun! wheel#mandala#recall ()
 		exe winnum . 'wincmd w'
 	endif
 	return v:true
+endfun
+
+fun! wheel#mandala#check ()
+	" Check if current wheel buffer
+	let buffers = g:wheel_shelve.buffers
+	if empty(buffers)
+		return
+	endif
+	let bufnum = buffers[0]
+	if ! bufexists(bufnum)
+		echomsg 'Wheel mandala check :' bufnum 'deleted'
+		call remove(buffers, 0)
+	endif
 endfun
 
 fun! wheel#mandala#cycle ()
@@ -120,6 +140,7 @@ fun! wheel#mandala#open (...)
 		1,$ delete _
 		call wheel#layer#fresh ()
 	else
+		new
 		call wheel#mandala#push ()
 	endif
 	call wheel#mandala#common_options (type)
