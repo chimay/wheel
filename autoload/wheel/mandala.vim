@@ -33,7 +33,13 @@ fun! wheel#mandala#push ()
 	endif
 	" New buffer
 	let bufnum = bufnr('%')
+	if bufnum == current
+		echomsg 'Wheel mandala push : no need to push an empty buffer'
+		return v:false
+	endif
+	" Push
 	call insert(buffers, bufnum)
+	call wheel#mandala#common_maps ()
 endfun
 
 fun! wheel#mandala#pop ()
