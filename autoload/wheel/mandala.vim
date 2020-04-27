@@ -117,14 +117,11 @@ endfun
 fun! wheel#mandala#check ()
 	" Check if current wheel buffer exists
 	let buffers = g:wheel_shelve.buffers
-	if empty(buffers)
-		return
-	endif
-	let bufnum = buffers[0]
-	if ! bufexists(bufnum)
-		echomsg 'Wheel mandala check :' bufnum 'deleted'
-		call remove(buffers, 0)
-	endif
+	for bufnum in buffers
+		if ! bufexists(bufnum)
+			call wheel#chain#remove_element(bufnum, buffers)
+		endif
+	endfor
 endfun
 
 fun! wheel#mandala#cycle ()
