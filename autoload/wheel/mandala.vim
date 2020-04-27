@@ -62,6 +62,10 @@ fun! wheel#mandala#pop ()
 		echomsg 'Wheel mandala pop : last wheel buffer is not to be removed.'
 		return v:false
 	endif
+	let current = bufnr('%')
+	if index(buffers, current) < 0
+		split
+	endif
 	let removed = wheel#chain#pop(buffers)
 	let bufnum = buffers[0]
 	exe 'buffer ' bufnum
