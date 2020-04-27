@@ -163,6 +163,7 @@ your groups will grow and adapt to your style.
   + Tags
 - Yank wheel using TextYankPost event
 - Reorganizing elements
+- Special buffers stack to save your searches
 - Display files
   + Split levels : torus, circle, location
   + Split
