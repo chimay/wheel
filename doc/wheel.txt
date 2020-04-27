@@ -315,7 +315,7 @@ BUFFERS STACK				*wheel-special-buffers-stack*
 Wheel manages a special buffer stack. You can :
 
 - Save your current special buffer with `<M-w><Tab>`
-- Cycle the special buffers with `<M-w><M-Space>`
+- Cycle the special buffers with `<M-w>@`
 - Remove the current special buffer with `<M-w><Backspace>`
 
 ------------------------------------------------------------------------------
@@ -1180,7 +1180,7 @@ Managing special buffers~
 | --------    | ------------------- | ------------------------- |
 | <Tab>       | <M-w><Tab>          | Save (push) wheel buffer  |
 | <Backspace> | <M-w><Backspace>    | Remove (pop) wheel buffer |
-| <M-Space>   | <M-w><M-Space>      | Cycle wheel buffers       |
+| @           | <M-w>@              | Cycle wheel buffers       |
 
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*

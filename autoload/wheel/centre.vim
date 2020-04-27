@@ -113,7 +113,7 @@ fun! wheel#centre#mappings ()
 		" Remove (pop) wheel buffer
 		exe 'nnoremap ' . prefix . '<backspace> :call wheel#mandala#pop()<cr>'
 		" Cycle wheel buffers
-		exe 'nnoremap ' . prefix . '<m-space> :call wheel#mandala#cycle()<cr>'
+		exe 'nnoremap ' . prefix . '@ :call wheel#mandala#cycle()<cr>'
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
