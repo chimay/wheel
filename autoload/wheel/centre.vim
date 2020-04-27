@@ -65,8 +65,8 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "<c-cr> :call wheel#vortex#switch('circle')<cr>"
 		exe 'nnoremap ' . prefix . "<s-cr> :call wheel#vortex#switch('torus')<cr>"
 		" History
-		exe 'nnoremap ' . prefix . '<tab> :call wheel#pendulum#newer()<cr>'
-		exe 'nnoremap ' . prefix . '<backspace> :call wheel#pendulum#older()<cr>'
+		exe 'nnoremap ' . prefix . '<pageup> :call wheel#pendulum#newer()<cr>'
+		exe 'nnoremap ' . prefix . '<pagedown> :call wheel#pendulum#older()<cr>'
 		exe 'nnoremap ' . prefix . '^ :call wheel#pendulum#alternate()<cr>'
 	endif
 	" Advanced
@@ -108,8 +108,12 @@ fun! wheel#centre#mappings ()
 		exe 'nnoremap ' . prefix . "<m-y> :call wheel#clipper#yank('plain')<cr>"
 		" Reorganize
 		exe 'nnoremap ' . prefix . '<m-o> :call wheel#shape#reorganize()<cr>'
-		" Recall wheel buffer
-		exe 'nnoremap ' . prefix . '<backspace> :call wheel#mandala#recall()<cr>'
+		" Save (push) wheel buffer
+		exe 'nnoremap ' . prefix . '<tab> :call wheel#mandala#push()<cr>'
+		" Remove (pop) wheel buffer
+		exe 'nnoremap ' . prefix . '<backspace> :call wheel#mandala#pop()<cr>'
+		" Cycle wheel buffers
+		exe 'nnoremap ' . prefix . '<m-space> :call wheel#mandala#cycle()<cr>'
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
@@ -166,8 +170,12 @@ fun! wheel#centre#mappings ()
 		" Rotate windows
 		nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
 		nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
-		" Recall wheel buffer
-		nnoremap <M-Backspace>  :call wheel#mandala#recall()<cr>
+		" Save (push) wheel buffer
+		nnoremap <M-Tab>        :call wheel#mandala#push()<cr>
+		" Remove (pop) wheel buffer
+		nnoremap <M-Backspace>  :call wheel#mandala#pop()<cr>
+		" Cycle wheel buffers
+		nnoremap <M-Space>      :call wheel#mandala#cycle()<cr>
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

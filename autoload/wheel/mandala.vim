@@ -20,6 +20,62 @@ endif
 
 " Buffer
 
+fun! wheel#mandala#push ()
+	" Push new wheel buffer
+	let buffers = g:wheel_shelve.buffers
+	" Current buffer
+	let current = bufnr('%')
+	" Create new buffer
+	if index(buffers, current) < 0
+		new
+	else
+		enew
+	endif
+	" New buffer
+	let bufnum = bufnr('%')
+	call insert(buffers, bufnum)
+endfun
+
+fun! wheel#mandala#pop ()
+	" Pop wheel buffer
+	if empty(buffers)
+		return v:false
+	endif
+	let buffers = g:wheel_shelve.buffers
+	let removed = wheel#chain#pop(buffers)
+	exe 'bwipe ' removed
+	let bufnum = buffers[0]
+	exe 'buffer ' bufnum
+	return removed
+endfun
+
+fun! wheel#mandala#recall ()
+	" Recall wheel buffer
+	let buffers = g:wheel_shelve.buffers
+	if empty(buffers)
+		return v:false
+	endif
+	let current = bufnr('%')
+	let bufnum = buffers[0]
+	let winnum =  bufwinnr(bufnum)
+	if index(buffers, current) >= 0
+		exe 'buffer ' bufnum
+	elseif winnum < 0
+		exe 'sbuffer ' . bufnum
+	else
+		exe winnum . 'wincmd w'
+	endif
+	return v:true
+endfun
+
+fun! wheel#mandala#cycle ()
+	" Cycle wheel buffers
+	let buffers = g:wheel_shelve.buffers
+	let buffers = wheel#chain#rotate_left(buffers)
+	let g:wheel_shelve.buffers = buffers
+	call wheel#mandala#recall ()
+endfun
+
 fun! wheel#mandala#open (...)
 	" Open a wheel buffer
 	if a:0 > 0
@@ -31,28 +87,9 @@ fun! wheel#mandala#open (...)
 		1,$ delete _
 		call wheel#layer#fresh ()
 	else
-		let buffers = g:wheel_shelve.buffers
-		new
-		let bufnum = bufnr('%')
-		call insert(buffers, bufnum)
+		call wheel#mandala#push ()
 	endif
 	call wheel#mandala#common_options (type)
-endfun
-
-fun! wheel#mandala#recall ()
-	" Recall wheel buffer
-	let buffers = g:wheel_shelve.buffers
-	if empty(buffers)
-		return v:false
-	endif
-	let bufnum = buffers[0]
-	let winnum =  bufwinnr(bufnum)
-	if winnum < 0
-		exe 'sbuffer ' . bufnum
-	else
-		exe winnum . 'wincmd w'
-	endif
-	return v:true
 endfun
 
 fun! wheel#mandala#close ()

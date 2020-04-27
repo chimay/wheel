@@ -1081,8 +1081,8 @@ History~
 
 | Prefix +    | With default prefix | Action                          |
 | ----------- | ------------------- | ------------------------------- |
-| <tab>       | <M-w><tab>          | Go to newer location in history |
-| <backspace> | <M-w><backspace>    | Go to older location in history |
+| <PageUp>    | <M-w><PageUp>       | Go to newer location in history |
+| <PageDown>  | <M-w><PageDown>     | Go to older location in history |
 | ^           | <M-w>^              | Alternate last two locations    |
 
 ------------------------------------------------------------------------------
@@ -1161,11 +1161,13 @@ Reorganizing buffer~
 | -------- | ------------------- | ------------------------- |
 | <M-o>    | <M-w><M-o>          | Reorganize wheel elements |
 
-Recall buffer~
+Managing special buffers~
 
 | Prefix +    | With default prefix | Action                    |
 | --------    | ------------------- | ------------------------- |
-| <Backspace> | <M-w><Backspace>    | Recall last wheel buffer  |
+| <Tab>       | <M-w><Tab>          | Save (push) wheel buffer  |
+| <Backspace> | <M-w><Backspace>    | Remove (pop) wheel buffer |
+| <M-Space>   | <M-w><M-Space>      | Cycle wheel buffers       |
 
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
@@ -1228,6 +1230,10 @@ and add them to your init file.
 | -------------- | ------------------------------------------- |
 | <M-PageUp>     | Rotate windows counter-clockwise            |
 | <M-PageDown>   | Rotate windows clockwise                    |
+| -------------- | ------------------------------------------- |
+| <M-Tab>        | Save (push) wheel buffer                    |
+| <M-Backspace>  | Remove (pop) wheel buffer                   |
+| <M-Space>      | Cycle wheel buffers                         |
 
 Below is the default level 10. To customize it, first set your mapping
 level to less than 10, then copy and adapt the following lines : >
@@ -1259,8 +1265,8 @@ level to less than 10, then copy and adapt the following lines : >
     nnoremap <Space>      :call wheel#sailing#switch('location')<cr>
     nnoremap <C-Space>    :call wheel#sailing#switch('circle')<cr>
     nnoremap <S-Space>    :call wheel#sailing#switch('torus')<cr>
-    nnoremap <D-Space>    :call wheel#sailing#tree()<cr>
-    nnoremap <M-Space>    :call wheel#sailing#helix()<cr>
+    nnoremap <M-x>        :call wheel#sailing#tree()<cr>
+    nnoremap <D-x>        :call wheel#sailing#helix()<cr>
     nnoremap <M-h>        :call wheel#sailing#history()<cr>
     " Reshaping buffers
     nnoremap <M-r>        :call wheel#shape#reorganize()<cr>
@@ -1271,6 +1277,7 @@ level to less than 10, then copy and adapt the following lines : >
     " Search for files
     nnoremap <M-u>          :call wheel#sailing#attic()<cr>
     nnoremap <M-l>          :call wheel#sailing#locate()<cr>
+    nnoremap <M-f>          :call wheel#sailing#find()<cr>
     " Yank
     nnoremap <M-y>          :call wheel#clipper#yank('list')<cr>
     nnoremap <M-p>          :call wheel#clipper#yank('plain')<cr>
@@ -1284,8 +1291,12 @@ level to less than 10, then copy and adapt the following lines : >
     " Rotate windows
     nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
     nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
-    " Recall wheel buffer
-    nnoremap <M-Backspace>  :call wheel#mandala#recall()<cr>
+    " Save (push) wheel buffer
+    nnoremap <M-Tab>        :call wheel#mandala#push()<cr>
+    " Remove (pop) wheel buffer
+    nnoremap <M-Backspace>  :call wheel#mandala#pop()<cr>
+    " Cycle wheel buffers
+    nnoremap <M-Space>      :call wheel#mandala#cycle()<cr>
 <
 
 ------------------------------------------------------------------------------
