@@ -147,16 +147,19 @@ fun! wheel#gear#unmap (key, mode)
 	" Dictionary with map caracteristics
 	let key = a:key
 	let mode = a:mode
-	if type(key) == v:t_string
+	let typekey = type(key)
+	if typekey == v:t_string
 		let dict = maparg(key, mode, 0, 1)
 		if ! empty(dict) && dict.buffer
 			let pre = mode . 'unmap <buffer> '
 			let runme = pre . key
 			exe runme
 		endif
-	else
+	elseif typekey == v:t_list
 		for elem in key
 			call wheel#gear#unmap(elem, mode)
 		endfor
+	else
+		echomsg 'Wheel gear unmap : bad key format'
 	endif
 endfun
