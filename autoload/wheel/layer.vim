@@ -36,25 +36,25 @@ fun! wheel#layer#fresh ()
 				\ 'j', 'k', '<down>', '<up>',
 				\ 'i', 'a',
 				\ '<cr>', '<space>', '<tab>',
-				\ 's', 'v', 'S', 'V', 't',
+				\ 's', 'v', 't',
 				\ 'gs', 'gv', 'gS', 'gV', 'gt',
 				\ 'g<cr>',
 				\ ]
 	for keyname in keylist
-		if ! empty(maparg(keyname))
+		if ! empty(maparg(keyname, 'n'))
 			exe 'nunmap <buffer> ' . keyname
 		endif
 	endfor
 	" Clear insert maps
-	let keylist = [
+	let inslist = [
 				\ '<space>', '<c-w>', '<c-u>',
 				\ '<esc>', '<cr>',
 				\ '<up>', '<down>', '<m-p>', '<m-n>',
 				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
 				\ ]
-	for keyname in keylist
-		if ! empty(maparg(keyname))
-			exe 'iunmap <buffer> ' . keyname
+	for insname in inslist
+		if ! empty(maparg(insname, 'i'))
+			exe 'iunmap <buffer> ' . insname
 		endif
 	endfor
 endfun
