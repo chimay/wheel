@@ -71,9 +71,9 @@ fun! wheel#status#tabline ()
 		" Label of a tab
 		let text .= ' %{wheel#status#tablabel(' . index . ')} '
 	endfor
-	" after the last tab fill with TabLineFill and reset tab page nr
+	" After the last tab fill with TabLineFill and reset tab page nr
 	let text .= '%#TabLineFill#%T'
-	" right-align the label to close the current tab page
+	" Right-align the label to close the current tab page
 	if tabpagenr('$') > 1
 		let text .= '%=%#TabLine#%999X[X]'
 	endif

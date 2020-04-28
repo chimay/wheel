@@ -833,6 +833,7 @@ Here is an example of a complete configuration : >
 ==============================================================================
 AUTOCOMMANDS					   *wheel-autocommands*
 
+Auto read			|wheel-autocommands-auto-read|
 Auto write			|wheel-autocommands-auto-write|
 After jump			|wheel-autocommands-after-jump|
 Auto follow			|wheel-autocommands-auto-follow|
@@ -916,9 +917,11 @@ EXAMPLE					    *wheel-autocommands-example*
 
 Here is an example of a complete autocommands configuration : >
 
-  " Autocommands on vim leave, for autowriting
+  " On vim enter, for autoreading
+  autocmd VimEnter * call wheel#void#init()
+  " On vim leave, for autowriting
   autocmd VimLeave * call wheel#void#exit()
-  " Autocommands executed after jumping to a location
+  " Executed after jumping to a location
   autocmd User WheelAfterJump norm zMzx
   " For current wheel location to auto follow buffer change
   autocmd BufEnter * call wheel#projection#follow()
@@ -1234,8 +1237,6 @@ and add them to your init file.
 | <D-x>          | Index of toruses > circles > locations      |
 | <M-h>          | History index                               |
 | -------------- | ------------------------------------------- |
-| <M-r>          | Reorganize wheel elements                   |
-| -------------- | ------------------------------------------- |
 | <M-s>          | Occur in current file                       |
 | <M-g>          | Grep in current circle files                |
 | <M-o>          | Outline in current circle files             |
@@ -1244,6 +1245,8 @@ and add them to your init file.
 | <M-u>          | Most Recently Used files not found in wheel |
 | <M-l>          | Locate                                      |
 | <M-f>          | Find                                        |
+| -------------- | ------------------------------------------- |
+| <M-r>          | Reorganize wheel elements                   |
 | -------------- | ------------------------------------------- |
 | <M-y>          | Paste yank wheel element in list mode       |
 | <M-p>          | Paste yank wheel element in plain mode      |
@@ -1266,65 +1269,65 @@ Below is the default level 10. To customize it, first set your mapping
 level to less than 10, then copy and adapt the following lines : >
 
     " Menus
-    nnoremap <M-=>        :call wheel#hub#meta()<cr>
-    nnoremap <M-m>        :call wheel#hub#main()<cr>
+    nmap <M-m>        <plug>(wheel-menu-main)
+    nmap <M-=>        <plug>(wheel-menu-meta)
     " Add, Delete
-    nnoremap <M-Insert>   :call wheel#tree#add_here()<cr>
-    nnoremap <M-Del>      :call wheel#tree#delete('location')<cr>
+    nmap <M-Insert>   <plug>(wheel-add-here)
+    nmap <M-Del>      <plug>(wheel-delete-location)
     " Next / Previous
-    nnoremap <C-PageUp>   :call wheel#vortex#previous('location')<cr>
-    nnoremap <C-PageDown> :call wheel#vortex#next('location')<cr>
-    nnoremap <C-Home>     :call wheel#vortex#previous('circle')<cr>
-    nnoremap <C-End>      :call wheel#vortex#next('circle')<cr>
-    nnoremap <S-Home>     :call wheel#vortex#previous('torus')<cr>
-    nnoremap <S-End>      :call wheel#vortex#next('torus')<cr>
+    nmap <C-PageUp>   <plug>(wheel-previous-location)
+    nmap <C-PageDown> <plug>(wheel-next-location)
+    nmap <C-Home>     <plug>(wheel-previous-circle)
+    nmap <C-End>      <plug>(wheel-next-circle)
+    nmap <S-Home>     <plug>(wheel-previous-location)
+    nmap <S-End>      <plug>(wheel-next-location)
     " History
-    nnoremap <S-PageUp>     :call wheel#pendulum#newer()<cr>
-    nnoremap <S-PageDown>   :call wheel#pendulum#older()<cr>
+    nmap <S-PageUp>     <plug>(wheel-history-newer)
+    nmap <S-PageDown>   <plug>(wheel-history-older)
     " Alternate
-    nnoremap <C-^>          :call wheel#pendulum#alternate()<cr>
-    nnoremap <D-^>          :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
-    nnoremap <C-S-PageUp>   :call wheel#pendulum#alternate_same_torus()<cr>
-    nnoremap <C-S-PageDown> :call wheel#pendulum#alternate_same_circle()<cr>
-    nnoremap <C-S-Home>     :call wheel#pendulum#alternate_other_torus()<cr>
-    nnoremap <C-S-End>      :call wheel#pendulum#alternate_other_circle()<cr>
+    nmap <C-^>          <plug>(wheel-alternate)
+    nmap <D-^>          <plug>(wheel-alternate-same-torus-other-circle)
+    nmap <C-S-PageUp>   <plug>(wheel-alternate-same-torus)
+    nmap <C-S-PageDown> <plug>(wheel-alternate-same-circle)
+    nmap <C-S-Home>     <plug>(wheel-alternate-other-torus)
+    nmap <C-S-End>      <plug>(wheel-alternate-other-circle)
     " Navigation buffers
-    nnoremap <Space>      :call wheel#sailing#switch('location')<cr>
-    nnoremap <C-Space>    :call wheel#sailing#switch('circle')<cr>
-    nnoremap <S-Space>    :call wheel#sailing#switch('torus')<cr>
-    nnoremap <M-x>        :call wheel#sailing#tree()<cr>
-    nnoremap <D-x>        :call wheel#sailing#helix()<cr>
-    nnoremap <M-h>        :call wheel#sailing#history()<cr>
-    " Reshaping buffers
-    nnoremap <M-r>        :call wheel#shape#reorganize()<cr>
+    nmap <Space>      <plug>(wheel-navigation-location)
+    nmap <C-Space>    <plug>(wheel-navigation-circle)
+    nmap <S-Space>    <plug>(wheel-navigation-torus)
+    nmap <M-x>        <plug>(wheel-navigation-index-tree)
+    nmap <D-x>        <plug>(wheel-navigation-index-locations)
+    nmap <M-h>        <plug>(wheel-navigation-history)
     " Search inside files
-    nnoremap <M-s>          :call wheel#sailing#occur()<cr>
-    nnoremap <M-g>          :call wheel#sailing#grep()<cr>
-    nnoremap <M-o>          :call wheel#sailing#outline()<cr>
-    nnoremap <M-t>          :call wheel#sailing#symbol()<cr>
+    nmap <M-s>          <plug>(wheel-navigation-occur)
+    nmap <M-g>          <plug>(wheel-navigation-grep)
+    nmap <M-o>          <plug>(wheel-navigation-outline)
+    nmap <M-t>          <plug>(wheel-navigation-tags)
     " Search for files
-    nnoremap <M-u>          :call wheel#sailing#attic()<cr>
-    nnoremap <M-l>          :call wheel#sailing#locate()<cr>
-    nnoremap <M-f>          :call wheel#sailing#find()<cr>
+    nmap <M-u>          <plug>(wheel-navigation-mru)
+    nmap <M-l>          <plug>(wheel-navigation-locate)
+    nmap <M-f>          <plug>(wheel-navigation-find)
+    " Reshaping buffers
+    nmap <M-r>        <plug>(wheel-reorganize)
     " Yank
-    nnoremap <M-y>          :call wheel#clipper#yank('list')<cr>
-    nnoremap <M-p>          :call wheel#clipper#yank('plain')<cr>
+    nmap <M-y>          <plug>(wheel-yank-list)
+    nmap <M-p>          <plug>(wheel-yank-plain)
     " Batch
-    nnoremap <M-b>          :WheelBatch<space>
+    nmap <M-b>          :WheelBatch<space>
     " Windows
-    nnoremap <M-z>          :call wheel#mosaic#zoom()<cr>
-    nnoremap <M-Home>       :call wheel#mosaic#tabs('location')<cr>
-    nnoremap <M-End>        :call wheel#mosaic#split('location', 'main_left')<cr>
-    nnoremap <M-&>          :call wheel#pyramid#steps('circle')<cr>
+    nmap <M-z>          <plug>(wheel-zoom)
+    nmap <M-Home>       <plug>(wheel-tabs-locations)
+    nmap <M-End>        <plug>(wheel-mainleft-locations)
+    nmap <M-&>          <plug>(wheel-tabnwin-circle)
     " Rotate windows
-    nnoremap <M-PageUp>     :call wheel#mosaic#rotate_counter_clockwise()<cr>
-    nnoremap <M-PageDown>   :call wheel#mosaic#rotate_clockwise()<cr>
+    nmap <M-PageUp>     <plug>(wheel-rotate-counter-clockwise)
+    nmap <M-PageDown>   <plug>(wheel-rotate-clockwise)
     " Save (push) wheel buffer
-    nnoremap <M-Tab>        :call wheel#mandala#push()<cr>
+    nmap <M-Tab>        <plug>(wheel-buffer-push)
     " Remove (pop) wheel buffer
-    nnoremap <M-Backspace>  :call wheel#mandala#pop()<cr>
+    nmap <M-Backspace>  <plug>(wheel-buffer-pop)
     " Cycle wheel buffers
-    nnoremap <M-Space>      :call wheel#mandala#cycle()<cr>
+    nmap <M-Space>      <plug>(wheel-buffer-cycle)
 <
 
 ------------------------------------------------------------------------------

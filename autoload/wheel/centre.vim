@@ -7,7 +7,6 @@ fun! wheel#centre#commands ()
 	" Status
 	command! WheelDashboard call wheel#status#dashboard()
 	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
-	command! -nargs=+ WheelGrep call wheel#sailing#grep(<q-args>)
 endfun
 
 fun! wheel#centre#plugs ()
@@ -255,8 +254,6 @@ fun! wheel#centre#cables ()
 		nmap <M-x>        <plug>(wheel-navigation-index-tree)
 		nmap <D-x>        <plug>(wheel-navigation-index-locations)
 		nmap <M-h>        <plug>(wheel-navigation-history)
-		" Reshaping buffers
-		nmap <M-r>        <plug>(wheel-reorganize)
 		" Search inside files
 		nmap <M-s>          <plug>(wheel-navigation-occur)
 		nmap <M-g>          <plug>(wheel-navigation-grep)
@@ -266,6 +263,8 @@ fun! wheel#centre#cables ()
 		nmap <M-u>          <plug>(wheel-navigation-mru)
 		nmap <M-l>          <plug>(wheel-navigation-locate)
 		nmap <M-f>          <plug>(wheel-navigation-find)
+		" Reshaping buffers
+		nmap <M-r>        <plug>(wheel-reorganize)
 		" Yank
 		nmap <M-y>          <plug>(wheel-yank-list)
 		nmap <M-p>          <plug>(wheel-yank-plain)
