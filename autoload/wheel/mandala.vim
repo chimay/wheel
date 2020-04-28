@@ -73,7 +73,7 @@ fun! wheel#mandala#pop ()
 	let buffers = g:wheel_shelve.buffers
 	" Do not pop empty stack
 	if empty(buffers)
-		echomsg 'wheel mandala pop : no more buffer left'
+		echomsg 'wheel mandala pop : empty buffer stack'
 		return v:false
 	endif
 	" Do not pop one element stack
@@ -98,7 +98,7 @@ fun! wheel#mandala#recall ()
 	call wheel#mandala#check ()
 	let buffers = g:wheel_shelve.buffers
 	if empty(buffers)
-		echomsg 'wheel mandala recall : no more buffer left'
+		echomsg 'wheel mandala recall : empty buffer stack'
 		return v:false
 	endif
 	let current = bufnr('%')
