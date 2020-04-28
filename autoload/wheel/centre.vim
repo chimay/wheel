@@ -16,8 +16,8 @@ fun! wheel#centre#mappings ()
 	" Basic
 	if g:wheel_config.mappings >= 0
 		" Menus
-		exe 'nnoremap ' . prefix . '= :call wheel#hub#meta()<cr>'
 		exe 'nnoremap ' . prefix . 'm :call wheel#hub#main()<cr>'
+		exe 'nnoremap ' . prefix . '= :call wheel#hub#meta()<cr>'
 		" Add
 		exe 'nnoremap ' . prefix . 'a :call wheel#tree#add_here()<cr>'
 		exe 'nnoremap ' . prefix . '<c-a> :call wheel#tree#add_circle()<cr>'
@@ -119,8 +119,8 @@ fun! wheel#centre#mappings ()
 	" Without prefix
 	if g:wheel_config.mappings >= 10
 		" Menus
-		nnoremap <M-=>        :call wheel#hub#meta()<cr>
 		nnoremap <M-m>        :call wheel#hub#main()<cr>
+		nnoremap <M-=>        :call wheel#hub#meta()<cr>
 		" Add, Delete
 		nnoremap <M-Insert>   :call wheel#tree#add_here()<cr>
 		nnoremap <M-Del>      :call wheel#tree#delete('location')<cr>
@@ -186,111 +186,104 @@ fun! wheel#centre#mappings ()
 endfun
 
 fun! wheel#centre#plugs ()
-	" Define <Plug> mappings
+	" Define <plug> mappings
 	let prefix = g:wheel_config.prefix
-	" Basic
-	" ------------------------------
 	" Menus
-	exe 'nnoremap <Plug>WheelMenuMeta :call wheel#hub#meta()<cr>'
-	exe 'nnoremap m :call wheel#hub#main()<cr>'
+	exe 'nnoremap <plug>(wheel-menu-main) :call wheel#hub#main()<cr>'
+	exe 'nnoremap <plug>(wheel-menu-meta) :call wheel#hub#meta()<cr>'
 	" Add
-	exe 'nnoremap a :call wheel#tree#add_here()<cr>'
-	exe 'nnoremap <c-a> :call wheel#tree#add_circle()<cr>'
-	exe 'nnoremap A :call wheel#tree#add_torus()<cr>'
-	exe 'nnoremap f :call wheel#tree#add_file()<cr>'
-	exe 'nnoremap b :call wheel#tree#add_buffer()<cr>'
-	" Next / Previous
-	exe 'nnoremap ' . prefix . "<left> :call wheel#vortex#previous('location')<cr>"
-	exe 'nnoremap ' . prefix . "<right> :call wheel#vortex#next('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-left> :call wheel#vortex#previous('circle')<cr>"
-	exe 'nnoremap ' . prefix . "<c-right> :call wheel#vortex#next('circle')<cr>"
-	exe 'nnoremap ' . prefix . "<s-left> :call wheel#vortex#previous('torus')<cr>"
-	exe 'nnoremap ' . prefix . "<s-right> :call wheel#vortex#next('torus')<cr>"
-	" Load / Save wheel
-	exe 'nnoremap r :call wheel#disc#read_all()<cr>'
-	exe 'nnoremap w :call wheel#disc#write_all()<cr>'
-	" Common
-	" ------------------------------
-	" Switch
-	exe 'nnoremap ' . prefix . "<space> :call wheel#sailing#switch('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-space> :call wheel#sailing#switch('circle')<cr>"
-	exe 'nnoremap ' . prefix . "<s-space> :call wheel#sailing#switch('torus')<cr>"
-	" Indexes
-	exe 'nnoremap x :call wheel#sailing#helix()<cr>'
-	exe 'nnoremap <c-x> :call wheel#sailing#grid()<cr>'
-	exe 'nnoremap <m-x> :call wheel#sailing#tree()<cr>'
-	"History
-	exe 'nnoremap h :call wheel#sailing#history()<cr>'
-	" Reorder
-	exe 'nnoremap ' . prefix . "o :call wheel#shape#reorder('location')<cr>"
-	exe 'nnoremap ' . prefix . "<C-o> :call wheel#shape#reorder('circle')<cr>"
-	exe 'nnoremap ' . prefix . "O :call wheel#shape#reorder('torus')<cr>"
+	exe 'nnoremap <plug>(wheel-add-here) :call wheel#tree#add_here()<cr>'
+	exe 'nnoremap <plug>(wheel-add-circle) :call wheel#tree#add_circle()<cr>'
+	exe 'nnoremap <plug>(wheel-add-torus) :call wheel#tree#add_torus()<cr>'
+	exe 'nnoremap <plug>(wheel-add-file) :call wheel#tree#add_file()<cr>'
+	exe 'nnoremap <plug>(wheel-add-buffer) :call wheel#tree#add_buffer()<cr>'
 	" Rename
-	exe 'nnoremap ' . prefix . "n :call wheel#tree#rename('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-n> :call wheel#tree#rename('circle')<cr>"
-	exe 'nnoremap ' . prefix . "N :call wheel#tree#rename('torus')<cr>"
-	exe 'nnoremap <m-n> :call wheel#tree#rename_file()<cr>'
+	exe 'nnoremap <plug>(wheel-rename-location) :call wheel#tree#rename('location')<cr>"
+	exe 'nnoremap <plug>(wheel-rename-circle) :call wheel#tree#rename('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-rename-torus) :call wheel#tree#rename('torus')<cr>"
+	exe 'nnoremap <plug>(wheel-rename-file) :call wheel#tree#rename_file()<cr>'
 	" Delete
-	exe 'nnoremap ' . prefix . "d :call wheel#tree#delete('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-d> :call wheel#tree#delete('circle')<cr>"
-	exe 'nnoremap ' . prefix . "D :call wheel#tree#delete('torus')<cr>"
-	" Navigation
-	exe 'nnoremap ' . prefix . "<cr> :call wheel#vortex#switch('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-cr> :call wheel#vortex#switch('circle')<cr>"
-	exe 'nnoremap ' . prefix . "<s-cr> :call wheel#vortex#switch('torus')<cr>"
+	exe 'nnoremap <plug>(wheel-delete-location) :call wheel#tree#delete('location')<cr>"
+	exe 'nnoremap <plug>(wheel-delete-circle) :call wheel#tree#delete('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-delete-torus) :call wheel#tree#delete('torus')<cr>"
+	" Load / Save wheel
+	exe 'nnoremap <plug>(wheel-read-all) :call wheel#disc#read_all()<cr>'
+	exe 'nnoremap <plug>(wheel-write-all) :call wheel#disc#write_all()<cr>'
+	" Next / Previous
+	exe 'nnoremap <plug>(wheel-previous-location) :call wheel#vortex#previous('location')<cr>"
+	exe 'nnoremap <plug>(wheel-next-location) :call wheel#vortex#next('location')<cr>"
+	exe 'nnoremap <plug>(wheel-previous-circle) :call wheel#vortex#previous('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-next-circle) :call wheel#vortex#next('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-previous-torus) :call wheel#vortex#previous('torus')<cr>"
+	exe 'nnoremap <plug>(wheel-next-torus) :call wheel#vortex#next('torus')<cr>"
+	" Switch
+	exe 'nnoremap <plug>(wheel-switch-location) :call wheel#vortex#switch('location')<cr>"
+	exe 'nnoremap <plug>(wheel-switch-circle) :call wheel#vortex#switch('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-switch-torus) :call wheel#vortex#switch('torus')<cr>"
 	" History
-	exe 'nnoremap <pageup> :call wheel#pendulum#newer()<cr>'
-	exe 'nnoremap <pagedown> :call wheel#pendulum#older()<cr>'
-	exe 'nnoremap ^ :call wheel#pendulum#alternate()<cr>'
-	" Advanced
-	" ------------------------------
-	" Tabs
-	exe 'nnoremap ' . prefix . "t :call wheel#mosaic#tabs('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-t> :call wheel#mosaic#tabs('circle')<cr>"
-	exe 'nnoremap ' . prefix . "T :call wheel#mosaic#tabs('torus')<cr>"
-	" Windows
-	exe 'nnoremap ' . prefix . "s :call wheel#mosaic#split('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-s> :call wheel#mosaic#split('circle')<cr>"
-	exe 'nnoremap ' . prefix . "S :call wheel#mosaic#split('torus')<cr>"
-	exe 'nnoremap ' . prefix . "v :call wheel#mosaic#split('location', 'vertical')<cr>"
-	exe 'nnoremap ' . prefix . "<c-v> :call wheel#mosaic#split('circle', 'vertical')<cr>"
-	exe 'nnoremap ' . prefix . "V :call wheel#mosaic#split('torus', 'vertical')<cr>"
-	exe 'nnoremap ' . prefix . "l :call wheel#mosaic#split('location', 'main_left')<cr>"
-	exe 'nnoremap ' . prefix . "<c-l> :call wheel#mosaic#split('circle', 'main_left')<cr>"
-	exe 'nnoremap ' . prefix . "L :call wheel#mosaic#split('torus', 'main_left')<cr>"
-	exe 'nnoremap ' . prefix . "g :call wheel#mosaic#split_grid('location')<cr>"
-	exe 'nnoremap ' . prefix . "<c-g> :call wheel#mosaic#split_grid('circle')<cr>"
-	exe 'nnoremap ' . prefix . "G :call wheel#mosaic#split_grid('torus')<cr>"
-	" Rotating windows
-	exe 'nnoremap <up> :call wheel#mosaic#rotate_counter_clockwise()<cr>'
-	exe 'nnoremap <down> :call wheel#mosaic#rotate_clockwise()<cr>'
-	" Tabs & Windows
-	exe 'nnoremap z :call wheel#mosaic#zoom()<cr>'
-	exe 'nnoremap ' . prefix . "P :call wheel#pyramid#steps('torus')<cr>"
-	exe 'nnoremap ' . prefix . "<c-p> :call wheel#pyramid#steps('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-pendulum-newer) :call wheel#pendulum#newer()<cr>'
+	exe 'nnoremap <plug>(wheel-pendulum-older) :call wheel#pendulum#older()<cr>'
+	exe 'nnoremap <plug>(wheel-pendulum-alternate) :call wheel#pendulum#alternate()<cr>'
+	" Navigation
+	exe 'nnoremap <plug>(wheel-navigation-location) :call wheel#sailing#switch('location')<cr>"
+	exe 'nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-navigation-torus) :call wheel#sailing#switch('torus')<cr>"
+	" Indexes
+	exe 'nnoremap <plug>(wheel-navigation-helix) :call wheel#sailing#helix()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-grid) :call wheel#sailing#grid()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-tree) :call wheel#sailing#tree()<cr>'
+	"History
+	exe 'nnoremap <plug>(wheel-navigation-history) :call wheel#sailing#history()<cr>'
 	" Search inside files
-	exe 'nnoremap : :call wheel#sailing#occur()<cr>'
-	exe 'nnoremap * :call wheel#sailing#grep()<cr>'
-	exe 'nnoremap # :call wheel#sailing#outline()<cr>'
-	exe 'nnoremap % :call wheel#sailing#symbol()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-occur) :call wheel#sailing#occur()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-grep) :call wheel#sailing#grep()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-outline) :call wheel#sailing#outline()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-tags) :call wheel#sailing#symbol()<cr>'
 	" Search for files
-	exe 'nnoremap ? :call wheel#sailing#attic()<cr>'
-	exe 'nnoremap / :call wheel#sailing#locate()<cr>'
-	exe 'nnoremap & :call wheel#sailing#find()<cr>'
-	" Yank wheel
-	exe 'nnoremap ' . prefix . "y :call wheel#clipper#yank('list')<cr>"
-	exe 'nnoremap ' . prefix . "<m-y> :call wheel#clipper#yank('plain')<cr>"
+	exe 'nnoremap <plug>(wheel-navigation-mru) :call wheel#sailing#attic()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-locate) :call wheel#sailing#locate()<cr>'
+	exe 'nnoremap <plug>(wheel-navigation-find) :call wheel#sailing#find()<cr>'
+	" Reorder
+	exe 'nnoremap <plug>(wheel-reorder-location) :call wheel#shape#reorder('location')<cr>"
+	exe 'nnoremap <plug>(wheel-reorder-circle) :call wheel#shape#reorder('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-reorder-torus) :call wheel#shape#reorder('torus')<cr>"
 	" Reorganize
-	exe 'nnoremap <m-o> :call wheel#shape#reorganize()<cr>'
+	exe 'nnoremap <plug>(wheel-reorganize) :call wheel#shape#reorganize()<cr>'
+	" Yank wheel
+	exe 'nnoremap <plug>(wheel-) :call wheel#clipper#yank('list')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#clipper#yank('plain')<cr>"
 	" Save (push) wheel buffer
-	exe 'nnoremap <tab> :call wheel#mandala#push()<cr>'
+	exe 'nnoremap <plug>(wheel-) :call wheel#mandala#push()<cr>'
 	" Remove (pop) wheel buffer
-	exe 'nnoremap <backspace> :call wheel#mandala#pop()<cr>'
+	exe 'nnoremap <plug>(wheel-) :call wheel#mandala#pop()<cr>'
 	" Cycle wheel buffers
-	exe 'nnoremap @ :call wheel#mandala#cycle()<cr>'
+	exe 'nnoremap <pluig> :call wheel#mandala#cycle()<cr>'
+	" Tabs
+	exe 'nnoremap <plug>(wheel-mosaic-tabs-locations) :call wheel#mosaic#tabs('location')<cr>"
+	exe 'nnoremap <plug>(wheel-mosaic-tabs-circles) :call wheel#mosaic#tabs('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-mosaic-tabs-toruses) :call wheel#mosaic#tabs('torus')<cr>"
+	" Windows
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('location')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('torus')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('location', 'vertical')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('circle', 'vertical')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('torus', 'vertical')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('location', 'main_left')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('circle', 'main_left')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split('torus', 'main_left')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split_grid('location')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split_grid('circle')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#split_grid('torus')<cr>"
+	" Rotating windows
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#rotate_counter_clockwise()<cr>'
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#rotate_clockwise()<cr>'
+	" Tabs & Windows
+	exe 'nnoremap <plug>(wheel-) :call wheel#mosaic#zoom()<cr>'
+	exe 'nnoremap <plug>(wheel-) :call wheel#pyramid#steps('torus')<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#pyramid#steps('circle')<cr>"
 	" Debug
-	" ------------------------------
-	exe 'nnoremap ' . prefix . "Z :call wheel#void#fresh_wheel()<cr>"
+	exe 'nnoremap <plug>(wheel-) :call wheel#void#fresh_wheel()<cr>"
 endfun
 
 fun! wheel#centre#cables ()

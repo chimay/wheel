@@ -106,19 +106,32 @@ if ! exists('s:menu_delete')
 	lockvar s:menu_delete
 endif
 
-if ! exists('s:menu_sailing')
-	let s:menu_sailing = {
-				\ 'Sail to torus' : "wheel#sailing#switch('torus')",
-				\ 'Sail to circle' : "wheel#sailing#switch('circle')",
-				\ 'Sail to location' : "wheel#sailing#switch('location')",
-				\ 'Sail to location in index' : 'wheel#sailing#helix',
-				\ 'Sail to circle in index' : 'wheel#sailing#grid',
-				\ 'Sail to element in wheel tree' : 'wheel#sailing#tree',
-				\ 'Sail to location in history' : 'wheel#sailing#history',
-				\ 'Sail to most recently used file (mru)' : 'wheel#sailing#attic',
-				\ 'Sail to result of locate search' : 'wheel#sailing#locate',
+if ! exists('s:menu_disc')
+	let s:menu_disc = {
+				\ 'Save wheel' : 'wheel#disc#write_all()',
+				\ 'Load wheel' : 'wheel#disc#read_all()',
 				\}
-	lockvar s:menu_sailing
+	lockvar s:menu_disc
+endif
+
+if ! exists('s:menu_navigation')
+	let s:menu_navigation = {
+				\ 'Go to torus' : "wheel#sailing#switch('torus')",
+				\ 'Go to circle' : "wheel#sailing#switch('circle')",
+				\ 'Go to location' : "wheel#sailing#switch('location')",
+				\ 'Go to location in index' : 'wheel#sailing#helix',
+				\ 'Go to circle in index' : 'wheel#sailing#grid',
+				\ 'Go to element in wheel tree' : 'wheel#sailing#tree',
+				\ 'Go to location in history' : 'wheel#sailing#history',
+				\ 'Go to matching line (occur)' : 'wheel#sailing#occur',
+				\ 'Go to grep result' : 'wheel#sailing#grep()',
+				\ 'Go to outline result' : 'wheel#sailing#outline()',
+				\ 'Go to tag' : 'wheel#sailing#symbol()',
+				\ 'Go to most recently used file (mru)' : 'wheel#sailing#attic',
+				\ 'Go to result of locate search' : 'wheel#sailing#locate',
+				\ 'Go to result of find search' : 'wheel#sailing#find',
+				\}
+	lockvar s:menu_navigation
 endif
 
 if ! exists('s:menu_alternate')
@@ -131,6 +144,24 @@ if ! exists('s:menu_alternate')
 				\ 'Alternate in same torus, other circle' : 'wheel#pendulum#alternate_same_torus_other_circle',
 				\}
 	lockvar s:menu_alternate
+endif
+
+if ! exists('s:menu_reorganize')
+	let s:menu_reorganize = {
+				\ 'Reorder toruses' : "wheel#shape#reorder('torus')",
+				\ 'Reorder circles' : "wheel#shape#reorder('circle')",
+				\ 'Reorder locations' : "wheel#shape#reorder('location')",
+				\ 'Reorganize wheel' : 'wheel#shape#reorganize',
+				\}
+	lockvar s:menu_reorganize
+endif
+
+if ! exists('s:menu_yank')
+	let s:menu_yank = {
+				\ 'Yank wheel in list mode' : "wheel#clipper#yank('list')",
+				\ 'Yank wheel in plain mode' : "wheel#clipper#yank('plain')",
+				\}
+	lockvar s:menu_yank
 endif
 
 if ! exists('s:menu_tabs')
@@ -189,34 +220,6 @@ if ! exists('s:menu_tabnwin')
 	lockvar s:menu_tabnwin
 endif
 
-if ! exists('s:menu_reorganize')
-	let s:menu_reorganize = {
-				\ 'Reorder toruses' : "wheel#shape#reorder('torus')",
-				\ 'Reorder circles' : "wheel#shape#reorder('circle')",
-				\ 'Reorder locations' : "wheel#shape#reorder('location')",
-				\ 'Reorganize wheel' : 'wheel#shape#reorganize',
-				\}
-	lockvar s:menu_reorganize
-endif
-
-if ! exists('s:menu_search')
-	" Search inside files
-	let s:menu_search = {
-				\ 'Search in circle files' : 'wheel#sailing#grep()',
-				\ 'Outline : folds headers in circle files' : 'wheel#sailing#outline()',
-				\ 'Tags' : 'wheel#sailing#symbol()',
-				\}
-	lockvar s:menu_search
-endif
-
-if ! exists('s:menu_yank')
-	let s:menu_yank = {
-				\ 'Yank wheel in list mode' : "wheel#clipper#yank('list')",
-				\ 'Yank wheel in plain mode' : "wheel#clipper#yank('plain')",
-				\}
-	lockvar s:menu_yank
-endif
-
 " List of menu variables
 
 if ! exists('s:menu_list')
@@ -224,14 +227,14 @@ if ! exists('s:menu_list')
 				\ 'add',
 				\ 'rename',
 				\ 'delete',
-				\ 'sailing',
+				\ 'disc',
+				\ 'navigation',
 				\ 'alternate',
+				\ 'reorganize',
+				\ 'yank',
 				\ 'tabs',
 				\ 'windows',
 				\ 'tabnwin',
-				\ 'reorganize',
-				\ 'search',
-				\ 'yank',
 				\]
 	lockvar s:menu_list
 endif
@@ -253,13 +256,13 @@ if ! exists('s:menu_meta')
 				\ 'Add' : "wheel#hub#submenu('add')",
 				\ 'Rename' : "wheel#hub#submenu('rename')",
 				\ 'Delete' : "wheel#hub#submenu('delete')",
-				\ 'Sailing' : "wheel#hub#submenu('sailing')",
+				\ 'Disc' : "wheel#hub#submenu('disc')",
+				\ 'Navigation' : "wheel#hub#submenu('navigation')",
 				\ 'Alternate' : "wheel#hub#submenu('alternate')",
 				\ 'Tabs' : "wheel#hub#submenu('tabs')",
 				\ 'Window layouts' : "wheel#hub#submenu('windows')",
 				\ 'Mix of tabs & windows' : "wheel#hub#submenu('tabnwin')",
 				\ 'Reorganize' : "wheel#hub#submenu('reorganize')",
-				\ 'Search in files' : "wheel#hub#submenu('search')",
 				\ 'Yank' : "wheel#hub#submenu('yank')",
 				\}
 	lockvar s:menu_meta

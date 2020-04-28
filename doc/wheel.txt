@@ -346,7 +346,7 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Display elements in windows
 - Display elements in tabs & windows
 - Reorganize elements
-- Sailing : navigation buffers
+- Navigation
 - Search in files
 - Paste from yank wheel
 
