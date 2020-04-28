@@ -132,15 +132,7 @@ fun! wheel#sailing#occur (...)
 		let pattern = input('Lines matching pattern : ')
 	endif
 	" To be run before opening the wheel buffer
-	let position = getcurpos()
-	let runme = 'global /' . pattern . '/'
-	let lines = execute(runme)
-	let lines = split(lines, "\n")
-	for index in range(len(lines))
-		let lines[index] = trim(lines[index], ' ')
-		let lines[index] = substitute(lines[index], '\s\+', s:field_separ, '')
-		call wheel#gear#restore_cursor(position)
-	endfor
+	let lines = wheel#perspective#occur (pattern)
 	" Wheel buffer
 	call wheel#mandala#open ('wheel-occur')
 	let settings = {'action' : function('wheel#line#occur')}
@@ -218,13 +210,7 @@ fun! wheel#sailing#locate ()
 	call wheel#sailing#template (settings)
 	let prompt = 'Locate file matching : '
 	let pattern = input(prompt)
-	let database = g:wheel_config.locate_db
-	if empty(database)
-		let runme = 'locate ' . pattern
-	else
-		let runme = 'locate -d ' . expand(database) . ' ' . pattern
-	endif
-	let lines = systemlist(runme)
+	let lines = wheel#perspective#locate (pattern)
 	call wheel#mandala#fill(lines)
 endfun
 

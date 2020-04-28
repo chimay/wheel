@@ -192,3 +192,33 @@ fun! wheel#perspective#yank (mode)
 	endif
 	return lines
 endfun
+
+" From nowhere
+
+fun! wheel#perspective#occur (pattern)
+	" Occur for wheel buffer
+	let pattern = a:pattern
+	let position = getcurpos()
+	let runme = 'global /' . pattern . '/'
+	let lines = execute(runme)
+	let lines = split(lines, "\n")
+	for index in range(len(lines))
+		let lines[index] = trim(lines[index], ' ')
+		let lines[index] = substitute(lines[index], '\s\+', s:field_separ, '')
+		call wheel#gear#restore_cursor(position)
+	endfor
+	return lines
+endfun
+
+fun! wheel#perspective#locate (pattern)
+	" Locate for wheel buffer
+	let pattern = a:pattern
+	let database = g:wheel_config.locate_db
+	if empty(database)
+		let runme = 'locate ' . pattern
+	else
+		let runme = 'locate -d ' . expand(database) . ' ' . pattern
+	endif
+	let lines = systemlist(runme)
+	return lines
+endfun

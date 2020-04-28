@@ -151,7 +151,7 @@ fun! wheel#centre#mappings ()
 		" Reshaping buffers
 		nnoremap <M-r>        :call wheel#shape#reorganize()<cr>
 		" Search inside files
-		nnoremap <M-c>          :call wheel#sailing#occur()<cr>
+		nnoremap <M-s>          :call wheel#sailing#occur()<cr>
 		nnoremap <M-g>          :call wheel#sailing#grep()<cr>
 		nnoremap <M-o>          :call wheel#sailing#outline()<cr>
 		nnoremap <M-t>          :call wheel#sailing#symbol()<cr>
