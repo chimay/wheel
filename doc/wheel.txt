@@ -1340,7 +1340,7 @@ You can find a list of available plug maps in the file
 `autoload/wheel/centre.vim`, function `wheel#centre#plugs`. Their names
 are self explanatory.
 
-Example of binding using a plug-map : >
+Example of binding using a plug map : >
 
     nmap <M-m> <Plug>(wheel-menu-main)
 <
