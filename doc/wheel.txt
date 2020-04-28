@@ -863,7 +863,7 @@ AFTER JUMP				*wheel-autocommands-after-jump*
 
 The user autocommands `WheelAfterJump` are executed at the end of each
 navigation operation in the Wheel ; basically, each time you jump to
-another file using wheel functions.
+another file using wheel group functions.
 
 This example fold everything except the cursor line : >
 
@@ -966,6 +966,7 @@ Level 0				|wheel-mappings-level-0|
 Level 1				|wheel-mappings-level-1|
 Level 2				|wheel-mappings-level-2|
 Level 10			|wheel-mappings-level-10|
+List of plug maps		|wheel-mappings-plugs|
 
 ------------------------------------------------------------------------------
 LEVELS						    *wheel-mappings-levels*
@@ -1330,6 +1331,18 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <M-Backspace>  <plug>(wheel-buffer-pop)
     " Cycle wheel buffers
     nmap <M-Space>      <plug>(wheel-buffer-cycle)
+<
+
+------------------------------------------------------------------------------
+LIST OF PLUG MAPS			*wheel-mappings-plugs*
+
+You can find a list of available plug maps in the file
+`autoload/wheel/centre.vim`, function `wheel#centre#plugs`. Their names
+are self explanatory.
+
+Example of binding using a plug-map : >
+
+    nmap <M-m> <plug>(wheel-menu-main)
 <
 
 ------------------------------------------------------------------------------
