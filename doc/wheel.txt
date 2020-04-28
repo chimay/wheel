@@ -211,9 +211,9 @@ Switch using completion~
 
 You can switch :
 
-- location with completion with `<M-w><CR>`
-- circle with completion with `<M-w><C-CR>`
-- torus with completion with `<M-w><S-CR>`
+- location with completion with `<M-w><Enter>`
+- circle with completion with `<M-w><C-Enter>`
+- torus with completion with `<M-w><S-Enter>`
 
 Switch using a special buffer~
 
@@ -290,7 +290,7 @@ Filtering~
 In most special buffers, the first line is left empty : it is used as
 an input line to filter the buffer. You can go to insert mode and filter
 the elements with each word you enter on the input (first) line. Typing
-`<Space>`, `<Esc>` or `<CR>` will update the candidates. Note that `<C-c>`
+`<Space>`, `<Esc>` or `<Enter>` will update the candidates. Note that `<C-c>`
 is not mapped, in case you need to go to normal mode without triggering
 the filter function.
 
@@ -981,12 +981,14 @@ If you set the option `g:wheel_config.prefix` to an integer `N`, all
 mappings of level less or equal to `N` will be bound to keys. So, the
 higher this option, the more mappings available.
 
-E.g., if you want a level of 2 : >
+E.g., if you set it to 2 : >
 
     let g:wheel_config.prefix = 2
 <
+mappings levels 0, 1 and 2 will be available.
 
-Level 1 or 2 is fine for most usages. See |wheel-mappings-level-0| and
+Level 1 or 2 is fine for most usages. Level 10 is interesting if you are
+looking for ideas of non-prefix mappings. See |wheel-mappings-level-0| and
 subsequent for more information.
 
 ------------------------------------------------------------------------------
@@ -1040,7 +1042,7 @@ Add~
 | f          | <M-w>f                | Add file                           |
 | b          | <M-w>b                | Add buffer                         |
 
-Navigation : next / previous~
+Next / previous~
 
 | Prefix +   | With default prefix   | Action                  |
 | ---------- | --------------------- | ------------------------|
@@ -1066,13 +1068,13 @@ Special buffers~
 
 | Prefix +   | With default prefix   | Action                                 |
 | ---------- | --------------------- | -------------------------------------- |
-| <Space>    | <M-w><Space>          | Switch to location                     |
-| <C-Space>  | <M-w><C-Space>        | Switch to circle                       |
-| <S-Space>  | <M-w><S-Space>        | Switch to torus                        |
+| <Space>    | <M-w><Space>          | Go to location                         |
+| <C-Space>  | <M-w><C-Space>        | Go to circle                           |
+| <S-Space>  | <M-w><S-Space>        | Go to torus                            |
 | ---------- | --------------------- | -------------------------------------- |
 | x          | <M-w>x                | Index of toruses > circles > locations |
 | <C-x>      | <M-w><C-x>            | Index of toruses > circles             |
-| <M-x>      | <M-w><M-x>            | Index with folds                       |
+| <M-x>      | <M-w><M-x>            | Treeish index with folds               |
 | ---------- | --------------------- | -------------------------------------- |
 | h          | <M-w>h                | History index                          |
 | ---------- | --------------------- | -------------------------------------- |
@@ -1096,13 +1098,13 @@ Delete~
 | <C-d>    | <M-w><C-d>          | Delete current circle   |
 | D        | <M-w>D              | Delete current torus    |
 
-Navigation~
+Switch~
 
-| Prefix +  | With default prefix | Action             |
-| --------- | ------------------- | ------------------ |
-| <CR>      | <M-w><CR>           | Switch to location |
-| <C-CR>    | <M-w><C-CR>         | Switch to circle   |
-| <S-CR>    | <M-w><S-CR>         | Switch to torus    |
+| Prefix +  | With default prefix | Action                             |
+| --------- | ------------------- | ---------------------------------- |
+| <Enter>   | <M-w><Enter>        | Switch to location with completion |
+| <C-CR>    | <M-w><C-Enter>      | Switch to circle with completion   |
+| <S-CR>    | <M-w><S-Enter>      | Switch to torus with completion    |
 
 History~
 
@@ -1114,6 +1116,44 @@ History~
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
+
+Search inside files~
+
+| Prefix + | With default prefix | Action                               |
+| -------- | ------------------- | ------------------------------------ |
+| :        | <M-w>:              | Matching lines in current file       |
+| *        | <M-w>*              | Search in circle files with grep     |
+| #        | <M-w>#              | Outline : folds, markdown, org mode  |
+| %        | <M-w>%              | Tags                                 |
+
+Search for files~
+
+| Prefix + | With default prefix | Action                                      |
+| -------- | ------------------- | ------------------------------------------- |
+| ?        | <M-w>?              | Most recently used files not found in wheel |
+| /        | <M-w>/              | Search files with locate                    |
+| &        | <M-w>&              | Search files with find in async mode        |
+
+Yank wheel~
+
+| Prefix + | With default prefix | Action                    |
+| -------- | ------------------- | ------------------------- |
+| y        | <M-w>y              | Yank wheel in list mode   |
+| <M-y>    | <M-w><M-y>          | Yank wheel in plain mode  |
+
+Reorganizing buffer~
+
+| Prefix + | With default prefix | Action                    |
+| -------- | ------------------- | ------------------------- |
+| <M-o>    | <M-w><M-o>          | Reorganize wheel elements |
+
+Managing special buffers~
+
+| Prefix +    | With default prefix | Action                    |
+| --------    | ------------------- | ------------------------- |
+| <Tab>       | <M-w><Tab>          | Save (push) wheel buffer  |
+| <Backspace> | <M-w><Backspace>    | Remove (pop) wheel buffer |
+| @           | <M-w>@              | Cycle wheel buffers       |
 
 Tabs~
 
@@ -1159,44 +1199,6 @@ Tabs & Windows~
 | z        | <M-w>z              | Zoom : one tab, one window           |
 | P        | <M-w>P              | Toruses in tabs, circles in windows  |
 | <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
-
-Search inside files~
-
-| Prefix + | With default prefix | Action                               |
-| -------- | ------------------- | ------------------------------------ |
-| :        | <M-w>:              | Matching lines in current file       |
-| *        | <M-w>*              | Search in circle files with grep     |
-| #        | <M-w>#              | Outlines : folds, markdown, org mode |
-| %        | <M-w>%              | Tags                                 |
-
-Search for files~
-
-| Prefix + | With default prefix | Action                                      |
-| -------- | ------------------- | ------------------------------------------- |
-| ?        | <M-w>?              | Most recently used files not found in wheel |
-| /        | <M-w>/              | Search files with locate                    |
-| &        | <M-w>&              | Search files with find in async mode        |
-
-Yank wheel~
-
-| Prefix + | With default prefix | Action                                        |
-| -------- | ------------------- | --------------------------------------------- |
-| y        | <M-w>y              | Paste an element of yank wheel in list mode   |
-| <M-y>    | <M-w><M-y>          | Paste an element of yank wheel in insert mode |
-
-Reorganizing buffer~
-
-| Prefix + | With default prefix | Action                    |
-| -------- | ------------------- | ------------------------- |
-| <M-o>    | <M-w><M-o>          | Reorganize wheel elements |
-
-Managing special buffers~
-
-| Prefix +    | With default prefix | Action                    |
-| --------    | ------------------- | ------------------------- |
-| <Tab>       | <M-w><Tab>          | Save (push) wheel buffer  |
-| <Backspace> | <M-w><Backspace>    | Remove (pop) wheel buffer |
-| @           | <M-w>@              | Cycle wheel buffers       |
 
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
@@ -1265,8 +1267,8 @@ and add them to your init file.
 | <M-Backspace>  | Remove (pop) wheel buffer                   |
 | <M-Space>      | Cycle wheel buffers                         |
 
-Below is the default level 10. To customize it, first set your mapping
-level to less than 10, then copy and adapt the following lines : >
+Below is the default level 10. To customize it, first set your
+mapping level to less than 10, then copy and adapt the following lines : >
 
     " Menus
     nmap <M-m>        <plug>(wheel-menu-main)
