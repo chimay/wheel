@@ -223,7 +223,13 @@ fun! wheel#centre#plugs ()
 	" History
 	exe 'nnoremap <plug>(wheel-pendulum-newer) :call wheel#pendulum#newer()<cr>'
 	exe 'nnoremap <plug>(wheel-pendulum-older) :call wheel#pendulum#older()<cr>'
-	exe 'nnoremap <plug>(wheel-pendulum-alternate) :call wheel#pendulum#alternate()<cr>'
+	" Alternate
+	exe 'nnoremap <plug>(wheel-alternate) :call wheel#pendulum#alternate()<cr>'
+	exe 'nnoremap <plug>(wheel-alternate-same-torus-other-circle) :call wheel#pendulum#alternate_same_torus_other_circle()<cr>'
+	exe 'nnoremap <plug>(wheel-alternate-same-torus) :call wheel#pendulum#alternate_same_torus()<cr>'
+	exe 'nnoremap <plug>(wheel-alternate-same-circle) :call wheel#pendulum#alternate_same_circle()<cr>'
+	exe 'nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate_other_torus()<cr>'
+	exe 'nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate_other_circle()<cr>'
 	" Navigation
 	exe 'nnoremap <plug>(wheel-navigation-location) :call wheel#sailing#switch('location')<cr>"
 	exe 'nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>"
