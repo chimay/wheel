@@ -1336,9 +1336,14 @@ mapping level to less than 10, then copy and adapt the following lines : >
 ------------------------------------------------------------------------------
 LIST OF PLUG MAPS			*wheel-mappings-plugs*
 
-You can find a list of available plug maps in the file
-`autoload/wheel/centre.vim`, function `wheel#centre#plugs`. Their names
-are self explanatory.
+To display the list of available plug mappings, just execute the following ex
+command : >
+
+    map <Plug>(wheel-
+<
+
+You can also find then in the file `autoload/wheel/centre.vim`, function
+`wheel#centre#plugs`. Their names are self explanatory.
 
 Example of binding using a plug map : >
 
