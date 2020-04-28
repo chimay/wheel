@@ -61,7 +61,7 @@ fun! wheel#centre#plugs ()
 	" Indexes
 	nnoremap <plug>(wheel-navigation-index-locations) :call wheel#sailing#helix()<cr>
 	nnoremap <plug>(wheel-navigation-index-circles) :call wheel#sailing#grid()<cr>
-	nnoremap <plug>(wheel-navigation-index-tree) :call wheel#sailing#tree()<cr>
+	nnoremap <plug>(wheel-navigation-tree) :call wheel#sailing#tree()<cr>
 	"History
 	nnoremap <plug>(wheel-navigation-history) :call wheel#sailing#history()<cr>
 	" Search inside files
@@ -150,7 +150,7 @@ fun! wheel#centre#cables ()
 		" Indexes
 		exe 'nmap ' . prefix . 'x <plug>(wheel-navigation-index-locations)'
 		exe 'nmap ' . prefix . '<c-x> <plug>(wheel-navigation-index-circles)'
-		exe 'nmap ' . prefix . '<m-x> <plug>(wheel-navigation-index-tree)'
+		exe 'nmap ' . prefix . '<m-x> <plug>(wheel-navigation-tree)'
 		"History
 		exe 'nmap ' . prefix . 'h <plug>(wheel-navigation-history)'
 		" Reorder
@@ -251,7 +251,7 @@ fun! wheel#centre#cables ()
 		nmap <Space>      <plug>(wheel-navigation-location)
 		nmap <C-Space>    <plug>(wheel-navigation-circle)
 		nmap <S-Space>    <plug>(wheel-navigation-torus)
-		nmap <M-x>        <plug>(wheel-navigation-index-tree)
+		nmap <M-x>        <plug>(wheel-navigation-tree)
 		nmap <D-x>        <plug>(wheel-navigation-index-locations)
 		nmap <M-h>        <plug>(wheel-navigation-history)
 		" Search inside files
