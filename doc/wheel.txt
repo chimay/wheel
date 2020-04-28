@@ -1342,7 +1342,7 @@ are self explanatory.
 
 Example of binding using a plug-map : >
 
-    nmap <M-m> <plug>(wheel-menu-main)
+    nmap <M-m> <Plug>(wheel-menu-main)
 <
 
 ------------------------------------------------------------------------------
