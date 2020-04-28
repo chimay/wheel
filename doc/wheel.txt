@@ -842,6 +842,14 @@ Yank wheel			|wheel-autocommands-yank|
 Example				|wheel-autocommands-example|
 
 ------------------------------------------------------------------------------
+AUTO READ				*wheel-autocommands-auto-read*
+
+To enable autoread, you need to add an autocommand on vim enter : >
+
+    autocmd VimEnter * call wheel#void#init()
+<
+
+------------------------------------------------------------------------------
 AUTO WRITE				*wheel-autocommands-auto-write*
 
 To enable autowrite, you need to add an autocommand on vim leave : >

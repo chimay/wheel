@@ -6,4 +6,4 @@ endif
 
 let g:wheel_loaded_after = 1
 
-call wheel#void#init()
+call wheel#centre#cables ()

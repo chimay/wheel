@@ -241,9 +241,6 @@ fun! wheel#void#init ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
 	endif
-	call wheel#void#foundation ()
-	call wheel#centre#commands ()
-	call wheel#centre#mappings ()
 endfu
 
 fun! wheel#void#exit ()
