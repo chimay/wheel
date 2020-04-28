@@ -209,6 +209,19 @@ endfun
 
 " }}}1
 
+" Mappings {{{1
+
+fun! s:Map ()
+	echo 'coucou'
+endfun
+
+nnoremap <f12>t :call <sid>Map ()<cr>
+
+" Does not work
+"nnoremap <f12>t :call s:Map ()<cr>
+
+" }}}1
+
 " Vim vars {{{1
 
 fun! s:Vars ()
