@@ -17,7 +17,7 @@ endif
 " Functions
 
 fun! wheel#tower#call (settings)
-	" Calls function whose value is given by the key on cursor line
+	" Calls function given by the key = cursor line
 	" settings is a dictionary, whose keys can be :
 	" - dict : name of a dictionary variable in storage.vim
 	" - close : whether to close wheel buffer
