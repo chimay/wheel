@@ -73,6 +73,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-navigation-mru) :call wheel#sailing#attic()<cr>
 	nnoremap <plug>(wheel-navigation-locate) :call wheel#sailing#locate()<cr>
 	nnoremap <plug>(wheel-navigation-find) :call wheel#sailing#find()<cr>
+	" Batch
+	nnoremap <plug>(wheel-batch) :call wheel#vector#batch()<cr>
 	" Reorder
 	nnoremap <plug>(wheel-reorder-location) :call wheel#shape#reorder('location')<cr>
 	nnoremap <plug>(wheel-reorder-circle) :call wheel#shape#reorder('circle')<cr>
@@ -269,7 +271,7 @@ fun! wheel#centre#cables ()
 		nmap <M-y>          <plug>(wheel-yank-list)
 		nmap <M-p>          <plug>(wheel-yank-plain)
 		" Batch
-		nmap <M-b>          :WheelBatch<space>
+		nmap <M-b>          <plug>(wheel-batch)
 		" Windows
 		nmap <M-z>          <plug>(wheel-zoom)
 		nmap <M-Home>       <plug>(wheel-tabs-locations)

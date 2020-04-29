@@ -43,12 +43,12 @@ endfun
 fun! wheel#vector#argadd (sieve)
 	" Add files of current circle to arguments
 	" Filter files with sieve
-	let ret = wheel#vector#reset ()
-	if ret
+	let yield = wheel#vector#reset ()
+	if yield
 		let files = wheel#vector#files (a:sieve)
 		exe 'argadd ' join(files)
 	endif
-	return ret
+	return yield
 endfun
 
 fun! wheel#vector#argdo (command, ...)
@@ -59,8 +59,8 @@ fun! wheel#vector#argdo (command, ...)
 	else
 		let sieve = '\m.'
 	endif
-	let ret = wheel#vector#argadd (sieve)
-	if ret
+	let yield = wheel#vector#argadd (sieve)
+	if yield
 		let runme = 'silent! argdo ' . a:command
 		let output = execute(runme)
 		call wheel#mandala#open('wheel-argdo')
@@ -68,6 +68,18 @@ fun! wheel#vector#argdo (command, ...)
 		setlocal nofoldenable
 		put =output
 	endif
+endfun
+
+fun! wheel#vector#batch ()
+	if a:0 > 0
+		let command = a:1
+	else
+		let command = input('Batch :ex or !shell command : ')
+	endif
+	let command = "'" . command . "'"
+	echomsg command
+	return
+	call wheel#vector#argdo(command)
 endfun
 
 " Grep
@@ -89,11 +101,15 @@ fun! wheel#vector#grep (pattern, ...)
 	endif
 	" File list as string
 	let files = join(files)
+	" Quote if needed
+	if pattern !~ "'"
+		let pattern = "'" . pattern . "'"
+	elseif pattern !~ '"'
+		let pattern = '"' . pattern . '"'
+	endif
 	" Run grep
 	let runme = 'silent grep! '
-	let runme .= "'"
 	let runme .= pattern
-	let runme .= "'"
 	let runme .= ' ' . files
 	exe runme
 	return v:true
