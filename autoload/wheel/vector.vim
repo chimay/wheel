@@ -59,9 +59,10 @@ fun! wheel#vector#argdo (command, ...)
 	else
 		let sieve = '\m.'
 	endif
+	let command = a:command
 	let yield = wheel#vector#argadd (sieve)
 	if yield
-		let runme = 'silent! argdo ' . a:command
+		let runme = 'silent! argdo ' . command
 		let output = execute(runme)
 		call wheel#mandala#open('wheel-argdo')
 		call wheel#mandala#common_maps ()
@@ -76,9 +77,6 @@ fun! wheel#vector#batch ()
 	else
 		let command = input('Batch :ex or !shell command : ')
 	endif
-	let command = "'" . command . "'"
-	echomsg command
-	return
 	call wheel#vector#argdo(command)
 endfun
 
