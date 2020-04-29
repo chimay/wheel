@@ -1,5 +1,7 @@
 " vim: ft=vim fdm=indent:
 
+" Menus
+
 " Script vars
 
 if ! exists('s:fold_markers')

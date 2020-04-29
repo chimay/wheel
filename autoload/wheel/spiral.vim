@@ -1,5 +1,7 @@
 " vim: ft=vim fdm=indent:
 
+" Golden ratio
+
 " Script vars
 
 if ! exists('s:golden')

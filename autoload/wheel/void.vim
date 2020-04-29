@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Enter the void, and become wheel
+" Enter the void, and ride the wheel
 
 " Helpers
 

@@ -188,6 +188,8 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . '? <plug>(wheel-navigation-mru)'
 		exe 'nmap ' . prefix . '/ <plug>(wheel-navigation-locate)'
 		exe 'nmap ' . prefix . '& <plug>(wheel-navigation-find)'
+		" Batch
+		exe 'nmap ' . prefix . '<m-b> <plug>(wheel-batch)'
 		" Yank wheel
 		exe 'nmap ' . prefix . 'y <plug>(wheel-yank-list)'
 		exe 'nmap ' . prefix . '<m-y> <plug>(wheel-yank-plain)'

@@ -1,5 +1,7 @@
 " vim: ft=vim fdm=indent:
 
+" Wheel status
+
 fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
 	if has('nvim')

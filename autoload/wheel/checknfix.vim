@@ -1,5 +1,7 @@
 " vim: ft=vim fdm=indent:
 
+" Check & fix
+
 fun! wheel#checknfix#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
 	" Names in toruses, circles and locations are considered to be the right ones

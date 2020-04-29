@@ -1,5 +1,6 @@
 " vim: ft=vim fdm=indent:
 
+" Find & follow the closest element in wheel
 
 fun! wheel#projection#closest (level)
 	" Find closest location to current buffer file & position

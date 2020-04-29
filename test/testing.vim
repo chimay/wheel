@@ -1,5 +1,7 @@
 " vim: set filetype=vim:
 
+" Tests
+
 " Completion {{{1
 
 fun! Complete(Arglead,Cmdline,CursorPos)

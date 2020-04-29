@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Helpers
+" Generic helpers
 
 " Rotating
 

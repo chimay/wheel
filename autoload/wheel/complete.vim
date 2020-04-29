@@ -1,5 +1,8 @@
 " vim: ft=vim fdm=indent:
 
+" Completion functions
+" Return string where each element occupies a line
+
 fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	" Complete torus name
 	if has_key(g:wheel, 'glossary')

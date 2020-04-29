@@ -547,6 +547,10 @@ uses the argument list to execute `my_command` on each location of the
 current circle. The command can be a vim `:command` or an external shell
 `!command`. The ouput is displayed in a dedicated buffer.
 
+Mapping~
+
+Default mapping : `<M-w><M-b>`
+
 ------------------------------------------------------------------------------
 GREP SEARCH					    *wheel-batch-grep*
 
@@ -1135,6 +1139,12 @@ Search for files~
 | /        | <M-w>/              | Search files with locate                    |
 | &        | <M-w>&              | Search files with find in async mode        |
 
+Batch command~
+
+| Prefix + | With default prefix | Action                                 |
+| -------- | ------------------- | -------------------------------------- |
+| <M-b>    | <M-w><M-b>          | Batch command in current circle files  |
+
 Yank wheel~
 
 | Prefix + | With default prefix | Action                    |
@@ -1254,7 +1264,7 @@ and add them to your init file.
 | <M-y>          | Paste yank wheel element in list mode       |
 | <M-p>          | Paste yank wheel element in plain mode      |
 | -------------- | ------------------------------------------- |
-| <M-b>          | Batch operation in current circle files     |
+| <M-b>          | Batch command in current circle files       |
 | -------------- | ------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                  |
 | <M-Home>       | One location per tab                        |
