@@ -12,17 +12,20 @@ endfun
 fun! wheel#clipper#maps (mode)
 	" Define local yank maps
 	if a:mode == 'list'
-		nnoremap <buffer> <cr> :call wheel#line#paste_list ('close')<cr>
-		nnoremap <buffer> <tab> :call wheel#line#paste_list ('open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste_list ('open')<cr>
+		nnoremap <buffer> <cr> :call wheel#line#paste_list ('after', 'close')<cr>
+		nnoremap <buffer> g<cr> :call wheel#line#paste_list ('after', 'open')<cr>
+		nnoremap <buffer> p :call wheel#line#paste_list ('after', 'open')<cr>
+		nnoremap <buffer> P :call wheel#line#paste_list ('before', 'open')<cr>
 	elseif a:mode == 'plain'
-		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('close')<cr>
-		nnoremap <buffer> <tab> :call wheel#line#paste_plain ('open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste_plain ('open')<cr>
+		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('after', 'close')<cr>
+		nnoremap <buffer> g<cr> :call wheel#line#paste_plain ('after', 'open')<cr>
+		nnoremap <buffer> p :call wheel#line#paste_plain ('after', 'open')<cr>
+		nnoremap <buffer> P :call wheel#line#paste_plain ('before', 'open')<cr>
 		" Visual mode
-		vnoremap <buffer> <cr> :<c-u>call wheel#line#paste_visual('close')<cr>
-		vnoremap <buffer> <tab> :<c-u>call wheel#line#paste_visual('open')<cr>
-		vnoremap <buffer> p :<c-u>call wheel#line#paste_visual('open')<cr>
+		vnoremap <buffer> <cr> :<c-u>call wheel#line#paste_visual('after', 'close')<cr>
+		vnoremap <buffer> g<cr> :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
+		vnoremap <buffer> p :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
+		vnoremap <buffer> P :<c-u>call wheel#line#paste_visual('before', 'open')<cr>
 	endif
 endfun
 

@@ -448,7 +448,12 @@ endfun
 fun! wheel#line#paste_list (...)
 	" Paste elements in current line from yank buffer in fields mode
 	if a:0 > 0
-		let close = a:1
+		let where = a:1
+	else
+		let where = 'after'
+	endif
+	if a:0 > 1
+		let close = a:2
 	else
 		let close = 'close'
 	endif
@@ -457,7 +462,11 @@ fun! wheel#line#paste_list (...)
 	exe runme
 	let mandala = win_getid()
 	wincmd p
-	put =content
+	if where == 'after'
+		put =content
+	elseif where == 'before'
+		put! =content
+	endif
 	let @" = join(content, "\n")
 	call win_gotoid(mandala)
 	if close == 'close'
@@ -468,14 +477,23 @@ endfun
 fun! wheel#line#paste_plain (...)
 	" Paste line from yank buffer in plain mode
 	if a:0 > 0
-		let close = a:1
+		let where = a:1
+	else
+		let where = 'after'
+	endif
+	if a:0 > 1
+		let close = a:2
 	else
 		let close = 'close'
 	endif
 	let content = getline('.')
 	let mandala = win_getid()
 	wincmd p
-	put =content
+	if where == 'after'
+		put =content
+	elseif where == 'before'
+		put! =content
+	endif
 	let @" = content
 	call win_gotoid(mandala)
 	if close == 'close'
@@ -486,14 +504,23 @@ endfun
 fun! wheel#line#paste_visual (...)
 	" Paste visual selection from yank buffer in plain mode
 	if a:0 > 0
-		let close = a:1
+		let where = a:1
+	else
+		let where = 'after'
+	endif
+	if a:0 > 1
+		let close = a:2
 	else
 		let close = 'close'
 	endif
 	normal! gvy
 	let mandala = win_getid()
 	wincmd p
-	put "
+	if where == 'after'
+		put "
+	elseif where == 'before'
+		put! "
+	endif
 	call win_gotoid(mandala)
 	if close == 'close'
 		call wheel#mandala#close ()

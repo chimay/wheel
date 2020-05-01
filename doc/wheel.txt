@@ -253,9 +253,9 @@ Buffer stack			|wheel-special-buffers-stack|
 Menu buffers			|wheel-special-buffers-menus|
 Context menus			|wheel-special-buffers-context|
 Navigation buffers		|wheel-special-buffers-navigation|
-Yank buffer			|wheel-special-buffers-yank|
 Reordering buffers		|wheel-special-buffers-reordering|
 Reorganizing buffers		|wheel-special-buffers-reorganizing|
+Yank buffer			|wheel-special-buffers-yank|
 Batch buffer			|wheel-special-buffers-batch|
 
 ------------------------------------------------------------------------------
@@ -427,34 +427,6 @@ line is selected, it will begin with an asterisk. You can then open all
 selected files in tabs, splits or vertical splits.
 
 ------------------------------------------------------------------------------
-YANK BUFFER				*wheel-special-buffers-yank*
-
-List mode~
-
-The yank wheel buffer in list mode is launched by `<M-w>y`.
-
-Each line of the special buffer is one of your yanks, represented as a
-list, one element per line. To paste a yank, just press `<enter>`. Same
-thing with `p`, but the yank buffer will be left opened.
-
-You can filter the elements in insert mode.
-
-Plain mode~
-
-The yank wheel buffer in plain mode is launched by `<M-w><M-y>`.
-
-All your yanks are concatenated and displayed in the special buffer.
-To paste a line, just press `<enter>`. Same thing with `p`, but the yank
-buffer will be left opened. You can also go to visual mode and paste
-your selection.
-
-You can filter the elements in insert mode.
-
-Menus~
-
-The yank wheel buffers can also be launched from the main & meta menus.
-
-------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*
 
 The reordering buffers allow you to quickly reorder Wheel elements by
@@ -523,6 +495,35 @@ Pressed the wrong button ?~
 
 If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
+
+------------------------------------------------------------------------------
+YANK BUFFER				*wheel-special-buffers-yank*
+
+As usual, you can filter the elements in insert mode.
+The available local maps are :
+
+ - `<enter>` : paste a yank after cursor
+ - `g<cr>` : paste a yank after cursor, leave yank wheel opened
+ - `p` : paste a yank after cursor, leave yank wheel opened
+ - `P` : paste a yank before cursor, leave yank wheel opened
+
+List mode~
+
+The yank wheel buffer in list mode is launched by `<M-w>y`.
+
+Each line of the special buffer is one of your yanks, represented as a
+list, one element per line.
+
+Plain mode~
+
+The yank wheel buffer in plain mode is launched by `<M-w><M-y>`.
+
+All your yanks are concatenated and displayed in the special buffer.
+You can also go to visual mode and paste your selection.
+
+Menus~
+
+The yank wheel buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-special-buffers-batch*
