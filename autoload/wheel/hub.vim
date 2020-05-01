@@ -63,7 +63,7 @@ fun! wheel#hub#folding_text ()
 	else
 		let level = 'none'
 	endif
-	let marker = split(&foldmarker, ',')[0]
+	let marker = s:fold_markers[0]
 	let pattern = '\m' . marker . '[12]'
 	let repl = ':: ' . level
 	let line = substitute(line, pattern, repl, '')

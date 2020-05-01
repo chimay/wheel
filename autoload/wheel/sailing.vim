@@ -9,6 +9,12 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+if ! exists('s:fold_markers')
+	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	let s:fold_markers = join(s:fold_markers, ',')
+	lockvar s:fold_markers
+endif
+
 " Helpers
 
 fun! wheel#sailing#maps (settings)
@@ -170,7 +176,7 @@ fun! wheel#sailing#outline ()
 	let prompt = 'Outline mode ? '
 	let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode", 1)
 	if mode == 1
-		let marker = split(&foldmarker, ',')[0]
+		let marker = s:fold_markers[0]
 		if &grepprg !~ '^grep'
 			let marker = escape(marker, '{')
 		endif

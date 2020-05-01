@@ -2,6 +2,14 @@
 
 " Generic helpers
 
+" Script vars
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	let s:fold_markers = join(s:fold_markers, ',')
+	lockvar s:fold_markers
+endif
+
 " Rotating
 
 fun! wheel#gear#circular_plus (index, length)
@@ -91,7 +99,7 @@ endfun
 fun! wheel#gear#tree_filter (wordlist, index, value)
 	" Like word_filter, but keep surrounding folds
 	" index is not used, it’s just for compatibility with filter()
-	let marker = split(&foldmarker, ',')[0]
+	let marker = s:fold_markers[0]
 	let length = strchars(a:value)
 	let prelast = strcharpart(a:value, length - 2, 1)
 	if prelast ==# marker
@@ -102,7 +110,7 @@ endfun
 
 fun! wheel#gear#fold_filter (wordlist, candidates)
 	" Remove non-matching empty folds
-	let marker = split(&foldmarker, ',')[0]
+	let marker = s:fold_markers[0]
 	let wordlist = a:wordlist
 	let candidates = a:candidates
 	let filtered = []

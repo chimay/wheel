@@ -2,6 +2,16 @@
 
 " Changes of internal structure
 
+" Script vars
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	let s:fold_markers = join(s:fold_markers, ',')
+	lockvar s:fold_markers
+endif
+
+" Functions
+
 fun! wheel#cuboctahedron#reorder (level)
 	" Reorder current elements at level, after buffer content
 	let level = a:level
@@ -51,7 +61,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	call wheel#void#wheel ()
 	" Loop over buffer lines
 	let linelist = getline(1, '$')
-	let marker = split(&foldmarker, ',')[0]
+	let marker = s:fold_markers[0]
 	let pat_fold_one = '\m' . marker . '1$'
 	let pat_fold_two = '\m' . marker . '2$'
 	let pat_dict = '\m^{.*}'
