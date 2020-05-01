@@ -127,6 +127,7 @@ fun! wheel#vortex#tune (level, name)
 		return index
 	else
 		echomsg 'Wheel vortex tune : empty or incomplete' level
+		return -1
 	endif
 endfun
 
