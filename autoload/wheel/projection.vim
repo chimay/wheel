@@ -14,7 +14,6 @@ fun! wheel#projection#closest (level)
 	if narrow >= 0
 		let narrow_names = wheel#referen#names()
 		for index in range(0, narrow)
-			let narrow_name = wheel#referen#names()[index]
 			call filter(album, {_,value -> value[index] == narrow_names[index]})
 		endfor
 	endif
@@ -67,4 +66,3 @@ fun! wheel#projection#follow (...)
 		echomsg info
 	endif
 endfun
-
