@@ -166,17 +166,20 @@ endfun
 
 fun! wheel#referen#empty (level)
 	" Whether current level element is empty
-	" Wheel can be wheel, torus or circle
+	" Wheel can be wheel, torus, circle or location
 	let level = a:level
-	let elem = wheel#referen#{level} ()
-	let empty = empty(elem.glossary)
-	return empty
+	let elem = wheel#referen#current (level)
+	if empty(elem) || empty(elem.glossary)
+		return v:true
+	else
+		return v:false
+	endif
 endfun
 
 fun! wheel#referen#empty_upper (level)
 	" Whether upper level element is empty
 	" Wheel can be torus, circle or location
-	return empty(wheel#referen#{a:level}())
+	return empty(wheel#referen#current (a:level))
 endfun
 
 " Element lists
@@ -202,4 +205,16 @@ fun! wheel#referen#elements (dict)
 		echomsg 'Wheel referen elements : arg should be the wheel, a torus or a circle'
 		return []
 	endif
+endfun
+
+" Miscellaneous
+
+fun! wheel#referen#location_matches_file ()
+	" Whether current location is in current file
+	let cur_file = expand('%:p')
+	let cur_location = wheel#referen#location()
+	if empty(cur_location)
+		return v:false
+	endif
+	return cur_file ==# cur_location.file
 endfun

@@ -135,10 +135,8 @@ endfun
 
 fun! wheel#pendulum#alternate ()
 	" Alternate last two entries in history
-	" If outside the wheel, just jump inside
-	let files = wheel#helix#files ()
-	let filename = expand('%:p')
-	if index(files, filename) >= 0
+	" If not in current location file, just jump to it
+	if wheel#referen#location_matches_file ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		if len(history) > 1
@@ -151,9 +149,8 @@ endfun
 
 fun! wheel#pendulum#alternate_same_torus ()
 	" Alternate entries in same torus
-	let files = wheel#helix#files ()
-	let filename = expand('%:p')
-	if index(files, filename) >= 0
+	" If not in current location file, just jump to it
+	if wheel#referen#location_matches_file ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
@@ -173,9 +170,8 @@ endfun
 
 fun! wheel#pendulum#alternate_same_circle ()
 	" Alternate entries in same circle
-	let files = wheel#helix#files ()
-	let filename = expand('%:p')
-	if index(files, filename) >= 0
+	" If not in current location file, just jump to it
+	if wheel#referen#location_matches_file ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
@@ -195,9 +191,8 @@ endfun
 
 fun! wheel#pendulum#alternate_other_torus ()
 	" Alternate last two toruses
-	let files = wheel#helix#files ()
-	let filename = expand('%:p')
-	if index(files, filename) >= 0
+	" If not in current location file, just jump to it
+	if wheel#referen#location_matches_file ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
@@ -217,9 +212,8 @@ endfun
 
 fun! wheel#pendulum#alternate_other_circle ()
 	" Alternate last two circles
-	let files = wheel#helix#files ()
-	let filename = expand('%:p')
-	if index(files, filename) >= 0
+	" If not in current location file, just jump to it
+	if wheel#referen#location_matches_file ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)
@@ -239,9 +233,8 @@ endfun
 
 fun! wheel#pendulum#alternate_same_torus_other_circle ()
 	" Alternate in same torus but other circle
-	let files = wheel#helix#files ()
-	let filename = expand('%:p')
-	if index(files, filename) >= 0
+	" If not in current location file, just jump to it
+	if wheel#referen#location_matches_file ()
 		call wheel#vortex#update ()
 		let history = g:wheel_history
 		let length = len(history)

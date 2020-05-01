@@ -12,8 +12,11 @@ fun! wheel#projection#closest (level)
 	call filter(album, {_,value -> value[2].file == cur_file})
 	let narrow = wheel#referen#coordin_index(a:level)
 	if narrow >= 0
-		let narrow_name = wheel#referen#names()[narrow]
-		call filter(album, {_,value -> value[narrow] == narrow_name})
+		let narrow_names = wheel#referen#names()
+		for index in range(0, narrow)
+			let narrow_name = wheel#referen#names()[index]
+			call filter(album, {_,value -> value[index] == narrow_names[index]})
+		endfor
 	endif
 	if empty(album)
 		return []
@@ -37,19 +40,25 @@ fun! wheel#projection#follow (...)
 	else
 		let level = 'wheel'
 	endif
-	let cur_file = expand('%:p')
-	let cur_location = wheel#referen#location()
-	if ! empty(cur_location)
-		if cur_file ==# cur_location.file
-			return
-		endif
+	" If torus or circle is empty, assume the user
+	" wants to add something before switching
+	if level == 'wheel' && wheel#referen#empty ('torus')
+		return
 	endif
+	if index(['wheel', 'torus'], level) >= 0 && wheel#referen#empty ('circle')
+		return
+	endif
+	" Check if not already in matching file
+	if wheel#referen#location_matches_file ()
+		return
+	endif
+	" Follow
 	let coordin = wheel#projection#closest (level)
 	if ! empty(coordin)
-		call wheel#vortex#chord(coordin)
+		call wheel#vortex#chord (coordin)
 		if g:wheel_config.cd_project > 0
 			let markers = g:wheel_config.project_markers
-			call wheel#gear#project_root(markers)
+			call wheel#gear#project_root (markers)
 		endif
 		call wheel#pendulum#record ()
 		let info = 'Wheel follows : '

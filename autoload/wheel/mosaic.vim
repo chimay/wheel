@@ -179,7 +179,7 @@ fun! wheel#mosaic#tabs (level)
 	let maxtabs = g:wheel_config.maxim.tabs
 	let upper = wheel#referen#upper (level)
 	let upper_level = wheel#referen#upper_level_name (level)
-	let name = wheel#referen#{level} ().name
+	let name = wheel#referen#current (level).name
 	let glossary = copy(upper.glossary)
 	let pos = index(glossary, name)
 	let glossary = wheel#chain#roll_left (pos, glossary)
