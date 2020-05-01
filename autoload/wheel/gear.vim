@@ -10,6 +10,16 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
+if ! exists('s:level_1')
+	let s:level_1 = wheel#crystal#fetch('fold/one')
+	lockvar s:level_1
+endif
+
+if ! exists('s:level_2')
+	let s:level_2 = wheel#crystal#fetch('fold/two')
+	lockvar s:level_2
+endif
+
 " Rotating
 
 fun! wheel#gear#circular_plus (index, length)
@@ -43,8 +53,21 @@ endfun
 
 " Fold
 
+fun! wheel#gear#fold_level ()
+	" Wheel level of fold line : torus, circle or location
+	let line = getline('.')
+	if line =~ s:level_1
+		return 'torus'
+	elseif line =~ s:level_2
+		return 'circle'
+	else
+		return 'location'
+	endif
+endfun
+
 fun! wheel#gear#parent_fold ()
-	" Go to line of parent fold
+	" Go to line of parent fold in wheel tree
+	let level = index()
 	let pattern = s:fold_markers[0] . foldlevel('.')
 	call search(pattern, 'b')
 endfun

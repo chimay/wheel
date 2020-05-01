@@ -21,6 +21,8 @@ fun! wheel#boomerang#sync ()
 	endif
 endfun
 
+" Generic
+
 fun! wheel#boomerang#menu (dictname)
 	" Context menu
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
@@ -34,12 +36,14 @@ fun! wheel#boomerang#menu (dictname)
 	let settings = {'linefun' : dictname, 'close' : v:false, 'travel' : v:false}
 	call wheel#tower#staircase(settings)
 	call wheel#boomerang#sync ()
-	" Let wheel#tower#call handle open / close
+	" Let wheel#line#call handle open / close
 	let b:wheel_settings.close = v:false
 	" No more layers
 	" Tab mapping will be restored by wheel#layer#pop if we go back
 	nunmap <buffer> <tab>
 endfun
+
+" Applications
 
 fun! wheel#boomerang#sailing (action)
 	" Sailing actions

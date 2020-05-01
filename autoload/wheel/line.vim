@@ -44,7 +44,21 @@ fun! wheel#line#coordinates ()
 		echomsg 'Wheel line coordin : empty line'
 		return
 	endif
-	if foldlevel('.') == 2 && len(cursor_list) == 1
+	let level = wheel#gear#fold_level ()
+	if level == 'torus'
+		" torus line
+		let torus = cursor_list[0]
+		let coordin = [torus]
+	elseif level == 'circle'
+		" circle line : search torus
+		let circle = cursor_list[0]
+		normal! [z
+		let line = getline('.')
+		let line = substitute(line, s:selected_pattern, '', '')
+		let fields = split(line)
+		let torus = fields[0]
+		let coordin = [torus, circle]
+	elseif level == 'location'
 		" location line : search circle & torus
 		let location = cursor_line
 		normal! [z
@@ -58,21 +72,6 @@ fun! wheel#line#coordinates ()
 		let fields = split(line)
 		let torus = fields[0]
 		let coordin = [torus, circle, location]
-	elseif foldlevel('.') == 2
-		" circle line : search torus
-		let circle = cursor_list[0]
-		normal! [z
-		let line = getline('.')
-		let line = substitute(line, s:selected_pattern, '', '')
-		let fields = split(line)
-		let torus = fields[0]
-		let coordin = [torus, circle]
-	elseif foldlevel('.') == 1
-		" torus line
-		let torus = cursor_list[0]
-		let coordin = [torus]
-	elseif foldlevel('.') == 0
-		let coordin = cursor_line
 	else
 		echomsg 'Wheel line coordin : wrong fold level'
 	endif
@@ -225,6 +224,52 @@ fun! wheel#line#target (target)
 		call wheel#spiral#vertical ()
 	endif
 endfu
+
+" Menu
+
+fun! wheel#line#call (settings)
+	" Calls function given by the key = cursor line
+	" settings is a dictionary, whose keys can be :
+	" - dict : name of a dictionary variable in storage.vim
+	" - close : whether to close wheel buffer
+	" - travel : whether to apply action in previous buffer
+	let settings = a:settings
+	let dict = wheel#crystal#fetch (settings.linefun)
+	let close = settings.close
+	let travel = settings.travel
+	" Cursor line
+	let cursor_line = getline('.')
+	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
+	if empty(cursor_line)
+		echomsg 'Wheel layer call : you selected an empty line'
+		return
+	endif
+	let key = cursor_line
+	if ! has_key(dict, key)
+		normal! zv
+		call wheel#spiral#cursor ()
+		echomsg 'Wheel layer call : key not found'
+		return
+	endif
+	" Close & travel
+	if close
+		call wheel#mandala#close ()
+	elseif travel
+		let mandala = win_getid()
+		wincmd p
+	endif
+	" Call
+	let value = dict[key]
+	if value =~ '\m)'
+		exe 'call ' . value
+	else
+		call {value}()
+	endif
+	" Goto mandala if needed
+	if ! close && travel
+		call win_gotoid (mandala)
+	endif
+endfun
 
 " Navigation
 
