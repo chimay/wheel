@@ -94,6 +94,7 @@ endfun
 
 fun! wheel#referen#coordin_index (level)
 	" Return index of level in coordinates
+	" wheel -> -1
 	" torus -> 0
 	" circle -> 1
 	" location -> 2
