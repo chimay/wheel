@@ -10,6 +10,11 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
+if ! exists('s:levels')
+	let s:levels = wheel#crystal#fetch('referen/levels')
+	lockvar s:levels
+endif
+
 if ! exists('s:level_1')
 	let s:level_1 = wheel#crystal#fetch('fold/one')
 	lockvar s:level_1
@@ -55,6 +60,10 @@ endfun
 
 fun! wheel#gear#fold_level ()
 	" Wheel level of fold line : torus, circle or location
+	if ! &foldenable
+		echomsg 'Wheel gear fold leve : fold is disabled in buffer'
+		return
+	endif
 	let line = getline('.')
 	if line =~ s:level_1
 		return 'torus'
@@ -67,8 +76,15 @@ endfun
 
 fun! wheel#gear#parent_fold ()
 	" Go to line of parent fold in wheel tree
-	let level = index()
-	let pattern = s:fold_markers[0] . foldlevel('.')
+	let level = wheel#gear#fold_level ()
+	if level == 'circle'
+		let pattern = s:fold_markers[0] . 1
+	elseif level == 'location'
+		let pattern = s:fold_markers[0] . 2
+	else
+		" torus line : we stay there
+		return
+	endif
 	call search(pattern, 'b')
 endfun
 

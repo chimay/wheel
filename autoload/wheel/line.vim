@@ -52,7 +52,7 @@ fun! wheel#line#coordinates ()
 	elseif level == 'circle'
 		" circle line : search torus
 		let circle = cursor_list[0]
-		normal! [z
+		call wheel#gear#parent_fold ()
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
 		let fields = split(line)
@@ -61,12 +61,12 @@ fun! wheel#line#coordinates ()
 	elseif level == 'location'
 		" location line : search circle & torus
 		let location = cursor_line
-		normal! [z
+		call wheel#gear#parent_fold ()
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
 		let fields = split(line)
 		let circle = fields[0]
-		normal! [z
+		call wheel#gear#parent_fold ()
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
 		let fields = split(line)
