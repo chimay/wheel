@@ -85,6 +85,10 @@ endfun
 
 fun! wheel#disc#write_all ()
 	" Write all wheel variables to g:wheel_config.file
+	if wheel#referen#empty ('wheel')
+		echomsg 'Not writing empty wheel'
+		return
+	endif
 	call wheel#vortex#update ()
 	if has_key(g:wheel_config, 'file')
 		if argc() == 0 && has('nvim')

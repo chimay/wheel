@@ -91,8 +91,8 @@ endfun
 
 fun! wheel#boomerang#yank (action)
 	" Yank actions
+	" action = before / after
 	let action = a:action
 	let mode = b:wheel_settings.mode
-	echomsg action mode
 	call wheel#line#paste_{mode} (action, 'open')
 endfun
