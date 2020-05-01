@@ -227,7 +227,7 @@ endfu
 
 " Menu
 
-fun! wheel#line#call (settings)
+fun! wheel#line#menu (settings)
 	" Calls function given by the key = cursor line
 	" settings is a dictionary, whose keys can be :
 	" - dict : name of a dictionary variable in storage.vim

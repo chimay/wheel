@@ -20,7 +20,7 @@ fun! wheel#tower#overlay (settings)
 	" Define local maps for overlay
 	let settings = a:settings
 	let map  =  'nnoremap <buffer> '
-	let pre  = ' :call wheel#line#call('
+	let pre  = ' :call wheel#line#menu('
 	let post = ')<cr>'
 	" Open / Close : default in settings
 	exe map . '<cr>' . pre . string(settings) . post

@@ -36,7 +36,7 @@ fun! wheel#boomerang#menu (dictname)
 	let settings = {'linefun' : dictname, 'close' : v:false, 'travel' : v:false}
 	call wheel#tower#staircase(settings)
 	call wheel#boomerang#sync ()
-	" Let wheel#line#call handle open / close
+	" Let wheel#line#menu handle open / close
 	let b:wheel_settings.close = v:false
 	" No more layers
 	" Tab mapping will be restored by wheel#layer#pop if we go back
