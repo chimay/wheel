@@ -41,6 +41,14 @@ fun! wheel#gear#restore_cursor (position, ...)
 	endif
 endfun
 
+" Fold
+
+fun! wheel#gear#parent_fold ()
+	" Go to line of parent fold
+	let pattern = s:fold_markers[0] . foldlevel('.')
+	call search(pattern, 'b')
+endfun
+
 " Directory
 
 fun! wheel#gear#project_root (markers)

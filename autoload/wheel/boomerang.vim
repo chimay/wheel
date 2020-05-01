@@ -24,7 +24,7 @@ endfun
 fun! wheel#boomerang#menu (dictname)
 	" Context menu
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
-		if empty(wheel#line#coordin ())
+		if empty(wheel#line#address ())
 			echomsg 'Wheel boomerang menu : empty selection'
 			return
 		endif
@@ -83,4 +83,12 @@ fun! wheel#boomerang#grep (action)
 		call wheel#mandala#close ()
 		call wheel#vector#copen ()
 	endif
+endfun
+
+fun! wheel#boomerang#yank (action)
+	" Yank actions
+	let action = a:action
+	let mode = b:wheel_settings.mode
+	echomsg action mode
+	call wheel#line#paste_{mode} (action, 'open')
 endfun

@@ -27,6 +27,8 @@ fun! wheel#clipper#maps (mode)
 		vnoremap <buffer> p :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
 		vnoremap <buffer> P :<c-u>call wheel#line#paste_visual('before', 'open')<cr>
 	endif
+	" Context menu
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('yank')<cr>
 endfun
 
 fun! wheel#clipper#template (settings)

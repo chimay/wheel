@@ -290,6 +290,14 @@ if ! exists('s:context_grep')
 	lockvar s:context_grep
 endif
 
+if ! exists('s:context_yank')
+	let s:context_yank = {
+				\ 'Paste before' : "wheel#boomerang#yank('before')",
+				\ 'Paste after' : "wheel#boomerang#yank('after')",
+				\}
+	lockvar s:context_yank
+endif
+
 " Public Interface
 
 fun! wheel#crystal#fetch (varname)

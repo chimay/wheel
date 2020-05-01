@@ -216,7 +216,17 @@ endfun
 
 fun! wheel#mandala#wrap_up ()
 	" Line up, or line 1 -> end of file
-	if line('.') == 1
+	" If fold is closed, take the first line of it
+	if &foldenable
+		let line = foldclosed('.')
+		if line < 0
+			let line = line('.')
+		endif
+	else
+		let line = line('.')
+	endif
+	" Wrap
+	if line == 1
 		call cursor(line('$'), 1)
 	else
 		normal! k
@@ -225,7 +235,16 @@ endfun
 
 fun! wheel#mandala#wrap_down ()
 	" Line down, or line end of file -> 1
-	if line('.') == line('$')
+	" If fold is closed, take the last line of it
+	if &foldenable
+		let line = foldclosedend('.')
+		if line < 0
+			let line = line('.')
+		endif
+	else
+		let line = line('.')
+	endif
+	if line == line('$')
 		call cursor(1, 1)
 	else
 		normal! j
@@ -349,7 +368,7 @@ fun! wheel#mandala#template (...)
 	call wheel#mandala#common_maps ()
 	call wheel#mandala#filter_maps ()
 	call wheel#mandala#input_history_maps ()
-	" By default, tell wheel#line#coordin it’s not a tree buffer
+	" By default, tell wheel#line#address it’s not a tree buffer
 	" Overridden by folding_options
 	setlocal nofoldenable
 endfun

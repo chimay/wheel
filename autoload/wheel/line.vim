@@ -21,15 +21,21 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" Helpers
+" Address of current line
 
-fun! wheel#line#coordin ()
-	" Return coordin of line in plain or folded special buffer
-	if &foldenable == 0
+fun! wheel#line#address ()
+	" Return address of element at line in plain or folded wheel buffer
+	if ! &foldenable
 		let cursor_line = getline('.')
 		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 		return cursor_line
+	else
+		return wheel#line#coordinates ()
 	endif
+endfun
+
+fun! wheel#line#coordinates ()
+	" Return coordinates of line in folded wheel buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -74,6 +80,8 @@ fun! wheel#line#coordin ()
 	return coordin
 endfun
 
+" Selection
+
 fun! wheel#line#toggle ()
 	" Toggle selection of current line
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
@@ -91,7 +99,7 @@ fun! wheel#line#toggle ()
 	else
 		let record = substitute(line, s:selected_pattern, '', '')
 	endif
-	let coordin = wheel#line#coordin ()
+	let coordin = wheel#line#address ()
 	let index = index(b:wheel_selected, coordin)
 	if index < 0
 		call add(b:wheel_selected, coordin)
@@ -126,7 +134,7 @@ fun! wheel#line#sync_select ()
 		else
 			let record = substitute(line, s:selected_pattern, '', '')
 		endif
-		let coordin = wheel#line#coordin ()
+		let coordin = wheel#line#address ()
 		let index = index(b:wheel_selected, coordin)
 		if index >= 0
 			let selected_line = substitute(record, '\m^', s:selected_mark, '')
@@ -177,6 +185,8 @@ fun! wheel#line#deselect ()
 	call wheel#gear#restore_cursor (position)
 endfun
 
+" Filter
+
 fun! wheel#line#filter ()
 	" Return lines matching words of first line
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
@@ -197,6 +207,8 @@ fun! wheel#line#filter ()
 	" Return
 	return filtered
 endfu
+
+" Target
 
 fun! wheel#line#target (target)
 	" Open target tab / win before navigationation
@@ -241,7 +253,7 @@ fun! wheel#line#sailing (settings)
 		let Fun = 'wheel#line#switch'
 	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
-		let selected = [wheel#line#coordin ()]
+		let selected = [wheel#line#address ()]
 	elseif type(b:wheel_selected) == v:t_list
 		let selected = b:wheel_selected
 	else
@@ -458,8 +470,14 @@ fun! wheel#line#paste_list (...)
 		let close = 'close'
 	endif
 	let line = getline('.')
-	let runme = 'let content = ' . line
-	exe runme
+	if empty(line)
+		return
+	endif
+	if exists('b:wheel_selected') && ! empty(b:wheel_selected)
+		let content = eval(b:wheel_selected[0])
+	else
+		let content = eval(line)
+	endif
 	let mandala = win_getid()
 	wincmd p
 	if where == 'after'
@@ -486,7 +504,14 @@ fun! wheel#line#paste_plain (...)
 	else
 		let close = 'close'
 	endif
-	let content = getline('.')
+	if exists('b:wheel_selected') && ! empty(b:wheel_selected)
+		let content = b:wheel_selected[0]
+	else
+		let content = getline('.')
+	endif
+	if empty(content)
+		return
+	endif
 	let mandala = win_getid()
 	wincmd p
 	if where == 'after'
