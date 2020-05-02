@@ -86,7 +86,7 @@ fun! wheel#pendulum#rename(level, old, new)
 	endfor
 endfun
 
-fun! wheel#pendulum#delete(level, old)
+fun! wheel#pendulum#delete(level, old_names)
 	" Delete all occurences of old in history
 	" level = 0 or torus    : delete torus
 	" level = 1 or circle   : delete circle
@@ -99,11 +99,10 @@ fun! wheel#pendulum#delete(level, old)
 		echomsg 'Pendulum delete : level arg must be number or string'
 		return
 	end
-	let old = a:old
 	let history = deepcopy(g:wheel_history)
 	for elem in history
 		let coordin = elem.coordin
-		if coordin[index] ==# old
+		if coordin[:index] == a:old_names[:index]
 			let g:wheel_history =
 						\ wheel#chain#remove_element(elem, g:wheel_history)
 		endif

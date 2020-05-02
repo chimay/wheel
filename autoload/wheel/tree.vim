@@ -256,6 +256,9 @@ fun! wheel#tree#delete (level)
 	if confirm != 1
 		return
 	endif
+	" For history
+	let old_names = wheel#referen#names ()
+	" Remove
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
@@ -275,5 +278,6 @@ fun! wheel#tree#delete (level)
 	let upper.glossary = wheel#chain#remove_element(name, glossary)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#vortex#jump ()
-	call wheel#pendulum#delete(level, name)
+	" Adjust history
+	call wheel#pendulum#delete(level, old_names)
 endfun
