@@ -75,12 +75,13 @@ fun! wheel#pendulum#rename(level, old, new)
 		echomsg 'Pendulum rename : level arg must be number or string'
 		return
 	end
- 	let old = a:old
-	let new = a:new
+	let new_names = wheel#referen#names ()
+	let old_names = copy(new_names)
+	let old_names[index] = a:old
 	for elem in g:wheel_history
 		let coordin = elem.coordin
-		if coordin[index] ==# old
-			let elem.coordin[index] = new
+		if coordin == old_names
+			let elem.coordin[index] = a:new
 		endif
 	endfor
 endfun
