@@ -10,11 +10,6 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-if ! exists('s:levels')
-	let s:levels = wheel#crystal#fetch('referen/levels')
-	lockvar s:levels
-endif
-
 if ! exists('s:fold_1')
 	let s:fold_1 = wheel#crystal#fetch('fold/one')
 	lockvar s:fold_1
@@ -147,9 +142,8 @@ fun! wheel#gear#tree_filter (wordlist, index, value)
 	" Like word_filter, but keep surrounding folds
 	" index is not used, it’s just for compatibility with filter()
 	let marker = s:fold_markers[0]
-	let length = strchars(a:value)
-	let prelast = strcharpart(a:value, length - 2, 1)
-	if prelast ==# marker
+	let pattern = '\m' . marker . '[12]$'
+	if a:value =~ pattern
 		return v:true
 	endif
 	return wheel#gear#word_filter(a:wordlist, a:value)
@@ -157,29 +151,29 @@ endfun
 
 fun! wheel#gear#fold_filter (wordlist, candidates)
 	" Remove non-matching empty folds
-	let marker = s:fold_markers[0]
 	let wordlist = a:wordlist
 	let candidates = a:candidates
-	let filtered = []
 	if empty(candidates)
 		return []
 	endif
+	let marker = s:fold_markers[0]
+	let pattern = '\m' . marker . '[12]$'
+	let filtered = []
 	for index in range(len(candidates) - 1)
 		" --- Current line
 		let cur_value = candidates[index]
 		let cur_length = strchars(cur_value)
-		" ending = >1 or >2 if fold start
-		let cur_prelast = strcharpart(cur_value, cur_length - 2, 1)
+		" Last char of fold start line contains fold level 1 or 2
 		let cur_last = strcharpart(cur_value, cur_length - 1, 1)
 		" --- Next line
 		let next_value = candidates[index + 1]
 		let next_length = strchars(next_value)
-		let next_prelast = strcharpart(next_value, next_length - 2, 1)
+		" Last char of fold start line contains fold level 1 or 2
 		let next_last = strcharpart(next_value, next_length - 1, 1)
 		" --- Comparison
 		" if empty fold, value and next will contain marker
 		" and current fold level will be >= than next one
-		if cur_prelast ==# marker && next_prelast ==# marker && cur_last >= next_last
+		if cur_value =~ pattern && next_value =~ pattern && cur_last >= next_last
 			" Add line only if matches wordlist
 			if wheel#gear#word_filter(wordlist, cur_value)
 				call add(filtered, cur_value)
