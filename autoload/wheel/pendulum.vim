@@ -80,7 +80,7 @@ fun! wheel#pendulum#rename(level, old, new)
 	let old_names[index] = a:old
 	for elem in g:wheel_history
 		let coordin = elem.coordin
-		if coordin == old_names
+		if coordin[:index] == old_names[:index]
 			let elem.coordin[index] = a:new
 		endif
 	endfor
