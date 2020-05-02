@@ -179,7 +179,7 @@ fun! wheel#line#deselect ()
 		endif
 	endfor
 	" Update buffer
-	2,$ delete _
+	silent! 2,$ delete _
 	put =buflines
 	call wheel#gear#restore_cursor (position)
 endfun

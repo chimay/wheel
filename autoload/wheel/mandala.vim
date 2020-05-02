@@ -190,7 +190,7 @@ fun! wheel#mandala#replace (content, ...)
 	if exists('*deletebufline')
 		call deletebufline('%', 2, '$')
 	else
-		2,$ delete _
+		silent! 2,$ delete _
 	endif
 	" Cannot use setline or append : does not work with yanks
 	put =content
@@ -199,7 +199,7 @@ fun! wheel#mandala#replace (content, ...)
 	elseif first == 'delete'
 		1 delete _
 	endif
-	silent 2,$ global /^$/ delete _
+	silent! 2,$ global /^$/ delete _
 	setlocal nomodified
 	call wheel#gear#restore_cursor (position, 1)
 endfun
