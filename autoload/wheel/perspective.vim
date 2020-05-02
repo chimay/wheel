@@ -14,14 +14,14 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-if ! exists('s:level_1')
-	let s:level_1 = wheel#crystal#fetch('fold/one')
-	lockvar s:level_1
+if ! exists('s:fold_1')
+	let s:fold_1 = wheel#crystal#fetch('fold/one')
+	lockvar s:fold_1
 endif
 
-if ! exists('s:level_2')
-	let s:level_2 = wheel#crystal#fetch('fold/two')
-	lockvar s:level_2
+if ! exists('s:fold_2')
+	let s:fold_2 = wheel#crystal#fetch('fold/two')
+	lockvar s:fold_2
 endif
 
 " From referen
@@ -67,10 +67,10 @@ fun! wheel#perspective#tree ()
 	" Tree representation of the wheel for wheel buffer
 	let lines = []
 	for torus in g:wheel.toruses
-		let entry = torus.name . s:level_1
+		let entry = torus.name . s:fold_1
 		let lines = add(lines, entry)
 		for circle in torus.circles
-			let entry = circle.name . s:level_2
+			let entry = circle.name . s:fold_2
 			let lines = add(lines, entry)
 			for location in circle.locations
 				let entry = location.name
@@ -85,10 +85,10 @@ fun! wheel#perspective#reorganize ()
 	" Content for reorganize buffer
 	let lines = []
 	for torus in g:wheel.toruses
-		let entry = torus.name . s:level_1
+		let entry = torus.name . s:fold_1
 		let lines = add(lines, entry)
 		for circle in torus.circles
-			let entry = circle.name . s:level_2
+			let entry = circle.name . s:fold_2
 			let lines = add(lines, entry)
 			for location in circle.locations
 				let entry = string(location)

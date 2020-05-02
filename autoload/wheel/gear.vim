@@ -15,14 +15,14 @@ if ! exists('s:levels')
 	lockvar s:levels
 endif
 
-if ! exists('s:level_1')
-	let s:level_1 = wheel#crystal#fetch('fold/one')
-	lockvar s:level_1
+if ! exists('s:fold_1')
+	let s:fold_1 = wheel#crystal#fetch('fold/one')
+	lockvar s:fold_1
 endif
 
-if ! exists('s:level_2')
-	let s:level_2 = wheel#crystal#fetch('fold/two')
-	lockvar s:level_2
+if ! exists('s:fold_2')
+	let s:fold_2 = wheel#crystal#fetch('fold/two')
+	lockvar s:fold_2
 endif
 
 " Rotating
@@ -65,9 +65,9 @@ fun! wheel#gear#fold_level ()
 		return
 	endif
 	let line = getline('.')
-	if line =~ s:level_1
+	if line =~ s:fold_1
 		return 'torus'
-	elseif line =~ s:level_2
+	elseif line =~ s:fold_2
 		return 'circle'
 	else
 		return 'location'

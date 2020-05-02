@@ -10,9 +10,9 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-if ! exists('s:level_1')
-	let s:level_1 = wheel#crystal#fetch('fold/one')
-	lockvar s:level_1
+if ! exists('s:fold_1')
+	let s:fold_1 = wheel#crystal#fetch('fold/one')
+	lockvar s:fold_1
 endif
 
 if ! exists('s:menu_list')
@@ -95,7 +95,7 @@ fun! wheel#hub#main ()
 	call wheel#hub#folding_options ()
 	let menu = []
 	for elem in s:menu_list
-		let header = elem . s:level_1
+		let header = elem . s:fold_1
 		let submenu = wheel#crystal#fetch('menu/' . elem)
 		let submenu = sort(keys(submenu))
 		call add(menu, header)
