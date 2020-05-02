@@ -443,6 +443,7 @@ fun! wheel#line#occur (settings)
 	" Go to line given by selected
 	let fields = split(a:settings.selected, s:field_separ)
 	let line = fields[0]
+	call wheel#line#target (a:settings.target)
 	call cursor(line, 1)
 endfun
 
