@@ -1,7 +1,7 @@
 " vim: set filetype=vim:
-" Wheel - Vim Buffer Groups Manager
+" Wheel - Vim Navigation Framework and Buffer Groups Manager
 " Maintainer: Chimay
-" Version:    0.1
+" Version:    1+
 "
 " The MIT License (MIT)
 

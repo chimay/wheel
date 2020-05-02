@@ -10,6 +10,16 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
+if ! exists('s:fold_1')
+	let s:fold_1 = wheel#crystal#fetch('fold/one')
+	lockvar s:fold_1
+endif
+
+if ! exists('s:fold_2')
+	let s:fold_2 = wheel#crystal#fetch('fold/two')
+	lockvar s:fold_2
+endif
+
 " Functions
 
 fun! wheel#cuboctahedron#reorder (level)
@@ -62,8 +72,8 @@ fun! wheel#cuboctahedron#reorganize ()
 	" Loop over buffer lines
 	let linelist = getline(1, '$')
 	let marker = s:fold_markers[0]
-	let pat_fold_one = '\m' . marker . '1$'
-	let pat_fold_two = '\m' . marker . '2$'
+	let pat_fold_one = '\m' . s:fold_1 . '$'
+	let pat_fold_two = '\m' . s:fold_2 . '$'
 	let pat_dict = '\m^{.*}'
 	for line in linelist
 		if line =~ pat_fold_one

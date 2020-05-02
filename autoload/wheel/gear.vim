@@ -78,9 +78,9 @@ fun! wheel#gear#parent_fold ()
 	" Go to line of parent fold in wheel tree
 	let level = wheel#gear#fold_level ()
 	if level == 'circle'
-		let pattern = s:fold_markers[0] . 1
+		let pattern = '\m' . s:fold_1 . '$'
 	elseif level == 'location'
-		let pattern = s:fold_markers[0] . 2
+		let pattern = '\m' . s:fold_2 . '$'
 	else
 		" torus line : we stay there
 		return
@@ -123,7 +123,7 @@ endfun
 fun! wheel#gear#word_filter (wordlist, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
-	" Pipe | in word meand logical or
+	" Pipe | in word means logical or
 	let wordlist = copy(a:wordlist)
 	call map(wordlist, {_, val -> substitute(val, '|', '\\|', 'g')})
 	let match = 1
