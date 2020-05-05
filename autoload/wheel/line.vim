@@ -516,12 +516,12 @@ fun! wheel#line#paste_list (...)
 		let close = 'close'
 	endif
 	let line = getline('.')
-	if empty(line)
-		return
-	endif
 	if exists('b:wheel_selected') && ! empty(b:wheel_selected)
 		let content = eval(b:wheel_selected[0])
 	else
+		if empty(line)
+			return
+		endif
 		let content = eval(line)
 	endif
 	let mandala = win_getid()
