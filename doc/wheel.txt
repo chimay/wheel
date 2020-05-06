@@ -312,7 +312,7 @@ the cursor.
 ------------------------------------------------------------------------------
 BUFFERS STACK				*wheel-special-buffers-stack*
 
-Wheel manages a special buffer stack. You can :
+Wheel manages a special buffers stack. You can :
 
 - Save your current special buffer with `<M-w><Tab>`
 - Cycle the special buffers with `<M-w>@`
@@ -1401,6 +1401,7 @@ Autoload files~
 | complete.vim      | Completion functions                   |
 | crystal.vim       | Internal variables                     |
 | cuboctahedron.vim | Reshaping : reorder, reorganize        |
+| cylinder.vim      | Special buffers stack                  |
 | disc.vim          | Read & Write wheel file                |
 | gear.vim          | Generic helpers                        |
 | helix.vim         | Indexes                                |

@@ -99,6 +99,8 @@ fun! wheel#mandala#previous ()
 	endif
 endfun
 
+" Wrap
+
 fun! wheel#mandala#wrap_up ()
 	" Line up, or line 1 -> end of file
 	" If fold is closed, take the first line of it
@@ -135,6 +137,8 @@ fun! wheel#mandala#wrap_down ()
 		normal! j
 	endif
 endfun
+
+" Filter
 
 fun! wheel#mandala#filter (...)
 	" Keep lines matching words of first line
