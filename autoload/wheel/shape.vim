@@ -22,7 +22,6 @@ fun! wheel#shape#reorganize_write ()
 	setlocal buftype=
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
 	" Need a name when writing, even with BufWriteCmd
-	file /wheel/reorganize
 	augroup wheel
 		autocmd!
 		exe autocommand

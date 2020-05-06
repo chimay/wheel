@@ -163,12 +163,15 @@ endfu
 
 fun! wheel#mandala#common_options (type)
 	" Set local common options
+	let type = a:type
 	setlocal cursorline
 	setlocal nobuflisted
 	setlocal noswapfile
 	setlocal buftype=nofile
 	setlocal bufhidden=
-	let &filetype = a:type
+	let &filetype = type
+	let pseudo_folders = substitute(type, '-', '/', 'g')
+	exe 'file /' . pseudo_folders
 endfun
 
 " Maps
