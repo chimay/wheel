@@ -171,6 +171,7 @@ fun! wheel#mandala#common_options (type)
 	setlocal bufhidden=
 	let &filetype = type
 	let pseudo_folders = substitute(type, '-', '/', 'g')
+	" For write functions, and decoration also
 	exe 'file /' . pseudo_folders
 endfun
 

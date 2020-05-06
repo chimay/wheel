@@ -180,6 +180,8 @@ fun! wheel#sailing#outline ()
 	elseif mode == 3
 		call wheel#sailing#grep ('^\*', '\.org$')
 	endif
+	let &filetype = 'wheel-outline'
+	file /wheel/outline
 endfun
 
 fun! wheel#sailing#symbol ()
