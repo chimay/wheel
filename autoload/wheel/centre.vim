@@ -59,20 +59,20 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>
 	nnoremap <plug>(wheel-navigation-torus) :call wheel#sailing#switch('torus')<cr>
 	" Indexes
-	nnoremap <plug>(wheel-navigation-index-locations) :call wheel#sailing#helix()<cr>
-	nnoremap <plug>(wheel-navigation-index-circles) :call wheel#sailing#grid()<cr>
-	nnoremap <plug>(wheel-navigation-tree) :call wheel#sailing#tree()<cr>
+	nnoremap <plug>(wheel-index-locations) :call wheel#sailing#helix()<cr>
+	nnoremap <plug>(wheel-index-circles) :call wheel#sailing#grid()<cr>
+	nnoremap <plug>(wheel-tree) :call wheel#sailing#tree()<cr>
 	"History
-	nnoremap <plug>(wheel-navigation-history) :call wheel#sailing#history()<cr>
+	nnoremap <plug>(wheel-history) :call wheel#sailing#history()<cr>
 	" Search inside files
-	nnoremap <plug>(wheel-navigation-occur) :call wheel#sailing#occur()<cr>
-	nnoremap <plug>(wheel-navigation-grep) :call wheel#sailing#grep()<cr>
-	nnoremap <plug>(wheel-navigation-outline) :call wheel#sailing#outline()<cr>
-	nnoremap <plug>(wheel-navigation-tags) :call wheel#sailing#symbol()<cr>
+	nnoremap <plug>(wheel-occur) :call wheel#sailing#occur()<cr>
+	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
+	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
+	nnoremap <plug>(wheel-tags) :call wheel#sailing#symbol()<cr>
 	" Search for files
-	nnoremap <plug>(wheel-navigation-mru) :call wheel#sailing#attic()<cr>
-	nnoremap <plug>(wheel-navigation-locate) :call wheel#sailing#locate()<cr>
-	nnoremap <plug>(wheel-navigation-find) :call wheel#sailing#find()<cr>
+	nnoremap <plug>(wheel-mru) :call wheel#sailing#attic()<cr>
+	nnoremap <plug>(wheel-locate) :call wheel#sailing#locate()<cr>
+	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
 	" Batch
 	nnoremap <plug>(wheel-batch) :call wheel#vector#batch()<cr>
 	" Reorder
@@ -150,11 +150,11 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . '<c-space> <plug>(wheel-navigation-circle)'
 		exe 'nmap ' . prefix . '<s-space> <plug>(wheel-navigation-torus)'
 		" Indexes
-		exe 'nmap ' . prefix . 'x <plug>(wheel-navigation-index-locations)'
-		exe 'nmap ' . prefix . '<c-x> <plug>(wheel-navigation-index-circles)'
-		exe 'nmap ' . prefix . '<m-x> <plug>(wheel-navigation-tree)'
+		exe 'nmap ' . prefix . 'x <plug>(wheel-index-locations)'
+		exe 'nmap ' . prefix . '<c-x> <plug>(wheel-index-circles)'
+		exe 'nmap ' . prefix . '<m-x> <plug>(wheel-tree)'
 		"History
-		exe 'nmap ' . prefix . 'h <plug>(wheel-navigation-history)'
+		exe 'nmap ' . prefix . 'h <plug>(wheel-history)'
 		" Reorder
 		exe 'nmap ' . prefix . 'o <plug>(wheel-reorder-location)'
 		exe 'nmap ' . prefix . '<C-o> <plug>(wheel-reorder-circle)'
@@ -180,14 +180,14 @@ fun! wheel#centre#cables ()
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Search inside files
-		exe 'nmap ' . prefix . ': <plug>(wheel-navigation-occur)'
-		exe 'nmap ' . prefix . '* <plug>(wheel-navigation-grep)'
-		exe 'nmap ' . prefix . '# <plug>(wheel-navigation-outline)'
-		exe 'nmap ' . prefix . '% <plug>(wheel-navigation-tags)'
+		exe 'nmap ' . prefix . ': <plug>(wheel-occur)'
+		exe 'nmap ' . prefix . '* <plug>(wheel-grep)'
+		exe 'nmap ' . prefix . '# <plug>(wheel-outline)'
+		exe 'nmap ' . prefix . '% <plug>(wheel-tags)'
 		" Search for files
-		exe 'nmap ' . prefix . '? <plug>(wheel-navigation-mru)'
-		exe 'nmap ' . prefix . '/ <plug>(wheel-navigation-locate)'
-		exe 'nmap ' . prefix . '& <plug>(wheel-navigation-find)'
+		exe 'nmap ' . prefix . '? <plug>(wheel-mru)'
+		exe 'nmap ' . prefix . '/ <plug>(wheel-locate)'
+		exe 'nmap ' . prefix . '& <plug>(wheel-find)'
 		" Batch
 		exe 'nmap ' . prefix . '<m-b> <plug>(wheel-batch)'
 		" Yank wheel
@@ -255,18 +255,18 @@ fun! wheel#centre#cables ()
 		nmap <Space>      <plug>(wheel-navigation-location)
 		nmap <C-Space>    <plug>(wheel-navigation-circle)
 		nmap <S-Space>    <plug>(wheel-navigation-torus)
-		nmap <M-x>        <plug>(wheel-navigation-tree)
-		nmap <D-x>        <plug>(wheel-navigation-index-locations)
-		nmap <M-h>        <plug>(wheel-navigation-history)
+		nmap <M-x>        <plug>(wheel-tree)
+		nmap <D-x>        <plug>(wheel-index-locations)
+		nmap <M-h>        <plug>(wheel-history)
 		" Search inside files
-		nmap <M-s>          <plug>(wheel-navigation-occur)
-		nmap <M-g>          <plug>(wheel-navigation-grep)
-		nmap <M-o>          <plug>(wheel-navigation-outline)
-		nmap <M-t>          <plug>(wheel-navigation-tags)
+		nmap <M-s>          <plug>(wheel-occur)
+		nmap <M-g>          <plug>(wheel-grep)
+		nmap <M-o>          <plug>(wheel-outline)
+		nmap <M-t>          <plug>(wheel-tags)
 		" Search for files
-		nmap <M-u>          <plug>(wheel-navigation-mru)
-		nmap <M-l>          <plug>(wheel-navigation-locate)
-		nmap <M-f>          <plug>(wheel-navigation-find)
+		nmap <M-u>          <plug>(wheel-mru)
+		nmap <M-l>          <plug>(wheel-locate)
+		nmap <M-f>          <plug>(wheel-find)
 		" Reshaping buffers
 		nmap <M-r>          <plug>(wheel-reorganize)
 		" Yank

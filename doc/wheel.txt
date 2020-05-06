@@ -1293,8 +1293,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <C-PageDown> <plug>(wheel-next-location)
     nmap <C-Home>     <plug>(wheel-previous-circle)
     nmap <C-End>      <plug>(wheel-next-circle)
-    nmap <S-Home>     <plug>(wheel-previous-location)
-    nmap <S-End>      <plug>(wheel-next-location)
+    nmap <S-Home>     <plug>(wheel-previous-torus)
+    nmap <S-End>      <plug>(wheel-next-torus)
     " History
     nmap <S-PageUp>     <plug>(wheel-history-newer)
     nmap <S-PageDown>   <plug>(wheel-history-older)
@@ -1309,25 +1309,25 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <Space>      <plug>(wheel-navigation-location)
     nmap <C-Space>    <plug>(wheel-navigation-circle)
     nmap <S-Space>    <plug>(wheel-navigation-torus)
-    nmap <M-x>        <plug>(wheel-navigation-index-tree)
-    nmap <D-x>        <plug>(wheel-navigation-index-locations)
-    nmap <M-h>        <plug>(wheel-navigation-history)
+    nmap <M-x>        <plug>(wheel-tree)
+    nmap <D-x>        <plug>(wheel-index-locations)
+    nmap <M-h>        <plug>(wheel-history)
     " Search inside files
-    nmap <M-s>          <plug>(wheel-navigation-occur)
-    nmap <M-g>          <plug>(wheel-navigation-grep)
-    nmap <M-o>          <plug>(wheel-navigation-outline)
-    nmap <M-t>          <plug>(wheel-navigation-tags)
+    nmap <M-s>          <plug>(wheel-occur)
+    nmap <M-g>          <plug>(wheel-grep)
+    nmap <M-o>          <plug>(wheel-outline)
+    nmap <M-t>          <plug>(wheel-tags)
     " Search for files
-    nmap <M-u>          <plug>(wheel-navigation-mru)
-    nmap <M-l>          <plug>(wheel-navigation-locate)
-    nmap <M-f>          <plug>(wheel-navigation-find)
+    nmap <M-u>          <plug>(wheel-mru)
+    nmap <M-l>          <plug>(wheel-locate)
+    nmap <M-f>          <plug>(wheel-find)
     " Reshaping buffers
-    nmap <M-r>        <plug>(wheel-reorganize)
+    nmap <M-r>          <plug>(wheel-reorganize)
     " Yank
     nmap <M-y>          <plug>(wheel-yank-list)
     nmap <M-p>          <plug>(wheel-yank-plain)
     " Batch
-    nmap <M-b>          :WheelBatch<space>
+    nmap <M-b>          <plug>(wheel-batch)
     " Windows
     nmap <M-z>          <plug>(wheel-zoom)
     nmap <M-Home>       <plug>(wheel-tabs-locations)

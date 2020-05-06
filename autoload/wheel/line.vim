@@ -210,7 +210,7 @@ endfu
 " Target
 
 fun! wheel#line#target (target)
-	" Open target tab / win before navigationation
+	" Open target tab / win before navigation
 	let target = a:target
 	if target ==# 'tab'
 		tabnew
@@ -279,7 +279,7 @@ fun! wheel#line#sailing (settings)
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
-	" - action : navigationation function name or funcref
+	" - action : navigation function name or funcref
 	let settings = copy(a:settings)
 	if has_key(settings, 'target')
 		let target = settings.target
