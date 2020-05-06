@@ -85,11 +85,11 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
 	" Save (push) wheel buffer
-	nnoremap <plug>(wheel-buffer-push) :call wheel#mandala#push()<cr>
+	nnoremap <plug>(wheel-buffer-push) :call wheel#cylinder#push()<cr>
 	" Remove (pop) wheel buffer
-	nnoremap <plug>(wheel-buffer-pop) :call wheel#mandala#pop()<cr>
+	nnoremap <plug>(wheel-buffer-pop) :call wheel#cylinder#pop()<cr>
 	" Cycle wheel buffers
-	nnoremap <plug>(wheel-buffer-cycle) :call wheel#mandala#cycle()<cr>
+	nnoremap <plug>(wheel-buffer-cycle) :call wheel#cylinder#cycle()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabs-locations) :call wheel#mosaic#tabs('location')<cr>
 	nnoremap <plug>(wheel-tabs-circles) :call wheel#mosaic#tabs('circle')<cr>
