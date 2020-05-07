@@ -9,8 +9,6 @@ fun! wheel#shape#reorder_write (level)
 	setlocal buftype=
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
 	let autocommand .= a:level . "')"
-	" Need a name when writing, even with BufWriteCmd
-	file /wheel/reorder
 	augroup wheel
 		autocmd!
 		exe autocommand

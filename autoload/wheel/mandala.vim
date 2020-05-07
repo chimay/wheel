@@ -169,11 +169,12 @@ fun! wheel#mandala#common_options (type)
 	setlocal noswapfile
 	setlocal buftype=nofile
 	setlocal bufhidden=
-	"let &filetype = type
+	" wheel or type argument
 	let &filetype = 'wheel'
-	let pseudo_folders = substitute(type, '-', '/', 'g')
-	" For write functions, and decoration also
-	exe 'file /' . pseudo_folders
+	" Useful as information
+	" Also need a name when writing, even with BufWriteCmd
+	let pseudo_folders = '/' . substitute(type, '-', '/', 'g')
+	exe 'file ' . pseudo_folders
 endfun
 
 " Maps
