@@ -16,16 +16,16 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-menu-main) :call wheel#hub#main()<cr>
 	nnoremap <plug>(wheel-menu-meta) :call wheel#hub#meta()<cr>
 	" Add
-	nnoremap <plug>(wheel-add-here) :call wheel#tree#add_here()
-	nnoremap <plug>(wheel-add-circle) :call wheel#tree#add_circle()
-	nnoremap <plug>(wheel-add-torus) :call wheel#tree#add_torus()
-	nnoremap <plug>(wheel-add-file) :call wheel#tree#add_file()
-	nnoremap <plug>(wheel-add-buffer) :call wheel#tree#add_buffer()
+	nnoremap <plug>(wheel-add-here) :call wheel#tree#add_here()<cr>
+	nnoremap <plug>(wheel-add-circle) :call wheel#tree#add_circle()<cr>
+	nnoremap <plug>(wheel-add-torus) :call wheel#tree#add_torus()<cr>
+	nnoremap <plug>(wheel-add-file) :call wheel#tree#add_file()<cr>
+	nnoremap <plug>(wheel-add-buffer) :call wheel#tree#add_buffer()<cr>
 	" Rename
-	nnoremap <plug>(wheel-rename-location) :call wheel#tree#rename('location')
-	nnoremap <plug>(wheel-rename-circle) :call wheel#tree#rename('circle')
-	nnoremap <plug>(wheel-rename-torus) :call wheel#tree#rename('torus')
-	nnoremap <plug>(wheel-rename-file) :call wheel#tree#rename_file()
+	nnoremap <plug>(wheel-rename-location) :call wheel#tree#rename('location')<cr>
+	nnoremap <plug>(wheel-rename-circle) :call wheel#tree#rename('circle')<cr>
+	nnoremap <plug>(wheel-rename-torus) :call wheel#tree#rename('torus')<cr>
+	nnoremap <plug>(wheel-rename-file) :call wheel#tree#rename_file()<cr>
 	" Delete
 	nnoremap <plug>(wheel-delete-location) :call wheel#tree#delete('location')<cr>
 	nnoremap <plug>(wheel-delete-circle) :call wheel#tree#delete('circle')<cr>
