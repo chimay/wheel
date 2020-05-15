@@ -161,6 +161,7 @@ your groups will grow and adapt to your style.
     * Markdown headers
     * Org mode headers
   + Tags
+  + Jumps & changes lists
 - Yank wheel using TextYankPost event
 - Reorganizing elements
 - Special buffers stack to save your searches
