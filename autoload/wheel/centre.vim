@@ -69,6 +69,9 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
 	nnoremap <plug>(wheel-tags) :call wheel#sailing#symbol()<cr>
+	" Jumps & Changes lists
+	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
+	nnoremap <plug>(wheel-changes) :call wheel#sailing#changes()<cr>
 	" Search for files
 	nnoremap <plug>(wheel-mru) :call wheel#sailing#attic()<cr>
 	nnoremap <plug>(wheel-locate) :call wheel#sailing#locate()<cr>
@@ -189,6 +192,8 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . '* <plug>(wheel-grep)'
 		exe 'nmap ' . prefix . '# <plug>(wheel-outline)'
 		exe 'nmap ' . prefix . '% <plug>(wheel-tags)'
+		exe 'nmap ' . prefix . 'j <plug>(wheel-jumps)'
+		exe 'nmap ' . prefix . 'c <plug>(wheel-changes)'
 		" Search for files
 		exe 'nmap ' . prefix . '? <plug>(wheel-mru)'
 		exe 'nmap ' . prefix . '/ <plug>(wheel-locate)'

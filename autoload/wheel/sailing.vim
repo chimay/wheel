@@ -58,6 +58,36 @@ fun! wheel#sailing#template (settings)
 	call wheel#sailing#maps (settings)
 endfun
 
+fun! wheel#sailing#bounce (command)
+	" Generic buffer for jumps / changes lists
+	let command = a:command
+	let lines = wheel#perspective#execute (command)[1:]
+	" Current
+	let length = len(lines)
+	for index in range(length)
+		let elem = lines[index]
+		if elem =~ '\m^>'
+			let elem = substitute(elem, '\m^>', '', '')
+			if ! empty(elem)
+				let lines[index] = elem
+				let current = index
+			else
+				call remove(lines, index)
+				let length = length - 1
+				let current = length
+			endif
+			break
+		endif
+	endfor
+	" Wheel buffer
+	call wheel#mandala#open ('wheel-' . command)
+	let settings = {'action' : function('wheel#line#' . command)}
+	let settings.current = current
+	let settings.deltalist = map(copy(lines), {_, val -> str2nr(split(val)[0])})
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+endfun
+
 " Buffers
 
 fun! wheel#sailing#switch (level)
@@ -232,4 +262,14 @@ fun! wheel#sailing#find ()
 	else
 		call wheel#ripple#start(command, settings)
 	endif
+endfun
+
+fun! wheel#sailing#jumps ()
+	" Jumps list
+	call wheel#sailing#bounce ('jumps')
+endfun
+
+fun! wheel#sailing#changes ()
+	" Changes list
+	call wheel#sailing#bounce ('changes')
 endfun

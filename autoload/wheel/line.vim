@@ -280,6 +280,9 @@ fun! wheel#line#sailing (settings)
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
 	" - action : navigation function name or funcref
+	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
+		let b:wheel_lines = getline(2, '$')
+	endif
 	let settings = copy(a:settings)
 	if has_key(settings, 'target')
 		let target = settings.target
@@ -499,6 +502,36 @@ fun! wheel#line#symbol (settings)
 	let ident = fields[0]
 	call wheel#line#target (a:settings.target)
 	exe 'tag ' . ident
+endfun
+
+fun! wheel#line#jumps (settings)
+	" Go to element in jumps list given by selected
+	let fields = split(a:settings.selected)
+	let delta = str2nr(fields[0])
+	let deltalist = a:settings.deltalist
+	let asked = index(deltalist, delta)
+	let current = a:settings.current
+	call wheel#line#target (a:settings.target)
+	if asked > current
+		exe 'normal! ' . delta . "\<c-i>"
+	else
+		exe 'normal! ' . delta . "\<c-o>"
+	endif
+endfun
+
+fun! wheel#line#changes (settings)
+	" Go to element in changes list given by selected
+	let fields = split(a:settings.selected)
+	let delta = str2nr(fields[0])
+	let deltalist = a:settings.deltalist
+	let asked = index(deltalist, delta)
+	let current = a:settings.current
+	call wheel#line#target (a:settings.target)
+	if asked > current
+		exe 'normal! ' . delta . 'g,'
+	else
+		exe 'normal! ' . delta . 'g;'
+	endif
 endfun
 
 " Paste

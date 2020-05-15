@@ -1131,6 +1131,8 @@ Search inside files~
 | *        | <M-w>*              | Search in circle files with grep     |
 | #        | <M-w>#              | Outline : folds, markdown, org mode  |
 | %        | <M-w>%              | Tags                                 |
+| j        | <M-w>j              | Jumps                                |
+| c        | <M-w>c              | Changes                              |
 
 Search for files~
 

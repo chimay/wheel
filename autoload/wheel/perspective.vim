@@ -24,6 +24,27 @@ if ! exists('s:fold_2')
 	lockvar s:fold_2
 endif
 
+" Helpers
+
+fun! wheel#perspective#execute (runme, ...)
+	" Generic ex or system command for wheel buffer
+	if a:0 > 0
+		let Execute = a:1
+	else
+		let Execute = function('execute')
+	endif
+	let runme = a:runme
+	if type(Execute) == v:t_func
+		let lines = Execute(runme)
+	elseif type(Execute) == v:t_string
+		let lines = {Execute}(runme)
+	else
+		echomsg 'Wheel perspective execute : bad function argument'
+	endif
+	let lines = split(lines, "\n")
+	return lines
+endfun
+
 " From referen
 
 fun! wheel#perspective#switch (level)
@@ -205,8 +226,8 @@ fun! wheel#perspective#occur (pattern)
 	for index in range(len(lines))
 		let lines[index] = trim(lines[index], ' ')
 		let lines[index] = substitute(lines[index], '\s\+', s:field_separ, '')
-		call wheel#gear#restore_cursor(position)
 	endfor
+	call wheel#gear#restore_cursor(position)
 	return lines
 endfun
 
