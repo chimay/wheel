@@ -972,6 +972,7 @@ Level 0				|wheel-mappings-level-0|
 Level 1				|wheel-mappings-level-1|
 Level 2				|wheel-mappings-level-2|
 Level 10			|wheel-mappings-level-10|
+Level 20			|wheel-mappings-level-20|
 List of plug maps		|wheel-mappings-plugs|
 
 ------------------------------------------------------------------------------
@@ -1258,6 +1259,8 @@ and add them to your init file.
 | <M-g>          | Grep in current circle files                |
 | <M-o>          | Outline in current circle files             |
 | <M-t>          | Tags                                        |
+| <M-j>          | Jumps                                       |
+| <M-c>          | Changes                                     |
 | -------------- | ------------------------------------------- |
 | <M-u>          | Most Recently Used files not found in wheel |
 | <M-l>          | Locate                                      |
@@ -1320,6 +1323,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <M-g>          <plug>(wheel-grep)
     nmap <M-o>          <plug>(wheel-outline)
     nmap <M-t>          <plug>(wheel-tags)
+    nmap <M-j>          <plug>(wheel-jumps)
+    nmap <M-c>          <plug>(wheel-changes)
     " Search for files
     nmap <M-u>          <plug>(wheel-mru)
     nmap <M-l>          <plug>(wheel-locate)
@@ -1348,6 +1353,14 @@ mapping level to less than 10, then copy and adapt the following lines : >
 <
 
 ------------------------------------------------------------------------------
+LEVEL 20					*wheel-mappings-level-20*
+
+For debug only.
+
+| Prefix + | With default prefix | Action                               |
+| Z        | <M-w>Z              | Reset wheel variables to empty wheel |
+
+------------------------------------------------------------------------------
 LIST OF PLUG MAPS			*wheel-mappings-plugs*
 
 To display the list of available plug mappings, just execute the following ex
@@ -1363,14 +1376,6 @@ Example of binding using a plug map : >
 
     nmap <M-m> <Plug>(wheel-menu-main)
 <
-
-------------------------------------------------------------------------------
-LEVEL 20					*wheel-mappings-level-20*
-
-For debug only.
-
-| Prefix + | With default prefix | Action                               |
-| Z        | <M-w>Z              | Reset wheel variables to empty wheel |
 
 ==============================================================================
 COMMANDS					*wheel-commands*

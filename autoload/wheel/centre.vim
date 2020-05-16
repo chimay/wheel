@@ -127,7 +127,7 @@ fun! wheel#centre#plugs ()
 endfun
 
 fun! wheel#centre#cables ()
-	" Link <Plug> mappings to keys
+	" Link <plug> mappings to keys
 	let prefix = g:wheel_config.prefix
 	" Basic
 	if g:wheel_config.mappings >= 0
@@ -273,6 +273,8 @@ fun! wheel#centre#cables ()
 		nmap <M-g>          <plug>(wheel-grep)
 		nmap <M-o>          <plug>(wheel-outline)
 		nmap <M-t>          <plug>(wheel-tags)
+		nmap <M-j>          <plug>(wheel-jumps)
+		nmap <M-c>          <plug>(wheel-changes)
 		" Search for files
 		nmap <M-u>          <plug>(wheel-mru)
 		nmap <M-l>          <plug>(wheel-locate)
