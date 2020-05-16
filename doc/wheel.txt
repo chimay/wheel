@@ -1369,7 +1369,7 @@ command : >
     map <Plug>(wheel-
 <
 
-You can also find then in the file `autoload/wheel/centre.vim`, function
+You can also find them in the file `autoload/wheel/centre.vim`, function
 `wheel#centre#plugs`. Their names are self explanatory.
 
 Example of binding using a plug map : >
