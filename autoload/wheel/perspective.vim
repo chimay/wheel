@@ -63,10 +63,8 @@ fun! wheel#perspective#bounce (runme)
 		let fields = split(elem)
 		if past
 			let signed = - str2nr(fields[0])
-		else
-			let signed = str2nr(fields[0])
+			let fields[0] = string(signed)
 		endif
-		let fields[0] = string(signed)
 		let elem = join(fields, s:field_separ)
 		let elem = trim(elem, ' ')
 		let lines[index] = elem
