@@ -512,7 +512,7 @@ fun! wheel#line#jumps (settings)
 	if delta > 0
 		exe 'normal! ' . delta . "\<c-i>"
 	else
-		exe 'normal! ' . delta . "\<c-o>"
+		exe 'normal! ' . - delta . "\<c-o>"
 	endif
 endfun
 
@@ -524,7 +524,7 @@ fun! wheel#line#changes (settings)
 	if delta > 0
 		exe 'normal! ' . delta . 'g,'
 	else
-		exe 'normal! ' . delta . 'g;'
+		exe 'normal! ' . - delta . 'g;'
 	endif
 endfun
 
