@@ -57,6 +57,7 @@ fun! wheel#perspective#bounce (runme)
 			let elem = substitute(elem, '\m^>', '', '')
 			if empty(elem)
 				call remove(lines, index)
+				continue
 			endif
 		endif
 		if past
