@@ -27,7 +27,7 @@ endif
 " Helpers
 
 fun! wheel#perspective#execute (runme, ...)
-	" Generic ex or system command for wheel buffer
+	" Ex or system command for wheel buffer
 	if a:0 > 0
 		let Execute = a:1
 	else
@@ -46,7 +46,7 @@ fun! wheel#perspective#execute (runme, ...)
 endfun
 
 fun! wheel#perspective#bounce (runme)
-	" Generic lines for jumps / changes lists
+	" Lines for jumps / changes lists
 	let lines = wheel#perspective#execute(a:runme)[1:]
 	let past = v:true
 	let length = len(lines)
@@ -147,9 +147,9 @@ fun! wheel#perspective#reorganize ()
 	return lines
 endfu
 
-" From history
+" From pendulum
 
-fun! wheel#perspective#pendulum ()
+fun! wheel#perspective#history ()
 	" Sorted history index for wheel buffer
 	" Each entry is a string : date hour | torus > circle > location
 	let history = deepcopy(g:wheel_history)
@@ -189,7 +189,7 @@ endfun
 
 " From symbol
 
-fun! wheel#perspective#symbol ()
+fun! wheel#perspective#tags ()
 	" Tags for special buffer
 	let table = wheel#symbol#table ()
 	let lines = []
@@ -202,7 +202,7 @@ endfun
 
 " From attic
 
-fun! wheel#perspective#attic ()
+fun! wheel#perspective#mru ()
 	" Sorted most recenty used files for wheel buffer
 	" Each entry is a string : date hour | filename
 	let attic = deepcopy(g:wheel_attic)

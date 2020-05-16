@@ -58,8 +58,20 @@ fun! wheel#sailing#template (settings)
 	call wheel#sailing#maps (settings)
 endfun
 
+fun! wheel#sailing#generic (name)
+	" Generic sailing buffer
+	let name = a:name
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel-' . name)
+	let settings = {'action' : function('wheel#line#' . name)}
+	call wheel#sailing#template (settings)
+	let Perspective = function('wheel#perspective#' . name)
+	let lines = Perspective ()
+	call wheel#mandala#fill(lines)
+endfun
+
 fun! wheel#sailing#bounce (command)
-	" Generic buffer for jumps / changes lists
+	" Buffer for jumps / changes lists
 	let command = a:command
 	let lines = wheel#perspective#bounce (command)
 	" Wheel buffer
@@ -127,12 +139,7 @@ endfun
 fun! wheel#sailing#history ()
 	" Choose a location coordinate in history
 	" Each coordinate = [torus, circle, location]
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-history')
-	let settings = {'action' : function('wheel#line#history')}
-	call wheel#sailing#template (settings)
-	let lines = wheel#perspective#pendulum ()
-	call wheel#mandala#fill(lines)
+	call wheel#sailing#generic('history')
 endfun
 
 fun! wheel#sailing#occur (...)
@@ -195,24 +202,14 @@ fun! wheel#sailing#outline ()
 	file /wheel/outline
 endfun
 
-fun! wheel#sailing#symbol ()
+fun! wheel#sailing#tags ()
 	" Tags file
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-tags')
-	let settings = {'action' : function('wheel#line#symbol')}
-	call wheel#sailing#template (settings)
-	let lines = wheel#perspective#symbol ()
-	call wheel#mandala#fill(lines)
+	call wheel#sailing#generic('tags')
 endfun
 
-fun! wheel#sailing#attic ()
+fun! wheel#sailing#mru ()
 	" Most recenty used files
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-mru')
-	let settings = {'action' : function('wheel#line#attic')}
-	call wheel#sailing#template (settings)
-	let lines = wheel#perspective#attic ()
-	call wheel#mandala#fill(lines)
+	call wheel#sailing#generic('mru')
 endfun
 
 fun! wheel#sailing#locate ()

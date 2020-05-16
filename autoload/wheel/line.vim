@@ -465,7 +465,7 @@ fun! wheel#line#grep (settings)
 	call cursor(line, col)
 endfun
 
-fun! wheel#line#attic (settings)
+fun! wheel#line#mru (settings)
 	" Edit settings.selected MRU file
 	let fields = split(a:settings.selected)
 	if len(fields) < 2
@@ -492,7 +492,7 @@ fun! wheel#line#find (settings)
 	exe 'edit ' . filename
 endfun
 
-fun! wheel#line#symbol (settings)
+fun! wheel#line#tags (settings)
 	" Go to settings.selected tag
 	let fields = split(a:settings.selected, s:field_separ)
 	if len(fields) < 4
