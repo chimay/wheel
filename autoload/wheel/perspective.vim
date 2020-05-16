@@ -60,12 +60,14 @@ fun! wheel#perspective#bounce (runme)
 				continue
 			endif
 		endif
+		let fields = split(elem)
 		if past
-			let fields = split(elem)
-			let negative = - str2nr(fields[0])
-			let fields[0] = string(negative)
-			let elem = join(fields, s:field_separ)
+			let signed = - str2nr(fields[0])
+		else
+			let signed = str2nr(fields[0])
 		endif
+		let fields[0] = string(signed)
+		let elem = join(fields, s:field_separ)
 		let elem = trim(elem, ' ')
 		let lines[index] = elem
 	endfor
