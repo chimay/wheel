@@ -45,6 +45,32 @@ fun! wheel#perspective#execute (runme, ...)
 	return lines
 endfun
 
+fun! wheel#perspective#bounce (runme)
+	" Generic lines for jumps / changes lists
+	let lines = wheel#perspective#execute(a:runme)[1:]
+	let past = v:true
+	let length = len(lines)
+	for index in range(length)
+		let elem = lines[index]
+		if elem =~ '\m^>'
+			let past = v:false
+			let elem = substitute(elem, '\m^>', '', '')
+			if empty(elem)
+				call remove(lines, index)
+			endif
+		endif
+		if past
+			let fields = split(elem)
+			let negative = - str2nr(fields[0])
+			let fields[0] = string(negative)
+			let elem = join(fields, s:field_separ)
+		endif
+		let elem = trim(elem, ' ')
+		let lines[index] = elem
+	endfor
+	return lines
+endfun
+
 " From referen
 
 fun! wheel#perspective#switch (level)

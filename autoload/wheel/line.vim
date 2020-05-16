@@ -506,13 +506,10 @@ endfun
 
 fun! wheel#line#jumps (settings)
 	" Go to element in jumps list given by selected
-	let fields = split(a:settings.selected)
+	let fields = split(a:settings.selected, s:field_separ)
 	let delta = str2nr(fields[0])
-	let deltalist = a:settings.deltalist
-	let asked = index(deltalist, delta)
-	let current = a:settings.current
 	call wheel#line#target (a:settings.target)
-	if asked > current
+	if delta > 0
 		exe 'normal! ' . delta . "\<c-i>"
 	else
 		exe 'normal! ' . delta . "\<c-o>"
@@ -523,11 +520,8 @@ fun! wheel#line#changes (settings)
 	" Go to element in changes list given by selected
 	let fields = split(a:settings.selected)
 	let delta = str2nr(fields[0])
-	let deltalist = a:settings.deltalist
-	let asked = index(deltalist, delta)
-	let current = a:settings.current
 	call wheel#line#target (a:settings.target)
-	if asked > current
+	if delta > 0
 		exe 'normal! ' . delta . 'g,'
 	else
 		exe 'normal! ' . delta . 'g;'
