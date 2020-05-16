@@ -66,7 +66,6 @@ fun! wheel#perspective#bounce (runme)
 			let fields[0] = string(signed)
 		endif
 		let elem = join(fields, s:field_separ)
-		let elem = trim(elem, ' ')
 		let lines[index] = elem
 	endfor
 	return lines
