@@ -60,14 +60,21 @@ fun! wheel#perspective#bounce (runme)
 				continue
 			endif
 		endif
+		" fields : delta line col file/text
 		let fields = split(elem)
 		if past
 			let signed = - str2nr(fields[0])
 			let fields[0] = string(signed)
 		endif
+		if len(fields) > 4
+			let fields[3] = join(fields[3:])
+			let fields = fields[:3]
+		endif
 		let elem = join(fields, s:field_separ)
 		let lines[index] = elem
 	endfor
+	" Newest first
+	call reverse(lines)
 	return lines
 endfun
 
