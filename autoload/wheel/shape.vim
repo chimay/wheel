@@ -31,11 +31,11 @@ endfun
 fun! wheel#shape#reorder (level)
 	" Reorder level elements in a buffer
 	let level = a:level
+	let lines = wheel#perspective#switch (level)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-reorder-' . level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#reorder_write (level)
-	let lines = wheel#perspective#switch (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)
 		silent global /^$/ delete
@@ -49,12 +49,12 @@ endfun
 
 fun! wheel#shape#reorganize ()
 	" Reorganize the wheel tree
+	let lines = wheel#perspective#reorganize ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-reorganize')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#reorganize_write ()
 	call wheel#mandala#folding_options ()
-	let lines = wheel#perspective#reorganize ()
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete
 	setlocal nomodified

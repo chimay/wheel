@@ -41,6 +41,7 @@ fun! wheel#layer#fresh ()
 				\ 'g<cr>',
 				\ 'gt', 'gs', 'gv',
 				\ 'gS', 'gV',
+				\ 'p', 'P',
 				\ ]
 	call wheel#gear#unmap(normal_keys, 'n')
 	" Clear insert maps

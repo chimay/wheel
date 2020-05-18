@@ -44,11 +44,11 @@ endfun
 fun! wheel#clipper#yank (mode)
 	" Choose yank and paste
 	let mode = a:mode
+	let lines = wheel#perspective#yank (mode)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-yank-' . mode)
 	let settings = {'mode' : mode}
 	call wheel#clipper#template(settings)
-	let lines = wheel#perspective#yank (mode)
 	call wheel#mandala#fill (lines)
 	setlocal nomodified
 	call cursor(1,1)
