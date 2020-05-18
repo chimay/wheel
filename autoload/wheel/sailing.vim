@@ -61,12 +61,12 @@ endfun
 fun! wheel#sailing#generic (name)
 	" Generic sailing buffer
 	let name = a:name
+	let Perspective = function('wheel#perspective#' . name)
+	let lines = Perspective ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-' . name)
 	let settings = {'action' : function('wheel#line#' . name)}
 	call wheel#sailing#template (settings)
-	let Perspective = function('wheel#perspective#' . name)
-	let lines = Perspective ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -86,6 +86,7 @@ endfun
 fun! wheel#sailing#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
+	let lines = wheel#perspective#switch (level)
 	if wheel#referen#empty_upper (level)
 		let upper = wheel#referen#upper_level_name (level)
 		echomsg 'Wheel mandala switch : empty' upper
@@ -95,7 +96,6 @@ fun! wheel#sailing#switch (level)
 	call wheel#mandala#open ('wheel-switch-' . level)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
-	let lines = wheel#perspective#switch (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)
 	else
@@ -106,33 +106,33 @@ endfun
 fun! wheel#sailing#helix ()
 	" Choose a location coordinate
 	" Each coordinate = [torus, circle, location]
+	let lines = wheel#perspective#helix ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-location-index')
 	let settings = {'action' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
-	let lines = wheel#perspective#helix ()
 	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#sailing#grid ()
 	" Choose a circle coordinate
 	" Each coordinate = [torus, circle]
+	let lines = wheel#perspective#grid ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-circle-index')
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
-	let lines = wheel#perspective#grid ()
 	call wheel#mandala#fill(lines)
 endfun
 
 fun! wheel#sailing#tree ()
 	" Choose an element in the wheel tree
+	let lines = wheel#perspective#tree ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-tree')
 	let settings = {'action' : function('wheel#line#tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()
-	let lines = wheel#perspective#tree ()
 	call wheel#mandala#fill(lines)
 endfun
 
@@ -172,11 +172,11 @@ fun! wheel#sailing#grep (...)
 	endif
 	let bool = wheel#vector#grep(pattern, sieve)
 	if bool
+		let lines = wheel#perspective#grep ()
 		call wheel#vortex#update ()
 		call wheel#mandala#open ('wheel-grep')
 		let settings = {'action' : function('wheel#line#grep')}
 		call wheel#sailing#template (settings)
-		let lines = wheel#perspective#grep ()
 		call wheel#mandala#fill(lines)
 		" Context menu
 		nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
@@ -214,13 +214,13 @@ endfun
 
 fun! wheel#sailing#locate ()
 	" Search files using locate
+	let prompt = 'Locate file matching : '
+	let pattern = input(prompt)
+	let lines = wheel#perspective#locate (pattern)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel-locate')
 	let settings = {'action' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
-	let prompt = 'Locate file matching : '
-	let pattern = input(prompt)
-	let lines = wheel#perspective#locate (pattern)
 	call wheel#mandala#fill(lines)
 endfun
 
