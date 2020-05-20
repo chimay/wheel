@@ -186,7 +186,7 @@ endfun
 fun! wheel#sailing#outline ()
 	" Outline fold headers
 	let prompt = 'Outline mode ? '
-	let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode", 1)
+	let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
 	if mode == 1
 		let marker = split(&foldmarker, ',')[0]
 		if &grepprg !~ '^grep'
@@ -197,6 +197,8 @@ fun! wheel#sailing#outline ()
 		call wheel#sailing#grep ('^#', '\.md$')
 	elseif mode == 3
 		call wheel#sailing#grep ('^\*', '\.org$')
+	elseif mode == 4
+		call wheel#sailing#grep ('^=', '\.wiki$')
 	endif
 	let &filetype = 'wheel-outline'
 	file /wheel/outline
