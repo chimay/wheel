@@ -181,6 +181,7 @@ fun! wheel#sailing#grep (...)
 		" Context menu
 		nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
 	endif
+	return bool
 endfun
 
 fun! wheel#sailing#outline ()
@@ -192,16 +193,18 @@ fun! wheel#sailing#outline ()
 		if &grepprg !~ '^grep'
 			let marker = escape(marker, '{')
 		endif
-		call wheel#sailing#grep (marker)
+		let bool = wheel#sailing#grep (marker)
 	elseif mode == 2
-		call wheel#sailing#grep ('^#', '\.md$')
+		let bool = wheel#sailing#grep ('^#', '\.md$')
 	elseif mode == 3
-		call wheel#sailing#grep ('^\*', '\.org$')
+		let bool = wheel#sailing#grep ('^\*', '\.org$')
 	elseif mode == 4
-		call wheel#sailing#grep ('^=', '\.wiki$')
+		let bool = wheel#sailing#grep ('^=', '\.wiki$')
 	endif
-	let &filetype = 'wheel-outline'
-	file /wheel/outline
+	if bool
+		let &filetype = 'wheel-outline'
+		file /wheel/outline
+	endif
 endfun
 
 fun! wheel#sailing#tags ()
