@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Layers stack on wheel buffers
+" Layers stack on wheel buffer
 
 " Stack
 
