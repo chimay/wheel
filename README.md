@@ -141,10 +141,11 @@ your groups will grow and adapt to your style.
   + Files from anywhere in the filesystem
   + A file in more than one group
   + file:line-1 and file:line-2 in the same group
-- May be saved in wheel file
+- May be saved in wheel file (recommended)
 - Easy navigation
   + On demand loading of files
   + Switch to matching tab & window if available
+  + Next/Previous location, circle or torus
   + Choose file, group or category in special buffer
     * Filter candidates
     * Folds matching wheel tree structure
@@ -265,7 +266,7 @@ Here is an example of configuration :
   " Maximum size of elements in yank wheel
   let g:wheel_config.maxim.yank_size = 3000
 
-  " Maximum number of tabs
+  " Maximum number of tabs in layouts
   let g:wheel_config.maxim.tabs = 12
   " Maximum number of horizontal splits
   let g:wheel_config.maxim.horizontal = 3
@@ -314,7 +315,8 @@ Most mappings respect the following convention :
 
 - prefix + `letter`     : location operation
 - prefix + `<C-letter>` : circle operation
-- prefix + `<S-letter>` : location operation
+- prefix + `<S-letter>` : torus operation
+- prefix + `<M-letter>` : alternative operation
 
 ## First Circles
 
