@@ -505,7 +505,7 @@ As usual, you can filter the elements in insert mode.
 The available local maps are :
 
  - `<enter>` : paste a yank after cursor
- - `g<cr>` : paste a yank after cursor, leave yank wheel opened
+ - `g<enter>` : paste a yank after cursor, leave yank wheel opened
  - `p` : paste a yank after cursor, leave yank wheel opened
  - `P` : paste a yank before cursor, leave yank wheel opened
 
