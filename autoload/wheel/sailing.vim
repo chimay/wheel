@@ -199,7 +199,7 @@ fun! wheel#sailing#outline ()
 	elseif mode == 3
 		let bool = wheel#sailing#grep ('^\*', '\.org$')
 	elseif mode == 4
-		let bool = wheel#sailing#grep ('^=', '\.wiki$')
+		let bool = wheel#sailing#grep ('^=.*=$', '\.wiki$')
 	endif
 	if bool
 		let &filetype = 'wheel-outline'
