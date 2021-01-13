@@ -251,3 +251,21 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 	endif
 	call wheel#vortex#jump ()
 endfun
+
+fun! wheel#pendulum#alternate_menu ()
+	let prompt = 'Alternate mode ? '
+	let mode = confirm(prompt, "&1 Generic\n&2 Same torus\n&3 Same circle\n&4 Other torus\n&5 Other circle\n&6 Same torus, other circle", 1)
+	if mode == 1
+		call wheel#pendulum#alternate ()
+	elseif mode == 2
+		call wheel#pendulum#alternate_same_torus ()
+	elseif mode == 3
+		call wheel#pendulum#alternate_same_circle ()
+	elseif mode == 4
+		call wheel#pendulum#alternate_other_torus ()
+	elseif mode == 5
+		call wheel#pendulum#alternate_other_circle ()
+	elseif mode == 6
+		call wheel#pendulum#alternate_same_torus_other_circle ()
+	endif
+endfun

@@ -54,6 +54,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-alternate-same-circle) :call wheel#pendulum#alternate_same_circle()<cr>
 	nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate_other_torus()<cr>
 	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate_other_circle()<cr>
+	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate_menu()<cr>
 	" Navigation
 	nnoremap <plug>(wheel-navigation-location) :call wheel#sailing#switch('location')<cr>
 	nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>
@@ -183,7 +184,7 @@ fun! wheel#centre#cables ()
 		" History
 		exe 'nmap ' . prefix . '<pageup> <plug>(wheel-history-newer)'
 		exe 'nmap ' . prefix . '<pagedown> <plug>(wheel-history-older)'
-		exe 'nmap ' . prefix . '^ <plug>(wheel-history-alternate)'
+		exe 'nmap ' . prefix . '^ <plug>(wheel-alternate-menu)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
