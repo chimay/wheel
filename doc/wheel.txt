@@ -224,11 +224,10 @@ You can also switch location, circle or torus by chosing it in |wheel-special-bu
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
 
-Over time, the number of circles will grow. Completion is great, but
-if you just want to alternate the two last circles in history, you’ll
-probably prefer `<M-w>^`.
-
-The main menu offers you these alternate variants :
+Over time, the number of circles will grow. Completion is great,
+but if you just want to alternate the two last locations in history,
+you’ll probably prefer `<M-w>^`. A  menu will appear and offer you
+these alternate variants :
 
 - Alternate anywhere
 - Alternate in the same circle
@@ -236,6 +235,12 @@ The main menu offers you these alternate variants :
 - Alternate in another circle
 - Alternate in another torus
 - Alternate in same torus but another circle
+
+You can also use the meta or main menu.
+
+I strongly suggest you map a convenient key, like `<C-^>`, to
+`<plug>(wheel-alternate-anywhere)`, it’s one of the most often binding
+you will use. See |wheel-mappings-level-10| for more informations.
 
 A common case is to alternate two files in the same circle, and two
 circles in the same torus. So, you have the square :
@@ -1306,7 +1311,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <S-PageUp>     <plug>(wheel-history-newer)
     nmap <S-PageDown>   <plug>(wheel-history-older)
     " Alternate
-    nmap <C-^>          <plug>(wheel-alternate)
+    nmap <C-^>          <plug>(wheel-alternate-anywhere)
     nmap <D-^>          <plug>(wheel-alternate-same-torus-other-circle)
     nmap <C-S-PageUp>   <plug>(wheel-alternate-same-torus)
     nmap <C-S-PageDown> <plug>(wheel-alternate-same-circle)

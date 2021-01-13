@@ -55,8 +55,6 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate_other_torus()<cr>
 	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate_other_circle()<cr>
 	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate()<cr>
-	" Default alternate
-	nnoremap <plug>(wheel-alternate) :call wheel#pendulum#alternate_anywhere()<cr>
 	" Navigation
 	nnoremap <plug>(wheel-navigation-location) :call wheel#sailing#switch('location')<cr>
 	nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>
@@ -258,7 +256,7 @@ fun! wheel#centre#cables ()
 		nmap <S-PageUp>     <plug>(wheel-history-newer)
 		nmap <S-PageDown>   <plug>(wheel-history-older)
 		" Alternate
-		nmap <C-^>          <plug>(wheel-alternate)
+		nmap <C-^>          <plug>(wheel-alternate-anywhere)
 		nmap <D-^>          <plug>(wheel-alternate-same-torus-other-circle)
 		nmap <C-S-PageUp>   <plug>(wheel-alternate-same-torus)
 		nmap <C-S-PageDown> <plug>(wheel-alternate-same-circle)
