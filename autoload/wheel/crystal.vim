@@ -136,7 +136,7 @@ endif
 
 if ! exists('s:menu_alternate')
 	let s:menu_alternate = {
-				\ 'Alternate anywhere' : 'wheel#pendulum#alternate',
+				\ 'Alternate anywhere' : 'wheel#pendulum#alternate_anywhere',
 				\ 'Alternate in same torus' : 'wheel#pendulum#alternate_same_torus',
 				\ 'Alternate in same circle' : 'wheel#pendulum#alternate_same_circle',
 				\ 'Alternate in other torus' : 'wheel#pendulum#alternate_other_torus',

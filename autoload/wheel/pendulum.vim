@@ -133,7 +133,7 @@ fun! wheel#pendulum#older ()
 	call wheel#vortex#jump ()
 endfun
 
-fun! wheel#pendulum#alternate ()
+fun! wheel#pendulum#alternate_anywhere ()
 	" Alternate last two entries in history
 	" If not in current location file, just jump to it
 	if wheel#referen#location_matches_file ()
@@ -252,11 +252,11 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 	call wheel#vortex#jump ()
 endfun
 
-fun! wheel#pendulum#alternate_menu ()
+fun! wheel#pendulum#alternate ()
 	let prompt = 'Alternate mode ? '
-	let mode = confirm(prompt, "&1 Generic\n&2 Same torus\n&3 Same circle\n&4 Other torus\n&5 Other circle\n&6 Same torus, other circle", 1)
+	let mode = confirm(prompt, "&1 Anywhere\n&2 Same torus\n&3 Same circle\n&4 Other torus\n&5 Other circle\n&6 Same torus, other circle", 1)
 	if mode == 1
-		call wheel#pendulum#alternate ()
+		call wheel#pendulum#alternate_anywhere ()
 	elseif mode == 2
 		call wheel#pendulum#alternate_same_torus ()
 	elseif mode == 3

@@ -48,13 +48,15 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-history-newer) :call wheel#pendulum#newer()<cr>
 	nnoremap <plug>(wheel-history-older) :call wheel#pendulum#older()<cr>
 	" Alternate
-	nnoremap <plug>(wheel-alternate) :call wheel#pendulum#alternate()<cr>
+	nnoremap <plug>(wheel-alternate-anywhere) :call wheel#pendulum#alternate_anywhere()<cr>
 	nnoremap <plug>(wheel-alternate-same-torus-other-circle) :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
 	nnoremap <plug>(wheel-alternate-same-torus) :call wheel#pendulum#alternate_same_torus()<cr>
 	nnoremap <plug>(wheel-alternate-same-circle) :call wheel#pendulum#alternate_same_circle()<cr>
 	nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate_other_torus()<cr>
 	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate_other_circle()<cr>
-	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate_menu()<cr>
+	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate()<cr>
+	" Default alternate
+	nnoremap <plug>(wheel-alternate) :call wheel#pendulum#alternate_anywhere()<cr>
 	" Navigation
 	nnoremap <plug>(wheel-navigation-location) :call wheel#sailing#switch('location')<cr>
 	nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>
