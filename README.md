@@ -92,8 +92,9 @@ your groups will grow and adapt to your style.
   + A file in more than one group
   + file:line-1 and file:line-2 in the same group
 - May be saved in wheel file (recommended)
+- On demand loading of files
+  + No slowdown of (neo)vim start
 - Easy navigation
-  + On demand loading of files
   + Switch to matching tab & window if available
   + Next / Previous location, circle or torus
   + Choose file, group or category in special buffer
