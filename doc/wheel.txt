@@ -326,6 +326,8 @@ Wheel manages a special buffers stack. You can :
 - Cycle the special buffers with `<M-w>@`
 - Remove the current special buffer with `<M-w><Backspace>`
 
+This way, you can save a special buffer in case you need it later.
+
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menus*
 
