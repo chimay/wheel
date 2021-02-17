@@ -103,6 +103,7 @@ your groups will grow and adapt to your style.
     * Context menus
   + Auto |:lcd| to project root of current file
 - Search files
+  + Opened buffers
   + MRU files not found in wheel
   + Using locate
   + Using find
