@@ -123,6 +123,7 @@ if ! exists('s:menu_navigation')
 				\ 'Go to circle in index' : 'wheel#sailing#grid',
 				\ 'Go to element in wheel tree' : 'wheel#sailing#tree',
 				\ 'Go to location in history' : 'wheel#sailing#history',
+				\ 'Go to opened file (buffer)' : 'wheel#sailing#opened_files',
 				\ 'Go to matching line (occur)' : 'wheel#sailing#occur',
 				\ 'Go to grep result' : 'wheel#sailing#grep()',
 				\ 'Go to outline result' : 'wheel#sailing#outline()',
