@@ -411,7 +411,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>x`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
-- `<M-w>b`         : switch to buffer (opened file)
+- `<M-w><M-b>`     : switch to buffer (opened file)
 - `<M-w><M-o>`     : occur in current file
 - `<M-w><M-g>`     : grep in circle files
 - `<M-w>#`         : outline headers in circle files
@@ -1058,8 +1058,8 @@ Add~
 | <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
 | A          | <M-w>A                | Add torus to the wheel             |
 | ---------- | --------------------- | ---------------------------------- |
-| f          | <M-w>F                | Add file                           |
-| B          | <M-w>B                | Add buffer                         |
+| f          | <M-w>f                | Add file                           |
+| b          | <M-w>b                | Add buffer                         |
 
 Next / previous~
 
@@ -1151,9 +1151,10 @@ Search for files~
 
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
+| <M-b>    | <M-w><M-b>          | Opened files (buffers)                      |
 | <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel |
 | <M-l>    | <M-w><M-l>          | Search files with locate                    |
-| f        | <M-w>f              | Search files with find in async mode        |
+| <M-f>    | <M-w><M-f>          | Search files with find in async mode        |
 
 Batch command~
 
@@ -1265,7 +1266,6 @@ and add them to your init file.
 | <M-x>          | Choose element in wheel folding tree        |
 | <D-x>          | Index of toruses > circles > locations      |
 | <M-h>          | History index                               |
-| <M-b>          | Buffers (opened files)                      |
 | -------------- | ------------------------------------------- |
 | <M-s>          | Occur in current file                       |
 | <M-g>          | Grep in current circle files                |
@@ -1274,6 +1274,7 @@ and add them to your init file.
 | <M-j>          | Jumps                                       |
 | <M-c>          | Changes                                     |
 | -------------- | ------------------------------------------- |
+| <M-b>          | Buffers (opened files)                      |
 | <M-u>          | Most Recently Used files not found in wheel |
 | <M-l>          | Locate                                      |
 | <M-f>          | Find                                        |

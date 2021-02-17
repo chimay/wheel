@@ -141,8 +141,8 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . 'a <plug>(wheel-add-here)'
 		exe 'nmap ' . prefix . '<c-a> <plug>(wheel-add-circle)'
 		exe 'nmap ' . prefix . 'A <plug>(wheel-add-torus)'
-		exe 'nmap ' . prefix . 'F <plug>(wheel-add-file)'
-		exe 'nmap ' . prefix . 'B <plug>(wheel-add-buffer)'
+		exe 'nmap ' . prefix . 'f <plug>(wheel-add-file)'
+		exe 'nmap ' . prefix . 'b <plug>(wheel-add-buffer)'
 		" Next / Previous
 		exe 'nmap ' . prefix . '<left> <plug>(wheel-previous-location)'
 		exe 'nmap ' . prefix . '<right> <plug>(wheel-next-location)'
@@ -164,13 +164,11 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . 'x <plug>(wheel-index-locations)'
 		exe 'nmap ' . prefix . '<c-x> <plug>(wheel-index-circles)'
 		exe 'nmap ' . prefix . '<m-x> <plug>(wheel-tree)'
-		" Opened files
-		exe 'nmap ' . prefix . 'b <plug>(wheel-opened-files)'
 		" History
 		exe 'nmap ' . prefix . 'h <plug>(wheel-history)'
 		" Reorder
 		exe 'nmap ' . prefix . 'o <plug>(wheel-reorder-location)'
-		exe 'nmap ' . prefix . '<C-o> <plug>(wheel-reorder-circle)'
+		exe 'nmap ' . prefix . '<c-o> <plug>(wheel-reorder-circle)'
 		exe 'nmap ' . prefix . 'O <plug>(wheel-reorder-torus)'
 		" Rename
 		exe 'nmap ' . prefix . 'n <plug>(wheel-rename-location)'
@@ -193,23 +191,24 @@ fun! wheel#centre#cables ()
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Search inside files
-		exe 'nmap ' . prefix . '<M-o> <plug>(wheel-occur)'
-		exe 'nmap ' . prefix . '<M-g> <plug>(wheel-grep)'
+		exe 'nmap ' . prefix . '<m-o> <plug>(wheel-occur)'
+		exe 'nmap ' . prefix . '<m-g> <plug>(wheel-grep)'
 		exe 'nmap ' . prefix . '# <plug>(wheel-outline)'
-		exe 'nmap ' . prefix . '<M-t> <plug>(wheel-tags)'
+		exe 'nmap ' . prefix . '<m-t> <plug>(wheel-tags)'
 		exe 'nmap ' . prefix . 'j <plug>(wheel-jumps)'
 		exe 'nmap ' . prefix . 'c <plug>(wheel-changes)'
 		" Search for files
-		exe 'nmap ' . prefix . '<M-m> <plug>(wheel-mru)'
-		exe 'nmap ' . prefix . '<M-l> <plug>(wheel-locate)'
-		exe 'nmap ' . prefix . 'f <plug>(wheel-find)'
+		exe 'nmap ' . prefix . '<m-b> <plug>(wheel-opened-files)'
+		exe 'nmap ' . prefix . '<m-m> <plug>(wheel-mru)'
+		exe 'nmap ' . prefix . '<m-l> <plug>(wheel-locate)'
+		exe 'nmap ' . prefix . '<m-f> <plug>(wheel-find)'
 		" Batch
-		exe 'nmap ' . prefix . '<M-b> <plug>(wheel-batch)'
+		exe 'nmap ' . prefix . '<c-b> <plug>(wheel-batch)'
 		" Yank wheel
 		exe 'nmap ' . prefix . 'y <plug>(wheel-yank-list)'
-		exe 'nmap ' . prefix . '<M-y> <plug>(wheel-yank-plain)'
+		exe 'nmap ' . prefix . '<m-y> <plug>(wheel-yank-plain)'
 		" Reorganize
-		exe 'nmap ' . prefix . '<M-r> <plug>(wheel-reorganize)'
+		exe 'nmap ' . prefix . '<m-r> <plug>(wheel-reorganize)'
 		" Save (push) wheel buffer
 		exe 'nmap ' . prefix . '<tab> <plug>(wheel-buffer-push)'
 		" Remove (pop) wheel buffer
@@ -244,69 +243,69 @@ fun! wheel#centre#cables ()
 	" Without prefix
 	if g:wheel_config.mappings >= 10
 		" Menus
-		nmap <M-m>        <plug>(wheel-menu-main)
-		nmap <M-=>        <plug>(wheel-menu-meta)
+		nmap <m-m>        <plug>(wheel-menu-main)
+		nmap <m-=>        <plug>(wheel-menu-meta)
 		" Add, Delete
-		nmap <M-Insert>   <plug>(wheel-add-here)
-		nmap <M-Del>      <plug>(wheel-delete-location)
+		nmap <m-insert>   <plug>(wheel-add-here)
+		nmap <m-del>      <plug>(wheel-delete-location)
 		" Next / Previous
-		nmap <C-PageUp>   <plug>(wheel-previous-location)
-		nmap <C-PageDown> <plug>(wheel-next-location)
-		nmap <C-Home>     <plug>(wheel-previous-circle)
-		nmap <C-End>      <plug>(wheel-next-circle)
-		nmap <S-Home>     <plug>(wheel-previous-torus)
-		nmap <S-End>      <plug>(wheel-next-torus)
+		nmap <c-pageup>   <plug>(wheel-previous-location)
+		nmap <c-pagedown> <plug>(wheel-next-location)
+		nmap <c-home>     <plug>(wheel-previous-circle)
+		nmap <c-end>      <plug>(wheel-next-circle)
+		nmap <s-home>     <plug>(wheel-previous-torus)
+		nmap <s-end>      <plug>(wheel-next-torus)
 		" History
-		nmap <S-PageUp>     <plug>(wheel-history-newer)
-		nmap <S-PageDown>   <plug>(wheel-history-older)
+		nmap <s-pageup>     <plug>(wheel-history-newer)
+		nmap <s-pagedown>   <plug>(wheel-history-older)
 		" Alternate
-		nmap <C-^>          <plug>(wheel-alternate-anywhere)
-		nmap <D-^>          <plug>(wheel-alternate-same-torus-other-circle)
-		nmap <C-S-PageUp>   <plug>(wheel-alternate-same-torus)
-		nmap <C-S-PageDown> <plug>(wheel-alternate-same-circle)
-		nmap <C-S-Home>     <plug>(wheel-alternate-other-torus)
-		nmap <C-S-End>      <plug>(wheel-alternate-other-circle)
+		nmap <c-^>          <plug>(wheel-alternate-anywhere)
+		nmap <d-^>          <plug>(wheel-alternate-same-torus-other-circle)
+		nmap <c-s-pageup>   <plug>(wheel-alternate-same-torus)
+		nmap <c-s-pagedown> <plug>(wheel-alternate-same-circle)
+		nmap <c-s-home>     <plug>(wheel-alternate-other-torus)
+		nmap <c-s-end>      <plug>(wheel-alternate-other-circle)
 		" Navigation buffers
-		nmap <Space>      <plug>(wheel-navigation-location)
-		nmap <C-Space>    <plug>(wheel-navigation-circle)
-		nmap <S-Space>    <plug>(wheel-navigation-torus)
-		nmap <M-x>        <plug>(wheel-tree)
-		nmap <D-x>        <plug>(wheel-index-locations)
-		nmap <M-h>        <plug>(wheel-history)
+		nmap <space>      <plug>(wheel-navigation-location)
+		nmap <c-space>    <plug>(wheel-navigation-circle)
+		nmap <s-space>    <plug>(wheel-navigation-torus)
+		nmap <m-x>        <plug>(wheel-tree)
+		nmap <d-x>        <plug>(wheel-index-locations)
+		nmap <m-h>        <plug>(wheel-history)
 		" Opened files
-		nmap <M-b>          <plug>(wheel-opened-files)
+		nmap <m-b>          <plug>(wheel-opened-files)
 		" Search inside files
-		nmap <M-s>          <plug>(wheel-occur)
-		nmap <M-g>          <plug>(wheel-grep)
-		nmap <M-o>          <plug>(wheel-outline)
-		nmap <M-t>          <plug>(wheel-tags)
-		nmap <M-j>          <plug>(wheel-jumps)
-		nmap <M-c>          <plug>(wheel-changes)
+		nmap <m-s>          <plug>(wheel-occur)
+		nmap <m-g>          <plug>(wheel-grep)
+		nmap <m-o>          <plug>(wheel-outline)
+		nmap <m-t>          <plug>(wheel-tags)
+		nmap <m-j>          <plug>(wheel-jumps)
+		nmap <m-c>          <plug>(wheel-changes)
 		" Search for files
-		nmap <M-u>          <plug>(wheel-mru)
-		nmap <M-l>          <plug>(wheel-locate)
-		nmap <M-f>          <plug>(wheel-find)
+		nmap <m-u>          <plug>(wheel-mru)
+		nmap <m-l>          <plug>(wheel-locate)
+		nmap <m-f>          <plug>(wheel-find)
 		" Reshaping buffers
-		nmap <M-r>          <plug>(wheel-reorganize)
+		nmap <m-r>          <plug>(wheel-reorganize)
 		" Yank
-		nmap <M-y>          <plug>(wheel-yank-list)
-		nmap <M-p>          <plug>(wheel-yank-plain)
+		nmap <m-y>          <plug>(wheel-yank-list)
+		nmap <m-p>          <plug>(wheel-yank-plain)
 		" Batch
-		nmap <M-B>          <plug>(wheel-batch)
+		nmap <m-B>          <plug>(wheel-batch)
 		" Windows
-		nmap <M-z>          <plug>(wheel-zoom)
-		nmap <M-Home>       <plug>(wheel-tabs-locations)
-		nmap <M-End>        <plug>(wheel-mainleft-locations)
-		nmap <M-&>          <plug>(wheel-tabnwin-circle)
+		nmap <m-z>          <plug>(wheel-zoom)
+		nmap <m-home>       <plug>(wheel-tabs-locations)
+		nmap <m-end>        <plug>(wheel-mainleft-locations)
+		nmap <m-&>          <plug>(wheel-tabnwin-circle)
 		" Rotate windows
-		nmap <M-PageUp>     <plug>(wheel-rotate-counter-clockwise)
-		nmap <M-PageDown>   <plug>(wheel-rotate-clockwise)
+		nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
+		nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
 		" Save (push) wheel buffer
-		nmap <M-Tab>        <plug>(wheel-buffer-push)
+		nmap <m-Tab>        <plug>(wheel-buffer-push)
 		" Remove (pop) wheel buffer
-		nmap <M-Backspace>  <plug>(wheel-buffer-pop)
+		nmap <m-Backspace>  <plug>(wheel-buffer-pop)
 		" Cycle wheel buffers
-		nmap <M-Space>      <plug>(wheel-buffer-cycle)
+		nmap <m-space>      <plug>(wheel-buffer-cycle)
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
