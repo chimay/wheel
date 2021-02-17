@@ -283,6 +283,14 @@ if ! exists('s:context_sailing')
 	lockvar s:context_sailing
 endif
 
+if ! exists('s:context_openedFiles')
+	let s:context_openedFiles = {
+				\ 'Delete buffer' : "wheel#boomerang#opened_files('delete')",
+				\}
+	call extend(s:context_openedFiles, s:context_sailing)
+	lockvar s:context_openedFiles
+endif
+
 if ! exists('s:context_grep')
 	let s:context_grep = {
 				\ 'Open quickfix' : "wheel#boomerang#grep('quickfix')",

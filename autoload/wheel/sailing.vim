@@ -151,6 +151,8 @@ fun! wheel#sailing#opened_files ()
 	let settings = {'action' : function('wheel#line#opened_files')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
+	" Context menu
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('openedFiles')<cr>
 endfun
 
 fun! wheel#sailing#occur (...)

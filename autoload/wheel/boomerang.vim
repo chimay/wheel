@@ -2,6 +2,15 @@
 
 " Context menus, acting back on a wheel buffer
 
+" Script vars
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
+" Sync buffer variables & top of stack
+
 fun! wheel#boomerang#sync ()
 	" Sync buffer variables with top of stack
 	" Selection
@@ -75,6 +84,23 @@ fun! wheel#boomerang#sailing (action)
 		return v:true
 	endif
 	return v:false
+endfun
+
+fun! wheel#boomerang#opened_files (action)
+	" Opened files (buffers) actions
+	let action = a:action
+	if wheel#boomerang#sailing (action)
+		return
+	endif
+	if action == 'delete'
+		" Delete selected buffer(s)
+		for elem in b:wheel_selected
+			let fields = split(elem, s:field_separ)
+			let bufnum = fields[0]
+			execute 'bdelete ' . bufnum
+		endfor
+		call wheel#mandala#close ()
+	endif
 endfun
 
 fun! wheel#boomerang#grep (action)

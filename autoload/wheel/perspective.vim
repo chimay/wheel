@@ -259,15 +259,15 @@ fun! wheel#perspective#opened_files ()
 		let elem = buffers[index]
 		let fields = split(elem)
 		let bufnum = str2nr(fields[0])
-		let filename = expand(fields[2])
-		let is_wheel_buf = exists('g:wheel_shelve') &&
-					\ has_key(g:wheel_shelve, 'buffers') &&
+		let linum = str2nr(fields[-1])
+		let filename = expand(join(fields[2:-3]))[1:-2]
+		let is_wheel_buf = has_key(g:wheel_shelve, 'buffers') &&
 					\ index(g:wheel_shelve.buffers, bufnum) >= 0
-		let is_wo_name = filename =~ '\m^"\['
-		if ! is_wheel_buf && ! is_wo_name
-			let fields = [fields[0]] + [fields[4]] + [fields[2][1:-2]]
-			let formatted = join(fields, s:field_separ)
-			call add(lines, formatted)
+		let is_without_name = filename =~ '\m^\[.*\]'
+		if ! is_wheel_buf && ! is_without_name
+			let oneline = [bufnum, linum, filename]
+			let record = join(oneline, s:field_separ)
+			call add(lines, record)
 		endif
 	endfor
 	return lines
