@@ -147,7 +147,7 @@ plugin for Vim
 
 - [Unite](https://github.com/Shougo/unite.vim) and its successor
 [Denite](https://github.com/Shougo/denite.nvim), a search plugin for
-arbitray sources
+arbitrary sources
 
 - [Torus](https://github.com/chimay/torus), a similar plugin for Emacs,
 itself inspired by MTorus
