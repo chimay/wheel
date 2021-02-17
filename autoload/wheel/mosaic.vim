@@ -144,6 +144,9 @@ fun! wheel#mosaic#rowcol (level)
 	let upper = wheel#referen#upper (a:level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
+	if length == 0
+		return
+	endif
 	while v:true
 		let course = round(cols) / round(rows)
 		if course > ratio && (cols - 1) * rows >= length
@@ -186,6 +189,9 @@ fun! wheel#mosaic#tabs (level)
 	let g:wheel_shelve.layout.tabnames = glossary[:maxtabs - 1]
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
+	if length == 0
+		return
+	endif
 	call wheel#vortex#jump ('new')
 	for index in range(min([maxtabs - 1, length - 1]))
 		tabnew
@@ -219,6 +225,9 @@ fun! wheel#mosaic#split (level, ...)
 	let upper_level = wheel#referen#upper_level_name (level)
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)
+	if length == 0
+		return
+	endif
 	call wheel#vortex#jump ('new')
 	for index in range(length - 1)
 		let alright = wheel#mosaic#{action} (settings)
