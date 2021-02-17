@@ -1057,7 +1057,7 @@ Add~
 | <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
 | A          | <M-w>A                | Add torus to the wheel             |
 | ---------- | --------------------- | ---------------------------------- |
-| f          | <M-w>f                | Add file                           |
+| f          | <M-w>F                | Add file                           |
 | B          | <M-w>B                | Add buffer                         |
 
 Next / previous~
@@ -1139,10 +1139,10 @@ Search inside files~
 
 | Prefix + | With default prefix | Action                               |
 | -------- | ------------------- | ------------------------------------ |
-| :        | <M-w>:              | Matching lines in current file       |
-| *        | <M-w>*              | Search in circle files with grep     |
+| <M-o>    | <M-w><M-o>          | Matching lines in current file       |
+| <M-g>    | <M-w><M-g>          | Search in circle files with grep     |
 | #        | <M-w>#              | Outline : folds, markdown, org mode  |
-| %        | <M-w>%              | Tags                                 |
+| <M-t>    | <M-w><M-t>          | Tags                                 |
 | j        | <M-w>j              | Jumps                                |
 | c        | <M-w>c              | Changes                              |
 
@@ -1348,7 +1348,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <M-y>          <plug>(wheel-yank-list)
     nmap <M-p>          <plug>(wheel-yank-plain)
     " Batch
-    nmap <M-b>          <plug>(wheel-batch)
+    nmap <M-B>          <plug>(wheel-batch)
     " Windows
     nmap <M-z>          <plug>(wheel-zoom)
     nmap <M-Home>       <plug>(wheel-tabs-locations)
