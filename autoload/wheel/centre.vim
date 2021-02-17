@@ -63,6 +63,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-index-locations) :call wheel#sailing#helix()<cr>
 	nnoremap <plug>(wheel-index-circles) :call wheel#sailing#grid()<cr>
 	nnoremap <plug>(wheel-tree) :call wheel#sailing#tree()<cr>
+	" Opened files
+	nnoremap <plug>(wheel-opened-files) :call wheel#sailing#opened_files()<cr>
 	"History
 	nnoremap <plug>(wheel-history) :call wheel#sailing#history()<cr>
 	" Search inside files
@@ -139,8 +141,8 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . 'a <plug>(wheel-add-here)'
 		exe 'nmap ' . prefix . '<c-a> <plug>(wheel-add-circle)'
 		exe 'nmap ' . prefix . 'A <plug>(wheel-add-torus)'
-		exe 'nmap ' . prefix . 'f <plug>(wheel-add-file)'
-		exe 'nmap ' . prefix . 'b <plug>(wheel-add-buffer)'
+		exe 'nmap ' . prefix . 'F <plug>(wheel-add-file)'
+		exe 'nmap ' . prefix . 'B <plug>(wheel-add-buffer)'
 		" Next / Previous
 		exe 'nmap ' . prefix . '<left> <plug>(wheel-previous-location)'
 		exe 'nmap ' . prefix . '<right> <plug>(wheel-next-location)'
@@ -162,7 +164,9 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . 'x <plug>(wheel-index-locations)'
 		exe 'nmap ' . prefix . '<c-x> <plug>(wheel-index-circles)'
 		exe 'nmap ' . prefix . '<m-x> <plug>(wheel-tree)'
-		"History
+		" Opened files
+		exe 'nmap ' . prefix . 'b <plug>(wheel-opened-files)'
+		" History
 		exe 'nmap ' . prefix . 'h <plug>(wheel-history)'
 		" Reorder
 		exe 'nmap ' . prefix . 'o <plug>(wheel-reorder-location)'
@@ -189,23 +193,23 @@ fun! wheel#centre#cables ()
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Search inside files
-		exe 'nmap ' . prefix . ': <plug>(wheel-occur)'
-		exe 'nmap ' . prefix . '* <plug>(wheel-grep)'
+		exe 'nmap ' . prefix . '<M-o> <plug>(wheel-occur)'
+		exe 'nmap ' . prefix . '<M-g> <plug>(wheel-grep)'
 		exe 'nmap ' . prefix . '# <plug>(wheel-outline)'
-		exe 'nmap ' . prefix . '% <plug>(wheel-tags)'
+		exe 'nmap ' . prefix . '<M-t> <plug>(wheel-tags)'
 		exe 'nmap ' . prefix . 'j <plug>(wheel-jumps)'
 		exe 'nmap ' . prefix . 'c <plug>(wheel-changes)'
 		" Search for files
-		exe 'nmap ' . prefix . '? <plug>(wheel-mru)'
-		exe 'nmap ' . prefix . '/ <plug>(wheel-locate)'
-		exe 'nmap ' . prefix . '& <plug>(wheel-find)'
+		exe 'nmap ' . prefix . '<M-m> <plug>(wheel-mru)'
+		exe 'nmap ' . prefix . '<M-l> <plug>(wheel-locate)'
+		exe 'nmap ' . prefix . 'f <plug>(wheel-find)'
 		" Batch
-		exe 'nmap ' . prefix . '<m-b> <plug>(wheel-batch)'
+		exe 'nmap ' . prefix . '<M-b> <plug>(wheel-batch)'
 		" Yank wheel
 		exe 'nmap ' . prefix . 'y <plug>(wheel-yank-list)'
-		exe 'nmap ' . prefix . '<m-y> <plug>(wheel-yank-plain)'
+		exe 'nmap ' . prefix . '<M-y> <plug>(wheel-yank-plain)'
 		" Reorganize
-		exe 'nmap ' . prefix . '<m-o> <plug>(wheel-reorganize)'
+		exe 'nmap ' . prefix . '<M-r> <plug>(wheel-reorganize)'
 		" Save (push) wheel buffer
 		exe 'nmap ' . prefix . '<tab> <plug>(wheel-buffer-push)'
 		" Remove (pop) wheel buffer
@@ -269,6 +273,8 @@ fun! wheel#centre#cables ()
 		nmap <M-x>        <plug>(wheel-tree)
 		nmap <D-x>        <plug>(wheel-index-locations)
 		nmap <M-h>        <plug>(wheel-history)
+		" Opened files
+		nmap <M-b>          <plug>(wheel-opened-files)
 		" Search inside files
 		nmap <M-s>          <plug>(wheel-occur)
 		nmap <M-g>          <plug>(wheel-grep)
@@ -286,7 +292,7 @@ fun! wheel#centre#cables ()
 		nmap <M-y>          <plug>(wheel-yank-list)
 		nmap <M-p>          <plug>(wheel-yank-plain)
 		" Batch
-		nmap <M-b>          <plug>(wheel-batch)
+		nmap <M-B>          <plug>(wheel-batch)
 		" Windows
 		nmap <M-z>          <plug>(wheel-zoom)
 		nmap <M-Home>       <plug>(wheel-tabs-locations)

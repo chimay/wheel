@@ -442,6 +442,22 @@ fun! wheel#line#history (settings)
 	call wheel#vortex#jump (a:settings.use)
 endfun
 
+fun! wheel#line#opened_files (settings)
+	" Go to opened file given by selected
+	let fields = split(a:settings.selected, s:field_separ)
+	let bufnum = fields[0]
+	let filename = expand(fields[2])
+	let filename = fnamemodify(filename, ':p')
+	let coordin = wheel#projection#closest ('wheel', filename)
+	if len(coordin) > 0
+		call wheel#vortex#chord (coordin)
+		call wheel#line#target (a:settings.target)
+		call wheel#vortex#jump ()
+	else
+		exe 'buffer ' bufnum
+	endif
+endfun
+
 fun! wheel#line#occur (settings)
 	" Go to line given by selected
 	let fields = split(a:settings.selected, s:field_separ)

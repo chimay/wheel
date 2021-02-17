@@ -142,6 +142,17 @@ fun! wheel#sailing#history ()
 	call wheel#sailing#generic('history')
 endfun
 
+fun! wheel#sailing#opened_files ()
+	" Opened files
+	" To be run before opening the wheel buffer
+	let lines = wheel#perspective#opened_files ()
+	" Wheel buffer
+	call wheel#mandala#open ('wheel-opened-files')
+	let settings = {'action' : function('wheel#line#opened_files')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+endfun
+
 fun! wheel#sailing#occur (...)
 	" Lines matching pattern
 	if a:0 > 0

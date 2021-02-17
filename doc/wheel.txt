@@ -410,13 +410,14 @@ The default mappings launching navigation buffers are :
 - `<M-w>x`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
-- `<M-w>:`         : occur in current file
-- `<M-w>*`         : grep in circle files
+- `<M-w>b`         : switch to buffer (opened file)
+- `<M-w><M-o>`     : occur in current file
+- `<M-w><M-g>`     : grep in circle files
 - `<M-w>#`         : outline headers in circle files
-- `<M-w>t`         : tags
-- `<M-w>?`         : most recently used files not found in wheel (mru)
-- `<M-w>/`         : search files with `locate`
-- `<M-w>&`         : search files with `find` in async mode
+- `<M-w><M-t>`     : tags
+- `<M-w><M-m>`     : most recently used files not found in wheel (mru)
+- `<M-w><M-l>`     : search files with `locate`
+- `<M-w>f`         : search files with `find` in async mode
 
 Menus~
 
@@ -1057,7 +1058,7 @@ Add~
 | A          | <M-w>A                | Add torus to the wheel             |
 | ---------- | --------------------- | ---------------------------------- |
 | f          | <M-w>f                | Add file                           |
-| b          | <M-w>b                | Add buffer                         |
+| B          | <M-w>B                | Add buffer                         |
 
 Next / previous~
 
@@ -1149,9 +1150,9 @@ Search for files~
 
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
-| ?        | <M-w>?              | Most recently used files not found in wheel |
-| /        | <M-w>/              | Search files with locate                    |
-| &        | <M-w>&              | Search files with find in async mode        |
+| <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel |
+| <M-l>    | <M-w><M-l>          | Search files with locate                    |
+| f        | <M-w>f              | Search files with find in async mode        |
 
 Batch command~
 
@@ -1170,7 +1171,7 @@ Reorganizing buffer~
 
 | Prefix + | With default prefix | Action                    |
 | -------- | ------------------- | ------------------------- |
-| <M-o>    | <M-w><M-o>          | Reorganize wheel elements |
+| <M-r>    | <M-w><M-r>          | Reorganize wheel elements |
 
 Managing special buffers~
 
@@ -1263,6 +1264,7 @@ and add them to your init file.
 | <M-x>          | Choose element in wheel folding tree        |
 | <D-x>          | Index of toruses > circles > locations      |
 | <M-h>          | History index                               |
+| <M-b>          | Buffers (opened files)                      |
 | -------------- | ------------------------------------------- |
 | <M-s>          | Occur in current file                       |
 | <M-g>          | Grep in current circle files                |
@@ -1280,7 +1282,7 @@ and add them to your init file.
 | <M-y>          | Paste yank wheel element in list mode       |
 | <M-p>          | Paste yank wheel element in plain mode      |
 | -------------- | ------------------------------------------- |
-| <M-b>          | Batch command in current circle files       |
+| <M-B>          | Batch command in current circle files       |
 | -------------- | ------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                  |
 | <M-Home>       | One location per tab                        |
@@ -1327,6 +1329,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <M-x>        <plug>(wheel-tree)
     nmap <D-x>        <plug>(wheel-index-locations)
     nmap <M-h>        <plug>(wheel-history)
+    " Opened files
+    nmap <M-b>          <plug>(wheel-opened-files)
     " Search inside files
     nmap <M-s>          <plug>(wheel-occur)
     nmap <M-g>          <plug>(wheel-grep)

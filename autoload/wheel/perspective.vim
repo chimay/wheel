@@ -249,6 +249,30 @@ endfun
 
 " From nowhere
 
+fun! wheel#perspective#opened_files ()
+	" Opened files
+	let buffers = execute('buffers')
+	let buffers = split(buffers, "\n")
+	let length = len(buffers)
+	let lines = []
+	for index in range(length)
+		let elem = buffers[index]
+		let fields = split(elem)
+		let bufnum = str2nr(fields[0])
+		let filename = expand(fields[2])
+		let is_wheel_buf = exists('g:wheel_shelve') &&
+					\ has_key(g:wheel_shelve, 'buffers') &&
+					\ index(g:wheel_shelve.buffers, bufnum) >= 0
+		let is_wo_name = filename =~ '\m^"\['
+		if ! is_wheel_buf && ! is_wo_name
+			let fields = [fields[0]] + [fields[4]] + [fields[2][1:-2]]
+			let formatted = join(fields, s:field_separ)
+			call add(lines, formatted)
+		endif
+	endfor
+	return lines
+endfun
+
 fun! wheel#perspective#occur (pattern)
 	" Occur for wheel buffer
 	let pattern = a:pattern
