@@ -273,6 +273,8 @@ endfun
 
 " Navigation
 
+" Generic function
+
 fun! wheel#line#sailing (settings)
 	" Go to element(s) on current or selected line(s)
 	" settings keys :
@@ -356,6 +358,8 @@ fun! wheel#line#sailing (settings)
 		call wheel#gear#restore_cursor (position)
 	endif
 endfun
+
+" Applications of wheel#line#sailing
 
 fun! wheel#line#switch (settings)
 	" Switch to settings.selected element in wheel
@@ -444,17 +448,25 @@ endfun
 
 fun! wheel#line#opened_files (settings)
 	" Go to opened file given by selected
-	let fields = split(a:settings.selected, s:field_separ)
-	let bufnum = fields[0]
-	let filename = expand(fields[2])
-	let filename = fnamemodify(filename, ':p')
-	let coordin = wheel#projection#closest ('wheel', filename)
-	if len(coordin) > 0
-		call wheel#vortex#chord (coordin)
-		call wheel#line#target (a:settings.target)
-		call wheel#vortex#jump ()
-	else
-		exe 'buffer ' bufnum
+	let settings = a:settings
+	if ! has_key(settings, 'context_action') || settings.context_action == 'sailing'
+		let fields = split(settings.selected, s:field_separ)
+		let bufnum = fields[0]
+		let filename = expand(fields[2])
+		let filename = fnamemodify(filename, ':p')
+		let coordin = wheel#projection#closest ('wheel', filename)
+		if len(coordin) > 0
+			call wheel#vortex#chord (coordin)
+			call wheel#line#target (settings.target)
+			call wheel#vortex#jump ()
+		else
+			exe 'buffer ' bufnum
+		endif
+	elseif settings.context_action == 'delete'
+		" Delete buffer
+		let fields = split(settings.selected, s:field_separ)
+		let bufnum = fields[0]
+		execute 'bdelete ' . bufnum
 	endif
 endfun
 

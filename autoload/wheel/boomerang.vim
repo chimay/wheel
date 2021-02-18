@@ -58,6 +58,7 @@ fun! wheel#boomerang#sailing (action)
 	" Sailing actions
 	let action = a:action
 	let settings = b:wheel_settings
+	let settings.context_action = 'sailing'
 	if action == 'current'
 		let settings.target = 'current'
 		call wheel#line#sailing (settings)
@@ -89,26 +90,22 @@ endfun
 fun! wheel#boomerang#opened_files (action)
 	" Opened files (buffers) actions
 	let action = a:action
-	if wheel#boomerang#sailing (action)
-		return
-	endif
+	let settings = b:wheel_settings
 	if action == 'delete'
-		" Delete selected buffer(s)
-		for elem in b:wheel_selected
-			let fields = split(elem, s:field_separ)
-			let bufnum = fields[0]
-			execute 'bdelete ' . bufnum
-		endfor
-		call wheel#mandala#close ()
+		let settings.context_action = 'delete'
+		" Necessary to inform wheel#line#sailing
+		" that a loop on selected elements is necessary ;
+		" it does not perform it if target == 'current'
+		let settings.target = 'none'
+		call wheel#line#sailing (settings)
 	endif
 endfun
 
 fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action
-	if wheel#boomerang#sailing (action)
-		return
-	endif
+	let settings = b:wheel_settings
+	let settings.context_action = 'grep'
 	if action == 'quickfix'
 		call wheel#mandala#close ()
 		call wheel#vector#copen ()
@@ -119,6 +116,8 @@ fun! wheel#boomerang#yank (action)
 	" Yank actions
 	" action = before / after
 	let action = a:action
+	let settings = b:wheel_settings
+	let settings.context_action = 'yank'
 	let mode = b:wheel_settings.mode
 	call wheel#line#paste_{mode} (action, 'open')
 endfun

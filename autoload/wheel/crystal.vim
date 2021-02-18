@@ -285,7 +285,7 @@ endif
 
 if ! exists('s:context_openedFiles')
 	let s:context_openedFiles = {
-				\ 'delete buffer' : "wheel#boomerang#opened_files('delete')",
+				\ 'delete' : "wheel#boomerang#opened_files('delete')",
 				\}
 	call extend(s:context_openedFiles, s:context_sailing)
 	lockvar s:context_openedFiles
