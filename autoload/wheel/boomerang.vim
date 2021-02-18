@@ -4,6 +4,11 @@
 
 " Script vars
 
+if ! exists('s:selected_mark')
+	let s:selected_mark = wheel#crystal#fetch('selected/mark')
+	lockvar s:selected_mark
+endif
+
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ
@@ -97,6 +102,17 @@ fun! wheel#boomerang#opened_files (action)
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
+		" Remove deleted buffers from special buffer lines
+		let full = b:wheel_stack.full[-1]
+		let current = b:wheel_stack.current[-1]
+		for elem in b:wheel_selected
+			call wheel#chain#remove_element (elem, full)
+			call wheel#chain#remove_element (elem, current)
+			" if manually selected with space
+			let elem = s:selected_mark . elem
+			call wheel#chain#remove_element (elem, full)
+			call wheel#chain#remove_element (elem, current)
+		endfor
 		call wheel#line#sailing (settings)
 	endif
 endfun
