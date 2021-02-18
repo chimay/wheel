@@ -283,7 +283,7 @@ The available actions depend on the buffer type :
   + and so on
 - Reordering buffers allow you to reorder locations, circles or toruses
 - Reorganize buffer allows you fine grain operations
-  + Move and copy around locations, circles and toruses
+  + Move and copy around locations, circles and toruses, using folds
   + Change locations settings like name, line, col
   + Be sure you know what you’re doing
 
@@ -299,15 +299,18 @@ Filtering~
 In most special buffers, the first line is left empty : it is used as
 an input line to filter the buffer. You can go to insert mode and filter
 the elements with each word you enter on the input (first) line. Typing
-`<Space>`, `<Esc>` or `<Enter>` will update the candidates. Note that `<C-c>`
+`<space>`, `<esc>` or `<enter>` will update the candidates. Note that `<C-c>`
 is not mapped, in case you need to go to normal mode without triggering
 the filter function.
 
-A bang "!" beginning a filtering word is a logical not : all lines matching
-this word will be removed from the buffer.
+A space between two words is a logical and. So, `one two` will
+display lines containing both `one` and `two`.
 
 A pipe "|" in the middle of a word is a logical or. So, `one|two` will
 display lines containing `one` or `two`.
+
+A bang "!" beginning a filtering word is a logical not : all lines matching
+this word will be removed from the buffer.
 
 Input history~
 
@@ -317,6 +320,17 @@ previous/next input with `<Up>`/`<Down>` or `<M-p>`/`<M-n>`.
 The keys `<PageUp>`/`PageDown` or `<M-r>`/`<M-s>` will insert the
 previous/next input matching the beginning of the inserted line, until
 the cursor.
+
+Select entries~
+
+If you wish to select multiple entries, just hit `<space>` on their lines.
+
+Action~
+
+The main keys are :
+
+- `<enter>` : trigger the default action, close the special buffer
+- `g<enter>` : trigger the default action, leave the special buffer opened
 
 ------------------------------------------------------------------------------
 BUFFERS STACK				*wheel-special-buffers-stack*
@@ -334,6 +348,12 @@ MENU BUFFERS				*wheel-special-buffers-menus*
 
 Each menu has its own dedicated buffer. You can filter the menu lines
 by entering words in insert mode.
+
+Action~
+
+In menu buffers, there is no need to select multiple elements, so
+`<space>` is a shortcut for `g<enter>` : launch action and leave the
+menu opened.
 
 Main menu~
 
@@ -363,9 +383,9 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 
 In these sub-menus, you can use the keys :
 
-- `<enter>` : launch the action on the cursor line
-- `g<enter>` : launch action and leave the special buffer opened
-- `<backspace>` : leads you back to the meta menu.
+- `<enter>`             : launch the action on the cursor line
+- `g<enter>`, `<space>`   : launch action and leave the menu opened
+- `<backspace>`         : leads you back to the meta menu
 
 ------------------------------------------------------------------------------
 CONTEXT MENUS				*wheel-special-buffers-context*
@@ -412,13 +432,13 @@ The default mappings launching navigation buffers are :
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w><M-b>`     : switch to buffer (opened file)
-- `<M-w><M-o>`     : occur in current file
+- `<M-w><M-s>`     : occur in current file
 - `<M-w><M-g>`     : grep in circle files
-- `<M-w>#`         : outline headers in circle files
+- `<M-w><M-o>`     : outline headers in circle files
 - `<M-w><M-t>`     : tags
 - `<M-w><M-m>`     : most recently used files not found in wheel (mru)
 - `<M-w><M-l>`     : search files with `locate`
-- `<M-w>f`         : search files with `find` in async mode
+- `<M-w><M-f>`     : search files with `find` in async mode
 
 Menus~
 
@@ -1140,9 +1160,9 @@ Search inside files~
 
 | Prefix + | With default prefix | Action                               |
 | -------- | ------------------- | ------------------------------------ |
-| <M-o>    | <M-w><M-o>          | Matching lines in current file       |
+| <M-s>    | <M-w><M-s>          | Search lines in current file         |
 | <M-g>    | <M-w><M-g>          | Search in circle files with grep     |
-| #        | <M-w>#              | Outline : folds, markdown, org mode  |
+| <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
 | <M-t>    | <M-w><M-t>          | Tags                                 |
 | j        | <M-w>j              | Jumps                                |
 | c        | <M-w>c              | Changes                              |

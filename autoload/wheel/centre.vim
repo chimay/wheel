@@ -191,9 +191,9 @@ fun! wheel#centre#cables ()
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Search inside files
-		exe 'nmap ' . prefix . '<m-o> <plug>(wheel-occur)'
+		exe 'nmap ' . prefix . '<m-s> <plug>(wheel-occur)'
 		exe 'nmap ' . prefix . '<m-g> <plug>(wheel-grep)'
-		exe 'nmap ' . prefix . '# <plug>(wheel-outline)'
+		exe 'nmap ' . prefix . '<m-o> <plug>(wheel-outline)'
 		exe 'nmap ' . prefix . '<m-t> <plug>(wheel-tags)'
 		exe 'nmap ' . prefix . 'j <plug>(wheel-jumps)'
 		exe 'nmap ' . prefix . 'c <plug>(wheel-changes)'
