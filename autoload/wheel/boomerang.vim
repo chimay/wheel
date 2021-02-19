@@ -96,8 +96,8 @@ fun! wheel#boomerang#opened_files (action)
 	" Opened files (buffers) actions
 	let action = a:action
 	let settings = b:wheel_settings
-	if action == 'delete'
-		let settings.context_action = 'delete'
+	if action == 'delete' || action == 'wipe'
+		let settings.context_action = action
 		" Necessary to inform wheel#line#sailing
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
