@@ -467,6 +467,11 @@ fun! wheel#line#opened_files (settings)
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		execute 'bdelete ' . bufnum
+	elseif settings.context_action == 'unload'
+		" Unload buffer
+		let fields = split(settings.selected, s:field_separ)
+		let bufnum = fields[0]
+		execute 'bunload ' . bufnum
 	elseif settings.context_action == 'wipe'
 		" Wipe buffer
 		let fields = split(settings.selected, s:field_separ)

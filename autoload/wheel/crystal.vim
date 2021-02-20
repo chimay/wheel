@@ -286,6 +286,7 @@ endif
 if ! exists('s:context_openedFiles')
 	let s:context_openedFiles = {
 				\ 'delete' : "wheel#boomerang#opened_files('delete')",
+				\ 'unload' : "wheel#boomerang#opened_files('unload')",
 				\ 'wipe' : "wheel#boomerang#opened_files('wipe')",
 				\}
 	call extend(s:context_openedFiles, s:context_sailing)

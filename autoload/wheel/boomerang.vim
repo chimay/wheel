@@ -121,7 +121,7 @@ fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.context_action = 'grep'
+	let settings.context_action = action
 	if action == 'quickfix'
 		call wheel#mandala#close ()
 		call wheel#vector#copen ()
@@ -133,7 +133,7 @@ fun! wheel#boomerang#yank (action)
 	" action = before / after
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.context_action = 'yank'
+	let settings.context_action = action
 	let mode = b:wheel_settings.mode
 	call wheel#line#paste_{mode} (action, 'open')
 endfun
