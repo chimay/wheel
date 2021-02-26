@@ -9,11 +9,6 @@ if ! exists('s:selected_mark')
 	lockvar s:selected_mark
 endif
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
-endif
-
 " Sync buffer variables & top of stack
 
 fun! wheel#boomerang#sync ()
@@ -114,6 +109,7 @@ fun! wheel#boomerang#opened_files (action)
 			call wheel#chain#remove_element (elem, current)
 		endfor
 		call wheel#line#sailing (settings)
+		let b:wheel_stack.selected[-1] = []
 	endif
 endfun
 
