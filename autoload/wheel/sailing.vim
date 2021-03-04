@@ -93,7 +93,11 @@ fun! wheel#sailing#switch (level)
 		return
 	endif
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-switch-' . level)
+	let [torus, circle, location] = wheel#referen#location('all')
+	let dashboard = [torus.name, circle.name, location.name]
+	let end = wheel#referen#coordin_index(level)
+	let dashboard = join(dashboard[0:end], ':')
+	call wheel#mandala#open ('wheel-switch-' . level . '-' . dashboard)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)
