@@ -173,7 +173,7 @@ fun! wheel#mandala#common_options (type)
 	let &filetype = 'wheel'
 	" Useful as information
 	" Also need a name when writing, even with BufWriteCmd
-	let pseudo_folders = '/' . substitute(type, '-', '/', 'g')
+	let pseudo_folders = '/' . type
 	exe 'file ' . pseudo_folders
 endfun
 

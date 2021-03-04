@@ -64,7 +64,7 @@ fun! wheel#sailing#generic (name)
 	let Perspective = function('wheel#perspective#' . name)
 	let lines = Perspective ()
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-' . name)
+	call wheel#mandala#open ('wheel/' . name)
 	let settings = {'action' : function('wheel#line#' . name)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -75,7 +75,7 @@ fun! wheel#sailing#bounce (command)
 	let command = a:command
 	let lines = wheel#perspective#bounce (command)
 	" Wheel buffer
-	call wheel#mandala#open ('wheel-' . command)
+	call wheel#mandala#open ('wheel/' . command)
 	let settings = {'action' : function('wheel#line#' . command)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -96,7 +96,7 @@ fun! wheel#sailing#switch (level)
 	let dashboard = wheel#referen#names()
 	let maxlevel = wheel#referen#coordin_index(level)
 	let dashboard = join(dashboard[0:maxlevel], ':')
-	call wheel#mandala#open ('wheel-switch-' . level . '-' . dashboard)
+	call wheel#mandala#open ('wheel/switch/' . level . '/' . dashboard)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)
@@ -111,7 +111,7 @@ fun! wheel#sailing#helix ()
 	" Each coordinate = [torus, circle, location]
 	let lines = wheel#perspective#helix ()
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-location-index')
+	call wheel#mandala#open ('wheel/location/index')
 	let settings = {'action' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -122,7 +122,7 @@ fun! wheel#sailing#grid ()
 	" Each coordinate = [torus, circle]
 	let lines = wheel#perspective#grid ()
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-circle-index')
+	call wheel#mandala#open ('wheel/circle/index')
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -132,7 +132,7 @@ fun! wheel#sailing#tree ()
 	" Choose an element in the wheel tree
 	let lines = wheel#perspective#tree ()
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-tree')
+	call wheel#mandala#open ('wheel/tree')
 	let settings = {'action' : function('wheel#line#tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()
@@ -150,7 +150,7 @@ fun! wheel#sailing#opened_files ()
 	" To be run before opening the wheel buffer
 	let lines = wheel#perspective#opened_files ()
 	" Wheel buffer
-	call wheel#mandala#open ('wheel-opened-files')
+	call wheel#mandala#open ('wheel/opened/files')
 	let settings = {'action' : function('wheel#line#opened_files')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -168,7 +168,7 @@ fun! wheel#sailing#occur (...)
 	" To be run before opening the wheel buffer
 	let lines = wheel#perspective#occur (pattern)
 	" Wheel buffer
-	call wheel#mandala#open ('wheel-occur')
+	call wheel#mandala#open ('wheel/occur')
 	let settings = {'action' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -190,7 +190,7 @@ fun! wheel#sailing#grep (...)
 	if bool
 		let lines = wheel#perspective#grep ()
 		call wheel#vortex#update ()
-		call wheel#mandala#open ('wheel-grep')
+		call wheel#mandala#open ('wheel/grep')
 		let settings = {'action' : function('wheel#line#grep')}
 		call wheel#sailing#template (settings)
 		call wheel#mandala#fill(lines)
@@ -218,7 +218,7 @@ fun! wheel#sailing#outline ()
 		let bool = wheel#sailing#grep ('^=.*=$', '\.wiki$')
 	endif
 	if bool
-		let &filetype = 'wheel-outline'
+		let &filetype = 'wheel/outline'
 		file /wheel/outline
 	endif
 endfun
@@ -239,7 +239,7 @@ fun! wheel#sailing#locate ()
 	let pattern = input(prompt)
 	let lines = wheel#perspective#locate (pattern)
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-locate')
+	call wheel#mandala#open ('wheel/locate')
 	let settings = {'action' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -248,7 +248,7 @@ endfun
 fun! wheel#sailing#find ()
 	" Search files in current directory using find
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel-find')
+	call wheel#mandala#open ('wheel/find')
 	let settings = {'action' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
 	let prompt = 'Find file matching : '
