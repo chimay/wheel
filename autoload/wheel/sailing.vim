@@ -96,7 +96,7 @@ fun! wheel#sailing#switch (level)
 	let dashboard = wheel#referen#names()
 	let maxlevel = wheel#referen#coordin_index(level)
 	let dashboard = join(dashboard[0:maxlevel], ':')
-	call wheel#mandala#open ('wheel/switch/' . level . '/' . dashboard)
+	call wheel#mandala#open ('wheel/switch/' . level . '/from/' . dashboard)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)
