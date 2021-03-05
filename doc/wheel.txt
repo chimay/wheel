@@ -266,6 +266,7 @@ Reordering buffers		|wheel-special-buffers-reordering|
 Reorganizing buffers		|wheel-special-buffers-reorganizing|
 Yank buffer			|wheel-special-buffers-yank|
 Batch buffer			|wheel-special-buffers-batch|
+Command output buffer		|wheel-special-buffers-command|
 
 ------------------------------------------------------------------------------
 INTRODUCTION				*wheel-special-buffers-introduction*
@@ -561,6 +562,14 @@ The yank wheel buffers can also be launched from the main & meta menus.
 BATCH BUFFER				*wheel-special-buffers-batch*
 
 See |wheel-batch-command|.
+
+------------------------------------------------------------------------------
+COMMAND OUTPUT BUFFER			*wheel-special-buffers-command*
+
+You can execute an ex or shell command and display the output in a wheel
+special buffer. Shell commands must be prefixed by a `!`.
+
+Default mapping : `<M-w>:`
 
 ==============================================================================
 BATCH OPERATIONS				    *wheel-batch-operations*
@@ -1178,9 +1187,15 @@ Search for files~
 
 Batch command~
 
-| Prefix + | With default prefix | Action                                 |
-| -------- | ------------------- | -------------------------------------- |
-| <M-b>    | <M-w><M-b>          | Batch command in current circle files  |
+| Prefix + | With default prefix | Action                                |
+| -------- | ------------------- | ------------------------------------- |
+| <M-b>    | <M-w><M-b>          | Batch command in current circle files |
+
+Command output buffer~
+
+| Prefix + | With default prefix | Action                      |
+| -------- | ------------------- | ----------------------------|
+| :        | <M-w>:              | Display ex or !shell output |
 
 Yank wheel~
 

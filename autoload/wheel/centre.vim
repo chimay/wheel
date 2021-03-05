@@ -55,8 +55,6 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate_other_torus()<cr>
 	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate_other_circle()<cr>
 	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate()<cr>
-	" Generic buffer from ex or shell command output
-	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
 	" Navigation
 	nnoremap <plug>(wheel-navigation-location) :call wheel#sailing#switch('location')<cr>
 	nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>
@@ -83,6 +81,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
 	" Batch
 	nnoremap <plug>(wheel-batch) :call wheel#vector#batch()<cr>
+	" Generic buffer from ex or shell command output
+	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
 	" Reorder
 	nnoremap <plug>(wheel-reorder-location) :call wheel#shape#reorder('location')<cr>
 	nnoremap <plug>(wheel-reorder-circle) :call wheel#shape#reorder('circle')<cr>
@@ -192,8 +192,6 @@ fun! wheel#centre#cables ()
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
-		" Generic ex or shell command
-		exe 'nmap ' . prefix . ': <plug>(wheel-command)'
 		" Search inside files
 		exe 'nmap ' . prefix . '<m-s> <plug>(wheel-occur)'
 		exe 'nmap ' . prefix . '<m-g> <plug>(wheel-grep)'
@@ -211,6 +209,8 @@ fun! wheel#centre#cables ()
 		" Yank wheel
 		exe 'nmap ' . prefix . 'y <plug>(wheel-yank-list)'
 		exe 'nmap ' . prefix . '<m-y> <plug>(wheel-yank-plain)'
+		" Generic ex or shell command
+		exe 'nmap ' . prefix . ': <plug>(wheel-command)'
 		" Reorganize
 		exe 'nmap ' . prefix . '<m-r> <plug>(wheel-reorganize)'
 		" Save (push) wheel buffer
