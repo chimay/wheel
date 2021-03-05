@@ -267,3 +267,20 @@ fun! wheel#mandala#template (...)
 	" Overridden by folding_options
 	setlocal nofoldenable
 endfun
+
+" Generic
+
+fun! wheel#mandala#command (...)
+	" Generic ex or shell command
+	" for shell command, just begin with !
+	if a:0 > 0
+		let command = a:1
+	else
+		let command = input('Ex or !shell command : ')
+	endif
+	let lines = wheel#perspective#execute (command)
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('wheel/command')
+	call wheel#mandala#template ()
+	call wheel#mandala#fill (lines)
+endfun

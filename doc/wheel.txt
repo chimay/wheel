@@ -1461,7 +1461,7 @@ Autoload files~
 | ripple.vim        | Async job for vim                      |
 | sailing.vim       | Navigation buffers                     |
 | scroll.vim        | Input history                          |
-| shape.vim         | Reshaping special buffers              |
+| shape.vim         | Special buffers to reshape the wheel   |
 | spiral.vim        | Golden ratio                           |
 | status.vim        | Print wheel status                     |
 | symbol.vim        | Tags                                   |

@@ -81,7 +81,7 @@ fun! wheel#wave#start (command, ...)
 	endif
 	" Buffer
 	if options.new_buffer
-		call wheel#mandala#open ('wheel-wave')
+		call wheel#mandala#open ('wheel/wave')
 	endif
 	call wheel#wave#template ()
 	" Expand tilde in filenames

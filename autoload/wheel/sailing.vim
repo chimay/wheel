@@ -125,7 +125,7 @@ fun! wheel#sailing#grid ()
 	call wheel#mandala#open ('wheel/circle/index')
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill (lines)
 endfun
 
 fun! wheel#sailing#tree ()
