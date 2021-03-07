@@ -278,7 +278,12 @@ fun! wheel#mandala#command (...)
 	else
 		let command = input('Ex or !shell command : ')
 	endif
-	let lines = wheel#perspective#execute (command)
+	if command[0] == '!'
+		let command = command[1:]
+		let lines = wheel#perspective#execute (command, 'system')
+	else
+		let lines = wheel#perspective#execute (command)
+	endif
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('wheel/command')
 	call wheel#mandala#template ()

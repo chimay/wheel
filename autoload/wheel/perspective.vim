@@ -45,6 +45,8 @@ fun! wheel#perspective#execute (runme, ...)
 	return lines
 endfun
 
+" Jumps & changes
+
 fun! wheel#perspective#bounce (runme)
 	" Lines for jumps / changes lists
 	let lines = wheel#perspective#execute(a:runme)[1:]
@@ -281,7 +283,7 @@ fun! wheel#perspective#occur (pattern)
 	let lines = split(lines, "\n")
 	for index in range(len(lines))
 		let lines[index] = trim(lines[index], ' ')
-		let lines[index] = substitute(lines[index], '\s\+', s:field_separ, '')
+		let lines[index] = substitute(lines[index], '\m\s\+', s:field_separ, '')
 	endfor
 	call wheel#gear#restore_cursor(position)
 	return lines

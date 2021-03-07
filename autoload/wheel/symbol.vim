@@ -32,7 +32,7 @@ fun! wheel#symbol#read (file)
 	for record in lines
 		let pattern = matchstr(record, regex)
 		let optional = matchstr(pattern, final, '', '')
-		let optional = substitute(optional, '^\t', '', '')
+		let optional = substitute(optional, '\m^\t', '', '')
 		let pattern = substitute(pattern, remove, '', '')
 		let record = substitute(record, regex, '', '')
 		let fields = split(record, "\t")
