@@ -149,6 +149,7 @@ fun! wheel#sailing#opened_files ()
 	" Opened files
 	" To be run before opening the wheel buffer
 	let lines = wheel#perspective#opened_files ()
+	call wheel#vortex#update ()
 	" Wheel buffer
 	call wheel#mandala#open ('wheel/opened/files')
 	let settings = {'action' : function('wheel#line#opened_files')}
