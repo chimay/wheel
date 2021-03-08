@@ -571,6 +571,11 @@ special buffer. Shell commands must be prefixed by a `!`.
 
 Default mapping : `<M-w>:`
 
+Examples :
+
+- `<M-w>:<plug>(wheel-`
+- `<M-w>:!ls -l % #`
+
 ==============================================================================
 BATCH OPERATIONS				    *wheel-batch-operations*
 
