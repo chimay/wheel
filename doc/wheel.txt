@@ -1445,9 +1445,9 @@ COMMANDS					*wheel-commands*
 	current circle. The command can be a vim `:command` or an external shell
 	`!command`. The ouput is displayed in a dedicated buffer.
 
-:WheelGrep {pattern}				*:WheelGrep*
-	Search {pattern} with `:grep` and display results in a special
-	buffer that can be filtered.
+:WheelAutogroup				       *:WheelAutogroup*
+	Autogroup locations of current torus using filename extensions or directories.
+	Creates a new torus where each group will occupy a circle.
 
 ==============================================================================
 FILES							*wheel-files*

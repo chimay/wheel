@@ -65,7 +65,6 @@ fun! wheel#cuboctahedron#reorganize ()
 	if confirm == 1
 		call wheel#disc#write_all ()
 	endif
-	let history = deepcopy(g:wheel_history)
 	" Start from empty wheel
 	unlet g:wheel
 	call wheel#void#wheel ()
@@ -88,7 +87,7 @@ fun! wheel#cuboctahedron#reorganize ()
 			" location line
 			let runme = 'let location = ' . line
 			exe runme
-			call wheel#tree#add_location(location)
+			call wheel#tree#add_location(location, 'norecord')
 		endif
 	endfor
 	" Rebuild full location index
@@ -99,13 +98,11 @@ fun! wheel#cuboctahedron#reorganize ()
 	call wheel#helix#grid ()
 	" Rebuild file index
 	call wheel#helix#files ()
-	" Restore history timestamps
-	let g:wheel_history = history
 	" Remove invalid entries from history
 	call wheel#checknfix#history ()
 	" Info
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	" Tune wheel coordinates to first entry in history
-	call wheel#vortex#chord(history[0].coordin)
+	call wheel#vortex#chord(g:wheel_history[0].coordin)
 endfun

@@ -7,6 +7,7 @@ fun! wheel#centre#commands ()
 	" Status
 	command! WheelDashboard call wheel#status#dashboard()
 	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
+	command! WheelAutogroup call wheel#group#menu()
 endfun
 
 fun! wheel#centre#plugs ()

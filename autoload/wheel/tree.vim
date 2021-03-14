@@ -107,8 +107,13 @@ fun! wheel#tree#add_circle (...)
 	endif
 endfu
 
-fun! wheel#tree#add_location (location)
+fun! wheel#tree#add_location (location, ...)
 	" Add location
+	if a:0 > 0
+		let optional = a:1
+	else
+		let optional = 'default'
+	endif
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
@@ -134,7 +139,9 @@ fun! wheel#tree#add_location (location)
 			let cur_circle.current += 1
 			call wheel#chain#insert_next (index, location_name, glossary)
 			let g:wheel.timestamp = wheel#pendulum#timestamp ()
-			call wheel#pendulum#record ()
+			if optional !=# 'norecord'
+				call wheel#pendulum#record ()
+			endif
 		else
 			redraw!
 			echomsg 'Location named' location_name 'already exists in circle.'
