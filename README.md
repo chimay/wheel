@@ -130,6 +130,7 @@ your groups will grow and adapt to your style.
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
 - Batch operations
+- Autogroup files by extension or directory
 
 As you see, the group manager is the core, but it goes far beyond that :
 you need a quick navigation framework to travel in the wheel, and once

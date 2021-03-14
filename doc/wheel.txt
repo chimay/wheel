@@ -114,6 +114,7 @@ FEATURES				*wheel-introduction-features*
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
 - Batch operations
+- Autogroup files by extension or directory
 
 ------------------------------------------------------------------------------
 HISTORY						*wheel-introduction-history*
