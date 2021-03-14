@@ -302,6 +302,12 @@ fun! wheel#line#sailing (settings)
 	else
 		let Fun = 'wheel#line#switch'
 	endif
+	if type(Fun) == v:t_string
+		let Fun = function(Fun)
+	endif
+	if type(Fun) != v:t_func
+		echomsg 'Wheel line navigation : bad function'
+	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
 		let selected = [wheel#line#address ()]
 	elseif type(b:wheel_selected) == v:t_list
@@ -321,36 +327,18 @@ fun! wheel#line#sailing (settings)
 		let mandala = win_getid()
 		wincmd p
 	endif
-	if type(Fun) == v:t_func
-		if target != 'current'
-			for elem in selected
-				let settings.selected = elem
-				call Fun (settings)
-				normal! zv
-				call wheel#spiral#cursor ()
-			endfor
-		else
-			let settings.selected = selected[0]
+	if target != 'current'
+		for elem in selected
+			let settings.selected = elem
 			call Fun (settings)
 			normal! zv
 			call wheel#spiral#cursor ()
-		endif
-	elseif type(Fun) == v:t_string
-		if target != 'current'
-			for elem in selected
-				let settings.selected = elem
-				call {Fun} (settings)
-				normal! zv
-				call wheel#spiral#cursor ()
-			endfor
-		else
-			let settings.selected = selected[0]
-			call {Fun} (settings)
-			normal! zv
-			call wheel#spiral#cursor ()
-		endif
+		endfor
 	else
-		echomsg 'Wheel line navigation : bad function'
+		let settings.selected = selected[0]
+		call Fun (settings)
+		normal! zv
+		call wheel#spiral#cursor ()
 	endif
 	if ! close
 		call win_gotoid(mandala)
