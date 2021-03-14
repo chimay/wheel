@@ -495,12 +495,17 @@ fun! wheel#line#grep (settings)
 		echomsg 'Grep line is too short'
 		return
 	endif
-	let bufnum = fields[0]
-	let line = fields[2]
-	let col = fields[3]
+	"Using error number
+	let errnum = fields[0]
 	call wheel#line#target (a:settings.target)
-	exe 'buffer ' . bufnum
-	call cursor(line, col)
+	execute 'cc ' . errnum
+	" Using buffer, line & col
+	"let bufnum = fields[1]
+	"let line = fields[3]
+	"let col = fields[4]
+	"call wheel#line#target (a:settings.target)
+	"exe 'buffer ' . bufnum
+	"call cursor(line, col)
 endfun
 
 fun! wheel#line#mru (settings)

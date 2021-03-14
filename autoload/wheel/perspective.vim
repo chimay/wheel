@@ -180,18 +180,34 @@ endfu
 fun! wheel#perspective#grep ()
 	" Quickfix list for wheel buffer
 	" Each line has the format :
-	" buffer-number | file | line | col | text
+	" err-number | buffer-number | file | line | col | text
 	let quickfix = getqflist()
 	let list = []
-	for elem in quickfix
+	for index in range(len(quickfix))
+		let elem = quickfix[index]
+		let errnum = index + 1
 		let bufnum = elem.bufnr
-		let record = bufnum . s:field_separ
+		let record = ''
+		let record .= errnum . s:field_separ
+		let record .= bufnum . s:field_separ
 		let record .= bufname(bufnum) . s:field_separ
 		let record .= elem.lnum . s:field_separ
 		let record .= elem.col . s:field_separ
 		let record .= elem.text
 		call add(list, record)
 	endfor
+	" Not working : elem.nr is always -1, why ?
+	"for elem in quickfix
+		"let bufnum = elem.bufnr
+		"let record = ''
+		"let record .= elem.nr . s:field_separ
+		"let record .= bufnum . s:field_separ
+		"let record .= bufname(bufnum) . s:field_separ
+		"let record .= elem.lnum . s:field_separ
+		"let record .= elem.col . s:field_separ
+		"let record .= elem.text
+		"call add(list, record)
+	"endfor
 	return list
 endfun
 

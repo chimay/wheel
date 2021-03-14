@@ -1472,7 +1472,7 @@ Autoload files~
 | layer.vim         | Layers stack in special buffers        |
 | line.vim          | Activate line                          |
 | mandala.vim       | Generic special buffers                |
-| mosaic.vim        | Layouts                                |
+| mosaic.vim        | Windows & tabs Layouts                 |
 | pendulum.vim      | History                                |
 | perspective.vim   | Content generators for special buffers |
 | projection.vim    | Following opened files                 |
