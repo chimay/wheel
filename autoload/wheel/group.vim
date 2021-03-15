@@ -52,13 +52,14 @@ fun! wheel#group#torus(method)
 	let name .= '-by-' . method
 	let fun = 'wheel#group#' . method
 	let groups = wheel#group#dispatch(fun)
-	call wheel#tree#add_torus (name)
-	for [key, localist] in items(groups)
-		call wheel#tree#add_circle (key)
-		for location in localist
-			call wheel#tree#add_location (location, 'norecord')
+	if wheel#tree#add_torus (name)
+		for [key, localist] in items(groups)
+			call wheel#tree#add_circle (key)
+			for location in localist
+				call wheel#tree#add_location (location, 'norecord')
+			endfor
 		endfor
-	endfor
+	endif
 endfun
 
 fun! wheel#group#menu()

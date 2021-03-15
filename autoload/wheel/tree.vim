@@ -66,9 +66,11 @@ fun! wheel#tree#add_torus (...)
 		call wheel#chain#insert_next (index, torus_name, glossary)
 		let g:wheel.current += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		return v:true
 	else
 		redraw!
 		echomsg 'Torus' torus_name 'already exists in wheel.'
+		return v:false
 	endif
 endfu
 
@@ -101,9 +103,11 @@ fun! wheel#tree#add_circle (...)
 		call wheel#chain#insert_next (index, circle_name, glossary)
 		let cur_torus.current += 1
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		return v:true
 	else
 		redraw!
 		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
+		return v:false
 	endif
 endfu
 
@@ -142,14 +146,17 @@ fun! wheel#tree#add_location (location, ...)
 			if optional !=# 'norecord'
 				call wheel#pendulum#record ()
 			endif
+			return v:true
 		else
 			redraw!
 			echomsg 'Location named' location_name 'already exists in circle.'
+			return v:false
 		endif
 	else
 		redraw!
 		echomsg 'Location' local.file ':' local.line
 					\ 'already exists in torus' cur_torus.name 'circle' cur_circle.name
+		return v:false
 	endif
 endfun
 
@@ -207,10 +214,12 @@ fun! wheel#tree#rename (level, ...)
 		let upper.glossary = wheel#chain#replace(old, new, glossary)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename(level, old, new)
+		return v:true
 	else
 		redraw!
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
-		echomsg a:level new 'already exists in' upper_level_name
+		echomsg level new 'already exists in' upper_level_name
+		return v:false
 	endif
 endfun
 
@@ -268,6 +277,11 @@ fun! wheel#tree#delete (level)
 	" Remove
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
+	if empty(elements)
+		let upper_name = wheel#referen#upper_level_name (level)
+		echomsg upper_name . ' is already empty.'
+		return v:false
+	endif
 	let length = len(elements)
 	let upper_level_name = wheel#referen#upper_level_name (level)
 	let key = wheel#referen#list_key (upper_level_name)
