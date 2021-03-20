@@ -179,6 +179,8 @@ Plug 'chimay/wheel'
 Here is an example of configuration :
 
 ```vim
+if ! exists("g:wheel_loaded")
+
   " Init
   let g:wheel_config={}
   let g:wheel_config.maxim={}
@@ -225,6 +227,13 @@ Here is an example of configuration :
   let g:wheel_config.maxim.horizontal = 3
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
+
+  " random ideas
+  nmap <m-cr> <plug>(wheel-switch-location)
+  nmap <c-cr> <plug>(wheel-switch-circle)
+  nmap <s-cr> <plug>(wheel-switch-torus)
+
+endif
 ```
 
 as a starting point.
