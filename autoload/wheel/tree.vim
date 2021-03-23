@@ -31,10 +31,6 @@ fun! wheel#tree#name (location)
 		" Replace spaces par non-breaking spaces
 		let default = substitute(default, ' ', ' ', 'g')
 		let location.name = input(prompt, default)
-		if empty(location.name)
-			echomsg 'Location must have a name.'
-			let location.name = default
-		endif
 	endif
 	return location.name
 endfu
@@ -52,8 +48,8 @@ fun! wheel#tree#add_torus (...)
 	let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	if empty(torus_name)
 		redraw!
-		echomsg 'Torus name cannot be empty. Will be called torus.'
-		let torus_name = 'torus'
+		echomsg 'Torus name cannot be empty.'
+		return v:false
 	endif
 	if index(g:wheel.glossary, torus_name) < 0
 		redraw!
@@ -88,8 +84,8 @@ fun! wheel#tree#add_circle (...)
 	let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	if empty(circle_name)
 		redraw!
-		echomsg 'Circle name cannot be empty. Will be called circle.'
-		let circle_name = 'circle'
+		echomsg 'Circle name cannot be empty.'
+		return v:false
 	endif
 	let cur_torus = g:wheel.toruses[g:wheel.current]
 	if index(cur_torus.glossary, circle_name) < 0
@@ -130,6 +126,11 @@ fun! wheel#tree#add_location (location, ...)
 	let present = wheel#tree#is_in_circle(local, cur_circle)
 	if ! present
 		let location_name = wheel#tree#name (local)
+		if empty(location_name)
+			redraw!
+			echomsg 'Location name cannot be empty.'
+			return v:false
+		endif
 		if index(cur_circle.glossary, location_name) < 0
 			redraw!
 			let info = 'Adding location ' . local.name . ' : '
@@ -205,6 +206,11 @@ fun! wheel#tree#rename (level, ...)
 	let current = wheel#referen#current (level)
 	" Replace spaces by non-breaking spaces
 	let new = substitute(new, ' ', ' ', 'g')
+	if empty(new)
+		redraw!
+		echomsg 'Location name cannot be empty.'
+		return v:false
+	endif
 	if index(upper.glossary, new) < 0
 		let old = current.name
 		let current.name = new
@@ -260,6 +266,7 @@ fun! wheel#tree#rename_file (...)
 		let g:wheel.timestamp = wheel#pendulum#timestamp()
 		call wheel#helix#rename_file(old_name, filename)
 	endif
+	call wheel#tree#rename('location')
 endfun
 
 " Delete
