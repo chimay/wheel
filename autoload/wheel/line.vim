@@ -468,6 +468,26 @@ fun! wheel#line#opened_files (settings)
 	endif
 endfun
 
+fun! wheel#line#tabwins (settings)
+	" Go to tab & win given by selected
+	let settings = a:settings
+	if ! has_key(settings, 'context_action') || settings.context_action == 'sailing'
+		let fields = split(settings.selected, s:field_separ)
+		let tabnum = fields[0]
+		exe 'tabnext ' tabnum
+		" Find matching window
+		let filename = expand(fields[-1])
+		let filename = fnamemodify(filename, ':p')
+		let wins = wheel#mosaic#glasses (filename, 'tab')
+		call win_gotoid (wins[0])
+	elseif settings.context_action == 'close'
+		" Close tab
+		let fields = split(settings.selected, s:field_separ)
+		let tabnum = fields[0]
+		execute 'tabclose ' . tabnum
+	endif
+endfun
+
 fun! wheel#line#occur (settings)
 	" Go to line given by selected
 	let fields = split(a:settings.selected, s:field_separ)

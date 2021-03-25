@@ -30,6 +30,22 @@ fun! wheel#boomerang#sync ()
 	endif
 endfun
 
+" Helpers
+
+fun! wheel#boomerang#remove_selected ()
+	" Remove selected elements from special buffer lines
+	let full = b:wheel_stack.full[-1]
+	let current = b:wheel_stack.current[-1]
+	for elem in b:wheel_selected
+		call wheel#chain#remove_element (elem, full)
+		call wheel#chain#remove_element (elem, current)
+		" if manually selected with space
+		let elem = s:selected_mark . elem
+		call wheel#chain#remove_element (elem, full)
+		call wheel#chain#remove_element (elem, current)
+	endfor
+endfun
+
 " Generic
 
 fun! wheel#boomerang#menu (dictname)
@@ -97,17 +113,23 @@ fun! wheel#boomerang#opened_files (action)
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
-		" Remove deleted buffers from special buffer lines
-		let full = b:wheel_stack.full[-1]
-		let current = b:wheel_stack.current[-1]
-		for elem in b:wheel_selected
-			call wheel#chain#remove_element (elem, full)
-			call wheel#chain#remove_element (elem, current)
-			" if manually selected with space
-			let elem = s:selected_mark . elem
-			call wheel#chain#remove_element (elem, full)
-			call wheel#chain#remove_element (elem, current)
-		endfor
+		call wheel#boomerang#remove_selected ()
+		call wheel#line#sailing (settings)
+		let b:wheel_stack.selected[-1] = []
+	endif
+endfun
+
+fun! wheel#boomerang#tabwins (action)
+	" Buffers visible in tabs & wins
+	let action = a:action
+	let settings = b:wheel_settings
+	if action == 'close'
+		let settings.context_action = action
+		" Necessary to inform wheel#line#sailing
+		" that a loop on selected elements is necessary ;
+		" it does not perform it if target == 'current'
+		let settings.target = 'none'
+		call wheel#boomerang#remove_selected ()
 		call wheel#line#sailing (settings)
 		let b:wheel_stack.selected[-1] = []
 	endif

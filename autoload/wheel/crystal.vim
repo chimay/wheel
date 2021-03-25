@@ -293,6 +293,14 @@ if ! exists('s:context_openedFiles')
 	lockvar s:context_openedFiles
 endif
 
+if ! exists('s:context_tabs')
+	let s:context_tabs = {
+				\ 'close' : "wheel#boomerang#tabwins('close')",
+				\}
+	call extend(s:context_tabs, s:context_sailing)
+	lockvar s:context_tabs
+endif
+
 if ! exists('s:context_grep')
 	let s:context_grep = {
 				\ 'open quickfix' : "wheel#boomerang#grep('quickfix')",

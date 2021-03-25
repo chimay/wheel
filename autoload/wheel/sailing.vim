@@ -159,6 +159,20 @@ fun! wheel#sailing#opened_files ()
 	nnoremap <buffer> <tab> :call wheel#boomerang#menu('openedFiles')<cr>
 endfun
 
+fun! wheel#sailing#tabwins ()
+	" Buffers visible in tabs & wins
+	" To be run before opening the wheel buffer
+	let lines = wheel#perspective#tabwins ()
+	call wheel#vortex#update ()
+	" Wheel buffer
+	call wheel#mandala#open ('wheel/tabs')
+	let settings = {'action' : function('wheel#line#tabwins')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+	" Context menu
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabs')<cr>
+endfun
+
 fun! wheel#sailing#occur (...)
 	" Lines matching pattern
 	if a:0 > 0

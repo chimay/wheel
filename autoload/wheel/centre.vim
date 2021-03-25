@@ -66,6 +66,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-tree) :call wheel#sailing#tree()<cr>
 	" Opened files
 	nnoremap <plug>(wheel-opened-files) :call wheel#sailing#opened_files()<cr>
+	" Tabs
+	nnoremap <plug>(wheel-tabwins) :call wheel#sailing#tabwins()<cr>
 	"History
 	nnoremap <plug>(wheel-history) :call wheel#sailing#history()<cr>
 	" Search inside files
@@ -202,6 +204,7 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . 'c <plug>(wheel-changes)'
 		" Search for files
 		exe 'nmap ' . prefix . '<m-b> <plug>(wheel-opened-files)'
+		exe 'nmap ' . prefix . 'B <plug>(wheel-tabwins)'
 		exe 'nmap ' . prefix . '<m-m> <plug>(wheel-mru)'
 		exe 'nmap ' . prefix . '<m-l> <plug>(wheel-locate)'
 		exe 'nmap ' . prefix . '<m-f> <plug>(wheel-find)'

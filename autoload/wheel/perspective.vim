@@ -290,6 +290,32 @@ fun! wheel#perspective#opened_files ()
 	return lines
 endfun
 
+fun! wheel#perspective#tabwins ()
+	" Buffers visible in tabs & wins
+	let lines = []
+	let tabnum = 'undefined'
+	let tabs = execute('tabs')
+	let tabs = split(tabs, "\n")
+	let length = len(tabs)
+	let isbuffer = '\m^\%(\s\|>\)'
+	for index in range(length)
+		let elem = tabs[index]
+		let fields = split(elem)
+		if elem !~ isbuffer
+			" tab line
+			let tabnum = fields[-1]
+		else
+			" buffer line
+			call insert(fields, tabnum)
+			let filename = fields[-1]
+			let oneline = [tabnum, filename]
+			let record = join(oneline, s:field_separ)
+			call add(lines, record)
+		endif
+	endfor
+	return lines
+endfun
+
 fun! wheel#perspective#occur (pattern)
 	" Occur for wheel buffer
 	let pattern = a:pattern
