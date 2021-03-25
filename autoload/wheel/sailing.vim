@@ -165,9 +165,24 @@ fun! wheel#sailing#tabwins ()
 	let lines = wheel#perspective#tabwins ()
 	call wheel#vortex#update ()
 	" Wheel buffer
-	call wheel#mandala#open ('wheel/tabs')
+	call wheel#mandala#open ('wheel/tabwins')
 	let settings = {'action' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+	" Context menu
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins', {'close' : v:true})<cr>
+endfun
+
+fun! wheel#sailing#tabwins_tree ()
+	" Buffers visible in tree of tabs & wins
+	" To be run before opening the wheel buffer
+	let lines = wheel#perspective#tabwins_tree ()
+	call wheel#vortex#update ()
+	" Wheel buffer
+	call wheel#mandala#open ('wheel/tabwins/tree')
+	let settings = {'action' : function('wheel#line#tabwins_tree')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
 	" Context menu
 	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins', {'close' : v:true})<cr>

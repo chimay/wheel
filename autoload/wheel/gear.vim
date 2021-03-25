@@ -51,12 +51,12 @@ fun! wheel#gear#restore_cursor (position, ...)
 	endif
 endfun
 
-" Fold
+" Fold for torus, circle and location
 
 fun! wheel#gear#fold_level ()
 	" Wheel level of fold line : torus, circle or location
 	if ! &foldenable
-		echomsg 'Wheel gear fold leve : fold is disabled in buffer'
+		echomsg 'Wheel gear fold level : fold is disabled in buffer'
 		return
 	endif
 	let line = getline('.')
@@ -81,6 +81,34 @@ fun! wheel#gear#parent_fold ()
 		return
 	endif
 	call search(pattern, 'b')
+endfun
+
+" Fold for tab & windows
+
+fun! wheel#gear#tabwin_level ()
+	" Level of fold line : tab or filename
+	if ! &foldenable
+		echomsg 'Wheel gear fold level : fold is disabled in buffer'
+		return
+	endif
+	let line = getline('.')
+	if line =~ s:fold_1
+		return 'tab'
+	else
+		return 'filename'
+	endif
+endfun
+
+fun! wheel#gear#parent_tabwin ()
+	" Go to line of parent fold in tabwin tree
+	let level = wheel#gear#tabwin_level ()
+	if level == 'filename'
+		let pattern = '\m' . s:fold_1 . '$'
+		call search(pattern, 'b')
+	else
+		" tab line : we stay there
+		return
+	endif
 endfun
 
 " Directory

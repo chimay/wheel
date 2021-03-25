@@ -154,6 +154,30 @@ fun! wheel#boomerang#tabwins (action)
 	return v:false
 endfun
 
+fun! wheel#boomerang#tabwins_tree (action)
+	" Buffers visible in tree of tabs & wins
+	let action = a:action
+	let settings = b:wheel_settings
+	let settings.context_key = action
+	if action == 'open'
+		" wheel#line#sailing will process the first selected line
+		let settings.target = 'current'
+		return wheel#line#sailing (settings)
+	elseif action == 'tabclose'
+		" To inform wheel#line#sailing
+		" that a loop on selected elements is necessary ;
+		" it does not perform it if target == 'current'
+		let settings.target = 'none'
+		call wheel#boomerang#remove_selected ()
+		" closing last tab first
+		call reverse(b:wheel_selected)
+		call wheel#line#sailing (settings)
+		let b:wheel_stack.selected[-1] = []
+		return v:true
+	endif
+	return v:false
+endfun
+
 fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action

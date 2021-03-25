@@ -282,8 +282,8 @@ fun! wheel#perspective#opened_files ()
 		let is_wheel_buf = index(g:wheel_shelve.buffers, bufnum) >= 0
 		let is_without_name = filename =~ '\m^\[.*\]'
 		if ! is_wheel_buf && ! is_without_name
-			let oneline = [bufnum, linum, filename]
-			let record = join(oneline, s:field_separ)
+			let entry = [bufnum, linum, filename]
+			let record = join(entry, s:field_separ)
 			call add(lines, record)
 		endif
 	endfor
@@ -308,10 +308,34 @@ fun! wheel#perspective#tabwins ()
 			" buffer line
 			call insert(fields, tabnum)
 			let filename = fields[-1]
-			let oneline = [tabnum, filename]
-			let record = join(oneline, s:field_separ)
+			let entry = [tabnum, filename]
+			let record = join(entry, s:field_separ)
 			call add(lines, record)
 		endif
+	endfor
+	return lines
+endfun
+
+fun! wheel#perspective#tabwins_tree ()
+	" Buffers visible in tree of tabs & wins
+	let lines = []
+	let tabnum = 'undefined'
+	let tabs = execute('tabs')
+	let tabs = split(tabs, "\n")
+	let length = len(tabs)
+	let isbuffer = '\m^\%(\s\|>\)'
+	for index in range(length)
+		let elem = tabs[index]
+		let fields = split(elem)
+		if elem !~ isbuffer
+			" tab line
+			let tabnum = fields[-1]
+			let record = 'tab ' . tabnum . s:fold_1
+		else
+			" buffer line
+			let record = fields[-1]
+		endif
+		call add(lines, record)
 	endfor
 	return lines
 endfun

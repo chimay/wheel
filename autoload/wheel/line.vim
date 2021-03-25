@@ -79,6 +79,37 @@ fun! wheel#line#coordinates ()
 	return coordin
 endfun
 
+fun! wheel#line#tabwin_hierarchy ()
+	" Return tab & filename of visible buffer
+	let position = getcurpos()
+	let cursor_line = getline('.')
+	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
+	let cursor_list = split(cursor_line)
+	if empty(cursor_line)
+		echomsg 'Wheel line coordin : empty line'
+		return v:false
+	endif
+	let level = wheel#gear#tabwin_level ()
+	if level == 'tab'
+		" tab line
+		let tabnum = cursor_list[1]
+		let coordin = [tabnum]
+	elseif level == 'filename'
+		" filename line
+		let filename = cursor_list[0]
+		call wheel#gear#parent_tabwin ()
+		let line = getline('.')
+		let line = substitute(line, s:selected_pattern, '', '')
+		let fields = split(line)
+		let tabnum = fields[1]
+		let coordin = [tabnum, filename]
+	else
+		echomsg 'Tabwin line coordin : wrong fold level'
+	endif
+	call wheel#gear#restore_cursor (position)
+	return coordin
+endfun
+
 " Selection
 
 fun! wheel#line#toggle ()
@@ -483,6 +514,28 @@ fun! wheel#line#opened_files (settings)
 endfun
 
 fun! wheel#line#tabwins (settings)
+	" Go to tab & win given by selected
+	let settings = a:settings
+	if ! has_key(settings, 'context_key') || settings.context_key == 'open'
+		let fields = split(settings.selected, s:field_separ)
+		let tabnum = fields[0]
+		execute 'tabnext ' . tabnum
+		" Find matching window
+		let filename = expand(fields[-1])
+		let filename = fnamemodify(filename, ':p')
+		let wins = wheel#mosaic#glasses (filename, 'tab')
+		call win_gotoid (wins[0])
+		return wins[0]
+	elseif settings.context_key == 'tabclose'
+		" Close tab
+		let fields = split(settings.selected, s:field_separ)
+		let tabnum = fields[0]
+		execute 'tabclose ' . tabnum
+		return win_getid ()
+	endif
+endfun
+
+fun! wheel#line#tabwins_tree (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
 	if ! has_key(settings, 'context_key') || settings.context_key == 'open'
