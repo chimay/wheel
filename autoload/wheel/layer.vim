@@ -91,7 +91,7 @@ fun! wheel#layer#push ()
 	" Selected lines
 	let selected = stack.selected
 	if ! exists('b:wheel_selected')
-		let b:wheel_selected = []
+		let b:wheel_selected = [wheel#line#address()]
 	endif
 	call insert(selected, b:wheel_selected)
 	" Buffer settings

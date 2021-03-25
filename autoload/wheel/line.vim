@@ -30,7 +30,12 @@ fun! wheel#line#address ()
 		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 		return cursor_line
 	else
-		return wheel#line#coordinates ()
+		let file = execute('file')
+		if file =~ '\m/wheel/tree'
+			return wheel#line#coordinates ()
+		elseif file =~ '\m/wheel/tabwins/tree'
+			return wheel#line#tabwin_hierarchy ()
+		endif
 	endif
 endfun
 
@@ -538,20 +543,23 @@ endfun
 fun! wheel#line#tabwins_tree (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
+	let hierarchy = a:settings.selected
+	let tabnum = hierarchy[0]
 	if ! has_key(settings, 'context_key') || settings.context_key == 'open'
-		let fields = split(settings.selected, s:field_separ)
-		let tabnum = fields[0]
+		" Find matching tab
 		execute 'tabnext ' . tabnum
-		" Find matching window
-		let filename = expand(fields[-1])
-		let filename = fnamemodify(filename, ':p')
-		let wins = wheel#mosaic#glasses (filename, 'tab')
-		call win_gotoid (wins[0])
-		return wins[0]
+		if len(hierarchy) == 2
+			let tabnum = hierarchy[0]
+			execute 'tabnext ' . tabnum
+			" Find matching window
+			let filename = expand(hierarchy[1])
+			let filename = fnamemodify(filename, ':p')
+			let wins = wheel#mosaic#glasses (filename, 'tab')
+			call win_gotoid (wins[0])
+			return wins[0]
+		endif
 	elseif settings.context_key == 'tabclose'
 		" Close tab
-		let fields = split(settings.selected, s:field_separ)
-		let tabnum = fields[0]
 		execute 'tabclose ' . tabnum
 		return win_getid ()
 	endif

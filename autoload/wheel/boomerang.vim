@@ -19,6 +19,7 @@ fun! wheel#boomerang#sync ()
 		let b:wheel_selected = deepcopy(stack.selected[0])
 	endif
 	" If selection is empty, take the old cursor line
+	" Should be filled with wheel#line#address anyway
 	if empty(b:wheel_selected)
 		let linum = stack.positions[0][1]
 		let now = stack.current[0]
@@ -144,7 +145,6 @@ fun! wheel#boomerang#tabwins (action)
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
-		call wheel#boomerang#remove_selected ()
 		" closing last tab first
 		call reverse(b:wheel_selected)
 		call wheel#line#sailing (settings)
@@ -156,26 +156,7 @@ endfun
 
 fun! wheel#boomerang#tabwins_tree (action)
 	" Buffers visible in tree of tabs & wins
-	let action = a:action
-	let settings = b:wheel_settings
-	let settings.context_key = action
-	if action == 'open'
-		" wheel#line#sailing will process the first selected line
-		let settings.target = 'current'
-		return wheel#line#sailing (settings)
-	elseif action == 'tabclose'
-		" To inform wheel#line#sailing
-		" that a loop on selected elements is necessary ;
-		" it does not perform it if target == 'current'
-		let settings.target = 'none'
-		call wheel#boomerang#remove_selected ()
-		" closing last tab first
-		call reverse(b:wheel_selected)
-		call wheel#line#sailing (settings)
-		let b:wheel_stack.selected[-1] = []
-		return v:true
-	endif
-	return v:false
+	return wheel#boomerang#tabwins (a:action)
 endfun
 
 fun! wheel#boomerang#grep (action)

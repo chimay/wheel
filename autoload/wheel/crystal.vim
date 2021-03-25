@@ -301,6 +301,14 @@ if ! exists('s:context_tabwins')
 	lockvar s:context_tabwins
 endif
 
+if ! exists('s:context_tabwins_tree')
+	let s:context_tabwins_tree = {
+				\ 'open' : "wheel#boomerang#tabwins_tree('open')",
+				\ 'tabclose' : "wheel#boomerang#tabwins_tree('tabclose')",
+				\}
+	lockvar s:context_tabwins_tree
+endif
+
 if ! exists('s:context_grep')
 	let s:context_grep = {
 				\ 'open quickfix' : "wheel#boomerang#grep('quickfix')",
