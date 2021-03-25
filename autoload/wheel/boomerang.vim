@@ -130,6 +130,7 @@ fun! wheel#boomerang#tabwins (action)
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
 		call wheel#boomerang#remove_selected ()
+		call reverse(b:wheel_selected)
 		call wheel#line#sailing (settings)
 		let b:wheel_stack.selected[-1] = []
 	endif
