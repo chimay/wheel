@@ -48,8 +48,20 @@ endfun
 
 " Generic
 
-fun! wheel#boomerang#menu (dictname)
+fun! wheel#boomerang#menu (dictname, ...)
 	" Context menu
+	if a:0 > 0
+		let optional = a:1
+	else
+		let optional = {}
+	endif
+	if ! has_key(optional, 'close')
+		" Close = v:false by default, to be able to catch wheel buffer variables
+		let optional.close = v:false
+	endif
+	if ! has_key(optional, 'travel')
+		let optional.travel = v:false
+	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
 		if empty(wheel#line#address ())
 			echomsg 'Wheel boomerang menu : empty selection'
@@ -57,8 +69,7 @@ fun! wheel#boomerang#menu (dictname)
 		endif
 	endif
 	let dictname = 'context/' . a:dictname
-	" Close = v:false by default, to be able to catch wheel buffer variables
-	let settings = {'linefun' : dictname, 'close' : v:false, 'travel' : v:false}
+	let settings = {'linefun' : dictname, 'close' : optional.close, 'travel' : optional.travel}
 	call wheel#tower#staircase(settings)
 	call wheel#boomerang#sync ()
 	" Let wheel#line#menu handle open / close
@@ -109,7 +120,7 @@ fun! wheel#boomerang#opened_files (action)
 	let settings = b:wheel_settings
 	if action == 'delete' || action == 'wipe'
 		let settings.context_action = action
-		" Necessary to inform wheel#line#sailing
+		" To inform wheel#line#sailing
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
@@ -123,9 +134,13 @@ fun! wheel#boomerang#tabwins (action)
 	" Buffers visible in tabs & wins
 	let action = a:action
 	let settings = b:wheel_settings
-	if action == 'close'
-		let settings.context_action = action
-		" Necessary to inform wheel#line#sailing
+	let settings.context_action = action
+	if action == 'open'
+		let settings.target = 'current'
+		call wheel#line#sailing (settings)
+		return v:true
+	elseif action == 'tabclose'
+		" To inform wheel#line#sailing
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
@@ -133,7 +148,9 @@ fun! wheel#boomerang#tabwins (action)
 		call reverse(b:wheel_selected)
 		call wheel#line#sailing (settings)
 		let b:wheel_stack.selected[-1] = []
+		return v:true
 	endif
+	return v:false
 endfun
 
 fun! wheel#boomerang#grep (action)

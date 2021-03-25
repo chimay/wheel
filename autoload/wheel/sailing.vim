@@ -170,7 +170,7 @@ fun! wheel#sailing#tabwins ()
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabs')<cr>
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins')<cr>
 endfun
 
 fun! wheel#sailing#occur (...)

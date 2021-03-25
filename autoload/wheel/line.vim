@@ -480,7 +480,7 @@ fun! wheel#line#tabwins (settings)
 		let filename = fnamemodify(filename, ':p')
 		let wins = wheel#mosaic#glasses (filename, 'tab')
 		call win_gotoid (wins[0])
-	elseif settings.context_action == 'close'
+	elseif settings.context_action == 'tabclose'
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
