@@ -104,6 +104,7 @@ your groups will grow and adapt to your style.
   + Auto |:lcd| to project root of current file
 - Search files
   + Opened buffers
+  + Visible buffers in tabs & wins
   + MRU files not found in wheel
   + Using locate
   + Using find
