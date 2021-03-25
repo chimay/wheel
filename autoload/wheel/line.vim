@@ -42,7 +42,7 @@ fun! wheel#line#coordinates ()
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
 		echomsg 'Wheel line coordin : empty line'
-		return
+		return v:false
 	endif
 	let level = wheel#gear#fold_level ()
 	if level == 'torus'
@@ -91,7 +91,7 @@ fun! wheel#line#toggle ()
 	endif
 	let line = getline('.')
 	if empty(line)
-		return
+		return v:false
 	endif
 	if line !~ s:selected_pattern
 		let record = line
@@ -119,7 +119,7 @@ endfun
 fun! wheel#line#sync_select ()
 	" Sync buffer lines from b:wheel_selected
 	if ! exists('b:wheel_selected')
-		return
+		return v:false
 	endif
 	let position = getcurpos()
 	for linum in range(line('$'))
@@ -242,33 +242,37 @@ fun! wheel#line#menu (settings)
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	if empty(cursor_line)
 		echomsg 'Wheel layer call : you selected an empty line'
-		return
+		return v:false
 	endif
 	let key = cursor_line
 	if ! has_key(dict, key)
 		normal! zv
 		call wheel#spiral#cursor ()
 		echomsg 'Wheel layer call : key not found'
-		return
+		return v:false
 	endif
-	" Close & travel
-	if close
-		call wheel#mandala#close ()
-	elseif travel
-		let mandala = win_getid()
+	let mandala = win_getid()
+	let mandala_pos = getcurpos()
+	" Travel before processing ?
+	if travel
 		wincmd p
 	endif
 	" Call
 	let value = dict[key]
 	if value =~ '\m)'
-		exe 'call ' . value
+		"exe 'let dest = ' . value
+		let dest = eval(value)
 	else
-		call {value}()
+		let dest = {value}()
 	endif
-	" Goto mandala if needed
-	if ! close && travel
-		call win_gotoid (mandala)
+	" Close wheel buffer ?
+	call win_gotoid (mandala)
+	call wheel#gear#restore_cursor (mandala_pos)
+	if close
+		call wheel#mandala#close ()
+		call win_gotoid (dest)
 	endif
+	return v:true
 endfun
 
 " Navigation
@@ -323,8 +327,8 @@ fun! wheel#line#sailing (settings)
 	if close
 		call wheel#mandala#close ()
 	else
-		let position = getcurpos()
 		let mandala = win_getid()
+		let position = getcurpos()
 		wincmd p
 	endif
 	if target != 'current'
@@ -340,11 +344,15 @@ fun! wheel#line#sailing (settings)
 		normal! zv
 		call wheel#spiral#cursor ()
 	endif
+	let dest = win_getid ()
 	if ! close
-		call win_gotoid(mandala)
+		call win_gotoid (mandala)
 		call wheel#line#deselect ()
 		call wheel#gear#restore_cursor (position)
+	else
+		call win_gotoid (dest)
 	endif
+	return dest
 endfun
 
 " Applications of wheel#line#sailing
@@ -358,6 +366,7 @@ fun! wheel#line#switch (settings)
 	let settings = a:settings
 	call wheel#line#target (settings.target)
 	call wheel#vortex#switch(settings.level, settings.selected, settings.use)
+	return win_getid ()
 endfun
 
 fun! wheel#line#helix (settings)
@@ -368,11 +377,12 @@ fun! wheel#line#helix (settings)
 	let coordin = split(a:settings.selected, ' > ')
 	if len(coordin) < 3
 		echomsg 'Helix line is too short'
-		return
+		return v:false
 	endif
 	call wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (a:settings.use)
+	return win_getid ()
 endfun
 
 fun! wheel#line#grid (settings)
@@ -383,12 +393,13 @@ fun! wheel#line#grid (settings)
 	let coordin = split(a:settings.selected, ' > ')
 	if len(coordin) < 2
 		echomsg 'Grid line is too short'
-		return
+		return v:false
 	endif
 	call wheel#line#target (a:settings.target)
 	call wheel#vortex#tune('torus', coordin[0])
 	call wheel#vortex#tune('circle', coordin[1])
 	call wheel#vortex#jump (a:settings.use)
+	return win_getid ()
 endfun
 
 fun! wheel#line#tree (settings)
@@ -412,6 +423,7 @@ fun! wheel#line#tree (settings)
 		call wheel#vortex#tune('torus', coordin[0])
 	endif
 	call wheel#vortex#jump (a:settings.use)
+	return win_getid ()
 endfun
 
 fun! wheel#line#history (settings)
@@ -422,16 +434,17 @@ fun! wheel#line#history (settings)
 	let fields = split(a:settings.selected, s:field_separ)
 	if len(fields) < 2
 		echomsg 'History line is too short'
-		return
+		return v:false
 	endif
 	let coordin = split(fields[1], ' > ')
 	if len(coordin) < 3
 		echomsg 'History : coordinates should contain 3 elements'
-		return
+		return v:false
 	endif
 	call wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (a:settings.use)
+	return win_getid ()
 endfun
 
 fun! wheel#line#opened_files (settings)
@@ -466,25 +479,28 @@ fun! wheel#line#opened_files (settings)
 		let bufnum = fields[0]
 		execute 'bwipe ' . bufnum
 	endif
+	return win_getid ()
 endfun
 
 fun! wheel#line#tabwins (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
-	if ! has_key(settings, 'context_key') || settings.context_key == 'sailing'
+	if ! has_key(settings, 'context_key') || settings.context_key == 'open'
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
-		exe 'tabnext ' tabnum
+		execute 'tabnext ' . tabnum
 		" Find matching window
 		let filename = expand(fields[-1])
 		let filename = fnamemodify(filename, ':p')
 		let wins = wheel#mosaic#glasses (filename, 'tab')
 		call win_gotoid (wins[0])
+		return wins[0]
 	elseif settings.context_key == 'tabclose'
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
 		execute 'tabclose ' . tabnum
+		return win_getid ()
 	endif
 endfun
 
@@ -494,6 +510,7 @@ fun! wheel#line#occur (settings)
 	let line = fields[0]
 	call wheel#line#target (a:settings.target)
 	call cursor(line, 1)
+	return win_getid ()
 endfun
 
 fun! wheel#line#grep (settings)
@@ -501,7 +518,7 @@ fun! wheel#line#grep (settings)
 	let fields = split(a:settings.selected, s:field_separ)
 	if len(fields) < 5
 		echomsg 'Grep line is too short'
-		return
+		return v:false
 	endif
 	"Using error number
 	let errnum = fields[0]
@@ -514,6 +531,7 @@ fun! wheel#line#grep (settings)
 	"call wheel#line#target (a:settings.target)
 	"exe 'buffer ' . bufnum
 	"call cursor(line, col)
+	return win_getid ()
 endfun
 
 fun! wheel#line#mru (settings)
@@ -521,11 +539,12 @@ fun! wheel#line#mru (settings)
 	let fields = split(a:settings.selected)
 	if len(fields) < 2
 		echomsg 'MRU line is too short'
-		return
+		return v:false
 	endif
 	let filename = fields[6]
 	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
+	return win_getid ()
 endfun
 
 fun! wheel#line#locate (settings)
@@ -533,6 +552,7 @@ fun! wheel#line#locate (settings)
 	let filename = a:settings.selected
 	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
+	return win_getid ()
 endfun
 
 fun! wheel#line#find (settings)
@@ -541,6 +561,7 @@ fun! wheel#line#find (settings)
 	let filename = trim(filename, ' ')
 	call wheel#line#target (a:settings.target)
 	exe 'edit ' . filename
+	return win_getid ()
 endfun
 
 fun! wheel#line#tags (settings)
@@ -548,11 +569,12 @@ fun! wheel#line#tags (settings)
 	let fields = split(a:settings.selected, s:field_separ)
 	if len(fields) < 4
 		echomsg 'Tag line is too short'
-		return
+		return v:false
 	endif
 	let ident = fields[0]
 	call wheel#line#target (a:settings.target)
 	exe 'tag ' . ident
+	return win_getid ()
 endfun
 
 fun! wheel#line#jumps (settings)
@@ -565,6 +587,7 @@ fun! wheel#line#jumps (settings)
 	else
 		exe 'normal! ' . - delta . "\<c-o>"
 	endif
+	return win_getid ()
 endfun
 
 fun! wheel#line#changes (settings)
@@ -577,6 +600,7 @@ fun! wheel#line#changes (settings)
 	else
 		exe 'normal! ' . - delta . 'g;'
 	endif
+	return win_getid ()
 endfun
 
 " Paste
@@ -598,7 +622,7 @@ fun! wheel#line#paste_list (...)
 	else
 		let line = getline('.')
 		if empty(line)
-			return
+			return v:false
 		endif
 		let content = eval(line)
 	endif
@@ -614,6 +638,7 @@ fun! wheel#line#paste_list (...)
 	if close == 'close'
 		call wheel#mandala#close ()
 	endif
+	return win_getid ()
 endfun
 
 fun! wheel#line#paste_plain (...)
@@ -634,7 +659,7 @@ fun! wheel#line#paste_plain (...)
 		let content = getline('.')
 	endif
 	if empty(content)
-		return
+		return v:false
 	endif
 	let mandala = win_getid()
 	wincmd p
@@ -648,6 +673,7 @@ fun! wheel#line#paste_plain (...)
 	if close == 'close'
 		call wheel#mandala#close ()
 	endif
+	return win_getid ()
 endfun
 
 fun! wheel#line#paste_visual (...)
@@ -674,4 +700,5 @@ fun! wheel#line#paste_visual (...)
 	if close == 'close'
 		call wheel#mandala#close ()
 	endif
+	return win_getid ()
 endfun
