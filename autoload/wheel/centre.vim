@@ -83,8 +83,6 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-mru) :call wheel#sailing#mru()<cr>
 	nnoremap <plug>(wheel-locate) :call wheel#sailing#locate()<cr>
 	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
-	" Batch
-	nnoremap <plug>(wheel-batch) :call wheel#vector#batch()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
 	" Reorder
@@ -206,11 +204,10 @@ fun! wheel#centre#cables ()
 		" Search for files
 		exe 'nmap ' . prefix . '<m-b> <plug>(wheel-opened-files)'
 		exe 'nmap ' . prefix . 'B <plug>(wheel-tabwins-tree)'
+		exe 'nmap ' . prefix . '<c-b> <plug>(wheel-tabwins)'
 		exe 'nmap ' . prefix . '<m-m> <plug>(wheel-mru)'
 		exe 'nmap ' . prefix . '<m-l> <plug>(wheel-locate)'
 		exe 'nmap ' . prefix . '<m-f> <plug>(wheel-find)'
-		" Batch
-		exe 'nmap ' . prefix . '<c-b> <plug>(wheel-batch)'
 		" Yank wheel
 		exe 'nmap ' . prefix . 'y <plug>(wheel-yank-list)'
 		exe 'nmap ' . prefix . '<m-y> <plug>(wheel-yank-plain)'
@@ -299,8 +296,6 @@ fun! wheel#centre#cables ()
 		" Yank
 		nmap <m-y>          <plug>(wheel-yank-list)
 		nmap <m-p>          <plug>(wheel-yank-plain)
-		" Batch
-		nmap <m-B>          <plug>(wheel-batch)
 		" Windows
 		nmap <m-z>          <plug>(wheel-zoom)
 		nmap <m-home>       <plug>(wheel-tabs-locations)
