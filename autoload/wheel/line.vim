@@ -437,7 +437,7 @@ endfun
 fun! wheel#line#opened_files (settings)
 	" Go to opened file given by selected
 	let settings = a:settings
-	if ! has_key(settings, 'context_action') || settings.context_action == 'sailing'
+	if ! has_key(settings, 'context_key') || settings.context_key == 'sailing'
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		let filename = expand(fields[2])
@@ -450,17 +450,17 @@ fun! wheel#line#opened_files (settings)
 		else
 			exe 'buffer ' bufnum
 		endif
-	elseif settings.context_action == 'delete'
+	elseif settings.context_key == 'delete'
 		" Delete buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		execute 'bdelete ' . bufnum
-	elseif settings.context_action == 'unload'
+	elseif settings.context_key == 'unload'
 		" Unload buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		execute 'bunload ' . bufnum
-	elseif settings.context_action == 'wipe'
+	elseif settings.context_key == 'wipe'
 		" Wipe buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
@@ -471,7 +471,7 @@ endfun
 fun! wheel#line#tabwins (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
-	if ! has_key(settings, 'context_action') || settings.context_action == 'sailing'
+	if ! has_key(settings, 'context_key') || settings.context_key == 'sailing'
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
 		exe 'tabnext ' tabnum
@@ -480,7 +480,7 @@ fun! wheel#line#tabwins (settings)
 		let filename = fnamemodify(filename, ':p')
 		let wins = wheel#mosaic#glasses (filename, 'tab')
 		call win_gotoid (wins[0])
-	elseif settings.context_action == 'tabclose'
+	elseif settings.context_key == 'tabclose'
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
