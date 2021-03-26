@@ -90,7 +90,7 @@ fun! wheel#layer#push ()
 	call insert(positions, getcurpos())
 	" Selected lines
 	let selected = stack.selected
-	if ! exists('b:wheel_selected')
+	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
 		let b:wheel_selected = [wheel#line#address()]
 	endif
 	call insert(selected, b:wheel_selected)
@@ -163,4 +163,8 @@ fun! wheel#layer#pop ()
 	" Restore selection
 	let selected = stack.selected
 	let b:wheel_selected = wheel#chain#pop(selected)
+	" Empty selection if only one element
+	if len(b:wheel_selected) == 1
+		call wheel#line#deselect ()
+	endif
 endfun
