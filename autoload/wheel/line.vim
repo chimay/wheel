@@ -40,7 +40,7 @@ fun! wheel#line#address ()
 endfun
 
 fun! wheel#line#coordinates ()
-	" Return coordinates of line in folded wheel buffer
+	" Return wheel coordinates of line in folded wheel buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -85,7 +85,7 @@ fun! wheel#line#coordinates ()
 endfun
 
 fun! wheel#line#tabwin_hierarchy ()
-	" Return tab & filename of visible buffer
+	" Return tab & filename of line in folded wheel buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -109,7 +109,7 @@ fun! wheel#line#tabwin_hierarchy ()
 		let tabnum = fields[1]
 		let coordin = [tabnum, filename]
 	else
-		echomsg 'Tabwin line coordin : wrong fold level'
+		echomsg 'Tabwin hierarchy : wrong fold level'
 	endif
 	call wheel#gear#restore_cursor (position)
 	return coordin
