@@ -271,8 +271,8 @@ fun! wheel#line#menu (settings)
 	" - travel : whether to apply action in previous buffer
 	let settings = a:settings
 	let dict = wheel#crystal#fetch (settings.linefun)
-	let close = settings.close
-	let travel = settings.travel
+	let close = settings.ctx_close
+	let travel = settings.ctx_travel
 	" Cursor line
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -355,11 +355,6 @@ fun! wheel#line#sailing (settings)
 	else
 		echomsg 'Wheel line navigation : bad format for b:wheel_selected'
 	endif
-	if len(selected) == 1
-		let settings.use = 'default'
-	else
-		let settings.use = 'new'
-	endif
 	if close
 		call wheel#mandala#close ()
 	else
@@ -368,6 +363,9 @@ fun! wheel#line#sailing (settings)
 		wincmd p
 	endif
 	if target != 'current'
+		" open new split or tab, do not search for
+		" match in visible buffer
+		let settings.use = 'new'
 		for elem in selected
 			let settings.selected = elem
 			call Fun (settings)
@@ -375,6 +373,8 @@ fun! wheel#line#sailing (settings)
 			call wheel#spiral#cursor ()
 		endfor
 	else
+		" search for match in visible buffer
+		let settings.use = 'default'
 		let settings.selected = selected[0]
 		call Fun (settings)
 		normal! zv
@@ -486,7 +486,7 @@ endfun
 fun! wheel#line#opened_files (settings)
 	" Go to opened file given by selected
 	let settings = a:settings
-	if ! has_key(settings, 'context_key') || settings.context_key == 'sailing'
+	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'sailing'
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		let filename = expand(fields[2])
@@ -499,17 +499,17 @@ fun! wheel#line#opened_files (settings)
 		else
 			exe 'buffer ' bufnum
 		endif
-	elseif settings.context_key == 'delete'
+	elseif settings.ctx_key == 'delete'
 		" Delete buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		execute 'bdelete ' . bufnum
-	elseif settings.context_key == 'unload'
+	elseif settings.ctx_key == 'unload'
 		" Unload buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		execute 'bunload ' . bufnum
-	elseif settings.context_key == 'wipe'
+	elseif settings.ctx_key == 'wipe'
 		" Wipe buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
@@ -521,7 +521,7 @@ endfun
 fun! wheel#line#tabwins (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
-	if ! has_key(settings, 'context_key') || settings.context_key == 'open'
+	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'open'
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
 		execute 'tabnext ' . tabnum
@@ -531,7 +531,7 @@ fun! wheel#line#tabwins (settings)
 		let wins = wheel#mosaic#glasses (filename, 'tab')
 		call win_gotoid (wins[0])
 		return wins[0]
-	elseif settings.context_key == 'tabclose'
+	elseif settings.ctx_key == 'tabclose'
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
@@ -545,7 +545,7 @@ fun! wheel#line#tabwins_tree (settings)
 	let settings = a:settings
 	let hierarchy = a:settings.selected
 	let tabnum = hierarchy[0]
-	if ! has_key(settings, 'context_key') || settings.context_key == 'open'
+	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'open'
 		" Find matching tab
 		execute 'tabnext ' . tabnum
 		if len(hierarchy) == 2
@@ -558,7 +558,7 @@ fun! wheel#line#tabwins_tree (settings)
 			call win_gotoid (wins[0])
 			return wins[0]
 		endif
-	elseif settings.context_key == 'tabclose'
+	elseif settings.ctx_key == 'tabclose'
 		" Close tab
 		execute 'tabclose ' . tabnum
 		return win_getid ()

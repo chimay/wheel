@@ -170,7 +170,7 @@ fun! wheel#sailing#tabwins ()
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins', {'close' : v:true})<cr>
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins', {'ctx_close' : v:true})<cr>
 endfun
 
 fun! wheel#sailing#tabwins_tree ()
@@ -185,7 +185,7 @@ fun! wheel#sailing#tabwins_tree ()
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree', {'close' : v:true})<cr>
+	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree', {'ctx_close' : v:true})<cr>
 endfun
 
 fun! wheel#sailing#occur (...)
