@@ -298,13 +298,14 @@ fun! wheel#perspective#tabwins ()
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
 	let isbuffer = '\m^\%(\s\|>\)'
+	let iswheel = '\m^>\?\s*/wheel'
 	for index in range(length)
 		let elem = tabs[index]
 		let fields = split(elem)
 		if elem !~ isbuffer
 			" tab line
 			let tabnum = fields[-1]
-		else
+		elseif elem !~ iswheel
 			" buffer line
 			call insert(fields, tabnum)
 			let filename = fields[-1]
@@ -324,6 +325,7 @@ fun! wheel#perspective#tabwins_tree ()
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
 	let isbuffer = '\m^\%(\s\|>\)'
+	let iswheel = '\m^>\?\s*/wheel'
 	for index in range(length)
 		let elem = tabs[index]
 		let fields = split(elem)
@@ -331,11 +333,13 @@ fun! wheel#perspective#tabwins_tree ()
 			" tab line
 			let tabnum = fields[-1]
 			let record = 'tab ' . tabnum . s:fold_1
-		else
+		elseif elem !~ iswheel
 			" buffer line
 			let record = fields[-1]
 		endif
-		call add(lines, record)
+		if elem !~ iswheel
+			call add(lines, record)
+		endif
 	endfor
 	return lines
 endfun

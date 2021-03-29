@@ -131,6 +131,9 @@ if ! exists('s:menu_navigation')
 				\ 'go to most recently used file (mru)' : 'wheel#sailing#attic',
 				\ 'go to result of locate search' : 'wheel#sailing#locate',
 				\ 'go to result of find search' : 'wheel#sailing#find',
+				\ 'go to buffer' : 'wheel#sailing#opened_filed',
+				\ 'go to tab & window' : 'wheel#sailing#tabwins',
+				\ 'go to tab & window (fold tree mode)' : 'wheel#sailing#tabwins_tree',
 				\}
 	lockvar s:menu_navigation
 endif
@@ -165,17 +168,17 @@ if ! exists('s:menu_yank')
 	lockvar s:menu_yank
 endif
 
-if ! exists('s:menu_tabs')
-	let s:menu_tabs = {
+if ! exists('s:menu_layout_tabs')
+	let s:menu_layout_tabs = {
 				\ 'toruses on tabs' : "wheel#mosaic#tabs('torus')",
 				\ 'circles on tabs' : "wheel#mosaic#tabs('circle')",
 				\ 'locations on tabs' : "wheel#mosaic#tabs('location')",
 				\}
-	lockvar s:menu_tabs
+	lockvar s:menu_layout_tabs
 endif
 
-if ! exists('s:menu_windows')
-	let s:menu_windows = {
+if ! exists('s:menu_layout_windows')
+	let s:menu_layout_windows = {
 				\ 'toruses on horizontal splits' : "wheel#mosaic#split('torus')",
 				\ 'circles on horizontal splits' : "wheel#mosaic#split('circle')",
 				\ 'locations on horizontal splits' : "wheel#mosaic#split('location')",
@@ -209,16 +212,16 @@ if ! exists('s:menu_windows')
 				\ 'rotate windows clockwise' : 'wheel#mosaic#rotate_clockwise()',
 				\ 'rotate windows counter-clockwise' : 'wheel#mosaic#rotate_counter_clockwise()',
 				\}
-	lockvar s:menu_windows
+	lockvar s:menu_layout_windows
 endif
 
-if ! exists('s:menu_tabnwin')
-	let s:menu_tabnwin = {
+if ! exists('s:menu_layout_mixed')
+	let s:menu_layout_mixed = {
 				\ 'mix : toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
 				\ 'mix : circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
 				\ 'zoom : one tab, one window' : 'wheel#mosaic#zoom()',
 				\}
-	lockvar s:menu_tabnwin
+	lockvar s:menu_layout_mixed
 endif
 
 " List of menu variables
@@ -233,9 +236,9 @@ if ! exists('s:menu_list')
 				\ 'alternate',
 				\ 'reorganize',
 				\ 'yank',
-				\ 'tabs',
-				\ 'windows',
-				\ 'tabnwin',
+				\ 'layout_tabs',
+				\ 'layout_windows',
+				\ 'layout_mixed',
 				\]
 	lockvar s:menu_list
 endif
@@ -260,9 +263,9 @@ if ! exists('s:menu_meta')
 				\ 'disc' : "wheel#hub#submenu('disc')",
 				\ 'navigation' : "wheel#hub#submenu('navigation')",
 				\ 'alternate' : "wheel#hub#submenu('alternate')",
-				\ 'tabs' : "wheel#hub#submenu('tabs')",
-				\ 'window layouts' : "wheel#hub#submenu('windows')",
-				\ 'mix of tabs & windows' : "wheel#hub#submenu('tabnwin')",
+				\ 'layouts : tabs' : "wheel#hub#submenu('layout_tabs')",
+				\ 'layouts : window' : "wheel#hub#submenu('layout_windows')",
+				\ 'layouts : mixed' : "wheel#hub#submenu('layout_mixed')",
 				\ 'reorganize' : "wheel#hub#submenu('reorganize')",
 				\ 'yank' : "wheel#hub#submenu('yank')",
 				\}
