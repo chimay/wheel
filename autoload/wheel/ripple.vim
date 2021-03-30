@@ -26,7 +26,7 @@ endfun
 fun! wheel#ripple#template ()
 	" Job buffer template
 	call wheel#mandala#template ()
-	setlocal bufhidden=
+	setlocal bufhidden=hide
 	exe 'file ' . '/wheel/ripple/' . bufnr('%')
 	call append(0, '')
 endfun

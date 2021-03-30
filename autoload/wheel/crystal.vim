@@ -131,7 +131,7 @@ if ! exists('s:menu_navigation')
 				\ 'go to most recently used file (mru)' : 'wheel#sailing#attic',
 				\ 'go to result of locate search' : 'wheel#sailing#locate',
 				\ 'go to result of find search' : 'wheel#sailing#find',
-				\ 'go to buffer' : 'wheel#sailing#opened_filed',
+				\ 'go to buffer' : 'wheel#sailing#opened_files',
 				\ 'go to tab & window' : 'wheel#sailing#tabwins',
 				\ 'go to tab & window (fold tree mode)' : 'wheel#sailing#tabwins_tree',
 				\}

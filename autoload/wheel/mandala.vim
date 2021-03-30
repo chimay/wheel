@@ -168,12 +168,12 @@ fun! wheel#mandala#common_options (type)
 	setlocal nobuflisted
 	setlocal noswapfile
 	setlocal buftype=nofile
-	setlocal bufhidden=
+	setlocal bufhidden=hide
 	" wheel or type argument
 	let &filetype = 'wheel'
 	" Useful as information
 	" Also need a name when writing, even with BufWriteCmd
-	let pseudo_folders = '/' . type
+	let pseudo_folders = '/' . type . ' ' . bufnr('%')
 	exe 'file ' . pseudo_folders
 endfun
 
