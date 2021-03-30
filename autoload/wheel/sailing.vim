@@ -93,11 +93,15 @@ fun! wheel#sailing#switch (level)
 		return
 	endif
 	call wheel#vortex#update ()
-	let dashboard = wheel#referen#names()
 	let maxlevel = wheel#referen#coordin_index(level)
-	let dashboard = join(dashboard[0:maxlevel], ':')
-	"call wheel#mandala#open ('switch/' . level . ' ' . dashboard)
-	call wheel#mandala#open (level . ' ' . dashboard)
+	let dashboard = wheel#referen#names()
+	if maxlevel > 0
+		let maxlevel -= 1
+		let dashboard = join(dashboard[0:maxlevel], ':')
+	else
+		let dashboard = ''
+	endif
+	call wheel#mandala#open ('switch/' . level . ' ' . dashboard)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)

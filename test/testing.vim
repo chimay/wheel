@@ -246,6 +246,12 @@ call s:Vars ()
 
 " }}}1
 
+" Popup {{{1
+
+"call nvim_open_win(nvim_create_buf(v:false,v:true),v:true,{'width':70,'height':70,'relative':'win','bufpos':[2,3]})
+
+" }}}1
+
 " Wheel {{{1
 
 " {'file': '/home/david/racine/public/wheel/test/test.vim', 'col': 8, 'name': 'test', 'line': 54}
