@@ -97,11 +97,11 @@ fun! wheel#sailing#switch (level)
 	let dashboard = wheel#referen#names()
 	if maxlevel > 0
 		let maxlevel -= 1
-		let dashboard = join(dashboard[0:maxlevel], ':')
+		let dashboard = ' in ' . join(dashboard[0:maxlevel], ':')
 	else
 		let dashboard = ''
 	endif
-	call wheel#mandala#open ('switch/' . level . ' ' . dashboard)
+	call wheel#mandala#open ('switch/' . level .dashboard)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)
