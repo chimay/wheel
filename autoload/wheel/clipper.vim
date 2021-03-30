@@ -46,7 +46,7 @@ fun! wheel#clipper#yank (mode)
 	let mode = a:mode
 	let lines = wheel#perspective#yank (mode)
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('wheel/yank/' . mode)
+	call wheel#mandala#open ('yank/' . mode)
 	let settings = {'mode' : mode}
 	call wheel#clipper#template(settings)
 	call wheel#mandala#fill (lines)

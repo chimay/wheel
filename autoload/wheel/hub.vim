@@ -76,7 +76,7 @@ endfun
 fun! wheel#hub#menu (dictname)
 	" Menu in wheel buffer
 	let dictname = a:dictname
-	let string = 'wheel/menu/' . dictname
+	let string = 'menu/' . dictname
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
 endfun

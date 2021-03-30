@@ -50,7 +50,7 @@ fun! wheel#ripple#start (command, ...)
 	endif
 	" Buffer
 	if options.new_buffer
-		call wheel#mandala#open ('wheel/ripple')
+		call wheel#mandala#open ('ripple')
 	endif
 	call wheel#ripple#template ()
 	" Expand tilde in filenames
