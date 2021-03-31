@@ -172,7 +172,7 @@ fun! wheel#mandala#common_options (type)
 	" wheel or type argument
 	let &filetype = 'wheel'
 	" Useful as information
-	" Also need a name when writing, even with BufWriteCmd
+	" We also need a name when writing, even with BufWriteCmd
 	" Add unique buf id, so (n)vim does not complain about
 	" existing file name
 	let current = g:wheel_buffers.current
