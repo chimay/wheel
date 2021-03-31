@@ -125,6 +125,12 @@ fun! wheel#void#buffers ()
 	if ! has_key(g:wheel_buffers, 'current')
 		let g:wheel_buffers.current = -1
 	endif
+	if ! has_key(g:wheel_buffers, 'iden')
+		let g:wheel_buffers.iden = []
+	endif
+	if ! has_key(g:wheel_buffers, 'maxim')
+		let g:wheel_buffers.maxim = -1
+	endif
 endfun
 
 fun! wheel#void#shelve ()

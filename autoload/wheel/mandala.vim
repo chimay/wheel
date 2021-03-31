@@ -175,8 +175,9 @@ fun! wheel#mandala#common_options (type)
 	" Also need a name when writing, even with BufWriteCmd
 	" Add unique buf id, so (n)vim does not complain about
 	" existing file name
-	let bufnum = bufnr('%')
-	let pseudo_folders = '/wheel/' . bufnum . '/' . type
+	let current = g:wheel_buffers.current
+	let iden = g:wheel_buffers.iden[current]
+	let pseudo_folders = '/wheel/' . iden . '/' . type
 	exe 'file ' . pseudo_folders
 endfun
 

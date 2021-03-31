@@ -27,7 +27,10 @@ fun! wheel#ripple#template ()
 	" Job buffer template
 	call wheel#mandala#template ()
 	setlocal bufhidden=hide
-	exe 'file ' . '/wheel/ripple/' . bufnr('%')
+	let current = g:wheel_buffers.current
+	let iden = g:wheel_buffers.iden[current]
+	let pseudo_folders = '/wheel/' . iden . '/ripple'
+	exe 'file ' . pseudo_folders
 	call append(0, '')
 endfun
 

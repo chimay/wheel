@@ -20,7 +20,10 @@ fun! wheel#wave#template ()
 	" Job buffer template
 	call wheel#mandala#template ()
 	setlocal bufhidden=hide
-	exe 'file ' . '/wheel/wave/' . bufnr('%')
+	let current = g:wheel_buffers.current
+	let iden = g:wheel_buffers.iden[current]
+	let pseudo_folders = '/wheel/' . iden . '/wave'
+	exe 'file ' . pseudo_folders
 	let b:wheel_lines = []
 endfun
 

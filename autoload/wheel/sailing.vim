@@ -253,8 +253,11 @@ fun! wheel#sailing#outline ()
 		let bool = wheel#sailing#grep ('^=.*=$', '\.wiki$')
 	endif
 	if bool
-		let &filetype = 'wheel/outline'
-		file /wheel/outline
+		let &filetype = 'wheel'
+		let current = g:wheel_buffers.current
+		let iden = g:wheel_buffers.iden[current]
+		let pseudo_folders = '/wheel/' . iden . '/outline'
+		exe 'file ' . pseudo_folders
 	endif
 endfun
 
