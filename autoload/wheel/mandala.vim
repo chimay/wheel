@@ -32,7 +32,7 @@ fun! wheel#mandala#open (...)
 		call wheel#layer#fresh ()
 	else
 		new
-		call wheel#cylinder#push ('rest')
+		call wheel#cylinder#push ('linger')
 	endif
 	call wheel#mandala#common_options (type)
 endfun
@@ -173,7 +173,9 @@ fun! wheel#mandala#common_options (type)
 	let &filetype = 'wheel'
 	" Useful as information
 	" Also need a name when writing, even with BufWriteCmd
-	let pseudo_folders = '/wheel/' . bufnr('%') . '/' . type
+	let bufnum = bufnr('%')
+	let wheelnum = bufnum
+	let pseudo_folders = '/wheel/' . wheelnum . '/' . type
 	exe 'file ' . pseudo_folders
 endfun
 
