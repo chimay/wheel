@@ -58,4 +58,5 @@ fun! wheel#shape#reorganize ()
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete
 	setlocal nomodified
+	setlocal nocursorline
 endfun
