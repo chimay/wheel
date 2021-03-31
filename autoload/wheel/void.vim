@@ -114,6 +114,19 @@ fun! wheel#void#yank ()
 	endif
 endfun
 
+fun! wheel#void#buffers ()
+	" Initialize wheel special buffers
+	if ! exists('g:wheel_buffers')
+		let g:wheel_buffers = {}
+	endif
+	if ! has_key(g:wheel_buffers, 'stack')
+		let g:wheel_buffers.stack = []
+	endif
+	if ! has_key(g:wheel_buffers, 'current')
+		let g:wheel_buffers.current = -1
+	endif
+endfun
+
 fun! wheel#void#shelve ()
 	" Initialize shelve : misc status variables
 	if ! exists('g:wheel_shelve')
@@ -200,6 +213,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#attic ()
 	call wheel#void#wave ()
 	call wheel#void#yank ()
+	call wheel#void#buffers ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 endfun
@@ -221,6 +235,7 @@ fun! wheel#void#lighten ()
 				\ 'g:wheel_wave',
 				\ 'g:wheel_ripple',
 				\ 'g:wheel_yank',
+				\ 'g:wheel_buffers',
 				\ 'g:wheel_shelve',
 				\ 'g:wheel_config',
 				\]
@@ -275,6 +290,7 @@ fun! wheel#void#fresh_wheel ()
 	unlet g:wheel_attic
 	unlet g:wheel_wave
 	unlet g:wheel_yank
+	unlet g:wheel_buffers
 	unlet g:wheel_shelve
 	call wheel#void#foundation ()
 endfun

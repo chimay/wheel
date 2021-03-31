@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Generic Wheel Buffers
+" Generic Wheel Special Buffers
 "
 " A mandala is made of lines, like a buffer
 "
@@ -21,11 +21,11 @@ endif
 " Buffer
 
 fun! wheel#mandala#open (...)
-	" Open a wheel buffer
+	" Open a wheel special buffer
 	if a:0 > 0
 		let type = a:1
 	else
-		let type = 'wheel'
+		let type = 'default'
 	endif
 	if wheel#cylinder#recall ()
 		1,$ delete _
@@ -38,7 +38,7 @@ fun! wheel#mandala#open (...)
 endfun
 
 fun! wheel#mandala#close ()
-	" Close the wheel buffer
+	" Close the wheel special buffer
 	" Go to alternate buffer if only one window
 	if winnr('$') > 1
 		quit
@@ -90,7 +90,7 @@ fun! wheel#mandala#replace (content, ...)
 endfun
 
 fun! wheel#mandala#previous ()
-	" Go to previous window, before wheel buffer opening
+	" Go to previous window, before wheel special buffer opening
 	" Go to alternate buffer if only one window
 	if winnr('$') > 1
 		wincmd p
@@ -173,9 +173,10 @@ fun! wheel#mandala#common_options (type)
 	let &filetype = 'wheel'
 	" Useful as information
 	" Also need a name when writing, even with BufWriteCmd
+	" Add unique buf id, so (n)vim does not complain about
+	" existing file name
 	let bufnum = bufnr('%')
-	let wheelnum = bufnum
-	let pseudo_folders = '/wheel/' . wheelnum . '/' . type
+	let pseudo_folders = '/wheel/' . bufnum . '/' . type
 	exe 'file ' . pseudo_folders
 endfun
 
@@ -222,7 +223,7 @@ endfun
 " Folding
 
 fun! wheel#mandala#folding_options ()
-	" Folding options for wheel buffers
+	" Folding options for wheel special buffers
 	setlocal foldenable
 	setlocal foldminlines=1
 	setlocal foldlevel=0
@@ -235,7 +236,7 @@ fun! wheel#mandala#folding_options ()
 endfun
 
 fun! wheel#mandala#folding_text ()
-	" Folding text for wheel buffers
+	" Folding text for wheel special buffers
 	let numlines = v:foldend - v:foldstart
 	let line = getline(v:foldstart)
 	if v:foldlevel == 1

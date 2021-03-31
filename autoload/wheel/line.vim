@@ -24,7 +24,7 @@ endif
 " Address of current line
 
 fun! wheel#line#address ()
-	" Return address of element at line in plain or folded wheel buffer
+	" Return address of element at line in plain or folded wheel special buffer
 	if ! &foldenable
 		let cursor_line = getline('.')
 		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -40,7 +40,7 @@ fun! wheel#line#address ()
 endfun
 
 fun! wheel#line#coordinates ()
-	" Return wheel coordinates of line in folded wheel buffer
+	" Return wheel coordinates of line in folded wheel special buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -85,7 +85,7 @@ fun! wheel#line#coordinates ()
 endfun
 
 fun! wheel#line#tabwin_hierarchy ()
-	" Return tab & filename of line in folded wheel buffer
+	" Return tab & filename of line in folded wheel special buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
@@ -267,7 +267,7 @@ fun! wheel#line#menu (settings)
 	" Calls function given by the key = cursor line
 	" settings is a dictionary, whose keys can be :
 	" - dict : name of a dictionary variable in storage.vim
-	" - close : whether to close wheel buffer
+	" - close : whether to close wheel special buffer
 	" - travel : whether to apply action in previous buffer
 	let settings = a:settings
 	let dict = wheel#crystal#fetch (settings.linefun)
@@ -301,7 +301,7 @@ fun! wheel#line#menu (settings)
 	else
 		let dest = {value}()
 	endif
-	" Close wheel buffer ?
+	" Close wheel special buffer ?
 	call win_gotoid (mandala)
 	call wheel#gear#restore_cursor (mandala_pos)
 	if close

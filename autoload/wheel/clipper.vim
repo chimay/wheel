@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Yank wheel buffers
+" Yank wheel special buffers
 
 " Helpers
 

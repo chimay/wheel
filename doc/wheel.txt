@@ -1196,11 +1196,11 @@ Reorganizing buffer~
 
 Managing special buffers~
 
-| Prefix +    | With default prefix | Action                    |
-| --------    | ------------------- | ------------------------- |
-| <Tab>       | <M-w><Tab>          | Save (push) wheel buffer  |
-| <Backspace> | <M-w><Backspace>    | Remove (pop) wheel buffer |
-| @           | <M-w>@              | Cycle wheel buffers       |
+| Prefix +    | With default prefix | Action                            |
+| --------    | ------------------- | --------------------------------- |
+| <Tab>       | <M-w><Tab>          | Save (push) wheel special buffer  |
+| <Backspace> | <M-w><Backspace>    | Remove (pop) wheel special buffer |
+| @           | <M-w>@              | Cycle wheel special buffers       |
 
 Tabs~
 
@@ -1311,9 +1311,9 @@ and add them to your init file.
 | <M-PageUp>     | Rotate windows counter-clockwise            |
 | <M-PageDown>   | Rotate windows clockwise                    |
 | -------------- | ------------------------------------------- |
-| <M-Tab>        | Save (push) wheel buffer                    |
-| <M-Backspace>  | Remove (pop) wheel buffer                   |
-| <M-Space>      | Cycle wheel buffers                         |
+| <M-Tab>        | Save (push) wheel special buffer            |
+| <M-Backspace>  | Remove (pop) wheel special buffer           |
+| <M-Space>      | Cycle wheel special buffers                 |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -1374,11 +1374,11 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Rotate windows
     nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
     nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
-    " Save (push) wheel buffer
+    " Save (push) wheel special buffer
     nmap <m-Tab>        <plug>(wheel-buffer-push)
-    " Remove (pop) wheel buffer
+    " Remove (pop) wheel special buffer
     nmap <m-Backspace>  <plug>(wheel-buffer-pop)
-    " Cycle wheel buffers
+    " Cycle wheel special buffers
     nmap <m-space>      <plug>(wheel-buffer-cycle)
 <
 

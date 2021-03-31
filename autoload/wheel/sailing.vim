@@ -74,7 +74,7 @@ fun! wheel#sailing#bounce (command)
 	" Buffer for jumps / changes lists
 	let command = a:command
 	let lines = wheel#perspective#bounce (command)
-	" Wheel buffer
+	" Wheel special buffer
 	call wheel#mandala#open (command)
 	let settings = {'action' : function('wheel#line#' . command)}
 	call wheel#sailing#template (settings)
@@ -152,10 +152,10 @@ endfun
 
 fun! wheel#sailing#opened_files ()
 	" Opened files
-	" To be run before opening the wheel buffer
+	" To be run before opening the wheel special buffer
 	let lines = wheel#perspective#opened_files ()
 	call wheel#vortex#update ()
-	" Wheel buffer
+	" Wheel special buffer
 	call wheel#mandala#open ('buffers')
 	let settings = {'action' : function('wheel#line#opened_files')}
 	call wheel#sailing#template (settings)
@@ -166,10 +166,10 @@ endfun
 
 fun! wheel#sailing#tabwins ()
 	" Buffers visible in tabs & wins
-	" To be run before opening the wheel buffer
+	" To be run before opening the wheel special buffer
 	let lines = wheel#perspective#tabwins ()
 	call wheel#vortex#update ()
-	" Wheel buffer
+	" Wheel special buffer
 	call wheel#mandala#open ('tabwins')
 	let settings = {'action' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
@@ -180,10 +180,10 @@ endfun
 
 fun! wheel#sailing#tabwins_tree ()
 	" Buffers visible in tree of tabs & wins
-	" To be run before opening the wheel buffer
+	" To be run before opening the wheel special buffer
 	let lines = wheel#perspective#tabwins_tree ()
 	call wheel#vortex#update ()
-	" Wheel buffer
+	" Wheel special buffer
 	call wheel#mandala#open ('tabwins/tree')
 	let settings = {'action' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
@@ -200,9 +200,9 @@ fun! wheel#sailing#occur (...)
 	else
 		let pattern = input('Lines matching pattern : ')
 	endif
-	" To be run before opening the wheel buffer
+	" To be run before opening the wheel special buffer
 	let lines = wheel#perspective#occur (pattern)
-	" Wheel buffer
+	" Wheel special buffer
 	call wheel#mandala#open ('occur')
 	let settings = {'action' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)

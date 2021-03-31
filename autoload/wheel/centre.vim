@@ -94,11 +94,11 @@ fun! wheel#centre#plugs ()
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
-	" Save (push) wheel buffer
+	" Save (push) wheel special buffer
 	nnoremap <plug>(wheel-buffer-push) :call wheel#cylinder#push()<cr>
-	" Remove (pop) wheel buffer
+	" Remove (pop) wheel special buffer
 	nnoremap <plug>(wheel-buffer-pop) :call wheel#cylinder#pop()<cr>
-	" Cycle wheel buffers
+	" Cycle wheel special buffers
 	nnoremap <plug>(wheel-buffer-cycle) :call wheel#cylinder#cycle()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabs-locations) :call wheel#mosaic#tabs('location')<cr>
@@ -215,11 +215,11 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . ': <plug>(wheel-command)'
 		" Reorganize
 		exe 'nmap ' . prefix . '<m-r> <plug>(wheel-reorganize)'
-		" Save (push) wheel buffer
+		" Save (push) wheel special buffer
 		exe 'nmap ' . prefix . '<tab> <plug>(wheel-buffer-push)'
-		" Remove (pop) wheel buffer
+		" Remove (pop) wheel special buffer
 		exe 'nmap ' . prefix . '<backspace> <plug>(wheel-buffer-pop)'
-		" Cycle wheel buffers
+		" Cycle wheel special buffers
 		exe 'nmap ' . prefix . '@ <plug>(wheel-buffer-cycle)'
 		" Tabs
 		exe 'nmap ' . prefix . 't <plug>(wheel-tabs-locations)'
@@ -304,11 +304,11 @@ fun! wheel#centre#cables ()
 		" Rotate windows
 		nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
 		nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
-		" Save (push) wheel buffer
+		" Save (push) wheel special buffer
 		nmap <m-Tab>        <plug>(wheel-buffer-push)
-		" Remove (pop) wheel buffer
+		" Remove (pop) wheel special buffer
 		nmap <m-Backspace>  <plug>(wheel-buffer-pop)
-		" Cycle wheel buffers
+		" Cycle wheel special buffers
 		nmap <m-space>      <plug>(wheel-buffer-cycle)
 	endif
 	" Debug

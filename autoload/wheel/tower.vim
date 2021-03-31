@@ -34,7 +34,7 @@ endfun
 
 fun! wheel#tower#staircase (settings)
 	" Replace buffer content by a {line -> fun} layer
-	" Reuse current wheel buffer
+	" Reuse current wheel special buffer
 	" Define dict maps
 	let settings = a:settings
 	let dictname = settings.linefun
