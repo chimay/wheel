@@ -140,10 +140,6 @@ fun! wheel#void#shelve ()
 	if ! has_key(g:wheel_shelve, 'backup')
 		let g:wheel_shelve.backup = {}
 	endif
-	" Mandala buffers
-	if ! has_key(g:wheel_shelve, 'buffers')
-		let g:wheel_shelve.buffers = []
-	endif
 endfun
 
 fun! wheel#void#config ()
@@ -263,8 +259,6 @@ fun! wheel#void#exit ()
 	if argc() == 0 && has('nvim')
 		echomsg 'Wheel bye !'
 	endif
-	" Clear temporary variables
-	let g:wheel_shelve.buffers = []
 	" Write and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()

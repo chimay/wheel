@@ -279,7 +279,7 @@ fun! wheel#perspective#opened_files ()
 		let bufnum = str2nr(fields[0])
 		let linum = str2nr(fields[-1])
 		let filename = expand(join(fields[2:-3]))[1:-2]
-		let is_wheel_buf = index(g:wheel_shelve.buffers, bufnum) >= 0
+		let is_wheel_buf = index(g:wheel_buffers.stack, bufnum) >= 0
 		let is_without_name = filename =~ '\m^\[.*\]'
 		if ! is_wheel_buf && ! is_without_name
 			let entry = [bufnum, linum, filename]
