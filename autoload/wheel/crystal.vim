@@ -38,7 +38,7 @@ endif
 " Strings
 
 if ! exists('s:separator_field')
-	let s:separator_field = ' | '
+	let s:separator_field = ' │ '
 	lockvar s:separator_field
 endif
 

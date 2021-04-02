@@ -1,6 +1,15 @@
 " vim: ft=vim fdm=indent:
 
 " Batch
+" Grep
+" Quickfix
+
+" Script vars
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
 
 " Helpers
 
@@ -71,7 +80,7 @@ fun! wheel#vector#argdo (command, ...)
 	endif
 endfun
 
-fun! wheel#vector#batch ()
+fun! wheel#vector#batch (...)
 	if a:0 > 0
 		let command = a:1
 	else
@@ -117,4 +126,43 @@ fun! wheel#vector#copen ()
 	" Open quickfix with a golden ratio
 	let height = float2nr(wheel#spiral#height ())
 	exe 'copen ' . height
+endfun
+
+" Propagate changes in quickfix
+
+fun! wheel#vector#cdo (newlines)
+	" Apply change of current line in quickfix special buffer
+	let newlines = a:newlines
+	if ! empty(newlines)
+		let line = remove(newlines, 0)
+		call setline('.', line)
+	else
+		echomsg 'wheel cdo : quickfix list is prematurely empty.'
+	endif
+endfun
+
+fun! wheel#vector#write_quickfix ()
+	" Apply changes done in quickfix special buffer
+	let prompt = 'Apply changes made in grep special buffer ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm == 2
+		return v:false
+	endif
+	let linelist = getline(2, '$')
+	let newlines = []
+	for line in linelist
+		if ! empty(line)
+			let fields = split(line, s:field_separ)
+			call add(newlines, fields[-1])
+		else
+			echomsg 'wheel write quickfix : line from 2 to $ should not be empty.'
+			return v:false
+		endif
+	endfor
+	wincmd p
+	silent cdo call wheel#vector#cdo(newlines)
+	wincmd p
+	" Info
+	setlocal nomodified
+	echomsg 'Quickfix changed propagated.'
 endfun

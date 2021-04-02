@@ -231,6 +231,13 @@ fun! wheel#sailing#grep (...)
 		call wheel#mandala#fill(lines)
 		" Context menu
 		nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
+		" Propagate changes
+		set buftype=
+		let autocommand = "autocmd BufWriteCmd <buffer> call wheel#vector#write_quickfix ()"
+		augroup wheel
+			autocmd!
+			exe autocommand
+		augroup END
 	endif
 	return bool
 endfun
