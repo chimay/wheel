@@ -94,6 +94,7 @@ FEATURES				*wheel-introduction-features*
   + Using find
 - Search inside files
   + Grep on group files
+    * Navigate
     * Edit buffer and propagate changes
   + Outline
     * Folds headers in group files (based on fold markers)
