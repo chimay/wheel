@@ -94,6 +94,7 @@ FEATURES				*wheel-introduction-features*
   + Using find
 - Search inside files
   + Grep on group files
+    * Edit buffer and propagate changes
   + Outline
     * Folds headers in group files (based on fold markers)
     * Markdown headers
@@ -460,6 +461,14 @@ Selection~
 Pressing `<Space>` will toggle the selection of the current line. If a
 line is selected, it will begin with an asterisk. You can then open all
 selected files in tabs, splits or vertical splits.
+
+Grep~
+
+The navigation mappings are the same as usual.
+
+You can also edit the lines in this special buffer. If you write it,
+the plugin will propagate your changes in the grepped file(s). However,
+it will not write your files for you.
 
 ------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*

@@ -146,6 +146,7 @@ fun! wheel#vector#write_quickfix ()
 	let prompt = 'Apply changes made in grep special buffer ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 2
+		setlocal nomodified
 		return v:false
 	endif
 	let linelist = getline(2, '$')
