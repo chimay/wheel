@@ -143,27 +143,21 @@ endfun
 
 fun! wheel#vector#write_quickfix ()
 	" Apply changes done in quickfix special buffer
-	" Be sure there is no active filter
-	if ! empty(getline(1))
-		echomsg 'wheel write quickfix : filter must first be empty.'
-		return v:false
-	endif
 	" Confirm
 	let prompt = 'Apply changes made in grep special buffer ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 2
-		setlocal nomodified
 		return v:false
 	endif
 	" List of (modified) lines
-	let linelist = getline(2, '$')
+	let linelist = getline(1, '$')
 	let newlines = []
 	for line in linelist
 		if ! empty(line)
 			let fields = split(line, s:field_separ)
 			call add(newlines, fields[-1])
 		else
-			echomsg 'wheel write quickfix : line from 2 to $ should not be empty.'
+			echomsg 'wheel write quickfix : line should not be empty.'
 			return v:false
 		endif
 	endfor
@@ -173,5 +167,5 @@ fun! wheel#vector#write_quickfix ()
 	wincmd p
 	" Info
 	setlocal nomodified
-	echomsg 'Quickfix changed propagated.'
+	echomsg 'quickfix changed propagated.'
 endfun

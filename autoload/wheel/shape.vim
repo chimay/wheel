@@ -6,7 +6,7 @@
 
 fun! wheel#shape#reorder_write (level)
 	" Define reorder autocommands
-	setlocal buftype=
+	setlocal buftype=acwrite
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
 	let autocommand .= a:level . "')"
 	augroup wheel
@@ -17,9 +17,19 @@ endfun
 
 fun! wheel#shape#reorganize_write ()
 	" Define reorganize autocommands
-	setlocal buftype=
+	setlocal buftype=acwrite
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
 	" Need a name when writing, even with BufWriteCmd
+	augroup wheel
+		autocmd!
+		exe autocommand
+	augroup END
+endfun
+
+fun! wheel#shape#grep_write ()
+	" Define grep autocommands
+	set buftype=acwrite
+	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#vector#write_quickfix ()"
 	augroup wheel
 		autocmd!
 		exe autocommand
@@ -59,4 +69,21 @@ fun! wheel#shape#reorganize ()
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
+endfun
+
+" Grep
+
+fun! wheel#shape#grep (...)
+	" Reorder level elements in a buffer
+	" called from context menu
+	" fetch original grep lines
+	let lines = b:wheel_stack.full[0]
+	call wheel#vortex#update ()
+	call wheel#cylinder#push ()
+	call wheel#mandala#open ('grep/edit')
+	call wheel#mandala#common_maps ()
+	call wheel#shape#grep_write ()
+	call wheel#mandala#fill(lines)
+	silent global /^$/ delete
+	setlocal nomodified
 endfun

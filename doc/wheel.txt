@@ -467,9 +467,12 @@ Grep~
 
 The navigation mappings are the same as usual.
 
-You can also edit the lines in this special buffer. If you write it,
-the plugin will propagate your changes in the grepped file(s). However,
-it will not write your files for you.
+An edit mode is available in the context menu. This will save your
+search and open a new buffer where you can edit the grep lines. If you
+write this buffer, the plugin will propagate your changes to the grepped
+file(s). However, it will not write the grepped files for you.
+
+You can also open the quickfix window from the context menu.
 
 ------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*

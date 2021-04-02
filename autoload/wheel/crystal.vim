@@ -315,6 +315,7 @@ endif
 if ! exists('s:context_grep')
 	let s:context_grep = {
 				\ 'open quickfix' : "wheel#boomerang#grep('quickfix')",
+				\ 'edit mode' : "wheel#shape#grep()",
 				\}
 	call extend(s:context_grep, s:context_sailing)
 	lockvar s:context_grep
