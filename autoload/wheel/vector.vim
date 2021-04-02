@@ -151,6 +151,17 @@ fun! wheel#vector#write_quickfix ()
 	endif
 	" List of (modified) lines
 	let linelist = getline(1, '$')
+	" Number of original lines must be equal to number of modified lines
+	let elder_len = len(b:wheel_lines)
+	let new_len = len(linelist)
+	if new_len > elder_len
+		echomsg 'wheel quickfix write : there are too much line(s).'
+		return v:false
+	elseif new_len < elder_len
+		echomsg 'wheel quickfix write : some line(s) are missing.'
+		return v:false
+	endif
+	" fill modified lines list
 	let newlines = []
 	for line in linelist
 		if ! empty(line)
@@ -167,5 +178,5 @@ fun! wheel#vector#write_quickfix ()
 	wincmd p
 	" Info
 	setlocal nomodified
-	echomsg 'quickfix changed propagated.'
+	echomsg 'quickfix changes propagated.'
 endfun

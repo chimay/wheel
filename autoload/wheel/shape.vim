@@ -19,7 +19,6 @@ fun! wheel#shape#reorganize_write ()
 	" Define reorganize autocommands
 	setlocal buftype=acwrite
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
-	" Need a name when writing, even with BufWriteCmd
 	augroup wheel
 		autocmd!
 		exe autocommand
@@ -75,10 +74,11 @@ endfun
 
 fun! wheel#shape#grep (...)
 	" Reorder level elements in a buffer
-	" called from context menu
+	" Called from context menu
 	" fetch original grep lines
 	let lines = b:wheel_stack.full[0]
 	call wheel#vortex#update ()
+	" new buffer
 	call wheel#cylinder#push ()
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
@@ -86,4 +86,8 @@ fun! wheel#shape#grep (...)
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete
 	setlocal nomodified
+	" copy of original lines
+	let b:wheel_lines = copy(lines)
+	" info
+	echomsg 'adding, deleting or shuffling lines is not supported.'
 endfun
