@@ -1,6 +1,7 @@
 " vim: ft=vim fdm=indent:
 
-" Adding to tree = toruses / circles / locations
+" Tree = toruses / circles / locations
+" Adding
 " Renaming
 " Removing
 

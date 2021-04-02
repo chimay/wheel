@@ -599,6 +599,7 @@ current circle. The command can be a vim `:command` or an external shell
 ==============================================================================
 CONFIGURATION					    *wheel-configuration*
 
+Vim options				|wheel-config-vim-options|
 Dictionary				|wheel-config-dictionary|
 File					|wheel-config-file|
 Autoread				|wheel-config-autoread|
@@ -619,6 +620,19 @@ Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
 Tabline					|wheel-config-tabline|
 Example					|wheel-config-example|
+
+------------------------------------------------------------------------------
+VIM OPTIONS					*wheel-config-vim-options*
+
+To facilitate the navigation between buffers, the following vim options
+can be useful : >
+
+    set hidden
+    set bufhidden=hide
+<
+
+If you don't want to activate these options, remember to write your
+files before using a wheel navigation tool.
 
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
@@ -651,11 +665,16 @@ Auto read torus file on startup if non null : >
     let g:wheel_config.autoread = 1
 <
 
+To enable it, you need to add an autocommand on vim enter : >
+
+  autocmd VimEnter * call wheel#void#init()
+<
+
 ------------------------------------------------------------------------------
 AUTOWRITE					    *wheel-config-autowrite*
 
 
-" Auto write torus file on exit if non null : >
+Auto write torus file on exit if non null : >
 
     let g:wheel_config.autowrite = 1
 <
@@ -697,15 +716,19 @@ Prefix for mappings of level 0, 1, 2 : >
     let g:wheel_config.prefix = '<my-wonderful-prefix>'
 <
 
-See |wheel-mappings-prefix| for more information.
+It's `<M-w>` by default.  See |wheel-mappings-prefix| for more
+information.
 
 ------------------------------------------------------------------------------
 CD PROJECT					*wheel-config-cd_project*
 
-Try to change dir to project root it > 0 : >
+Try to change directory to project root if > 0 : >
 
     let g:wheel_config.cd_project = 1
 <
+
+To find the right folder, the plugin looks at files or dirs listed in
+`g:wheel_config.project_markers`, see below.
 
 ------------------------------------------------------------------------------
 PROJECT MARKERS				*wheel-config-project_markers*
@@ -913,12 +936,15 @@ this autocommand : >
     autocmd BufEnter * call wheel#projection#follow()
 <
 
-It will work for all buffer filenames belonging to the wheel. It is
-useful when you search with grep and the quickfix window, or when you
-edit a file with a classic vim command.
+This means that each time you enter a buffer, the plugin will check if
+the filename is in the wheel. If true, it will adjust its state to match
+the current file.
 
-Be aware that it will update the wheel cursor position of your buffer,
-which makes sense.
+It is useful when you search with grep and the quickfix window, or when
+you edit a file with a classic vim command.
+
+Be aware that it will update the wheel cursor position of your previous
+buffer, which makes sense.
 
 ------------------------------------------------------------------------------
 AUTO UPDATE				*wheel-autocommands-auto-update*
@@ -984,11 +1010,17 @@ The functions used as User Interface are listed :
 ------------------------------------------------------------------------------
 ASYNC COMMAND					*wheel-functions-async-command*
 
-wheel#wave#start({command})			*wheel-wave-start*
-	Neovim only, for now.
+wheel#wave#start({command}, {settings})		*wheel-wave-start*
+	Neovim only.
 	Start an async command and display its output in a special buffer.
 	You can filter buffer content, as usual.
-	Still experimental.
+	{settings} is a dictionary containing the following keys :
+	- new_buffer : whether to open a special wheel buffer
+	  before launching the process (true by default)
+
+wheel#ripple#start({command}, {settings})		*wheel-wave-start*
+	Vim only.
+	Same as |wheel#wave#start|, but for Vim only.
 
 ==============================================================================
 MAPPINGS						    *wheel-mappings*

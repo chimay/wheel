@@ -169,7 +169,7 @@ fun! wheel#void#config ()
 		let g:wheel_config.backups = 3
 	endif
 	if ! has_key(g:wheel_config, 'cd_project')
-		let g:wheel_config.cd_project = 3
+		let g:wheel_config.cd_project = 1
 	endif
 	if ! has_key(g:wheel_config, 'project_markers')
 		let g:wheel_config.project_markers = '.git'
