@@ -83,6 +83,7 @@ if ! exists('s:menu_add')
 				\ 'add here as new location' : 'wheel#tree#add_here',
 				\ 'add a new file' : 'wheel#tree#add_file',
 				\ 'add a new buffer' : 'wheel#tree#add_buffer',
+				\ 'add files matching glob' : 'wheel#tree#add_glob',
 				\}
 	lockvar s:menu_add
 endif
@@ -160,6 +161,14 @@ if ! exists('s:menu_reorganize')
 	lockvar s:menu_reorganize
 endif
 
+if ! exists('s:menu_command')
+	let s:menu_command = {
+				\ ':ex or !shell command output' : 'wheel#mandala#command',
+				\ 'async shell command output' : 'wheel#mandala#async',
+				\}
+	lockvar s:menu_command
+endif
+
 if ! exists('s:menu_yank')
 	let s:menu_yank = {
 				\ 'yank wheel in list mode' : "wheel#clipper#yank('list')",
@@ -235,6 +244,7 @@ if ! exists('s:menu_list')
 				\ 'navigation',
 				\ 'alternate',
 				\ 'reorganize',
+				\ 'command',
 				\ 'yank',
 				\ 'layout_tabs',
 				\ 'layout_windows',
@@ -267,6 +277,7 @@ if ! exists('s:menu_meta')
 				\ 'layouts : window' : "wheel#hub#submenu('layout_windows')",
 				\ 'layouts : mixed' : "wheel#hub#submenu('layout_mixed')",
 				\ 'reorganize' : "wheel#hub#submenu('reorganize')",
+				\ 'command' : "wheel#hub#submenu('command')",
 				\ 'yank' : "wheel#hub#submenu('yank')",
 				\}
 	lockvar s:menu_meta
