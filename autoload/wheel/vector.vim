@@ -144,7 +144,7 @@ endfun
 fun! wheel#vector#write_quickfix ()
 	" Apply changes done in quickfix special buffer
 	" Confirm
-	let prompt = 'Apply changes made in grep special buffer ?'
+	let prompt = 'Propagate changes to grepped files ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 2
 		return v:false
