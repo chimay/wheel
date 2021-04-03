@@ -207,11 +207,9 @@ fun! wheel#tree#add_glob (...)
 	for filename in filelist
 		let location = {}
 		let location.name = filename
-		let location.file = fnamemodify(filename ':p')
+		let location.file = fnamemodify(filename, ':p')
 		let location.line = 1
 		let location.col = 1
-		echomsg string(location)
-		return
 		call wheel#tree#add_location(location)
 	endfor
 	return filelist
