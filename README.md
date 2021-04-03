@@ -13,7 +13,7 @@
 	* [History](#history)
 * [Installation](#installation)
 	* [Using minpac](#using-minpac)
-	* [Using plug](#using-plug)
+	* [Using vim-plug](#using-vim-plug)
 * [Configuration](#configuration)
 * [Step by Step](#step-by-step)
 	* [Documentation](#documentation)
@@ -174,7 +174,7 @@ call minpac#add('chimay/wheel', { 'type' : 'start' })
 and run `:PackUpdate` (see [the minpac readme](https://github.com/k-takata/minpac))
 to install.
 
-## Using plug
+## Using vim-plug
 
 The syntax should be similar with other git oriented plugin managers :
 
