@@ -171,8 +171,8 @@ Simply add this line to your initialisation file :
 call minpac#add('chimay/wheel', { 'type' : 'start' })
 ```
 
-run `:PackUpdate` (see [the minpac readme](https://github.com/k-takata/minpac))
-and it’s done.
+and run `:PackUpdate` (see [the minpac readme](https://github.com/k-takata/minpac))
+to install.
 
 ## Using plug
 
