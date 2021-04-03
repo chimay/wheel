@@ -303,7 +303,7 @@ fun! wheel#mandala#async ()
 	if a:0 > 0
 		let command = a:1
 	else
-		let command = input('shell command : ', '', 'file_in_path')
+		let command = input('async shell command : ', '', 'file_in_path')
 	endif
 	call wheel#vortex#update ()
 	let current = getreg('%')

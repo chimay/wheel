@@ -635,7 +635,9 @@ Async mode~
 You can execute shell command in async mode and display the output in
 a wheel special buffer.
 
-Default mapping : `<M-w>!`
+Default mapping : `<M-w>&`
+
+You can stop the process by using `<c-s>` in the special wheel buffer.
 
 ==============================================================================
 BATCH OPERATIONS				    *wheel-batch-operations*
@@ -1055,7 +1057,7 @@ Here is an example of a complete autocommands configuration : >
 FUNCTIONS					        *wheel-functions*
 
 User interface			|wheel-functions-user-interface|
-Async command			|wheel-functions-async-command|
+Async process			|wheel-functions-async-process|
 
 ------------------------------------------------------------------------------
 USER INTERFACE				*wheel-functions-user-interface*
@@ -1066,7 +1068,7 @@ The functions used as User Interface are listed :
 - In the menus of autoload/wheel/crystal.vim
 
 ------------------------------------------------------------------------------
-ASYNC COMMAND					*wheel-functions-async-command*
+ASYNC PROCESS					*wheel-functions-async-process*
 
 wheel#wave#start({command}, {settings})		*wheel-wave-start*
 	Neovim only.
@@ -1168,6 +1170,7 @@ Add~
 | ---------- | --------------------- | ---------------------------------- |
 | f          | <M-w>f                | Add file                           |
 | b          | <M-w>b                | Add buffer                         |
+| *          | <M-w>*                | Add files matching glob            |
 
 Next / previous~
 
@@ -1239,7 +1242,7 @@ History~
 | ----------- | ------------------- | ------------------------------- |
 | <PageUp>    | <M-w><PageUp>       | Go to newer location in history |
 | <PageDown>  | <M-w><PageDown>     | Go to older location in history |
-| ^           | <M-w>^              | Alternate last two locations    |
+| ^           | <M-w>^              | Alternate menu                  |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
