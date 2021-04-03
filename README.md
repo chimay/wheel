@@ -171,6 +171,7 @@ Simply add this line to your initialisation file :
 call minpac#add('chimay/wheel', { 'type' : 'start' })
 ```
 
+run `:PackUpdate` (see [the minpac readme](https://github.com/k-takata/minpac))
 and it’s done.
 
 ## Using plug
@@ -180,6 +181,8 @@ The syntax should be similar with other git oriented plugin managers :
 ```vim
 Plug 'chimay/wheel'
 ```
+
+and run `:PlugInstall` to install.
 
 # Configuration
 
