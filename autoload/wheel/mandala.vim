@@ -297,3 +297,30 @@ fun! wheel#mandala#command (...)
 	call wheel#mandala#template ()
 	call wheel#mandala#fill (lines)
 endfun
+
+fun! wheel#mandala#async ()
+	" Async command with output in wheel buffer
+	if a:0 > 0
+		let command = a:1
+	else
+		let command = input('shell command : ', '', 'file_in_path')
+	endif
+	call wheel#vortex#update ()
+	let current = getreg('%')
+	let alter = getreg('#')
+	let command = substitute(command, ' %', ' ' . current, 'g')
+	let command = substitute(command, ' #', ' ' . alter, 'g')
+	if has('nvim')
+		let job = wheel#wave#start(command)
+	else
+		let job = wheel#ripple#start(command)
+	endif
+	" Map to stop the job
+	let map  =  'nnoremap <buffer> '
+	if has('nvim')
+		let callme  = ' :call wheel#wave#stop()<cr>'
+	else
+		let callme  = ' :call wheel#ripple#stop()<cr>'
+	endif
+	exe map . '<c-s>' . callme
+endfun

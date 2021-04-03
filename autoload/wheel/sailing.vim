@@ -295,10 +295,18 @@ fun! wheel#sailing#find ()
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
 	let settings = {'new_buffer' : v:false}
 	if has('nvim')
-		call wheel#wave#start(command, settings)
+		let job = wheel#wave#start(command, settings)
 	else
-		call wheel#ripple#start(command, settings)
+		let job = wheel#ripple#start(command, settings)
 	endif
+	" Map to stop the job
+	let map  =  'nnoremap <buffer> '
+	if has('nvim')
+		let callme  = ' :call wheel#wave#stop()<cr>'
+	else
+		let callme  = ' :call wheel#ripple#stop()<cr>'
+	endif
+	exe map . '<c-s>' . callme
 endfun
 
 fun! wheel#sailing#jumps ()

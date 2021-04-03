@@ -14,19 +14,6 @@ if ! exists('*appendbufline')
 	finish
 endif
 
-" Buffer
-
-fun! wheel#wave#template ()
-	" Job buffer template
-	call wheel#mandala#template ()
-	setlocal bufhidden=hide
-	let current = g:wheel_buffers.current
-	let iden = g:wheel_buffers.iden[current]
-	let pseudo_folders = '/wheel/' . iden . '/wave'
-	exe 'silent file ' . pseudo_folders
-	let b:wheel_lines = []
-endfun
-
 " Callback
 
 fun! s:Out (chan, data, event) dict
@@ -65,6 +52,19 @@ let s:callbacks = {
 			\ 'on_exit' : function('s:Exit')
 			\}
 
+" Buffer
+
+fun! wheel#wave#template ()
+	" Job buffer template
+	call wheel#mandala#template ()
+	setlocal bufhidden=hide
+	let current = g:wheel_buffers.current
+	let iden = g:wheel_buffers.iden[current]
+	let pseudo_folders = '/wheel/' . iden . '/wave'
+	exe 'silent file ' . pseudo_folders
+	let b:wheel_lines = []
+endfun
+
 " Main
 
 fun! wheel#wave#start (command, ...)
@@ -101,7 +101,7 @@ fun! wheel#wave#start (command, ...)
 		echomsg 'Wheel wave start : failed to start' command[0]
 		return
 	endif
-	let job.ident = jobid
+	let job.iden = jobid
 	call add(g:wheel_wave, job)
 	return job
 endfun
@@ -110,12 +110,21 @@ fun! wheel#wave#send (job, text)
 	" Send text to job
 	let job = a:job
 	let text = a:text
-	return chansend(job.ident, text)
+	return chansend(job.iden, text)
 endfun
 
-fun! wheel#wave#stop (job)
+fun! wheel#wave#stop (...)
 	" Stop job
-	let job = a:job
-	call jobstop(job.ident)
+	if a:0 > 0
+		let job = a:1
+	else
+		if ! empty(g:wheel_wave)
+			let job = g:wheel_wave[-1]
+		else
+			echomsg 'wheel wave stop : no more job left.'
+			return v:false
+		endif
+	endif
+	call jobstop(job.iden)
 	call wheel#chain#remove_element(job, g:wheel_wave)
 endfun

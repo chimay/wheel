@@ -192,6 +192,31 @@ fun! wheel#tree#add_buffer (...)
 	call wheel#tree#add_here()
 endfun
 
+fun! wheel#tree#add_glob (...)
+	" Add all files matching a glob pattern
+	if a:0 > 0
+		let glob = a:1
+	else
+		let glob = input('Glob pattern : ')
+	endif
+	let answer = confirm('Create new circle ?', "&Yes\n&No", 2)
+	if answer == 1
+		call wheel#tree#add_circle()
+	endif
+	let filelist = glob(glob, v:false, v:true)
+	for filename in filelist
+		let location = {}
+		let location.name = filename
+		let location.file = fnamemodify(filename ':p')
+		let location.line = 1
+		let location.col = 1
+		echomsg string(location)
+		return
+		call wheel#tree#add_location(location)
+	endfor
+	return filelist
+endfun
+
 " Rename
 
 fun! wheel#tree#rename (level, ...)

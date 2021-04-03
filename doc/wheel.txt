@@ -102,6 +102,9 @@ FEATURES				*wheel-introduction-features*
     * Org mode headers
   + Tags
   + Jumps & changes lists
+- Command output in buffer
+  + :ex or !shell command
+  + Async shell command
 - Yank wheel using TextYankPost event
 - Reorganizing elements
 - Special buffers stack to save your searches
@@ -272,6 +275,7 @@ Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 Reorganizing buffers		|wheel-special-buffers-reorganizing|
 Grep buffer			|wheel-special-buffers-grep|
+Find buffer			|wheel-special-buffers-find|
 Yank buffer			|wheel-special-buffers-yank|
 Batch buffer			|wheel-special-buffers-batch|
 Command output buffer		|wheel-special-buffers-command|
@@ -571,6 +575,14 @@ can choose between the following header formats :
 - vimwiki
 
 ------------------------------------------------------------------------------
+FIND BUFFER				*wheel-special-buffers-find*
+
+Search files with find.
+
+It runs in async mode. You can stop the process by using `<c-s>` in the
+special wheel buffer.
+
+------------------------------------------------------------------------------
 YANK BUFFER				*wheel-special-buffers-yank*
 
 As usual, you can filter the elements in insert mode.
@@ -617,6 +629,13 @@ Examples :
 - `<M-w>:<plug>(wheel-`
 - `<M-w>:<M-w>`
 - `<M-w>:!ls -l % #`
+
+Async mode~
+
+You can execute shell command in async mode and display the output in
+a wheel special buffer.
+
+Default mapping : `<M-w>!`
 
 ==============================================================================
 BATCH OPERATIONS				    *wheel-batch-operations*
@@ -1252,6 +1271,7 @@ Command output buffer~
 | Prefix + | With default prefix | Action                      |
 | -------- | ------------------- | ----------------------------|
 | :        | <M-w>:              | Display ex or !shell output |
+| &        | <M-w>&              | Async sheel command         |
 
 Yank wheel~
 
@@ -1370,6 +1390,9 @@ and add them to your init file.
 | <M-l>          | Locate                                      |
 | <M-f>          | Find                                        |
 | -------------- | ------------------------------------------- |
+| <M-!>          | Buffer with output of ex or shell command   |
+| <M-&>          | Async shell command in special buffer       |
+| -------------- | ------------------------------------------- |
 | <M-r>          | Reorganize wheel elements                   |
 | -------------- | ------------------------------------------- |
 | <M-y>          | Paste yank wheel element in list mode       |
@@ -1378,7 +1401,6 @@ and add them to your init file.
 | <M-z>          | Zoom : one tab, one window                  |
 | <M-Home>       | One location per tab                        |
 | <M-End>        | One location per window, main left layout   |
-| <M-&>          | One circle per tab, one location per window |
 | -------------- | ------------------------------------------- |
 | <M-PageUp>     | Rotate windows counter-clockwise            |
 | <M-PageDown>   | Rotate windows clockwise                    |

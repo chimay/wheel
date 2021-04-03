@@ -55,7 +55,7 @@ fun! wheel#projection#follow (...)
 	if level == 'wheel' && wheel#referen#empty ('torus')
 		return
 	endif
-	if index(['wheel', 'torus'], level) >= 0 && wheel#referen#empty ('circle')
+	if index(['wheel', 'torus'], level) < 0 && wheel#referen#empty ('circle')
 		return
 	endif
 	" Check if not already in matching file

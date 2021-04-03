@@ -118,6 +118,9 @@ your groups will grow and adapt to your style.
     * Org mode headers
   + Tags
   + Jumps & changes lists
+- Command output in buffer
+  + :ex or !shell command
+  + Async shell command
 - Yank wheel using TextYankPost event
 - Reorganizing elements
 - Special buffers stack to save your searches

@@ -68,3 +68,19 @@ fun! wheel#ripple#start (command, ...)
 	call add(g:wheel_ripple, job)
 	return job
 endfun
+
+fun! wheel#ripple#stop (...)
+	" Stop job
+	if a:0 > 0
+		let job = a:1
+	else
+		if ! empty(g:wheel_ripple)
+			let job = g:wheel_ripple[-1]
+		else
+			echomsg 'wheel ripple stop : no more job left.'
+			return v:false
+		endif
+	endif
+	call job_stop(job)
+	call wheel#chain#remove_element(job, g:wheel_ripple)
+endfun

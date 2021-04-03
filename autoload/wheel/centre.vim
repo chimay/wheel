@@ -22,6 +22,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-add-torus) :call wheel#tree#add_torus()<cr>
 	nnoremap <plug>(wheel-add-file) :call wheel#tree#add_file()<cr>
 	nnoremap <plug>(wheel-add-buffer) :call wheel#tree#add_buffer()<cr>
+	nnoremap <plug>(wheel-add-glob) :call wheel#tree#add_glob()<cr>
 	" Rename
 	nnoremap <plug>(wheel-rename-location) :call wheel#tree#rename('location')<cr>
 	nnoremap <plug>(wheel-rename-circle) :call wheel#tree#rename('circle')<cr>
@@ -85,6 +86,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
+	nnoremap <plug>(wheel-async) :call wheel#mandala#async()<cr>
 	" Reorder
 	nnoremap <plug>(wheel-reorder-location) :call wheel#shape#reorder('location')<cr>
 	nnoremap <plug>(wheel-reorder-circle) :call wheel#shape#reorder('circle')<cr>
@@ -147,6 +149,7 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . 'A <plug>(wheel-add-torus)'
 		exe 'nmap ' . prefix . 'f <plug>(wheel-add-file)'
 		exe 'nmap ' . prefix . 'b <plug>(wheel-add-buffer)'
+		exe 'nmap ' . prefix . '* <plug>(wheel-add-glob)'
 		" Next / Previous
 		exe 'nmap ' . prefix . '<left> <plug>(wheel-previous-location)'
 		exe 'nmap ' . prefix . '<right> <plug>(wheel-next-location)'
@@ -213,6 +216,7 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . '<m-y> <plug>(wheel-yank-plain)'
 		" Generic ex or shell command
 		exe 'nmap ' . prefix . ': <plug>(wheel-command)'
+		exe 'nmap ' . prefix . '& <plug>(wheel-async)'
 		" Reorganize
 		exe 'nmap ' . prefix . '<m-r> <plug>(wheel-reorganize)'
 		" Save (push) wheel special buffer
@@ -291,6 +295,9 @@ fun! wheel#centre#cables ()
 		nmap <m-u>          <plug>(wheel-mru)
 		nmap <m-l>          <plug>(wheel-locate)
 		nmap <m-f>          <plug>(wheel-find)
+		" Command
+		nmap <m-!>          <plug>(wheel-command)
+		nmap <m-&>          <plug>(wheel-async)
 		" Reshaping buffers
 		nmap <m-r>          <plug>(wheel-reorganize)
 		" Yank
@@ -300,7 +307,6 @@ fun! wheel#centre#cables ()
 		nmap <m-z>          <plug>(wheel-zoom)
 		nmap <m-home>       <plug>(wheel-tabs-locations)
 		nmap <m-end>        <plug>(wheel-mainleft-locations)
-		nmap <m-&>          <plug>(wheel-tabnwin-circle)
 		" Rotate windows
 		nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
 		nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
