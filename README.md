@@ -111,7 +111,7 @@ your groups will grow and adapt to your style.
 - Search inside files
   + Grep on group files
     * Navigate
-    * Edit buffer and propagate changes
+    * Edit buffer and propagate changes with :cdo
   + Outline
     * Folds headers in group files (based on fold markers)
     * Markdown headers
