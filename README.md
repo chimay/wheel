@@ -147,15 +147,19 @@ the magic is when modules talk together.
 
 This project is inspired by :
 
-- [CtrlSpace](https://github.com/vim-ctrlspace/vim-ctrlspace), a workspace
-plugin for Vim
+- [ctrlspace](https://github.com/vim-ctrlspace/vim-ctrlspace), a workspace
+  plugin for Vim
 
-- [Unite](https://github.com/Shougo/unite.vim) and its successor
-[Denite](https://github.com/Shougo/denite.nvim), a search plugin for
-arbitrary sources
+- [unite](https://github.com/Shougo/unite.vim) and its successor
+  [denite](https://github.com/Shougo/denite.nvim), a search plugin for
+  arbitrary sources
 
-- [Torus](https://github.com/chimay/torus), a similar plugin for Emacs,
-itself inspired by MTorus
+- [torus](https://github.com/chimay/torus), a similar plugin for Emacs,
+  itself inspired by MTorus
+
+- [quickfix-reflector](https://github.com/stefandtw/quickfix-reflector.vim),
+  for the grep edit mode
+
 
 # Installation
 
