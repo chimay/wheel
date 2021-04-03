@@ -86,6 +86,7 @@ fun! wheel#shape#grep (...)
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete
 	setlocal nomodified
+	setlocal nocursorline
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
 	" info

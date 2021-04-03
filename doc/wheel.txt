@@ -268,6 +268,7 @@ Context menus			|wheel-special-buffers-context|
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 Reorganizing buffers		|wheel-special-buffers-reorganizing|
+Grep buffer			|wheel-special-buffers-grep|
 Yank buffer			|wheel-special-buffers-yank|
 Batch buffer			|wheel-special-buffers-batch|
 Command output buffer		|wheel-special-buffers-command|
@@ -463,17 +464,6 @@ Pressing `<Space>` will toggle the selection of the current line. If a
 line is selected, it will begin with an asterisk. You can then open all
 selected files in tabs, splits or vertical splits.
 
-Grep~
-
-The navigation mappings are the same as usual.
-
-An edit mode is available in the context menu. This will save your
-search and open a new buffer where you can edit the grep lines. If you
-write this buffer, the plugin will propagate your changes to the grepped
-file(s). However, it will not write the grepped files for you.
-
-You can also open the quickfix window from the context menu.
-
 ------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-special-buffers-reordering*
 
@@ -543,6 +533,39 @@ Pressed the wrong button ?~
 
 If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
+
+------------------------------------------------------------------------------
+GREP BUFFER				*wheel-special-buffers-grep*
+
+The default mapping is `<M-w><M-g>`.
+
+The navigation mappings are the same as usual : activate a buffer line
+will open the right file at the right place.
+
+Context menu~
+
+The context menu contains :
+
+- the navigation functionalities
+- an edit mode
+- a simple quickfix window opener
+
+The edit mode will save your search and open a new buffer where you can
+edit the grep lines. If you write this buffer, the plugin will propagate
+your changes to the grepped file(s). However, it will not write the
+grepped files for you.
+
+Outline~
+
+The default mapping is `<M-w><M-o>`.
+
+An outline buffer is a grep buffer where all your headers are displayed. You
+can choose between the following header formats :
+
+- vim folds
+- markdown
+- org mode
+- vimwiki
 
 ------------------------------------------------------------------------------
 YANK BUFFER				*wheel-special-buffers-yank*
@@ -1031,7 +1054,7 @@ wheel#wave#start({command}, {settings})		*wheel-wave-start*
 	- new_buffer : whether to open a special wheel buffer
 	  before launching the process (true by default)
 
-wheel#ripple#start({command}, {settings})		*wheel-wave-start*
+wheel#ripple#start({command}, {settings})		*wheel-ripple-start*
 	Vim only.
 	Same as |wheel#wave#start|, but for Vim only.
 
