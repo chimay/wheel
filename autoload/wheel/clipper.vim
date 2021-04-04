@@ -20,10 +20,13 @@ fun! wheel#clipper#maps (mode)
 		nnoremap <buffer> p :call wheel#line#paste_list ('after', 'open')<cr>
 		nnoremap <buffer> P :call wheel#line#paste_list ('before', 'open')<cr>
 	elseif a:mode == 'plain'
-		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('after', 'close')<cr>
-		nnoremap <buffer> g<cr> :call wheel#line#paste_plain ('after', 'open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste_plain ('after', 'open')<cr>
-		nnoremap <buffer> P :call wheel#line#paste_plain ('before', 'open')<cr>
+		" normal mode
+		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('linewise_after', 'close')<cr>
+		nnoremap <buffer> g<cr> :call wheel#line#paste_plain ('linewise_after', 'open')<cr>
+		nnoremap <buffer> p :call wheel#line#paste_plain ('linewise_after', 'open')<cr>
+		nnoremap <buffer> P :call wheel#line#paste_plain ('linewise_before', 'open')<cr>
+		nnoremap <buffer> gp :call wheel#line#paste_plain ('character_after', 'open')<cr>
+		nnoremap <buffer> gP :call wheel#line#paste_plain ('character_before', 'open')<cr>
 		" Visual mode
 		vnoremap <buffer> <cr> :<c-u>call wheel#line#paste_visual('after', 'close')<cr>
 		vnoremap <buffer> g<cr> :<c-u>call wheel#line#paste_visual('after', 'open')<cr>

@@ -561,8 +561,16 @@ The context menu contains :
 
 The edit mode will save your search and open a new buffer where you can
 edit the grep lines. If you write this buffer, the plugin will propagate
-your changes to the grepped file(s). However, it will not write the
-grepped files for you.
+your changes to the grepped file(s). There are some limitations, however :
+
+- you cannot add or remove entire lines
+- if you exchange or shuffle lines, they will be exchanged or shuffled in your
+  files too, which can lead to an undesired mess.
+
+The plugin will not write the grepped files for you.
+
+It's adviced to do a backup of your files first, or to work within a
+VCS repository, like git.
 
 Outline~
 
@@ -608,12 +616,18 @@ The yank wheel buffer in plain mode is launched by `<M-w><M-y>`.
 
 All your yanks are concatenated and displayed in the special buffer.
 
-In normal mode, the paste is done linewise.
+In normal mode, the paste is done linewise or characterwise, depending
+on the mapping used :
+
+ - `p` : paste a yank linewise after cursor, leave yank wheel opened
+ - `P` : paste a yank linewise before cursor, leave yank wheel opened
+ - `gp` : paste a yank characterwise after cursor, leave yank wheel opened
+ - `gP` : paste a yank characterwise before cursor, leave yank wheel opened
 
 Visual mode~
 
-You can also go to visual mode and paste your selection. The paste is not
-performed linewise, so it will appear straight before or after the cursor.
+You can also go to visual mode and paste your selection. The paste is
+done characterwise.
 
 Menus~
 
@@ -1568,6 +1582,9 @@ the edit mode. You are now in a buffer where you can edit and propagate
 your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
 to replace all the occurences of the old var name. Then, just *:write*
 the buffer to apply these changes to all your shell scripts.
+
+Want to go back to previous state ? You can undo your substitution in
+the special buffer, and write again.
 
 You can of course reuse the `shell` group for later refactoring.
 

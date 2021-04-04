@@ -12,7 +12,7 @@ endif
 " Sync buffer variables & top of stack
 
 fun! wheel#boomerang#sync ()
-	" Sync buffer variables with top of stack
+	" Sync top of stack --> buffer variables
 	" Selection
 	let stack = b:wheel_stack
 	if ! empty(stack.selected)
@@ -66,6 +66,9 @@ fun! wheel#boomerang#menu (dictname, ...)
 		let optional.ctx_travel = v:false
 	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
+		if empty(wheel#line#address ()) && line('$') > 1
+			call cursor(2,1)
+		endif
 		if empty(wheel#line#address ())
 			echomsg 'Wheel boomerang menu : empty selection'
 			return

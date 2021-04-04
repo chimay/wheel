@@ -724,10 +724,14 @@ fun! wheel#line#paste_plain (...)
 	endif
 	let mandala = win_getid()
 	wincmd p
-	if where == 'after'
+	if where == 'linewise_after'
 		put =content
-	elseif where == 'before'
+	elseif where == 'linewise_before'
 		put! =content
+	elseif where == 'character_after'
+		normal! p
+	elseif where == 'character_before'
+		normal! P
 	endif
 	let @" = content
 	call win_gotoid(mandala)
@@ -753,9 +757,9 @@ fun! wheel#line#paste_visual (...)
 	let mandala = win_getid()
 	wincmd p
 	if where == 'after'
-		normal p
+		normal! p
 	elseif where == 'before'
-		normal P
+		normal! P
 	endif
 	call win_gotoid(mandala)
 	if close == 'close'

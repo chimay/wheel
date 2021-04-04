@@ -272,7 +272,7 @@ fun! wheel#mandala#template (...)
 	setlocal nofoldenable
 endfun
 
-" Generic
+" Generic commands
 
 fun! wheel#mandala#command (...)
 	" Generic ex or shell command

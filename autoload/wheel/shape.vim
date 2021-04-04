@@ -90,5 +90,5 @@ fun! wheel#shape#grep (...)
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
 	" info
-	echomsg 'adding, deleting or shuffling lines is not supported.'
+	echomsg 'adding or removing lines is not supported.'
 endfun
