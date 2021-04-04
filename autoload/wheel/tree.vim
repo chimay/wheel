@@ -197,7 +197,7 @@ fun! wheel#tree#add_glob (...)
 	if a:0 > 0
 		let glob = a:1
 	else
-		let glob = input('Glob pattern : ')
+		let glob = input('Add files matching glob : ')
 	endif
 	let answer = confirm('Create new circle ?', "&Yes\n&No", 2)
 	if answer == 1
@@ -210,7 +210,7 @@ fun! wheel#tree#add_glob (...)
 		let location.file = fnamemodify(filename, ':p')
 		let location.line = 1
 		let location.col = 1
-		call wheel#tree#add_location(location)
+		call wheel#tree#add_location(location, 'norecord')
 	endfor
 	return filelist
 endfun
