@@ -753,9 +753,9 @@ fun! wheel#line#paste_visual (...)
 	let mandala = win_getid()
 	wincmd p
 	if where == 'after'
-		put "
+		normal p
 	elseif where == 'before'
-		put! "
+		normal P
 	endif
 	call win_gotoid(mandala)
 	if close == 'close'

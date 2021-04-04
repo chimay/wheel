@@ -12,6 +12,7 @@ Autocommands			|wheel-autocommands|
 Functions			|wheel-functions|
 Mappings			|wheel-mappings|
 Commands			|wheel-commands|
+Examples			|wheel-examples|
 Files				|wheel-files|
 
 ==============================================================================
@@ -392,6 +393,7 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Reorganize elements
 - Navigation
 - Search in files
+- Run a command and collect its output
 - Paste from yank wheel
 
 In these sub-menus, you can use the keys :
@@ -530,7 +532,7 @@ To validate your change, simply |:write| the buffer.
 
 Mappings~
 
-The default mapping is `<M-w><M-o>`.
+The default mapping is `<M-w><M-r>`.
 
 Menus~
 
@@ -553,9 +555,9 @@ Context menu~
 
 The context menu contains :
 
-- the navigation functionalities
+- the usual navigation functionalities
 - an edit mode
-- a simple quickfix window opener
+- a quickfix window opener
 
 The edit mode will save your search and open a new buffer where you can
 edit the grep lines. If you write this buffer, the plugin will propagate
@@ -605,7 +607,13 @@ Plain mode~
 The yank wheel buffer in plain mode is launched by `<M-w><M-y>`.
 
 All your yanks are concatenated and displayed in the special buffer.
-You can also go to visual mode and paste your selection.
+
+In normal mode, the paste is done linewise.
+
+Visual mode~
+
+You can also go to visual mode and paste your selection. The paste is not
+performed linewise, so it will appear straight before or after the cursor.
 
 Menus~
 
@@ -632,8 +640,8 @@ Examples :
 
 Async mode~
 
-You can execute shell command in async mode and display the output in
-a wheel special buffer.
+You can run a shell command in async mode and display the output in a
+wheel special buffer.
 
 Default mapping : `<M-w>&`
 
@@ -1535,6 +1543,33 @@ COMMANDS					*wheel-commands*
 :WheelAutogroup				       *:WheelAutogroup*
 	Autogroup locations of current torus using filename extensions or directories.
 	Creates a new torus where each group will occupy a circle.
+
+==============================================================================
+EXAMPLES						*wheel-examples*
+
+Search and replace		    |wheel-examples-search-replace|
+
+------------------------------------------------------------------------------
+SEARCH AND REPLACE		    *wheel-examples-search-replace*
+
+Let's say you want to refactory some shell scripts, and replace
+`old_var_name` by `new_var_name`.
+
+The first thing to do is to create a group that contains all of your
+scripts. To do that, first create a torus named e.g. `quickfix`. Then,
+add all the script files with `<M-w>*`. The routine will ask you the
+glob pattern ; you can type `**/*.sh` if all your scripts have the same
+`sh` extension. After that, you will be asked if you want to create a
+new circle. Answer yes, and call this circle `shell`.
+
+Now that you have your group ready, you can start the search with
+`<M-w><M-g>`. It will open the grep special buffer. Hit tab, and launch
+the edit mode. You are now in a buffer where you can edit and propagate
+your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
+to replace all the occurences of the old var name. Then, just *:write*
+the buffer to apply these changes to all your shell scripts.
+
+You can of course reuse the `shell` group for later refactoring.
 
 ==============================================================================
 FILES							*wheel-files*

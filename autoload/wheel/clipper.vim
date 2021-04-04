@@ -4,9 +4,12 @@
 
 " Helpers
 
-fun! wheel#clipper#options ()
+fun! wheel#clipper#options (mode)
 	" Set local yank options
 	setlocal nowrap
+	if a:mode == 'plain'
+		setlocal nocursorline
+	endif
 endfun
 
 fun! wheel#clipper#maps (mode)
@@ -35,7 +38,7 @@ fun! wheel#clipper#template (settings)
 	" Template
 	let settings = a:settings
 	call wheel#mandala#template (settings)
-	call wheel#clipper#options ()
+	call wheel#clipper#options (settings.mode)
 	call wheel#clipper#maps (settings.mode)
 endfun
 
