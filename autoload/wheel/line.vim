@@ -30,7 +30,7 @@ fun! wheel#line#address ()
 		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 		return cursor_line
 	else
-		let file = execute('file')
+		let file = expand('%')
 		if file =~ '\m/wheel/[0-9]\+/tree'
 			return wheel#line#coordinates ()
 		elseif file =~ '\m/wheel/[0-9]\+/tabwins/tree'
@@ -277,14 +277,14 @@ fun! wheel#line#menu (settings)
 	let cursor_line = getline('.')
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	if empty(cursor_line)
-		echomsg 'Wheel layer call : you selected an empty line'
+		echomsg 'wheel line menu : you selected an empty line'
 		return v:false
 	endif
 	let key = cursor_line
 	if ! has_key(dict, key)
 		normal! zv
 		call wheel#spiral#cursor ()
-		echomsg 'Wheel layer call : key not found'
+		echomsg 'wheel line menu : key not found'
 		return v:false
 	endif
 	let mandala = win_getid()
@@ -497,23 +497,23 @@ fun! wheel#line#opened_files (settings)
 			call wheel#line#target (settings.target)
 			call wheel#vortex#jump ()
 		else
-			exe 'buffer ' bufnum
+			exe 'buffer' bufnum
 		endif
 	elseif settings.ctx_key == 'delete'
 		" Delete buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
-		execute 'bdelete ' . bufnum
+		execute 'bdelete' bufnum
 	elseif settings.ctx_key == 'unload'
 		" Unload buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
-		execute 'bunload ' . bufnum
+		execute 'bunload' bufnum
 	elseif settings.ctx_key == 'wipe'
 		" Wipe buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
-		execute 'bwipe ' . bufnum
+		execute 'bwipe' bufnum
 	endif
 	return win_getid ()
 endfun
@@ -524,7 +524,7 @@ fun! wheel#line#tabwins (settings)
 	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'open'
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
-		execute 'tabnext ' . tabnum
+		execute 'tabnext' tabnum
 		" Find matching window
 		let filename = expand(fields[-1])
 		let filename = fnamemodify(filename, ':p')
@@ -535,7 +535,7 @@ fun! wheel#line#tabwins (settings)
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
-		execute 'tabclose ' . tabnum
+		execute 'tabclose' tabnum
 		return win_getid ()
 	endif
 endfun
@@ -547,10 +547,10 @@ fun! wheel#line#tabwins_tree (settings)
 	let tabnum = hierarchy[0]
 	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'open'
 		" Find matching tab
-		execute 'tabnext ' . tabnum
+		execute 'tabnext' tabnum
 		if len(hierarchy) == 2
 			let tabnum = hierarchy[0]
-			execute 'tabnext ' . tabnum
+			execute 'tabnext' tabnum
 			" Find matching window
 			let filename = expand(hierarchy[1])
 			let filename = fnamemodify(filename, ':p')
@@ -560,7 +560,7 @@ fun! wheel#line#tabwins_tree (settings)
 		endif
 	elseif settings.ctx_key == 'tabclose'
 		" Close tab
-		execute 'tabclose ' . tabnum
+		execute 'tabclose' tabnum
 		return win_getid ()
 	endif
 endfun
@@ -584,13 +584,13 @@ fun! wheel#line#grep (settings)
 	"Using error number
 	let errnum = fields[0]
 	call wheel#line#target (a:settings.target)
-	execute 'cc ' . errnum
+	execute 'cc' errnum
 	" Using buffer, line & col
 	"let bufnum = fields[1]
 	"let line = fields[3]
 	"let col = fields[4]
 	"call wheel#line#target (a:settings.target)
-	"exe 'buffer ' . bufnum
+	"exe 'buffer' bufnum
 	"call cursor(line, col)
 	return win_getid ()
 endfun
@@ -604,7 +604,7 @@ fun! wheel#line#mru (settings)
 	endif
 	let filename = fields[6]
 	call wheel#line#target (a:settings.target)
-	exe 'edit ' . filename
+	exe 'edit' filename
 	return win_getid ()
 endfun
 
@@ -612,7 +612,7 @@ fun! wheel#line#locate (settings)
 	" Edit settings.selected locate file
 	let filename = a:settings.selected
 	call wheel#line#target (a:settings.target)
-	exe 'edit ' . filename
+	exe 'edit' filename
 	return win_getid ()
 endfun
 
@@ -621,7 +621,7 @@ fun! wheel#line#find (settings)
 	let filename = a:settings.selected
 	let filename = trim(filename, ' ')
 	call wheel#line#target (a:settings.target)
-	exe 'edit ' . filename
+	exe 'edit' filename
 	return win_getid ()
 endfun
 
@@ -634,7 +634,7 @@ fun! wheel#line#tags (settings)
 	endif
 	let ident = fields[0]
 	call wheel#line#target (a:settings.target)
-	exe 'tag ' . ident
+	exe 'tag' ident
 	return win_getid ()
 endfun
 

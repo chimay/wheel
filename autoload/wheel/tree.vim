@@ -176,7 +176,7 @@ fun! wheel#tree#add_file (...)
 	else
 		let file = input('File to add ? ', '', 'file_in_path')
 	endif
-	exe 'edit ' file
+	exe 'edit' file
 	call wheel#tree#add_here()
 endfun
 
@@ -188,7 +188,7 @@ fun! wheel#tree#add_buffer (...)
 	else
 		let buffer = input('Buffer to add ? ', '', 'buffer')
 	endif
-	exe 'buffer ' buffer
+	exe 'buffer' buffer
 	call wheel#tree#add_here()
 endfun
 
@@ -212,6 +212,9 @@ fun! wheel#tree#add_glob (...)
 		let location.col = 1
 		call wheel#tree#add_location(location, 'norecord')
 	endfor
+	let circle = wheel#referen#current('circle')
+	let circle.current = 0
+	call wheel#vortex#jump ()
 	return filelist
 endfun
 
@@ -272,7 +275,7 @@ fun! wheel#tree#rename_file (...)
 	"echomsg rename
 	call system(rename)
 	if ! v:shell_error
-		exe 'file ' . filename
+		exe 'file' filename
 		let prompt = 'Write as new file ?'
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
 		if confirm == 1

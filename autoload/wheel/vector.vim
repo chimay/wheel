@@ -55,7 +55,7 @@ fun! wheel#vector#argadd (sieve)
 	let yield = wheel#vector#reset ()
 	if yield
 		let files = wheel#vector#files (a:sieve)
-		exe 'argadd ' join(files)
+		exe 'argadd' join(files)
 	endif
 	return yield
 endfun
@@ -125,7 +125,7 @@ endfun
 fun! wheel#vector#copen ()
 	" Open quickfix with a golden ratio
 	let height = float2nr(wheel#spiral#height ())
-	exe 'copen ' . height
+	exe 'copen' height
 endfun
 
 " Propagate changes in quickfix

@@ -24,7 +24,7 @@ fun! wheel#disc#write (pointer, file, ...)
 	redir END
 	let content = substitute(content, '\m[=,]', '\0\n\\', 'g')
 	let content = substitute(content, '\m\n\{2,\}', '\n', 'g')
-	exec 'redir! ' . mode . ' ' . file
+	exec 'redir!' mode file
 	silent! echo content
 	redir END
 endfun
@@ -59,7 +59,7 @@ fun! wheel#disc#read (file)
 	" Read file
 	let file = expand(a:file)
 	if filereadable(file)
-		exe 'source ' . file
+		exe 'source' file
 	else
 		echomsg 'Could not read' file
 	endif

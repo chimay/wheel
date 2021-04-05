@@ -257,7 +257,7 @@ fun! wheel#sailing#outline ()
 		let current = g:wheel_buffers.current
 		let iden = g:wheel_buffers.iden[current]
 		let pseudo_folders = '/wheel/' . iden . '/outline'
-		exe 'silent file ' . pseudo_folders
+		exe 'silent file' pseudo_folders
 	endif
 endfun
 

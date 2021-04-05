@@ -148,16 +148,16 @@ fun! wheel#layer#pop ()
 	if ! empty(mappings)
 		let mapdict = wheel#chain#pop (mappings)
 		if ! empty(mapdict.enter)
-			exe 'nnoremap <buffer> <cr> ' . mapdict.enter
+			exe 'nnoremap <buffer> <cr>' mapdict.enter
 		endif
 		if ! empty(mapdict.g_enter)
-			exe 'nnoremap <buffer> g<cr> ' . mapdict.g_enter
+			exe 'nnoremap <buffer> g<cr>' mapdict.g_enter
 		endif
 		if ! empty(mapdict.space)
-			exe 'nnoremap <buffer> <space> ' . mapdict.space
+			exe 'nnoremap <buffer> <space>' mapdict.space
 		endif
 		if ! empty(mapdict.tab)
-			exe 'nnoremap <buffer> <tab> ' . mapdict.tab
+			exe 'nnoremap <buffer> <tab>' mapdict.tab
 		endif
 	endif
 	" Restore selection

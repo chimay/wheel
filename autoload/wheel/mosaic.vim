@@ -82,7 +82,7 @@ fun! wheel#mosaic#rotate_clockwise ()
 	let buffers = wheel#mosaic#tab_buffers ()
 	let buffers = wheel#chain#rotate_right (buffers)
 	for bufnum in buffers
-		exe 'buffer ' . bufnum
+		exe 'buffer' bufnum
 		wincmd w
 	endfor
 endfun
@@ -94,7 +94,7 @@ fun! wheel#mosaic#rotate_counter_clockwise ()
 	let buffers = wheel#mosaic#tab_buffers ()
 	let buffers = wheel#chain#rotate_left (buffers)
 	for bufnum in buffers
-		exe 'buffer ' . bufnum
+		exe 'buffer' bufnum
 		wincmd w
 	endfor
 endfun

@@ -85,9 +85,9 @@ fun! wheel#cylinder#pop ()
 	let bufnum = bufnr('%')
 	if bufnum == removed || index(buffers, bufnum) >= 0
 		let goto = buffers[current]
-		exe 'silent buffer ' goto
+		exe 'silent buffer' goto
 	endif
-	exe 'silent bwipe ' removed
+	exe 'silent bwipe' removed
 	echomsg 'Buffer' removed 'removed'
 	return removed
 endfun
@@ -107,11 +107,11 @@ fun! wheel#cylinder#recall ()
 	if index(buffers, bufnum) >= 0
 		" if current buf is already a special wheel buf,
 		" no need to split
-		exe 'silent buffer ' . goto
+		exe 'silent buffer' goto
 	elseif winnum < 0
 		" if current buf is not a special wheel buf,
 		" we need to split
-		exe 'silent sbuffer ' . goto
+		exe 'silent sbuffer' goto
 	else
 		" in case the special buf is already visible in a window,
 		" just go to it

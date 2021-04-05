@@ -61,7 +61,7 @@ fun! wheel#wave#template ()
 	let current = g:wheel_buffers.current
 	let iden = g:wheel_buffers.iden[current]
 	let pseudo_folders = '/wheel/' . iden . '/wave'
-	exe 'silent file ' . pseudo_folders
+	exe 'silent file' pseudo_folders
 	let b:wheel_lines = []
 endfun
 

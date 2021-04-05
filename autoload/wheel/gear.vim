@@ -124,7 +124,7 @@ fun! wheel#gear#project_root (markers)
 		echomsg 'Wheel Project root : argument must be either a string or a list.'
 	endif
 	let dir = expand('%:p:h')
-	exe 'lcd ' . dir
+	exe 'lcd' dir
 	let found = 0
 	while v:true
 		for mark in markers

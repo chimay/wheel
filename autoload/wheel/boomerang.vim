@@ -66,12 +66,16 @@ fun! wheel#boomerang#menu (dictname, ...)
 		let optional.ctx_travel = v:false
 	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
+		if line('.') == 1 && ! empty(wheel#line#address ())
+			echomsg 'wheel boomerang menu : first line filter is not a valid selection.'
+			return v:false
+		endif
 		if empty(wheel#line#address ()) && line('$') > 1
-			call cursor(2,1)
+			call cursor(2, 1)
 		endif
 		if empty(wheel#line#address ())
-			echomsg 'Wheel boomerang menu : empty selection'
-			return
+			echomsg 'wheel boomerang menu : empty selection'
+			return v:false
 		endif
 	endif
 	let dictname = 'context/' . a:dictname

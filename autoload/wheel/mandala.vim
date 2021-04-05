@@ -178,7 +178,7 @@ fun! wheel#mandala#common_options (type)
 	let current = g:wheel_buffers.current
 	let iden = g:wheel_buffers.iden[current]
 	let pseudo_folders = '/wheel/' . iden . '/' . type
-	exe 'silent file ' . pseudo_folders
+	exe 'silent file' pseudo_folders
 endfun
 
 " Maps
