@@ -212,9 +212,12 @@ fun! wheel#tree#add_glob (...)
 		let location.col = 1
 		call wheel#tree#add_location(location, 'norecord')
 	endfor
+	" jump to first location of circle, if not empty
 	let circle = wheel#referen#current('circle')
-	let circle.current = 0
-	call wheel#vortex#jump ()
+	if ! empty(circle.locations)
+		let circle.current = 0
+		call wheel#vortex#jump ()
+	endif
 	return filelist
 endfun
 
