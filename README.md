@@ -326,6 +326,14 @@ or display them in split windows.
 If you want to create another torus, let’s say `Books`, simply launch
 `<M-w><S-a>`, and answer `Books` to the prompt.
 
+What happens if you have a lot of files ? Let's say the `book_shelve`
+subdir contains dozen of books in plain text format. You can add
+all of them at once by using a glob pattern. Press `<M-w>*`. The
+routine will ask you to enter a glob pattern. In our case, it will be
+`book_shelve/*`. Then, it will ask if you want to add the files in a
+new circle. Since you already have a book circle, you can answer no. And
+voilà, your `Books` group contain all the files in `book_shelve`.
+
 ## Moving around
 
 ### Cycling

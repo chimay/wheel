@@ -38,7 +38,7 @@ you need, add the buffers you want to it and quickly navigate between :
 - Buffers of the same group
 - Buffer groups
 
-Note that :
+Note that :
 
 - A location contains a name, a filename, as well as a line & column number
 - A buffer group, in fact a location group, is called a circle
@@ -206,6 +206,14 @@ add `Juice`: a file can be added to more than one circle.
 If you want to create another category (torus), let’s say `Books`,
 simply launch `<M-w><S-a>`, and answer `Books` to the prompt.
 
+What happens if you have a lot of files ? Let's say the `book_shelve`
+subdir contains dozen of books in plain text format. You can add
+all of them at once by using a glob pattern. Press `<M-w>*`. The
+routine will ask you to enter a glob pattern. In our case, it will be
+`book_shelve/*`. Then, it will ask if you want to add the files in a
+new circle. Since you already have a book circle, you can answer no. And
+voilà, your `Books` group contain all the files in `book_shelve`.
+
 ------------------------------------------------------------------------------
 MOVING AROUND					     *wheel-sbs-moving-around*
 
@@ -232,7 +240,8 @@ You can switch :
 
 Switch using a special buffer~
 
-You can also switch location, circle or torus by chosing it in |wheel-special-buffers|.
+You can also switch location, circle or torus by chosing it in a wheel
+navigation buffer. See |wheel-special-buffers-navigation|.
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
