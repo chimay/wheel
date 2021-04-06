@@ -593,7 +593,7 @@ FIND BUFFER				*wheel-special-buffers-find*
 Search files with find.
 
 It runs in async mode. You can stop the process by using `<c-s>` in the
-special wheel buffer.
+special buffer.
 
 ------------------------------------------------------------------------------
 YANK BUFFER				*wheel-special-buffers-yank*
@@ -658,11 +658,11 @@ Examples :
 Async mode~
 
 You can run a shell command in async mode and display the output in a
-wheel special buffer.
+special buffer.
 
 Default mapping : `<M-w>&`
 
-You can stop the process by using `<c-s>` in the special wheel buffer.
+You can stop the process by using `<c-s>` in the special buffer.
 
 ==============================================================================
 BATCH OPERATIONS				    *wheel-batch-operations*
@@ -1100,7 +1100,7 @@ wheel#wave#start({command}, {settings})		*wheel-wave-start*
 	Start an async command and display its output in a special buffer.
 	You can filter buffer content, as usual.
 	{settings} is a dictionary containing the following keys :
-	- new_buffer : whether to open a special wheel buffer
+	- new_buffer : whether to open a special buffer
 	  before launching the process (true by default)
 
 wheel#ripple#start({command}, {settings})		*wheel-ripple-start*
@@ -1318,9 +1318,9 @@ Managing special buffers~
 
 | Prefix +    | With default prefix | Action                            |
 | --------    | ------------------- | --------------------------------- |
-| <Tab>       | <M-w><Tab>          | Save (push) wheel special buffer  |
-| <Backspace> | <M-w><Backspace>    | Remove (pop) wheel special buffer |
-| @           | <M-w>@              | Cycle wheel special buffers       |
+| <Tab>       | <M-w><Tab>          | Save (push) special buffer        |
+| <Backspace> | <M-w><Backspace>    | Remove (pop) special buffer       |
+| @           | <M-w>@              | Cycle special buffers             |
 
 Tabs~
 
@@ -1433,9 +1433,9 @@ and add them to your init file.
 | <M-PageUp>     | Rotate windows counter-clockwise            |
 | <M-PageDown>   | Rotate windows clockwise                    |
 | -------------- | ------------------------------------------- |
-| <M-Tab>        | Save (push) wheel special buffer            |
-| <M-Backspace>  | Remove (pop) wheel special buffer           |
-| <M-Space>      | Cycle wheel special buffers                 |
+| <M-Tab>        | Save (push) special buffer                  |
+| <M-Backspace>  | Remove (pop) special buffer                 |
+| <M-Space>      | Cycle special buffers                       |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -1496,11 +1496,11 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Rotate windows
     nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
     nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
-    " Save (push) wheel special buffer
+    " Save (push) special buffer
     nmap <m-Tab>        <plug>(wheel-buffer-push)
-    " Remove (pop) wheel special buffer
+    " Remove (pop) special buffer
     nmap <m-Backspace>  <plug>(wheel-buffer-pop)
-    " Cycle wheel special buffers
+    " Cycle special buffers
     nmap <m-space>      <plug>(wheel-buffer-cycle)
 <
 

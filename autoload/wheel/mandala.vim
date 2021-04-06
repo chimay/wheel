@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Generic wheel special buffers
+" Generic wheel special buffers = mandala buffers
 "
 " A mandala is made of lines, like a buffer
 "
