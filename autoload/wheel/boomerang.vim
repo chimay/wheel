@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Context menus, acting back on a wheel special buffer
+" Context menus, acting back on a mandala buffer
 
 " Script vars
 
@@ -62,7 +62,7 @@ fun! wheel#boomerang#menu (dictname, ...)
 		let optional.ctx_close = v:false
 	endif
 	if ! has_key(optional, 'ctx_travel')
-		" ctx_travel = v:false by default, to be able to catch wheel special buffer variables
+		" ctx_travel = v:false by default, to be able to catch mandala buffer variables
 		let optional.ctx_travel = v:false
 	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)

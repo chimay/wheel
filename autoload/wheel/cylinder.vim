@@ -1,9 +1,9 @@
 " vim: ft=vim fdm=indent:
 
-" Wheel special buffers stack
+" mandala buffers stack
 
 fun! wheel#cylinder#push (...)
-	" Push new wheel special buffer
+	" Push new mandala buffer
 	if a:0 > 0
 		let mode = a:1
 	else
@@ -29,7 +29,7 @@ fun! wheel#cylinder#push (...)
 		return v:true
 	endif
 	" Not the first one
-	" Is current buffer a special wheel special buffer ?
+	" Is current buffer a mandala buffer ?
 	let bufnum = bufnr('%')
 	if index(buffers, bufnum) >= 0
 		let in_wheel_buf = v:true
@@ -61,7 +61,7 @@ fun! wheel#cylinder#push (...)
 endfun
 
 fun! wheel#cylinder#pop ()
-	" Pop wheel special buffer
+	" Pop mandala buffer
 	call wheel#cylinder#check ()
 	let buffers = g:wheel_buffers.stack
 	let iden = g:wheel_buffers.iden
@@ -93,7 +93,7 @@ fun! wheel#cylinder#pop ()
 endfun
 
 fun! wheel#cylinder#recall ()
-	" Recall wheel special buffer
+	" Recall mandala buffer
 	call wheel#cylinder#check ()
 	let buffers = g:wheel_buffers.stack
 	let current = g:wheel_buffers.current
@@ -105,11 +105,11 @@ fun! wheel#cylinder#recall ()
 	let goto = buffers[current]
 	let winnum =  bufwinnr(goto)
 	if index(buffers, bufnum) >= 0
-		" if current buf is already a special wheel buf,
+		" if current buf is already a mandala buf,
 		" no need to split
 		exe 'silent buffer' goto
 	elseif winnum < 0
-		" if current buf is not a special wheel buf,
+		" if current buf is not a mandala buf,
 		" we need to split
 		exe 'silent sbuffer' goto
 	else
@@ -138,7 +138,7 @@ fun! wheel#cylinder#check ()
 endfun
 
 fun! wheel#cylinder#cycle ()
-	" Cycle wheel special buffers
+	" Cycle mandala buffers
 	let buffers = g:wheel_buffers.stack
 	let current = g:wheel_buffers.current
 	let bufnum = bufnr('%')

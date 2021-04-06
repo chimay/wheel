@@ -197,7 +197,7 @@ fun! wheel#tree#add_glob (...)
 	if a:0 > 0
 		let glob = a:1
 	else
-		let glob = input('Add files matching glob : ')
+		let glob = input('Add files matching glob : ', '', 'file_in_path')
 	endif
 	let answer = confirm('Create new circle ?', "&Yes\n&No", 2)
 	if answer == 1

@@ -115,7 +115,7 @@ fun! wheel#void#yank ()
 endfun
 
 fun! wheel#void#buffers ()
-	" Initialize wheel special buffers
+	" Initialize mandala buffers
 	if ! exists('g:wheel_buffers')
 		let g:wheel_buffers = {}
 	endif

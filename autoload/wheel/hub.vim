@@ -74,7 +74,7 @@ endfun
 " Menus
 
 fun! wheel#hub#menu (dictname)
-	" Menu in wheel special buffer
+	" Menu in mandala buffer
 	let dictname = a:dictname
 	let string = 'menu/' . dictname
 	call wheel#mandala#open (string)
@@ -89,7 +89,7 @@ fun! wheel#hub#submenu (dictname)
 endfun
 
 fun! wheel#hub#main ()
-	" Main hub menu in wheel special buffer
+	" Main hub menu in mandala buffer
 	call wheel#hub#menu('main')
 	call wheel#hub#menu_maps ('main')
 	call wheel#hub#folding_options ()
@@ -105,7 +105,7 @@ fun! wheel#hub#main ()
 endfun
 
 fun! wheel#hub#meta ()
-	" Meta hub menu in wheel special buffer
+	" Meta hub menu in mandala buffer
 	call wheel#hub#menu('meta')
 	call wheel#hub#meta_maps('meta')
 	let dict = wheel#crystal#fetch('menu/meta')

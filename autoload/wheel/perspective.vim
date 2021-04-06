@@ -27,7 +27,7 @@ endif
 " Helpers
 
 fun! wheel#perspective#execute (runme, ...)
-	" Ex or system command for wheel special buffer
+	" Ex or system command for mandala buffer
 	if a:0 > 0
 		let Execute = a:1
 	else

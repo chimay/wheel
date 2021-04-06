@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Generic Wheel Special Buffers
+" Generic wheel special buffers
 "
 " A mandala is made of lines, like a buffer
 "
@@ -21,7 +21,7 @@ endif
 " Buffer
 
 fun! wheel#mandala#open (...)
-	" Open a wheel special buffer
+	" Open a mandala buffer
 	if a:0 > 0
 		let type = a:1
 	else
@@ -38,7 +38,7 @@ fun! wheel#mandala#open (...)
 endfun
 
 fun! wheel#mandala#close ()
-	" Close the wheel special buffer
+	" Close the mandala buffer
 	" Go to alternate buffer if only one window
 	if winnr('$') > 1
 		quit
@@ -90,7 +90,7 @@ fun! wheel#mandala#replace (content, ...)
 endfun
 
 fun! wheel#mandala#previous ()
-	" Go to previous window, before wheel special buffer opening
+	" Go to previous window, before mandala buffer opening
 	" Go to alternate buffer if only one window
 	if winnr('$') > 1
 		wincmd p
@@ -224,7 +224,7 @@ endfun
 " Folding
 
 fun! wheel#mandala#folding_options ()
-	" Folding options for wheel special buffers
+	" Folding options for mandala buffers
 	setlocal foldenable
 	setlocal foldminlines=1
 	setlocal foldlevel=0
@@ -237,7 +237,7 @@ fun! wheel#mandala#folding_options ()
 endfun
 
 fun! wheel#mandala#folding_text ()
-	" Folding text for wheel special buffers
+	" Folding text for mandala buffers
 	let numlines = v:foldend - v:foldstart
 	let line = getline(v:foldstart)
 	if v:foldlevel == 1
