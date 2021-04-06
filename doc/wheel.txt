@@ -207,12 +207,14 @@ If you want to create another category (torus), let’s say `Books`,
 simply launch `<M-w><S-a>`, and answer `Books` to the prompt.
 
 What happens if you have a lot of files ? Let's say the `novel` subdir
-contains dozen of novels in plain text format. You can add all of them
-at once with a glob pattern. Press `<M-w>*` and wheel will ask you to
-enter a glob pattern, in that case it will be `novels/*`. Then, it will
-ask if you want to add the files in a new circle. You can answer yes and
-call this circle `Novels`. And voilà, your new `Novels` group contain
-all the files in the `novels` subdir.
+contains dozen of novels in plain text format. You can add all of them at
+once with a glob pattern. Press `<M-w>*` and wheel will ask you to enter
+a glob pattern. You can answer `novels/*` to add all files in there. If
+there are more levels of subdirs and you want to include all of them,
+you can enter `novels/**/*` instead. Then, it will ask if you want to
+add the files in a new circle. You can answer yes and call this circle
+`Novels`. And voilà, your new `Novels` group contain all the files in
+the `novels` subdir.
 
 ------------------------------------------------------------------------------
 MOVING AROUND					     *wheel-sbs-moving-around*
