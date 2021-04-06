@@ -109,7 +109,7 @@ fun! wheel#line#tabwin_hierarchy ()
 		let tabnum = fields[1]
 		let coordin = [tabnum, filename]
 	else
-		echomsg 'Tabwin hierarchy : wrong fold level'
+		echomsg 'tabwin hierarchy : wrong fold level'
 	endif
 	call wheel#gear#restore_cursor (position)
 	return coordin
