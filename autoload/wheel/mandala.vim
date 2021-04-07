@@ -39,12 +39,23 @@ endfun
 
 fun! wheel#mandala#close ()
 	" Close the mandala buffer
-	" Go to alternate buffer if only one window
+	" If we are not in a mandala buffer, there is nothing to do
+	let bufnum = bufnr('%')
+	if index(g:wheel_buffers.stack, bufnum) < 0
+		echomsg 'wheel mandala close : we are not in a mandala buffer.'
+		return v:false
+	endif
+	" Mandala buffer
 	if winnr('$') > 1
+		" More than one window in tab ? Close it.
 		quit
 	else
-		buffer #
+		" Only one window in tab ? Jump to last known file in wheel.
+		call wheel#vortex#jump ()
+		" Go to alternate buffer if only one window
+		"buffer #
 	endif
+	return v:true
 endfun
 
 fun! wheel#mandala#fill (content)

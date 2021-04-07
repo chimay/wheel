@@ -1534,6 +1534,10 @@ Some bindings that you may find useful : >
     nmap <s-cr> <plug>(wheel-switch-torus)
 
     nmap <m-!> <plug>(wheel-command)
+    nmap <m-a> <plug>(wheel-async)
+
+    nmap <silent> k :call wheel#mandala#wrap_up()<cr>
+    nmap <silent> j :call wheel#mandala#wrap_down()<cr>
 
     nmap <silent> <c-l> :nohl<cr><plug>(wheel-spiral-cursor)
     imap <silent> <c-l> <esc>:nohl<cr><plug>(wheel-spiral-cursor)a
