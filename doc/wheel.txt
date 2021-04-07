@@ -1471,10 +1471,10 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Alternate
     nmap <c-^>          <plug>(wheel-alternate-anywhere)
     nmap <d-^>          <plug>(wheel-alternate-same-torus-other-circle)
-    nmap <c-s-pageup>   <plug>(wheel-alternate-same-torus)
-    nmap <c-s-pagedown> <plug>(wheel-alternate-same-circle)
-    nmap <c-s-home>     <plug>(wheel-alternate-other-torus)
-    nmap <c-s-end>      <plug>(wheel-alternate-other-circle)
+    nmap <m-pageup>   <plug>(wheel-alternate-same-torus)
+    nmap <m-pagedown> <plug>(wheel-alternate-same-circle)
+    nmap <m-home>     <plug>(wheel-alternate-other-torus)
+    nmap <m-end>      <plug>(wheel-alternate-other-circle)
     " Navigation buffers
     nmap <space>      <plug>(wheel-navigation-location)
     nmap <c-space>    <plug>(wheel-navigation-circle)
@@ -1495,6 +1495,9 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <m-u>          <plug>(wheel-mru)
     nmap <m-l>          <plug>(wheel-locate)
     nmap <m-f>          <plug>(wheel-find)
+    " Command
+    nmap <m-!>          <plug>(wheel-command)
+    nmap <m-&>          <plug>(wheel-async)
     " Reshaping buffers
     nmap <m-r>          <plug>(wheel-reorganize)
     " Yank
@@ -1502,17 +1505,16 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <m-p>          <plug>(wheel-yank-plain)
     " Windows
     nmap <m-z>          <plug>(wheel-zoom)
-    nmap <m-home>       <plug>(wheel-tabs-locations)
-    nmap <m-end>        <plug>(wheel-mainleft-locations)
-    nmap <m-&>          <plug>(wheel-tabnwin-circle)
+    nmap <c-s-home>     <plug>(wheel-tabs-locations)
+    nmap <c-s-end>      <plug>(wheel-mainleft-locations)
     " Rotate windows
-    nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
-    nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
-    " Save (push) special buffer
+    nmap <c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)
+    nmap <c-s-pagedown> <plug>(wheel-rotate-clockwise)
+    " Save (push) mandala buffer
     nmap <m-Tab>        <plug>(wheel-buffer-push)
-    " Remove (pop) special buffer
+    " Remove (pop) mandala buffer
     nmap <m-Backspace>  <plug>(wheel-buffer-pop)
-    " Cycle special buffers
+    " Cycle mandala buffers
     nmap <m-space>      <plug>(wheel-buffer-cycle)
 <
 
