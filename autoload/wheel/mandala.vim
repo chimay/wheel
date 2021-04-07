@@ -68,6 +68,7 @@ fun! wheel#mandala#fill (content)
 	" Cannot use setline or append : does not work with yanks
 	put =content
 	call cursor(1,1)
+	let b:wheel_lines = getline(2, '$')
 endfun
 
 fun! wheel#mandala#replace (content, ...)
