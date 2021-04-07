@@ -535,7 +535,11 @@ fun! wheel#line#tabwins (settings)
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
-		execute 'tabclose' tabnum
+		if tabnum != tabpagenr()
+			execute 'tabclose' tabnum
+		else
+			echomsg 'wheel line tabwins : will not close current buffer.'
+		endif
 		return win_getid ()
 	endif
 endfun
@@ -560,7 +564,11 @@ fun! wheel#line#tabwins_tree (settings)
 		endif
 	elseif settings.ctx_key == 'tabclose'
 		" Close tab
-		execute 'tabclose' tabnum
+		if tabnum != tabpagenr()
+			execute 'tabclose' tabnum
+		else
+			echomsg 'wheel line tabwins_tree : will not close current buffer.'
+		endif
 		return win_getid ()
 	endif
 endfun
