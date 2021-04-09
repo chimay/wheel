@@ -106,3 +106,46 @@ fun! wheel#cuboctahedron#reorganize ()
 	" Tune wheel coordinates to first entry in history
 	call wheel#vortex#chord(g:wheel_history[0].coordin)
 endfun
+
+fun! wheel#cuboctahedron#reorg_tabwins ()
+	" Reorganize tabs & windows
+	" Split commands
+	let split_commands = ['vsplit', 'split']
+	" Mandala line list
+	let linelist = getline(1, '$')
+	" Restart from scratch
+	tabonly
+	" First buffer
+	wincmd p
+	only
+	exe 'buffer' linelist[1]
+	call wheel#cylinder#recall ()
+	" Loop over mandala lines
+	let marker = s:fold_markers[0]
+	let pat_fold_one = '\m' . s:fold_1 . '$'
+	let mandala = win_getid ()
+	let index = 2
+	let win_nr = 0
+	let length = len(linelist)
+	while index < length
+		let line = linelist[index]
+		if line =~ pat_fold_one
+			" tab line
+			tabnew
+			let win_nr = 0
+			let index += 1
+			let line = linelist[index]
+			exe 'buffer' line
+			let index += 1
+		else
+			" window line
+			exe split_commands[win_nr % 2]
+			exe 'buffer' line
+			let index += 1
+			let win_nr += 1
+		endif
+	endwhile
+	call win_gotoid(mandala)
+	setlocal nomodified
+	echomsg 'tabs & windows reorganized.'
+endfun

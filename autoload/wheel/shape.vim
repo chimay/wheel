@@ -25,6 +25,16 @@ fun! wheel#shape#reorganize_write ()
 	augroup END
 endfun
 
+fun! wheel#shape#reorg_tabwins_write ()
+	" Define reorg_tabwins autocommands
+	setlocal buftype=acwrite
+	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorg_tabwins ()"
+	augroup wheel
+		autocmd!
+		exe autocommand
+	augroup END
+endfun
+
 fun! wheel#shape#grep_write ()
 	" Define grep autocommands
 	set buftype=acwrite
@@ -63,6 +73,22 @@ fun! wheel#shape#reorganize ()
 	call wheel#mandala#open ('reorganize')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#reorganize_write ()
+	call wheel#mandala#folding_options ()
+	call wheel#mandala#fill(lines)
+	silent global /^$/ delete
+	setlocal nomodified
+	setlocal nocursorline
+endfun
+
+" Reorganize tabs
+
+fun! wheel#shape#reorg_tabwins ()
+	" Reorganize tabs & windows
+	let lines = wheel#perspective#tabwins_tree ()
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('reorg/tabwins')
+	call wheel#mandala#common_maps ()
+	call wheel#shape#reorg_tabwins_write ()
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete

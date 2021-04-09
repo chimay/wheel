@@ -93,6 +93,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-reorder-torus) :call wheel#shape#reorder('torus')<cr>
 	" Reorganize
 	nnoremap <plug>(wheel-reorganize) :call wheel#shape#reorganize()<cr>
+	" Reorganize tabs & windows
+	nnoremap <plug>(wheel-reorg-tabwins) :call wheel#shape#reorg_tabwins()<cr>
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
@@ -206,8 +208,9 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . 'c <plug>(wheel-changes)'
 		" Search for files
 		exe 'nmap ' . prefix . '<m-b> <plug>(wheel-opened-files)'
-		exe 'nmap ' . prefix . '<c-b> <plug>(wheel-tabwins)'
-		exe 'nmap ' . prefix . 'B <plug>(wheel-tabwins-tree)'
+		exe 'nmap ' . prefix . '<m-w> <plug>(wheel-tabwins-tree)'
+		exe 'nmap ' . prefix . '<c-w> <plug>(wheel-tabwins)'
+		exe 'nmap ' . prefix . 'W <plug>(wheel-reorg-tabwins)'
 		exe 'nmap ' . prefix . '<m-m> <plug>(wheel-mru)'
 		exe 'nmap ' . prefix . '<m-l> <plug>(wheel-locate)'
 		exe 'nmap ' . prefix . '<m-f> <plug>(wheel-find)'

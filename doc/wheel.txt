@@ -1300,8 +1300,8 @@ Search for files~
 | Prefix + | With default prefix | Action                                           |
 | -------- | ------------------- | ------------------------------------------------ |
 | <M-b>    | <M-w><M-b>          | Opened files (buffers)                           |
-| <C-b>    | <M-w><C-b>          | Buffers displayed in tabs & windows              |
-| B        | <M-w>B              | Tree view of buffers displayed in tabs & windows |
+| <M-w>    | <M-w><C-w>          | Buffers displayed in tabs & windows              |
+| <C-w>    | <M-w><M-w>          | Tree view of buffers displayed in tabs & windows |
 | <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel      |
 | <M-l>    | <M-w><M-l>          | Search files with locate                         |
 | <M-f>    | <M-w><M-f>          | Search files with find in async mode             |
@@ -1325,6 +1325,7 @@ Reorganizing buffer~
 | Prefix + | With default prefix | Action                    |
 | -------- | ------------------- | ------------------------- |
 | <M-r>    | <M-w><M-r>          | Reorganize wheel elements |
+| W        | <M-w>W              | Reorganize tabs & windows |
 
 Managing special buffers~
 
