@@ -112,6 +112,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Split commands
 	let split_commands = ['vsplit', 'split']
 	" Mandala line list
+	silent global /^$/ delete
 	let linelist = getline(1, '$')
 	" Restart from scratch
 	tabonly
@@ -135,8 +136,13 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 			let win_nr = 0
 			let index += 1
 			let line = linelist[index]
-			exe 'buffer' line
-			let index += 1
+			if line !~ pat_fold_one
+				" line = buffer line
+				exe 'buffer' line
+				let index += 1
+			else
+				" tab empty
+			endif
 		else
 			" window line
 			exe split_commands[win_nr % 2]
