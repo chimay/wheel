@@ -287,6 +287,8 @@ fun! wheel#centre#cables ()
 		nmap <m-h>        <plug>(wheel-history)
 		" Opened files
 		nmap <m-b>          <plug>(wheel-opened-files)
+		" Tabs & windows
+		nmap <m-w>          <plug>(wheel-tabwins)
 		" Search inside files
 		nmap <m-s>          <plug>(wheel-occur)
 		nmap <m-g>          <plug>(wheel-grep)
