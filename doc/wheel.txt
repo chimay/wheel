@@ -287,6 +287,7 @@ Context menus			|wheel-special-buffers-context|
 Navigation buffers		|wheel-special-buffers-navigation|
 Reordering buffers		|wheel-special-buffers-reordering|
 Reorganizing buffers		|wheel-special-buffers-reorganizing|
+Reorganizing tabs & windows	|wheel-special-buffers-reorg-tabwins|
 Grep buffer			|wheel-special-buffers-grep|
 Find buffer			|wheel-special-buffers-find|
 Yank buffer			|wheel-special-buffers-yank|
@@ -459,6 +460,8 @@ The default mappings launching navigation buffers are :
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w><M-b>`     : switch to buffer (opened file)
+- `<M-w><M-w>`     : switch to tab & window (tree fold mode)
+- `<M-w><C-w>`     : switch to tab & window (plain mode)
 - `<M-w><M-s>`     : occur in current file
 - `<M-w><M-g>`     : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
@@ -554,6 +557,11 @@ Pressed the wrong button ?~
 
 If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
+
+------------------------------------------------------------------------------
+REORGANIZE TABS AND WINDOWS		*wheel-special-buffers-reorg-tabwins*
+
+In this buffer, you can move or delete tabs and windows.
 
 ------------------------------------------------------------------------------
 GREP BUFFER				*wheel-special-buffers-grep*

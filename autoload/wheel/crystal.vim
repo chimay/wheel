@@ -312,6 +312,7 @@ if ! exists('s:context_tabwins')
 	let s:context_tabwins = {
 				\ 'open' : "wheel#boomerang#tabwins('open')",
 				\ 'close tab' : "wheel#boomerang#tabwins('tabclose')",
+				\ 'reorganize' : 'wheel#shape#reorg_tabwins',
 				\}
 	lockvar s:context_tabwins
 endif
@@ -320,6 +321,7 @@ if ! exists('s:context_tabwins_tree')
 	let s:context_tabwins_tree = {
 				\ 'open' : "wheel#boomerang#tabwins_tree('open')",
 				\ 'close tab' : "wheel#boomerang#tabwins_tree('tabclose')",
+				\ 'reorganize' : 'wheel#shape#reorg_tabwins',
 				\}
 	lockvar s:context_tabwins_tree
 endif
