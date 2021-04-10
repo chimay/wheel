@@ -109,55 +109,127 @@ endfun
 
 fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Reorganize tabs & windows
-	" Split commands
-	let split_commands = ['vsplit', 'split']
 	" Mandala line list
+	" Keep old layouts if possible
 	silent global /^$/ delete
 	let linelist = getline(1, '$')
 	" Current tab
 	let startpage = tabpagenr()
-	" Restart from one tab, one window
+	" close mandala to work
 	call wheel#mandala#close ()
-	tabonly
-	only
-	" Loop over mandala lines
+	" Fold marker
 	let marker = s:fold_markers[0]
 	let pat_fold_one = '\m' . s:fold_1 . '$'
-	let index = 2
-	let win_nr = 0
-	let length = len(linelist)
-	" First buffer
-	exe 'buffer' linelist[1]
-	" Others
-	while index < length
-		let line = linelist[index]
+	" Fill the baskets
+	let tabnums = []
+	let tabwins = []
+	let lastab = tabpagenr('$')
+	let nextab = lastab + 1
+	let oldindex = -1
+	let newindex = 0
+	for line in linelist
 		if line =~ pat_fold_one
 			" tab line
-			tabnew
-			let win_nr = 0
-			let index += 1
-			let line = linelist[index]
-			if line !~ pat_fold_one
-				" line = buffer line
-				exe 'buffer' line
-				let index += 1
-			else
-				" tab empty
+			let oldindex = str2nr(split(line)[1])
+			let newindex += 1
+			if index(tabnums, oldindex) >= 0
+				let oldindex = nextab
+				let nextab += 1
 			endif
+			call add(tabnums, oldindex)
+			call add(tabwins, [])
 		else
 			" window line
-			exe split_commands[win_nr % 2]
-			exe 'buffer' line
-			let index += 1
-			let win_nr += 1
+			call add(tabwins[newindex - 1], line)
+		endif
+	endfor
+	" Tie the tabnums together
+	let [tabnums, removed] = wheel#chain#tie(tabnums)
+	" tabnums : start from 0
+	let minim = min(tabnums)
+	call map(tabnums, {_,v -> v - minim})
+	" Remove tabs
+	for index in removed
+		exe 'tabclose' index
+	endfor
+	" Add new tabs if necessary
+	let lentabnums = len(tabnums)
+	while tabpagenr('$') < lentabnums
+		tabnext $
+		tabnew
+	endwhile
+	" Reorder tabs
+	let lastab = tabpagenr('$')
+	if lastab != lentabnums
+		echoerr 'wheel reorg tabs & windows :' string(tabnums) 'mismatch.'
+		return v:false
+	endif
+	" status : start from 0
+	let status = range(lastab)
+	let from = 0
+	let count = 0
+	let max_iter = 2 * g:wheel_config.maxim.tabs
+	while v:true
+		while from < lastab && status[from] == tabnums[from]
+			let from += 1
+		endwhile
+		if from >= lastab
+			break
+		endif
+		let findme = status[from]
+		let target = index(tabnums, findme)
+		if target <= 0
+			echoerr 'wheel reorg tabs & windows : new tab index not found.'
+			return v:false
+		endif
+		exe 'tabnext' from + 1
+		exe 'tabmove' target + 1
+		let status = wheel#chain#move(status, from, target)
+		let count += 1
+		if count > max_iter
+			break
 		endif
 	endwhile
-	if startpage <= tabpagenr('$')
-		exe 'tabnext' startpage
-	else
-		tabnext 1
-	endif
+	" Add or remove windows
+	for index in range(lastab)
+		let tabindex = index + 1
+		exe 'tabnext' tabindex
+		echomsg string(index) string(tabindex)
+		let basket = tabwins[index]
+		" adding windows
+		for bufname in basket
+			let win = bufwinnr(bufname)
+			if win < 0
+				$ wincmd w
+				if winwidth(0) >= winheight(0)
+					vsplit
+				else
+					split
+				endif
+				exe 'buffer' bufname
+			endif
+		endfor
+		" removing windows
+		let winum = 1
+		while winum <= winnr('$')
+			exe winum 'wincmd w'
+			if index(basket, bufname()) < 0
+				close
+			else
+				let winum += 1
+			endif
+		endwhile
+	endfor
+	" Back to mandala
+	 if startpage <= tabpagenr('$')
+		 exe 'tabnext' startpage
+	 else
+		 tabnext 1
+	 endif
 	call wheel#cylinder#recall ()
+	" Tell the world the job is done
 	setlocal nomodified
 	echomsg 'tabs & windows reorganized.'
+	" Return value
+	return [tabnums, tabwins]
 endfun

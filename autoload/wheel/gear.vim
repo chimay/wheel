@@ -23,10 +23,12 @@ endif
 " Rotating
 
 fun! wheel#gear#circular_plus (index, length)
+	" Rotate/increase index with modulo
 	return (a:index + 1) % a:length
 endfun
 
 fun! wheel#gear#circular_minus (index, length)
+	" Rotate/decrease index with modulo
 	let index = (a:index - 1) % a:length
 	if index < 0
 		let index += a:length
@@ -238,5 +240,16 @@ fun! wheel#gear#unmap (key, mode)
 		endfor
 	else
 		echomsg 'Wheel gear unmap : bad key format'
+	endif
+endfun
+
+" Misc
+
+fun! wheel#gear#decrease_greater(number, treshold)
+	" Return number - 1 if > treshold, else return number
+	if a:number > a:treshold
+		return a:number - 1
+	else
+		return a:number
 	endif
 endfun

@@ -113,3 +113,45 @@ fun! wheel#chain#swap (list)
 		return a:list
 	endif
 endfun
+
+fun! wheel#chain#tie (list)
+	" Translate integer elements of the list to fill the gaps
+	let list = a:list
+	let minim = min(list)
+	let maxim = minim + len(list) - 1
+	let numbers = range(minim, maxim)
+	let index = 0
+	let length = len(numbers)
+	let gaps = []
+	while index < length
+		let elem = numbers[index]
+		if index(list, elem) < 0
+			call map(list, {_,v -> wheel#gear#decrease_greater(v, elem)})
+			call add(gaps, elem)
+		else
+			let index += 1
+		endif
+	endwhile
+	return [list, gaps]
+endfun
+
+fun! wheel#chain#move (list, from, target)
+	" Move element at index from -> target in list
+	let list = a:list
+	let from = a:from
+	let target = a:target
+	if from < target
+		if from == 0
+			let list = list[1:target] + [list[0]] + list[target+1:]
+		else
+			let list = list[:from-1] + list[from+1:target] + [list[from]] + list[target+1:]
+		endif
+	elseif from > target
+		if target == 0
+			let list = [list[from]] + list[target:from-1] + list[from+1:]
+		else
+			let list = list[:target-1] + [list[from]] + list[target:from-1] + list[from+1:]
+		endif
+	endif
+	return list
+endfun

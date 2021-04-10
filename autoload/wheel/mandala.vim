@@ -48,7 +48,7 @@ fun! wheel#mandala#close ()
 	" Mandala buffer
 	if winnr('$') > 1
 		" More than one window in tab ? Close it.
-		quit
+		close
 	else
 		" Only one window in tab ? Jump to last known file in wheel.
 		call wheel#vortex#jump ()
