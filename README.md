@@ -15,6 +15,7 @@
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
 * [Configuration](#configuration)
+	* [Bindings](#bindings)
 * [Step by Step](#step-by-step)
 	* [Documentation](#documentation)
 	* [One map to ring them all](#one-map-to-ring-them-all)
@@ -250,6 +251,64 @@ endif
 ```
 
 as a starting point.
+
+## Bindings
+
+Here are some bindings that you may find useful, beginning with the most
+used functions :
+
+```vim
+    nmap <m-m>        <plug>(wheel-menu-main)
+    nmap <m-=>        <plug>(wheel-menu-meta)
+    " Add, Delete
+    nmap <m-insert>   <plug>(wheel-add-here)
+    nmap <m-del>      <plug>(wheel-delete-location)
+    " Next / Previous
+    nmap <c-pageup>   <plug>(wheel-previous-location)
+    nmap <c-pagedown> <plug>(wheel-next-location)
+    nmap <c-home>     <plug>(wheel-previous-circle)
+    nmap <c-end>      <plug>(wheel-next-circle)
+    nmap <s-home>     <plug>(wheel-previous-torus)
+    nmap <s-end>      <plug>(wheel-next-torus)
+    " Alternate
+    nmap <c-^>        <plug>(wheel-alternate-anywhere)
+    nmap <d-^>        <plug>(wheel-alternate-same-torus-other-circle)
+    " Navigation buffers
+    nmap <space>      <plug>(wheel-navigation-location)
+    nmap <c-space>    <plug>(wheel-navigation-circle)
+    nmap <s-space>    <plug>(wheel-navigation-torus)
+    nmap <m-x>        <plug>(wheel-tree)
+    nmap <m-h>        <plug>(wheel-history)
+    " Opened files
+    nmap <m-b>          <plug>(wheel-opened-files)
+    " Tabs & windows : visible buffers in tree mode
+    nmap <m-v>          <plug>(wheel-tabwins-tree)
+    " Search for files
+    nmap <m-u>          <plug>(wheel-mru)
+    nmap <m-l>          <plug>(wheel-locate)
+    nmap <m-f>          <plug>(wheel-find)
+    " Yank
+    nmap <m-y>          <plug>(wheel-yank-list)
+    nmap <m-p>          <plug>(wheel-yank-plain)
+    " Search inside files
+    nmap <m-s>          <plug>(wheel-occur)
+    nmap <m-g>          <plug>(wheel-grep)
+    nmap <m-o>          <plug>(wheel-outline)
+    nmap <m-t>          <plug>(wheel-tags)
+    nmap <m-j>          <plug>(wheel-jumps)
+    nmap <m-c>          <plug>(wheel-changes)
+    " Save (push) mandala buffer
+    nmap <m-Tab>        <plug>(wheel-buffer-push)
+    " Remove (pop) mandala buffer
+    nmap <m-Backspace>  <plug>(wheel-buffer-pop)
+    " Cycle mandala buffers
+    nmap <m-space>      <plug>(wheel-buffer-cycle)
+    " Command
+    nmap <m-!>          <plug>(wheel-command)
+    nmap <m-&>          <plug>(wheel-async)
+    " Reshaping buffers
+    nmap <m-r>          <plug>(wheel-reorganize)
+```
 
 # Step by Step
 
