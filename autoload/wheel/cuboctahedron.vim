@@ -194,11 +194,20 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	for index in range(lastab)
 		let tabindex = index + 1
 		exe 'tabnext' tabindex
+		" buffers to obtain
 		let basket = tabwins[index]
 		" adding windows
 		for bufname in basket
-			let win = bufwinnr(bufname)
-			if win < 0
+			" buffers in window
+			let winbufs = []
+			windo call add(winbufs, bufname())
+			" how many in tab, how many to obtain ?
+			let shadow_win = copy(winbufs)
+			let shadow_basket = copy(basket)
+			let occur_win = len(filter(shadow_win, {_,v -> v == bufname}))
+			let occur_basket = len(filter(shadow_basket, {_,v -> v == bufname}))
+			" split and add
+			while occur_win < occur_basket
 				$ wincmd w
 				if winwidth(0) >= winheight(0)
 					vsplit
@@ -206,7 +215,8 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 					split
 				endif
 				exe 'buffer' bufname
-			endif
+				let occur_win += 1
+			endwhile
 		endfor
 		" removing windows
 		let winum = 1
