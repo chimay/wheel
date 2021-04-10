@@ -33,7 +33,7 @@
 
 # Introduction
 
-Wheel is a navigation plugin for Vim and Neovim. It is buffer group
+Wheel is a navigation plugin for Vim and Neovim. It is file group
 oriented and makes abundant use of special buffers, in which you can
 filter and select elements.
 
@@ -49,17 +49,17 @@ filter and select elements.
 
 ## Buffer groups & categories
 
-Wheel let you organize your buffers by creating as many buffer groups as
-you need, add the buffers you want to it and quickly navigate between :
+Wheel let you organize your files by creating as many file groups as
+you need, add the files you want to it and quickly navigate between :
 
-- Buffers of the same group
-- Buffer groups
+- Files of the same group
+- File groups
 
 Note that :
 
 - A location contains a name, a filename, as well as a line & column number
-- A buffer group, in fact a location group, is called a circle
-- A set of buffer groups, or a category, is called a torus (a circle of circles)
+- A file group, in fact a location group, is called a circle
+- A set of file groups, or a category, is called a torus (a circle of circles)
 - The list of toruses is called the wheel
 
 ### Why do you need three levels of grouping ?
@@ -273,7 +273,7 @@ used functions :
     " Alternate
     nmap <c-^>        <plug>(wheel-alternate-anywhere)
     nmap <d-^>        <plug>(wheel-alternate-same-torus-other-circle)
-    " Navigation buffers
+    " Navigation special buffers
     nmap <space>      <plug>(wheel-navigation-location)
     nmap <c-space>    <plug>(wheel-navigation-circle)
     nmap <s-space>    <plug>(wheel-navigation-torus)
@@ -297,16 +297,16 @@ used functions :
     nmap <m-t>          <plug>(wheel-tags)
     nmap <m-j>          <plug>(wheel-jumps)
     nmap <m-c>          <plug>(wheel-changes)
-    " Save (push) mandala buffer
+    " Save (push) mandala (special buffer)
     nmap <m-Tab>        <plug>(wheel-buffer-push)
-    " Remove (pop) mandala buffer
+    " Remove (pop) mandala
     nmap <m-Backspace>  <plug>(wheel-buffer-pop)
     " Cycle mandala buffers
     nmap <m-space>      <plug>(wheel-buffer-cycle)
     " Command
     nmap <m-!>          <plug>(wheel-command)
     nmap <m-&>          <plug>(wheel-async)
-    " Reshaping buffers
+    " Reshaping mandala buffer
     nmap <m-r>          <plug>(wheel-reorganize)
 ```
 
@@ -335,7 +335,7 @@ Just replace it by your prefix if you’ve changed it.
 ## One map to ring them all
 
 To get an overview of the Wheel, I suggest you take a look at the main
-menu. Press `<M-w>m` and a new buffer will appear, listing the actions
+menu. Press `<M-w>m` and a new window will appear, listing the actions
 you can perform. Insert mode is used to filter the lines. Press enter
 in normal mode to trigger an action (if you know what you’re doing),
 or `q` to quit the menu.

@@ -99,11 +99,11 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
 	" Save (push) mandala buffer
-	nnoremap <plug>(wheel-buffer-push) :call wheel#cylinder#push()<cr>
+	nnoremap <plug>(wheel-mandala-push) :call wheel#cylinder#push()<cr>
 	" Remove (pop) mandala buffer
-	nnoremap <plug>(wheel-buffer-pop) :call wheel#cylinder#pop()<cr>
+	nnoremap <plug>(wheel-mandala-pop) :call wheel#cylinder#pop()<cr>
 	" Cycle mandala buffers
-	nnoremap <plug>(wheel-buffer-cycle) :call wheel#cylinder#cycle()<cr>
+	nnoremap <plug>(wheel-mandala-cycle) :call wheel#cylinder#cycle()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabs-locations) :call wheel#mosaic#tabs('location')<cr>
 	nnoremap <plug>(wheel-tabs-circles) :call wheel#mosaic#tabs('circle')<cr>
@@ -223,11 +223,11 @@ fun! wheel#centre#cables ()
 		" Reorganize
 		exe 'nmap ' . prefix . '<m-r> <plug>(wheel-reorganize)'
 		" Save (push) mandala buffer
-		exe 'nmap ' . prefix . '<tab> <plug>(wheel-buffer-push)'
+		exe 'nmap ' . prefix . '<tab> <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
-		exe 'nmap ' . prefix . '<backspace> <plug>(wheel-buffer-pop)'
+		exe 'nmap ' . prefix . '<backspace> <plug>(wheel-mandala-pop)'
 		" Cycle mandala buffers
-		exe 'nmap ' . prefix . '@ <plug>(wheel-buffer-cycle)'
+		exe 'nmap ' . prefix . '@ <plug>(wheel-mandala-cycle)'
 		" Tabs
 		exe 'nmap ' . prefix . 't <plug>(wheel-tabs-locations)'
 		exe 'nmap ' . prefix . '<c-t> <plug>(wheel-tabs-circles)'
@@ -316,11 +316,11 @@ fun! wheel#centre#cables ()
 		nmap <c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)
 		nmap <c-s-pagedown> <plug>(wheel-rotate-clockwise)
 		" Save (push) mandala buffer
-		nmap <m-Tab>        <plug>(wheel-buffer-push)
+		nmap <m-Tab>        <plug>(wheel-mandala-push)
 		" Remove (pop) mandala buffer
-		nmap <m-Backspace>  <plug>(wheel-buffer-pop)
+		nmap <m-Backspace>  <plug>(wheel-mandala-pop)
 		" Cycle mandala buffers
-		nmap <m-space>      <plug>(wheel-buffer-cycle)
+		nmap <m-space>      <plug>(wheel-mandala-cycle)
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
