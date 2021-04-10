@@ -376,8 +376,6 @@ fun! wheel#line#sailing (settings)
 	if close
 		call wheel#mandala#close ()
 	else
-		let mandala = win_getid()
-		let position = getcurpos()
 		wincmd p
 	endif
 	if target != 'current'
@@ -400,9 +398,8 @@ fun! wheel#line#sailing (settings)
 	endif
 	let dest = win_getid ()
 	if ! close
-		call win_gotoid (mandala)
+		call wheel#cylinder#recall ()
 		call wheel#line#deselect ()
-		call wheel#gear#restore_cursor (position)
 	else
 		call win_gotoid (dest)
 	endif
@@ -713,7 +710,6 @@ fun! wheel#line#paste_list (...)
 		endif
 		let content = eval(line)
 	endif
-	let mandala = win_getid()
 	wincmd p
 	if where == 'after'
 		put =content
@@ -721,7 +717,7 @@ fun! wheel#line#paste_list (...)
 		put! =content
 	endif
 	let @" = join(content, "\n")
-	call win_gotoid(mandala)
+	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#mandala#close ()
 	endif
@@ -748,7 +744,6 @@ fun! wheel#line#paste_plain (...)
 	if empty(content)
 		return v:false
 	endif
-	let mandala = win_getid()
 	wincmd p
 	if where == 'linewise_after'
 		put =content
@@ -760,7 +755,7 @@ fun! wheel#line#paste_plain (...)
 		normal! P
 	endif
 	let @" = content
-	call win_gotoid(mandala)
+	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#mandala#close ()
 	endif
@@ -780,14 +775,13 @@ fun! wheel#line#paste_visual (...)
 		let close = 'close'
 	endif
 	normal! gvy
-	let mandala = win_getid()
 	wincmd p
 	if where == 'after'
 		normal! p
 	elseif where == 'before'
 		normal! P
 	endif
-	call win_gotoid(mandala)
+	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#mandala#close ()
 	endif
