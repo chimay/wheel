@@ -122,17 +122,15 @@ fun! wheel#chain#tie (list)
 	let numbers = range(minim, maxim)
 	let index = 0
 	let length = len(numbers)
-	let gaps = []
 	while index < length
 		let elem = numbers[index]
 		if index(list, elem) < 0
 			call map(list, {_,v -> wheel#gear#decrease_greater(v, elem)})
-			call add(gaps, elem)
 		else
 			let index += 1
 		endif
 	endwhile
-	return [list, gaps]
+	return list
 endfun
 
 fun! wheel#chain#move (list, from, target)
