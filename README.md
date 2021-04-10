@@ -123,7 +123,9 @@ your groups will grow and adapt to your style.
   + :ex or !shell command
   + Async shell command
 - Yank wheel using TextYankPost event
-- Reorganizing elements
+- Reorganizing
+  + Wheel elements
+  + Tabs & windows
 - Special buffers stack to save your searches
 - Display files
   + Split levels : torus, circle, location
