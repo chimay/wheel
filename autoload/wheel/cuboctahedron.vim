@@ -194,7 +194,6 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	for index in range(lastab)
 		let tabindex = index + 1
 		exe 'tabnext' tabindex
-		echomsg string(index) string(tabindex)
 		let basket = tabwins[index]
 		" adding windows
 		for bufname in basket
@@ -213,7 +212,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 		let winum = 1
 		while winum <= winnr('$')
 			exe winum 'wincmd w'
-			if index(basket, bufname()) < 0
+			if index(basket, bufname()) < 0 && winnr('$') > 1
 				close
 			else
 				let winum += 1
