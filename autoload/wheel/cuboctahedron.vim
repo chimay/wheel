@@ -194,29 +194,27 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	for index in range(lastab)
 		let tabindex = index + 1
 		exe 'tabnext' tabindex
-		" buffers to obtain
-		let basket = tabwins[index]
 		" adding windows
-		for bufname in basket
-			" buffers in window
-			let winbufs = []
-			windo call add(winbufs, bufname())
-			" how many in tab, how many to obtain ?
-			let shadow_win = copy(winbufs)
-			let shadow_basket = copy(basket)
-			let occur_win = len(filter(shadow_win, {_,v -> v == bufname}))
-			let occur_basket = len(filter(shadow_basket, {_,v -> v == bufname}))
-			" split and add
-			while occur_win < occur_basket
-				$ wincmd w
-				if winwidth(0) >= winheight(0)
-					vsplit
-				else
-					split
-				endif
-				exe 'buffer' bufname
-				let occur_win += 1
-			endwhile
+		let lastwin = winnr('$')
+		let basket = tabwins[index]
+		let lastbasket = len(basket)
+		let minim = min([lastwin, lastbasket])
+		echomsg string(basket) string(minim)
+		for winum in range(1, minim)
+			exe winum 'wincmd w'
+			let bufname = basket[winum - 1]
+			exe 'buffer' bufname
+		endfor
+		" if more buffers in basket than windows
+		for winum in range(minim + 1, lastbasket)
+			$ wincmd w
+			if winwidth(0) >= winheight(0)
+				vsplit
+			else
+				split
+			endif
+			let bufname = basket[winum - 1]
+			exe 'buffer' bufname
 		endfor
 		" removing windows
 		let winum = 1
@@ -230,11 +228,11 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 		endwhile
 	endfor
 	" Back to mandala
-	 if startpage <= tabpagenr('$')
-		 exe 'tabnext' startpage
-	 else
-		 tabnext 1
-	 endif
+	if startpage <= tabpagenr('$')
+		exe 'tabnext' startpage
+	else
+		tabnext 1
+	endif
 	call wheel#cylinder#recall ()
 	" Tell the world the job is done
 	setlocal nomodified
