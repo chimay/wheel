@@ -288,9 +288,10 @@ fun! wheel#line#menu (settings)
 		return v:false
 	endif
 	" Travel before processing ?
+	" True for hub menus
 	" In case of sailing, it's managed by wheel#line#sailing
 	if travel
-		call wheel#mandala#close ()
+		wincmd p
 	endif
 	" Call
 	let value = dict[key]
@@ -301,7 +302,12 @@ fun! wheel#line#menu (settings)
 		let dest = {value}()
 	endif
 	if close
+		" Go back to mandala
+		call wheel#cylinder#recall ()
+		" Close it
 		call wheel#mandala#close ()
+		" Go to last destination
+		call win_gotoid (dest)
 	else
 		" Tab page changed ?
 		let elder_tab = tabpagenr()
@@ -312,9 +318,11 @@ fun! wheel#line#menu (settings)
 			call wheel#cylinder#recall()
 			" Close it in elder tab
 			silent call wheel#mandala#close ()
-			" Go to last destination
-			call win_gotoid (dest)
+			" Go back in new tab
+			exe 'tabnext' new_tab
 			" Call mandala back in new tab
+			call wheel#cylinder#recall()
+		else
 			call wheel#cylinder#recall()
 		endif
 	endif
