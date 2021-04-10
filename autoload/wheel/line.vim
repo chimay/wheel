@@ -287,6 +287,8 @@ fun! wheel#line#menu (settings)
 		echomsg 'wheel line menu : key not found'
 		return v:false
 	endif
+	" Tab page of mandala before processing
+	let elder_tab = tabpagenr()
 	" Travel before processing ?
 	" True for hub menus
 	" In case of sailing, it's managed by wheel#line#sailing
@@ -312,7 +314,6 @@ fun! wheel#line#menu (settings)
 	else
 		" Do not close mandala
 		" Tab page changed ?
-		let elder_tab = tabpagenr()
 		call win_gotoid (dest)
 		let new_tab = tabpagenr()
 		if elder_tab != new_tab

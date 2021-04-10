@@ -59,6 +59,7 @@ fun! wheel#vortex#jump (...)
 		call wheel#spiral#cursor ()
 		call wheel#status#dashboard ()
 	endif
+	return win_getid ()
 endfun
 
 " Next / Previous

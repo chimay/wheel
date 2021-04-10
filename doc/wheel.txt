@@ -297,8 +297,9 @@ Command output buffer		|wheel-special-buffers-command|
 ------------------------------------------------------------------------------
 INTRODUCTION				*wheel-special-buffers-introduction*
 
-Special buffers allow you to perform Wheel operations intuitively, using
-full power of your editor : search, yank, paste, completion, and so on.
+Special buffers (aka mandalas) allow you to perform Wheel operations
+intuitively, using full power of your editor : search, yank, paste,
+completion, and so on.
 
 The available actions depend on the buffer type :
 
@@ -310,9 +311,10 @@ The available actions depend on the buffer type :
   + and so on
 - Reordering buffers allow you to reorder locations, circles or toruses
 - Reorganize buffer allows you fine grain operations
-  + Move and copy around locations, circles and toruses, using folds
+  + Move, copy or delete locations, circles and toruses, using folds
   + Change locations settings like name, line, col
   + Be sure you know what you’re doing
+- Reorganize tabs and windows
 
 Wrapping up things~
 
@@ -561,7 +563,22 @@ variables with `<M-w>r`.
 ------------------------------------------------------------------------------
 REORGANIZE TABS AND WINDOWS		*wheel-special-buffers-reorg-tabwins*
 
-In this buffer, you can move or delete tabs and windows.
+In this buffer, you can move, copy or delete tabs and windows.
+
+To validate your change, simply |:write| the buffer.
+
+Mappings~
+
+The default mapping is `<M-w>W`.
+
+Menus~
+
+This buffer can also be launched from the main & meta menus.
+
+From context menu~
+
+This buffer can also be launched from the context menu of a tabs & windows
+navigation buffer.
 
 ------------------------------------------------------------------------------
 GREP BUFFER				*wheel-special-buffers-grep*

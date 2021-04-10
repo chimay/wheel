@@ -119,7 +119,7 @@ fun! wheel#pendulum#newer ()
 	let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
 	let coordin = g:wheel_history[0].coordin
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#older ()
@@ -130,7 +130,7 @@ fun! wheel#pendulum#older ()
 	let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
 	let coordin = g:wheel_history[0].coordin
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_anywhere ()
@@ -144,7 +144,7 @@ fun! wheel#pendulum#alternate_anywhere ()
 			call wheel#vortex#chord(coordin)
 		endif
 	endif
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_same_torus ()
@@ -165,7 +165,7 @@ fun! wheel#pendulum#alternate_same_torus ()
 		endfor
 		call wheel#vortex#chord(destination)
 	endif
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_same_circle ()
@@ -186,7 +186,7 @@ fun! wheel#pendulum#alternate_same_circle ()
 		endfor
 		call wheel#vortex#chord(destination)
 	endif
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_other_torus ()
@@ -207,7 +207,7 @@ fun! wheel#pendulum#alternate_other_torus ()
 		endfor
 		call wheel#vortex#chord(destination)
 	endif
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_other_circle ()
@@ -228,7 +228,7 @@ fun! wheel#pendulum#alternate_other_circle ()
 		endfor
 		call wheel#vortex#chord(destination)
 	endif
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate_same_torus_other_circle ()
@@ -249,7 +249,7 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 		endfor
 		call wheel#vortex#chord(destination)
 	endif
-	call wheel#vortex#jump ()
+	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#alternate ()
