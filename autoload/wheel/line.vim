@@ -300,12 +300,23 @@ fun! wheel#line#menu (settings)
 	else
 		let dest = {value}()
 	endif
-	" Go to last destination
-	silent call wheel#mandala#close ()
-	call win_gotoid (dest)
-	" Close mandala buffer or call it back ?
-	if ! close
-		call wheel#cylinder#recall()
+	if close
+		call wheel#mandala#close ()
+	else
+		" Tab page changed ?
+		let elder_tab = tabpagenr()
+		call win_gotoid (dest)
+		let new_tab = tabpagenr()
+		if elder_tab != new_tab
+			" Go back to mandala
+			call wheel#cylinder#recall()
+			" Close it in elder tab
+			silent call wheel#mandala#close ()
+			" Go to last destination
+			call win_gotoid (dest)
+			" Call mandala back in new tab
+			call wheel#cylinder#recall()
+		endif
 	endif
 	return v:true
 endfun
