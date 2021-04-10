@@ -144,10 +144,14 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 		endif
 	endfor
 	" Tie the tabnums together
-	let tabnums = wheel#chain#tie(tabnums)
+	let [tabnums, removed] = wheel#chain#tie(tabnums)
 	" tabnums : start from 0
 	let minim = min(tabnums)
 	call map(tabnums, {_,v -> v - minim})
+	" Remove tabs
+	for index in removed
+		exe 'tabclose' index
+	endfor
 	" Add new tabs if necessary
 	let lentabnums = len(tabnums)
 	while tabpagenr('$') < lentabnums
@@ -181,10 +185,9 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 			break
 		endif
 	endwhile
-	" Remove unused tabs
+	" Remove trailing unused tabs
 	while tabpagenr('$') > lentabnums
-		tabnext $
-		tabclose
+		tabclose $
 	endwhile
 	" Add or remove windows
 	for index in range(tabpagenr('$'))
