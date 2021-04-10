@@ -268,7 +268,7 @@ fun! wheel#line#menu (settings)
 	" settings is a dictionary, whose keys can be :
 	" - dict : name of a dictionary variable in storage.vim
 	" - close : whether to close mandala buffer
-	" - travel : whether to apply action in previous buffer
+	" - travel : whether to go back to previous window before applying action
 	let settings = a:settings
 	let dict = wheel#crystal#fetch (settings.linefun)
 	let close = settings.ctx_close
@@ -302,6 +302,7 @@ fun! wheel#line#menu (settings)
 		let dest = {value}()
 	endif
 	if close
+		" Close mandala
 		" Go back to mandala
 		call wheel#cylinder#recall ()
 		" Close it
@@ -309,11 +310,13 @@ fun! wheel#line#menu (settings)
 		" Go to last destination
 		call win_gotoid (dest)
 	else
+		" Do not close mandala
 		" Tab page changed ?
 		let elder_tab = tabpagenr()
 		call win_gotoid (dest)
 		let new_tab = tabpagenr()
 		if elder_tab != new_tab
+			" Tab changed, move mandala to new tab
 			" Go back to mandala
 			call wheel#cylinder#recall()
 			" Close it in elder tab
@@ -323,6 +326,7 @@ fun! wheel#line#menu (settings)
 			" Call mandala back in new tab
 			call wheel#cylinder#recall()
 		else
+			" Same tab, just go to mandala window
 			call wheel#cylinder#recall()
 		endif
 	endif
