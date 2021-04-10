@@ -282,11 +282,11 @@ SPECIAL BUFFERS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
 Buffer stack			|wheel-special-buffers-stack|
-Menu buffers			|wheel-special-buffers-menus|
+Menu				|wheel-special-buffers-menus|
 Context menus			|wheel-special-buffers-context|
-Navigation buffers		|wheel-special-buffers-navigation|
-Reordering buffers		|wheel-special-buffers-reordering|
-Reorganizing buffers		|wheel-special-buffers-reorganizing|
+Navigation			|wheel-special-buffers-navigation|
+Reordering		        |wheel-special-buffers-reordering|
+Reorganizing			|wheel-special-buffers-reorganizing|
 Reorganizing tabs & windows	|wheel-special-buffers-reorg-tabwins|
 Grep buffer			|wheel-special-buffers-grep|
 Find buffer			|wheel-special-buffers-find|

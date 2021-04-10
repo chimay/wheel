@@ -287,11 +287,10 @@ fun! wheel#line#menu (settings)
 		echomsg 'wheel line menu : key not found'
 		return v:false
 	endif
-	let mandala = win_getid()
-	let mandala_pos = getcurpos()
 	" Travel before processing ?
+	" In case of sailing, it's managed by wheel#line#sailing
 	if travel
-		wincmd p
+		call wheel#mandala#close ()
 	endif
 	" Call
 	let value = dict[key]
@@ -301,12 +300,12 @@ fun! wheel#line#menu (settings)
 	else
 		let dest = {value}()
 	endif
-	" Close mandala buffer ?
-	call win_gotoid (mandala)
-	call wheel#gear#restore_cursor (mandala_pos)
-	if close
-		call wheel#mandala#close ()
-		call win_gotoid (dest)
+	" Go to last destination
+	silent call wheel#mandala#close ()
+	call win_gotoid (dest)
+	" Close mandala buffer or call it back ?
+	if ! close
+		call wheel#cylinder#recall()
 	endif
 	return v:true
 endfun
@@ -364,7 +363,7 @@ fun! wheel#line#sailing (settings)
 	endif
 	if target != 'current'
 		" open new split or tab, do not search for
-		" match in visible buffer
+		" match in visible buffers
 		let settings.use = 'new'
 		for elem in selected
 			let settings.selected = elem
@@ -373,7 +372,7 @@ fun! wheel#line#sailing (settings)
 			call wheel#spiral#cursor ()
 		endfor
 	else
-		" search for match in visible buffer
+		" search also for match in visible buffers
 		let settings.use = 'default'
 		let settings.selected = selected[0]
 		call Fun (settings)

@@ -18,13 +18,13 @@ endif
 
 fun! wheel#tower#overlay (settings)
 	" Define local maps for overlay
-	let settings = a:settings
+	let settings = copy(a:settings)
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#line#menu('
 	let post = ')<cr>'
 	" Open / Close : default in settings
 	exe map . '<cr>' . pre . string(settings) . post
-	" Open
+	" Leave the mandala Open
 	let settings.close = v:false
 	exe map . 'g<cr>' . pre . string(settings) . post
 	exe map . '<space>' . pre . string(settings) . post
