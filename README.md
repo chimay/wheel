@@ -6,7 +6,7 @@
 	* [What does it look like ?](#what-does-it-look-like-)
 		* [Main menu](#main-menu)
 		* [More screenshots](#more-screenshots)
-	* [Buffer groups & categories](#buffer-groups--categories)
+	* [File groups & categories](#file-groups--categories)
 		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		* [A wheel that follows you](#a-wheel-that-follows-you)
 	* [Features](#features)
@@ -47,7 +47,7 @@ filter and select elements.
 
 [It’s here](screenshots.md)
 
-## Buffer groups & categories
+## File groups & categories
 
 Wheel let you organize your files by creating as many file groups as
 you need, add the files you want to it and quickly navigate between :
