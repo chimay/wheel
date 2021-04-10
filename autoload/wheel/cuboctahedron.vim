@@ -114,20 +114,21 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Mandala line list
 	silent global /^$/ delete
 	let linelist = getline(1, '$')
-	" Restart from scratch
+	" Current tab
+	let startpage = tabpagenr()
+	" Restart from one tab, one window
+	call wheel#mandala#close ()
 	tabonly
-	" First buffer
-	wincmd p
 	only
-	exe 'buffer' linelist[1]
-	call wheel#cylinder#recall ()
 	" Loop over mandala lines
 	let marker = s:fold_markers[0]
 	let pat_fold_one = '\m' . s:fold_1 . '$'
-	let mandala = win_getid ()
 	let index = 2
 	let win_nr = 0
 	let length = len(linelist)
+	" First buffer
+	exe 'buffer' linelist[1]
+	" Others
 	while index < length
 		let line = linelist[index]
 		if line =~ pat_fold_one
@@ -151,7 +152,12 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 			let win_nr += 1
 		endif
 	endwhile
-	call win_gotoid(mandala)
+	if startpage <= tabpagenr('$')
+		exe 'tabnext' startpage
+	else
+		tabnext 1
+	endif
+	call wheel#cylinder#recall ()
 	setlocal nomodified
 	echomsg 'tabs & windows reorganized.'
 endfun
