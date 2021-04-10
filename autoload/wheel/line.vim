@@ -291,6 +291,7 @@ fun! wheel#line#menu (settings)
 	let elder_tab = tabpagenr()
 	" Travel before processing ?
 	" True for hub menus
+	" False for context menus
 	" In case of sailing, it's managed by wheel#line#sailing
 	if travel
 		wincmd p
