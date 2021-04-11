@@ -20,7 +20,7 @@ if ! exists('s:fold_2')
 	lockvar s:fold_2
 endif
 
-" Helpers
+" Reorg tabwins helpers
 
 fun! wheel#cuboctahedron#baskets (linelist)
 	" Fill new tab indexes and windows for reorg_tabwins
