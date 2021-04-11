@@ -118,7 +118,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 	for index in range(lastab)
 		let tabind = index + 1
 		exe 'tabnext' tabind
-		" adding windows
+		" Adding windows
 		let lastwin = winnr('$')
 		let basket = tabwindows[index]
 		let lastbasket = len(basket)
@@ -139,13 +139,13 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 			let bufname = basket[winum - 1]
 			exe 'buffer' bufname
 		endfor
-		" removing windows
-		let winum = 1
+		" Removing windows
 		" buffers in window
 		let winbufs = []
 		windo call add(winbufs, fnamemodify(bufname(), ':p'))
 		" looping
-		while winum <= winnr('$')
+		let winum = winnr('$')
+		while winum > 0
 			exe winum 'wincmd w'
 			let filename = fnamemodify(bufname(), ':p')
 			let shadow_win = copy(winbufs)
@@ -156,7 +156,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 				call wheel#chain#remove_element(filename, winbufs)
 				close
 			else
-				let winum += 1
+				let winum -= 1
 			endif
 		endwhile
 	endfor
