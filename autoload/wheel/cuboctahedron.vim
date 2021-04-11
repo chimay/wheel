@@ -143,6 +143,8 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 			call add(tabwins[newindex - 1], line)
 		endif
 	endfor
+	" Find the new tab index of mandala tab page
+	let startpage = index(tabnums, startpage) + 1
 	" Tie the tabnums together
 	let [tabnums, removed] = wheel#chain#tie(tabnums)
 	" tabnums : start from 0
@@ -226,9 +228,10 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 		endwhile
 	endfor
 	" Back to mandala
-	if startpage <= tabpagenr('$')
+	if startpage >= 1 && startpage <= tabpagenr('$')
 		exe 'tabnext' startpage
 	else
+		echomsg 'Tabpage' startpage 'no longer exist : moving to tabpage 1.'
 		tabnext 1
 	endif
 	call wheel#cylinder#recall ()

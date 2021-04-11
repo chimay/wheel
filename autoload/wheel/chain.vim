@@ -118,20 +118,17 @@ fun! wheel#chain#tie (list)
 	" Translate integer elements of the list to fill the gaps
 	let list = a:list
 	let minim = min(list)
-	let maxim = minim + len(list) - 1
+	let maxim = max(list)
 	let numbers = reverse(range(minim, maxim))
 	let index = 0
 	let length = len(numbers)
 	let gaps = []
-	while index < length
-		let elem = numbers[index]
+	for elem in numbers
 		if index(list, elem) < 0
 			call map(list, {_,v -> wheel#gear#decrease_greater(v, elem)})
 			call add(gaps, elem)
-		else
-			let index += 1
 		endif
-	endwhile
+	endfor
 	return [list, gaps]
 endfun
 
