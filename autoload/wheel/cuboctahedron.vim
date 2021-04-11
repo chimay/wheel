@@ -231,7 +231,6 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	if startpage >= 1 && startpage <= tabpagenr('$')
 		exe 'tabnext' startpage
 	else
-		echomsg 'Tabpage' startpage 'no longer exist : moving to tabpage 1.'
 		tabnext 1
 	endif
 	call wheel#cylinder#recall ()
