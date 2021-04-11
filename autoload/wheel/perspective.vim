@@ -308,7 +308,7 @@ fun! wheel#perspective#tabwins ()
 		elseif elem !~ iswheel
 			" buffer line
 			call insert(fields, tabnum)
-			let filename = fields[-1]
+			let filename = fnamemodify(fields[-1], ':p')
 			let entry = [tabnum, filename]
 			let record = join(entry, s:field_separ)
 			call add(lines, record)
@@ -335,7 +335,7 @@ fun! wheel#perspective#tabwins_tree ()
 			let record = 'tab ' . tabnum . s:fold_1
 		elseif elem !~ iswheel
 			" buffer line
-			let record = fields[-1]
+			let record = fnamemodify(fields[-1], ':p')
 		endif
 		if elem !~ iswheel
 			call add(lines, record)
