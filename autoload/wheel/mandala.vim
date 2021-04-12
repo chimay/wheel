@@ -22,11 +22,6 @@ endif
 
 fun! wheel#mandala#open (...)
 	" Open a mandala buffer
-	" Set cursorline locally to visualize old cursur position
-	let b:wheel_local = {}
-	let b:wheel_local.cursorline = &cursorline
-	setlocal cursorline
-	" Open
 	if a:0 > 0
 		let type = a:1
 	else
@@ -60,15 +55,6 @@ fun! wheel#mandala#close ()
 		" Go to alternate buffer if only one window
 		"buffer #
 	endif
-	" Restore local cursorline
-	if exists('b:wheel_local') && has_key(b:wheel_local, 'cursorline')
-		if b:wheel_local.cursorline > 0
-			setlocal cursorline
-		else
-			setlocal nocursorline
-		endif
-	endif
-	" Return
 	return v:true
 endfun
 
