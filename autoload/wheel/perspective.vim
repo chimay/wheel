@@ -305,11 +305,14 @@ fun! wheel#perspective#tabwins ()
 		if elem !~ isbuffer
 			" tab line
 			let tabnum = fields[-1]
+			let winum = 0
 		elseif elem !~ iswheel
 			" buffer line
+			let winum += 1
+			call insert(fields, winum)
 			call insert(fields, tabnum)
 			let filename = fnamemodify(fields[-1], ':p')
-			let entry = [tabnum, filename]
+			let entry = [tabnum, winum, filename]
 			let record = join(entry, s:field_separ)
 			call add(lines, record)
 		endif
