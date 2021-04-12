@@ -11,7 +11,7 @@ fun! wheel#centre#commands ()
 endfun
 
 fun! wheel#centre#plugs ()
-	" Define <plug> mappings
+	" Link <plug> mappings to wheel functions
 	let prefix = g:wheel_config.prefix
 	" Menus
 	nnoremap <plug>(wheel-menu-main) :call wheel#hub#main()<cr>
@@ -138,7 +138,7 @@ fun! wheel#centre#plugs ()
 endfun
 
 fun! wheel#centre#cables ()
-	" Link <plug> mappings to keys
+	" Link keys to <plug> mappings
 	let prefix = g:wheel_config.prefix
 	" Basic
 	if g:wheel_config.mappings >= 0

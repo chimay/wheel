@@ -1,4 +1,4 @@
-*wheel.txt*		Buffer Group Manager for Vim and Neovim
+*wheel.txt*		File Group Manager for Vim and Neovim
 
 ==============================================================================
 CONTENTS			*wheel*
