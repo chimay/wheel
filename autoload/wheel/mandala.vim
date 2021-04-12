@@ -66,7 +66,7 @@ fun! wheel#mandala#fill (content)
 	let content = a:content
 	"call append(1, content)
 	" Cannot use setline or append : does not work with yanks
-	put =content
+	silent put =content
 	call cursor(1,1)
 	let b:wheel_lines = getline(2, '$')
 endfun
@@ -235,8 +235,13 @@ endfun
 
 " Folding
 
-fun! wheel#mandala#folding_options ()
+fun! wheel#mandala#folding_options (...)
 	" Folding options for mandala buffers
+	if a:0 > 0
+		let textfun = a:1
+	else
+		let textfun = 'folding_text'
+	endif
 	setlocal foldenable
 	setlocal foldminlines=1
 	setlocal foldlevel=0
@@ -245,7 +250,7 @@ fun! wheel#mandala#folding_options ()
 	setlocal foldmethod=marker
 	let &foldmarker = s:fold_markers
 	setlocal foldcolumn=2
-	setlocal foldtext=wheel#mandala#folding_text()
+	exe 'setlocal foldtext=wheel#mandala#' . textfun . '()'
 endfun
 
 fun! wheel#mandala#folding_text ()
@@ -264,6 +269,18 @@ fun! wheel#mandala#folding_text ()
 	let marker = s:fold_markers[0]
 	let pattern = '\m' . marker . '[12]'
 	let repl = ':: ' . level
+	let line = substitute(line, pattern, repl, '')
+	let text = line . ' :: ' . numlines . ' lines ' . v:folddashes
+	return text
+endfun
+
+fun! wheel#mandala#tabwins_folding_text ()
+	" Folding text for mandala buffers
+	let numlines = v:foldend - v:foldstart
+	let line = getline(v:foldstart)
+	let marker = s:fold_markers[0]
+	let pattern = '\m ' . marker . '[12]'
+	let repl = ''
 	let line = substitute(line, pattern, repl, '')
 	let text = line . ' :: ' . numlines . ' lines ' . v:folddashes
 	return text

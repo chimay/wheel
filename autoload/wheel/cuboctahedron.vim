@@ -48,8 +48,7 @@ fun! wheel#cuboctahedron#baskets (linelist)
 			call add(tabwindows, [])
 		else
 			" window line
-			let bufname = fnamemodify(line, ':p')
-			call add(tabwindows[newindex - 1], bufname)
+			call add(tabwindows[newindex - 1], line)
 		endif
 	endfor
 	return [tabindexes, tabwindows]
@@ -125,8 +124,8 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 		let minim = min([lastwin, lastbasket])
 		for winum in range(1, minim)
 			exe winum 'wincmd w'
-			let bufname = basket[winum - 1]
-			exe 'buffer' bufname
+			let filename = basket[winum - 1]
+			exe 'silent edit' filename
 		endfor
 		" if more buffers in basket than windows
 		for winum in range(minim + 1, lastbasket)
@@ -136,18 +135,18 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 			else
 				split
 			endif
-			let bufname = basket[winum - 1]
-			exe 'buffer' bufname
+			let filename = basket[winum - 1]
+			exe 'silent edit' filename
 		endfor
 		" Removing windows
 		" buffers in window
 		let winbufs = []
-		windo call add(winbufs, fnamemodify(bufname(), ':p'))
+		windo call add(winbufs, expand('%:p'))
 		" looping
 		let winum = winnr('$')
 		while winum > 0
 			exe winum 'wincmd w'
-			let filename = fnamemodify(bufname(), ':p')
+			let filename = expand('%:p')
 			let shadow_win = copy(winbufs)
 			let shadow_bas = copy(basket)
 			let occur_win = len(filter(shadow_win, {_,v -> v == filename}))
@@ -155,9 +154,8 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 			if occur_bas < occur_win && winnr('$') > 1
 				call wheel#chain#remove_element(filename, winbufs)
 				close
-			else
-				let winum -= 1
 			endif
+			let winum -= 1
 		endwhile
 	endfor
 endfun

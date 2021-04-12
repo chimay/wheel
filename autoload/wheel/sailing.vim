@@ -187,7 +187,7 @@ fun! wheel#sailing#tabwins_tree ()
 	call wheel#mandala#open ('tabwins/tree')
 	let settings = {'action' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
-	call wheel#mandala#folding_options ()
+	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill(lines)
 	" Context menu
 	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree')<cr>

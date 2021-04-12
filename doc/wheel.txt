@@ -565,7 +565,14 @@ variables with `<M-w>r`.
 ------------------------------------------------------------------------------
 REORGANIZE TABS AND WINDOWS		*wheel-special-buffers-reorg-tabwins*
 
-In this buffer, you can move, copy or delete tabs and windows.
+In this buffer, you can :
+
+- add new tabs
+- add files in new windows
+  + the split will be horizontal or vertical, depending
+    on the aspect ratio of the preceding window
+- move, copy or delete tabs
+- move, copy or delete windows
 
 To validate your change, simply |:write| the buffer.
 

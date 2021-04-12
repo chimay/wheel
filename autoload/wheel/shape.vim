@@ -89,7 +89,7 @@ fun! wheel#shape#reorg_tabwins ()
 	call wheel#mandala#open ('reorg/tabwins')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#reorg_tabwins_write ()
-	call wheel#mandala#folding_options ()
+	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete
 	setlocal nomodified
