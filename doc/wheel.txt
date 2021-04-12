@@ -765,6 +765,15 @@ can be useful : >
 If you don't want to activate these options, remember to write your
 files before using a wheel navigation tool.
 
+To spot the cursor line in other windows while browsing
+a |wheel-special-buffers|, you can either :
+
+- activate the |'cursorline'| option
+- activate the |'number'| and |'relativenumber'| options,
+  and set |hl-CursorLineNr| to a different color than |hl-LineNr|
+
+Useful with the grep special buffer.
+
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
 
