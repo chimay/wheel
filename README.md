@@ -285,6 +285,8 @@ used functions :
     nmap <m-b>          <plug>(wheel-opened-files)
     " Tabs & windows : visible buffers in tree mode
     nmap <m-v>          <plug>(wheel-tabwins-tree)
+    " Reorganize tabs & windows
+    nmap <d-v>          <plug>(wheel-reorg-tabwins)
     " Search for files
     nmap <m-u>          <plug>(wheel-mru)
     nmap <m-l>          <plug>(wheel-locate)

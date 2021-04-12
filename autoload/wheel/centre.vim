@@ -289,6 +289,7 @@ fun! wheel#centre#cables ()
 		nmap <m-b>          <plug>(wheel-opened-files)
 		" Tabs & windows : visible buffers in tree mode
 		nmap <m-v>          <plug>(wheel-tabwins-tree)
+		nmap <d-v>          <plug>(wheel-reorg-tabwins)
 		" Search inside files
 		nmap <m-s>          <plug>(wheel-occur)
 		nmap <m-g>          <plug>(wheel-grep)

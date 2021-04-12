@@ -1462,6 +1462,7 @@ and add them to your init file.
 | -------------- | -------------------------------------------- |
 | <M-b>          | Buffers (opened files)                       |
 | <M-v>          | Tabs & window in tree mode : visible buffers |
+| -------------- | -------------------------------------------- |
 | <M-u>          | Most Recently Used files not found in wheel  |
 | <M-l>          | Locate                                       |
 | <M-f>          | Find                                         |
@@ -1470,6 +1471,7 @@ and add them to your init file.
 | <M-&>          | Async shell command in special buffer        |
 | -------------- | -------------------------------------------- |
 | <M-r>          | Reorganize wheel elements                    |
+| <D-v>          | Reorganize tabs and windows                  |
 | -------------- | -------------------------------------------- |
 | <M-y>          | Paste yank wheel element in list mode        |
 | <M-p>          | Paste yank wheel element in plain mode       |
@@ -1522,6 +1524,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <m-b>          <plug>(wheel-opened-files)
     " Tabs & windows : visible buffers in tree mode
     nmap <m-v>          <plug>(wheel-tabwins-tree)
+    nmap <d-v>          <plug>(wheel-reorg-tabwins)
     " Search inside files
     nmap <m-s>          <plug>(wheel-occur)
     nmap <m-g>          <plug>(wheel-grep)
