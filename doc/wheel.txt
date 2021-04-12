@@ -772,8 +772,6 @@ a |wheel-special-buffers|, you can either :
 - activate the |'number'| and |'relativenumber'| options,
   and set |hl-CursorLineNr| to a different color than |hl-LineNr|
 
-Useful with the grep special buffer.
-
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*
 
