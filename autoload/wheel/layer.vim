@@ -74,7 +74,7 @@ fun! wheel#layer#fresh ()
 	" Fresh filter and so on
 	call wheel#layer#clear_vars ()
 	call wheel#layer#clear_maps ()
-	" Delete lines -> no storing register
+	" Delete lines -> _ no storing register
 	1,$ delete _
 	" Truncate the stack to max size
 	call wheel#layer#truncate ()
@@ -114,6 +114,13 @@ fun! wheel#layer#restore_maps (mapdict)
 			exe 'silent nnoremap <buffer>' key mapdict.normal[key]
 		else
 			exe 'silent nunmap <buffer>' key
+		endif
+	endfor
+	for key in keys(mapdict.insert)
+		if ! empty(key)
+			exe 'silent inoremap <buffer>' key mapdict.insert[key]
+		else
+			exe 'silent iunmap <buffer>' key
 		endif
 	endfor
 endfun
