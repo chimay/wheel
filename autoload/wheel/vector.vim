@@ -103,7 +103,7 @@ fun! wheel#vector#grep (pattern, ...)
 	let pattern = escape(pattern, '#')
 	let files = wheel#vector#files (sieve)
 	if empty(files)
-		echomsg 'Wheel vector grep : no file matching filter'
+		echomsg 'wheel vector grep : no file matching filter'
 		return v:false
 	endif
 	" File list as string
