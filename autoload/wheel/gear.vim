@@ -221,11 +221,15 @@ endfun
 
 " Unmap for mandala layers
 
-fun! wheel#gear#unmap (key, mode)
+fun! wheel#gear#unmap (key, ...)
 	" Unmap buffer mapping key in mode
 	" Dictionary with map caracteristics
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'n'
+	endif
 	let key = a:key
-	let mode = a:mode
 	let typekey = type(key)
 	if typekey == v:t_string
 		let dict = maparg(key, mode, 0, 1)

@@ -24,6 +24,47 @@ fun! wheel#layer#init ()
 	endif
 endfun
 
+" Light & fresh
+
+fun! wheel#layer#clear_vars ()
+	" Clear mandala variables
+	let varlist = [
+				\ 'b:wheel_lines',
+				\ 'b:wheel_selected',
+				\ ]
+	for varname in varlist
+		if exists(varname)
+			unlet {varname}
+		endif
+	endfor
+endfun
+
+fun! wheel#layer#clear_maps ()
+	" Clear mandala maps
+	" normal maps
+	let normal_keys = [
+				\ 'q',
+				\ 'j', 'k', '<down>', '<up>',
+				\ 'i', 'a',
+				\ '<cr>', '<space>', '<tab>',
+				\ 't', 's', 'v',
+				\ 'S', 'V',
+				\ 'g<cr>',
+				\ 'gt', 'gs', 'gv',
+				\ 'gS', 'gV',
+				\ 'p', 'P',
+				\ ]
+	call wheel#gear#unmap(normal_keys, 'n')
+	" insert maps
+	let insert_keys = [
+				\ '<space>', '<c-w>', '<c-u>',
+				\ '<esc>', '<cr>',
+				\ '<up>', '<down>', '<m-p>', '<m-n>',
+				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
+				\ ]
+	call wheel#gear#unmap(insert_keys, 'i')
+endfun
+
 fun! wheel#layer#fresh ()
 	" Fresh empty layer
 	" Clear all buffer variables
