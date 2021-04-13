@@ -206,7 +206,7 @@ fun! wheel#cuboctahedron#reorganize ()
 		call wheel#disc#write_all ()
 	endif
 	" Start from empty wheel
-	unlet g:wheel
+	call wheel#gear#unlet ('g:wheel')
 	call wheel#void#wheel ()
 	" Loop over buffer lines
 	let linelist = getline(1, '$')
