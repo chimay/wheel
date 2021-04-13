@@ -105,7 +105,6 @@ fun! wheel#shape#grep (...)
 	let lines = b:wheel_stack.full[0]
 	call wheel#vortex#update ()
 	" new buffer
-	call wheel#cylinder#push ()
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#grep_write ()

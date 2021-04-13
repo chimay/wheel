@@ -41,7 +41,7 @@ fun! wheel#ripple#start (command, ...)
 	if a:0 > 0
 		let options = a:1
 	else
-		let options = {'new_buffer' : v:true}
+		let options = {'mandala_open' : v:true}
 	endif
 	if type(a:command) == v:t_list
 		let command = a:command
@@ -52,7 +52,7 @@ fun! wheel#ripple#start (command, ...)
 		return
 	endif
 	" Buffer
-	if options.new_buffer
+	if options.mandala_open
 		call wheel#mandala#open ('ripple')
 	endif
 	call wheel#ripple#template ()
