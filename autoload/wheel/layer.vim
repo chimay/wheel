@@ -96,9 +96,9 @@ fun! wheel#layer#restore_maps (mapdict)
 	let mapdict = a:mapdict
 	for key in keys(mapdict.normal)
 		if ! empty(key)
-			exe 'nnoremap <buffer>' key mapdict.normal[key]
+			exe 'silent nnoremap <buffer>' key mapdict.normal[key]
 		else
-			exe 'nunmap <buffer>' key
+			exe 'silent nunmap <buffer>' key
 		endif
 	endfor
 endfun
@@ -138,11 +138,11 @@ fun! wheel#layer#push (mandala_type)
 	" lines content, without filtering
 	let lines = stack.lines
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
-		let lines = getline(2, '$')
+		let buflines = getline(2, '$')
 	else
-		let lines = b:wheel_lines
+		let buflines = b:wheel_lines
 	endif
-	call insert(lines, lines)
+	call insert(lines, buflines)
 	" filtered content
 	let filtered = stack.filtered
 	let now = getline(1, '$')
