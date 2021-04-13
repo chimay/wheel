@@ -133,7 +133,7 @@ fun! wheel#boomerang#opened_files (action)
 		let settings.target = 'none'
 		call wheel#boomerang#remove_selected ()
 		call wheel#line#sailing (settings)
-		let b:wheel_stack.selected[-1] = []
+		let b:wheel_stack.selected[0] = []
 	endif
 endfun
 
