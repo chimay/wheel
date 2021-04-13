@@ -32,6 +32,7 @@ fun! wheel#layer#truncate ()
 	" Truncate layer stack
 	let maxim = g:wheel_config.maxim.layers - 1
 	let stack = b:wheel_stack
+	let stack.filename = stack.filename[:maxim]
 	let stack.full = stack.full[:maxim]
 	let stack.current = stack.current[:maxim]
 	let stack.positions = stack.positions[:maxim]
@@ -123,7 +124,7 @@ fun! wheel#layer#pseudo_folders (mandala_type)
 	" Useful as information
 	" We also need a name when writing, even with BufWriteCmd
 	" Add unique buf id, so (n)vim does not complain about
-	" existing file name
+	" existing filename
 	let type = a:mandala_type
 	let current = g:wheel_buffers.current
 	let iden = g:wheel_buffers.iden[current]
@@ -200,13 +201,14 @@ fun! wheel#layer#pop ()
 	let stack = b:wheel_stack
 	" Pseudo filename
 	let filename = stack.filename
-	exe 'silent file' filename[0]
-	" Full mandala content, without filtering
-	let full = stack.full
-	if empty(full) || empty(full[0])
+	if empty(filename) || empty(filename[0])
 		echomsg 'wheel layer pop : empty stack.'
 		return
 	endif
+	let pseudo_file = wheel#chain#pop (filename)
+	exe 'silent file' pseudo_file
+	" Full mandala content, without filtering
+	let full = stack.full
 	let b:wheel_lines = wheel#chain#pop (full)
 	" Current mandala content
 	let current = stack.current
