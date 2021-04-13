@@ -70,6 +70,7 @@ fun! wheel#mandala#fill (content)
 	silent put =content
 	call cursor(1,1)
 	let b:wheel_lines = getline(2, '$')
+	let b:wheel_selected = []
 endfun
 
 fun! wheel#mandala#replace (content, ...)

@@ -98,7 +98,7 @@ endfun
 
 " Grep
 
-fun! wheel#shape#grep (...)
+fun! wheel#shape#grep ()
 	" Reorder level elements in a buffer
 	" called from context menu,
 	" original grep lines are at the top of the stack
@@ -108,6 +108,7 @@ fun! wheel#shape#grep (...)
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#grep_write ()
+	echomsg len(lines)
 	call wheel#mandala#fill(lines)
 	silent global /^$/ delete
 	setlocal nomodified

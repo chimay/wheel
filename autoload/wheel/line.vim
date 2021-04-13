@@ -122,12 +122,6 @@ endfun
 
 fun! wheel#line#toggle ()
 	" Toggle selection of current line
-	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
-		let b:wheel_lines = getline(2, '$')
-	endif
-	if ! exists('b:wheel_selected')
-		let b:wheel_selected = []
-	endif
 	let line = getline('.')
 	if empty(line)
 		return v:false
@@ -140,6 +134,7 @@ fun! wheel#line#toggle ()
 	let coordin = wheel#line#address ()
 	let index = index(b:wheel_selected, coordin)
 	if index < 0
+		" select
 		call add(b:wheel_selected, coordin)
 		let selected_line = substitute(line, '\m^', s:selected_mark, '')
 		call setline('.', selected_line)
@@ -147,6 +142,7 @@ fun! wheel#line#toggle ()
 		let pos = index(b:wheel_lines, line)
 		let b:wheel_lines[pos] = selected_line
 	else
+		" deselect
 		call remove(b:wheel_selected, index)
 		call setline('.', record)
 		" Update b:wheel_lines
@@ -196,9 +192,6 @@ endfun
 
 fun! wheel#line#deselect ()
 	" Deselect all selected lines
-	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
-		let b:wheel_lines = getline(2, '$')
-	endif
 	let b:wheel_selected = []
 	let buflines = getline(2,'$')
 	" Cursor position
@@ -227,9 +220,6 @@ endfun
 
 fun! wheel#line#filter ()
 	" Return lines matching words of first line
-	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
-		let b:wheel_lines = getline(2, '$')
-	endif
 	let linelist = copy(b:wheel_lines)
 	let first = getline(1)
 	let wordlist = split(first)
@@ -329,7 +319,6 @@ fun! wheel#line#menu (settings)
 			" Same tab, just go to mandala window
 			call wheel#cylinder#recall()
 		endif
-		let b:wheel_lines = getline(2, '$')
 	endif
 	return v:true
 endfun
