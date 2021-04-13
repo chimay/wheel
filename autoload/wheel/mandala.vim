@@ -28,13 +28,14 @@ fun! wheel#mandala#open (...)
 		let type = 'default'
 	endif
 	if wheel#cylinder#recall ()
-		call wheel#layer#push ()
+		call wheel#layer#push (type)
 		call wheel#layer#fresh ()
 	else
 		new
 		call wheel#cylinder#push ('linger')
+		call wheel#layer#pseudo_folders(type)
 	endif
-	call wheel#mandala#common_options (type)
+	call wheel#mandala#common_options ()
 endfun
 
 fun! wheel#mandala#close ()
@@ -189,9 +190,8 @@ endfu
 
 " Options
 
-fun! wheel#mandala#common_options (type)
+fun! wheel#mandala#common_options ()
 	" Set local common options
-	let type = a:type
 	setlocal cursorline
 	setlocal nobuflisted
 	setlocal noswapfile
@@ -199,14 +199,6 @@ fun! wheel#mandala#common_options (type)
 	setlocal bufhidden=hide
 	" wheel or type argument
 	let &filetype = 'wheel'
-	" Useful as information
-	" We also need a name when writing, even with BufWriteCmd
-	" Add unique buf id, so (n)vim does not complain about
-	" existing file name
-	let current = g:wheel_buffers.current
-	let iden = g:wheel_buffers.iden[current]
-	let pseudo_folders = '/wheel/' . iden . '/' . type
-	exe 'silent file' pseudo_folders
 endfun
 
 " Maps

@@ -9,6 +9,8 @@ fun! wheel#layer#init ()
 	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
+		" Pseudo filename of the mandala
+		let b:wheel_stack.filename = []
 		" Full mandala content, without filtering
 		let b:wheel_stack.full = []
 		" Current mandala content
@@ -114,13 +116,33 @@ fun! wheel#layer#restore_maps (mapdict)
 	endif
 endfun
 
+" Mandala pseudo folders
+
+fun! wheel#layer#pseudo_folders (mandala_type)
+	" Set filename to pseudo folders /wheel/<type>
+	" Useful as information
+	" We also need a name when writing, even with BufWriteCmd
+	" Add unique buf id, so (n)vim does not complain about
+	" existing file name
+	let type = a:mandala_type
+	let current = g:wheel_buffers.current
+	let iden = g:wheel_buffers.iden[current]
+	let pseudo_folders = '/wheel/' . iden . '/' . type
+	exe 'silent file' pseudo_folders
+	return pseudo_folders
+endfun
+
 " Push & pop to stack
 
-fun! wheel#layer#push ()
+fun! wheel#layer#push (mandala_type)
 	" Push buffer content to the stack
 	" Save modified local maps
 	call wheel#layer#init ()
 	let stack = b:wheel_stack
+	" Pseudo filename
+	let filename = stack.filename
+	call insert(filename, expand('%'))
+	call wheel#layer#pseudo_folders (a:mandala_type)
 	" Full content, without filtering
 	let full = stack.full
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
@@ -174,6 +196,9 @@ fun! wheel#layer#pop ()
 		return
 	endif
 	let stack = b:wheel_stack
+	" Pseudo filename
+	let filename = stack.filename
+	exe 'silent file' filename[0]
 	" Full mandala content, without filtering
 	let full = stack.full
 	if empty(full) || empty(full[0])
