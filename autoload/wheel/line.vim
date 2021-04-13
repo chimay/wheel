@@ -369,12 +369,6 @@ fun! wheel#line#sailing (settings)
 	else
 		let Fun = 'wheel#line#switch'
 	endif
-	if type(Fun) == v:t_string
-		let Fun = function(Fun)
-	endif
-	if type(Fun) != v:t_func
-		echomsg 'Wheel line navigation : bad function'
-	endif
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
 		let selected = [wheel#line#address ()]
 	elseif type(b:wheel_selected) == v:t_list
@@ -393,7 +387,7 @@ fun! wheel#line#sailing (settings)
 		let settings.use = 'new'
 		for elem in selected
 			let settings.selected = elem
-			call Fun (settings)
+			call wheel#gear#call(Fun, settings)
 			normal! zv
 			call wheel#spiral#cursor ()
 		endfor
@@ -401,7 +395,7 @@ fun! wheel#line#sailing (settings)
 		" search also for match in visible buffers
 		let settings.use = 'default'
 		let settings.selected = selected[0]
-		call Fun (settings)
+		call wheel#gear#call(Fun, settings)
 		normal! zv
 		call wheel#spiral#cursor ()
 	endif
