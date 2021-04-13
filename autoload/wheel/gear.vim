@@ -85,7 +85,7 @@ fun! wheel#gear#parent_fold ()
 	call search(pattern, 'b')
 endfun
 
-" Fold for tab & windows
+" Fold for tabs & windows
 
 fun! wheel#gear#tabwin_level ()
 	" Level of fold line : tab or filename
@@ -143,7 +143,7 @@ fun! wheel#gear#project_root (markers)
 	endwhile
 endfun
 
-" Filter
+" Filter for mandalas
 
 fun! wheel#gear#word_filter (wordlist, value)
 	" Whether value matches all words of wordlist
@@ -219,7 +219,7 @@ fun! wheel#gear#fold_filter (wordlist, candidates)
 	return filtered
 endfun
 
-" Unmap
+" Unmap for mandala layers
 
 fun! wheel#gear#unmap (key, mode)
 	" Unmap buffer mapping key in mode
@@ -243,7 +243,46 @@ fun! wheel#gear#unmap (key, mode)
 	endif
 endfun
 
+" Functions
+
+fun! wheel#gear#call (func, ...)
+	" Call Function depicted as a Funcref or a string
+	" Optional arguments are passed to Func
+	let arg = a:000
+	let Func = a:func
+	let kind = type(Func)
+	if kind == v:t_func
+		if empty(arg)
+			" form : Func = function('name') without argument
+			return Func()
+		else
+			" form : Func = function('name') with arguments
+			return call(Func, arg)
+		endif
+	elseif kind == v:t_string
+		if Func =~ '\m)$'
+			" form : Func = 'function(...)'
+			" a:000 of wheel#gear#call is ignored
+			return eval(Func)
+			" works, but less elegant
+			"exe 'let value =' Func
+		elseif empty(arg)
+			" form : Func = 'function' without argument
+			return {Func}()
+		else
+			" form : Func = 'function' with arguments
+			return call(Func, arg)
+		endif
+	else
+		" likely not a representation of a function
+		" simply forward concatened arguments
+		return [Func] + arg
+	endif
+endfun
+
 " Misc
+
+" Used by chain#tie
 
 fun! wheel#gear#decrease_greater(number, treshold)
 	" Return number - 1 if > treshold, else return number
