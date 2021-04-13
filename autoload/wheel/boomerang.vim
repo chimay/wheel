@@ -35,8 +35,8 @@ endfun
 
 fun! wheel#boomerang#remove_selected ()
 	" Remove selected elements from special buffer lines
-	let lines = b:wheel_stack.lines[-1]
-	let filtered = b:wheel_stack.filtered[-1]
+	let lines = b:wheel_stack.lines[0]
+	let filtered = b:wheel_stack.filtered[0]
 	for elem in b:wheel_selected
 		call wheel#chain#remove_element (elem, lines)
 		call wheel#chain#remove_element (elem, filtered)
