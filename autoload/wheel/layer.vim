@@ -24,6 +24,20 @@ fun! wheel#layer#init ()
 	endif
 endfun
 
+" Maximum stack size
+
+fun! wheel#layer#truncate ()
+	" Truncate layer stack
+	let maxim = g:wheel_config.maxim.layers - 1
+	let stack = b:wheel_stack
+	let stack.full = stack.full[:maxim]
+	let stack.current = stack.current[:maxim]
+	let stack.positions = stack.positions[:maxim]
+	let stack.selected = stack.selected[:maxim]
+	let stack.settings = stack.settings[:maxim]
+	let stack.mappings = stack.mappings[:maxim]
+ endfun
+
 " Clearing things
 
 fun! wheel#layer#clear_vars ()
@@ -64,11 +78,43 @@ fun! wheel#layer#clear_maps ()
 endfun
 
 fun! wheel#layer#fresh ()
-	" Fresh empty layer : clear mandala vars, maps & stack
+	" Fresh empty layer : clear mandala lines, vars & maps
 	call wheel#layer#clear_vars ()
 	call wheel#layer#clear_maps ()
-	call wheel#gear#unlet('b:wheel_stack')
+	" Delete lines -> no storing register
+	1,$ delete _
+	" Truncate the stack to max size
+	call wheel#layer#truncate ()
 endfun
+
+" Restoring things
+
+fun! wheel#layer#restore_maps (mapdict)
+	" Restore maps
+	let mapdict = a:mapdict
+	if ! empty(mapdict)
+		if ! empty(mapdict.enter)
+			exe 'nnoremap <buffer> <cr>' mapdict.enter
+		endif
+		if ! empty(mapdict.g_enter)
+			exe 'nnoremap <buffer> g<cr>' mapdict.g_enter
+		endif
+		if ! empty(mapdict.space)
+			exe 'nnoremap <buffer> <space>' mapdict.space
+		elseif ! empty(mapdict.enter)
+			" if no space map, set it to the same as enter
+			exe 'nnoremap <buffer> <space>' mapdict.enter
+		endif
+		if ! empty(mapdict.tab)
+			exe 'nnoremap <buffer> <tab>' mapdict.tab
+		elseif ! empty(mapdict.enter)
+			" if no tab map, set it to the same as enter
+			exe 'nnoremap <buffer> <tab>' mapdict.enter
+		endif
+	endif
+endfun
+
+" Push & pop to stack
 
 fun! wheel#layer#push ()
 	" Push buffer content to the stack
@@ -131,6 +177,7 @@ fun! wheel#layer#pop ()
 	" Full mandala content, without filtering
 	let full = stack.full
 	if empty(full) || empty(full[0])
+		echomsg 'wheel layer pop : empty stack.'
 		return
 	endif
 	let b:wheel_lines = wheel#chain#pop (full)
@@ -147,21 +194,8 @@ fun! wheel#layer#pop ()
 	let b:wheel_settings = wheel#chain#pop (settings)
 	" Restore mappings
 	let mappings = stack.mappings
-	if ! empty(mappings)
-		let mapdict = wheel#chain#pop (mappings)
-		if ! empty(mapdict.enter)
-			exe 'nnoremap <buffer> <cr>' mapdict.enter
-		endif
-		if ! empty(mapdict.g_enter)
-			exe 'nnoremap <buffer> g<cr>' mapdict.g_enter
-		endif
-		if ! empty(mapdict.space)
-			exe 'nnoremap <buffer> <space>' mapdict.space
-		endif
-		if ! empty(mapdict.tab)
-			exe 'nnoremap <buffer> <tab>' mapdict.tab
-		endif
-	endif
+	let mapdict = wheel#chain#pop(mappings)
+	call wheel#layer#restore_maps (mapdict)
 	" Restore selection
 	let selected = stack.selected
 	let b:wheel_selected = wheel#chain#pop(selected)

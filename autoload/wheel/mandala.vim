@@ -28,7 +28,7 @@ fun! wheel#mandala#open (...)
 		let type = 'default'
 	endif
 	if wheel#cylinder#recall ()
-		1,$ delete _
+		call wheel#layer#push ()
 		call wheel#layer#fresh ()
 	else
 		new

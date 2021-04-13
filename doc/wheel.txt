@@ -286,6 +286,7 @@ Introduction			|wheel-special-buffers-introduction|
 Buffer stack			|wheel-special-buffers-stack|
 Menu				|wheel-special-buffers-menus|
 Context menus			|wheel-special-buffers-context|
+Layer stack			|wheel-special-buffers-layers|
 Navigation			|wheel-special-buffers-navigation|
 Reordering		        |wheel-special-buffers-reordering|
 Reorganizing			|wheel-special-buffers-reorganizing|
@@ -382,9 +383,10 @@ by entering words in insert mode.
 
 Action~
 
-In menu buffers, there is no need to select multiple elements, so
-`<space>` is a shortcut for `g<enter>` : launch action and leave the
-menu opened.
+In menu buffers, `<tab>` is a synonym for `<enter>` : trigger action.
+
+Since there is no need to select multiple elements, `<space>` is a
+shortcut for `g<enter>` : launch action and leave the menu opened.
 
 Main menu~
 
@@ -427,6 +429,16 @@ Some special buffers have context menu support. In that case, pressing
 apply to the selected or cursor line(s).
 
 If you change your mind and wish to come back, just press `<backspace>`.
+
+------------------------------------------------------------------------------
+LAYER STACK				*wheel-special-buffers-layers*
+
+Each special buffer manages a layer stack that allows you to go back to the
+previous content by pressing `<backspace>`.
+
+It is particularly useful for main, meta and context menus.
+
+The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
@@ -746,6 +758,7 @@ Max input history 			|wheel-config-maxim-input|
 Max MRU					|wheel-config-maxim-mru|
 Max yanks 				|wheel-config-maxim-yanks|
 Max yank size 				|wheel-config-maxim-yank_size|
+Max layers in special buffers		|wheel-config-maxim-layers|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
@@ -924,6 +937,14 @@ MAX SIZE OF A YANK IN YANK WHEEL	   *wheel-config-maxim-yank_size*
 Maximum size of elements in the yank wheel : >
 
     let g:wheel_config.maxim.yank_size = 3000
+<
+
+------------------------------------------------------------------------------
+MAX LAYERS IN SPECIAL BUFFERS		    *wheel-config-maxim-layers*
+
+Maximum size of layer stack in special buffers : >
+
+	let g:wheel_config.maxim.layers = 5
 <
 
 ------------------------------------------------------------------------------

@@ -24,6 +24,7 @@ fun! wheel#tower#overlay (settings)
 	let post = ')<cr>'
 	" Open / Close : default in settings
 	exe map . '<cr>' . pre . string(settings) . post
+	exe map . '<tab>' . pre . string(settings) . post
 	" Leave the mandala Open
 	let settings.close = v:false
 	exe map . 'g<cr>' . pre . string(settings) . post

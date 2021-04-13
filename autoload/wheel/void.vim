@@ -196,6 +196,9 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'mru')
 		let g:wheel_config.maxim.mru = 50
 	endif
+	if ! has_key(g:wheel_config.maxim, 'layers')
+		let g:wheel_config.maxim.layers = 5
+	endif
 	" Debug
 	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0
