@@ -221,14 +221,20 @@ endfun
 
 " Unmap for mandala layers
 
-fun! wheel#gear#unlet (var)
-	" Unlet variable named var
+fun! wheel#gear#unlet (variable)
+	" Unlet variable named variable
 	" If var is a list, unlet every variable in it
-	for varname in varlist
-		if exists(varname)
-			unlet {varname}
+	let variable = a:variable
+	let kind = type(variable)
+	if kind == v:t_string
+		if exists(variable)
+			unlet {variable}
 		endif
-	endfor
+	elseif kind == v:t_list
+		for elem in variable
+			call wheel#gear#unlet (elem)
+		endfor
+	endif
 endfun
 
 fun! wheel#gear#unmap (key, ...)
@@ -242,6 +248,7 @@ fun! wheel#gear#unmap (key, ...)
 	let key = a:key
 	let typekey = type(key)
 	if typekey == v:t_string
+		" dictionary with map caracteristics
 		let dict = maparg(key, mode, 0, 1)
 		if ! empty(dict) && dict.buffer
 			let pre = mode . 'unmap <buffer> '

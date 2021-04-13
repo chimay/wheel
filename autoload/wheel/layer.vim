@@ -32,11 +32,7 @@ fun! wheel#layer#clear_vars ()
 				\ 'b:wheel_lines',
 				\ 'b:wheel_selected',
 				\ ]
-	for varname in varlist
-		if exists(varname)
-			unlet {varname}
-		endif
-	endfor
+	call wheel#gear#unlet(varlist)
 endfun
 
 fun! wheel#layer#clear_maps ()
@@ -70,8 +66,8 @@ endfun
 fun! wheel#layer#fresh ()
 	" Fresh empty layer : clear mandala vars, maps & stack
 	call wheel#layer#clear_vars ()
-	unlet b:wheel_stack
 	call wheel#layer#clear_maps ()
+	call wheel#gear#unlet('b:wheel_stack')
 endfun
 
 fun! wheel#layer#push ()

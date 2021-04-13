@@ -241,11 +241,7 @@ fun! wheel#void#lighten ()
 				\ 'g:wheel_shelve',
 				\ 'g:wheel_config',
 				\]
-	for varname in varlist
-		if exists(varname)
-			unlet {varname}
-		endif
-	endfor
+	call wheel#gear#unlet (varlist)
 endfu
 
 " Init & Exit
