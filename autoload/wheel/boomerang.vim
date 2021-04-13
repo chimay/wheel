@@ -84,9 +84,6 @@ fun! wheel#boomerang#menu (dictname, ...)
 	call wheel#boomerang#sync ()
 	" Let wheel#line#menu handle open / close
 	let b:wheel_settings.close = v:false
-	" No more layers
-	" Tab mapping will be restored by wheel#layer#pop if we go back
-	nunmap <buffer> <tab>
 endfun
 
 " Applications

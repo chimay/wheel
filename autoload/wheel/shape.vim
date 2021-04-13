@@ -100,8 +100,8 @@ endfun
 
 fun! wheel#shape#grep (...)
 	" Reorder level elements in a buffer
-	" Called from context menu
-	" fetch original grep lines
+	" called from context menu,
+	" original grep lines are at the top of the stack
 	let lines = b:wheel_stack.lines[0]
 	call wheel#vortex#update ()
 	" new buffer

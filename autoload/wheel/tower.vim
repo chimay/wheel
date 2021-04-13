@@ -43,5 +43,6 @@ fun! wheel#tower#staircase (settings)
 	call wheel#mandala#replace (lines, 'blank')
 	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
+	let b:wheel_lines = lines
 	call cursor(1, 1)
 endfun
