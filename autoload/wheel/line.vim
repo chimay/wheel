@@ -739,8 +739,10 @@ fun! wheel#line#paste_plain (...)
 	elseif where == 'linewise_before'
 		put! =content
 	elseif where == 'character_after'
+		let @" = content
 		normal! p
 	elseif where == 'character_before'
+		let @" = content
 		normal! P
 	endif
 	let @" = content

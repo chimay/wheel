@@ -24,7 +24,7 @@ fun! wheel#layer#init ()
 	endif
 endfun
 
-" Light & fresh
+" Clearing things
 
 fun! wheel#layer#clear_vars ()
 	" Clear mandala variables
@@ -53,6 +53,8 @@ fun! wheel#layer#clear_maps ()
 				\ 'gt', 'gs', 'gv',
 				\ 'gS', 'gV',
 				\ 'p', 'P',
+				\ 'gp', 'gP',
+				\ 'u', '<c-r>',
 				\ ]
 	call wheel#gear#unmap(normal_keys, 'n')
 	" insert maps
@@ -66,54 +68,10 @@ fun! wheel#layer#clear_maps ()
 endfun
 
 fun! wheel#layer#fresh ()
-	" Fresh empty layer
-	" Clear all buffer variables
-	let varlist = [
-				\ 'b:wheel_lines',
-				\ 'b:wheel_selected',
-				\ 'b:wheel_stack',
-				\ ]
-	for varname in varlist
-		if exists(varname)
-			unlet {varname}
-		endif
-	endfor
-	" Clear normal maps
-	let normal_keys = [
-				\ 'q',
-				\ 'j', 'k', '<down>', '<up>',
-				\ 'i', 'a',
-				\ '<cr>', '<space>', '<tab>',
-				\ 't', 's', 'v',
-				\ 'S', 'V',
-				\ 'g<cr>',
-				\ 'gt', 'gs', 'gv',
-				\ 'gS', 'gV',
-				\ 'p', 'P',
-				\ ]
-	call wheel#gear#unmap(normal_keys, 'n')
-	" Clear insert maps
-	let insert_keys = [
-				\ '<space>', '<c-w>', '<c-u>',
-				\ '<esc>', '<cr>',
-				\ '<up>', '<down>', '<m-p>', '<m-n>',
-				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
-				\ ]
-	call wheel#gear#unmap(insert_keys, 'i')
-endfun
-
-fun! wheel#layer#lighten ()
-	" Clear buffer variables, but not the stack
-	" since we need it for layers
-	let varlist = [
-				\ 'b:wheel_lines',
-				\ 'b:wheel_selected',
-				\ ]
-	for varname in varlist
-		if exists(varname)
-			unlet {varname}
-		endif
-	endfor
+	" Fresh empty layer : clear mandala vars, maps & stack
+	call wheel#layer#clear_vars ()
+	unlet b:wheel_stack
+	call wheel#layer#clear_maps ()
 endfun
 
 fun! wheel#layer#push ()
@@ -164,7 +122,7 @@ fun! wheel#layer#push ()
 	call insert(mappings, mapdict)
 	" Reset buffer variables
 	" Fresh filter and so on
-	call wheel#layer#lighten()
+	call wheel#layer#clear_vars()
 endfun
 
 fun! wheel#layer#pop ()

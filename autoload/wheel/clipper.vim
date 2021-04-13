@@ -33,6 +33,9 @@ fun! wheel#clipper#maps (mode)
 		vnoremap <buffer> p :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
 		vnoremap <buffer> P :<c-u>call wheel#line#paste_visual('before', 'open')<cr>
 	endif
+	" Undo, redo
+	nnoremap <buffer> u :call wheel#mandala#undo()<cr>
+	nnoremap <buffer> <c-r> :call wheel#mandala#redo()<cr>
 	" Context menu
 	nnoremap <buffer> <tab> :call wheel#boomerang#menu('yank')<cr>
 endfun

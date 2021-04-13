@@ -150,6 +150,22 @@ fun! wheel#mandala#wrap_down ()
 	endif
 endfun
 
+" Undo, redo
+
+fun! wheel#mandala#undo ()
+	" Undo action in previous window
+	wincmd p
+	undo
+	wincmd p
+endfun
+
+fun! wheel#mandala#redo ()
+	" Redo action in previous window
+	wincmd p
+	redo
+	wincmd p
+endfun
+
 " Filter
 
 fun! wheel#mandala#filter (...)

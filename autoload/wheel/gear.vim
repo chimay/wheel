@@ -221,9 +221,19 @@ endfun
 
 " Unmap for mandala layers
 
+fun! wheel#gear#unlet (var)
+	" Unlet variable named var
+	" If var is a list, unlet every variable in it
+	for varname in varlist
+		if exists(varname)
+			unlet {varname}
+		endif
+	endfor
+endfun
+
 fun! wheel#gear#unmap (key, ...)
 	" Unmap buffer mapping key in mode
-	" Dictionary with map caracteristics
+	" If key is a list, unmap every key in it
 	if a:0 > 0
 		let mode = a:1
 	else
