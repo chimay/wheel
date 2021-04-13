@@ -301,12 +301,7 @@ fun! wheel#line#menu (settings)
 	endif
 	" Call
 	let value = dict[key]
-	if value =~ '\m)'
-		"exe 'let dest = ' . value
-		let dest = eval(value)
-	else
-		let dest = {value}()
-	endif
+	let dest = wheel#gear#call(value)
 	if close
 		" Close mandala
 		" Go back to mandala
@@ -392,7 +387,8 @@ fun! wheel#line#sailing (settings)
 			call wheel#spiral#cursor ()
 		endfor
 	else
-		" search also for match in visible buffers
+		" open in current window, search also
+		" for match in visible buffers
 		let settings.use = 'default'
 		let settings.selected = selected[0]
 		call wheel#gear#call(Fun, settings)
