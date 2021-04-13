@@ -18,13 +18,6 @@ fun! wheel#boomerang#sync ()
 	if ! empty(stack.selected)
 		let b:wheel_selected = deepcopy(stack.selected[0])
 	endif
-	" If selection is empty, take the old cursor line
-	" Should be filled with wheel#line#address anyway
-	if empty(b:wheel_selected)
-		let linum = stack.positions[0][1]
-		let now = stack.current[0]
-		let b:wheel_selected = [now[linum - 1]]
-	endif
 	" Sync settings with top of stack
 	if ! empty(stack.settings)
 		let b:wheel_settings = deepcopy(stack.settings[0])

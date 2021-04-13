@@ -35,6 +35,8 @@ fun! wheel#line#address ()
 			return wheel#line#coordinates ()
 		elseif file =~ '\m/wheel/[0-9]\+/tabwins/tree'
 			return wheel#line#tabwin_hierarchy ()
+		else
+			echoerr 'wheel line address : unknown mandala type.'
 		endif
 	endif
 endfun
@@ -46,7 +48,7 @@ fun! wheel#line#coordinates ()
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
-		echomsg 'Wheel line coordin : empty line'
+		echomsg 'wheel line coordin : empty line'
 		return v:false
 	endif
 	let level = wheel#gear#fold_level ()
@@ -78,7 +80,7 @@ fun! wheel#line#coordinates ()
 		let torus = fields[0]
 		let coordin = [torus, circle, location]
 	else
-		echomsg 'Wheel line coordin : wrong fold level'
+		echomsg 'wheel line coordin : wrong fold level'
 	endif
 	call wheel#gear#restore_cursor (position)
 	return coordin
