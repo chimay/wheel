@@ -6,13 +6,20 @@
 
 fun! wheel#layer#init ()
 	" Init stack
+	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
+		" Full mandala content, without filtering
 		let b:wheel_stack.full = []
+		" Current mandala content
 		let b:wheel_stack.current = []
+		" Cursor position
 		let b:wheel_stack.positions = []
+		" Selected lines
 		let b:wheel_stack.selected = []
+		" Buffer settings
 		let b:wheel_stack.settings = []
+		" Buffer mappings
 		let b:wheel_stack.mappings = []
 	endif
 endfun
@@ -85,7 +92,7 @@ fun! wheel#layer#push ()
 	let current = stack.current
 	let now = getline(1, '$')
 	call insert(current, now)
-	" Position
+	" Cursor position
 	let positions = stack.positions
 	call insert(positions, getcurpos())
 	" Selected lines
@@ -101,7 +108,7 @@ fun! wheel#layer#push ()
 	else
 		call insert(settings, {})
 	endif
-	" Map stack
+	" Buffer mappings
 	let mappings = stack.mappings
 	let enter = maparg('<enter>', 'n')
 	let g_enter = maparg('g<enter>', 'n')
@@ -126,13 +133,13 @@ fun! wheel#layer#pop ()
 		return
 	endif
 	let stack = b:wheel_stack
-	" Full content, without filtering
+	" Full mandala content, without filtering
 	let full = stack.full
 	if empty(full) || empty(full[0])
 		return
 	endif
 	let b:wheel_lines = wheel#chain#pop (full)
-	" Current content
+	" Current mandala content
 	let current = stack.current
 	let now = wheel#chain#pop (current)
 	call wheel#mandala#replace (now, 'delete')
