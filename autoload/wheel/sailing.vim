@@ -293,7 +293,7 @@ fun! wheel#sailing#find ()
 	let pattern = '*' . input(prompt) . '*'
 	let pattern = escape(pattern, '*')
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
-	let settings = {'mandala_open' : v:true}
+	let settings = {'mandala_open' : v:false, 'mandala_type' : 'find'}
 	if has('nvim')
 		let job = wheel#wave#start(command, settings)
 	else

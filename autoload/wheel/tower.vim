@@ -29,8 +29,6 @@ fun! wheel#tower#overlay (settings)
 	let settings.close = v:false
 	exe map . 'g<cr>' . pre . string(settings) . post
 	exe map . '<space>' . pre . string(settings) . post
-	" Go back
-	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfun
 
 fun! wheel#tower#staircase (settings)

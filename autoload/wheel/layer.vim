@@ -184,6 +184,8 @@ fun! wheel#layer#push (mandala_type)
 				\ 'tab' : tab,
 				\}
 	call insert(mappings, mapdict)
+	" Map to go back
+	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 	" Reset buffer variables
 	" Fresh filter and so on
 	call wheel#layer#clear_vars()
@@ -228,4 +230,6 @@ fun! wheel#layer#pop ()
 	if len(b:wheel_selected) == 1
 		call wheel#line#deselect ()
 	endif
+	" Tell (n)vim the buffer is to be considered not modified
+	setlocal nomodified
 endfun

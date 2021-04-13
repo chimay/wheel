@@ -54,14 +54,11 @@ let s:callbacks = {
 
 " Buffer
 
-fun! wheel#wave#template ()
+fun! wheel#wave#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
 	setlocal bufhidden=hide
-	let current = g:wheel_buffers.current
-	let iden = g:wheel_buffers.iden[current]
-	let pseudo_folders = '/wheel/' . iden . '/wave'
-	exe 'silent file' pseudo_folders
+	call wheel#layer#pseudo_folders(a:mandala_type)
 	let b:wheel_lines = []
 endfun
 
@@ -72,7 +69,7 @@ fun! wheel#wave#start (command, ...)
 	if a:0 > 0
 		let options = a:1
 	else
-		let options = {'mandala_open' : v:true}
+		let options = {'mandala_open' : v:true, 'mandala_type' : 'wave'}
 	endif
 	if type(a:command) == v:t_list
 		let command = a:command
@@ -84,9 +81,9 @@ fun! wheel#wave#start (command, ...)
 	endif
 	" Buffer
 	if options.mandala_open
-		call wheel#mandala#open ('wave')
+		call wheel#mandala#open (options.mandala_type)
 	endif
-	call wheel#wave#template ()
+	call wheel#wave#template (options.mandala_type)
 	" Expand tilde in filenames
 	call map(command, {_, val -> expand(val)})
 	" Job

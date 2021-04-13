@@ -87,7 +87,7 @@ fun! wheel#cylinder#pop ()
 		let goto = buffers[current]
 		exe 'silent buffer' goto
 	endif
-	exe 'silent bwipe' removed
+	exe 'silent bwipe!' removed
 	echomsg 'Buffer' removed 'removed'
 	return removed
 endfun

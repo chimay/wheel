@@ -41,7 +41,7 @@ fun! wheel#ripple#start (command, ...)
 	if a:0 > 0
 		let options = a:1
 	else
-		let options = {'mandala_open' : v:true}
+		let options = {'mandala_open' : v:true, 'mandala_type' : 'ripple'}
 	endif
 	if type(a:command) == v:t_list
 		let command = a:command
@@ -53,7 +53,7 @@ fun! wheel#ripple#start (command, ...)
 	endif
 	" Buffer
 	if options.mandala_open
-		call wheel#mandala#open ('ripple')
+		call wheel#mandala#open (options.mandala_type)
 	endif
 	call wheel#ripple#template ()
 	" Expand tilde in filenames
