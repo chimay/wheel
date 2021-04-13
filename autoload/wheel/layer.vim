@@ -1,6 +1,9 @@
 " vim: ft=vim fdm=indent:
 
 " Layers stack on mandala buffer
+"
+" Beware : index 0 in fields are at the top of the stack
+" e.g. : b:wheel_stack.field[0]
 
 " Script vars
 
