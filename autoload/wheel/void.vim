@@ -277,16 +277,20 @@ fun! wheel#void#fresh_wheel ()
 	if confirm == 1
 		call wheel#disc#write_all ()
 	endif
-	unlet g:wheel
-	unlet g:wheel_helix
-	unlet g:wheel_grid
-	unlet g:wheel_files
-	unlet g:wheel_history
-	unlet g:wheel_input
-	unlet g:wheel_attic
-	unlet g:wheel_wave
-	unlet g:wheel_yank
-	unlet g:wheel_buffers
-	unlet g:wheel_shelve
+	let varlist = [
+				\ 'g:wheel',
+				\ 'g:wheel_helix',
+				\ 'g:wheel_grid',
+				\ 'g:wheel_files',
+				\ 'g:wheel_history',
+				\ 'g:wheel_input',
+				\ 'g:wheel_attic',
+				\ 'g:wheel_wave',
+				\ 'g:wheel_ripple',
+				\ 'g:wheel_yank',
+				\ 'g:wheel_buffers',
+				\ 'g:wheel_shelve',
+				\]
+	call wheel#gear#unlet (varlist)
 	call wheel#void#foundation ()
 endfun
