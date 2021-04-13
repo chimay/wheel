@@ -9,6 +9,11 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
+if ! exists('s:mandala_options')
+	let s:mandala_options = wheel#crystal#fetch('mandala/options')
+	lockvar s:mandala_options
+endif
+
 if ! exists('s:stack_fields')
 	let s:stack_fields = wheel#crystal#fetch('stack/fields')
 	lockvar s:stack_fields
@@ -89,6 +94,16 @@ fun! wheel#layer#save_maps ()
 	return mapdict
 endfun
 
+fun! wheel#layer#save_options ()
+	" Save options
+	let ampersands = {}
+	for opt in s:mandala_options
+		let runme = 'let ampersands.' . opt . '=' . '&' . opt
+		execute runme
+	endfor
+	return ampersands
+endfun
+
 " Restoring things
 
 fun! wheel#layer#restore_maps (mapdict)
@@ -100,6 +115,15 @@ fun! wheel#layer#restore_maps (mapdict)
 		else
 			exe 'silent nunmap <buffer>' key
 		endif
+	endfor
+endfun
+
+fun! wheel#layer#restore_options (options)
+	" Restore options
+	let options = a:options
+	for opt in s:mandala_options
+		let runme = 'let &' . opt . '=' . string(options[opt])
+		execute runme
 	endfor
 endfun
 
@@ -132,9 +156,7 @@ fun! wheel#layer#push (mandala_type)
 	call wheel#layer#pseudo_folders (a:mandala_type)
 	" Local options
 	let opts = stack.opts
-	let ampersands = {}
-	let ampersands.buftype = &buftype
-	let ampersands.foldenable = &foldenable
+	let ampersands = wheel#layer#save_options ()
 	call insert(opts, ampersands)
 	" lines content, without filtering
 	let lines = stack.lines
@@ -190,8 +212,7 @@ fun! wheel#layer#pop ()
 	" Local options
 	let opts = stack.opts
 	let ampersands = wheel#chain#pop (opts)
-	let &buftype = ampersands.buftype
-	let &foldenable = ampersands.foldenable
+	call wheel#layer#restore_options (ampersands)
 	" lines mandala content, without filtering
 	let lines = stack.lines
 	let b:wheel_lines = wheel#chain#pop (lines)

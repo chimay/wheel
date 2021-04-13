@@ -84,6 +84,28 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
+" Mandalas options
+
+if ! exists('s:mandala_options')
+	let s:mandala_options = [
+				\ 'buftype',
+				\ 'bufhidden',
+				\ 'buflisted',
+				\ 'swapfile',
+				\ 'cursorline',
+				\ 'foldenable',
+				\ 'foldmethod',
+				\ 'foldmarker',
+				\ 'foldtext',
+				\ 'foldopen',
+				\ 'foldclose',
+				\ 'foldlevel',
+				\ 'foldminlines',
+				\ 'foldcolumn',
+				\ ]
+	lockvar s:mandala_options
+endif
+
 " Layer stack in mandalas
 
 if ! exists('s:stack_fields')
