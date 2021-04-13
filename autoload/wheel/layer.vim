@@ -134,6 +134,7 @@ fun! wheel#layer#push (mandala_type)
 	let opts = stack.opts
 	let ampersands = {}
 	let ampersands.buftype = &buftype
+	let ampersands.foldenable = &foldenable
 	call insert(opts, ampersands)
 	" lines content, without filtering
 	let lines = stack.lines
@@ -190,6 +191,7 @@ fun! wheel#layer#pop ()
 	let opts = stack.opts
 	let ampersands = wheel#chain#pop (opts)
 	let &buftype = ampersands.buftype
+	let &foldenable = ampersands.foldenable
 	" lines mandala content, without filtering
 	let lines = stack.lines
 	let b:wheel_lines = wheel#chain#pop (lines)
