@@ -154,7 +154,7 @@ fun! wheel#boomerang#tabwins (action)
 		" closing last tab first
 		call reverse(b:wheel_selected)
 		call wheel#line#sailing (settings)
-		let b:wheel_stack.selected[-1] = []
+		let b:wheel_stack.selected[0] = []
 		return v:true
 	endif
 	return v:false
