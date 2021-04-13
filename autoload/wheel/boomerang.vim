@@ -35,15 +35,15 @@ endfun
 
 fun! wheel#boomerang#remove_selected ()
 	" Remove selected elements from special buffer lines
-	let full = b:wheel_stack.full[-1]
-	let current = b:wheel_stack.current[-1]
+	let lines = b:wheel_stack.lines[-1]
+	let filtered = b:wheel_stack.filtered[-1]
 	for elem in b:wheel_selected
-		call wheel#chain#remove_element (elem, full)
-		call wheel#chain#remove_element (elem, current)
+		call wheel#chain#remove_element (elem, lines)
+		call wheel#chain#remove_element (elem, filtered)
 		" if manually selected with space
 		let elem = s:selected_mark . elem
-		call wheel#chain#remove_element (elem, full)
-		call wheel#chain#remove_element (elem, current)
+		call wheel#chain#remove_element (elem, lines)
+		call wheel#chain#remove_element (elem, filtered)
 	endfor
 endfun
 

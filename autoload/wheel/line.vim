@@ -329,6 +329,7 @@ fun! wheel#line#menu (settings)
 			" Same tab, just go to mandala window
 			call wheel#cylinder#recall()
 		endif
+		let b:wheel_lines = getline(2, '$')
 	endif
 	return v:true
 endfun

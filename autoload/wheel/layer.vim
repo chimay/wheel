@@ -2,27 +2,38 @@
 
 " Layers stack on mandala buffer
 
-" Stack
+" Script vars
+
+if ! exists('s:mandala_vars')
+	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
+	lockvar s:mandala_vars
+endif
+
+if ! exists('s:stack_fields')
+	let s:stack_fields = wheel#crystal#fetch('stack/fields')
+	lockvar s:stack_fields
+endif
+
+if ! exists('s:normal_map_keys')
+	let s:normal_map_keys = wheel#crystal#fetch('normal/map/keys')
+	lockvar s:normal_map_keys
+endif
+
+if ! exists('s:insert_map_keys')
+	let s:insert_map_keys = wheel#crystal#fetch('insert/map/keys')
+	lockvar s:insert_map_keys
+endif
+
+" Init stack
 
 fun! wheel#layer#init ()
 	" Init stack
 	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
-		" Pseudo filename of the mandala
-		let b:wheel_stack.filename = []
-		" Full mandala content, without filtering
-		let b:wheel_stack.full = []
-		" Current mandala content
-		let b:wheel_stack.current = []
-		" Cursor position
-		let b:wheel_stack.positions = []
-		" Selected lines
-		let b:wheel_stack.selected = []
-		" Buffer settings
-		let b:wheel_stack.settings = []
-		" Buffer mappings
-		let b:wheel_stack.mappings = []
+		for field in s:stack_fields
+			let b:wheel_stack[field] = []
+		endfor
 	endif
 endfun
 
@@ -32,56 +43,30 @@ fun! wheel#layer#truncate ()
 	" Truncate layer stack
 	let maxim = g:wheel_config.maxim.layers - 1
 	let stack = b:wheel_stack
-	let stack.filename = stack.filename[:maxim]
-	let stack.full = stack.full[:maxim]
-	let stack.current = stack.current[:maxim]
-	let stack.positions = stack.positions[:maxim]
-	let stack.selected = stack.selected[:maxim]
-	let stack.settings = stack.settings[:maxim]
-	let stack.mappings = stack.mappings[:maxim]
- endfun
+	for field in s:stack_fields
+		let stack[field] = stack[field][:maxim]
+	endfor
+endfun
 
 " Clearing things
 
 fun! wheel#layer#clear_vars ()
-	" Clear mandala variables
-	let varlist = [
-				\ 'b:wheel_lines',
-				\ 'b:wheel_selected',
-				\ ]
-	call wheel#gear#unlet(varlist)
+	" Clear mandala variables, except the layer stack
+	call wheel#gear#unlet(s:mandala_vars)
 endfun
 
 fun! wheel#layer#clear_maps ()
 	" Clear mandala maps
 	" normal maps
-	let normal_keys = [
-				\ 'q',
-				\ 'j', 'k', '<down>', '<up>',
-				\ 'i', 'a',
-				\ '<cr>', '<space>', '<tab>',
-				\ 't', 's', 'v',
-				\ 'S', 'V',
-				\ 'g<cr>',
-				\ 'gt', 'gs', 'gv',
-				\ 'gS', 'gV',
-				\ 'p', 'P',
-				\ 'gp', 'gP',
-				\ 'u', '<c-r>',
-				\ ]
-	call wheel#gear#unmap(normal_keys, 'n')
+	call wheel#gear#unmap(s:normal_map_keys, 'n')
 	" insert maps
-	let insert_keys = [
-				\ '<space>', '<c-w>', '<c-u>',
-				\ '<esc>', '<cr>',
-				\ '<up>', '<down>', '<m-p>', '<m-n>',
-				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
-				\ ]
-	call wheel#gear#unmap(insert_keys, 'i')
+	call wheel#gear#unmap(s:insert_map_keys, 'i')
 endfun
 
 fun! wheel#layer#fresh ()
 	" Fresh empty layer : clear mandala lines, vars & maps
+	" Reset buffer variables
+	" Fresh filter and so on
 	call wheel#layer#clear_vars ()
 	call wheel#layer#clear_maps ()
 	" Delete lines -> no storing register
@@ -90,31 +75,32 @@ fun! wheel#layer#fresh ()
 	call wheel#layer#truncate ()
 endfun
 
+" Saving things
+
+fun! wheel#layer#save_maps ()
+	" Save maps
+	let mapdict = { 'normal' : {}, 'insert' : {}}
+	for key in s:normal_map_keys
+		let mapdict.normal[key] = maparg(key, 'n')
+	endfor
+	for key in s:insert_map_keys
+		let mapdict.insert[key] = maparg(key, 'i')
+	endfor
+	return mapdict
+endfun
+
 " Restoring things
 
 fun! wheel#layer#restore_maps (mapdict)
 	" Restore maps
 	let mapdict = a:mapdict
-	if ! empty(mapdict)
-		if ! empty(mapdict.enter)
-			exe 'nnoremap <buffer> <cr>' mapdict.enter
+	for key in keys(mapdict.normal)
+		if ! empty(key)
+			exe 'nnoremap <buffer>' key mapdict.normal[key]
+		else
+			exe 'nunmap <buffer>' key
 		endif
-		if ! empty(mapdict.g_enter)
-			exe 'nnoremap <buffer> g<cr>' mapdict.g_enter
-		endif
-		if ! empty(mapdict.space)
-			exe 'nnoremap <buffer> <space>' mapdict.space
-		elseif ! empty(mapdict.enter)
-			" if no space map, set it to the same as enter
-			exe 'nnoremap <buffer> <space>' mapdict.enter
-		endif
-		if ! empty(mapdict.tab)
-			exe 'nnoremap <buffer> <tab>' mapdict.tab
-		elseif ! empty(mapdict.enter)
-			" if no tab map, set it to the same as enter
-			exe 'nnoremap <buffer> <tab>' mapdict.enter
-		endif
-	endif
+	endfor
 endfun
 
 " Mandala pseudo folders
@@ -144,21 +130,26 @@ fun! wheel#layer#push (mandala_type)
 	let filename = stack.filename
 	call insert(filename, expand('%'))
 	call wheel#layer#pseudo_folders (a:mandala_type)
-	" Full content, without filtering
-	let full = stack.full
+	" Local options
+	let opts = stack.opts
+	let ampersands = {}
+	let ampersands.buftype = &buftype
+	call insert(opts, ampersands)
+	" lines content, without filtering
+	let lines = stack.lines
 	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
 		let lines = getline(2, '$')
 	else
 		let lines = b:wheel_lines
 	endif
-	call insert(full, lines)
-	" Current content
-	let current = stack.current
+	call insert(lines, lines)
+	" filtered content
+	let filtered = stack.filtered
 	let now = getline(1, '$')
-	call insert(current, now)
+	call insert(filtered, now)
 	" Cursor position
-	let positions = stack.positions
-	call insert(positions, getcurpos())
+	let position = stack.position
+	call insert(position, getcurpos())
 	" Selected lines
 	let selected = stack.selected
 	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
@@ -174,22 +165,10 @@ fun! wheel#layer#push (mandala_type)
 	endif
 	" Buffer mappings
 	let mappings = stack.mappings
-	let enter = maparg('<enter>', 'n')
-	let g_enter = maparg('g<enter>', 'n')
-	let space = maparg('<space>', 'n')
-	let tab = maparg('<tab>', 'n')
-	let mapdict = {
-				\ 'enter': enter,
-				\ 'g_enter': g_enter,
-				\ 'space' : space,
-				\ 'tab' : tab,
-				\}
+	let mapdict = wheel#layer#save_maps ()
 	call insert(mappings, mapdict)
 	" Map to go back
 	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
-	" Reset buffer variables
-	" Fresh filter and so on
-	call wheel#layer#clear_vars()
 endfun
 
 fun! wheel#layer#pop ()
@@ -207,16 +186,20 @@ fun! wheel#layer#pop ()
 	endif
 	let pseudo_file = wheel#chain#pop (filename)
 	exe 'silent file' pseudo_file
-	" Full mandala content, without filtering
-	let full = stack.full
-	let b:wheel_lines = wheel#chain#pop (full)
-	" Current mandala content
-	let current = stack.current
-	let now = wheel#chain#pop (current)
+	" Local options
+	let opts = stack.opts
+	let ampersands = wheel#chain#pop (opts)
+	let &buftype = ampersands.buftype
+	" lines mandala content, without filtering
+	let lines = stack.lines
+	let b:wheel_lines = wheel#chain#pop (lines)
+	" filtered mandala content
+	let filtered = stack.filtered
+	let now = wheel#chain#pop (filtered)
 	call wheel#mandala#replace (now, 'delete')
 	" Restore cursor position
-	let positions = stack.positions
-	let pos = wheel#chain#pop (positions)
+	let position = stack.position
+	let pos = wheel#chain#pop (position)
 	call wheel#gear#restore_cursor (pos)
 	" Restore settings
 	let settings = stack.settings

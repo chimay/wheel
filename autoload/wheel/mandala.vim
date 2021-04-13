@@ -27,14 +27,12 @@ fun! wheel#mandala#open (...)
 	else
 		let type = 'default'
 	endif
-	if wheel#cylinder#recall ()
-		call wheel#layer#push (type)
-		call wheel#layer#fresh ()
-	else
+	if ! wheel#cylinder#recall ()
 		new
 		call wheel#cylinder#push ('linger')
-		call wheel#layer#pseudo_folders(type)
 	endif
+	call wheel#layer#push (type)
+	call wheel#layer#fresh ()
 	call wheel#mandala#common_options ()
 endfun
 

@@ -2,6 +2,15 @@
 
 " Check & fix
 
+" Script vars
+
+if ! exists('s:stack_fields')
+	let s:stack_fields = wheel#crystal#fetch('stack/fields')
+	lockvar s:stack_fields
+endif
+
+" Checkers
+
 fun! wheel#checknfix#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
 	" Names in toruses, circles and locations are considered to be the right ones
@@ -96,4 +105,16 @@ fun! wheel#checknfix#history ()
 		let ind += 1
 	endwhile
 	return success
+endfun
+
+fun! wheel#checknfix#layer_stack ()
+	" Check b:wheel_stack in mandalas
+	let length = len(b:wheel_stack[s:stack_fields[0]])
+	for field in s:stack_fields
+		echomsg field
+		let same = len(b:wheel_stack[field])
+		if same != length
+			echomsg 'wheel layer stack : bad' field 'length :' string(same) '/ filename :' string(length)
+		endif
+	endfor
 endfun

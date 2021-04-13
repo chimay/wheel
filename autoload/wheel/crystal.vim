@@ -35,7 +35,7 @@ if ! exists('s:golden_ratio')
 	lockvar s:golden_ratio
 endif
 
-" Strings
+" Strings in mandalas
 
 if ! exists('s:separator_field')
 	let s:separator_field = ' │ '
@@ -57,7 +57,7 @@ if ! exists('s:selected_pattern')
 	lockvar s:selected_pattern
 endif
 
-" Folds
+" Folds in mandalas
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = ['>', '<']
@@ -72,6 +72,68 @@ endif
 if ! exists('s:fold_two')
 	let s:fold_two = ' ' . s:fold_markers[0] . '2'
 	lockvar s:fold_two
+endif
+
+" Mandalas variable list
+
+if ! exists('s:mandala_vars')
+	let s:mandala_vars = [
+				\ 'b:wheel_lines',
+				\ 'b:wheel_selected',
+				\ ]
+	lockvar s:mandala_vars
+endif
+
+" Layer stack in mandalas
+
+if ! exists('s:stack_fields')
+	" filename : pseudo filename of the mandala
+	" opts : local options
+	" lines : lines mandala content, without filtering
+	" filtered : filtered mandala content
+	" position : cursor position
+	" selected : selected lines
+	" settings : mandala settings
+	" mappings : mappings
+	let s:stack_fields = [
+				\ 'filename',
+				\ 'opts',
+				\ 'lines',
+				\ 'filtered',
+				\ 'position',
+				\ 'selected',
+				\ 'settings',
+				\ 'mappings',
+				\ ]
+	lockvar s:stack_fields
+endif
+
+if ! exists('s:normal_map_keys')
+	let s:normal_map_keys = [
+				\ 'q',
+				\ 'j', 'k', '<down>', '<up>',
+				\ 'i', 'a',
+				\ '<cr>', '<space>', '<tab>',
+				\ 't', 's', 'v',
+				\ 'S', 'V',
+				\ 'g<cr>',
+				\ 'gt', 'gs', 'gv',
+				\ 'gS', 'gV',
+				\ 'p', 'P',
+				\ 'gp', 'gP',
+				\ 'u', '<c-r>',
+				\ ]
+	lockvar s:normal_map_keys
+endif
+
+if ! exists('s:insert_map_keys')
+	let s:insert_map_keys = [
+				\ '<space>', '<c-w>', '<c-u>',
+				\ '<esc>', '<cr>',
+				\ '<up>', '<down>', '<m-p>', '<m-n>',
+				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
+				\ ]
+	lockvar s:insert_map_keys
 endif
 
 " Menus
