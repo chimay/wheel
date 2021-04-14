@@ -109,14 +109,20 @@ endfun
 
 fun! wheel#checknfix#layer_stack ()
 	" Check b:wheel_stack in mandalas
-	let length = wheel#layer#length ()
-	echomsg 'layer stack length : ' string(length)
+	let top = b:wheel_stack.top
+	let length = b:wheel_stack.length
+	if top < length
+		echomsg 'top' string(top) '<' 'length' string(length) 'ok'
+	else
+		echomsg 'bad top' string(top) '>' 'length' string(length)
+	endif
+	echomsg 'layer stack length = ' string(length)
 	for field in s:layer_stack_fields
 		let same = len(b:wheel_stack[field])
-		if same != length
-			echomsg 'wheel layer stack : bad' field 'length :' string(same) '/ filename :' string(length)
+		if same == length
+			echomsg 'length' field '=' same 'ok'
 		else
-			echomsg field 'ok'
+			echomsg 'wheel layer stack : bad' field 'length =' string(same) '/ stack length :' string(length)
 		endif
 	endfor
 endfun

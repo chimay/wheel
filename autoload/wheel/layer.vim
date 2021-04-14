@@ -42,7 +42,7 @@ fun! wheel#layer#init ()
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
 		" index of top layer
-		let b:wheel_stack.top = 0
+		let b:wheel_stack.top = -1
 		" stack length
 		let b:wheel_stack.length = 0
 		" other fields
@@ -273,6 +273,9 @@ fun! wheel#layer#push ()
 	" save modified local maps
 	call wheel#layer#init ()
 	let stack = b:wheel_stack
+	if stack.top < 0
+		let stack.top = 0
+	endif
 	" pseudo filename
 	let filename = stack.filename
 	call wheel#layer#push_field (filename, expand('%'))
@@ -336,8 +339,8 @@ fun! wheel#layer#pop ()
 		let field = b:wheel_stack[fieldname]
 		call wheel#layer#pop_field (field)
 	endfor
-	let b:wheel_stack.top = wheel#layer#popped_top ()
 	let b:wheel_stack.length -= 1
+	let b:wheel_stack.top = wheel#layer#popped_top ()
 endfun
 
 fun! wheel#layer#rotate_right ()
