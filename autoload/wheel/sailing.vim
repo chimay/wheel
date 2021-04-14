@@ -254,8 +254,8 @@ fun! wheel#sailing#outline ()
 	endif
 	if bool
 		let &filetype = 'wheel'
-		let current = g:wheel_buffers.current
-		let iden = g:wheel_buffers.iden[current]
+		let current = g:wheel_mandalas.current
+		let iden = g:wheel_mandalas.iden[current]
 		let pseudo_folders = '/wheel/' . iden . '/outline'
 		exe 'silent file' pseudo_folders
 	endif

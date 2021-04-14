@@ -164,8 +164,8 @@ fun! wheel#layer#pseudo_folders (mandala_type)
 	" Add unique buf id, so (n)vim does not complain about
 	" existing filename
 	let type = a:mandala_type
-	let current = g:wheel_buffers.current
-	let iden = g:wheel_buffers.iden[current]
+	let current = g:wheel_mandalas.current
+	let iden = g:wheel_mandalas.iden[current]
 	let pseudo_folders = '/wheel/' . iden . '/' . type
 	exe 'silent file' pseudo_folders
 	return pseudo_folders

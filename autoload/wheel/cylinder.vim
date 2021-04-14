@@ -9,16 +9,16 @@ fun! wheel#cylinder#push (...)
 	else
 		let mode = 'goback'
 	endif
-	let buffers = g:wheel_buffers.stack
-	let iden = g:wheel_buffers.iden
+	let mandalas = g:wheel_mandalas.stack
+	let iden = g:wheel_mandalas.iden
 	call wheel#cylinder#check ()
 	" First one
-	if empty(buffers)
+	if empty(mandalas)
 		enew
 		let bufnum = bufnr('%')
-		call add(buffers, bufnum)
-		let g:wheel_buffers.current = 0
-		let g:wheel_buffers.maxim = 0
+		call add(mandalas, bufnum)
+		let g:wheel_mandalas.current = 0
+		let g:wheel_mandalas.maxim = 0
 		call add(iden, 0)
 		call wheel#mandala#common_maps ()
 		if mode == 'goback'
@@ -31,14 +31,14 @@ fun! wheel#cylinder#push (...)
 	" Not the first one
 	" Is current buffer a mandala buffer ?
 	let bufnum = bufnr('%')
-	if index(buffers, bufnum) >= 0
+	if index(mandalas, bufnum) >= 0
 		let in_mandala_buf = v:true
 	else
 		let in_mandala_buf = v:false
 	endif
 	" Old current special buffer
-	let current = g:wheel_buffers.current
-	let elder = buffers[current]
+	let current = g:wheel_mandalas.current
+	let elder = mandalas[current]
 	" New buffer
 	enew
 	let novice = bufnr('%')
@@ -47,10 +47,10 @@ fun! wheel#cylinder#push (...)
 		return v:false
 	endif
 	" Push
-	call add(buffers, novice)
-	let g:wheel_buffers.current = len(buffers) - 1
-	let g:wheel_buffers.maxim += 1
-	let maxim = g:wheel_buffers.maxim
+	call add(mandalas, novice)
+	let g:wheel_mandalas.current = len(mandalas) - 1
+	let g:wheel_mandalas.maxim += 1
+	let maxim = g:wheel_mandalas.maxim
 	call add(iden, maxim)
 	call wheel#mandala#common_maps ()
 	if ! in_mandala_buf
@@ -63,28 +63,28 @@ endfun
 fun! wheel#cylinder#pop ()
 	" Pop mandala buffer
 	call wheel#cylinder#check ()
-	let buffers = g:wheel_buffers.stack
-	let iden = g:wheel_buffers.iden
+	let mandalas = g:wheel_mandalas.stack
+	let iden = g:wheel_mandalas.iden
 	" Do not pop empty stack
-	if empty(buffers)
+	if empty(mandalas)
 		echomsg 'wheel mandala pop : empty buffer stack'
 		return v:false
 	endif
 	" Do not pop one element stack
-	if len(buffers) == 1
-		echomsg 'wheel mandala pop :' buffers[0] 'is the last remaining wheel special buffer'
+	if len(mandalas) == 1
+		echomsg 'wheel mandala pop :' mandalas[0] 'is the last remaining wheel special buffer'
 		return v:false
 	endif
 	" Pop
-	let current = g:wheel_buffers.current
-	let removed = remove(buffers, current)
+	let current = g:wheel_mandalas.current
+	let removed = remove(mandalas, current)
 	call remove(iden, current)
-	let g:wheel_buffers.maxim = max(iden)
-	let current = (current - 1) % len(buffers)
-	let g:wheel_buffers.current = current
+	let g:wheel_mandalas.maxim = max(iden)
+	let current = (current - 1) % len(mandalas)
+	let g:wheel_mandalas.current = current
 	let bufnum = bufnr('%')
-	if bufnum == removed || index(buffers, bufnum) >= 0
-		let goto = buffers[current]
+	if bufnum == removed || index(mandalas, bufnum) >= 0
+		let goto = mandalas[current]
 		exe 'silent buffer' goto
 	endif
 	exe 'silent bwipe!' removed
@@ -95,8 +95,8 @@ endfun
 fun! wheel#cylinder#recall ()
 	" Recall mandala buffer
 	call wheel#cylinder#check ()
-	let buffers = g:wheel_buffers.stack
-	let current = g:wheel_buffers.current
+	let buffers = g:wheel_mandalas.stack
+	let current = g:wheel_mandalas.current
 	if empty(buffers)
 		echomsg 'wheel mandala recall : empty buffer stack'
 		return v:false
@@ -121,30 +121,30 @@ fun! wheel#cylinder#recall ()
 endfun
 
 fun! wheel#cylinder#check ()
-	" Remove non existent buffers from stack
-	let buffers = g:wheel_buffers.stack
-	let iden = g:wheel_buffers.iden
-	for bufnum in buffers
+	" Remove non existent mandalas buffers from stack
+	let mandalas = g:wheel_mandalas.stack
+	let iden = g:wheel_mandalas.iden
+	for bufnum in mandalas
 		if ! bufexists(bufnum)
-			let index = index(buffers, bufnum)
-			call remove(buffers, index)
+			let index = index(mandalas, bufnum)
+			call remove(mandalas, index)
 			call remove(iden, index)
-			let current = g:wheel_buffers.current
+			let current = g:wheel_mandalas.current
 			if current == index
-				let g:wheel_buffers.current = 0
+				let g:wheel_mandalas.current = 0
 			endif
 		endif
 	endfor
 endfun
 
 fun! wheel#cylinder#cycle ()
-	" Cycle mandala buffers
-	let buffers = g:wheel_buffers.stack
-	let current = g:wheel_buffers.current
+	" Cycle mandalas buffers
+	let mandalas = g:wheel_mandalas.stack
+	let current = g:wheel_mandalas.current
 	let bufnum = bufnr('%')
-	if index(buffers, bufnum) >= 0
-		let current = (current + 1) % len(buffers)
-		let g:wheel_buffers.current = current
+	if index(mandalas, bufnum) >= 0
+		let current = (current + 1) % len(mandalas)
+		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
 endfun
