@@ -15,7 +15,7 @@ fun! wheel#boomerang#sync ()
 	" Sync selection & settings at top of stack --> buffer variables
 	" the action will be performed on the selection of the previous layer
 	let stack = b:wheel_stack
-	let top = b:wheel_stack.current
+	let top = b:wheel_stack.top
 	if ! empty(stack.selected)
 		let b:wheel_selected = deepcopy(stack.selected[top])
 	endif
@@ -30,7 +30,7 @@ endfun
 fun! wheel#boomerang#remove_deleted ()
 	" Remove deleted elements from special buffer lines of the previous layer
 	" e.g. : deleted buffers, closed tabs
-	let top = b:wheel_stack.current
+	let top = b:wheel_stack.top
 	let lines = b:wheel_stack.lines[top]
 	let filtered = b:wheel_stack.filtered[top]
 	for elem in b:wheel_selected
@@ -130,7 +130,7 @@ fun! wheel#boomerang#opened_files (action)
 		let settings.target = 'none'
 		call wheel#boomerang#remove_deleted ()
 		call wheel#line#sailing (settings)
-		let top = b:wheel_stack.current
+		let top = b:wheel_stack.top
 		let b:wheel_stack.selected[top] = []
 	endif
 endfun
@@ -152,7 +152,7 @@ fun! wheel#boomerang#tabwins (action)
 		" closing last tab first
 		call reverse(b:wheel_selected)
 		call wheel#line#sailing (settings)
-		let top = b:wheel_stack.current
+		let top = b:wheel_stack.top
 		let b:wheel_stack.selected[top] = []
 		return v:true
 	endif
