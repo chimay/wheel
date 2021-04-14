@@ -44,5 +44,6 @@ fun! wheel#tower#staircase (settings)
 	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
 	let b:wheel_lines = lines
+	unlet b:wheel_reload
 	call cursor(1, 1)
 endfun
