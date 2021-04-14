@@ -12,7 +12,7 @@ endif
 " Sync buffer variables & top of stack
 
 fun! wheel#boomerang#sync ()
-	" Sync top of stack --> buffer variables
+	" Sync selection & settings at top of stack --> buffer variables
 	" the action will be performed on the selection of the previous layer
 	let stack = b:wheel_stack
 	let top = b:wheel_stack.current

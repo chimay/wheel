@@ -235,7 +235,7 @@ fun! wheel#layer#pop ()
 	let opts = stack.opts
 	let ampersands = wheel#chain#pop (opts)
 	call wheel#layer#restore_options (ampersands)
-	" lines mandala content, without filtering
+	" all mandala content, without filtering
 	let lines = stack.lines
 	let b:wheel_lines = wheel#chain#pop (lines)
 	" filtered mandala content
@@ -269,7 +269,50 @@ endfun
 
 fun! wheel#layer#sync ()
 	" Sync top of the stack -> mandala vars, options, maps
+	if wheel#layer#length() == 0
+		return v:false
+	endif
 	let stack = b:wheel_stack
+	let top = stack.current
+	" Pseudo filename
+	let filename = stack.filename
+	if empty(filename) || empty(filename[0])
+		echomsg 'wheel layer pop : empty stack.'
+		return v:false
+	endif
+	let pseudo_file = filename[top]
+	exe 'silent file' pseudo_file
+	" Local options
+	let opts = stack.opts
+	let ampersands = opts[top]
+	call wheel#layer#restore_options (ampersands)
+	" all mandala content, without filtering
+	let lines = stack.lines
+	let b:wheel_lines = lines[top]
+	" filtered mandala content
+	let filtered = stack.filtered
+	call wheel#mandala#replace (filtered[top], 'delete')
+	" Restore cursor position
+	let position = stack.position
+	call wheel#gear#restore_cursor (position[top])
+	" Restore selection
+	let selected = stack.selected
+	let b:wheel_selected = wheel#chain#pop(selected)
+	" Restore settings
+	let settings = stack.settings
+	let b:wheel_settings = settings[top]
+	" Restore mappings
+	let mappings = stack.mappings
+	call wheel#layer#restore_maps (mappings[top])
+	" Empty selection if only one element
+	if len(b:wheel_selected) == 1
+		call wheel#line#deselect ()
+	endif
+	" Reload
+	let reload = stack.reload
+	let b:wheel_reload = reload[top]
+	" Tell (neo)vim the buffer is to be considered not modified
+	setlocal nomodified
 endfun
 
 fun! wheel#layer#rotate_right ()
@@ -277,6 +320,7 @@ fun! wheel#layer#rotate_right ()
 	let top = b:wheel_stack.current
 	let length = wheel#layer#length ()
 	let b:wheel_stack.current = (top + 1) % length
+	call wheel#layer#sync ()
 endfun
 
 fun! wheel#layer#rotate_left ()
@@ -284,4 +328,5 @@ fun! wheel#layer#rotate_left ()
 	let top = b:wheel_stack.current
 	let length = wheel#layer#length ()
 	let b:wheel_stack.current = (top - 1) % length
+	call wheel#layer#sync ()
 endfun
