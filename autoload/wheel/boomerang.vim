@@ -77,7 +77,8 @@ fun! wheel#boomerang#menu (dictname, ...)
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase(settings)
 	call wheel#boomerang#sync ()
-	" Let wheel#line#menu handle open / close
+	" Let wheel#line#menu handle open / close,
+	" tell wheel#line#sailing to forget it
 	let b:wheel_settings.close = v:false
 endfun
 
