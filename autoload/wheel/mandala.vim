@@ -129,13 +129,14 @@ fun! wheel#mandala#reload ()
 	let filename = expand('%')
 	" mark the buffer as empty, to avoid pushing a new layer
 	call wheel#mandala#pseudo_filename ('empty')
+	" delete all lines
+	1,$ delete _
 	" reload content
 	if exists('b:wheel_reload') && ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
 	else
 		" by default, if b:wheel_reload is not defined or empty,
-		" delete all lines and fill the buffer with b:wheel_lines
-		1,$ delete _
+		" fill the buffer with b:wheel_lines
 		call wheel#mandala#fill (b:wheel_lines)
 		" restore
 		exe 'silent file' filename
