@@ -191,7 +191,6 @@ fun! wheel#layer#push (mandala_type)
 	let selected = stack.selected
 	if empty(b:wheel_selected)
 		let address = wheel#line#address()
-		echomsg 'address :' address
 		let b:wheel_selected = [address]
 	endif
 	call insert(selected, b:wheel_selected)
