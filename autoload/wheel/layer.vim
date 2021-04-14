@@ -63,15 +63,6 @@ fun! wheel#layer#length ()
 	return len(b:wheel_stack.filename)
 endfun
 
-fun! wheel#layer#truncate ()
-	" Truncate layer stack
-	let maxim = g:wheel_config.maxim.layers - 1
-	let stack = b:wheel_stack
-	for field in s:layer_stack_fields
-		let stack[field] = stack[field][:maxim]
-	endfor
-endfun
-
 " Clearing things
 
 fun! wheel#layer#clear_vars ()
@@ -164,6 +155,33 @@ fun! wheel#layer#restore_options (options)
 endfun
 
 " Push & pop to stack
+
+fun! wheel#layer#truncate ()
+	" Truncate layer stack
+	let maxim = g:wheel_config.maxim.layers - 1
+	let stack = b:wheel_stack
+	for field in s:layer_stack_fields
+		let stack[field] = stack[field][:maxim]
+	endfor
+endfun
+
+fun! wheel#layer#push_field (field, element)
+	" Push element to stack field
+	let field = a:field
+	let element = a:element
+	let top = b:wheel_stack.current
+	let length = wheel#layer#length ()
+	let maxim = g:wheel_config.maxim.layers
+	if length < maxim
+		call insert(field, element, top)
+	else
+		let newtop = top - 1
+		if newtop < 0
+			let newtop += length
+		let b:wheel_stack.current = newtop
+		let field[newtop] = element
+	endif
+endfun
 
 fun! wheel#layer#push (mandala_type)
 	" Push buffer content to the stack
