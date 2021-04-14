@@ -102,7 +102,8 @@ fun! wheel#shape#grep ()
 	" Reorder level elements in a buffer
 	" called from context menu,
 	" original grep lines are at the top of the stack
-	let lines = b:wheel_stack.lines[0]
+	let top = b:wheel_stack.current
+	let lines = b:wheel_stack.lines[top]
 	call wheel#vortex#update ()
 	" new buffer
 	call wheel#mandala#open ('grep/edit')

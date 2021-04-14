@@ -1,9 +1,6 @@
 " vim: ft=vim fdm=indent:
 
 " Layers stack on mandala buffer
-"
-" Beware : index 0 in fields are at the top of the stack
-" e.g. : b:wheel_stack.field[0]
 
 " Script vars
 
@@ -44,6 +41,9 @@ fun! wheel#layer#init ()
 	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
+		" index of current layer, top of stack
+		let b:wheel_stack.current = 0
+		" other fields
 		for field in s:layer_stack_fields
 			let b:wheel_stack[field] = []
 		endfor
