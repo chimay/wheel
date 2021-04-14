@@ -19,6 +19,8 @@ endif
 fun! wheel#tower#overlay (settings)
 	" Define local maps for overlay
 	let settings = copy(a:settings)
+	call wheel#mandala#common_maps ()
+	" Menu specific maps
 	let map  =  'nnoremap <buffer> '
 	let pre  = ' :call wheel#line#menu('
 	let post = ')<cr>'
@@ -38,12 +40,12 @@ fun! wheel#tower#staircase (settings)
 	let settings = a:settings
 	let dictname = settings.linefun
 	call wheel#layer#push (dictname)
+	call wheel#layer#fresh ()
 	let dict = wheel#crystal#fetch (dictname)
 	let lines = sort(keys(dict))
 	call wheel#mandala#replace (lines, 'blank')
 	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
 	let b:wheel_lines = lines
-	unlet b:wheel_reload
 	call cursor(1, 1)
 endfun
