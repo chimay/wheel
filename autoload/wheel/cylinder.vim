@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Mandala buffers stack
+" Mandala buffers stack / ring
 
 fun! wheel#cylinder#push (...)
 	" Push new mandala buffer

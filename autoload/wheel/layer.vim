@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Layers stack on mandala buffer
+" Layers stack / ring in mandala buffer
 
 " Script vars
 
@@ -56,7 +56,12 @@ fun! wheel#layer#init ()
 	endif
 endfun
 
-" Maximum stack size
+" Stack size
+
+fun! wheel#layer#length ()
+	" Return stack length
+	return len(b:wheel_stack.filename)
+endfun
 
 fun! wheel#layer#truncate ()
 	" Truncate layer stack
@@ -217,9 +222,6 @@ endfun
 fun! wheel#layer#pop ()
 	" Pop buffer content from the stack
 	" Restore modified local maps
-	if ! exists('b:wheel_stack')
-		return
-	endif
 	let stack = b:wheel_stack
 	" Pseudo filename
 	let filename = stack.filename
@@ -263,4 +265,23 @@ fun! wheel#layer#pop ()
 	let b:wheel_reload = wheel#chain#pop(reload)
 	" Tell (n)vim the buffer is to be considered not modified
 	setlocal nomodified
+endfun
+
+fun! wheel#layer#sync ()
+	" Sync top of the stack -> mandala vars, options, maps
+	let stack = b:wheel_stack
+endfun
+
+fun! wheel#layer#rotate_right ()
+	" Rotate layer stack to the right
+	let top = b:wheel_stack.current
+	let length = wheel#layer#length ()
+	let b:wheel_stack.current = (top + 1) % length
+endfun
+
+fun! wheel#layer#rotate_left ()
+	" Rotate layer stack to the left
+	let top = b:wheel_stack.current
+	let length = wheel#layer#length ()
+	let b:wheel_stack.current = (top - 1) % length
 endfun
