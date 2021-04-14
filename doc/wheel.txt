@@ -1396,7 +1396,8 @@ Managing special buffers~
 | --------    | ------------------- | --------------------------------- |
 | <Tab>       | <M-w><Tab>          | Save (push) special buffer        |
 | <Backspace> | <M-w><Backspace>    | Remove (pop) special buffer       |
-| @           | <M-w>@              | Cycle special buffers             |
+| @           | <M-w>@              | Cycle special buffers, rightward  |
+| <M-@>       | <M-w><M-@>          | Cycle special buffers, leftward   |
 
 Tabs~
 
@@ -1469,7 +1470,7 @@ and add them to your init file.
 | <S-PageDown>   | Go to older location in history              |
 | -------------- | -------------------------------------------- |
 | <C-^>          | Alternate last two locations                 |
-| <D-^>          | Alternate in same torus, other circle        |
+| <M-C-^>        | Alternate in same torus, other circle        |
 | <M-PageUp>     | Alternate in same torus                      |
 | <M-PageDown>   | Alternate in same circle                     |
 | <M-Home>       | Alternate in other torus                     |
@@ -1479,7 +1480,7 @@ and add them to your init file.
 | <C-Space>      | Choose circle in special buffer              |
 | <S-Space>      | Choose torus in special buffer               |
 | <M-x>          | Choose element in wheel folding tree         |
-| <D-x>          | Index of toruses > circles > locations       |
+| <M-C-x>        | Index of toruses > circles > locations       |
 | <M-h>          | History index                                |
 | -------------- | -------------------------------------------- |
 | <M-s>          | Occur in current file                        |
@@ -1500,7 +1501,7 @@ and add them to your init file.
 | <M-&>          | Async shell command in special buffer        |
 | -------------- | -------------------------------------------- |
 | <M-r>          | Reorganize wheel elements                    |
-| <D-v>          | Reorganize tabs and windows                  |
+| <M-C-v>        | Reorganize tabs and windows                  |
 | -------------- | -------------------------------------------- |
 | <M-y>          | Paste yank wheel element in list mode        |
 | <M-p>          | Paste yank wheel element in plain mode       |
@@ -1514,7 +1515,7 @@ and add them to your init file.
 | -------------- | -------------------------------------------- |
 | <M-Tab>        | Save (push) special buffer                   |
 | <M-Backspace>  | Remove (pop) special buffer                  |
-| <M-Space>      | Cycle special buffers                        |
+| <M-Space>      | Cycle special buffers, rightward             |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -1536,8 +1537,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <s-pageup>     <plug>(wheel-history-newer)
     nmap <s-pagedown>   <plug>(wheel-history-older)
     " Alternate
-    nmap <c-^>          <plug>(wheel-alternate-anywhere)
-    nmap <d-^>          <plug>(wheel-alternate-same-torus-other-circle)
+    nmap <c-^>        <plug>(wheel-alternate-anywhere)
+    nmap <m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)
     nmap <m-pageup>   <plug>(wheel-alternate-same-torus)
     nmap <m-pagedown> <plug>(wheel-alternate-same-circle)
     nmap <m-home>     <plug>(wheel-alternate-other-torus)
@@ -1547,13 +1548,13 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <c-space>    <plug>(wheel-navigation-circle)
     nmap <s-space>    <plug>(wheel-navigation-torus)
     nmap <m-x>        <plug>(wheel-tree)
-    nmap <d-x>        <plug>(wheel-index-locations)
+    nmap <m-c-x>      <plug>(wheel-index-locations)
     nmap <m-h>        <plug>(wheel-history)
     " Opened files
     nmap <m-b>          <plug>(wheel-opened-files)
     " Tabs & windows : visible buffers in tree mode
     nmap <m-v>          <plug>(wheel-tabwins-tree)
-    nmap <d-v>          <plug>(wheel-reorg-tabwins)
+    nmap <m-c-v>        <plug>(wheel-reorg-tabwins)
     " Search inside files
     nmap <m-s>          <plug>(wheel-occur)
     nmap <m-g>          <plug>(wheel-grep)
@@ -1585,7 +1586,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Remove (pop) mandala buffer
     nmap <m-Backspace>  <plug>(wheel-buffer-pop)
     " Cycle mandala buffers
-    nmap <m-space>      <plug>(wheel-buffer-cycle)
+    nmap <m-space>      <plug>(wheel-buffer-rotate-right)
 <
 
 ------------------------------------------------------------------------------
@@ -1604,6 +1605,10 @@ Some bindings that you may find useful : >
     nmap <m-cr> <plug>(wheel-switch-location)
     nmap <c-cr> <plug>(wheel-switch-circle)
     nmap <s-cr> <plug>(wheel-switch-torus)
+
+    nmap <d-^> <plug>(wheel-alternate-same-torus-other-circle)
+    nmap <d-x> <plug>(wheel-index-locations)
+    nmap <d-space> <plug>(wheel-mandala-rotate-left)
 
     nmap <silent> k :call wheel#mandala#wrap_up()<cr>
     nmap <silent> j :call wheel#mandala#wrap_down()<cr>

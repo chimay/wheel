@@ -103,8 +103,8 @@ fun! wheel#centre#plugs ()
 	" Remove (pop) mandala buffer
 	nnoremap <plug>(wheel-mandala-pop) :call wheel#cylinder#pop()<cr>
 	" Cycle mandala buffers
-	nnoremap <plug>(wheel-mandala-cycle-left) :call wheel#cylinder#cycle_left()<cr>
-	nnoremap <plug>(wheel-mandala-cycle-right) :call wheel#cylinder#cycle_right()<cr>
+	nnoremap <plug>(wheel-mandala-rotate-left) :call wheel#cylinder#rotate_left()<cr>
+	nnoremap <plug>(wheel-mandala-rotate-right) :call wheel#cylinder#rotate_right()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabs-locations) :call wheel#mosaic#tabs('location')<cr>
 	nnoremap <plug>(wheel-tabs-circles) :call wheel#mosaic#tabs('circle')<cr>
@@ -228,8 +228,8 @@ fun! wheel#centre#cables ()
 		" Remove (pop) mandala buffer
 		exe 'nmap ' . prefix . '<backspace> <plug>(wheel-mandala-pop)'
 		" Cycle mandala buffers
-		exe 'nmap ' . prefix . '@ <plug>(wheel-mandala-cycle-right)'
-		exe 'nmap ' . prefix . '<M-@> <plug>(wheel-mandala-cycle-left)'
+		exe 'nmap ' . prefix . '@ <plug>(wheel-mandala-rotate-right)'
+		exe 'nmap ' . prefix . '<M-@> <plug>(wheel-mandala-rotate-left)'
 		" Tabs
 		exe 'nmap ' . prefix . 't <plug>(wheel-tabs-locations)'
 		exe 'nmap ' . prefix . '<c-t> <plug>(wheel-tabs-circles)'
@@ -275,7 +275,7 @@ fun! wheel#centre#cables ()
 		nmap <s-pagedown>   <plug>(wheel-history-older)
 		" Alternate
 		nmap <c-^>        <plug>(wheel-alternate-anywhere)
-		nmap <d-^>        <plug>(wheel-alternate-same-torus-other-circle)
+		nmap <m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)
 		nmap <m-pageup>   <plug>(wheel-alternate-same-torus)
 		nmap <m-pagedown> <plug>(wheel-alternate-same-circle)
 		nmap <m-home>     <plug>(wheel-alternate-other-torus)
@@ -285,7 +285,7 @@ fun! wheel#centre#cables ()
 		nmap <c-space>    <plug>(wheel-navigation-circle)
 		nmap <s-space>    <plug>(wheel-navigation-torus)
 		nmap <m-x>        <plug>(wheel-tree)
-		nmap <d-x>        <plug>(wheel-index-locations)
+		nmap <m-c-x>      <plug>(wheel-index-locations)
 		nmap <m-h>        <plug>(wheel-history)
 		" Opened files
 		nmap <m-b>          <plug>(wheel-opened-files)
@@ -323,7 +323,7 @@ fun! wheel#centre#cables ()
 		" Remove (pop) mandala buffer
 		nmap <m-Backspace>  <plug>(wheel-mandala-pop)
 		" Cycle mandala buffers
-		nmap <m-space>      <plug>(wheel-mandala-cycle-right)
+		nmap <m-space>      <plug>(wheel-mandala-rotate-right)
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

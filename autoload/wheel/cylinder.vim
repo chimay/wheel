@@ -140,7 +140,7 @@ fun! wheel#cylinder#check ()
 	endfor
 endfun
 
-fun! wheel#cylinder#cycle_right ()
+fun! wheel#cylinder#rotate_right ()
 	" Cycle mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
@@ -152,7 +152,7 @@ fun! wheel#cylinder#cycle_right ()
 	call wheel#cylinder#recall ()
 endfun
 
-fun! wheel#cylinder#cycle_left ()
+fun! wheel#cylinder#rotate_left ()
 	" Cycle mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
