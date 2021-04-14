@@ -4,7 +4,6 @@
 
 fun! wheel#chain#insert_next (index, new, list)
 	" Insert new element in list just after index
-	" index = 0 by default
 	let index = a:index + 1
 	let list = a:list
 	let new = a:new
@@ -14,14 +13,16 @@ fun! wheel#chain#insert_next (index, new, list)
 	if index < len(list)
 		return insert(list, new, index)
 	elseif index == len(list)
+		"could be done with
+		" insert(list, new, len(list))
 		return add(list, new)
 	endif
 endfun
 
 fun! wheel#chain#insert_after (element, new, list)
-	" Insert sublist in list just after element
+	" Insert new in list just after element
 	let index = index(a:list, a:element)
-	return wheel#chain#insert_next (index, a:list, a:new)
+	return wheel#chain#insert_next (index, a:new, a:list)
 endfun
 
 fun! wheel#chain#replace (old, new, list)
