@@ -251,7 +251,7 @@ fun! wheel#gear#unmap (key, ...)
 		" dictionary with map caracteristics
 		let dict = maparg(key, mode, 0, 1)
 		if ! empty(dict) && dict.buffer
-			let pre = mode . 'unmap <buffer> '
+			let pre = mode . 'unmap <silent> <buffer> '
 			let runme = pre . key
 			exe runme
 		endif

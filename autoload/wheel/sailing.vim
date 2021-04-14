@@ -14,7 +14,7 @@ endif
 fun! wheel#sailing#maps (settings)
 	" Define local maps
 	let settings = copy(a:settings)
-	let map  =  'nnoremap <buffer> '
+	let map  =  'nnoremap <silent> <buffer> '
 	let pre  = ' :call wheel#line#sailing('
 	let post = ')<cr>'
 	" Close after navigation
@@ -46,9 +46,9 @@ fun! wheel#sailing#maps (settings)
 	let settings.target = 'vertical_golden'
 	exe map . 'gV' . pre . string(settings) . post
 	" Define local toggle selection maps
-	nnoremap <buffer> <space> :call wheel#line#toggle()<cr>
+	nnoremap <silent> <buffer> <space> :call wheel#line#toggle()<cr>
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('sailing')<cr>
+	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('sailing')<cr>
 endfun
 
 fun! wheel#sailing#template (settings)
@@ -173,7 +173,7 @@ fun! wheel#sailing#opened_files ()
 	" Reload
 	let b:wheel_reload = 'wheel#sailing#opened_files'
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('openedFiles')<cr>
+	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('openedFiles')<cr>
 endfun
 
 fun! wheel#sailing#tabwins ()
@@ -189,7 +189,7 @@ fun! wheel#sailing#tabwins ()
 	" Reload
 	let b:wheel_reload = 'wheel#sailing#tabwins'
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins')<cr>
+	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('tabwins')<cr>
 endfun
 
 fun! wheel#sailing#tabwins_tree ()
@@ -206,7 +206,7 @@ fun! wheel#sailing#tabwins_tree ()
 	" Reload
 	let b:wheel_reload = 'wheel#sailing#tabwins_tree'
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree')<cr>
+	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree')<cr>
 endfun
 
 fun! wheel#sailing#occur (...)
@@ -250,7 +250,7 @@ fun! wheel#sailing#grep (...)
 		" Reload
 		let b:wheel_reload = "wheel#sailing#grep('" . pattern . "')"
 		" Context menu
-		nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
+		nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
 	endif
 	return bool
 endfun
@@ -332,7 +332,7 @@ fun! wheel#sailing#find (...)
 		let job = wheel#ripple#start(command, settings)
 	endif
 	" Map to stop the job
-	let map  =  'nnoremap <buffer> '
+	let map  =  'nnoremap <silent> <buffer> '
 	if has('nvim')
 		let callme  = ' :call wheel#wave#stop()<cr>'
 	else

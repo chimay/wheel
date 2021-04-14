@@ -15,29 +15,29 @@ endfun
 fun! wheel#clipper#maps (mode)
 	" Define local yank maps
 	if a:mode == 'list'
-		nnoremap <buffer> <cr> :call wheel#line#paste_list ('after', 'close')<cr>
-		nnoremap <buffer> g<cr> :call wheel#line#paste_list ('after', 'open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste_list ('after', 'open')<cr>
-		nnoremap <buffer> P :call wheel#line#paste_list ('before', 'open')<cr>
+		nnoremap <silent> <buffer> <cr> :call wheel#line#paste_list ('after', 'close')<cr>
+		nnoremap <silent> <buffer> g<cr> :call wheel#line#paste_list ('after', 'open')<cr>
+		nnoremap <silent> <buffer> p :call wheel#line#paste_list ('after', 'open')<cr>
+		nnoremap <silent> <buffer> P :call wheel#line#paste_list ('before', 'open')<cr>
 	elseif a:mode == 'plain'
 		" normal mode
-		nnoremap <buffer> <cr> :call wheel#line#paste_plain ('linewise_after', 'close')<cr>
-		nnoremap <buffer> g<cr> :call wheel#line#paste_plain ('linewise_after', 'open')<cr>
-		nnoremap <buffer> p :call wheel#line#paste_plain ('linewise_after', 'open')<cr>
-		nnoremap <buffer> P :call wheel#line#paste_plain ('linewise_before', 'open')<cr>
-		nnoremap <buffer> gp :call wheel#line#paste_plain ('character_after', 'open')<cr>
-		nnoremap <buffer> gP :call wheel#line#paste_plain ('character_before', 'open')<cr>
+		nnoremap <silent> <buffer> <cr> :call wheel#line#paste_plain ('linewise_after', 'close')<cr>
+		nnoremap <silent> <buffer> g<cr> :call wheel#line#paste_plain ('linewise_after', 'open')<cr>
+		nnoremap <silent> <buffer> p :call wheel#line#paste_plain ('linewise_after', 'open')<cr>
+		nnoremap <silent> <buffer> P :call wheel#line#paste_plain ('linewise_before', 'open')<cr>
+		nnoremap <silent> <buffer> gp :call wheel#line#paste_plain ('character_after', 'open')<cr>
+		nnoremap <silent> <buffer> gP :call wheel#line#paste_plain ('character_before', 'open')<cr>
 		" Visual mode
-		vnoremap <buffer> <cr> :<c-u>call wheel#line#paste_visual('after', 'close')<cr>
-		vnoremap <buffer> g<cr> :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
-		vnoremap <buffer> p :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
-		vnoremap <buffer> P :<c-u>call wheel#line#paste_visual('before', 'open')<cr>
+		vnoremap <silent> <buffer> <cr> :<c-u>call wheel#line#paste_visual('after', 'close')<cr>
+		vnoremap <silent> <buffer> g<cr> :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
+		vnoremap <silent> <buffer> p :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
+		vnoremap <silent> <buffer> P :<c-u>call wheel#line#paste_visual('before', 'open')<cr>
 	endif
 	" Undo, redo
-	nnoremap <buffer> u :call wheel#mandala#undo()<cr>
-	nnoremap <buffer> <c-r> :call wheel#mandala#redo()<cr>
+	nnoremap <silent> <buffer> u :call wheel#mandala#undo()<cr>
+	nnoremap <silent> <buffer> <c-r> :call wheel#mandala#redo()<cr>
 	" Context menu
-	nnoremap <buffer> <tab> :call wheel#boomerang#menu('yank')<cr>
+	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('yank')<cr>
 endfun
 
 fun! wheel#clipper#template (settings)

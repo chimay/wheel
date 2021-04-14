@@ -36,9 +36,9 @@ fun! wheel#mandala#pseudo_filename (mandala_type)
 	let type = a:mandala_type
 	let current = g:wheel_mandalas.current
 	let iden = g:wheel_mandalas.iden[current]
-	let pseudo_folders = '/wheel/' . iden . '/' . type
-	exe 'silent file' pseudo_folders
-	return pseudo_folders
+	let pseudo_filename = '/wheel/' . iden . '/' . type
+	exe 'silent file' pseudo_filename
+	return pseudo_filename
 endfun
 
 fun! wheel#mandala#open (type)
@@ -47,7 +47,7 @@ fun! wheel#mandala#open (type)
 	if wheel#cylinder#recall()
 		let filename = expand('%')
 		if filename !~ s:mandala_empty
-			call wheel#layer#push (type)
+			call wheel#layer#push ()
 			call wheel#layer#fresh ()
 		endif
 	else
@@ -125,6 +125,8 @@ endfun
 
 fun! wheel#mandala#reload ()
 	" Reload current mandala
+	" save pseudo filename
+	let filename = expand('%')
 	" mark the buffer as empty, to avoid pushing a new layer
 	call wheel#mandala#pseudo_filename ('empty')
 	" reload content
@@ -135,6 +137,8 @@ fun! wheel#mandala#reload ()
 		" delete all lines and fill the buffer with b:wheel_lines
 		1,$ delete _
 		call wheel#mandala#fill (b:wheel_lines)
+		" restore
+		exe 'silent file' filename
 	endif
 endfun
 
@@ -241,28 +245,30 @@ endfun
 
 fun! wheel#mandala#common_maps ()
 	" Define local common maps
-	nnoremap <buffer> q :call wheel#mandala#close()<cr>
-	nnoremap <buffer> j :call wheel#mandala#wrap_down()<cr>
-	nnoremap <buffer> k :call wheel#mandala#wrap_up()<cr>
-	nnoremap <buffer> <down> :call wheel#mandala#wrap_down()<cr>
-	nnoremap <buffer> <up> :call wheel#mandala#wrap_up()<cr>
+	nnoremap <silent> <buffer> q :call wheel#mandala#close()<cr>
+	nnoremap <silent> <buffer> j :call wheel#mandala#wrap_down()<cr>
+	nnoremap <silent> <buffer> k :call wheel#mandala#wrap_up()<cr>
+	nnoremap <silent> <buffer> <down> :call wheel#mandala#wrap_down()<cr>
+	nnoremap <silent> <buffer> <up> :call wheel#mandala#wrap_up()<cr>
 	" Reload mandala
-	nnoremap <buffer> r :call wheel#mandala#reload ()<cr>
-	" Map to go back
-	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
+	nnoremap <silent> <buffer> r :call wheel#mandala#reload ()<cr>
+	" Navigate in layer stack
+	nnoremap <silent> <buffer> H :call wheel#layer#rotate_left ()<cr>
+	nnoremap <silent> <buffer> L :call wheel#layer#rotate_right ()<cr>
+	nnoremap <silent> <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfu
 
 fun! wheel#mandala#filter_maps ()
 	" Define local filter maps
 	" Normal mode
-	nnoremap <buffer> i ggA
-	nnoremap <buffer> a ggA
+	nnoremap <silent> <buffer> i ggA
+	nnoremap <silent> <buffer> a ggA
 	" Insert mode
-	inoremap <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
-	inoremap <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
-	inoremap <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
-	inoremap <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
-	inoremap <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
+	inoremap <silent> <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
+	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
+	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
+	inoremap <silent> <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
+	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular esc
 endfun
 
@@ -270,15 +276,15 @@ fun! wheel#mandala#input_history_maps ()
 	" Define local input history maps
 	" Use Up / Down & M-p / M-n
 	" C-p / C-n is taken by (neo)vim completion
-	inoremap <buffer> <up> <esc>:call wheel#scroll#older()<cr>
-	inoremap <buffer> <down> <esc>:call wheel#scroll#newer()<cr>
-	inoremap <buffer> <M-p> <esc>:call wheel#scroll#older()<cr>
-	inoremap <buffer> <M-n> <esc>:call wheel#scroll#newer()<cr>
+	inoremap <silent> <buffer> <up> <esc>:call wheel#scroll#older()<cr>
+	inoremap <silent> <buffer> <down> <esc>:call wheel#scroll#newer()<cr>
+	inoremap <silent> <buffer> <M-p> <esc>:call wheel#scroll#older()<cr>
+	inoremap <silent> <buffer> <M-n> <esc>:call wheel#scroll#newer()<cr>
 	" PageUp / PageDown & M-r / M-s : next / prev matching line
-	inoremap <buffer> <PageUp> <esc>:call wheel#scroll#filtered_older()<cr>
-	inoremap <buffer> <PageDown> <esc>:call wheel#scroll#filtered_newer()<cr>
-	inoremap <buffer> <M-r> <esc>:call wheel#scroll#filtered_older()<cr>
-	inoremap <buffer> <M-s> <esc>:call wheel#scroll#filtered_newer()<cr>
+	inoremap <silent> <buffer> <PageUp> <esc>:call wheel#scroll#filtered_older()<cr>
+	inoremap <silent> <buffer> <PageDown> <esc>:call wheel#scroll#filtered_newer()<cr>
+	inoremap <silent> <buffer> <M-r> <esc>:call wheel#scroll#filtered_older()<cr>
+	inoremap <silent> <buffer> <M-s> <esc>:call wheel#scroll#filtered_newer()<cr>
 endfun
 
 " Folding
@@ -393,7 +399,7 @@ fun! wheel#mandala#async ()
 		let job = wheel#ripple#start(command)
 	endif
 	" Map to stop the job
-	let map  =  'nnoremap <buffer> '
+	let map  =  'nnoremap <silent> <buffer> '
 	if has('nvim')
 		let callme  = ' :call wheel#wave#stop()<cr>'
 	else

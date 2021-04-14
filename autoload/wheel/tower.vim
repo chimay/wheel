@@ -21,7 +21,7 @@ fun! wheel#tower#overlay (settings)
 	let settings = copy(a:settings)
 	call wheel#mandala#common_maps ()
 	" Menu specific maps
-	let map  =  'nnoremap <buffer> '
+	let map  =  'nnoremap <silent> <buffer> '
 	let pre  = ' :call wheel#line#menu('
 	let post = ')<cr>'
 	" Open / Close : default in settings
@@ -39,10 +39,11 @@ fun! wheel#tower#staircase (settings)
 	" Define dict maps
 	let settings = a:settings
 	let dictname = settings.linefun
-	call wheel#layer#push (dictname)
+	call wheel#layer#push ()
 	call wheel#layer#fresh ()
 	let dict = wheel#crystal#fetch (dictname)
 	let lines = sort(keys(dict))
+	call wheel#mandala#pseudo_filename (dictname)
 	call wheel#mandala#replace (lines, 'blank')
 	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings

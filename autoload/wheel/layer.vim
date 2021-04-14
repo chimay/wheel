@@ -43,9 +43,11 @@ fun! wheel#layer#init ()
 		let b:wheel_stack = {}
 		" index of current layer, top of stack
 		let b:wheel_stack.current = 0
+		" order of insertion of index
+		let b:wheel_stack.chronos = []
 		" other fields
-		for field in s:layer_stack_fields
-			let b:wheel_stack[field] = []
+		for fieldname in s:layer_stack_fields
+			let b:wheel_stack[fieldname] = []
 		endfor
 	endif
 	if ! exists('b:wheel_lines')
@@ -61,6 +63,31 @@ endfun
 fun! wheel#layer#length ()
 	" Return stack length
 	return len(b:wheel_stack.filename)
+endfun
+
+" Indexes
+
+fun! wheel#layer#bottom ()
+	" Return layer index to be popped or replaced in stack
+	let top = b:wheel_stack.current
+	let top = top - 1
+	if top < 0
+		let length = wheel#layer#length ()
+		let top += length
+	endif
+	return top
+endfun
+
+fun! wheel#layer#pushed_top ()
+	" Return top layer index after push
+	let top = b:wheel_stack.current
+	let length = wheel#layer#length ()
+	let maxim = g:wheel_config.maxim.layers
+	if length < maxim
+		return top
+	else
+		return wheel#layer#bottom ()
+	endif
 endfun
 
 " Clearing things
@@ -86,8 +113,6 @@ fun! wheel#layer#fresh ()
 	call wheel#layer#clear_maps ()
 	" Delete lines -> _ no storing register
 	1,$ delete _
-	" Truncate the stack to max size
-	call wheel#layer#truncate ()
 endfun
 
 " Saving things
@@ -156,15 +181,6 @@ endfun
 
 " Push & pop to stack
 
-fun! wheel#layer#truncate ()
-	" Truncate layer stack
-	let maxim = g:wheel_config.maxim.layers - 1
-	let stack = b:wheel_stack
-	for field in s:layer_stack_fields
-		let stack[field] = stack[field][:maxim]
-	endfor
-endfun
-
 fun! wheel#layer#push_field (field, element)
 	" Push element to stack field
 	let field = a:field
@@ -175,114 +191,18 @@ fun! wheel#layer#push_field (field, element)
 	if length < maxim
 		call insert(field, element, top)
 	else
-		let newtop = top - 1
-		if newtop < 0
-			let newtop += length
-		let b:wheel_stack.current = newtop
+		let newtop = wheel#layer#pushed_top ()
 		let field[newtop] = element
 	endif
 endfun
 
-fun! wheel#layer#push (mandala_type)
-	" Push buffer content to the stack
-	" Save modified local maps
-	call wheel#layer#init ()
-	let stack = b:wheel_stack
-	" Pseudo filename
-	let filename = stack.filename
-	call insert(filename, expand('%'))
-	" Local options
-	let opts = stack.opts
-	let ampersands = wheel#layer#save_options ()
-	call insert(opts, ampersands)
-	" lines content, without filtering
-	let lines = stack.lines
-	if empty(b:wheel_lines)
-		let buflines = getline(2, '$')
-	else
-		let buflines = b:wheel_lines
+fun! wheel#layer#pop_field (field)
+	" Pop top of stack field
+	let field = a:field
+	let top = b:wheel_stack.current
+	if ! empty(field)
+		call remove(field, top)
 	endif
-	call insert(lines, buflines)
-	" filtered content
-	let filtered = stack.filtered
-	let now = getline(1, '$')
-	call insert(filtered, now)
-	" Cursor position
-	let position = stack.position
-	call insert(position, getcurpos())
-	" Selected lines
-	let selected = stack.selected
-	if empty(b:wheel_selected)
-		let address = wheel#line#address()
-		let b:wheel_selected = [address]
-	endif
-	call insert(selected, b:wheel_selected)
-	" Buffer settings
-	let settings = stack.settings
-	if exists('b:wheel_settings')
-		call insert(settings, b:wheel_settings)
-	else
-		call insert(settings, {})
-	endif
-	" Buffer mappings
-	let mappings = stack.mappings
-	let mapdict = wheel#layer#save_maps ()
-	call insert(mappings, mapdict)
-	" Reload
-	let reload = stack.reload
-	if exists('b:wheel_reload')
-		call insert(reload, b:wheel_reload)
-	else
-		call insert(reload, '')
-	endif
-endfun
-
-fun! wheel#layer#pop ()
-	" Pop buffer content from the stack
-	" Restore modified local maps
-	let stack = b:wheel_stack
-	" Pseudo filename
-	let filename = stack.filename
-	if empty(filename) || empty(filename[0])
-		echomsg 'wheel layer pop : empty stack.'
-		return
-	endif
-	let pseudo_file = wheel#chain#pop (filename)
-	exe 'silent file' pseudo_file
-	" Local options
-	let opts = stack.opts
-	let ampersands = wheel#chain#pop (opts)
-	call wheel#layer#restore_options (ampersands)
-	" all mandala content, without filtering
-	let lines = stack.lines
-	let b:wheel_lines = wheel#chain#pop (lines)
-	" filtered mandala content
-	let filtered = stack.filtered
-	let now = wheel#chain#pop (filtered)
-	call wheel#mandala#replace (now, 'delete')
-	" Restore cursor position
-	let position = stack.position
-	let pos = wheel#chain#pop (position)
-	call wheel#gear#restore_cursor (pos)
-	" Restore settings
-	let settings = stack.settings
-	let b:wheel_settings = wheel#chain#pop (settings)
-	" Restore mappings
-	let mappings = stack.mappings
-	let mapdict = wheel#chain#pop(mappings)
-	call wheel#layer#restore_maps (mapdict)
-	" Restore selection
-	let selected = stack.selected
-	let b:wheel_selected = wheel#chain#pop(selected)
-	" Empty selection if only one element
-	if len(b:wheel_selected) == 1
-		call wheel#line#deselect ()
-	endif
-	" Reload
-	let reload = stack.reload
-	let b:wheel_reload = wheel#chain#pop(reload)
-	" Tell (n)vim the buffer is to be considered not modified
-	setlocal nomodified
 endfun
 
 fun! wheel#layer#sync ()
@@ -315,7 +235,7 @@ fun! wheel#layer#sync ()
 	call wheel#gear#restore_cursor (position[top])
 	" Restore selection
 	let selected = stack.selected
-	let b:wheel_selected = wheel#chain#pop(selected)
+	let b:wheel_selected = selected[top]
 	" Restore settings
 	let settings = stack.settings
 	let b:wheel_settings = settings[top]
@@ -331,6 +251,74 @@ fun! wheel#layer#sync ()
 	let b:wheel_reload = reload[top]
 	" Tell (neo)vim the buffer is to be considered not modified
 	setlocal nomodified
+endfun
+
+fun! wheel#layer#push ()
+	" Push buffer content to the stack
+	" save modified local maps
+	call wheel#layer#init ()
+	let stack = b:wheel_stack
+	" pseudo filename
+	let filename = stack.filename
+	call wheel#layer#push_field (filename, expand('%'))
+	" local options
+	let opts = stack.opts
+	let ampersands = wheel#layer#save_options ()
+	call wheel#layer#push_field (opts, ampersands)
+	" lines content, without filtering
+	let lines = stack.lines
+	if empty(b:wheel_lines)
+		let buflines = getline(2, '$')
+	else
+		let buflines = b:wheel_lines
+	endif
+	call wheel#layer#push_field (lines, buflines)
+	" filtered content
+	let filtered = stack.filtered
+	call wheel#layer#push_field (filtered, getline(1, '$'))
+	" cursor position
+	let position = stack.position
+	call wheel#layer#push_field (position, getcurpos())
+	" selected lines
+	let selected = stack.selected
+	if empty(b:wheel_selected)
+		let address = wheel#line#address()
+		let b:wheel_selected = [address]
+	endif
+	call wheel#layer#push_field (selected, b:wheel_selected)
+	" buffer settings
+	let settings = stack.settings
+	if exists('b:wheel_settings')
+		call wheel#layer#push_field (settings, b:wheel_settings)
+	else
+		call wheel#layer#push_field (settings, {})
+	endif
+	" buffer mappings
+	let mappings = stack.mappings
+	let mapdict = wheel#layer#save_maps ()
+	call wheel#layer#push_field (mappings, mapdict)
+	" reload
+	let reload = stack.reload
+	if exists('b:wheel_reload')
+		call wheel#layer#push_field (reload, b:wheel_reload)
+	else
+		call wheel#layer#push_field (reload, '')
+	endif
+	" new top index
+	let b:wheel_stack.current = wheel#layer#pushed_top ()
+endfun
+
+fun! wheel#layer#pop ()
+	" Pop buffer content from the stack
+	if wheel#layer#length () == 0
+		echomsg 'wheel layer pop : empty stack.'
+		return v:false
+	endif
+	call wheel#layer#sync ()
+	for fieldname in s:layer_stack_fields
+		let field = b:wheel_stack[fieldname]
+		call wheel#layer#pop_field (field)
+	endfor
 endfun
 
 fun! wheel#layer#rotate_right ()
