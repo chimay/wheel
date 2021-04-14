@@ -21,7 +21,7 @@ fun! wheel#cylinder#push (...)
 		let g:wheel_mandalas.maxim = 0
 		call add(iden, 0)
 		call wheel#layer#init ()
-		call wheel#mandala#pseudo_folders ('empty')
+		call wheel#mandala#pseudo_filename ('empty')
 		call wheel#mandala#common_maps ()
 		if mode == 'goback'
 			silent buffer #
@@ -55,7 +55,7 @@ fun! wheel#cylinder#push (...)
 	let maxim = g:wheel_mandalas.maxim
 	call add(iden, maxim)
 	call wheel#layer#init ()
-	call wheel#mandala#pseudo_folders ('empty')
+	call wheel#mandala#pseudo_filename ('empty')
 	call wheel#mandala#common_maps ()
 	" if not in mandala buffer at start, go back to previous buffer
 	if ! in_mandala_buf

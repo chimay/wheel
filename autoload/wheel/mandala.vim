@@ -27,8 +27,8 @@ endif
 
 " Mandala pseudo folders
 
-fun! wheel#mandala#pseudo_folders (mandala_type)
-	" Set filename to pseudo folders /wheel/<type>
+fun! wheel#mandala#pseudo_filename (mandala_type)
+	" Set buffer filename to pseudo filename /wheel/<buf-id>/<type>
 	" Useful as information
 	" We also need a name when writing, even with BufWriteCmd
 	" Add unique buf id, so (n)vim does not complain about
@@ -54,7 +54,7 @@ fun! wheel#mandala#open (type)
 		new
 		call wheel#cylinder#push ('linger')
 	endif
-	call wheel#mandala#pseudo_folders(type)
+	call wheel#mandala#pseudo_filename(type)
 	call wheel#mandala#common_options ()
 endfun
 

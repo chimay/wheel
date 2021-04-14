@@ -277,7 +277,7 @@ fun! wheel#sailing#outline (...)
 		let bool = wheel#sailing#grep ('^=.*=$', '\.wiki$')
 	endif
 	if bool
-		call wheel#mandala#pseudo_folders ('outline')
+		call wheel#mandala#pseudo_filename ('outline')
 		" Reload
 		let b:wheel_reload = "wheel#sailing#outline('" . mode . "')"
 	endif
