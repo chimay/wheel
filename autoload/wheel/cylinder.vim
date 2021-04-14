@@ -53,7 +53,7 @@ fun! wheel#cylinder#push (...)
 	let maxim = g:wheel_mandalas.maxim
 	call add(iden, maxim)
 	call wheel#layer#init ()
-	call wheel#layer#pseudo_folders ('empty')
+	call wheel#mandala#pseudo_folders ('empty')
 	call wheel#mandala#common_maps ()
 	" if not in mandala buffer at start, go back to previous buffer
 	if ! in_mandala_buf

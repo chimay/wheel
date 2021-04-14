@@ -158,22 +158,6 @@ fun! wheel#layer#restore_options (options)
 	endfor
 endfun
 
-" Mandala pseudo folders
-
-fun! wheel#layer#pseudo_folders (mandala_type)
-	" Set filename to pseudo folders /wheel/<type>
-	" Useful as information
-	" We also need a name when writing, even with BufWriteCmd
-	" Add unique buf id, so (n)vim does not complain about
-	" existing filename
-	let type = a:mandala_type
-	let current = g:wheel_mandalas.current
-	let iden = g:wheel_mandalas.iden[current]
-	let pseudo_folders = '/wheel/' . iden . '/' . type
-	exe 'silent file' pseudo_folders
-	return pseudo_folders
-endfun
-
 " Push & pop to stack
 
 fun! wheel#layer#push (mandala_type)
@@ -184,7 +168,6 @@ fun! wheel#layer#push (mandala_type)
 	" Pseudo filename
 	let filename = stack.filename
 	call insert(filename, expand('%'))
-	call wheel#layer#pseudo_folders (a:mandala_type)
 	" Local options
 	let opts = stack.opts
 	let ampersands = wheel#layer#save_options ()

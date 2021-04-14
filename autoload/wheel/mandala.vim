@@ -25,6 +25,22 @@ endif
 
 " Buffer
 
+" Mandala pseudo folders
+
+fun! wheel#mandala#pseudo_folders (mandala_type)
+	" Set filename to pseudo folders /wheel/<type>
+	" Useful as information
+	" We also need a name when writing, even with BufWriteCmd
+	" Add unique buf id, so (n)vim does not complain about
+	" existing filename
+	let type = a:mandala_type
+	let current = g:wheel_mandalas.current
+	let iden = g:wheel_mandalas.iden[current]
+	let pseudo_folders = '/wheel/' . iden . '/' . type
+	exe 'silent file' pseudo_folders
+	return pseudo_folders
+endfun
+
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
@@ -38,7 +54,7 @@ fun! wheel#mandala#open (type)
 		new
 		call wheel#cylinder#push ('linger')
 	endif
-	call wheel#layer#pseudo_folders(type)
+	call wheel#mandala#pseudo_folders(type)
 	call wheel#mandala#common_options ()
 endfun
 
