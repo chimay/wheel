@@ -79,7 +79,7 @@ endif
 
 if ! exists('s:layer_stack_fields')
 	" filename : pseudo filename of the mandala
-	" opts : local options
+	" options : local options
 	" lines : lines mandala content, without filtering
 	" filtered : filtered mandala content
 	" position : cursor position
@@ -89,7 +89,7 @@ if ! exists('s:layer_stack_fields')
 	" reload : reload function
 	let s:layer_stack_fields = [
 				\ 'filename',
-				\ 'opts',
+				\ 'options',
 				\ 'lines',
 				\ 'filtered',
 				\ 'position',

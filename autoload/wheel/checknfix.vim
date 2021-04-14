@@ -4,9 +4,9 @@
 
 " Script vars
 
-if ! exists('s:stack_fields')
-	let s:stack_fields = wheel#crystal#fetch('stack/fields')
-	lockvar s:stack_fields
+if ! exists('s:layer_stack_fields')
+	let s:layer_stack_fields = wheel#crystal#fetch('layer/stack/fields')
+	lockvar s:layer_stack_fields
 endif
 
 " Checkers
@@ -109,12 +109,14 @@ endfun
 
 fun! wheel#checknfix#layer_stack ()
 	" Check b:wheel_stack in mandalas
-	let length = len(b:wheel_stack[s:stack_fields[0]])
-	for field in s:stack_fields
-		echomsg field
+	let length = wheel#layer#length ()
+	echomsg 'layer stack length : ' string(length)
+	for field in s:layer_stack_fields
 		let same = len(b:wheel_stack[field])
 		if same != length
 			echomsg 'wheel layer stack : bad' field 'length :' string(same) '/ filename :' string(length)
+		else
+			echomsg field 'ok'
 		endif
 	endfor
 endfun

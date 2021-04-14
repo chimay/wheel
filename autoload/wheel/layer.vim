@@ -41,10 +41,10 @@ fun! wheel#layer#init ()
 	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
-		" index of current layer, top of stack
-		let b:wheel_stack.current = 0
-		" order of insertion of index
-		let b:wheel_stack.chronos = []
+		" index of top layer
+		let b:wheel_stack.top = 0
+		" stack length
+		let b:wheel_stack.length = 0
 		" other fields
 		for fieldname in s:layer_stack_fields
 			let b:wheel_stack[fieldname] = []
@@ -58,21 +58,36 @@ fun! wheel#layer#init ()
 	endif
 endfun
 
-" Stack size
+" Indexes
 
-fun! wheel#layer#length ()
-	" Return stack length
-	return len(b:wheel_stack.filename)
+fun! wheel#layer#pushed_length ()
+	" Return layer stack length after push
+	let length = b:wheel_stack.length
+	let maxim = g:wheel_config.maxim.layers
+	if length < maxim
+		let length += 1
+	else
+		let length = maxim
+	endif
+	return length
 endfun
 
-" Indexes
+fun! wheel#layer#popped_top ()
+	" Return layer stack length after push
+	let top = b:wheel_stack.top
+	let length = b:wheel_stack.length
+	if top >= length
+		let top = length - 1
+	endif
+	return top
+endfun
 
 fun! wheel#layer#bottom ()
 	" Return layer index to be popped or replaced in stack
-	let top = b:wheel_stack.current
+	let top = b:wheel_stack.top
 	let top = top - 1
 	if top < 0
-		let length = wheel#layer#length ()
+		let length = b:wheel_stack.length
 		let top += length
 	endif
 	return top
@@ -80,8 +95,8 @@ endfun
 
 fun! wheel#layer#pushed_top ()
 	" Return top layer index after push
-	let top = b:wheel_stack.current
-	let length = wheel#layer#length ()
+	let top = b:wheel_stack.top
+	let length = b:wheel_stack.length
 	let maxim = g:wheel_config.maxim.layers
 	if length < maxim
 		return top
@@ -185,13 +200,13 @@ fun! wheel#layer#push_field (field, element)
 	" Push element to stack field
 	let field = a:field
 	let element = a:element
-	let top = b:wheel_stack.current
-	let length = wheel#layer#length ()
+	let top = b:wheel_stack.top
+	let length = b:wheel_stack.length
 	let maxim = g:wheel_config.maxim.layers
 	if length < maxim
 		call insert(field, element, top)
 	else
-		let newtop = wheel#layer#pushed_top ()
+		let newtop = wheel#layer#bottom ()
 		let field[newtop] = element
 	endif
 endfun
@@ -199,7 +214,7 @@ endfun
 fun! wheel#layer#pop_field (field)
 	" Pop top of stack field
 	let field = a:field
-	let top = b:wheel_stack.current
+	let top = b:wheel_stack.top
 	if ! empty(field)
 		call remove(field, top)
 	endif
@@ -207,11 +222,11 @@ endfun
 
 fun! wheel#layer#sync ()
 	" Sync top of the stack -> mandala vars, options, maps
-	if wheel#layer#length() == 0
+	if b:wheel_stack.length == 0
 		return v:false
 	endif
 	let stack = b:wheel_stack
-	let top = stack.current
+	let top = stack.top
 	" Pseudo filename
 	let filename = stack.filename
 	if empty(filename) || empty(filename[0])
@@ -221,8 +236,8 @@ fun! wheel#layer#sync ()
 	let pseudo_file = filename[top]
 	exe 'silent file' pseudo_file
 	" Local options
-	let opts = stack.opts
-	let ampersands = opts[top]
+	let options = stack.options
+	let ampersands = options[top]
 	call wheel#layer#restore_options (ampersands)
 	" all mandala content, without filtering
 	let lines = stack.lines
@@ -262,9 +277,9 @@ fun! wheel#layer#push ()
 	let filename = stack.filename
 	call wheel#layer#push_field (filename, expand('%'))
 	" local options
-	let opts = stack.opts
+	let options = stack.options
 	let ampersands = wheel#layer#save_options ()
-	call wheel#layer#push_field (opts, ampersands)
+	call wheel#layer#push_field (options, ampersands)
 	" lines content, without filtering
 	let lines = stack.lines
 	if empty(b:wheel_lines)
@@ -305,12 +320,14 @@ fun! wheel#layer#push ()
 		call wheel#layer#push_field (reload, '')
 	endif
 	" new top index
-	let b:wheel_stack.current = wheel#layer#pushed_top ()
+	let b:wheel_stack.top = wheel#layer#pushed_top ()
+	" new length
+	let b:wheel_stack.length = wheel#layer#pushed_length ()
 endfun
 
 fun! wheel#layer#pop ()
 	" Pop buffer content from the stack
-	if wheel#layer#length () == 0
+	if b:wheel_stack.length == 0
 		echomsg 'wheel layer pop : empty stack.'
 		return v:false
 	endif
@@ -319,20 +336,22 @@ fun! wheel#layer#pop ()
 		let field = b:wheel_stack[fieldname]
 		call wheel#layer#pop_field (field)
 	endfor
+	let b:wheel_stack.top = wheel#layer#popped_top ()
+	let b:wheel_stack.length -= 1
 endfun
 
 fun! wheel#layer#rotate_right ()
 	" Rotate layer stack to the right
-	let top = b:wheel_stack.current
-	let length = wheel#layer#length ()
-	let b:wheel_stack.current = (top + 1) % length
+	let top = b:wheel_stack.top
+	let length = b:wheel_stack.length
+	let b:wheel_stack.top = (top + 1) % length
 	call wheel#layer#sync ()
 endfun
 
 fun! wheel#layer#rotate_left ()
 	" Rotate layer stack to the left
-	let top = b:wheel_stack.current
-	let length = wheel#layer#length ()
-	let b:wheel_stack.current = (top - 1) % length
+	let top = b:wheel_stack.top
+	let length = b:wheel_stack.length
+	let b:wheel_stack.top = (top - 1) % length
 	call wheel#layer#sync ()
 endfun
