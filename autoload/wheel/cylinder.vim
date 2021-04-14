@@ -32,9 +32,9 @@ fun! wheel#cylinder#push (...)
 	" Is current buffer a mandala buffer ?
 	let bufnum = bufnr('%')
 	if index(buffers, bufnum) >= 0
-		let in_wheel_buf = v:true
+		let in_mandala_buf = v:true
 	else
-		let in_wheel_buf = v:false
+		let in_mandala_buf = v:false
 	endif
 	" Old current special buffer
 	let current = g:wheel_buffers.current
@@ -53,7 +53,7 @@ fun! wheel#cylinder#push (...)
 	let maxim = g:wheel_buffers.maxim
 	call add(iden, maxim)
 	call wheel#mandala#common_maps ()
-	if ! in_wheel_buf
+	if ! in_mandala_buf
 		silent buffer #
 	endif
 	echomsg 'Buffer' elder 'saved'

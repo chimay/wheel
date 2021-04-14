@@ -13,12 +13,12 @@ endif
 
 fun! wheel#boomerang#sync ()
 	" Sync top of stack --> buffer variables
-	" Selection
+	" the selection is the one of the previous layer
 	let stack = b:wheel_stack
 	if ! empty(stack.selected)
 		let b:wheel_selected = deepcopy(stack.selected[0])
 	endif
-	" Sync settings with top of stack
+	" idem for the settings
 	if ! empty(stack.settings)
 		let b:wheel_settings = deepcopy(stack.settings[0])
 	endif
@@ -58,7 +58,7 @@ fun! wheel#boomerang#menu (dictname, ...)
 		" ctx_travel = v:false by default, to be able to catch mandala buffer variables
 		let optional.ctx_travel = v:false
 	endif
-	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
+	if empty(b:wheel_selected)
 		if line('.') == 1 && ! empty(wheel#line#address ())
 			echomsg 'wheel boomerang menu : first line filter is not a valid selection.'
 			return v:false

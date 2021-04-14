@@ -207,6 +207,8 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> k :call wheel#mandala#wrap_up()<cr>
 	nnoremap <buffer> <down> :call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> <up> :call wheel#mandala#wrap_up()<cr>
+	" Map to go back
+	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfu
 
 fun! wheel#mandala#filter_maps ()

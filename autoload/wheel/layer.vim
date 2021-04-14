@@ -188,7 +188,7 @@ fun! wheel#layer#push (mandala_type)
 	call insert(opts, ampersands)
 	" lines content, without filtering
 	let lines = stack.lines
-	if ! exists('b:wheel_lines') || empty(b:wheel_lines)
+	if empty(b:wheel_lines)
 		let buflines = getline(2, '$')
 	else
 		let buflines = b:wheel_lines
@@ -203,8 +203,10 @@ fun! wheel#layer#push (mandala_type)
 	call insert(position, getcurpos())
 	" Selected lines
 	let selected = stack.selected
-	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
-		let b:wheel_selected = [wheel#line#address()]
+	if empty(b:wheel_selected)
+		let address = wheel#line#address()
+		echomsg 'address :' address
+		let b:wheel_selected = [address]
 	endif
 	call insert(selected, b:wheel_selected)
 	" Buffer settings
@@ -218,8 +220,6 @@ fun! wheel#layer#push (mandala_type)
 	let mappings = stack.mappings
 	let mapdict = wheel#layer#save_maps ()
 	call insert(mappings, mapdict)
-	" Map to go back
-	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfun
 
 fun! wheel#layer#pop ()
