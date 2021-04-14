@@ -492,7 +492,7 @@ endfun
 fun! wheel#line#opened_files (settings)
 	" Go to opened file given by selected
 	let settings = a:settings
-	if ! has_action(settings, 'ctx_action') || settings.ctx_action == 'sailing'
+	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'sailing'
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		let filename = expand(fields[2])
@@ -527,7 +527,7 @@ endfun
 fun! wheel#line#tabwins (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
-	if ! has_action(settings, 'ctx_action') || settings.ctx_action == 'open'
+	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
@@ -551,7 +551,7 @@ fun! wheel#line#tabwins_tree (settings)
 	let settings = a:settings
 	let hierarchy = a:settings.selected
 	let tabnum = hierarchy[0]
-	if ! has_action(settings, 'ctx_action') || settings.ctx_action == 'open'
+	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
 		" Find matching tab
 		execute 'tabnext' tabnum
 		if len(hierarchy) > 1
