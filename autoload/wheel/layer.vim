@@ -32,6 +32,11 @@ if ! exists('s:insert_map_keys')
 	lockvar s:insert_map_keys
 endif
 
+if ! exists('s:visual_map_keys')
+	let s:visual_map_keys = wheel#crystal#fetch('visual/map/keys')
+	lockvar s:visual_map_keys
+endif
+
 " Init stack
 
 fun! wheel#layer#init ()
@@ -42,6 +47,9 @@ fun! wheel#layer#init ()
 		for field in s:stack_fields
 			let b:wheel_stack[field] = []
 		endfor
+		return v:true
+	else
+		return v:false
 	endif
 endfun
 
@@ -87,12 +95,15 @@ endfun
 
 fun! wheel#layer#save_maps ()
 	" Save maps
-	let mapdict = { 'normal' : {}, 'insert' : {}}
+	let mapdict = { 'normal' : {}, 'insert' : {}, 'visual' : {}}
 	for key in s:normal_map_keys
 		let mapdict.normal[key] = maparg(key, 'n')
 	endfor
 	for key in s:insert_map_keys
 		let mapdict.insert[key] = maparg(key, 'i')
+	endfor
+	for key in s:visual_map_keys
+		let mapdict.visual[key] = maparg(key, 'v')
 	endfor
 	return mapdict
 endfun
@@ -113,17 +124,24 @@ fun! wheel#layer#restore_maps (mapdict)
 	" Restore maps
 	let mapdict = a:mapdict
 	for key in keys(mapdict.normal)
-		if ! empty(key)
-			exe 'silent nnoremap <buffer>' key mapdict.normal[key]
+		if ! empty(mapdict.normal[key])
+			exe 'silent! nnoremap <buffer>' key mapdict.normal[key]
 		else
-			exe 'silent nunmap <buffer>' key
+			exe 'silent! nunmap <buffer>' key
 		endif
 	endfor
 	for key in keys(mapdict.insert)
-		if ! empty(key)
-			exe 'silent inoremap <buffer>' key mapdict.insert[key]
+		if ! empty(mapdict.insert[key])
+			exe 'silent! inoremap <buffer>' key mapdict.insert[key]
 		else
-			exe 'silent iunmap <buffer>' key
+			exe 'silent! iunmap <buffer>' key
+		endif
+	endfor
+	for key in keys(mapdict.visual)
+		if ! empty(mapdict.visual[key])
+			exe 'silent! vnoremap <buffer>' key mapdict.visual[key]
+		else
+			exe 'silent! vunmap <buffer>' key
 		endif
 	endfor
 endfun

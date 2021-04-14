@@ -138,12 +138,12 @@ if ! exists('s:normal_map_keys')
 				\ '<cr>', '<space>', '<tab>',
 				\ 't', 's', 'v',
 				\ 'S', 'V',
+				\ 'u', '<c-r>',
 				\ 'g<cr>',
 				\ 'gt', 'gs', 'gv',
 				\ 'gS', 'gV',
 				\ 'p', 'P',
 				\ 'gp', 'gP',
-				\ 'u', '<c-r>',
 				\ ]
 	lockvar s:normal_map_keys
 endif
@@ -156,6 +156,16 @@ if ! exists('s:insert_map_keys')
 				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
 				\ ]
 	lockvar s:insert_map_keys
+endif
+
+if ! exists('s:visual_map_keys')
+	let s:visual_map_keys = [
+				\ '<cr>',
+				\ 'p', 'P',
+				\  'g<cr>',
+				\ 'gp', 'gP',
+				\ ]
+	lockvar s:visual_map_keys
 endif
 
 " Menus

@@ -20,13 +20,9 @@ endif
 
 " Buffer
 
-fun! wheel#mandala#open (...)
+fun! wheel#mandala#open (type)
 	" Open a mandala buffer
-	if a:0 > 0
-		let type = a:1
-	else
-		let type = 'default'
-	endif
+	let type = a:type
 	if wheel#cylinder#recall ()
 		call wheel#layer#push (type)
 		call wheel#layer#fresh ()
