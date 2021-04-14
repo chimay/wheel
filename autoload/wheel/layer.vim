@@ -85,11 +85,8 @@ endfun
 fun! wheel#layer#bottom ()
 	" Return layer index to be popped or replaced in stack
 	let top = b:wheel_stack.top
-	let top = top - 1
-	if top < 0
-		let length = b:wheel_stack.length
-		let top += length
-	endif
+	let length = b:wheel_stack.length
+	let top = wheel#gear#circular_minus (top, length)
 	return top
 endfun
 
@@ -347,7 +344,7 @@ fun! wheel#layer#rotate_right ()
 	" Rotate layer stack to the right
 	let top = b:wheel_stack.top
 	let length = b:wheel_stack.length
-	let b:wheel_stack.top = (top + 1) % length
+	let b:wheel_stack.top = wheel#gear#circular_plus (top, length)
 	call wheel#layer#sync ()
 endfun
 
@@ -355,6 +352,6 @@ fun! wheel#layer#rotate_left ()
 	" Rotate layer stack to the left
 	let top = b:wheel_stack.top
 	let length = b:wheel_stack.length
-	let b:wheel_stack.top = (top - 1) % length
+	let b:wheel_stack.top = wheel#gear#circular_minus (top, length)
 	call wheel#layer#sync ()
 endfun
