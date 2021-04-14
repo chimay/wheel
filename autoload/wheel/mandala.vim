@@ -12,6 +12,11 @@
 
 " Script vars
 
+if ! exists('s:mandala_empty')
+	let s:mandala_empty = wheel#crystal#fetch('mandala/empty')
+	lockvar s:mandala_empty
+endif
+
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
 	let s:fold_markers = join(s:fold_markers, ',')
@@ -23,14 +28,17 @@ endif
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
-	if wheel#cylinder#recall ()
-		call wheel#layer#push (type)
-		call wheel#layer#fresh ()
+	if wheel#cylinder#recall()
+		let filename = expand('%')
+		if filename !~ s:mandala_empty
+			call wheel#layer#push (type)
+			call wheel#layer#fresh ()
+		endif
 	else
 		new
 		call wheel#cylinder#push ('linger')
-		call wheel#layer#pseudo_folders(type)
 	endif
+	call wheel#layer#pseudo_folders(type)
 	call wheel#mandala#common_options ()
 endfun
 

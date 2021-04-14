@@ -17,9 +17,9 @@ if ! exists('s:mandala_options')
 	lockvar s:mandala_options
 endif
 
-if ! exists('s:stack_fields')
-	let s:stack_fields = wheel#crystal#fetch('stack/fields')
-	lockvar s:stack_fields
+if ! exists('s:layer_stack_fields')
+	let s:layer_stack_fields = wheel#crystal#fetch('layer/stack/fields')
+	lockvar s:layer_stack_fields
 endif
 
 if ! exists('s:normal_map_keys')
@@ -44,7 +44,7 @@ fun! wheel#layer#init ()
 	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
-		for field in s:stack_fields
+		for field in s:layer_stack_fields
 			let b:wheel_stack[field] = []
 		endfor
 	endif
@@ -62,7 +62,7 @@ fun! wheel#layer#truncate ()
 	" Truncate layer stack
 	let maxim = g:wheel_config.maxim.layers - 1
 	let stack = b:wheel_stack
-	for field in s:stack_fields
+	for field in s:layer_stack_fields
 		let stack[field] = stack[field][:maxim]
 	endfor
 endfun

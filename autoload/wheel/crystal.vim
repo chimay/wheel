@@ -35,43 +35,11 @@ if ! exists('s:golden_ratio')
 	lockvar s:golden_ratio
 endif
 
-" Strings in mandalas
+" Empty mandala filename pattern
 
-if ! exists('s:separator_field')
-	let s:separator_field = ' │ '
-	lockvar s:separator_field
-endif
-
-if ! exists('s:separator_level')
-	let s:separator_level = ' > '
-	lockvar s:separator_level
-endif
-
-if ! exists('s:selected_mark')
-	let s:selected_mark = '* '
-	lockvar s:selected_mark
-endif
-
-if ! exists('s:selected_pattern')
-	let s:selected_pattern = '\m^\* '
-	lockvar s:selected_pattern
-endif
-
-" Folds in mandalas
-
-if ! exists('s:fold_markers')
-	let s:fold_markers = ['>', '<']
-	lockvar s:fold_markers
-endif
-
-if ! exists('s:fold_one')
-	let s:fold_one = ' ' . s:fold_markers[0] . '1'
-	lockvar s:fold_one
-endif
-
-if ! exists('s:fold_two')
-	let s:fold_two = ' ' . s:fold_markers[0] . '2'
-	lockvar s:fold_two
+if ! exists('s:mandala_empty')
+	let s:mandala_empty = '\m/wheel/[0-9]\+/empty'
+	lockvar s:mandala_empty
 endif
 
 " Mandalas variable list
@@ -108,7 +76,7 @@ endif
 
 " Layer stack in mandalas
 
-if ! exists('s:stack_fields')
+if ! exists('s:layer_stack_fields')
 	" filename : pseudo filename of the mandala
 	" opts : local options
 	" lines : lines mandala content, without filtering
@@ -117,7 +85,7 @@ if ! exists('s:stack_fields')
 	" selected : selected lines
 	" settings : mandala settings
 	" mappings : mappings
-	let s:stack_fields = [
+	let s:layer_stack_fields = [
 				\ 'filename',
 				\ 'opts',
 				\ 'lines',
@@ -127,8 +95,10 @@ if ! exists('s:stack_fields')
 				\ 'settings',
 				\ 'mappings',
 				\ ]
-	lockvar s:stack_fields
+	lockvar s:layer_stack_fields
 endif
+
+" Maps in mandalas
 
 if ! exists('s:normal_map_keys')
 	let s:normal_map_keys = [
@@ -166,6 +136,47 @@ if ! exists('s:visual_map_keys')
 				\ 'gp', 'gP',
 				\ ]
 	lockvar s:visual_map_keys
+endif
+
+" Folds in mandalas
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = ['>', '<']
+	lockvar s:fold_markers
+endif
+
+if ! exists('s:fold_one')
+	let s:fold_one = ' ' . s:fold_markers[0] . '1'
+	lockvar s:fold_one
+endif
+
+if ! exists('s:fold_two')
+	let s:fold_two = ' ' . s:fold_markers[0] . '2'
+	lockvar s:fold_two
+endif
+
+" Separators in mandalas
+
+if ! exists('s:separator_field')
+	let s:separator_field = ' │ '
+	lockvar s:separator_field
+endif
+
+if ! exists('s:separator_level')
+	let s:separator_level = ' > '
+	lockvar s:separator_level
+endif
+
+" Selections in mandalas
+
+if ! exists('s:selected_mark')
+	let s:selected_mark = '* '
+	lockvar s:selected_mark
+endif
+
+if ! exists('s:selected_pattern')
+	let s:selected_pattern = '\m^\* '
+	lockvar s:selected_pattern
 endif
 
 " Menus

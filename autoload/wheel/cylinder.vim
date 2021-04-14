@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" mandala buffers stack
+" Mandala buffers stack
 
 fun! wheel#cylinder#push (...)
 	" Push new mandala buffer
@@ -53,6 +53,7 @@ fun! wheel#cylinder#push (...)
 	let maxim = g:wheel_mandalas.maxim
 	call add(iden, maxim)
 	call wheel#layer#init ()
+	call wheel#layer#pseudo_folders ('empty')
 	call wheel#mandala#common_maps ()
 	" if not in mandala buffer at start, go back to previous buffer
 	if ! in_mandala_buf
@@ -97,27 +98,27 @@ endfun
 fun! wheel#cylinder#recall ()
 	" Recall mandala buffer
 	call wheel#cylinder#check ()
-	let buffers = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
-	if empty(buffers)
+	if empty(mandalas)
 		echomsg 'wheel mandala recall : empty buffer stack'
 		return v:false
 	endif
 	let bufnum = bufnr('%')
-	let goto = buffers[current]
-	let winnum =  bufwinnr(goto)
-	if index(buffers, bufnum) >= 0
+	let goto = mandalas[current]
+	let winum =  bufwinnr(goto)
+	if index(mandalas, bufnum) >= 0
 		" if current buf is already a mandala buf,
 		" no need to split
 		exe 'silent buffer' goto
-	elseif winnum < 0
-		" if current buf is not a mandala buf,
-		" we need to split
-		exe 'silent sbuffer' goto
-	else
-		" in case the special buf is already visible in a window,
+	elseif winum >= 0
+		" if the special buf is already visible in a window,
 		" just go to it
-		exe winnum . 'wincmd w'
+		exe winum . 'wincmd w'
+	else
+		" if mandala is not visible and current buffer
+		" is not a mandala, we need to split
+		exe 'silent sbuffer' goto
 	endif
 	return v:true
 endfun

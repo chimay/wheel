@@ -36,7 +36,7 @@ fun! wheel#line#address ()
 		elseif file =~ '\m/wheel/[0-9]\+/tabwins/tree'
 			return wheel#line#tabwin_hierarchy ()
 		else
-			echoerr 'wheel line address : unknown mandala type.'
+			return v:false
 		endif
 	endif
 endfun
