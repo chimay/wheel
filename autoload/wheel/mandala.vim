@@ -125,15 +125,18 @@ endfun
 
 fun! wheel#mandala#reload ()
 	" Reload current mandala
+	" mark the buffer as empty, to avoid pushing a new layer
+	call wheel#mandala#pseudo_filename ('empty')
+	" reload content
 	if exists('b:wheel_reload') && ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
 	else
-		" By default, delete all lines
-		" and fill the buffer with b:wheel_lines
+		" by default, if b:wheel_reload is not defined or empty,
+		" delete all lines and fill the buffer with b:wheel_lines
 		1,$ delete _
 		call wheel#mandala#fill (b:wheel_lines)
 	endif
-endfu
+endfun
 
 fun! wheel#mandala#previous ()
 	" Go to previous window, before mandala buffer opening
