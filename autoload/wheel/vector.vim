@@ -173,9 +173,10 @@ fun! wheel#vector#write_quickfix ()
 		endif
 	endfor
 	" Propagate
-	wincmd p
+	call wheel#mandala#close ()
 	silent cdo call wheel#vector#cdo(newlines)
-	wincmd p
+	call wheel#cylinder#recall ()
+	echomsg 'win id :' string(win_getid())
 	" Info
 	setlocal nomodified
 	echomsg 'quickfix changes propagated.'
