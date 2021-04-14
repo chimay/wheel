@@ -40,16 +40,19 @@ endif
 " Init stack
 
 fun! wheel#layer#init ()
-	" Init stack
+	" Init stack and buffer variables
 	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
 		for field in s:stack_fields
 			let b:wheel_stack[field] = []
 		endfor
-		return v:true
-	else
-		return v:false
+	endif
+	if ! exists('b:wheel_lines')
+		let b:wheel_lines = []
+	endif
+	if ! exists('b:wheel_selected')
+		let b:wheel_selected = []
 	endif
 endfun
 

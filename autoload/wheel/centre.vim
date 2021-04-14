@@ -103,7 +103,8 @@ fun! wheel#centre#plugs ()
 	" Remove (pop) mandala buffer
 	nnoremap <plug>(wheel-mandala-pop) :call wheel#cylinder#pop()<cr>
 	" Cycle mandala buffers
-	nnoremap <plug>(wheel-mandala-cycle) :call wheel#cylinder#cycle()<cr>
+	nnoremap <plug>(wheel-mandala-cycle-left) :call wheel#cylinder#cycle_left()<cr>
+	nnoremap <plug>(wheel-mandala-cycle-right) :call wheel#cylinder#cycle_right()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabs-locations) :call wheel#mosaic#tabs('location')<cr>
 	nnoremap <plug>(wheel-tabs-circles) :call wheel#mosaic#tabs('circle')<cr>
@@ -227,7 +228,8 @@ fun! wheel#centre#cables ()
 		" Remove (pop) mandala buffer
 		exe 'nmap ' . prefix . '<backspace> <plug>(wheel-mandala-pop)'
 		" Cycle mandala buffers
-		exe 'nmap ' . prefix . '@ <plug>(wheel-mandala-cycle)'
+		exe 'nmap ' . prefix . '@ <plug>(wheel-mandala-cycle-right)'
+		exe 'nmap ' . prefix . '<M-@> <plug>(wheel-mandala-cycle-left)'
 		" Tabs
 		exe 'nmap ' . prefix . 't <plug>(wheel-tabs-locations)'
 		exe 'nmap ' . prefix . '<c-t> <plug>(wheel-tabs-circles)'
@@ -321,7 +323,7 @@ fun! wheel#centre#cables ()
 		" Remove (pop) mandala buffer
 		nmap <m-Backspace>  <plug>(wheel-mandala-pop)
 		" Cycle mandala buffers
-		nmap <m-space>      <plug>(wheel-mandala-cycle)
+		nmap <m-space>      <plug>(wheel-mandala-cycle-right)
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

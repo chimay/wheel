@@ -52,7 +52,9 @@ fun! wheel#cylinder#push (...)
 	let g:wheel_mandalas.maxim += 1
 	let maxim = g:wheel_mandalas.maxim
 	call add(iden, maxim)
+	call wheel#layer#init ()
 	call wheel#mandala#common_maps ()
+	" if not in mandala buffer at start, go back to previous buffer
 	if ! in_mandala_buf
 		silent buffer #
 	endif
@@ -137,13 +139,25 @@ fun! wheel#cylinder#check ()
 	endfor
 endfun
 
-fun! wheel#cylinder#cycle ()
+fun! wheel#cylinder#cycle_right ()
 	" Cycle mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
 	let bufnum = bufnr('%')
 	if index(mandalas, bufnum) >= 0
 		let current = (current + 1) % len(mandalas)
+		let g:wheel_mandalas.current = current
+	endif
+	call wheel#cylinder#recall ()
+endfun
+
+fun! wheel#cylinder#cycle_left ()
+	" Cycle mandalas buffers
+	let mandalas = g:wheel_mandalas.stack
+	let current = g:wheel_mandalas.current
+	let bufnum = bufnr('%')
+	if index(mandalas, bufnum) >= 0
+		let current = (current - 1) % len(mandalas)
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()

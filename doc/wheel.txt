@@ -370,7 +370,7 @@ BUFFERS STACK				*wheel-special-buffers-stack*
 Wheel manages a special buffers stack. You can :
 
 - Save your current special buffer with `<M-w><Tab>`
-- Cycle the special buffers with `<M-w>@`
+- Cycle the special buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
 - Remove the current special buffer with `<M-w><Backspace>`
 
 This way, you can save a special buffer in case you need it later.
