@@ -492,7 +492,7 @@ endfun
 fun! wheel#line#opened_files (settings)
 	" Go to opened file given by selected
 	let settings = a:settings
-	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'sailing'
+	if ! has_action(settings, 'ctx_action') || settings.ctx_action == 'sailing'
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		let filename = expand(fields[2])
@@ -505,17 +505,17 @@ fun! wheel#line#opened_files (settings)
 		else
 			exe 'buffer' bufnum
 		endif
-	elseif settings.ctx_key == 'delete'
+	elseif settings.ctx_action == 'delete'
 		" Delete buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		execute 'bdelete' bufnum
-	elseif settings.ctx_key == 'unload'
+	elseif settings.ctx_action == 'unload'
 		" Unload buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
 		execute 'bunload' bufnum
-	elseif settings.ctx_key == 'wipe'
+	elseif settings.ctx_action == 'wipe'
 		" Wipe buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
@@ -527,13 +527,13 @@ endfun
 fun! wheel#line#tabwins (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
-	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'open'
+	if ! has_action(settings, 'ctx_action') || settings.ctx_action == 'open'
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
 		execute 'tabnext' tabnum
 		execute winum 'wincmd w'
-	elseif settings.ctx_key == 'tabclose'
+	elseif settings.ctx_action == 'tabclose'
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
@@ -551,14 +551,14 @@ fun! wheel#line#tabwins_tree (settings)
 	let settings = a:settings
 	let hierarchy = a:settings.selected
 	let tabnum = hierarchy[0]
-	if ! has_key(settings, 'ctx_key') || settings.ctx_key == 'open'
+	if ! has_action(settings, 'ctx_action') || settings.ctx_action == 'open'
 		" Find matching tab
 		execute 'tabnext' tabnum
 		if len(hierarchy) > 1
 			let winum = hierarchy[1]
 			execute winum 'wincmd w'
 		endif
-	elseif settings.ctx_key == 'tabclose'
+	elseif settings.ctx_action == 'tabclose'
 		" Close tab
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum

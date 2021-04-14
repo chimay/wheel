@@ -87,7 +87,7 @@ fun! wheel#boomerang#sailing (action)
 	" Sailing actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_key = 'sailing'
+	let settings.ctx_action = 'sailing'
 	if action == 'current'
 		let settings.target = 'current'
 		call wheel#line#sailing (settings)
@@ -121,7 +121,7 @@ fun! wheel#boomerang#opened_files (action)
 	let action = a:action
 	let settings = b:wheel_settings
 	if action == 'delete' || action == 'wipe'
-		let settings.ctx_key = action
+		let settings.ctx_action = action
 		" To inform wheel#line#sailing
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
@@ -137,7 +137,7 @@ fun! wheel#boomerang#tabwins (action)
 	" Buffers visible in tabs & wins
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_key = action
+	let settings.ctx_action = action
 	if action == 'open'
 		" wheel#line#sailing will process the first selected line
 		let settings.target = 'current'
@@ -166,7 +166,7 @@ fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_key = action
+	let settings.ctx_action = action
 	if action == 'quickfix'
 		call wheel#mandala#close ()
 		call wheel#vector#copen ()
@@ -178,7 +178,7 @@ fun! wheel#boomerang#yank (action)
 	" action = before / after
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_key = action
+	let settings.ctx_action = action
 	let mode = b:wheel_settings.mode
 	call wheel#line#paste_{mode} (action, 'open')
 endfun
