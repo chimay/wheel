@@ -20,6 +20,8 @@ fun! wheel#cylinder#push (...)
 		let g:wheel_mandalas.current = 0
 		let g:wheel_mandalas.maxim = 0
 		call add(iden, 0)
+		call wheel#layer#init ()
+		call wheel#mandala#pseudo_folders ('empty')
 		call wheel#mandala#common_maps ()
 		if mode == 'goback'
 			silent buffer #

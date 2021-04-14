@@ -364,6 +364,12 @@ The main keys are :
 - `<enter>` : trigger the default action, close the special buffer
 - `g<enter>` : trigger the default action, leave the special buffer opened
 
+Reload~
+
+Press `r` and the special buffer will reload its content.
+
+Available on most special buffers.
+
 ------------------------------------------------------------------------------
 BUFFERS STACK				*wheel-special-buffers-stack*
 
@@ -674,7 +680,7 @@ list, one element per line.
 
 Plain mode~
 
-The yank wheel buffer in plain mode is launched by `<M-w><M-y>`.
+The yank wheel buffer in plain mode is launched by `<M-w>p`.
 
 All your yanks are concatenated and displayed in the special buffer.
 
@@ -1381,7 +1387,7 @@ Yank wheel~
 | Prefix + | With default prefix | Action                    |
 | -------- | ------------------- | ------------------------- |
 | y        | <M-w>y              | Yank wheel in list mode   |
-| <M-y>    | <M-w><M-y>          | Yank wheel in plain mode  |
+| p        | <M-w>p              | Yank wheel in plain mode  |
 
 Reorganizing buffer~
 

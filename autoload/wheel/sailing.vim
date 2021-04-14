@@ -109,6 +109,8 @@ fun! wheel#sailing#switch (level)
 	else
 		echomsg 'Wheel mandala switch : empty or incomplete' level
 	endif
+	" Reload
+	let b:wheel_reload = "wheel#sailing#switch('" . level . "')"
 endfun
 
 fun! wheel#sailing#helix ()
@@ -120,6 +122,8 @@ fun! wheel#sailing#helix ()
 	let settings = {'action' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#helix'
 endfun
 
 fun! wheel#sailing#grid ()
@@ -131,6 +135,8 @@ fun! wheel#sailing#grid ()
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#grid'
 endfun
 
 fun! wheel#sailing#tree ()
@@ -142,12 +148,16 @@ fun! wheel#sailing#tree ()
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#tree'
 endfun
 
 fun! wheel#sailing#history ()
 	" Choose a location coordinate in history
 	" Each coordinate = [torus, circle, location]
 	call wheel#sailing#generic('history')
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#history'
 endfun
 
 fun! wheel#sailing#opened_files ()
@@ -160,6 +170,8 @@ fun! wheel#sailing#opened_files ()
 	let settings = {'action' : function('wheel#line#opened_files')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#opened_files'
 	" Context menu
 	nnoremap <buffer> <tab> :call wheel#boomerang#menu('openedFiles')<cr>
 endfun
@@ -174,6 +186,8 @@ fun! wheel#sailing#tabwins ()
 	let settings = {'action' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#tabwins'
 	" Context menu
 	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins')<cr>
 endfun
@@ -189,6 +203,8 @@ fun! wheel#sailing#tabwins_tree ()
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill(lines)
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#tabwins_tree'
 	" Context menu
 	nnoremap <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree')<cr>
 endfun
@@ -207,6 +223,8 @@ fun! wheel#sailing#occur (...)
 	let settings = {'action' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
+	" Reload
+	let b:wheel_reload = "wheel#sailing#occur('" . pattern . "')"
 endfun
 
 fun! wheel#sailing#grep (...)
@@ -229,16 +247,22 @@ fun! wheel#sailing#grep (...)
 		let settings = {'action' : function('wheel#line#grep')}
 		call wheel#sailing#template (settings)
 		call wheel#mandala#fill(lines)
+		" Reload
+		let b:wheel_reload = "wheel#sailing#grep('" . pattern . "')"
 		" Context menu
 		nnoremap <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
 	endif
 	return bool
 endfun
 
-fun! wheel#sailing#outline ()
+fun! wheel#sailing#outline (...)
 	" Outline fold headers
-	let prompt = 'Outline mode ? '
-	let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
+	if a:0 > 0
+		let mode = a:1
+	else
+		let prompt = 'Outline mode ? '
+		let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
+	endif
 	if mode == 1
 		let marker = split(&foldmarker, ',')[0]
 		if &grepprg !~ '^grep'
@@ -253,22 +277,24 @@ fun! wheel#sailing#outline ()
 		let bool = wheel#sailing#grep ('^=.*=$', '\.wiki$')
 	endif
 	if bool
-		let &filetype = 'wheel'
-		let current = g:wheel_mandalas.current
-		let iden = g:wheel_mandalas.iden[current]
-		let pseudo_folders = '/wheel/' . iden . '/outline'
-		exe 'silent file' pseudo_folders
+		call wheel#mandala#pseudo_folders ('outline')
+		" Reload
+		let b:wheel_reload = "wheel#sailing#outline('" . mode . "')"
 	endif
 endfun
 
 fun! wheel#sailing#tags ()
 	" Tags file
 	call wheel#sailing#generic('tags')
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#tags'
 endfun
 
 fun! wheel#sailing#mru ()
 	" Most recenty used files
 	call wheel#sailing#generic('mru')
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#mru'
 endfun
 
 fun! wheel#sailing#locate ()
@@ -281,17 +307,23 @@ fun! wheel#sailing#locate ()
 	let settings = {'action' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#locate'
 endfun
 
-fun! wheel#sailing#find ()
+fun! wheel#sailing#find (...)
 	" Search files in current directory using find
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let prompt = 'Find file matching : '
+		let pattern = '*' . input(prompt) . '*'
+		let pattern = escape(pattern, '*')
+	endif
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('find')
 	let settings = {'action' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
-	let prompt = 'Find file matching : '
-	let pattern = '*' . input(prompt) . '*'
-	let pattern = escape(pattern, '*')
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
 	let settings = {'mandala_open' : v:false, 'mandala_type' : 'find'}
 	if has('nvim')
@@ -307,14 +339,20 @@ fun! wheel#sailing#find ()
 		let callme  = ' :call wheel#ripple#stop()<cr>'
 	endif
 	exe map . '<c-s>' . callme
+	" Reload
+	let b:wheel_reload = "wheel#sailing#find('" . pattern . "')"
 endfun
 
 fun! wheel#sailing#jumps ()
 	" Jumps list
 	call wheel#sailing#bounce ('jumps')
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#jumps'
 endfun
 
 fun! wheel#sailing#changes ()
 	" Changes list
 	call wheel#sailing#bounce ('changes')
+	" Reload
+	let b:wheel_reload = 'wheel#sailing#changes'
 endfun

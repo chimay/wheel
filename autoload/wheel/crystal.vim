@@ -48,6 +48,7 @@ if ! exists('s:mandala_vars')
 	let s:mandala_vars = [
 				\ 'b:wheel_lines',
 				\ 'b:wheel_selected',
+				\ 'b:wheel_reload',
 				\ ]
 	lockvar s:mandala_vars
 endif
@@ -85,6 +86,7 @@ if ! exists('s:layer_stack_fields')
 	" selected : selected lines
 	" settings : mandala settings
 	" mappings : mappings
+	" reload : reload function
 	let s:layer_stack_fields = [
 				\ 'filename',
 				\ 'opts',
@@ -94,6 +96,7 @@ if ! exists('s:layer_stack_fields')
 				\ 'selected',
 				\ 'settings',
 				\ 'mappings',
+				\ 'reload',
 				\ ]
 	lockvar s:layer_stack_fields
 endif

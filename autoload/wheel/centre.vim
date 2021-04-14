@@ -217,7 +217,7 @@ fun! wheel#centre#cables ()
 		exe 'nmap ' . prefix . '<m-f> <plug>(wheel-find)'
 		" Yank wheel
 		exe 'nmap ' . prefix . 'y <plug>(wheel-yank-list)'
-		exe 'nmap ' . prefix . '<m-y> <plug>(wheel-yank-plain)'
+		exe 'nmap ' . prefix . 'p <plug>(wheel-yank-plain)'
 		" Generic ex or shell command
 		exe 'nmap ' . prefix . ': <plug>(wheel-command)'
 		exe 'nmap ' . prefix . '& <plug>(wheel-async)'

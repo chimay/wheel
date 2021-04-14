@@ -205,6 +205,13 @@ fun! wheel#layer#push (mandala_type)
 	let mappings = stack.mappings
 	let mapdict = wheel#layer#save_maps ()
 	call insert(mappings, mapdict)
+	" Reload
+	let reload = stack.reload
+	if exists('b:wheel_reload')
+		call insert(reload, b:wheel_reload)
+	else
+		call insert(reload, '')
+	endif
 endfun
 
 fun! wheel#layer#pop ()
@@ -251,6 +258,9 @@ fun! wheel#layer#pop ()
 	if len(b:wheel_selected) == 1
 		call wheel#line#deselect ()
 	endif
+	" Reload
+	let reload = stack.reload
+	let b:wheel_reload = wheel#chain#pop(reload)
 	" Tell (n)vim the buffer is to be considered not modified
 	setlocal nomodified
 endfun

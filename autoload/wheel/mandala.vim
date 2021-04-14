@@ -93,6 +93,13 @@ fun! wheel#mandala#fill (content)
 	let b:wheel_selected = []
 endfun
 
+fun! wheel#mandala#reload ()
+	" Reload current mandala
+	if exists('b:wheel_reload')
+		call wheel#gear#call (b:wheel_reload)
+	endif
+endfun
+
 fun! wheel#mandala#replace (content, ...)
 	" Replace buffer lines with content
 	" Optional argument handle the first line filtering input :
@@ -231,6 +238,8 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> k :call wheel#mandala#wrap_up()<cr>
 	nnoremap <buffer> <down> :call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> <up> :call wheel#mandala#wrap_up()<cr>
+	" Reload mandala
+	nnoremap <buffer> r :call wheel#mandala#reload ()<cr>
 	" Map to go back
 	nnoremap <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfu

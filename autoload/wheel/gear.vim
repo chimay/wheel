@@ -269,6 +269,9 @@ endfun
 fun! wheel#gear#call (func, ...)
 	" Call Function depicted as a Funcref or a string
 	" Optional arguments are passed to Func
+	if empty(a:func)
+		return v:false
+	endif
 	let arg = a:000
 	let Func = a:func
 	let kind = type(Func)
