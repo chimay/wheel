@@ -175,7 +175,7 @@ fun! wheel#mandala#replace (content, ...)
 	endif
 	" Cannot use setline() or append() : does not work with yank lists
 	silent put =content
-	" new lines
+	" first line
 	call cursor(1,1)
 	if first == 'blank'
 		" first lines should already be blank :
