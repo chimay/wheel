@@ -300,9 +300,8 @@ Command output buffer		|wheel-special-buffers-command|
 ------------------------------------------------------------------------------
 INTRODUCTION				*wheel-special-buffers-introduction*
 
-Special buffers (aka mandalas) allow you to perform Wheel operations
-intuitively, using full power of your editor : search, yank, paste,
-completion, and so on.
+Special buffers allow you to perform Wheel operations intuitively, using
+full power of your editor : search, yank, paste, completion, and so on.
 
 The available actions depend on the buffer type :
 
@@ -318,6 +317,10 @@ The available actions depend on the buffer type :
   + Change locations settings like name, line, col
   + Be sure you know what you’re doing
 - Reorganize tabs and windows
+
+Mandala~
+
+A mandala is a synonym for a wheel special buffer.
 
 Wrapping up things~
 
