@@ -145,12 +145,55 @@ fun! wheel#mandala#fill (content, ...)
 	call wheel#gear#restore_cursor (position, 1)
 endfun
 
-fun! wheel#mandala#replace (...)
+fun! wheel#mandala#replace (content, ...)
 	" Replace mandala buffer with content
-	" Same arguments as wheel#mandala#fill
-	let Fun = function('wheel#mandala#fill')
-	let arg = a:000
-	call call(Fun, arg)
+	" Similar as wheel#mandala#fill, but do not update mandala variables
+	" Content can be :
+	" - a monoline string
+	" - a list of lines
+	" Optional argument handle the first line filtering input :
+	" - keep : keep input
+	" - blank : blank input
+	" - delete : delete first line
+	if ! wheel#cylinder#is_mandala ()
+		echomsg 'wheel mandala fill : not in mandala buffer.'
+	endif
+	" arg
+	let content = a:content
+	if a:0 > 0
+		let first = a:1
+	else
+		let first = 'keep'
+	endif
+	" cursor
+	let position = getcurpos()
+	" delete old content
+	if exists('*deletebufline')
+		call deletebufline('%', 2, '$')
+	else
+		silent! 2,$ delete
+	endif
+	" Cannot use setline() or append() : does not work with yank lists
+	silent put =content
+	" new lines
+	call cursor(1,1)
+	if first == 'keep'
+		" delete empty lines from line 2 to end
+		silent! 2,$ global /^$/ delete _
+	elseif first == 'blank'
+		" first lines should already be blank :
+		" :put add stuff after current line,
+		" which is the first one on a empty buffer
+		call setline(1, '')
+		silent! 2,$ global /^$/ delete _
+	elseif first == 'delete'
+		1 delete _
+		silent! 2,$ global /^$/ delete _
+	endif
+	" tell (neo)vim the buffer is unmodified
+	setlocal nomodified
+	" restore cursor if possible, else place it on line 1
+	call wheel#gear#restore_cursor (position, 1)
 endfun
 
 fun! wheel#mandala#reload ()
