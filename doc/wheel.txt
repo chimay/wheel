@@ -440,10 +440,10 @@ If you change your mind and wish to come back, just press `<backspace>`.
 LAYER STACK				*wheel-special-buffers-layers*
 
 Each time you launch a wheel function involving a special buffer, a new
-layer is added to a stack local to the buffer. This stack allows you to
-go back to previous content by pressing `<backspace>`.
+layer is added to a stack local to the buffer. This stack allows you to :
 
-This is particularly useful for main, meta and context menus.
+- go back to previous content by pressing `<backspace>`
+- cycle the stack to the left with `H` or to the right with `L`
 
 The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
 
