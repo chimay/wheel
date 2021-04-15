@@ -28,10 +28,9 @@ fun! wheel#cylinder#first (...)
 	let mandalas = g:wheel_mandalas.stack
 	let iden = g:wheel_mandalas.iden
 	enew
-	let bufnum = bufnr('%')
-	call add(mandalas, bufnum)
+	let novice = bufnr('%')
+	call add(mandalas, novice)
 	let g:wheel_mandalas.current = 0
-	let g:wheel_mandalas.maxim = 0
 	call add(iden, 0)
 	call wheel#layer#init ()
 	call wheel#mandala#pseudo_filename ('empty')
@@ -39,7 +38,7 @@ fun! wheel#cylinder#first (...)
 	if mode == 'goback'
 		silent buffer #
 	endif
-	echomsg 'Buffer' bufnum 'added'
+	echomsg 'Buffer' novice 'added to mandala stack with iden' 0
 endfun
 
 fun! wheel#cylinder#push (...)
@@ -67,15 +66,20 @@ fun! wheel#cylinder#push (...)
 	enew
 	let novice = bufnr('%')
 	if novice == elder
-		echomsg 'Wheel mandala push : buffer' novice 'already in stack'
+		echomsg 'wheel mandala push : buffer' novice 'already in stack'
 		return v:false
 	endif
 	" Push
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = len(mandalas) - 1
-	let g:wheel_mandalas.maxim += 1
-	let maxim = g:wheel_mandalas.maxim
-	call add(iden, maxim)
+	let minim = min(iden) - 1
+	let maxim = max(iden) + 1
+	if minim >= 0
+		let novice_iden = minim
+	else
+		let novice_iden = maxim
+	endif
+	call add(iden, novice_iden)
 	call wheel#layer#init ()
 	call wheel#mandala#pseudo_filename ('empty')
 	call wheel#mandala#common_maps ()
@@ -83,7 +87,7 @@ fun! wheel#cylinder#push (...)
 	if ! in_mandala_buf
 		silent buffer #
 	endif
-	echomsg 'Buffer' elder 'saved'
+	echomsg 'Buffer' novice 'added to mandala stack with iden' novice_iden
 	return v:true
 endfun
 
@@ -106,7 +110,6 @@ fun! wheel#cylinder#pop ()
 	let current = g:wheel_mandalas.current
 	let removed = remove(mandalas, current)
 	call remove(iden, current)
-	let g:wheel_mandalas.maxim = max(iden)
 	let current = (current - 1) % len(mandalas)
 	let g:wheel_mandalas.current = current
 	let bufnum = bufnr('%')

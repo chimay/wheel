@@ -128,9 +128,6 @@ fun! wheel#void#buffers ()
 	if ! has_key(g:wheel_mandalas, 'iden')
 		let g:wheel_mandalas.iden = []
 	endif
-	if ! has_key(g:wheel_mandalas, 'maxim')
-		let g:wheel_mandalas.maxim = -1
-	endif
 endfun
 
 fun! wheel#void#shelve ()
