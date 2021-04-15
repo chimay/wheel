@@ -69,16 +69,12 @@ fun! wheel#boomerang#menu (dictname, ...)
 		" ctx_travel = v:false by default, to be able to catch mandala buffer variables
 		let optional.ctx_travel = v:false
 	endif
-	if empty(b:wheel_selected)
-		if line('.') == 1 && ! empty(getline(1))
-			echomsg 'wheel boomerang menu : first line filter is not a valid selection.'
-			return v:false
-		endif
-		if empty(getline(1)) && line('$') > 1
+	" selection
+	if line('.') == 1
+		if line('$') > 1
 			call cursor(2, 1)
-		endif
-		if empty(wheel#line#address ())
-			echomsg 'wheel boomerang menu : empty selection'
+		else
+			echomsg 'wheel boomerang menu : not enough lines for a default selection.'
 			return v:false
 		endif
 	endif
@@ -89,6 +85,12 @@ fun! wheel#boomerang#menu (dictname, ...)
 	" Let wheel#line#menu handle open / close,
 	" tell wheel#line#sailing to forget it
 	let b:wheel_settings.close = v:false
+	" Default selection = cursor line address of previous layer
+	if empty(b:wheel_selected)
+		let b:wheel_selected = [wheel#layer#top_field ('address')]
+	endif
+	" Reload function
+	let b:wheel_reload = "wheel#boomerang#menu('" . a:dictname . "')"
 endfun
 
 " Applications

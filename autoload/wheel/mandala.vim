@@ -41,12 +41,21 @@ fun! wheel#mandala#pseudo_filename (mandala_type)
 	return pseudo_filename
 endfun
 
+fun! wheel#mandala#empty ()
+	" True if mandala is empty, false otherwise
+	let filename = expand('%')
+	if filename =~ s:mandala_empty
+		return v:true
+	else
+		return v:false
+	endif
+endfun
+
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
 	if wheel#cylinder#recall()
-		let filename = expand('%')
-		if filename !~ s:mandala_empty
+		if ! wheel#mandala#empty ()
 			call wheel#layer#push ()
 			call wheel#layer#fresh ()
 		endif

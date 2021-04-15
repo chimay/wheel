@@ -350,11 +350,12 @@ fun! wheel#line#sailing (settings)
 		let Fun = 'wheel#line#switch'
 	endif
 	if empty(b:wheel_selected)
-			let selected = [wheel#line#address ()]
+		let selected = [wheel#line#address ()]
 	elseif type(b:wheel_selected) == v:t_list
 		let selected = b:wheel_selected
 	else
 		echomsg 'wheel line sailing : bad format for b:wheel_selected'
+		return v:false
 	endif
 	if close
 		call wheel#mandala#close ()
