@@ -49,9 +49,8 @@ fun! wheel#mandala#open (type)
 		if filename !~ s:mandala_empty
 			call wheel#layer#push ()
 			call wheel#layer#fresh ()
-		else
-			call wheel#layer#init ()
 		endif
+		call wheel#layer#init ()
 	else
 		new
 		call wheel#cylinder#push ('linger')
