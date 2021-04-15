@@ -128,9 +128,6 @@ fun! wheel#line#toggle ()
 	if empty(line)
 		return v:false
 	endif
-	if ! exists('b:wheel_selected')
-		let b:wheel_selected = []
-	endif
 	if line !~ s:selected_pattern
 		let record = line
 	else

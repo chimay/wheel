@@ -129,6 +129,8 @@ fun! wheel#mandala#fill (content, ...)
 		" update b:wheel_lines
 		let b:wheel_lines = getline(1, '$')
 	endif
+	" init selection
+	let b:wheel_selected = []
 	" tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" restore cursor if possible, else place it on line 1
