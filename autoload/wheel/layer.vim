@@ -367,11 +367,11 @@ fun! wheel#layer#rotate_right ()
 		echomsg 'wheel rotate right : empty stack.'
 		return v:false
 	endif
-	call wheel#layer#swap ()
 	let stack = b:wheel_stack
 	let top = stack.top
 	let length = wheel#layer#length ()
 	let stack.top = wheel#gear#circular_plus (top, length)
+	call wheel#layer#swap ()
 endfun
 
 fun! wheel#layer#rotate_left ()
