@@ -41,14 +41,10 @@ fun! wheel#layer#init ()
 	" Last inserted layer is at index 0
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
+		let stack = b:wheel_stack
 		" index of top layer
-		let b:wheel_stack.top = -1
-		" stack length
-		let b:wheel_stack.length = 0
-		" other fields
-		for fieldname in s:layer_stack_fields
-			let b:wheel_stack[fieldname] = []
-		endfor
+		let stack.top = -1
+		let stack.layers = []
 	endif
 	if ! exists('b:wheel_lines')
 		let b:wheel_lines = []
@@ -58,48 +54,38 @@ fun! wheel#layer#init ()
 	endif
 endfun
 
-" Indexes
+" top, bottom, length
 
-fun! wheel#layer#pushed_length ()
-	" Return layer stack length after push
-	let length = b:wheel_stack.length
-	let maxim = g:wheel_config.maxim.layers
-	if length < maxim
-		let length += 1
-	else
-		let length = maxim
-	endif
-	return length
-endfun
-
-fun! wheel#layer#popped_top ()
-	" Return layer stack length after push
-	let top = b:wheel_stack.top
-	let length = b:wheel_stack.length
-	if top >= length
-		let top = length - 1
-	endif
-	return top
+fun! wheel#layer#length ()
+	" Layer stack length
+	return len(b:wheel_stack.layers)
 endfun
 
 fun! wheel#layer#bottom ()
 	" Return layer index to be popped or replaced in stack
 	let top = b:wheel_stack.top
-	let length = b:wheel_stack.length
+	let length = wheel#layer#length ()
 	let top = wheel#gear#circular_minus (top, length)
 	return top
 endfun
 
-fun! wheel#layer#pushed_top ()
-	" Return top layer index after push
-	let top = b:wheel_stack.top
-	let length = b:wheel_stack.length
-	let maxim = g:wheel_config.maxim.layers
-	if length < maxim
-		return top
-	else
-		return wheel#layer#bottom ()
+" Field stack
+
+fun! wheel#layer#stack (...)
+	" Return stack of fieldname given by argument
+	" Return layer stack if no argument is given
+	" Useful for debugging
+	if a:0 == 0
+		return b:wheel_stack.layers
 	endif
+	let stack = b:wheel_stack
+	let fieldname = a:1
+	let field_stack = []
+	for elem in stack.layers
+		let shadow = deepcopy(elem[fieldname])
+		call add(field_stack, shadow)
+	endfor
+	return field_stack
 endfun
 
 " Clearing things
@@ -119,8 +105,6 @@ endfun
 
 fun! wheel#layer#fresh ()
 	" Fresh empty layer : clear mandala lines, vars & maps
-	" Reset buffer variables
-	" Fresh filter and so on
 	call wheel#layer#clear_vars ()
 	call wheel#layer#clear_maps ()
 	" Delete lines -> _ no storing register
@@ -147,8 +131,8 @@ endfun
 fun! wheel#layer#save_options ()
 	" Save options
 	let ampersands = {}
-	for opt in s:mandala_options
-		let runme = 'let ampersands.' . opt . '=' . '&' . opt
+	for option in s:mandala_options
+		let runme = 'let ampersands.' . option . '=' . '&' . option
 		execute runme
 	endfor
 	return ampersands
@@ -185,173 +169,151 @@ endfun
 fun! wheel#layer#restore_options (options)
 	" Restore options
 	let options = a:options
-	for opt in s:mandala_options
-		let runme = 'let &' . opt . '=' . string(options[opt])
+	for optname in s:mandala_options
+		let runme = 'let &' . optname . '=' . string(options[optname])
 		execute runme
 	endfor
 endfun
 
-" Push & pop to stack
-
-fun! wheel#layer#push_field (field, element)
-	" Push element to stack field
-	let field = a:field
-	let element = a:element
-	let top = b:wheel_stack.top
-	let length = b:wheel_stack.length
-	let maxim = g:wheel_config.maxim.layers
-	if length < maxim
-		call insert(field, element, top)
-	else
-		let newtop = wheel#layer#bottom ()
-		let field[newtop] = element
-	endif
-endfun
-
-fun! wheel#layer#pop_field (field)
-	" Pop top of stack field
-	let field = a:field
-	let top = b:wheel_stack.top
-	if ! empty(field)
-		call remove(field, top)
-	endif
-endfun
+" Sync & swap
 
 fun! wheel#layer#sync ()
-	" Sync top of the stack -> mandala vars, options, maps
-	if b:wheel_stack.length == 0
+	" Sync top of the stack to mandala state : vars, options, maps
+	if wheel#layer#length () == 0
+		echomsg 'wheel layer sync : empty stack.'
 		return v:false
 	endif
 	let stack = b:wheel_stack
 	let top = stack.top
+	let layer = stack.layers[top]
 	" Pseudo filename
-	let filename = stack.filename
-	if empty(filename) || empty(filename[0])
-		echomsg 'wheel layer pop : empty stack.'
-		return v:false
-	endif
-	let pseudo_file = filename[top]
+	let pseudo_file = layer.filename
 	exe 'silent file' pseudo_file
 	" Local options
-	let options = stack.options
-	let ampersands = options[top]
-	call wheel#layer#restore_options (ampersands)
+	call wheel#layer#restore_options (layer.options)
 	" all mandala content, without filtering
-	let lines = stack.lines
-	let b:wheel_lines = lines[top]
+	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
-	let filtered = stack.filtered
-	call wheel#mandala#replace (filtered[top], 'delete')
+	call wheel#mandala#replace (layer.filtered, 'delete')
 	" Restore cursor position
-	let position = stack.position
-	call wheel#gear#restore_cursor (position[top])
+	call wheel#gear#restore_cursor (layer.position)
 	" Restore selection
-	let selected = stack.selected
-	let b:wheel_selected = selected[top]
+	let b:wheel_selected = deepcopy(layer.selected)
 	" Restore settings
-	let settings = stack.settings
-	let b:wheel_settings = settings[top]
+	let b:wheel_settings = deepcopy(layer.settings)
 	" Restore mappings
-	let mappings = stack.mappings
-	call wheel#layer#restore_maps (mappings[top])
+	let mappings = deepcopy(layer.mappings)
+	call wheel#layer#restore_maps (mappings)
 	" Empty selection if only one element
+	" to improve : sync lines to b:wheel_selected
 	if len(b:wheel_selected) == 1
 		call wheel#line#deselect ()
 	endif
 	" Reload
-	let reload = stack.reload
-	let b:wheel_reload = reload[top]
+	let b:wheel_reload = layer.reload
 	" Tell (neo)vim the buffer is to be considered not modified
 	setlocal nomodified
 endfun
+
+fun! wheel#layer#swap ()
+	" Swap mandala state and top of stack
+	let stack = b:wheel_stack
+	" -- Mandala state -> swap space
+	" -- Stack top -> mandala state
+	call wheel#layer#sync ()
+	" -- Swap space -> top of stack
+	let stack.layers[top] = swap
+endfun
+
+" Push & pop
 
 fun! wheel#layer#push ()
 	" Push buffer content to the stack
 	" save modified local maps
 	call wheel#layer#init ()
 	let stack = b:wheel_stack
-	if stack.top < 0
+	let length = wheel#layer#length ()
+	let maxim = g:wheel_config.maxim.layers
+	if length == 0
 		let stack.top = 0
 	endif
-	" pseudo filename
-	let filename = stack.filename
-	call wheel#layer#push_field (filename, expand('%'))
-	" local options
-	let options = stack.options
-	let ampersands = wheel#layer#save_options ()
-	call wheel#layer#push_field (options, ampersands)
-	" lines content, without filtering
-	let lines = stack.lines
-	if empty(b:wheel_lines)
-		let buflines = getline(2, '$')
+	if length < maxim
+		" insert new layer before top
+		" the top index will reflect the new element,
+		" no need to update it
+		call insert(stack.layers, {}, stack.top)
 	else
-		let buflines = b:wheel_lines
+		" new layer will replace the bottom
+		let stack.top = wheel#layer#bottom ()
 	endif
-	call wheel#layer#push_field (lines, buflines)
+	" layer to fill
+	let layer = stack.layers[stack.top]
+	" pseudo filename
+	let layer.filename = expand('%')
+	" local options
+	let layer.options = wheel#layer#save_options ()
+	" lines content, without filtering
+	if empty(b:wheel_lines)
+		let layer.lines = getline(2, '$')
+	else
+		let layer.lines = copy(b:wheel_lines)
+	endif
 	" filtered content
-	let filtered = stack.filtered
-	call wheel#layer#push_field (filtered, getline(1, '$'))
+	let layer.filtered = getline(1, '$')
 	" cursor position
-	let position = stack.position
-	call wheel#layer#push_field (position, getcurpos())
+	let layer.position = getcurpos()
 	" selected lines
-	let selected = stack.selected
 	if empty(b:wheel_selected)
 		let address = wheel#line#address()
 		let b:wheel_selected = [address]
 	endif
-	call wheel#layer#push_field (selected, b:wheel_selected)
+	let layer.selected = deepcopy(b:wheel_selected)
 	" buffer settings
-	let settings = stack.settings
 	if exists('b:wheel_settings')
-		call wheel#layer#push_field (settings, b:wheel_settings)
+		let layer.settings = deepcopy(b:wheel_settings)
 	else
-		call wheel#layer#push_field (settings, {})
+		let layer.settings = {}
 	endif
 	" buffer mappings
-	let mappings = stack.mappings
-	let mapdict = wheel#layer#save_maps ()
-	call wheel#layer#push_field (mappings, mapdict)
+	let layer.mappings = wheel#layer#save_maps ()
 	" reload
-	let reload = stack.reload
 	if exists('b:wheel_reload')
-		call wheel#layer#push_field (reload, b:wheel_reload)
+		let layer.reload = b:wheel_reload
 	else
-		call wheel#layer#push_field (reload, '')
+		let layer.reload = ''
 	endif
-	" new top index
-	let b:wheel_stack.top = wheel#layer#pushed_top ()
-	" new length
-	let b:wheel_stack.length = wheel#layer#pushed_length ()
 endfun
 
 fun! wheel#layer#pop ()
-	" Pop buffer content from the stack
-	if b:wheel_stack.length == 0
+	" Pop top of stack to the mandala state
+	let length = wheel#layer#length ()
+	if length == 0
 		echomsg 'wheel layer pop : empty stack.'
 		return v:false
 	endif
 	call wheel#layer#sync ()
-	for fieldname in s:layer_stack_fields
-		let field = b:wheel_stack[fieldname]
-		call wheel#layer#pop_field (field)
-	endfor
-	let b:wheel_stack.length -= 1
-	let b:wheel_stack.top = wheel#layer#popped_top ()
+	let stack = b:wheel_stack
+	call remove(stack.layers, stack.top)
+	if stack.top >= length
+		let stack.top = length - 1
+	endif
 endfun
 
+" Rotate
+
 fun! wheel#layer#rotate_right ()
-	" Rotate layer stack to the right
-	let top = b:wheel_stack.top
-	let length = b:wheel_stack.length
-	let b:wheel_stack.top = wheel#gear#circular_plus (top, length)
-	call wheel#layer#sync ()
+	" Swap mandala state & top of stack, and rotate layer stack to the right
+	call wheel#layer#swap ()
+	let stack = b:wheel_stack
+	let top = stack.top
+	let length = wheel#layer#length ()
+	let stack.top = wheel#gear#circular_plus (top, length)
 endfun
 
 fun! wheel#layer#rotate_left ()
-	" Rotate layer stack to the left
+	" Swap mandala state & top of stack, and rotate layer stack to the left
+	call wheel#layer#swap ()
 	let top = b:wheel_stack.top
-	let length = b:wheel_stack.length
+	let length = wheel#layer#length ()
 	let b:wheel_stack.top = wheel#gear#circular_minus (top, length)
-	call wheel#layer#sync ()
 endfun

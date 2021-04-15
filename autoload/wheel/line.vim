@@ -154,7 +154,7 @@ fun! wheel#line#toggle ()
 endfun
 
 fun! wheel#line#sync_select ()
-	" Sync buffer lines from b:wheel_selected
+	" Sync b:wheel_selected to buffer lines
 	if ! exists('b:wheel_selected')
 		return v:false
 	endif
