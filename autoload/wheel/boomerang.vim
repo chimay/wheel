@@ -70,12 +70,14 @@ fun! wheel#boomerang#menu (dictname, ...)
 		let optional.ctx_travel = v:false
 	endif
 	" selection
-	if line('.') == 1
-		if line('$') > 1
-			call cursor(2, 1)
-		else
-			echomsg 'wheel boomerang menu : not enough lines for a default selection.'
-			return v:false
+	if empty(b:wheel_selected)
+		if line('.') == 1
+			if line('$') > 1
+				call cursor(2, 1)
+			else
+				echomsg 'wheel boomerang menu : not enough lines for a default selection.'
+				return v:false
+			endif
 		endif
 	endif
 	let dictname = 'context/' . a:dictname
