@@ -43,6 +43,9 @@ endfun
 
 fun! wheel#mandala#init_variables ()
 	" Init mandala local vars
+	if ! exists('b:wheel_lines')
+		let b:wheel_lines = []
+	endif
 	if ! exists('b:wheel_address')
 		let b:wheel_address = []
 	endif
@@ -64,6 +67,7 @@ fun! wheel#mandala#open (type)
 		new
 		call wheel#cylinder#push ('linger')
 	endif
+	call wheel#mandala#init_variables ()
 	call wheel#mandala#pseudo_filename(type)
 	call wheel#mandala#common_options ()
 endfun

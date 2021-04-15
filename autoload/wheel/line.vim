@@ -155,9 +155,6 @@ endfun
 
 fun! wheel#line#sync_select ()
 	" Sync b:wheel_selected to buffer lines
-	if ! exists('b:wheel_selected')
-		return v:false
-	endif
 	let position = getcurpos()
 	for linum in range(line('$'))
 		call cursor(linum, 1)
@@ -175,18 +172,14 @@ fun! wheel#line#sync_select ()
 		if index >= 0
 			let selected_line = substitute(record, '\m^', s:selected_mark, '')
 			call setline('.', selected_line)
-			if exists('b:wheel_lines')
-				" Update b:wheel_lines
-				let pos = index(b:wheel_lines, line)
-				let b:wheel_lines[pos] = selected_line
-			endif
+			" Mark line as selected in b:wheel_lines
+			let pos = index(b:wheel_lines, line)
+			let b:wheel_lines[pos] = selected_line
 		else
 			call setline('.', record)
-			if exists('b:wheel_lines')
-				" Update b:wheel_lines
-				let pos = index(b:wheel_lines, line)
-				let b:wheel_lines[pos] = record
-			endif
+			" Unmark line in b:wheel_lines
+			let pos = index(b:wheel_lines, line)
+			let b:wheel_lines[pos] = record
 		endif
 	endfor
 	call wheel#gear#restore_cursor (position)
@@ -357,11 +350,7 @@ fun! wheel#line#sailing (settings)
 		let Fun = 'wheel#line#switch'
 	endif
 	if empty(b:wheel_selected)
-		if empty(b:wheel_address)
 			let selected = [wheel#line#address ()]
-		else
-			let selected = [b:wheel_address]
-		endif
 	elseif type(b:wheel_selected) == v:t_list
 		let selected = b:wheel_selected
 	else
@@ -686,7 +675,7 @@ fun! wheel#line#paste_list (...)
 	else
 		let close = 'close'
 	endif
-	if exists('b:wheel_selected') && ! empty(b:wheel_selected)
+	if ! empty(b:wheel_selected)
 		let content = eval(b:wheel_selected[0])
 	else
 		let line = getline('.')
@@ -721,7 +710,7 @@ fun! wheel#line#paste_plain (...)
 	else
 		let close = 'close'
 	endif
-	if exists('b:wheel_selected') && ! empty(b:wheel_selected)
+	if ! empty(b:wheel_selected)
 		let content = b:wheel_selected[0]
 	else
 		let content = getline('.')

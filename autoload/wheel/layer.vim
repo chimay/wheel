@@ -49,6 +49,9 @@ fun! wheel#layer#init ()
 	if ! exists('b:wheel_lines')
 		let b:wheel_lines = []
 	endif
+	if ! exists('b:wheel_address')
+		let b:wheel_address = []
+	endif
 	if ! exists('b:wheel_selected')
 		let b:wheel_selected = []
 	endif
