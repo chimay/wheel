@@ -219,10 +219,45 @@ fun! wheel#layer#swap ()
 	" Swap mandala state and top of stack
 	let stack = b:wheel_stack
 	" -- Mandala state -> swap space
+	let swap = {}
+	" pseudo filename
+	let swap.filename = expand('%')
+	" local options
+	let swap.options = wheel#layer#save_options ()
+	" lines content, without filtering
+	if empty(b:wheel_lines)
+		let swap.lines = getline(2, '$')
+	else
+		let swap.lines = copy(b:wheel_lines)
+	endif
+	" filtered content
+	let swap.filtered = getline(1, '$')
+	" cursor position
+	let swap.position = getcurpos()
+	" selected lines
+	if empty(b:wheel_selected)
+		let address = wheel#line#address()
+		let b:wheel_selected = [address]
+	endif
+	let swap.selected = deepcopy(b:wheel_selected)
+	" buffer settings
+	if exists('b:wheel_settings')
+		let swap.settings = deepcopy(b:wheel_settings)
+	else
+		let swap.settings = {}
+	endif
+	" buffer mappings
+	let swap.mappings = wheel#layer#save_maps ()
+	" reload
+	if exists('b:wheel_reload')
+		let swap.reload = b:wheel_reload
+	else
+		let swap.reload = ''
+	endif
 	" -- Stack top -> mandala state
 	call wheel#layer#sync ()
 	" -- Swap space -> top of stack
-	let stack.layers[top] = swap
+	let stack.layers[stack.top] = swap
 endfun
 
 " Push & pop
