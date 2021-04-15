@@ -89,7 +89,7 @@ fun! wheel#layer#stack (...)
 	return field_stack
 endfun
 
-fun! wheel#layer#field (...)
+fun! wheel#layer#top_field (...)
 	" Return field given by fieldname at top of stack
 	" Return top of stack if no argument is given
 	let stack = b:wheel_stack

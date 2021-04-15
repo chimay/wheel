@@ -15,11 +15,11 @@ fun! wheel#boomerang#sync ()
 	" Sync cursor address, selection & settings at top of stack --> mandala state
 	let stack = b:wheel_stack
 	let top = b:wheel_stack.top
-	let b:wheel_address = deepcopy(wheel#layer#field(address))
+	let b:wheel_address = deepcopy(wheel#layer#top_field('address'))
 	" the action will be performed on the selection of the previous layer
-	let b:wheel_selected = deepcopy(wheel#layer#field(selected))
+	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
 	" the action will be performed with the settings of the previous layer
-	let b:wheel_settings = deepcopy(wheel#layer#field(settings))
+	let b:wheel_settings = deepcopy(wheel#layer#top_field('settings'))
 endfun
 
 " Helpers
@@ -29,9 +29,9 @@ fun! wheel#boomerang#remove_deleted ()
 	" deleted = selected or cursor address
 	" e.g. : deleted buffers, closed tabs
 	let top = b:wheel_stack.top
-	let lines = wheel#layer#field ('lines')
-	let filtered = wheel#layer#field ('filtered')
-	let selected = wheel#layer#field ('selected')
+	let lines = wheel#layer#top_field ('lines')
+	let filtered = wheel#layer#top_field ('filtered')
+	let selected = wheel#layer#top_field ('selected')
 	if ! empty(selected)
 		" if manually selected with space
 		for elem in selected
@@ -42,7 +42,7 @@ fun! wheel#boomerang#remove_deleted ()
 	else
 		" operate by default on cursor line address on top layer
 		" no manual selection, no marker
-		let elem = wheel#layer#field ('address')
+		let elem = wheel#layer#top_field ('address')
 		if type(elem) == v:t_list
 			let elem = elem[-1]
 		endif
