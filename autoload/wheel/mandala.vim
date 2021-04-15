@@ -177,9 +177,7 @@ fun! wheel#mandala#replace (content, ...)
 	silent put =content
 	" new lines
 	call cursor(1,1)
-	if first == 'keep'
-		" delete empty lines from line 2 to end
-	elseif first == 'blank'
+	if first == 'blank'
 		" first lines should already be blank :
 		" :put add stuff after current line,
 		" which is the first one on a empty buffer
@@ -187,7 +185,7 @@ fun! wheel#mandala#replace (content, ...)
 	elseif first == 'delete'
 		1 delete _
 	endif
-	" delete empty lines
+	" delete empty lines from line 2 to end
 	silent! 2,$ global /^$/ delete _
 	" tell (neo)vim the buffer is unmodified
 	setlocal nomodified
