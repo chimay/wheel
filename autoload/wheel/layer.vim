@@ -209,6 +209,8 @@ fun! wheel#layer#sync ()
 	call wheel#mandala#replace (layer.filtered, 'delete')
 	" Restore cursor position
 	call wheel#gear#restore_cursor (layer.position)
+	" Restore address linked to cursor line & context
+	let b:wheel_address = copy(layer.address)
 	" Restore selection
 	let b:wheel_selected = deepcopy(layer.selected)
 	" Restore settings
@@ -246,15 +248,13 @@ fun! wheel#layer#swap ()
 	let swap.filtered = getline(1, '$')
 	" cursor position
 	let swap.position = getcurpos()
+	" address of cursor line
+	" useful for boomerang = context menus
+	let swap.address = wheel#line#address()
 	" selected lines
-	if empty(b:wheel_selected)
-		let address = wheel#line#address()
-		let b:wheel_selected = [address]
-	endif
 	let swap.selected = deepcopy(b:wheel_selected)
 	" buffer settings
 	if exists('b:wheel_settings')
-		let swap.settings = deepcopy(b:wheel_settings)
 	else
 		let swap.settings = {}
 	endif
@@ -309,12 +309,15 @@ fun! wheel#layer#push ()
 	let layer.filtered = getline(1, '$')
 	" cursor position
 	let layer.position = getcurpos()
+	" address of cursor line
+	" useful for boomerang = context menus
+	let layer.address = wheel#line#address()
 	" selected lines
-	if empty(b:wheel_selected)
-		" default selection : current line & context
-		let b:wheel_selected = [wheel#line#address()]
+	if exists('b:wheel_selected')
+		let layer.selected = deepcopy(b:wheel_selected)
+	else
+		let layer.selected = []
 	endif
-	let layer.selected = deepcopy(b:wheel_selected)
 	" buffer settings
 	if exists('b:wheel_settings')
 		let layer.settings = deepcopy(b:wheel_settings)

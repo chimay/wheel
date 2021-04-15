@@ -128,6 +128,9 @@ fun! wheel#line#toggle ()
 	if empty(line)
 		return v:false
 	endif
+	if ! exists('b:wheel_selected')
+		let b:wheel_selected = []
+	endif
 	if line !~ s:selected_pattern
 		let record = line
 	else
@@ -330,7 +333,7 @@ endfun
 " Generic function
 
 fun! wheel#line#sailing (settings)
-	" Go to element(s) on current or selected line(s)
+	" Go to element(s) on cursor line or selected line(s)
 	" settings keys :
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
@@ -356,12 +359,16 @@ fun! wheel#line#sailing (settings)
 	else
 		let Fun = 'wheel#line#switch'
 	endif
-	if ! exists('b:wheel_selected') || empty(b:wheel_selected)
-		let selected = [wheel#line#address ()]
+	if empty(b:wheel_selected)
+		if empty(b:wheel_address)
+			let selected = [wheel#line#address ()]
+		else
+			let selected = [b:wheel_address]
+		endif
 	elseif type(b:wheel_selected) == v:t_list
 		let selected = b:wheel_selected
 	else
-		echomsg 'Wheel line navigation : bad format for b:wheel_selected'
+		echomsg 'wheel line sailing : bad format for b:wheel_selected'
 	endif
 	if close
 		call wheel#mandala#close ()

@@ -83,6 +83,7 @@ if ! exists('s:layer_stack_fields')
 	" lines : lines mandala content, without filtering
 	" filtered : filtered mandala content
 	" position : cursor position
+	" address : address associated with cursor line
 	" selected : selected lines
 	" settings : mandala settings
 	" mappings : mappings
@@ -93,6 +94,7 @@ if ! exists('s:layer_stack_fields')
 				\ 'lines',
 				\ 'filtered',
 				\ 'position',
+				\ 'address',
 				\ 'selected',
 				\ 'settings',
 				\ 'mappings',

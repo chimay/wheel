@@ -12,35 +12,43 @@ endif
 " Sync buffer variables & top of stack
 
 fun! wheel#boomerang#sync ()
-	" Sync selection & settings at top of stack --> buffer variables
-	" the action will be performed on the selection of the previous layer
+	" Sync cursor address, selection & settings at top of stack --> mandala state
 	let stack = b:wheel_stack
 	let top = b:wheel_stack.top
-	if ! empty(stack.layers[top].selected)
-		let b:wheel_selected = deepcopy(stack.layers[top].selected)
-	endif
+	let b:wheel_address = deepcopy(wheel#layer#field(address))
+	" the action will be performed on the selection of the previous layer
+	let b:wheel_selected = deepcopy(wheel#layer#field(selected))
 	" the action will be performed with the settings of the previous layer
-	if ! empty(stack.layers[top].settings)
-		let b:wheel_settings = deepcopy(stack.layers[top].settings)
-	endif
+	let b:wheel_settings = deepcopy(wheel#layer#field(settings))
 endfun
 
 " Helpers
 
 fun! wheel#boomerang#remove_deleted ()
 	" Remove deleted elements from special buffer lines of the previous layer
+	" deleted = selected or cursor address
 	" e.g. : deleted buffers, closed tabs
 	let top = b:wheel_stack.top
-	let lines = b:wheel_stack.layers[top].lines
-	let filtered = b:wheel_stack.layers[top].filtered
-	for elem in b:wheel_selected
-		call wheel#chain#remove_element (elem, lines)
-		call wheel#chain#remove_element (elem, filtered)
+	let lines = wheel#layer#field ('lines')
+	let filtered = wheel#layer#field ('filtered')
+	let selected = wheel#layer#field ('selected')
+	if ! empty(selected)
 		" if manually selected with space
-		let elem = s:selected_mark . elem
+		for elem in selected
+			let elem = s:selected_mark . elem
+			call wheel#chain#remove_element (elem, lines)
+			call wheel#chain#remove_element (elem, filtered)
+		endfor
+	else
+		" operate by default on cursor line address on top layer
+		" no manual selection, no marker
+		let elem = wheel#layer#field ('address')
+		if type(elem) == v:t_list
+			let elem = elem[-1]
+		endif
 		call wheel#chain#remove_element (elem, lines)
 		call wheel#chain#remove_element (elem, filtered)
-	endfor
+	endif
 endfun
 
 " Generic
@@ -62,11 +70,11 @@ fun! wheel#boomerang#menu (dictname, ...)
 		let optional.ctx_travel = v:false
 	endif
 	if empty(b:wheel_selected)
-		if line('.') == 1 && ! empty(wheel#line#address ())
+		if line('.') == 1 && ! empty(getline(1))
 			echomsg 'wheel boomerang menu : first line filter is not a valid selection.'
 			return v:false
 		endif
-		if empty(wheel#line#address ()) && line('$') > 1
+		if empty(getline(1)) && line('$') > 1
 			call cursor(2, 1)
 		endif
 		if empty(wheel#line#address ())
@@ -124,11 +132,12 @@ fun! wheel#boomerang#opened_files (action)
 	let settings = b:wheel_settings
 	if action == 'delete' || action == 'wipe'
 		let settings.ctx_action = action
+		" remove deleted elements from the opened_files mandala
+		call wheel#boomerang#remove_deleted ()
 		" To inform wheel#line#sailing
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
-		call wheel#boomerang#remove_deleted ()
 		call wheel#line#sailing (settings)
 		let top = b:wheel_stack.top
 		let b:wheel_stack.layers[top].selected = []
@@ -145,9 +154,7 @@ fun! wheel#boomerang#tabwins (action)
 		let settings.target = 'current'
 		return wheel#line#sailing (settings)
 	elseif action == 'tabclose'
-		" To inform wheel#line#sailing
-		" that a loop on selected elements is necessary ;
-		" it does not perform it if target == 'current'
+		" inform wheel#line#sailing that a loop on selected elements is necessary
 		let settings.target = 'none'
 		" closing last tab first
 		call reverse(b:wheel_selected)
