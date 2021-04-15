@@ -204,7 +204,8 @@ fun! wheel#layer#sync ()
 	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
 	" layer.filtered should contain also the original first line,
-	" so we have do delete the first line added by :put
+	" so we have do delete the first line added by :put in
+	" wheel#mandala#replace
 	call wheel#mandala#replace (layer.filtered, 'delete')
 	" Restore cursor position
 	call wheel#gear#restore_cursor (layer.position)
@@ -310,8 +311,8 @@ fun! wheel#layer#push ()
 	let layer.position = getcurpos()
 	" selected lines
 	if empty(b:wheel_selected)
-		let address = wheel#line#address()
-		let b:wheel_selected = [address]
+		" default selection : current line & context
+		let b:wheel_selected = [wheel#line#address()]
 	endif
 	let layer.selected = deepcopy(b:wheel_selected)
 	" buffer settings
