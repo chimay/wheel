@@ -203,6 +203,8 @@ fun! wheel#layer#sync ()
 	" all mandala content, without filtering
 	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
+	" layer.filtered should contain also the original first line,
+	" so we have do delete the first line added by :put
 	call wheel#mandala#replace (layer.filtered, 'delete')
 	" Restore cursor position
 	call wheel#gear#restore_cursor (layer.position)
@@ -335,9 +337,13 @@ fun! wheel#layer#pop ()
 		echomsg 'wheel layer pop : empty stack.'
 		return v:false
 	endif
+	" pop
 	call wheel#layer#sync ()
 	let stack = b:wheel_stack
 	call remove(stack.layers, stack.top)
+	" update length
+	let length = wheel#layer#length ()
+	" update top index
 	if stack.top >= length
 		let stack.top = length - 1
 	endif

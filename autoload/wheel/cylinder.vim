@@ -2,6 +2,22 @@
 
 " Mandala buffers stack / ring
 
+fun! wheel#cylinder#is_mandala (...)
+	" Return true if current buffer is a mandala buffer, false otherwise
+	" Optional argument : number of buffer to test
+	if a:0 > 0
+		let bufnum = a:1
+	else
+		let bufnum = bufnr('%')
+	endif
+	let mandalas = g:wheel_mandalas.stack
+	if index(mandalas, bufnum) >= 0
+		return v:true
+	else
+		return v:false
+	endif
+endfun
+
 fun! wheel#cylinder#push (...)
 	" Push new mandala buffer
 	if a:0 > 0
@@ -32,12 +48,7 @@ fun! wheel#cylinder#push (...)
 	endif
 	" Not the first one
 	" Is current buffer a mandala buffer ?
-	let bufnum = bufnr('%')
-	if index(mandalas, bufnum) >= 0
-		let in_mandala_buf = v:true
-	else
-		let in_mandala_buf = v:false
-	endif
+	let in_mandala_buf = wheel#cylinder#is_mandala ()
 	" Old current special buffer
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]

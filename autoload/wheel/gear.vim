@@ -266,41 +266,41 @@ endfun
 
 " Functions
 
-fun! wheel#gear#call (func, ...)
+fun! wheel#gear#call (fun, ...)
 	" Call Function depicted as a Funcref or a string
-	" Optional arguments are passed to Func
-	if empty(a:func)
+	" Optional arguments are passed to Fun
+	if empty(a:fun)
 		return v:false
 	endif
 	let arg = a:000
-	let Func = a:func
-	let kind = type(Func)
+	let Fun = a:fun
+	let kind = type(Fun)
 	if kind == v:t_func
 		if empty(arg)
-			" form : Func = function('name') without argument
-			return Func()
+			" form : Fun = function('name') without argument
+			return Fun()
 		else
-			" form : Func = function('name') with arguments
-			return call(Func, arg)
+			" form : Fun = function('name') with arguments
+			return call(Fun, arg)
 		endif
 	elseif kind == v:t_string
-		if Func =~ '\m)$'
-			" form : Func = 'function(...)'
+		if Fun =~ '\m)$'
+			" form : Fun = 'function(...)'
 			" a:000 of wheel#gear#call is ignored
-			return eval(Func)
+			return eval(Fun)
 			" works, but less elegant
-			"exe 'let value =' Func
+			"exe 'let value =' Fun
 		elseif empty(arg)
-			" form : Func = 'function' without argument
-			return {Func}()
+			" form : Fun = 'function' without argument
+			return {Fun}()
 		else
-			" form : Func = 'function' with arguments
-			return call(Func, arg)
+			" form : Fun = 'function' with arguments
+			return call(Fun, arg)
 		endif
 	else
 		" likely not a representation of a function
 		" simply forward concatened arguments
-		return [Func] + arg
+		return [Fun] + arg
 	endif
 endfun
 

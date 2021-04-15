@@ -56,7 +56,7 @@ fun! wheel#shape#reorder (level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#reorder_write (level)
 	if ! empty(lines)
-		call wheel#mandala#fill(lines)
+		call wheel#mandala#fill(lines, 'delete')
 		silent global /^$/ delete
 		setlocal nomodified
 	else
@@ -74,7 +74,7 @@ fun! wheel#shape#reorganize ()
 	call wheel#mandala#common_maps ()
 	call wheel#shape#reorganize_write ()
 	call wheel#mandala#folding_options ()
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
@@ -90,7 +90,7 @@ fun! wheel#shape#reorg_tabwins ()
 	call wheel#mandala#common_maps ()
 	call wheel#shape#reorg_tabwins_write ()
 	call wheel#mandala#folding_options ('tabwins_folding_text')
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
@@ -103,14 +103,14 @@ fun! wheel#shape#grep ()
 	" called from context menu,
 	" original grep lines are at the top of the stack
 	let top = b:wheel_stack.top
-	let lines = b:wheel_stack.lines[top]
+	let lines = b:wheel_stack.layers[top].lines
 	call wheel#vortex#update ()
 	" new buffer
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#grep_write ()
 	echomsg len(lines)
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
