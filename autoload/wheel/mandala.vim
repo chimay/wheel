@@ -179,17 +179,16 @@ fun! wheel#mandala#replace (content, ...)
 	call cursor(1,1)
 	if first == 'keep'
 		" delete empty lines from line 2 to end
-		silent! 2,$ global /^$/ delete _
 	elseif first == 'blank'
 		" first lines should already be blank :
 		" :put add stuff after current line,
 		" which is the first one on a empty buffer
 		call setline(1, '')
-		silent! 2,$ global /^$/ delete _
 	elseif first == 'delete'
 		1 delete _
-		silent! 2,$ global /^$/ delete _
 	endif
+	" delete empty lines
+	silent! 2,$ global /^$/ delete _
 	" tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" restore cursor if possible, else place it on line 1

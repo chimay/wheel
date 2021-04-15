@@ -207,8 +207,7 @@ fun! wheel#layer#sync ()
 	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
 	" layer.filtered should contain also the original first line,
-	" so we have do delete the first line added by :put in
-	" wheel#mandala#replace
+	" so we have do delete the first line added by :put in wheel#mandala#replace
 	call wheel#mandala#replace (layer.filtered, 'delete')
 	" Restore cursor position
 	call wheel#gear#restore_cursor (layer.position)
