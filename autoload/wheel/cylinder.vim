@@ -18,8 +18,8 @@ fun! wheel#cylinder#is_mandala (...)
 	endif
 endfun
 
-fun! wheel#cylinder#push (...)
-	" Push new mandala buffer
+fun! wheel#cylinder#first (...)
+	" Push first mandala buffer
 	if a:0 > 0
 		let mode = a:1
 	else
@@ -27,23 +27,34 @@ fun! wheel#cylinder#push (...)
 	endif
 	let mandalas = g:wheel_mandalas.stack
 	let iden = g:wheel_mandalas.iden
+	enew
+	let bufnum = bufnr('%')
+	call add(mandalas, bufnum)
+	let g:wheel_mandalas.current = 0
+	let g:wheel_mandalas.maxim = 0
+	call add(iden, 0)
+	call wheel#layer#init ()
+	call wheel#mandala#pseudo_filename ('empty')
+	call wheel#mandala#common_maps ()
+	if mode == 'goback'
+		silent buffer #
+	endif
+	echomsg 'Buffer' bufnum 'added'
+endfun
+
+fun! wheel#cylinder#push (...)
+	" Push new mandala buffer
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'goback'
+	endif
 	call wheel#cylinder#check ()
+	let mandalas = g:wheel_mandalas.stack
+	let iden = g:wheel_mandalas.iden
 	" First one
 	if empty(mandalas)
-		enew
-		let bufnum = bufnr('%')
-		call add(mandalas, bufnum)
-		let g:wheel_mandalas.current = 0
-		let g:wheel_mandalas.maxim = 0
-		call add(iden, 0)
-		call wheel#layer#init ()
-		call wheel#mandala#pseudo_filename ('empty')
-		call wheel#mandala#common_maps ()
-		if mode == 'goback'
-			silent buffer #
-		endif
-		echomsg 'Buffer' bufnum 'added'
-		" done
+		call wheel#cylinder#first (mode)
 		return v:true
 	endif
 	" Not the first one

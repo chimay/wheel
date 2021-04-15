@@ -234,6 +234,7 @@ endfun
 
 fun! wheel#layer#swap ()
 	" Swap mandala state and top of stack
+	call wheel#layer#init ()
 	let stack = b:wheel_stack
 	" -- Mandala state -> swap space
 	let swap = {}
@@ -258,6 +259,7 @@ fun! wheel#layer#swap ()
 	let swap.selected = deepcopy(b:wheel_selected)
 	" buffer settings
 	if exists('b:wheel_settings')
+		let swap.settings = b:wheel_settings
 	else
 		let swap.settings = {}
 	endif
@@ -360,6 +362,11 @@ endfun
 
 fun! wheel#layer#rotate_right ()
 	" Swap mandala state & top of stack, and rotate layer stack to the right
+	let length = wheel#layer#length ()
+	if length == 0
+		echomsg 'wheel rotate right : empty stack.'
+		return v:false
+	endif
 	call wheel#layer#swap ()
 	let stack = b:wheel_stack
 	let top = stack.top
@@ -369,6 +376,11 @@ endfun
 
 fun! wheel#layer#rotate_left ()
 	" Swap mandala state & top of stack, and rotate layer stack to the left
+	let length = wheel#layer#length ()
+	if length == 0
+		echomsg 'wheel rotate left : empty stack.'
+		return v:false
+	endif
 	call wheel#layer#swap ()
 	let top = b:wheel_stack.top
 	let length = wheel#layer#length ()

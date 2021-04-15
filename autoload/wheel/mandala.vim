@@ -41,19 +41,6 @@ fun! wheel#mandala#pseudo_filename (mandala_type)
 	return pseudo_filename
 endfun
 
-fun! wheel#mandala#init_variables ()
-	" Init mandala local vars
-	if ! exists('b:wheel_lines')
-		let b:wheel_lines = []
-	endif
-	if ! exists('b:wheel_address')
-		let b:wheel_address = []
-	endif
-	if ! exists('b:wheel_selected')
-		let b:wheel_selected = []
-	endif
-endfun
-
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
@@ -62,13 +49,14 @@ fun! wheel#mandala#open (type)
 		if filename !~ s:mandala_empty
 			call wheel#layer#push ()
 			call wheel#layer#fresh ()
+		else
+			call wheel#layer#init ()
 		endif
 	else
 		new
 		call wheel#cylinder#push ('linger')
 	endif
-	call wheel#mandala#init_variables ()
-	call wheel#mandala#pseudo_filename(type)
+	call wheel#mandala#pseudo_filename (type)
 	call wheel#mandala#common_options ()
 endfun
 
@@ -143,8 +131,6 @@ fun! wheel#mandala#fill (content, ...)
 		" update b:wheel_lines
 		let b:wheel_lines = getline(1, '$')
 	endif
-	" init mandala vars
-	call wheel#mandala#init_variables ()
 	" tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" restore cursor if possible, else place it on line 1
