@@ -54,7 +54,7 @@ fun! wheel#layer#init ()
 	endif
 endfun
 
-" top, bottom, length
+" State
 
 fun! wheel#layer#length ()
 	" Layer stack length
@@ -68,8 +68,6 @@ fun! wheel#layer#bottom ()
 	let top = wheel#gear#circular_minus (top, length)
 	return top
 endfun
-
-" Field stack
 
 fun! wheel#layer#stack (...)
 	" Return stack of fieldname given by argument
@@ -86,6 +84,17 @@ fun! wheel#layer#stack (...)
 		call add(field_stack, shadow)
 	endfor
 	return field_stack
+endfun
+
+fun! wheel#layer#field (...)
+	" Return field given by fieldname at top of stack
+	" Return top of stack if no argument is given
+	let stack = b:wheel_stack
+	if a:0 == 0
+		return stack.layers[stack.top]
+	endif
+	let fieldname = a:1
+	return stack.layers[stack.top][fieldname]
 endfun
 
 " Clearing things
@@ -281,7 +290,7 @@ fun! wheel#layer#push ()
 		" new layer will replace the bottom
 		let stack.top = wheel#layer#bottom ()
 	endif
-	" layer to fill
+	" layer to fill / update
 	let layer = stack.layers[stack.top]
 	" pseudo filename
 	let layer.filename = expand('%')
