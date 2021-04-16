@@ -1592,11 +1592,11 @@ mapping level to less than 10, then copy and adapt the following lines : >
     nmap <c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)
     nmap <c-s-pagedown> <plug>(wheel-rotate-clockwise)
     " Save (push) mandala buffer
-    nmap <m-Tab>        <plug>(wheel-buffer-push)
+    nmap <m-Tab>        <plug>(wheel-mandala-push)
     " Remove (pop) mandala buffer
-    nmap <m-Backspace>  <plug>(wheel-buffer-pop)
+    nmap <m-Backspace>  <plug>(wheel-mandala-pop)
     " Cycle mandala buffers
-    nmap <m-space>      <plug>(wheel-buffer-rotate-right)
+    nmap <m-space>      <plug>(wheel-mandala-forward)
 <
 
 ------------------------------------------------------------------------------
@@ -1618,7 +1618,7 @@ Some bindings that you may find useful : >
 
     nmap <d-^> <plug>(wheel-alternate-same-torus-other-circle)
     nmap <d-x> <plug>(wheel-index-locations)
-    nmap <d-space> <plug>(wheel-mandala-rotate-left)
+    nmap <d-space> <plug>(wheel-mandala-backward)
 
     nmap <silent> k :call wheel#mandala#wrap_up()<cr>
     nmap <silent> j :call wheel#mandala#wrap_down()<cr>

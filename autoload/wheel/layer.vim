@@ -359,7 +359,7 @@ endfun
 
 " Rotate
 
-fun! wheel#layer#back ()
+fun! wheel#layer#backward ()
 	" Go back in layer stack
 	let length = wheel#layer#length ()
 	if length == 0

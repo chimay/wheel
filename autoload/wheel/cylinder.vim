@@ -167,25 +167,27 @@ fun! wheel#cylinder#check ()
 	endfor
 endfun
 
-fun! wheel#cylinder#rotate_right ()
-	" Cycle mandalas buffers
+fun! wheel#cylinder#forward ()
+	" Go forward in mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
+	let length = len(mandalas)
 	let bufnum = bufnr('%')
 	if index(mandalas, bufnum) >= 0
-		let current = (current + 1) % len(mandalas)
+		let current = wheel#gear#circular_plus (current, length)
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
 endfun
 
-fun! wheel#cylinder#rotate_left ()
-	" Cycle mandalas buffers
+fun! wheel#cylinder#backward ()
+	" Go back in mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
+	let length = len(mandalas)
 	let bufnum = bufnr('%')
 	if index(mandalas, bufnum) >= 0
-		let current = (current - 1) % len(mandalas)
+		let current = wheel#gear#circular_minus (current, length)
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
