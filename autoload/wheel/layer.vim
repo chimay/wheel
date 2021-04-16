@@ -94,13 +94,18 @@ endfun
 
 " Clearing things
 
+fun! wheel#layer#clear_options ()
+	" Clear mandala local options
+	setlocal nofoldenable
+endfun
+
 fun! wheel#layer#clear_vars ()
-	" Clear mandala variables, except the layer stack
+	" Clear mandala local variables, except the layer stack
 	call wheel#gear#unlet(s:mandala_vars)
 endfun
 
 fun! wheel#layer#clear_maps ()
-	" Clear mandala maps
+	" Clear mandala local maps
 	" normal maps
 	call wheel#gear#unmap(s:normal_map_keys, 'n')
 	" insert maps
@@ -108,11 +113,12 @@ fun! wheel#layer#clear_maps ()
 endfun
 
 fun! wheel#layer#fresh ()
-	" Fresh empty layer : clear mandala lines, vars & maps
+	" Fresh empty layer : clear mandala options, lines, vars & maps
+	call wheel#layer#clear_options ()
+	" underscore _ = no storing register
+	1,$ delete _
 	call wheel#layer#clear_vars ()
 	call wheel#layer#clear_maps ()
-	" Delete lines -> _ no storing register
-	1,$ delete _
 endfun
 
 " Saving things

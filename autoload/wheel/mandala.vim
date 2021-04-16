@@ -179,6 +179,11 @@ fun! wheel#mandala#replace (content, ...)
 	" - keep : keep input
 	" - blank : blank input
 	" - delete : delete first line
+	"
+	" disable folding
+	" if fold is enabled during replacement, we lose the first line
+	let ampersand = &foldenable
+	set nofoldenable
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer.'
 	endif
@@ -215,6 +220,8 @@ fun! wheel#mandala#replace (content, ...)
 	setlocal nomodified
 	" restore cursor if possible, else place it on line 1
 	call wheel#gear#restore_cursor (position, 1)
+	" restore foldenable value
+	let &foldenable = ampersand
 endfun
 
 fun! wheel#mandala#reload ()
