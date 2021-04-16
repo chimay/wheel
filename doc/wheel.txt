@@ -443,10 +443,11 @@ If you change your mind and wish to come back, just press `<backspace>`.
 LAYER STACK				*wheel-special-buffers-layers*
 
 Each time you launch a wheel function involving a special buffer, a new
-layer is added to a stack local to the buffer. This stack allows you to :
+associated layer is added to a stack local to the buffer. You can :
 
-- go back to previous content by pressing `<backspace>`
-- cycle the stack to the left with `H` or to the right with `L`
+- go back to the previous layer (and associated wheel function) by pressing `H`
+- go forward to the next layer by pressing `L`
+- destroy current layer and go back to previous one by pressing `<backspace>`
 
 The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
 

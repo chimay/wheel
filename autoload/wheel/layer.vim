@@ -68,8 +68,8 @@ fun! wheel#layer#bottom ()
 	" Return layer index to be popped or replaced in stack
 	let top = b:wheel_stack.top
 	let length = wheel#layer#length ()
-	let top = wheel#gear#circular_minus (top, length)
-	return top
+	let bottom = wheel#gear#circular_minus (top, length)
+	return bottom
 endfun
 
 fun! wheel#layer#stack (...)
@@ -359,22 +359,8 @@ endfun
 
 " Rotate
 
-fun! wheel#layer#rotate_right ()
-	" Swap mandala state & top of stack, and rotate layer stack to the right
-	let length = wheel#layer#length ()
-	if length == 0
-		echomsg 'wheel rotate right : empty stack.'
-		return v:false
-	endif
-	let stack = b:wheel_stack
-	let top = stack.top
-	let length = wheel#layer#length ()
-	let stack.top = wheel#gear#circular_plus (top, length)
-	call wheel#layer#swap ()
-endfun
-
-fun! wheel#layer#rotate_left ()
-	" Swap mandala state & top of stack, and rotate layer stack to the left
+fun! wheel#layer#back ()
+	" Go back in layer stack
 	let length = wheel#layer#length ()
 	if length == 0
 		echomsg 'wheel rotate left : empty stack.'
@@ -383,5 +369,19 @@ fun! wheel#layer#rotate_left ()
 	call wheel#layer#swap ()
 	let top = b:wheel_stack.top
 	let length = wheel#layer#length ()
-	let b:wheel_stack.top = wheel#gear#circular_minus (top, length)
+	let b:wheel_stack.top = wheel#gear#circular_plus (top, length)
+endfun
+
+fun! wheel#layer#forward ()
+	" Go forward in layer stack
+	let length = wheel#layer#length ()
+	if length == 0
+		echomsg 'wheel rotate right : empty stack.'
+		return v:false
+	endif
+	let stack = b:wheel_stack
+	let top = stack.top
+	let length = wheel#layer#length ()
+	let stack.top = wheel#gear#circular_minus (top, length)
+	call wheel#layer#swap ()
 endfun

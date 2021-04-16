@@ -324,8 +324,8 @@ fun! wheel#mandala#common_maps ()
 	" Reload mandala
 	nnoremap <silent> <buffer> r :call wheel#mandala#reload ()<cr>
 	" Navigate in layer stack
-	nnoremap <silent> <buffer> H :call wheel#layer#rotate_left ()<cr>
-	nnoremap <silent> <buffer> L :call wheel#layer#rotate_right ()<cr>
+	nnoremap <silent> <buffer> H :call wheel#layer#back ()<cr>
+	nnoremap <silent> <buffer> L :call wheel#layer#forward ()<cr>
 	nnoremap <silent> <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfu
 
