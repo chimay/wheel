@@ -39,7 +39,7 @@ fun! wheel#tower#staircase (settings)
 	" Define dict maps
 	let settings = a:settings
 	let dictname = settings.linefun
-	if ! wheel#mandala#empty ()
+	if ! wheel#mandala#is_empty ()
 		call wheel#layer#push ()
 		call wheel#layer#fresh ()
 	endif

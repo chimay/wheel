@@ -27,6 +27,25 @@ endif
 
 " Mandala pseudo folders
 
+fun! wheel#mandala#init ()
+	" Init mandala buffer variables, except the stack
+	if ! exists('b:wheel_lines')
+		let b:wheel_lines = []
+	endif
+	if ! exists('b:wheel_address')
+		let b:wheel_address = ''
+	endif
+	if ! exists('b:wheel_selected')
+		let b:wheel_selected = []
+	endif
+	if ! exists('b:wheel_settings')
+		let b:wheel_settings = {}
+	endif
+	if ! exists('b:wheel_reload')
+		let b:wheel_reload = ''
+	endif
+endfun
+
 fun! wheel#mandala#pseudo_filename (mandala_type)
 	" Set buffer filename to pseudo filename /wheel/<buf-id>/<type>
 	" Useful as information
@@ -41,8 +60,13 @@ fun! wheel#mandala#pseudo_filename (mandala_type)
 	return pseudo_filename
 endfun
 
-fun! wheel#mandala#empty ()
-	" True if mandala is empty, false otherwise
+fun! wheel#mandala#set_empty ()
+	" Tell wheel to consider this mandala as an empty buffer
+	call wheel#mandala#pseudo_filename ('empty')
+endfun
+
+fun! wheel#mandala#is_empty ()
+	" Return true if mandala is empty, false otherwise
 	let filename = expand('%')
 	if filename =~ s:mandala_empty
 		return v:true
@@ -55,7 +79,7 @@ fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
 	if wheel#cylinder#recall()
-		if ! wheel#mandala#empty ()
+		if ! wheel#mandala#is_empty ()
 			call wheel#layer#push ()
 			call wheel#layer#fresh ()
 		endif
@@ -198,11 +222,11 @@ fun! wheel#mandala#reload ()
 	" save pseudo filename
 	let filename = expand('%')
 	" mark the buffer as empty, to avoid pushing a new layer
-	call wheel#mandala#pseudo_filename ('empty')
+	call wheel#mandala#set_empty ()
 	" delete all lines
 	1,$ delete _
 	" reload content
-	if exists('b:wheel_reload') && ! empty(b:wheel_reload)
+	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
 		echomsg 'wheel mandala : ' b:wheel_reload 'reloaded.'
 	else
@@ -299,7 +323,21 @@ fun! wheel#mandala#filter (...)
 		call cursor(1, 1)
 		startinsert!
 	endif
-endfu
+endfun
+
+fun! wheel#mandala#has_filter ()
+	" Return true if mandala has filter in first line, false otherwise
+	return ! empty(maparg('<esc>', 'i'))
+endfun
+
+fun! wheel#mandala#first_data_line ()
+	" First data line is 1 if mandala has no filter, 2 otherwise
+	if ! wheel#mandala#has_filter ()
+		return 1
+	else
+		return 2
+	endif
+endfun
 
 " Options
 
@@ -342,7 +380,7 @@ fun! wheel#mandala#filter_maps ()
 	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
 	inoremap <silent> <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
-	" <C-c> is not mapped, in case you need a regular esc
+	" <C-c> is not mapped, in case you need a regular escape
 endfun
 
 fun! wheel#mandala#input_history_maps ()

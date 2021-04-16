@@ -39,21 +39,13 @@ endif
 fun! wheel#layer#init ()
 	" Init stack and buffer variables
 	" Last inserted layer is at index 0
+	call wheel#mandala#init ()
 	if ! exists('b:wheel_stack')
 		let b:wheel_stack = {}
 		let stack = b:wheel_stack
 		" index of top layer
 		let stack.top = -1
 		let stack.layers = []
-	endif
-	if ! exists('b:wheel_lines')
-		let b:wheel_lines = []
-	endif
-	if ! exists('b:wheel_address')
-		let b:wheel_address = []
-	endif
-	if ! exists('b:wheel_selected')
-		let b:wheel_selected = []
 	endif
 endfun
 
@@ -206,8 +198,8 @@ fun! wheel#layer#sync ()
 	" all mandala content, without filtering
 	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
-	" layer.filtered should contain also the original first line,
-	" so we have do delete the first line added by :put in wheel#mandala#replace
+	" layer.filtered should contain also the original first line, so we have
+	" to delete the first line added by :put in the replace routine
 	call wheel#mandala#replace (layer.filtered, 'delete')
 	" Restore cursor position
 	call wheel#gear#restore_cursor (layer.position)
@@ -243,7 +235,8 @@ fun! wheel#layer#swap ()
 	let swap.options = wheel#layer#save_options ()
 	" lines content, without filtering
 	if empty(b:wheel_lines)
-		let swap.lines = getline(2, '$')
+		let begin = wheel#mandala#first_data_line ()
+		let swap.lines = getline(begin, '$')
 	else
 		let swap.lines = copy(b:wheel_lines)
 	endif
@@ -305,7 +298,8 @@ fun! wheel#layer#push ()
 	let layer.options = wheel#layer#save_options ()
 	" lines content, without filtering
 	if empty(b:wheel_lines)
-		let layer.lines = getline(2, '$')
+		let begin = wheel#mandala#first_data_line ()
+		let layer.lines = getline(begin, '$')
 	else
 		let layer.lines = copy(b:wheel_lines)
 	endif

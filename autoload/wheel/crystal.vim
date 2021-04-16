@@ -47,6 +47,7 @@ endif
 if ! exists('s:mandala_vars')
 	let s:mandala_vars = [
 				\ 'b:wheel_lines',
+				\ 'b:wheel_address',
 				\ 'b:wheel_selected',
 				\ 'b:wheel_settings',
 				\ 'b:wheel_reload',
