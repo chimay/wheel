@@ -185,7 +185,7 @@ fun! wheel#sailing#tabwins ()
 	call wheel#mandala#open ('tabwins')
 	let settings = {'action' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill (lines)
 	" Reload
 	let b:wheel_reload = 'wheel#sailing#tabwins'
 	" Context menu
@@ -202,7 +202,7 @@ fun! wheel#sailing#tabwins_tree ()
 	let settings = {'action' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ('tabwins_folding_text')
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill (lines)
 	" Reload
 	let b:wheel_reload = 'wheel#sailing#tabwins_tree'
 	" Context menu

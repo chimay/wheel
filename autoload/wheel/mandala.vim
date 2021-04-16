@@ -211,6 +211,7 @@ fun! wheel#mandala#reload ()
 		" restore
 		exe 'silent file' filename
 	endif
+	echomsg 'wheel mandala : function reloaded.'
 endfun
 
 fun! wheel#mandala#previous ()
