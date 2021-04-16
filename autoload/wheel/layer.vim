@@ -357,20 +357,7 @@ fun! wheel#layer#pop ()
 	endif
 endfun
 
-" Rotate
-
-fun! wheel#layer#backward ()
-	" Go back in layer stack
-	let length = wheel#layer#length ()
-	if length == 0
-		echomsg 'wheel rotate left : empty stack.'
-		return v:false
-	endif
-	call wheel#layer#swap ()
-	let top = b:wheel_stack.top
-	let length = wheel#layer#length ()
-	let b:wheel_stack.top = wheel#gear#circular_plus (top, length)
-endfun
+" Forward & backward
 
 fun! wheel#layer#forward ()
 	" Go forward in layer stack
@@ -384,4 +371,17 @@ fun! wheel#layer#forward ()
 	let length = wheel#layer#length ()
 	let stack.top = wheel#gear#circular_minus (top, length)
 	call wheel#layer#swap ()
+endfun
+
+fun! wheel#layer#backward ()
+	" Go backward in layer stack
+	let length = wheel#layer#length ()
+	if length == 0
+		echomsg 'wheel rotate left : empty stack.'
+		return v:false
+	endif
+	call wheel#layer#swap ()
+	let top = b:wheel_stack.top
+	let length = wheel#layer#length ()
+	let b:wheel_stack.top = wheel#gear#circular_plus (top, length)
 endfun

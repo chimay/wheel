@@ -18,6 +18,8 @@ fun! wheel#cylinder#is_mandala (...)
 	endif
 endfun
 
+" Push & pop
+
 fun! wheel#cylinder#first (...)
 	" Push first mandala buffer
 	if a:0 > 0
@@ -122,6 +124,8 @@ fun! wheel#cylinder#pop ()
 	return removed
 endfun
 
+" Recall
+
 fun! wheel#cylinder#recall ()
 	" Recall mandala buffer
 	call wheel#cylinder#check ()
@@ -150,6 +154,8 @@ fun! wheel#cylinder#recall ()
 	return v:true
 endfun
 
+" Check
+
 fun! wheel#cylinder#check ()
 	" Remove non existent mandalas buffers from stack
 	let mandalas = g:wheel_mandalas.stack
@@ -167,6 +173,8 @@ fun! wheel#cylinder#check ()
 	endfor
 endfun
 
+" Forward & backward
+
 fun! wheel#cylinder#forward ()
 	" Go forward in mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
@@ -181,7 +189,7 @@ fun! wheel#cylinder#forward ()
 endfun
 
 fun! wheel#cylinder#backward ()
-	" Go back in mandalas buffers
+	" Go backward in mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
 	let length = len(mandalas)

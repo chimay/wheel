@@ -229,7 +229,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<backspace> <plug>(wheel-mandala-pop)'
 		" Cycle mandala buffers
 		exe nmap prefix . '@ <plug>(wheel-mandala-forward)'
-		exe nmap prefix . '<M-@> <plug>(wheel-mandala-back)'
+		exe nmap prefix . '<M-@> <plug>(wheel-mandala-backward)'
 		" Tabs
 		exe nmap prefix . 't <plug>(wheel-tabs-locations)'
 		exe nmap prefix . '<c-t> <plug>(wheel-tabs-circles)'
