@@ -126,7 +126,6 @@ fun! wheel#mandala#fill (content, ...)
 		echomsg 'wheel mandala fill : not in mandala buffer.'
 	endif
 	" disable folding
-	" if fold is enabled during replacement, we lose the first line
 	let ampersand = &foldenable
 	set nofoldenable
 	" arg
