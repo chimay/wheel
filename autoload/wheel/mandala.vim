@@ -204,14 +204,15 @@ fun! wheel#mandala#reload ()
 	" reload content
 	if exists('b:wheel_reload') && ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
+		echomsg 'wheel mandala : ' b:wheel_reload 'reloaded.'
 	else
 		" by default, if b:wheel_reload is not defined or empty,
 		" fill the buffer with b:wheel_lines
 		call wheel#mandala#fill (b:wheel_lines, 'blank')
 		" restore
 		exe 'silent file' filename
+		echomsg 'wheel mandala : function reloaded.'
 	endif
-	echomsg 'wheel mandala : function reloaded.'
 endfun
 
 fun! wheel#mandala#previous ()
