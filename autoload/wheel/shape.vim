@@ -104,17 +104,20 @@ endfun
 
 " Grep
 
-fun! wheel#shape#grep ()
+fun! wheel#shape#grep (...)
 	" Reorder level elements in a buffer
-	" called from context menu,
-	" original grep lines are at the top of the stack
-	let lines = wheel#layer#top_field ('lines')
+	if a:0 > 0
+		let lines = a:1
+	else
+		" called from context menu,
+		" original grep lines are at the top of the stack
+		let lines = wheel#layer#top_field ('lines')
+	endif
 	call wheel#vortex#update ()
 	" new buffer
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#grep_write ()
-	echomsg len(lines)
 	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
 	setlocal nomodified
@@ -122,7 +125,7 @@ fun! wheel#shape#grep ()
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
 	" reload
-	let b:wheel_reload = 'wheel#shape#grep'
+	let b:wheel_reload = 'wheel#shape#grep(' . string(lines) . ')'
 	" info
 	echomsg 'adding or removing lines is not supported.'
 endfun

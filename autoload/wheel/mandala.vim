@@ -234,13 +234,15 @@ fun! wheel#mandala#reload ()
 	" save pseudo filename
 	let filename = expand('%')
 	" mark the buffer as empty, to avoid pushing a new layer
+	" in wheel#mandala#open
 	call wheel#mandala#set_empty ()
 	" delete all lines
 	1,$ delete _
 	" reload content
 	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
-		echomsg 'wheel mandala : ' b:wheel_reload 'reloaded.'
+		let fun = substitute(b:wheel_reload, '(.*', '', '')
+		echomsg 'wheel mandala : ' fun 'reloaded.'
 	else
 		" by default, if b:wheel_reload is not defined or empty,
 		" fill the buffer with b:wheel_lines
