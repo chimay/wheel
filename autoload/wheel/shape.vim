@@ -62,6 +62,8 @@ fun! wheel#shape#reorder (level)
 	else
 		echomsg 'Wheel mandala reorder : empty or incomplete' level
 	endif
+	" reload
+	let b:wheel_reload = "wheel#shape#reorder('" . level . "')"
 endfun
 
 " Reorganize
@@ -78,6 +80,8 @@ fun! wheel#shape#reorganize ()
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
+	" reload
+	let b:wheel_reload = 'wheel#shape#reorganize'
 endfun
 
 " Reorganize tabs
@@ -94,6 +98,8 @@ fun! wheel#shape#reorg_tabwins ()
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
+	" reload
+	let b:wheel_reload = 'wheel#shape#reorg_tabwins'
 endfun
 
 " Grep
@@ -102,8 +108,7 @@ fun! wheel#shape#grep ()
 	" Reorder level elements in a buffer
 	" called from context menu,
 	" original grep lines are at the top of the stack
-	let top = b:wheel_stack.top
-	let lines = b:wheel_stack.layers[top].lines
+	let lines = wheel#layer#top_field ('lines')
 	call wheel#vortex#update ()
 	" new buffer
 	call wheel#mandala#open ('grep/edit')
@@ -116,6 +121,8 @@ fun! wheel#shape#grep ()
 	setlocal nocursorline
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
+	" reload
+	let b:wheel_reload = 'wheel#shape#grep'
 	" info
 	echomsg 'adding or removing lines is not supported.'
 endfun
