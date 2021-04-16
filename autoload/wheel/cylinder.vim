@@ -178,8 +178,12 @@ endfun
 fun! wheel#cylinder#forward ()
 	" Go forward in mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
-	let current = g:wheel_mandalas.current
 	let length = len(mandalas)
+	if length == 0
+		echomsg 'wheel mandala forward : empty stack.'
+		return v:false
+	endif
+	let current = g:wheel_mandalas.current
 	let bufnum = bufnr('%')
 	if index(mandalas, bufnum) >= 0
 		let current = wheel#gear#circular_plus (current, length)
@@ -191,8 +195,12 @@ endfun
 fun! wheel#cylinder#backward ()
 	" Go backward in mandalas buffers
 	let mandalas = g:wheel_mandalas.stack
-	let current = g:wheel_mandalas.current
 	let length = len(mandalas)
+	if length == 0
+		echomsg 'wheel mandala backward : empty stack.'
+		return v:false
+	endif
+	let current = g:wheel_mandalas.current
 	let bufnum = bufnr('%')
 	if index(mandalas, bufnum) >= 0
 		let current = wheel#gear#circular_minus (current, length)
