@@ -329,10 +329,6 @@ fun! wheel#line#sailing (settings)
 	" - target : current, tab, horizontal_split, vertical_split
 	" - close : whether to close special buffer
 	" - action : navigation function name or funcref
-	if empty(b:wheel_lines)
-		let begin = wheel#mandala#first_data_line ()
-		let b:wheel_lines = getline(begin, '$')
-	endif
 	let settings = copy(a:settings)
 	if has_key(settings, 'target')
 		let target = settings.target
