@@ -305,13 +305,13 @@ endfu
 
 fun! wheel#mandala#common_options ()
 	" Set local common options
-	setlocal cursorline
-	setlocal nobuflisted
-	setlocal noswapfile
+	setlocal filetype=wheel
 	setlocal buftype=nofile
 	setlocal bufhidden=hide
-	" wheel or type argument
-	let &filetype = 'wheel'
+	setlocal nobuflisted
+	setlocal noswapfile
+	setlocal cursorline
+	setlocal nofoldenable
 endfun
 
 " Maps
