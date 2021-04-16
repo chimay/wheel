@@ -410,14 +410,14 @@ if ! exists('s:context_sailing')
 	lockvar s:context_sailing
 endif
 
-if ! exists('s:context_openedFiles')
-	let s:context_openedFiles = {
+if ! exists('s:context_opened_files')
+	let s:context_opened_files = {
 				\ 'delete' : "wheel#boomerang#opened_files('delete')",
 				\ 'unload' : "wheel#boomerang#opened_files('unload')",
 				\ 'wipe' : "wheel#boomerang#opened_files('wipe')",
 				\}
-	call extend(s:context_openedFiles, s:context_sailing)
-	lockvar s:context_openedFiles
+	call extend(s:context_opened_files, s:context_sailing)
+	lockvar s:context_opened_files
 endif
 
 if ! exists('s:context_tabwins')
