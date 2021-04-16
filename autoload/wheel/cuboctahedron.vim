@@ -251,7 +251,6 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Reorganize tabs & windows
 	" Mandala line list
 	" Keep old layouts if possible
-	silent global /^$/ delete
 	let linelist = getline(1, '$')
 	" Current tab
 	let startpage = tabpagenr()

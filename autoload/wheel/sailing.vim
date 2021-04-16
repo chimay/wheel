@@ -216,13 +216,15 @@ fun! wheel#sailing#occur (...)
 	else
 		let pattern = input('Lines matching pattern : ')
 	endif
+	call wheel#mandala#close ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
+	call wheel#cylinder#recall ()
 	" mandala buffer
 	call wheel#mandala#open ('occur')
 	let settings = {'action' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill (lines)
 	" Reload
 	let b:wheel_reload = "wheel#sailing#occur('" . pattern . "')"
 endfun
