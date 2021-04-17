@@ -85,7 +85,7 @@ endfun
 " Visible, filtered lines
 
 fun! wheel#pencil#select_visible ()
-	" Select all visible, filtered lines
+	" Select visible, filtered lines
 	let begin = wheel#mandala#first_data_line ()
 	let buflines = getline(begin, '$')
 	" save cursor position
@@ -100,7 +100,7 @@ fun! wheel#pencil#select_visible ()
 endfun
 
 fun! wheel#pencil#clear_visible ()
-	" Deselect all visible, filtered lines
+	" Deselect visible, filtered lines
 	let begin = wheel#mandala#first_data_line ()
 	let buflines = getline(begin, '$')
 	" save cursor position
@@ -110,6 +110,21 @@ fun! wheel#pencil#clear_visible ()
 		let linum = index + begin
 		call cursor(linum, 1)
 		call wheel#pencil#clear ()
+	endfor
+	call wheel#gear#restore_cursor (position)
+endfun
+
+fun! wheel#pencil#toggle_visible ()
+	" Toggle visible, filtered lines
+	let begin = wheel#mandala#first_data_line ()
+	let buflines = getline(begin, '$')
+	" save cursor position
+	let position = getcurpos()
+	" select
+	for index in range(len(buflines))
+		let linum = index + begin
+		call cursor(linum, 1)
+		call wheel#pencil#toggle ()
 	endfor
 	call wheel#gear#restore_cursor (position)
 endfun

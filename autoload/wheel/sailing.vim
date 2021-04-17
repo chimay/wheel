@@ -45,8 +45,11 @@ fun! wheel#sailing#maps (settings)
 	exe map . 'gS' . pre . string(settings) . post
 	let settings.target = 'vertical_golden'
 	exe map . 'gV' . pre . string(settings) . post
-	" Define local toggle selection maps
+	" Define local selection maps
 	nnoremap <silent> <buffer> <space> :call wheel#pencil#toggle()<cr>
+	nnoremap <silent> <buffer> & :call wheel#pencil#toggle_visible()<cr>
+	nnoremap <silent> <buffer> * :call wheel#pencil#select_visible()<cr>
+	nnoremap <silent> <buffer> - :call wheel#pencil#clear_visible()<cr>
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('sailing')<cr>
 endfun

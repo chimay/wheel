@@ -115,6 +115,7 @@ if ! exists('s:normal_map_keys')
 				\ '<cr>', '<space>', '<tab>',
 				\ 't', 's', 'v',
 				\ 'S', 'V',
+				\ '&', '*', '-',
 				\ 'u', '<c-r>',
 				\ 'g<cr>',
 				\ 'gt', 'gs', 'gv',

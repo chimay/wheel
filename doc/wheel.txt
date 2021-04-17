@@ -365,8 +365,12 @@ The main keys are :
 
 Select entries~
 
-Some special buffers will act on selected entries. To select an entry,
-just hit `<space>` on its line.
+Some special buffers will act on selected entries. You can hit :
+
+- `<space>` to toggle the selection of a line
+- `&` to invert the selection of all visible lines
+- `*` to select all visible lines
+- `-` (minus) to clear the selection of all visible lines
 
 Reload~
 

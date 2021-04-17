@@ -221,7 +221,7 @@ fun! wheel#layer#sync ()
 	" Empty selection if only one element
 	" to improve : sync lines to b:wheel_selected
 	if len(b:wheel_selected) == 1
-		call wheel#pencil#deselect_all ()
+		call wheel#pencil#clear_all ()
 	endif
 	" Reload
 	let b:wheel_reload = layer.reload
