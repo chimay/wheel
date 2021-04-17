@@ -14,38 +14,7 @@ if ! exists('s:selected_pattern')
 	lockvar s:selected_pattern
 endif
 
-" Selection
-
-fun! wheel#pencil#toggle ()
-	" Toggle selection of current line
-	let line = getline('.')
-	if empty(line)
-		return v:false
-	endif
-	if line !~ s:selected_pattern
-		let record = line
-	else
-		let record = substitute(line, s:selected_pattern, '', '')
-	endif
-	let coordin = wheel#line#address ()
-	let index = index(b:wheel_selected, coordin)
-	if index < 0
-		" select
-		call add(b:wheel_selected, coordin)
-		let selected_line = substitute(line, '\m^', s:selected_mark, '')
-		call setline('.', selected_line)
-		" Update b:wheel_lines
-		let pos = index(b:wheel_lines, line)
-		let b:wheel_lines[pos] = selected_line
-	else
-		" deselect
-		call remove(b:wheel_selected, index)
-		call setline('.', record)
-		" Update b:wheel_lines
-		let pos = index(b:wheel_lines, line)
-		let b:wheel_lines[pos] = record
-	endif
-endfun
+" Helpers
 
 fun! wheel#pencil#sync_select ()
 	" Sync b:wheel_selected to buffer lines
@@ -79,7 +48,44 @@ fun! wheel#pencil#sync_select ()
 	call wheel#gear#restore_cursor (position)
 endfun
 
-fun! wheel#pencil#deselect ()
+" Selection
+
+fun! wheel#pencil#toggle ()
+	" Toggle selection of current line
+	let line = getline('.')
+	if empty(line)
+		return v:false
+	endif
+	if line !~ s:selected_pattern
+		let record = line
+	else
+		let record = substitute(line, s:selected_pattern, '', '')
+	endif
+	let coordin = wheel#line#address ()
+	let index = index(b:wheel_selected, coordin)
+	if index < 0
+		" select
+		call add(b:wheel_selected, coordin)
+		let selected_line = substitute(line, '\m^', s:selected_mark, '')
+		call setline('.', selected_line)
+		" Update b:wheel_lines
+		let pos = index(b:wheel_lines, line)
+		let b:wheel_lines[pos] = selected_line
+	else
+		" deselect
+		call remove(b:wheel_selected, index)
+		call setline('.', record)
+		" Update b:wheel_lines
+		let pos = index(b:wheel_lines, line)
+		let b:wheel_lines[pos] = record
+	endif
+endfun
+
+fun! wheel#pencil#invert ()
+	" Invert selection of all lines
+endfun
+
+fun! wheel#pencil#deselect_all ()
 	" Deselect all selected lines
 	let b:wheel_selected = []
 	let buflines = getline(2,'$')
@@ -103,5 +109,9 @@ fun! wheel#pencil#deselect ()
 	silent! 2,$ delete _
 	put =buflines
 	call wheel#gear#restore_cursor (position)
+endfun
+
+fun! wheel#pencil#all_or_nothing ()
+	" Toggle select all / nothing
 endfun
 

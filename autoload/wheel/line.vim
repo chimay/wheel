@@ -265,7 +265,7 @@ fun! wheel#line#sailing (settings)
 	let dest = win_getid ()
 	if ! close
 		call wheel#cylinder#recall ()
-		call wheel#pencil#deselect ()
+		call wheel#pencil#deselect_all ()
 	else
 		call win_gotoid (dest)
 	endif
