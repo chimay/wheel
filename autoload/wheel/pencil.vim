@@ -128,39 +128,3 @@ fun! wheel#pencil#toggle_visible ()
 	endfor
 	call wheel#gear#restore_cursor (position)
 endfun
-
-" All
-
-fun! wheel#pencil#clear_all ()
-	" Deselect all selected lines
-	let b:wheel_selected = []
-	let buflines = getline(2,'$')
-	" Cursor position
-	let position = getcurpos()
-	" deselect current buffer lines
-	for index in range(len(buflines))
-		let line = buflines[index]
-		if line =~ s:selected_pattern
-			let buflines[index] = substitute(line, s:selected_pattern, '', '')
-		endif
-	endfor
-	" Deselect original buffer lines, without filter
-	for index in range(len(b:wheel_lines))
-		let line = b:wheel_lines[index]
-		if line =~ s:selected_pattern
-			let b:wheel_lines[index] = substitute(line, s:selected_pattern, '', '')
-		endif
-	endfor
-	" Update buffer
-	silent! 2,$ delete _
-	put =buflines
-	call wheel#gear#restore_cursor (position)
-endfun
-
-fun! wheel#pencil#toggle_all ()
-	" Toggle selection of all lines
-endfun
-
-fun! wheel#pencil#all_or_nothing ()
-	" Toggle select all / nothing
-endfun
