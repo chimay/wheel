@@ -36,6 +36,76 @@ fun! wheel#gear#circular_minus (index, length)
 	return index
 endfun
 
+" Functions
+
+fun! wheel#gear#call (fun, ...)
+	" Call Function depicted as a Funcref or a string
+	" Optional arguments are passed to Fun
+	if empty(a:fun)
+		return v:false
+	endif
+	let arg = a:000
+	let Fun = a:fun
+	let kind = type(Fun)
+	if kind == v:t_func
+		if empty(arg)
+			" form : Fun = function('name') without argument
+			return Fun()
+		else
+			" form : Fun = function('name') with arguments
+			return call(Fun, arg)
+		endif
+	elseif kind == v:t_string
+		if Fun =~ '\m)$'
+			" form : Fun = 'function(...)'
+			" a:000 of wheel#gear#call is ignored
+			return eval(Fun)
+			" works, but less elegant
+			"exe 'let value =' Fun
+		elseif empty(arg)
+			" form : Fun = 'function' without argument
+			return {Fun}()
+		else
+			" form : Fun = 'function' with arguments
+			return call(Fun, arg)
+		endif
+	else
+		" likely not a representation of a function
+		" simply forward concatened arguments
+		return [Fun] + arg
+	endif
+endfun
+
+" Directory
+
+fun! wheel#gear#project_root (markers)
+	" Change local directory to root of project
+	" where current buffer belongs
+	if type(a:markers) == v:t_string
+		let markers = [a:markers]
+	elseif type(a:markers) == v:t_list
+		let markers = a:markers
+	else
+		echomsg 'Wheel Project root : argument must be either a string or a list.'
+	endif
+	let dir = expand('%:p:h')
+	exe 'lcd' dir
+	let found = 0
+	while v:true
+		for mark in markers
+			if filereadable(mark) || isdirectory(mark)
+				let found = 1
+				break
+			endif
+		endfor
+		if found || dir ==# '/'
+			break
+		endif
+		lcd ..
+		let dir = getcwd()
+	endwhile
+endfun
+
 " Cursor
 
 fun! wheel#gear#restore_cursor (position, ...)
@@ -50,6 +120,13 @@ fun! wheel#gear#restore_cursor (position, ...)
 		call setpos('.', position)
 	else
 		call cursor(default, 1)
+	endif
+endfun
+
+fun! wheel#gear#win_gotoid (iden)
+	" Go to win given by iden if iden is a number
+	if type(a:iden) == v:t_number
+		call win_gotoid (a:iden)
 	endif
 endfun
 
@@ -111,36 +188,6 @@ fun! wheel#gear#parent_tabwin ()
 		" tab line : we stay there
 		return
 	endif
-endfun
-
-" Directory
-
-fun! wheel#gear#project_root (markers)
-	" Change local directory to root of project
-	" where current buffer belongs
-	if type(a:markers) == v:t_string
-		let markers = [a:markers]
-	elseif type(a:markers) == v:t_list
-		let markers = a:markers
-	else
-		echomsg 'Wheel Project root : argument must be either a string or a list.'
-	endif
-	let dir = expand('%:p:h')
-	exe 'lcd' dir
-	let found = 0
-	while v:true
-		for mark in markers
-			if filereadable(mark) || isdirectory(mark)
-				let found = 1
-				break
-			endif
-		endfor
-		if found || dir ==# '/'
-			break
-		endif
-		lcd ..
-		let dir = getcwd()
-	endwhile
 endfun
 
 " Filter for mandalas
@@ -261,46 +308,6 @@ fun! wheel#gear#unmap (key, ...)
 		endfor
 	else
 		echomsg 'Wheel gear unmap : bad key format'
-	endif
-endfun
-
-" Functions
-
-fun! wheel#gear#call (fun, ...)
-	" Call Function depicted as a Funcref or a string
-	" Optional arguments are passed to Fun
-	if empty(a:fun)
-		return v:false
-	endif
-	let arg = a:000
-	let Fun = a:fun
-	let kind = type(Fun)
-	if kind == v:t_func
-		if empty(arg)
-			" form : Fun = function('name') without argument
-			return Fun()
-		else
-			" form : Fun = function('name') with arguments
-			return call(Fun, arg)
-		endif
-	elseif kind == v:t_string
-		if Fun =~ '\m)$'
-			" form : Fun = 'function(...)'
-			" a:000 of wheel#gear#call is ignored
-			return eval(Fun)
-			" works, but less elegant
-			"exe 'let value =' Fun
-		elseif empty(arg)
-			" form : Fun = 'function' without argument
-			return {Fun}()
-		else
-			" form : Fun = 'function' with arguments
-			return call(Fun, arg)
-		endif
-	else
-		" likely not a representation of a function
-		" simply forward concatened arguments
-		return [Fun] + arg
 	endif
 endfun
 

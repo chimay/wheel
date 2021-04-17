@@ -283,10 +283,10 @@ at your fingertips.
 SPECIAL BUFFERS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
+Layer stack			|wheel-special-buffers-layers|
 Buffer stack			|wheel-special-buffers-stack|
 Menu				|wheel-special-buffers-menus|
 Context menus			|wheel-special-buffers-context|
-Layer stack			|wheel-special-buffers-layers|
 Navigation			|wheel-special-buffers-navigation|
 Reordering		        |wheel-special-buffers-reordering|
 Reorganizing			|wheel-special-buffers-reorganizing|
@@ -356,10 +356,6 @@ The keys `<PageUp>`/`PageDown` or `<M-r>`/`<M-s>` will insert the
 previous/next input matching the beginning of the inserted line, until
 the cursor.
 
-Select entries~
-
-If you wish to select multiple entries, just hit `<space>` on their lines.
-
 Action~
 
 The main keys are :
@@ -367,11 +363,28 @@ The main keys are :
 - `<enter>` : trigger the default action, close the special buffer
 - `g<enter>` : trigger the default action, leave the special buffer opened
 
+Select entries~
+
+Some special buffers will act on selected entries. To select an entry,
+just hit `<space>` on its line.
+
 Reload~
 
 Press `r` and the special buffer will reload its content.
 
 Available on most special buffers.
+
+------------------------------------------------------------------------------
+LAYER STACK				*wheel-special-buffers-layers*
+
+Each time you launch a wheel function involving a special buffer, a new
+associated layer is added to a stack local to the buffer. You can :
+
+- go back to the previous layer (and associated wheel function) by pressing `H`
+- go forward to the next layer by pressing `L`
+- destroy current layer and go back to the previous one by pressing `<backspace>`
+
+The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
 
 ------------------------------------------------------------------------------
 BUFFERS STACK				*wheel-special-buffers-stack*
@@ -387,8 +400,8 @@ This way, you can save a special buffer in case you need it later.
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menus*
 
-Each menu has its own dedicated buffer. You can filter the menu lines
-by entering words in insert mode.
+Each menu has its own dedicated special buffer. You can filter the menu
+lines by entering words in insert mode.
 
 Action~
 
@@ -438,18 +451,6 @@ Some special buffers have context menu support. In that case, pressing
 apply to the selected or cursor line(s).
 
 If you change your mind and wish to come back, just press `<backspace>`.
-
-------------------------------------------------------------------------------
-LAYER STACK				*wheel-special-buffers-layers*
-
-Each time you launch a wheel function involving a special buffer, a new
-associated layer is added to a stack local to the buffer. You can :
-
-- go back to the previous layer (and associated wheel function) by pressing `H`
-- go forward to the next layer by pressing `L`
-- destroy current layer and go back to previous one by pressing `<backspace>`
-
-The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
 
 ------------------------------------------------------------------------------
 NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
@@ -1664,7 +1665,27 @@ COMMANDS					*wheel-commands*
 ==============================================================================
 EXAMPLES						*wheel-examples*
 
+Display some locations in tabs	    |wheel-examples-locations-in-tabs|
+Add a tab with a similar file	    |wheel-examples-similar-tab|
 Search and replace		    |wheel-examples-search-replace|
+
+------------------------------------------------------------------------------
+DISPLAY SOME LOCATIONS IN TABS	    *wheel-examples-locations-in-tabs*
+
+Just press `<M-w><space>` to launch the location navigator, select the
+locations you want and press `t`.
+
+------------------------------------------------------------------------------
+ADD A TAB WITH A SIMILAR FILE	    *wheel-examples-similar-tab*
+
+- press `<M-w>W` to launch the tabs & windows organizer
+- copy the line with the tab you want to duplicate
+  + with closed fold, to take the files in it
+- paste it where you want
+- open the fold of the new tab
+- modify the filename in it to match the file you want to edit
+  + you can even use `<C-x><C-f>` to use vim file completion
+- apply your changes with |:write|
 
 ------------------------------------------------------------------------------
 SEARCH AND REPLACE		    *wheel-examples-search-replace*
@@ -1683,7 +1704,7 @@ Now that you have your group ready, you can start the search with
 `<M-w><M-g>`. It will open the grep special buffer. Hit tab, and launch
 the edit mode. You are now in a buffer where you can edit and propagate
 your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
-to replace all the occurences of the old var name. Then, just *:write*
+to replace all the occurences of the old var name. Then, just |:write|
 the buffer to apply these changes to all your shell scripts.
 
 Want to go back to previous state ? You can undo your substitution in

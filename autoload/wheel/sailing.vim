@@ -241,23 +241,31 @@ fun! wheel#sailing#grep (...)
 	else
 		let sieve = '\m.'
 	endif
-	let bool = wheel#vector#grep (pattern, sieve)
-	if bool
-		let lines = wheel#perspective#grep ()
-		call wheel#vortex#update ()
-		call wheel#mandala#open ('grep')
-		let settings = {'action' : function('wheel#line#grep')}
-		call wheel#sailing#template (settings)
-		call wheel#mandala#fill (lines)
-		" Reload
-		let b:wheel_reload = "wheel#sailing#grep('" . pattern . "')"
-		" Context menu
-		nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
-		" Useful if we choose edit mode on the context menu
-		let b:wheel_settings.pattern = pattern
-		let b:wheel_settings.sieve = sieve
+	let lines = wheel#perspective#grep (pattern, sieve)
+	if type(lines) == v:t_list
+		if empty(lines)
+			echomsg 'wheel sailing grep : no match found.'
+			return v:false
+		endif
+	elseif type(lines) == type(v:true)
+		if ! lines
+			echomsg 'wheel sailing grep : lines parameter is false.'
+			return v:false
+		endif
 	endif
-	return bool
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('grep')
+	let settings = {'action' : function('wheel#line#grep')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill (lines)
+	" Reload
+	let b:wheel_reload = "wheel#sailing#grep('" . pattern . "')"
+	" Context menu
+	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
+	" Useful if we choose edit mode on the context menu
+	let b:wheel_settings.pattern = pattern
+	let b:wheel_settings.sieve = sieve
+	return lines
 endfun
 
 fun! wheel#sailing#outline (...)
@@ -273,15 +281,15 @@ fun! wheel#sailing#outline (...)
 		if &grepprg !~ '^grep'
 			let marker = escape(marker, '{')
 		endif
-		let bool = wheel#sailing#grep (marker)
+		let lines = wheel#sailing#grep (marker)
 	elseif mode == 2
-		let bool = wheel#sailing#grep ('^#', '\.md$')
+		let lines = wheel#sailing#grep ('^#', '\.md$')
 	elseif mode == 3
-		let bool = wheel#sailing#grep ('^\*', '\.org$')
+		let lines = wheel#sailing#grep ('^\*', '\.org$')
 	elseif mode == 4
-		let bool = wheel#sailing#grep ('^=.*=$', '\.wiki$')
+		let lines = wheel#sailing#grep ('^=.*=$', '\.wiki$')
 	endif
-	if bool
+	if ! empty(lines)
 		call wheel#mandala#pseudo_filename ('outline')
 		" Reload
 		let b:wheel_reload = "wheel#sailing#outline('" . mode . "')"

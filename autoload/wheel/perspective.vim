@@ -177,10 +177,15 @@ endfu
 
 " From vector
 
-fun! wheel#perspective#grep ()
+fun! wheel#perspective#grep (pattern, sieve)
 	" Quickfix list for wheel buffer
 	" Each line has the format :
 	" err-number | buffer-number | file | line | col | text
+	let bool = wheel#vector#grep (a:pattern, a:sieve)
+	if ! bool
+		" no file matching a:sieve
+		return v:false
+	endif
 	let quickfix = getqflist()
 	let list = []
 	for index in range(len(quickfix))
@@ -196,18 +201,6 @@ fun! wheel#perspective#grep ()
 		let record .= elem.text
 		call add(list, record)
 	endfor
-	" Not working : elem.nr is always -1, why ?
-	"for elem in quickfix
-		"let bufnum = elem.bufnr
-		"let record = ''
-		"let record .= elem.nr . s:field_separ
-		"let record .= bufnum . s:field_separ
-		"let record .= bufname(bufnum) . s:field_separ
-		"let record .= elem.lnum . s:field_separ
-		"let record .= elem.col . s:field_separ
-		"let record .= elem.text
-		"call add(list, record)
-	"endfor
 	return list
 endfun
 

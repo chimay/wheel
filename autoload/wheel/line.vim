@@ -286,7 +286,7 @@ fun! wheel#line#menu (settings)
 	endif
 	" Call
 	let value = dict[key]
-	let dest = wheel#gear#call(value)
+	let dest = wheel#gear#call (value)
 	if close
 		" Close mandala
 		" Go back to mandala
@@ -294,11 +294,11 @@ fun! wheel#line#menu (settings)
 		" Close it
 		call wheel#mandala#close ()
 		" Go to last destination
-		call win_gotoid (dest)
+		call wheel#gear#win_gotoid (dest)
 	else
 		" Do not close mandala
 		" Tab page changed ?
-		call win_gotoid (dest)
+		call wheel#gear#win_gotoid (dest)
 		let new_tab = tabpagenr()
 		if elder_tab != new_tab
 			" Tab changed, move mandala to new tab

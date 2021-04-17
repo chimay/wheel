@@ -26,6 +26,24 @@
 		* [Switch using completion](#switch-using-completion)
 		* [Switch using a special buffer](#switch-using-a-special-buffer)
 	* [Square the Circle](#square-the-circle)
+	* [Special buffers](#special-buffers)
+		* [Wrapping up things](#wrapping-up-things)
+		* [Filtering](#filtering)
+		* [Input history](#input-history)
+		* [Action](#action)
+		* [Select entries](#select-entries)
+		* [Reload](#reload)
+	* [Menus](#menus)
+		* [Action](#action-1)
+		* [Main menu](#main-menu-1)
+		* [Meta menu](#meta-menu)
+	* [Context menus](#context-menus)
+	* [Layer stack](#layer-stack)
+	* [Special buffers stack](#special-buffers-stack)
+* [Examples](#examples)
+	* [Display some locations in tabs](#display-some-locations-in-tabs)
+	* [Add a tab with a similar file](#add-a-tab-with-a-similar-file)
+	* [Search and replace](#search-and-replace)
 * [Warning](#warning)
 * [Licence](#licence)
 
@@ -457,6 +475,192 @@ Circle Drinks | Juice           | Tea
 Circle Fruits | Apple           | Pear
 
 at your fingertips.
+
+## Special buffers
+
+Special buffers allow you to perform Wheel operations intuitively, using
+full power of your editor : search, yank, paste, completion, and so on.
+
+The available actions depend on the buffer type :
+
+- Menu buffers allow you to launch a wheel function
+- Navigation buffers allow you to switch to a :
+  + location, circle or torus
+  + MRU file, locate file
+  + grep result
+  + and so on
+- Reordering buffers allow you to reorder locations, circles or toruses
+- Reorganize buffer allows you fine grain operations
+  + Move, copy or delete locations, circles and toruses, using folds
+  + Change locations settings like name, line, col
+  + Be sure you know what you’re doing
+- Reorganize tabs and windows
+
+### Wrapping up things
+
+In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
+
+- If on the first line, `k` or `<up>` will go to the last line
+- If on the last line, `j` or `<down>` will go to the first line
+
+### Filtering
+
+In most special buffers, the first line is left empty : it is used as
+an input line to filter the buffer. You can go to insert mode and filter
+the elements with each word you enter on the input (first) line. Typing
+`<space>`, `<esc>` or `<enter>` will update the candidates. Note that `<C-c>`
+is not mapped, in case you need to go to normal mode without triggering
+the filter function.
+
+A space between two words is a logical and. So, `one two` will
+display lines containing both `one` and `two`.
+
+A pipe "|" in the middle of a word is a logical or. So, `one|two` will
+display lines containing `one` or `two`.
+
+A bang "!" beginning a filtering word is a logical not : all lines matching
+this word will be removed from the buffer.
+
+### Input history
+
+An input history is available in insert mode. You can insert the
+previous/next input with `<Up>`/`<Down>` or `<M-p>`/`<M-n>`.
+
+The keys `<PageUp>`/`PageDown` or `<M-r>`/`<M-s>` will insert the
+previous/next input matching the beginning of the inserted line, until
+the cursor.
+
+### Action
+
+The main keys are :
+
+- `<enter>` : trigger the default action, close the special buffer
+- `g<enter>` : trigger the default action, leave the special buffer opened
+
+### Select entries
+
+Some special buffers will act on selected entries. To select an entry,
+just hit `<space>` on its line.
+
+### Reload
+
+Press `r` and the special buffer will reload its content.
+
+Available on most special buffers.
+
+## Menus
+
+Each menu has its own dedicated special buffer. You can filter the menu
+lines by entering words in insert mode.
+
+### Action
+
+In menu buffers, `<tab>` is a synonym for `<enter>` : trigger action.
+
+Since there is no need to select multiple elements, `<space>` is a
+shortcut for `g<enter>` : launch action and leave the menu opened.
+
+### Main menu
+
+The main menu is triggered with `<M-w>m` by default. From there, you
+can launch the action you want by pressing `<enter>` on its line. Same
+thing for `g<enter>`, but it will leave the special buffer opened.
+
+The available actions are grouped by themes and folded. Just open a fold to
+access its content.
+
+### Meta menu
+
+Press `<M-w>=` to open the meta menu : each line in this buffer will
+launch a sub-menu. Each sub-menu holds the actions of the same category :
+
+- Add a new element to the wheel
+- Rename an element
+- Delete an element
+- Alternate last two elements
+- Display elements in tabs
+- Display elements in windows
+- Display elements in tabs & windows
+- Reorganize elements
+- Navigation
+- Search in files
+- Run a command and collect its output
+- Paste from yank wheel
+
+In these sub-menus, you can use the keys :
+
+- `<enter>`             : launch the action on the cursor line
+- `g<enter>`, `<space>`   : launch action and leave the menu opened
+- `<backspace>`         : leads you back to the meta menu
+
+## Context menus
+
+Some special buffers have context menu support. In that case, pressing
+`<tab>` will open a menu where you can choose the action you want to
+apply to the selected or cursor line(s).
+
+If you change your mind and wish to come back, just press `<backspace>`.
+
+## Layer stack
+
+Each time you launch a wheel function involving a special buffer, a new
+associated layer is added to a stack local to the buffer. You can :
+
+- go back to the previous layer (and associated wheel function) by pressing `H`
+- go forward to the next layer by pressing `L`
+- destroy current layer and go back to the previous one by pressing `<backspace>`
+
+## Special buffers stack
+
+Wheel manages a special buffers stack. You can :
+
+- Save your current special buffer with `<M-w><Tab>`
+- Cycle the special buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
+- Remove the current special buffer with `<M-w><Backspace>`
+
+This way, you can save a special buffer in case you need it later.
+
+# Examples
+
+## Display some locations in tabs
+
+Just press `<M-w><space>` to launch the location navigator, select the
+locations you want and press `t`
+
+## Add a tab with a similar file
+
+- press `<M-w>W` to launch the tabs & windows organizer
+- copy the line with the tab you want to duplicate
+  + with closed fold, to take the files in it
+- paste it where you want
+- open the fold of the new tab
+- modify the filename in it to match the file you want to edit
+  + you can even use `<C-x><C-f>` to use vim file completion
+- apply your changes with `:write`
+
+## Search and replace
+
+Let's say you want to refactory some shell scripts, and replace
+`old_var_name` by `new_var_name`.
+
+The first thing to do is to create a group that contains all of your
+scripts. To do that, first create a torus named e.g. `quickfix`. Then,
+add all the script files with `<M-w>*`. The routine will ask you the
+glob pattern ; you can type `**/*.sh` if all your scripts have the same
+`sh` extension. After that, you will be asked if you want to create a
+new circle. Answer yes, and call this circle `shell`.
+
+Now that you have your group ready, you can start the search with
+`<M-w><M-g>`. It will open the grep special buffer. Hit tab, and launch
+the edit mode. You are now in a buffer where you can edit and propagate
+your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
+to replace all the occurences of the old var name. Then, just *:write*
+the buffer to apply these changes to all your shell scripts.
+
+Want to go back to previous state ? You can undo your substitution in
+the special buffer, and write again.
+
+You can of course reuse the `shell` group for later refactoring.
 
 # Warning
 

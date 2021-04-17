@@ -120,24 +120,31 @@ fun! wheel#shape#grep (...)
 		let settings = wheel#layer#top_field ('settings')
 		let sieve = settings.sieve
 	endif
-	let bool = wheel#vector#grep (pattern, sieve)
-	if bool
-		let lines = wheel#perspective#grep ()
-		call wheel#vortex#update ()
-		" new buffer
-		call wheel#mandala#open ('grep/edit')
-		call wheel#mandala#common_maps ()
-		call wheel#shape#grep_write ()
-		call wheel#mandala#fill (lines, 'delete')
-		silent global /^$/ delete
-		setlocal nomodified
-		setlocal nocursorline
-		" copy of original lines
-		let b:wheel_lines = copy(lines)
-		" reload
-		let b:wheel_reload = "wheel#shape#grep('" . pattern . "','" . sieve . "')"
-		" info
-		echomsg 'adding or removing lines is not supported.'
+	let lines = wheel#perspective#grep (pattern, sieve)
+	if type(lines) == v:t_list
+		if empty(lines)
+			echomsg 'wheel sailing grep : no match found.'
+			return v:false
+		endif
+	elseif type(lines) == type(v:true)
+		if ! lines
+			echomsg 'wheel sailing grep : lines parameter is false.'
+			return v:false
+		endif
 	endif
-	return bool
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('grep/edit')
+	call wheel#mandala#common_maps ()
+	call wheel#shape#grep_write ()
+	call wheel#mandala#fill (lines, 'delete')
+	silent global /^$/ delete
+	setlocal nomodified
+	setlocal nocursorline
+	" copy of original lines
+	let b:wheel_lines = copy(lines)
+	" reload
+	let b:wheel_reload = "wheel#shape#grep('" . pattern . "','" . sieve . "')"
+	" info
+	echomsg 'adding or removing lines is not supported.'
+	return lines
 endfun
