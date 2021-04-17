@@ -291,7 +291,7 @@ fun! wheel#perspective#tabwins ()
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
 	let isbuffer = '\m^\%(\s\|>\)'
-	let iswheel = '\m^>\?\s*/wheel'
+	let iswheel = '\m^>\?\s*/wheel/[0-9]\+/'
 	for index in range(length)
 		let elem = tabs[index]
 		let fields = split(elem)
@@ -321,7 +321,7 @@ fun! wheel#perspective#tabwins_tree ()
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
 	let isbuffer = '\m^\%(\s\|>\)'
-	let iswheel = '\m^>\?\s*/wheel'
+	let iswheel = '\m^>\?\s*/wheel/[0-9]\+/'
 	for index in range(length)
 		let elem = tabs[index]
 		let fields = split(elem)
