@@ -14,84 +14,75 @@ if ! exists('s:selected_pattern')
 	lockvar s:selected_pattern
 endif
 
-" Helpers
-
-fun! wheel#pencil#sync_select ()
-	" Sync b:wheel_selected to buffer lines
-	let position = getcurpos()
-	for linum in range(line('$'))
-		call cursor(linum, 1)
-		let line = getline('.')
-		if empty(line)
-			continue
-		endif
-		if line !~ s:selected_pattern
-			let record = line
-		else
-			let record = substitute(line, s:selected_pattern, '', '')
-		endif
-		let address = wheel#line#address ()
-		let index = index(b:wheel_selected, address)
-		if index >= 0
-			let selected_line = substitute(record, '\m^', s:selected_mark, '')
-			call setline('.', selected_line)
-			" Mark line as selected in b:wheel_lines
-			let pos = index(b:wheel_lines, line)
-			let b:wheel_lines[pos] = selected_line
-		else
-			call setline('.', record)
-			" Unmark line in b:wheel_lines
-			let pos = index(b:wheel_lines, line)
-			let b:wheel_lines[pos] = record
-		endif
-	endfor
-	call wheel#gear#restore_cursor (position)
-endfun
-
-" Selection
+" Current line
 
 fun! wheel#pencil#select ()
 	" Select current line
+	let line = getline('.')
+	if empty(line)
+		return v:false
+	endif
+	if line =~ s:selected_pattern
+		return v:false
+	endif
+	" update buffer line
+	let marked_line = substitute(line, '\m^', s:selected_mark, '')
+	call setline('.', marked_line)
+	" update b:wheel_lines
+	let index = index(b:wheel_lines, line)
+	if index < 0
+		return v:false
+	endif
+	let b:wheel_lines[index] = marked_line
+	" update b:wheel_selected
+	let address = wheel#line#address ()
+	let index = index(b:wheel_selected, address)
+	if index >= 0
+		return v:false
+	endif
+	call add(b:wheel_selected, address)
+	return v:true
 endfun
 
 fun! wheel#pencil#deselect ()
 	" Deselect current line
-endfun
-
-fun! wheel#pencil#toggle ()
-	" Toggle selection of current line
 	let line = getline('.')
 	if empty(line)
 		return v:false
 	endif
 	if line !~ s:selected_pattern
-		let record = line
-	else
-		let record = substitute(line, s:selected_pattern, '', '')
+		return v:false
 	endif
+	" update buffer line
+	let unmarked_line = substitute(line, s:selected_pattern, '', '')
+	call setline('.', unmarked_line)
+	" update b:wheel_lines
+	let index = index(b:wheel_lines, line)
+	if index < 0
+		return v:false
+	endif
+	let b:wheel_lines[index] = unmarked_line
+	" update b:wheel_selected
 	let address = wheel#line#address ()
 	let index = index(b:wheel_selected, address)
 	if index < 0
-		" select
-		call add(b:wheel_selected, address)
-		let selected_line = substitute(line, '\m^', s:selected_mark, '')
-		call setline('.', selected_line)
-		" Update b:wheel_lines
-		let pos = index(b:wheel_lines, line)
-		let b:wheel_lines[pos] = selected_line
+		return v:false
+	endif
+	call remove(b:wheel_selected, index)
+	return v:true
+endfun
+
+fun! wheel#pencil#toggle ()
+	" Toggle selection of current line
+	let line = getline('.')
+	if line !~ s:selected_pattern
+		call wheel#pencil#select ()
 	else
-		" deselect
-		call remove(b:wheel_selected, index)
-		call setline('.', record)
-		" Update b:wheel_lines
-		let pos = index(b:wheel_lines, line)
-		let b:wheel_lines[pos] = record
+		call wheel#pencil#deselect ()
 	endif
 endfun
 
-fun! wheel#pencil#invert_all ()
-	" Invert selection of all lines
-endfun
+" Visible, filtered lines
 
 fun! wheel#pencil#select_visible ()
 	" Deselect all selected lines
@@ -109,6 +100,8 @@ fun! wheel#pencil#select_visible ()
 	put =buflines
 	call wheel#gear#restore_cursor (position)
 endfun
+
+" All
 
 fun! wheel#pencil#deselect_all ()
 	" Deselect all selected lines
@@ -136,7 +129,10 @@ fun! wheel#pencil#deselect_all ()
 	call wheel#gear#restore_cursor (position)
 endfun
 
+fun! wheel#pencil#toggle_all ()
+	" Toggle selection of all lines
+endfun
+
 fun! wheel#pencil#all_or_nothing ()
 	" Toggle select all / nothing
 endfun
-
