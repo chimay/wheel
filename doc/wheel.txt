@@ -1732,11 +1732,13 @@ Autoload files~
 | gear.vim          | Generic helpers                        |
 | helix.vim         | Indexes                                |
 | hub.vim           | Menus                                  |
-| layer.vim         | Layers stack in special buffers        |
+| kyusu.vim         | Line filters for special buffers       |
+| layer.vim         | Layers stack for special buffers       |
 | line.vim          | Activate line                          |
 | mandala.vim       | Generic special buffers                |
 | mosaic.vim        | Windows & tabs Layouts                 |
 | pendulum.vim      | History                                |
+| pencil.vim        | Selection in special buffers           |
 | perspective.vim   | Content generators for special buffers |
 | projection.vim    | Following opened files                 |
 | pyramid.vim       | Mix of tabs & splits layouts           |
