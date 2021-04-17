@@ -115,10 +115,7 @@ fun! wheel#vector#grep (pattern, ...)
 		let pattern = '"' . pattern . '"'
 	endif
 	" Run grep
-	let runme = 'silent grep! '
-	let runme .= pattern
-	let runme .= ' ' . files
-	exe runme
+	exe 'silent grep!' pattern files
 	return v:true
 endfun
 

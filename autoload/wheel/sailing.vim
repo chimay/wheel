@@ -241,18 +241,21 @@ fun! wheel#sailing#grep (...)
 	else
 		let sieve = '\m.'
 	endif
-	let bool = wheel#vector#grep(pattern, sieve)
+	let bool = wheel#vector#grep (pattern, sieve)
 	if bool
 		let lines = wheel#perspective#grep ()
 		call wheel#vortex#update ()
 		call wheel#mandala#open ('grep')
 		let settings = {'action' : function('wheel#line#grep')}
 		call wheel#sailing#template (settings)
-		call wheel#mandala#fill(lines)
+		call wheel#mandala#fill (lines)
 		" Reload
 		let b:wheel_reload = "wheel#sailing#grep('" . pattern . "')"
 		" Context menu
 		nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
+		" Useful if we choose edit mode on the context menu
+		let b:wheel_settings.pattern = pattern
+		let b:wheel_settings.sieve = sieve
 	endif
 	return bool
 endfun

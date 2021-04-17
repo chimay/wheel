@@ -240,7 +240,8 @@ fun! wheel#mandala#reload ()
 	" reload content
 	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
-		let fun = substitute(b:wheel_reload, '(.*', '', '')
+		let fun = b:wheel_reload
+		"let fun = substitute(b:wheel_reload, '(.*', '', '')
 		echomsg 'wheel mandala : ' fun 'reloaded.'
 	else
 		" by default, if b:wheel_reload is not defined or empty,

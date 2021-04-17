@@ -107,25 +107,37 @@ endfun
 fun! wheel#shape#grep (...)
 	" Reorder level elements in a buffer
 	if a:0 > 0
-		let lines = a:1
+		let pattern = a:1
 	else
 		" called from context menu,
-		" original grep lines are at the top of the stack
-		let lines = wheel#layer#top_field ('lines')
+		" original pattern is at the top of the stack
+		let settings = wheel#layer#top_field ('settings')
+		let pattern = settings.pattern
 	endif
-	call wheel#vortex#update ()
-	" new buffer
-	call wheel#mandala#open ('grep/edit')
-	call wheel#mandala#common_maps ()
-	call wheel#shape#grep_write ()
-	call wheel#mandala#fill(lines, 'delete')
-	silent global /^$/ delete
-	setlocal nomodified
-	setlocal nocursorline
-	" copy of original lines
-	let b:wheel_lines = copy(lines)
-	" reload
-	let b:wheel_reload = 'wheel#shape#grep(' . string(lines) . ')'
-	" info
-	echomsg 'adding or removing lines is not supported.'
+	if a:0 > 1
+		let sieve = a:2
+	else
+		let settings = wheel#layer#top_field ('settings')
+		let sieve = settings.sieve
+	endif
+	let bool = wheel#vector#grep (pattern, sieve)
+	if bool
+		let lines = wheel#perspective#grep ()
+		call wheel#vortex#update ()
+		" new buffer
+		call wheel#mandala#open ('grep/edit')
+		call wheel#mandala#common_maps ()
+		call wheel#shape#grep_write ()
+		call wheel#mandala#fill (lines, 'delete')
+		silent global /^$/ delete
+		setlocal nomodified
+		setlocal nocursorline
+		" copy of original lines
+		let b:wheel_lines = copy(lines)
+		" reload
+		let b:wheel_reload = "wheel#shape#grep('" . pattern . "','" . sieve . "')"
+		" info
+		echomsg 'adding or removing lines is not supported.'
+	endif
+	return bool
 endfun
