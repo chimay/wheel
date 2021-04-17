@@ -200,7 +200,6 @@ fun! wheel#sailing#tabwins_tree ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins_tree ()
 	call wheel#vortex#update ()
-	" mandala buffer
 	call wheel#mandala#open ('tabwins/tree')
 	let settings = {'action' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
