@@ -173,7 +173,6 @@ fun! wheel#vector#write_quickfix ()
 	call wheel#mandala#close ()
 	silent cdo call wheel#vector#cdo(newlines)
 	call wheel#cylinder#recall ()
-	echomsg 'win id :' string(win_getid())
 	" Info
 	setlocal nomodified
 	echomsg 'quickfix changes propagated.'
