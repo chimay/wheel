@@ -211,26 +211,6 @@ fun! wheel#line#deselect ()
 	call wheel#gear#restore_cursor (position)
 endfun
 
-" Filter
-
-fun! wheel#line#filter ()
-	" Return lines matching words of first line
-	let linelist = copy(b:wheel_lines)
-	let first = getline(1)
-	let wordlist = split(first)
-	if empty(wordlist)
-		return linelist
-	endif
-	call wheel#scroll#record(first)
-	let Matches = function('wheel#gear#tree_filter', [wordlist])
-	let candidates = filter(linelist, Matches)
-	" two times : cleans a level each time
-	let filtered = wheel#gear#fold_filter(wordlist, candidates)
-	let filtered = wheel#gear#fold_filter(wordlist, filtered)
-	" Return
-	return filtered
-endfu
-
 " Target
 
 fun! wheel#line#target (target)

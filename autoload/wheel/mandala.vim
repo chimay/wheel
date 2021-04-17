@@ -327,7 +327,7 @@ fun! wheel#mandala#filter (...)
 	else
 		let mode = 'normal'
 	endif
-	let lines = wheel#line#filter ()
+	let lines = wheel#kyusu#line_filter ()
 	call wheel#mandala#replace (lines, 'keep')
 	if mode == 'normal'
 		if line('$') > 1
