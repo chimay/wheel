@@ -44,7 +44,7 @@ fun! wheel#pencil#select ()
 	return v:true
 endfun
 
-fun! wheel#pencil#deselect ()
+fun! wheel#pencil#clear ()
 	" Deselect current line
 	let line = getline('.')
 	if empty(line)
@@ -78,38 +78,51 @@ fun! wheel#pencil#toggle ()
 	if line !~ s:selected_pattern
 		call wheel#pencil#select ()
 	else
-		call wheel#pencil#deselect ()
+		call wheel#pencil#clear ()
 	endif
 endfun
 
 " Visible, filtered lines
 
 fun! wheel#pencil#select_visible ()
-	" Deselect all selected lines
-	let buflines = getline(2,'$')
-	" Cursor position
+	" Select all visible, filtered lines
+	let begin = wheel#mandala#first_data_line ()
+	let buflines = getline(begin, '$')
+	" save cursor position
 	let position = getcurpos()
-	" Select current buffer lines
+	" select
 	for index in range(len(buflines))
-		let linum = index + 1
+		let linum = index + begin
 		call cursor(linum, 1)
-		" select current line
+		call wheel#pencil#select ()
 	endfor
-	" Update buffer
-	silent! 2,$ delete _
-	put =buflines
+	call wheel#gear#restore_cursor (position)
+endfun
+
+fun! wheel#pencil#clear_visible ()
+	" Deselect all visible, filtered lines
+	let begin = wheel#mandala#first_data_line ()
+	let buflines = getline(begin, '$')
+	" save cursor position
+	let position = getcurpos()
+	" select
+	for index in range(len(buflines))
+		let linum = index + begin
+		call cursor(linum, 1)
+		call wheel#pencil#clear ()
+	endfor
 	call wheel#gear#restore_cursor (position)
 endfun
 
 " All
 
-fun! wheel#pencil#deselect_all ()
+fun! wheel#pencil#clear_all ()
 	" Deselect all selected lines
 	let b:wheel_selected = []
 	let buflines = getline(2,'$')
 	" Cursor position
 	let position = getcurpos()
-	" Deselect current buffer lines
+	" deselect current buffer lines
 	for index in range(len(buflines))
 		let line = buflines[index]
 		if line =~ s:selected_pattern
