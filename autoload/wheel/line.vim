@@ -43,7 +43,6 @@ fun! wheel#line#coordinates ()
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
-		echomsg 'wheel line coordin : empty line'
 		return v:false
 	endif
 	let level = wheel#gear#fold_level ()
@@ -88,7 +87,6 @@ fun! wheel#line#tabwin_hierarchy ()
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
-		echomsg 'Wheel line coordin : empty line'
 		return v:false
 	endif
 	let level = wheel#gear#tabwin_level ()
