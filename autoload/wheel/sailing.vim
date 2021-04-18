@@ -49,7 +49,7 @@ fun! wheel#sailing#maps (settings)
 	nnoremap <silent> <buffer> <space> :call wheel#pencil#toggle()<cr>
 	nnoremap <silent> <buffer> & :call wheel#pencil#toggle_visible()<cr>
 	nnoremap <silent> <buffer> * :call wheel#pencil#select_visible()<cr>
-	nnoremap <silent> <buffer> - :call wheel#pencil#clear_visible()<cr>
+	nnoremap <silent> <buffer> <bar> :call wheel#pencil#clear_visible()<cr>
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('sailing')<cr>
 endfun

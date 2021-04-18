@@ -370,7 +370,7 @@ Some special buffers will act on selected entries. You can hit :
 - `<space>` to toggle the selection of a line
 - `&` to invert the selection of all visible lines
 - `*` to select all visible lines
-- `-` (minus) to clear the selection of all visible lines
+- `|` to clear the selection of all visible lines
 
 Reload~
 
@@ -1617,18 +1617,25 @@ OTHER IDEAS				*wheel-mappings-ideas*
 
 Some bindings that you may find useful : >
 
-    nmap <m-cr> <plug>(wheel-switch-location)
+    " switch element, with completion
+    nmap <cr> <plug>(wheel-switch-location)
     nmap <c-cr> <plug>(wheel-switch-circle)
     nmap <s-cr> <plug>(wheel-switch-torus)
 
     nmap <d-^> <plug>(wheel-alternate-same-torus-other-circle)
+    " index of locations in torus > circle > location format
     nmap <d-x> <plug>(wheel-index-locations)
+    " cycle special buffers backward
     nmap <d-space> <plug>(wheel-mandala-backward)
 
+    " k on the beginning of the buffer -> end
     nmap <silent> k :call wheel#mandala#wrap_up()<cr>
+    " j on the end of the buffer -> beginning
     nmap <silent> j :call wheel#mandala#wrap_down()<cr>
 
+    " clear search highlight and center the cursor with Fibonacci ratio
     nmap <silent> <c-l> :nohl<cr><plug>(wheel-spiral-cursor)
+    " same in insert mode
     imap <silent> <c-l> <esc>:nohl<cr><plug>(wheel-spiral-cursor)a
 <
 
