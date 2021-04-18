@@ -637,7 +637,7 @@ locations you want and press `t`
 - `<M-w><space>` to launch the location navigator
 - `i` to go to insert mode
 - enter the pattern you want
-  + e.g. `\.vim$` if all your vim location end with `.vim`
+  + e.g. `\.vim$` if all your vim locations end with `.vim`
 - `<enter>` to validate the pattern
 - `*` to select all the visible (filtered) locations
 - `v` to open all selected locations in vertical splits
