@@ -634,14 +634,13 @@ locations you want and press `t`
 
 ## Display matching files in splits
 
-- press `<M-w>W` to launch the tabs & windows organizer
-- copy the line with the tab you want to duplicate
-  + with closed fold, to take the files in it
-- paste it where you want
-- open the fold of the new tab
-- modify the filename in it to match the file you want to edit
-  + you can even use `<C-x><C-f>` to use vim file completion
-- apply your changes with |:write|
+- `<M-w><space>` to launch the location navigator
+- `i` to go to insert mode
+- enter the pattern you want
+  + e.g. `\.vim$` if all your vim location end with `.vim`
+- `<enter>` to validate the pattern
+- `*` to select all the visible (filtered) locations
+- `v` to open all selected locations in vertical splits
 
 ## Add a tab with a similar file
 
