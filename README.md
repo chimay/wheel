@@ -344,6 +344,9 @@ on the wheel tracks :
  :help wheel.txt
  ```
 
+The [wheel wiki](https://github.com/chimay/wheel/wiki) is also
+available.
+
 ## Prefix
 
 In the following discussion, I assume that you have kept the default
