@@ -265,6 +265,7 @@ fun! wheel#line#sailing (settings)
 	let dest = win_getid ()
 	if ! close
 		call wheel#cylinder#recall ()
+		" let the user clear the selection with <bar> if he chooses to
 	else
 		call win_gotoid (dest)
 	endif
@@ -434,6 +435,8 @@ fun! wheel#line#tabwins_tree (settings)
 			let winum = hierarchy[1]
 			execute winum 'wincmd w'
 		endif
+	elseif settings.ctx_action == 'tabnew'
+		tabnew
 	elseif settings.ctx_action == 'tabclose'
 		" Close tab
 		if tabnum != tabpagenr()

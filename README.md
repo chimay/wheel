@@ -304,7 +304,7 @@ used functions :
     " Tabs & windows : visible buffers in tree mode
     nmap <m-v>          <plug>(wheel-tabwins-tree)
     " Reorganize tabs & windows
-    nmap <d-v>          <plug>(wheel-reorg-tabwins)
+    nmap <m-c-v>        <plug>(wheel-reorg-tabwins)
     " Search for files
     nmap <m-u>          <plug>(wheel-mru)
     nmap <m-l>          <plug>(wheel-locate)

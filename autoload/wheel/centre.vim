@@ -209,8 +209,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'c <plug>(wheel-changes)'
 		" Search for files
 		exe nmap prefix . '<m-b> <plug>(wheel-opened-files)'
-		exe nmap prefix . '<m-w> <plug>(wheel-tabwins-tree)'
 		exe nmap prefix . '<c-w> <plug>(wheel-tabwins)'
+		exe nmap prefix . '<m-w> <plug>(wheel-tabwins-tree)'
 		exe nmap prefix . 'W <plug>(wheel-reorg-tabwins)'
 		exe nmap prefix . '<m-m> <plug>(wheel-mru)'
 		exe nmap prefix . '<m-l> <plug>(wheel-locate)'
@@ -291,7 +291,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-b>          <plug>(wheel-opened-files)'
 		" Tabs & windows : visible buffers in tree mode
 		exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
-		exe nmap '<d-v>          <plug>(wheel-reorg-tabwins)'
+		exe nmap '<m-c-v>        <plug>(wheel-reorg-tabwins)'
 		" Search inside files
 		exe nmap '<m-s>          <plug>(wheel-occur)'
 		exe nmap '<m-g>          <plug>(wheel-grep)'
