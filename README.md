@@ -37,8 +37,6 @@
 		* [Main menu](#main-menu-1)
 		* [Meta menu](#meta-menu)
 	* [Context menus](#context-menus)
-	* [Layer stack](#layer-stack)
-	* [Special buffers stack](#special-buffers-stack)
 * [Examples](#examples)
 	* [Display some locations in tabs](#display-some-locations-in-tabs)
 	* [Display matching files in splits](#display-matching-files-in-splits)
@@ -607,25 +605,6 @@ Some special buffers have context menu support. In that case, pressing
 apply to the selected or cursor line(s).
 
 If you change your mind and wish to come back, just press `<backspace>`.
-
-## Layer stack
-
-Each time you launch a wheel function involving a special buffer, a new
-associated layer is added to a stack local to the buffer. You can :
-
-- go back to the previous layer (and associated wheel function) by pressing `H`
-- go forward to the next layer by pressing `L`
-- destroy current layer and go back to the previous one by pressing `<backspace>`
-
-## Special buffers stack
-
-Wheel manages a special buffers stack. You can :
-
-- Save your current special buffer with `<M-w><Tab>`
-- Cycle the special buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
-- Remove the current special buffer with `<M-w><Backspace>`
-
-This way, you can save a special buffer in case you need it later.
 
 # Examples
 
