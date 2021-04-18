@@ -1679,6 +1679,7 @@ COMMANDS					*wheel-commands*
 EXAMPLES						*wheel-examples*
 
 Display some locations in tabs	    |wheel-examples-locations-in-tabs|
+Display vim files in splits	    |wheel-examples-matching-files-in-splits|
 Add a tab with a similar file	    |wheel-examples-similar-tab|
 Search and replace		    |wheel-examples-search-replace|
 
@@ -1687,6 +1688,17 @@ DISPLAY SOME LOCATIONS IN TABS	    *wheel-examples-locations-in-tabs*
 
 Just press `<M-w><space>` to launch the location navigator, select the
 locations you want and press `t`.
+
+------------------------------------------------------------------------------
+DISPLAY MATCHING FILES IN SPLITS    *wheel-examples-matching-files-in-split*
+
+- `<M-w><space>` to launch the location navigator
+- `i` to go to insert mode
+- enter the pattern you want
+  + e.g. `\.vim$` if all your vim location end with `.vim`
+- `<enter>` to validate the pattern
+- `*` to select all the visible (filtered) locations
+- `v` to open all selected locations in vertical splits
 
 ------------------------------------------------------------------------------
 ADD A TAB WITH A SIMILAR FILE	    *wheel-examples-similar-tab*
