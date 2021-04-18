@@ -265,7 +265,6 @@ fun! wheel#line#sailing (settings)
 	let dest = win_getid ()
 	if ! close
 		call wheel#cylinder#recall ()
-		call wheel#pencil#clear_all ()
 	else
 		call win_gotoid (dest)
 	endif
@@ -408,6 +407,8 @@ fun! wheel#line#tabwins (settings)
 		let winum = fields[1]
 		execute 'tabnext' tabnum
 		execute winum 'wincmd w'
+	elseif settings.ctx_action == 'tabnew'
+		tabnew
 	elseif settings.ctx_action == 'tabclose'
 		" Close tab
 		let fields = split(settings.selected, s:field_separ)

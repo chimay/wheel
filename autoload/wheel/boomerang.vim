@@ -157,6 +157,9 @@ fun! wheel#boomerang#tabwins (action)
 		" wheel#line#sailing will process the first selected line
 		let settings.target = 'current'
 		return wheel#line#sailing (settings)
+	elseif action == 'tabnew'
+		call wheel#line#sailing (settings)
+		return v:true
 	elseif action == 'tabclose'
 		" inform wheel#line#sailing that a loop on selected elements is necessary
 		let settings.target = 'none'

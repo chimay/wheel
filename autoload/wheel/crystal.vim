@@ -115,7 +115,7 @@ if ! exists('s:normal_map_keys')
 				\ '<cr>', '<space>', '<tab>',
 				\ 't', 's', 'v',
 				\ 'S', 'V',
-				\ '&', '*', '-',
+				\ '&', '*', '<bar>',
 				\ 'u', '<c-r>',
 				\ 'g<cr>',
 				\ 'gt', 'gs', 'gv',
@@ -424,6 +424,7 @@ endif
 if ! exists('s:context_tabwins')
 	let s:context_tabwins = {
 				\ 'open' : "wheel#boomerang#tabwins('open')",
+				\ 'new tab' : "wheel#boomerang#tabwins('tabnew')",
 				\ 'close tab' : "wheel#boomerang#tabwins('tabclose')",
 				\ 'reorganize' : 'wheel#shape#reorg_tabwins',
 				\}
@@ -433,6 +434,7 @@ endif
 if ! exists('s:context_tabwins_tree')
 	let s:context_tabwins_tree = {
 				\ 'open' : "wheel#boomerang#tabwins_tree('open')",
+				\ 'new tab' : "wheel#boomerang#tabwins_tree('tabnew')",
 				\ 'close tab' : "wheel#boomerang#tabwins_tree('tabclose')",
 				\ 'reorganize' : 'wheel#shape#reorg_tabwins',
 				\}
