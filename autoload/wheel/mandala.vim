@@ -248,7 +248,7 @@ fun! wheel#mandala#reload ()
 		call wheel#mandala#fill (b:wheel_lines, 'blank')
 		" restore
 		exe 'silent file' filename
-		echomsg 'wheel mandala : function reloaded.'
+		echomsg 'wheel mandala : content reloaded.'
 	endif
 endfun
 

@@ -46,6 +46,9 @@ fu! wheel#status#tablabel (index)
 	let buffernr = buflist[winnr - 1]
 	let buffername = bufname(buffernr)
 	let label = fnamemodify(buffername, ':t')
+	if empty(label)
+		let label = '[no-name]'
+	endif
 	let label .= ' ' . modified
 	if ! has_key(g:wheel_shelve.layout, 'tabnames')
 		return label
