@@ -221,8 +221,6 @@ fun! wheel#sailing#occur (...)
 	call wheel#mandala#close ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
-	call wheel#cylinder#recall ()
-	" mandala buffer
 	call wheel#mandala#open ('occur')
 	let settings = {'action' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)

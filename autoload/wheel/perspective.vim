@@ -344,7 +344,7 @@ fun! wheel#perspective#occur (pattern)
 	" Occur for wheel buffer
 	let pattern = a:pattern
 	let position = getcurpos()
-	let runme = 'global /' . pattern . '/'
+	let runme = 'global /' . pattern . '/number'
 	let lines = execute(runme)
 	let lines = split(lines, "\n")
 	for index in range(len(lines))
