@@ -16,8 +16,7 @@
 	* [Using vim-plug](#using-vim-plug)
 * [Configuration](#configuration)
 	* [Bindings](#bindings)
-* [Step by Step](#step-by-step)
-	* [Documentation](#documentation)
+* [Documentation](#documentation)
 	* [One map to ring them all](#one-map-to-ring-them-all)
 	* [Mnemonic](#mnemonic)
 	* [First Circles](#first-circles)
@@ -333,9 +332,7 @@ used functions :
     nmap <m-r>          <plug>(wheel-reorganize)
 ```
 
-# Step by Step
-
-## Documentation
+# Documentation
 
 [Your guide](https://github.com/chimay/wheel/blob/master/doc/wheel.txt)
 on the wheel tracks :
@@ -346,6 +343,8 @@ on the wheel tracks :
 
 The [wheel wiki](https://github.com/chimay/wheel/wiki) is also
 available.
+
+# Step by Step
 
 ## Prefix
 
