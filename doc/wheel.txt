@@ -846,7 +846,6 @@ To enable it, you need to add an autocommand on vim enter : >
 ------------------------------------------------------------------------------
 AUTOWRITE					    *wheel-config-autowrite*
 
-
 Auto write torus file on exit if non null : >
 
     let g:wheel_config.autowrite = 1

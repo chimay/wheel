@@ -18,8 +18,10 @@
 	* [Vim help](#vim-help)
 	* [Wiki](#wiki)
 + [Configuration](#configuration)
-+ [Bindings](#bindings)
 	* [Wiki](#wiki-1)
+	* [Example](#example)
++ [Bindings](#bindings)
+	* [Wiki](#wiki-2)
 	* [List of available mappings](#list-of-available-mappings)
 	* [Frequently used functions](#frequently-used-functions)
 + [Step by Step](#step-by-step)
@@ -215,6 +217,14 @@ on the wheel tracks :
 A [wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Configuration
+
+## Wiki
+
+For a thorough list of options, see
+[this page](https://github.com/chimay/wheel/wiki/configuration)
+in the wiki.
+
+## Example
 
 Here is an example of configuration :
 
