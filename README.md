@@ -18,7 +18,6 @@
 	* [Vim help](#vim-help)
 	* [Wiki](#wiki)
 + [Configuration](#configuration)
-	* [Example](#example)
 + [Bindings](#bindings)
 	* [Wiki](#wiki-1)
 	* [List of available mappings](#list-of-available-mappings)
@@ -216,7 +215,6 @@ on the wheel tracks :
 A [wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Configuration
-## Example
 
 Here is an example of configuration :
 
