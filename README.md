@@ -209,11 +209,9 @@ Here is an example of configuration :
 
 ```vim
 if ! exists("g:wheel_loaded")
-
   " Init
   let g:wheel_config={}
   let g:wheel_config.maxim={}
-
   " The file where toruses and circles will be stored and read
   let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
   " Auto read torus file on startup if > 0
@@ -236,27 +234,22 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.project_markers = ['.git', '.racine-projet']
   " Locate database ; default one if left empty
   let g:wheel_config.locate_db = '~/racine/index/locate/racine.db'
-
   " Maximum number of elements in history
   let g:wheel_config.maxim.history = 50
   " Maximum number of elements in input history
   let g:wheel_config.maxim.input = 100
-
   " Maximum number of elements in mru
   let g:wheel_config.maxim.mru = 120
-
   " Maximum number of elements in yank wheel
   let g:wheel_config.maxim.yanks = 300
   " Maximum size of elements in yank wheel
   let g:wheel_config.maxim.yank_size = 3000
-
   " Maximum number of tabs in layouts
   let g:wheel_config.maxim.tabs = 12
   " Maximum number of horizontal splits
   let g:wheel_config.maxim.horizontal = 3
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
-
 endif
 ```
 
@@ -274,7 +267,7 @@ To display the list of available plug mappings, press `<M-w>:`,
 then answer :
 
 ```
-    map <Plug>(wheel-
+map <Plug>(wheel-
 ```
 
 to the prompt. You can then browse the plug wheel maps in a special
@@ -283,7 +276,7 @@ wheel buffer.
 To see mapped keys, you can also use `<M-w>:`, and answer :
 
 ```
-    map <M-w>
+map <M-w>
 ```
 
 to the prompt.
@@ -294,58 +287,58 @@ Here are some bindings that you may find useful, beginning with the most
 used functions :
 
 ```vim
-    nmap <m-m>        <plug>(wheel-menu-main)
-    nmap <m-=>        <plug>(wheel-menu-meta)
-    " Add, Delete
-    nmap <m-insert>   <plug>(wheel-add-here)
-    nmap <m-del>      <plug>(wheel-delete-location)
-    " Next / Previous
-    nmap <c-pageup>   <plug>(wheel-previous-location)
-    nmap <c-pagedown> <plug>(wheel-next-location)
-    nmap <c-home>     <plug>(wheel-previous-circle)
-    nmap <c-end>      <plug>(wheel-next-circle)
-    nmap <s-home>     <plug>(wheel-previous-torus)
-    nmap <s-end>      <plug>(wheel-next-torus)
-    " Alternate
-    nmap <c-^>        <plug>(wheel-alternate-anywhere)
-    nmap <d-^>        <plug>(wheel-alternate-same-torus-other-circle)
-    " Navigation special buffers
-    nmap <space>      <plug>(wheel-navigation-location)
-    nmap <c-space>    <plug>(wheel-navigation-circle)
-    nmap <s-space>    <plug>(wheel-navigation-torus)
-    nmap <m-x>        <plug>(wheel-tree)
-    nmap <m-h>        <plug>(wheel-history)
-    " Opened files
-    nmap <m-b>          <plug>(wheel-opened-files)
-    " Tabs & windows : visible buffers in tree mode
-    nmap <m-v>          <plug>(wheel-tabwins-tree)
-    " Reorganize tabs & windows
-    nmap <m-c-v>        <plug>(wheel-reorg-tabwins)
-    " Search for files
-    nmap <m-u>          <plug>(wheel-mru)
-    nmap <m-l>          <plug>(wheel-locate)
-    nmap <m-f>          <plug>(wheel-find)
-    " Yank
-    nmap <m-y>          <plug>(wheel-yank-list)
-    nmap <m-p>          <plug>(wheel-yank-plain)
-    " Search inside files
-    nmap <m-s>          <plug>(wheel-occur)
-    nmap <m-g>          <plug>(wheel-grep)
-    nmap <m-o>          <plug>(wheel-outline)
-    nmap <m-t>          <plug>(wheel-tags)
-    nmap <m-j>          <plug>(wheel-jumps)
-    nmap <m-c>          <plug>(wheel-changes)
-    " Save (push) mandala (special buffer)
-    nmap <m-Tab>        <plug>(wheel-mandala-push)
-    " Remove (pop) mandala
-    nmap <m-Backspace>  <plug>(wheel-mandala-pop)
-    " Cycle mandala buffers
-    nmap <m-space>      <plug>(wheel-mandala-cycle)
-    " Command output in special buffer
-    nmap <m-!>          <plug>(wheel-command)
-    nmap <m-&>          <plug>(wheel-async)
-    " Reorganize the wheel : toruses, circles and locations
-    nmap <m-r>          <plug>(wheel-reorganize)
+nmap <m-m>        <plug>(wheel-menu-main)
+nmap <m-=>        <plug>(wheel-menu-meta)
+" Add, Delete
+nmap <m-insert>   <plug>(wheel-add-here)
+nmap <m-del>      <plug>(wheel-delete-location)
+" Next / Previous
+nmap <c-pageup>   <plug>(wheel-previous-location)
+nmap <c-pagedown> <plug>(wheel-next-location)
+nmap <c-home>     <plug>(wheel-previous-circle)
+nmap <c-end>      <plug>(wheel-next-circle)
+nmap <s-home>     <plug>(wheel-previous-torus)
+nmap <s-end>      <plug>(wheel-next-torus)
+" Alternate
+nmap <c-^>        <plug>(wheel-alternate-anywhere)
+nmap <d-^>        <plug>(wheel-alternate-same-torus-other-circle)
+" Navigation special buffers
+nmap <space>      <plug>(wheel-navigation-location)
+nmap <c-space>    <plug>(wheel-navigation-circle)
+nmap <s-space>    <plug>(wheel-navigation-torus)
+nmap <m-x>        <plug>(wheel-tree)
+nmap <m-h>        <plug>(wheel-history)
+" Opened files
+nmap <m-b>          <plug>(wheel-opened-files)
+" Tabs & windows : visible buffers in tree mode
+nmap <m-v>          <plug>(wheel-tabwins-tree)
+" Reorganize tabs & windows
+nmap <m-c-v>        <plug>(wheel-reorg-tabwins)
+" Search for files
+nmap <m-u>          <plug>(wheel-mru)
+nmap <m-l>          <plug>(wheel-locate)
+nmap <m-f>          <plug>(wheel-find)
+" Yank
+nmap <m-y>          <plug>(wheel-yank-list)
+nmap <m-p>          <plug>(wheel-yank-plain)
+" Search inside files
+nmap <m-s>          <plug>(wheel-occur)
+nmap <m-g>          <plug>(wheel-grep)
+nmap <m-o>          <plug>(wheel-outline)
+nmap <m-t>          <plug>(wheel-tags)
+nmap <m-j>          <plug>(wheel-jumps)
+nmap <m-c>          <plug>(wheel-changes)
+" Save (push) mandala (special buffer)
+nmap <m-Tab>        <plug>(wheel-mandala-push)
+" Remove (pop) mandala
+nmap <m-Backspace>  <plug>(wheel-mandala-pop)
+" Cycle mandala buffers
+nmap <m-space>      <plug>(wheel-mandala-cycle)
+" Command output in special buffer
+nmap <m-!>          <plug>(wheel-command)
+nmap <m-&>          <plug>(wheel-async)
+" Reorganize the wheel : toruses, circles and locations
+nmap <m-r>          <plug>(wheel-reorganize)
 ```
 
 # Step by Step
