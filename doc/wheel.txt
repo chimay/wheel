@@ -1648,7 +1648,9 @@ Some bindings that you may find useful : >
     nmap <cr> <plug>(wheel-switch-location)
     " or
     nmap <m-cr> <plug>(wheel-switch-location)
+    " same, with circles
     nmap <c-cr> <plug>(wheel-switch-circle)
+    " same, with toruses
     nmap <s-cr> <plug>(wheel-switch-torus)
 
     nmap <d-^> <plug>(wheel-alternate-same-torus-other-circle)
