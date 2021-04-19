@@ -310,7 +310,7 @@ used functions :
     nmap <m-Backspace>  <plug>(wheel-mandala-pop)
     " Cycle mandala buffers
     nmap <m-space>      <plug>(wheel-mandala-cycle)
-    " Command
+    " Command output in special buffer
     nmap <m-!>          <plug>(wheel-command)
     nmap <m-&>          <plug>(wheel-async)
     " Reshaping mandala buffer
