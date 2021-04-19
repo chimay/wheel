@@ -221,7 +221,7 @@ A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 ## Wiki
 
 For a thorough list of options, see
-[this page](https://github.com/chimay/wheel/wiki/configuration)
+[the configuration page](https://github.com/chimay/wheel/wiki/configuration)
 in the wiki.
 
 ## Example
@@ -290,7 +290,7 @@ as a starting point.
 ## Wiki
 
 For a thorough list of bindings, see
-[this page](https://github.com/chimay/wheel/wiki/bindings)
+[the bingings page](https://github.com/chimay/wheel/wiki/bindings)
 in the wiki.
 
 ## List of available mappings
