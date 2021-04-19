@@ -725,9 +725,9 @@ Default mapping : `<M-w>:`
 
 Examples :
 
-- `<M-w>:<plug>(wheel-`
-- `<M-w>:<M-w>`
-- `<M-w>:!ls -l % #`
+- `<M-w>:` then `nmap <plug>(wheel-`
+- `<M-w>:` then `nmap <M-w>`
+- `<M-w>:` then `!ls -l % #`
 
 Async mode~
 
@@ -1202,6 +1202,7 @@ MAPPINGS						    *wheel-mappings*
 
 Levels				|wheel-mappings-levels|
 Prefix				|wheel-mappings-prefix|
+List of plug maps		|wheel-mappings-plugs|
 Mnemonic			|wheel-mappings-mnemonic|
 Level 0				|wheel-mappings-level-0|
 Level 1				|wheel-mappings-level-1|
@@ -1209,7 +1210,6 @@ Level 2				|wheel-mappings-level-2|
 Level 10			|wheel-mappings-level-10|
 Level 20			|wheel-mappings-level-20|
 Other ideas			|wheel-mappings-ideas|
-List of plug maps		|wheel-mappings-plugs|
 
 ------------------------------------------------------------------------------
 LEVELS						    *wheel-mappings-levels*
@@ -1221,13 +1221,13 @@ The mappings are organized in levels :
 - Level 2  : advanced
 - Level 10 : non-prefix mappings
 
-If you set the option `g:wheel_config.prefix` to an integer `N`, all
+If you set the option `g:wheel_config.mappings` to an integer `N`, all
 mappings of level less or equal to `N` will be bound to keys. So, the
 higher this option, the more mappings available.
 
 E.g., if you set it to 2 : >
 
-    let g:wheel_config.prefix = 2
+    let g:wheel_config.mappings = 2
 <
 mappings levels 0, 1 and 2 will be available.
 
@@ -1249,6 +1249,33 @@ to work in terminal or with Gvim, it is not the default. It's working on
 Neovim-qt, though : >
 
     let g:wheel_config.prefix = '<D-w>'
+<
+
+------------------------------------------------------------------------------
+LIST OF PLUG MAPS			*wheel-mappings-plugs*
+
+To display the list of available plug mappings, press `<M-w>:`,
+then answer : >
+
+    map <Plug>(wheel-
+<
+
+to the prompt. You can then browse the plug wheel maps in a special
+wheel buffer.
+
+To see mapped keys, you can also use `<M-w>:`, and answer : >
+
+    map <M-w>
+<
+
+to the prompt.
+
+You can also find them in the file `autoload/wheel/centre.vim`, function
+`wheel#centre#plugs`. Their names are self explanatory.
+
+Example of key binding using a plug map : >
+
+    nmap <M-m> <Plug>(wheel-menu-main)
 <
 
 ------------------------------------------------------------------------------
@@ -1639,23 +1666,6 @@ Some bindings that you may find useful : >
     nmap <silent> <c-l> :nohl<cr><plug>(wheel-spiral-cursor)
     " same in insert mode
     imap <silent> <c-l> <esc>:nohl<cr><plug>(wheel-spiral-cursor)a
-<
-
-------------------------------------------------------------------------------
-LIST OF PLUG MAPS			*wheel-mappings-plugs*
-
-To display the list of available plug mappings, just execute the following ex
-command : >
-
-    map <Plug>(wheel-
-<
-
-You can also find them in the file `autoload/wheel/centre.vim`, function
-`wheel#centre#plugs`. Their names are self explanatory.
-
-Example of binding using a plug map : >
-
-    nmap <M-m> <Plug>(wheel-menu-main)
 <
 
 ==============================================================================
