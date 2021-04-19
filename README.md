@@ -2,34 +2,35 @@
 
 <!-- vim-markdown-toc GFM -->
 
-* [Introduction](#introduction)
++ [Introduction](#introduction)
 	* [What does it look like ?](#what-does-it-look-like-)
-		* [Main menu](#main-menu)
-		* [More screenshots](#more-screenshots)
+		- [Main menu](#main-menu)
+		- [More screenshots](#more-screenshots)
 	* [File groups & categories](#file-groups--categories)
-		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
-		* [A wheel that follows you](#a-wheel-that-follows-you)
+		- [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
+		- [A wheel that follows you](#a-wheel-that-follows-you)
 	* [Features](#features)
 	* [History](#history)
-* [Installation](#installation)
++ [Installation](#installation)
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
-* [Documentation](#documentation)
++ [Documentation](#documentation)
+	* [Vim help](#vim-help)
 	* [One map to ring them all](#one-map-to-ring-them-all)
 	* [Mnemonic](#mnemonic)
 	* [First Circles](#first-circles)
 	* [Moving around](#moving-around)
-		* [Cycling](#cycling)
-		* [Switch using completion](#switch-using-completion)
-		* [Switch using a special buffer](#switch-using-a-special-buffer)
+		- [Cycling](#cycling)
+		- [Switch using completion](#switch-using-completion)
+		- [Switch using a special buffer](#switch-using-a-special-buffer)
 	* [Square the Circle](#square-the-circle)
-* [Examples](#examples)
++ [Examples](#examples)
 	* [Display some locations in tabs](#display-some-locations-in-tabs)
 	* [Display matching files in splits](#display-matching-files-in-splits)
 	* [Add a tab with a similar file](#add-a-tab-with-a-similar-file)
 	* [Search and replace](#search-and-replace)
-* [Warning](#warning)
-* [Licence](#licence)
++ [Warning](#warning)
++ [Licence](#licence)
 
 <!-- vim-markdown-toc -->
 
@@ -170,14 +171,13 @@ This project is inspired by :
 
 
 # Installation
-
 ## Using minpac
 
 Simply add this line to your initialisation file :
 
-```vim
+~~~vim
 call minpac#add('chimay/wheel', { 'type' : 'start' })
-```
+~~~
 
 and run `:PackUpdate` (see [the minpac readme](https://github.com/k-takata/minpac))
 to install.
@@ -186,28 +186,32 @@ to install.
 
 The syntax should be similar with other git oriented plugin managers :
 
-```vim
+~~~vim
 Plug 'chimay/wheel'
-```
+~~~
 
 and run `:PlugInstall` to install.
 
 # Documentation
+## Vim help
 
 [Your guide](https://github.com/chimay/wheel/blob/master/doc/wheel.txt)
 on the wheel tracks :
 
-```vim
- :help wheel.txt
- ```
+~~~vim
+:help wheel.txt
+ ~~~
+
+## Wiki
 
 A [wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Configuration
+## Example
 
 Here is an example of configuration :
 
-```vim
+~~~vim
 if ! exists("g:wheel_loaded")
   " Init
   let g:wheel_config={}
@@ -251,11 +255,12 @@ if ! exists("g:wheel_loaded")
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
 endif
-```
+~~~
 
 as a starting point.
 
 # Bindings
+## Wiki
 
 For a thorough list of bindings, see
 [this page](https://github.com/chimay/wheel/wiki/bindings)
@@ -266,18 +271,18 @@ in the wiki.
 To display the list of available plug mappings, press `<M-w>:`,
 then answer :
 
-```
+~~~vim
 map <Plug>(wheel-
-```
+~~~
 
 to the prompt. You can then browse the plug wheel maps in a special
 wheel buffer.
 
 To see mapped keys, you can also use `<M-w>:`, and answer :
 
-```
+~~~vim
 map <M-w>
-```
+~~~
 
 to the prompt.
 
@@ -286,7 +291,7 @@ to the prompt.
 Here are some bindings that you may find useful, beginning with the most
 used functions :
 
-```vim
+~~~vim
 nmap <m-m>        <plug>(wheel-menu-main)
 nmap <m-=>        <plug>(wheel-menu-meta)
 " Add, Delete
@@ -339,18 +344,17 @@ nmap <m-!>          <plug>(wheel-command)
 nmap <m-&>          <plug>(wheel-async)
 " Reorganize the wheel : toruses, circles and locations
 nmap <m-r>          <plug>(wheel-reorganize)
-```
+~~~
 
 # Step by Step
-
 ## Prefix
 
 In the following discussion, I assume that you have kept the default
 mapping prefix :
 
-```vim
+~~~vim
 let g:wheel_config.prefix = '<M-w>'
-```
+~~~
 
 Just replace it by your prefix if you’ve changed it.
 
@@ -477,7 +481,6 @@ Circle Fruits | Apple           | Pear
 at your fingertips.
 
 # Examples
-
 ## Display some locations in tabs
 
 Just press `<M-w><space>` to launch the location navigator, select the
