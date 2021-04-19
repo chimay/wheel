@@ -17,7 +17,6 @@
 * [Configuration](#configuration)
 	* [Bindings](#bindings)
 * [Documentation](#documentation)
-	* [One map to ring them all](#one-map-to-ring-them-all)
 	* [Mnemonic](#mnemonic)
 	* [First Circles](#first-circles)
 	* [Moving around](#moving-around)
@@ -353,6 +352,26 @@ or `q` to quit the menu.
 
 If you prefer the meta menu leading you to thematic sub-menus, you can
 launch it with `<M-w>=`.
+
+## List of available mappings
+
+To display the list of available plug mappings, press `<M-w>:`,
+then answer :
+
+```
+    map <Plug>(wheel-
+```
+
+to the prompt. You can then browse the plug wheel maps in a special
+wheel buffer.
+
+To see mapped keys, you can also use `<M-w>:`, and answer :
+
+```
+    map <M-w>
+```
+
+to the prompt.
 
 ## Mnemonic
 

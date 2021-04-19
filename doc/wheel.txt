@@ -1202,7 +1202,7 @@ MAPPINGS						    *wheel-mappings*
 
 Levels				|wheel-mappings-levels|
 Prefix				|wheel-mappings-prefix|
-List of plug maps		|wheel-mappings-plugs|
+List of available maps		|wheel-mappings-available-maps|
 Mnemonic			|wheel-mappings-mnemonic|
 Level 0				|wheel-mappings-level-0|
 Level 1				|wheel-mappings-level-1|
@@ -1251,8 +1251,11 @@ Neovim-qt, though : >
     let g:wheel_config.prefix = '<D-w>'
 <
 
+In the following discussion, I assume that you have kept the default
+`<M-w>` prefix.
+
 ------------------------------------------------------------------------------
-LIST OF PLUG MAPS			*wheel-mappings-plugs*
+LIST OF AVAILABLE MAPS			*wheel-mappings-available-maps*
 
 To display the list of available plug mappings, press `<M-w>:`,
 then answer : >
@@ -1270,8 +1273,8 @@ To see mapped keys, you can also use `<M-w>:`, and answer : >
 
 to the prompt.
 
-You can also find them in the file `autoload/wheel/centre.vim`, function
-`wheel#centre#plugs`. Their names are self explanatory.
+You can also find all of these in the file `autoload/wheel/centre.vim`,
+function `wheel#centre#plugs`. Their names are self explanatory.
 
 Example of key binding using a plug map : >
 
