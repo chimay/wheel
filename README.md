@@ -305,11 +305,11 @@ used functions :
     nmap <m-j>          <plug>(wheel-jumps)
     nmap <m-c>          <plug>(wheel-changes)
     " Save (push) mandala (special buffer)
-    nmap <m-Tab>        <plug>(wheel-buffer-push)
+    nmap <m-Tab>        <plug>(wheel-mandala-push)
     " Remove (pop) mandala
-    nmap <m-Backspace>  <plug>(wheel-buffer-pop)
+    nmap <m-Backspace>  <plug>(wheel-mandala-pop)
     " Cycle mandala buffers
-    nmap <m-space>      <plug>(wheel-buffer-cycle)
+    nmap <m-space>      <plug>(wheel-mandala-cycle)
     " Command
     nmap <m-!>          <plug>(wheel-command)
     nmap <m-&>          <plug>(wheel-async)
