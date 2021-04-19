@@ -1661,9 +1661,12 @@ OTHER IDEAS				*wheel-mappings-ideas*
 Some bindings that you may find useful : >
 
     " switch element, with completion
-    nmap <cr> <plug>(wheel-switch-location)
-    " or
     nmap <m-cr> <plug>(wheel-switch-location)
+    " or
+    nmap g<cr> <plug>(wheel-switch-location)
+    " don't do this, you'd lose <cr> in q: window
+    nmap <cr> <plug>(wheel-switch-location)
+
     " same, with circles
     nmap <c-cr> <plug>(wheel-switch-circle)
     " same, with toruses
