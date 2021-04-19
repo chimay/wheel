@@ -15,7 +15,7 @@
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
 * [Configuration](#configuration)
-	* [Bindings](#bindings)
+* [Bindings](#bindings)
 	* [List of available mappings](#list-of-available-mappings)
 	* [Frequently used functions](#frequently-used-functions)
 * [Documentation](#documentation)
@@ -260,7 +260,7 @@ endif
 
 as a starting point.
 
-## Bindings
+# Bindings
 
 For a thorough list of bindings, see
 [this page](https://github.com/chimay/wheel/wiki/bindings)
