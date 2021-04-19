@@ -931,7 +931,7 @@ Maximum number of elements in the wheel history : >
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN INPUT HISTORY		   *wheel-config-maxim-input*
 
-Maximum number of elements in the wheel history : >
+Maximum number of elements in the input history : >
 
     let g:wheel_config.maxim.input = 100
 <
@@ -1770,6 +1770,11 @@ FILES							*wheel-files*
 
 Autoload files~
 
+Here is a list of files in `autoload/wheel/`, and a brief description
+of the modules within them.
+
+| File              | Description                            |
+| ----------------- | -------------------------------------- |
 | attic.vim         | Most Recently Used files               |
 | boomerang.vim     | Context menus                          |
 | centre.vim        | Commands & Mappings                    |
