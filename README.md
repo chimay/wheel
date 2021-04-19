@@ -313,7 +313,7 @@ used functions :
     " Command output in special buffer
     nmap <m-!>          <plug>(wheel-command)
     nmap <m-&>          <plug>(wheel-async)
-    " Reshaping mandala buffer
+    " Reorganize the wheel : toruses, circles and locations
     nmap <m-r>          <plug>(wheel-reorganize)
 ```
 
