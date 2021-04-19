@@ -16,6 +16,15 @@
 	* [Using vim-plug](#using-vim-plug)
 + [Documentation](#documentation)
 	* [Vim help](#vim-help)
+	* [Wiki](#wiki)
++ [Configuration](#configuration)
+	* [Example](#example)
++ [Bindings](#bindings)
+	* [Wiki](#wiki-1)
+	* [List of available mappings](#list-of-available-mappings)
+	* [Frequently used functions](#frequently-used-functions)
++ [Step by Step](#step-by-step)
+	* [Prefix](#prefix)
 	* [One map to ring them all](#one-map-to-ring-them-all)
 	* [Mnemonic](#mnemonic)
 	* [First Circles](#first-circles)
@@ -200,7 +209,7 @@ on the wheel tracks :
 
 ~~~vim
 :help wheel.txt
- ~~~
+~~~
 
 ## Wiki
 
