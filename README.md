@@ -215,7 +215,7 @@ on the wheel tracks :
 
 ## Wiki
 
-A [wiki](https://github.com/chimay/wheel/wiki) is also available.
+A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Configuration
 ## Wiki
