@@ -201,7 +201,7 @@ on the wheel tracks :
  :help wheel.txt
  ```
 
-A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
+A [wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Configuration
 
