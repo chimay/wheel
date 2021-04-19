@@ -341,10 +341,10 @@ the filter function.
 A space between two words is a logical and. So, `one two` will
 display lines containing both `one` and `two`.
 
-A pipe "|" in the middle of a word is a logical or. So, `one|two` will
+A pipe `|` in the middle of a word is a logical or. So, `one|two` will
 display lines containing `one` or `two`.
 
-A bang "!" beginning a filtering word is a logical not : all lines matching
+A bang `!` beginning a filtering word is a logical not : all lines matching
 this word will be removed from the buffer.
 
 Input history~
@@ -382,7 +382,8 @@ Available on most special buffers.
 LAYER STACK				*wheel-special-buffers-layers*
 
 Each time you launch a wheel function involving a special buffer, a new
-associated layer is added to a stack local to the buffer. You can :
+associated layer is added to a stack local to the buffer. You may see it
+as a kind of special buffer history. You can :
 
 - go back to the previous layer (and associated wheel function) by pressing `H`
 - go forward to the next layer by pressing `L`
@@ -396,10 +397,15 @@ BUFFERS STACK				*wheel-special-buffers-stack*
 Wheel manages a special buffers stack. You can :
 
 - Save your current special buffer with `<M-w><Tab>`
+  + A new special buffer will be the default one for the wheel functions
 - Cycle the special buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
 - Remove the current special buffer with `<M-w><Backspace>`
+  + It is removed from the stack and wiped from vim buffers
 
-This way, you can save a special buffer in case you need it later.
+So, there are two stack levels :
+
+- a layer stack in each special buffer
+- a bufer stack
 
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menus*
@@ -960,7 +966,7 @@ MAX LAYERS IN SPECIAL BUFFERS		    *wheel-config-maxim-layers*
 
 Maximum size of layer stack in special buffers : >
 
-	let g:wheel_config.maxim.layers = 5
+	let g:wheel_config.maxim.layers = 10
 <
 
 ------------------------------------------------------------------------------
