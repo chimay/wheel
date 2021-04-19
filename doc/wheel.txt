@@ -405,7 +405,7 @@ Wheel manages a special buffers stack. You can :
 So, there are two stack levels :
 
 - a layer stack in each special buffer
-- a bufer stack
+- a buffer stack
 
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menus*
