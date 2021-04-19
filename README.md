@@ -259,6 +259,10 @@ as a starting point.
 
 ## Bindings
 
+For a thorough list of bindings, see
+[this page](https://github.com/chimay/wheel/wiki/bindings)
+in the wiki.
+
 Here are some bindings that you may find useful, beginning with the most
 used functions :
 
@@ -326,8 +330,7 @@ on the wheel tracks :
  :help wheel.txt
  ```
 
-The [wheel wiki](https://github.com/chimay/wheel/wiki) is also
-available.
+A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Step by Step
 
