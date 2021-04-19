@@ -1121,6 +1121,14 @@ you edit a file with a classic vim command.
 Be aware that it will update the wheel cursor position of your previous
 buffer, which makes sense.
 
+Also note that if the file you edit is not in the wheel, the follow
+routine will do nothing.  If you want to edit a file and add it to the
+current group (circle), you can use `<plug>(wheel-add-file)`. It is
+bound to `<M-w>f` by default.
+
+To edit and add a buffer, you can use `<plug>(wheel-add-buffer)`, bound to
+`<M-w>b` by default.
+
 ------------------------------------------------------------------------------
 AUTO UPDATE				*wheel-autocommands-auto-update*
 
@@ -1313,8 +1321,8 @@ Add~
 | <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
 | A          | <M-w>A                | Add torus to the wheel             |
 | ---------- | --------------------- | ---------------------------------- |
-| f          | <M-w>f                | Add file                           |
-| b          | <M-w>b                | Add buffer                         |
+| f          | <M-w>f                | Edit and add a file                |
+| b          | <M-w>b                | Edit and add a buffer              |
 | *          | <M-w>*                | Add files matching glob            |
 
 Next / previous~
