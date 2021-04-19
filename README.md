@@ -14,10 +14,6 @@
 * [Installation](#installation)
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
-* [Configuration](#configuration)
-* [Bindings](#bindings)
-	* [List of available mappings](#list-of-available-mappings)
-	* [Frequently used functions](#frequently-used-functions)
 * [Documentation](#documentation)
 	* [One map to ring them all](#one-map-to-ring-them-all)
 	* [Mnemonic](#mnemonic)
@@ -196,6 +192,17 @@ Plug 'chimay/wheel'
 
 and run `:PlugInstall` to install.
 
+# Documentation
+
+[Your guide](https://github.com/chimay/wheel/blob/master/doc/wheel.txt)
+on the wheel tracks :
+
+```vim
+ :help wheel.txt
+ ```
+
+A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
+
 # Configuration
 
 Here is an example of configuration :
@@ -249,11 +256,6 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.maxim.horizontal = 3
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
-
-  " random ideas
-  nmap <m-cr> <plug>(wheel-switch-location)
-  nmap <c-cr> <plug>(wheel-switch-circle)
-  nmap <s-cr> <plug>(wheel-switch-torus)
 
 endif
 ```
@@ -345,17 +347,6 @@ used functions :
     " Reorganize the wheel : toruses, circles and locations
     nmap <m-r>          <plug>(wheel-reorganize)
 ```
-
-# Documentation
-
-[Your guide](https://github.com/chimay/wheel/blob/master/doc/wheel.txt)
-on the wheel tracks :
-
-```vim
- :help wheel.txt
- ```
-
-A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Step by Step
 
