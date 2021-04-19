@@ -3,6 +3,7 @@
 <!-- vim-markdown-toc GFM -->
 
 + [Introduction](#introduction)
+	* [What is it ?](#what-is-it-)
 	* [What does it look like ?](#what-does-it-look-like-)
 		- [Main menu](#main-menu)
 		- [More screenshots](#more-screenshots)
@@ -45,13 +46,13 @@
 <!-- vim-markdown-toc -->
 
 # Introduction
+## What is it ?
 
 Wheel is a navigation plugin for Vim and Neovim. It is file group
 oriented and makes abundant use of special buffers, in which you can
 filter and select elements.
 
 ## What does it look like ?
-
 ### Main menu
 
 ![Main menu](screencast/menu-main.gif)
@@ -217,7 +218,6 @@ on the wheel tracks :
 A [wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 # Configuration
-
 ## Wiki
 
 For a thorough list of options, see
