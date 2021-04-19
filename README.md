@@ -59,7 +59,7 @@ filter and select elements.
 
 ### More screenshots
 
-See the [screenshot page](screenshots.md)
+See the [screenshot page](screenshots.md).
 
 ## File groups & categories
 
