@@ -35,7 +35,12 @@ if ! exists('s:golden_ratio')
 	lockvar s:golden_ratio
 endif
 
-" Empty mandala filename pattern
+" Mandala patterns
+
+if ! exists('s:is_mandala')
+	let s:is_mandala = '\m^>\?\s*+\?\s*/wheel/[0-9]\+/'
+	lockvar s:is_mandala
+endif
 
 if ! exists('s:mandala_empty')
 	let s:mandala_empty = '\m/wheel/[0-9]\+/empty'
@@ -190,166 +195,165 @@ endif
 " Menus
 
 if ! exists('s:menu_add')
-	let s:menu_add = {
-				\ 'add a new torus' : 'wheel#tree#add_torus',
-				\ 'add a new circle' : 'wheel#tree#add_circle',
-				\ 'add here as new location' : 'wheel#tree#add_here',
-				\ 'add a new file' : 'wheel#tree#add_file',
-				\ 'add a new buffer' : 'wheel#tree#add_buffer',
-				\ 'add files matching glob' : 'wheel#tree#add_glob',
-				\}
+	let s:menu_add = [
+				\ ['add a new torus' ,  'wheel#tree#add_torus'],
+				\ ['add a new circle' ,  'wheel#tree#add_circle'],
+				\ ['add here as new location' ,  'wheel#tree#add_here'],
+				\ ['add a new file' ,  'wheel#tree#add_file'],
+				\ ['add a new buffer' ,  'wheel#tree#add_buffer'],
+				\ ['add files matching glob' ,  'wheel#tree#add_glob'],
+				\]
 	lockvar s:menu_add
 endif
 
 if ! exists('s:menu_rename')
-	let s:menu_rename = {
-				\ 'rename torus' : "wheel#tree#rename('torus')",
-				\ 'rename circle' : "wheel#tree#rename('circle')",
-				\ 'rename location' : "wheel#tree#rename('location')",
-				\ 'rename file' : 'wheel#tree#rename_file',
-				\}
+	let s:menu_rename = [
+				\ ['rename torus' ,  "wheel#tree#rename('torus')"],
+				\ ['rename circle' ,  "wheel#tree#rename('circle')"],
+				\ ['rename location' ,  "wheel#tree#rename('location')"],
+				\ ['rename file' ,  'wheel#tree#rename_file'],
+				\]
 	lockvar s:menu_rename
 endif
 
 if ! exists('s:menu_delete')
-	let s:menu_delete = {
-				\ 'delete torus' : "wheel#tree#delete('torus')",
-				\ 'delete circle' : "wheel#tree#delete('circle')",
-				\ 'delete location' : "wheel#tree#delete('location')",
-				\}
+	let s:menu_delete = [
+				\ ['delete torus' ,  "wheel#tree#delete('torus')"],
+				\ ['delete circle' ,  "wheel#tree#delete('circle')"],
+				\ ['delete location' ,  "wheel#tree#delete('location')"],
+				\]
 	lockvar s:menu_delete
 endif
 
 if ! exists('s:menu_disc')
-	let s:menu_disc = {
-				\ 'save wheel' : 'wheel#disc#write_all()',
-				\ 'load wheel' : 'wheel#disc#read_all()',
-				\}
+	let s:menu_disc = [
+				\ ['save wheel' ,  'wheel#disc#write_all()'],
+				\ ['load wheel' ,  'wheel#disc#read_all()'],
+				\]
 	lockvar s:menu_disc
 endif
 
 if ! exists('s:menu_navigation')
-	let s:menu_navigation = {
-				\ 'go to torus' : "wheel#sailing#switch('torus')",
-				\ 'go to circle' : "wheel#sailing#switch('circle')",
-				\ 'go to location' : "wheel#sailing#switch('location')",
-				\ 'go to location in index' : 'wheel#sailing#helix',
-				\ 'go to circle in index' : 'wheel#sailing#grid',
-				\ 'go to element in wheel tree' : 'wheel#sailing#tree',
-				\ 'go to location in history' : 'wheel#sailing#history',
-				\ 'go to opened file (buffer)' : 'wheel#sailing#opened_files',
-				\ 'go to matching line (occur)' : 'wheel#sailing#occur',
-				\ 'go to grep result' : 'wheel#sailing#grep()',
-				\ 'go to outline result' : 'wheel#sailing#outline()',
-				\ 'go to tag' : 'wheel#sailing#symbol()',
-				\ 'go to most recently used file (mru)' : 'wheel#sailing#attic',
-				\ 'go to result of locate search' : 'wheel#sailing#locate',
-				\ 'go to result of find search' : 'wheel#sailing#find',
-				\ 'go to buffer' : 'wheel#sailing#opened_files',
-				\ 'go to tab & window' : 'wheel#sailing#tabwins',
-				\ 'go to tab & window (fold tree mode)' : 'wheel#sailing#tabwins_tree',
-				\}
+	let s:menu_navigation = [
+				\ ['go to torus' ,  "wheel#sailing#switch('torus')"],
+				\ ['go to circle' ,  "wheel#sailing#switch('circle')"],
+				\ ['go to location' ,  "wheel#sailing#switch('location')"],
+				\ ['go to location in index' ,  'wheel#sailing#helix'],
+				\ ['go to circle in index' ,  'wheel#sailing#grid'],
+				\ ['go to element in wheel tree' ,  'wheel#sailing#tree'],
+				\ ['go to location in history' ,  'wheel#sailing#history'],
+				\ ['go to opened file (buffer)' ,  'wheel#sailing#opened_files'],
+				\ ['go to most recently used file (mru)' ,  'wheel#sailing#attic'],
+				\ ['go to result of locate search' ,  'wheel#sailing#locate'],
+				\ ['go to result of find search' ,  'wheel#sailing#find'],
+				\ ['go to tab & window' ,  'wheel#sailing#tabwins'],
+				\ ['go to tab & window (fold tree mode)' ,  'wheel#sailing#tabwins_tree'],
+				\ ['go to matching line (occur)' ,  'wheel#sailing#occur'],
+				\ ['go to grep result' ,  'wheel#sailing#grep()'],
+				\ ['go to outline result' ,  'wheel#sailing#outline()'],
+				\ ['go to tag' ,  'wheel#sailing#symbol()'],
+				\]
 	lockvar s:menu_navigation
 endif
 
 if ! exists('s:menu_alternate')
-	let s:menu_alternate = {
-				\ 'alternate anywhere' : 'wheel#pendulum#alternate_anywhere',
-				\ 'alternate in same torus' : 'wheel#pendulum#alternate_same_torus',
-				\ 'alternate in same circle' : 'wheel#pendulum#alternate_same_circle',
-				\ 'alternate in other torus' : 'wheel#pendulum#alternate_other_torus',
-				\ 'alternate in other circle' : 'wheel#pendulum#alternate_other_circle',
-				\ 'alternate in same torus, other circle' : 'wheel#pendulum#alternate_same_torus_other_circle',
-				\}
+	let s:menu_alternate = [
+				\ ['alternate anywhere' ,  'wheel#pendulum#alternate_anywhere'],
+				\ ['alternate in same torus' ,  'wheel#pendulum#alternate_same_torus'],
+				\ ['alternate in same circle' ,  'wheel#pendulum#alternate_same_circle'],
+				\ ['alternate in other torus' ,  'wheel#pendulum#alternate_other_torus'],
+				\ ['alternate in other circle' ,  'wheel#pendulum#alternate_other_circle'],
+				\ ['alternate in same torus, other circle' ,  'wheel#pendulum#alternate_same_torus_other_circle'],
+				\]
 	lockvar s:menu_alternate
 endif
 
 if ! exists('s:menu_reorganize')
-	let s:menu_reorganize = {
-				\ 'reorder toruses' : "wheel#shape#reorder('torus')",
-				\ 'reorder circles' : "wheel#shape#reorder('circle')",
-				\ 'reorder locations' : "wheel#shape#reorder('location')",
-				\ 'reorganize wheel' : 'wheel#shape#reorganize',
-				\ 'reorganize tabs & windows' : 'wheel#shape#reorg_tabwins',
-				\}
+	let s:menu_reorganize = [
+				\ ['reorder toruses' ,  "wheel#shape#reorder('torus')"],
+				\ ['reorder circles' ,  "wheel#shape#reorder('circle')"],
+				\ ['reorder locations' ,  "wheel#shape#reorder('location')"],
+				\ ['reorganize wheel' ,  'wheel#shape#reorganize'],
+				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwins'],
+				\]
 	lockvar s:menu_reorganize
 endif
 
 if ! exists('s:menu_command')
-	let s:menu_command = {
-				\ ':ex or !shell command output' : 'wheel#mandala#command',
-				\ 'async shell command output' : 'wheel#mandala#async',
-				\}
+	let s:menu_command = [
+				\ [':ex or !shell command output', 'wheel#mandala#command'],
+				\ ['async shell command output' ,  'wheel#mandala#async'],
+				\]
 	lockvar s:menu_command
 endif
 
 if ! exists('s:menu_yank')
-	let s:menu_yank = {
-				\ 'yank wheel in list mode' : "wheel#clipper#yank('list')",
-				\ 'yank wheel in plain mode' : "wheel#clipper#yank('plain')",
-				\}
+	let s:menu_yank = [
+				\ ['yank wheel in list mode' ,  "wheel#clipper#yank('list')"],
+				\ ['yank wheel in plain mode' ,  "wheel#clipper#yank('plain')"],
+				\]
 	lockvar s:menu_yank
 endif
 
 if ! exists('s:menu_layout')
-	let s:menu_layout = {
-				\ 'zoom : one tab, one window' : 'wheel#mosaic#zoom()',
-				\ 'rotate windows clockwise' : 'wheel#mosaic#rotate_clockwise()',
-				\ 'rotate windows counter-clockwise' : 'wheel#mosaic#rotate_counter_clockwise()',
-				\}
+	let s:menu_layout = [
+				\ ['zoom ,  one tab, one window', 'wheel#mosaic#zoom()'],
+				\ ['rotate windows clockwise' ,  'wheel#mosaic#rotate_clockwise()'],
+				\ ['rotate windows counter-clockwise' ,  'wheel#mosaic#rotate_counter_clockwise()'],
+				\]
 	lockvar s:menu_layout
 endif
 
 if ! exists('s:menu_layout_tabs')
-	let s:menu_layout_tabs = {
-				\ 'toruses on tabs' : "wheel#mosaic#tabs('torus')",
-				\ 'circles on tabs' : "wheel#mosaic#tabs('circle')",
-				\ 'locations on tabs' : "wheel#mosaic#tabs('location')",
-				\}
+	let s:menu_layout_tabs = [
+				\ ['toruses on tabs' ,  "wheel#mosaic#tabs('torus')"],
+				\ ['circles on tabs' ,  "wheel#mosaic#tabs('circle')"],
+				\ ['locations on tabs' ,  "wheel#mosaic#tabs('location')"],
+				\]
 	lockvar s:menu_layout_tabs
 endif
 
 if ! exists('s:menu_layout_windows')
-	let s:menu_layout_windows = {
-				\ 'toruses on horizontal splits' : "wheel#mosaic#split('torus')",
-				\ 'circles on horizontal splits' : "wheel#mosaic#split('circle')",
-				\ 'locations on horizontal splits' : "wheel#mosaic#split('location')",
-				\ 'toruses on vertical splits' : "wheel#mosaic#split('torus', 'vertical')",
-				\ 'circles on vertical splits' : "wheel#mosaic#split('circle', 'vertical')",
-				\ 'locations on vertical splits' : "wheel#mosaic#split('location', 'vertical')",
-				\ 'toruses on splits, main left layout' : "wheel#mosaic#split('torus', 'main_left')",
-				\ 'circles on splits, main left layout' : "wheel#mosaic#split('circle', 'main_left')",
-				\ 'locations on splits, main left layout' : "wheel#mosaic#split('location', 'main_left')",
-				\ 'toruses on splits, main top layout' : "wheel#mosaic#split('torus', 'main_top')",
-				\ 'circles on splits, main top layout' : "wheel#mosaic#split('circle', 'main_top')",
-				\ 'locations on splits, main top layout' : "wheel#mosaic#split('location', 'main_top')",
-				\ 'toruses on splits, golden horizontal' : "wheel#mosaic#golden('torus', 'horizontal')",
-				\ 'circles on splits, golden horizontal' : "wheel#mosaic#golden('circle', 'horizontal')",
-				\ 'locations on splits, golden horizontal' : "wheel#mosaic#golden('location', 'horizontal')",
-				\ 'toruses on splits, golden vertical' : "wheel#mosaic#golden('torus', 'vertical')",
-				\ 'circles on splits, golden vertical' : "wheel#mosaic#golden('circle', 'vertical')",
-				\ 'locations on splits, golden vertical' : "wheel#mosaic#golden('location', 'vertical')",
-				\ 'toruses on splits, golden left layout' : "wheel#mosaic#golden('torus', 'main_left')",
-				\ 'circles on splits, golden left layout' : "wheel#mosaic#golden('circle', 'main_left')",
-				\ 'locations on splits, golden left layout' : "wheel#mosaic#golden('location', 'main_left')",
-				\ 'toruses on splits, golden top layout' : "wheel#mosaic#golden('torus', 'main_top')",
-				\ 'circles on splits, golden top layout' : "wheel#mosaic#golden('circle', 'main_top')",
-				\ 'locations on splits, golden top layout' : "wheel#mosaic#golden('location', 'main_top')",
-				\ 'toruses on splits, grid layout' : "wheel#mosaic#split_grid('torus')",
-				\ 'circles on splits, grid layout' : "wheel#mosaic#split_grid('circle')",
-				\ 'locations on splits, grid layout' : "wheel#mosaic#split_grid('location')",
-				\ 'toruses on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('torus')",
-				\ 'circles on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('circle')",
-				\ 'locations on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('location')",
-				\}
+	let s:menu_layout_windows = [
+				\ ['toruses on horizontal splits' ,  "wheel#mosaic#split('torus')"],
+				\ ['circles on horizontal splits' ,  "wheel#mosaic#split('circle')"],
+				\ ['locations on horizontal splits' ,  "wheel#mosaic#split('location')"],
+				\ ['toruses on vertical splits' ,  "wheel#mosaic#split('torus', 'vertical')"],
+				\ ['circles on vertical splits' ,  "wheel#mosaic#split('circle', 'vertical')"],
+				\ ['locations on vertical splits' ,  "wheel#mosaic#split('location', 'vertical')"],
+				\ ['toruses on splits, main top layout' ,  "wheel#mosaic#split('torus', 'main_top')"],
+				\ ['circles on splits, main top layout' ,  "wheel#mosaic#split('circle', 'main_top')"],
+				\ ['locations on splits, main top layout' ,  "wheel#mosaic#split('location', 'main_top')"],
+				\ ['toruses on splits, main left layout' ,  "wheel#mosaic#split('torus', 'main_left')"],
+				\ ['circles on splits, main left layout' ,  "wheel#mosaic#split('circle', 'main_left')"],
+				\ ['locations on splits, main left layout' ,  "wheel#mosaic#split('location', 'main_left')"],
+				\ ['toruses on splits, grid layout' ,  "wheel#mosaic#split_grid('torus')"],
+				\ ['circles on splits, grid layout' ,  "wheel#mosaic#split_grid('circle')"],
+				\ ['locations on splits, grid layout' ,  "wheel#mosaic#split_grid('location')"],
+				\ ['toruses on splits, transposed grid layout' ,  "wheel#mosaic#split_transposed_grid('torus')"],
+				\ ['circles on splits, transposed grid layout' ,  "wheel#mosaic#split_transposed_grid('circle')"],
+				\ ['locations on splits, transposed grid layout' ,  "wheel#mosaic#split_transposed_grid('location')"],
+				\ ['toruses on splits, golden horizontal' ,  "wheel#mosaic#golden('torus', 'horizontal')"],
+				\ ['circles on splits, golden horizontal' ,  "wheel#mosaic#golden('circle', 'horizontal')"],
+				\ ['locations on splits, golden horizontal' ,  "wheel#mosaic#golden('location', 'horizontal')"],
+				\ ['toruses on splits, golden vertical' ,  "wheel#mosaic#golden('torus', 'vertical')"],
+				\ ['circles on splits, golden vertical' ,  "wheel#mosaic#golden('circle', 'vertical')"],
+				\ ['locations on splits, golden vertical' ,  "wheel#mosaic#golden('location', 'vertical')"],
+				\ ['toruses on splits, golden left layout' ,  "wheel#mosaic#golden('torus', 'main_left')"],
+				\ ['circles on splits, golden left layout' ,  "wheel#mosaic#golden('circle', 'main_left')"],
+				\ ['locations on splits, golden left layout' ,  "wheel#mosaic#golden('location', 'main_left')"],
+				\ ['toruses on splits, golden top layout' ,  "wheel#mosaic#golden('torus', 'main_top')"],
+				\ ['circles on splits, golden top layout' ,  "wheel#mosaic#golden('circle', 'main_top')"],
+				\ ['locations on splits, golden top layout' ,  "wheel#mosaic#golden('location', 'main_top')"],
+				\]
 	lockvar s:menu_layout_windows
 endif
 
 if ! exists('s:menu_layout_mixed')
-	let s:menu_layout_mixed = {
-				\ 'mix : toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
-				\ 'mix : circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
-				\}
+	let s:menu_layout_mixed = [
+				\ ['mix : toruses on tabs & circles on splits', "wheel#pyramid#steps('torus')"],
+				\ ['mix : circles on tabs & locations on splits', "wheel#pyramid#steps('circle')"],
+				\]
 	lockvar s:menu_layout_mixed
 endif
 
@@ -377,7 +381,7 @@ endif
 " Main menu
 
 if ! exists('s:menu_main')
-	let s:menu_main = {}
+	let s:menu_main = []
 	for name in s:menu_list
 		call extend(s:menu_main, s:menu_{name})
 	endfor
@@ -387,96 +391,104 @@ endif
 " Meta menu
 
 if ! exists('s:menu_meta')
-	let s:menu_meta = {
-				\ 'add' : "wheel#hub#submenu('add')",
-				\ 'rename' : "wheel#hub#submenu('rename')",
-				\ 'delete' : "wheel#hub#submenu('delete')",
-				\ 'disc' : "wheel#hub#submenu('disc')",
-				\ 'navigation' : "wheel#hub#submenu('navigation')",
-				\ 'alternate' : "wheel#hub#submenu('alternate')",
-				\ 'reorganize' : "wheel#hub#submenu('reorganize')",
-				\ 'command' : "wheel#hub#submenu('command')",
-				\ 'yank' : "wheel#hub#submenu('yank')",
-				\ 'layouts : generic' : "wheel#hub#submenu('layout')",
-				\ 'layouts : tabs' : "wheel#hub#submenu('layout_tabs')",
-				\ 'layouts : window' : "wheel#hub#submenu('layout_windows')",
-				\ 'layouts : mixed' : "wheel#hub#submenu('layout_mixed')",
-				\}
+	let s:menu_meta = [
+				\ ['add' ,  "wheel#hub#submenu('add')"],
+				\ ['rename' ,  "wheel#hub#submenu('rename')"],
+				\ ['delete' ,  "wheel#hub#submenu('delete')"],
+				\ ['disc' ,  "wheel#hub#submenu('disc')"],
+				\ ['navigation' ,  "wheel#hub#submenu('navigation')"],
+				\ ['alternate' ,  "wheel#hub#submenu('alternate')"],
+				\ ['reorganize' ,  "wheel#hub#submenu('reorganize')"],
+				\ ['command' ,  "wheel#hub#submenu('command')"],
+				\ ['yank' ,  "wheel#hub#submenu('yank')"],
+				\ ['layouts : generic', "wheel#hub#submenu('layout')"],
+				\ ['layouts : tabs', "wheel#hub#submenu('layout_tabs')"],
+				\ ['layouts : window', "wheel#hub#submenu('layout_windows')"],
+				\ ['layouts : mixed', "wheel#hub#submenu('layout_mixed')"],
+				\]
 	lockvar s:menu_meta
 endif
 
 " Contextual menus
 
 if ! exists('s:context_sailing')
-	let s:context_sailing = {
-				\ 'open' : "wheel#boomerang#sailing('current')",
-				\ 'open in tab(s)' : "wheel#boomerang#sailing('tab')",
-				\ 'open in horizontal split(s)' : "wheel#boomerang#sailing('horizontal_split')",
-				\ 'open in vertical split(s)' : "wheel#boomerang#sailing('vertical_split')",
-				\ 'open in horizontal golden split(s)' : "wheel#boomerang#sailing('horizontal_golden')",
-				\ 'open in vertical golden split(s)' : "wheel#boomerang#sailing('vertical_golden')",
-				\}
+	let s:context_sailing = [
+				\ ['open' ,  "wheel#boomerang#sailing('current')"],
+				\ ['open in tab(s)' ,  "wheel#boomerang#sailing('tab')"],
+				\ ['open in horizontal split(s)' ,  "wheel#boomerang#sailing('horizontal_split')"],
+				\ ['open in vertical split(s)' ,  "wheel#boomerang#sailing('vertical_split')"],
+				\ ['open in horizontal golden split(s)' ,  "wheel#boomerang#sailing('horizontal_golden')"],
+				\ ['open in vertical golden split(s)' ,  "wheel#boomerang#sailing('vertical_golden')"],
+				\]
 	lockvar s:context_sailing
 endif
 
 if ! exists('s:context_opened_files')
-	let s:context_opened_files = {
-				\ 'delete' : "wheel#boomerang#opened_files('delete')",
-				\ 'unload' : "wheel#boomerang#opened_files('unload')",
-				\ 'wipe' : "wheel#boomerang#opened_files('wipe')",
-				\}
-	call extend(s:context_opened_files, s:context_sailing)
+	let s:context_opened_files = s:context_sailing + [
+				\ ['delete' ,  "wheel#boomerang#opened_files('delete')"],
+				\ ['unload' ,  "wheel#boomerang#opened_files('unload')"],
+				\ ['wipe' ,  "wheel#boomerang#opened_files('wipe')"],
+				\]
 	lockvar s:context_opened_files
 endif
 
 if ! exists('s:context_tabwins')
-	let s:context_tabwins = {
-				\ 'open' : "wheel#boomerang#tabwins('open')",
-				\ 'new tab' : "wheel#boomerang#tabwins('tabnew')",
-				\ 'close tab' : "wheel#boomerang#tabwins('tabclose')",
-				\ 'reorganize' : 'wheel#shape#reorg_tabwins',
-				\}
+	let s:context_tabwins = [
+				\ ['open' ,  "wheel#boomerang#tabwins('open')"],
+				\ ['new tab' ,  "wheel#boomerang#tabwins('tabnew')"],
+				\ ['close tab' ,  "wheel#boomerang#tabwins('tabclose')"],
+				\ ['reorganize' ,  'wheel#shape#reorg_tabwins'],
+				\]
 	lockvar s:context_tabwins
 endif
 
 if ! exists('s:context_tabwins_tree')
-	let s:context_tabwins_tree = {
-				\ 'open' : "wheel#boomerang#tabwins_tree('open')",
-				\ 'new tab' : "wheel#boomerang#tabwins_tree('tabnew')",
-				\ 'close tab' : "wheel#boomerang#tabwins_tree('tabclose')",
-				\ 'reorganize' : 'wheel#shape#reorg_tabwins',
-				\}
+	let s:context_tabwins_tree = [
+				\ ['open' ,  "wheel#boomerang#tabwins_tree('open')"],
+				\ ['new tab' ,  "wheel#boomerang#tabwins_tree('tabnew')"],
+				\ ['close tab' ,  "wheel#boomerang#tabwins_tree('tabclose')"],
+				\ ['reorganize' ,  'wheel#shape#reorg_tabwins'],
+				\]
 	lockvar s:context_tabwins_tree
 endif
 
 if ! exists('s:context_grep')
-	let s:context_grep = {
-				\ 'open quickfix' : "wheel#boomerang#grep('quickfix')",
-				\ 'edit mode' : "wheel#shape#grep()",
-				\}
-	call extend(s:context_grep, s:context_sailing)
+	let s:context_grep = s:context_sailing + [
+				\ ['edit mode' ,  "wheel#shape#grep()"],
+				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
+				\]
 	lockvar s:context_grep
 endif
 
 if ! exists('s:context_yank')
-	let s:context_yank = {
-				\ 'paste before' : "wheel#boomerang#yank('before')",
-				\ 'paste after' : "wheel#boomerang#yank('after')",
-				\}
+	let s:context_yank = [
+				\ ['paste before' ,  "wheel#boomerang#yank('before')"],
+				\ ['paste after' ,  "wheel#boomerang#yank('after')"],
+				\]
 	lockvar s:context_yank
 endif
 
 " Public Interface
 
-fun! wheel#crystal#fetch (varname)
+fun! wheel#crystal#fetch (varname, ...)
 	" Return script variable called varname
 	" The leading s: can be omitted
+	" If optional argument is 'dict' and varname
+	" points to an items list, convert it to a dictionary
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
 	let varname = a:varname
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
-	if varname =~ '\m^s:'
-		return {varname}
+	if varname !~ '\m^s:'
+		let varname = 's:' . varname
+	endif
+	if mode ==# 'dict' && type({varname}) == v:t_list && type({varname}[0]) == v:t_list
+		return wheel#chain#items2dict ({varname})
 	else
-		return s:{varname}
+		return {varname}
 	endif
 endfun

@@ -140,7 +140,7 @@ fun! wheel#line#menu (settings)
 	" - close : whether to close mandala buffer
 	" - travel : whether to go back to previous window before applying action
 	let settings = a:settings
-	let dict = wheel#crystal#fetch (settings.linefun)
+	let dict = wheel#crystal#fetch (settings.linefun, 'dict')
 	let close = settings.ctx_close
 	let travel = settings.ctx_travel
 	" Cursor line

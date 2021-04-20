@@ -13,7 +13,7 @@ fun! wheel#chain#insert_next (index, new, list)
 	if index < len(list)
 		return insert(list, new, index)
 	elseif index == len(list)
-		"could be done with
+		" could be done with
 		" insert(list, new, len(list))
 		return add(list, new)
 	endif
@@ -59,12 +59,37 @@ fun! wheel#chain#remove_element (element, list)
 	endif
 endfu
 
+fun! wheel#chain#move (list, from, target)
+	" Move element at index from -> target in list
+	let list = a:list
+	let from = a:from
+	let target = a:target
+	if from < target
+		if from == 0
+			let list = list[1:target] + [list[0]] + list[target+1:]
+		else
+			let list = list[:from-1] + list[from+1:target] + [list[from]] + list[target+1:]
+		endif
+	elseif from > target
+		if target == 0
+			let list = [list[from]] + list[target:from-1] + list[from+1:]
+		else
+			let list = list[:target-1] + [list[from]] + list[target:from-1] + list[from+1:]
+		endif
+	endif
+	return list
+endfun
+
+" Stack
+
 fun! wheel#chain#pop (list)
 	" Remove first element from list ; return it
 	let elem = a:list[0]
 	call remove(a:list, 0)
 	return elem
 endfu
+
+" Rotation
 
 fun! wheel#chain#rotate_left (list)
 	" Rotate list to the left
@@ -106,6 +131,8 @@ fun! wheel#chain#roll_right (index, list)
 	endif
 endfu
 
+" Swap
+
 fun! wheel#chain#swap (list)
 	" Swap first and second element of list
 	if len(a:list) > 1
@@ -114,6 +141,8 @@ fun! wheel#chain#swap (list)
 		return a:list
 	endif
 endfun
+
+" Fill the gaps
 
 fun! wheel#chain#tie (list)
 	" Translate integer elements of the list to fill the gaps
@@ -133,23 +162,34 @@ fun! wheel#chain#tie (list)
 	return [list, gaps]
 endfun
 
-fun! wheel#chain#move (list, from, target)
-	" Move element at index from -> target in list
-	let list = a:list
-	let from = a:from
-	let target = a:target
-	if from < target
-		if from == 0
-			let list = list[1:target] + [list[0]] + list[target+1:]
-		else
-			let list = list[:from-1] + list[from+1:target] + [list[from]] + list[target+1:]
-		endif
-	elseif from > target
-		if target == 0
-			let list = [list[from]] + list[target:from-1] + list[from+1:]
-		else
-			let list = list[:target-1] + [list[from]] + list[target:from-1] + list[from+1:]
-		endif
-	endif
-	return list
+" Dictionary as nested list of items
+
+fun! wheel#chain#items2dict (items)
+	" Convert items list -> dictionary
+	" items = [ [key1, val1], [key2, val2], ...]
+	let dict = {}
+	for [key, val] in a:items
+		let dict[key] = val
+	endfor
+	return dict
+endfun
+
+fun! wheel#chain#items2keys (items)
+	" Return list of keys from dict given by items
+	" items = [ [key1, val1], [key2, val2], ...]
+	let keylist = []
+	for [key, val] in a:items
+		call add(keylist, key)
+	endfor
+	return keylist
+endfun
+
+fun! wheel#chain#items2values (items)
+	" Return list of values from dict given by items
+	" items = [ [key1, val1], [key2, val2], ...]
+	let valist = []
+	for [key, val] in a:items
+		call add(valist, val)
+	endfor
+	return valist
 endfun

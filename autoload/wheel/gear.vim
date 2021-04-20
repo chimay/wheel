@@ -184,7 +184,7 @@ fun! wheel#gear#parent_tabwin ()
 	endif
 endfun
 
-" Unmap for mandala layers
+" Mandala layers
 
 fun! wheel#gear#unlet (variable)
 	" Unlet variable named variable

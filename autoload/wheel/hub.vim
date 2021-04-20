@@ -96,8 +96,8 @@ fun! wheel#hub#main ()
 	let menu = []
 	for elem in s:menu_list
 		let header = elem . s:fold_1
-		let submenu = wheel#crystal#fetch('menu/' . elem)
-		let submenu = sort(keys(submenu))
+		let items = wheel#crystal#fetch('menu/' . elem)
+		let submenu = wheel#chain#items2keys (items)
 		call add(menu, header)
 		call extend(menu, submenu)
 	endfor
