@@ -13,8 +13,6 @@ endif
 
 fun! wheel#boomerang#sync ()
 	" Sync selection & settings at top of stack --> mandala state
-	let stack = b:wheel_stack
-	let top = b:wheel_stack.top
 	" the action will be performed on the selection of the previous layer
 	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
 	" default selection = cursor line address of previous layer
@@ -31,7 +29,6 @@ fun! wheel#boomerang#remove_deleted ()
 	" Remove deleted elements from special buffer lines of the previous layer
 	" deleted = selected or cursor address
 	" e.g. : deleted buffers, closed tabs
-	let top = b:wheel_stack.top
 	let lines = wheel#layer#top_field ('lines')
 	let filtered = wheel#layer#top_field ('filtered')
 	let selected = wheel#layer#top_field ('selected')
