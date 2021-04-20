@@ -107,8 +107,6 @@ fun! wheel#mandala#close ()
 	else
 		" Only one window in tab ? Jump to last known file in wheel.
 		call wheel#vortex#jump ()
-		" Go to alternate buffer if only one window
-		"buffer #
 	endif
 	return v:true
 endfun
