@@ -12,12 +12,15 @@ endif
 " Sync buffer variables & top of stack
 
 fun! wheel#boomerang#sync ()
-	" Sync cursor address, selection & settings at top of stack --> mandala state
+	" Sync selection & settings at top of stack --> mandala state
 	let stack = b:wheel_stack
 	let top = b:wheel_stack.top
-	let b:wheel_address = deepcopy(wheel#layer#top_field('address'))
 	" the action will be performed on the selection of the previous layer
 	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
+	" default selection = cursor line address of previous layer
+	if empty(b:wheel_selected)
+		let b:wheel_selected = [deepcopy(wheel#layer#top_field ('address'))]
+	endif
 	" the action will be performed with the settings of the previous layer
 	let b:wheel_settings = deepcopy(wheel#layer#top_field('settings'))
 endfun
@@ -82,15 +85,11 @@ fun! wheel#boomerang#menu (dictname, ...)
 	endif
 	let dictname = 'context/' . a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
-	call wheel#tower#staircase(settings)
+	call wheel#tower#staircase (settings)
 	call wheel#boomerang#sync ()
 	" Let wheel#line#menu handle open / close,
 	" tell wheel#line#sailing to forget it
 	let b:wheel_settings.close = v:false
-	" Default selection = cursor line address of previous layer
-	if empty(b:wheel_selected)
-		let b:wheel_selected = [wheel#layer#top_field ('address')]
-	endif
 	" Reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" . a:dictname . "')"
 endfun

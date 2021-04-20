@@ -42,6 +42,7 @@ fun! wheel#tower#staircase (settings)
 	if ! wheel#mandala#is_empty ()
 		call wheel#layer#push ()
 		call wheel#layer#fresh ()
+		call wheel#layer#init ()
 	endif
 	let dict = wheel#crystal#fetch (dictname)
 	let lines = sort(keys(dict))
