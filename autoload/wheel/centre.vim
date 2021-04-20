@@ -331,13 +331,8 @@ fun! wheel#centre#cables ()
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-yank-list)'
 		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
-		" Windows
+		" Layouts
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
-		exe nmap '<c-s-home>     <plug>(wheel-tabs-locations)'
-		exe nmap '<c-s-end>      <plug>(wheel-main-left-locations)'
-		" Rotating windows
-		exe nmap '<c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap '<c-s-pagedown> <plug>(wheel-rotate-clockwise)'
 		" Save (push) mandala buffer
 		exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer

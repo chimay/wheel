@@ -1283,7 +1283,8 @@ then answer : >
 <
 
 to the prompt. You can then browse the plug wheel maps in a special
-wheel buffer.
+wheel buffer. It's only a command output collector though, you can't
+launch any map from there.
 
 To see mapped keys, you can also use `<M-w>:`, and answer : >
 
@@ -1292,7 +1293,7 @@ To see mapped keys, you can also use `<M-w>:`, and answer : >
 
 to the prompt.
 
-You can also find all of these in the file `autoload/wheel/centre.vim`,
+You can find all of these in the file `autoload/wheel/centre.vim`,
 function `wheel#centre#plugs`. Their names are self explanatory.
 
 Example of key binding using a plug map : >
@@ -1579,11 +1580,6 @@ and add them to your init file.
 | <M-p>          | Paste yank wheel element in plain mode        |
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
-| <C-S-Home>     | One location per tab                          |
-| <C-S-End>      | One location per window, main left layout     |
-| -------------- | --------------------------------------------- |
-| <C-S-PageUp>   | Rotate windows counter-clockwise              |
-| <C-S-PageDown> | Rotate windows clockwise                      |
 | -------------- | --------------------------------------------- |
 | <M-Tab>        | Save (push) special buffer                    |
 | <M-Backspace>  | Remove (pop) special buffer                   |
@@ -1592,6 +1588,7 @@ and add them to your init file.
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
 
+    let nmap = 'nmap <silent>'
     " Menus
     exe nmap '<m-m>          <plug>(wheel-menu-main)'
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
