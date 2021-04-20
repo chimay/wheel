@@ -499,11 +499,11 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w>h`         : history index
 - `<M-w><M-b>`     : switch to buffer (opened file)
-- `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
-- `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
 - `<M-w><M-m>`     : most recently used files not found in wheel (mru)
 - `<M-w><M-l>`     : search files with `locate`
 - `<M-w><M-f>`     : search files with `find` in async mode
+- `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
+- `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
 - `<M-w><M-s>`     : occur in current file
 - `<M-w><M-g>`     : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
