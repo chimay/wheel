@@ -108,7 +108,7 @@ fun! wheel#hub#meta ()
 	" Meta hub menu in mandala buffer
 	call wheel#hub#menu('meta')
 	call wheel#hub#meta_maps('meta')
-	let dict = wheel#crystal#fetch('menu/meta')
-	let menu = sort(keys(dict))
+	let items = wheel#crystal#fetch('menu/meta')
+	let menu = wheel#chain#items2keys (items)
 	call wheel#mandala#fill(menu)
 endfun

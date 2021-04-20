@@ -1,6 +1,9 @@
 " vim: ft=vim fdm=indent:
 
-" Internal Variables made crystal clear
+" Internal Constants made crystal clear
+
+" Dictionaries are defined as list of items to preserve the order
+" of keys. Useful for menus & context menus
 
 " Wheel levels
 
