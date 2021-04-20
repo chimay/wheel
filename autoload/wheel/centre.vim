@@ -104,6 +104,8 @@ fun! wheel#centre#plugs ()
 	" Cycle mandala buffers
 	nnoremap <plug>(wheel-mandala-forward) :call wheel#cylinder#forward()<cr>
 	nnoremap <plug>(wheel-mandala-backward) :call wheel#cylinder#backward()<cr>
+	" Layouts
+	nnoremap <plug>(wheel-zoom) :call wheel#mosaic#zoom()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabs-locations) :call wheel#mosaic#tabs('location')<cr>
 	nnoremap <plug>(wheel-tabs-circles) :call wheel#mosaic#tabs('circle')<cr>
@@ -115,19 +117,21 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-vsplit-locations) :call wheel#mosaic#split('location', 'vertical')<cr>
 	nnoremap <plug>(wheel-vsplit-circles) :call wheel#mosaic#split('circle', 'vertical')<cr>
 	nnoremap <plug>(wheel-vsplit-toruses) :call wheel#mosaic#split('torus', 'vertical')<cr>
-	nnoremap <plug>(wheel-mainleft-locations) :call wheel#mosaic#split('location', 'main_left')<cr>
-	nnoremap <plug>(wheel-mainleft-circles) :call wheel#mosaic#split('circle', 'main_left')<cr>
-	nnoremap <plug>(wheel-mainleft-toruses) :call wheel#mosaic#split('torus', 'main_left')<cr>
+	nnoremap <plug>(wheel-main-top-locations) :call wheel#mosaic#split('location', 'main_top')<cr>
+	nnoremap <plug>(wheel-main-top-circles) :call wheel#mosaic#split('circle', 'main_top')<cr>
+	nnoremap <plug>(wheel-main-top-toruses) :call wheel#mosaic#split('torus', 'main_top')<cr>
+	nnoremap <plug>(wheel-main-left-locations) :call wheel#mosaic#split('location', 'main_left')<cr>
+	nnoremap <plug>(wheel-main-left-circles) :call wheel#mosaic#split('circle', 'main_left')<cr>
+	nnoremap <plug>(wheel-main-left-toruses) :call wheel#mosaic#split('torus', 'main_left')<cr>
 	nnoremap <plug>(wheel-grid-locations) :call wheel#mosaic#split_grid('location')<cr>
 	nnoremap <plug>(wheel-grid-circles) :call wheel#mosaic#split_grid('circle')<cr>
 	nnoremap <plug>(wheel-grid-toruses) :call wheel#mosaic#split_grid('torus')<cr>
+	" Tabs & Windows
+	nnoremap <plug>(wheel-tab-win-torus) :call wheel#pyramid#steps('torus')<cr>
+	nnoremap <plug>(wheel-tab-win-circle) :call wheel#pyramid#steps('circle')<cr>
 	" Rotating windows
 	nnoremap <plug>(wheel-rotate-counter-clockwise) :call wheel#mosaic#rotate_counter_clockwise()<cr>
 	nnoremap <plug>(wheel-rotate-clockwise) :call wheel#mosaic#rotate_clockwise()<cr>
-	" Tabs & Windows
-	nnoremap <plug>(wheel-zoom) :call wheel#mosaic#zoom()<cr>
-	nnoremap <plug>(wheel-tabnwin-torus) :call wheel#pyramid#steps('torus')<cr>
-	nnoremap <plug>(wheel-tabnwin-circle) :call wheel#pyramid#steps('circle')<cr>
 	" Debug
 	nnoremap <plug>(wheel-debug-fresh-wheel) :call wheel#void#fresh_wheel()<cr>
 	" Misc
@@ -139,7 +143,11 @@ endfun
 
 fun! wheel#centre#cables ()
 	" Link keys to <plug> mappings
+	" general prefix
 	let prefix = g:wheel_config.prefix
+	" layout subprefix
+	let lay = 'z'
+	" maps arguments
 	let nmap = 'nmap <silent>'
 	" Basic
 	if g:wheel_config.mappings >= 0
@@ -209,12 +217,12 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'c <plug>(wheel-changes)'
 		" Search for files
 		exe nmap prefix . '<m-b> <plug>(wheel-opened-files)'
-		exe nmap prefix . '<c-w> <plug>(wheel-tabwins)'
-		exe nmap prefix . '<m-w> <plug>(wheel-tabwins-tree)'
-		exe nmap prefix . 'W <plug>(wheel-reorg-tabwins)'
 		exe nmap prefix . '<m-m> <plug>(wheel-mru)'
 		exe nmap prefix . '<m-l> <plug>(wheel-locate)'
 		exe nmap prefix . '<m-f> <plug>(wheel-find)'
+		" Tabs & windows : visible buffers
+		exe nmap prefix . 'v <plug>(wheel-tabwins)'
+		exe nmap prefix . '<m-v> <plug>(wheel-tabwins-tree)'
 		" Yank wheel
 		exe nmap prefix . 'y <plug>(wheel-yank-list)'
 		exe nmap prefix . 'p <plug>(wheel-yank-plain)'
@@ -222,7 +230,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . ': <plug>(wheel-command)'
 		exe nmap prefix . '& <plug>(wheel-async)'
 		" Reorganize
+		" wheel
 		exe nmap prefix . '<m-r> <plug>(wheel-reorganize)'
+		" tabs & windows
+		exe nmap prefix . '<c-r> <plug>(wheel-reorg-tabwins)'
 		" Save (push) mandala buffer
 		exe nmap prefix . '<tab> <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
@@ -230,68 +241,74 @@ fun! wheel#centre#cables ()
 		" Cycle mandala buffers
 		exe nmap prefix . '@ <plug>(wheel-mandala-forward)'
 		exe nmap prefix . '<M-@> <plug>(wheel-mandala-backward)'
+		" Layouts
+		exe nmap prefix . lay . 'z <plug>(wheel-zoom)'
 		" Tabs
-		exe nmap prefix . 't <plug>(wheel-tabs-locations)'
-		exe nmap prefix . '<c-t> <plug>(wheel-tabs-circles)'
-		exe nmap prefix . 'T <plug>(wheel-tabs-toruses)'
+		exe nmap prefix . lay . 't <plug>(wheel-tabs-locations)'
+		exe nmap prefix . lay . '<c-t> <plug>(wheel-tabs-circles)'
+		exe nmap prefix . lay . 'T <plug>(wheel-tabs-toruses)'
 		" Windows
-		exe nmap prefix . 's <plug>(wheel-split-locations)'
-		exe nmap prefix . '<c-s> <plug>(wheel-split-circles)'
-		exe nmap prefix . 'S <plug>(wheel-split-toruses)'
-		exe nmap prefix . 'v <plug>(wheel-vsplit-locations)'
-		exe nmap prefix . '<c-v> <plug>(wheel-vsplit-circles)'
-		exe nmap prefix . 'V <plug>(wheel-vsplit-toruses)'
-		exe nmap prefix . 'l <plug>(wheel-mainleft-locations)'
-		exe nmap prefix . '<c-l> <plug>(wheel-mainleft-circles)'
-		exe nmap prefix . 'L <plug>(wheel-mainleft-toruses)'
-		exe nmap prefix . 'g <plug>(wheel-grid-locations)'
-		exe nmap prefix . '<c-g> <plug>(wheel-grid-circles)'
-		exe nmap prefix . 'G <plug>(wheel-grid-toruses)'
-		" Rotating windows
-		exe nmap prefix . '<up> <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap prefix . '<down> <plug>(wheel-rotate-clockwise)'
+		exe nmap prefix . lay . 's <plug>(wheel-split-locations)'
+		exe nmap prefix . lay . '<c-s> <plug>(wheel-split-circles)'
+		exe nmap prefix . lay . 'S <plug>(wheel-split-toruses)'
+		exe nmap prefix . lay . 'v <plug>(wheel-vsplit-locations)'
+		exe nmap prefix . lay . '<c-v> <plug>(wheel-vsplit-circles)'
+		exe nmap prefix . lay . 'V <plug>(wheel-vsplit-toruses)'
+		" Main top
+		exe nmap prefix . lay . 'm <plug>(wheel-main-top-locations)'
+		exe nmap prefix . lay . '<c-m> <plug>(wheel-main-top-circles)'
+		exe nmap prefix . lay . 'M <plug>(wheel-main-top-toruses)'
+		" Main left
+		exe nmap prefix . lay . 'l <plug>(wheel-main-left-locations)'
+		exe nmap prefix . lay . '<c-l> <plug>(wheel-main-left-circles)'
+		exe nmap prefix . lay . 'L <plug>(wheel-main-left-toruses)'
+		" Grid
+		exe nmap prefix . lay . 'g <plug>(wheel-grid-locations)'
+		exe nmap prefix . lay . '<c-g> <plug>(wheel-grid-circles)'
+		exe nmap prefix . lay . 'G <plug>(wheel-grid-toruses)'
 		" Tabs & Windows
-		exe nmap prefix . 'z <plug>(wheel-zoom)'
-		exe nmap prefix . 'P <plug>(wheel-tabnwin-torus)'
-		exe nmap prefix . '<c-p> <plug>(wheel-tabnwin-circle)'
+		exe nmap prefix . lay . '& <plug>(wheel-tab-win-circle)'
+		exe nmap prefix . lay . '<M-&> <plug>(wheel-tab-win-torus)'
+		" Rotating windows
+		exe nmap prefix . lay . '<up> <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap prefix . lay . '<down> <plug>(wheel-rotate-clockwise)'
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
 		" Menus
-		exe nmap '<m-m>        <plug>(wheel-menu-main)'
-		exe nmap '<m-=>        <plug>(wheel-menu-meta)'
+		exe nmap '<m-m>          <plug>(wheel-menu-main)'
+		exe nmap '<m-=>          <plug>(wheel-menu-meta)'
 		" Add, Delete
-		exe nmap '<m-insert>   <plug>(wheel-add-here)'
-		exe nmap '<m-del>      <plug>(wheel-delete-location)'
+		exe nmap '<m-insert>     <plug>(wheel-add-here)'
+		exe nmap '<m-del>        <plug>(wheel-delete-location)'
 		" Next / Previous
-		exe nmap '<c-pageup>   <plug>(wheel-previous-location)'
-		exe nmap '<c-pagedown> <plug>(wheel-next-location)'
-		exe nmap '<c-home>     <plug>(wheel-previous-circle)'
-		exe nmap '<c-end>      <plug>(wheel-next-circle)'
-		exe nmap '<s-home>     <plug>(wheel-previous-torus)'
-		exe nmap '<s-end>      <plug>(wheel-next-torus)'
+		exe nmap '<c-pageup>     <plug>(wheel-previous-location)'
+		exe nmap '<c-pagedown>   <plug>(wheel-next-location)'
+		exe nmap '<c-home>       <plug>(wheel-previous-circle)'
+		exe nmap '<c-end>        <plug>(wheel-next-circle)'
+		exe nmap '<s-home>       <plug>(wheel-previous-torus)'
+		exe nmap '<s-end>        <plug>(wheel-next-torus)'
 		" History
 		exe nmap '<s-pageup>     <plug>(wheel-history-newer)'
 		exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
 		" Alternate
-		exe nmap '<c-^>        <plug>(wheel-alternate-anywhere)'
-		exe nmap '<m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)'
-		exe nmap '<m-pageup>   <plug>(wheel-alternate-same-torus)'
-		exe nmap '<m-pagedown> <plug>(wheel-alternate-same-circle)'
-		exe nmap '<m-home>     <plug>(wheel-alternate-other-torus)'
-		exe nmap '<m-end>      <plug>(wheel-alternate-other-circle)'
+		exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
+		exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+		exe nmap '<m-pageup>     <plug>(wheel-alternate-same-torus)'
+		exe nmap '<m-pagedown>   <plug>(wheel-alternate-same-circle)'
+		exe nmap '<m-home>       <plug>(wheel-alternate-other-torus)'
+		exe nmap '<m-end>        <plug>(wheel-alternate-other-circle)'
 		" Navigation buffers
-		exe nmap '<space>      <plug>(wheel-navigation-location)'
-		exe nmap '<c-space>    <plug>(wheel-navigation-circle)'
-		exe nmap '<s-space>    <plug>(wheel-navigation-torus)'
-		exe nmap '<m-x>        <plug>(wheel-tree)'
-		exe nmap '<m-c-x>      <plug>(wheel-index-locations)'
-		exe nmap '<m-h>        <plug>(wheel-history)'
+		exe nmap '<space>        <plug>(wheel-navigation-location)'
+		exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
+		exe nmap '<s-space>      <plug>(wheel-navigation-torus)'
+		exe nmap '<m-x>          <plug>(wheel-tree)'
+		exe nmap '<m-c-x>        <plug>(wheel-index-locations)'
+		exe nmap '<m-h>          <plug>(wheel-history)'
 		" Opened files
 		exe nmap '<m-b>          <plug>(wheel-opened-files)'
-		" Tabs & windows : visible buffers in tree mode
+		" Tabs & windows : visible buffers
 		exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
-		exe nmap '<m-c-v>        <plug>(wheel-reorg-tabwins)'
 		" Search inside files
 		exe nmap '<m-s>          <plug>(wheel-occur)'
 		exe nmap '<m-g>          <plug>(wheel-grep)'
@@ -307,15 +324,18 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-!>          <plug>(wheel-command)'
 		exe nmap '<m-&>          <plug>(wheel-async)'
 		" Reshaping buffers
+		" wheel
 		exe nmap '<m-r>          <plug>(wheel-reorganize)'
+		" tabs & windows : visible buffers
+		exe nmap '<m-c-v>        <plug>(wheel-reorg-tabwins)'
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-yank-list)'
 		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
 		" Windows
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
 		exe nmap '<c-s-home>     <plug>(wheel-tabs-locations)'
-		exe nmap '<c-s-end>      <plug>(wheel-mainleft-locations)'
-		" Rotate windows
+		exe nmap '<c-s-end>      <plug>(wheel-main-left-locations)'
+		" Rotating windows
 		exe nmap '<c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)'
 		exe nmap '<c-s-pagedown> <plug>(wheel-rotate-clockwise)'
 		" Save (push) mandala buffer

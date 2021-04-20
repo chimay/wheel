@@ -89,7 +89,7 @@ FEATURES				*wheel-introduction-features*
   + Auto |:lcd| to project root of current file
 - Search files
   + Opened buffers
-  + Visible buffers in tabs & wins
+  + Visible buffers in tabs & windows
   + MRU files not found in wheel
   + Using locate
   + Using find
@@ -498,8 +498,8 @@ The default mappings launching navigation buffers are :
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w><M-b>`     : switch to buffer (opened file)
-- `<M-w><M-w>`     : switch to tab & window (tree fold mode)
-- `<M-w><C-w>`     : switch to tab & window (plain mode)
+- `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
+- `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
 - `<M-w><M-s>`     : occur in current file
 - `<M-w><M-g>`     : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
@@ -519,6 +519,9 @@ reflect the tree structure of the Wheel : toruses, circles and locations.
 
 Filtering in that buffer will keep surrounding folds ; only non mathing
 empty folds will be removed.
+
+Similarly, the map `<M-w><M-t>` opens a dedicated buffer where folds
+are used to reflect the tree structure of tabs and windows in (neo)vim.
 
 Selection~
 
@@ -1418,14 +1421,19 @@ Search inside files~
 
 Search for files~
 
+| Prefix + | With default prefix | Action                                      |
+| -------- | ------------------- | ------------------------------------------- |
+| <M-b>    | <M-w><M-b>          | Opened files (buffers)                      |
+| <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel |
+| <M-l>    | <M-w><M-l>          | Search files with locate                    |
+| <M-f>    | <M-w><M-f>          | Search files with find in async mode        |
+
+Tabs & windows~
+
 | Prefix + | With default prefix | Action                                           |
 | -------- | ------------------- | ------------------------------------------------ |
-| <M-b>    | <M-w><M-b>          | Opened files (buffers)                           |
-| <C-w>    | <M-w><C-w>          | Buffers displayed in tabs & windows              |
-| <M-w>    | <M-w><M-w>          | Tree view of buffers displayed in tabs & windows |
-| <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel      |
-| <M-l>    | <M-w><M-l>          | Search files with locate                         |
-| <M-f>    | <M-w><M-f>          | Search files with find in async mode             |
+| v        | <M-w>v              | Visible buffers displayed in tabs & windows      |
+| <M-v>    | <M-w><M-v>          | Tree view of buffers displayed in tabs & windows |
 
 Command output buffer~
 
@@ -1441,12 +1449,12 @@ Yank wheel~
 | y        | <M-w>y              | Yank wheel in list mode   |
 | p        | <M-w>p              | Yank wheel in plain mode  |
 
-Reorganizing buffer~
+Reorganizing buffers~
 
 | Prefix + | With default prefix | Action                    |
 | -------- | ------------------- | ------------------------- |
 | <M-r>    | <M-w><M-r>          | Reorganize wheel elements |
-| W        | <M-w>W              | Reorganize tabs & windows |
+| <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
 
 Managing special buffers~
 
@@ -1457,50 +1465,53 @@ Managing special buffers~
 | @           | <M-w>@              | Cycle special buffers, rightward  |
 | <M-@>       | <M-w><M-@>          | Cycle special buffers, leftward   |
 
-Tabs~
+Layouts~
 
 You can display all locations of the current circle, one location per
-tab. Same idea with circles and toruses.
+tab or window. Same idea with circles and toruses.
 
-| Prefix + | With default prefix | Action               |
-| -------- | ------------------- | -------------------- |
-| t        | <M-w>t              | One location per tab |
-| <C-t>    | <M-w><C-t>          | One circle per tab   |
-| T        | <M-w>T              | One torus per tab    |
+Available layouts are : horizontal or vertical split, main top, main
+left, grid.
 
-Windows~
+You can also display one circle per tab, and one location per window, or
+one torus per tab and one circle per window.
 
-You can display all locations of the current circle, one location per
-window. Same idea with circles and toruses.
+Note that all layout mappings use the subprefix `z`, so all layout maps begin
+with `<M-w>z`.
 
-| Prefix +   | With default prefix   | Action                           |
-| ---------- | --------------------- | -------------------------------- |
-| s          | <M-w>s                | Locations in horizontal splits   |
-| <C-s>      | <M-w><C-s>            | Circles in horizontal splits     |
-| S          | <M-w>S                | Toruses in horizontal splits     |
-| ---------- | --------------------- | -------------------------------- |
-| v          | <M-w>v                | Location in vertical splits      |
-| <C-v>      | <M-w><C-v>            | Circles in vertical splits       |
-| V          | <M-w>V                | Toruses in vertical splits       |
-| ---------- | --------------------- | -------------------------------- |
-| l          | <M-w>l                | Locations in main left layout    |
-| <C-l>      | <M-w><C-l>            | Circles in main left layout      |
-| L          | <M-w>L                | Toruses in main left layout      |
-| ---------- | --------------------- | -------------------------------- |
-| g          | <M-w>g                | Locations in grid layout         |
-| <C-g>      | <M-w><C-g>            | Circles in grid layout           |
-| G          | <M-w>G                | Toruses in grid layout           |
-| ---------- | --------------------- | -------------------------------- |
-| <up>       | <M-w><up>             | Rotate windows counter-clockwise |
-| <down>     | <M-w><down>           | Rotate windows clockwise         |
-
-Tabs & Windows~
-
-| Prefix + | With default prefix | Action                               |
-| -------- | ------------------- | ------------------------------------ |
-| z        | <M-w>z              | Zoom : one tab, one window           |
-| P        | <M-w>P              | Toruses in tabs, circles in windows  |
-| <C-p>    | <M-w><C-p>          | Circes in tabs, locations in windows |
+| Prefix +   | With default prefix   | Action                                |
+| --------   | -------------------   | --------------------                  |
+| zz         | <M-w>zz               | Zoom : one tab, one window            |
+| --------   | -------------------   | --------------------                  |
+| zt         | <M-w>zt               | One location per tab                  |
+| z<C-t>     | <M-w>z<C-t>           | One circle per tab                    |
+| zT         | <M-w>zT               | One torus per tab                     |
+| ---------- | --------------------- | --------------------------------      |
+| zs         | <M-w>zs               | Locations in horizontal splits        |
+| z<C-s>     | <M-w>z<C-s>           | Circles in horizontal splits          |
+| zS         | <M-w>zS               | Toruses in horizontal splits          |
+| ---------- | --------------------- | --------------------------------      |
+| zv         | <M-w>zv               | Location in vertical splits           |
+| z<C-v>     | <M-w>z<C-v>           | Circles in vertical splits            |
+| zV         | <M-w>zV               | Toruses in vertical splits            |
+| ---------- | --------------------- | --------------------------------      |
+| zm         | <M-w>zm               | Locations in main top layout          |
+| z<C-m>     | <M-w>z<C-m>           | Circles in main top layout            |
+| zM         | <M-w>zM               | Toruses in main top layout            |
+| ---------- | --------------------- | --------------------------------      |
+| zl         | <M-w>zl               | Locations in main left layout         |
+| z<C-l>     | <M-w>z<C-l>           | Circles in main left layout           |
+| zL         | <M-w>zL               | Toruses in main left layout           |
+| ---------- | --------------------- | --------------------------------      |
+| zg         | <M-w>zg               | Locations in grid layout              |
+| z<C-g>     | <M-w>z<C-g>           | Circles in grid layout                |
+| zG         | <M-w>zG               | Toruses in grid layout                |
+| --------   | -------------------   | ------------------------------------  |
+| z&         | <M-w>z&               | Circles in tabs, locations in windows |
+| z<M-&>     | <M-w>z<M-&>           | Toruses in tabs, circles in windows   |
+| ---------- | --------------------- | --------------------------------      |
+| z<up>      | <M-w>z<up>            | Rotate windows counter-clockwise      |
+| z<down>    | <M-w>z<down>          | Rotate windows clockwise              |
 
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
@@ -1579,72 +1590,74 @@ Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
 
     " Menus
-    nmap <m-m>        <plug>(wheel-menu-main)
-    nmap <m-=>        <plug>(wheel-menu-meta)
+    exe nmap '<m-m>          <plug>(wheel-menu-main)'
+    exe nmap '<m-=>          <plug>(wheel-menu-meta)'
     " Add, Delete
-    nmap <m-insert>   <plug>(wheel-add-here)
-    nmap <m-del>      <plug>(wheel-delete-location)
+    exe nmap '<m-insert>     <plug>(wheel-add-here)'
+    exe nmap '<m-del>        <plug>(wheel-delete-location)'
     " Next / Previous
-    nmap <c-pageup>   <plug>(wheel-previous-location)
-    nmap <c-pagedown> <plug>(wheel-next-location)
-    nmap <c-home>     <plug>(wheel-previous-circle)
-    nmap <c-end>      <plug>(wheel-next-circle)
-    nmap <s-home>     <plug>(wheel-previous-torus)
-    nmap <s-end>      <plug>(wheel-next-torus)
+    exe nmap '<c-pageup>     <plug>(wheel-previous-location)'
+    exe nmap '<c-pagedown>   <plug>(wheel-next-location)'
+    exe nmap '<c-home>       <plug>(wheel-previous-circle)'
+    exe nmap '<c-end>        <plug>(wheel-next-circle)'
+    exe nmap '<s-home>       <plug>(wheel-previous-torus)'
+    exe nmap '<s-end>        <plug>(wheel-next-torus)'
     " History
-    nmap <s-pageup>     <plug>(wheel-history-newer)
-    nmap <s-pagedown>   <plug>(wheel-history-older)
+    exe nmap '<s-pageup>     <plug>(wheel-history-newer)'
+    exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
     " Alternate
-    nmap <c-^>        <plug>(wheel-alternate-anywhere)
-    nmap <m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)
-    nmap <m-pageup>   <plug>(wheel-alternate-same-torus)
-    nmap <m-pagedown> <plug>(wheel-alternate-same-circle)
-    nmap <m-home>     <plug>(wheel-alternate-other-torus)
-    nmap <m-end>      <plug>(wheel-alternate-other-circle)
+    exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
+    exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+    exe nmap '<m-pageup>     <plug>(wheel-alternate-same-torus)'
+    exe nmap '<m-pagedown>   <plug>(wheel-alternate-same-circle)'
+    exe nmap '<m-home>       <plug>(wheel-alternate-other-torus)'
+    exe nmap '<m-end>        <plug>(wheel-alternate-other-circle)'
     " Navigation buffers
-    nmap <space>      <plug>(wheel-navigation-location)
-    nmap <c-space>    <plug>(wheel-navigation-circle)
-    nmap <s-space>    <plug>(wheel-navigation-torus)
-    nmap <m-x>        <plug>(wheel-tree)
-    nmap <m-c-x>      <plug>(wheel-index-locations)
-    nmap <m-h>        <plug>(wheel-history)
+    exe nmap '<space>        <plug>(wheel-navigation-location)'
+    exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
+    exe nmap '<s-space>      <plug>(wheel-navigation-torus)'
+    exe nmap '<m-x>          <plug>(wheel-tree)'
+    exe nmap '<m-c-x>        <plug>(wheel-index-locations)'
+    exe nmap '<m-h>          <plug>(wheel-history)'
     " Opened files
-    nmap <m-b>          <plug>(wheel-opened-files)
-    " Tabs & windows : visible buffers in tree mode
-    nmap <m-v>          <plug>(wheel-tabwins-tree)
-    nmap <m-c-v>        <plug>(wheel-reorg-tabwins)
+    exe nmap '<m-b>          <plug>(wheel-opened-files)'
+    " Tabs & windows : visible buffers
+    exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
     " Search inside files
-    nmap <m-s>          <plug>(wheel-occur)
-    nmap <m-g>          <plug>(wheel-grep)
-    nmap <m-o>          <plug>(wheel-outline)
-    nmap <m-t>          <plug>(wheel-tags)
-    nmap <m-j>          <plug>(wheel-jumps)
-    nmap <m-c>          <plug>(wheel-changes)
+    exe nmap '<m-s>          <plug>(wheel-occur)'
+    exe nmap '<m-g>          <plug>(wheel-grep)'
+    exe nmap '<m-o>          <plug>(wheel-outline)'
+    exe nmap '<m-t>          <plug>(wheel-tags)'
+    exe nmap '<m-j>          <plug>(wheel-jumps)'
+    exe nmap '<m-c>          <plug>(wheel-changes)'
     " Search for files
-    nmap <m-u>          <plug>(wheel-mru)
-    nmap <m-l>          <plug>(wheel-locate)
-    nmap <m-f>          <plug>(wheel-find)
+    exe nmap '<m-u>          <plug>(wheel-mru)'
+    exe nmap '<m-l>          <plug>(wheel-locate)'
+    exe nmap '<m-f>          <plug>(wheel-find)'
     " Command
-    nmap <m-!>          <plug>(wheel-command)
-    nmap <m-&>          <plug>(wheel-async)
+    exe nmap '<m-!>          <plug>(wheel-command)'
+    exe nmap '<m-&>          <plug>(wheel-async)'
     " Reshaping buffers
-    nmap <m-r>          <plug>(wheel-reorganize)
+    " wheel
+    exe nmap '<m-r>          <plug>(wheel-reorganize)'
+    " tabs & windows : visible buffers
+    exe nmap '<m-c-v>        <plug>(wheel-reorg-tabwins)'
     " Yank
-    nmap <m-y>          <plug>(wheel-yank-list)
-    nmap <m-p>          <plug>(wheel-yank-plain)
+    exe nmap '<m-y>          <plug>(wheel-yank-list)'
+    exe nmap '<m-p>          <plug>(wheel-yank-plain)'
     " Windows
-    nmap <m-z>          <plug>(wheel-zoom)
-    nmap <c-s-home>     <plug>(wheel-tabs-locations)
-    nmap <c-s-end>      <plug>(wheel-mainleft-locations)
-    " Rotate windows
-    nmap <c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)
-    nmap <c-s-pagedown> <plug>(wheel-rotate-clockwise)
+    exe nmap '<m-z>          <plug>(wheel-zoom)'
+    exe nmap '<c-s-home>     <plug>(wheel-tabs-locations)'
+    exe nmap '<c-s-end>      <plug>(wheel-main-left-locations)'
+    " Rotating windows
+    exe nmap '<c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)'
+    exe nmap '<c-s-pagedown> <plug>(wheel-rotate-clockwise)'
     " Save (push) mandala buffer
-    nmap <m-Tab>        <plug>(wheel-mandala-push)
+    exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
     " Remove (pop) mandala buffer
-    nmap <m-Backspace>  <plug>(wheel-mandala-pop)
+    exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
     " Cycle mandala buffers
-    nmap <m-space>      <plug>(wheel-mandala-forward)
+    exe nmap '<m-space>      <plug>(wheel-mandala-forward)'
 <
 
 ------------------------------------------------------------------------------
