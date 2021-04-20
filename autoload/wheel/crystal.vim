@@ -291,6 +291,15 @@ if ! exists('s:menu_yank')
 	lockvar s:menu_yank
 endif
 
+if ! exists('s:menu_layout')
+	let s:menu_layout = {
+				\ 'zoom : one tab, one window' : 'wheel#mosaic#zoom()',
+				\ 'rotate windows clockwise' : 'wheel#mosaic#rotate_clockwise()',
+				\ 'rotate windows counter-clockwise' : 'wheel#mosaic#rotate_counter_clockwise()',
+				\}
+	lockvar s:menu_layout
+endif
+
 if ! exists('s:menu_layout_tabs')
 	let s:menu_layout_tabs = {
 				\ 'toruses on tabs' : "wheel#mosaic#tabs('torus')",
@@ -332,8 +341,6 @@ if ! exists('s:menu_layout_windows')
 				\ 'toruses on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('torus')",
 				\ 'circles on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('circle')",
 				\ 'locations on splits, transposed grid layout' : "wheel#mosaic#split_transposed_grid('location')",
-				\ 'rotate windows clockwise' : 'wheel#mosaic#rotate_clockwise()',
-				\ 'rotate windows counter-clockwise' : 'wheel#mosaic#rotate_counter_clockwise()',
 				\}
 	lockvar s:menu_layout_windows
 endif
@@ -342,7 +349,6 @@ if ! exists('s:menu_layout_mixed')
 	let s:menu_layout_mixed = {
 				\ 'mix : toruses on tabs & circles on splits' : "wheel#pyramid#steps('torus')",
 				\ 'mix : circles on tabs & locations on splits' : "wheel#pyramid#steps('circle')",
-				\ 'zoom : one tab, one window' : 'wheel#mosaic#zoom()',
 				\}
 	lockvar s:menu_layout_mixed
 endif
@@ -360,6 +366,7 @@ if ! exists('s:menu_list')
 				\ 'reorganize',
 				\ 'command',
 				\ 'yank',
+				\ 'layout',
 				\ 'layout_tabs',
 				\ 'layout_windows',
 				\ 'layout_mixed',
@@ -387,12 +394,13 @@ if ! exists('s:menu_meta')
 				\ 'disc' : "wheel#hub#submenu('disc')",
 				\ 'navigation' : "wheel#hub#submenu('navigation')",
 				\ 'alternate' : "wheel#hub#submenu('alternate')",
-				\ 'layouts : tabs' : "wheel#hub#submenu('layout_tabs')",
-				\ 'layouts : window' : "wheel#hub#submenu('layout_windows')",
-				\ 'layouts : mixed' : "wheel#hub#submenu('layout_mixed')",
 				\ 'reorganize' : "wheel#hub#submenu('reorganize')",
 				\ 'command' : "wheel#hub#submenu('command')",
 				\ 'yank' : "wheel#hub#submenu('yank')",
+				\ 'layouts : generic' : "wheel#hub#submenu('layout')",
+				\ 'layouts : tabs' : "wheel#hub#submenu('layout_tabs')",
+				\ 'layouts : window' : "wheel#hub#submenu('layout_windows')",
+				\ 'layouts : mixed' : "wheel#hub#submenu('layout_mixed')",
 				\}
 	lockvar s:menu_meta
 endif

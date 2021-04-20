@@ -333,7 +333,8 @@ nmap <s-home>     <plug>(wheel-previous-torus)
 nmap <s-end>      <plug>(wheel-next-torus)
 " Alternate
 nmap <c-^>        <plug>(wheel-alternate-anywhere)
-nmap <d-^>        <plug>(wheel-alternate-same-torus-other-circle)
+nmap <m-^>        <plug>(wheel-alternate-same-circle)'
+nmap <m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)'
 " Navigation special buffers
 nmap <space>      <plug>(wheel-navigation-location)
 nmap <c-space>    <plug>(wheel-navigation-circle)
@@ -342,14 +343,12 @@ nmap <m-x>        <plug>(wheel-tree)
 nmap <m-h>        <plug>(wheel-history)
 " Opened files
 nmap <m-b>          <plug>(wheel-opened-files)
-" Tabs & windows : visible buffers in tree mode
-nmap <m-v>          <plug>(wheel-tabwins-tree)
-" Reorganize tabs & windows
-nmap <m-c-v>        <plug>(wheel-reorg-tabwins)
 " Search for files
 nmap <m-u>          <plug>(wheel-mru)
 nmap <m-l>          <plug>(wheel-locate)
 nmap <m-f>          <plug>(wheel-find)
+" Tabs & windows : visible buffers in tree mode
+nmap <m-v>          <plug>(wheel-tabwins-tree)
 " Yank
 nmap <m-y>          <plug>(wheel-yank-list)
 nmap <m-p>          <plug>(wheel-yank-plain)
@@ -360,17 +359,19 @@ nmap <m-o>          <plug>(wheel-outline)
 nmap <m-t>          <plug>(wheel-tags)
 nmap <m-j>          <plug>(wheel-jumps)
 nmap <m-c>          <plug>(wheel-changes)
+" Reorganize the wheel : toruses, circles and locations
+nmap <m-r>          <plug>(wheel-reorganize)
+" Reorganize tabs & windows
+nmap <m-c-r>        <plug>(wheel-reorg-tabwins)
+" Command output in special buffer
+nmap <m-!>          <plug>(wheel-command)
+nmap <m-&>          <plug>(wheel-async)
 " Save (push) mandala (special buffer)
 nmap <m-Tab>        <plug>(wheel-mandala-push)
 " Remove (pop) mandala
 nmap <m-Backspace>  <plug>(wheel-mandala-pop)
 " Cycle mandala buffers
 nmap <m-space>      <plug>(wheel-mandala-cycle)
-" Command output in special buffer
-nmap <m-!>          <plug>(wheel-command)
-nmap <m-&>          <plug>(wheel-async)
-" Reorganize the wheel : toruses, circles and locations
-nmap <m-r>          <plug>(wheel-reorganize)
 ~~~
 
 # Step by Step

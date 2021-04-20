@@ -205,6 +205,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<up> <plug>(wheel-history-newer)'
 		exe nmap prefix . '<down> <plug>(wheel-history-older)'
 		exe nmap prefix . '^ <plug>(wheel-alternate-menu)'
+		exe nmap prefix . '<c-^> <plug>(wheel-alternate-anywhere)'
+		exe nmap prefix . '<m-^> <plug>(wheel-alternate-same-circle)'
+		exe nmap prefix . '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
@@ -293,11 +296,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
 		" Alternate
 		exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
+		exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
 		exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
-		exe nmap '<m-pageup>     <plug>(wheel-alternate-same-torus)'
-		exe nmap '<m-pagedown>   <plug>(wheel-alternate-same-circle)'
-		exe nmap '<m-home>       <plug>(wheel-alternate-other-torus)'
-		exe nmap '<m-end>        <plug>(wheel-alternate-other-circle)'
 		" Navigation buffers
 		exe nmap '<space>        <plug>(wheel-navigation-location)'
 		exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
@@ -333,6 +333,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
 		" Layouts
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
+		exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
 		" Save (push) mandala buffer
 		exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer

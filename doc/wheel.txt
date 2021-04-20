@@ -1403,11 +1403,14 @@ Switch~
 
 History~
 
-| Prefix +    | With default prefix | Action                          |
-| ----------- | ------------------- | ------------------------------- |
-| <Up>        | <M-w><PageUp>       | Go to newer location in history |
-| <Down>      | <M-w><PageDown>     | Go to older location in history |
-| ^           | <M-w>^              | Alternate menu                  |
+| Prefix +    | With default prefix | Action                                        |
+| ----------- | ------------------- | --------------------------------------------- |
+| <Up>        | <M-w><PageUp>       | Go to newer location in history               |
+| <Down>      | <M-w><PageDown>     | Go to older location in history               |
+| ^           | <M-w>^              | Alternate menu                                |
+| <C-^>       | <M-w><C-^>          | Alternate anywhere                            |
+| <M-^>       | <M-w><M-^>          | Alternate in the same circle                  |
+| <M-C-^>     | <M-w><M-C-^>        | Alternate in another circle of the same torus |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
@@ -1543,11 +1546,8 @@ and add them to your init file.
 | <S-PageDown>   | Go to older location in history               |
 | -------------- | --------------------------------------------- |
 | <C-^>          | Alternate last two locations                  |
-| <M-C-^>        | Alternate in same torus, other circle         |
-| <M-PageUp>     | Alternate in same torus                       |
-| <M-PageDown>   | Alternate in same circle                      |
-| <M-Home>       | Alternate in other torus                      |
-| <M-End>        | Alternate in other circle                     |
+| <M-^>          | Alternate in the same circle                  |
+| <M-C-^>        | Alternate in another circle of the same torus |
 | -------------- | --------------------------------------------- |
 | <Space>        | Choose location in special buffer             |
 | <C-Space>      | Choose circle in special buffer               |
@@ -1607,11 +1607,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
     " Alternate
     exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
+    exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
     exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
-    exe nmap '<m-pageup>     <plug>(wheel-alternate-same-torus)'
-    exe nmap '<m-pagedown>   <plug>(wheel-alternate-same-circle)'
-    exe nmap '<m-home>       <plug>(wheel-alternate-other-torus)'
-    exe nmap '<m-end>        <plug>(wheel-alternate-other-circle)'
     " Navigation buffers
     exe nmap '<space>        <plug>(wheel-navigation-location)'
     exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
@@ -1645,13 +1642,10 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Yank
     exe nmap '<m-y>          <plug>(wheel-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-yank-plain)'
-    " Windows
+    " Layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
-    exe nmap '<c-s-home>     <plug>(wheel-tabs-locations)'
-    exe nmap '<c-s-end>      <plug>(wheel-main-left-locations)'
-    " Rotating windows
-    exe nmap '<c-s-pageup>   <plug>(wheel-rotate-counter-clockwise)'
-    exe nmap '<c-s-pagedown> <plug>(wheel-rotate-clockwise)'
+    exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+    exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
     " Save (push) mandala buffer
     exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
     " Remove (pop) mandala buffer
