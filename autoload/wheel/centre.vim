@@ -202,8 +202,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<c-cr> <plug>(wheel-switch-circle)'
 		exe nmap prefix . '<s-cr> <plug>(wheel-switch-torus)'
 		" History
-		exe nmap prefix . '<pageup> <plug>(wheel-history-newer)'
-		exe nmap prefix . '<pagedown> <plug>(wheel-history-older)'
+		exe nmap prefix . '<up> <plug>(wheel-history-newer)'
+		exe nmap prefix . '<down> <plug>(wheel-history-older)'
 		exe nmap prefix . '^ <plug>(wheel-alternate-menu)'
 	endif
 	" Advanced

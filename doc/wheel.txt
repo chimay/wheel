@@ -1404,8 +1404,8 @@ History~
 
 | Prefix +    | With default prefix | Action                          |
 | ----------- | ------------------- | ------------------------------- |
-| <PageUp>    | <M-w><PageUp>       | Go to newer location in history |
-| <PageDown>  | <M-w><PageDown>     | Go to older location in history |
+| <Up>        | <M-w><PageUp>       | Go to newer location in history |
+| <Down>      | <M-w><PageDown>     | Go to older location in history |
 | ^           | <M-w>^              | Alternate menu                  |
 
 ------------------------------------------------------------------------------
