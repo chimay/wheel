@@ -15,8 +15,8 @@ fun! wheel#boomerang#sync ()
 	" Sync selection & settings at top of stack --> mandala state
 	" the action will be performed on the selection of the previous layer
 	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
-	" default selection = cursor line address of previous layer
 	if empty(b:wheel_selected)
+		" default selection = cursor line address of previous layer
 		let b:wheel_selected = [deepcopy(wheel#layer#top_field ('address'))]
 	endif
 	" the action will be performed with the settings of the previous layer

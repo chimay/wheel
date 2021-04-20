@@ -19,7 +19,7 @@ endif
 fun! wheel#tower#overlay (settings)
 	" Define local maps for overlay
 	let settings = copy(a:settings)
-	call wheel#mandala#common_maps ()
+	call wheel#mandala#template ()
 	" Menu specific maps
 	let map  =  'nnoremap <silent> <buffer> '
 	let pre  = ' :call wheel#line#menu('
