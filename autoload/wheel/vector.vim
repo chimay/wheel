@@ -115,7 +115,13 @@ fun! wheel#vector#grep (pattern, ...)
 		let pattern = '"' . pattern . '"'
 	endif
 	" Run grep
-	exe 'silent grep!' pattern files
+	let grep = g:wheel_config.grep
+	if index(['grep', 'vimgrep'], grep) < 0
+		echoerr 'wheel vector grep : bad g:wheel_config.grep value.'
+		return v:false
+	endif
+	let grep .= '!'
+	exe 'silent' grep pattern files
 	return v:true
 endfun
 

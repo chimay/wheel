@@ -174,6 +174,11 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'locate_db')
 		let g:wheel_config.locate_db = ''
 	endif
+	if ! has_key(g:wheel_config, 'grep')
+		" defaults to internal vimgrep,
+		" in case external grep is not available
+		let g:wheel_config.grep = 'vimgrep'
+	endif
 	" Maxim
 	if ! has_key(g:wheel_config, 'maxim')
 		let g:wheel_config.maxim = {}
