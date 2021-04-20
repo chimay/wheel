@@ -64,13 +64,17 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-index-locations) :call wheel#sailing#helix()<cr>
 	nnoremap <plug>(wheel-index-circles) :call wheel#sailing#grid()<cr>
 	nnoremap <plug>(wheel-tree) :call wheel#sailing#tree()<cr>
+	"History
+	nnoremap <plug>(wheel-history) :call wheel#sailing#history()<cr>
 	" Opened files
 	nnoremap <plug>(wheel-opened-files) :call wheel#sailing#opened_files()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabwins) :call wheel#sailing#tabwins()<cr>
 	nnoremap <plug>(wheel-tabwins-tree) :call wheel#sailing#tabwins_tree()<cr>
-	"History
-	nnoremap <plug>(wheel-history) :call wheel#sailing#history()<cr>
+	" Search for files
+	nnoremap <plug>(wheel-mru) :call wheel#sailing#mru()<cr>
+	nnoremap <plug>(wheel-locate) :call wheel#sailing#locate()<cr>
+	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
 	" Search inside files
 	nnoremap <plug>(wheel-occur) :call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
@@ -79,10 +83,6 @@ fun! wheel#centre#plugs ()
 	" Jumps & Changes lists
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
 	nnoremap <plug>(wheel-changes) :call wheel#sailing#changes()<cr>
-	" Search for files
-	nnoremap <plug>(wheel-mru) :call wheel#sailing#mru()<cr>
-	nnoremap <plug>(wheel-locate) :call wheel#sailing#locate()<cr>
-	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-async) :call wheel#mandala#async()<cr>
@@ -327,7 +327,7 @@ fun! wheel#centre#cables ()
 		" wheel
 		exe nmap '<m-r>          <plug>(wheel-reorganize)'
 		" tabs & windows : visible buffers
-		exe nmap '<m-c-v>        <plug>(wheel-reorg-tabwins)'
+		exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-yank-list)'
 		exe nmap '<m-p>          <plug>(wheel-yank-plain)'

@@ -497,16 +497,19 @@ The default mappings launching navigation buffers are :
 - `<M-w>x`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
+- `<M-w>h`         : history index
 - `<M-w><M-b>`     : switch to buffer (opened file)
 - `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
 - `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
+- `<M-w><M-m>`     : most recently used files not found in wheel (mru)
+- `<M-w><M-l>`     : search files with `locate`
+- `<M-w><M-f>`     : search files with `find` in async mode
 - `<M-w><M-s>`     : occur in current file
 - `<M-w><M-g>`     : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
 - `<M-w><M-t>`     : tags
-- `<M-w><M-m>`     : most recently used files not found in wheel (mru)
-- `<M-w><M-l>`     : search files with `locate`
-- `<M-w><M-f>`     : search files with `find` in async mode
+- `<M-w>j`         : jumps list
+- `<M-w>c`         : changes list
 
 Menus~
 
@@ -1408,17 +1411,6 @@ History~
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
 
-Search inside files~
-
-| Prefix + | With default prefix | Action                               |
-| -------- | ------------------- | ------------------------------------ |
-| <M-s>    | <M-w><M-s>          | Search lines in current file         |
-| <M-g>    | <M-w><M-g>          | Search in circle files with grep     |
-| <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
-| <M-t>    | <M-w><M-t>          | Tags                                 |
-| j        | <M-w>j              | Jumps                                |
-| c        | <M-w>c              | Changes                              |
-
 Search for files~
 
 | Prefix + | With default prefix | Action                                      |
@@ -1434,6 +1426,17 @@ Tabs & windows~
 | -------- | ------------------- | ------------------------------------------------ |
 | v        | <M-w>v              | Visible buffers displayed in tabs & windows      |
 | <M-v>    | <M-w><M-v>          | Tree view of buffers displayed in tabs & windows |
+
+Search inside files~
+
+| Prefix + | With default prefix | Action                               |
+| -------- | ------------------- | ------------------------------------ |
+| <M-s>    | <M-w><M-s>          | Search lines in current file         |
+| <M-g>    | <M-w><M-g>          | Search in circle files with grep     |
+| <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
+| <M-t>    | <M-w><M-t>          | Tags                                 |
+| j        | <M-w>j              | Jumps                                |
+| c        | <M-w>c              | Changes                              |
 
 Command output buffer~
 
@@ -1570,7 +1573,7 @@ and add them to your init file.
 | <M-&>          | Async shell command in special buffer         |
 | -------------- | --------------------------------------------- |
 | <M-r>          | Reorganize wheel elements                     |
-| <M-C-v>        | Reorganize tabs and windows                   |
+| <M-C-r>        | Reorganize tabs and windows                   |
 | -------------- | --------------------------------------------- |
 | <M-y>          | Paste yank wheel element in list mode         |
 | <M-p>          | Paste yank wheel element in plain mode        |
@@ -1641,7 +1644,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " wheel
     exe nmap '<m-r>          <plug>(wheel-reorganize)'
     " tabs & windows : visible buffers
-    exe nmap '<m-c-v>        <plug>(wheel-reorg-tabwins)'
+    exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
     " Yank
     exe nmap '<m-y>          <plug>(wheel-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-yank-plain)'
