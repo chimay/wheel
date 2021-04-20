@@ -22,8 +22,7 @@ if ! exists('s:referen_coordin')
 endif
 
 if ! exists('s:referen_list_keys')
-	let s:referen_list_keys =
-				\{
+	let s:referen_list_keys = {
 				\ 'wheel' : 'toruses',
 				\ 'torus' : 'circles',
 				\ 'circle' : 'locations',
