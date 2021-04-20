@@ -45,7 +45,7 @@ fun! wheel#tower#staircase (settings)
 	endif
 	call wheel#layer#init ()
 	let dict = wheel#crystal#fetch (dictname)
-	let lines = keys(dict)
+	let lines = sort(keys(dict))
 	call wheel#mandala#pseudo_filename (dictname)
 	call wheel#mandala#replace (lines, 'blank')
 	call wheel#tower#overlay (settings)
