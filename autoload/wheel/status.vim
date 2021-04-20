@@ -29,7 +29,7 @@ endfun
 
 " Tab line
 
-fu! wheel#status#tablabel (index)
+fun! wheel#status#tablabel (index)
 	" Label of a tab
 	let index = a:index
 	" Modified indicator
@@ -59,7 +59,7 @@ fu! wheel#status#tablabel (index)
 	endif
 	let label = tabnames[index - 1] . ' ' . modified
 	return label
-endfu
+endfun
 
 fun! wheel#status#tabline ()
 	" Tab line
@@ -85,12 +85,11 @@ fun! wheel#status#tabline ()
 	return text
 endfun
 
-fu! wheel#status#guitablabel ()
+fun! wheel#status#guitablabel ()
 	" Gui label of a tab
 	if has('nvim')
 		" find a doc of nvim-qt for how to do it
 	else
 		return wheel#status#tablabel (v:lnum)
 	endif
-endfu
-
+endfun

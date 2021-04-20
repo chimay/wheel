@@ -1679,9 +1679,15 @@ Some bindings that you may find useful : >
     " same, with toruses
     nmap <s-cr> <plug>(wheel-switch-torus)
 
+    " alternate
     nmap <d-^> <plug>(wheel-alternate-same-torus-other-circle)
+
     " index of locations in torus > circle > location format
     nmap <d-x> <plug>(wheel-index-locations)
+
+    " reorganize tabs & windows
+    nmap <d-v> <plug>(wheel-reorg-tabwins)
+
     " cycle special buffers backward
     nmap <d-space> <plug>(wheel-mandala-backward)
 
