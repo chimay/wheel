@@ -4,6 +4,11 @@
 
 " Script vars
 
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+	lockvar s:mandala_autocmds_group
+endif
+
 if ! exists('s:is_mandala')
 	let s:is_mandala = wheel#crystal#fetch('is_mandala')
 	lockvar s:is_mandala
@@ -15,7 +20,6 @@ fun! wheel#shape#reorder_write (level)
 	" Define reorder autocommands
 	setlocal buftype=acwrite
 	let ac_group = s:mandala_autocmds_group
-	exe 'autocmd!' ac_group 'BufWriteCmd <buffer>'
 	let autocommand = "autocmd " . ac_group
 	let autocommand .= " BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
 	let autocommand .= a:level . "')"
@@ -26,7 +30,6 @@ fun! wheel#shape#reorganize_write ()
 	" Define reorganize autocommands
 	setlocal buftype=acwrite
 	let ac_group = s:mandala_autocmds_group
-	exe 'autocmd!' ac_group 'BufWriteCmd <buffer>'
 	let autocommand = "autocmd " . ac_group
 	let autocommand .= " BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
 	exe autocommand
@@ -36,7 +39,6 @@ fun! wheel#shape#reorg_tabwins_write ()
 	" Define reorg_tabwins autocommands
 	setlocal buftype=acwrite
 	let ac_group = s:mandala_autocmds_group
-	exe 'autocmd!' ac_group 'BufWriteCmd <buffer>'
 	let autocommand = "autocmd " . ac_group
 	let autocommand .= " BufWriteCmd <buffer> call wheel#cuboctahedron#reorg_tabwins ()"
 	exe autocommand
@@ -45,7 +47,6 @@ endfun
 fun! wheel#shape#grep_write ()
 	" Define grep autocommands
 	set buftype=acwrite
-	exe 'autocmd!' ac_group 'BufWriteCmd <buffer>'
 	let autocommand = "autocmd " . ac_group
 	let autocommand .= " BufWriteCmd <buffer> call wheel#vector#write_quickfix ()"
 	exe autocommand
