@@ -214,8 +214,12 @@ fun! wheel#layer#sync ()
 	" pseudo filename
 	let pseudo_file = layer.filename
 	exe 'silent file' pseudo_file
-	" local options
+	" options
 	call wheel#layer#restore_options (layer.options)
+	" mappings
+	let mappings = deepcopy(layer.mappings)
+	call wheel#layer#restore_maps (mappings)
+	" autocommands
 	" all mandala content, without filtering
 	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
@@ -230,9 +234,6 @@ fun! wheel#layer#sync ()
 	let b:wheel_selected = deepcopy(layer.selected)
 	" restore settings
 	let b:wheel_settings = deepcopy(layer.settings)
-	" restore mappings
-	let mappings = deepcopy(layer.mappings)
-	call wheel#layer#restore_maps (mappings)
 	" reload
 	let b:wheel_reload = layer.reload
 	" Tell (neo)vim the buffer is to be considered not modified
@@ -247,8 +248,11 @@ fun! wheel#layer#swap ()
 	let swap = {}
 	" pseudo filename
 	let swap.filename = expand('%')
-	" local options
+	" options
 	let swap.options = wheel#layer#save_options ()
+	" mappings
+	let swap.mappings = wheel#layer#save_maps ()
+	" autocommands
 	" lines content, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
@@ -265,14 +269,12 @@ fun! wheel#layer#swap ()
 	let swap.address = wheel#line#address()
 	" selected lines
 	let swap.selected = deepcopy(b:wheel_selected)
-	" buffer settings
+	" settings
 	if exists('b:wheel_settings')
 		let swap.settings = b:wheel_settings
 	else
 		let swap.settings = {}
 	endif
-	" buffer mappings
-	let swap.mappings = wheel#layer#save_maps ()
 	" reload
 	if exists('b:wheel_reload')
 		let swap.reload = b:wheel_reload
@@ -310,8 +312,11 @@ fun! wheel#layer#push ()
 	let layer = stack.layers[stack.top]
 	" pseudo filename
 	let layer.filename = expand('%')
-	" local options
+	" options
 	let layer.options = wheel#layer#save_options ()
+	" mappings
+	let layer.mappings = wheel#layer#save_maps ()
+	" autocommands
 	" lines content, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
@@ -332,14 +337,12 @@ fun! wheel#layer#push ()
 	else
 		let layer.selected = []
 	endif
-	" buffer settings
+	" settings
 	if exists('b:wheel_settings')
 		let layer.settings = deepcopy(b:wheel_settings)
 	else
 		let layer.settings = {}
 	endif
-	" buffer mappings
-	let layer.mappings = wheel#layer#save_maps ()
 	" reload
 	if exists('b:wheel_reload')
 		let layer.reload = b:wheel_reload
