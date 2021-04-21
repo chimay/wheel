@@ -94,6 +94,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-reorganize) :call wheel#shape#reorganize()<cr>
 	" Reorganize tabs & windows
 	nnoremap <plug>(wheel-reorg-tabwins) :call wheel#shape#reorg_tabwins()<cr>
+	" Grep edit mode
+	nnoremap <plug>(wheel-grep-edit) :call wheel#shape#grep_edit()<cr>
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
@@ -213,7 +215,7 @@ fun! wheel#centre#cables ()
 	if g:wheel_config.mappings >= 2
 		" Search inside files
 		exe nmap prefix . '<m-s> <plug>(wheel-occur)'
-		exe nmap prefix . '<m-g> <plug>(wheel-grep)'
+		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
 		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
 		exe nmap prefix . 'j <plug>(wheel-jumps)'

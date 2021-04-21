@@ -456,7 +456,7 @@ endif
 
 if ! exists('s:context_grep')
 	let s:context_grep = s:context_sailing + [
-				\ ['edit mode' ,  "wheel#shape#grep()"],
+				\ ['edit mode' ,  "wheel#shape#grep_edit()"],
 				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
 				\]
 	lockvar s:context_grep

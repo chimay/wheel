@@ -104,7 +104,7 @@ endfun
 
 " Grep
 
-fun! wheel#shape#grep (...)
+fun! wheel#shape#grep_edit (...)
 	" Reorder level elements in a buffer
 	if a:0 > 0
 		let pattern = a:1
@@ -143,7 +143,7 @@ fun! wheel#shape#grep (...)
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
 	" reload
-	let b:wheel_reload = "wheel#shape#grep('" . pattern . "','" . sieve . "')"
+	let b:wheel_reload = "wheel#shape#grep_edit('" . pattern . "','" . sieve . "')"
 	" info
 	echomsg 'adding or removing lines is not supported.'
 	return lines
