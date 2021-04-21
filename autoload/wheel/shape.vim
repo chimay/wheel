@@ -47,6 +47,7 @@ endfun
 fun! wheel#shape#grep_write ()
 	" Define grep autocommands
 	set buftype=acwrite
+	let ac_group = s:mandala_autocmds_group
 	let autocommand = "autocmd " . ac_group
 	let autocommand .= " BufWriteCmd <buffer> call wheel#vector#write_quickfix ()"
 	exe autocommand
