@@ -24,6 +24,11 @@ if ! exists('s:visual_map_keys')
 	lockvar s:visual_map_keys
 endif
 
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+	lockvar s:mandala_autocmds_group
+endif
+
 if ! exists('s:mandala_autocmds_events')
 	let s:mandala_autocmds_events = wheel#crystal#fetch('mandala/autocmds/events')
 	lockvar s:mandala_autocmds_events
@@ -109,10 +114,11 @@ endfun
 
 fun! wheel#layer#clear_autocmds ()
 	" Clear mandala local autocommands
+	let ac_group = s:mandala_autocmds_group
 	for event in s:mandala_autocmds_events
 		let group_event_pattern = '#wheel#' . event . '#<buffer>'
 		if exists(group_event_pattern)
-			autocmd! wheel BufWriteCmd <buffer>
+			exe 'autocmd!' ac_group event '<buffer>'
 		endif
 	endfor
 endfun
@@ -162,8 +168,9 @@ endfun
 fun! wheel#layer#save_autocmds ()
 	" Save autocommands
 	let autodict = {}
+	let ac_group = s:mandala_autocmds_group
 	for event in s:mandala_autocmds_events
-		let autodict[event] = wheel#gear#autocmds ('wheel', event)
+		let autodict[event] = wheel#gear#autocmds (ac_group, event)
 	endfor
 	return autodict
 endfun
@@ -208,14 +215,14 @@ endfun
 fun! wheel#layer#restore_autocmds (autodict)
 	" Restore autocommands
 	let autodict = a:autodict
+	let ac_group = s:mandala_autocmds_group
 	for event in s:mandala_autocmds_events
-		let runme = 'autocmd! wheel ' . event . ' <buffer>'
-		exe runme
+		exe 'autocmd!' ac_group event '<buffer>'
+		echomsg 'autocmd!' ac_group event '<buffer>'
 		let autocmds = autodict[event]
 		if ! empty(autocmds)
-			for elem in autocmds
-				let runme = 'autocmd wheel ' . event . ' <buffer> ' . elem
-				exe runme
+			for autocom in autocmds
+				exe 'autocmd' ac_group event '<buffer>' autocom
 			endfor
 		endif
 	endfor

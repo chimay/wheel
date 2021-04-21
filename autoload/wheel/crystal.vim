@@ -119,7 +119,12 @@ if ! exists('s:visual_map_keys')
 	lockvar s:visual_map_keys
 endif
 
-" Mandala autocmds events
+" Mandala autocmds
+
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = 'wheel-mandala'
+	lockvar s:mandala_autocmds_group
+endif
 
 if ! exists('s:mandala_autocmds_events')
 	let s:mandala_autocmds_events = [

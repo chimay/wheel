@@ -238,7 +238,7 @@ fun! wheel#gear#autocmds (group, event)
 		return []
 	endif
 	let lines = lines[2:]
-	let autocom = []
+	let autocmds = []
 	let here = v:false
 	for elem in lines
 		if elem =~ '<buffer=[^>]\+>'
@@ -250,11 +250,11 @@ fun! wheel#gear#autocmds (group, event)
 		else
 			if here
 				let elem = substitute(elem, '\m^\s*', '', '')
-				call add(autocom, elem)
+				call add(autocmds, elem)
 			endif
 		endif
 	endfor
-	return autocom
+	return autocmds
 endfun
 
 " Misc

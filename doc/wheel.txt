@@ -1103,16 +1103,17 @@ Example				|wheel-autocommands-example|
 ------------------------------------------------------------------------------
 AUTO GROUP				*wheel-autocommands-autogroup*
 
-The autogroup `wheel` is used for special buffers local autocommands. If you
-want to group all your wheel autocommands, you have to choose another name, or
-make some letter uppercase, e.g. : >
+It's a good idea to group all your wheel autocommands, e.g. : >
 
-    augroup Wheel
+    augroup wheel
 	autocmd ...
 	autocmd ...
 	...
     augroup END
 <
+
+Be aware that the autogroup `wheel-mandala` is used for special buffers
+local autocommands, so you can't use this name.
 
 ------------------------------------------------------------------------------
 AUTO READ				*wheel-autocommands-auto-read*

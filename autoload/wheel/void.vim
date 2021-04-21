@@ -2,6 +2,13 @@
 
 " Enter the void, and ride the wheel
 
+" Script vars
+
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+	lockvar s:mandala_autocmds_group
+endif
+
 " Helpers
 
 fun! wheel#void#template(init)
@@ -259,8 +266,8 @@ fun! wheel#void#init ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
 	endif
-	" define wheel auto command group
-	augroup wheel
+	" define wheel-mandala auto command group
+	exe 'augroup' s:mandala_autocmds_group
 		autocmd!
 	augroup END
 endfu
