@@ -31,7 +31,7 @@ fun! wheel#symbol#read (file)
 	let remove = '\m/\%(;"\)\?[^/;"]*$'
 	for record in lines
 		let pattern = matchstr(record, regex)
-		let optional = matchstr(pattern, final, '', '')
+		let optional = matchstr(pattern, final)
 		let optional = substitute(optional, '\m^\t', '', '')
 		let pattern = substitute(pattern, remove, '', '')
 		let record = substitute(record, regex, '', '')
