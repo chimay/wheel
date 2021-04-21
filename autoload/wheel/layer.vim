@@ -99,6 +99,14 @@ fun! wheel#layer#clear_options ()
 	setlocal nofoldenable
 endfun
 
+fun! wheel#layer#clear_autocmds ()
+	" Clear mandala local autocommands
+	" find a way to save & restore it
+	" if exists('#wheel#BufWriteCmd#<buffer>')
+	" 	autocmd! wheel BufWriteCmd <buffer>
+	" endif
+endfun
+
 fun! wheel#layer#clear_vars ()
 	" Clear mandala local variables, except the layer stack
 	call wheel#gear#unlet(s:mandala_vars)
@@ -113,12 +121,13 @@ fun! wheel#layer#clear_maps ()
 endfun
 
 fun! wheel#layer#fresh ()
-	" Fresh empty layer : clear mandala options, lines, vars & maps
+	" Fresh empty layer : clear mandala local data
 	call wheel#layer#clear_options ()
-	" underscore _ = no storing register
-	1,$ delete _
+	call wheel#layer#clear_autocmds ()
 	call wheel#layer#clear_vars ()
 	call wheel#layer#clear_maps ()
+	" underscore _ = no storing register
+	1,$ delete _
 endfun
 
 " Saving things
