@@ -16,7 +16,7 @@ endif
 
 " Write commands
 
-fun! wheel#shape#reorder_write (level)
+fun! wheel#shape#write_reorder (level)
 	" Define reorder autocommands
 	setlocal buftype=acwrite
 	let ac_group = s:mandala_autocmds_group
@@ -26,7 +26,7 @@ fun! wheel#shape#reorder_write (level)
 	exe autocommand
 endfun
 
-fun! wheel#shape#reorganize_write ()
+fun! wheel#shape#write_reorganize ()
 	" Define reorganize autocommands
 	setlocal buftype=acwrite
 	let ac_group = s:mandala_autocmds_group
@@ -35,7 +35,7 @@ fun! wheel#shape#reorganize_write ()
 	exe autocommand
 endfun
 
-fun! wheel#shape#reorg_tabwins_write ()
+fun! wheel#shape#write_reorg_tabwins ()
 	" Define reorg_tabwins autocommands
 	setlocal buftype=acwrite
 	let ac_group = s:mandala_autocmds_group
@@ -44,7 +44,7 @@ fun! wheel#shape#reorg_tabwins_write ()
 	exe autocommand
 endfun
 
-fun! wheel#shape#grep_write ()
+fun! wheel#shape#write_grep ()
 	" Define grep autocommands
 	set buftype=acwrite
 	let ac_group = s:mandala_autocmds_group
@@ -62,7 +62,7 @@ fun! wheel#shape#reorder (level)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('reorder/' . level)
 	call wheel#mandala#common_maps ()
-	call wheel#shape#reorder_write (level)
+	call wheel#shape#write_reorder (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines, 'delete')
 		silent global /^$/ delete
@@ -82,7 +82,7 @@ fun! wheel#shape#reorganize ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('reorganize')
 	call wheel#mandala#common_maps ()
-	call wheel#shape#reorganize_write ()
+	call wheel#shape#write_reorganize ()
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
@@ -100,7 +100,7 @@ fun! wheel#shape#reorg_tabwins ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('reorg/tabwins')
 	call wheel#mandala#common_maps ()
-	call wheel#shape#reorg_tabwins_write ()
+	call wheel#shape#write_reorg_tabwins ()
 	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
@@ -152,7 +152,7 @@ fun! wheel#shape#grep_edit (...)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
-	call wheel#shape#grep_write ()
+	call wheel#shape#write_grep ()
 	call wheel#mandala#fill (lines, 'delete')
 	silent global /^$/ delete
 	setlocal nomodified
