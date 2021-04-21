@@ -229,6 +229,34 @@ fun! wheel#gear#unmap (key, ...)
 	endif
 endfun
 
+fun! wheel#gear#autocmds (event)
+	" Return a list of mandala autocmds at event
+	let runme = 'autocmd wheel ' . a:event . ' <buffer>'
+	let output = execute(runme)
+	let lines = split(output, '\n')
+	if len(lines) < 3
+		return []
+	endif
+	let lines = lines[2:]
+	let autocom = []
+	let here = v:false
+	for elem in lines
+		if elem =~ '<buffer=[^>]\+>'
+			if elem =~ '\m<buffer=' . bufnr('%') . '>'
+				let here = v:true
+			else
+				let here = v:false
+			endif
+		else
+			if here
+				let elem = substitute(elem, '\m^\s*', '', '')
+				call add(autocom, elem)
+			endif
+		endif
+	endfor
+	return autocom
+endfun
+
 " Misc
 
 " Used by chain#tie

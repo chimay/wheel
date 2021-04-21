@@ -4,11 +4,6 @@
 
 " Script vars
 
-if ! exists('s:mandala_vars')
-	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
-	lockvar s:mandala_vars
-endif
-
 if ! exists('s:mandala_options')
 	let s:mandala_options = wheel#crystal#fetch('mandala/options')
 	lockvar s:mandala_options
@@ -27,6 +22,16 @@ endif
 if ! exists('s:visual_map_keys')
 	let s:visual_map_keys = wheel#crystal#fetch('visual/map/keys')
 	lockvar s:visual_map_keys
+endif
+
+if ! exists('s:mandala_autocmds_events')
+	let s:mandala_autocmds_events = wheel#crystal#fetch('mandala/autocmds/events')
+	lockvar s:mandala_autocmds_events
+endif
+
+if ! exists('s:mandala_vars')
+	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
+	lockvar s:mandala_vars
 endif
 
 " Init stack
@@ -104,10 +109,12 @@ endfun
 
 fun! wheel#layer#clear_autocmds ()
 	" Clear mandala local autocommands
-	" find a way to save & restore it
-	" if exists('#wheel#BufWriteCmd#<buffer>')
-	" 	autocmd! wheel BufWriteCmd <buffer>
-	" endif
+	for event in s:mandala_autocmds_events
+		let group_event_pattern = '#wheel#' . event . '#<buffer>'
+		if exists(group_event_pattern)
+			autocmd! wheel BufWriteCmd <buffer>
+		endif
+	endfor
 endfun
 
 fun! wheel#layer#clear_vars ()
@@ -154,6 +161,11 @@ endfun
 
 fun! wheel#layer#save_autocmds ()
 	" Save autocommands
+	let autodict = {}
+	for event in s:mandala_autocmds_events
+		let autodict[event] = wheel#gear#autocmds (event)
+	endfor
+	return autodict
 endfun
 
 " Restoring things
@@ -193,8 +205,20 @@ fun! wheel#layer#restore_maps (mapdict)
 	endfor
 endfun
 
-fun! wheel#layer#restore_autocmds ()
+fun! wheel#layer#restore_autocmds (autodict)
 	" Restore autocommands
+	let autodict = a:autodict
+	for event in s:mandala_autocmds_events
+		let runme = 'autocmd! wheel ' . event . ' <buffer>'
+		exe runme
+		let autocmds = autodict[event]
+		if ! empty(autocmds)
+			for elem in autocmds
+				let runme = 'autocmd wheel ' . event . ' <buffer> ' . elem
+				exe runme
+			endfor
+		endif
+	endfor
 endfun
 
 " Sync & swap
@@ -217,6 +241,8 @@ fun! wheel#layer#sync ()
 	let mappings = deepcopy(layer.mappings)
 	call wheel#layer#restore_maps (mappings)
 	" autocommands
+	let autodict = copy(layer.autocmds)
+	call wheel#layer#restore_autocmds (autodict)
 	" lines, without filtering
 	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
@@ -250,6 +276,7 @@ fun! wheel#layer#swap ()
 	" mappings
 	let swap.mappings = wheel#layer#save_maps ()
 	" autocommands
+	let swap.autocmds = wheel#layer#save_autocmds ()
 	" lines, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
@@ -314,6 +341,7 @@ fun! wheel#layer#push ()
 	" mappings
 	let layer.mappings = wheel#layer#save_maps ()
 	" autocommands
+	let layer.autocmds = wheel#layer#save_autocmds ()
 	" lines, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()

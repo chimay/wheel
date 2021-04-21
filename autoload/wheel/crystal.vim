@@ -78,19 +78,6 @@ if ! exists('s:mandala_options')
 	lockvar s:mandala_options
 endif
 
-" Mandalas variables
-
-if ! exists('s:mandala_vars')
-	let s:mandala_vars = [
-				\ 'b:wheel_lines',
-				\ 'b:wheel_address',
-				\ 'b:wheel_selected',
-				\ 'b:wheel_settings',
-				\ 'b:wheel_reload',
-				\ ]
-	lockvar s:mandala_vars
-endif
-
 " Maps in mandalas
 
 if ! exists('s:normal_map_keys')
@@ -130,6 +117,28 @@ if ! exists('s:visual_map_keys')
 				\ 'gp', 'gP',
 				\ ]
 	lockvar s:visual_map_keys
+endif
+
+" Mandala autocmds events
+
+if ! exists('s:mandala_autocmds_events')
+	let s:mandala_autocmds_events = [
+				\ 'BufWriteCmd',
+				\ ]
+	lockvar s:mandala_autocmds_events
+endif
+
+" Mandalas variables
+
+if ! exists('s:mandala_vars')
+	let s:mandala_vars = [
+				\ 'b:wheel_lines',
+				\ 'b:wheel_address',
+				\ 'b:wheel_selected',
+				\ 'b:wheel_settings',
+				\ 'b:wheel_reload',
+				\ ]
+	lockvar s:mandala_vars
 endif
 
 " Layer stack in mandalas

@@ -7,42 +7,30 @@
 fun! wheel#shape#reorder_write (level)
 	" Define reorder autocommands
 	setlocal buftype=acwrite
-	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
+	let autocommand = "autocmd wheel BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
 	let autocommand .= a:level . "')"
-	augroup wheel
-		autocmd!
-		exe autocommand
-	augroup END
+	exe autocommand
 endfun
 
 fun! wheel#shape#reorganize_write ()
 	" Define reorganize autocommands
 	setlocal buftype=acwrite
-	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
-	augroup wheel
-		autocmd!
-		exe autocommand
-	augroup END
+	let autocommand = "autocmd wheel BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
+	exe autocommand
 endfun
 
 fun! wheel#shape#reorg_tabwins_write ()
 	" Define reorg_tabwins autocommands
 	setlocal buftype=acwrite
-	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#cuboctahedron#reorg_tabwins ()"
-	augroup wheel
-		autocmd!
-		exe autocommand
-	augroup END
+	let autocommand = "autocmd wheel BufWriteCmd <buffer> call wheel#cuboctahedron#reorg_tabwins ()"
+	exe autocommand
 endfun
 
 fun! wheel#shape#grep_write ()
 	" Define grep autocommands
 	set buftype=acwrite
 	let autocommand = "autocmd BufWriteCmd <buffer> call wheel#vector#write_quickfix ()"
-	augroup wheel
-		autocmd!
-		exe autocommand
-	augroup END
+	exe autocommand
 endfun
 
 " Reorder

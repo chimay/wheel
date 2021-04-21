@@ -259,6 +259,10 @@ fun! wheel#void#init ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
 	endif
+	" define wheel auto command group
+	augroup wheel
+		autocmd!
+	augroup END
 endfu
 
 fun! wheel#void#exit ()
