@@ -73,6 +73,8 @@ fun! wheel#boomerang#menu (dictname, ...)
 	if empty(b:wheel_selected)
 		if line('.') == 1
 			if line('$') > 1
+				" default on line 2
+				" will be taken in the layer stack by push
 				call cursor(2, 1)
 			else
 				echomsg 'wheel boomerang menu : not enough lines for a default selection.'
