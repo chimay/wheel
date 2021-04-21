@@ -83,6 +83,9 @@ fun! wheel#centre#plugs ()
 	" Jumps & Changes lists
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
 	nnoremap <plug>(wheel-changes) :call wheel#sailing#changes()<cr>
+	" Yank wheel
+	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
+	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-async) :call wheel#mandala#async()<cr>
@@ -96,9 +99,6 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-reorg-tabwins) :call wheel#shape#reorg_tabwins()<cr>
 	" Grep edit mode
 	nnoremap <plug>(wheel-grep-edit) :call wheel#shape#grep_edit()<cr>
-	" Yank wheel
-	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
-	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
 	" Save (push) mandala buffer
 	nnoremap <plug>(wheel-mandala-push) :call wheel#cylinder#push()<cr>
 	" Remove (pop) mandala buffer
@@ -217,7 +217,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<m-s> <plug>(wheel-occur)'
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
-		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
+		exe nmap prefix . 't <plug>(wheel-tags)'
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'
 		" Search for files
@@ -239,6 +239,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<m-r> <plug>(wheel-reorganize)'
 		" tabs & windows
 		exe nmap prefix . '<c-r> <plug>(wheel-reorg-tabwins)'
+		" grep edit
+		exe nmap prefix . '<m-g> <plug>(wheel-grep-edit)'
 		" Save (push) mandala buffer
 		exe nmap prefix . '<tab> <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
@@ -322,6 +324,9 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-u>          <plug>(wheel-mru)'
 		exe nmap '<m-l>          <plug>(wheel-locate)'
 		exe nmap '<m-f>          <plug>(wheel-find)'
+		" Yank
+		exe nmap '<m-y>          <plug>(wheel-yank-list)'
+		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
 		" Command
 		exe nmap '<m-!>          <plug>(wheel-command)'
 		exe nmap '<m-&>          <plug>(wheel-async)'
@@ -330,9 +335,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-r>          <plug>(wheel-reorganize)'
 		" tabs & windows : visible buffers
 		exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
-		" Yank
-		exe nmap '<m-y>          <plug>(wheel-yank-list)'
-		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
+		" grep edit
+		exe nmap '<m-c-g>        <plug>(wheel-grep-edit)'
 		" Layouts
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
 		exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'

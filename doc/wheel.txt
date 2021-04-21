@@ -1447,19 +1447,12 @@ Search inside files~
 
 | Prefix + | With default prefix | Action                               |
 | -------- | ------------------- | ------------------------------------ |
-| <M-s>    | <M-w><M-s>          | Search lines in current file         |
-| <M-g>    | <M-w><M-g>          | Search in circle files with grep     |
+| s        | <M-w>s              | Search lines in current file         |
+| g        | <M-w>g              | Search in circle files with grep     |
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
-| <M-t>    | <M-w><M-t>          | Tags                                 |
+| t        | <M-w>t              | Tags                                 |
 | j        | <M-w>j              | Jumps                                |
 | c        | <M-w>c              | Changes                              |
-
-Command output buffer~
-
-| Prefix + | With default prefix | Action                      |
-| -------- | ------------------- | ----------------------------|
-| :        | <M-w>:              | Display ex or !shell output |
-| &        | <M-w>&              | Async sheel command         |
 
 Yank wheel~
 
@@ -1468,12 +1461,20 @@ Yank wheel~
 | y        | <M-w>y              | Yank wheel in list mode   |
 | p        | <M-w>p              | Yank wheel in plain mode  |
 
+Command output buffer~
+
+| Prefix + | With default prefix | Action                      |
+| -------- | ------------------- | ----------------------------|
+| :        | <M-w>:              | Display ex or !shell output |
+| &        | <M-w>&              | Async sheel command         |
+
 Reorganizing buffers~
 
 | Prefix + | With default prefix | Action                    |
 | -------- | ------------------- | ------------------------- |
 | <M-r>    | <M-w><M-r>          | Reorganize wheel elements |
 | <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
+| <M-g>    | <M-w><M-g>          | Grep edit mode            |
 
 Managing special buffers~
 
@@ -1643,6 +1644,9 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-u>          <plug>(wheel-mru)'
     exe nmap '<m-l>          <plug>(wheel-locate)'
     exe nmap '<m-f>          <plug>(wheel-find)'
+    " Yank
+    exe nmap '<m-y>          <plug>(wheel-yank-list)'
+    exe nmap '<m-p>          <plug>(wheel-yank-plain)'
     " Command
     exe nmap '<m-!>          <plug>(wheel-command)'
     exe nmap '<m-&>          <plug>(wheel-async)'
@@ -1651,9 +1655,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-r>          <plug>(wheel-reorganize)'
     " tabs & windows : visible buffers
     exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
-    " Yank
-    exe nmap '<m-y>          <plug>(wheel-yank-list)'
-    exe nmap '<m-p>          <plug>(wheel-yank-plain)'
+    " grep edit
+    exe nmap '<m-c-g>        <plug>(wheel-grep-edit)'
     " Layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
     exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
