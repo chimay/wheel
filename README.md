@@ -256,6 +256,8 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.project_markers = ['.git', '.racine-projet']
   " Locate database ; default one if left empty
   let g:wheel_config.locate_db = '~/racine/index/locate/racine.db'
+  " Grep command : :grep or :vimpgrep
+  let g:wheel_config.grep = 'grep'
 
   " Maximum number of elements in history
   let g:wheel_config.maxim.history = 50
