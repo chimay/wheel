@@ -6,6 +6,11 @@
 
 " Script vars
 
+if ! exists('s:is_mandala')
+	let s:is_mandala = wheel#crystal#fetch('is_mandala')
+	lockvar s:is_mandala
+endif
+
 if ! exists('s:selected_pattern')
 	let s:selected_pattern = wheel#crystal#fetch('selected/pattern')
 	lockvar s:selected_pattern

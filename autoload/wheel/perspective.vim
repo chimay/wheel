@@ -24,9 +24,9 @@ if ! exists('s:fold_2')
 	lockvar s:fold_2
 endif
 
-if ! exists('s:is_mandala')
-	let s:is_mandala = wheel#crystal#fetch('is_mandala')
-	lockvar s:is_mandala
+if ! exists('s:is_mandala_tabs')
+	let s:is_mandala_tabs = wheel#crystal#fetch('is_mandala/tabs')
+	lockvar s:is_mandala_tabs
 endif
 
 " Helpers
@@ -296,7 +296,7 @@ fun! wheel#perspective#tabwins ()
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
 	let isbuffer = '\m^\%(\s\|>\)'
-	let iswheel = s:is_mandala
+	let iswheel = s:is_mandala_tabs
 	for index in range(length)
 		let elem = tabs[index]
 		let fields = split(elem)
@@ -326,7 +326,7 @@ fun! wheel#perspective#tabwins_tree ()
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
 	let isbuffer = '\m^\%(\s\|>\)'
-	let iswheel = s:is_mandala
+	let iswheel = s:is_mandala_tabs
 	for index in range(length)
 		let elem = tabs[index]
 		let fields = split(elem)
