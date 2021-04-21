@@ -48,7 +48,7 @@ fun! wheel#line#coordinates ()
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
-		return v:false
+		return []
 	endif
 	let level = wheel#gear#fold_level ()
 	if level == 'torus'
@@ -92,7 +92,7 @@ fun! wheel#line#tabwin_hierarchy ()
 	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
-		return v:false
+		return []
 	endif
 	let level = wheel#gear#tabwin_level ()
 	if level == 'tab'
@@ -341,6 +341,8 @@ fun! wheel#line#tree (settings)
 		call wheel#vortex#tune('circle', coordin[1])
 	elseif length == 1
 		call wheel#vortex#tune('torus', coordin[0])
+	else
+		return v:false
 	endif
 	call wheel#vortex#jump (a:settings.use)
 	return win_getid ()
@@ -430,6 +432,9 @@ fun! wheel#line#tabwins_tree (settings)
 	" Go to tab & win given by selected
 	let settings = a:settings
 	let hierarchy = a:settings.selected
+	if empty(hierarchy)
+		return v:false
+	endif
 	let tabnum = hierarchy[0]
 	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
 		" Find matching tab
