@@ -4,9 +4,9 @@
 
 " Script vars
 
-if ! exists('s:layer_stack_fields')
-	let s:layer_stack_fields = wheel#crystal#fetch('layer/stack/fields')
-	lockvar s:layer_stack_fields
+if ! exists('s:mandala_vars')
+	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
+	lockvar s:mandala_vars
 endif
 
 " Checkers
@@ -89,7 +89,7 @@ fun! wheel#checknfix#glossaries ()
 endfun
 
 fun! wheel#checknfix#history ()
-" Check history
+	" Check history
 	let success = 1
 	let history = deepcopy(g:wheel_history)
 	let helix = wheel#helix#helix()
@@ -105,4 +105,11 @@ fun! wheel#checknfix#history ()
 		let ind += 1
 	endwhile
 	return success
+endfun
+
+fun! wheel#checknfix#mandala_vars ()
+	" Check mandala vars
+	for varname in s:mandala_vars
+		echomsg varname ': ' string({varname})
+	endfor
 endfun
