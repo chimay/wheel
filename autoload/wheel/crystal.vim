@@ -137,6 +137,7 @@ endif
 if ! exists('s:layer_stack_fields')
 	" filename : pseudo filename of the mandala
 	" options : local options
+	" mappings : mappings
 	" autocmds : local autocommands
 	" lines : lines mandala content, without filtering
 	" filtered : filtered mandala content
@@ -144,7 +145,6 @@ if ! exists('s:layer_stack_fields')
 	" address : address associated with cursor line
 	" selected : selected lines
 	" settings : mandala settings
-	" mappings : mappings
 	" reload : reload function
 	let s:layer_stack_fields = [
 				\ 'filename',

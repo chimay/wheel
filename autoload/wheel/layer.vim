@@ -14,11 +14,6 @@ if ! exists('s:mandala_options')
 	lockvar s:mandala_options
 endif
 
-if ! exists('s:layer_stack_fields')
-	let s:layer_stack_fields = wheel#crystal#fetch('layer/stack/fields')
-	lockvar s:layer_stack_fields
-endif
-
 if ! exists('s:normal_map_keys')
 	let s:normal_map_keys = wheel#crystal#fetch('normal/map/keys')
 	lockvar s:normal_map_keys
@@ -99,11 +94,6 @@ fun! wheel#layer#clear_options ()
 	setlocal nofoldenable
 endfun
 
-fun! wheel#layer#clear_vars ()
-	" Clear mandala local variables, except the layer stack
-	call wheel#gear#unlet(s:mandala_vars)
-endfun
-
 fun! wheel#layer#clear_maps ()
 	" Clear mandala local maps
 	" normal maps
@@ -120,13 +110,18 @@ fun! wheel#layer#clear_autocmds ()
 	" endif
 endfun
 
+fun! wheel#layer#clear_vars ()
+	" Clear mandala local variables, except the layer stack
+	call wheel#gear#unlet(s:mandala_vars)
+endfun
+
 fun! wheel#layer#fresh ()
 	" Fresh empty layer : clear mandala local data
 	call wheel#layer#clear_options ()
+	call wheel#layer#clear_maps ()
 	call wheel#layer#clear_autocmds ()
 	call wheel#layer#clear_vars ()
-	call wheel#layer#clear_maps ()
-	" underscore _ = no storing register
+	" delete lines -> underscore _ = no storing register
 	1,$ delete _
 endfun
 
@@ -158,6 +153,7 @@ fun! wheel#layer#save_maps ()
 endfun
 
 fun! wheel#layer#save_autocmds ()
+	" Save autocommands
 endfun
 
 " Restoring things
@@ -198,6 +194,7 @@ fun! wheel#layer#restore_maps (mapdict)
 endfun
 
 fun! wheel#layer#restore_autocmds ()
+	" Restore autocommands
 endfun
 
 " Sync & swap
@@ -220,19 +217,19 @@ fun! wheel#layer#sync ()
 	let mappings = deepcopy(layer.mappings)
 	call wheel#layer#restore_maps (mappings)
 	" autocommands
-	" all mandala content, without filtering
+	" lines, without filtering
 	let b:wheel_lines = copy(layer.lines)
 	" filtered mandala content
 	" layer.filtered should contain also the original first line, so we have
 	" to delete the first line added by :put in the replace routine
 	call wheel#mandala#replace (layer.filtered, 'delete')
-	" restore cursor position
+	" cursor position
 	call wheel#gear#restore_cursor (layer.position)
-	" restore address linked to cursor line & context
+	" address linked to cursor line & context
 	let b:wheel_address = copy(layer.address)
-	" restore selection
+	" selection
 	let b:wheel_selected = deepcopy(layer.selected)
-	" restore settings
+	" settings
 	let b:wheel_settings = deepcopy(layer.settings)
 	" reload
 	let b:wheel_reload = layer.reload
@@ -253,7 +250,7 @@ fun! wheel#layer#swap ()
 	" mappings
 	let swap.mappings = wheel#layer#save_maps ()
 	" autocommands
-	" lines content, without filtering
+	" lines, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
 		let swap.lines = getline(begin, '$')
@@ -317,7 +314,7 @@ fun! wheel#layer#push ()
 	" mappings
 	let layer.mappings = wheel#layer#save_maps ()
 	" autocommands
-	" lines content, without filtering
+	" lines, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
 		let layer.lines = getline(begin, '$')
