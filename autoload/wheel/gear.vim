@@ -229,9 +229,9 @@ fun! wheel#gear#unmap (key, ...)
 	endif
 endfun
 
-fun! wheel#gear#autocmds (event)
-	" Return a list of buffer local autocmds at event
-	let runme = 'autocmd wheel ' . a:event . ' <buffer>'
+fun! wheel#gear#autocmds (group, event)
+	" Return a list of buffer local autocmds of group at event
+	let runme = 'autocmd ' . a:group . ' ' . a:event . ' <buffer>'
 	let output = execute(runme)
 	let lines = split(output, '\n')
 	if len(lines) < 3

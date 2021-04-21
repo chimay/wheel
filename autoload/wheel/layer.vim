@@ -163,7 +163,7 @@ fun! wheel#layer#save_autocmds ()
 	" Save autocommands
 	let autodict = {}
 	for event in s:mandala_autocmds_events
-		let autodict[event] = wheel#gear#autocmds (event)
+		let autodict[event] = wheel#gear#autocmds ('wheel', event)
 	endfor
 	return autodict
 endfun
