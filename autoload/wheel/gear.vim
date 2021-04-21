@@ -2,7 +2,7 @@
 
 " Generic helpers
 
-" Script vars
+" Script constants
 
 if ! exists('s:fold_1')
 	let s:fold_1 = wheel#crystal#fetch('fold/one')

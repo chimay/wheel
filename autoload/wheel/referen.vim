@@ -2,7 +2,7 @@
 
 " Reference to objects in wheel
 
-" Script vars
+" Script constants
 
 if ! exists('s:levels')
 	let s:levels = wheel#crystal#fetch('referen/levels')

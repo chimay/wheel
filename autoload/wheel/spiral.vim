@@ -2,7 +2,7 @@
 
 " Golden ratio
 
-" Script vars
+" Script constants
 
 if ! exists('s:golden')
 	let s:golden = wheel#crystal#fetch('golden-ratio')

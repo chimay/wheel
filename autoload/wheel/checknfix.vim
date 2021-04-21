@@ -2,7 +2,7 @@
 
 " Check & fix
 
-" Script vars
+" Script constants
 
 if ! exists('s:mandala_vars')
 	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')

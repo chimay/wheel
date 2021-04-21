@@ -2,7 +2,7 @@
 
 " Enter the void, and ride the wheel
 
-" Script vars
+" Script constants
 
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')

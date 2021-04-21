@@ -2,7 +2,7 @@
 
 " Layers stack / ring in mandala buffer
 
-" Script vars
+" Script constants
 
 if ! exists('s:mandala_options')
 	let s:mandala_options = wheel#crystal#fetch('mandala/options')

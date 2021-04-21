@@ -2,7 +2,7 @@
 
 " Selection in mandalas
 
-" Script vars
+" Script constants
 
 if ! exists('s:selected_mark')
 	let s:selected_mark = wheel#crystal#fetch('selected/mark')

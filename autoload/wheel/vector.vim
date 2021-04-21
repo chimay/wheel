@@ -4,7 +4,7 @@
 " Grep
 " Quickfix
 
-" Script vars
+" Script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')

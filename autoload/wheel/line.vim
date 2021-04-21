@@ -4,7 +4,7 @@
 " - Going to an element
 " - Paste
 
-" Script vars
+" Script constants
 
 if ! exists('s:is_mandala')
 	let s:is_mandala = wheel#crystal#fetch('is_mandala')

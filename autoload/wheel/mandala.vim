@@ -10,7 +10,7 @@
 " Select
 " Trigger action
 
-" Script vars
+" Script constants
 
 if ! exists('s:mandala_empty')
 	let s:mandala_empty = wheel#crystal#fetch('mandala/empty')

@@ -2,7 +2,7 @@
 
 " Menus
 
-" Script vars
+" Script constants
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
