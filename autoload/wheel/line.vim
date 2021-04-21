@@ -31,9 +31,9 @@ fun! wheel#line#address ()
 		return cursor_line
 	else
 		let file = expand('%')
-		if file =~ '\m/wheel/[0-9]\+/tree'
+		if file =~ s:is_mandala . 'tree'
 			return wheel#line#coordinates ()
-		elseif file =~ '\m/wheel/[0-9]\+/tabwins/tree'
+		elseif file =~ s:is_mandala . 'tabwins/tree'
 			return wheel#line#tabwin_hierarchy ()
 		else
 			return v:false
