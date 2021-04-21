@@ -927,14 +927,16 @@ If you want to use a custom database when using `locate` : >
 <
 
 ------------------------------------------------------------------------------
-GREP COMMAND			    		*wheel-config-grep*
+GREP EX COMMAND			    		*wheel-config-grep*
 
-Whether to use external *:grep* or internal *:vimgrep* to grep files : >
+Whether to use internal *:vimgrep* or external *:grep* to grep files : >
 
-  let g:wheel_config.grep = 'grep'
-  " or
   let g:wheel_config.grep = 'vimgrep'
+  " or
+  let g:wheel_config.grep = 'grep'
 <
+
+Defaults to internal vimgrep, in case external grep is not available.
 
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN HISTORY		   *wheel-config-maxim-history*
