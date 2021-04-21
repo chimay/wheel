@@ -230,7 +230,7 @@ fun! wheel#gear#unmap (key, ...)
 endfun
 
 fun! wheel#gear#autocmds (event)
-	" Return a list of mandala autocmds at event
+	" Return a list of buffer local autocmds at event
 	let runme = 'autocmd wheel ' . a:event . ' <buffer>'
 	let output = execute(runme)
 	let lines = split(output, '\n')
