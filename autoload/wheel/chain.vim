@@ -162,6 +162,24 @@ fun! wheel#chain#tie (list)
 	return [list, gaps]
 endfun
 
+" Nested lists
+
+fun! wheel#chain#is_nested_list (argument)
+	" Whether argument is a nested list
+	let argument = a:argument
+	let is_nest = type(argument) == v:t_list
+	if ! is_nest
+		return v:false
+	endif
+	for elem in argument
+		let is_nest = type(elem) == v:t_list
+		if ! is_nest
+			return v:false
+		endif
+	endfor
+	return v:true
+endfun
+
 " Dictionary as nested list of items
 
 fun! wheel#chain#items2dict (items)
