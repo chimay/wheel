@@ -99,14 +99,6 @@ fun! wheel#layer#clear_options ()
 	setlocal nofoldenable
 endfun
 
-fun! wheel#layer#clear_autocmds ()
-	" Clear mandala local autocommands
-	" find a way to save & restore it
-	" if exists('#wheel#BufWriteCmd#<buffer>')
-	" 	autocmd! wheel BufWriteCmd <buffer>
-	" endif
-endfun
-
 fun! wheel#layer#clear_vars ()
 	" Clear mandala local variables, except the layer stack
 	call wheel#gear#unlet(s:mandala_vars)
@@ -120,6 +112,14 @@ fun! wheel#layer#clear_maps ()
 	call wheel#gear#unmap(s:insert_map_keys, 'i')
 endfun
 
+fun! wheel#layer#clear_autocmds ()
+	" Clear mandala local autocommands
+	" find a way to save & restore it
+	" if exists('#wheel#BufWriteCmd#<buffer>')
+	" 	autocmd! wheel BufWriteCmd <buffer>
+	" endif
+endfun
+
 fun! wheel#layer#fresh ()
 	" Fresh empty layer : clear mandala local data
 	call wheel#layer#clear_options ()
@@ -131,6 +131,16 @@ fun! wheel#layer#fresh ()
 endfun
 
 " Saving things
+
+fun! wheel#layer#save_options ()
+	" Save options
+	let ampersands = {}
+	for option in s:mandala_options
+		let runme = 'let ampersands.' . option . '=' . '&' . option
+		execute runme
+	endfor
+	return ampersands
+endfun
 
 fun! wheel#layer#save_maps ()
 	" Save maps
@@ -147,17 +157,19 @@ fun! wheel#layer#save_maps ()
 	return mapdict
 endfun
 
-fun! wheel#layer#save_options ()
-	" Save options
-	let ampersands = {}
-	for option in s:mandala_options
-		let runme = 'let ampersands.' . option . '=' . '&' . option
-		execute runme
-	endfor
-	return ampersands
+fun! wheel#layer#save_autocmds ()
 endfun
 
 " Restoring things
+
+fun! wheel#layer#restore_options (options)
+	" Restore options
+	let options = a:options
+	for optname in s:mandala_options
+		let runme = 'let &' . optname . '=' . string(options[optname])
+		execute runme
+	endfor
+endfun
 
 fun! wheel#layer#restore_maps (mapdict)
 	" Restore maps
@@ -185,13 +197,7 @@ fun! wheel#layer#restore_maps (mapdict)
 	endfor
 endfun
 
-fun! wheel#layer#restore_options (options)
-	" Restore options
-	let options = a:options
-	for optname in s:mandala_options
-		let runme = 'let &' . optname . '=' . string(options[optname])
-		execute runme
-	endfor
+fun! wheel#layer#restore_autocmds ()
 endfun
 
 " Sync & swap
@@ -205,10 +211,10 @@ fun! wheel#layer#sync ()
 	let stack = b:wheel_stack
 	let top = stack.top
 	let layer = stack.layers[top]
-	" Pseudo filename
+	" pseudo filename
 	let pseudo_file = layer.filename
 	exe 'silent file' pseudo_file
-	" Local options
+	" local options
 	call wheel#layer#restore_options (layer.options)
 	" all mandala content, without filtering
 	let b:wheel_lines = copy(layer.lines)
@@ -216,18 +222,18 @@ fun! wheel#layer#sync ()
 	" layer.filtered should contain also the original first line, so we have
 	" to delete the first line added by :put in the replace routine
 	call wheel#mandala#replace (layer.filtered, 'delete')
-	" Restore cursor position
+	" restore cursor position
 	call wheel#gear#restore_cursor (layer.position)
-	" Restore address linked to cursor line & context
+	" restore address linked to cursor line & context
 	let b:wheel_address = copy(layer.address)
-	" Restore selection
+	" restore selection
 	let b:wheel_selected = deepcopy(layer.selected)
-	" Restore settings
+	" restore settings
 	let b:wheel_settings = deepcopy(layer.settings)
-	" Restore mappings
+	" restore mappings
 	let mappings = deepcopy(layer.mappings)
 	call wheel#layer#restore_maps (mappings)
-	" Reload
+	" reload
 	let b:wheel_reload = layer.reload
 	" Tell (neo)vim the buffer is to be considered not modified
 	setlocal nomodified

@@ -56,19 +56,6 @@ if ! exists('s:mandala_empty')
 	lockvar s:mandala_empty
 endif
 
-" Mandalas variable list
-
-if ! exists('s:mandala_vars')
-	let s:mandala_vars = [
-				\ 'b:wheel_lines',
-				\ 'b:wheel_address',
-				\ 'b:wheel_selected',
-				\ 'b:wheel_settings',
-				\ 'b:wheel_reload',
-				\ ]
-	lockvar s:mandala_vars
-endif
-
 " Mandalas options
 
 if ! exists('s:mandala_options')
@@ -91,32 +78,17 @@ if ! exists('s:mandala_options')
 	lockvar s:mandala_options
 endif
 
-" Layer stack in mandalas
+" Mandalas variables
 
-if ! exists('s:layer_stack_fields')
-	" filename : pseudo filename of the mandala
-	" options : local options
-	" lines : lines mandala content, without filtering
-	" filtered : filtered mandala content
-	" position : cursor position
-	" address : address associated with cursor line
-	" selected : selected lines
-	" settings : mandala settings
-	" mappings : mappings
-	" reload : reload function
-	let s:layer_stack_fields = [
-				\ 'filename',
-				\ 'options',
-				\ 'lines',
-				\ 'filtered',
-				\ 'position',
-				\ 'address',
-				\ 'selected',
-				\ 'settings',
-				\ 'mappings',
-				\ 'reload',
+if ! exists('s:mandala_vars')
+	let s:mandala_vars = [
+				\ 'b:wheel_lines',
+				\ 'b:wheel_address',
+				\ 'b:wheel_selected',
+				\ 'b:wheel_settings',
+				\ 'b:wheel_reload',
 				\ ]
-	lockvar s:layer_stack_fields
+	lockvar s:mandala_vars
 endif
 
 " Maps in mandalas
@@ -158,6 +130,36 @@ if ! exists('s:visual_map_keys')
 				\ 'gp', 'gP',
 				\ ]
 	lockvar s:visual_map_keys
+endif
+
+" Layer stack in mandalas
+
+if ! exists('s:layer_stack_fields')
+	" filename : pseudo filename of the mandala
+	" options : local options
+	" autocmds : local autocommands
+	" lines : lines mandala content, without filtering
+	" filtered : filtered mandala content
+	" position : cursor position
+	" address : address associated with cursor line
+	" selected : selected lines
+	" settings : mandala settings
+	" mappings : mappings
+	" reload : reload function
+	let s:layer_stack_fields = [
+				\ 'filename',
+				\ 'options',
+				\ 'mappings',
+				\ 'autocmds',
+				\ 'lines',
+				\ 'filtered',
+				\ 'position',
+				\ 'address',
+				\ 'selected',
+				\ 'settings',
+				\ 'reload',
+				\ ]
+	lockvar s:layer_stack_fields
 endif
 
 " Folds in mandalas
