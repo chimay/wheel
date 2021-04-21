@@ -781,6 +781,7 @@ Prefix					|wheel-config-prefix|
 Cd project				|wheel-config-cd_project|
 Project markers				|wheel-config-project_markers|
 Locate database				|wheel-config-locate-db|
+Grep ex command				|wheel-config-grep|
 Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max MRU					|wheel-config-maxim-mru|
@@ -1098,6 +1099,20 @@ Auto update			|wheel-autocommands-auto-update|
 MRU files			|wheel-autocommands-mru-files|
 Yank wheel			|wheel-autocommands-yank|
 Example				|wheel-autocommands-example|
+
+------------------------------------------------------------------------------
+AUTO GROUP				*wheel-autocommands-autogroup*
+
+The autogroup `wheel` is used for special buffers local autocommands. If you
+want to group all your wheel autocommands, you have to choose another name, or
+make some letter uppercase, e.g. : >
+
+    augroup Wheel
+	autocmd ...
+	autocmd ...
+	...
+    augroup END
+<
 
 ------------------------------------------------------------------------------
 AUTO READ				*wheel-autocommands-auto-read*

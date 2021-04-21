@@ -2,6 +2,13 @@
 
 " Reshaping buffers
 
+" Script vars
+
+if ! exists('s:is_mandala')
+	let s:is_mandala = wheel#crystal#fetch('is_mandala')
+	lockvar s:is_mandala
+endif
+
 " Write commands
 
 fun! wheel#shape#reorder_write (level)
@@ -97,16 +104,25 @@ fun! wheel#shape#grep_edit (...)
 	if a:0 > 0
 		let pattern = a:1
 	else
-		" called from context menu,
-		" original pattern is at the top of the stack
-		let settings = wheel#layer#top_field ('settings')
-		let pattern = settings.pattern
+		let file = expand('%')
+		if file =~ s:is_mandala . 'context/grep'
+			" called from context menu,
+			" original pattern is at the top of the stack
+			let settings = wheel#layer#top_field ('settings')
+			let pattern = settings.pattern
+		else
+			let pattern = input('Grep circle files for pattern [edit mode] : ')
+		endif
 	endif
 	if a:0 > 1
 		let sieve = a:2
 	else
-		let settings = wheel#layer#top_field ('settings')
-		let sieve = settings.sieve
+		if file =~ s:is_mandala . 'context/grep'
+			let settings = wheel#layer#top_field ('settings')
+			let sieve = settings.sieve
+		else
+			let sieve = '\m.'
+		endif
 	endif
 	let lines = wheel#perspective#grep (pattern, sieve)
 	if type(lines) == v:t_list

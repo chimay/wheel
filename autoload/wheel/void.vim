@@ -114,7 +114,7 @@ fun! wheel#void#yank ()
 	endif
 endfun
 
-fun! wheel#void#buffers ()
+fun! wheel#void#mandalas ()
 	" Initialize mandala buffers
 	if ! exists('g:wheel_mandalas')
 		let g:wheel_mandalas = {}
@@ -220,7 +220,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#attic ()
 	call wheel#void#wave ()
 	call wheel#void#yank ()
-	call wheel#void#buffers ()
+	call wheel#void#mandalas ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 endfun
