@@ -58,7 +58,7 @@ fun! wheel#wave#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
 	setlocal bufhidden=hide
-	call wheel#mandala#pseudo_filename(a:mandala_type)
+	call wheel#mandala#filename(a:mandala_type)
 	let b:wheel_lines = []
 endfun
 

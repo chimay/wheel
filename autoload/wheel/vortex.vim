@@ -152,7 +152,7 @@ endfun
 " Switch : tune and jump
 
 fun! wheel#vortex#switch (level, ...)
-	" Switch element
+	" Switch to element with completion
 	" Optional argument 0 : name of element
 	" Optional argument 1 : jump mode
 	call wheel#vortex#update ()

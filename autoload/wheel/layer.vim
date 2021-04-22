@@ -432,3 +432,26 @@ fun! wheel#layer#backward ()
 	let b:wheel_stack.top = wheel#gear#circular_plus (top, length)
 	call wheel#status#layer ()
 endfun
+
+" Switch
+
+fun! wheel#layer#switch (...)
+	" Switch to layer with completion
+	let prompt = 'Switch to layer : '
+	let complete =  'custom,wheel#complete#layer'
+	if a:0 > 0
+		let name = a:1
+	else
+		let name = input(prompt, '', complete)
+	endif
+	let name = wheel#mandala#pseudo (name)
+	let filenames = wheel#layer#stack ('filename')
+	let stack = b:wheel_stack
+	let top = index(filenames, name)
+	if top < 0
+		return v:false
+	endif
+	let stack.top = top
+	call wheel#layer#swap ()
+	call wheel#status#layer ()
+endfun

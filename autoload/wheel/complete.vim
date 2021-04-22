@@ -40,7 +40,7 @@ fun! wheel#complete#mandala_list ()
 	return types
 endfun
 
-" Main routines
+" Wheel elements
 
 fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	" Complete torus name
@@ -74,13 +74,15 @@ fun! wheel#complete#location (arglead, cmdline, cursorpos)
 	endif
 endfu
 
-fun! wheel#complete#layer ()
+" Mandalas
+
+fun! wheel#complete#layer (arglead, cmdline, cursorpos)
 	" Complete layer in stack
 	let layers = wheel#complete#layer_list ()
 	return join(layers, "\n")
 endfun
 
-fun! wheel#complete#mandala ()
+fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	" Complete mandala in stack
 	let mandalas = wheel#complete#mandala_list ()
 	return join(mandalas, "\n")

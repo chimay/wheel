@@ -211,3 +211,26 @@ fun! wheel#cylinder#backward ()
 	call wheel#cylinder#recall ()
 	call wheel#status#cylinder ()
 endfun
+
+" Switch
+
+fun! wheel#cylinder#switch ()
+	" Switch to mandala with completion
+	let prompt = 'Switch to mandala : '
+	let complete =  'custom,wheel#complete#mandala'
+	if a:0 > 0
+		let name = a:1
+	else
+		let name = input(prompt, '', complete)
+	endif
+	let name = wheel#mandala#pseudo (name)
+	let bufnums = copy(g:wheel_mandalas.stack)
+	let filenames = map(bufnums, {_,v->bufname(v)})
+	echo name filenames
+	return
+	let mandala = index(filenames, name)
+	if mandala < 0
+		return v:false
+	endif
+	call wheel#status#cylinder ()
+endfun

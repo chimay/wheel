@@ -290,7 +290,7 @@ fun! wheel#sailing#outline (...)
 		let lines = wheel#sailing#grep ('^=.*=$', '\.wiki$')
 	endif
 	if ! empty(lines)
-		call wheel#mandala#pseudo_filename ('outline')
+		call wheel#mandala#filename ('outline')
 		" Reload
 		let b:wheel_reload = "wheel#sailing#outline('" . mode . "')"
 	endif

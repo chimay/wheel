@@ -51,18 +51,22 @@ endfun
 
 " Mandala pseudo filename
 
-fun! wheel#mandala#pseudo_filename (mandala_type)
-	" Set buffer filename to pseudo filename /wheel/<buf-id>/<type>
+fun! wheel#mandala#pseudo (type)
+	" Return pseudo filename /wheel/<buf-id>/<type>
 	" Useful as information
 	" We also need a name when writing, even with BufWriteCmd
 	" Add unique buf id, so (n)vim does not complain about
 	" existing filename
-	let type = a:mandala_type
+	let type = a:type
 	let current = g:wheel_mandalas.current
 	let iden = g:wheel_mandalas.iden[current]
-	let pseudo_filename = '/wheel/' . iden . '/' . type
-	exe 'silent file' pseudo_filename
-	return pseudo_filename
+	let pseudo = '/wheel/' . iden . '/' . type
+	return pseudo
+endfun
+
+fun! wheel#mandala#filename (type)
+	" Set buffer filename to pseudo filename
+	exe 'silent file' wheel#mandala#pseudo (a:type)
 endfun
 
 fun! wheel#mandala#type (...)
@@ -79,7 +83,7 @@ endfun
 
 fun! wheel#mandala#set_empty ()
 	" Tell wheel to consider this mandala as an empty buffer
-	call wheel#mandala#pseudo_filename ('empty')
+	call wheel#mandala#filename ('empty')
 endfun
 
 fun! wheel#mandala#is_empty (...)
@@ -112,7 +116,7 @@ fun! wheel#mandala#open (type)
 		new
 		call wheel#cylinder#push ('linger')
 	endif
-	call wheel#mandala#pseudo_filename (type)
+	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
 endfun
 

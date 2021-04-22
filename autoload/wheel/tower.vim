@@ -46,7 +46,7 @@ fun! wheel#tower#staircase (settings)
 	call wheel#layer#init ()
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#chain#items2keys (items)
-	call wheel#mandala#pseudo_filename (dictname)
+	call wheel#mandala#filename (dictname)
 	call wheel#mandala#replace (lines, 'blank')
 	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
