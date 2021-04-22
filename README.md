@@ -304,7 +304,7 @@ then answer :
 map <Plug>(wheel-
 ~~~
 
-to the prompt. You can then browse the plug wheel maps in a special
+to the prompt. You can then browse the plug wheel maps in a dedicated
 wheel buffer.
 
 To see mapped keys, you can also use `<M-w>:`, and answer :

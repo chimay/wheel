@@ -1313,7 +1313,7 @@ then answer : >
     map <Plug>(wheel-
 <
 
-to the prompt. You can then browse the plug wheel maps in a special
+to the prompt. You can then browse the plug wheel maps in a dedicated
 wheel buffer. It's only a command output collector though, you can't
 launch any map from there.
 
