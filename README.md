@@ -343,17 +343,14 @@ nmap <c-space>    <plug>(wheel-navigation-circle)
 nmap <s-space>    <plug>(wheel-navigation-torus)
 nmap <m-x>        <plug>(wheel-tree)
 nmap <m-h>        <plug>(wheel-history)
-" Opened files
-nmap <m-b>          <plug>(wheel-opened-files)
 " Search for files
 nmap <m-u>          <plug>(wheel-mru)
 nmap <m-l>          <plug>(wheel-locate)
 nmap <m-f>          <plug>(wheel-find)
+" Buffers
+nmap <m-b>          <plug>(wheel-buffers)
 " Tabs & windows : visible buffers in tree mode
 nmap <m-v>          <plug>(wheel-tabwins-tree)
-" Yank
-nmap <m-y>          <plug>(wheel-yank-list)
-nmap <m-p>          <plug>(wheel-yank-plain)
 " Search inside files
 nmap <m-s>          <plug>(wheel-occur)
 nmap <m-g>          <plug>(wheel-grep)
@@ -361,10 +358,15 @@ nmap <m-o>          <plug>(wheel-outline)
 nmap <m-t>          <plug>(wheel-tags)
 nmap <m-j>          <plug>(wheel-jumps)
 nmap <m-c>          <plug>(wheel-changes)
+" Yank
+nmap <m-y>          <plug>(wheel-yank-list)
+nmap <m-p>          <plug>(wheel-yank-plain)
 " Reorganize the wheel : toruses, circles and locations
 nmap <m-r>          <plug>(wheel-reorganize)
 " Reorganize tabs & windows
 nmap <m-c-r>        <plug>(wheel-reorg-tabwins)
+" Grep in edit mode
+nmap <m-c-g>        <plug>(wheel-grep-edit)
 " Command output in special buffer
 nmap <m-!>          <plug>(wheel-command)
 nmap <m-&>          <plug>(wheel-async)
