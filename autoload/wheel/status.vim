@@ -22,12 +22,13 @@ fun! wheel#status#dashboard ()
 		else
 			let string = 'Empty wheel'
 		endif
-		echomsg string
+		" echo
+		echo string
 		redraw!
 	endif
 endfun
 
-" Layer status in mandala buffer
+" Layer stack status
 
 fun! wheel#status#layer ()
 	" Layer dashboard
@@ -41,8 +42,30 @@ fun! wheel#status#layer ()
 	call insert(types, title, top)
 	" reverse to have previous on the left and next on the right
 	call reverse(types)
-	" return
-	return join(types)
+	" echo
+	echo 'Layers : ' . join(types)
+	redraw!
+endfun
+
+" Mandala stack status
+
+fun! wheel#status#cylinder ()
+	" Layer dashboard
+	" layers types
+	let bufnums = g:wheel_mandalas.stack
+	let current = g:wheel_mandalas.current
+	let types = []
+	for index in range(len(bufnums))
+		let num = bufnums[index]
+		let title = wheel#mandala#type(bufname(num))
+		if index == current
+			let title = '[' . title . ']'
+		endif
+		call add(types, title)
+	endfor
+	" echo
+	redraw!
+	echo 'Mandalas : ' . join(types)
 endfun
 
 " Tab line

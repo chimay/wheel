@@ -40,7 +40,7 @@ fun! wheel#cylinder#first (...)
 	if mode == 'goback'
 		silent buffer #
 	endif
-	echomsg 'Buffer' novice 'added to mandala stack with iden' 0
+	"echomsg 'Buffer' novice 'added to mandala stack with iden' 0
 endfun
 
 fun! wheel#cylinder#push (...)
@@ -89,7 +89,7 @@ fun! wheel#cylinder#push (...)
 	if ! in_mandala_buf
 		silent buffer #
 	endif
-	echomsg 'Buffer' novice 'added to mandala stack with iden' novice_iden
+	"echomsg 'Buffer' novice 'added to mandala stack with iden' novice_iden
 	return v:true
 endfun
 
@@ -120,7 +120,8 @@ fun! wheel#cylinder#pop ()
 		exe 'silent buffer' goto
 	endif
 	exe 'silent bwipe!' removed
-	echomsg 'Buffer' removed 'removed'
+	"echomsg 'Buffer' removed 'removed'
+	call wheel#status#cylinder ()
 	return removed
 endfun
 
@@ -190,6 +191,7 @@ fun! wheel#cylinder#forward ()
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
+	call wheel#status#cylinder ()
 endfun
 
 fun! wheel#cylinder#backward ()
@@ -207,4 +209,5 @@ fun! wheel#cylinder#backward ()
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
+	call wheel#status#cylinder ()
 endfun

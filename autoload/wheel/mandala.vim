@@ -74,6 +74,7 @@ fun! wheel#mandala#type (...)
 		let filename = expand('%')
 	endif
 	let type = substitute(filename, s:is_mandala, '', '')
+	let type = substitute(type, '\s.*', '', '')
 	return type
 endfun
 

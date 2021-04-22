@@ -399,6 +399,7 @@ fun! wheel#layer#pop ()
 	if stack.top >= length
 		let stack.top = length - 1
 	endif
+	call wheel#status#layer ()
 endfun
 
 " Forward & backward
@@ -415,8 +416,7 @@ fun! wheel#layer#forward ()
 	let length = wheel#layer#length ()
 	let stack.top = wheel#gear#circular_minus (top, length)
 	call wheel#layer#swap ()
-	redraw!
-	echo wheel#status#layer ()
+	call wheel#status#layer ()
 endfun
 
 fun! wheel#layer#backward ()
@@ -430,6 +430,5 @@ fun! wheel#layer#backward ()
 	let top = b:wheel_stack.top
 	let length = wheel#layer#length ()
 	let b:wheel_stack.top = wheel#gear#circular_plus (top, length)
-	redraw!
-	echo wheel#status#layer ()
+	call wheel#status#layer ()
 endfun

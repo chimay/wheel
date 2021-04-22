@@ -984,7 +984,7 @@ MAX LAYERS IN SPECIAL BUFFERS		    *wheel-config-maxim-layers*
 
 Maximum size of layer stack in special buffers : >
 
-	let g:wheel_config.maxim.layers = 10
+	let g:wheel_config.maxim.layers = 5
 <
 
 ------------------------------------------------------------------------------
