@@ -1554,9 +1554,9 @@ with `<M-w>z`.
 ------------------------------------------------------------------------------
 LEVEL 10					*wheel-mappings-level-10*
 
-The level 10 offers quicker mappings for the most used wheel functions. You
-can set the mapping level to 10 to activate them, or adapt them to your taste
-and add them to your init file.
+The level 10 offers mappings without prefix for the most used wheel
+functions. You can set the mapping level to 10 to activate them, or
+adapt them to your taste and add them to your init file.
 
 | Mapping        | Action                                        |
 | -------------- | --------------------------------------------- |

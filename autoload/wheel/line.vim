@@ -215,8 +215,6 @@ endfun
 
 " Navigation
 
-" Generic function
-
 fun! wheel#line#sailing (settings)
 	" Go to element(s) on cursor line or selected line(s)
 	" settings keys :
