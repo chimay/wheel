@@ -267,7 +267,7 @@ if ! exists('s:menu_navigation')
 				\ ['go to circle in index' ,  'wheel#sailing#grid'],
 				\ ['go to element in wheel tree' ,  'wheel#sailing#tree'],
 				\ ['go to location in history' ,  'wheel#sailing#history'],
-				\ ['go to opened file (buffer)' ,  'wheel#sailing#opened_files'],
+				\ ['go to buffer' ,  'wheel#sailing#buffers'],
 				\ ['go to most recently used file (mru)' ,  'wheel#sailing#attic'],
 				\ ['go to result of locate search' ,  'wheel#sailing#locate'],
 				\ ['go to result of find search' ,  'wheel#sailing#find'],
@@ -449,13 +449,13 @@ if ! exists('s:context_sailing')
 	lockvar s:context_sailing
 endif
 
-if ! exists('s:context_opened_files')
-	let s:context_opened_files = s:context_sailing + [
-				\ ['delete' ,  "wheel#boomerang#opened_files('delete')"],
-				\ ['unload' ,  "wheel#boomerang#opened_files('unload')"],
-				\ ['wipe' ,  "wheel#boomerang#opened_files('wipe')"],
+if ! exists('s:context_buffers')
+	let s:context_buffers = s:context_sailing + [
+				\ ['delete' ,  "wheel#boomerang#buffers('delete')"],
+				\ ['unload' ,  "wheel#boomerang#buffers('unload')"],
+				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
 				\]
-	lockvar s:context_opened_files
+	lockvar s:context_buffers
 endif
 
 if ! exists('s:context_tabwins')

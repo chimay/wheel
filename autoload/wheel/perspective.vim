@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Content generators for mandala
+" Content generators for mandalas
 
 " Script constants
 
@@ -32,7 +32,7 @@ endif
 " Helpers
 
 fun! wheel#perspective#execute (runme, ...)
-	" Ex or system command for mandala buffer
+	" Ex or system command
 	if a:0 > 0
 		let Execute = a:1
 	else
@@ -88,7 +88,7 @@ endfun
 " From referen
 
 fun! wheel#perspective#switch (level)
-	" Content for switch mandala
+	" Switch level = torus, circle or location
 	let level = a:level
 	let upper = wheel#referen#upper (level)
 	if ! empty(upper) && ! empty(upper.glossary)
@@ -101,7 +101,7 @@ endfun
 " From helix
 
 fun! wheel#perspective#helix ()
-	" Locations index for wheel buffer
+	" Locations index
 	" Each coordinate is a string torus > circle > location
 	let helix = wheel#helix#helix ()
 	let lines = []
@@ -113,7 +113,7 @@ fun! wheel#perspective#helix ()
 endfu
 
 fun! wheel#perspective#grid ()
-	" Circle index for wheel buffer
+	" Circle index
 	" Each coordinate is a string torus > circle
 	let grid = wheel#helix#grid ()
 	let lines = []
@@ -125,7 +125,7 @@ fun! wheel#perspective#grid ()
 endfu
 
 fun! wheel#perspective#tree ()
-	" Tree representation of the wheel for wheel buffer
+	" Tree representation of the wheel
 	let lines = []
 	for torus in g:wheel.toruses
 		let entry = torus.name . s:fold_1
@@ -163,7 +163,7 @@ endfu
 " From pendulum
 
 fun! wheel#perspective#history ()
-	" Sorted history index for wheel buffer
+	" Sorted history index
 	" Each entry is a string : date hour | torus > circle > location
 	let history = deepcopy(g:wheel_history)
 	let Compare = function('wheel#pendulum#compare')
@@ -183,7 +183,7 @@ endfu
 " From vector
 
 fun! wheel#perspective#grep (pattern, sieve)
-	" Quickfix list for wheel buffer
+	" Quickfix list
 	" Each line has the format :
 	" err-number | buffer-number | file | line | col | text
 	let bool = wheel#vector#grep (a:pattern, a:sieve)
@@ -212,7 +212,7 @@ endfun
 " From symbol
 
 fun! wheel#perspective#tags ()
-	" Tags for special buffer
+	" Tags
 	let table = wheel#symbol#table ()
 	let lines = []
 	for record in table
@@ -225,7 +225,7 @@ endfun
 " From attic
 
 fun! wheel#perspective#mru ()
-	" Sorted most recenty used files for wheel buffer
+	" Sorted most recenty used files
 	" Each entry is a string : date hour | filename
 	let attic = deepcopy(g:wheel_attic)
 	let Compare = function('wheel#pendulum#compare')
@@ -245,7 +245,7 @@ endfu
 " From codex
 
 fun! wheel#perspective#yank (mode)
-	" Yanks for wheel buffer
+	" Yank wheel
 	let lines = []
 	if a:mode == 'list'
 		for elem in g:wheel_yank
@@ -265,7 +265,7 @@ endfun
 
 " From nowhere
 
-fun! wheel#perspective#opened_files ()
+fun! wheel#perspective#buffers ()
 	" Opened files
 	let buffers = execute('buffers')
 	let buffers = split(buffers, "\n")
@@ -346,7 +346,7 @@ fun! wheel#perspective#tabwins_tree ()
 endfun
 
 fun! wheel#perspective#occur (pattern)
-	" Occur for wheel buffer
+	" Occur
 	let pattern = a:pattern
 	let position = getcurpos()
 	let runme = 'global /' . pattern . '/number'
@@ -361,7 +361,7 @@ fun! wheel#perspective#occur (pattern)
 endfun
 
 fun! wheel#perspective#locate (pattern)
-	" Locate for wheel buffer
+	" Locate
 	let pattern = a:pattern
 	let database = g:wheel_config.locate_db
 	if empty(database)

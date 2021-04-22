@@ -81,6 +81,7 @@ fun! wheel#vector#argdo (command, ...)
 endfun
 
 fun! wheel#vector#batch (...)
+	" Interactive wrapper for wheel#vector#argdo
 	if a:0 > 0
 		let command = a:1
 	else
@@ -134,7 +135,7 @@ endfun
 " Propagate changes in quickfix
 
 fun! wheel#vector#cdo (newlines)
-	" Apply change of current line in quickfix special buffer
+	" Apply change of current line in grep edit mode
 	let newlines = a:newlines
 	if ! empty(newlines)
 		let line = remove(newlines, 0)
@@ -145,7 +146,7 @@ fun! wheel#vector#cdo (newlines)
 endfun
 
 fun! wheel#vector#write_quickfix ()
-	" Apply changes done in quickfix special buffer
+	" Apply changes done in grep mandala
 	" Confirm
 	let prompt = 'Propagate changes to grepped files ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)

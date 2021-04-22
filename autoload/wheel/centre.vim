@@ -66,8 +66,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-tree) :call wheel#sailing#tree()<cr>
 	"History
 	nnoremap <plug>(wheel-history) :call wheel#sailing#history()<cr>
-	" Opened files
-	nnoremap <plug>(wheel-opened-files) :call wheel#sailing#opened_files()<cr>
+	" Buffers
+	nnoremap <plug>(wheel-buffers) :call wheel#sailing#buffers()<cr>
 	" Tabs
 	nnoremap <plug>(wheel-tabwins) :call wheel#sailing#tabwins()<cr>
 	nnoremap <plug>(wheel-tabwins-tree) :call wheel#sailing#tabwins_tree()<cr>
@@ -221,7 +221,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'
 		" Search for files
-		exe nmap prefix . '<m-b> <plug>(wheel-opened-files)'
+		exe nmap prefix . '<m-b> <plug>(wheel-buffers)'
 		exe nmap prefix . '<m-m> <plug>(wheel-mru)'
 		exe nmap prefix . '<m-l> <plug>(wheel-locate)'
 		exe nmap prefix . '<m-f> <plug>(wheel-find)'
@@ -309,8 +309,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-x>          <plug>(wheel-tree)'
 		exe nmap '<m-c-x>        <plug>(wheel-index-locations)'
 		exe nmap '<m-h>          <plug>(wheel-history)'
-		" Opened files
-		exe nmap '<m-b>          <plug>(wheel-opened-files)'
+		" Buffers
+		exe nmap '<m-b>          <plug>(wheel-buffers)'
 		" Tabs & windows : visible buffers
 		exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
 		" Search inside files

@@ -61,7 +61,7 @@ fun! wheel#cylinder#push (...)
 	" Not the first one
 	" Is current buffer a mandala buffer ?
 	let in_mandala_buf = wheel#cylinder#is_mandala ()
-	" Old current special buffer
+	" Previous current mandala
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
 	" New buffer
@@ -105,7 +105,7 @@ fun! wheel#cylinder#pop ()
 	endif
 	" Do not pop one element stack
 	if len(mandalas) == 1
-		echomsg 'wheel mandala pop :' mandalas[0] 'is the last remaining wheel special buffer'
+		echomsg 'wheel mandala pop :' mandalas[0] 'is the last remaining special buffer'
 		return v:false
 	endif
 	" Pop
@@ -143,7 +143,7 @@ fun! wheel#cylinder#recall ()
 		" no need to split
 		exe 'silent buffer' goto
 	elseif winum >= 0
-		" if the special buf is already visible in a window,
+		" if the mandala is already visible in a window,
 		" just go to it
 		exe winum . 'wincmd w'
 	else

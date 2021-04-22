@@ -163,18 +163,18 @@ fun! wheel#sailing#history ()
 	let b:wheel_reload = 'wheel#sailing#history'
 endfun
 
-fun! wheel#sailing#opened_files ()
+fun! wheel#sailing#buffers ()
 	" Opened files
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#opened_files ()
+	let lines = wheel#perspective#buffers ()
 	call wheel#vortex#update ()
 	" mandala buffer
 	call wheel#mandala#open ('buffers')
-	let settings = {'action' : function('wheel#line#opened_files')}
+	let settings = {'action' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" Reload
-	let b:wheel_reload = 'wheel#sailing#opened_files'
+	let b:wheel_reload = 'wheel#sailing#buffers'
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('opened/files')<cr>
 endfun

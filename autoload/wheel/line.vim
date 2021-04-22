@@ -214,7 +214,7 @@ fun! wheel#line#sailing (settings)
 	" settings keys :
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
-	" - close : whether to close special buffer
+	" - close : whether to close mandala
 	" - action : navigation function name or funcref
 	let settings = copy(a:settings)
 	if has_key(settings, 'target')
@@ -369,7 +369,7 @@ fun! wheel#line#history (settings)
 	return win_getid ()
 endfun
 
-fun! wheel#line#opened_files (settings)
+fun! wheel#line#buffers (settings)
 	" Go to opened file given by selected
 	let settings = a:settings
 	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'sailing'
