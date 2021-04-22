@@ -1497,12 +1497,13 @@ Reorganizing buffers~
 
 Managing dedicated buffers~
 
-| Prefix +    | With default prefix | Action                            |
-| --------    | ------------------- | --------------------------------- |
-| <Tab>       | <M-w><Tab>          | Save (push) dedicated buffer        |
-| <Backspace> | <M-w><Backspace>    | Remove (pop) dedicated buffer       |
-| @           | <M-w>@              | Cycle dedicated buffers, rightward  |
-| <M-@>       | <M-w><M-@>          | Cycle dedicated buffers, leftward   |
+| Prefix +    | With default prefix | Action                             |
+| --------    | ------------------- | ---------------------------------  |
+| <Tab>       | <M-w><Tab>          | Save (push) dedicated buffer       |
+| <Backspace> | <M-w><Backspace>    | Remove (pop) dedicated buffer      |
+| <M-Space>   | <M-w><M-Space>      | Switch to another dedicated buffer |
+| @           | <M-w>@              | Cycle dedicated buffers, rightward |
+| <M-@>       | <M-w><M-@>          | Cycle dedicated buffers, leftward  |
 
 Layouts~
 
