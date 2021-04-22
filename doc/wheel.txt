@@ -5,7 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
-Special buffers			|wheel-special-buffers|
+Dedicated buffers			|wheel-special-buffers|
 Batch mode			|wheel-batch-operations|
 Configuration			|wheel-configuration|
 Autocommands			|wheel-autocommands|
@@ -27,7 +27,7 @@ History				|wheel-introduction-history|
 WHAT IS IT					*wheel-introduction-what*
 
 Wheel is a navigation plugin for Vim or Neovim. It makes abundant use
-of special buffers, in which you can filter and select elements.
+of dedicated buffers, in which you can filter and select elements.
 
 ------------------------------------------------------------------------------
 BUFFER GROUPS				*wheel-introduction-buffer-groups*
@@ -82,7 +82,7 @@ FEATURES				*wheel-introduction-features*
 - Easy navigation
   + Switch to matching tab & window if available
   + Next / Previous location, circle or torus
-  + Choose file, group or category in special buffer
+  + Choose file, group or category in dedicated buffer
     * Filter candidates
     * Folds matching wheel tree structure
     * Context menus
@@ -110,7 +110,7 @@ FEATURES				*wheel-introduction-features*
 - Reorganizing
   + Wheel elements
   + Tabs & windows
-- Special buffers stack to save your searches
+- Dedicated buffers stack to save your searches
 - Display files
   + Split levels : torus, circle, location
   + Split
@@ -243,7 +243,7 @@ You can switch :
 - circle with completion with `<M-w><C-Enter>`
 - torus with completion with `<M-w><S-Enter>`
 
-Switch using a special buffer~
+Switch using a dedicated buffer~
 
 You can also switch location, circle or torus by chosing it in a wheel
 navigation buffer. See |wheel-special-buffers-navigation|.
@@ -280,7 +280,7 @@ Circle Fruits | Apple           | Pear
 at your fingertips.
 
 ==============================================================================
-SPECIAL BUFFERS					    *wheel-special-buffers*
+dedicated bufferS					    *wheel-special-buffers*
 
 Introduction			|wheel-special-buffers-introduction|
 Layer stack			|wheel-special-buffers-layers|
@@ -300,7 +300,7 @@ Command output buffer		|wheel-special-buffers-command|
 ------------------------------------------------------------------------------
 INTRODUCTION				*wheel-special-buffers-introduction*
 
-Special buffers allow you to perform Wheel operations intuitively, using
+Dedicated buffers allow you to perform Wheel operations intuitively, using
 full power of your editor : search, yank, paste, completion, and so on.
 
 The available actions depend on the buffer type :
@@ -320,7 +320,7 @@ The available actions depend on the buffer type :
 
 Mandala~
 
-A mandala is a synonym for a wheel special buffer.
+A mandala is a synonym for a wheel dedicated buffer.
 
 Wrapping up things~
 
@@ -331,7 +331,7 @@ In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
 
 Filtering~
 
-In most special buffers, the first line is left empty : it is used as
+In most dedicated buffers, the first line is left empty : it is used as
 an input line to filter the buffer. You can go to insert mode and filter
 the elements with each word you enter on the input (first) line. Typing
 `<space>`, `<esc>` or `<enter>` will update the candidates. Note that `<C-c>`
@@ -360,12 +360,12 @@ Action~
 
 The main keys are :
 
-- `<enter>` : trigger the default action, close the special buffer
-- `g<enter>` : trigger the default action, leave the special buffer opened
+- `<enter>` : trigger the default action, close the dedicated buffer
+- `g<enter>` : trigger the default action, leave the dedicated buffer opened
 
 Select entries~
 
-Some special buffers will act on selected entries. You can hit :
+Some dedicated buffers will act on selected entries. You can hit :
 
 - `<space>` to toggle the selection of a line
 - `&` to invert the selection of all visible lines
@@ -374,16 +374,16 @@ Some special buffers will act on selected entries. You can hit :
 
 Reload~
 
-Press `r` and the special buffer will reload its content.
+Press `r` and the dedicated buffer will reload its content.
 
-Available on most special buffers.
+Available on most dedicated buffers.
 
 ------------------------------------------------------------------------------
 LAYER STACK				*wheel-special-buffers-layers*
 
-Each time you launch a wheel function involving a special buffer, a new
+Each time you launch a wheel function involving a dedicated buffer, a new
 associated layer is added to a stack local to the buffer. You may see it
-as a kind of special buffer history. You can :
+as a kind of dedicated buffer history. You can :
 
 - go back to the previous layer (and associated wheel function) by pressing `H`
 - go forward to the next layer by pressing `L`
@@ -395,23 +395,23 @@ The maximum size of the layer stack is determined by `g:wheel_config.maxim.layer
 ------------------------------------------------------------------------------
 BUFFERS STACK				*wheel-special-buffers-stack*
 
-Wheel manages a special buffers stack. You can :
+Wheel manages a dedicated buffers stack. You can :
 
-- push a new special buffer as default one with `<M-w><Tab>`
-- switch to another special buffer with `<M-w><M-Space>`
-- cycle the special buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
-- remove the current special buffer with `<M-w><Backspace>`
+- push a new dedicated buffer as default one with `<M-w><Tab>`
+- switch to another dedicated buffer with `<M-w><M-Space>`
+- cycle the dedicated buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
+- remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
 
 So, there are two stack levels :
 
-- a layer stack in each special buffer
+- a layer stack in each dedicated buffer
 - a buffer stack
 
 ------------------------------------------------------------------------------
 MENU BUFFERS				*wheel-special-buffers-menus*
 
-Each menu has its own dedicated special buffer. You can filter the menu
+Each menu has its own dedicated dedicated buffer. You can filter the menu
 lines by entering words in insert mode.
 
 Action~
@@ -425,7 +425,7 @@ Main menu~
 
 The main menu is triggered with `<M-w>m` by default. From there, you
 can launch the action you want by pressing `<enter>` on its line. Same
-thing for `g<enter>`, but it will leave the special buffer opened.
+thing for `g<enter>`, but it will leave the dedicated buffer opened.
 
 The available actions are grouped by themes and folded. Just open a fold to
 access its content.
@@ -457,7 +457,7 @@ In these sub-menus, you can use the keys :
 ------------------------------------------------------------------------------
 CONTEXT MENUS				*wheel-special-buffers-context*
 
-Some special buffers have context menu support. In that case, pressing
+Some dedicated buffers have context menu support. In that case, pressing
 `<tab>` will open a menu where you can choose the action you want to
 apply to the selected or cursor line(s).
 
@@ -680,7 +680,7 @@ FIND BUFFER				*wheel-special-buffers-find*
 Search files with find.
 
 It runs in async mode. You can stop the process by using `<c-s>` in the
-special buffer.
+dedicated buffer.
 
 ------------------------------------------------------------------------------
 YANK BUFFER				*wheel-special-buffers-yank*
@@ -697,14 +697,14 @@ List mode~
 
 The yank wheel buffer in list mode is launched by `<M-w>y`.
 
-Each line of the special buffer is one of your yanks, represented as a
+Each line of the dedicated buffer is one of your yanks, represented as a
 list, one element per line.
 
 Plain mode~
 
 The yank wheel buffer in plain mode is launched by `<M-w>p`.
 
-All your yanks are concatenated and displayed in the special buffer.
+All your yanks are concatenated and displayed in the dedicated buffer.
 
 In normal mode, the paste is done linewise or characterwise, depending
 on the mapping used :
@@ -732,7 +732,7 @@ See |wheel-batch-command|.
 COMMAND OUTPUT BUFFER			*wheel-special-buffers-command*
 
 You can execute an ex or shell command and display the output in a wheel
-special buffer. Shell commands must be prefixed by a `!`.
+dedicated buffer. Shell commands must be prefixed by a `!`.
 
 Default mapping : `<M-w>:`
 
@@ -745,11 +745,11 @@ Examples :
 Async mode~
 
 You can run a shell command in async mode and display the output in a
-special buffer.
+dedicated buffer.
 
 Default mapping : `<M-w>&`
 
-You can stop the process by using `<c-s>` in the special buffer.
+You can stop the process by using `<c-s>` in the dedicated buffer.
 
 ==============================================================================
 BATCH OPERATIONS				    *wheel-batch-operations*
@@ -788,7 +788,7 @@ Max input history 			|wheel-config-maxim-input|
 Max MRU					|wheel-config-maxim-mru|
 Max yanks 				|wheel-config-maxim-yanks|
 Max yank size 				|wheel-config-maxim-yank_size|
-Max layers in special buffers		|wheel-config-maxim-layers|
+Max layers in dedicated buffers		|wheel-config-maxim-layers|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
@@ -981,9 +981,9 @@ Maximum size of elements in the yank wheel : >
 <
 
 ------------------------------------------------------------------------------
-MAX LAYERS IN SPECIAL BUFFERS		    *wheel-config-maxim-layers*
+MAX LAYERS IN dedicated bufferS		    *wheel-config-maxim-layers*
 
-Maximum size of layer stack in special buffers : >
+Maximum size of layer stack in dedicated buffers : >
 
 	let g:wheel_config.maxim.layers = 5
 <
@@ -1113,7 +1113,7 @@ It's a good idea to group all your wheel autocommands, e.g. : >
     augroup END
 <
 
-Be aware that the autogroup `wheel-mandala` is used for special buffers
+Be aware that the autogroup `wheel-mandala` is used for dedicated buffers
 local autocommands, so you can't use this name.
 
 ------------------------------------------------------------------------------
@@ -1237,10 +1237,10 @@ ASYNC PROCESS					*wheel-functions-async-process*
 
 wheel#wave#start({command}, {settings})		*wheel-wave-start*
 	Neovim only.
-	Start an async command and display its output in a special buffer.
+	Start an async command and display its output in a dedicated buffer.
 	You can filter buffer content, as usual.
 	{settings} is a dictionary containing the following keys :
-	- new_buffer : whether to open a special buffer
+	- new_buffer : whether to open a dedicated buffer
 	  before launching the process (true by default)
 
 wheel#ripple#start({command}, {settings})		*wheel-ripple-start*
@@ -1348,7 +1348,7 @@ LEVEL 0						*wheel-mappings-level-0*
 Menus~
 
 The most important mapping is `<M-w>m` : it launches a menu in a
-special buffer, and from there you can trigger all sort of actions on
+dedicated buffer, and from there you can trigger all sort of actions on
 the Wheel. See |wheel-special-buffers-menu| for more information.
 
 | Prefix + | With default prefix | Action                  |
@@ -1390,7 +1390,7 @@ Read / Write file~
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
 
-Special buffers~
+Dedicated buffers~
 
 | Prefix +   | With default prefix   | Action                                 |
 | ---------- | --------------------- | -------------------------------------- |
@@ -1495,14 +1495,14 @@ Reorganizing buffers~
 | <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
 | <M-g>    | <M-w><M-g>          | Grep edit mode            |
 
-Managing special buffers~
+Managing dedicated buffers~
 
 | Prefix +    | With default prefix | Action                            |
 | --------    | ------------------- | --------------------------------- |
-| <Tab>       | <M-w><Tab>          | Save (push) special buffer        |
-| <Backspace> | <M-w><Backspace>    | Remove (pop) special buffer       |
-| @           | <M-w>@              | Cycle special buffers, rightward  |
-| <M-@>       | <M-w><M-@>          | Cycle special buffers, leftward   |
+| <Tab>       | <M-w><Tab>          | Save (push) dedicated buffer        |
+| <Backspace> | <M-w><Backspace>    | Remove (pop) dedicated buffer       |
+| @           | <M-w>@              | Cycle dedicated buffers, rightward  |
+| <M-@>       | <M-w><M-@>          | Cycle dedicated buffers, leftward   |
 
 Layouts~
 
@@ -1581,9 +1581,9 @@ adapt them to your taste and add them to your init file.
 | <M-^>          | Alternate in the same circle                  |
 | <M-C-^>        | Alternate in another circle of the same torus |
 | -------------- | --------------------------------------------- |
-| <Space>        | Choose location in special buffer             |
-| <C-Space>      | Choose circle in special buffer               |
-| <S-Space>      | Choose torus in special buffer                |
+| <Space>        | Choose location in dedicated buffer             |
+| <C-Space>      | Choose circle in dedicated buffer               |
+| <S-Space>      | Choose torus in dedicated buffer                |
 | <M-x>          | Choose element in wheel folding tree          |
 | <M-C-x>        | Index of toruses > circles > locations        |
 | <M-h>          | History index                                 |
@@ -1603,7 +1603,7 @@ adapt them to your taste and add them to your init file.
 | <M-f>          | Find                                          |
 | -------------- | --------------------------------------------- |
 | <M-!>          | Buffer with output of ex or shell command     |
-| <M-&>          | Async shell command in special buffer         |
+| <M-&>          | Async shell command in dedicated buffer         |
 | -------------- | --------------------------------------------- |
 | <M-r>          | Reorganize wheel elements                     |
 | <M-C-r>        | Reorganize tabs and windows                   |
@@ -1613,9 +1613,9 @@ adapt them to your taste and add them to your init file.
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
 | -------------- | --------------------------------------------- |
-| <M-Tab>        | Save (push) special buffer                    |
-| <M-Backspace>  | Remove (pop) special buffer                   |
-| <M-Space>      | Switch special buffer                         |
+| <M-Tab>        | Save (push) dedicated buffer                    |
+| <M-Backspace>  | Remove (pop) dedicated buffer                   |
+| <M-Space>      | Switch dedicated buffer                         |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -1722,7 +1722,7 @@ Some bindings that you may find useful : >
     " reorganize tabs & windows
     nmap <d-v> <plug>(wheel-reorg-tabwins)
 
-    " cycle special buffers
+    " cycle dedicated buffers
     nmap <d-space> <plug>(wheel-mandala-forward)
     nmap <d-s-space> <plug>(wheel-mandala-backward)
 
@@ -1761,6 +1761,7 @@ Display some locations in tabs	    |wheel-examples-locations-in-tabs|
 Display vim files in splits	    |wheel-examples-matching-files-in-splits|
 Add a tab with a similar file	    |wheel-examples-similar-tab|
 Search and replace		    |wheel-examples-search-replace|
+List all tag of a kind 		    |wheel-examples-tag-kind|
 
 ------------------------------------------------------------------------------
 DISPLAY SOME LOCATIONS IN TABS	    *wheel-examples-locations-in-tabs*
@@ -1805,16 +1806,25 @@ glob pattern ; you can type `**/*.sh` if all your scripts have the same
 new circle. Answer yes, and call this circle `shell`.
 
 Now that you have your group ready, you can start the search with
-`<M-w><M-g>`. It will open the grep special buffer. Hit tab, and launch
+`<M-w><M-g>`. It will open the grep dedicated buffer. Hit tab, and launch
 the edit mode. You are now in a buffer where you can edit and propagate
 your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
 to replace all the occurences of the old var name. Then, just |:write|
 the buffer to apply these changes to all your shell scripts.
 
 Want to go back to previous state ? You can undo your substitution in
-the special buffer, and write again.
+the dedicated buffer, and write again.
 
 You can of course reuse the `shell` group for later refactoring.
+
+------------------------------------------------------------------------------
+LIST ALL TAG OF A KIND				*wheel-examples-tag-kind*
+
+- launch the tag navigator with `<M-w>t`
+- type `i` to go to insert mode
+- enter `\<f\>` to keep only functions tags
+  + or `\<m\>` to keep only maps tags
+  + ...
 
 ==============================================================================
 FILES							*wheel-files*
@@ -1836,30 +1846,30 @@ of the modules within them.
 | complete.vim      | Completion functions                   |
 | crystal.vim       | Internal variables                     |
 | cuboctahedron.vim | Reshaping : reorder, reorganize        |
-| cylinder.vim      | Special buffers stack                  |
+| cylinder.vim      | Dedicated buffers stack                  |
 | disc.vim          | Read & Write wheel file                |
 | gear.vim          | Generic helpers                        |
 | helix.vim         | Indexes                                |
 | hub.vim           | Menus                                  |
-| kyusu.vim         | Line filters for special buffers       |
-| layer.vim         | Layers stack for special buffers       |
+| kyusu.vim         | Line filters for dedicated buffers       |
+| layer.vim         | Layers stack for dedicated buffers       |
 | line.vim          | Activate line                          |
-| mandala.vim       | Generic special buffers                |
+| mandala.vim       | Generic dedicated buffers                |
 | mosaic.vim        | Windows & tabs Layouts                 |
 | pendulum.vim      | History                                |
-| pencil.vim        | Selection in special buffers           |
-| perspective.vim   | Content generators for special buffers |
+| pencil.vim        | Selection in dedicated buffers           |
+| perspective.vim   | Content generators for dedicated buffers |
 | projection.vim    | Find wheel location of current buffer  |
 | pyramid.vim       | Mix of tabs & splits layouts           |
 | referen.vim       | References to current elements         |
 | ripple.vim        | Async job for vim                      |
 | sailing.vim       | Navigation buffers                     |
 | scroll.vim        | Input history                          |
-| shape.vim         | Special buffers to reshape the wheel   |
+| shape.vim         | Dedicated buffers to reshape the wheel   |
 | spiral.vim        | Golden ratio                           |
 | status.vim        | Print wheel status                     |
 | symbol.vim        | Tags                                   |
-| tower.vim         | Menu layer in special buffers          |
+| tower.vim         | Menu layer in dedicated buffers          |
 | tree.vim          | Add, rename, delete elements           |
 | vector.vim        | Batch operations                       |
 | void.vim          | Initiaze & reset variables             |

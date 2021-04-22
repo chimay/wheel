@@ -267,16 +267,16 @@ if ! exists('s:menu_navigation')
 				\ ['go to circle in index' ,  'wheel#sailing#grid'],
 				\ ['go to element in wheel tree' ,  'wheel#sailing#tree'],
 				\ ['go to location in history' ,  'wheel#sailing#history'],
-				\ ['go to buffer' ,  'wheel#sailing#buffers'],
 				\ ['go to most recently used file (mru)' ,  'wheel#sailing#attic'],
 				\ ['go to result of locate search' ,  'wheel#sailing#locate'],
 				\ ['go to result of find search' ,  'wheel#sailing#find'],
+				\ ['go to buffer' ,  'wheel#sailing#buffers'],
 				\ ['go to tab & window' ,  'wheel#sailing#tabwins'],
 				\ ['go to tab & window (fold tree mode)' ,  'wheel#sailing#tabwins_tree'],
 				\ ['go to matching line (occur)' ,  'wheel#sailing#occur'],
 				\ ['go to grep result' ,  'wheel#sailing#grep()'],
 				\ ['go to outline result' ,  'wheel#sailing#outline()'],
-				\ ['go to tag' ,  'wheel#sailing#symbol()'],
+				\ ['go to tag' ,  'wheel#sailing#tags()'],
 				\]
 	lockvar s:menu_navigation
 endif

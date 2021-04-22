@@ -33,7 +33,7 @@
 	* [Moving around](#moving-around)
 		- [Cycling](#cycling)
 		- [Switch using completion](#switch-using-completion)
-		- [Switch using a special buffer](#switch-using-a-special-buffer)
+		- [Switch using a dedicated buffer](#switch-using-a-dedicated-buffer)
 	* [Square the Circle](#square-the-circle)
 + [Examples](#examples)
 	* [Display some locations in tabs](#display-some-locations-in-tabs)
@@ -49,7 +49,7 @@
 ## What is it ?
 
 Wheel is a navigation plugin for Vim and Neovim. It is file group
-oriented and makes abundant use of special buffers, in which you can
+oriented and makes abundant use of dedicated buffers, in which you can
 filter and select elements.
 
 ## What does it look like ?
@@ -112,7 +112,7 @@ your groups will grow and adapt to your style.
 - Easy navigation
   + Switch to matching tab & window if available
   + Next / Previous location, circle or torus
-  + Choose file, group or category in special buffer
+  + Choose file, group or category in dedicated buffer
     * Filter candidates
     * Folds matching wheel tree structure
     * Context menus
@@ -140,7 +140,7 @@ your groups will grow and adapt to your style.
 - Reorganizing
   + Wheel elements
   + Tabs & windows
-- Special buffers stack to save your searches
+- Dedicated buffers stack to save your searches
 - Display files
   + Split levels : torus, circle, location
   + Split
@@ -337,7 +337,7 @@ nmap <s-end>      <plug>(wheel-next-torus)
 nmap <c-^>        <plug>(wheel-alternate-anywhere)
 nmap <m-^>        <plug>(wheel-alternate-same-circle)'
 nmap <m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)'
-" Navigation special buffers
+" Navigation dedicated buffers
 nmap <space>      <plug>(wheel-navigation-location)
 nmap <c-space>    <plug>(wheel-navigation-circle)
 nmap <s-space>    <plug>(wheel-navigation-torus)
@@ -367,10 +367,10 @@ nmap <m-r>          <plug>(wheel-reorganize)
 nmap <m-c-r>        <plug>(wheel-reorg-tabwins)
 " Grep in edit mode
 nmap <m-c-g>        <plug>(wheel-grep-edit)
-" Command output in special buffer
+" Command output in dedicated buffer
 nmap <m-!>          <plug>(wheel-command)
 nmap <m-&>          <plug>(wheel-async)
-" Save (push) mandala (special buffer)
+" Save (push) mandala (dedicated buffer)
 nmap <m-Tab>        <plug>(wheel-mandala-push)
 " Remove (pop) mandala
 nmap <m-Backspace>  <plug>(wheel-mandala-pop)
@@ -476,16 +476,16 @@ You can also switch circle by completion with `<M-w><C-CR>`.
 
 You can also switch torus by completion with `<M-w><S-CR>`.
 
-### Switch using a special buffer
+### Switch using a dedicated buffer
 
-You can also switch location by chosing it in a special buffer. The
+You can also switch location by chosing it in a dedicated buffer. The
 default mapping is `<M-w><Space>`. Pressing enter on a line will switch
 to the matching location. Going to insert mode will allow you to filter
 the lines with one or more words.
 
-To choose a given circle in a special buffer, use `<M-w><C-space>`.
+To choose a given circle in a dedicated buffer, use `<M-w><C-space>`.
 
-To choose a given torus in a special buffer, use `<M-w><S-space>`.
+To choose a given torus in a dedicated buffer, use `<M-w><S-space>`.
 
 ## Square the Circle
 
@@ -552,14 +552,14 @@ glob pattern ; you can type `**/*.sh` if all your scripts have the same
 new circle. Answer yes, and call this circle `shell`.
 
 Now that you have your group ready, you can start the search with
-`<M-w><M-g>`. It will open the grep special buffer. Hit tab, and launch
+`<M-w><M-g>`. It will open the grep dedicated buffer. Hit tab, and launch
 the edit mode. You are now in a buffer where you can edit and propagate
 your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
 to replace all the occurences of the old var name. Then, just *:write*
 the buffer to apply these changes to all your shell scripts.
 
 Want to go back to previous state ? You can undo your substitution in
-the special buffer, and write again.
+the dedicated buffer, and write again.
 
 You can of course reuse the `shell` group for later refactoring.
 
