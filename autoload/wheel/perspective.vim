@@ -50,7 +50,9 @@ fun! wheel#perspective#execute (runme, ...)
 	return lines
 endfun
 
-" From referen
+" Wheel elements
+
+" from referen
 
 fun! wheel#perspective#switch (level)
 	" Switch level = torus, circle or location
@@ -63,7 +65,7 @@ fun! wheel#perspective#switch (level)
 	endif
 endfun
 
-" From helix
+" from helix
 
 fun! wheel#perspective#helix ()
 	" Locations index
@@ -125,7 +127,7 @@ fun! wheel#perspective#reorganize ()
 	return lines
 endfu
 
-" From pendulum
+" from pendulum
 
 fun! wheel#perspective#history ()
 	" Sorted history index
@@ -144,89 +146,6 @@ fun! wheel#perspective#history ()
 	endfor
 	return strings
 endfu
-
-" From attic
-
-fun! wheel#perspective#mru ()
-	" Sorted most recenty used files
-	" Each entry is a string : date hour | filename
-	let attic = deepcopy(g:wheel_attic)
-	let Compare = function('wheel#pendulum#compare')
-	let attic = sort(attic, Compare)
-	let strings = []
-	for entry in attic
-		let filename = entry.file
-		let timestamp = entry.timestamp
-		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour . s:field_separ
-		let entry .= filename
-		let strings = add(strings, entry)
-	endfor
-	return strings
-endfu
-
-" From symbol
-
-fun! wheel#perspective#tags ()
-	" Tags
-	let table = wheel#symbol#table ()
-	let lines = []
-	for record in table
-		let suit = join(record, s:field_separ)
-		call add(lines, suit)
-	endfor
-	return lines
-endfun
-
-" From vector
-
-fun! wheel#perspective#grep (pattern, sieve)
-	" Quickfix list
-	" Each line has the format :
-	" err-number | buffer-number | file | line | col | text
-	let bool = wheel#vector#grep (a:pattern, a:sieve)
-	if ! bool
-		" no file matching a:sieve
-		return v:false
-	endif
-	let quickfix = getqflist()
-	let list = []
-	for index in range(len(quickfix))
-		let elem = quickfix[index]
-		let errnum = index + 1
-		let bufnum = elem.bufnr
-		let record = ''
-		let record .= errnum . s:field_separ
-		let record .= bufnum . s:field_separ
-		let record .= bufname(bufnum) . s:field_separ
-		let record .= elem.lnum . s:field_separ
-		let record .= elem.col . s:field_separ
-		let record .= elem.text
-		call add(list, record)
-	endfor
-	return list
-endfun
-
-" From codex
-
-fun! wheel#perspective#yank (mode)
-	" Yank wheel
-	let lines = []
-	if a:mode == 'list'
-		for elem in g:wheel_yank
-			call add(lines, string(elem))
-		endfor
-	elseif a:mode == 'plain'
-		for elem in g:wheel_yank
-			let plain = join(elem, "\n")
-			" Only add if some text is there
-			if plain =~ '\m\w'
-				call add(lines, plain)
-			endif
-		endfor
-	endif
-	return lines
-endfun
 
 " Search file
 
@@ -250,6 +169,26 @@ fun! wheel#perspective#locate (pattern)
 	let lines = systemlist(runme)
 	return lines
 endfun
+
+" from attic
+
+fun! wheel#perspective#mru ()
+	" Sorted most recenty used files
+	" Each entry is a string : date hour | filename
+	let attic = deepcopy(g:wheel_attic)
+	let Compare = function('wheel#pendulum#compare')
+	let attic = sort(attic, Compare)
+	let strings = []
+	for entry in attic
+		let filename = entry.file
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour . s:field_separ
+		let entry .= filename
+		let strings = add(strings, entry)
+	endfor
+	return strings
+endfu
 
 " Buffers
 
@@ -352,6 +291,48 @@ fun! wheel#perspective#occur (pattern)
 	return lines
 endfun
 
+" from vector
+
+fun! wheel#perspective#grep (pattern, sieve)
+	" Quickfix list
+	" Each line has the format :
+	" err-number | buffer-number | file | line | col | text
+	let bool = wheel#vector#grep (a:pattern, a:sieve)
+	if ! bool
+		" no file matching a:sieve
+		return v:false
+	endif
+	let quickfix = getqflist()
+	let list = []
+	for index in range(len(quickfix))
+		let elem = quickfix[index]
+		let errnum = index + 1
+		let bufnum = elem.bufnr
+		let record = ''
+		let record .= errnum . s:field_separ
+		let record .= bufnum . s:field_separ
+		let record .= bufname(bufnum) . s:field_separ
+		let record .= elem.lnum . s:field_separ
+		let record .= elem.col . s:field_separ
+		let record .= elem.text
+		call add(list, record)
+	endfor
+	return list
+endfun
+
+" from symbol
+
+fun! wheel#perspective#tags ()
+	" Tags
+	let table = wheel#symbol#table ()
+	let lines = []
+	for record in table
+		let suit = join(record, s:field_separ)
+		call add(lines, suit)
+	endfor
+	return lines
+endfun
+
 fun! wheel#perspective#bounce (runme)
 	" Lines for jumps / changes lists
 	let lines = wheel#perspective#execute(a:runme)[1:]
@@ -382,5 +363,28 @@ fun! wheel#perspective#bounce (runme)
 	endfor
 	" Newest first
 	call reverse(lines)
+	return lines
+endfun
+
+" Yanks
+
+" from codex
+
+fun! wheel#perspective#yank (mode)
+	" Yank wheel
+	let lines = []
+	if a:mode == 'list'
+		for elem in g:wheel_yank
+			call add(lines, string(elem))
+		endfor
+	elseif a:mode == 'plain'
+		for elem in g:wheel_yank
+			let plain = join(elem, "\n")
+			" Only add if some text is there
+			if plain =~ '\m\w'
+				call add(lines, plain)
+			endif
+		endfor
+	endif
 	return lines
 endfun
