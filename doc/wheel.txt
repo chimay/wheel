@@ -5,7 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
-Dedicated buffers			|wheel-special-buffers|
+Dedicated buffers			|wheel-dedicated-buffers|
 Batch mode			|wheel-batch-operations|
 Configuration			|wheel-configuration|
 Autocommands			|wheel-autocommands|
@@ -172,7 +172,7 @@ or `q` to quit the menu.
 If you prefer the meta menu leading you to thematic sub-menus, you can
 launch it with `<M-w>=`.
 
-To learn more about menus, see |wheel-special-buffers-menus|.
+To learn more about menus, see |wheel-dedicated-buffers-menus|.
 
 ------------------------------------------------------------------------------
 FIRST CIRCLES				    	    *wheel-sbs-first-circles*
@@ -246,7 +246,7 @@ You can switch :
 Switch using a dedicated buffer~
 
 You can also switch location, circle or torus by chosing it in a wheel
-navigation buffer. See |wheel-special-buffers-navigation|.
+navigation buffer. See |wheel-dedicated-buffers-navigation|.
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
@@ -280,25 +280,25 @@ Circle Fruits | Apple           | Pear
 at your fingertips.
 
 ==============================================================================
-dedicated bufferS					    *wheel-special-buffers*
+dedicated bufferS					    *wheel-dedicated-buffers*
 
-Introduction			|wheel-special-buffers-introduction|
-Layer stack			|wheel-special-buffers-layers|
-Buffer stack			|wheel-special-buffers-stack|
-Menu				|wheel-special-buffers-menus|
-Context menus			|wheel-special-buffers-context|
-Navigation			|wheel-special-buffers-navigation|
-Reordering		        |wheel-special-buffers-reordering|
-Reorganizing			|wheel-special-buffers-reorganizing|
-Reorganizing tabs & windows	|wheel-special-buffers-reorg-tabwins|
-Grep buffer			|wheel-special-buffers-grep|
-Find buffer			|wheel-special-buffers-find|
-Yank buffer			|wheel-special-buffers-yank|
-Batch buffer			|wheel-special-buffers-batch|
-Command output buffer		|wheel-special-buffers-command|
+Introduction			|wheel-dedicated-buffers-introduction|
+Layer stack			|wheel-dedicated-buffers-layers|
+Buffer stack			|wheel-dedicated-buffers-stack|
+Menu				|wheel-dedicated-buffers-menus|
+Context menus			|wheel-dedicated-buffers-context|
+Navigation			|wheel-dedicated-buffers-navigation|
+Reordering		        |wheel-dedicated-buffers-reordering|
+Reorganizing			|wheel-dedicated-buffers-reorganizing|
+Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
+Grep buffer			|wheel-dedicated-buffers-grep|
+Find buffer			|wheel-dedicated-buffers-find|
+Yank buffer			|wheel-dedicated-buffers-yank|
+Batch buffer			|wheel-dedicated-buffers-batch|
+Command output buffer		|wheel-dedicated-buffers-command|
 
 ------------------------------------------------------------------------------
-INTRODUCTION				*wheel-special-buffers-introduction*
+INTRODUCTION				*wheel-dedicated-buffers-introduction*
 
 Dedicated buffers allow you to perform Wheel operations intuitively, using
 full power of your editor : search, yank, paste, completion, and so on.
@@ -379,7 +379,7 @@ Press `r` and the dedicated buffer will reload its content.
 Available on most dedicated buffers.
 
 ------------------------------------------------------------------------------
-LAYER STACK				*wheel-special-buffers-layers*
+LAYER STACK				*wheel-dedicated-buffers-layers*
 
 Each time you launch a wheel function involving a dedicated buffer, a new
 associated layer is added to a stack local to the buffer. You may see it
@@ -393,7 +393,7 @@ as a kind of dedicated buffer history. You can :
 The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
 
 ------------------------------------------------------------------------------
-BUFFERS STACK				*wheel-special-buffers-stack*
+BUFFERS STACK				*wheel-dedicated-buffers-stack*
 
 Wheel manages a dedicated buffers stack. You can :
 
@@ -409,7 +409,7 @@ So, there are two stack levels :
 - a buffer stack
 
 ------------------------------------------------------------------------------
-MENU BUFFERS				*wheel-special-buffers-menus*
+MENU BUFFERS				*wheel-dedicated-buffers-menus*
 
 Each menu has its own dedicated dedicated buffer. You can filter the menu
 lines by entering words in insert mode.
@@ -455,7 +455,7 @@ In these sub-menus, you can use the keys :
 - `<backspace>`         : leads you back to the meta menu
 
 ------------------------------------------------------------------------------
-CONTEXT MENUS				*wheel-special-buffers-context*
+CONTEXT MENUS				*wheel-dedicated-buffers-context*
 
 Some dedicated buffers have context menu support. In that case, pressing
 `<tab>` will open a menu where you can choose the action you want to
@@ -464,7 +464,7 @@ apply to the selected or cursor line(s).
 If you change your mind and wish to come back, just press `<backspace>`.
 
 ------------------------------------------------------------------------------
-NAVIGATION BUFFERS			*wheel-special-buffers-navigation*
+NAVIGATION BUFFERS			*wheel-dedicated-buffers-navigation*
 
 The navigation buffers allow you to quickly switch to a Wheel location
 by pressing `<enter>` on the matching line. The buffer will be opened
@@ -486,7 +486,7 @@ Same keys as above, but leave the navigation buffer opened :
 - `gV` : same as `V`
 
 The navigation buffers also have context menus support.
-See |wheel-special-buffers-context|.
+See |wheel-dedicated-buffers-context|.
 
 Mappings~
 
@@ -534,7 +534,7 @@ line is selected, it will begin with an asterisk. You can then open all
 selected files in tabs, splits or vertical splits.
 
 ------------------------------------------------------------------------------
-REORDERING BUFFERS			*wheel-special-buffers-reordering*
+REORDERING BUFFERS			*wheel-dedicated-buffers-reordering*
 
 The reordering buffers allow you to quickly reorder Wheel elements by
 reordering the buffer lines. You can use yank/delete/paste operations to
@@ -565,7 +565,7 @@ If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
 
 ------------------------------------------------------------------------------
-REORGANIZING BUFFERS			*wheel-special-buffers-reorganizing*
+REORGANIZING BUFFERS			*wheel-dedicated-buffers-reorganizing*
 
 The reorganizing buffer allows you to quickly reorganize the Wheel
 elements. All elements of the wheel are represented, and folds are used
@@ -604,7 +604,7 @@ If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
 
 ------------------------------------------------------------------------------
-REORGANIZE TABS AND WINDOWS		*wheel-special-buffers-reorg-tabwins*
+REORGANIZE TABS AND WINDOWS		*wheel-dedicated-buffers-reorg-tabwins*
 
 In this buffer, you can :
 
@@ -631,7 +631,7 @@ This buffer can also be launched from the context menu of a tabs & windows
 navigation buffer.
 
 ------------------------------------------------------------------------------
-GREP BUFFER				*wheel-special-buffers-grep*
+GREP BUFFER				*wheel-dedicated-buffers-grep*
 
 The default mapping is `<M-w><M-g>`.
 
@@ -675,7 +675,7 @@ can choose between the following header formats :
 - vimwiki
 
 ------------------------------------------------------------------------------
-FIND BUFFER				*wheel-special-buffers-find*
+FIND BUFFER				*wheel-dedicated-buffers-find*
 
 Search files with find.
 
@@ -683,7 +683,7 @@ It runs in async mode. You can stop the process by using `<c-s>` in the
 dedicated buffer.
 
 ------------------------------------------------------------------------------
-YANK BUFFER				*wheel-special-buffers-yank*
+YANK BUFFER				*wheel-dedicated-buffers-yank*
 
 As usual, you can filter the elements in insert mode.
 The available local maps are :
@@ -724,12 +724,12 @@ Menus~
 The yank wheel buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
-BATCH BUFFER				*wheel-special-buffers-batch*
+BATCH BUFFER				*wheel-dedicated-buffers-batch*
 
 See |wheel-batch-command|.
 
 ------------------------------------------------------------------------------
-COMMAND OUTPUT BUFFER			*wheel-special-buffers-command*
+COMMAND OUTPUT BUFFER			*wheel-dedicated-buffers-command*
 
 You can execute an ex or shell command and display the output in a wheel
 dedicated buffer. Shell commands must be prefixed by a `!`.
@@ -809,7 +809,7 @@ If you don't want to activate these options, remember to write your
 files before using a wheel navigation tool.
 
 To spot the cursor line in other windows while browsing
-a |wheel-special-buffers|, you can either :
+a |wheel-dedicated-buffers|, you can either :
 
 - activate the |'cursorline'| option
 - activate the |'number'| and |'relativenumber'| options,
@@ -1349,7 +1349,7 @@ Menus~
 
 The most important mapping is `<M-w>m` : it launches a menu in a
 dedicated buffer, and from there you can trigger all sort of actions on
-the Wheel. See |wheel-special-buffers-menu| for more information.
+the Wheel. See |wheel-dedicated-buffers-menu| for more information.
 
 | Prefix + | With default prefix | Action                  |
 | -------- | ------------------- | ----------------------- |
