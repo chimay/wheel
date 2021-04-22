@@ -23,8 +23,16 @@ endif
 
 " Address of current line
 
+fun! wheel#line#default ()
+	" If on filtering lines, put the cursor in default line 2
+	if wheel#mandala#has_filter() && line('.') == 1 && line('$') > 1
+		call cursor(2, 1)
+	endif
+endfun
+
 fun! wheel#line#address ()
 	" Return address of element at line in plain or folded mandala buffer
+	call wheel#line#default ()
 	if ! &foldenable
 		let cursor_line = getline('.')
 		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')

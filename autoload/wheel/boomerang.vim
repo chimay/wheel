@@ -69,19 +69,6 @@ fun! wheel#boomerang#menu (dictname, ...)
 		" ctx_travel = v:false by default, to be able to catch mandala buffer variables
 		let optional.ctx_travel = v:false
 	endif
-	" selection
-	if empty(b:wheel_selected)
-		if line('.') == 1
-			if line('$') > 1
-				" default on line 2
-				" will be taken in the layer stack by push
-				call cursor(2, 1)
-			else
-				echomsg 'wheel boomerang menu : not enough lines for a default selection.'
-				return v:false
-			endif
-		endif
-	endif
 	let dictname = 'context/' . a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase (settings)
