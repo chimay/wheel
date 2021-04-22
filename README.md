@@ -337,7 +337,7 @@ nmap <s-end>      <plug>(wheel-next-torus)
 nmap <c-^>        <plug>(wheel-alternate-anywhere)
 nmap <m-^>        <plug>(wheel-alternate-same-circle)'
 nmap <m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)'
-" Navigation dedicated buffers
+" Navigation in dedicated buffers
 nmap <space>      <plug>(wheel-navigation-location)
 nmap <c-space>    <plug>(wheel-navigation-circle)
 nmap <s-space>    <plug>(wheel-navigation-torus)
