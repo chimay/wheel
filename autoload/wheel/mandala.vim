@@ -12,6 +12,11 @@
 
 " Script constants
 
+if ! exists('s:is_mandala')
+	let s:is_mandala = wheel#crystal#fetch('is_mandala')
+	lockvar s:is_mandala
+endif
+
 if ! exists('s:mandala_empty')
 	let s:mandala_empty = wheel#crystal#fetch('mandala/empty')
 	lockvar s:mandala_empty
@@ -23,9 +28,7 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" Buffer
-
-" Mandala pseudo folders
+" Init
 
 fun! wheel#mandala#init ()
 	" Init mandala buffer variables, except the stack
@@ -46,6 +49,8 @@ fun! wheel#mandala#init ()
 	endif
 endfun
 
+" Mandala pseudo filename
+
 fun! wheel#mandala#pseudo_filename (mandala_type)
 	" Set buffer filename to pseudo filename /wheel/<buf-id>/<type>
 	" Useful as information
@@ -60,20 +65,39 @@ fun! wheel#mandala#pseudo_filename (mandala_type)
 	return pseudo_filename
 endfun
 
+fun! wheel#mandala#type (...)
+	" Type of a mandala buffer
+	" Optional argument : filename
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = expand('%')
+	endif
+	let type = substitute(filename, s:is_mandala, '', '')
+	return type
+endfun
+
 fun! wheel#mandala#set_empty ()
 	" Tell wheel to consider this mandala as an empty buffer
 	call wheel#mandala#pseudo_filename ('empty')
 endfun
 
-fun! wheel#mandala#is_empty ()
+fun! wheel#mandala#is_empty (...)
 	" Return true if mandala is empty, false otherwise
-	let filename = expand('%')
+	" Optional argument : filename
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = expand('%')
+	endif
 	if filename =~ s:mandala_empty
 		return v:true
 	else
 		return v:false
 	endif
 endfun
+
+" Window & buffer
 
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
@@ -110,6 +134,18 @@ fun! wheel#mandala#close ()
 	endif
 	return v:true
 endfun
+
+fun! wheel#mandala#previous ()
+	" Go to previous window, before mandala buffer opening
+	" Go to alternate buffer if only one window
+	if winnr('$') > 1
+		wincmd p
+	else
+		buffer #
+	endif
+endfun
+
+" Content
 
 fun! wheel#mandala#fill (content, ...)
 	" Fill mandala buffer with content
@@ -247,16 +283,6 @@ fun! wheel#mandala#reload ()
 		" restore
 		exe 'silent file' filename
 		echomsg 'wheel mandala : content reloaded.'
-	endif
-endfun
-
-fun! wheel#mandala#previous ()
-	" Go to previous window, before mandala buffer opening
-	" Go to alternate buffer if only one window
-	if winnr('$') > 1
-		wincmd p
-	else
-		buffer #
 	endif
 endfun
 

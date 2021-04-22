@@ -27,6 +27,24 @@ fun! wheel#status#dashboard ()
 	endif
 endfun
 
+" Layer status in mandala buffer
+
+fun! wheel#status#layer ()
+	" Layer dashboard
+	" layers types
+	let filenames = wheel#layer#stack ('filename')
+	let Fun = function('wheel#mandala#type')
+	let types = map(copy(filenames), {_,v->Fun(v)})
+	" current mandala type
+	let title = '[' . wheel#mandala#type () . ']'
+	let top = b:wheel_stack.top
+	call insert(types, title, top)
+	" reverse to have previous on the left and next on the right
+	call reverse(types)
+	" return
+	return join(types)
+endfun
+
 " Tab line
 
 fun! wheel#status#tablabel (index)
