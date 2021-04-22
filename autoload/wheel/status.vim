@@ -23,8 +23,8 @@ fun! wheel#status#dashboard ()
 			let string = 'Empty wheel'
 		endif
 		" echo
-		echo string
 		redraw!
+		echo string
 	endif
 endfun
 
@@ -43,8 +43,8 @@ fun! wheel#status#layer ()
 	" reverse to have previous on the left and next on the right
 	call reverse(types)
 	" echo
-	echo 'Layers : ' . join(types)
 	redraw!
+	echo 'Layers : ' . join(types)
 endfun
 
 " Mandala stack status

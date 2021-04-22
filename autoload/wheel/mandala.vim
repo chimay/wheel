@@ -28,7 +28,7 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" Init
+" Init vars
 
 fun! wheel#mandala#init ()
 	" Init mandala buffer variables, except the stack
