@@ -176,7 +176,7 @@ fun! wheel#sailing#buffers ()
 	" Reload
 	let b:wheel_reload = 'wheel#sailing#buffers'
 	" Context menu
-	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('opened/files')<cr>
+	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('buffers')<cr>
 endfun
 
 fun! wheel#sailing#tabwins ()
