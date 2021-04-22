@@ -173,7 +173,7 @@ fun! wheel#mandala#fill (content, ...)
 	let position = getcurpos()
 	" delete old content
 	if exists('*deletebufline')
-		call deletebufline('%', 2, '$')
+		silent! call deletebufline('%', 2, '$')
 	else
 		silent! 2,$ delete
 	endif

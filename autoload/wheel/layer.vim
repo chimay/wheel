@@ -135,7 +135,7 @@ fun! wheel#layer#fresh ()
 	call wheel#layer#clear_autocmds ()
 	call wheel#layer#clear_vars ()
 	" delete lines -> underscore _ = no storing register
-	1,$ delete _
+	silent! 1,$ delete _
 endfun
 
 " Saving things
