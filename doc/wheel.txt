@@ -280,7 +280,7 @@ Circle Fruits | Apple           | Pear
 at your fingertips.
 
 ==============================================================================
-dedicated bufferS					    *wheel-dedicated-buffers*
+DEDICATED BUFFERS					    *wheel-dedicated-buffers*
 
 Introduction			|wheel-dedicated-buffers-introduction|
 Layer stack			|wheel-dedicated-buffers-layers|
