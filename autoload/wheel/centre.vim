@@ -106,6 +106,8 @@ fun! wheel#centre#plugs ()
 	" Cycle mandala buffers
 	nnoremap <plug>(wheel-mandala-forward) :call wheel#cylinder#forward()<cr>
 	nnoremap <plug>(wheel-mandala-backward) :call wheel#cylinder#backward()<cr>
+	" Switch mandala buffer
+	nnoremap <plug>(wheel-mandala-switch) :call wheel#cylinder#switch()<cr>
 	" Layouts
 	nnoremap <plug>(wheel-zoom) :call wheel#mosaic#zoom()<cr>
 	" Tabs
@@ -249,6 +251,8 @@ fun! wheel#centre#cables ()
 		" Cycle mandala buffers
 		exe nmap prefix . '@ <plug>(wheel-mandala-forward)'
 		exe nmap prefix . '<M-@> <plug>(wheel-mandala-backward)'
+		" Switch mandala buffer
+		exe nmap prefix . '<m-space> <plug>(wheel-mandala-switch)'
 		" Layouts
 		exe nmap prefix . lay . 'z <plug>(wheel-zoom)'
 		" Tabs
@@ -346,8 +350,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
 		exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
-		" Cycle mandala buffers
-		exe nmap '<m-space>      <plug>(wheel-mandala-forward)'
+		" Switch mandala buffers
+		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

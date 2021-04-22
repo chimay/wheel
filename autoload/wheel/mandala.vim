@@ -51,21 +51,26 @@ endfun
 
 " Mandala pseudo filename
 
-fun! wheel#mandala#pseudo (type)
+fun! wheel#mandala#pseudo (type, ...)
 	" Return pseudo filename /wheel/<buf-id>/<type>
-	" Useful as information
-	" We also need a name when writing, even with BufWriteCmd
-	" Add unique buf id, so (n)vim does not complain about
-	" existing filename
+	" Optional argument : mandala iden, defaults to current one
+	if a:0 > 0
+		let iden = a:1
+	else
+		let current = g:wheel_mandalas.current
+		let iden = g:wheel_mandalas.iden[current]
+	endif
 	let type = a:type
-	let current = g:wheel_mandalas.current
-	let iden = g:wheel_mandalas.iden[current]
 	let pseudo = '/wheel/' . iden . '/' . type
 	return pseudo
 endfun
 
 fun! wheel#mandala#filename (type)
 	" Set buffer filename to pseudo filename
+	" Useful as information
+	" We also need a name when writing, even with BufWriteCmd
+	" Add unique buf id, so (n)vim does not complain about
+	" existing filename
 	exe 'silent file' wheel#mandala#pseudo (a:type)
 endfun
 
@@ -407,6 +412,7 @@ fun! wheel#mandala#common_maps ()
 	" Navigate in layer stack
 	nnoremap <silent> <buffer> H :call wheel#layer#backward ()<cr>
 	nnoremap <silent> <buffer> L :call wheel#layer#forward ()<cr>
+	nnoremap <silent> <buffer> <m-l> :call wheel#layer#switch ()<cr>
 	nnoremap <silent> <buffer> <backspace> :call wheel#layer#pop ()<cr>
 endfu
 

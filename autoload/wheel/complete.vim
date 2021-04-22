@@ -34,7 +34,7 @@ fun! wheel#complete#mandala_list ()
 	let types = []
 	for index in range(len(bufnums))
 		let num = bufnums[index]
-		let title = wheel#mandala#type(bufname(num))
+		let title = bufname(num)
 		call add(types, title)
 	endfor
 	return types

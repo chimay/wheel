@@ -387,6 +387,7 @@ as a kind of special buffer history. You can :
 
 - go back to the previous layer (and associated wheel function) by pressing `H`
 - go forward to the next layer by pressing `L`
+- switch to another layer with `<M-l>`
 - destroy current layer and go back to the previous one by pressing `<backspace>`
 
 The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
@@ -396,11 +397,11 @@ BUFFERS STACK				*wheel-special-buffers-stack*
 
 Wheel manages a special buffers stack. You can :
 
-- Save your current special buffer with `<M-w><Tab>`
-  + A new special buffer will be the default one for the wheel functions
-- Cycle the special buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
-- Remove the current special buffer with `<M-w><Backspace>`
-  + It is removed from the stack and wiped from vim buffers
+- push a new special buffer as default one with `<M-w><Tab>`
+- switch to another special buffer with `<M-w><M-Space>`
+- cycle the special buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
+- remove the current special buffer with `<M-w><Backspace>`
+  + it is removed from the stack and wiped from vim buffers
 
 So, there are two stack levels :
 
@@ -1614,7 +1615,7 @@ adapt them to your taste and add them to your init file.
 | -------------- | --------------------------------------------- |
 | <M-Tab>        | Save (push) special buffer                    |
 | <M-Backspace>  | Remove (pop) special buffer                   |
-| <M-Space>      | Cycle special buffers, rightward              |
+| <M-Space>      | Switch special buffer                         |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -1683,8 +1684,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
     " Remove (pop) mandala buffer
     exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
-    " Cycle mandala buffers
-    exe nmap '<m-space>      <plug>(wheel-mandala-forward)'
+    " Switch mandala buffers
+    exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 <
 
 ------------------------------------------------------------------------------
@@ -1721,8 +1722,9 @@ Some bindings that you may find useful : >
     " reorganize tabs & windows
     nmap <d-v> <plug>(wheel-reorg-tabwins)
 
-    " cycle special buffers backward
-    nmap <d-space> <plug>(wheel-mandala-backward)
+    " cycle special buffers
+    nmap <d-space> <plug>(wheel-mandala-forward)
+    nmap <d-s-space> <plug>(wheel-mandala-backward)
 
     " k on the beginning of the buffer -> end
     nmap <silent> k :call wheel#mandala#wrap_up()<cr>

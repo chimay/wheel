@@ -223,14 +223,13 @@ fun! wheel#cylinder#switch ()
 	else
 		let name = input(prompt, '', complete)
 	endif
-	let name = wheel#mandala#pseudo (name)
 	let bufnums = copy(g:wheel_mandalas.stack)
 	let filenames = map(bufnums, {_,v->bufname(v)})
-	echo name filenames
-	return
 	let mandala = index(filenames, name)
 	if mandala < 0
 		return v:false
 	endif
+	let g:wheel_mandalas.current = mandala
+	call wheel#cylinder#recall ()
 	call wheel#status#cylinder ()
 endfun
