@@ -5,7 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
-Dedicated buffers			|wheel-dedicated-buffers|
+Dedicated buffers		|wheel-dedicated-buffers|
 Batch mode			|wheel-batch-operations|
 Configuration			|wheel-configuration|
 Autocommands			|wheel-autocommands|
@@ -288,12 +288,13 @@ Buffer stack			|wheel-dedicated-buffers-stack|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
-Reordering		        |wheel-dedicated-buffers-reordering|
-Reorganizing			|wheel-dedicated-buffers-reorganizing|
-Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
 Grep buffer			|wheel-dedicated-buffers-grep|
 Find buffer			|wheel-dedicated-buffers-find|
 Yank buffer			|wheel-dedicated-buffers-yank|
+Reordering		        |wheel-dedicated-buffers-reordering|
+Reorganizing			|wheel-dedicated-buffers-reorganizing|
+Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
+Grep edit mode			|wheel-dedicated-buffers-grep-edit|
 Batch buffer			|wheel-dedicated-buffers-batch|
 Command output buffer		|wheel-dedicated-buffers-command|
 
@@ -387,7 +388,7 @@ as a kind of dedicated buffer history. You can :
 
 - go back to the previous layer (and associated wheel function) by pressing `H`
 - go forward to the next layer by pressing `L`
-- switch to another layer with `<M-l>`
+- switch to another layer with `<M-l>`, completion is available
 - destroy current layer and go back to the previous one by pressing `<backspace>`
 
 The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
@@ -398,7 +399,7 @@ BUFFERS STACK				*wheel-dedicated-buffers-stack*
 Wheel manages a dedicated buffers stack. You can :
 
 - push a new dedicated buffer as default one with `<M-w><Tab>`
-- switch to another dedicated buffer with `<M-w><M-Space>`
+- switch to another dedicated buffer with `<M-w><M-Space>`, completion is available
 - cycle the dedicated buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
@@ -439,9 +440,10 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - Rename an element
 - Delete an element
 - Alternate last two elements
-- Display elements in tabs
-- Display elements in windows
-- Display elements in tabs & windows
+- Layouts
+  + in tabs
+  + in windows
+  + in tabs & windows
 - Reorganize elements
 - Navigation
 - Search in files
@@ -535,6 +537,83 @@ line is selected, it will begin with an asterisk. You can then open all
 selected files in tabs, splits or vertical splits.
 
 ------------------------------------------------------------------------------
+GREP BUFFER				*wheel-dedicated-buffers-grep*
+
+The default mapping is `<M-w>g`.
+
+The navigation mappings are the same as usual : activate a buffer line
+will open the right file at the right place.
+
+Context menu~
+
+The context menu contains :
+
+- the usual navigation functionalities
+- an edit mode, see |wheel-dedicated-buffers-grep-edit|
+- a quickfix window opener
+
+Outline~
+
+The default mapping is `<M-w><M-o>`.
+
+An outline buffer is a grep buffer where all your headers are displayed. You
+can choose between the following header formats :
+
+- vim folds
+- markdown
+- org mode
+- vimwiki
+
+------------------------------------------------------------------------------
+FIND BUFFER				*wheel-dedicated-buffers-find*
+
+Search files with find.
+
+It runs in async mode. You can stop the process by using `<c-s>` in the
+dedicated buffer.
+
+------------------------------------------------------------------------------
+YANK BUFFER				*wheel-dedicated-buffers-yank*
+
+As usual, you can filter the elements in insert mode.
+The available local maps are :
+
+ - `<enter>` : paste a yank after cursor
+ - `g<enter>` : paste a yank after cursor, leave yank wheel opened
+ - `p` : paste a yank after cursor, leave yank wheel opened
+ - `P` : paste a yank before cursor, leave yank wheel opened
+
+List mode~
+
+The yank wheel buffer in list mode is launched by `<M-w>y`.
+
+Each line of the dedicated buffer is one of your yanks, represented as a
+list, one element per line.
+
+Plain mode~
+
+The yank wheel buffer in plain mode is launched by `<M-w>p`.
+
+All your yanks are concatenated and displayed in the dedicated buffer.
+
+In normal mode, the paste is done linewise or characterwise, depending
+on the mapping used :
+
+ - `p` : paste a yank linewise after cursor, leave yank wheel opened
+ - `P` : paste a yank linewise before cursor, leave yank wheel opened
+ - `gp` : paste a yank characterwise after cursor, leave yank wheel opened
+ - `gP` : paste a yank characterwise before cursor, leave yank wheel opened
+
+Visual mode~
+
+You can also go to visual mode and paste your selection. The paste is
+done characterwise.
+
+Menus~
+
+The yank wheel buffers can also be launched from the main & meta menus.
+
+------------------------------------------------------------------------------
 REORDERING BUFFERS			*wheel-dedicated-buffers-reordering*
 
 The reordering buffers allow you to quickly reorder Wheel elements by
@@ -620,7 +699,7 @@ To validate your change, simply |:write| the buffer.
 
 Mappings~
 
-The default mapping is `<M-w>W`.
+The default mapping is `<M-w><C-r>`.
 
 Menus~
 
@@ -632,20 +711,7 @@ This buffer can also be launched from the context menu of a tabs & windows
 navigation buffer.
 
 ------------------------------------------------------------------------------
-GREP BUFFER				*wheel-dedicated-buffers-grep*
-
-The default mapping is `<M-w><M-g>`.
-
-The navigation mappings are the same as usual : activate a buffer line
-will open the right file at the right place.
-
-Context menu~
-
-The context menu contains :
-
-- the usual navigation functionalities
-- an edit mode
-- a quickfix window opener
+GREP EDIT MODE				*wheel-dedicated-buffers-grep-edit*
 
 The edit mode will save your search and open a new buffer where you can
 edit the grep lines. If you write this buffer, the plugin will propagate
@@ -662,67 +728,6 @@ Note that :
 
 Anyway, it's always a good thing to do a backup of your files first,
 or even better, to work within a VCS repository, like git.
-
-Outline~
-
-The default mapping is `<M-w><M-o>`.
-
-An outline buffer is a grep buffer where all your headers are displayed. You
-can choose between the following header formats :
-
-- vim folds
-- markdown
-- org mode
-- vimwiki
-
-------------------------------------------------------------------------------
-FIND BUFFER				*wheel-dedicated-buffers-find*
-
-Search files with find.
-
-It runs in async mode. You can stop the process by using `<c-s>` in the
-dedicated buffer.
-
-------------------------------------------------------------------------------
-YANK BUFFER				*wheel-dedicated-buffers-yank*
-
-As usual, you can filter the elements in insert mode.
-The available local maps are :
-
- - `<enter>` : paste a yank after cursor
- - `g<enter>` : paste a yank after cursor, leave yank wheel opened
- - `p` : paste a yank after cursor, leave yank wheel opened
- - `P` : paste a yank before cursor, leave yank wheel opened
-
-List mode~
-
-The yank wheel buffer in list mode is launched by `<M-w>y`.
-
-Each line of the dedicated buffer is one of your yanks, represented as a
-list, one element per line.
-
-Plain mode~
-
-The yank wheel buffer in plain mode is launched by `<M-w>p`.
-
-All your yanks are concatenated and displayed in the dedicated buffer.
-
-In normal mode, the paste is done linewise or characterwise, depending
-on the mapping used :
-
- - `p` : paste a yank linewise after cursor, leave yank wheel opened
- - `P` : paste a yank linewise before cursor, leave yank wheel opened
- - `gp` : paste a yank characterwise after cursor, leave yank wheel opened
- - `gP` : paste a yank characterwise before cursor, leave yank wheel opened
-
-Visual mode~
-
-You can also go to visual mode and paste your selection. The paste is
-done characterwise.
-
-Menus~
-
-The yank wheel buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-dedicated-buffers-batch*
