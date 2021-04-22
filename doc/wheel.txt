@@ -504,10 +504,10 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-f>`     : search files with `find` in async mode
 - `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
 - `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
-- `<M-w><M-s>`     : occur in current file
-- `<M-w><M-g>`     : grep in circle files
+- `<M-w>s`         : occur in current file
+- `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
-- `<M-w><M-t>`     : tags
+- `<M-w>t`         : tags
 - `<M-w>j`         : jumps list
 - `<M-w>c`         : changes list
 
@@ -1449,7 +1449,7 @@ Search for files~
 
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
-| <M-b>    | <M-w><M-b>          | Opened files (buffers)                      |
+| <M-b>    | <M-w><M-b>          | Buffers (opened files)                      |
 | <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel |
 | <M-l>    | <M-w><M-l>          | Search files with locate                    |
 | <M-f>    | <M-w><M-f>          | Search files with find in async mode        |
@@ -1647,7 +1647,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-x>          <plug>(wheel-tree)'
     exe nmap '<m-c-x>        <plug>(wheel-index-locations)'
     exe nmap '<m-h>          <plug>(wheel-history)'
-    " Opened files
+    " Buffers
     exe nmap '<m-b>          <plug>(wheel-opened-files)'
     " Tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
@@ -1847,7 +1847,7 @@ of the modules within them.
 | pendulum.vim      | History                                |
 | pencil.vim        | Selection in special buffers           |
 | perspective.vim   | Content generators for special buffers |
-| projection.vim    | Following opened files                 |
+| projection.vim    | Find wheel location of current buffer  |
 | pyramid.vim       | Mix of tabs & splits layouts           |
 | referen.vim       | References to current elements         |
 | ripple.vim        | Async job for vim                      |
