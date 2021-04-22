@@ -218,7 +218,6 @@ fun! wheel#layer#restore_autocmds (autodict)
 	let ac_group = s:mandala_autocmds_group
 	for event in s:mandala_autocmds_events
 		exe 'autocmd!' ac_group event '<buffer>'
-		echomsg 'autocmd!' ac_group event '<buffer>'
 		let autocmds = autodict[event]
 		if ! empty(autocmds)
 			for autocom in autocmds
