@@ -1,5 +1,13 @@
 " vim: ft=vim fdm=indent:
 
+" Helpers
+
+fun! wheel#status#type (...)
+	" Type of a mandala buffer in short form
+	let type = call('wheel#mandala#type', a:000)
+	return substitute(type, '\s.*', '', '')
+endfun
+
 " Wheel status
 
 fun! wheel#status#dashboard ()
@@ -34,10 +42,13 @@ fun! wheel#status#layer ()
 	" Layer dashboard
 	" layers types
 	let filenames = wheel#layer#stack ('filename')
-	let Fun = function('wheel#mandala#type')
+	if empty(filenames)
+		return '[' . wheel#status#type () . ']'
+	endif
+	let Fun = function('wheel#status#type')
 	let types = map(copy(filenames), {_,v->Fun(v)})
 	" current mandala type
-	let title = '[' . wheel#mandala#type () . ']'
+	let title = '[' . wheel#status#type () . ']'
 	let top = b:wheel_stack.top
 	call insert(types, title, top)
 	" reverse to have previous on the left and next on the right
@@ -53,11 +64,14 @@ fun! wheel#status#cylinder ()
 	" Layer dashboard
 	" layers types
 	let bufnums = g:wheel_mandalas.stack
+	if empty(bufnums)
+		return '[' . wheel#status#type () . ']'
+	endif
 	let current = g:wheel_mandalas.current
 	let types = []
 	for index in range(len(bufnums))
 		let num = bufnums[index]
-		let title = wheel#mandala#type(bufname(num))
+		let title = wheel#status#type (bufname(num))
 		if index == current
 			let title = '[' . title . ']'
 		endif

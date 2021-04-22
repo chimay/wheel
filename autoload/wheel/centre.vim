@@ -223,7 +223,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'v <plug>(wheel-tabwins)'
 		exe nmap prefix . '<m-v> <plug>(wheel-tabwins-tree)'
 		" Search inside files
-		exe nmap prefix . '<m-s> <plug>(wheel-occur)'
+		exe nmap prefix . 's <plug>(wheel-occur)'
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
 		exe nmap prefix . 't <plug>(wheel-tags)'

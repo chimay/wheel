@@ -74,7 +74,6 @@ fun! wheel#mandala#type (...)
 		let filename = expand('%')
 	endif
 	let type = substitute(filename, s:is_mandala, '', '')
-	let type = substitute(type, '\s.*', '', '')
 	return type
 endfun
 
@@ -237,7 +236,7 @@ fun! wheel#mandala#replace (content, ...)
 	let position = getcurpos()
 	" delete old content
 	if exists('*deletebufline')
-		call deletebufline('%', 2, '$')
+		silent! call deletebufline('%', 2, '$')
 	else
 		silent! 2,$ delete
 	endif
