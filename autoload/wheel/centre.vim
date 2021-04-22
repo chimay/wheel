@@ -70,6 +70,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-mru) :call wheel#sailing#mru()<cr>
 	nnoremap <plug>(wheel-locate) :call wheel#sailing#locate()<cr>
 	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
+	nnoremap <plug>(wheel-async-find) :call wheel#sailing#async_find()<cr>
 	" Buffers
 	nnoremap <plug>(wheel-buffers) :call wheel#sailing#buffers()<cr>
 	" Tabs & windows : visible buffers
@@ -217,8 +218,9 @@ fun! wheel#centre#cables ()
 	if g:wheel_config.mappings >= 2
 		" Search for files
 		exe nmap prefix . '<m-m> <plug>(wheel-mru)'
-		exe nmap prefix . '<m-l> <plug>(wheel-locate)'
+		exe nmap prefix . 'l <plug>(wheel-locate)'
 		exe nmap prefix . '<m-f> <plug>(wheel-find)'
+		exe nmap prefix . '<c-f> <plug>(wheel-async-find)'
 		" Buffers
 		exe nmap prefix . '<m-b> <plug>(wheel-buffers)'
 		" Tabs & windows : visible buffers

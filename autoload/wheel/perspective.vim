@@ -50,41 +50,6 @@ fun! wheel#perspective#execute (runme, ...)
 	return lines
 endfun
 
-" Jumps & changes
-
-fun! wheel#perspective#bounce (runme)
-	" Lines for jumps / changes lists
-	let lines = wheel#perspective#execute(a:runme)[1:]
-	let past = v:true
-	let length = len(lines)
-	for index in range(length)
-		let elem = lines[index]
-		if elem =~ '\m^>'
-			let past = v:false
-			let elem = substitute(elem, '\m^>', '', '')
-			if empty(elem) && index == length - 1
-				call remove(lines, index)
-				continue
-			endif
-		endif
-		" fields : delta line col file/text
-		let fields = split(elem)
-		if past
-			let signed = - str2nr(fields[0])
-			let fields[0] = string(signed)
-		endif
-		if len(fields) > 4
-			let fields[3] = join(fields[3:])
-			let fields = fields[:3]
-		endif
-		let elem = join(fields, s:field_separ)
-		let lines[index] = elem
-	endfor
-	" Newest first
-	call reverse(lines)
-	return lines
-endfun
-
 " From referen
 
 fun! wheel#perspective#switch (level)
@@ -180,6 +145,39 @@ fun! wheel#perspective#history ()
 	return strings
 endfu
 
+" From attic
+
+fun! wheel#perspective#mru ()
+	" Sorted most recenty used files
+	" Each entry is a string : date hour | filename
+	let attic = deepcopy(g:wheel_attic)
+	let Compare = function('wheel#pendulum#compare')
+	let attic = sort(attic, Compare)
+	let strings = []
+	for entry in attic
+		let filename = entry.file
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour . s:field_separ
+		let entry .= filename
+		let strings = add(strings, entry)
+	endfor
+	return strings
+endfu
+
+" From symbol
+
+fun! wheel#perspective#tags ()
+	" Tags
+	let table = wheel#symbol#table ()
+	let lines = []
+	for record in table
+		let suit = join(record, s:field_separ)
+		call add(lines, suit)
+	endfor
+	return lines
+endfun
+
 " From vector
 
 fun! wheel#perspective#grep (pattern, sieve)
@@ -209,39 +207,6 @@ fun! wheel#perspective#grep (pattern, sieve)
 	return list
 endfun
 
-" From symbol
-
-fun! wheel#perspective#tags ()
-	" Tags
-	let table = wheel#symbol#table ()
-	let lines = []
-	for record in table
-		let suit = join(record, s:field_separ)
-		call add(lines, suit)
-	endfor
-	return lines
-endfun
-
-" From attic
-
-fun! wheel#perspective#mru ()
-	" Sorted most recenty used files
-	" Each entry is a string : date hour | filename
-	let attic = deepcopy(g:wheel_attic)
-	let Compare = function('wheel#pendulum#compare')
-	let attic = sort(attic, Compare)
-	let strings = []
-	for entry in attic
-		let filename = entry.file
-		let timestamp = entry.timestamp
-		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour . s:field_separ
-		let entry .= filename
-		let strings = add(strings, entry)
-	endfor
-	return strings
-endfu
-
 " From codex
 
 fun! wheel#perspective#yank (mode)
@@ -263,10 +228,33 @@ fun! wheel#perspective#yank (mode)
 	return lines
 endfun
 
-" From nowhere
+" Search file
+
+fun! wheel#perspective#find (pattern)
+	" Find files in current directory using **/*pattern* glob
+	let pattern = a:pattern
+	let lines = glob(pattern)
+	let lines = split(lines, "\n")
+	return lines
+endfun
+
+fun! wheel#perspective#locate (pattern)
+	" Locate
+	let pattern = a:pattern
+	let database = g:wheel_config.locate_db
+	if empty(database)
+		let runme = 'locate ' . pattern
+	else
+		let runme = 'locate -d ' . expand(database) . ' ' . pattern
+	endif
+	let lines = systemlist(runme)
+	return lines
+endfun
+
+" Buffers
 
 fun! wheel#perspective#buffers ()
-	" Opened files
+	" Buffers
 	let buffers = execute('buffers')
 	let buffers = split(buffers, "\n")
 	let length = len(buffers)
@@ -287,6 +275,8 @@ fun! wheel#perspective#buffers ()
 	endfor
 	return lines
 endfun
+
+" Tab & windows
 
 fun! wheel#perspective#tabwins ()
 	" Buffers visible in tabs & wins
@@ -345,6 +335,8 @@ fun! wheel#perspective#tabwins_tree ()
 	return lines
 endfun
 
+" Search inside file
+
 fun! wheel#perspective#occur (pattern)
 	" Occur
 	let pattern = a:pattern
@@ -360,15 +352,35 @@ fun! wheel#perspective#occur (pattern)
 	return lines
 endfun
 
-fun! wheel#perspective#locate (pattern)
-	" Locate
-	let pattern = a:pattern
-	let database = g:wheel_config.locate_db
-	if empty(database)
-		let runme = 'locate ' . pattern
-	else
-		let runme = 'locate -d ' . expand(database) . ' ' . pattern
-	endif
-	let lines = systemlist(runme)
+fun! wheel#perspective#bounce (runme)
+	" Lines for jumps / changes lists
+	let lines = wheel#perspective#execute(a:runme)[1:]
+	let past = v:true
+	let length = len(lines)
+	for index in range(length)
+		let elem = lines[index]
+		if elem =~ '\m^>'
+			let past = v:false
+			let elem = substitute(elem, '\m^>', '', '')
+			if empty(elem) && index == length - 1
+				call remove(lines, index)
+				continue
+			endif
+		endif
+		" fields : delta line col file/text
+		let fields = split(elem)
+		if past
+			let signed = - str2nr(fields[0])
+			let fields[0] = string(signed)
+		endif
+		if len(fields) > 4
+			let fields[3] = join(fields[3:])
+			let fields = fields[:3]
+		endif
+		let elem = join(fields, s:field_separ)
+		let lines[index] = elem
+	endfor
+	" Newest first
+	call reverse(lines)
 	return lines
 endfun

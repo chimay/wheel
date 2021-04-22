@@ -164,7 +164,7 @@ fun! wheel#sailing#history ()
 endfun
 
 fun! wheel#sailing#buffers ()
-	" Opened files
+	" Buffers
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#buffers ()
 	call wheel#vortex#update ()
@@ -310,10 +310,14 @@ fun! wheel#sailing#mru ()
 	let b:wheel_reload = 'wheel#sailing#mru'
 endfun
 
-fun! wheel#sailing#locate ()
+fun! wheel#sailing#locate (...)
 	" Search files using locate
-	let prompt = 'Locate file matching : '
-	let pattern = input(prompt)
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let prompt = 'Locate file matching : '
+		let pattern = input(prompt)
+	endif
 	let lines = wheel#perspective#locate (pattern)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('locate')
@@ -325,7 +329,25 @@ fun! wheel#sailing#locate ()
 endfun
 
 fun! wheel#sailing#find (...)
-	" Search files in current directory using find
+	" Find files in current directory using **/*pattern* glob
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let prompt = 'Find file matching : '
+		let pattern = '**/*' . input(prompt) . '*'
+	endif
+	let lines = wheel#perspective#find (pattern)
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('find')
+	let settings = {'action' : function('wheel#line#find')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+	" reload
+	let b:wheel_reload = "wheel#sailing#find('" . pattern . "')"
+endfun
+
+fun! wheel#sailing#async_find (...)
+	" Search files in current directory using find in async job
 	if a:0 > 0
 		let pattern = a:1
 	else
@@ -334,11 +356,11 @@ fun! wheel#sailing#find (...)
 		let pattern = escape(pattern, '*')
 	endif
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('find')
+	call wheel#mandala#open ('async_find')
 	let settings = {'action' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
-	let settings = {'mandala_open' : v:false, 'mandala_type' : 'find'}
+	let settings = {'mandala_open' : v:false, 'mandala_type' : 'async_find'}
 	if has('nvim')
 		let job = wheel#wave#start(command, settings)
 	else
@@ -353,7 +375,7 @@ fun! wheel#sailing#find (...)
 	endif
 	exe map . '<c-s>' . callme
 	" Reload
-	let b:wheel_reload = "wheel#sailing#find('" . pattern . "')"
+	let b:wheel_reload = "wheel#sailing#async_find('" . pattern . "')"
 endfun
 
 fun! wheel#sailing#jumps ()

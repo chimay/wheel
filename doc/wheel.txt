@@ -501,8 +501,9 @@ The default mappings launching navigation buffers are :
 - `<M-w>h`         : history index
 - `<M-w><M-b>`     : switch to buffer (opened file)
 - `<M-w><M-m>`     : most recently used files not found in wheel (mru)
-- `<M-w><M-l>`     : search files with `locate`
-- `<M-w><M-f>`     : search files with `find` in async mode
+- `<M-w>l`         : search files with `locate`
+- `<M-w><M-f>`     : find files in current directory using `**/*pattern*` glob
+- `<M-w><C-f>`     : search files with `find` in async mode
 - `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
 - `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
 - `<M-w>s`         : occur in current file
@@ -1450,10 +1451,11 @@ Search for files~
 
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
-| <M-b>    | <M-w><M-b>          | Buffers (opened files)                      |
+| l        | <M-w>l              | Search files with locate                    |
+| <M-f>    | <M-w><M-f>          | Find files in current directory using glob  |
+| <C-f>    | <M-w><C-f>          | Search files with find in async mode        |
 | <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel |
-| <M-l>    | <M-w><M-l>          | Search files with locate                    |
-| <M-f>    | <M-w><M-f>          | Search files with find in async mode        |
+| <M-b>    | <M-w><M-b>          | Buffers (opened files)                      |
 
 Tabs & windows~
 
