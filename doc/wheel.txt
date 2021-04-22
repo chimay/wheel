@@ -931,7 +931,7 @@ If you want to use a custom database when using `locate` : >
 ------------------------------------------------------------------------------
 GREP EX COMMAND			    		*wheel-config-grep*
 
-Whether to use internal *:vimgrep* or external *:grep* to grep files : >
+Whether to use internal |:vimgrep| or external |:grep| to grep files : >
 
   let g:wheel_config.grep = 'vimgrep'
   " or

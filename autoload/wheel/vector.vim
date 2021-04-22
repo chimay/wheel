@@ -122,7 +122,7 @@ fun! wheel#vector#grep (pattern, ...)
 		return v:false
 	endif
 	let grep .= '!'
-	exe 'silent' grep pattern files
+	exe 'silent!' grep pattern files
 	return v:true
 endfun
 
