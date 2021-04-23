@@ -40,6 +40,7 @@
 	* [Display matching files in splits](#display-matching-files-in-splits)
 	* [Add a tab with a similar file](#add-a-tab-with-a-similar-file)
 	* [Search and replace](#search-and-replace)
++ [List all tags of a kind](#list-all-tags-of-a-kind)
 + [Warning](#warning)
 + [Licence](#licence)
 
@@ -562,6 +563,14 @@ Want to go back to previous state ? You can undo your substitution in
 the dedicated buffer, and write again.
 
 You can of course reuse the `shell` group for later refactoring.
+
+# List all tags of a kind
+
+- launch the tag navigator with `<M-w>t`
+- type `i` to go to insert mode
+- enter `\<f\>` to keep only functions tags
+  + or `\<m\>` to keep only maps tags
+  + ...
 
 # Warning
 
