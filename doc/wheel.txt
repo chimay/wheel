@@ -1737,7 +1737,7 @@ and answer : >
 <
 
 to the prompt. You can then browse the plugs in a dedicated wheel
-buffer. It's only a command output collector though, you can't
+buffer. It is only a command output collector though, you can not
 launch any map from there.
 
 You will see that all keys are linked to `<plug>` maps.
@@ -1748,6 +1748,8 @@ Example of key binding using a plug map : >
 
     nmap <M-m> <Plug>(wheel-menu-main)
 <
+
+Do not use |:nnoremap|, it would not work.
 
 All of these plugs are listed below.
 
