@@ -140,9 +140,6 @@ fun! wheel#centre#plugs ()
 	" Debug
 	nnoremap <plug>(wheel-debug-fresh-wheel) :call wheel#void#fresh_wheel()<cr>
 	" Misc
-	" To use in custom maps, e.g. :
-	" nmap <silent> <c-l> :nohl<cr><plug>(wheel-spiral-cursor)
-	" imap <silent> <c-l> <esc>:nohl<cr><plug>(wheel-spiral-cursor)a
 	nnoremap <plug>(wheel-spiral-cursor) :call wheel#spiral#cursor()<cr>
 endfun
 

@@ -744,8 +744,8 @@ Default mapping : `<M-w>:`
 
 Examples :
 
-- `<M-w>:` then `nmap <plug>(wheel-`
-- `<M-w>:` then `nmap <M-w>`
+- `<M-w>:` then `nmap <silent> <plug>(wheel-`
+- `<M-w>:` then `nmap <silent> <M-w>`
 - `<M-w>:` then `!ls -l % #`
 
 Async mode~
@@ -1264,8 +1264,8 @@ Level 1				|wheel-mappings-level-1|
 Level 2				|wheel-mappings-level-2|
 Level 10			|wheel-mappings-level-10|
 Level 20			|wheel-mappings-level-20|
-Other ideas			|wheel-mappings-ideas|
 Exhaustive list			|wheel-mappings-exhaustive-list|
+Other ideas			|wheel-mappings-ideas|
 
 ------------------------------------------------------------------------------
 LEVELS						    *wheel-mappings-levels*
@@ -1679,47 +1679,6 @@ For debug only.
 | Z        | <M-w>Z              | Reset wheel variables to empty wheel |
 
 ------------------------------------------------------------------------------
-OTHER IDEAS				*wheel-mappings-ideas*
-
-Some bindings that you may find useful : >
-
-    " switch element, with completion
-    nmap <m-cr> <plug>(wheel-switch-location)
-    " or
-    nmap g<cr> <plug>(wheel-switch-location)
-    " don't do this, you'd lose <cr> in q: window
-    nmap <cr> <plug>(wheel-switch-location)
-
-    " same, with circles
-    nmap <c-cr> <plug>(wheel-switch-circle)
-    " same, with toruses
-    nmap <s-cr> <plug>(wheel-switch-torus)
-
-    " alternate
-    nmap <silent> <d-^>       <plug>(wheel-alternate-other-torus)
-
-    " index of locations in torus > circle > location format
-    nmap <d-x> <plug>(wheel-index-locations)
-
-    " reorganize tabs & windows
-    nmap <d-v> <plug>(wheel-reorg-tabwins)
-
-    " cycle dedicated buffers
-    nmap <d-space> <plug>(wheel-mandala-forward)
-    nmap <d-s-space> <plug>(wheel-mandala-backward)
-
-    " k on the beginning of the buffer -> end
-    nmap <silent> k :call wheel#mandala#wrap_up()<cr>
-    " j on the end of the buffer -> beginning
-    nmap <silent> j :call wheel#mandala#wrap_down()<cr>
-
-    " clear search highlight and center the cursor with Fibonacci ratio
-    nmap <silent> <c-l> :nohl<cr><plug>(wheel-spiral-cursor)
-    " same in insert mode
-    imap <silent> <c-l> <esc>:nohl<cr><plug>(wheel-spiral-cursor)a
-<
-
-------------------------------------------------------------------------------
 EXHAUSTIVE LIST			*wheel-mappings-exhaustive-list*
 
 File~
@@ -1746,7 +1705,7 @@ Plugs~
 
 Example of key binding using a plug map : >
 
-    nmap <M-m> <Plug>(wheel-menu-main)
+    nmap <silent> <M-m> <Plug>(wheel-menu-main)
 <
 
 Do not use |:nnoremap|, it would not work.
@@ -1878,6 +1837,47 @@ Miscellaneous :
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-spiral-cursor)                     | put the cursor in a golden ratio position |
 | <plug>(wheel-debug-fresh-wheel)                 | empty the wheel for debugging purpose     |
+
+------------------------------------------------------------------------------
+OTHER IDEAS				*wheel-mappings-ideas*
+
+Some bindings that you may find useful : >
+
+    " switch element, with completion
+    nmap <silent> <m-cr> <plug>(wheel-switch-location)
+    " or
+    nmap <silent> g<cr> <plug>(wheel-switch-location)
+    " don't do this, you'd lose <cr> in q: window
+    nmap <silent> <cr> <plug>(wheel-switch-location)
+
+    " same, with circles
+    nmap <silent> <c-cr> <plug>(wheel-switch-circle)
+    " same, with toruses
+    nmap <silent> <s-cr> <plug>(wheel-switch-torus)
+
+    " alternate
+    nmap <silent> <d-^> <plug>(wheel-alternate-other-torus)
+
+    " index of locations in torus > circle > location format
+    nmap <silent> <d-x> <plug>(wheel-index-locations)
+
+    " reorganize tabs & windows
+    nmap <silent> <d-v> <plug>(wheel-reorg-tabwins)
+
+    " cycle dedicated buffers
+    nmap <silent> <d-space> <plug>(wheel-mandala-forward)
+    nmap <silent> <d-s-space> <plug>(wheel-mandala-backward)
+
+    " k on the beginning of the buffer -> end
+    nmap <silent> k :call wheel#mandala#wrap_up()<cr>
+    " j on the end of the buffer -> beginning
+    nmap <silent> j :call wheel#mandala#wrap_down()<cr>
+
+    " clear search highlight and center the cursor with Fibonacci ratio
+    nmap <silent> <c-l> :nohl<cr><plug>(wheel-spiral-cursor)
+    " same in insert mode
+    imap <silent> <c-l> <esc>:nohl<cr><plug>(wheel-spiral-cursor)a
+<
 
 ==============================================================================
 COMMANDS					*wheel-commands*
