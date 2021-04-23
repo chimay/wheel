@@ -40,7 +40,7 @@
 	* [Display matching files in splits](#display-matching-files-in-splits)
 	* [Add a tab with a similar file](#add-a-tab-with-a-similar-file)
 	* [Search and replace](#search-and-replace)
-+ [List all tags of a kind](#list-all-tags-of-a-kind)
+	* [List all tags of a kind](#list-all-tags-of-a-kind)
 + [Warning](#warning)
 + [Licence](#licence)
 
@@ -564,7 +564,7 @@ the dedicated buffer, and write again.
 
 You can of course reuse the `shell` group for later refactoring.
 
-# List all tags of a kind
+## List all tags of a kind
 
 - launch the tag navigator with `<M-w>t`
 - type `i` to go to insert mode
