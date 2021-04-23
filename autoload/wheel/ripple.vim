@@ -23,14 +23,13 @@ endfun
 
 " Buffer
 
-fun! wheel#ripple#template ()
+fun! wheel#ripple#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
 	setlocal bufhidden=hide
 	let current = g:wheel_mandalas.current
 	let iden = g:wheel_mandalas.iden[current]
-	let pseudo_folders = '/wheel/' . iden . '/ripple'
-	exe 'silent file' pseudo_folders
+	cal wheel#mandala#filename (a:mandala_type)
 	call append(0, '')
 endfun
 

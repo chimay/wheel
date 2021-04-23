@@ -278,7 +278,8 @@ fun! wheel#sailing#outline (...)
 	endif
 	if mode == 1
 		let marker = split(&foldmarker, ',')[0]
-		if g:wheel_config.grep =~ '^:\?grep' && &grepprg !~ '^grep'
+		let grep_ex_command = g:wheel_config.grep
+		if grep_ex_command =~ '^:\?grep' && &grepprg !~ '^grep'
 			let marker = escape(marker, '{')
 		endif
 		let lines = wheel#sailing#grep (marker)
@@ -351,7 +352,7 @@ fun! wheel#sailing#async_find (...)
 	if a:0 > 0
 		let pattern = a:1
 	else
-		let prompt = 'Find file matching : '
+		let prompt = 'Async find file matching : '
 		let pattern = '*' . input(prompt) . '*'
 		let pattern = escape(pattern, '*')
 	endif
