@@ -1368,24 +1368,6 @@ Read / Write file~
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
 
-Dedicated buffers~
-
-| Prefix +   | With default prefix   | Action                                 |
-| ---------- | --------------------- | -------------------------------------- |
-| <Space>    | <M-w><Space>          | Go to location                         |
-| <C-Space>  | <M-w><C-Space>        | Go to circle                           |
-| <S-Space>  | <M-w><S-Space>        | Go to torus                            |
-| ---------- | --------------------- | -------------------------------------- |
-| x          | <M-w>x                | Index of toruses > circles > locations |
-| <C-x>      | <M-w><C-x>            | Index of toruses > circles             |
-| <M-x>      | <M-w><M-x>            | Treeish index with folds               |
-| ---------- | --------------------- | -------------------------------------- |
-| h          | <M-w>h                | History index                          |
-| ---------- | --------------------- | -------------------------------------- |
-| o          | <M-w>o                | Reorder locations in current circle    |
-| <C-o>      | <M-w><C-o>            | Reorder circles in current torus       |
-| O          | <M-w>O                | Reorder toruses in wheel               |
-
 Rename~
 
 | Prefix + | With default prefix | Action                  |
@@ -1420,6 +1402,24 @@ History~
 | <C-^>       | <M-w><C-^>          | Alternate anywhere                            |
 | <M-^>       | <M-w><M-^>          | Alternate in the same circle                  |
 | <M-C-^>     | <M-w><M-C-^>        | Alternate in another circle of the same torus |
+
+Dedicated buffers~
+
+| Prefix +   | With default prefix   | Action                                 |
+| ---------- | --------------------- | -------------------------------------- |
+| <Space>    | <M-w><Space>          | Go to location                         |
+| <C-Space>  | <M-w><C-Space>        | Go to circle                           |
+| <S-Space>  | <M-w><S-Space>        | Go to torus                            |
+| ---------- | --------------------- | -------------------------------------- |
+| x          | <M-w>x                | Index of toruses > circles > locations |
+| <C-x>      | <M-w><C-x>            | Index of toruses > circles             |
+| <M-x>      | <M-w><M-x>            | Treeish index with folds               |
+| ---------- | --------------------- | -------------------------------------- |
+| h          | <M-w>h                | History index                          |
+| ---------- | --------------------- | -------------------------------------- |
+| o          | <M-w>o                | Reorder locations in current circle    |
+| <C-o>      | <M-w><C-o>            | Reorder circles in current torus       |
+| O          | <M-w>O                | Reorder toruses in wheel               |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
