@@ -88,11 +88,11 @@ FEATURES				*wheel-introduction-features*
     * Context menus
   + Auto |:lcd| to project root of current file
 - Search files
-  + Opened buffers
-  + Visible buffers in tabs & windows
-  + MRU files not found in wheel
   + Using locate
   + Using find
+  + MRU files not found in wheel
+  + Opened buffers
+  + Visible buffers in tabs & windows
 - Search inside files
   + Grep on group files
     * Navigate
@@ -1266,6 +1266,7 @@ Level 2				|wheel-mappings-level-2|
 Level 10			|wheel-mappings-level-10|
 Level 20			|wheel-mappings-level-20|
 Other ideas			|wheel-mappings-ideas|
+Exhaustive list			|wheel-mappings-exhaustive-list|
 
 ------------------------------------------------------------------------------
 LEVELS						    *wheel-mappings-levels*
@@ -1724,7 +1725,7 @@ Some bindings that you may find useful : >
     nmap <s-cr> <plug>(wheel-switch-torus)
 
     " alternate
-    nmap <d-^> <plug>(wheel-alternate-same-torus-other-circle)
+    nmap <silent> <d-^>       <plug>(wheel-alternate-other-torus)
 
     " index of locations in torus > circle > location format
     nmap <d-x> <plug>(wheel-index-locations)
@@ -1746,6 +1747,141 @@ Some bindings that you may find useful : >
     " same in insert mode
     imap <silent> <c-l> <esc>:nohl<cr><plug>(wheel-spiral-cursor)a
 <
+
+------------------------------------------------------------------------------
+EXHAUSTIVE LIST			*wheel-mappings-exhaustive-list*
+
+
+Example of key binding using a plug map : >
+
+    nmap <M-m> <Plug>(wheel-menu-main)
+<
+
+| Plug maps                                       | Description                               |
+| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-menu-main)                         | main menu                                 |
+| <plug>(wheel-menu-meta)                         | meta menu                                 |
+| <plug>(wheel-add-here)                          | add current file in the current circle    |
+| <plug>(wheel-add-circle)                        | add a new circle                          |
+| <plug>(wheel-add-torus)                         | add a new torus                           |
+| <plug>(wheel-add-file)                          | add a file in the current circle          |
+| <plug>(wheel-add-buffer)                        | add a buffer in the current circle        |
+| <plug>(wheel-add-glob)                          | add files matching glob in circle         |
+| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-rename-location)                   | rename current location (not the file)    |
+| <plug>(wheel-rename-circle)                     | rename current circle                     |
+| <plug>(wheel-rename-torus)                      | rename current torus                      |
+| <plug>(wheel-rename-file)                       | rename current file & location            |
+| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-delete-location)                   | delete current location                   |
+| <plug>(wheel-delete-circle)                     | delete current circle                     |
+| <plug>(wheel-delete-torus)                      | delete current torus                      |
+| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-read-all)                          | read wheel from file                      |
+| <plug>(wheel-write-all)                         | save wheel to file                        |
+| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-previous-location)                 | go to previous location                   |
+| <plug>(wheel-next-location)                     | go to next location                       |
+| <plug>(wheel-previous-circle)                   | go to previous circle                     |
+| <plug>(wheel-next-circle)                       | go to next circle                         |
+| <plug>(wheel-previous-torus)                    | go to previous torus                      |
+| <plug>(wheel-next-torus)                        | go to next torus                          |
+| <plug>(wheel-switch-location)                   | switch location (completion available)    |
+| <plug>(wheel-switch-circle)                     | switch circle (completion available)      |
+| <plug>(wheel-switch-torus)                      | switch torus (completion available)       |
+| <plug>(wheel-history-newer)                     | go to previous location in history        |
+| <plug>(wheel-history-older)                     | go to next location in history            |
+| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-alternate-anywhere)                | alternate with last location              |
+| <plug>(wheel-alternate-same-circle)             | alternate locations in same circle        |
+| <plug>(wheel-alternate-same-torus)              | alternate locations in same torus         |
+| <plug>(wheel-alternate-other-circle)            | alternate locations in other circle       |
+| <plug>(wheel-alternate-other-torus)             | alternate locations in other torus        |
+| <plug>(wheel-alternate-same-torus-other-circle) | alternate in same torus, but other circle |
+| <plug>(wheel-alternate-menu)                    | menu to alternate                         |
+
+Dedicated buffers~
+
+| Plug maps                                       | Description                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-navigation-location)               | switch location                        |
+| <plug>(wheel-navigation-circle)                 | switch circle                          |
+| <plug>(wheel-navigation-torus)                  | switch torus                           |
+| <plug>(wheel-index-locations)                   | index of locations (tor > cir > loc)   |
+| <plug>(wheel-index-circles)                     | index of circles (tor > cir)           |
+| <plug>(wheel-tree)                              | index of locations in tree fold format |
+| <plug>(wheel-history)                           | index of locations history             |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-locate)                            | search file with locate                |
+| <plug>(wheel-find)                              | find file in current dir               |
+| <plug>(wheel-async-find)                        | search file with !find in async mode   |
+| <plug>(wheel-mru)                               | most recently used files               |
+| <plug>(wheel-buffers)                           | buffers                                |
+| <plug>(wheel-tabwins)                           | visible buffers in tabs & windows      |
+| <plug>(wheel-tabwins-tree)                      | tabs & windows in tree fold format     |
+| <plug>(wheel-occur)                             | occurences of pattern in current file  |
+| <plug>(wheel-grep)                              | grep pattern in all circle files       |
+| <plug>(wheel-outline)                           | headers in all circle files            |
+| <plug>(wheel-tags)                              | tags                                   |
+| <plug>(wheel-jumps)                             | vim jumps                              |
+| <plug>(wheel-changes)                           | vim changes                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-yank-list)                         | yank wheel in list format              |
+| <plug>(wheel-yank-plain)                        | yank wheel in plain format             |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-command)                           | output of ex or shell command          |
+| <plug>(wheel-async)                             | output of shell command in async mode  |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-reorder-location)                  | reorder locations                      |
+| <plug>(wheel-reorder-circle)                    | reorder circles                        |
+| <plug>(wheel-reorder-torus)                     | reorder toruses                        |
+| <plug>(wheel-reorganize)                        | reorganize wheel treeish structure     |
+| <plug>(wheel-reorg-tabwins)                     | reorganize tabs & windows              |
+| <plug>(wheel-grep-edit)                         | grep circle files in edit mode         |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-mandala-push)                      | push a new dedicated buffer            |
+| <plug>(wheel-mandala-pop)                       | pop current dedicated buffer           |
+| <plug>(wheel-mandala-forward)                   | go to next dedicated buffer            |
+| <plug>(wheel-mandala-backward)                  | go to previous dedicated buffer        |
+| <plug>(wheel-mandala-switch)                    | switch to another dedicated buffer     |
+
+Layout~
+
+| Plug maps                                       | Description                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-zoom)                              | one tab, one window                    |
+| <plug>(wheel-tabs-locations)                    | one location of current circle per tab |
+| <plug>(wheel-tabs-circles)                      | one circle of current torus per tab    |
+| <plug>(wheel-tabs-toruses)                      | one torus per tab                      |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-split-locations)                   | one location per split                 |
+| <plug>(wheel-split-circles)                     | one circle per split                   |
+| <plug>(wheel-split-toruses)                     | one torus per split                    |
+| <plug>(wheel-vsplit-locations)                  | one location per vertical split        |
+| <plug>(wheel-vsplit-circles)                    | one circle per vertical split          |
+| <plug>(wheel-vsplit-toruses)                    | one torus per vertical split           |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-main-top-locations)                | locations in main top layout           |
+| <plug>(wheel-main-top-circles)                  | circles in main top layout             |
+| <plug>(wheel-main-top-toruses)                  | toruses in main top layout             |
+| <plug>(wheel-main-left-locations)               | locations in main top layout           |
+| <plug>(wheel-main-left-circles)                 | circles in main top layout             |
+| <plug>(wheel-main-left-toruses)                 | toruses in main top layout             |
+| <plug>(wheel-grid-locations)                    | locations in grid layout               |
+| <plug>(wheel-grid-circles)                      | circles in grid layout                 |
+| <plug>(wheel-grid-toruses)                      | toruses in grid layout                 |
+| <plug>(wheel-tab-win-torus)                     | torus in tabs, circles in windows      |
+| <plug>(wheel-tab-win-circle)                    | circles in tabs, locations in windows  |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-rotate-counter-clockwise)          | rotate windows counter clockwise       |
+| <plug>(wheel-rotate-clockwise)                  | rotate windows clockwise               |
+
+Miscellaneous~
+
+| Plug maps                                       | Description                               |
+| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-spiral-cursor)                     | put the cursor in a golden ratio position |
+| <plug>(wheel-debug-fresh-wheel)                 | empty the wheel for debugging purpose     |
 
 ==============================================================================
 COMMANDS					*wheel-commands*
