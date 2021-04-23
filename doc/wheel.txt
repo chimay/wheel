@@ -1730,7 +1730,8 @@ You can find all default plugs and maps in the file
 
 Mapped keys~
 
-To display the list of mapped keys, press `<M-w>:`, then answer : >
+To display the list of mapped keys, press `<M-w>:` (prefix then colon),
+and answer : >
 
     map <M-w>
 <
