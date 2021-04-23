@@ -1800,8 +1800,8 @@ Dedicated buffers :
 | <plug>(wheel-navigation-location)               | switch location                        |
 | <plug>(wheel-navigation-circle)                 | switch circle                          |
 | <plug>(wheel-navigation-torus)                  | switch torus                           |
-| <plug>(wheel-index-locations)                   | index of locations (tor > cir > loc)   |
-| <plug>(wheel-index-circles)                     | index of circles (tor > cir)           |
+| <plug>(wheel-index-locations)                   | index of locations                     |
+| <plug>(wheel-index-circles)                     | index of circles                       |
 | <plug>(wheel-tree)                              | index of locations in tree fold format |
 | <plug>(wheel-history)                           | index of locations history             |
 | ----------------------------------------------- | -------------------------------------- |
