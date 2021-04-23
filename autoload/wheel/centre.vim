@@ -163,8 +163,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'a <plug>(wheel-add-here)'
 		exe nmap prefix . '<c-a> <plug>(wheel-add-circle)'
 		exe nmap prefix . 'A <plug>(wheel-add-torus)'
-		exe nmap prefix . 'f <plug>(wheel-add-file)'
-		exe nmap prefix . 'b <plug>(wheel-add-buffer)'
+		exe nmap prefix . '+f <plug>(wheel-add-file)'
+		exe nmap prefix . '+b <plug>(wheel-add-buffer)'
 		exe nmap prefix . '* <plug>(wheel-add-glob)'
 		" Next / Previous
 		exe nmap prefix . '<left> <plug>(wheel-previous-location)'
@@ -218,11 +218,11 @@ fun! wheel#centre#cables ()
 	if g:wheel_config.mappings >= 2
 		" Search for files
 		exe nmap prefix . 'l <plug>(wheel-locate)'
-		exe nmap prefix . '<m-f> <plug>(wheel-find)'
-		exe nmap prefix . '<c-f> <plug>(wheel-async-find)'
-		exe nmap prefix . '<m-m> <plug>(wheel-mru)'
+		exe nmap prefix . 'f <plug>(wheel-find)'
+		exe nmap prefix . '<m-f> <plug>(wheel-async-find)'
+		exe nmap prefix . 'u <plug>(wheel-mru)'
 		" Buffers
-		exe nmap prefix . '<m-b> <plug>(wheel-buffers)'
+		exe nmap prefix . 'b <plug>(wheel-buffers)'
 		" Tabs & windows : visible buffers
 		exe nmap prefix . 'v <plug>(wheel-tabwins)'
 		exe nmap prefix . '<m-v> <plug>(wheel-tabwins-tree)'
@@ -319,6 +319,7 @@ fun! wheel#centre#cables ()
 		" Search for files
 		exe nmap '<m-l>          <plug>(wheel-locate)'
 		exe nmap '<m-f>          <plug>(wheel-find)'
+		exe nmap '<m-c-f>        <plug>(wheel-async-find)'
 		exe nmap '<m-u>          <plug>(wheel-mru)'
 		" Buffers
 		exe nmap '<m-b>          <plug>(wheel-buffers)'

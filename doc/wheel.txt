@@ -501,11 +501,11 @@ The default mappings launching navigation buffers are :
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w>h`         : history index
-- `<M-w><M-b>`     : switch to buffer (opened file)
-- `<M-w><M-m>`     : most recently used files not found in wheel (mru)
 - `<M-w>l`         : search files with `locate`
-- `<M-w><M-f>`     : find files in current directory using `**/*pattern*` glob
-- `<M-w><C-f>`     : search files with `find` in async mode
+- `<M-w>f`         : find files in current directory using `**/*pattern*` glob
+- `<M-w><M-f>`     : search files with `find` in async mode
+- `<M-w>u`         : most recently used files not found in wheel (mru)
+- `<M-w>b`         : switch to buffer (opened file)
 - `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
 - `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
 - `<M-w>s`         : occur in current file
@@ -1172,7 +1172,7 @@ buffer, which makes sense.
 Also note that if the file you edit is not in the wheel, the follow
 routine will do nothing.  If you want to edit a file and add it to the
 current group (circle), you can use `<plug>(wheel-add-file)`. It is
-bound to `<M-w>f` by default.
+bound to `<M-w>+f` by default.
 
 To edit and add a buffer, you can use `<plug>(wheel-add-buffer)`, bound to
 `<M-w>b` by default.
@@ -1370,8 +1370,8 @@ Add~
 | <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
 | A          | <M-w>A                | Add torus to the wheel             |
 | ---------- | --------------------- | ---------------------------------- |
-| f          | <M-w>f                | Edit and add a file                |
-| b          | <M-w>b                | Edit and add a buffer              |
+| +f         | <M-w>+f               | Edit and add a file                |
+| +b         | <M-w>+b               | Edit and add a buffer              |
 | *          | <M-w>*                | Add files matching glob            |
 
 Next / previous~
@@ -1457,10 +1457,10 @@ Search for files~
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
 | l        | <M-w>l              | Search files with locate                    |
-| <M-f>    | <M-w><M-f>          | Find files in current directory using glob  |
-| <C-f>    | <M-w><C-f>          | Search files with find in async mode        |
-| <M-m>    | <M-w><M-m>          | Most recently used files not found in wheel |
-| <M-b>    | <M-w><M-b>          | Buffers (opened files)                      |
+| f        | <M-w>f              | Find files in current directory using glob  |
+| <M-f>    | <M-w><M-f>          | Search files with find in async mode        |
+| u        | <M-w>u              | Most recently used files not found in wheel |
+| b        | <M-w>b              | Buffers (opened files)                      |
 
 Tabs & windows~
 
@@ -1589,9 +1589,9 @@ adapt them to your taste and add them to your init file.
 | <M-^>          | Alternate in the same circle                  |
 | <M-C-^>        | Alternate in another circle of the same torus |
 | -------------- | --------------------------------------------- |
-| <Space>        | Choose location in dedicated buffer             |
-| <C-Space>      | Choose circle in dedicated buffer               |
-| <S-Space>      | Choose torus in dedicated buffer                |
+| <Space>        | Choose location in dedicated buffer           |
+| <C-Space>      | Choose circle in dedicated buffer             |
+| <S-Space>      | Choose torus in dedicated buffer              |
 | <M-x>          | Choose element in wheel folding tree          |
 | <M-C-x>        | Index of toruses > circles > locations        |
 | <M-h>          | History index                                 |
@@ -1606,12 +1606,13 @@ adapt them to your taste and add them to your init file.
 | <M-b>          | Buffers (opened files)                        |
 | <M-v>          | Tabs & windows in tree mode : visible buffers |
 | -------------- | --------------------------------------------- |
-| <M-u>          | Most Recently Used files not found in wheel   |
 | <M-l>          | Locate                                        |
 | <M-f>          | Find                                          |
+| <M-C-f>        | Async find                                    |
+| <M-u>          | Most Recently Used files not found in wheel   |
 | -------------- | --------------------------------------------- |
 | <M-!>          | Buffer with output of ex or shell command     |
-| <M-&>          | Async shell command in dedicated buffer         |
+| <M-&>          | Async shell command in dedicated buffer       |
 | -------------- | --------------------------------------------- |
 | <M-r>          | Reorganize wheel elements                     |
 | <M-C-r>        | Reorganize tabs and windows                   |
@@ -1621,9 +1622,9 @@ adapt them to your taste and add them to your init file.
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
 | -------------- | --------------------------------------------- |
-| <M-Tab>        | Save (push) dedicated buffer                    |
-| <M-Backspace>  | Remove (pop) dedicated buffer                   |
-| <M-Space>      | Switch dedicated buffer                         |
+| <M-Tab>        | Save (push) dedicated buffer                  |
+| <M-Backspace>  | Remove (pop) dedicated buffer                 |
+| <M-Space>      | Switch dedicated buffer                       |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -1656,8 +1657,13 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-x>          <plug>(wheel-tree)'
     exe nmap '<m-c-x>        <plug>(wheel-index-locations)'
     exe nmap '<m-h>          <plug>(wheel-history)'
+    " Search for files
+    exe nmap '<m-l>          <plug>(wheel-locate)'
+    exe nmap '<m-f>          <plug>(wheel-find)'
+    exe nmap '<m-c-f>        <plug>(wheel-async-find)'
+    exe nmap '<m-u>          <plug>(wheel-mru)'
     " Buffers
-    exe nmap '<m-b>          <plug>(wheel-opened-files)'
+    exe nmap '<m-b>          <plug>(wheel-buffers)'
     " Tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
     " Search inside files
@@ -1667,10 +1673,6 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-t>          <plug>(wheel-tags)'
     exe nmap '<m-j>          <plug>(wheel-jumps)'
     exe nmap '<m-c>          <plug>(wheel-changes)'
-    " Search for files
-    exe nmap '<m-u>          <plug>(wheel-mru)'
-    exe nmap '<m-l>          <plug>(wheel-locate)'
-    exe nmap '<m-f>          <plug>(wheel-find)'
     " Yank
     exe nmap '<m-y>          <plug>(wheel-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-yank-plain)'
