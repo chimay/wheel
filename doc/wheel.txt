@@ -1748,6 +1748,8 @@ Example of key binding using a plug map : >
     nmap <M-m> <Plug>(wheel-menu-main)
 <
 
+All of these plugs are listed below.
+
 | Plug maps                                       | Description                               |
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-menu-main)                         | main menu                                 |
