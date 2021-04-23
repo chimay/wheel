@@ -437,6 +437,10 @@ endfun
 
 fun! wheel#layer#switch (...)
 	" Switch to layer with completion
+	if wheel#layer#length () == 0
+		echomsg 'wheel layer switch : empty layer stack.'
+		return v:false
+	endif
 	let prompt = 'Switch to layer : '
 	let complete =  'custom,wheel#complete#layer'
 	if a:0 > 0

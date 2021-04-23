@@ -216,6 +216,11 @@ endfun
 
 fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion
+	let bufnums = copy(g:wheel_mandalas.stack)
+	if empty(bufnums)
+		echomsg 'wheel cylinder switch : empty buffer stack.'
+		return v:false
+	endif
 	let prompt = 'Switch to mandala : '
 	let complete =  'custom,wheel#complete#mandala'
 	if a:0 > 0
@@ -223,7 +228,6 @@ fun! wheel#cylinder#switch ()
 	else
 		let name = input(prompt, '', complete)
 	endif
-	let bufnums = copy(g:wheel_mandalas.stack)
 	let filenames = map(bufnums, {_,v->bufname(v)})
 	let mandala = index(filenames, name)
 	if mandala < 0
