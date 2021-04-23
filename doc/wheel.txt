@@ -1258,7 +1258,6 @@ MAPPINGS						    *wheel-mappings*
 
 Levels				|wheel-mappings-levels|
 Prefix				|wheel-mappings-prefix|
-List of available maps		|wheel-mappings-available-maps|
 Mnemonic			|wheel-mappings-mnemonic|
 Level 0				|wheel-mappings-level-0|
 Level 1				|wheel-mappings-level-1|
@@ -1310,34 +1309,6 @@ Neovim-qt, though : >
 
 In the following discussion, I assume that you have kept the default
 `<M-w>` prefix.
-
-------------------------------------------------------------------------------
-LIST OF AVAILABLE MAPS			*wheel-mappings-available-maps*
-
-To display the list of available plug mappings, press `<M-w>:`,
-then answer : >
-
-    map <Plug>(wheel-
-<
-
-to the prompt. You can then browse the plug wheel maps in a dedicated
-wheel buffer. It's only a command output collector though, you can't
-launch any map from there.
-
-To see mapped keys, you can also use `<M-w>:`, and answer : >
-
-    map <M-w>
-<
-
-to the prompt.
-
-You can find all of these in the file `autoload/wheel/centre.vim`,
-function `wheel#centre#plugs`. Their names are self explanatory.
-
-Example of key binding using a plug map : >
-
-    nmap <M-m> <Plug>(wheel-menu-main)
-<
 
 ------------------------------------------------------------------------------
 MNEMONIC					*wheel-mappings-mnemonic*
@@ -1751,6 +1722,26 @@ Some bindings that you may find useful : >
 ------------------------------------------------------------------------------
 EXHAUSTIVE LIST			*wheel-mappings-exhaustive-list*
 
+File~
+
+You can find all default plugs and maps in the file
+`autoload/wheel/centre.vim`.
+
+
+Mapped keys~
+
+To display the list of mapped keys, press `<M-w>:`, then answer : >
+
+    map <M-w>
+<
+
+to the prompt. You can then browse the plugs in a dedicated wheel
+buffer. It's only a command output collector though, you can't
+launch any map from there.
+
+You will see that all keys are linked to `<plug>` maps.
+
+Plugs~
 
 Example of key binding using a plug map : >
 
@@ -1800,7 +1791,7 @@ Example of key binding using a plug map : >
 | <plug>(wheel-alternate-same-torus-other-circle) | alternate in same torus, but other circle |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                         |
 
-Dedicated buffers~
+Dedicated buffers :
 
 | Plug maps                                       | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
@@ -1845,7 +1836,7 @@ Dedicated buffers~
 | <plug>(wheel-mandala-backward)                  | go to previous dedicated buffer        |
 | <plug>(wheel-mandala-switch)                    | switch to another dedicated buffer     |
 
-Layout~
+Layouts :
 
 | Plug maps                                       | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
@@ -1876,7 +1867,7 @@ Layout~
 | <plug>(wheel-rotate-counter-clockwise)          | rotate windows counter clockwise       |
 | <plug>(wheel-rotate-clockwise)                  | rotate windows clockwise               |
 
-Miscellaneous~
+Miscellaneous :
 
 | Plug maps                                       | Description                               |
 | ----------------------------------------------- | --------------------------------------    |
