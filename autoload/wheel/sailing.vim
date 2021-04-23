@@ -278,7 +278,7 @@ fun! wheel#sailing#outline (...)
 	endif
 	if mode == 1
 		let marker = split(&foldmarker, ',')[0]
-		if &grepprg !~ '^grep'
+		if g:wheel_config.grep =~ 'grep$' && &grepprg !~ '^grep'
 			let marker = escape(marker, '{')
 		endif
 		let lines = wheel#sailing#grep (marker)
