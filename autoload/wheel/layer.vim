@@ -142,12 +142,7 @@ endfun
 
 fun! wheel#layer#save_options ()
 	" Save options
-	let ampersands = {}
-	for option in s:mandala_options
-		let runme = 'let ampersands.' . option . '=' . '&' . option
-		execute runme
-	endfor
-	return ampersands
+	return wheel#gear#save_options (s:mandala_options)
 endfun
 
 fun! wheel#layer#save_maps ()
@@ -179,11 +174,7 @@ endfun
 
 fun! wheel#layer#restore_options (options)
 	" Restore options
-	let options = a:options
-	for optname in s:mandala_options
-		let runme = 'let &' . optname . '=' . string(options[optname])
-		execute runme
-	endfor
+	call wheel#gear#restore_options (a:options)
 endfun
 
 fun! wheel#layer#restore_maps (mapdict)
