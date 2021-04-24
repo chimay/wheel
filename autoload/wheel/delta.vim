@@ -32,13 +32,25 @@ fun! wheel#delta#restore_options ()
 	call wheel#gear#restore_options (b:wheel_options)
 endfun
 
+" Maps
+
+fun! wheel#delta#maps (winiden)
+	" Maps for undo list mandala
+	let map  =  'nnoremap <silent> <buffer> '
+	let pre  = ' :call wheel#line#undolist('
+	let post = ')<cr>'
+	exe map . '<cr>' . pre . string(a:winiden) . post
+endfun
+
 " Undo list mandala
 
-fun! wheel#delta#undolist()
+fun! wheel#delta#undolist ()
 	" Undo list mandala
 	let lines = wheel#perspective#undolist ()
+	let winiden = win_getid ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open('undo')
-	call wheel#mandala#common_maps ()
+	call wheel#mandala#template ()
+	call wheel#delta#maps (winiden)
 	call wheel#mandala#fill(lines)
 endfun

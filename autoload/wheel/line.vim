@@ -24,7 +24,7 @@ endif
 " Address of current line
 
 fun! wheel#line#default ()
-	" If on filtering lines, put the cursor in default line 2
+	" If on filtering line, put the cursor in default line 2
 	if wheel#mandala#has_filter() && line('.') == 1 && line('$') > 1
 		call cursor(2, 1)
 	endif
@@ -181,7 +181,7 @@ fun! wheel#line#menu (settings)
 	endif
 	" Call
 	let value = dict[key]
-	let dest = wheel#gear#call (value)
+	let winiden = wheel#gear#call (value)
 	if close
 		" Close mandala
 		" Go back to mandala
@@ -189,11 +189,11 @@ fun! wheel#line#menu (settings)
 		" Close it
 		call wheel#mandala#close ()
 		" Go to last destination
-		call wheel#gear#win_gotoid (dest)
+		call wheel#gear#win_gotoid (winiden)
 	else
 		" Do not close mandala
 		" Tab page changed ?
-		call wheel#gear#win_gotoid (dest)
+		call wheel#gear#win_gotoid (winiden)
 		let new_tab = tabpagenr()
 		if elder_tab != new_tab
 			" Tab changed, move mandala to new tab
@@ -271,14 +271,14 @@ fun! wheel#line#sailing (settings)
 		normal! zv
 		call wheel#spiral#cursor ()
 	endif
-	let dest = win_getid ()
+	let winiden = win_getid ()
 	if ! close
 		call wheel#cylinder#recall ()
 		" let the user clear the selection with <bar> if he chooses to
 	else
-		call win_gotoid (dest)
+		call win_gotoid (winiden)
 	endif
-	return dest
+	return winiden
 endfun
 
 " Applications of wheel#line#sailing
@@ -662,4 +662,17 @@ fun! wheel#line#paste_visual (...)
 		call wheel#mandala#close ()
 	endif
 	return win_getid ()
+endfun
+
+" Undo list
+
+fun! wheel#line#undolist (winiden)
+	" Jump to change in settings.selected
+	call wheel#line#default ()
+	let line = getline('.')
+	let fields = split(line)
+	let iden = str2nr(fields[0])
+	call wheel#gear#win_gotoid (a:winiden)
+	exe 'undo' iden
+	call wheel#cylinder#recall ()
 endfun
