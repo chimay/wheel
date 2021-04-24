@@ -388,3 +388,28 @@ fun! wheel#perspective#yank (mode)
 	endif
 	return lines
 endfun
+
+" Undo list
+
+fun! wheel#perspective#undolist ()
+	" Undo list
+	let undolist = execute('undolist')
+	let undolist = split(undolist, '\n')
+	if len(undolist) < 2
+		return v:false
+	endif
+	let undolist = undolist[1:]
+	let lines = []
+	for elem in undolist
+		let fields = split(elem)
+		let iden = fields[0]
+		let modif = fields[1]
+		let time = fields[2:-2]
+		let time = join(time)
+		let written = fields[-1]
+		let entry = [iden, modif, time, written]
+		let record = join(entry, s:field_separ)
+		call add(lines, record)
+	endfor
+	return lines
+endfun

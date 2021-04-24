@@ -31,3 +31,12 @@ fun! wheel#delta#restore_options ()
 	" Restore options to their state before diff
 	call wheel#gear#restore_options (b:wheel_options)
 endfun
+
+" Undo list mandala
+
+fun! wheel#delta#undolist()
+	" Undo list mandala
+	let lines = wheel#perspective#undolist ()
+	call wheel#mandala#open('undo')
+	call wheel#mandala#fill(lines)
+endfun

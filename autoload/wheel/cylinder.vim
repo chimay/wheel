@@ -226,7 +226,7 @@ fun! wheel#cylinder#switch ()
 	if a:0 > 0
 		let name = a:1
 	else
-		let name = input(prompt, '', complete)
+		let name = input(prompt, '/wheel/', complete)
 	endif
 	let filenames = map(bufnums, {_,v->bufname(v)})
 	let mandala = index(filenames, name)
