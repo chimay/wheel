@@ -142,29 +142,10 @@ endfun
 
 " Restoring things
 
-fun! wheel#layer#restore_options (options)
-	" Restore options
-	call wheel#gear#restore_options (a:options)
-endfun
-
-fun! wheel#layer#restore_maps (mapdict)
-	" Restore maps
-	call wheel#gear#restore_maps (a:mapdict)
-endfun
-
 fun! wheel#layer#restore_autocmds (autodict)
 	" Restore autocommands
-	let autodict = a:autodict
-	let ac_group = s:mandala_autocmds_group
-	for event in s:mandala_autocmds_events
-		exe 'autocmd!' ac_group event '<buffer>'
-		let autocmds = autodict[event]
-		if ! empty(autocmds)
-			for autocom in autocmds
-				exe 'autocmd' ac_group event '<buffer>' autocom
-			endfor
-		endif
-	endfor
+	let group = s:mandala_autocmds_group
+	call wheel#gear#restore_autocmds (group, a:autodict)
 endfun
 
 " Sync & swap
@@ -182,10 +163,10 @@ fun! wheel#layer#sync ()
 	let pseudo_file = layer.filename
 	exe 'silent file' pseudo_file
 	" options
-	call wheel#layer#restore_options (layer.options)
+	call wheel#gear#restore_options (layer.options)
 	" mappings
 	let mappings = deepcopy(layer.mappings)
-	call wheel#layer#restore_maps (mappings)
+	call wheel#gear#restore_maps (mappings)
 	" autocommands
 	let autodict = copy(layer.autocmds)
 	call wheel#layer#restore_autocmds (autodict)
