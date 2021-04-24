@@ -108,7 +108,7 @@ endfun
 
 fun! wheel#layer#clear_vars ()
 	" Clear mandala local variables, except the layer stack
-	call wheel#gear#unlet(s:mandala_vars)
+	call wheel#gear#unlet (s:mandala_vars)
 endfun
 
 fun! wheel#layer#fresh ()
@@ -135,12 +135,9 @@ endfun
 
 fun! wheel#layer#save_autocmds ()
 	" Save autocommands
-	let autodict = {}
-	let ac_group = s:mandala_autocmds_group
-	for event in s:mandala_autocmds_events
-		let autodict[event] = wheel#gear#autocmds (ac_group, event)
-	endfor
-	return autodict
+	let group = s:mandala_autocmds_group
+	let events = s:mandala_autocmds_events
+	return wheel#gear#save_autocmds (group, events)
 endfun
 
 " Restoring things

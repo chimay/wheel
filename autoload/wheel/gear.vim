@@ -249,6 +249,15 @@ fun! wheel#gear#save_maps (keysdict)
 	return mapdict
 endfun
 
+fun! wheel#gear#save_autocmds (group, events)
+	" Save autocommands
+	let autodict = {}
+	for event in a:events
+		let autodict[event] = wheel#gear#autocmds (a:group, event)
+	endfor
+	return autodict
+endfun
+
 " Restore
 
 fun! wheel#gear#restore_options (optdict)
