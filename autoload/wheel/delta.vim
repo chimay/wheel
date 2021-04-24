@@ -20,3 +20,24 @@ fun! wheel#delta#save_options ()
 	endfor
 	return ampersands
 endfun
+
+fun! wheel#delta#diff_options ()
+	" Activate diff options
+	setlocal diff
+	setlocal scrollbind
+	setlocal cursorbind
+	setlocal scrollopt+=hor
+	setlocal nowrap
+	setlocal foldmethod=diff
+	setlocal foldcolumn=2
+endfun
+
+fun! wheel#delta#restore_options (optdict)
+	" Restore options to their state before diff
+	let ampersands = a:optdict
+	for optname in keys(ampersands)
+		let runme = 'let &' . optname . '=' . string(ampersands[optname])
+		execute runme
+	endfor
+	return ampersands
+endfun
