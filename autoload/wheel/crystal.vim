@@ -311,6 +311,7 @@ if ! exists('s:menu_reorganize')
 				\ ['reorganize wheel' ,  'wheel#shape#reorganize'],
 				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwins'],
 				\ ['grep in edit mode' ,  'wheel#shape#grep_edit'],
+				\ ['undo list' ,  'wheel#delta#undolist'],
 				\]
 	lockvar s:menu_reorganize
 endif
