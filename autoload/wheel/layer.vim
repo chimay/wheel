@@ -149,28 +149,7 @@ endfun
 
 fun! wheel#layer#restore_maps (mapdict)
 	" Restore maps
-	let mapdict = a:mapdict
-	for key in keys(mapdict.normal)
-		if ! empty(mapdict.normal[key])
-			exe 'silent! nnoremap <buffer>' key mapdict.normal[key]
-		else
-			exe 'silent! nunmap <buffer>' key
-		endif
-	endfor
-	for key in keys(mapdict.insert)
-		if ! empty(mapdict.insert[key])
-			exe 'silent! inoremap <buffer>' key mapdict.insert[key]
-		else
-			exe 'silent! iunmap <buffer>' key
-		endif
-	endfor
-	for key in keys(mapdict.visual)
-		if ! empty(mapdict.visual[key])
-			exe 'silent! vnoremap <buffer>' key mapdict.visual[key]
-		else
-			exe 'silent! vunmap <buffer>' key
-		endif
-	endfor
+	call wheel#gear#restore_maps (a:mapdict)
 endfun
 
 fun! wheel#layer#restore_autocmds (autodict)
