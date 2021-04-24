@@ -673,8 +673,35 @@ fun! wheel#line#undolist (bufnum)
 	let fields = split(line)
 	let iden = str2nr(fields[0])
 	let winiden = win_findbuf(a:bufnum)[0]
-	echomsg string(winiden)
 	call wheel#gear#win_gotoid (winiden)
 	exe 'undo' iden
 	call wheel#cylinder#recall ()
+endfun
+
+fun! wheel#line#undo_diff (bufnum)
+	" Visualize diff between last state & undo
+	call wheel#line#default ()
+	let line = getline('.')
+	let fields = split(line)
+	let iden = str2nr(fields[0])
+	" original buffer
+	let winiden = win_findbuf(a:bufnum)[0]
+	call wheel#gear#win_gotoid (winiden)
+	let save_filetype = &filetype
+	" copy of original buffer
+	vnew
+	read #
+	1 delete _
+	let diff_buf = bufnr('%')
+	let &filetype = save_filetype
+	diffthis
+	setlocal nomodifiable readonly
+	" original buffer
+	call wheel#gear#win_gotoid (winiden)
+	exe 'undo' iden
+	call wheel#delta#save_options ()
+	diffthis
+	" back to mandala
+	call wheel#cylinder#recall ()
+	let b:wheel_settings.diff_buf = diff_buf
 endfun

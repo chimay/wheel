@@ -31,41 +31,15 @@ fun! wheel#delta#maps (bufnum)
 	let post = ')<cr>'
 	exe map . '<cr>' . pre . string(a:bufnum) . post
 	" view diff between undo state and last one
-	let pre  = ' :call wheel#delta#diff('
-	exe map . 'd' . pre . string(a:bufnum) . post
+	let pre  = ' :call wheel#line#undo_diff('
+	" d does not work for it puts vim in operator pending mode
+	exe map . 'D' . pre . string(a:bufnum) . post
 	" close diff
 	let pre  = ' :call wheel#delta#close_diff('
 	exe map . 'u' . pre . string(a:bufnum) . post
 endfun
 
 " Diff
-
-fun! wheel#delta#diff (bufnum)
-	" Visualize diff between last state & undo
-	let winiden = win_findbuf(a:bufnum)[0]
-	" original buffer
-	call wheel#gear#win_gotoid (winiden)
-	let save_filetype = &filetype
-	" copy of original buffer
-	vnew
-	read #
-	1 delete _
-	let diff_buf = bufnr('%')
-	call wheel#delta#save_options ()
-	diffthis
-	let &filetype = save_filetype
-	setlocal nomodifiable readonly
-	" back to mandala
-	call wheel#cylinder#recall ()
-	call wheel#line#undolist (a:bufnum)
-	" original buffer
-	call wheel#gear#win_gotoid (winiden)
-	call wheel#delta#save_options ()
-	diffthis
-	" back to mandala
-	call wheel#cylinder#recall ()
-	let b:wheel_settings.diff_buf = diff_buf
-endfun
 
 fun! wheel#delta#close_diff (bufnum)
 	" Wipe copy or original buffer
