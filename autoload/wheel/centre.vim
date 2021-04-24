@@ -87,6 +87,8 @@ fun! wheel#centre#plugs ()
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
+	" Undo list
+	nnoremap <plug>(wheel-undo-list) :call wheel#delta#undolist()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-async) :call wheel#mandala#async()<cr>
@@ -233,6 +235,8 @@ fun! wheel#centre#cables ()
 		" Yank wheel
 		exe nmap prefix . 'y <plug>(wheel-yank-list)'
 		exe nmap prefix . 'p <plug>(wheel-yank-plain)'
+		" Undo list
+		exe nmap prefix . 'U <plug>(wheel-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix . ': <plug>(wheel-command)'
 		exe nmap prefix . '& <plug>(wheel-async)'
