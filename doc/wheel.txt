@@ -736,6 +736,8 @@ UNDO LIST BUFFER			*wheel-dedicated-buffers-undolist*
 In this buffer, you can reset the buffer to a previous undo position,
 just hit `<enter>` on an undo line.
 
+Default mapping : `<M-w>U`
+
 Still experimental~
 
 With `d`, you can visualize a diff split with the original buffer.
@@ -1486,6 +1488,12 @@ Reorganizing buffers~
 | <M-r>    | <M-w><M-r>          | Reorganize wheel elements |
 | <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
 | <M-g>    | <M-w><M-g>          | Grep edit mode            |
+
+Miscellaneous~
+
+| Prefix + | With default prefix | Action     |
+| -------- | ------------------- | ---------- |
+| U        | <M-w>U              | Undo list  |
 
 Managing dedicated buffers~
 
