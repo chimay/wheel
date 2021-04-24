@@ -119,23 +119,7 @@ fun! wheel#gear#win_gotoid (iden)
 	endif
 endfun
 
-" Clear, save, restore
-
-fun! wheel#gear#unlet (variable)
-	" Unlet variable named variable
-	" If var is a list, unlet every variable in it
-	let variable = a:variable
-	let kind = type(variable)
-	if kind == v:t_string
-		if exists(variable)
-			unlet {variable}
-		endif
-	elseif kind == v:t_list
-		for elem in variable
-			call wheel#gear#unlet (elem)
-		endfor
-	endif
-endfun
+" Clear
 
 fun! wheel#gear#unmap (key, ...)
 	" Unmap buffer mapping key in mode
@@ -193,6 +177,42 @@ fun! wheel#gear#autocmds (group, event)
 	return autocmds
 endfun
 
+fun! wheel#gear#clear_autocmds (group, event)
+	" Clear local autocommands in group at event
+	" If event is a list, clear every event autocmds in it
+	let group = a:group
+	let event = a:event
+	let group_event_pattern = '#' . group . '#' . event . '#<buffer>'
+	let kind = type(event)
+	if kind == v:t_string
+		if exists(group_event_pattern)
+			exe 'autocmd!' group event '<buffer>'
+		endif
+	elseif kind == v:t_list
+		for elem in event
+			call wheel#gear#clear_autocmds (group, elem)
+		endfor
+	endif
+endfun
+
+fun! wheel#gear#unlet (variable)
+	" Unlet variable named variable
+	" If var is a list, unlet every variable in it
+	let variable = a:variable
+	let kind = type(variable)
+	if kind == v:t_string
+		if exists(variable)
+			unlet {variable}
+		endif
+	elseif kind == v:t_list
+		for elem in variable
+			call wheel#gear#unlet (elem)
+		endfor
+	endif
+endfun
+
+" Save
+
 fun! wheel#gear#save_options (optlist)
 	" Return dictionary with options whose names are in optlist
 	let ampersands = {}
@@ -202,6 +222,8 @@ fun! wheel#gear#save_options (optlist)
 	endfor
 	return ampersands
 endfun
+
+" Restore
 
 fun! wheel#gear#restore_options (optdict)
 	" Restore options whose names and values are given by optdict
