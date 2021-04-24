@@ -740,7 +740,7 @@ Default mapping : `<M-w>U`
 
 With `D`, you can visualize a diff split between the past and present
 state of your file. You can even make some modifications in this file
-the with |do| and |dp| (or |:diffget| and |:diffput|).
+with |do| and |dp| (or |:diffget| and |:diffput|).
 
 With `u`, you can close the diff split.
 
