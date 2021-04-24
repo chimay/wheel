@@ -731,16 +731,16 @@ Anyway, it's always a good thing to do a backup of your files first,
 or even better, to work within a VCS repository, like git.
 
 ------------------------------------------------------------------------------
-UNDO LIST BUFFER			*wheel-dedicated-buffers-undolist*
+UNDO LIST				*wheel-dedicated-buffers-undolist*
 
 In this buffer, you can reset the buffer to a previous undo position,
 just hit `<enter>` on an undo line.
 
 Default mapping : `<M-w>U`
 
-Still experimental~
-
-With `d`, you can visualize a diff split with the original buffer.
+With `D`, you can visualize a diff split between the past and present
+state of your file. You can even make some modifications in this file
+the with |do| and |dp| (or |:diffget| and |:diffput|).
 
 With `u`, you can close the diff split.
 
