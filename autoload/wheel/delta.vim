@@ -9,7 +9,7 @@ if ! exists('s:diff_options')
 	lockvar s:diff_options
 endif
 
-" Helpers
+" Diff options
 
 fun! wheel#delta#save_options ()
 	" Save options before activating diff

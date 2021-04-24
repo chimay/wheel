@@ -58,7 +58,7 @@ fun! wheel#line#coordinates ()
 	if empty(cursor_line)
 		return []
 	endif
-	let level = wheel#gear#fold_level ()
+	let level = wheel#origami#fold_level ()
 	if level == 'torus'
 		" torus line
 		let torus = cursor_list[0]
@@ -66,7 +66,7 @@ fun! wheel#line#coordinates ()
 	elseif level == 'circle'
 		" circle line : search torus
 		let circle = cursor_list[0]
-		call wheel#gear#parent_fold ()
+		call wheel#origami#parent_fold ()
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
 		let fields = split(line)
@@ -75,12 +75,12 @@ fun! wheel#line#coordinates ()
 	elseif level == 'location'
 		" location line : search circle & torus
 		let location = cursor_line
-		call wheel#gear#parent_fold ()
+		call wheel#origami#parent_fold ()
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
 		let fields = split(line)
 		let circle = fields[0]
-		call wheel#gear#parent_fold ()
+		call wheel#origami#parent_fold ()
 		let line = getline('.')
 		let line = substitute(line, s:selected_pattern, '', '')
 		let fields = split(line)
@@ -102,7 +102,7 @@ fun! wheel#line#tabwin_hierarchy ()
 	if empty(cursor_line)
 		return []
 	endif
-	let level = wheel#gear#tabwin_level ()
+	let level = wheel#origami#tabwin_level ()
 	if level == 'tab'
 		" tab line
 		let tabnum = str2nr(cursor_list[1])
@@ -111,7 +111,7 @@ fun! wheel#line#tabwin_hierarchy ()
 		" filename line
 		let filename = cursor_list[0]
 		let fileline = line('.')
-		call wheel#gear#parent_tabwin ()
+		call wheel#origami#parent_tabwin ()
 		let tabline = line('.')
 		let winum = fileline - tabline
 		let line = getline('.')
