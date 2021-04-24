@@ -497,6 +497,18 @@ endif
 
 " Public Interface
 
+fun! wheel#crystal#clear (varname)
+	" Unlet script variable called varname
+	let varname = a:varname
+	let varname = substitute(varname, '/', '_', 'g')
+	let varname = substitute(varname, '-', '_', 'g')
+	if varname !~ '\m^s:'
+		let varname = 's:' . varname
+	endif
+	unlet {varname}
+	return varname
+endfun
+
 fun! wheel#crystal#fetch (varname, ...)
 	" Return script variable called varname
 	" The leading s: can be omitted

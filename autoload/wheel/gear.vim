@@ -4,6 +4,11 @@
 
 " Script constants
 
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+	lockvar s:mandala_autocmds_group
+endif
+
 if ! exists('s:fold_1')
 	let s:fold_1 = wheel#crystal#fetch('fold/one')
 	lockvar s:fold_1
@@ -234,10 +239,11 @@ fun! wheel#gear#autocmds (group, event)
 	let runme = 'autocmd ' . a:group . ' ' . a:event . ' <buffer>'
 	let output = execute(runme)
 	let lines = split(output, '\n')
-	if len(lines) < 3
+	call filter(lines, {_,v -> v !~ '\m^--- .* ---$'})
+	call filter(lines, {_,v -> v !~ '\m^' . s:mandala_autocmds_group})
+	if empty(lines)
 		return []
 	endif
-	let lines = lines[2:]
 	let autocmds = []
 	let here = v:false
 	for elem in lines
