@@ -78,7 +78,7 @@ if ! exists('s:mandala_options')
 	lockvar s:mandala_options
 endif
 
-" Maps in mandalas
+" Mandalas maps
 
 if ! exists('s:normal_map_keys')
 	let s:normal_map_keys = [
@@ -493,6 +493,21 @@ if ! exists('s:context_yank')
 				\ ['paste after' ,  "wheel#boomerang#yank('after')"],
 				\]
 	lockvar s:context_yank
+endif
+
+" Undo & diff
+
+if ! exists('s:diff_options')
+	let s:diff_options = [
+				\ 'diff',
+				\ 'scrollbind',
+				\ 'cursorbind',
+				\ 'scrollopt',
+				\ 'wrap',
+				\ 'foldmethod',
+				\ 'foldcolumn',
+				\]
+	lockvar s:diff_options
 endif
 
 " Public Interface
