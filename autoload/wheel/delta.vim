@@ -16,17 +16,6 @@ fun! wheel#delta#save_options ()
 	let b:wheel_options = wheel#gear#save_options (s:diff_options)
 endfun
 
-fun! wheel#delta#diff_options ()
-	" Activate diff options
-	setlocal diff
-	setlocal scrollbind
-	setlocal cursorbind
-	setlocal scrollopt+=hor
-	setlocal nowrap
-	setlocal foldmethod=diff
-	setlocal foldcolumn=2
-endfun
-
 fun! wheel#delta#restore_options ()
 	" Restore options to their state before diff
 	call wheel#gear#restore_options (b:wheel_options)
@@ -54,24 +43,28 @@ endfun
 fun! wheel#delta#diff (bufnum)
 	" Visualize diff between last state & undo
 	let winiden = win_findbuf(a:bufnum)[0]
-	call wheel#gear#win_gotoid (winiden)
 	" original buffer
+	call wheel#gear#win_gotoid (winiden)
 	let save_filetype = &filetype
-	call wheel#delta#save_options ()
-	call wheel#delta#diff_options ()
 	" copy of original buffer
 	vnew
 	read #
 	1 delete _
 	let diff_buf = bufnr('%')
 	call wheel#delta#save_options ()
-	call wheel#delta#diff_options ()
+	diffthis
 	let &filetype = save_filetype
+	setlocal nomodifiable readonly
 	" back to mandala
 	call wheel#cylinder#recall ()
 	call wheel#line#undolist (a:bufnum)
+	" original buffer
+	call wheel#gear#win_gotoid (winiden)
+	call wheel#delta#save_options ()
+	diffthis
+	" back to mandala
+	call wheel#cylinder#recall ()
 	let b:wheel_settings.diff_buf = diff_buf
-	redraw!
 endfun
 
 fun! wheel#delta#close_diff (bufnum)
@@ -81,12 +74,16 @@ fun! wheel#delta#close_diff (bufnum)
 	let winiden = win_findbuf(a:bufnum)[0]
 	call wheel#gear#win_gotoid (winiden)
 	call wheel#delta#restore_options ()
+	call wheel#cylinder#recall ()
 endfun
 
 " Undo list mandala
 
 fun! wheel#delta#undolist ()
 	" Undo list mandala
+	if wheel#cylinder#is_mandala ()
+		call wheel#mandala#close ()
+	endif
 	let lines = wheel#perspective#undolist ()
 	let bufnum = bufnr('%')
 	call wheel#vortex#update ()
@@ -94,4 +91,15 @@ fun! wheel#delta#undolist ()
 	call wheel#mandala#template ()
 	call wheel#delta#maps (bufnum)
 	call wheel#mandala#fill(lines)
+	" reload
+	let b:wheel_reload = "wheel#delta#reload('" . bufnum . "')"
+endfun
+
+" Reload mandala
+
+fun! wheel#delta#reload (bufnum)
+	" Reload undolist
+	let winiden = win_findbuf(a:bufnum)[0]
+	call wheel#gear#win_gotoid (winiden)
+	call wheel#delta#undolist ()
 endfun
