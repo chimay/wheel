@@ -119,7 +119,7 @@ fun! wheel#gear#win_gotoid (iden)
 	endif
 endfun
 
-" Save, restore, clear
+" Clear, save, restore
 
 fun! wheel#gear#unlet (variable)
 	" Unlet variable named variable
@@ -191,6 +191,24 @@ fun! wheel#gear#autocmds (group, event)
 		endif
 	endfor
 	return autocmds
+endfun
+
+fun! wheel#gear#save_options (optlist)
+	" Return dictionary with options whose names are in optlist
+	let ampersands = {}
+	for optname in a:optlist
+		let runme = 'let ampersands.' . optname . '=' . '&' . optname
+		execute runme
+	endfor
+	return ampersands
+endfun
+
+fun! wheel#gear#restore_options (optdict)
+	" Restore options whose names and values are given by optdict
+	for [name, value] in items(a:optdict)
+		let runme = 'let &' . name . '=' . string(value)
+		execute runme
+	endfor
 endfun
 
 " Misc

@@ -13,12 +13,7 @@ endif
 
 fun! wheel#delta#save_options ()
 	" Save options before activating diff
-	let ampersands = {}
-	for optname in s:diff_options
-		let runme = 'let ampersands.' . optname . '=' . '&' . optname
-		execute runme
-	endfor
-	return ampersands
+	let b:wheel_options = wheel#gear#save_options (s:diff_options)
 endfun
 
 fun! wheel#delta#diff_options ()
@@ -32,12 +27,7 @@ fun! wheel#delta#diff_options ()
 	setlocal foldcolumn=2
 endfun
 
-fun! wheel#delta#restore_options (optdict)
+fun! wheel#delta#restore_options ()
 	" Restore options to their state before diff
-	let ampersands = a:optdict
-	for optname in keys(ampersands)
-		let runme = 'let &' . optname . '=' . string(ampersands[optname])
-		execute runme
-	endfor
-	return ampersands
+	call wheel#gear#restore_options (b:wheel_options)
 endfun
