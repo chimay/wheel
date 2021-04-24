@@ -295,6 +295,7 @@ Reordering		        |wheel-dedicated-buffers-reordering|
 Reorganizing			|wheel-dedicated-buffers-reorganizing|
 Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
+Undo list			|wheel-dedicated-buffers-undolist|
 Batch buffer			|wheel-dedicated-buffers-batch|
 Command output buffer		|wheel-dedicated-buffers-command|
 
@@ -728,6 +729,9 @@ Note that :
 
 Anyway, it's always a good thing to do a backup of your files first,
 or even better, to work within a VCS repository, like git.
+
+------------------------------------------------------------------------------
+UNDO LIST BUFFER			*wheel-dedicated-buffers-undolist*
 
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-dedicated-buffers-batch*

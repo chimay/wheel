@@ -87,11 +87,6 @@ fun! wheel#centre#plugs ()
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
-	" Undo list
-	nnoremap <plug>(wheel-undo-list) :call wheel#delta#undolist()<cr>
-	" Generic buffer from ex or shell command output
-	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
-	nnoremap <plug>(wheel-async) :call wheel#mandala#async()<cr>
 	" Reorder
 	nnoremap <plug>(wheel-reorder-location) :call wheel#shape#reorder('location')<cr>
 	nnoremap <plug>(wheel-reorder-circle) :call wheel#shape#reorder('circle')<cr>
@@ -102,6 +97,11 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-reorg-tabwins) :call wheel#shape#reorg_tabwins()<cr>
 	" Grep edit mode
 	nnoremap <plug>(wheel-grep-edit) :call wheel#shape#grep_edit()<cr>
+	" Undo list
+	nnoremap <plug>(wheel-undo-list) :call wheel#delta#undolist()<cr>
+	" Generic buffer from ex or shell command output
+	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
+	nnoremap <plug>(wheel-async) :call wheel#mandala#async()<cr>
 	" Save (push) mandala buffer
 	nnoremap <plug>(wheel-mandala-push) :call wheel#cylinder#push()<cr>
 	" Remove (pop) mandala buffer
@@ -235,11 +235,6 @@ fun! wheel#centre#cables ()
 		" Yank wheel
 		exe nmap prefix . 'y <plug>(wheel-yank-list)'
 		exe nmap prefix . 'p <plug>(wheel-yank-plain)'
-		" Undo list
-		exe nmap prefix . 'U <plug>(wheel-undo-list)'
-		" Generic ex or shell command
-		exe nmap prefix . ': <plug>(wheel-command)'
-		exe nmap prefix . '& <plug>(wheel-async)'
 		" Reorganize
 		" wheel
 		exe nmap prefix . '<m-r> <plug>(wheel-reorganize)'
@@ -247,6 +242,11 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<c-r> <plug>(wheel-reorg-tabwins)'
 		" grep edit
 		exe nmap prefix . '<m-g> <plug>(wheel-grep-edit)'
+		" Undo list
+		exe nmap prefix . 'U <plug>(wheel-undo-list)'
+		" Generic ex or shell command
+		exe nmap prefix . ': <plug>(wheel-command)'
+		exe nmap prefix . '& <plug>(wheel-async)'
 		" Save (push) mandala buffer
 		exe nmap prefix . '<tab> <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
