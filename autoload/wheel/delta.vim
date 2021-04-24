@@ -37,6 +37,8 @@ endfun
 fun! wheel#delta#undolist()
 	" Undo list mandala
 	let lines = wheel#perspective#undolist ()
+	call wheel#vortex#update ()
 	call wheel#mandala#open('undo')
+	call wheel#mandala#common_maps ()
 	call wheel#mandala#fill(lines)
 endfun

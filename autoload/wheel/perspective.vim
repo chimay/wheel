@@ -404,12 +404,13 @@ fun! wheel#perspective#undolist ()
 		let fields = split(elem)
 		let iden = fields[0]
 		let modif = fields[1]
-		let time = fields[2:-2]
-		let time = join(time)
+		let time = join(fields[2:-2])
 		let written = fields[-1]
 		let entry = [iden, modif, time, written]
 		let record = join(entry, s:field_separ)
 		call add(lines, record)
 	endfor
+	" more recent first
+	call reverse(lines)
 	return lines
 endfun
