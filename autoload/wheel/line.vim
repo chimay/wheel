@@ -666,13 +666,15 @@ endfun
 
 " Undo list
 
-fun! wheel#line#undolist (winiden)
+fun! wheel#line#undolist (bufnum)
 	" Jump to change in settings.selected
 	call wheel#line#default ()
 	let line = getline('.')
 	let fields = split(line)
 	let iden = str2nr(fields[0])
-	call wheel#gear#win_gotoid (a:winiden)
+	let winiden = win_findbuf(a:bufnum)[0]
+	echomsg string(winiden)
+	call wheel#gear#win_gotoid (winiden)
 	exe 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
