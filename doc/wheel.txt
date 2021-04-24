@@ -110,7 +110,11 @@ FEATURES				*wheel-introduction-features*
 - Reorganizing
   + Wheel elements
   + Tabs & windows
+  + Grep in edit mode
+- Undo list
+  + Diff between last & chosen state
 - Dedicated buffers stack to save your searches
+  + Layer stack in each dedicated buffer
 - Display files
   + Split levels : torus, circle, location
   + Split
@@ -738,9 +742,9 @@ just hit `<enter>` on an undo line.
 
 Default mapping : `<M-w>U`
 
-With `D`, you can visualize a diff split between the past and present
-state of your file. You can even make some modifications in this file
-with |do| and |dp| (or |:diffget| and |:diffput|).
+With `D`, you can visualize a diff split between the last and the chosen
+undo state of your file. You can even make some modifications in this
+file with |do| and |dp| (or |:diffget| and |:diffput|).
 
 With `u`, you can close the diff split.
 

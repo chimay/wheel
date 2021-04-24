@@ -119,15 +119,15 @@ your groups will grow and adapt to your style.
     * Context menus
   + Auto |:lcd| to project root of current file
 - Search files
-  + Opened buffers
-  + Visible buffers in tabs & wins
-  + MRU files not found in wheel
   + Using locate
   + Using find
+  + MRU files not found in wheel
+  + Opened buffers
+  + Visible buffers in tabs & windows
 - Search inside files
   + Grep on group files
     * Navigate
-    * Edit buffer and propagate changes with :cdo
+    * Edit buffer and propagate changes with `:cdo`
   + Outline
     * Folds headers in group files (based on fold markers)
     * Markdown headers
@@ -141,7 +141,11 @@ your groups will grow and adapt to your style.
 - Reorganizing
   + Wheel elements
   + Tabs & windows
+  + Grep in edit mode
+- Undo list
+  + Diff between last & chosen state
 - Dedicated buffers stack to save your searches
+  + Layer stack in each dedicated buffer
 - Display files
   + Split levels : torus, circle, location
   + Split
