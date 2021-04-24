@@ -119,6 +119,15 @@ if ! exists('s:visual_map_keys')
 	lockvar s:visual_map_keys
 endif
 
+if ! exists('s:map_keys')
+	let s:map_keys = {
+				\ 'normal' : s:normal_map_keys,
+				\ 'insert' : s:insert_map_keys,
+				\ 'visual' : s:visual_map_keys,
+				\ }
+	lockvar s:map_keys
+endif
+
 " Mandala autocmds
 
 if ! exists('s:mandala_autocmds_group')

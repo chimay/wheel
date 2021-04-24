@@ -9,19 +9,9 @@ if ! exists('s:mandala_options')
 	lockvar s:mandala_options
 endif
 
-if ! exists('s:normal_map_keys')
-	let s:normal_map_keys = wheel#crystal#fetch('normal/map/keys')
-	lockvar s:normal_map_keys
-endif
-
-if ! exists('s:insert_map_keys')
-	let s:insert_map_keys = wheel#crystal#fetch('insert/map/keys')
-	lockvar s:insert_map_keys
-endif
-
-if ! exists('s:visual_map_keys')
-	let s:visual_map_keys = wheel#crystal#fetch('visual/map/keys')
-	lockvar s:visual_map_keys
+if ! exists('s:map_keys')
+	let s:map_keys = wheel#crystal#fetch('map/keys')
+	lockvar s:map_keys
 endif
 
 if ! exists('s:mandala_autocmds_group')
@@ -106,17 +96,13 @@ endfun
 
 fun! wheel#layer#clear_maps ()
 	" Clear mandala local maps
-	" normal maps
-	call wheel#gear#unmap(s:normal_map_keys, 'n')
-	" insert maps
-	call wheel#gear#unmap(s:insert_map_keys, 'i')
+	call wheel#gear#unmap(s:map_keys)
 endfun
 
 fun! wheel#layer#clear_autocmds ()
 	" Clear mandala local autocommands
 	let group = s:mandala_autocmds_group
 	let events = s:mandala_autocmds_events
-	echomsg group string(events)
 	call wheel#gear#clear_autocmds (group, events)
 endfun
 
@@ -144,17 +130,7 @@ endfun
 
 fun! wheel#layer#save_maps ()
 	" Save maps
-	let mapdict = { 'normal' : {}, 'insert' : {}, 'visual' : {}}
-	for key in s:normal_map_keys
-		let mapdict.normal[key] = maparg(key, 'n')
-	endfor
-	for key in s:insert_map_keys
-		let mapdict.insert[key] = maparg(key, 'i')
-	endfor
-	for key in s:visual_map_keys
-		let mapdict.visual[key] = maparg(key, 'v')
-	endfor
-	return mapdict
+	return wheel#gear#save_maps (s:map_keys)
 endfun
 
 fun! wheel#layer#save_autocmds ()

@@ -119,34 +119,7 @@ fun! wheel#gear#win_gotoid (iden)
 	endif
 endfun
 
-" Clear
-
-fun! wheel#gear#unmap (key, ...)
-	" Unmap buffer mapping key in mode
-	" If key is a list, unmap every key in it
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'n'
-	endif
-	let key = a:key
-	let typekey = type(key)
-	if typekey == v:t_string
-		" dictionary with map caracteristics
-		let dict = maparg(key, mode, 0, 1)
-		if ! empty(dict) && dict.buffer
-			let pre = mode . 'unmap <silent> <buffer> '
-			let runme = pre . key
-			exe runme
-		endif
-	elseif typekey == v:t_list
-		for elem in key
-			call wheel#gear#unmap(elem, mode)
-		endfor
-	else
-		echomsg 'Wheel gear unmap : bad key format'
-	endif
-endfun
+" Autocommands
 
 fun! wheel#gear#autocmds (group, event)
 	" Return a list of buffer local autocmds of group at event
@@ -175,6 +148,44 @@ fun! wheel#gear#autocmds (group, event)
 		endif
 	endfor
 	return autocmds
+endfun
+
+" Clear
+
+fun! wheel#gear#unmap (key, ...)
+	" Unmap buffer mapping key in mode
+	" If key is a list, unmap every key in it
+	" If key is a dict, it has the form
+	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'n'
+	endif
+	let key = a:key
+	let typekey = type(key)
+	if typekey == v:t_string
+		" maparg returns dictionary with map caracteristics
+		let dict = maparg(key, mode, 0, 1)
+		if ! empty(dict) && dict.buffer
+			let pre = mode . 'unmap <silent> <buffer> '
+			let runme = pre . key
+			exe runme
+		endif
+	elseif typekey == v:t_list
+		for elem in key
+			call wheel#gear#unmap(elem, mode)
+		endfor
+	elseif typekey == v:t_dict
+		" normal maps
+		call wheel#gear#unmap(key.normal, 'n')
+		" insert maps
+		call wheel#gear#unmap(key.insert, 'i')
+		" visual maps
+		call wheel#gear#unmap(key.visual, 'v')
+	else
+		echomsg 'Wheel gear unmap : bad key format'
+	endif
 endfun
 
 fun! wheel#gear#clear_autocmds (group, event)
@@ -221,6 +232,21 @@ fun! wheel#gear#save_options (optlist)
 		execute runme
 	endfor
 	return ampersands
+endfun
+
+fun! wheel#gear#save_maps (keysdict)
+	" Save maps of keys in keysdict
+	let mapdict = { 'normal' : {}, 'insert' : {}, 'visual' : {}}
+	for key in a:keysdict.normal
+		let mapdict.normal[key] = maparg(key, 'n')
+	endfor
+	for key in a:keysdict.insert
+		let mapdict.insert[key] = maparg(key, 'i')
+	endfor
+	for key in a:keysdict.visual
+		let mapdict.visual[key] = maparg(key, 'v')
+	endfor
+	return mapdict
 endfun
 
 " Restore
