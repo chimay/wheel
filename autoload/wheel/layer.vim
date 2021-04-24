@@ -114,13 +114,10 @@ endfun
 
 fun! wheel#layer#clear_autocmds ()
 	" Clear mandala local autocommands
-	let ac_group = s:mandala_autocmds_group
-	for event in s:mandala_autocmds_events
-		let group_event_pattern = '#' . ac_group . '#' . event . '#<buffer>'
-		if exists(group_event_pattern)
-			exe 'autocmd!' ac_group event '<buffer>'
-		endif
-	endfor
+	let group = s:mandala_autocmds_group
+	let events = s:mandala_autocmds_events
+	echomsg group string(events)
+	call wheel#gear#clear_autocmds (group, events)
 endfun
 
 fun! wheel#layer#clear_vars ()

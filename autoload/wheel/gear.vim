@@ -182,9 +182,9 @@ fun! wheel#gear#clear_autocmds (group, event)
 	" If event is a list, clear every event autocmds in it
 	let group = a:group
 	let event = a:event
-	let group_event_pattern = '#' . group . '#' . event . '#<buffer>'
 	let kind = type(event)
 	if kind == v:t_string
+		let group_event_pattern = '#' . group . '#' . event . '#<buffer>'
 		if exists(group_event_pattern)
 			exe 'autocmd!' group event '<buffer>'
 		endif
