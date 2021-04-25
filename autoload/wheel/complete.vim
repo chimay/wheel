@@ -24,8 +24,7 @@ fun! wheel#complete#layer_list ()
 endfun
 
 fun! wheel#complete#mandala_list ()
-	" Return mandala types list
-	" layers types
+	" Return mandala list
 	let bufnums = g:wheel_mandalas.stack
 	if empty(bufnums)
 		return []
