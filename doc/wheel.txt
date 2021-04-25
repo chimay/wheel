@@ -747,13 +747,17 @@ or so).
 
 Default mapping : `<M-w><M-u>`
 
-With `D`, you can visualize a diff split between the last and the chosen
-undo state of your file. You can even make some modifications in this
-file with |do| and |dp| (or |:diffget| and |:diffput|).
+With `u`, you can go back to the last undo state.
+
+With `D`, you can visualize a diff split between :
+
+- the current state of your file
+- the chosen undo state
+
+You can even make some modifications with |do| and |dp| (or |:diffget|
+and |:diffput|).
 
 With `x`, you can close the diff split.
-
-With `u`, you can go back to the last undo state.
 
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-dedicated-buffers-batch*
