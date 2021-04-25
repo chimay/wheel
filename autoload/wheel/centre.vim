@@ -336,9 +336,6 @@ fun! wheel#centre#cables ()
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-yank-list)'
 		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
-		" Command
-		exe nmap '<m-!>          <plug>(wheel-command)'
-		exe nmap '<m-&>          <plug>(wheel-async)'
 		" Reshaping buffers
 		" wheel
 		exe nmap '<m-r>          <plug>(wheel-reorganize)'
@@ -346,16 +343,21 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
 		" grep edit
 		exe nmap '<m-c-g>        <plug>(wheel-grep-edit)'
-		" Layouts
-		exe nmap '<m-z>          <plug>(wheel-zoom)'
-		exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
+		" Undo list
+		exe nmap '<m-c-u>        <plug>(wheel-undo-list)'
+		" Command
+		exe nmap '<m-!>          <plug>(wheel-command)'
+		exe nmap '<m-&>          <plug>(wheel-async)'
 		" Save (push) mandala buffer
 		exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
 		exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
 		" Switch mandala buffers
 		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
+		" Layouts
+		exe nmap '<m-z>          <plug>(wheel-zoom)'
+		exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

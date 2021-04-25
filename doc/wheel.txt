@@ -1595,6 +1595,14 @@ adapt them to your taste and add them to your init file.
 | <M-C-x>        | Index of toruses > circles > locations        |
 | <M-h>          | History index                                 |
 | -------------- | --------------------------------------------- |
+| <M-l>          | Locate                                        |
+| <M-f>          | Find                                          |
+| <M-C-f>        | Async find                                    |
+| <M-u>          | Most Recently Used files not found in wheel   |
+| -------------- | --------------------------------------------- |
+| <M-b>          | Buffers (opened files)                        |
+| <M-v>          | Tabs & windows in tree mode : visible buffers |
+| -------------- | --------------------------------------------- |
 | <M-s>          | Occur in current file                         |
 | <M-g>          | Grep in current circle files                  |
 | <M-o>          | Outline in current circle files               |
@@ -1602,28 +1610,25 @@ adapt them to your taste and add them to your init file.
 | <M-j>          | Jumps                                         |
 | <M-c>          | Changes                                       |
 | -------------- | --------------------------------------------- |
-| <M-b>          | Buffers (opened files)                        |
-| <M-v>          | Tabs & windows in tree mode : visible buffers |
+| <M-y>          | Paste yank wheel element in list mode         |
+| <M-p>          | Paste yank wheel element in plain mode        |
 | -------------- | --------------------------------------------- |
-| <M-l>          | Locate                                        |
-| <M-f>          | Find                                          |
-| <M-C-f>        | Async find                                    |
-| <M-u>          | Most Recently Used files not found in wheel   |
+| <M-r>          | Reorganize wheel elements                     |
+| <M-C-r>        | Reorganize tabs and windows                   |
+| <M-C-g>        | Grep in edit mode                             |
+| -------------- | --------------------------------------------- |
+| <M-C-u>        | Undo list                                     |
 | -------------- | --------------------------------------------- |
 | <M-!>          | Buffer with output of ex or shell command     |
 | <M-&>          | Async shell command in dedicated buffer       |
 | -------------- | --------------------------------------------- |
-| <M-r>          | Reorganize wheel elements                     |
-| <M-C-r>        | Reorganize tabs and windows                   |
-| -------------- | --------------------------------------------- |
-| <M-y>          | Paste yank wheel element in list mode         |
-| <M-p>          | Paste yank wheel element in plain mode        |
-| -------------- | --------------------------------------------- |
-| <M-z>          | Zoom : one tab, one window                    |
-| -------------- | --------------------------------------------- |
 | <M-Tab>        | Save (push) dedicated buffer                  |
 | <M-Backspace>  | Remove (pop) dedicated buffer                 |
 | <M-Space>      | Switch dedicated buffer                       |
+| -------------- | --------------------------------------------- |
+| <M-z>          | Zoom : one tab, one window                    |
+| <M-PageUp>     | Rotate windows counter clockwise              |
+| <M-PageDown>   | Rotate windows clockwise                      |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -1675,9 +1680,6 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Yank
     exe nmap '<m-y>          <plug>(wheel-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-yank-plain)'
-    " Command
-    exe nmap '<m-!>          <plug>(wheel-command)'
-    exe nmap '<m-&>          <plug>(wheel-async)'
     " Reshaping buffers
     " wheel
     exe nmap '<m-r>          <plug>(wheel-reorganize)'
@@ -1685,16 +1687,21 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
     " grep edit
     exe nmap '<m-c-g>        <plug>(wheel-grep-edit)'
-    " Layouts
-    exe nmap '<m-z>          <plug>(wheel-zoom)'
-    exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
-    exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
+    " Undo list
+    exe nmap '<m-c-u>        <plug>(wheel-undo-list)'
+    " Command
+    exe nmap '<m-!>          <plug>(wheel-command)'
+    exe nmap '<m-&>          <plug>(wheel-async)'
     " Save (push) mandala buffer
     exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
     " Remove (pop) mandala buffer
     exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
     " Switch mandala buffers
     exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
+    " Layouts
+    exe nmap '<m-z>          <plug>(wheel-zoom)'
+    exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+    exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
 <
 
 ------------------------------------------------------------------------------
@@ -1811,15 +1818,16 @@ Dedicated buffers :
 | <plug>(wheel-yank-list)                         | yank wheel in list format              |
 | <plug>(wheel-yank-plain)                        | yank wheel in plain format             |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-command)                           | output of ex or shell command          |
-| <plug>(wheel-async)                             | output of shell command in async mode  |
-| ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-reorder-location)                  | reorder locations                      |
 | <plug>(wheel-reorder-circle)                    | reorder circles                        |
 | <plug>(wheel-reorder-torus)                     | reorder toruses                        |
 | <plug>(wheel-reorganize)                        | reorganize wheel treeish structure     |
 | <plug>(wheel-reorg-tabwins)                     | reorganize tabs & windows              |
 | <plug>(wheel-grep-edit)                         | grep circle files in edit mode         |
+| <plug>(wheel-undo-list)                         | go to undo state, compare with diff    |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-command)                           | output of ex or shell command          |
+| <plug>(wheel-async)                             | output of shell command in async mode  |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-mandala-push)                      | push a new dedicated buffer            |
 | <plug>(wheel-mandala-pop)                       | pop current dedicated buffer           |
