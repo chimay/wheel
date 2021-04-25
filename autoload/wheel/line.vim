@@ -669,8 +669,7 @@ endfun
 fun! wheel#line#undolist (bufnum)
 	" Jump to change in settings.selected
 	let iden = wheel#delta#undo_iden ()
-	let winiden = win_findbuf(a:bufnum)[0]
-	call wheel#gear#win_gotoid (winiden)
+	call wheel#delta#goto_bufwin (a:bufnum)
 	exe 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
@@ -679,8 +678,7 @@ fun! wheel#line#undo_diff (bufnum)
 	" Visualize diff between last state & undo
 	let iden = wheel#delta#undo_iden ()
 	" original buffer
-	let winiden = win_findbuf(a:bufnum)[0]
-	call wheel#gear#win_gotoid (winiden)
+	call wheel#delta#goto_bufwin (a:bufnum)
 	let save_filetype = &filetype
 	" copy of original buffer
 	vnew
@@ -691,7 +689,7 @@ fun! wheel#line#undo_diff (bufnum)
 	diffthis
 	setlocal nomodifiable readonly
 	" original buffer
-	call wheel#gear#win_gotoid (winiden)
+	call wheel#delta#goto_bufwin (a:bufnum)
 	exe 'undo' iden
 	call wheel#delta#save_options ()
 	diffthis

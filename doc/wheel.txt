@@ -748,6 +748,8 @@ file with |do| and |dp| (or |:diffget| and |:diffput|).
 
 With `x`, you can close the diff split.
 
+With `u`, you can go back to the last undo state.
+
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-dedicated-buffers-batch*
 

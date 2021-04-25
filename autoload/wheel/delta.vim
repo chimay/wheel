@@ -29,8 +29,16 @@ fun! wheel#delta#undo_iden (...)
 	return iden
 endfun
 
-fun! wheel#delta#bufwin (bufnum)
-	" Go to window of bufnum if visible, or put it in first window of tab
+fun! wheel#delta#goto_bufwin (bufnum)
+	" Go to window of bufnum if visible, or edit it in first window of tab
+	let winlist = win_findbuf(a:bufnum)
+	if ! empty(winlist)
+		let winiden = winlist[0]
+		call win_gotoid (winiden)
+	else
+		1 wincmd w
+		exe 'buffer' a:bufnum
+	endif
 endfun
 
 " Diff options
@@ -43,6 +51,29 @@ endfun
 fun! wheel#delta#restore_options ()
 	" Restore options to their state before diff
 	call wheel#gear#restore_options (b:wheel_options)
+endfun
+
+" Diff windows
+
+fun! wheel#delta#close_diff (bufnum)
+	" Wipe copy or original buffer
+	let diff_buf = b:wheel_settings.diff_buf
+	exe 'bwipe!' diff_buf
+	call wheel#delta#goto_bufwin (a:bufnum)
+	call wheel#delta#restore_options ()
+	call wheel#cylinder#recall ()
+endfun
+
+fun! wheel#delta#last (bufnum)
+	" Set buffer to last undo state
+	if has_key(b:wheel_settings, 'undo_iden')
+		let iden = b:wheel_settings.undo_iden
+	else
+		let iden = wheel#delta#undo_iden (1)
+	endif
+	call wheel#delta#goto_bufwin (a:bufnum)
+	exe 'undo' iden
+	call wheel#cylinder#recall ()
 endfun
 
 " Maps
@@ -61,34 +92,24 @@ fun! wheel#delta#maps (bufnum)
 	" close diff
 	let pre  = ' :call wheel#delta#close_diff('
 	exe map . 'x' . pre . string(a:bufnum) . post
-endfun
-
-" Diff
-
-fun! wheel#delta#close_diff (bufnum)
-	" Wipe copy or original buffer
-	let diff_buf = b:wheel_settings.diff_buf
-	exe 'bwipe!' diff_buf
-	let winiden = win_findbuf(a:bufnum)[0]
-	call wheel#gear#win_gotoid (winiden)
-	call wheel#delta#restore_options ()
-	call wheel#cylinder#recall ()
+	" undo, go to last state
+	let pre  = ' :call wheel#delta#last('
+	exe map . 'u' . pre . string(a:bufnum) . post
 endfun
 
 " Undo list mandala
 
 fun! wheel#delta#undolist ()
 	" Undo list mandala
-	if wheel#cylinder#is_mandala ()
-		call wheel#mandala#close ()
-	endif
+	call wheel#mandala#close ()
 	let lines = wheel#perspective#undolist ()
 	let bufnum = bufnr('%')
 	call wheel#vortex#update ()
 	call wheel#mandala#open('undo')
 	call wheel#mandala#template ()
 	call wheel#delta#maps (bufnum)
-	call wheel#mandala#fill(lines)
+	call wheel#mandala#fill (lines)
+	let b:wheel_settings.undo_iden = wheel#delta#undo_iden(1)
 	" reload
 	let b:wheel_reload = "wheel#delta#reload('" . bufnum . "')"
 endfun
@@ -97,7 +118,6 @@ endfun
 
 fun! wheel#delta#reload (bufnum)
 	" Reload undolist
-	let winiden = win_findbuf(a:bufnum)[0]
-	call wheel#gear#win_gotoid (winiden)
+	call wheel#delta#goto_bufwin (a:bufnum)
 	call wheel#delta#undolist ()
 endfun

@@ -130,7 +130,6 @@ fun! wheel#mandala#close ()
 	" If we are not in a mandala buffer, there is nothing to do
 	let bufnum = bufnr('%')
 	if index(g:wheel_mandalas.stack, bufnum) < 0
-		echomsg 'wheel mandala close : we are not in a mandala buffer.'
 		return v:false
 	endif
 	" Mandala buffer
