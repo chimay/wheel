@@ -1908,6 +1908,9 @@ Some bindings that you may find useful : >
     " reorganize tabs & windows
     nmap <silent> <d-v> <plug>(wheel-reorg-tabwins)
 
+    " undo list
+    nmap <silent> <d-u> <plug>(wheel-undo-list)
+
     " cycle dedicated buffers
     nmap <silent> <d-space> <plug>(wheel-mandala-forward)
     nmap <silent> <d-s-space> <plug>(wheel-mandala-backward)
