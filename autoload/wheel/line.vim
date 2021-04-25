@@ -679,13 +679,17 @@ fun! wheel#line#undo_diff (bufnum)
 	let iden = wheel#delta#undo_iden ()
 	" original buffer
 	call wheel#delta#goto_bufwin (a:bufnum)
-	let save_filetype = &filetype
+	let save = {}
+	let save.name = bufname()
+	let save.filetype = &filetype
 	" copy of original buffer
 	vnew
 	read #
 	1 delete _
 	let diff_buf = bufnr('%')
-	let &filetype = save_filetype
+	set buftype=nofile
+	exe 'file' 'wheel diff copy of ' save.name
+	let &filetype = save.filetype
 	diffthis
 	setlocal nomodifiable readonly
 	" original buffer
