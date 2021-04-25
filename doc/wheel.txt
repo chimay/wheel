@@ -731,6 +731,8 @@ Note that :
 - the plugin will not write the grepped files for you.
 - you can of course undo the changes you made if you are not happy with it
 
+Default mapping : `<M-w><M-g>`
+
 Anyway, it's always a good thing to do a backup of your files first,
 or even better, to work within a VCS repository, like git.
 
@@ -739,6 +741,9 @@ UNDO LIST				*wheel-dedicated-buffers-undolist*
 
 In this buffer, you can reset the buffer to a previous undo position,
 just hit `<enter>` on an undo line.
+
+Before playing with this, be sure you have a backup of your file (VCS
+or so).
 
 Default mapping : `<M-w><M-u>`
 
