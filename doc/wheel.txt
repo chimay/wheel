@@ -740,13 +740,13 @@ UNDO LIST				*wheel-dedicated-buffers-undolist*
 In this buffer, you can reset the buffer to a previous undo position,
 just hit `<enter>` on an undo line.
 
-Default mapping : `<M-w>U`
+Default mapping : `<M-w><M-u>`
 
 With `D`, you can visualize a diff split between the last and the chosen
 undo state of your file. You can even make some modifications in this
 file with |do| and |dp| (or |:diffget| and |:diffput|).
 
-With `u`, you can close the diff split.
+With `x`, you can close the diff split.
 
 ------------------------------------------------------------------------------
 BATCH BUFFER				*wheel-dedicated-buffers-batch*
@@ -1497,7 +1497,7 @@ Miscellaneous~
 
 | Prefix + | With default prefix | Action     |
 | -------- | ------------------- | ---------- |
-| U        | <M-w>U              | Undo list  |
+| <M-u>    | <M-w><M-u>          | Undo list  |
 
 Managing dedicated buffers~
 

@@ -243,7 +243,7 @@ fun! wheel#centre#cables ()
 		" grep edit
 		exe nmap prefix . '<m-g> <plug>(wheel-grep-edit)'
 		" Undo list
-		exe nmap prefix . 'U <plug>(wheel-undo-list)'
+		exe nmap prefix . '<m-u> <plug>(wheel-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix . ': <plug>(wheel-command)'
 		exe nmap prefix . '& <plug>(wheel-async)'

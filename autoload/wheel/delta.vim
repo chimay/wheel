@@ -9,6 +9,30 @@ if ! exists('s:diff_options')
 	lockvar s:diff_options
 endif
 
+" Helpers
+
+fun! wheel#delta#undo_iden (...)
+	" Return undo iden at current or given line
+	if a:0 > 0
+		let line = a:1
+	else
+		let line = '.'
+	endif
+	if line == '.'
+		call wheel#line#default ()
+	elseif line == 1
+		let line = wheel#mandala#first_data_line ()
+	endif
+	let line = getline(line)
+	let fields = split(line)
+	let iden = str2nr(fields[0])
+	return iden
+endfun
+
+fun! wheel#delta#bufwin (bufnum)
+	" Go to window of bufnum if visible, or put it in first window of tab
+endfun
+
 " Diff options
 
 fun! wheel#delta#save_options ()
@@ -36,7 +60,7 @@ fun! wheel#delta#maps (bufnum)
 	exe map . 'D' . pre . string(a:bufnum) . post
 	" close diff
 	let pre  = ' :call wheel#delta#close_diff('
-	exe map . 'u' . pre . string(a:bufnum) . post
+	exe map . 'x' . pre . string(a:bufnum) . post
 endfun
 
 " Diff

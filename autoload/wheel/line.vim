@@ -668,10 +668,7 @@ endfun
 
 fun! wheel#line#undolist (bufnum)
 	" Jump to change in settings.selected
-	call wheel#line#default ()
-	let line = getline('.')
-	let fields = split(line)
-	let iden = str2nr(fields[0])
+	let iden = wheel#delta#undo_iden ()
 	let winiden = win_findbuf(a:bufnum)[0]
 	call wheel#gear#win_gotoid (winiden)
 	exe 'undo' iden
@@ -680,10 +677,7 @@ endfun
 
 fun! wheel#line#undo_diff (bufnum)
 	" Visualize diff between last state & undo
-	call wheel#line#default ()
-	let line = getline('.')
-	let fields = split(line)
-	let iden = str2nr(fields[0])
+	let iden = wheel#delta#undo_iden ()
 	" original buffer
 	let winiden = win_findbuf(a:bufnum)[0]
 	call wheel#gear#win_gotoid (winiden)
