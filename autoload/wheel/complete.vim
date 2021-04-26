@@ -3,10 +3,11 @@
 " Completion functions
 " Return string where each element occupies a line
 
-" Helpers
+" Return entries as list
+" ---------------------------------------------
 
 fun! wheel#complete#layer_list ()
-	" Return layer types list
+	" Return layer types
 	" layers types
 	let filenames = wheel#layer#stack ('filename')
 	if empty(filenames)
@@ -24,7 +25,7 @@ fun! wheel#complete#layer_list ()
 endfun
 
 fun! wheel#complete#mandala_list ()
-	" Return mandala list
+	" Return mandala buffers names
 	let bufnums = g:wheel_mandalas.stack
 	if empty(bufnums)
 		return []
@@ -39,7 +40,26 @@ fun! wheel#complete#mandala_list ()
 	return types
 endfun
 
-" Wheel elements
+fun! wheel#complete#filename (arglead, cmdline, cursorpos)
+	" Complete different flavours or current filename, or filename in cmdline
+	let basis = expand('%')
+	" replace spaces par non-breaking spaces
+	let basis = substitute(basis, ' ', ' ', 'g')
+	" relative path
+	let cwd = getcwd() . '/'
+	let relative = substitute(basis, cwd, '', '')
+	" abolute path
+	let absolute = fnamemodify(basis, ':p')
+	let simple = fnamemodify(basis, ':t')
+	let root = fnamemodify(basis, ':t:r')
+	" list
+	let filenames = [root, simple, relative, absolute]
+	" newline separated entries in string
+	return filenames
+endfun
+
+" Return newline separated entries in string
+" ---------------------------------------------
 
 fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	" Complete torus name
@@ -73,16 +93,14 @@ fun! wheel#complete#location (arglead, cmdline, cursorpos)
 	endif
 endfu
 
-" Mandalas
-
 fun! wheel#complete#layer (arglead, cmdline, cursorpos)
-	" Complete layer in stack
+	" Complete current mandala layers
 	let layers = wheel#complete#layer_list ()
 	return join(layers, "\n")
 endfun
 
 fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
-	" Complete mandala in stack
+	" Complete mandalas pseudo filenames
 	let mandalas = wheel#complete#mandala_list ()
 	return join(mandalas, "\n")
 endfun
