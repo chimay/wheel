@@ -30,10 +30,6 @@
 	* [One map to ring them all](#one-map-to-ring-them-all)
 	* [Mnemonic](#mnemonic)
 	* [First Circles](#first-circles)
-	* [Moving around](#moving-around)
-		- [Cycling](#cycling)
-		- [Switch using completion](#switch-using-completion)
-		- [Switch using a dedicated buffer](#switch-using-a-dedicated-buffer)
 	* [More](#more)
 + [Examples](#examples)
 	* [Display some locations in tabs](#display-some-locations-in-tabs)
@@ -467,38 +463,6 @@ you can enter `novels/**/*` instead. Then, it will ask if you want to
 add the files in a new circle. You can answer yes and call this circle
 `Novels`. And voilà, your new `Novels` group contain all the files in
 the `novels` folder.
-
-## Moving around
-### Cycling
-
-You can cycle the files of a circle with `<M-w><Left>` and
-`<M-w><Right>`. These are often used bindings, so I suggest you map them
-to more convenient keys, like `<C-PageUp>` and `<C-PageDown>`
-
-To cycle the circles, use `<M-w><C-Left>` and `<M-w><C-Right>`. You can
-also map them to more convenient keys, like `<C-Home>` and `<C-End>`.
-
-To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>` or
-map them to `<S-Home>` and `<S-End>`.
-
-### Switch using completion
-
-You can also switch location by completion with `<M-w><CR>`.
-
-You can also switch circle by completion with `<M-w><C-CR>`.
-
-You can also switch torus by completion with `<M-w><S-CR>`.
-
-### Switch using a dedicated buffer
-
-You can also switch location by chosing it in a dedicated buffer. The
-default mapping is `<M-w><Space>`. Pressing enter on a line will switch
-to the matching location. Going to insert mode will allow you to filter
-the lines with one or more words.
-
-To choose a given circle in a dedicated buffer, use `<M-w><C-space>`.
-
-To choose a given torus in a dedicated buffer, use `<M-w><S-space>`.
 
 ## More
 
