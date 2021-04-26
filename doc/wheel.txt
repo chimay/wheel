@@ -2084,11 +2084,11 @@ you will be asked if you want to create a new circle. Answer yes, and
 call this circle `shell`.
 
 Now that you have your group ready, you can start the search with
-`<M-w><M-g>`. It will open the grep dedicated buffer. Hit tab, and launch
-the edit mode. You are now in a buffer where you can edit and propagate
-your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
-to replace all the occurences of the old var name. Then, just |:write|
-the buffer to apply these changes to all your shell scripts.
+`<M-w><M-g>`. It will open the grep dedicated buffer in edit mode. You
+are now in a buffer where you can edit and propagate your changes. So,
+we use the classic `:%s/old_var_name/new_var_name/g` to replace all the
+occurences of the old var name. Then, just |:write| the buffer to apply
+these changes to all your shell scripts.
 
 Want to go back to previous state ? You can undo your substitution in
 the dedicated buffer, and write again.
