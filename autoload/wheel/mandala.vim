@@ -118,8 +118,9 @@ fun! wheel#mandala#open (type)
 		endif
 		call wheel#layer#init ()
 	else
-		new
-		call wheel#cylinder#push ('linger')
+		split
+		call wheel#cylinder#first ('linger')
+		"call wheel#cylinder#push ('linger')
 	endif
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()

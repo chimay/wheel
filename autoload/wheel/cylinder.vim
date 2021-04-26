@@ -40,38 +40,32 @@ fun! wheel#cylinder#first (...)
 	if mode == 'goback'
 		silent buffer #
 	endif
-	"echomsg 'Buffer' novice 'added to mandala stack with iden' 0
+	return v:true
 endfun
 
 fun! wheel#cylinder#push (...)
 	" Push new mandala buffer
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'goback'
-	endif
 	call wheel#cylinder#check ()
 	let mandalas = g:wheel_mandalas.stack
 	let iden = g:wheel_mandalas.iden
 	" First one
 	if empty(mandalas)
-		call wheel#cylinder#first (mode)
-		return v:true
+		return call('wheel#cylinder#first', a:000)
 	endif
 	" Not the first one
-	" Is current buffer a mandala buffer ?
+	" is current buffer a mandala buffer ?
 	let in_mandala_buf = wheel#cylinder#is_mandala ()
-	" Previous current mandala
+	" previous current mandala
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
-	" New buffer
+	" new buffer
 	enew
 	let novice = bufnr('%')
 	if novice == elder
 		echomsg 'wheel mandala push : buffer' novice 'already in stack'
 		return v:false
 	endif
-	" Push
+	" push
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = len(mandalas) - 1
 	let minim = min(iden) - 1
@@ -89,7 +83,7 @@ fun! wheel#cylinder#push (...)
 	if ! in_mandala_buf
 		silent buffer #
 	endif
-	"echomsg 'Buffer' novice 'added to mandala stack with iden' novice_iden
+	call wheel#status#cylinder ()
 	return v:true
 endfun
 
@@ -133,7 +127,7 @@ fun! wheel#cylinder#recall ()
 	let mandalas = g:wheel_mandalas.stack
 	let current = g:wheel_mandalas.current
 	if empty(mandalas)
-		echomsg 'wheel mandala recall : empty buffer stack'
+		"echomsg 'wheel mandala recall : empty buffer stack'
 		return v:false
 	endif
 	let bufnum = bufnr('%')
