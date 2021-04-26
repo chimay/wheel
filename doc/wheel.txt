@@ -351,8 +351,7 @@ Switch layer stack~
 
 See |wheel-dedicated-buffers-layers|.
 
-You can complete by dedicated buffer types, wich will lead you to
-the layer you want.
+You can complete by layer types, wich will lead you to the layer you want.
 
 Switch dedicated buffer~
 
