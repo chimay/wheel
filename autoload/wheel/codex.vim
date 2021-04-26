@@ -3,6 +3,10 @@
 " Yank wheel
 " Take advantage of TextYankPost event
 
+" codex were rewritten by copists
+" other name ideas :
+" scroll, coil, spool
+
 fun! wheel#codex#register (register, ...)
 	" Add register to yank wheel
 	" If mode == begin and register content is already in yank wheel,

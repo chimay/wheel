@@ -2,6 +2,9 @@
 
 " Undo list & diff
 
+" other name ideas :
+" triangle
+
 " Script constants
 
 if ! exists('s:diff_options')

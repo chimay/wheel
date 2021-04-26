@@ -2,6 +2,11 @@
 
 " History
 
+" other names ideas :
+" sundial
+" hourglass, sandglass
+" longcase clock
+
 " Helpers
 
 fun! wheel#pendulum#timestamp ()

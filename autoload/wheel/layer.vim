@@ -2,6 +2,9 @@
 
 " Layers stack / ring in mandala buffer
 
+" other name ideas :
+" sheet
+
 " Script constants
 
 if ! exists('s:mandala_options')
