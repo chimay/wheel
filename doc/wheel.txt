@@ -5,6 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
+Prompting functions		|wheel-prompting-functions|
 Dedicated buffers		|wheel-dedicated-buffers|
 Batch mode			|wheel-batch-operations|
 Configuration			|wheel-configuration|

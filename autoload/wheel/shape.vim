@@ -19,9 +19,11 @@ endif
 fun! wheel#shape#write_reorder (level)
 	" Define reorder autocommands
 	setlocal buftype=acwrite
-	let ac_group = s:mandala_autocmds_group
-	let autocommand = "autocmd " . ac_group
-	let autocommand .= " BufWriteCmd <buffer> call wheel#cuboctahedron#reorder ('"
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	let autocommand = 'autocmd ' . group . ' ' . event
+	let autocommand .= " <buffer> call wheel#cuboctahedron#reorder ('"
 	let autocommand .= a:level . "')"
 	exe autocommand
 endfun
@@ -29,28 +31,28 @@ endfun
 fun! wheel#shape#write_reorganize ()
 	" Define reorganize autocommands
 	setlocal buftype=acwrite
-	let ac_group = s:mandala_autocmds_group
-	let autocommand = "autocmd " . ac_group
-	let autocommand .= " BufWriteCmd <buffer> call wheel#cuboctahedron#reorganize ()"
-	exe autocommand
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	exe 'autocmd' group event '<buffer> call wheel#cuboctahedron#reorganize ()'
 endfun
 
 fun! wheel#shape#write_reorg_tabwins ()
 	" Define reorg_tabwins autocommands
 	setlocal buftype=acwrite
-	let ac_group = s:mandala_autocmds_group
-	let autocommand = "autocmd " . ac_group
-	let autocommand .= " BufWriteCmd <buffer> call wheel#cuboctahedron#reorg_tabwins ()"
-	exe autocommand
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	exe 'autocmd' group event '<buffer> call wheel#cuboctahedron#reorg_tabwins ()'
 endfun
 
 fun! wheel#shape#write_grep ()
 	" Define grep autocommands
 	set buftype=acwrite
-	let ac_group = s:mandala_autocmds_group
-	let autocommand = "autocmd " . ac_group
-	let autocommand .= " BufWriteCmd <buffer> call wheel#vector#write_quickfix ()"
-	exe autocommand
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	exe 'autocmd' group event '<buffer> call wheel#vector#write_quickfix ()'
 endfun
 
 " Reorder
