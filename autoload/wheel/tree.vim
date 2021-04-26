@@ -95,22 +95,22 @@ fun! wheel#tree#add_circle (...)
 		return v:false
 	endif
 	" check if not already present
-	let cur_torus = g:wheel.toruses[g:wheel.current]
-	if index(cur_torus.glossary, circle_name) >= 0
+	let torus = g:wheel.toruses[g:wheel.current]
+	if index(torus.glossary, circle_name) >= 0
 		redraw!
-		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
+		echomsg 'Circle' circle_name 'already exists in torus' torus.name
 		return v:false
 	endif
 	" add circle
 	redraw!
 	echomsg "Adding circle" circle_name
-	let index = cur_torus.current
-	let circles = cur_torus.circles
-	let glossary = cur_torus.glossary
+	let index = torus.current
+	let circles = torus.circles
+	let glossary = torus.glossary
 	let template = wheel#void#template ({'name': circle_name, 'locations': []})
 	call wheel#chain#insert_next (index, template, circles)
 	call wheel#chain#insert_next (index, circle_name, glossary)
-	let cur_torus.current += 1
+	let torus.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
 endfu
