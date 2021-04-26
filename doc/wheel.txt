@@ -249,13 +249,15 @@ also map them to more convenient keys, like `<C-Home>` and `<C-End>`.
 To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>` or
 map them to `<S-Home>` and `<S-End>`.
 
-Switch using completion~
+Switch~
 
 You can switch :
 
-- location with completion with `<M-w><Enter>`
-- circle with completion with `<M-w><C-Enter>`
-- torus with completion with `<M-w><S-Enter>`
+- location with `<M-w><Enter>`
+- circle with `<M-w><C-Enter>`
+- torus with `<M-w><S-Enter>`
+
+A completion is available, see |wheel-prompting-functions-completion|.
 
 Switch using a dedicated buffer~
 
@@ -296,7 +298,68 @@ at your fingertips.
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
 
+Completion			    |wheel-prompting-functions-completion|
 
+------------------------------------------------------------------------------
+COMPLETION			    *wheel-prompting-functions-completion*
+
+When a wheel function needs to prompt the user for input, it offers completion
+wherever possible, depending on the nature of the asked entry.
+
+Hitting *'wildchar'* (most likely `<tab>`), will trigger the completion.
+
+Add a circle to the current torus~
+
+When you add a circle, you are prompted for a name. The completion is
+based on the current file directory. Different flavours are available :
+
+- simple : just the directory of the current file
+- relative path
+- absolute path
+
+You can of course adapt the completed name before confirming with
+`<enter>`. In fact, the name you choose can be anything you want, as
+long as it is not already in the current torus.
+
+Add a location to the current circle~
+
+When you add a location, you are prompted for a name. The completion is
+based on the current file name. Different flavours are available :
+
+- file name without extension
+- file name with extension
+- file name with relative path
+- file name with absolute path
+
+You can of course adapt the completed name before confirming with
+`<enter>`. In fact, the name you choose can be anything you want, as
+long as it is not already in the current circle.
+
+Rename~
+
+The completion is the same as for adding a circle or a location.
+
+Switch element in the wheel~
+
+| Function        | Completion list              |
+| --------------- | ---------------------------- |
+| switch location | locations of current circle  |
+| switch circle   | circles of the current torus |
+| switch torus    | toruses in the wheel         |
+
+Switch layer stack~
+
+See |wheel-dedicated-buffers-layers|.
+
+You can complete by dedicated buffer types, wich will lead you to
+the layer you want.
+
+Switch dedicated buffer~
+
+See |wheel-dedicated-buffers-stack|.
+
+You can complete by dedicated buffer pseudo-filename, wich will lead
+you to the buffer you want.
 
 ==============================================================================
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
@@ -763,6 +826,8 @@ or so).
 Default mapping : `<M-w><M-u>`
 
 With `u`, you can go back to the last undo state.
+
+Diff mode~
 
 With `D`, you can visualize a diff split between :
 
@@ -1770,6 +1835,8 @@ Do not use |:nnoremap|, it would not work.
 
 All of these plugs are listed below.
 
+Straightforward :
+
 | Plug maps                                       | Description                               |
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-menu-main)                         | main menu                                 |
@@ -1796,29 +1863,29 @@ All of these plugs are listed below.
 
 Prompt :
 
-| Plug maps                                       | Description                               |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-add-here)                          | add current file in the current circle    |
-| <plug>(wheel-add-circle)                        | add a new circle                          |
-| <plug>(wheel-add-torus)                         | add a new torus                           |
-| <plug>(wheel-add-file)                          | add a file in the current circle          |
-| <plug>(wheel-add-buffer)                        | add a buffer in the current circle        |
-| <plug>(wheel-add-glob)                          | add files matching glob in circle         |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-rename-location)                   | rename current location (not the file)    |
-| <plug>(wheel-rename-circle)                     | rename current circle                     |
-| <plug>(wheel-rename-torus)                      | rename current torus                      |
-| <plug>(wheel-rename-file)                       | rename current file & location            |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-delete-location)                   | delete current location                   |
-| <plug>(wheel-delete-circle)                     | delete current circle                     |
-| <plug>(wheel-delete-torus)                      | delete current torus                      |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-switch-location)                   | switch location (completion available)    |
-| <plug>(wheel-switch-circle)                     | switch circle (completion available)      |
-| <plug>(wheel-switch-torus)                      | switch torus (completion available)       |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-alternate-menu)                    | menu to alternate                         |
+| Plug maps                                       | Description                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-add-here)                          | add current file in the current circle |
+| <plug>(wheel-add-circle)                        | add a new circle                       |
+| <plug>(wheel-add-torus)                         | add a new torus                        |
+| <plug>(wheel-add-file)                          | add a file in the current circle       |
+| <plug>(wheel-add-buffer)                        | add a buffer in the current circle     |
+| <plug>(wheel-add-glob)                          | add files matching glob in circle      |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-rename-location)                   | rename current location (not the file) |
+| <plug>(wheel-rename-circle)                     | rename current circle                  |
+| <plug>(wheel-rename-torus)                      | rename current torus                   |
+| <plug>(wheel-rename-file)                       | rename current file & location         |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-delete-location)                   | delete current location                |
+| <plug>(wheel-delete-circle)                     | delete current circle                  |
+| <plug>(wheel-delete-torus)                      | delete current torus                   |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-switch-location)                   | switch location                        |
+| <plug>(wheel-switch-circle)                     | switch circle                          |
+| <plug>(wheel-switch-torus)                      | switch torus                           |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-alternate-menu)                    | menu to alternate                      |
 
 Dedicated buffers :
 
