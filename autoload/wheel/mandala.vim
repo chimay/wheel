@@ -118,7 +118,7 @@ fun! wheel#mandala#open (type)
 		endif
 		call wheel#layer#init ()
 	else
-		split
+		" split is done in the routine
 		call wheel#cylinder#first ('linger')
 	endif
 	call wheel#mandala#filename (type)

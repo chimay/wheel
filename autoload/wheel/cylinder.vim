@@ -25,11 +25,18 @@ fun! wheel#cylinder#first (...)
 	if a:0 > 0
 		let mode = a:1
 	else
-		let mode = 'goback'
+		let mode = 'furtive'
 	endif
 	let mandalas = g:wheel_mandalas.stack
+	if ! empty(mandalas)
+		echomsg 'wheel cylinder first : mandala stack is not empty.'
+		return v:false
+	endif
 	let iden = g:wheel_mandalas.iden
 	" new buffer
+	if mode != 'furtive'
+		split
+	endif
 	enew
 	let novice = bufnr('%')
 	" push
@@ -39,7 +46,7 @@ fun! wheel#cylinder#first (...)
 	call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
-	if mode == 'goback'
+	if mode == 'furtive'
 		silent buffer #
 	endif
 	return v:true
@@ -47,20 +54,40 @@ endfun
 
 fun! wheel#cylinder#push (...)
 	" Push new mandala buffer
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'furtive'
+	endif
 	call wheel#cylinder#check ()
 	let mandalas = g:wheel_mandalas.stack
 	let iden = g:wheel_mandalas.iden
-	" First one
+	" -- First one
 	if empty(mandalas)
 		return call('wheel#cylinder#first', a:000)
 	endif
-	" Not the first one
+	" -- Not the first one
 	" is current buffer a mandala buffer ?
-	let in_mandala_buf = wheel#cylinder#is_mandala ()
+	let was_mandala = wheel#cylinder#is_mandala ()
 	" previous current mandala
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
 	" new buffer
+	let bufnum = bufnr('%')
+	let winum =  bufwinnr(elder)
+	if mode != 'furtive' && index(mandalas, bufnum) < 0
+		" in non furtive mode, an action is needed
+		" if current buffer is not a mandala
+		if winum >= 0
+			" if mandala is already visible in a window of the current tab,
+			" just go to it
+			exe winum . 'wincmd w'
+		else
+			" if mandala is not visible in the current tab
+			" and current buffer is not a mandala, we need to split
+			split
+		endif
+	endif
 	enew
 	let novice = bufnr('%')
 	if novice == elder
@@ -81,8 +108,9 @@ fun! wheel#cylinder#push (...)
 	call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
-	" if not in mandala buffer at start, go back to previous buffer
-	if ! in_mandala_buf
+	" in furtive mode, if not in mandala buffer at start,
+	" go back to previous buffer
+	if mode == 'furtive' && ! was_mandala
 		silent buffer #
 	endif
 	call wheel#status#cylinder ()
@@ -140,12 +168,12 @@ fun! wheel#cylinder#recall ()
 		" no need to split
 		exe 'silent buffer' goto
 	elseif winum >= 0
-		" if the mandala is already visible in a window,
+		" if the mandala is already visible in a window of the current tab,
 		" just go to it
 		exe winum . 'wincmd w'
 	else
-		" if mandala is not visible and current buffer
-		" is not a mandala, we need to split
+		" if mandala is not visible in the current tab
+		" and current buffer is not a mandala, we need to split
 		exe 'silent sbuffer' goto
 	endif
 	return v:true
