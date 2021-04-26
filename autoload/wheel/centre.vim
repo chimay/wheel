@@ -253,7 +253,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<backspace> <plug>(wheel-mandala-pop)'
 		" Cycle mandala buffers
 		exe nmap prefix . '@ <plug>(wheel-mandala-forward)'
-		exe nmap prefix . '<M-@> <plug>(wheel-mandala-backward)'
+		exe nmap prefix . '<m-@> <plug>(wheel-mandala-backward)'
 		" Switch mandala buffer
 		exe nmap prefix . '<m-space> <plug>(wheel-mandala-switch)'
 		" Layouts
@@ -352,6 +352,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
 		exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
+		" Cycle mandala buffers
+		exe nmap '<m-@>          <plug>(wheel-mandala-forward)'
 		" Switch mandala buffers
 		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 		" Layouts

@@ -93,17 +93,17 @@ fun! wheel#cylinder#push (...)
 	let elder = mandalas[current]
 	" new buffer
 	let bufnum = bufnr('%')
-	let winum =  bufwinnr(elder)
+	let winds = win_findbuf(elder)
 	if mode != 'furtive' && index(mandalas, bufnum) < 0
 		" in non furtive mode, an action is needed
 		" if current buffer is not a mandala
-		if winum >= 0
-			" if mandala is already visible in a window of the current tab,
-			" just go to it
-			exe winum . 'wincmd w'
+		if ! empty(winds)
+			" if mandala is already visible in a window, just go to it
+			let winiden = winds[0]
+			call win_gotoid(winiden)
 		else
-			" if mandala is not visible in the current tab
-			" and current buffer is not a mandala, we need to split
+			" if mandala is not visible and current buffer
+			" is not a mandala, we need to split
 			split
 		endif
 	endif
@@ -127,9 +127,9 @@ fun! wheel#cylinder#push (...)
 	call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
-	" in furtive mode, if not in mandala buffer at start,
-	" go back to previous buffer
 	if mode == 'furtive' && ! was_mandala
+		" in furtive mode, if not in mandala buffer at start,
+		" go back to previous buffer
 		silent buffer #
 	endif
 	call wheel#status#cylinder ()
@@ -181,15 +181,15 @@ fun! wheel#cylinder#recall ()
 	endif
 	let bufnum = bufnr('%')
 	let goto = mandalas[current]
-	let winum =  bufwinnr(goto)
+	let winds = win_findbuf(goto)
 	if index(mandalas, bufnum) >= 0
 		" if current buf is already a mandala buf,
 		" no need to split
 		exe 'silent buffer' goto
-	elseif winum >= 0
-		" if the mandala is already visible in a window of the current tab,
-		" just go to it
-		exe winum . 'wincmd w'
+	elseif ! empty(winds)
+		" if the mandala is already visible in a window, just go to it
+		let winiden = winds[0]
+		call win_gotoid(winiden)
 	else
 		" if mandala is not visible in the current tab
 		" and current buffer is not a mandala, we need to split
