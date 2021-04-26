@@ -29,6 +29,9 @@ fun! wheel#cylinder#first (...)
 	endif
 	let mandalas = g:wheel_mandalas.stack
 	let iden = g:wheel_mandalas.iden
+	if winnr('$') == 1
+		split
+	endif
 	enew
 	let novice = bufnr('%')
 	call add(mandalas, novice)
