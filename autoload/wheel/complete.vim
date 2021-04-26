@@ -41,7 +41,7 @@ fun! wheel#complete#mandala_list ()
 endfun
 
 fun! wheel#complete#filename (arglead, cmdline, cursorpos)
-	" Complete different flavours or current filename, or filename in cmdline
+	" Complete different flavours or current filename
 	let basis = expand('%')
 	" replace spaces par non-breaking spaces
 	let basis = substitute(basis, ' ', ' ', 'g')
@@ -58,8 +58,29 @@ fun! wheel#complete#filename (arglead, cmdline, cursorpos)
 	return filenames
 endfun
 
+fun! wheel#complete#directory (arglead, cmdline, cursorpos)
+	" Complete different flavours or current file directory
+	let basis = expand('%:h')
+	" replace spaces par non-breaking spaces
+	let basis = substitute(basis, ' ', ' ', 'g')
+	" relative path
+	let cwd = getcwd() . '/'
+	let relative = substitute(basis, cwd, '', '')
+	" abolute path
+	let absolute = fnamemodify(basis, ':p')
+	let simple = fnamemodify(basis, ':t')
+	" list
+	let directories = [simple, relative, absolute]
+	" newline separated entries in string
+	return directories
+endfun
+
 " Return newline separated entries in string
 " ---------------------------------------------
+
+fun! wheel#complete#empty (arglead, cmdline, cursorpos)
+	return ''
+endfun
 
 fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	" Complete torus name

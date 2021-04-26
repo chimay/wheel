@@ -232,37 +232,48 @@ endfun
 fun! wheel#tree#rename (level, ...)
 	" Rename current element at level -> new
 	let level = a:level
-	let prompt = 'Rename ' . level . ' as ? '
 	if a:0 > 0
 		let new = a:1
 	else
-		let new = input(prompt)
+		let prompt = 'Rename ' . level . ' as ? '
+		if level ==# 'torus'
+			let complete = 'customlist,wheel#complete#empty'
+		elseif level ==# 'circle'
+			let complete = 'customlist,wheel#complete#directory'
+		elseif level ==# 'location'
+			let complete = 'customlist,wheel#complete#filename'
+		else
+			echomsg 'wheel rename : bad level name.'
+			return v:false
+		endif
+		let new = input(prompt, '', complete)
 	endif
 	let upper = wheel#referen#upper (level)
 	let current = wheel#referen#current (level)
-	" Replace spaces by non-breaking spaces
+	" replace spaces by non-breaking spaces
 	let new = substitute(new, ' ', ' ', 'g')
 	if empty(new)
 		redraw!
-		echomsg 'Location name cannot be empty.'
+		echomsg level 'name cannot be empty.'
 		return v:false
 	endif
-	if index(upper.glossary, new) < 0
-		let old = current.name
-		let current.name = new
-		redraw!
-		echomsg 'Renaming' level old '->' new
-		let glossary = upper.glossary
-		let upper.glossary = wheel#chain#replace(old, new, glossary)
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		call wheel#pendulum#rename(level, old, new)
-		return v:true
-	else
+	" check new is not present in upper list
+	if index(upper.glossary, new) >= 0
 		redraw!
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
 		echomsg level new 'already exists in' upper_level_name
 		return v:false
 	endif
+	" rename
+	let old = current.name
+	let current.name = new
+	redraw!
+	echomsg 'Renaming' level old '->' new
+	let glossary = upper.glossary
+	let upper.glossary = wheel#chain#replace(old, new, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	call wheel#pendulum#rename(level, old, new)
+	return v:true
 endfun
 
 fun! wheel#tree#rename_file (...)
@@ -271,37 +282,45 @@ fun! wheel#tree#rename_file (...)
 	else
 		let filename = input('Rename file as ? ')
 	endif
-	" Replace spaces by underscores
-	" Non breaking spaces would be confusing in the user’s filesystem
+	" replace spaces by underscores
+	" non breaking spaces would be confusing in the user’s filesystem
 	let filename = substitute(filename, ' ', '_', 'g')
+	" convert to absolute path if needed
 	if filename[0] != '/'
-		let filename = expand('%:p:h') . '/' . filename
+		let filename = fnamemodify(filename, ':p')
 	endif
+	" rename file in the file system
 	let location = wheel#referen#location ()
 	let old_name = location.file
 	let command = 'mv -i '
 	let rename = command . shellescape(old_name) . ' ' . shellescape(filename)
-	"echomsg rename
 	call system(rename)
-	if ! v:shell_error
-		exe 'file' filename
-		let prompt = 'Write as new file ?'
-		let confirm = confirm(prompt, "&Yes\n&No", 2)
-		if confirm == 1
-			write!
-		endif
-		for torus in g:wheel.toruses
-			for circle in torus.circles
-				for location in circle.locations
-					if location.file ==# old_name
-						let location.file = filename
-					endif
-				endfor
+	if v:shell_error
+		echomsg 'wheel rename file : error in executing system command.'
+		return v:false
+	endif
+	" link buffer to new file name
+	exe 'file' filename
+	let prompt = 'Write as new file ?'
+	" force write buffer as new file
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm == 1
+		write!
+	endif
+	" rename file in all involved locations of the wheel
+	for torus in g:wheel.toruses
+		for circle in torus.circles
+			for location in circle.locations
+				if location.file ==# old_name
+					let location.file = filename
+				endif
 			endfor
 		endfor
-		let g:wheel.timestamp = wheel#pendulum#timestamp()
-		call wheel#helix#rename_file(old_name, filename)
-	endif
+	endfor
+	" rename file in wheel history records
+	let g:wheel.timestamp = wheel#pendulum#timestamp()
+	call wheel#helix#rename_file(old_name, filename)
+	" rename location
 	call wheel#tree#rename('location')
 endfun
 
