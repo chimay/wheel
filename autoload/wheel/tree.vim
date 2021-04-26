@@ -48,67 +48,71 @@ fun! wheel#tree#add_torus (...)
 	else
 		let torus_name = input('New torus name ? ')
 	endif
-	" Replace spaces by non-breaking spaces
+	" replace spaces by non-breaking spaces
 	let torus_name = substitute(torus_name, ' ', ' ', 'g')
 	if empty(torus_name)
 		redraw!
 		echomsg 'Torus name cannot be empty.'
 		return v:false
 	endif
-	if index(g:wheel.glossary, torus_name) < 0
-		redraw!
-		echomsg "Adding torus" torus_name
-		let index = g:wheel.current
-		let toruses = g:wheel.toruses
-		let glossary = g:wheel.glossary
-		let template = wheel#void#template ({'name': torus_name, 'circles': []})
-		call wheel#chain#insert_next (index, template, toruses)
-		call wheel#chain#insert_next (index, torus_name, glossary)
-		let g:wheel.current += 1
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		return v:true
-	else
+	" check if not already present
+	if index(g:wheel.glossary, torus_name) >= 0
 		redraw!
 		echomsg 'Torus' torus_name 'already exists in wheel.'
 		return v:false
 	endif
+	" add torus
+	redraw!
+	echomsg "Adding torus" torus_name
+	let index = g:wheel.current
+	let toruses = g:wheel.toruses
+	let glossary = g:wheel.glossary
+	let template = wheel#void#template ({'name': torus_name, 'circles': []})
+	call wheel#chain#insert_next (index, template, toruses)
+	call wheel#chain#insert_next (index, torus_name, glossary)
+	let g:wheel.current += 1
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	return v:true
 endfu
 
 fun! wheel#tree#add_circle (...)
 	" Add circle
-	if empty(g:wheel.toruses)
-		call wheel#tree#add_torus()
-	endif
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let circle_name = input('New circle name ? ')
+		let complete = 'customlist,wheel#complete#directory'
+		let circle_name = input('New circle name ? ', '', complete)
 	endif
-	" Replace spaces by non-breaking spaces
+	" add first torus if needed
+	if empty(g:wheel.toruses)
+		call wheel#tree#add_torus()
+	endif
+	" replace spaces by non-breaking spaces
 	let circle_name = substitute(circle_name, ' ', ' ', 'g')
 	if empty(circle_name)
 		redraw!
 		echomsg 'Circle name cannot be empty.'
 		return v:false
 	endif
+	" check if not already present
 	let cur_torus = g:wheel.toruses[g:wheel.current]
-	if index(cur_torus.glossary, circle_name) < 0
-		redraw!
-		echomsg "Adding circle" circle_name
-		let index = cur_torus.current
-		let circles = cur_torus.circles
-		let glossary = cur_torus.glossary
-		let template = wheel#void#template ({'name': circle_name, 'locations': []})
-		call wheel#chain#insert_next (index, template, circles)
-		call wheel#chain#insert_next (index, circle_name, glossary)
-		let cur_torus.current += 1
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
-		return v:true
-	else
+	if index(cur_torus.glossary, circle_name) >= 0
 		redraw!
 		echomsg 'Circle' circle_name 'already exists in torus' cur_torus.name
 		return v:false
 	endif
+	" add circle
+	redraw!
+	echomsg "Adding circle" circle_name
+	let index = cur_torus.current
+	let circles = cur_torus.circles
+	let glossary = cur_torus.glossary
+	let template = wheel#void#template ({'name': circle_name, 'locations': []})
+	call wheel#chain#insert_next (index, template, circles)
+	call wheel#chain#insert_next (index, circle_name, glossary)
+	let cur_torus.current += 1
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	return v:true
 endfu
 
 fun! wheel#tree#add_location (location, ...)
