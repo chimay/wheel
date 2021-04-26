@@ -2,6 +2,8 @@
 
 " Mandala buffers stack / ring
 
+" Check
+
 fun! wheel#cylinder#is_mandala (...)
 	" Return true if current buffer is a mandala buffer, false otherwise
 	" Optional argument : number of buffer to test
@@ -16,6 +18,23 @@ fun! wheel#cylinder#is_mandala (...)
 	else
 		return v:false
 	endif
+endfun
+
+fun! wheel#cylinder#check ()
+	" Remove non existent mandalas buffers from stack
+	let mandalas = g:wheel_mandalas.stack
+	let iden = g:wheel_mandalas.iden
+	for bufnum in mandalas
+		if ! bufexists(bufnum)
+			let index = index(mandalas, bufnum)
+			call remove(mandalas, index)
+			call remove(iden, index)
+			let current = g:wheel_mandalas.current
+			if current == index
+				let g:wheel_mandalas.current = 0
+			endif
+		endif
+	endfor
 endfun
 
 " Push & pop
@@ -177,25 +196,6 @@ fun! wheel#cylinder#recall ()
 		exe 'silent sbuffer' goto
 	endif
 	return v:true
-endfun
-
-" Check
-
-fun! wheel#cylinder#check ()
-	" Remove non existent mandalas buffers from stack
-	let mandalas = g:wheel_mandalas.stack
-	let iden = g:wheel_mandalas.iden
-	for bufnum in mandalas
-		if ! bufexists(bufnum)
-			let index = index(mandalas, bufnum)
-			call remove(mandalas, index)
-			call remove(iden, index)
-			let current = g:wheel_mandalas.current
-			if current == index
-				let g:wheel_mandalas.current = 0
-			endif
-		endif
-	endfor
 endfun
 
 " Forward & backward
