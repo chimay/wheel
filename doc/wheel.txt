@@ -2077,10 +2077,11 @@ Let's say you want to refactory some shell scripts, and replace
 
 The first thing to do is to create a group that contains all of your
 scripts. To do that, first create a torus named e.g. `quickfix`. Then,
-add all the script files with `<M-w>*`. The routine will ask you the
-glob pattern ; you can type `**/*.sh` if all your scripts have the same
-`sh` extension. After that, you will be asked if you want to create a
-new circle. Answer yes, and call this circle `shell`.
+|:cd| to the root directory of your scripts and add all the script files
+with `<M-w>*`. The routine will ask you the glob pattern ; you can type
+`**/*.sh` if all your scripts have the same `sh` extension. After that,
+you will be asked if you want to create a new circle. Answer yes, and
+call this circle `shell`.
 
 Now that you have your group ready, you can start the search with
 `<M-w><M-g>`. It will open the grep dedicated buffer. Hit tab, and launch

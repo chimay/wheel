@@ -34,9 +34,7 @@
 + [Examples](#examples)
 	* [Display some locations in tabs](#display-some-locations-in-tabs)
 	* [Display matching files in splits](#display-matching-files-in-splits)
-	* [Add a tab with a similar file](#add-a-tab-with-a-similar-file)
-	* [Search and replace](#search-and-replace)
-	* [List all tags of a kind](#list-all-tags-of-a-kind)
+	* [More](#more-1)
 + [Warning](#warning)
 + [Licence](#licence)
 
@@ -485,48 +483,10 @@ locations you want and press `t`
 - `*` to select all the visible (filtered) locations
 - `v` to open all selected locations in vertical splits
 
-## Add a tab with a similar file
+## More
 
-- press `<M-w>W` to launch the tabs & windows organizer
-- copy the line with the tab you want to duplicate
-  + with closed fold, to take the files in it
-- paste it where you want
-- open the fold of the new tab
-- modify the filename in it to match the file you want to edit
-  + you can even use `<C-x><C-f>` to use vim file completion
-- apply your changes with `:write`
-
-## Search and replace
-
-Let's say you want to refactory some shell scripts, and replace
-`old_var_name` by `new_var_name`.
-
-The first thing to do is to create a group that contains all of your
-scripts. To do that, first create a torus named e.g. `quickfix`. Then,
-add all the script files with `<M-w>*`. The routine will ask you the
-glob pattern ; you can type `**/*.sh` if all your scripts have the same
-`sh` extension. After that, you will be asked if you want to create a
-new circle. Answer yes, and call this circle `shell`.
-
-Now that you have your group ready, you can start the search with
-`<M-w><M-g>`. It will open the grep dedicated buffer. Hit tab, and launch
-the edit mode. You are now in a buffer where you can edit and propagate
-your changes. So, we use the classic `:%s/old_var_name/new_var_name/g`
-to replace all the occurences of the old var name. Then, just *:write*
-the buffer to apply these changes to all your shell scripts.
-
-Want to go back to previous state ? You can undo your substitution in
-the dedicated buffer, and write again.
-
-You can of course reuse the `shell` group for later refactoring.
-
-## List all tags of a kind
-
-- launch the tag navigator with `<M-w>t`
-- type `i` to go to insert mode
-- enter `\<f\>` to keep only functions tags
-  + or `\<m\>` to keep only maps tags
-  + ...
+More information is available in the
+[wiki examples page](https://github.com/chimay/wheel/wiki/examples).
 
 # Warning
 
