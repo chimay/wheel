@@ -30,9 +30,6 @@ fun! wheel#cylinder#first (...)
 	let mandalas = g:wheel_mandalas.stack
 	let iden = g:wheel_mandalas.iden
 	" new buffer
-	if winnr('$') == 1
-		split
-	endif
 	enew
 	let novice = bufnr('%')
 	" push
@@ -64,9 +61,6 @@ fun! wheel#cylinder#push (...)
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
 	" new buffer
-	if winnr('$') == 1
-		split
-	endif
 	enew
 	let novice = bufnr('%')
 	if novice == elder

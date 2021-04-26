@@ -118,7 +118,7 @@ fun! wheel#mandala#open (type)
 		endif
 		call wheel#layer#init ()
 	else
-		" split is done there if winnr($) == 1
+		split
 		call wheel#cylinder#first ('linger')
 	endif
 	call wheel#mandala#filename (type)
