@@ -34,7 +34,7 @@
 		- [Cycling](#cycling)
 		- [Switch using completion](#switch-using-completion)
 		- [Switch using a dedicated buffer](#switch-using-a-dedicated-buffer)
-	* [Square the Circle](#square-the-circle)
+	* [More](#more)
 + [Examples](#examples)
 	* [Display some locations in tabs](#display-some-locations-in-tabs)
 	* [Display matching files in splits](#display-matching-files-in-splits)
@@ -418,12 +418,21 @@ Most mappings respect the following convention :
 ## First Circles
 
 Let’s say we have the files `Juice`, `Tea`, `Coffee` and we want to
-group them. So, we go `Juice` and type `<M-w>a` to add a location to the
-wheel. If no torus is present in the wheel, it will create it and ask
-for a name. Let’s say we name it `Food`. If no group (no circle) is
-found in the torus, it will be created and prompt for a name. Let’s say
-we choose `Drinks`. Finally, our file `Juice` is added to the group. Its
-name is the filename without extension by default.
+group them. So, we go `Juice` and type `<M-w>a` to add a location to
+the wheel. If no torus is present in the wheel, it will create it and
+ask for a name. Let’s say we name it `Food`. If no group (no circle)
+is found in the torus, it will be created and prompt for a name. Let’s
+say we choose `Drinks`. Finally, we are asked to choose a name for our
+location. A completion is available : if we press `<Tab>`, we can choose
+between different flavours of the current filename :
+
+- without extension
+- with extension
+- relative path
+- absolute path
+
+In this case, we simply choose `Juice`, and our location is added to
+the group.
 
 Then, we go to `Tea` and type `<M-w>a` again. This time, it will just
 ask us if we want to keep the default location name. Press enter, and
@@ -460,7 +469,6 @@ add the files in a new circle. You can answer yes and call this circle
 the `novels` folder.
 
 ## Moving around
-
 ### Cycling
 
 You can cycle the files of a circle with `<M-w><Left>` and
@@ -492,30 +500,10 @@ To choose a given circle in a dedicated buffer, use `<M-w><C-space>`.
 
 To choose a given torus in a dedicated buffer, use `<M-w><S-space>`.
 
-## Square the Circle
+## More
 
-Over time, the number of circles will grow. Completion is great, but
-if you just want to alternate the two last circles in history, you’ll
-probably prefer `<M-w>^`.
-
-If you press `<M-w><C-^>`, you can choose the alternate mode in a menu :
-
-- Alternate anywhere
-- Alternate in the same circle
-- Alternate in the same torus
-- Alternate in another circle
-- Alternate in another torus
-- Alternate in same torus but another circle
-
-A common case is to alternate two files in the same circle, and two
-circles in the same torus. So, you have the square :
-
- Alternate    | File 1	        | File 2
---------------|-----------------|-----------------
-Circle Drinks | Juice           | Tea
-Circle Fruits | Apple           | Pear
-
-at your fingertips.
+More information is available in the
+[wiki step-by-step page](https://github.com/chimay/wheel/wiki/step-by-step).
 
 # Examples
 ## Display some locations in tabs
