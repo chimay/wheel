@@ -4,6 +4,9 @@
 " Return string where each element occupies a line
 
 " Return entries as list
+" vim does not filter the entries,
+"  if needed, it has to be done
+"  in the function body
 " ---------------------------------------------
 
 fun! wheel#complete#layer_list ()
@@ -76,6 +79,8 @@ fun! wheel#complete#directory (arglead, cmdline, cursorpos)
 endfun
 
 " Return newline separated entries in string
+" vim filters automatically the entries
+" based on used input
 " ---------------------------------------------
 
 fun! wheel#complete#empty (arglead, cmdline, cursorpos)
