@@ -208,10 +208,10 @@ fun! wheel#centre#cables ()
 		" History
 		exe nmap prefix . '<up> <plug>(wheel-history-newer)'
 		exe nmap prefix . '<down> <plug>(wheel-history-older)'
-		exe nmap prefix . '^ <plug>(wheel-alternate-menu)'
 		exe nmap prefix . '<c-^> <plug>(wheel-alternate-anywhere)'
 		exe nmap prefix . '<m-^> <plug>(wheel-alternate-same-circle)'
 		exe nmap prefix . '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
+		exe nmap prefix . '^ <plug>(wheel-alternate-menu)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
@@ -252,8 +252,8 @@ fun! wheel#centre#cables ()
 		" Remove (pop) mandala buffer
 		exe nmap prefix . '<backspace> <plug>(wheel-mandala-pop)'
 		" Cycle mandala buffers
-		exe nmap prefix . '@ <plug>(wheel-mandala-forward)'
-		exe nmap prefix . '<m-@> <plug>(wheel-mandala-backward)'
+		exe nmap prefix . '<home> <plug>(wheel-mandala-backward)'
+		exe nmap prefix . '<end>  <plug>(wheel-mandala-forward)'
 		" Switch mandala buffer
 		exe nmap prefix . '<m-space> <plug>(wheel-mandala-switch)'
 		" Layouts
@@ -349,11 +349,12 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-!>          <plug>(wheel-command)'
 		exe nmap '<m-&>          <plug>(wheel-async)'
 		" Save (push) mandala buffer
-		exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
+		exe nmap '<m-tab>        <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
-		exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
+		exe nmap '<m-backspace>  <plug>(wheel-mandala-pop)'
 		" Cycle mandala buffers
-		exe nmap '<m-@>          <plug>(wheel-mandala-forward)'
+		exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
+		exe nmap '<m-end>       <plug>(wheel-mandala-forward)'
 		" Switch mandala buffers
 		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 		" Layouts

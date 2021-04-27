@@ -482,7 +482,7 @@ Wheel manages a dedicated buffers stack. You can :
 
 - push a new dedicated buffer as default one with `<M-w><Tab>`
 - switch to another dedicated buffer with `<M-w><M-Space>`, completion is available
-- cycle the dedicated buffers with `<M-w>@` (left) or `<M-w><M-@>` (right)
+- cycle the dedicated buffers with `<M-w><home>` (left) or `<M-w><end>` (right)
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
 
@@ -1596,8 +1596,8 @@ Managing dedicated buffers~
 | <Tab>       | <M-w><Tab>          | Save (push) dedicated buffer       |
 | <Backspace> | <M-w><Backspace>    | Remove (pop) dedicated buffer      |
 | <M-Space>   | <M-w><M-Space>      | Switch to another dedicated buffer |
-| @           | <M-w>@              | Cycle dedicated buffers, rightward |
-| <M-@>       | <M-w><M-@>          | Cycle dedicated buffers, leftward  |
+| <M-Home>    | <M-w><M-Home>       | Cycle dedicated buffers, leftward  |
+| <End>       | <M-w><End>          | Cycle dedicated buffers, rightward |
 
 Layouts~
 
@@ -1712,7 +1712,8 @@ adapt them to your taste and add them to your init file.
 | -------------- | --------------------------------------------- |
 | <M-Tab>        | Save (push) dedicated buffer                  |
 | <M-Backspace>  | Remove (pop) dedicated buffer                 |
-| <M-@>          | Cycle dedicated buffers                       |
+| <M-Home>       | Cycle dedicated buffers, leftward             |
+| <M-End>        | Cycle dedicated buffers, rightward            |
 | <M-Space>      | Switch dedicated buffer                       |
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
@@ -2001,10 +2002,6 @@ Some bindings that you may find useful : >
 
     " undo list
     nmap <silent> <d-u> <plug>(wheel-undo-list)
-
-    " cycle dedicated buffers
-    nmap <silent> <d-space> <plug>(wheel-mandala-forward)
-    nmap <silent> <d-s-space> <plug>(wheel-mandala-backward)
 
     " k on the beginning of the buffer -> end
     nmap <silent> k :call wheel#mandala#wrap_up()<cr>

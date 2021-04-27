@@ -26,6 +26,7 @@ fun! wheel#cylinder#check ()
 	let iden = g:wheel_mandalas.iden
 	for bufnum in mandalas
 		if ! bufexists(bufnum)
+			echomsg 'wheel : removing deleted' bufnum 'buffer from mandala stack'
 			let index = index(mandalas, bufnum)
 			call remove(mandalas, index)
 			call remove(iden, index)
@@ -35,6 +36,71 @@ fun! wheel#cylinder#check ()
 			endif
 		endif
 	endfor
+endfun
+
+" Window
+
+fun! wheel#cylinder#find_window ()
+	" Find mandala in visible window
+	let current = g:wheel_mandalas.current
+	let mandalas = g:wheel_mandalas.stack
+	let goto = mandalas[current]
+	let winds = win_findbuf(goto)
+	if ! empty(winds)
+		let winiden = winds[0]
+		call win_gotoid(winiden)
+	endif
+endfun
+
+fun! wheel#cylinder#window (...)
+	" Find visible mandala window or display it in a new split
+	" Optional argument mode :
+	" if mode == 'buffer' (default) :
+	"     get current mandala in the window if not already there
+	" if mode == 'window' :
+	"    just find the window
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'buffer'
+	endif
+	" stack
+	let current = g:wheel_mandalas.current
+	let mandalas = g:wheel_mandalas.stack
+	" any mandala ?
+	if empty(mandalas)
+		return v:false
+	endif
+	" already there ?
+	let goto = mandalas[current]
+	if wheel#cylinder#is_mandala ()
+		if mode == 'buffer'
+			exe 'silent buffer' goto
+		endif
+		return v:true
+	endif
+	" if not in current tab, close it and reopen it in current tab
+	let tab = tabpagenr()
+	call wheel#cylinder#find_window ()
+	if tab != tabpagenr()
+		call wheel#mandala#close ()
+		exe 'tabnext' tab
+		if mode == 'buffer'
+			exe 'silent sbuffer' goto
+		else
+			split
+		endif
+		return v:true
+	endif
+	" current tab
+	if ! wheel#cylinder#is_mandala ()
+		if mode == 'buffer'
+			exe 'silent sbuffer' goto
+		else
+			split
+		endif
+	endif
+	return v:true
 endfun
 
 " Push & pop
@@ -92,20 +158,9 @@ fun! wheel#cylinder#push (...)
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
 	" new buffer
-	let bufnum = bufnr('%')
 	let winds = win_findbuf(elder)
-	if mode != 'furtive' && index(mandalas, bufnum) < 0
-		" in non furtive mode, an action is needed
-		" if current buffer is not a mandala
-		if ! empty(winds)
-			" if mandala is already visible in a window, just go to it
-			let winiden = winds[0]
-			call win_gotoid(winiden)
-		else
-			" if mandala is not visible and current buffer
-			" is not a mandala, we need to split
-			split
-		endif
+	if mode != 'furtive' && ! wheel#cylinder#is_mandala ()
+		call wheel#cylinder#window ('window')
 	endif
 	enew
 	let novice = bufnr('%')
@@ -141,29 +196,28 @@ fun! wheel#cylinder#pop ()
 	call wheel#cylinder#check ()
 	let mandalas = g:wheel_mandalas.stack
 	let iden = g:wheel_mandalas.iden
-	" Do not pop empty stack
+	" do not pop empty stack
 	if empty(mandalas)
 		echomsg 'wheel mandala pop : empty buffer stack'
 		return v:false
 	endif
-	" Do not pop one element stack
+	" do not pop one element stack
 	if len(mandalas) == 1
 		echomsg 'wheel mandala pop :' mandalas[0] 'is the last remaining dedicated buffer'
 		return v:false
 	endif
-	" Pop
+	" pop
 	let current = g:wheel_mandalas.current
 	let removed = remove(mandalas, current)
 	call remove(iden, current)
 	let current = (current - 1) % len(mandalas)
 	let g:wheel_mandalas.current = current
 	let bufnum = bufnr('%')
-	if bufnum == removed || index(mandalas, bufnum) >= 0
+	if bufnum == removed || wheel#cylinder#is_mandala ()
 		let goto = mandalas[current]
 		exe 'silent buffer' goto
 	endif
 	exe 'silent bwipe!' removed
-	"echomsg 'Buffer' removed 'removed'
 	call wheel#status#cylinder ()
 	return removed
 endfun
@@ -173,29 +227,7 @@ endfun
 fun! wheel#cylinder#recall ()
 	" Recall mandala buffer
 	call wheel#cylinder#check ()
-	let mandalas = g:wheel_mandalas.stack
-	let current = g:wheel_mandalas.current
-	if empty(mandalas)
-		"echomsg 'wheel mandala recall : empty buffer stack'
-		return v:false
-	endif
-	let bufnum = bufnr('%')
-	let goto = mandalas[current]
-	let winds = win_findbuf(goto)
-	if index(mandalas, bufnum) >= 0
-		" if current buf is already a mandala buf,
-		" no need to split
-		exe 'silent buffer' goto
-	elseif ! empty(winds)
-		" if the mandala is already visible in a window, just go to it
-		let winiden = winds[0]
-		call win_gotoid(winiden)
-	else
-		" if mandala is not visible in the current tab
-		" and current buffer is not a mandala, we need to split
-		exe 'silent sbuffer' goto
-	endif
-	return v:true
+	return wheel#cylinder#window ()
 endfun
 
 " Forward & backward

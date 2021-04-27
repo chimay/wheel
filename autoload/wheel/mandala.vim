@@ -127,17 +127,24 @@ endfun
 
 fun! wheel#mandala#close ()
 	" Close the mandala buffer
-	" If we are not in a mandala buffer, there is nothing to do
+	" if we are not in a mandala buffer,
+	" go to its window if it is visible
+	let bufnum = bufnr('%')
+	if index(g:wheel_mandalas.stack, bufnum) < 0
+		call wheel#cylinder#find_window ()
+	endif
+	" if we are still not in a mandala buffer,
+	" none is visible and there is nothing to do
 	let bufnum = bufnr('%')
 	if index(g:wheel_mandalas.stack, bufnum) < 0
 		return v:false
 	endif
-	" Mandala buffer
+	" mandala buffer
 	if winnr('$') > 1
-		" More than one window in tab ? Close it.
+		" more than one window in tab ? close it.
 		close
 	else
-		" Only one window in tab ? Jump to last known file in wheel.
+		" only one window in tab ? jump to last known file in wheel.
 		call wheel#vortex#jump ()
 	endif
 	return v:true
