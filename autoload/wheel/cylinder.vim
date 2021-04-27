@@ -41,7 +41,7 @@ endfun
 " Window
 
 fun! wheel#cylinder#find_window ()
-	" Find mandala in visible window
+	" Find window of visible current mandala
 	let current = g:wheel_mandalas.current
 	let mandalas = g:wheel_mandalas.stack
 	let goto = mandalas[current]
@@ -53,12 +53,12 @@ fun! wheel#cylinder#find_window ()
 endfun
 
 fun! wheel#cylinder#window (...)
-	" Find visible mandala window or display it in a new split
+	" Find window of current mandala or display it in a new split
 	" Optional argument mode :
 	" if mode == 'buffer' (default) :
-	"     get current mandala in the window if not already there
+	"     find or create the mandala window & load current mandala
 	" if mode == 'window' :
-	"    just find the window
+	"    just find or create the mandala window
 	if a:0 > 0
 		let mode = a:1
 	else

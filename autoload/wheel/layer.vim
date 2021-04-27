@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Layers stack / ring in mandala buffer
+" Layers stack / ring in each mandala buffer
 
 " other name ideas :
 " sheet
