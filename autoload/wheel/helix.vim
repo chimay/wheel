@@ -5,7 +5,8 @@
 fun! wheel#helix#album ()
 	" Full index of toruses, circles & locations in the wheel
 	" Each entry = [torus.name, circle.name, location]
-	" Not worth caching it : updated too often
+	" Not worth caching it : updated too often,
+	" each time a line or col is changed in a location
 	let album = []
 	for torus in g:wheel.toruses
 		for circle in torus.circles
