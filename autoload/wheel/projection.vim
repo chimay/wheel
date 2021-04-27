@@ -18,7 +18,8 @@ fun! wheel#projection#closest (level, ...)
 	else
 		let linum = line('.')
 	endif
-	let album = deepcopy(wheel#helix#album ())
+	" no global var, should be fine without deepcopy
+	let album = wheel#helix#album ()
 	call filter(album, {_,value -> value[2].file == filename})
 	let narrow = wheel#referen#coordin_index(a:level)
 	if narrow >= 0
