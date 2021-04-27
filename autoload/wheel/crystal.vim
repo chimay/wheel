@@ -501,6 +501,8 @@ if ! exists('s:context_yank_list')
 	let s:context_yank_list = [
 				\ ['paste before' ,  "wheel#boomerang#yank('before')"],
 				\ ['paste after' ,  "wheel#boomerang#yank('after')"],
+				\ ['undo' ,  'wheel#mandala#undo()'],
+				\ ['redo' ,  'wheel#mandala#redo()'],
 				\]
 	lockvar s:context_yank_list
 endif
@@ -511,6 +513,8 @@ if ! exists('s:context_yank_plain')
 				\ ['linewise paste after' ,  "wheel#boomerang#yank('linewise_after')"],
 				\ ['characterwise paste before' ,  "wheel#boomerang#yank('charwise_before')"],
 				\ ['characterwise paste after' ,  "wheel#boomerang#yank('charwise_after')"],
+				\ ['undo' ,  'wheel#mandala#undo()'],
+				\ ['redo' ,  'wheel#mandala#redo()'],
 				\]
 	lockvar s:context_yank_plain
 endif
