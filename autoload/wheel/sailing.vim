@@ -112,7 +112,7 @@ fun! wheel#sailing#switch (level)
 	else
 		echomsg 'Wheel mandala switch : empty or incomplete' level
 	endif
-	" Reload
+	" reload
 	let b:wheel_reload = "wheel#sailing#switch('" . level . "')"
 endfun
 

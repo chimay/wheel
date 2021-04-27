@@ -22,10 +22,8 @@ fun! wheel#shape#write_reorder (level)
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
-	let autocommand = 'autocmd ' . group . ' ' . event
-	let autocommand .= " <buffer> call wheel#cuboctahedron#reorder ('"
-	let autocommand .= a:level . "')"
-	exe autocommand
+	let function = 'call wheel#cuboctahedron#reorder (' . string(a:level) . ')'
+	exe 'autocmd' group event '<buffer>' function
 endfun
 
 fun! wheel#shape#write_reorganize ()

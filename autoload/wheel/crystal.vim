@@ -497,12 +497,22 @@ if ! exists('s:context_grep')
 	lockvar s:context_grep
 endif
 
-if ! exists('s:context_yank')
-	let s:context_yank = [
+if ! exists('s:context_yank_list')
+	let s:context_yank_list = [
 				\ ['paste before' ,  "wheel#boomerang#yank('before')"],
 				\ ['paste after' ,  "wheel#boomerang#yank('after')"],
 				\]
-	lockvar s:context_yank
+	lockvar s:context_yank_list
+endif
+
+if ! exists('s:context_yank_plain')
+	let s:context_yank_plain = [
+				\ ['linewise paste before' ,  "wheel#boomerang#yank('linewise_before')"],
+				\ ['linewise paste after' ,  "wheel#boomerang#yank('linewise_after')"],
+				\ ['characterwise paste before' ,  "wheel#boomerang#yank('charwise_before')"],
+				\ ['characterwise paste after' ,  "wheel#boomerang#yank('charwise_after')"],
+				\]
+	lockvar s:context_yank_plain
 endif
 
 " Undo & diff

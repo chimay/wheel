@@ -603,7 +603,7 @@ fun! wheel#line#paste_plain (...)
 	if a:0 > 0
 		let where = a:1
 	else
-		let where = 'after'
+		let where = 'linewise_after'
 	endif
 	if a:0 > 1
 		let close = a:2
@@ -623,10 +623,10 @@ fun! wheel#line#paste_plain (...)
 		put =content
 	elseif where == 'linewise_before'
 		put! =content
-	elseif where == 'character_after'
+	elseif where == 'charwise_after'
 		let @" = content
 		normal! p
-	elseif where == 'character_before'
+	elseif where == 'charwise_before'
 		let @" = content
 		normal! P
 	endif
