@@ -114,7 +114,26 @@ fun! wheel#pendulum#delete(level, old_names)
 	endfor
 endfun
 
-" Navigation in history
+fun! wheel#pendulum#broom ()
+	" Remove history entries that do not belong to the wheel anymore
+	let success = 1
+	let history = deepcopy(g:wheel_history)
+	let helix = wheel#helix#helix()
+	let ind = 0
+	let length = len(history)
+	while ind < length
+		let coordin = history[ind].coordin
+		if index(helix, coordin) < 0
+			let success = 0
+			echomsg 'Removing [' join(coordin, ', ') '] from history.'
+			call wheel#chain#remove_element(history[ind], g:wheel_history)
+		endif
+		let ind += 1
+	endwhile
+	return success
+endfun
+
+" Newer & older
 
 fun! wheel#pendulum#newer ()
 	" Go to newer entry in history
@@ -137,6 +156,8 @@ fun! wheel#pendulum#older ()
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
+
+" Alternate
 
 fun! wheel#pendulum#alternate_anywhere ()
 	" Alternate last two entries in history
@@ -258,6 +279,7 @@ fun! wheel#pendulum#alternate_same_torus_other_circle ()
 endfun
 
 fun! wheel#pendulum#alternate ()
+	" Alternate prompt menu
 	let prompt = 'Alternate mode ? '
 	let mode = confirm(prompt, "&1 Anywhere\n&2 Same torus\n&3 Same circle\n&4 Other torus\n&5 Other circle\n&6 Same torus, other circle", 1)
 	if mode == 1

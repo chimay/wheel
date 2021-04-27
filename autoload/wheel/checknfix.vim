@@ -9,7 +9,7 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" Checkers
+" Functions
 
 fun! wheel#checknfix#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
@@ -88,27 +88,8 @@ fun! wheel#checknfix#glossaries ()
 	return success
 endfun
 
-fun! wheel#checknfix#history ()
-	" Check history
-	let success = 1
-	let history = deepcopy(g:wheel_history)
-	let helix = wheel#helix#helix()
-	let ind = 0
-	let length = len(history)
-	while ind < length
-		let coordin = history[ind].coordin
-		if index(helix, coordin) < 0
-			let success = 0
-			echomsg 'Removing [' join(coordin, ', ') '] from history.'
-			call wheel#chain#remove_element(history[ind], g:wheel_history)
-		endif
-		let ind += 1
-	endwhile
-	return success
-endfun
-
 fun! wheel#checknfix#mandala_vars ()
-	" Check mandala vars
+	" Display mandala vars
 	for varname in s:mandala_vars
 		echomsg varname ': ' string({varname})
 	endfor

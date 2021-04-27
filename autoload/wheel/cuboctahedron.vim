@@ -239,7 +239,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	" Rebuild file index
 	call wheel#helix#files ()
 	" Remove invalid entries from history
-	call wheel#checknfix#history ()
+	call wheel#pendulum#broom ()
 	" Info
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
