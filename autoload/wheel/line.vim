@@ -669,7 +669,7 @@ endfun
 fun! wheel#line#undolist (bufnum)
 	" Jump to change in settings.selected
 	let iden = wheel#delta#undo_iden ()
-	call wheel#delta#goto_bufwin (a:bufnum)
+	call wheel#mandala#related (a:bufnum)
 	exe 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
@@ -678,7 +678,7 @@ fun! wheel#line#undo_diff (bufnum)
 	" Visualize diff between last state & undo
 	let iden = wheel#delta#undo_iden ()
 	" original buffer
-	call wheel#delta#goto_bufwin (a:bufnum)
+	call wheel#mandala#related (a:bufnum)
 	let save = {}
 	let save.name = expand('%')
 	let save.filetype = &filetype
@@ -693,7 +693,7 @@ fun! wheel#line#undo_diff (bufnum)
 	diffthis
 	setlocal nomodifiable readonly
 	" original buffer
-	call wheel#delta#goto_bufwin (a:bufnum)
+	call wheel#mandala#related (a:bufnum)
 	exe 'undo' iden
 	call wheel#delta#save_options ()
 	diffthis

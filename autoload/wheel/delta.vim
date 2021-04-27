@@ -32,18 +32,6 @@ fun! wheel#delta#undo_iden (...)
 	return iden
 endfun
 
-fun! wheel#delta#goto_bufwin (bufnum)
-	" Go to window of bufnum if visible, or edit it in first window of tab
-	let winlist = win_findbuf(a:bufnum)
-	if ! empty(winlist)
-		let winiden = winlist[0]
-		call win_gotoid (winiden)
-	else
-		1 wincmd w
-		exe 'buffer' a:bufnum
-	endif
-endfun
-
 " Diff options
 
 fun! wheel#delta#save_options ()
@@ -62,7 +50,7 @@ fun! wheel#delta#close_diff (bufnum)
 	" Wipe copy or original buffer
 	let diff_buf = b:wheel_settings.diff_buf
 	exe 'bwipe!' diff_buf
-	call wheel#delta#goto_bufwin (a:bufnum)
+	call wheel#mandala#related (a:bufnum)
 	call wheel#delta#restore_options ()
 	call wheel#cylinder#recall ()
 endfun
@@ -74,7 +62,7 @@ fun! wheel#delta#last (bufnum)
 	else
 		let iden = wheel#delta#undo_iden (1)
 	endif
-	call wheel#delta#goto_bufwin (a:bufnum)
+	call wheel#mandala#related (a:bufnum)
 	exe 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
@@ -121,6 +109,6 @@ endfun
 
 fun! wheel#delta#reload (bufnum)
 	" Reload undolist
-	call wheel#delta#goto_bufwin (a:bufnum)
+	call wheel#mandala#related (a:bufnum)
 	call wheel#delta#undolist ()
 endfun

@@ -150,14 +150,33 @@ fun! wheel#mandala#close ()
 	return v:true
 endfun
 
-fun! wheel#mandala#previous ()
-	" Go to previous window, before mandala buffer opening
-	" Go to alternate buffer if only one window
-	if winnr('$') > 1
-		wincmd p
+fun! wheel#mandala#related (...)
+	" Go to window of related buffer if visible, or edit it in first window of tab
+	" optional argument : buffer number
+	" optional argument default : related buffer number
+	" if no optional argument and no related buffer : go to previous window
+	if a:0 > 0
+		let bufnum = a:1
 	else
-		buffer #
+		if has_key(b:wheel_settings, 'related_buffer')
+			let bufnum = b:wheel_settings.related_buffer
+		else
+			let bufnum = 'unknown'
+		endif
 	endif
+	if bufnum == 'unknown'
+		wincmd p
+		return v:true
+	endif
+	let winlist = win_findbuf(bufnum)
+	if ! empty(winlist)
+		let winiden = winlist[0]
+		call win_gotoid (winiden)
+	else
+		1 wincmd w
+		exe 'buffer' bufnum
+	endif
+	return v:true
 endfun
 
 " Content

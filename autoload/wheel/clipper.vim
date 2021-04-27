@@ -65,5 +65,5 @@ fun! wheel#clipper#yank (mode)
 	setlocal nomodified
 	call cursor(1,1)
 	" reload
-	let b:wheel_reload = "wheel#clipper#yank('" . mode . "')"
+	let b:wheel_reload = 'wheel#clipper#yank(' . string(mode) . ')'
 endfun
