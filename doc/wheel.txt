@@ -306,7 +306,7 @@ COMPLETION			    *wheel-prompting-functions-completion*
 When a wheel function needs to prompt the user for input, it offers completion
 wherever possible, depending on the nature of the asked entry.
 
-Hitting *'wildchar'* (most likely `<tab>`), will trigger the completion.
+Hitting |'wildchar'| (most likely `<tab>`), will trigger the completion.
 
 Add a circle to the current torus~
 
@@ -922,6 +922,14 @@ can be useful : >
 
 If you don't want to activate these options, remember to write your
 files before using a wheel navigation tool.
+
+To enable nice completion in prompting wheel functions : >
+
+    set wildchar=<TAB>
+    set wildmode=longest,full
+<
+
+See |'wildmode'| to adapt it to your taste.
 
 To spot the cursor line in other windows while browsing
 a |wheel-dedicated-buffers|, you can either :
