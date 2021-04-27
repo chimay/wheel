@@ -363,16 +363,16 @@ endfun
 
 fun! wheel#mandala#undo ()
 	" Undo action in previous window
-	wincmd p
+	call wheel#mandala#related ()
 	undo
-	wincmd p
+	call wheel#cylinder#recall ()
 endfun
 
 fun! wheel#mandala#redo ()
 	" Redo action in previous window
-	wincmd p
+	call wheel#mandala#related ()
 	redo
-	wincmd p
+	call wheel#cylinder#recall ()
 endfun
 
 " Filter

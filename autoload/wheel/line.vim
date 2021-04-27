@@ -177,7 +177,7 @@ fun! wheel#line#menu (settings)
 	" False for context menus
 	" In case of sailing, it's managed by wheel#line#sailing
 	if travel
-		wincmd p
+		call wheel#mandala#related ()
 	endif
 	" Call
 	let value = dict[key]
@@ -250,7 +250,7 @@ fun! wheel#line#sailing (settings)
 	if close
 		call wheel#mandala#close ()
 	else
-		wincmd p
+		call wheel#mandala#related ()
 	endif
 	if target != 'current'
 		" open new split or tab, do not search for
@@ -584,7 +584,7 @@ fun! wheel#line#paste_list (...)
 		endif
 		let content = eval(line)
 	endif
-	wincmd p
+	call wheel#mandala#related ()
 	if where == 'after'
 		put =content
 	elseif where == 'before'
@@ -618,7 +618,7 @@ fun! wheel#line#paste_plain (...)
 	if empty(content)
 		return v:false
 	endif
-	wincmd p
+	call wheel#mandala#related ()
 	if where == 'linewise_after'
 		put =content
 	elseif where == 'linewise_before'
@@ -651,7 +651,7 @@ fun! wheel#line#paste_visual (...)
 		let close = 'close'
 	endif
 	normal! gvy
-	wincmd p
+	call wheel#mandala#related ()
 	if where == 'after'
 		normal! p
 	elseif where == 'before'
