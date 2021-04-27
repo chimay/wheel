@@ -230,8 +230,6 @@ fun! wheel#cuboctahedron#reorganize ()
 			call wheel#tree#add_location(location, 'norecord')
 		endif
 	endfor
-	" Rebuild full location index
-	call wheel#helix#album ()
 	" Rebuild location index
 	call wheel#helix#helix ()
 	" Rebuild circle index
