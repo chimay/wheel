@@ -162,18 +162,38 @@ fun! wheel#chain#tie (list)
 	return [list, gaps]
 endfun
 
-" Nested lists
+" Nested
 
 fun! wheel#chain#is_nested_list (argument)
 	" Whether argument is a nested list
+	" Empty list is not considered nested
 	let argument = a:argument
-	let is_nest = type(argument) == v:t_list
-	if ! is_nest
+	if type(argument) != v:t_list
+		return v:false
+	endif
+	if empty(argument)
 		return v:false
 	endif
 	for elem in argument
-		let is_nest = type(elem) == v:t_list
-		if ! is_nest
+		if type(elem) != v:t_list
+			return v:false
+		endif
+	endfor
+	return v:true
+endfun
+
+fun! wheel#chain#is_nested_dict (argument)
+	" Whether argument is a nested dict
+	" Empty dict is not considered nested
+	let argument = a:argument
+	if type(argument) != v:t_dict
+		return v:false
+	endif
+	if empty(argument)
+		return v:false
+	endif
+	for elem in values(argument)
+		if type(elem) != v:t_dict
 			return v:false
 		endif
 	endfor
