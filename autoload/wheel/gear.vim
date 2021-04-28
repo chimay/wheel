@@ -4,6 +4,16 @@
 
 " Script constants
 
+if ! exists('s:modes_letters')
+	let s:modes_letters = wheel#crystal#fetch('modes-letters')
+	lockvar s:modes_letters
+endif
+
+if ! exists('s:letters_modes')
+	let s:letters_modes = wheel#crystal#fetch('letters-modes')
+	lockvar s:letters_modes
+endif
+
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
 	lockvar s:mandala_autocmds_group
@@ -116,6 +126,60 @@ fun! wheel#gear#win_gotoid (iden)
 	" Go to win given by iden if iden is a number
 	if type(a:iden) == v:t_number
 		call win_gotoid (a:iden)
+	endif
+endfun
+
+" Map modes
+
+fun! wheel#gear#short_mode (mode)
+	" Returns short one letter name of mode
+	let mode = a:mode
+	if empty(mode)
+		echomsg 'wheel gear short mode : empty argument'
+		return v:false
+	endif
+	if len(mode) > 1
+		let keys = keys(s:modes_letters)
+		if index(keys, mode) >= 0
+			return s:modes_letters[mode]
+		else
+			echomsg 'wheel gear : argument is not a valid mode name.'
+			return v:false
+		endif
+	else
+		let keys = keys(s:letters_modes)
+		if index(keys, mode) >= 0
+			return mode
+		else
+			echomsg 'wheel gear : argument is not a valid mode name.'
+			return v:false
+		endif
+	endif
+endfun
+
+fun! wheel#gear#long_mode (mode)
+	" Returns long name of mode
+	let mode = a:mode
+	if empty(mode)
+		echomsg 'wheel gear long mode : empty argument'
+		return v:false
+	endif
+	if len(mode) == 1
+		let keys = keys(s:letters_modes)
+		if index(keys, mode) >= 0
+			return s:letters_modes[mode]
+		else
+			echomsg 'wheel gear : argument is not a valid mode name.'
+			return v:false
+		endif
+	else
+		let keys = keys(s:modes_letters)
+		if index(keys, mode) >= 0
+			return mode
+		else
+			echomsg 'wheel gear : argument is not a valid mode name.'
+			return v:false
+		endif
 	endif
 endfun
 

@@ -30,6 +30,26 @@ if ! exists('s:referen_list_keys')
 	lockvar s:referen_list_keys
 endif
 
+" Modes
+
+if ! exists('s:modes_letters')
+	let s:modes_letters = {
+				\ 'normal': 'n',
+				\ 'insert': 'i',
+				\ 'visual': 'v',
+				\ }
+	lockvar s:modes_letters
+endif
+
+if ! exists('s:letters_modes')
+	let s:letters_modes = {
+				\ 'n': 'normal',
+				\ 'i': 'insert',
+				\ 'v': 'visual',
+				\ }
+	lockvar s:letters_modes
+endif
+
 " Golden ratio
 
 if ! exists('s:golden_ratio')
