@@ -163,8 +163,8 @@ fun! wheel#gear#unmap (key, ...)
 		let mode = 'n'
 	endif
 	let key = a:key
-	let typekey = type(key)
-	if typekey == v:t_string
+	let kind = type(key)
+	if kind == v:t_string
 		" maparg returns dictionary with map caracteristics
 		let dict = maparg(key, mode, 0, 1)
 		if ! empty(dict) && dict.buffer
@@ -172,11 +172,11 @@ fun! wheel#gear#unmap (key, ...)
 			let runme = pre . key
 			exe runme
 		endif
-	elseif typekey == v:t_list
+	elseif kind == v:t_list
 		for elem in key
 			call wheel#gear#unmap(elem, mode)
 		endfor
-	elseif typekey == v:t_dict
+	elseif kind == v:t_dict
 		" normal maps
 		call wheel#gear#unmap(key.normal, 'n')
 		" insert maps
