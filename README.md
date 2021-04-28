@@ -129,6 +129,7 @@ your groups will grow and adapt to your style.
   + Tags
   + Jumps & changes lists
 - Yank wheel using TextYankPost event
+  + Paste before or after, linewise or characterwise
 - Reorganizing
   + Wheel elements
   + Tabs & windows
