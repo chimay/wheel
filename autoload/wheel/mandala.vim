@@ -123,6 +123,7 @@ fun! wheel#mandala#open (type)
 	endif
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
+	call wheel#status#cylinder ()
 endfun
 
 fun! wheel#mandala#close ()
