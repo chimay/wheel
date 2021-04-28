@@ -301,7 +301,7 @@ fun! wheel#gear#save_maps (keysdict)
 	" keysdict has the form
 	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
 	" Returns nested dict of the form
-	" {'normal' : {'key' : map, ...}, 'insert' : {'key' : map, ...}, ...}
+	" {'normal' : {'key' : maparg, ...}, 'insert' : {'key' : maparg, ...}, ...}
 	let keysdict = a:keysdict
 	let mapdict = {}
 	for mode in keys(keysdict)
@@ -336,27 +336,20 @@ endfun
 
 fun! wheel#gear#restore_maps (mapdict)
 	" Restore maps
+	" mapdict has the form
+	" {'normal' : {'key' : maparg, ...}, 'insert' : {'key' : maparg, ...}, ...}
+	" like the one returned by wheel#gear#save_maps
 	let mapdict = a:mapdict
-	for key in keys(mapdict.normal)
-		if ! empty(mapdict.normal[key])
-			exe 'silent! nnoremap <buffer>' key mapdict.normal[key]
-		else
-			exe 'silent! nunmap <buffer>' key
-		endif
-	endfor
-	for key in keys(mapdict.insert)
-		if ! empty(mapdict.insert[key])
-			exe 'silent! inoremap <buffer>' key mapdict.insert[key]
-		else
-			exe 'silent! iunmap <buffer>' key
-		endif
-	endfor
-	for key in keys(mapdict.visual)
-		if ! empty(mapdict.visual[key])
-			exe 'silent! vnoremap <buffer>' key mapdict.visual[key]
-		else
-			exe 'silent! vunmap <buffer>' key
-		endif
+	for mode in keys(mapdict)
+		let modename = wheel#gear#long_mode (mode)
+		let letter = wheel#gear#short_mode (mode)
+		for key in keys(mapdict[mode])
+			if ! empty(mapdict[mode][key])
+				exe 'silent!' letter . 'noremap <buffer>' key mapdict[mode][key]
+			else
+				exe 'silent!' letter . 'unmap <buffer>' key
+			endif
+		endfor
 	endfor
 endfun
 
