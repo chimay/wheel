@@ -236,16 +236,28 @@ endfun
 
 fun! wheel#gear#save_maps (keysdict)
 	" Save maps of keys in keysdict
-	let mapdict = { 'normal' : {}, 'insert' : {}, 'visual' : {}}
-	for key in a:keysdict.normal
+	" keysdict has the form
+	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
+	" Returns nested dict of the form
+	" {'normal' : {'key' : map, ...}, 'insert' : {'key' : map, ...}, ...}
+	let keysdict = a:keysdict
+	let mapdict = {}
+	" normal mode
+	let mapdict.normal = {}
+	for key in keysdict.normal
 		let mapdict.normal[key] = maparg(key, 'n')
 	endfor
-	for key in a:keysdict.insert
+	" insert mode
+	let mapdict.insert = {}
+	for key in keysdict.insert
 		let mapdict.insert[key] = maparg(key, 'i')
 	endfor
-	for key in a:keysdict.visual
+	" visual mode
+	let mapdict.visual = {}
+	for key in keysdict.visual
 		let mapdict.visual[key] = maparg(key, 'v')
 	endfor
+	" return
 	return mapdict
 endfun
 
