@@ -233,9 +233,7 @@ fun! wheel#gear#unmap (key, ...)
 		let dict = maparg(key, mode, 0, 1)
 		let letter = wheel#gear#short_mode (mode)
 		if ! empty(dict) && dict.buffer
-			let pre = letter . 'unmap <silent> <buffer> '
-			let runme = pre . key
-			exe runme
+			exe 'silent!' letter . 'unmap <silent> <buffer>' key
 		endif
 	elseif kind == v:t_list
 		for elem in key
