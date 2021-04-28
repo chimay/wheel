@@ -97,16 +97,13 @@ FEATURES				*wheel-introduction-features*
 - Search inside files
   + Grep on group files
     * Navigate
-    * Edit buffer and propagate changes with `:cdo`
+    * Edit buffer and propagate changes with |:cdo|
   + Outline
     * Folds headers in group files (based on fold markers)
     * Markdown headers
     * Org mode headers
   + Tags
   + Jumps & changes lists
-- Command output in buffer
-  + :ex or !shell command
-  + Async shell command
 - Yank wheel using TextYankPost event
 - Reorganizing
   + Wheel elements
@@ -114,6 +111,9 @@ FEATURES				*wheel-introduction-features*
   + Grep in edit mode
 - Undo list
   + Diff between last & chosen state
+- Command output in buffer
+  + :ex or !shell command
+  + Async shell command
 - Dedicated buffers stack to save your searches
   + Layer stack in each dedicated buffer
 - Display files
