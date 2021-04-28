@@ -44,7 +44,7 @@ fun! wheel#perspective#execute (runme, ...)
 	elseif type(Execute) == v:t_string
 		let lines = {Execute}(runme)
 	else
-		echomsg 'Wheel perspective execute : bad function argument'
+		echomsg 'wheel perspective execute : bad function argument'
 	endif
 	let lines = split(lines, "\n")
 	return lines

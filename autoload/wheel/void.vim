@@ -261,7 +261,7 @@ endfu
 fun! wheel#void#init ()
 	" Main init function
 	if argc() == 0 && has('nvim')
-		echomsg 'Wheel hello !'
+		echomsg 'wheel hello !'
 	endif
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
@@ -275,7 +275,7 @@ endfu
 fun! wheel#void#exit ()
 	" Main exit function
 	if argc() == 0 && has('nvim')
-		echomsg 'Wheel bye !'
+		echomsg 'wheel bye !'
 	endif
 	" Write and unlet
 	if g:wheel_config.autowrite > 0

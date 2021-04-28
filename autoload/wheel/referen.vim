@@ -123,7 +123,7 @@ fun! wheel#referen#upper (level)
 	" Current upper element in hierarchy
 	let index = index(s:levels, a:level)
 	if index < 1 || index > 3
-		echomsg 'Wheel referen upper : level must be torus, circle or location.'
+		echomsg 'wheel referen upper : level must be torus, circle or location.'
 		return
 	endif
 	let index -= 1
@@ -134,7 +134,7 @@ fun! wheel#referen#lower (level)
 	" Current lower element in hierarchy
 	let index = index(s:levels, a:level)
 	if index > 2 || index < 0
-		echomsg 'Wheel referen lower : level index must be wheel, torus or circle.'
+		echomsg 'wheel referen lower : level index must be wheel, torus or circle.'
 		return
 	endif
 	let index += 1
@@ -145,7 +145,7 @@ fun! wheel#referen#upper_level_name (level)
 	" Level name of upper element in hierarchy
 	let index = index(s:levels, a:level)
 	if index < 1 || index > 3
-		echomsg 'Wheel referen upper level name : level must be torus, circle or location.'
+		echomsg 'wheel referen upper level name : level must be torus, circle or location.'
 		return
 	endif
 	let index -= 1
@@ -156,7 +156,7 @@ fun! wheel#referen#lower_level_name (level)
 	" Level name of lower element in hierarchy
 	let index = index(s:levels, a:level)
 	if index > 2 || index < 0
-		echomsg 'Wheel referen lower level name : level index must be wheel, torus or circle.'
+		echomsg 'wheel referen lower level name : level index must be wheel, torus or circle.'
 		return
 	endif
 	let index += 1
@@ -203,7 +203,7 @@ fun! wheel#referen#elements (dict)
 	elseif has_key(dict, 'locations')
 		return dict.locations
 	else
-		echomsg 'Wheel referen elements : arg should be the wheel, a torus or a circle'
+		echomsg 'wheel referen elements : arg should be the wheel, a torus or a circle'
 		return []
 	endif
 endfun

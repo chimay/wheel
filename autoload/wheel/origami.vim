@@ -19,7 +19,7 @@ endif
 fun! wheel#origami#fold_level ()
 	" Wheel level of fold line : torus, circle or location
 	if ! &foldenable
-		echomsg 'Wheel gear fold level : fold is disabled in buffer'
+		echomsg 'wheel gear fold level : fold is disabled in buffer'
 		return
 	endif
 	let line = getline('.')
@@ -51,7 +51,7 @@ endfun
 fun! wheel#origami#tabwin_level ()
 	" Level of fold line : tab or filename
 	if ! &foldenable
-		echomsg 'Wheel gear fold level : fold is disabled in buffer'
+		echomsg 'wheel gear fold level : fold is disabled in buffer'
 		return
 	endif
 	let line = getline('.')

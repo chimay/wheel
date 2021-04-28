@@ -4,7 +4,7 @@
 
 if ! has('nvim')
 	redraw!
-	echomsg 'Wheel wave is for neovim : see ripple for vim'
+	echomsg 'wheel wave is for neovim : see ripple for vim'
 	finish
 endif
 
@@ -76,7 +76,7 @@ fun! wheel#wave#start (command, ...)
 	elseif type(a:command) == v:t_string
 		let command = split(a:command)
 	else
-		echomsg 'Wheel wave new : bad command format'
+		echomsg 'wheel wave new : bad command format'
 		return
 	endif
 	" Buffer
@@ -95,7 +95,7 @@ fun! wheel#wave#start (command, ...)
 	call extend(job, options)
 	let jobid = jobstart(command, job)
 	if jobid < 0
-		echomsg 'Wheel wave start : failed to start' command[0]
+		echomsg 'wheel wave start : failed to start' command[0]
 		return
 	endif
 	let job.iden = jobid

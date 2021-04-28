@@ -68,7 +68,7 @@ fun! wheel#shape#reorder (level)
 		silent global /^$/ delete
 		setlocal nomodified
 	else
-		echomsg 'Wheel mandala reorder : empty or incomplete' level
+		echomsg 'wheel mandala reorder : empty or incomplete' level
 	endif
 	" reload
 	let b:wheel_reload = "wheel#shape#reorder('" . level . "')"

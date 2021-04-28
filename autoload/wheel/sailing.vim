@@ -92,7 +92,7 @@ fun! wheel#sailing#switch (level)
 	let lines = wheel#perspective#switch (level)
 	if wheel#referen#empty_upper (level)
 		let upper = wheel#referen#upper_level_name (level)
-		echomsg 'Wheel mandala switch : empty' upper
+		echomsg 'wheel mandala switch : empty' upper
 		return
 	endif
 	call wheel#vortex#update ()
@@ -110,7 +110,7 @@ fun! wheel#sailing#switch (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)
 	else
-		echomsg 'Wheel mandala switch : empty or incomplete' level
+		echomsg 'wheel mandala switch : empty or incomplete' level
 	endif
 	" reload
 	let b:wheel_reload = "wheel#sailing#switch('" . level . "')"

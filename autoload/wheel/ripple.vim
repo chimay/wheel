@@ -3,7 +3,7 @@
 " Job control, vim 8
 
 if has('nvim')
-	echomsg 'Wheel ripple is for vim : see wave for neovim'
+	echomsg 'wheel ripple is for vim : see wave for neovim'
 	finish
 endif
 
@@ -47,7 +47,7 @@ fun! wheel#ripple#start (command, ...)
 	elseif type(a:command) == v:t_string
 		let command = split(a:command)
 	else
-		echomsg 'Wheel ripple new : bad command format'
+		echomsg 'wheel ripple new : bad command format'
 		return
 	endif
 	" Buffer

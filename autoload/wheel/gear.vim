@@ -85,7 +85,7 @@ fun! wheel#gear#project_root (markers)
 	elseif type(a:markers) == v:t_list
 		let markers = a:markers
 	else
-		echomsg 'Wheel Project root : argument must be either a string or a list.'
+		echomsg 'wheel Project root : argument must be either a string or a list.'
 	endif
 	let dir = expand('%:p:h')
 	exe 'lcd' dir
@@ -240,11 +240,15 @@ fun! wheel#gear#unmap (key, ...)
 			call wheel#gear#unmap(elem, mode)
 		endfor
 	elseif kind == v:t_dict
+		if a:0 > 0
+			echomsg 'wheel unmap : if key is a dict, optional argument is meaningless'
+			return v:false
+		endif
 		for mode in keys(key)
 			call wheel#gear#unmap(key[mode], mode)
 		endfor
 	else
-		echomsg 'Wheel gear unmap : bad key format'
+		echomsg 'wheel gear unmap : bad key format'
 	endif
 endfun
 

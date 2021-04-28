@@ -16,7 +16,7 @@ fun! wheel#scroll#record (input)
 		let max = g:wheel_config.maxim.input
 		let g:wheel_input = g:wheel_input[:max - 1]
 	else
-		echomsg 'Wheel scroll record : bad input format'
+		echomsg 'wheel scroll record : bad input format'
 	endif
 endfun
 

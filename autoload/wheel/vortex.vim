@@ -123,11 +123,11 @@ fun! wheel#vortex#tune (level, name)
 		if index >= 0
 			let upper.current = index
 		else
-			echomsg 'Wheel vortex tune :' name 'not found'
+			echomsg 'wheel vortex tune :' name 'not found'
 		endif
 		return index
 	else
-		echomsg 'Wheel vortex tune : empty or incomplete' level
+		echomsg 'wheel vortex tune : empty or incomplete' level
 		return -1
 	endif
 endfun
@@ -144,7 +144,7 @@ fun! wheel#vortex#chord (coordin)
 			let indexes[2] = wheel#vortex#tune ('location', a:coordin[2])
 		endif
 	else
-		echomsg 'Wheel vortex chord : [' join(a:coordin) '] should contain 3 elements.'
+		echomsg 'wheel vortex chord : [' join(a:coordin) '] should contain 3 elements.'
 	endif
 	return indexes
 endfun

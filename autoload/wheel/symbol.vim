@@ -16,7 +16,7 @@ fun! wheel#symbol#read (file)
 	if filereadable(file)
 		let lines = readfile(file)
 	else
-		echomsg 'Wheel symbol read : tags file non readable'
+		echomsg 'wheel symbol read : tags file non readable'
 	endif
 	if file =~ '\m/'
 		" If tagfile is not in project root dir, we need the full path

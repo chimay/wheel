@@ -178,7 +178,7 @@ fun! wheel#cuboctahedron#reorder (level)
 		if index >= 0
 			let elem = old_list[index]
 		else
-			echomsg 'Wheel cuboctahedron reorder : ' name  'not found'
+			echomsg 'wheel cuboctahedron reorder : ' name  'not found'
 		endif
 		call add(new_list, elem)
 	endfor
