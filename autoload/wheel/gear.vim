@@ -242,7 +242,7 @@ fun! wheel#gear#unmap (key, ...)
 			call wheel#gear#unmap(elem, mode)
 		endfor
 	elseif kind == v:t_dict
-		for mode in keys(s:modes_letters)
+		for mode in keys(key)
 			call wheel#gear#unmap(key[mode], mode)
 		endfor
 	else
