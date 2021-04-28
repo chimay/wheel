@@ -85,7 +85,7 @@ fun! wheel#gear#project_root (markers)
 	elseif type(a:markers) == v:t_list
 		let markers = a:markers
 	else
-		echomsg 'wheel Project root : argument must be either a string or a list.'
+		echomsg 'wheel project root : argument must be either a string or a list.'
 	endif
 	let dir = expand('%:p:h')
 	exe 'lcd' dir

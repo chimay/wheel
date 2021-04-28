@@ -111,7 +111,7 @@ your groups will grow and adapt to your style.
     * Filter candidates
     * Folds matching wheel tree structure
     * Context menus
-  + Auto |:lcd| to project root of current file
+  + Auto `:lcd` to project root of current file
 - Search files
   + Using locate
   + Using find
