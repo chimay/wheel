@@ -224,15 +224,16 @@ fun! wheel#gear#unmap (key, ...)
 	if a:0 > 0
 		let mode = a:1
 	else
-		let mode = 'n'
+		let mode = 'normal'
 	endif
 	let key = a:key
 	let kind = type(key)
 	if kind == v:t_string
 		" maparg returns dictionary with map caracteristics
 		let dict = maparg(key, mode, 0, 1)
+		let letter = wheel#gear#short_mode (mode)
 		if ! empty(dict) && dict.buffer
-			let pre = mode . 'unmap <silent> <buffer> '
+			let pre = letter . 'unmap <silent> <buffer> '
 			let runme = pre . key
 			exe runme
 		endif
@@ -241,12 +242,9 @@ fun! wheel#gear#unmap (key, ...)
 			call wheel#gear#unmap(elem, mode)
 		endfor
 	elseif kind == v:t_dict
-		" normal maps
-		call wheel#gear#unmap(key.normal, 'n')
-		" insert maps
-		call wheel#gear#unmap(key.insert, 'i')
-		" visual maps
-		call wheel#gear#unmap(key.visual, 'v')
+		for mode in keys(s:modes_letters)
+			call wheel#gear#unmap(key[mode], mode)
+		endfor
 	else
 		echomsg 'Wheel gear unmap : bad key format'
 	endif
