@@ -343,9 +343,10 @@ fun! wheel#gear#restore_maps (mapdict)
 	for mode in keys(mapdict)
 		let modename = wheel#gear#long_mode (mode)
 		let letter = wheel#gear#short_mode (mode)
-		for key in keys(mapdict[mode])
-			if ! empty(mapdict[mode][key])
-				exe 'silent!' letter . 'noremap <buffer>' key mapdict[mode][key]
+		let modemaps = mapdict[mode]
+		for key in keys(modemaps)
+			if ! empty(modemaps[key])
+				exe 'silent!' letter . 'noremap <buffer>' key modemaps[key]
 			else
 				exe 'silent!' letter . 'unmap <buffer>' key
 			endif
