@@ -304,22 +304,14 @@ fun! wheel#gear#save_maps (keysdict)
 	" {'normal' : {'key' : map, ...}, 'insert' : {'key' : map, ...}, ...}
 	let keysdict = a:keysdict
 	let mapdict = {}
-	" normal mode
-	let mapdict.normal = {}
-	for key in keysdict.normal
-		let mapdict.normal[key] = maparg(key, 'n')
+	for mode in keys(keysdict)
+		let modename = wheel#gear#long_mode (mode)
+		let letter = wheel#gear#short_mode (mode)
+		let mapdict[modename] = {}
+		for key in keysdict[mode]
+			let mapdict[modename][key] = maparg(key, letter)
+		endfor
 	endfor
-	" insert mode
-	let mapdict.insert = {}
-	for key in keysdict.insert
-		let mapdict.insert[key] = maparg(key, 'i')
-	endfor
-	" visual mode
-	let mapdict.visual = {}
-	for key in keysdict.visual
-		let mapdict.visual[key] = maparg(key, 'v')
-	endfor
-	" return
 	return mapdict
 endfun
 
