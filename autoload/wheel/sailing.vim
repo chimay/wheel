@@ -126,7 +126,7 @@ fun! wheel#sailing#helix ()
 	let settings = {'action' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#helix'
 endfun
 
@@ -139,7 +139,7 @@ fun! wheel#sailing#grid ()
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#grid'
 endfun
 
@@ -152,7 +152,7 @@ fun! wheel#sailing#tree ()
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#tree'
 endfun
 
@@ -160,7 +160,7 @@ fun! wheel#sailing#history ()
 	" Choose a location coordinate in history
 	" Each coordinate = [torus, circle, location]
 	call wheel#sailing#generic('history')
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#history'
 endfun
 
@@ -174,7 +174,7 @@ fun! wheel#sailing#buffers ()
 	let settings = {'action' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#buffers'
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('buffers')<cr>
@@ -190,7 +190,7 @@ fun! wheel#sailing#tabwins ()
 	let settings = {'action' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#tabwins'
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('tabwins')<cr>
@@ -206,7 +206,7 @@ fun! wheel#sailing#tabwins_tree ()
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill (lines)
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#tabwins_tree'
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree')<cr>
@@ -226,7 +226,7 @@ fun! wheel#sailing#occur (...)
 	let settings = {'action' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
-	" Reload
+	" reload
 	let b:wheel_reload = "wheel#sailing#occur('" . pattern . "')"
 endfun
 
@@ -259,7 +259,7 @@ fun! wheel#sailing#grep (...)
 	let settings = {'action' : function('wheel#line#grep')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
-	" Reload
+	" reload
 	let b:wheel_reload = "wheel#sailing#grep('" . pattern . "')"
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
@@ -293,7 +293,7 @@ fun! wheel#sailing#outline (...)
 	endif
 	if ! empty(lines)
 		call wheel#mandala#filename ('outline')
-		" Reload
+		" reload
 		let b:wheel_reload = "wheel#sailing#outline('" . mode . "')"
 	endif
 endfun
@@ -301,14 +301,14 @@ endfun
 fun! wheel#sailing#tags ()
 	" Tags file
 	call wheel#sailing#generic('tags')
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#tags'
 endfun
 
 fun! wheel#sailing#mru ()
 	" Most recenty used files
 	call wheel#sailing#generic('mru')
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#mru'
 endfun
 
@@ -326,7 +326,7 @@ fun! wheel#sailing#locate (...)
 	let settings = {'action' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#locate'
 endfun
 
@@ -376,20 +376,20 @@ fun! wheel#sailing#async_find (...)
 		let callme  = ' :call wheel#ripple#stop()<cr>'
 	endif
 	exe map . '<c-s>' . callme
-	" Reload
+	" reload
 	let b:wheel_reload = "wheel#sailing#async_find('" . pattern . "')"
 endfun
 
 fun! wheel#sailing#jumps ()
 	" Jumps list
 	call wheel#sailing#bounce ('jumps')
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#jumps'
 endfun
 
 fun! wheel#sailing#changes ()
 	" Changes list
 	call wheel#sailing#bounce ('changes')
-	" Reload
+	" reload
 	let b:wheel_reload = 'wheel#sailing#changes'
 endfun
