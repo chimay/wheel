@@ -76,6 +76,7 @@ endfun
 fun! wheel#sailing#bounce (command)
 	" Buffer for jumps / changes lists
 	let command = a:command
+	call wheel#mandala#close ()
 	let lines = wheel#perspective#bounce (command)
 	" mandala buffer
 	call wheel#mandala#open (command)
