@@ -73,8 +73,8 @@ fun! wheel#boomerang#menu (dictname, ...)
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase (settings)
 	call wheel#boomerang#sync ()
-	" Let wheel#line#menu handle open / close,
-	" tell wheel#line#sailing to forget it
+	" Let wheel#loop#context_menu handle open / close,
+	" tell wheel#loop#sailing to forget it
 	let b:wheel_settings.close = v:false
 	" Reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" . a:dictname . "')"
@@ -89,27 +89,27 @@ fun! wheel#boomerang#sailing (action)
 	let settings.ctx_action = 'sailing'
 	if action == 'current'
 		let settings.target = 'current'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		return v:true
 	elseif action == 'tab'
 		let settings.target = 'tab'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		return v:true
 	elseif action == 'horizontal_split'
 		let settings.target = 'horizontal_split'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		return v:true
 	elseif action == 'vertical_split'
 		let settings.target = 'vertical_split'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		return v:true
 	elseif action == 'horizontal_golden'
 		let settings.target = 'horizontal_golden'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		return v:true
 	elseif action == 'vertical_golden'
 		let settings.target = 'vertical_golden'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		return v:true
 	endif
 	return v:false
@@ -123,11 +123,11 @@ fun! wheel#boomerang#buffers (action)
 		let settings.ctx_action = action
 		" remove deleted elements from the buffers mandala
 		call wheel#boomerang#remove_deleted ()
-		" To inform wheel#line#sailing
+		" To inform wheel#loop#sailing
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		let top = b:wheel_stack.top
 		let b:wheel_stack.layers[top].selected = []
 	endif
@@ -139,18 +139,18 @@ fun! wheel#boomerang#tabwins (action)
 	let settings = b:wheel_settings
 	let settings.ctx_action = action
 	if action == 'open'
-		" wheel#line#sailing will process the first selected line
+		" wheel#loop#sailing will process the first selected line
 		let settings.target = 'current'
-		return wheel#line#sailing (settings)
+		return wheel#loop#sailing (settings)
 	elseif action == 'tabnew'
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		return v:true
 	elseif action == 'tabclose'
-		" inform wheel#line#sailing that a loop on selected elements is necessary
+		" inform wheel#loop#sailing that a loop on selected elements is necessary
 		let settings.target = 'none'
 		" closing last tab first
 		call reverse(b:wheel_selected)
-		call wheel#line#sailing (settings)
+		call wheel#loop#sailing (settings)
 		let top = b:wheel_stack.top
 		let b:wheel_stack.layers[top].selected = []
 		return v:true

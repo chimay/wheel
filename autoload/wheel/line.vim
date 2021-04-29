@@ -21,7 +21,7 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" Address of current line
+" Default data line
 
 fun! wheel#line#default ()
 	" If on filtering line, put the cursor in default line 2
@@ -29,6 +29,8 @@ fun! wheel#line#default ()
 		call cursor(2, 1)
 	endif
 endfun
+
+" Address of current line
 
 fun! wheel#line#address ()
 	" Return address of element at line in plain or folded mandala buffer
@@ -40,90 +42,13 @@ fun! wheel#line#address ()
 	else
 		let file = expand('%')
 		if file =~ s:is_mandala . 'tree'
-			return wheel#line#coordinates ()
+			return wheel#origami#chord ()
 		elseif file =~ s:is_mandala . 'tabwins/tree'
-			return wheel#line#tabwin_hierarchy ()
+			return wheel#origami#tabwin ()
 		else
 			return v:false
 		endif
 	endif
-endfun
-
-fun! wheel#line#coordinates ()
-	" Return wheel coordinates of line in folded mandala buffer
-	let position = getcurpos()
-	let cursor_line = getline('.')
-	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
-	let cursor_list = split(cursor_line)
-	if empty(cursor_line)
-		return []
-	endif
-	let level = wheel#origami#fold_level ()
-	if level == 'torus'
-		" torus line
-		let torus = cursor_list[0]
-		let coordin = [torus]
-	elseif level == 'circle'
-		" circle line : search torus
-		let circle = cursor_list[0]
-		call wheel#origami#parent_fold ()
-		let line = getline('.')
-		let line = substitute(line, s:selected_pattern, '', '')
-		let fields = split(line)
-		let torus = fields[0]
-		let coordin = [torus, circle]
-	elseif level == 'location'
-		" location line : search circle & torus
-		let location = cursor_line
-		call wheel#origami#parent_fold ()
-		let line = getline('.')
-		let line = substitute(line, s:selected_pattern, '', '')
-		let fields = split(line)
-		let circle = fields[0]
-		call wheel#origami#parent_fold ()
-		let line = getline('.')
-		let line = substitute(line, s:selected_pattern, '', '')
-		let fields = split(line)
-		let torus = fields[0]
-		let coordin = [torus, circle, location]
-	else
-		echomsg 'wheel line coordin : wrong fold level'
-	endif
-	call wheel#gear#restore_cursor (position)
-	return coordin
-endfun
-
-fun! wheel#line#tabwin_hierarchy ()
-	" Return tab & filename of line in folded mandala buffer
-	let position = getcurpos()
-	let cursor_line = getline('.')
-	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
-	let cursor_list = split(cursor_line)
-	if empty(cursor_line)
-		return []
-	endif
-	let level = wheel#origami#tabwin_level ()
-	if level == 'tab'
-		" tab line
-		let tabnum = str2nr(cursor_list[1])
-		let coordin = [tabnum]
-	elseif level == 'filename'
-		" filename line
-		let filename = cursor_list[0]
-		let fileline = line('.')
-		call wheel#origami#parent_tabwin ()
-		let tabline = line('.')
-		let winum = fileline - tabline
-		let line = getline('.')
-		let line = substitute(line, s:selected_pattern, '', '')
-		let fields = split(line)
-		let tabnum = str2nr(fields[1])
-		let coordin = [tabnum, winum, filename]
-	else
-		echomsg 'tabwin hierarchy : wrong fold level'
-	endif
-	call wheel#gear#restore_cursor (position)
-	return coordin
 endfun
 
 " Target
@@ -144,144 +69,7 @@ fun! wheel#line#target (target)
 	endif
 endfu
 
-" Menu
-
-fun! wheel#line#menu (settings)
-	" Calls function given by the key = cursor line
-	" settings is a dictionary, whose keys can be :
-	" - dict : name of a dictionary variable in storage.vim
-	" - close : whether to close mandala buffer
-	" - travel : whether to go back to previous window before applying action
-	let settings = a:settings
-	let dict = wheel#crystal#fetch (settings.linefun, 'dict')
-	let close = settings.ctx_close
-	let travel = settings.ctx_travel
-	" Cursor line
-	let cursor_line = getline('.')
-	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
-	if empty(cursor_line)
-		echomsg 'wheel line menu : you selected an empty line'
-		return v:false
-	endif
-	let key = cursor_line
-	if ! has_key(dict, key)
-		normal! zv
-		call wheel#spiral#cursor ()
-		echomsg 'wheel line menu : key not found'
-		return v:false
-	endif
-	" Tab page of mandala before processing
-	let elder_tab = tabpagenr()
-	" Travel before processing ?
-	" True for hub menus
-	" False for context menus
-	" In case of sailing, it's managed by wheel#line#sailing
-	if travel
-		call wheel#mandala#related ()
-	endif
-	" Call
-	let value = dict[key]
-	let winiden = wheel#gear#call (value)
-	if close
-		" Close mandala
-		" Go back to mandala
-		call wheel#cylinder#recall ()
-		" Close it
-		call wheel#mandala#close ()
-		" Go to last destination
-		call wheel#gear#win_gotoid (winiden)
-	else
-		" Do not close mandala
-		" Tab page changed ?
-		call wheel#gear#win_gotoid (winiden)
-		let new_tab = tabpagenr()
-		if elder_tab != new_tab
-			" Tab changed, move mandala to new tab
-			" Go back to mandala
-			call wheel#cylinder#recall()
-			" Close it in elder tab
-			silent call wheel#mandala#close ()
-			" Go back in new tab
-			exe 'tabnext' new_tab
-			" Call mandala back in new tab
-			call wheel#cylinder#recall()
-		else
-			" Same tab, just go to mandala window
-			call wheel#cylinder#recall()
-		endif
-	endif
-	return v:true
-endfun
-
-" Navigation
-
-fun! wheel#line#sailing (settings)
-	" Go to element(s) on cursor line or selected line(s)
-	" settings keys :
-	" - level : torus, circle or location
-	" - target : current, tab, horizontal_split, vertical_split
-	" - close : whether to close mandala
-	" - action : navigation function name or funcref
-	let settings = copy(a:settings)
-	if has_key(settings, 'target')
-		let target = settings.target
-	else
-		let target = 'current'
-		let settings.target = target
-	endif
-	if has_key(settings, 'close')
-		let close = settings.close
-	else
-		let close = v:true
-	endif
-	if has_key(settings, 'action')
-		let Fun = settings.action
-	else
-		let Fun = 'wheel#line#switch'
-	endif
-	if empty(b:wheel_selected)
-		let selected = [wheel#line#address ()]
-	elseif type(b:wheel_selected) == v:t_list
-		let selected = b:wheel_selected
-	else
-		echomsg 'wheel line sailing : bad format for b:wheel_selected'
-		return v:false
-	endif
-	if close
-		call wheel#mandala#close ()
-	else
-		call wheel#mandala#related ()
-	endif
-	if target != 'current'
-		" open new split or tab, do not search for
-		" match in visible buffers
-		let settings.use = 'new'
-		for elem in selected
-			let settings.selected = elem
-			call wheel#gear#call(Fun, settings)
-			normal! zv
-			call wheel#spiral#cursor ()
-		endfor
-	else
-		" open in current window, search also
-		" for match in visible buffers
-		let settings.use = 'default'
-		let settings.selected = selected[0]
-		call wheel#gear#call(Fun, settings)
-		normal! zv
-		call wheel#spiral#cursor ()
-	endif
-	let winiden = win_getid ()
-	if ! close
-		call wheel#cylinder#recall ()
-		" let the user clear the selection with <bar> if he chooses to
-	else
-		call win_gotoid (winiden)
-	endif
-	return winiden
-endfun
-
-" Applications of wheel#line#sailing
+" Applications of wheel#loop#sailing
 
 fun! wheel#line#switch (settings)
 	" Switch to settings.selected element in wheel

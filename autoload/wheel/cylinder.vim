@@ -46,12 +46,16 @@ fun! wheel#cylinder#find_window ()
 	" Find window of visible current mandala
 	let current = g:wheel_mandalas.current
 	let mandalas = g:wheel_mandalas.stack
+	if empty(mandalas)
+		return v:false
+	endif
 	let goto = mandalas[current]
 	let winds = win_findbuf(goto)
 	if ! empty(winds)
 		let winiden = winds[0]
 		call win_gotoid(winiden)
 	endif
+	return v:true
 endfun
 
 fun! wheel#cylinder#window (...)

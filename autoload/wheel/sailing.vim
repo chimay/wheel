@@ -15,7 +15,7 @@ fun! wheel#sailing#maps (settings)
 	" Define local maps
 	let settings = copy(a:settings)
 	let map  =  'nnoremap <silent> <buffer> '
-	let pre  = ' :call wheel#line#sailing('
+	let pre  = ' :call wheel#loop#sailing('
 	let post = ')<cr>'
 	" Close after navigation
 	let settings.close = v:true
