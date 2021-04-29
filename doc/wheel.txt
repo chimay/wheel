@@ -1690,6 +1690,10 @@ adapt them to your taste and add them to your init file.
 | <M-^>          | Alternate in the same circle                  |
 | <M-C-^>        | Alternate in another circle of the same torus |
 | -------------- | --------------------------------------------- |
+| <M-Enter>      | Prompt for a location to switch to            |
+| <C-Enter>      | Prompt for a circle to switch to              |
+| <S-Enter>      | Prompt for a torus to switch to               |
+| -------------- | --------------------------------------------- |
 | <Space>        | Choose location in dedicated buffer           |
 | <C-Space>      | Choose circle in dedicated buffer             |
 | <S-Space>      | Choose torus in dedicated buffer              |
@@ -1758,6 +1762,10 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
     exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
     exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+    " Switch prompt
+    exe nmap '<m-cr>        <plug>(wheel-switch-location)'
+    exe nmap '<c-cr>        <plug>(wheel-switch-circle)'
+    exe nmap '<s-cr>        <plug>(wheel-switch-torus)'
     " Navigation buffers
     exe nmap '<space>        <plug>(wheel-navigation-location)'
     exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
@@ -1992,18 +2000,6 @@ Miscellaneous :
 OTHER IDEAS				*wheel-mappings-ideas*
 
 Some bindings that you may find useful : >
-
-    " switch element, with completion
-    nmap <silent> <m-cr> <plug>(wheel-switch-location)
-    " or
-    nmap <silent> g<cr> <plug>(wheel-switch-location)
-    " don't do this, you'd lose <cr> in q: window
-    nmap <silent> <cr> <plug>(wheel-switch-location)
-
-    " same, with circles
-    nmap <silent> <c-cr> <plug>(wheel-switch-circle)
-    " same, with toruses
-    nmap <silent> <s-cr> <plug>(wheel-switch-torus)
 
     " alternate
     nmap <silent> <d-^> <plug>(wheel-alternate-other-torus)

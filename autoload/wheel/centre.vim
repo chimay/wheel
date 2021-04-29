@@ -310,6 +310,10 @@ fun! wheel#centre#cables ()
 		exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
 		exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
 		exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+		" Switch prompt
+		exe nmap '<m-cr>        <plug>(wheel-switch-location)'
+		exe nmap '<c-cr>        <plug>(wheel-switch-circle)'
+		exe nmap '<s-cr>        <plug>(wheel-switch-torus)'
 		" Navigation buffers
 		exe nmap '<space>        <plug>(wheel-navigation-location)'
 		exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
