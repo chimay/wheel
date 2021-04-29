@@ -2,6 +2,15 @@
 
 " Loops on mandala lines
 
+" Script constants
+
+if ! exists('s:selected_pattern')
+	let s:selected_pattern = wheel#crystal#fetch('selected/pattern')
+	lockvar s:selected_pattern
+endif
+
+" Looping
+
 fun! wheel#loop#context_menu (settings)
 	" Calls function given by the key = cursor line
 	" settings is a dictionary, whose keys can be :

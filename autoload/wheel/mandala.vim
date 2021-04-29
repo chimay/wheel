@@ -30,8 +30,18 @@ endif
 
 " Init vars
 
-fun! wheel#mandala#init ()
+fun! wheel#mandala#init (...)
 	" Init mandala buffer variables, except the stack
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	if mode == 'refresh'
+		" deselect e.g. when reloading
+		let b:wheel_address = ''
+		let b:wheel_selected = []
+	endif
 	if ! exists('b:wheel_lines')
 		let b:wheel_lines = []
 	endif
@@ -275,6 +285,8 @@ fun! wheel#mandala#reload ()
 	" mark the buffer as empty, to avoid pushing a new layer
 	" in wheel#mandala#open
 	call wheel#mandala#set_empty ()
+	" reinitialize buffer vars
+	call wheel#mandala#init ('refresh')
 	" delete all lines
 	1,$ delete _
 	" reload content

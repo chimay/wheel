@@ -3,6 +3,7 @@
 " Action of the cursor line :
 " - Going to an element
 " - Paste
+" - Undo & diff
 
 " Script constants
 
