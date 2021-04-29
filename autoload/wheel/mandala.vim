@@ -142,7 +142,7 @@ fun! wheel#mandala#close ()
 	" go to its window if it is visible
 	let bufnum = bufnr('%')
 	if index(g:wheel_mandalas.stack, bufnum) < 0
-		call wheel#cylinder#find_window ()
+		call wheel#cylinder#goto ()
 	endif
 	" if we are still not in a mandala buffer,
 	" none is visible and there is nothing to do

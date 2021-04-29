@@ -1,103 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Tabs & Windows
-
-" Buffers & Windows
-
-fun! wheel#mosaic#glasses (filename, ...)
-	" Return list of window(s) id(s) displaying filename
-	" Optional argument : if tab, search only in current tab
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'all'
-	endif
-	let wins = win_findbuf(bufnr(a:filename))
-	if mode == 'tab'
-		let tabnum = tabpagenr()
-		call filter(wins, {_, val -> win_id2tabwin(val)[0] == tabnum})
-	endif
-	return wins
-endfun
-
-fun! wheel#mosaic#tour ()
-	" Return closest candidate amongst windows displaying current location
-	" by exploring each one
-	" Prefer windows in current tab page
-	" return v:false if no window display filename
-	let original = win_getid()
-	let location = wheel#referen#location()
-	let filename = location.file
-	let line = location.line
-	let glasses = wheel#mosaic#glasses (filename, 'tab')
-	if empty(glasses)
-		let glasses = wheel#mosaic#glasses (filename, 'all')
-	endif
-	if empty(glasses)
-		return v:false
-	else
-		let best = glasses[0]
-		call win_gotoid(best)
-		let best_delta = abs(line - line('.'))
-		for index in range(1, len(glasses) - 1)
-			let new = glasses[index]
-			call win_gotoid(new)
-			let new_delta = abs(line - line('.'))
-			if new_delta < best_delta
-				let best_delta = new_delta
-				let best = new
-			endif
-		endfor
-		call win_gotoid(original)
-		return best
-	endif
-endfun
-
-fun! wheel#mosaic#ratio ()
-	" Window width / height
-	" Real usable window width
-	" Credit : https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script
-	let width=winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn
-	let height = winheight(0)
-	" Use round as nr2float
-	" Where is nr2float btw ?
-	return round(width) / round(height)
-endfun
-
-fun! wheel#mosaic#tab_buffers ()
-	" List of buffers in current tab, starting with current one
-	let bufnum = bufnr('%')
-	let buffers = tabpagebuflist()
-	let index = index(buffers, bufnum)
-	let buffers = wheel#chain#roll_left(index, buffers)
-	return buffers
-endfun
-
-" Rotate window buffers, like in bspwm
-
-fun! wheel#mosaic#rotate_clockwise ()
-	" Rotate buffers of current tab page clockwise
-	" Useful for main left & main top layouts
-	wincmd t
-	let buffers = wheel#mosaic#tab_buffers ()
-	let buffers = wheel#chain#rotate_right (buffers)
-	for bufnum in buffers
-		exe 'buffer' bufnum
-		wincmd w
-	endfor
-endfun
-
-fun! wheel#mosaic#rotate_counter_clockwise ()
-	" Rotate buffers of current tab page counter-clockwise
-	" Useful for main left & main top layouts
-	wincmd t
-	let buffers = wheel#mosaic#tab_buffers ()
-	let buffers = wheel#chain#rotate_left (buffers)
-	for bufnum in buffers
-		exe 'buffer' bufnum
-		wincmd w
-	endfor
-endfun
+" Tabs & windows layouts
 
 " Helpers
 
@@ -138,7 +41,7 @@ endfun
 
 fun! wheel#mosaic#rowcol (level)
 	" Number of rows and cols for grid layout
-	let ratio = wheel#mosaic#ratio ()
+	let ratio = wheel#rectangle#ratio ()
 	let rows = g:wheel_config.maxim.horizontal
 	let cols = g:wheel_config.maxim.vertical
 	let upper = wheel#referen#upper (a:level)
@@ -162,6 +65,32 @@ fun! wheel#mosaic#rowcol (level)
 		endif
 	endwhile
 	return [rows, cols]
+endfun
+
+" Rotate window buffers, like in bspwm
+
+fun! wheel#mosaic#rotate_clockwise ()
+	" Rotate buffers of current tab page clockwise
+	" Useful for main left & main top layouts
+	wincmd t
+	let buffers = wheel#rectangle#tab_buffers ()
+	let buffers = wheel#chain#rotate_right (buffers)
+	for bufnum in buffers
+		exe 'buffer' bufnum
+		wincmd w
+	endfor
+endfun
+
+fun! wheel#mosaic#rotate_counter_clockwise ()
+	" Rotate buffers of current tab page counter-clockwise
+	" Useful for main left & main top layouts
+	wincmd t
+	let buffers = wheel#rectangle#tab_buffers ()
+	let buffers = wheel#chain#rotate_left (buffers)
+	for bufnum in buffers
+		exe 'buffer' bufnum
+		wincmd w
+	endfor
 endfun
 
 " Layouts

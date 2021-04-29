@@ -42,37 +42,16 @@ endfun
 
 " Window
 
-fun! wheel#cylinder#find_window (...)
+fun! wheel#cylinder#goto (...)
 	" Find window of visible current mandala
 	" Optional argument : if tab, search only in current tab
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'all'
-	endif
 	let current = g:wheel_mandalas.current
 	let mandalas = g:wheel_mandalas.stack
 	if empty(mandalas)
 		return v:false
 	endif
-	let goto = mandalas[current]
-	" search in current tab
-	if mode == 'tab'
-		let winnr = bufwinnr(goto)
-		if winnr > 0
-			exe winnr 'wincmd w'
-			return v:true
-		else
-			return v:false
-		endif
-	endif
-	" search everywhere
-	let winds = win_findbuf(goto)
-	if ! empty(winds)
-		let winiden = winds[0]
-		call win_gotoid(winiden)
-	endif
-	return v:true
+	let bufnum = mandalas[current]
+	call call('wheel#rectangle#goto', [bufnum] + a:000)
 endfun
 
 fun! wheel#cylinder#window (...)
@@ -103,9 +82,11 @@ fun! wheel#cylinder#window (...)
 		endif
 		return v:true
 	endif
-	" if not in current tab, close it and reopen it in current tab
+	" find window if mandala is visible
 	let tab = tabpagenr()
-	call wheel#cylinder#find_window ()
+	call wheel#cylinder#goto ()
+	" if not in current tab,
+	" close it and reopen it in current tab
 	if tab != tabpagenr()
 		call wheel#mandala#close ()
 		exe 'tabnext' tab

@@ -33,7 +33,7 @@ fun! wheel#vortex#jump (...)
 	let location = wheel#referen#location ()
 	if ! empty(location)
 		if mode != 'new'
-			let window = wheel#mosaic#tour ()
+			let window = wheel#rectangle#tour ()
 		else
 			let window = v:false
 		endif
