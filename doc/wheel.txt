@@ -2153,6 +2153,7 @@ of the modules within them.
 | perspective.vim   | Content generators for dedicated buffers |
 | projection.vim    | Find wheel location of current buffer    |
 | pyramid.vim       | Mix of tabs & splits layouts             |
+| rectangle.vim     | Windows & buffers                        |
 | referen.vim       | References to current elements           |
 | ripple.vim        | Async job for vim                        |
 | sailing.vim       | Navigation buffers                       |
