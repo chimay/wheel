@@ -1,6 +1,8 @@
 " vim: ft=vim fdm=indent:
 
 " Mandala buffers stack / ring
+"
+" Cylinder of rotary printing press
 
 " Check
 
