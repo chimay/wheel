@@ -2144,6 +2144,7 @@ of the modules within them.
 | kyusu.vim         | Line filters for dedicated buffers       |
 | layer.vim         | Layers stack for dedicated buffers       |
 | line.vim          | Activate line                            |
+| loop.vim          | Loops on mandala lines                   |
 | mandala.vim       | Generic dedicated buffers                |
 | mosaic.vim        | Windows & tabs Layouts                   |
 | origami.vim       | Mandala folding                          |
