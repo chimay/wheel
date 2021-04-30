@@ -4,7 +4,7 @@
 "
 " Cylinder of rotary printing press
 
-" Check
+" Helpers
 
 fun! wheel#cylinder#is_mandala (...)
 	" Return true if current buffer is a mandala buffer, false otherwise
@@ -20,6 +20,35 @@ fun! wheel#cylinder#is_mandala (...)
 	else
 		return v:false
 	endif
+endfun
+
+fun! wheel#cylinder#new_id (iden, ...)
+	" Returns id for new mandala, that is not in iden
+	" As low as possible starting from zero
+	" If optional argument is quick, find new iden around iden
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	let iden = a:iden
+	" quick mode around iden
+	if mode == 'quick'
+		let minim = min(iden) - 1
+		let maxim = max(iden) + 1
+		if minim >= 0
+			let novice = minim
+		else
+			let novice = maxim
+		endif
+		return novice
+	endif
+	" default mode
+	let novice = 0
+	while index(iden, novice) >= 0
+		let novice += 1
+	endwhile
+	return novice
 endfun
 
 fun! wheel#cylinder#check ()
@@ -175,14 +204,8 @@ fun! wheel#cylinder#push (...)
 	endif
 	" push
 	call add(mandalas, novice)
+	let novice_iden = wheel#cylinder#new_id (iden)
 	let g:wheel_mandalas.current = len(mandalas) - 1
-	let minim = min(iden) - 1
-	let maxim = max(iden) + 1
-	if minim >= 0
-		let novice_iden = minim
-	else
-		let novice_iden = maxim
-	endif
 	call add(iden, novice_iden)
 	call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
