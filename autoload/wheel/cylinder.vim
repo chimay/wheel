@@ -22,7 +22,7 @@ fun! wheel#cylinder#is_mandala (...)
 	endif
 endfun
 
-fun! wheel#cylinder#new_id (iden, ...)
+fun! wheel#cylinder#new_iden (iden, ...)
 	" Returns id for new mandala, that is not in iden
 	" As low as possible starting from zero
 	" If optional argument is quick, find new iden around iden
@@ -204,7 +204,7 @@ fun! wheel#cylinder#push (...)
 	endif
 	" push
 	call add(mandalas, novice)
-	let novice_iden = wheel#cylinder#new_id (iden)
+	let novice_iden = wheel#cylinder#new_iden (iden)
 	let g:wheel_mandalas.current = len(mandalas) - 1
 	call add(iden, novice_iden)
 	call wheel#layer#init ()
