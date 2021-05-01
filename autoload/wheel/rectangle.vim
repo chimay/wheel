@@ -33,22 +33,21 @@ fun! wheel#rectangle#tour ()
 	endif
 	if empty(glasses)
 		return v:false
-	else
-		let best = glasses[0]
-		call win_gotoid(best)
-		let best_delta = abs(line - line('.'))
-		for index in range(1, len(glasses) - 1)
-			let new = glasses[index]
-			call win_gotoid(new)
-			let new_delta = abs(line - line('.'))
-			if new_delta < best_delta
-				let best_delta = new_delta
-				let best = new
-			endif
-		endfor
-		call win_gotoid(original)
-		return best
 	endif
+	let best = glasses[0]
+	call win_gotoid(best)
+	let best_delta = abs(line - line('.'))
+	for index in range(1, len(glasses) - 1)
+		let new = glasses[index]
+		call win_gotoid(new)
+		let new_delta = abs(line - line('.'))
+		if new_delta < best_delta
+			let best_delta = new_delta
+			let best = new
+		endif
+	endfor
+	call win_gotoid(original)
+	return best
 endfun
 
 fun! wheel#rectangle#tab_buffers ()
@@ -61,7 +60,8 @@ fun! wheel#rectangle#tab_buffers ()
 endfun
 
 fun! wheel#rectangle#goto (bufnum, ...)
-	" Go to  window of buffer given by bufnum
+	" Go to window of buffer given by bufnum
+	" The window is the first one displaying bufnum buffer
 	" Optional argument : if tab, search only in current tab
 	if a:0 > 0
 		let mode = a:1

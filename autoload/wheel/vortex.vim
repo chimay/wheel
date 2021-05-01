@@ -38,14 +38,15 @@ fun! wheel#vortex#jump (...)
 			let window = v:false
 		endif
 		if window
+			" switch to window containing location buffer
 			"echomsg 'Switching to window ' window
 			call win_gotoid(window)
 		elseif bufloaded(location.file)
-			"echomsg 'Switching to buffer ' buffer
+			" load buffer in current window
 			let buffer = bufname(location.file)
 			exe 'silent buffer' buffer
 		else
-			"echomsg 'Opening file ' location.file
+			" edit location file
 			exe 'silent edit' fnameescape(location.file)
 		endif
 		call cursor(location.line, location.col)
