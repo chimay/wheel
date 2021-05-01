@@ -61,15 +61,15 @@ See the [screenshot page](screenshots.md).
 Wheel let you organize your files by creating as many file groups as
 you need, add the files you want to it and quickly navigate between :
 
-- Files of the same group
-- File groups
+- files of the same group
+- file groups
 
 Note that :
 
-- A location contains a name, a filename, as well as a line & column number
-- A file group, in fact a location group, is called a circle
-- A set of file groups, or a category, is called a torus (a circle of circles)
-- The list of toruses is called the wheel
+- a location contains a name, a filename, as well as a line & column number
+- a file group, in fact a location group, is called a circle
+- a set of file groups, or a category, is called a torus (a circle of circles)
+- the list of toruses is called the wheel
 
 ### Why do you need three levels of grouping ?
 
@@ -77,10 +77,10 @@ At first glance, managing groups with circles in a torus seems to be
 sufficient. But with time, the torus grows big, and a third level helps
 you to organize your files by groups and categories:
 
-- The wheel contains all the toruses
-- Each torus contains a category of files, e.g.:
+- the wheel contains all the toruses
+- each torus contains a category of files, e.g.:
   + configuration, development, publication
-- Each circle contains a project, e.g.:
+- each circle contains a project, e.g.:
   + emacs or vifm circles in configuration torus
   + shell or elisp in development torus
   + tea or art in publication torus
@@ -97,63 +97,63 @@ your groups will grow and adapt to your style.
 
 ## Features
 
-- Add
-  + Files from anywhere in the filesystem
-  + A file in more than one group
+- add
+  + files from anywhere in the filesystem
+  + a file in more than one group
   + file:line-1 and file:line-2 in the same group
-- May be saved in wheel file (recommended)
-- On demand loading of files
-  + No slowdown of (neo)vim start
-- Easy navigation
-  + Switch to matching tab & window if available
-  + Next / Previous location, circle or torus
-  + Choose file, group or category in dedicated buffer
-    * Filter candidates
-    * Folds matching wheel tree structure
-    * Context menus
-  + Auto `:lcd` to project root of current file
-- Search files
-  + Using locate
-  + Using find
+- may be saved in wheel file (recommended)
+- on demand loading of files
+  + no slowdown of (neo)vim start
+- easy navigation
+  + switch to matching tab & window if available
+  + next / Previous location, circle or torus
+  + choose file, group or category in dedicated buffer
+    * filter candidates
+    * folds matching wheel tree structure
+    * context menus
+  + auto `:lcd` to project root of current file
+- search files
+  + using locate
+  + using find
   + MRU files not found in wheel
-  + Opened buffers
-  + Visible buffers in tabs & windows
-- Search inside files
-  + Grep on group files
-    * Navigate
-    * Edit buffer and propagate changes with `:cdo`
-  + Outline
-    * Folds headers in group files (based on fold markers)
-    * Markdown headers
-    * Org mode headers
-  + Tags
-  + Jumps & changes lists
-- Yank wheel using TextYankPost event
-  + Paste before or after, linewise or characterwise
-- Reorganizing
-  + Wheel elements
-  + Tabs & windows
-  + Grep in edit mode
-- Undo list
-  + Diff between last & chosen state
-- Command output in buffer
+  + opened buffers
+  + visible buffers in tabs & windows
+- search inside files
+  + grep on group files
+    * navigate
+    * edit buffer and propagate changes with `:cdo`
+  + outline
+    * folds headers in group files (based on fold markers)
+    * markdown headers
+    * org mode headers
+  + tags
+  + jumps & changes lists
+- yank wheel using TextYankPost event
+  + paste before or after, linewise or characterwise
+- reorganizing
+  + wheel elements
+  + tabs & windows
+  + grep in edit mode
+- undo list
+  + diff between last & chosen state
+- command output in buffer
   + :ex or !shell command
-  + Async shell command
-- Dedicated buffers stack to save your searches
-  + Layer stack in each dedicated buffer
-- Display files
-  + Split levels : torus, circle, location
-  + Split
+  + async shell command
+- dedicated buffers stack to save your searches
+  + layer stack in each dedicated buffer
+- display files
+  + split levels : torus, circle, location
+  + split
     * vertical, golden vertical
     * horizontal, golden horizontal
     * main left, golden left
     * main top, golden top
     * grid
-  + Mix of above
+  + mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
-- Batch operations
-- Autogroup files by extension or directory
+- batch operations
+- autogroup files by extension or directory
 
 As you see, the group manager is the core, but it goes far beyond that :
 you need a quick navigation framework to travel in the wheel, and once
