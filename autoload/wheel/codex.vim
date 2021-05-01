@@ -6,6 +6,7 @@
 " codex were rewritten by copists
 " other name ideas :
 " scroll, coil, spool
+" scriptorium
 
 fun! wheel#codex#register (register, ...)
 	" Add register to yank wheel
