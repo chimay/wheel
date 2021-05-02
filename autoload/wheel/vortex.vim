@@ -39,7 +39,6 @@ fun! wheel#vortex#jump (...)
 		endif
 		if window
 			" switch to window containing location buffer
-			"echomsg 'Switching to window ' window
 			call win_gotoid(window)
 		elseif bufloaded(location.file)
 			" load buffer in current window
