@@ -23,8 +23,8 @@ fun! wheel#cylinder#is_mandala (...)
 endfun
 
 fun! wheel#cylinder#new_iden (iden, ...)
-	" Returns id for new mandala, that is not in iden
-	" As low as possible starting from zero
+	" Returns id for new mandala, that is not in iden list
+	" As low as possible, starting from zero
 	" If optional argument is quick, find new iden around iden
 	if a:0 > 0
 		let mode = a:1
