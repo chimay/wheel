@@ -599,5 +599,5 @@ fun! wheel#crystal#rainbow ()
 	call map(varnames, {_,v -> substitute(v, '^.*let ', '', '')})
 	call map(varnames, {_,v -> substitute(v, '\s*=.*', '', '')})
 	call map(varnames, {_,v -> substitute(v, '^s:', '', '')})
-	return varnames
+	return uniq(sort(varnames))
 endfun
