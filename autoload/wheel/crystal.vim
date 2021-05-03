@@ -590,3 +590,14 @@ fun! wheel#crystal#fetch (varname, ...)
 		return {varname}
 	endif
 endfun
+
+fun! wheel#crystal#rainbow ()
+	" Returns list of current script vars
+	let command = 'global /^\s*let s:/ print'
+	let lines = execute(command)
+	let varnames = split(lines, '\n')
+	call map(varnames, {_,v -> substitute(v, '^.*let ', '', '')})
+	call map(varnames, {_,v -> substitute(v, '\s*=.*', '', '')})
+	call map(varnames, {_,v -> substitute(v, '^s:', '', '')})
+	return varnames
+endfun
