@@ -281,6 +281,7 @@ fun! wheel#tree#rename (level, ...)
 endfun
 
 fun! wheel#tree#rename_file (...)
+	" Rename current file in filesystem & in the wheel
 	if a:0 > 0
 		let filename = a:1
 	else
@@ -294,23 +295,24 @@ fun! wheel#tree#rename_file (...)
 	if filename[0] != '/'
 		let filename = fnamemodify(filename, ':p')
 	endif
-	" rename file in the file system
+	" old name
 	let location = wheel#referen#location ()
 	let old_name = location.file
-	let command = 'mv -i '
-	let rename = command . shellescape(old_name) . ' ' . shellescape(filename)
-	call system(rename)
-	if v:shell_error
-		echomsg 'wheel rename file : error in executing system command.'
-		return v:false
-	endif
 	" link buffer to new file name
 	exe 'file' filename
-	let prompt = 'Write as new file ?'
-	" force write buffer as new file
+	" write it
+	write
+	" remove old file
+	let prompt = 'Remove old file ' . old_name . ' ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 1
-		write!
+		let command = 'rm'
+		let remove = command . ' ' . shellescape(old_name)
+		call system(remove)
+		if v:shell_error
+			echomsg 'wheel rename file : error in executing system command.'
+			return v:false
+		endif
 	endif
 	" rename file in all involved locations of the wheel
 	for torus in g:wheel.toruses
