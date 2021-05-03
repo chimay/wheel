@@ -84,6 +84,8 @@ fun! wheel#rectangle#goto (bufnum, ...)
 	if ! empty(winds)
 		let winiden = winds[0]
 		call win_gotoid(winiden)
+	else
+		return v:false
 	endif
 	return v:true
 endfun
