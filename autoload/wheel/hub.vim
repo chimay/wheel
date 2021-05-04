@@ -97,7 +97,7 @@ fun! wheel#hub#main ()
 	for elem in s:menu_list
 		let header = elem . s:fold_1
 		let items = wheel#crystal#fetch('menu/' . elem)
-		let submenu = wheel#chain#items2keys (items)
+		let submenu = wheel#matrix#items2keys (items)
 		call add(menu, header)
 		call extend(menu, submenu)
 	endfor
@@ -109,6 +109,6 @@ fun! wheel#hub#meta ()
 	call wheel#hub#menu('meta')
 	call wheel#hub#meta_maps('meta')
 	let items = wheel#crystal#fetch('menu/meta')
-	let menu = wheel#chain#items2keys (items)
+	let menu = wheel#matrix#items2keys (items)
 	call wheel#mandala#fill(menu)
 endfun

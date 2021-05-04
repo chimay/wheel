@@ -584,8 +584,8 @@ fun! wheel#crystal#fetch (varname, ...)
 	if varname !~ '\m^s:'
 		let varname = 's:' . varname
 	endif
-	if mode ==# 'dict' && wheel#chain#is_nested_list ({varname})
-		return wheel#chain#items2dict ({varname})
+	if mode ==# 'dict' && wheel#matrix#is_nested_list ({varname})
+		return wheel#matrix#items2dict ({varname})
 	else
 		return {varname}
 	endif
