@@ -2146,6 +2146,7 @@ of the modules within them.
 | line.vim          | Activate line                            |
 | loop.vim          | Loops on mandala lines                   |
 | mandala.vim       | Generic dedicated buffers                |
+| matrix.vim        | Nested lists & dictionaries              |
 | mosaic.vim        | Windows & tabs Layouts                   |
 | origami.vim       | Mandala folding                          |
 | pencil.vim        | Selection in dedicated buffers           |
