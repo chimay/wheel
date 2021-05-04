@@ -206,11 +206,7 @@ endfun
 
 fun! wheel#chain#revert_sort (indexes, list)
 	" Revert sort by reordering indexes from smallest to biggest
-	if a:0 > 0
-		let Cmp = wheel#chain#fun_cmp_1st (a:1)
-	else
-		let Cmp = 'wheel#chain#compare_first'
-	endif
+	let Cmp = 'wheel#chain#compare_first'
 	let list = copy(a:list)
 	let indexes = a:indexes
 	if len(list) != len(indexes)
