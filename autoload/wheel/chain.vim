@@ -183,10 +183,10 @@ fun! wheel#chain#fun_cmp_1st (...)
 	else
 		lef Fun = funcref('wheel#chain#compare')
 	endif
-	fun! Compare (first, second) closure
+	fun! WheelChainCompare (first, second) closure
 		return Fun(a:first[0], a:second[0])
 	endfun
-	return funcref('Compare')
+	return funcref('WheelChainCompare')
 endfun
 
 fun! wheel#chain#sort (list, ...)
@@ -217,6 +217,24 @@ fun! wheel#chain#revert_sort (indexes, list)
 	let [dummy, nested] = wheel#chain#sort(dual, Cmp)
 	let [indexes, list] = wheel#matrix#dual(nested)
 	return list
+endfun
+
+" Unique
+
+fun! wheel#chain#unique (list, ...)
+	" Remove duplicates elements, preserve original order
+	if a:0 > 0
+		let Cmp = wheel#chain#fun_cmp_1st (a:1)
+	else
+		let Cmp = 'wheel#chain#compare_first'
+	endif
+	let list = a:list
+	let [indexes, sorted] = call('wheel#chain#sort', [list] + a:000)
+	let dual = wheel#matrix#dual ([sorted, indexes])
+	call uniq(dual, Cmp)
+	let [sorted, indexes] = wheel#matrix#dual (dual)
+	let unique = wheel#chain#revert_sort (indexes, sorted)
+	return unique
 endfun
 
 " Fill the gaps

@@ -593,11 +593,13 @@ endfun
 
 fun! wheel#crystal#rainbow ()
 	" Returns list of current script vars
+	let position = getcurpos ()
 	let command = 'global /^\s*let s:/ print'
 	let lines = execute(command)
+	call setpos('.', position)
 	let varnames = split(lines, '\n')
 	call map(varnames, {_,v -> substitute(v, '^.*let ', '', '')})
 	call map(varnames, {_,v -> substitute(v, '\s*=.*', '', '')})
 	call map(varnames, {_,v -> substitute(v, '^s:', '', '')})
-	return uniq(sort(varnames))
+	return wheel#chain#unique (varnames)
 endfun
