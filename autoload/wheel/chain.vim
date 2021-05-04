@@ -63,7 +63,7 @@ fun! wheel#chain#remove_element (element, list)
 	else
 		return v:false
 	endif
-endfu
+endfun
 
 " Move
 
@@ -95,7 +95,7 @@ fun! wheel#chain#pop (list)
 	let elem = a:list[0]
 	call remove(a:list, 0)
 	return elem
-endfu
+endfun
 
 " Rotation
 
@@ -106,7 +106,7 @@ fun! wheel#chain#rotate_left (list)
 	else
 		return a:list
 	endif
-endfu
+endfun
 
 fun! wheel#chain#rotate_right (list)
 	" Rotate list to the right
@@ -115,7 +115,7 @@ fun! wheel#chain#rotate_right (list)
 	else
 		return a:list
 	endif
-endfu
+endfun
 
 fun! wheel#chain#roll_left (index, list)
 	" Roll index in list -> left = beginning
@@ -126,7 +126,7 @@ fun! wheel#chain#roll_left (index, list)
 	else
 		return list
 	endif
-endfu
+endfun
 
 fun! wheel#chain#roll_right (index, list)
 	" Roll index of list -> right = end
@@ -137,7 +137,7 @@ fun! wheel#chain#roll_right (index, list)
 	else
 		return list
 	endif
-endfu
+endfun
 
 " Swap
 
@@ -152,14 +152,75 @@ endfun
 
 " Sort
 
-fun! wheel#chain#sort (list)
+fun! wheel#chain#compare (first, second)
+	" Compare arguments ; used to sort
+	let first = a:first
+	let second = a:second
+	if first > second
+		return 1
+	elseif first == second
+		return 0
+	else
+		return -1
+	endif
+endfun
+
+fun! wheel#chain#compare_first (first, second)
+	" Compare first elements of arguments ; used to sort
+	return wheel#chain#compare(a:first[0], a:second[0])
+endfun
+
+fun! wheel#chain#fun_cmp_1st (...)
+	" Returns function that compare first elements of lists
+	if a:0 > 0
+		if type(a:1) == v:t_func
+			let Fun = a:1
+		elseif type(a:1) == v:t_string
+			let Fun = funcref(a:1)
+		else
+			echomsg 'wheel chain fun cmp 1st : bad argument format'
+		endif
+	else
+		lef Fun = funcref('wheel#chain#compare')
+	endif
+	fun! Compare (first, second) closure
+		return Fun(a:first[0], a:second[0])
+	endfun
+	return funcref('Compare')
+endfun
+
+fun! wheel#chain#sort (list, ...)
 	" Return [indexes, sorted_list], where indexes can be used to revert the sort
+	if a:0 > 0
+		let Cmp = wheel#chain#fun_cmp_1st (a:1)
+	else
+		let Cmp = 'wheel#chain#compare_first'
+	endif
 	let list = copy(a:list)
 	let indexes = range(len(list))
 	let dual = wheel#matrix#dual([list, indexes])
-	call sort(dual)
+	call sort(dual, Cmp)
 	let [sorted, indexes] = wheel#matrix#dual(dual)
 	return [indexes, sorted]
+endfun
+
+fun! wheel#chain#revert_sort (indexes, list)
+	" Revert sort by reordering indexes from smallest to biggest
+	if a:0 > 0
+		let Cmp = wheel#chain#fun_cmp_1st (a:1)
+	else
+		let Cmp = 'wheel#chain#compare_first'
+	endif
+	let list = copy(a:list)
+	let indexes = a:indexes
+	if len(list) != len(indexes)
+		echomsg 'wheel chain revert_sort : list and indexes lengthes are not equal.'
+	endif
+	let matrix = [indexes, list]
+	let dual = wheel#matrix#dual(matrix)
+	let [dummy, nested] = wheel#chain#sort(dual, Cmp)
+	let [indexes, list] = wheel#matrix#dual(nested)
+	return list
 endfun
 
 " Fill the gaps
