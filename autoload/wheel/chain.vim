@@ -228,12 +228,17 @@ fun! wheel#chain#unique (list, ...)
 	else
 		let Cmp = 'wheel#chain#compare_first'
 	endif
+	" wheel#chain#sort makes a copy
 	let list = a:list
+	" sort
 	let [indexes, sorted] = call('wheel#chain#sort', [list] + a:000)
+	" uniq
 	let dual = wheel#matrix#dual ([sorted, indexes])
 	call uniq(dual, Cmp)
+	" revert sort
 	let [sorted, indexes] = wheel#matrix#dual (dual)
 	let unique = wheel#chain#revert_sort (indexes, sorted)
+	" return
 	return unique
 endfun
 
