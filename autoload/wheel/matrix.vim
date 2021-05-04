@@ -2,6 +2,8 @@
 
 " Nested lists & dictionaries
 
+" Booleans
+
 fun! wheel#matrix#is_nested_list (argument)
 	" Whether argument is a nested list
 	" Empty list is not considered nested
@@ -36,6 +38,38 @@ fun! wheel#matrix#is_nested_dict (argument)
 		endif
 	endfor
 	return v:true
+endfun
+
+" Duality
+
+fun! wheel#matrix#dual (nested)
+	" Return transposed nested list
+	let nested = a:nested
+	" lengthes
+	let lenlist = []
+	for elem in nested
+		call add(lenlist, len(elem))
+	endfor
+	let innerlen = min(lenlist)
+	if innerlen < max(lenlist)
+		echomsg 'wheel matrix dual : inner lists are not of the same length.'
+		return v:false
+	endif
+	let outerlen = len(nested)
+	" span
+	let in_span = range(innerlen)
+	let out_span = range(outerlen)
+	" double loop
+	let dual = []
+	for inner in in_span
+		let dualelem = []
+		for outer in out_span
+			call add(dualelem, nested[outer][inner])
+		endfor
+		call add(dual, dualelem)
+	endfor
+	" return
+	return dual
 endfun
 
 " Dictionary as nested list of items
