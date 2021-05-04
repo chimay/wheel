@@ -2,6 +2,8 @@
 
 " Lists operations
 
+" Insert
+
 fun! wheel#chain#insert_next (index, new, list)
 	" Insert new element in list just after index
 	let index = a:index + 1
@@ -25,6 +27,8 @@ fun! wheel#chain#insert_after (element, new, list)
 	return wheel#chain#insert_next (index, a:new, a:list)
 endfun
 
+" Replace
+
 fun! wheel#chain#replace (old, new, list)
 	" Replace old by new in list
 	let old = a:old
@@ -38,6 +42,8 @@ fun! wheel#chain#replace (old, new, list)
 	endif
 	return list
 endfun
+
+" Remove
 
 fun! wheel#chain#remove_index (index, list)
 	" Remove element at index from list
@@ -58,6 +64,8 @@ fun! wheel#chain#remove_element (element, list)
 		return v:false
 	endif
 endfu
+
+" Move
 
 fun! wheel#chain#move (list, from, target)
 	" Move element at index from -> target in list
@@ -140,6 +148,18 @@ fun! wheel#chain#swap (list)
 	else
 		return a:list
 	endif
+endfun
+
+" Sort
+
+fun! wheel#chain#sort (list)
+	" Return [indexes, sorted_list], where indexes can be used to revert the sort
+	let list = copy(a:list)
+	let indexes = range(len(list))
+	let dual = wheel#matrix#dual([list, indexes])
+	call sort(dual)
+	let [sorted, indexes] = wheel#matrix#dual(dual)
+	return [indexes, sorted]
 endfun
 
 " Fill the gaps

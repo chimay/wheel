@@ -43,7 +43,7 @@ endfun
 " Duality
 
 fun! wheel#matrix#dual (nested)
-	" Return transposed nested list
+	" Return transposed of nested list
 	let nested = a:nested
 	" lengthes
 	let lenlist = []
@@ -73,7 +73,7 @@ fun! wheel#matrix#dual (nested)
 endfun
 
 " Dictionary as nested list of items
-" items = [ [key1, val1], [key2, val2], ...]
+" items list = [ [key1, val1], [key2, val2], ...]
 
 fun! wheel#matrix#items2dict (items)
 	" Convert items list -> dictionary
@@ -85,7 +85,7 @@ fun! wheel#matrix#items2dict (items)
 endfun
 
 fun! wheel#matrix#items2keys (items)
-	" Return list of keys from dict given by items
+	" Return list of keys from dict given by items list
 	let keylist = []
 	for [key, val] in a:items
 		call add(keylist, key)
@@ -94,7 +94,7 @@ fun! wheel#matrix#items2keys (items)
 endfun
 
 fun! wheel#matrix#items2values (items)
-	" Return list of values from dict given by items
+	" Return list of values from dict given by items list
 	let valist = []
 	for [key, val] in a:items
 		call add(valist, val)
