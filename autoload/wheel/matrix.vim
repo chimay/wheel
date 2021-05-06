@@ -73,6 +73,7 @@ fun! wheel#matrix#dual (nested)
 endfun
 
 " Dictionary as nested list of items
+"
 " items list = [ [key1, val1], [key2, val2], ...]
 
 fun! wheel#matrix#items2dict (items)

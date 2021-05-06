@@ -166,7 +166,7 @@ fun! wheel#chain#compare (first, second)
 endfun
 
 fun! wheel#chain#compare_first (first, second)
-	" Compare first elements of arguments ; used to sort
+	" Compare first elements of lists arguments
 	return wheel#chain#compare(a:first[0], a:second[0])
 endfun
 
@@ -183,14 +183,17 @@ fun! wheel#chain#fun_cmp_1st (...)
 	else
 		lef Fun = funcref('wheel#chain#compare')
 	endif
-	fun! WheelChainCompare (first, second) closure
+	fun! s:Compare (first, second) closure
 		return Fun(a:first[0], a:second[0])
 	endfun
-	return funcref('WheelChainCompare')
+	return funcref('s:Compare')
 endfun
 
 fun! wheel#chain#sort (list, ...)
-	" Return [indexes, sorted_list], where indexes can be used to revert the sort
+	" Returns sorted list and indexes to recover the original list
+	" Returns [shuffled_indexes, sorted_list], where :
+	" - sorted_list is ... the sorted list
+	" - shuffled_indexes are the indexes shuffled by the sorting
 	if a:0 > 0
 		let Cmp = wheel#chain#fun_cmp_1st (a:1)
 	else
@@ -205,18 +208,19 @@ fun! wheel#chain#sort (list, ...)
 endfun
 
 fun! wheel#chain#revert_sort (indexes, list)
-	" Revert sort by reordering indexes from smallest to biggest
+	" Revert sort in list by reordering indexes from smallest to biggest
+	" Returns [revert_indexes, original_list]
 	let Cmp = 'wheel#chain#compare_first'
 	let list = copy(a:list)
 	let indexes = a:indexes
 	if len(list) != len(indexes)
-		echomsg 'wheel chain revert_sort : list and indexes lengthes are not equal.'
+		echomsg 'wheel chain revert sort : arguments are not of the same length.'
 	endif
 	let matrix = [indexes, list]
 	let dual = wheel#matrix#dual(matrix)
-	let [dummy, nested] = wheel#chain#sort(dual, Cmp)
+	let [revert_indexes, nested] = wheel#chain#sort(dual, Cmp)
 	let [indexes, list] = wheel#matrix#dual(nested)
-	return list
+	return [revert_indexes, list]
 endfun
 
 " Unique
@@ -237,7 +241,7 @@ fun! wheel#chain#unique (list, ...)
 	call uniq(dual, Cmp)
 	" revert sort
 	let [sorted, indexes] = wheel#matrix#dual (dual)
-	let unique = wheel#chain#revert_sort (indexes, sorted)
+	let [rev_ind, unique] = wheel#chain#revert_sort (indexes, sorted)
 	" return
 	return unique
 endfun
