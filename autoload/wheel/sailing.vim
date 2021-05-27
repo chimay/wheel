@@ -327,7 +327,7 @@ fun! wheel#sailing#locate (...)
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#sailing#locate'
+	let b:wheel_reload = "wheel#sailing#locate('" . pattern . "')"
 endfun
 
 fun! wheel#sailing#find (...)
