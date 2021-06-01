@@ -32,9 +32,7 @@ fun! wheel#attic#record (...)
 		" Do not add empty filenames
 		return
 	endif
-	let wheel_files = wheel#helix#files ()
-	let in_wheel = index(wheel_files, filename)
-	if in_wheel >= 0
+	if wheel#referen#is_in_wheel ()
 		" Only add non wheel files
 		return
 	endif

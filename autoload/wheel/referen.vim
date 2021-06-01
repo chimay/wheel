@@ -185,7 +185,7 @@ endfun
 
 " Current file in wheel ?
 
-fun! wheel#referen#in_wheel (...)
+fun! wheel#referen#is_in_wheel (...)
 	" Whether filename argument is in wheel
 	" Default optional argument : current filename
 	if a:0 > 0
@@ -194,12 +194,8 @@ fun! wheel#referen#in_wheel (...)
 		let filename = expand('%:p')
 	endif
 	let wheel_files = wheel#helix#files ()
-	let in_wheel = index(wheel_files, filename)
-	if in_wheel > 0
-		return v:true
-	else
-		return v:false
-	endif
+	let is_in_wheel = index(wheel_files, filename) >= 0
+	return is_in_wheel
 endfun
 
 " Element lists
