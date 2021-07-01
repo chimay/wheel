@@ -288,7 +288,7 @@ fun! wheel#tree#rename_file (...)
 		let dir = expand('%:h') . '/'
 		let cwd = getcwd() . '/'
 		let dir = substitute(dir, cwd, '', '')
-		let filename = input('Rename file as ? ', dir)
+		let filename = input('Rename file as ? ', dir, 'file')
 	endif
 	" replace spaces by underscores
 	" non breaking spaces would be confusing in the user’s filesystem
