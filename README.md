@@ -43,9 +43,10 @@
 # Introduction
 ## What is it ?
 
-Wheel is a navigation plugin for Vim and Neovim. It is file group
-oriented and makes abundant use of dedicated buffers, in which you can
-filter and select elements.
+Wheel is a navigation plugin written in classical Vimscript, to remain
+compatible with both Vim and Neovim. It is file group oriented and
+makes abundant use of dedicated buffers, in which you can filter and
+select elements.
 
 ## What does it look like ?
 ### Main menu
