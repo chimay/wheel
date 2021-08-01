@@ -55,7 +55,7 @@ fun! wheel#status#layer ()
 	call reverse(types)
 	" echo
 	redraw!
-	echo 'Layers : ' . join(types)
+	echo 'layers : ' . join(types)
 endfun
 
 " Mandala stack status
@@ -79,7 +79,7 @@ fun! wheel#status#cylinder ()
 	endfor
 	" echo
 	redraw!
-	echo 'Mandalas : ' . join(types)
+	echo 'mandalas : ' . join(types)
 endfun
 
 " Tab line
