@@ -254,7 +254,7 @@ fun! wheel#perspective#tabwins_tree ()
 	let tabs = execute('tabs')
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
-	let isbuffer = '\m^\%(\s\|>\)'
+	let isbuffer = '\m^\%(\s\|>\|#\)'
 	let iswheel = s:is_mandala_tabs
 	for index in range(length)
 		let elem = tabs[index]

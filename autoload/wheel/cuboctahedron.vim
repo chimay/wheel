@@ -72,7 +72,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 		$ tabnew
 	endwhile
 	" Reorder
-	let count = 0
+	let l:count = 0
 	let max_iter = 2 * g:wheel_config.maxim.tabs
 	let from = 0
 	" status : start from 0
@@ -94,8 +94,8 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 		exe 'tabnext' from + 1
 		exe 'tabmove' target + 1
 		let status = wheel#chain#move(status, from, target)
-		let count += 1
-		if count > max_iter
+		let l:count += 1
+		if l:count > max_iter
 			echomsg 'wheel reorg tabs & windows : reached max iter.'
 			break
 		endif
