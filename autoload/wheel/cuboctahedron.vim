@@ -270,6 +270,11 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 		tabnext 1
 	endif
 	call wheel#cylinder#recall ()
+	" Clean wheel shelve
+	let g:wheel_shelve.layout.window = 'none'
+	let g:wheel_shelve.layout.split = 'none'
+	let g:wheel_shelve.layout.tab = 'none'
+	let g:wheel_shelve.layout.tabnames = []
 	" Tell the world the job is done
 	setlocal nomodified
 	echomsg 'tabs & windows reorganized.'

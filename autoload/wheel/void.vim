@@ -234,6 +234,15 @@ endfun
 
 " Unlet variables
 
+fun! wheel#void#clean ()
+	" Clean variables before writing wheel to file
+	" wheel shelve
+	let g:wheel_shelve.layout.window = 'none'
+	let g:wheel_shelve.layout.split = 'none'
+	let g:wheel_shelve.layout.tab = 'none'
+	let g:wheel_shelve.layout.tabnames = []
+endfun
+
 fun! wheel#void#lighten ()
 	" Unlet wheel variables
 	" No need to save them in viminfo or shada file
@@ -277,6 +286,8 @@ fun! wheel#void#exit ()
 	if argc() == 0 && has('nvim')
 		echomsg 'wheel bye !'
 	endif
+	" Clean vars before writing
+	call wheel#void#clean ()
 	" Write and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
