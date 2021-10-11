@@ -796,9 +796,9 @@ navigation buffer.
 ------------------------------------------------------------------------------
 GREP EDIT MODE				*wheel-dedicated-buffers-grep-edit*
 
-The edit mode will save your search and open a new buffer where you can
-edit the grep lines. If you write this buffer, the plugin will propagate
-your changes to the grepped file(s). There are some limitations, however :
+The edit mode will open a new buffer where you can edit the grep lines. If
+you write this buffer, the plugin will propagate your changes to the
+grepped file(s). There are some limitations, however :
 
 - you cannot add or remove entire lines
 - if you exchange or shuffle lines, they will be exchanged or shuffled in your
@@ -2126,7 +2126,7 @@ of the modules within them.
 | ----------------- | --------------------------------------   |
 | attic.vim         | Most Recently Used files                 |
 | boomerang.vim     | Context menus                            |
-| centre.vim        | Commands & Mappings                      |
+| centre.vim        | Commands & mappings                      |
 | chain.vim         | List helpers                             |
 | checknfix.vim     | Check & fix variables                    |
 | clipper.vim       | Yank buffers                             |
@@ -2136,7 +2136,7 @@ of the modules within them.
 | cuboctahedron.vim | Reshaping : reorder, reorganize          |
 | cylinder.vim      | Dedicated buffers stack                  |
 | delta.vim         | Undo & diff                              |
-| disc.vim          | Read & Write wheel file                  |
+| disc.vim          | Read & write wheel file                  |
 | gear.vim          | Generic helpers                          |
 | group.vim         | Auto grouping                            |
 | helix.vim         | Indexes                                  |
@@ -2157,7 +2157,7 @@ of the modules within them.
 | rectangle.vim     | Windows & buffers                        |
 | referen.vim       | References to current elements           |
 | ripple.vim        | Async job for vim                        |
-| sailing.vim       | Navigation buffers                       |
+| sailing.vim       | Dedicated buffers for navigation         |
 | scroll.vim        | Input history                            |
 | shape.vim         | Dedicated buffers to reshape the wheel   |
 | spiral.vim        | Golden ratio                             |
