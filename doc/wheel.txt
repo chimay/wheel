@@ -1851,12 +1851,21 @@ You will see that all keys are linked to `<plug>` maps.
 
 Plugs~
 
+Plug maps are middle men between wheel autoload functions and user
+mappings. To display the list of plug maps and their matching functions,
+press `<M-w>:` (prefix then colon), and answer : >
+
+    map <plug>(wheel-
+<
+
+to the prompt.
+
 Example of key binding using a plug map : >
 
     nmap <silent> <M-m> <Plug>(wheel-menu-main)
 <
 
-Do not use |:nnoremap|, it would not work.
+Do not use no-recursive maps like |:nnoremap|, it would not work.
 
 All of these plugs are listed below.
 
