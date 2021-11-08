@@ -452,7 +452,7 @@ Select entries~
 Some dedicated buffers will act on selected entries. You can hit :
 
 - `<space>` to toggle the selection of a line
-- `&` to invert the selection of all visible lines
+- `&` to reverse the selection of all visible lines
 - `*` to select all visible lines
 - `|` to clear the selection of all visible lines
 
