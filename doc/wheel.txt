@@ -2058,6 +2058,12 @@ COMMANDS					*wheel-commands*
 	torus/circle/link-to-location-file.
 
 
+:WheelCopiedTree				*:WheelCopiedTree*
+	Generate a tree of copies following the wheel hierarchy :
+	torus/circle/link-to-location-file.
+	Useful to make a backup of the wheel files
+
+
 ==============================================================================
 EXAMPLES						*wheel-examples*
 

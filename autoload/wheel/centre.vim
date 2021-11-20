@@ -9,6 +9,7 @@ fun! wheel#centre#commands ()
 	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
 	command! WheelAutogroup call wheel#group#menu()
 	command! WheelSymlinkTree call wheel#disc#symlink_tree()
+	command! WheelCopiedTree call wheel#disc#copied_tree()
 endfun
 
 fun! wheel#centre#plugs ()
