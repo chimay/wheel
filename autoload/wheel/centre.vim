@@ -45,6 +45,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-switch-location) :call wheel#vortex#switch('location')<cr>
 	nnoremap <plug>(wheel-switch-circle) :call wheel#vortex#switch('circle')<cr>
 	nnoremap <plug>(wheel-switch-torus) :call wheel#vortex#switch('torus')<cr>
+	nnoremap <plug>(wheel-multi-switch) :call wheel#vortex#multi_switch()<cr>
 	" History
 	nnoremap <plug>(wheel-history-newer) :call wheel#pendulum#newer()<cr>
 	nnoremap <plug>(wheel-history-older) :call wheel#pendulum#older()<cr>
@@ -205,6 +206,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<cr> <plug>(wheel-switch-location)'
 		exe nmap prefix . '<c-cr> <plug>(wheel-switch-circle)'
 		exe nmap prefix . '<s-cr> <plug>(wheel-switch-torus)'
+		exe nmap prefix . '<m-cr> <plug>(wheel-multi-switch)'
 		" History
 		exe nmap prefix . '<up> <plug>(wheel-history-newer)'
 		exe nmap prefix . '<down> <plug>(wheel-history-older)'
@@ -314,6 +316,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-cr>        <plug>(wheel-switch-location)'
 		exe nmap '<c-cr>        <plug>(wheel-switch-circle)'
 		exe nmap '<s-cr>        <plug>(wheel-switch-torus)'
+		exe nmap '<m-s-cr>      <plug>(wheel-multi-switch)'
 		" Navigation buffers
 		exe nmap '<space>        <plug>(wheel-navigation-location)'
 		exe nmap '<c-space>      <plug>(wheel-navigation-circle)'

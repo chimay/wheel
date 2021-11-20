@@ -3,6 +3,15 @@
 " Move to elements
 " Move elements
 
+" Variables
+
+if ! exists('s:referen_coordin')
+	let s:referen_coordin = ['torus', 'circle', 'location']
+	lockvar s:referen_coordin
+endif
+
+" Functions
+
 fun! wheel#vortex#here ()
 	" Location of cursor
 	let location = {}
@@ -173,4 +182,30 @@ fun! wheel#vortex#switch (level, ...)
 	if index >= 0
 		call wheel#vortex#jump (mode)
 	endif
+endfun
+
+fun! wheel#vortex#multi_switch()
+	" Switch torus, circle & location
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	call wheel#vortex#update ()
+	let indexes = [-1, -1, -1]
+	for level in s:referen_coordin
+		let prompt = 'Switch to ' . level . ' : '
+		let complete =  'custom,wheel#complete#' . level
+		let name = input(prompt, '', complete)
+		let levind = wheel#referen#coordin_index(level)
+		let found = wheel#vortex#tune (level, name)
+		if found >= 0
+			let indexes[levind] = found
+		else
+			echomsg 'wheel vortex multi switch : name' name 'not found'
+			return indexes
+		endif
+	endfor
+	call wheel#vortex#jump (mode)
+	return indexes
 endfun
