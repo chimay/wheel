@@ -8,6 +8,7 @@ fun! wheel#centre#commands ()
 	command! WheelDashboard call wheel#status#dashboard()
 	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
 	command! WheelAutogroup call wheel#group#menu()
+	command! WheelSymlinkTree call wheel#disc#symlink_tree()
 endfun
 
 fun! wheel#centre#plugs ()

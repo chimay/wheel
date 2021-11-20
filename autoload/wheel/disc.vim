@@ -128,3 +128,64 @@ fun! wheel#disc#read_all ()
 		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 	endif
 endfun
+
+fun! wheel#disc#symlink_tree (...)
+	" Tree of symlinks following the wheel hierarchy
+	" torus/circle/link-to-location-file
+	if a:0 > 0
+		let soil = a:1
+	else
+		let prompt = 'Directory to grow tree ? '
+		let soil = input(prompt, '', 'dir')
+	endif
+	let old_cdpath = &cdpath
+	set cdpath=,,
+	let cd_parent = 'cd ..'
+	" chop newline at beginning of pwd output
+	let old_dir = execute('pwd')[1:]
+	let cd_soil = 'cd ' . soil
+	call execute(cd_soil)
+	let mkdir_wheel = 'mkdir -p wheel'
+	call system(mkdir_wheel)
+	let cd_wheel = 'cd wheel'
+	call execute(cd_wheel)
+	let counter = 0
+	for torus in g:wheel.toruses
+		let torus_dir = torus.name
+		let mkdir_torus = 'mkdir -p ' . torus_dir
+		call system(mkdir_torus)
+		let cd_torus = 'cd ' . torus_dir
+		call execute(cd_torus)
+		for circle in torus.circles
+			"echomsg 'Processing circle' circle.name 'in torus' torus.name
+			let circle_dir = circle.name
+			let mkdir_circle = 'mkdir -p ' . circle_dir
+			call system(mkdir_circle)
+			let cd_circle = 'cd ' . circle_dir
+			call execute(cd_circle)
+			for location in circle.locations
+				let link = substitute(location.name, '/', '-', 'g')
+				let file = location.file
+				let make_link = 'ln -s ' . file . ' ' . link
+				"echomsg 'Linking' link '->' file
+				call system(make_link)
+				let counter += 1
+				if counter % 10 == 0
+					echomsg 'Processing link #' counter
+				endif
+			endfor
+			call execute(cd_parent)
+		endfor
+		call execute(cd_parent)
+	endfor
+	let cd_old_dir = 'cd ' . old_dir
+	echo cd_old_dir
+	call execute(cd_old_dir)
+	let &cdpath = old_cdpath
+	return v:true
+endfun
+
+fun! wheel#disc#copied_tree ()
+	" Tree of files copies following the wheel hierarchy
+	" torus/circle/copy-of-the-location-file
+endfun

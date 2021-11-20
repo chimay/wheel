@@ -2053,6 +2053,11 @@ COMMANDS					*wheel-commands*
 	Autogroup locations of current torus using filename extensions or directories.
 	Creates a new torus where each group will occupy a circle.
 
+:WheelSymlinkTree				*:WheelSymlinkTree*
+	Generate a tree of symlinks following the wheel hierarchy :
+	torus/circle/link-to-location-file.
+
+
 ==============================================================================
 EXAMPLES						*wheel-examples*
 
