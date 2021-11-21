@@ -3,6 +3,8 @@
 " Storage
 " Note : use expand to expand '~' in filenames
 
+" read & write wheel variables
+
 fun! wheel#disc#write (pointer, file, ...)
 	" Write variable referenced by pointer to file
 	" in a format that can be :sourced
@@ -129,6 +131,59 @@ fun! wheel#disc#read_all ()
 	endif
 endfun
 
+" tree torus/circle/location in the filesystem
+
+fun! wheel#disc#tree_script (...)
+	" Write a shell script which generates a tree of symlinks or copies
+	" following the wheel hierarchy torus/circle/location
+	if a:0 > 0
+		let soil = a:1
+	else
+		let prompt = 'Directory to grow tree ? '
+		let soil = input(prompt, '', 'dir')
+	endif
+	if a:0 > 1
+		let command = a:1
+	else
+		let prompt = 'Command to link/copy ? '
+		let complete =  'custom,wheel#complete#link_copy'
+		let command = input(prompt, 'ln -s', complete)
+	endif
+	if a:0 > 2
+		let script_file = a:2
+	else
+		let prompt = 'Write script in file ? '
+		let script_file = input(prompt, '', 'file')
+		let script_file = expand(script_file)
+	endif
+	let script = []
+	call add(script, '#!/bin/sh')
+	call add(script, 'cd ' . soil)
+	call add(script, 'mkdir -p wheel')
+	call add(script, 'cd wheel')
+	for torus in g:wheel.toruses
+		let torus_dir = torus.name
+		call add(script, 'mkdir -p ' . torus_dir)
+		call add(script, 'cd ' . torus_dir)
+		for circle in torus.circles
+			let circle_dir = circle.name
+			call add(script, 'mkdir -p ' . circle_dir)
+			call add(script, 'cd ' . circle_dir)
+			for location in circle.locations
+				let link = substitute(location.name, '/', '-', 'g')
+				let file = location.file
+				let make_link = command . ' ' . file . ' ' . link
+				call add(script, make_link)
+			endfor
+			call add(script, 'cd ..')
+		endfor
+		call add(script, 'cd ..')
+	endfor
+	call writefile(script, script_file)
+	call system('chmod +x ' . script_file)
+	return script
+endfun
+
 fun! wheel#disc#symlink_tree (...)
 	" Tree of symlinks following the wheel hierarchy
 	" torus/circle/link-to-location-file
@@ -240,55 +295,4 @@ fun! wheel#disc#copied_tree ()
 	call execute(cd_old_dir)
 	let &cdpath = old_cdpath
 	return v:true
-endfun
-
-fun! wheel#disc#tree_script (...)
-	" Write a shell script which generates a tree of symlinks or copies
-	" following the wheel hierarchy torus/circle/location
-	if a:0 > 0
-		let soil = a:1
-	else
-		let prompt = 'Directory to grow tree ? '
-		let soil = input(prompt, '', 'dir')
-	endif
-	if a:0 > 1
-		let command = a:1
-	else
-		let prompt = 'Command to link/copy ? '
-		let complete =  'custom,wheel#complete#link_copy'
-		let command = input(prompt, 'ln -s', complete)
-	endif
-	if a:0 > 2
-		let script_file = a:2
-	else
-		let prompt = 'Write script in file ? '
-		let script_file = input(prompt, '', 'file')
-		let script_file = expand(script_file)
-	endif
-	let script = []
-	call add(script, '#!/bin/sh')
-	call add(script, 'cd ' . soil)
-	call add(script, 'mkdir -p wheel')
-	call add(script, 'cd wheel')
-	for torus in g:wheel.toruses
-		let torus_dir = torus.name
-		call add(script, 'mkdir -p ' . torus_dir)
-		call add(script, 'cd ' . torus_dir)
-		for circle in torus.circles
-			let circle_dir = circle.name
-			call add(script, 'mkdir -p ' . circle_dir)
-			call add(script, 'cd ' . circle_dir)
-			for location in circle.locations
-				let link = substitute(location.name, '/', '-', 'g')
-				let file = location.file
-				let make_link = command . ' ' . file . ' ' . link
-				call add(script, make_link)
-			endfor
-			call add(script, 'cd ..')
-		endfor
-		call add(script, 'cd ..')
-	endfor
-	call writefile(script, script_file)
-	call system('chmod +x ' . script_file)
-	return script
 endfun
