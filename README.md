@@ -12,6 +12,7 @@
 		- [A wheel that follows you](#a-wheel-that-follows-you)
 	* [Features](#features)
 	* [History](#history)
+	* [Prerequisites](#prerequisites)
 + [Installation](#installation)
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
@@ -181,6 +182,9 @@ This project is inspired by :
 - [quickfix-reflector](https://github.com/stefandtw/quickfix-reflector.vim),
   for the grep edit mode
 
+## Prerequisites
+
+Some functions assume a Unix-like OS, as linux or bsd.
 
 # Installation
 ## Using minpac

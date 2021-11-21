@@ -2053,6 +2053,13 @@ COMMANDS					*wheel-commands*
 	Autogroup locations of current torus using filename extensions or directories.
 	Creates a new torus where each group will occupy a circle.
 
+:WheelTreeScript				*:WheelTreeScript*
+	Write a shell script which generates a tree of links or copies
+	following the wheel hierarchy torus/circle/location.
+	The script is a lot faster than using |:WheelSymlinkTree|
+	or |:WheelCopiedTree|.
+
+
 :WheelSymlinkTree				*:WheelSymlinkTree*
 	Generate a tree of symlinks following the wheel hierarchy :
 	torus/circle/link-to-location-file.
@@ -2061,8 +2068,7 @@ COMMANDS					*wheel-commands*
 :WheelCopiedTree				*:WheelCopiedTree*
 	Generate a tree of copies following the wheel hierarchy :
 	torus/circle/link-to-location-file.
-	Useful to make a backup of the wheel files
-
+	Useful to make a backup of the wheel files.
 
 ==============================================================================
 EXAMPLES						*wheel-examples*

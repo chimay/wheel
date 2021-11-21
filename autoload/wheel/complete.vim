@@ -5,8 +5,8 @@
 
 " Return entries as list
 " vim does not filter the entries,
-"  if needed, it has to be done
-"  in the function body
+" if needed, it has to be done
+" in the function body
 " ---------------------------------------------
 
 fun! wheel#complete#layer_list ()
@@ -128,5 +128,12 @@ endfun
 fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	" Complete mandalas pseudo filenames
 	let mandalas = wheel#complete#mandala_list ()
+	return join(mandalas, "\n")
+endfun
+
+fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)
+	" Complete link or copy command to generate tree in
+	" wheel#disc#tree_script
+	let mandalas = ['ln -s', 'cp -n']
 	return join(mandalas, "\n")
 endfun
