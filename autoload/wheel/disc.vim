@@ -179,6 +179,13 @@ fun! wheel#disc#tree_script (...)
 		endfor
 		call add(script, 'cd ..')
 	endfor
+	if filereadable(script_file)
+		let prompt = 'Replace existing ' . script_file . ' ?'
+		let overwrite = confirm(prompt, "&Yes\n&No", 2)
+		if overwrite != 1
+			return v:false
+		endif
+	endif
 	call writefile(script, script_file)
 	call system('chmod +x ' . script_file)
 	return script

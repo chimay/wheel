@@ -341,7 +341,7 @@ fun! wheel#tree#delete (level)
 	let prompt = 'Delete current ' . level . ' ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm != 1
-		return
+		return v:false
 	endif
 	" For history
 	let old_names = wheel#referen#names ()
@@ -372,4 +372,5 @@ fun! wheel#tree#delete (level)
 	call wheel#vortex#jump ()
 	" Adjust history
 	call wheel#pendulum#delete(level, old_names)
+	return v:true
 endfun
