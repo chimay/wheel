@@ -320,7 +320,8 @@ fun! wheel#line#tags (settings)
 	endif
 	let ident = fields[0]
 	call wheel#line#target (a:settings.target)
-	exe 'tag' ident
+	"exe 'tag' ident
+	exe 'tjump' ident
 	return win_getid ()
 endfun
 

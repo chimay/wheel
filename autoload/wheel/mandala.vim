@@ -458,10 +458,10 @@ endfu
 
 fun! wheel#mandala#filter_maps ()
 	" Define local filter maps
-	" Normal mode
+	" normal mode
 	nnoremap <silent> <buffer> i ggA
 	nnoremap <silent> <buffer> a ggA
-	" Insert mode
+	" insert mode
 	inoremap <silent> <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
 	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
 	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
