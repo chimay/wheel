@@ -319,10 +319,20 @@ fun! wheel#line#tags (settings)
 		return v:false
 	endif
 	let ident = fields[0]
+	let file = fields[1]
+	let type = fields[2]
+	let line = fields[3][1:]
 	call wheel#line#target (a:settings.target)
-	"exe 'tag' ident
-	exe 'tjump' ident
+	exe 'edit' file
+	" keep old position in mark '
+	mark '
+	call cursor(1,1)
+	call search(line)
 	return win_getid ()
+	" forget it, the selection must be done in the wheel buffer,
+	" not elsewhere
+	"exe 'tag' ident
+	"exe 'tjump' ident
 endfun
 
 fun! wheel#line#jumps (settings)
