@@ -65,6 +65,12 @@ if ! exists('s:is_mandala')
 	lockvar s:is_mandala
 endif
 
+if ! exists('s:is_buffer_tabs')
+	" for output line of :tabs
+	let s:is_buffer_tabs = '\m^\%(\s\|>\|#\)'
+	lockvar s:is_buffer_tabs
+endif
+
 if ! exists('s:is_mandala_tabs')
 	" for output line of :tabs
 	let s:is_mandala_tabs = '\m^>\?\s*+\?\s*' . s:is_mandala

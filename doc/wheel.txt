@@ -1560,10 +1560,13 @@ Search for files~
 
 Tabs & windows~
 
-| Prefix + | With default prefix | Action                                           |
-| -------- | ------------------- | ------------------------------------------------ |
-| v        | <M-w>v              | Visible buffers displayed in tabs & windows      |
-| <M-v>    | <M-w><M-v>          | Tree view of buffers displayed in tabs & windows |
+Visible buffers displayed in tabs & windows.
+
+| Prefix + | With default prefix | Action                                            |
+| -------- | ------------------- | ------------------------------------------------  |
+| v        | <M-w>v              | Switch to visible buffer with completion          |
+| V        | <M-w>V              | Visible buffers in a dedicated buffer             |
+| <M-v>    | <M-w><M-v>          | Tree view of tabs & windows in a dedicated buffer |
 
 Search inside files~
 

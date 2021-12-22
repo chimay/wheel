@@ -78,6 +78,7 @@ fun! wheel#centre#plugs ()
 	" Buffers
 	nnoremap <plug>(wheel-buffers) :call wheel#sailing#buffers()<cr>
 	" Tabs & windows : visible buffers
+	nnoremap <plug>(wheel-switch-tabwins) :call wheel#rectangle#switch()<cr>
 	nnoremap <plug>(wheel-tabwins) :call wheel#sailing#tabwins()<cr>
 	nnoremap <plug>(wheel-tabwins-tree) :call wheel#sailing#tabwins_tree()<cr>
 	" Search inside files
@@ -228,7 +229,8 @@ fun! wheel#centre#cables ()
 		" Buffers
 		exe nmap prefix . 'b <plug>(wheel-buffers)'
 		" Tabs & windows : visible buffers
-		exe nmap prefix . 'v <plug>(wheel-tabwins)'
+		exe nmap prefix . 'v <plug>(wheel-switch-tabwins)'
+		exe nmap prefix . 'V <plug>(wheel-tabwins)'
 		exe nmap prefix . '<m-v> <plug>(wheel-tabwins-tree)'
 		" Search inside files
 		exe nmap prefix . 's <plug>(wheel-occur)'

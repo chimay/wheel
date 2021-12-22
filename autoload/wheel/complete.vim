@@ -3,6 +3,23 @@
 " Completion functions
 " Return string where each element occupies a line
 
+" Script constants
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
+if ! exists('s:is_buffer_tabs')
+	let s:is_buffer_tabs = wheel#crystal#fetch('is_buffer/tabs')
+	lockvar s:is_buffer_tabs
+endif
+
+if ! exists('s:is_mandala_tabs')
+	let s:is_mandala_tabs = wheel#crystal#fetch('is_mandala/tabs')
+	lockvar s:is_mandala_tabs
+endif
+
 " Return entries as list
 " vim does not filter the entries,
 " if needed, it has to be done
@@ -41,6 +58,34 @@ fun! wheel#complete#mandala_list ()
 		call add(types, title)
 	endfor
 	return types
+endfun
+
+fun! wheel#complete#visible_buffers_list ()
+	" Return list of buffers visible in tabs & windows
+	let lines = []
+	let tabnum = 'undefined'
+	let tabs = execute('tabs')
+	let tabs = split(tabs, "\n")
+	let length = len(tabs)
+	let isbuffer = s:is_buffer_tabs
+	let iswheel = s:is_mandala_tabs
+	for index in range(length)
+		let elem = tabs[index]
+		let fields = split(elem)
+		if elem !~ isbuffer
+			" tab line
+			let tabnum = fields[-1]
+			let winum = 0
+		elseif elem !~ iswheel
+			" buffer line
+			let winum += 1
+			let filename = fnamemodify(fields[-1], ':p')
+			let entry = [filename, tabnum, winum]
+			let record = join(entry, s:field_separ)
+			call add(lines, record)
+		endif
+	endfor
+	return lines
 endfun
 
 fun! wheel#complete#filename (arglead, cmdline, cursorpos)
@@ -129,6 +174,12 @@ fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	" Complete mandalas pseudo filenames
 	let mandalas = wheel#complete#mandala_list ()
 	return join(mandalas, "\n")
+endfun
+
+fun! wheel#complete#visible_buffers (arglead, cmdline, cursorpos)
+	" Complete visible buffers
+	let buffers = wheel#complete#visible_buffers_list ()
+	return join(buffers, "\n")
 endfun
 
 fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)

@@ -34,7 +34,8 @@ endfun
 " Address of current line
 
 fun! wheel#line#address ()
-	" Return address of element at line in plain or folded mandala buffer
+	" Return plain or treeish information of element at line
+	" in plain or folded mandala buffer
 	call wheel#line#default ()
 	if ! &foldenable
 		let cursor_line = getline('.')

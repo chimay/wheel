@@ -1,6 +1,13 @@
 " vim: ft=vim fdm=indent:
 
-" Windows & buffers
+" Script constants
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
+" Tabs, Windows & buffers
 
 fun! wheel#rectangle#glasses (filename, ...)
 	" Return list of window(s) id(s) displaying filename
@@ -88,6 +95,22 @@ fun! wheel#rectangle#goto (bufnum, ...)
 		return v:false
 	endif
 	return v:true
+endfun
+
+fun! wheel#rectangle#switch (...)
+	" Switch to tab & window of visible buffer
+	let prompt = 'Switch to visible buffer : '
+	let complete =  'custom,wheel#complete#visible_buffers'
+	if a:0 > 0
+		let file_tab_win = a:1
+	else
+		let file_tab_win = input(prompt, '', complete)
+	endif
+	let record = split(file_tab_win, s:field_separ)
+	let tabnum = record[1]
+	let winum = record[2]
+	execute 'tabnext' tabnum
+	execute winum 'wincmd w'
 endfun
 
 fun! wheel#rectangle#ratio ()

@@ -24,6 +24,11 @@ if ! exists('s:fold_2')
 	lockvar s:fold_2
 endif
 
+if ! exists('s:is_buffer_tabs')
+	let s:is_buffer_tabs = wheel#crystal#fetch('is_buffer/tabs')
+	lockvar s:is_buffer_tabs
+endif
+
 if ! exists('s:is_mandala_tabs')
 	let s:is_mandala_tabs = wheel#crystal#fetch('is_mandala/tabs')
 	lockvar s:is_mandala_tabs
@@ -224,7 +229,7 @@ fun! wheel#perspective#tabwins ()
 	let tabs = execute('tabs')
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
-	let isbuffer = '\m^\%(\s\|>\)'
+	let isbuffer = s:is_buffer_tabs
 	let iswheel = s:is_mandala_tabs
 	for index in range(length)
 		let elem = tabs[index]
@@ -236,8 +241,6 @@ fun! wheel#perspective#tabwins ()
 		elseif elem !~ iswheel
 			" buffer line
 			let winum += 1
-			call insert(fields, winum)
-			call insert(fields, tabnum)
 			let filename = fnamemodify(fields[-1], ':p')
 			let entry = [tabnum, winum, filename]
 			let record = join(entry, s:field_separ)
@@ -254,7 +257,7 @@ fun! wheel#perspective#tabwins_tree ()
 	let tabs = execute('tabs')
 	let tabs = split(tabs, "\n")
 	let length = len(tabs)
-	let isbuffer = '\m^\%(\s\|>\|#\)'
+	let isbuffer = s:is_buffer_tabs
 	let iswheel = s:is_mandala_tabs
 	for index in range(length)
 		let elem = tabs[index]

@@ -184,7 +184,7 @@ fun! wheel#vortex#switch (level, ...)
 	endif
 endfun
 
-fun! wheel#vortex#multi_switch()
+fun! wheel#vortex#multi_switch(...)
 	" Switch torus, circle & location
 	if a:0 > 0
 		let mode = a:1
