@@ -100,7 +100,7 @@ endfun
 fun! wheel#rectangle#switch (...)
 	" Switch to tab & window of visible buffer
 	let prompt = 'Switch to visible buffer : '
-	let complete =  'custom,wheel#complete#visible_buffers'
+	let complete =  'customlist,wheel#completelist#visible_buffers'
 	if a:0 > 0
 		let file_tab_win = a:1
 	else

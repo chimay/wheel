@@ -2218,6 +2218,7 @@ of the modules within them.
 | clipper.vim       | Yank buffers                             |
 | codex.vim         | Yank wheel                               |
 | complete.vim      | Completion functions                     |
+| completelist.vim  | List completion functions                |
 | crystal.vim       | Internal variables                       |
 | cuboctahedron.vim | Reshaping : reorder, reorganize          |
 | cylinder.vim      | Dedicated buffers stack                  |

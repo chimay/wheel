@@ -241,11 +241,11 @@ fun! wheel#tree#rename (level, ...)
 	else
 		let prompt = 'Rename ' . level . ' as ? '
 		if level ==# 'torus'
-			let complete = 'customlist,wheel#complete#empty'
+			let complete = 'customlist,wheel#completelist#empty'
 		elseif level ==# 'circle'
-			let complete = 'customlist,wheel#complete#directory'
+			let complete = 'customlist,wheel#completelist#directory'
 		elseif level ==# 'location'
-			let complete = 'customlist,wheel#complete#filename'
+			let complete = 'customlist,wheel#completelist#filename'
 		else
 			echomsg 'wheel rename : bad level name.'
 			return v:false

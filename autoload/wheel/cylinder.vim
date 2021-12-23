@@ -306,11 +306,11 @@ fun! wheel#cylinder#switch ()
 		return v:false
 	endif
 	let prompt = 'Switch to mandala : '
-	let complete =  'custom,wheel#complete#mandala'
+	let complete =  'customlist,wheel#completelist#mandala'
 	if a:0 > 0
 		let name = a:1
 	else
-		let name = input(prompt, '/wheel/', complete)
+		let name = input(prompt, '', complete)
 	endif
 	let filenames = map(bufnums, {_,v->bufname(v)})
 	let mandala = index(filenames, name)

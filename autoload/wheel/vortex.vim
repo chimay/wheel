@@ -167,7 +167,7 @@ fun! wheel#vortex#switch (level, ...)
 	call wheel#vortex#update ()
 	let level = a:level
 	let prompt = 'Switch to ' . level . ' : '
-	let complete =  'custom,wheel#complete#' . level
+	let complete =  'customlist,wheel#completelist#' . level
 	if a:0 > 0
 		let name = a:1
 	else

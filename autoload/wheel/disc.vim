@@ -213,7 +213,7 @@ fun! wheel#disc#tree_script (...)
 		let command = a:1
 	else
 		let prompt = 'Command to link/copy ? '
-		let complete =  'custom,wheel#complete#link_copy'
+		let complete =  'customlist,wheel#completelist#link_copy'
 		let command = input(prompt, 'ln -s', complete)
 	endif
 	if a:0 > 2
