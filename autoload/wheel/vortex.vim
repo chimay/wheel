@@ -195,7 +195,7 @@ fun! wheel#vortex#multi_switch(...)
 	let indexes = [-1, -1, -1]
 	for level in s:referen_coordin
 		let prompt = 'Switch to ' . level . ' : '
-		let complete =  'custom,wheel#complete#' . level
+		let complete =  'customlist,wheel#completelist#' . level
 		let name = input(prompt, '', complete)
 		let levind = wheel#referen#coordin_index(level)
 		let found = wheel#vortex#tune (level, name)
