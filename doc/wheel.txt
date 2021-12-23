@@ -580,7 +580,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><Space>`   : switch to location
 - `<M-w><C-space>` : switch to current location of the chosen circle
 - `<M-w><S-space>` : switch to current location of the chosen torus
-- `<M-w>x`         : index of toruses > circles > locations
+- `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w>h`         : history index
@@ -1563,12 +1563,13 @@ Delete~
 
 Switch~
 
-| Prefix +  | With default prefix | Action                             |
-| --------- | ------------------- | ---------------------------------- |
-| <Enter>   | <M-w><Enter>        | Switch to location with completion |
-| <C-CR>    | <M-w><C-Enter>      | Switch to circle with completion   |
-| <S-CR>    | <M-w><S-Enter>      | Switch to torus with completion    |
-| <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location |
+| Prefix +  | With default prefix | Action                                   |
+| --------- | ------------------- | ---------------------------------------- |
+| <Enter>   | <M-w><Enter>        | Switch to location with completion       |
+| <C-CR>    | <M-w><C-Enter>      | Switch to circle with completion         |
+| <S-CR>    | <M-w><S-Enter>      | Switch to torus with completion          |
+| <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location       |
+| x         | <M-w>x              | Switch location in index with completion |
 
 History~
 
@@ -1589,7 +1590,7 @@ Dedicated buffers~
 | <C-Space>  | <M-w><C-Space>        | Go to circle                           |
 | <S-Space>  | <M-w><S-Space>        | Go to torus                            |
 | ---------- | --------------------- | -------------------------------------- |
-| x          | <M-w>x                | Index of toruses > circles > locations |
+| X          | <M-w>X                | Index of toruses > circles > locations |
 | <C-x>      | <M-w><C-x>            | Index of toruses > circles             |
 | <M-x>      | <M-w><M-x>            | Treeish index with folds               |
 | ---------- | --------------------- | -------------------------------------- |

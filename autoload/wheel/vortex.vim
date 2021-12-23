@@ -10,6 +10,11 @@ if ! exists('s:referen_coordin')
 	lockvar s:referen_coordin
 endif
 
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
 " Functions
 
 fun! wheel#vortex#here ()
@@ -208,4 +213,19 @@ fun! wheel#vortex#multi_switch(...)
 	endfor
 	call wheel#vortex#jump (mode)
 	return indexes
+endfun
+
+fun! wheel#vortex#helix (...)
+	" Switch to coordinates in index
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	let prompt = 'Switch to index element : '
+	let complete =  'customlist,wheel#completelist#helix'
+	let record = input(prompt, '', complete)
+	let coordin = split(record, s:level_separ)
+	call wheel#vortex#chord(coordin)
+	call wheel#vortex#jump (mode)
 endfun

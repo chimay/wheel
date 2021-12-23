@@ -68,6 +68,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>
 	nnoremap <plug>(wheel-navigation-torus) :call wheel#sailing#switch('torus')<cr>
 	" Indexes
+	nnoremap <plug>(wheel-switch-in-index) :call wheel#vortex#helix()<cr>
 	nnoremap <plug>(wheel-index-locations) :call wheel#sailing#helix()<cr>
 	nnoremap <plug>(wheel-index-circles) :call wheel#sailing#grid()<cr>
 	nnoremap <plug>(wheel-tree) :call wheel#sailing#tree()<cr>
@@ -194,7 +195,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<c-space> <plug>(wheel-navigation-circle)'
 		exe nmap prefix . '<s-space> <plug>(wheel-navigation-torus)'
 		" Indexes
-		exe nmap prefix . 'x <plug>(wheel-index-locations)'
+		exe nmap prefix . 'x <plug>(wheel-switch-in-index)'
+		exe nmap prefix . 'X <plug>(wheel-index-locations)'
 		exe nmap prefix . '<c-x> <plug>(wheel-index-circles)'
 		exe nmap prefix . '<m-x> <plug>(wheel-tree)'
 		" History

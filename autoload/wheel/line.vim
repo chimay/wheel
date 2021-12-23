@@ -22,6 +22,11 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
 " Default data line
 
 fun! wheel#line#default ()
@@ -90,7 +95,7 @@ fun! wheel#line#helix (settings)
 	" settings keys :
 	" - selected : where to go
 	" - target : current, tab, horizontal_split, vertical_split
-	let coordin = split(a:settings.selected, ' > ')
+	let coordin = split(a:settings.selected, s:level_separ)
 	if len(coordin) < 3
 		echomsg 'Helix line is too short'
 		return v:false

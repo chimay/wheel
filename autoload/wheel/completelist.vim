@@ -14,6 +14,11 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
 if ! exists('s:is_buffer_tabs')
 	let s:is_buffer_tabs = wheel#crystal#fetch('is_buffer/tabs')
 	lockvar s:is_buffer_tabs
@@ -62,6 +67,17 @@ fun! wheel#completelist#location (arglead, cmdline, cursorpos)
 	else
 		return []
 	endif
+endfu
+
+fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
+	" Complete location coordinates in index
+	let helix = wheel#helix#helix ()
+	let lines = []
+	for coordin in helix
+		let entry = join(coordin, s:level_separ)
+		let lines = add(lines, entry)
+	endfor
+	return filter(lines, {_,v -> v =~ a:arglead})
 endfu
 
 " mandalas
