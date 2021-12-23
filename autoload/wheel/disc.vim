@@ -165,9 +165,16 @@ fun! wheel#disc#write_session (...)
 	set sessionoptions=tabpages,winsize
 	" backup old sessions
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
+	" writing session
+	if argc() == 0 && has('nvim')
+		echomsg 'Writing session to file ...'
+	endif
 	exe 'mksession!' session_file
 	" restore value of sessionoptions
 	let &sessionoptions=ampersand
+	if argc() == 0 && has('nvim')
+		echomsg 'Writing done !'
+	endif
 endfun
 
 fun! wheel#disc#read_session (...)
@@ -180,6 +187,9 @@ fun! wheel#disc#read_session (...)
 		else
 			echomsg 'Please configure g:wheel_config.session_file = my_wheel_file'
 		endif
+	endif
+	if argc() == 0 && has('nvim')
+		echomsg 'Reading session from file ...'
 	endif
 	if filereadable(session_file)
 		exe 'source' session_file
