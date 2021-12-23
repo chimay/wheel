@@ -2111,10 +2111,10 @@ COMMANDS					*wheel-commands*
 	Creates a new torus where each group will occupy a circle.
 
 :WheelTreeScript				*:WheelTreeScript*
-	Write a shell script which generates a tree of links or copies
-	following the wheel hierarchy torus/circle/location.
-	The script is a lot faster than using |:WheelSymlinkTree|
-	or |:WheelCopiedTree|.
+	Write a shell script that generates a tree of links or copies
+	following the wheel hierarchy : torus/circle/location.
+	The generated script is a lot faster than
+	|:WheelSymlinkTree| or |:WheelCopiedTree|.
 
 
 :WheelSymlinkTree				*:WheelSymlinkTree*
