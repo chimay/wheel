@@ -37,6 +37,9 @@ fun! wheel#centre#plugs ()
 	" Load / Save wheel
 	nnoremap <plug>(wheel-read-all) :call wheel#disc#read_all()<cr>
 	nnoremap <plug>(wheel-write-all) :call wheel#disc#write_all()<cr>
+	" Load / Save session
+	nnoremap <plug>(wheel-read-session) :call wheel#disc#read_session()<cr>
+	nnoremap <plug>(wheel-write-session) :call wheel#disc#write_session()<cr>
 	" Next / Previous
 	nnoremap <plug>(wheel-previous-location) :call wheel#vortex#previous('location')<cr>
 	nnoremap <plug>(wheel-next-location) :call wheel#vortex#next('location')<cr>
@@ -180,6 +183,9 @@ fun! wheel#centre#cables ()
 		" Load / Save wheel
 		exe nmap prefix . 'r <plug>(wheel-read-all)'
 		exe nmap prefix . 'w <plug>(wheel-write-all)'
+		" Load / Save session file
+		exe nmap prefix . 'R <plug>(wheel-read-session)'
+		exe nmap prefix . 'W <plug>(wheel-write-session)'
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1

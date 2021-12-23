@@ -5,6 +5,8 @@
 
 " read & write wheel variables
 
+" helpers
+
 fun! wheel#disc#write (pointer, file, ...)
 	" Write variable referenced by pointer to file
 	" in a format that can be :sourced
@@ -68,7 +70,7 @@ fun! wheel#disc#read (file)
 endfun
 
 fun! wheel#disc#roll_backups (file, backups)
-	" Roll backups of file
+	" Roll backups number of file
 	let file = expand(a:file)
 	let suffixes = range(a:backups, 1, -1)
 	let filelist = map(suffixes, {ind, val -> file . '.' . val})
@@ -85,49 +87,104 @@ fun! wheel#disc#roll_backups (file, backups)
 	endwhile
 endfun
 
-fun! wheel#disc#write_all ()
-	" Write all wheel variables to g:wheel_config.file
+" wheel file
+
+fun! wheel#disc#write_all (...)
+	" Write all wheel variables to file argument
+	" File defaults to g:wheel_config.file
+	if a:0 > 0
+		let wheel_file = expand(a:1)
+	else
+		if has_key(g:wheel_config, 'file')
+			let wheel_file = expand(g:wheel_config.file)
+		else
+			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+		endif
+	endif
 	if wheel#referen#empty ('wheel')
 		echomsg 'Not writing empty wheel'
 		return
 	endif
 	call wheel#vortex#update ()
-	if has_key(g:wheel_config, 'file')
-		if argc() == 0 && has('nvim')
-			echomsg 'Writing wheel variables to file ...'
-		endif
-		call wheel#disc#roll_backups(g:wheel_config.file, g:wheel_config.backups)
-		call wheel#disc#write('g:wheel', g:wheel_config.file, '>')
-		call wheel#disc#write('g:wheel_helix', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_grid', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_files', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_history', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_input', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_attic', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_wave', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_ripple', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_yank', g:wheel_config.file, '>>')
-		call wheel#disc#write('g:wheel_shelve', g:wheel_config.file, '>>')
-		if argc() == 0 && has('nvim')
-			echomsg 'Writing done !'
-		endif
-	else
-		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+	if argc() == 0 && has('nvim')
+		echomsg 'Writing wheel variables to file ...'
+	endif
+	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
+	call wheel#disc#write('g:wheel', wheel_file, '>')
+	call wheel#disc#write('g:wheel_helix', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_grid', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_files', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_history', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_input', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_attic', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_wave', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_ripple', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_yank', wheel_file, '>>')
+	call wheel#disc#write('g:wheel_shelve', wheel_file, '>>')
+	if argc() == 0 && has('nvim')
+		echomsg 'Writing done !'
 	endif
 endfun
 
-fun! wheel#disc#read_all ()
-	" Read all wheel variables from g:wheel_config.file
-	if has_key(g:wheel_config, 'file')
-		if argc() == 0 && has('nvim')
-			echomsg 'Reading wheel variables from file ...'
-		endif
-		call wheel#disc#read (g:wheel_config.file)
-		if argc() == 0
-			call wheel#vortex#jump ()
-		endif
+fun! wheel#disc#read_all (...)
+	" Read all wheel variables from file argument
+	" File defaults to g:wheel_config.file
+	if a:0 > 0
+		let wheel_file = expand(a:1)
 	else
-		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+		if has_key(g:wheel_config, 'file')
+			let wheel_file = expand(g:wheel_config.file)
+		else
+			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+		endif
+	endif
+	if argc() == 0 && has('nvim')
+		echomsg 'Reading wheel variables from file ...'
+	endif
+	call wheel#disc#read (wheel_file)
+	if argc() == 0
+		call wheel#vortex#jump ()
+	endif
+endfun
+
+" session : layout of tabs & windows
+
+fun! wheel#disc#write_session (...)
+	" Write session layout to session file
+	if a:0 > 0
+		let session_file = expand(a:1)
+	else
+		if has_key(g:wheel_config, 'session_file')
+			let session_file = expand(g:wheel_config.session_file)
+		else
+			echomsg 'Please configure g:wheel_config.session_file = my_wheel_file'
+		endif
+	endif
+	" backup value of sessionoptions
+	let ampersand = &sessionoptions
+	set sessionoptions=tabpages,winsize
+	" backup old sessions
+	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
+	exe 'mksession!' session_file
+	" restore value of sessionoptions
+	let &sessionoptions=ampersand
+endfun
+
+fun! wheel#disc#read_session (...)
+	" Read session layout from session file
+	if a:0 > 0
+		let session_file = expand(a:1)
+	else
+		if has_key(g:wheel_config, 'session_file')
+			let session_file = expand(g:wheel_config.session_file)
+		else
+			echomsg 'Please configure g:wheel_config.session_file = my_wheel_file'
+		endif
+	endif
+	if filereadable(session_file)
+		exe 'source' session_file
+	else
+		echomsg 'wheel disc read session : session file does not exist.'
 	endif
 endfun
 

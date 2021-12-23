@@ -241,10 +241,16 @@ if ! exists("g:wheel_loaded")
 
   " The file where toruses and circles will be stored and read
   let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
-  " Auto read torus file on startup if > 0
+  " Auto read wheel file on startup if > 0
   let g:wheel_config.autoread = 1
-  " Auto write torus file on exit if > 0
+  " Auto write wheel file on exit if > 0
   let g:wheel_config.autowrite = 1
+  " The file where session will be stored and read
+  let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
+  " Auto read session file on startup if > 0
+  let g:wheel_config.autoread_session = 1
+  " Auto write session file on exit if > 0
+  let g:wheel_config.autowrite_session = 1
   " Number of backups for the wheel file
   let g:wheel_config.backups = 5
   " The bigger it is, the more mappings available

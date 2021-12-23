@@ -163,6 +163,12 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'autoread')
 		let g:wheel_config.autoread = 0
 	endif
+	if ! has_key(g:wheel_config, 'autowrite_session')
+		let g:wheel_config.autowrite_session = 0
+	endif
+	if ! has_key(g:wheel_config, 'autoread_session')
+		let g:wheel_config.autoread_session = 0
+	endif
 	if ! has_key(g:wheel_config, 'mappings')
 		let g:wheel_config.mappings = 0
 	endif
@@ -275,6 +281,9 @@ fun! wheel#void#init ()
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
 	endif
+	if g:wheel_config.autoread_session > 0
+		call wheel#disc#read_session ()
+	endif
 	" define wheel-mandala auto command group
 	exe 'augroup' s:mandala_autocmds_group
 		autocmd!
@@ -288,6 +297,10 @@ fun! wheel#void#exit ()
 	endif
 	" Clean vars before writing
 	call wheel#void#clean ()
+	" Save session
+	if g:wheel_config.autowrite_session > 0
+		call wheel#disc#write_session ()
+	endif
 	" Write and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()

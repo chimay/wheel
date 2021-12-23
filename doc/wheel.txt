@@ -892,6 +892,8 @@ Dictionary				|wheel-config-dictionary|
 File					|wheel-config-file|
 Autoread				|wheel-config-autoread|
 Autowrite				|wheel-config-autowrite|
+Autoread session file			|wheel-config-autoread-session|
+Autowrite session file			|wheel-config-autowrite-session|
 Backups					|wheel-config-backups|
 Mappings				|wheel-config-mappings|
 Prefix					|wheel-config-prefix|
@@ -965,7 +967,7 @@ either manually or automatically, using the autowrite config.
 ------------------------------------------------------------------------------
 AUTOREAD					    *wheel-config-autoread*
 
-Auto read torus file on startup if non null : >
+Auto read wheel file on startup if non null : >
 
     let g:wheel_config.autoread = 1
 <
@@ -978,9 +980,50 @@ To enable it, you need to add an autocommand on vim enter : >
 ------------------------------------------------------------------------------
 AUTOWRITE					    *wheel-config-autowrite*
 
-Auto write torus file on exit if non null : >
+Auto write wheel file on exit if non null : >
 
     let g:wheel_config.autowrite = 1
+<
+
+To enable it, you need to add an autocommand on vim leave : >
+
+    autocmd VimLeave * call wheel#void#exit()
+<
+
+------------------------------------------------------------------------------
+SESSION FILE					   *wheel-config-session-file*
+
+Wheel can save your tabs & windows layout in a session file.
+
+File to save or load the session : >
+
+    let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
+<
+
+Note that the directory `~/.local/share/wheel` must exist.
+
+You can define this file and regularly save it, either manually or
+automatically, using the autowrite_session config.
+
+------------------------------------------------------------------------------
+AUTOREAD SESSION			    *wheel-config-autoread-session*
+
+Auto read session file on startup if non null : >
+
+    let g:wheel_config.autoread_session = 1
+<
+
+To enable it, you need to add an autocommand on vim enter : >
+
+  autocmd VimEnter * call wheel#void#init()
+<
+
+------------------------------------------------------------------------------
+AUTOWRITE SESSION			    *wheel-config-autowrite-session*
+
+Auto write session file on exit if non null : >
+
+    let g:wheel_config.autowrite_session = 1
 <
 
 To enable it, you need to add an autocommand on vim leave : >
@@ -998,6 +1041,8 @@ Number of backup for the wheel file : >
 
 Assuming your wheel file is `auto.vim`, the backups will be named
 `auto.vim.1`, `auto.vim.2`, `auto.vim.3`, and so on.
+
+Also used for session file.
 
 It is recommended to use backups, in case things get messed up
 accidentally.
@@ -1173,6 +1218,12 @@ Here is an example of a complete configuration : >
   let g:wheel_config.autoread = 1
   " Auto write torus file on exit if > 0
   let g:wheel_config.autowrite = 1
+  " The file where session will be stored and read
+  let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
+  " Auto read session file on startup if > 0
+  let g:wheel_config.autoread_session = 1
+  " Auto write session file on exit if > 0
+  let g:wheel_config.autowrite_session = 1
   " Number of backups for the wheel file
   let g:wheel_config.backups = 5
   " The bigger it is, the more mappings available
@@ -1472,21 +1523,24 @@ Add~
 Next / previous~
 
 | Prefix +   | With default prefix   | Action                  |
-| ---------- | --------------------- | ------------------------|
+| ---------- | --------------------- | ----------------------- |
 | <left>     | <M-w><left>           | Go to previous location |
 | <right>    | <M-w><right>          | Go to next location     |
-| ---------- | --------------------- | ------------------------|
+| ---------- | --------------------- | ----------------------- |
 | <C-left>   | <M-w><C-left>         | Go to previous circle   |
 | <C-right>  | <M-w><C-right>        | Go to next circle       |
-| ---------- | --------------------- | ------------------------|
+| ---------- | --------------------- | ----------------------- |
 | <S-left>   | <M-w><S-left>         | Go to previous torus    |
 | <S-right>  | <M-w><S-right>        | Go to next torus        |
 
 Read / Write file~
 
-| Prefix + | With default prefix | Action             |
-| r        | <M-w>r              | Load wheel file    |
-| w        | <M-w>w              | Save wheel in file |
+| Prefix + | With default prefix | Action                 |
+| r        | <M-w>r              | Load wheel from file   |
+| w        | <M-w>w              | Save wheel to file     |
+| -------- | ------------------- | ---------------------- |
+| R        | <M-w>R              | Load session from file |
+| W        | <M-w>W              | Save session to file   |
 
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
