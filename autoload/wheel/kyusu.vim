@@ -5,8 +5,6 @@
 " A kyusu is a japanese traditional teapot,
 " often provided with a filter inside
 
-" Filter for mandalas
-
 " Script constants
 
 if ! exists('s:fold_markers')
@@ -42,7 +40,7 @@ fun! wheel#kyusu#word (wordlist, index, value)
 endfun
 
 fun! wheel#kyusu#tree (wordlist, index, value)
-	" Like word filter, but keep surrounding folds
+	" Like word filter, but keep folds markers lines
 	" index is not used, it’s just for compatibility with filter()
 	let marker = s:fold_markers[0]
 	let pattern = '\m' . marker . '[12]$'
