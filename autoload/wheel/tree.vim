@@ -26,7 +26,7 @@ endfu
 fun! wheel#tree#name ()
 	" Prompt for a location name and return it
 	let prompt = 'Location name ? '
-	let complete = 'customlist,wheel#complete#filename'
+	let complete = 'customlist,wheel#completelist#filename'
 	return input(prompt, '', complete)
 endfu
 
@@ -80,7 +80,7 @@ fun! wheel#tree#add_circle (...)
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let complete = 'customlist,wheel#complete#directory'
+		let complete = 'customlist,wheel#completelist#directory'
 		let circle_name = input('New circle name ? ', '', complete)
 	endif
 	" add first torus if needed

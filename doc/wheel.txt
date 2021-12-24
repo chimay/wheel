@@ -310,6 +310,16 @@ wherever possible, depending on the nature of the asked entry.
 
 Hitting |'wildchar'| (most likely `<tab>`), will trigger the completion.
 
+You can enter one or more words before hitting |'wildchar'| to narrow
+the completion list :
+
+- a space between two words is a logical and. So, `one two` will
+  display candidates containing both `one` and `two`
+- a pipe `|` in the middle of a word is a logical or. So, `one|two` will
+  display candidates containing `one` or `two`
+- a bang `!` beginning a filtering word is a logical not : all candidates
+  matching this word will be removed from the list
+
 Add a circle to the current torus~
 
 When you add a circle, you are prompted for a name. The completion is

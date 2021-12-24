@@ -185,10 +185,11 @@ fun! wheel#completelist#filename (arglead, cmdline, cursorpos)
 	let absolute = fnamemodify(basis, ':p')
 	let simple = fnamemodify(basis, ':t')
 	let root = fnamemodify(basis, ':t:r')
-	" list
 	let filenames = [root, simple, relative, absolute]
-	" newline separated entries in string
-	return filenames
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(filenames, Matches)
+	return candidates
 endfun
 
 fun! wheel#completelist#directory (arglead, cmdline, cursorpos)
@@ -202,16 +203,20 @@ fun! wheel#completelist#directory (arglead, cmdline, cursorpos)
 	" abolute path
 	let absolute = fnamemodify(basis, ':p')
 	let simple = fnamemodify(basis, ':t')
-	" list
 	let directories = [simple, relative, absolute]
-	" newline separated entries in string
-	return directories
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(directories, Matches)
+	return candidates
 endfun
 
 fun! wheel#completelist#link_copy (arglead, cmdline, cursorpos)
 	" Complete command to generate tree reflecting wheel in filesystem
 	" Link or copy
 	" See also wheel#disc#tree_script
-	let mandalas = ['ln -s', 'cp -n']
-	return mandalas
+	let commands = ['ln -s', 'cp -n']
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(commands, Matches)
+	return candidates
 endfun
