@@ -154,6 +154,7 @@ your groups will grow and adapt to your style.
   + mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
+- save tab & windows in minimal session file
 - batch operations
 - autogroup files by extension or directory
 

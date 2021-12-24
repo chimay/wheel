@@ -39,45 +39,58 @@ endfun
 
 fun! wheel#completelist#torus (arglead, cmdline, cursorpos)
 	" Complete torus name
-	if has_key(g:wheel, 'glossary')
-		let toruses = copy(g:wheel.glossary)
-		return filter(toruses, {_,v -> v =~ a:arglead})
-	else
+	if ! has_key(g:wheel, 'glossary')
 		return []
 	endif
+	let toruses = copy(g:wheel.glossary)
+	"return filter(toruses, {_,v -> v =~ a:arglead})
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(toruses, Matches)
+	return candidates
 endfu
 
 fun! wheel#completelist#circle (arglead, cmdline, cursorpos)
 	" Complete circle name
 	let cur_torus = wheel#referen#torus ()
-	if has_key(cur_torus, 'glossary')
-		let circles =  copy(cur_torus.glossary)
-		return filter(circles, {_,v -> v =~ a:arglead})
-	else
+	if ! has_key(cur_torus, 'glossary')
 		return []
 	endif
+	let circles =  copy(cur_torus.glossary)
+	"return filter(circles, {_,v -> v =~ a:arglead})
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(circles, Matches)
+	return candidates
 endfu
 
 fun! wheel#completelist#location (arglead, cmdline, cursorpos)
 	" Complete location name
 	let cur_circle = wheel#referen#circle ()
-	if has_key(cur_circle, 'glossary')
-		let locations = copy(cur_circle.glossary)
-		return filter(locations, {_,v -> v =~ a:arglead})
-	else
+	if ! has_key(cur_circle, 'glossary')
 		return []
 	endif
+	let locations = copy(cur_circle.glossary)
+	"return filter(locations, {_,v -> v =~ a:arglead})
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(locations, Matches)
+	return candidates
 endfu
 
 fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
 	" Complete location coordinates in index
 	let helix = wheel#helix#helix ()
-	let lines = []
+	let choices = []
 	for coordin in helix
 		let entry = join(coordin, s:level_separ)
-		let lines = add(lines, entry)
+		let choices = add(choices, entry)
 	endfor
-	return filter(lines, {_,v -> v =~ a:arglead})
+	"return filter(choices, {_,v -> v =~ a:arglead})
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(choices, Matches)
+	return candidates
 endfu
 
 " mandalas
@@ -97,7 +110,11 @@ fun! wheel#completelist#layer (arglead, cmdline, cursorpos)
 	call insert(types, title, top)
 	" reverse to have previous on the left and next on the right
 	call reverse(types)
-	return filter(types, {_,v -> v =~ a:arglead})
+	"return filter(types, {_,v -> v =~ a:arglead})
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(types, Matches)
+	return candidates
 endfun
 
 fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
@@ -113,7 +130,11 @@ fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
 		let title = bufname(num)
 		call add(types, title)
 	endfor
-	return filter(types, {_,v -> v =~ a:arglead})
+	"return filter(types, {_,v -> v =~ a:arglead})
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(types, Matches)
+	return candidates
 endfun
 
 " buffers
@@ -143,7 +164,11 @@ fun! wheel#completelist#visible_buffers (arglead, cmdline, cursorpos)
 			call add(lines, record)
 		endif
 	endfor
-	return filter(lines, {_,v -> v =~ a:arglead})
+	"return filter(lines, {_,v -> v =~ a:arglead})
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(lines, Matches)
+	return candidates
 endfun
 
 " files & dirs

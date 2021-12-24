@@ -128,6 +128,7 @@ FEATURES				*wheel-introduction-features*
   + mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
+- save tab & windows in minimal session file
 - batch operations
 - autogroup files by extension or directory
 

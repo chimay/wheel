@@ -1,6 +1,6 @@
 " vim: ft=vim fdm=indent:
 
-" Filter for mandalas
+" Filter for prompt completion & mandalas
 "
 " A kyusu is a japanese traditional teapot,
 " often provided with a filter inside
@@ -17,10 +17,11 @@ endif
 
 " Filters
 
-fun! wheel#kyusu#word_filter (wordlist, value)
+fun! wheel#kyusu#word (wordlist, index, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
 	" Pipe | in word means logical or
+	" index is not used, it’s just for compatibility with filter()
 	let wordlist = copy(a:wordlist)
 	call map(wordlist, {_, val -> substitute(val, '|', '\\|', 'g')})
 	let match = 1
@@ -40,18 +41,18 @@ fun! wheel#kyusu#word_filter (wordlist, value)
 	return match
 endfun
 
-fun! wheel#kyusu#tree_filter (wordlist, index, value)
-	" Like word_filter, but keep surrounding folds
+fun! wheel#kyusu#tree (wordlist, index, value)
+	" Like word filter, but keep surrounding folds
 	" index is not used, it’s just for compatibility with filter()
 	let marker = s:fold_markers[0]
 	let pattern = '\m' . marker . '[12]$'
 	if a:value =~ pattern
 		return v:true
 	endif
-	return wheel#kyusu#word_filter(a:wordlist, a:value)
+	return wheel#kyusu#word(a:wordlist, 0, a:value)
 endfun
 
-fun! wheel#kyusu#fold_filter (wordlist, candidates)
+fun! wheel#kyusu#fold (wordlist, candidates)
 	" Remove non-matching empty folds
 	let wordlist = a:wordlist
 	let candidates = a:candidates
@@ -77,7 +78,7 @@ fun! wheel#kyusu#fold_filter (wordlist, candidates)
 		" and current fold level will be >= than next one
 		if cur_value =~ pattern && next_value =~ pattern && cur_last >= next_last
 			" Add line only if matches wordlist
-			if wheel#kyusu#word_filter(wordlist, cur_value)
+			if wheel#kyusu#word(wordlist, 0, cur_value)
 				call add(filtered, cur_value)
 			endif
 		else
@@ -85,13 +86,13 @@ fun! wheel#kyusu#fold_filter (wordlist, candidates)
 		endif
 	endfor
 	let value = candidates[-1]
-	if wheel#kyusu#word_filter(wordlist, value)
+	if wheel#kyusu#word(wordlist, 0, value)
 		call add(filtered, value)
 	endif
 	return filtered
 endfun
 
-fun! wheel#kyusu#line_filter ()
+fun! wheel#kyusu#line ()
 	" Return lines matching words of first line
 	let linelist = copy(b:wheel_lines)
 	let first = getline(1)
@@ -100,11 +101,11 @@ fun! wheel#kyusu#line_filter ()
 		return linelist
 	endif
 	call wheel#scroll#record(first)
-	let Matches = function('wheel#kyusu#tree_filter', [wordlist])
+	let Matches = function('wheel#kyusu#tree', [wordlist])
 	let candidates = filter(linelist, Matches)
 	" two times : cleans a level each time
-	let filtered = wheel#kyusu#fold_filter(wordlist, candidates)
-	let filtered = wheel#kyusu#fold_filter(wordlist, filtered)
+	let filtered = wheel#kyusu#fold(wordlist, candidates)
+	let filtered = wheel#kyusu#fold(wordlist, filtered)
 	" Return
 	return filtered
 endfu
