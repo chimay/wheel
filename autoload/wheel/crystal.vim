@@ -319,12 +319,12 @@ endif
 
 if ! exists('s:menu_alternate')
 	let s:menu_alternate = [
-				\ ['alternate anywhere' ,  'wheel#pendulum#alternate_anywhere'],
-				\ ['alternate in same torus' ,  'wheel#pendulum#alternate_same_torus'],
-				\ ['alternate in same circle' ,  'wheel#pendulum#alternate_same_circle'],
-				\ ['alternate in other torus' ,  'wheel#pendulum#alternate_other_torus'],
-				\ ['alternate in other circle' ,  'wheel#pendulum#alternate_other_circle'],
-				\ ['alternate in same torus, other circle' ,  'wheel#pendulum#alternate_same_torus_other_circle'],
+				\ ['alternate anywhere' ,  "wheel#pendulum#alternate('anywhere')"],
+				\ ['alternate in same torus' ,  "wheel#pendulum#alternate('same_torus')"],
+				\ ['alternate in same circle' ,  "wheel#pendulum#alternate('same_circle')"],
+				\ ['alternate in other torus' ,  "wheel#pendulum#alternate('other_torus')"],
+				\ ['alternate in other circle' ,  "wheel#pendulum#alternate('other_circle')"],
+				\ ['alternate in same torus, other circle' ,  "wheel#pendulum#alternate('same_torus_other_circle')"],
 				\]
 	lockvar s:menu_alternate
 endif

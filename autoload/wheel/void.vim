@@ -88,6 +88,13 @@ fun! wheel#void#history ()
 	endif
 endfun
 
+fun! wheel#void#alternate ()
+	" Initialize alternate history
+	if ! exists('g:wheel_alternate')
+		let g:wheel_alternate = {}
+	endif
+endfun
+
 fun! wheel#void#input ()
 	" Initialize input history
 	if ! exists('g:wheel_input')
@@ -229,6 +236,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#grid ()
 	call wheel#void#files ()
 	call wheel#void#history ()
+	call wheel#void#alternate ()
 	call wheel#void#input ()
 	call wheel#void#attic ()
 	call wheel#void#wave ()

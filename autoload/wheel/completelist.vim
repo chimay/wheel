@@ -220,3 +220,18 @@ fun! wheel#completelist#link_copy (arglead, cmdline, cursorpos)
 	let candidates = filter(commands, Matches)
 	return candidates
 endfun
+
+" tags
+
+fun! wheel#completelist#tags (arglead, cmdline, cursorpos)
+	let table = wheel#symbol#table ()
+	let choices = []
+	for record in table
+		let suit = join(record, s:field_separ)
+		call add(choices, suit)
+	endfor
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(choices, Matches)
+	return candidates
+endfun

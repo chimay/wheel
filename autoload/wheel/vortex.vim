@@ -1,4 +1,4 @@
-" vim: ft=vim fdm=indent:
+" vim: set ft=vim fdm=indent iskeyword&:
 
 " Move to elements
 " Move elements
@@ -191,6 +191,7 @@ endfun
 
 fun! wheel#vortex#multi_switch(...)
 	" Switch torus, circle & location
+	" Optional argument : jump mode
 	if a:0 > 0
 		let mode = a:1
 	else
@@ -217,6 +218,7 @@ endfun
 
 fun! wheel#vortex#helix (...)
 	" Switch to coordinates in index
+	" Optional argument : jump mode
 	if a:0 > 0
 		let mode = a:1
 	else

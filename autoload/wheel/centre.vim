@@ -56,13 +56,13 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-history-newer) :call wheel#pendulum#newer()<cr>
 	nnoremap <plug>(wheel-history-older) :call wheel#pendulum#older()<cr>
 	" Alternate
-	nnoremap <plug>(wheel-alternate-anywhere) :call wheel#pendulum#alternate_anywhere()<cr>
-	nnoremap <plug>(wheel-alternate-same-torus-other-circle) :call wheel#pendulum#alternate_same_torus_other_circle()<cr>
-	nnoremap <plug>(wheel-alternate-same-torus) :call wheel#pendulum#alternate_same_torus()<cr>
-	nnoremap <plug>(wheel-alternate-same-circle) :call wheel#pendulum#alternate_same_circle()<cr>
-	nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate_other_torus()<cr>
-	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate_other_circle()<cr>
-	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate()<cr>
+	nnoremap <plug>(wheel-alternate-anywhere) :call wheel#pendulum#alternate('anywhere')<cr>
+	nnoremap <plug>(wheel-alternate-same-torus-other-circle) :call wheel#pendulum#alternate('same_torus_other_circle')<cr>
+	nnoremap <plug>(wheel-alternate-same-torus) :call wheel#pendulum#alternate('same_torus')<cr>
+	nnoremap <plug>(wheel-alternate-same-circle) :call wheel#pendulum#alternate('same_circle')<cr>
+	nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate('other_torus')<cr>
+	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate('other_circle')<cr>
+	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate_menu()<cr>
 	" Navigation
 	nnoremap <plug>(wheel-navigation-location) :call wheel#sailing#switch('location')<cr>
 	nnoremap <plug>(wheel-navigation-circle) :call wheel#sailing#switch('circle')<cr>
@@ -89,6 +89,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-occur) :call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
+	nnoremap <plug>(wheel-switch-tags) :call wheel#symbol#switch()<cr>
 	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
 	" Jumps & Changes lists
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
@@ -244,7 +245,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 's <plug>(wheel-occur)'
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
-		exe nmap prefix . 't <plug>(wheel-tags)'
+		exe nmap prefix . 't <plug>(wheel-switch-tags)'
+		exe nmap prefix . 'T <plug>(wheel-tags)'
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'
 		" Yank wheel

@@ -2,10 +2,19 @@
 
 " Tags
 
+" Script constants
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
+" functions
+
 fun! wheel#symbol#files ()
 	" Tags file(s) related to current directory
 	let files = tagfiles ()
-	" No emacs TAGS
+	" no emacs TAGS
 	call filter(files, {_, val -> val !=# 'TAGS' })
 	return files
 endfun
@@ -19,7 +28,7 @@ fun! wheel#symbol#read (file)
 		echomsg 'wheel symbol read : tags file non readable'
 	endif
 	if file =~ '\m/'
-		" If tagfile is not in project root dir, we need the full path
+		" if tagfile is not in project root dir, we need the full path
 		let tagdir = fnamemodify(file, ':p:h') . '/'
 	else
 		let tagdir = ''
@@ -53,4 +62,28 @@ fun! wheel#symbol#table ()
 		call extend(table, grid)
 	endfor
 	return table
+endfun
+
+" switch to tag
+
+fun! wheel#symbol#switch ()
+	" Switch to tag
+	let prompt = 'Switch to tag : '
+	let complete =  'customlist,wheel#completelist#tags'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	if len(fields) < 4
+		echomsg 'Tag line is too short'
+		return v:false
+	endif
+	let ident = fields[0]
+	let file = fields[1]
+	let type = fields[2]
+	let line = fields[3][1:]
+	exe 'edit' file
+	" keep old position in mark '
+	mark '
+	call cursor(1,1)
+	call search(line)
+	return win_getid ()
 endfun

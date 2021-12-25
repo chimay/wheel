@@ -138,8 +138,9 @@ fun! wheel#perspective#history ()
 	" Sorted history index
 	" Each entry is a string : date hour | torus > circle > location
 	let history = deepcopy(g:wheel_history)
-	let Compare = function('wheel#pendulum#compare')
-	let history = sort(history, Compare)
+	" done in wheel#pendulum#record
+	"let Compare = function('wheel#pendulum#compare')
+	"let history = sort(history, Compare)
 	let strings = []
 	for entry in history
 		let coordin = entry.coordin
@@ -181,8 +182,9 @@ fun! wheel#perspective#mru ()
 	" Sorted most recenty used files
 	" Each entry is a string : date hour | filename
 	let attic = deepcopy(g:wheel_attic)
-	let Compare = function('wheel#pendulum#compare')
-	let attic = sort(attic, Compare)
+	" should not be necessary
+	"let Compare = function('wheel#pendulum#compare')
+	"let attic = sort(attic, Compare)
 	let strings = []
 	for entry in attic
 		let filename = entry.file

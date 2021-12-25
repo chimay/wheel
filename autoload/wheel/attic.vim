@@ -2,9 +2,17 @@
 
 " Most recently used files
 
+" Script constants
+
+if ! exists('s:is_mandala')
+	let s:is_mandala = wheel#crystal#fetch('is_mandala')
+	lockvar s:is_mandala
+endif
+
 " Helpers
 
 fun! wheel#attic#remove_if_present (entry)
+	" Remove entry from mru if file is already there
 	let entry = a:entry
 	let attic = g:wheel_attic
 	for elem in g:wheel_attic
@@ -36,12 +44,20 @@ fun! wheel#attic#record (...)
 		" Only add non wheel files
 		return
 	endif
+	if filename =~ s:is_mandala
+		" Do not add mandala buffer
+		return
+	endif
+	if filename =~ '^term://'
+		" Do not add term buffer
+		return
+	endif
 	let attic = g:wheel_attic
 	let entry = {}
 	let entry.file = filename
 	let entry.timestamp = wheel#pendulum#timestamp ()
 	call wheel#attic#remove_if_present (entry)
-	let g:wheel_attic = insert(g:wheel_attic, entry, 0)
+	let g:wheel_attic = insert(g:wheel_attic, entry)
 	let max = g:wheel_config.maxim.mru
 	let g:wheel_attic = g:wheel_attic[:max - 1]
 endfu
