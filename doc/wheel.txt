@@ -2002,7 +2002,7 @@ Prompt :
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                        |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-switch-tags)                       | tags                                     |
+| <plug>(wheel-switch-tags)                       | switch to tag                            |
 
 Dedicated buffers :
 
