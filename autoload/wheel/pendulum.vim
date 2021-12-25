@@ -2,6 +2,12 @@
 
 " History
 
+" Wheel variables :
+" - g:wheel_history : sorted list of timestamps & wheel coordinates
+"					  each coordinate should appear at most once
+" - g:wheel_track : list of wheel traveled wheel coordinates
+"					each coordinate can appear more than once
+
 " other names ideas :
 " sundial
 " hourglass, sandglass
@@ -58,7 +64,7 @@ fun! wheel#pendulum#record ()
 	" Add new entry at the beginning of the list
 	" Move existing entry at the beginning of the list
 	" Update alternate coordinates
-	" new entry
+	" new entry in g:wheel_history
 	let coordin = wheel#referen#names()
 	let entry = {}
 	let entry.coordin = coordin
@@ -67,8 +73,11 @@ fun! wheel#pendulum#record ()
 	let g:wheel_history = insert(g:wheel_history, entry)
 	let max = g:wheel_config.maxim.history
 	let g:wheel_history = g:wheel_history[:max - 1]
-	let Compare = function('wheel#pendulum#compare')
-	let g:wheel_history = sort(g:wheel_history, Compare)
+	" should not be necessary
+	"let Compare = function('wheel#pendulum#compare')
+	"let g:wheel_history = sort(g:wheel_history, Compare)
+	" new entry in g:wheel_track
+	" TODO
 	" alternate history
 	let alternate = g:wheel_alternate
 	let history = deepcopy(g:wheel_history)
