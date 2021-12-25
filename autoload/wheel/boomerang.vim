@@ -1,4 +1,4 @@
-" vim: ft=vim fdm=indent:
+" vim: set ft=vim fdm=indent iskeyword&:
 
 " Context menus, acting back on a mandala buffer
 

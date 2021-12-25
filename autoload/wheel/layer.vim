@@ -1,4 +1,4 @@
-" vim: ft=vim fdm=indent:
+" vim: set ft=vim fdm=indent iskeyword&:
 
 " Layers stack / ring in each mandala buffer
 

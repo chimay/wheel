@@ -73,6 +73,9 @@ fun! wheel#pendulum#record ()
 	let alternate = g:wheel_alternate
 	let history = deepcopy(g:wheel_history)
 	let length = len(history)
+	if length < 2
+		return v:false
+	endif
 	let current = history[0].coordin
 	for ind in range(1, length - 1)
 		let coordin = history[ind].coordin
