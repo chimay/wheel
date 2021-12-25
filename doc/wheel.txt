@@ -612,7 +612,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>s`         : occur in current file
 - `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
-- `<M-w>t`         : tags
+- `<M-w><M-t>`     : tags
 - `<M-w>j`         : jumps list
 - `<M-w>c`         : changes list
 
@@ -1648,7 +1648,7 @@ Search inside files~
 | s        | <M-w>s              | Search lines in current file         |
 | g        | <M-w>g              | Search in circle files with grep     |
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
-| t        | <M-w>t              | Tags                                 |
+| <M-t>    | <M-w><M-t>          | Tags                                 |
 | j        | <M-w>j              | Jumps                                |
 | c        | <M-w>c              | Changes                              |
 
@@ -2001,6 +2001,8 @@ Prompt :
 | <plug>(wheel-switch-tabwins)                    | visible buffers in tabs & windows        |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                        |
+| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-switch-tags)                       | tags                                     |
 
 Dedicated buffers :
 
