@@ -128,7 +128,6 @@ fun! wheel#pendulum#record ()
 		let g:wheel_track = insert(g:wheel_track, entry)
 		let max = g:wheel_config.maxim.history
 		let g:wheel_track = g:wheel_track[:max - 1]
-		"echomsg map(g:wheel_track[:4],{_,v->v.coordin[2]})
 	endif
 	" -- alternate history
 	call wheel#pendulum#update_alternate ()

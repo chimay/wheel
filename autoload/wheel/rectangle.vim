@@ -42,18 +42,18 @@ fun! wheel#rectangle#tour ()
 		return v:false
 	endif
 	let best = glasses[0]
-	call win_gotoid(best)
+	noautocmd call win_gotoid(best)
 	let best_delta = abs(line - line('.'))
 	for index in range(1, len(glasses) - 1)
 		let new = glasses[index]
-		call win_gotoid(new)
+		noautocmd call win_gotoid(new)
 		let new_delta = abs(line - line('.'))
 		if new_delta < best_delta
 			let best_delta = new_delta
 			let best = new
 		endif
 	endfor
-	call win_gotoid(original)
+	noautocmd call win_gotoid(original)
 	return best
 endfun
 

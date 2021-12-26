@@ -44,35 +44,39 @@ fun! wheel#vortex#jump (...)
 	else
 		let mode = 'default'
 	endif
+	" check location
 	let location = wheel#referen#location ()
-	if ! empty(location)
-		if mode != 'new'
-			let window = wheel#rectangle#tour ()
-		else
-			let window = v:false
-		endif
-		if window
-			" switch to window containing location buffer
-			call win_gotoid(window)
-		elseif bufloaded(location.file)
-			" load buffer in current window
-			let buffer = bufname(location.file)
-			exe 'silent buffer' buffer
-		else
-			" edit location file
-			exe 'silent edit' fnameescape(location.file)
-		endif
-		call cursor(location.line, location.col)
-		if g:wheel_config.cd_project > 0
-			let markers = g:wheel_config.project_markers
-			call wheel#gear#project_root(markers)
-		endif
-		call wheel#pendulum#record ()
-		normal! zv
-		doautocmd User WheelAfterJump
-		call wheel#spiral#cursor ()
-		call wheel#status#dashboard ()
+	if empty(location)
+		return win_getid ()
 	endif
+	" jump
+	if mode != 'new'
+		let window = wheel#rectangle#tour ()
+	else
+		let window = v:false
+	endif
+	if window
+		" switch to window containing location buffer
+		call win_gotoid(window)
+	elseif bufloaded(location.file)
+		" load buffer in current window
+		let buffer = bufname(location.file)
+		exe 'silent buffer' buffer
+	else
+		" edit location file
+		exe 'silent edit' fnameescape(location.file)
+	endif
+	call cursor(location.line, location.col)
+	if g:wheel_config.cd_project > 0
+		let markers = g:wheel_config.project_markers
+		call wheel#gear#project_root(markers)
+	endif
+	call wheel#pendulum#record ()
+	normal! zv
+	doautocmd User WheelAfterJump
+	call wheel#spiral#cursor ()
+	call wheel#status#dashboard ()
+	" return
 	return win_getid ()
 endfun
 

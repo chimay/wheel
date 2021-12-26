@@ -51,20 +51,20 @@ fun! wheel#projection#follow (...)
 	else
 		let level = 'wheel'
 	endif
-	" If torus or circle is empty, assume the user
+	" if torus or circle is empty, assume the user
 	" wants to add something before switching
 	if level == 'wheel' && wheel#referen#empty ('torus')
 		return
 	endif
-	" First add some locations before leaving empty circle
+	" first add some locations before leaving empty circle
 	if index(['wheel', 'torus'], level) >= 0 && wheel#referen#empty ('circle')
 		return
 	endif
-	" Check if not already in matching file
+	" check if not already in matching file
 	if wheel#referen#location_matches_file ()
 		return
 	endif
-	" Follow
+	" follow
 	let coordin = wheel#projection#closest (level)
 	if ! empty(coordin)
 		call wheel#vortex#chord (coordin)
