@@ -122,7 +122,10 @@ fun! wheel#pendulum#record ()
 	"let Compare = function('wheel#pendulum#compare')
 	"let g:wheel_history = sort(g:wheel_history, Compare)
 	" -- new entry in g:wheel_track
-	if empty(g:wheel_track) || entry.coordin != g:wheel_track[0].coordin
+	let add_entry = entry.coordin != g:wheel_track[0].coordin
+	let add_entry = add_entry || empty(g:wheel_track)
+	if add_entry
+		echomsg string(entry.coordin) string(g:wheel_track[0].coordin)
 		let g:wheel_track = insert(g:wheel_track, entry)
 		let max = g:wheel_config.maxim.history
 		let g:wheel_track = g:wheel_track[:max - 1]
