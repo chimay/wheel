@@ -86,6 +86,9 @@ fun! wheel#void#history ()
 	if ! exists('g:wheel_history')
 		let g:wheel_history = []
 	endif
+	if ! exists('g:wheel_track')
+		let g:wheel_track = []
+	endif
 endfun
 
 fun! wheel#void#alternate ()
@@ -331,6 +334,8 @@ fun! wheel#void#fresh_wheel ()
 				\ 'g:wheel_grid',
 				\ 'g:wheel_files',
 				\ 'g:wheel_history',
+				\ 'g:wheel_track',
+				\ 'g:wheel_alternate',
 				\ 'g:wheel_input',
 				\ 'g:wheel_attic',
 				\ 'g:wheel_wave',

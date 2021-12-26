@@ -138,7 +138,7 @@ fun! wheel#perspective#history ()
 	" Sorted history index
 	" Each entry is a string : date hour | torus > circle > location
 	let history = deepcopy(g:wheel_history)
-	" done in wheel#pendulum#record
+	" should not be necessary
 	"let Compare = function('wheel#pendulum#compare')
 	"let history = sort(history, Compare)
 	let strings = []

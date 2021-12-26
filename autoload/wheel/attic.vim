@@ -38,19 +38,19 @@ fun! wheel#attic#record (...)
 	endif
 	if empty(filename)
 		" Do not add empty filenames
-		return
+		return v:false
 	endif
 	if wheel#referen#is_in_wheel ()
 		" Only add non wheel files
-		return
+		return v:false
 	endif
 	if filename =~ s:is_mandala
 		" Do not add mandala buffer
-		return
+		return v:false
 	endif
 	if filename =~ '^term://'
 		" Do not add term buffer
-		return
+		return v:false
 	endif
 	let attic = g:wheel_attic
 	let entry = {}
@@ -60,4 +60,5 @@ fun! wheel#attic#record (...)
 	let g:wheel_attic = insert(g:wheel_attic, entry)
 	let max = g:wheel_config.maxim.mru
 	let g:wheel_attic = g:wheel_attic[:max - 1]
+	return v:true
 endfu

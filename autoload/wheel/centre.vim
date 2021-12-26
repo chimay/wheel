@@ -82,14 +82,14 @@ fun! wheel#centre#plugs ()
 	" Buffers
 	nnoremap <plug>(wheel-buffers) :call wheel#sailing#buffers()<cr>
 	" Tabs & windows : visible buffers
-	nnoremap <plug>(wheel-switch-tabwins) :call wheel#rectangle#switch()<cr>
+	nnoremap <plug>(wheel-switch-tabwin) :call wheel#rectangle#switch()<cr>
 	nnoremap <plug>(wheel-tabwins) :call wheel#sailing#tabwins()<cr>
 	nnoremap <plug>(wheel-tabwins-tree) :call wheel#sailing#tabwins_tree()<cr>
 	" Search inside files
 	nnoremap <plug>(wheel-occur) :call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
-	nnoremap <plug>(wheel-switch-tags) :call wheel#symbol#switch()<cr>
+	nnoremap <plug>(wheel-switch-tag) :call wheel#symbol#switch()<cr>
 	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
 	" Jumps & Changes lists
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
@@ -238,14 +238,14 @@ fun! wheel#centre#cables ()
 		" Buffers
 		exe nmap prefix . 'b <plug>(wheel-buffers)'
 		" Tabs & windows : visible buffers
-		exe nmap prefix . 'v <plug>(wheel-switch-tabwins)'
+		exe nmap prefix . 'v <plug>(wheel-switch-tabwin)'
 		exe nmap prefix . 'V <plug>(wheel-tabwins)'
 		exe nmap prefix . '<m-v> <plug>(wheel-tabwins-tree)'
 		" Search inside files
 		exe nmap prefix . 's <plug>(wheel-occur)'
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
-		exe nmap prefix . 't <plug>(wheel-switch-tags)'
+		exe nmap prefix . 't <plug>(wheel-switch-tag)'
 		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'
@@ -331,7 +331,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-cr>        <plug>(wheel-switch-location)'
 		exe nmap '<c-cr>        <plug>(wheel-switch-circle)'
 		exe nmap '<s-cr>        <plug>(wheel-switch-torus)'
-		exe nmap '<m-s-cr>      <plug>(wheel-multi-switch)'
+		exe nmap '<m-c-cr>      <plug>(wheel-switch-in-index)'
 		" Navigation buffers
 		exe nmap '<space>        <plug>(wheel-navigation-location)'
 		exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
@@ -347,12 +347,15 @@ fun! wheel#centre#cables ()
 		" Buffers
 		exe nmap '<m-b>          <plug>(wheel-buffers)'
 		" Tabs & windows : visible buffers
-		exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
+		exe nmap '<m-v>          <plug>(wheel-switch-tabwin)'
+		exe nmap '<m-c-v>        <plug>(wheel-tabwins-tree)'
 		" Search inside files
 		exe nmap '<m-s>          <plug>(wheel-occur)'
 		exe nmap '<m-g>          <plug>(wheel-grep)'
 		exe nmap '<m-o>          <plug>(wheel-outline)'
-		exe nmap '<m-t>          <plug>(wheel-tags)'
+		" tags, labels
+		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
+		exe nmap '<m-l>          <plug>(wheel-tags)'
 		exe nmap '<m-j>          <plug>(wheel-jumps)'
 		exe nmap '<m-c>          <plug>(wheel-changes)'
 		" Yank

@@ -607,7 +607,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-f>`     : search files with `find` in async mode
 - `<M-w>u`         : most recently used files not found in wheel (mru)
 - `<M-w>b`         : switch to buffer (opened file)
-- `<M-w>v`         : switch to visible buffer in tab & window (plain mode)
+- `<M-w>V`         : switch to visible buffer in tab & window (plain mode)
 - `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
 - `<M-w>s`         : occur in current file
 - `<M-w>g`         : grep in circle files
@@ -1770,6 +1770,7 @@ adapt them to your taste and add them to your init file.
 | <M-Enter>      | Prompt for a location to switch to            |
 | <C-Enter>      | Prompt for a circle to switch to              |
 | <S-Enter>      | Prompt for a torus to switch to               |
+| <M-C-Enter>    | Prompt for an index entry to switch to        |
 | -------------- | --------------------------------------------- |
 | <Space>        | Choose location in dedicated buffer           |
 | <C-Space>      | Choose circle in dedicated buffer             |
@@ -1784,7 +1785,8 @@ adapt them to your taste and add them to your init file.
 | <M-u>          | Most Recently Used files not found in wheel   |
 | -------------- | --------------------------------------------- |
 | <M-b>          | Buffers (opened files)                        |
-| <M-v>          | Tabs & windows in tree mode : visible buffers |
+| <M-v>          | Go to tabs & windows, prompt mode             |
+| <M-C-v>        | Tabs & windows in tree mode : visible buffers |
 | -------------- | --------------------------------------------- |
 | <M-s>          | Occur in current file                         |
 | <M-g>          | Grep in current circle files                  |
@@ -1843,7 +1845,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-cr>        <plug>(wheel-switch-location)'
     exe nmap '<c-cr>        <plug>(wheel-switch-circle)'
     exe nmap '<s-cr>        <plug>(wheel-switch-torus)'
-    exe nmap '<m-s-cr>      <plug>(wheel-multi-switch)'
+    exe nmap '<m-c-cr>      <plug>(wheel-switch-in-index)'
     " Navigation buffers
     exe nmap '<space>        <plug>(wheel-navigation-location)'
     exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
@@ -1859,7 +1861,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Buffers
     exe nmap '<m-b>          <plug>(wheel-buffers)'
     " Tabs & windows : visible buffers
-    exe nmap '<m-v>          <plug>(wheel-tabwins-tree)'
+    exe nmap '<m-v>          <plug>(wheel-switch-tabwin)'
+    exe nmap '<m-c-v>        <plug>(wheel-tabwins-tree)'
     " Search inside files
     exe nmap '<m-s>          <plug>(wheel-occur)'
     exe nmap '<m-g>          <plug>(wheel-grep)'
@@ -1998,11 +2001,11 @@ Prompt :
 | <plug>(wheel-switch-torus)                      | switch torus                             |
 | <plug>(wheel-multi-switch)                      | switch torus, circle & location          |
 | <plug>(wheel-switch-in-index)                   | switch location in index                 |
-| <plug>(wheel-switch-tabwins)                    | visible buffers in tabs & windows        |
+| <plug>(wheel-switch-tabwin)                     | visible buffers in tabs & windows        |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                        |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-switch-tags)                       | switch to tag                            |
+| <plug>(wheel-switch-tag)                       | switch to tag                            |
 
 Dedicated buffers :
 

@@ -13,7 +13,7 @@
 " hourglass, sandglass
 " longcase clock
 
-" Helpers
+" time
 
 fun! wheel#pendulum#timestamp ()
 	" Timestamp in seconds since epoch
@@ -34,17 +34,7 @@ fun! wheel#pendulum#compare (one, two)
 	return a:two.timestamp - a:one.timestamp
 endfu
 
-fun! wheel#pendulum#is_in_history (entry)
-	" Whether entry is in history
-	let present = 0
-	let entry = a:entry
-	for elem in g:wheel_history
-		if elem.coordin ==# entry.coordin
-			let present = 1
-		endif
-	endfor
-	return present
-endfu
+" helpers
 
 fun! wheel#pendulum#remove_if_present (entry)
 	" Remove entry from history if coordinates are already there
@@ -57,28 +47,8 @@ fun! wheel#pendulum#remove_if_present (entry)
 	endfor
 endfu
 
-" Operations
-
-fun! wheel#pendulum#record ()
-	" Add current torus, circle, location to history
-	" Add new entry at the beginning of the list
-	" Move existing entry at the beginning of the list
-	" Update alternate coordinates
-	" new entry in g:wheel_history
-	let coordin = wheel#referen#names()
-	let entry = {}
-	let entry.coordin = coordin
-	let entry.timestamp = wheel#pendulum#timestamp ()
-	call wheel#pendulum#remove_if_present (entry)
-	let g:wheel_history = insert(g:wheel_history, entry)
-	let max = g:wheel_config.maxim.history
-	let g:wheel_history = g:wheel_history[:max - 1]
-	" should not be necessary
-	"let Compare = function('wheel#pendulum#compare')
-	"let g:wheel_history = sort(g:wheel_history, Compare)
-	" new entry in g:wheel_track
-	" TODO
-	" alternate history
+fun! wheel#pendulum#update_alternate ()
+	" Update g:wheel_alternate
 	let alternate = g:wheel_alternate
 	let history = deepcopy(g:wheel_history)
 	let length = len(history)
@@ -128,8 +98,37 @@ fun! wheel#pendulum#record ()
 			break
 		endif
 	endfor
-	" return
 	return v:true
+endfun
+
+" operations
+
+fun! wheel#pendulum#record ()
+	" Add current torus, circle, location to history
+	" Add new entry at the beginning of the list
+	" Move existing entry at the beginning of the list
+	" Update alternate coordinates
+	" -- new entry
+	let coordin = wheel#referen#names()
+	let entry = {}
+	let entry.coordin = coordin
+	let entry.timestamp = wheel#pendulum#timestamp ()
+	" -- new entry in g:wheel_history
+	call wheel#pendulum#remove_if_present (entry)
+	let g:wheel_history = insert(g:wheel_history, entry)
+	let max = g:wheel_config.maxim.history
+	let g:wheel_history = g:wheel_history[:max - 1]
+	" should not be necessary
+	"let Compare = function('wheel#pendulum#compare')
+	"let g:wheel_history = sort(g:wheel_history, Compare)
+	" -- new entry in g:wheel_track
+	if empty(g:wheel_track) || entry.coordin != g:wheel_track[0].coordin
+		let g:wheel_track = insert(g:wheel_track, entry)
+		let max = g:wheel_config.maxim.history
+		let g:wheel_track = g:wheel_track[:max - 1]
+	endif
+	" -- alternate history
+	call wheel#pendulum#update_alternate ()
 endfu
 
 fun! wheel#pendulum#rename(level, old, new)
@@ -148,7 +147,15 @@ fun! wheel#pendulum#rename(level, old, new)
 	let new_names = wheel#referen#names ()
 	let old_names = copy(new_names)
 	let old_names[index] = a:old
+	" g:wheel_history
 	for elem in g:wheel_history
+		let coordin = elem.coordin
+		if coordin[:index] == old_names[:index]
+			let elem.coordin[index] = a:new
+		endif
+	endfor
+	" g:wheel_track
+	for elem in g:wheel_track
 		let coordin = elem.coordin
 		if coordin[:index] == old_names[:index]
 			let elem.coordin[index] = a:new
@@ -169,6 +176,7 @@ fun! wheel#pendulum#delete(level, old_names)
 		echomsg 'Pendulum delete : level arg must be number or string'
 		return
 	end
+	" g:wheel_history
 	let history = deepcopy(g:wheel_history)
 	for elem in history
 		let coordin = elem.coordin
@@ -177,16 +185,26 @@ fun! wheel#pendulum#delete(level, old_names)
 						\ wheel#chain#remove_element(elem, g:wheel_history)
 		endif
 	endfor
+	" g:wheel_track
+	let track = deepcopy(g:wheel_track)
+	for elem in track
+		let coordin = elem.coordin
+		if coordin[:index] == a:old_names[:index]
+			let g:wheel_track =
+						\ wheel#chain#remove_element(elem, g:wheel_track)
+		endif
+	endfor
 endfun
 
 fun! wheel#pendulum#broom ()
 	" Remove history entries that do not belong to the wheel anymore
-	let success = 1
-	let history = deepcopy(g:wheel_history)
 	let helix = wheel#helix#helix()
+	let success = 1
+	" g:wheel_history
+	let history = deepcopy(g:wheel_history)
+	let length_history = len(history)
 	let ind = 0
-	let length = len(history)
-	while ind < length
+	while ind < length_history
 		let coordin = history[ind].coordin
 		if index(helix, coordin) < 0
 			let success = 0
@@ -195,44 +213,46 @@ fun! wheel#pendulum#broom ()
 		endif
 		let ind += 1
 	endwhile
+	" g:wheel_track
+	let track = deepcopy(g:wheel_track)
+	let length_track = len(track)
+	let ind = 0
+	while ind < length_track
+		let coordin = track[ind].coordin
+		if index(helix, coordin) < 0
+			let success = 0
+			echomsg 'Removing [' join(coordin, ', ') '] from track.'
+			call wheel#chain#remove_element(track[ind], g:wheel_track)
+		endif
+		let ind += 1
+	endwhile
+	" return
 	return success
 endfun
 
-" Newer & older
+" newer & older
 
 fun! wheel#pendulum#newer ()
-	" Go to newer entry in history
+	" Go to newer entry in g:wheel_track
 	call wheel#vortex#update ()
-	let history = g:wheel_history
-	let g:wheel_history = wheel#chain#rotate_right (history)
-	" done in wheel#vortex#jump
-	"let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
-	let coordin = g:wheel_history[0].coordin
-	if coordin == g:wheel_alternate.anywhere
-		let g:wheel_history = wheel#chain#rotate_right (history)
-		let coordin = g:wheel_history[0].coordin
-	endif
+	let track = g:wheel_track
+	let g:wheel_track = wheel#chain#rotate_right (track)
+	let coordin = g:wheel_track[0].coordin
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
 
 fun! wheel#pendulum#older ()
-	" Go to older entry in history
+	" Go to older entry in g:wheel_track
 	call wheel#vortex#update ()
-	let history = g:wheel_history
-	let g:wheel_history = wheel#chain#rotate_left (history)
-	" done in wheel#vortex#jump
-	"let g:wheel_history[0].timestamp = wheel#pendulum#timestamp ()
-	let coordin = g:wheel_history[0].coordin
-	if coordin == g:wheel_alternate.anywhere
-		let g:wheel_history = wheel#chain#rotate_left (history)
-		let coordin = g:wheel_history[0].coordin
-	endif
+	let track = g:wheel_track
+	let g:wheel_track = wheel#chain#rotate_left (track)
+	let coordin = g:wheel_track[0].coordin
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
 
-" Alternate
+" alternate
 
 fun! wheel#pendulum#alternate (mode)
 	" Alternate entries in history
