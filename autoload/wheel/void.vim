@@ -233,7 +233,9 @@ endfun
 " Initialize all variables
 
 fun! wheel#void#foundation ()
-	" Initialize wheel variables
+	" Initialize wheel
+	" - initialize wheel variables
+	" - define wheel-mandala autocmd group
 	call wheel#void#wheel ()
 	call wheel#void#helix ()
 	call wheel#void#grid ()
@@ -247,6 +249,10 @@ fun! wheel#void#foundation ()
 	call wheel#void#mandalas ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
+	" define wheel-mandala auto command group
+	exe 'augroup' s:mandala_autocmds_group
+		autocmd!
+	augroup END
 endfun
 
 " Unlet variables
@@ -295,10 +301,6 @@ fun! wheel#void#init ()
 	if g:wheel_config.autoread_session > 0
 		call wheel#disc#read_session ()
 	endif
-	" define wheel-mandala auto command group
-	exe 'augroup' s:mandala_autocmds_group
-		autocmd!
-	augroup END
 endfu
 
 fun! wheel#void#exit ()
