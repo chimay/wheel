@@ -2,13 +2,19 @@
 
 " History
 
-" Wheel variables :
+" Wheel history variables :
+"
 " - g:wheel_history : sorted list of timestamps & wheel coordinates
-"					  each coordinate should appear at most once
-" - g:wheel_track : list of wheel traveled wheel coordinates
-"					each coordinate can appear more than once
+"					  each coordinate appear at most once
+"					  used :
+"						- in history dedicated buffer
+"						- to build & update g:wheel_alternate
+" - g:wheel_track : unsorted list of travelled wheel coordinates
+"					used in newer & older functions
+"					rotated by newer & older
+" - g:wheel_alternate : coordinates of alternates locations
 
-" other names ideas :
+" other names ideas for this file :
 " sundial
 " hourglass, sandglass
 " longcase clock
@@ -39,10 +45,18 @@ endfu
 fun! wheel#pendulum#remove_if_present (entry)
 	" Remove entry from history if coordinates are already there
 	let entry = a:entry
+	" g:wheel_history
 	let history = g:wheel_history
 	for elem in g:wheel_history
 		if elem.coordin ==# entry.coordin
 			let g:wheel_history = wheel#chain#remove_element(elem, history)
+		endif
+	endfor
+	" g:wheel_track
+	let track = g:wheel_track
+	for elem in g:wheel_track
+		if elem.coordin ==# entry.coordin
+			let g:wheel_track = wheel#chain#remove_element(elem, track)
 		endif
 	endfor
 endfu
@@ -113,8 +127,8 @@ fun! wheel#pendulum#record ()
 	let entry = {}
 	let entry.coordin = coordin
 	let entry.timestamp = wheel#pendulum#timestamp ()
-	" -- new entry in g:wheel_history
 	call wheel#pendulum#remove_if_present (entry)
+	" -- new entry in g:wheel_history
 	let g:wheel_history = insert(g:wheel_history, entry)
 	let max = g:wheel_config.maxim.history
 	let g:wheel_history = g:wheel_history[:max - 1]
@@ -122,11 +136,9 @@ fun! wheel#pendulum#record ()
 	"let Compare = function('wheel#pendulum#compare')
 	"let g:wheel_history = sort(g:wheel_history, Compare)
 	" -- new entry in g:wheel_track
-	if empty(g:wheel_track) || entry.coordin != g:wheel_track[0].coordin
-		let g:wheel_track = insert(g:wheel_track, entry)
-		let max = g:wheel_config.maxim.history
-		let g:wheel_track = g:wheel_track[:max - 1]
-	endif
+	let g:wheel_track = insert(g:wheel_track, entry)
+	let max = g:wheel_config.maxim.history
+	let g:wheel_track = g:wheel_track[:max - 1]
 	" -- alternate history
 	call wheel#pendulum#update_alternate ()
 endfu

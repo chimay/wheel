@@ -273,11 +273,11 @@ fun! wheel#line#grep (settings)
 		echomsg 'Grep line is too short'
 		return v:false
 	endif
-	"Using error number
+	" -- using error number
 	let errnum = fields[0]
 	call wheel#line#target (a:settings.target)
 	execute 'cc' errnum
-	" Using buffer, line & col
+	" -- using buffer, line & col
 	"let bufnum = fields[1]
 	"let line = fields[3]
 	"let col = fields[4]
