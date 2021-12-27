@@ -108,7 +108,7 @@ your groups will grow and adapt to your style.
   + no slowdown of (neo)vim start
 - easy navigation
   + switch to matching tab & window if available
-  + next / Previous location, circle or torus
+  + next / previous location, circle or torus
   + choose file, group or category in dedicated buffer
     * filter candidates
     * folds matching wheel tree structure
@@ -123,7 +123,7 @@ your groups will grow and adapt to your style.
 - search inside files
   + grep on group files
     * navigate
-    * edit buffer and propagate changes with `:cdo`
+    * edit mode : edit and propagate changes by writing the buffer
   + outline
     * folds headers in group files (based on fold markers)
     * markdown headers
@@ -132,15 +132,17 @@ your groups will grow and adapt to your style.
   + jumps & changes lists
 - yank wheel using TextYankPost event
   + paste before or after, linewise or characterwise
+  + plain mode : each buffer line is a yanked line
+  + list mode : each buffer line is a yank
 - reorganizing
   + wheel elements
   + tabs & windows
-  + grep in edit mode
 - undo list
   + diff between last & chosen state
 - command output in buffer
   + :ex or !shell command
   + async shell command
+  + result can be filtered, as usual
 - dedicated buffers stack to save your searches
   + layer stack in each dedicated buffer
 - display files
@@ -154,7 +156,7 @@ your groups will grow and adapt to your style.
   + mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
-- save tab & windows in minimal session file
+- save tabs & windows in minimal session file
 - batch operations
 - autogroup files by extension or directory
 

@@ -97,7 +97,7 @@ FEATURES				*wheel-introduction-features*
 - search inside files
   + grep on group files
     * navigate
-    * edit buffer and propagate changes with |:cdo|
+    * edit mode : edit and propagate changes by writing the buffer
   + outline
     * folds headers in group files (based on fold markers)
     * markdown headers
@@ -106,15 +106,17 @@ FEATURES				*wheel-introduction-features*
   + jumps & changes lists
 - yank wheel using TextYankPost event
   + paste before or after, linewise or characterwise
+  + plain mode : each buffer line is a yanked line
+  + list mode : each buffer line is a yank
 - reorganizing
   + wheel elements
   + tabs & windows
-  + grep in edit mode
 - undo list
   + diff between last & chosen state
 - command output in buffer
   + :ex or !shell command
   + async shell command
+  + result can be filtered, as usual
 - dedicated buffers stack to save your searches
   + layer stack in each dedicated buffer
 - display files
@@ -128,7 +130,7 @@ FEATURES				*wheel-introduction-features*
   + mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
-- save tab & windows in minimal session file
+- save tabs & windows in minimal session file
 - batch operations
 - autogroup files by extension or directory
 
@@ -1285,6 +1287,7 @@ Here is an example of a complete configuration : >
 ==============================================================================
 AUTOCOMMANDS					   *wheel-autocommands*
 
+Auto group			|wheel-autocommands-auto-group|
 Auto read			|wheel-autocommands-auto-read|
 Auto write			|wheel-autocommands-auto-write|
 After jump			|wheel-autocommands-after-jump|
@@ -1304,6 +1307,11 @@ It's a good idea to group all your wheel autocommands, e.g. : >
 	autocmd ...
 	...
     augroup END
+<
+
+This way, you can easily check the list of your wheel autocommands with : >
+
+    autocmd wheel
 <
 
 Be aware that the autogroup `wheel-mandala` is used for dedicated buffers

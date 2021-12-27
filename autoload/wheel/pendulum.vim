@@ -19,7 +19,7 @@
 " hourglass, sandglass
 " longcase clock
 
-" time
+" timestamps
 
 fun! wheel#pendulum#timestamp ()
 	" Timestamp in seconds since epoch

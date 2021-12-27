@@ -234,8 +234,7 @@ endfun
 
 fun! wheel#void#foundation ()
 	" Initialize wheel
-	" - initialize wheel variables
-	" - define wheel-mandala autocmd group
+	" -- init wheel variables
 	call wheel#void#wheel ()
 	call wheel#void#helix ()
 	call wheel#void#grid ()
@@ -249,7 +248,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#mandalas ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
-	" define wheel-mandala auto command group
+	" -- define wheel-mandala auto command group
 	exe 'augroup' s:mandala_autocmds_group
 		autocmd!
 	augroup END
@@ -259,7 +258,7 @@ endfun
 
 fun! wheel#void#clean ()
 	" Clean variables before writing wheel to file
-	" wheel shelve
+	" -- wheel shelve
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
 	let g:wheel_shelve.layout.tab = 'none'
@@ -276,6 +275,8 @@ fun! wheel#void#lighten ()
 				\ 'g:wheel_grid',
 				\ 'g:wheel_files',
 				\ 'g:wheel_history',
+				\ 'g:wheel_track',
+				\ 'g:wheel_alternate',
 				\ 'g:wheel_input',
 				\ 'g:wheel_attic',
 				\ 'g:wheel_wave',
@@ -295,9 +296,11 @@ fun! wheel#void#init ()
 	if argc() == 0 && has('nvim')
 		echomsg 'wheel hello !'
 	endif
+	" -- read wheel
 	if g:wheel_config.autoread > 0
 		call wheel#disc#read_all ()
 	endif
+	" -- read session
 	if g:wheel_config.autoread_session > 0
 		call wheel#disc#read_session ()
 	endif
@@ -308,13 +311,13 @@ fun! wheel#void#exit ()
 	if argc() == 0 && has('nvim')
 		echomsg 'wheel bye !'
 	endif
-	" Clean vars before writing
+	" -- clean vars before writing
 	call wheel#void#clean ()
-	" Save session
+	" -- save session
 	if g:wheel_config.autowrite_session > 0
 		call wheel#disc#write_session ()
 	endif
-	" Write and unlet
+	" -- save wheel, and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
 		call wheel#void#lighten ()
