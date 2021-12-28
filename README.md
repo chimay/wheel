@@ -125,7 +125,7 @@ your groups will grow and adapt to your style.
 - search inside files
   + grep on group files
     * navigate
-    * edit mode : edit and propagate changes by writing the buffer
+    * edit mode : edit and propagate changes by writing the dedicated buffer
   + outline
     * folds headers in group files (based on fold markers)
     * markdown headers
