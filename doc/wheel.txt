@@ -82,7 +82,8 @@ FEATURES				*wheel-introduction-features*
   + no slowdown of (neo)vim start
 - easy navigation
   + switch to matching tab & window if available
-  + next / Previous location, circle or torus
+  + next / previous location, circle or torus
+  + single or multi-word completion in prompt
   + choose file, group or category in dedicated buffer
     * filter candidates
     * folds matching wheel tree structure
