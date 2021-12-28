@@ -16,6 +16,7 @@
 + [Installation](#installation)
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
+	* [Plain](#plain)
 + [Documentation](#documentation)
 	* [Vim help](#vim-help)
 	* [Wiki](#wiki)
@@ -210,6 +211,18 @@ Plug 'chimay/wheel'
 ~~~
 
 and run `:PlugInstall` to install.
+
+## Plain
+
+Just add the :
+
+- plugin
+- after
+- autoload
+- doc
+
+folders in the matching runtime directories of (neo)vim, and it should
+work.
 
 # Documentation
 ## Vim help
