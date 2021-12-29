@@ -103,6 +103,7 @@ FEATURES				*wheel-introduction-features*
     * folds headers in group files (based on fold markers)
     * markdown headers
     * org mode headers
+  + markers
   + tags
   + jumps & changes lists
 - yank wheel using TextYankPost event
@@ -703,6 +704,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>s`         : occur in current file
 - `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
+- `<M-w><M-l>`     : markers
 - `<M-w><M-t>`     : tags
 - `<M-w>j`         : jumps list
 - `<M-w>c`         : changes list
@@ -1833,6 +1835,7 @@ Search inside files~
 | s        | <M-w>s              | Search lines in current file         |
 | g        | <M-w>g              | Search in circle files with grep     |
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
+| <M-m>    | <M-w><M-m>          | Markers                              |
 | <M-t>    | <M-w><M-t>          | Tags                                 |
 | j        | <M-w>j              | Jumps                                |
 | c        | <M-w>c              | Changes                              |
@@ -2215,6 +2218,7 @@ Dedicated buffers :
 | <plug>(wheel-occur)                             | occurences of pattern in current file  |
 | <plug>(wheel-grep)                              | grep pattern in all circle files       |
 | <plug>(wheel-outline)                           | headers in all circle files            |
+| <plug>(wheel-markers)                           | markers                                |
 | <plug>(wheel-tags)                              | tags                                   |
 | <plug>(wheel-jumps)                             | vim jumps                              |
 | <plug>(wheel-changes)                           | vim changes                            |

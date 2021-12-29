@@ -130,6 +130,7 @@ your groups will grow and adapt to your style.
     * folds headers in group files (based on fold markers)
     * markdown headers
     * org mode headers
+  + markers
   + tags
   + jumps & changes lists
 - yank wheel using TextYankPost event
