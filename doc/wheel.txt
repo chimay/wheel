@@ -459,6 +459,7 @@ Locate	 			|wheel-dedicated-buffers-locate|
 Find 				|wheel-dedicated-buffers-find|
 Async find 			|wheel-dedicated-buffers-async-find|
 MRU files			|wheel-dedicated-buffers-mru|
+Buffers				|wheel-dedicated-buffers-buffers|
 Tabs & windows			|wheel-dedicated-buffers-tabwins|
 Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
 Occur				|wheel-dedicated-buffers-occur|
@@ -773,6 +774,13 @@ MRU FILES				*wheel-dedicated-buffers-mru*
 Open file in Most Recently Used file list.
 
 The default mapping is `<M-w>u`.
+
+------------------------------------------------------------------------------
+BUFFERS	    				*wheel-dedicated-buffers-buffers*
+
+Go to buffer.
+
+The default mapping is `<M-w>b`.
 
 ------------------------------------------------------------------------------
 TABS AND WINDOWS			*wheel-dedicated-buffers-tabwins*

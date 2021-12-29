@@ -302,10 +302,10 @@ if ! exists('s:menu_navigation')
 				\ ['go to circle in index' ,  'wheel#sailing#grid'],
 				\ ['go to element in wheel tree' ,  'wheel#sailing#tree'],
 				\ ['go to location in history' ,  'wheel#sailing#history'],
-				\ ['go to most recently used file (mru)' ,  'wheel#sailing#attic'],
 				\ ['go to locate result' ,  'wheel#sailing#locate'],
 				\ ['go to find result' ,  'wheel#sailing#find'],
 				\ ['go to async find result' ,  'wheel#sailing#async_find'],
+				\ ['go to most recently used file (mru)' ,  'wheel#sailing#mru'],
 				\ ['go to buffer' ,  'wheel#sailing#buffers'],
 				\ ['go to tab & window' ,  'wheel#sailing#tabwins'],
 				\ ['go to tab & window (fold tree mode)' ,  'wheel#sailing#tabwins_tree'],
@@ -313,6 +313,9 @@ if ! exists('s:menu_navigation')
 				\ ['go to grep result' ,  'wheel#sailing#grep()'],
 				\ ['go to outline result' ,  'wheel#sailing#outline()'],
 				\ ['go to tag' ,  'wheel#sailing#tags()'],
+				\ ['go to marker' ,  'wheel#sailing#markers()'],
+				\ ['go to jump' ,  'wheel#sailing#jumps()'],
+				\ ['go to change' ,  'wheel#sailing#changes()'],
 				\]
 	lockvar s:menu_navigation
 endif
