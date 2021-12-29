@@ -485,7 +485,7 @@ full power of your editor : search, yank, paste, completion, and so on.
 The available actions depend on the buffer type :
 
 - menu buffers allow you to launch a wheel function
-- navigation buffers allow you to switch to a :
+- navigation buffers allow you to go to a :
   + location, circle or torus
   + MRU file, locate file
   + grep result
@@ -687,9 +687,9 @@ Mappings~
 
 The default mappings launching navigation buffers are :
 
-- `<M-w><Space>`   : switch to location
-- `<M-w><C-space>` : switch to current location of the chosen circle
-- `<M-w><S-space>` : switch to current location of the chosen torus
+- `<M-w><Space>`   : go to location
+- `<M-w><C-space>` : go to current location of the chosen circle
+- `<M-w><S-space>` : go to current location of the chosen torus
 - `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
@@ -698,7 +698,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
 - `<M-w><M-f>`     : search files with `find` in async mode
 - `<M-w>u`         : most recently used files not found in wheel (mru)
-- `<M-w>b`         : switch to buffer (opened file)
+- `<M-w>b`         : go to buffer (opened file)
 - `<M-w>V`         : visible buffers in tab & window (plain mode)
 - `<M-w><M-v>`     : visible buffers in tab & window (tree fold mode)
 - `<M-w>s`         : occur in current file
@@ -776,14 +776,14 @@ The default mapping is `<M-w>u`.
 ------------------------------------------------------------------------------
 TABS AND WINDOWS			*wheel-dedicated-buffers-tabwins*
 
-Switch to visible buffer, displayed in a tab or window.
+Go to visible buffer, displayed in a tab or window.
 
 The default mapping is `<M-w>V`.
 
 ------------------------------------------------------------------------------
 TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwins-tree*
 
-Switch to visible buffer, displayed in a tab or window. Folding mode
+Go to visible buffer, displayed in a tab or window. Folding mode
 matching the tree of tabs and windows.
 
 The default mapping is `<M-w><M-v>`.
@@ -1766,15 +1766,15 @@ Delete~
 | <C-d>    | <M-w><C-d>          | Delete current circle   |
 | D        | <M-w>D              | Delete current torus    |
 
-Switch~
+Switch, prompting functions with completion~
 
 | Prefix +  | With default prefix | Action                                   |
 | --------- | ------------------- | ---------------------------------------- |
-| <Enter>   | <M-w><Enter>        | Switch to location with completion       |
-| <C-CR>    | <M-w><C-Enter>      | Switch to circle with completion         |
-| <S-CR>    | <M-w><S-Enter>      | Switch to torus with completion          |
+| <Enter>   | <M-w><Enter>        | Switch to location                       |
+| <C-CR>    | <M-w><C-Enter>      | Switch to circle                         |
+| <S-CR>    | <M-w><S-Enter>      | Switch to torus                          |
 | <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location       |
-| x         | <M-w>x              | Switch location in index with completion |
+| x         | <M-w>x              | Switch location in index                 |
 
 History~
 
@@ -1824,7 +1824,7 @@ Visible buffers displayed in tabs & windows.
 
 | Prefix + | With default prefix | Action                                            |
 | -------- | ------------------- | ------------------------------------------------  |
-| v        | <M-w>v              | Switch to visible buffer with completion          |
+| v        | <M-w>v              | Switch to visible buffer, prompting function      |
 | V        | <M-w>V              | Visible buffers in a dedicated buffer             |
 | <M-v>    | <M-w><M-v>          | Tree view of tabs & windows in a dedicated buffer |
 
@@ -1836,7 +1836,8 @@ Search inside files~
 | g        | <M-w>g              | Search in circle files with grep     |
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
 | <M-m>    | <M-w><M-m>          | Markers                              |
-| <M-t>    | <M-w><M-t>          | Tags                                 |
+| t        | <M-w>t              | Tags, prompting function             |
+| <M-t>    | <M-w><M-t>          | Tags in dedicated buffer             |
 | j        | <M-w>j              | Jumps                                |
 | c        | <M-w>c              | Changes                              |
 
@@ -2194,7 +2195,7 @@ Prompt :
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                        |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-switch-tag)                       | switch to tag                            |
+| <plug>(wheel-switch-tag)                        | switch to tag                            |
 
 Dedicated buffers :
 
