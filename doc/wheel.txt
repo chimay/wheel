@@ -1981,6 +1981,7 @@ adapt them to your taste and add them to your init file.
 | <M-g>          | Grep in current circle files                  |
 | <M-o>          | Outline in current circle files               |
 | <M-t>          | Tags                                          |
+| <M-c-m>        | Markers                                       |
 | <M-j>          | Jumps                                         |
 | <M-c>          | Changes                                       |
 | -------------- | --------------------------------------------- |
@@ -2057,6 +2058,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-g>          <plug>(wheel-grep)'
     exe nmap '<m-o>          <plug>(wheel-outline)'
     exe nmap '<m-t>          <plug>(wheel-tags)'
+    exe nmap '<m-c-m>        <plug>(wheel-markers)'
     exe nmap '<m-j>          <plug>(wheel-jumps)'
     exe nmap '<m-c>          <plug>(wheel-changes)'
     " Yank

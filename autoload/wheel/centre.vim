@@ -358,6 +358,7 @@ fun! wheel#centre#cables ()
 		" tags, labels
 		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
 		exe nmap '<m-l>          <plug>(wheel-tags)'
+		exe nmap '<m-c-m>        <plug>(wheel-markers)'
 		exe nmap '<m-j>          <plug>(wheel-jumps)'
 		exe nmap '<m-c>          <plug>(wheel-changes)'
 		" Yank
