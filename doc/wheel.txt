@@ -28,7 +28,8 @@ History				|wheel-introduction-history|
 WHAT IS IT					*wheel-introduction-what*
 
 Wheel is a navigation plugin for Vim or Neovim. It makes abundant use
-of dedicated buffers, in which you can filter and select elements.
+of prompt completion and dedicated buffers, in which you can filter and
+select elements.
 
 ------------------------------------------------------------------------------
 FILE GROUPS				*wheel-introduction-file-groups*
