@@ -463,8 +463,8 @@ Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
 Occur				|wheel-dedicated-buffers-occur|
 Grep				|wheel-dedicated-buffers-grep|
 Outline				|wheel-dedicated-buffers-outline|
-Markers				|wheel-dedicated-buffers-markers|
 Tags				|wheel-dedicated-buffers-tags|
+Markers				|wheel-dedicated-buffers-markers|
 Jumps				|wheel-dedicated-buffers-jumps|
 Changes				|wheel-dedicated-buffers-changes|
 Yank 				|wheel-dedicated-buffers-yank|
@@ -704,7 +704,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>s`         : occur in current file
 - `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
-- `<M-w><M-l>`     : markers
+- `<M-w><M-m>`     : markers
 - `<M-w><M-t>`     : tags
 - `<M-w>j`         : jumps list
 - `<M-w>c`         : changes list
@@ -825,18 +825,18 @@ can choose between the following header formats :
 - vimwiki
 
 ------------------------------------------------------------------------------
-MARKERS						*wheel-dedicated-buffers-markers*
-
-Go to selected marker.
-
-The default mapping is `<M-w><M-m>`.
-
-------------------------------------------------------------------------------
 TAGS						*wheel-dedicated-buffers-tags*
 
 Go to selected tag.
 
 The default mapping is `<M-w><M-t>`.
+
+------------------------------------------------------------------------------
+MARKERS						*wheel-dedicated-buffers-markers*
+
+Go to selected marker.
+
+The default mapping is `<M-w><M-m>`.
 
 ------------------------------------------------------------------------------
 JUMPS					*wheel-dedicated-buffers-jumps*
@@ -1835,9 +1835,9 @@ Search inside files~
 | s        | <M-w>s              | Search lines in current file         |
 | g        | <M-w>g              | Search in circle files with grep     |
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
-| <M-m>    | <M-w><M-m>          | Markers                              |
 | t        | <M-w>t              | Tags, prompting function             |
 | <M-t>    | <M-w><M-t>          | Tags in dedicated buffer             |
+| <M-m>    | <M-w><M-m>          | Markers                              |
 | j        | <M-w>j              | Jumps                                |
 | c        | <M-w>c              | Changes                              |
 
