@@ -27,16 +27,6 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-if ! exists('s:mark_is_line_content')
-	let s:mark_is_line_content = wheel#crystal#fetch('mark/is_line_content')
-	lockvar s:mark_is_line_content
-endif
-
-if ! exists('s:mark_is_file')
-	let s:mark_is_file = wheel#crystal#fetch('mark/is_file')
-	lockvar s:mark_is_file
-endif
-
 " Default data line
 
 fun! wheel#line#default ()
@@ -333,17 +323,7 @@ fun! wheel#line#markers (settings)
 	let mark = fields[0]
 	let line = fields[1]
 	let column = fields[2]
-	if mark =~ s:mark_is_line_content
-		" we are already in the right file
-		let line_content = join(fields[3:])
-		call cursor(line, column)
-	elseif mark =~ s:mark_is_file
-		let file = join(fields[3:])
-		exe 'edit' file
-		call cursor(line, column)
-	else
-		echomsg 'wheel line marker : unknown mark type, line or file ?'
-	endif
+	exe "normal '" . mark
 endfun
 
 fun! wheel#line#tags (settings)

@@ -547,18 +547,6 @@ if ! exists('s:context_yank_plain')
 	lockvar s:context_yank_plain
 endif
 
-" Marks
-
-if ! exists('s:mark_is_line_content')
-	let s:mark_is_line_content = '\C[a-z"^\[\]]'
-	lockvar s:mark_is_line_content
-endif
-
-if ! exists('s:mark_is_file')
-	let s:mark_is_file = '\C[A-Z0-9]'
-	lockvar s:mark_is_file
-endif
-
 " Undo & diff
 
 if ! exists('s:diff_options')
