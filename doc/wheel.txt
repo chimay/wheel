@@ -2067,7 +2067,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-g>          <plug>(wheel-grep)'
     exe nmap '<m-o>          <plug>(wheel-outline)'
     exe nmap '<m-t>          <plug>(wheel-tags)'
-    exe nmap '<m-M>          <plug>(wheel-markers)'
+    exe nmap '<m-k>          <plug>(wheel-markers)'
     exe nmap '<m-j>          <plug>(wheel-jumps)'
     exe nmap '<m-c>          <plug>(wheel-changes)'
     " Yank

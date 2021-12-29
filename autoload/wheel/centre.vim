@@ -247,8 +247,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
 		exe nmap prefix . 't <plug>(wheel-switch-tag)'
-		exe nmap prefix . '<m-m> <plug>(wheel-markers)'
 		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
+		exe nmap prefix . '<m-m> <plug>(wheel-markers)'
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'
 		" Yank wheel
@@ -358,7 +358,7 @@ fun! wheel#centre#cables ()
 		" tags, labels
 		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
 		exe nmap '<m-l>          <plug>(wheel-tags)'
-		exe nmap '<m-M>          <plug>(wheel-markers)'
+		exe nmap '<m-k>          <plug>(wheel-markers)'
 		exe nmap '<m-j>          <plug>(wheel-jumps)'
 		exe nmap '<m-c>          <plug>(wheel-changes)'
 		" Yank
