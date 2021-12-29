@@ -110,7 +110,7 @@ your groups will grow and adapt to your style.
 - easy navigation
   + switch to matching tab & window if available
   + next / previous location, circle or torus
-  + single or multi-pattern completion in prompt
+  + single or multi-pattern completion in prompting functions
   + choose file, group or category in dedicated buffer
     * filter candidates
     * folds matching wheel tree structure

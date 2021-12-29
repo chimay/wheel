@@ -83,7 +83,7 @@ FEATURES				*wheel-introduction-features*
 - easy navigation
   + switch to matching tab & window if available
   + next / previous location, circle or torus
-  + single or multi-pattern completion in prompt
+  + single or multi-pattern completion in prompting functions
   + choose file, group or category in dedicated buffer
     * filter candidates
     * folds matching wheel tree structure
@@ -340,7 +340,13 @@ For example, if you have the completion list `small flower`, `big flower`,
 ------------------------------------------------------------------------------
 ADD					    *wheel-prompting-functions-add*
 
+Add a new torus~
+
+The default mapping is `<M-w><S-a>`.
+
 Add a circle to the current torus~
+
+The default mapping is `<M-w><C-a>`.
 
 When you add a circle, you are prompted for a name. The completion is
 based on the current file directory. Different flavours are available :
@@ -354,6 +360,8 @@ You can of course adapt the completed name before confirming with
 long as it is not already in the current torus.
 
 Add a location to the current circle~
+
+The default mapping is `<M-w>a`.
 
 When you add a location, you are prompted for a name. The completion is
 based on the current file name. Different flavours are available :
@@ -370,7 +378,21 @@ long as it is not already in the current circle.
 ------------------------------------------------------------------------------
 RENAME					    *wheel-prompting-functions-rename*
 
-The completion is the same as for adding a circle or a location.
+Rename the current torus~
+
+The default mapping is `<M-w><S-n>`.
+
+Rename the current circle~
+
+The default mapping is `<M-w><C-n>`.
+
+The completion is the same as for adding a circle.
+
+Rename the current location~
+
+The default mapping is `<M-w>n`.
+
+The completion is the same as for adding a location.
 
 ------------------------------------------------------------------------------
 SWITCH					    *wheel-prompting-functions-switch*
@@ -392,7 +414,9 @@ Switch visible buffer~
 
 Switch layer stack~
 
-See |wheel-dedicated-buffers-layers|.
+You must be in a dedicated buffer to launch it. The local mapping is `<M-l>`.
+
+See also |wheel-dedicated-buffers-layers|.
 
 You can complete by layer types, wich will lead you to the layer you want.
 
@@ -405,6 +429,8 @@ Example of layer type :
 - ...
 
 Switch dedicated buffer~
+
+The default mapping is `<M-w><M-space>`.
 
 See |wheel-dedicated-buffers-stack|.
 
@@ -594,16 +620,15 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - add a new element to the wheel
 - rename an element
 - delete an element
+- navigation
 - alternate last two elements
+- reorganize elements
+- run a command and collect its output
+- paste from yank wheel
 - layouts
   + in tabs
   + in windows
   + in tabs & windows
-- reorganize elements
-- navigation
-- search in files
-- run a command and collect its output
-- paste from yank wheel
 
 In these sub-menus, you can use the keys :
 
@@ -723,6 +748,8 @@ can choose between the following header formats :
 FIND BUFFER				*wheel-dedicated-buffers-find*
 
 Search files with find.
+
+The default mapping is `<M-w>f`.
 
 It runs in async mode. You can stop the process by using `<c-s>` in the
 dedicated buffer.
