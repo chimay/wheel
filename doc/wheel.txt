@@ -83,7 +83,7 @@ FEATURES				*wheel-introduction-features*
 - easy navigation
   + switch to matching tab & window if available
   + next / previous location, circle or torus
-  + single or multi-word completion in prompt
+  + single or multi-pattern completion in prompt
   + choose file, group or category in dedicated buffer
     * filter candidates
     * folds matching wheel tree structure
@@ -287,8 +287,8 @@ these alternate variants :
 You can also use the meta or main menu.
 
 I strongly suggest you map a convenient key, like `<C-^>`, to
-`<plug>(wheel-alternate-anywhere)`, it’s one of the most often binding
-you will use. See |wheel-mappings-level-10| for more informations.
+`<plug>(wheel-alternate-anywhere)`, it’s one of the most often used
+function. See |wheel-mappings-level-10| for more informations.
 
 A common case is to alternate two files in the same circle, and two
 circles in the same torus. So, you have the square :
@@ -304,6 +304,9 @@ at your fingertips.
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
 
 Completion			    |wheel-prompting-functions-completion|
+Add				    |wheel-prompting-functions-add|
+Rename				    |wheel-prompting-functions-rename|
+Switch				    |wheel-prompting-functions-switch|
 
 ------------------------------------------------------------------------------
 COMPLETION			    *wheel-prompting-functions-completion*
@@ -313,15 +316,29 @@ wherever possible, depending on the nature of the asked entry.
 
 Hitting |'wildchar'| (most likely `<tab>`), will trigger the completion.
 
-You can enter one or more words before hitting |'wildchar'| to narrow
+You can enter one or more patterns before hitting |'wildchar'| to narrow
 the completion list :
 
-- a space between two words is a logical and. So, `one two` will
+- a space between two patterns is a logical and. So, `one two` will
   display candidates containing both `one` and `two`
-- a pipe `|` in the middle of a word is a logical or. So, `one|two` will
+- a pipe `|` between two patterns is a logical or. So, `one|two` will
   display candidates containing `one` or `two`
-- a bang `!` beginning a filtering word is a logical not : all candidates
-  matching this word will be removed from the list
+- a bang `!` beginning a filtering pattern is a logical not : all candidates
+  matching this pattern will be removed from the list
+
+Here, `one` and `two` can be any vim regex. Most of the time, they are
+simply litteral parts of the wanted result.
+
+For example, if you have the completion list `small flower`, `big flower`,
+`small fruit` and `big fruit` :
+
+- the pattern `sm` will narrow down to `small flower`, `small fruit`
+- the patterns `sm fl` will narrow down to `small flower`
+- the patterns `all !ower` will narrow down to `small fruit`
+- the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
+
+------------------------------------------------------------------------------
+ADD					    *wheel-prompting-functions-add*
 
 Add a circle to the current torus~
 
@@ -350,24 +367,28 @@ You can of course adapt the completed name before confirming with
 `<enter>`. In fact, the name you choose can be anything you want, as
 long as it is not already in the current circle.
 
-Rename~
+------------------------------------------------------------------------------
+RENAME					    *wheel-prompting-functions-rename*
 
 The completion is the same as for adding a circle or a location.
 
+------------------------------------------------------------------------------
+SWITCH					    *wheel-prompting-functions-switch*
+
 Switch element in the wheel~
 
-| Function         | Completion list              |
-| ---------------- | ---------------------------- |
-| switch location  | locations of current circle  |
-| switch circle    | circles of the current torus |
-| switch torus     | toruses in the wheel         |
-| switch in index  | index entries                |
+| Function         | Completion list              | Default binding |
+| ---------------- | ---------------------------- | --------------- |
+| switch location  | locations of current circle  | <M-w><Enter>    |
+| switch circle    | circles of the current torus | <M-w><C-Enter>  |
+| switch torus     | toruses in the wheel         | <M-w><S-Enter>  |
+| switch in index  | index entries                | <M-w>x          |
 
 Switch visible buffer~
 
-| Function         | Completion list                   |
-| ---------------- | --------------------------------- |
-| switch tabwins   | visible buffers in tabs & windows |
+| Function         | Completion list                   | Default binding |
+| ---------------- | --------------------------------- | --------------- |
+| switch tabwins   | visible buffers in tabs & windows | <M-w>v          |
 
 Switch layer stack~
 
@@ -375,12 +396,26 @@ See |wheel-dedicated-buffers-layers|.
 
 You can complete by layer types, wich will lead you to the layer you want.
 
+Example of layer type :
+
+- tree
+- history
+- buffers
+- yank/plain
+- ...
+
 Switch dedicated buffer~
 
 See |wheel-dedicated-buffers-stack|.
 
 You can complete by dedicated buffer pseudo-filename, wich will lead
 you to the buffer you want.
+
+Example of pseudo-filenames :
+
+- /wheel/0/tree
+- /wheel/1/history
+- ...
 
 ==============================================================================
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
@@ -436,21 +471,32 @@ In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
 
 Filtering~
 
-In most dedicated buffers, the first line is left empty : it is used as
-an input line to filter the buffer. You can go to insert mode and filter
-the elements with each word you enter on the input (first) line. Typing
-`<space>`, `<esc>` or `<enter>` will update the candidates. Note that `<C-c>`
-is not mapped, in case you need to go to normal mode without triggering
-the filter function.
+In most dedicated buffers, the first line is left empty : it is used as an
+input line to filter the buffer. You can go to insert mode and filter the
+elements with each pattern you enter on the input (first) line. Typing
+`<space>`, `<esc>` or `<enter>` will update the candidates. Note that
+`<C-c>` is not mapped, in case you need to go to normal mode without
+triggering the filter function.
 
-A space between two words is a logical and. So, `one two` will
+A space between two patterns is a logical and. So, `one two` will
 display lines containing both `one` and `two`.
 
-A pipe `|` in the middle of a word is a logical or. So, `one|two` will
+A pipe `|` between two patterns is a logical or. So, `one|two` will
 display lines containing `one` or `two`.
 
-A bang `!` beginning a filtering word is a logical not : all lines matching
-this word will be removed from the buffer.
+A bang `!` beginning a filtering pattern is a logical not : all lines
+matching this pattern will be removed from the buffer.
+
+Here, `one` and `two` can be any vim regex. Most of the time, they are
+simply part of the result you want.
+
+For example, if you have the completion list `small flower`, `big flower`,
+`small fruit` and `big fruit` :
+
+- the pattern `sm` will narrow down to `small flower`, `small fruit`
+- the patterns `sm fl` will narrow down to `small flower`
+- the patterns `all !ower` will narrow down to `small fruit`
+- the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
 
 Input history~
 
@@ -522,7 +568,7 @@ So, there are two stack levels :
 MENU BUFFERS				*wheel-dedicated-buffers-menus*
 
 Each menu has its own dedicated dedicated buffer. You can filter the menu
-lines by entering words in insert mode.
+lines by entering patterns in insert mode.
 
 Action~
 
