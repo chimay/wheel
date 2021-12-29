@@ -452,9 +452,21 @@ Buffer stack			|wheel-dedicated-buffers-stack|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
-Grep buffer			|wheel-dedicated-buffers-grep|
-Find buffer			|wheel-dedicated-buffers-find|
-Yank buffer			|wheel-dedicated-buffers-yank|
+Within the wheel		|wheel-dedicated-buffers-within-wheel|
+Locate	 			|wheel-dedicated-buffers-locate|
+Find 				|wheel-dedicated-buffers-find|
+Async find 			|wheel-dedicated-buffers-async-find|
+MRU files			|wheel-dedicated-buffers-mru|
+Tabs & windows			|wheel-dedicated-buffers-tabwins|
+Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
+Occur				|wheel-dedicated-buffers-occur|
+Grep				|wheel-dedicated-buffers-grep|
+Outline				|wheel-dedicated-buffers-outline|
+Markers				|wheel-dedicated-buffers-markers|
+Tags				|wheel-dedicated-buffers-tags|
+Jumps				|wheel-dedicated-buffers-jumps|
+Changes				|wheel-dedicated-buffers-changes|
+Yank 				|wheel-dedicated-buffers-yank|
 Reordering		        |wheel-dedicated-buffers-reordering|
 Reorganizing			|wheel-dedicated-buffers-reorganizing|
 Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
@@ -686,8 +698,8 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-f>`     : search files with `find` in async mode
 - `<M-w>u`         : most recently used files not found in wheel (mru)
 - `<M-w>b`         : switch to buffer (opened file)
-- `<M-w>V`         : switch to visible buffer in tab & window (plain mode)
-- `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
+- `<M-w>V`         : visible buffers in tab & window (plain mode)
+- `<M-w><M-v>`     : visible buffers in tab & window (tree fold mode)
 - `<M-w>s`         : occur in current file
 - `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
@@ -717,7 +729,72 @@ line is selected, it will begin with an asterisk. You can then open all
 selected files in tabs, splits or vertical splits.
 
 ------------------------------------------------------------------------------
-GREP BUFFER				*wheel-dedicated-buffers-grep*
+WITHIN THE WHEEL			*wheel-dedicated-buffers-within-wheel*
+
+The dedicated buffers that allow us to navigate in the wheel are :
+
+- `<M-w><Space>`   : location
+- `<M-w><C-space>` : current location of the chosen circle
+- `<M-w><S-space>` : current location of the chosen torus
+- `<M-w>X`         : index of toruses > circles > locations
+- `<M-w><C-x>`     : index of toruses > circles
+- `<M-w><M-x>`     : index with folds (see below)
+- `<M-w>h`         : history index
+
+------------------------------------------------------------------------------
+LOCATE						*wheel-dedicated-buffers-locate*
+
+Search files with locate.
+
+The default mapping is `<M-w>l`.
+
+------------------------------------------------------------------------------
+FIND						*wheel-dedicated-buffers-find*
+
+Search files with find.
+
+The default mapping is `<M-w>f`.
+
+------------------------------------------------------------------------------
+ASYNC FIND				*wheel-dedicated-buffers-async-find*
+
+Search files with find in async mode.
+
+The default mapping is `<M-w><M-f>`.
+
+You can stop the process by using `<c-s>` in the dedicated buffer.
+
+------------------------------------------------------------------------------
+MRU FILES				*wheel-dedicated-buffers-mru*
+
+Open file in Most Recently Used file list.
+
+The default mapping is `<M-w>u`.
+
+------------------------------------------------------------------------------
+TABS AND WINDOWS			*wheel-dedicated-buffers-tabwins*
+
+Switch to visible buffer, displayed in a tab or window.
+
+The default mapping is `<M-w>V`.
+
+------------------------------------------------------------------------------
+TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwins-tree*
+
+Switch to visible buffer, displayed in a tab or window. Folding mode
+matching the tree of tabs and windows.
+
+The default mapping is `<M-w><M-v>`.
+
+------------------------------------------------------------------------------
+OCCUR						*wheel-dedicated-buffers-occur*
+
+List of lines matching a pattern.
+
+The default mapping is `<M-w>s`.
+
+------------------------------------------------------------------------------
+GREP						*wheel-dedicated-buffers-grep*
 
 The default mapping is `<M-w>g`.
 
@@ -732,7 +809,8 @@ The context menu contains :
 - an edit mode, see |wheel-dedicated-buffers-grep-edit|
 - a quickfix window opener
 
-Outline~
+------------------------------------------------------------------------------
+OUTLINE					*wheel-dedicated-buffers-outline*
 
 The default mapping is `<M-w><M-o>`.
 
@@ -745,14 +823,34 @@ can choose between the following header formats :
 - vimwiki
 
 ------------------------------------------------------------------------------
-FIND BUFFER				*wheel-dedicated-buffers-find*
+MARKERS						*wheel-dedicated-buffers-markers*
 
-Search files with find.
+Go to selected marker.
 
-The default mapping is `<M-w>f`.
+The default mapping is `<M-w><M-m>`.
 
-It runs in async mode. You can stop the process by using `<c-s>` in the
-dedicated buffer.
+TODO
+
+------------------------------------------------------------------------------
+TAGS						*wheel-dedicated-buffers-tags*
+
+Go to selected tag.
+
+The default mapping is `<M-w><M-t>`.
+
+------------------------------------------------------------------------------
+JUMPS					*wheel-dedicated-buffers-jumps*
+
+Go to element in jump list.
+
+The default mapping is `<M-w>j`.
+
+------------------------------------------------------------------------------
+CHANGES					*wheel-dedicated-buffers-changes*
+
+Go to element in changes list.
+
+The default mapping is `<M-w>c`.
 
 ------------------------------------------------------------------------------
 YANK BUFFER				*wheel-dedicated-buffers-yank*
