@@ -323,7 +323,7 @@ fun! wheel#line#markers (settings)
 	let mark = fields[0]
 	let line = fields[1]
 	let column = fields[2]
-	exe "normal '" . mark
+	exe "normal `" . mark
 endfun
 
 fun! wheel#line#tags (settings)
