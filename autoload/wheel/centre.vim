@@ -90,6 +90,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
 	nnoremap <plug>(wheel-switch-tag) :call wheel#symbol#switch()<cr>
+	nnoremap <plug>(wheel-markers) :call wheel#sailing#markers()<cr>
 	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
 	" Jumps & Changes lists
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
@@ -246,6 +247,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
 		exe nmap prefix . 't <plug>(wheel-switch-tag)'
+		exe nmap prefix . '<m-m> <plug>(wheel-markers)'
 		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'

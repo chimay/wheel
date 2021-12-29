@@ -298,6 +298,14 @@ fun! wheel#sailing#outline (...)
 	endif
 endfun
 
+fun! wheel#sailing#markers ()
+	" Markers
+	call wheel#mandala#close ()
+	call wheel#sailing#generic('markers')
+	" reload
+	let b:wheel_reload = 'wheel#sailing#markers'
+endfun
+
 fun! wheel#sailing#tags ()
 	" Tags file
 	call wheel#sailing#generic('tags')

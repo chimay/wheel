@@ -829,8 +829,6 @@ Go to selected marker.
 
 The default mapping is `<M-w><M-m>`.
 
-TODO
-
 ------------------------------------------------------------------------------
 TAGS						*wheel-dedicated-buffers-tags*
 

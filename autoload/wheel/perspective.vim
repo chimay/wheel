@@ -296,6 +296,28 @@ fun! wheel#perspective#occur (pattern)
 	return lines
 endfun
 
+fun! wheel#perspective#markers ()
+	" Markers
+	let lines = []
+	let markers = execute('marks')
+	let markers = split(markers, "\n")
+	" strip header line
+	let markers = markers[1:]
+	let length = len(markers)
+	for index in range(length)
+		let elem = markers[index]
+		let fields = split(elem)
+		let mark = fields[0]
+		let line = fields[1]
+		let column = fields[2]
+		let content = join(fields[3:])
+		let entry = [mark, line, column, content]
+		let record = join(entry, s:field_separ)
+		call add(lines, record)
+	endfor
+	return lines
+endfun
+
 " from vector
 
 fun! wheel#perspective#grep (pattern, sieve)
