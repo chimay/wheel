@@ -4,7 +4,9 @@
 " Take advantage of TextYankPost event
 
 " codex were rewritten by copists
-" other name ideas :
+"
+" other names ideas for this file :
+"
 " scroll, coil, spool
 " scriptorium
 

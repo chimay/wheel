@@ -254,6 +254,14 @@ endif
 
 " Menus
 
+if ! exists('s:menu_help')
+	let s:menu_help = [
+				\ ['inline help', 'wheel#guru#help'],
+				\ ['mappings', 'wheel#guru#mappings'],
+				\]
+	lockvar s:menu_help
+endif
+
 if ! exists('s:menu_add')
 	let s:menu_add = [
 				\ ['add a new torus' ,  'wheel#tree#add_torus'],
@@ -427,6 +435,7 @@ endif
 
 if ! exists('s:menu_list')
 	let s:menu_list = [
+				\ 'help',
 				\ 'add',
 				\ 'rename',
 				\ 'delete',
@@ -458,6 +467,7 @@ endif
 
 if ! exists('s:menu_meta')
 	let s:menu_meta = [
+				\ ['help' ,  "wheel#hub#submenu('help')"],
 				\ ['add' ,  "wheel#hub#submenu('add')"],
 				\ ['rename' ,  "wheel#hub#submenu('rename')"],
 				\ ['delete' ,  "wheel#hub#submenu('delete')"],

@@ -1,6 +1,10 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
 " Loops on mandala lines
+"
+" other names ideas for this file :
+"
+" ouroboros
 
 " Script constants
 

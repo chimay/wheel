@@ -138,19 +138,19 @@ endfun
 
 fun! wheel#mandala#close ()
 	" Close the mandala buffer
-	" if we are not in a mandala buffer,
-	" go to its window if it is visible
+	" -- if we are not in a mandala buffer,
+	" -- go to its window if it is visible
 	let bufnum = bufnr('%')
 	if index(g:wheel_mandalas.stack, bufnum) < 0
 		call wheel#cylinder#goto ()
 	endif
-	" if we are still not in a mandala buffer,
-	" none is visible and there is nothing to do
+	" -- if we are still not in a mandala buffer,
+	" -- none is visible and there is nothing to do
 	let bufnum = bufnr('%')
 	if index(g:wheel_mandalas.stack, bufnum) < 0
 		return v:false
 	endif
-	" mandala buffer
+	" -- mandala buffer
 	if winnr('$') > 1
 		" more than one window in tab ? close it.
 		close

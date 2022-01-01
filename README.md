@@ -45,10 +45,16 @@
 # Introduction
 ## What is it ?
 
-Wheel is a navigation plugin written in classical Vimscript, to remain
-compatible with both Vim and Neovim. It is file group oriented and makes
-abundant use of prompt completion and dedicated buffers, in which you
-can filter and select elements.
+Wheel is a file group manager and a navigation plugin for Vim and Neovim.
+
+Our favorite editor has already plenty of nice navigation functions; Wheel
+enhanced their interface by using :
+
+- intuitive completion with multi-pattern support for prompting functions
+- dedicated buffers, in which you can filter and select elements, besides using
+  the full power of your editor
+
+All is written in classical Vimscript.
 
 ## What does it look like ?
 ### Main menu

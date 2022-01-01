@@ -2,7 +2,8 @@
 
 " Undo list & diff
 
-" other name ideas :
+" other names ideas for this file :
+"
 " triangle
 
 " Script constants

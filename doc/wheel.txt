@@ -27,9 +27,16 @@ History				|wheel-introduction-history|
 ------------------------------------------------------------------------------
 WHAT IS IT					*wheel-introduction-what*
 
-Wheel is a navigation plugin for Vim or Neovim. It makes abundant use
-of prompt completion and dedicated buffers, in which you can filter and
-select elements.
+Wheel is a file group manager and a navigation plugin for Vim and Neovim.
+
+Our favorite editor has already plenty of nice navigation functions; Wheel
+enhanced their interface by using :
+
+- intuitive completion with multi-pattern support for prompting functions
+- dedicated buffers, in which you can filter and select elements, besides using
+  the full power of your editor
+
+All is written in classical Vimscript.
 
 ------------------------------------------------------------------------------
 FILE GROUPS				*wheel-introduction-file-groups*
@@ -2457,6 +2464,7 @@ of the modules within them.
 | disc.vim          | Read & write wheel file                  |
 | gear.vim          | Generic helpers                          |
 | group.vim         | Auto grouping                            |
+| guru.vim          | Help                                     |
 | helix.vim         | Indexes                                  |
 | hub.vim           | Menus                                    |
 | kyusu.vim         | Line filters for dedicated buffers       |

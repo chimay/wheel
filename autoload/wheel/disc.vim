@@ -10,6 +10,7 @@
 fun! wheel#disc#write (pointer, file, ...)
 	" Write variable referenced by pointer to file
 	" in a format that can be :sourced
+	" Note : pointer = variable name in vim script
 	" If optional argument 1 is :
 	" '>' : replace file content (default)
 	" '>>' : add to file content

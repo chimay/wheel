@@ -2,7 +2,8 @@
 
 " Layers stack / ring in each mandala buffer
 
-" other name ideas :
+" other names ideas for this file :
+"
 " sheet
 
 " Script constants
