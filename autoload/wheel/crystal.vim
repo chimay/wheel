@@ -258,6 +258,7 @@ if ! exists('s:menu_help')
 	let s:menu_help = [
 				\ ['inline help', 'wheel#guru#help'],
 				\ ['mappings', 'wheel#guru#mappings'],
+				\ ['plugs', 'wheel#guru#plugs'],
 				\]
 	lockvar s:menu_help
 endif

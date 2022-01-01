@@ -13,3 +13,8 @@ fun! wheel#guru#mappings ()
 	let command = 'map ' . prefix
 	call wheel#mandala#command (command)
 endfun
+
+fun! wheel#guru#plugs ()
+	" List of plugs mappings in a dedicated buffer
+	call wheel#mandala#command ('map <plug>(wheel-')
+endfun
