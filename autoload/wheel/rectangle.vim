@@ -7,6 +7,11 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
 " Tabs, Windows & buffers
 
 fun! wheel#rectangle#glasses (filename, ...)
@@ -28,12 +33,31 @@ endfun
 fun! wheel#rectangle#tour ()
 	" Return closest candidate amongst windows displaying current location
 	" by exploring each one
-	" Prefer windows in current tab page
-	" return v:false if no window display filename
+	" Search order :
+	"   - window in g:wheel_windows.iden
+	"   - windows in current tab page
+	"   - windows anywhere
+	" Return v:false if no window display filename
 	let original = win_getid()
 	let location = wheel#referen#location()
 	let filename = location.file
 	let line = location.line
+	" -- find window with g:wheel_windows.iden
+	let coordin = wheel#referen#names ()
+	let key = join(coordin, s:level_separ)
+	if has_key(g:wheel_windows.iden, key)
+		let iden = g:wheel_windows.iden[key]
+		noautocmd call win_gotoid(iden)
+		let cur_file = expand('%:p')
+		if filename ==# cur_file
+			noautocmd call win_gotoid(original)
+			echomsg 'iden' iden
+			return iden
+		else
+			unlet g:wheel_windows.iden[key]
+		endif
+	endif
+	" -- find window with wheel#rectangle#glasses
 	let glasses = wheel#rectangle#glasses (filename, 'tab')
 	if empty(glasses)
 		let glasses = wheel#rectangle#glasses (filename, 'all')

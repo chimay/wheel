@@ -114,12 +114,12 @@ endfun
 
 fun! wheel#void#wave ()
 	" Initialize jobs dictionary
-	" For neovim
-	if ! exists('g:wheel_wave')
+	" for neovim
+	if has('nvim') && ! exists('g:wheel_wave')
 		let g:wheel_wave = []
 	endif
-	" Same thing for vim
-	if ! exists('g:wheel_ripple')
+	" same thing for vim
+	if ! has('nvim') && ! exists('g:wheel_ripple')
 		let g:wheel_ripple = []
 	endif
 endfun
@@ -144,6 +144,16 @@ fun! wheel#void#mandalas ()
 	endif
 	if ! has_key(g:wheel_mandalas, 'iden')
 		let g:wheel_mandalas.iden = []
+	endif
+endfun
+
+fun! wheel#void#windows ()
+	" Initialize windows
+	if ! exists('g:wheel_windows')
+		let g:wheel_windows = {}
+	endif
+	if ! has_key(g:wheel_windows, 'iden')
+		let g:wheel_windows.iden = {}
 	endif
 endfun
 
@@ -246,6 +256,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#wave ()
 	call wheel#void#yank ()
 	call wheel#void#mandalas ()
+	call wheel#void#windows ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 	" -- define wheel-mandala auto command group
@@ -283,6 +294,7 @@ fun! wheel#void#lighten ()
 				\ 'g:wheel_ripple',
 				\ 'g:wheel_yank',
 				\ 'g:wheel_mandalas',
+				\ 'g:wheel_windows',
 				\ 'g:wheel_shelve',
 				\ 'g:wheel_config',
 				\]
