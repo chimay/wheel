@@ -147,16 +147,6 @@ fun! wheel#void#mandalas ()
 	endif
 endfun
 
-fun! wheel#void#windows ()
-	" Initialize windows
-	if ! exists('g:wheel_windows')
-		let g:wheel_windows = {}
-	endif
-	if ! has_key(g:wheel_windows, 'iden')
-		let g:wheel_windows.iden = {}
-	endif
-endfun
-
 fun! wheel#void#shelve ()
 	" Initialize shelve : misc status variables
 	if ! exists('g:wheel_shelve')
@@ -256,7 +246,6 @@ fun! wheel#void#foundation ()
 	call wheel#void#wave ()
 	call wheel#void#yank ()
 	call wheel#void#mandalas ()
-	call wheel#void#windows ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 	" -- define wheel-mandala auto command group
@@ -294,7 +283,6 @@ fun! wheel#void#lighten ()
 				\ 'g:wheel_ripple',
 				\ 'g:wheel_yank',
 				\ 'g:wheel_mandalas',
-				\ 'g:wheel_windows',
 				\ 'g:wheel_shelve',
 				\ 'g:wheel_config',
 				\]

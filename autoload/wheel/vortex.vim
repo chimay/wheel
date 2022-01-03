@@ -37,9 +37,6 @@ fun! wheel#vortex#update ()
 	if ! empty(location) && location.file ==# expand('%:p')
 		let location.line = line('.')
 		let location.col  = col('.')
-		let coordin = wheel#referen#names ()
-		let key = join(coordin, s:level_separ)
-		let g:wheel_windows.iden[key] = win_getid ()
 	endif
 endfun
 
