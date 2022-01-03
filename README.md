@@ -45,7 +45,7 @@
 # Introduction
 ## What is it ?
 
-Wheel is a file group manager and a navigation plugin for Vim and Neovim.
+Wheel is a file group manager and navigation plugin for Vim and Neovim.
 
 Our favorite editor has already plenty of nice navigation functions; Wheel
 enhanced their interface by using :
