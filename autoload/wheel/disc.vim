@@ -7,6 +7,31 @@
 
 " helpers
 
+fun! wheel#disc#writefile (varname, file, ...)
+	" Write variable referenced by varname to file
+	" in a format that can be :sourced
+	" If optional argument 1 is :
+	" '>' : replace file content (default)
+	" '>>' : add to file content
+	if ! exists(a:varname)
+		return
+	endif
+	let file = expand(a:file)
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = '>'
+	endif
+	let string = 'let ' . a:varname . ' = ' . string({a:varname})
+	let string = substitute(string, '\m[=,]', '\0\\', 'g')
+	let list = split(string, '\m[=,]\zs')
+	if mode == '>>'
+		call writefile(list, file, 'a')
+	else
+		call writefile(list, file)
+	endif
+endfun
+
 fun! wheel#disc#write (pointer, file, ...)
 	" Write variable referenced by pointer to file
 	" in a format that can be :sourced
@@ -14,6 +39,8 @@ fun! wheel#disc#write (pointer, file, ...)
 	" If optional argument 1 is :
 	" '>' : replace file content (default)
 	" '>>' : add to file content
+	" Doesn't work well with some abbreviated echoed variables content in vim
+	" wheel#disc#writefile is more reliable with vim
 	if ! exists(a:pointer)
 		return
 	endif
@@ -32,32 +59,6 @@ fun! wheel#disc#write (pointer, file, ...)
 	exec 'redir!' mode file
 	silent! echo content
 	redir END
-endfun
-
-fun! wheel#disc#writefile (varname, file, ...)
-	" Write variable referenced by varname to file
-	" in a format that can be :sourced
-	" If optional argument 1 is :
-	" '>' : replace file content (default)
-	" '>>' : add to file content
-	" Similar to wheel#disc#write but with writefile()
-	if ! exists(a:varname)
-		return
-	endif
-	let file = expand(a:file)
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = '>'
-	endif
-	let string = 'let ' . a:varname . ' = ' . string({a:varname})
-	let string = substitute(string, '\m[=,]', '\0\\', 'g')
-	let list = split(string, '\m[=,]\zs')
-	if mode == '>>'
-		call writefile(list, file, 'a')
-	else
-		call writefile(list, file)
-	endif
 endfun
 
 fun! wheel#disc#read (file)
@@ -111,17 +112,17 @@ fun! wheel#disc#write_all (...)
 		echomsg 'Writing wheel variables to file ...'
 	endif
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
-	call wheel#disc#write('g:wheel', wheel_file, '>')
-	call wheel#disc#write('g:wheel_helix', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_grid', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_files', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_history', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_track', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_alternate', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_input', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_attic', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_yank', wheel_file, '>>')
-	call wheel#disc#write('g:wheel_shelve', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel', wheel_file, '>')
+	call wheel#disc#writefile('g:wheel_helix', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_grid', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_files', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_history', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_track', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_alternate', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_input', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_attic', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_shelve', wheel_file, '>>')
 	if argc() == 0 && has('nvim')
 		echomsg 'Writing done !'
 	endif
