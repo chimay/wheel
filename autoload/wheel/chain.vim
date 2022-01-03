@@ -38,7 +38,7 @@ fun! wheel#chain#replace (old, new, list)
 	if index >= 0
 		let list[index] = new
 	else
-		echomsg 'List' join(list,  ', ') 'does not contain' old
+		echomsg 'List' string(list) 'does not contain' old
 	endif
 	return list
 endfun
@@ -148,6 +148,45 @@ fun! wheel#chain#swap (list)
 	else
 		return a:list
 	endif
+endfun
+
+" Indexes
+
+fun! wheel#chain#indexes(list, indexes)
+	" Returns list[indexes elements]
+	let sublist = []
+	for ind in a:indexes
+		call add(sublist, a:list[ind])
+	endfor
+	return sublist
+endfun
+
+" Extrema
+
+fun! wheel#chain#argmin (list)
+	" Returns indexes where list[index] = min(list)
+	let list = a:list
+	let minimum = min(list)
+	let indexes = []
+	for ind in range(len(list))
+		if list[ind] == minimum
+			call add(indexes, ind)
+		endif
+	endfor
+	return indexes
+endfun
+
+fun! wheel#chain#argmax (list)
+	" Returns indexes where list[index] = max(list)
+	let list = a:list
+	let maximum = max(list)
+	let indexes = []
+	for ind in range(len(list))
+		if list[ind] == maximum
+			call add(indexes, ind)
+		endif
+	endfor
+	return indexes
 endfun
 
 " Sort
