@@ -46,7 +46,7 @@ fun! wheel#rectangle#tour ()
 	for window in glasses
 		noautocmd call win_gotoid(window)
 		let closest = wheel#projection#closest ()
-		if closest == coordin
+		if ! empty(closest) && closest == coordin
 			noautocmd call win_gotoid(original)
 			return window
 		endif
@@ -56,12 +56,12 @@ fun! wheel#rectangle#tour ()
 	for window in glasses
 		noautocmd call win_gotoid(window)
 		let closest = wheel#projection#closest ()
-		if closest == coordin
+		if ! empty(closest) && closest == coordin
 			noautocmd call win_gotoid(original)
 			return window
 		endif
 	endfor
-	" back to original
+	" ---- back to original
 	noautocmd call win_gotoid(original)
 	return v:false
 endfun

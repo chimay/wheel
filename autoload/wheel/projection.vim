@@ -86,7 +86,7 @@ fun! wheel#projection#follow (...)
 	endif
 	" check if not already in matching file & position
 	if wheel#referen#location_matches_file_line_col ()
-		echomsg 'wheel projection follow : already there'
+		"echomsg 'wheel projection follow : ' string(wheel#referen#names())  ' : already there'
 		return
 	endif
 	" follow

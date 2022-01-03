@@ -66,7 +66,7 @@ fun! wheel#vortex#jump (...)
 	elseif bufloaded(location.file)
 		" load buffer in current window
 		let buffer = bufname(location.file)
-		exe 'silent buffer' buffer
+		exe 'noautocmd silent buffer' buffer
 	else
 		" edit location file
 		exe 'silent edit' fnameescape(location.file)
