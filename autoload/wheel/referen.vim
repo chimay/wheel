@@ -223,10 +223,10 @@ fun! wheel#referen#elements (dict)
 	endif
 endfun
 
-" Miscellaneous
+" Match current buffer
 
 fun! wheel#referen#location_matches_file ()
-	" Whether current location is in current file
+	" Whether current location matches current file
 	let cur_file = expand('%:p')
 	let cur_location = wheel#referen#location()
 	if empty(cur_location)
@@ -234,3 +234,13 @@ fun! wheel#referen#location_matches_file ()
 	endif
 	return cur_file ==# cur_location.file
 endfun
+
+fun! wheel#referen#location_matches_file_line_col ()
+	" Whether current location matches current file & cursor  position
+	let cur_location = wheel#referen#location()
+	let match = wheel#referen#location_matches_file ()
+	let match = match && line('.') ==# cur_location.line
+	let match = match && col('.') ==# cur_location.col
+	return match
+endfun
+

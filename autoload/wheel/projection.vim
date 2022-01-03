@@ -2,26 +2,44 @@
 
 " Find & follow the closest element in wheel
 
-fun! wheel#projection#closest (level, ...)
+fun! wheel#projection#closest (...)
 	" Find closest location to :
 	"   - given file & line
 	"   - filename & position (default)
 	" The search is done in album index
-	" Search in given current level = wheel, torus or circle
+	" Optional arguments :
+	"   - level : search in given current level
+	"     + wheel : everywhere in the wheel
+	"     + torus : in current torus
+	"     + circle : in current circle
+	"   - file name
+	"   - line number
+	"   - column number
 	if a:0 > 0
-		let filename = a:1
+		let level = a:1
+	else
+		let level = 'wheel'
+	endif
+	if a:0 > 1
+		let filename = a:2
 	else
 		let filename = expand('%:p')
 	endif
-	if a:0 > 1
-		let linum = a:2
+	if a:0 > 2
+		let linum = a:3
 	else
 		let linum = line('.')
+	endif
+	if a:0 > 3
+		let colnum = a:4
+	else
+		let colnum = col('.')
 	endif
 	" no global var, should be fine without deepcopy
 	let album = wheel#helix#album ()
 	call filter(album, {_,value -> value[2].file ==# filename})
-	let narrow = wheel#referen#coordin_index(a:level)
+	" narrow down to current level
+	let narrow = wheel#referen#coordin_index(level)
 	if narrow >= 0
 		let narrow_names = wheel#referen#names()
 		for index in range(0, narrow)
@@ -31,12 +49,17 @@ fun! wheel#projection#closest (level, ...)
 	if empty(album)
 		return []
 	endif
+	" min diff lines
 	let lines = map(deepcopy(album), {_, val -> val[2].line})
-	let deltas = map(copy(lines), {_, val -> abs(val - linum)})
-	let minim = min(deltas)
-	let where = index(deltas, minim)
-	let minline = lines[where]
-	let closest = filter(album, {_,value -> value[2].line == minline})[0]
+	let diff = map(copy(lines), {_, val -> abs(val - linum)})
+	let where = wheel#chain#argmin (diff)
+	let album = wheel#chain#indexes (album, where)
+	" min diff columns
+	let cols = map(deepcopy(album), {_, val -> val[2].col})
+	let diff = map(copy(cols), {_, val -> abs(val - colnum)})
+	let where = wheel#chain#argmin (diff)
+	let album = wheel#chain#indexes (album, where)
+	let closest = album[0]
 	let coordin = closest[0:1] + [closest[2].name]
 	return coordin
 endfun
@@ -60,8 +83,9 @@ fun! wheel#projection#follow (...)
 	if index(['wheel', 'torus'], level) >= 0 && wheel#referen#empty ('circle')
 		return
 	endif
-	" check if not already in matching file
-	if wheel#referen#location_matches_file ()
+	" check if not already in matching file & position
+	if wheel#referen#location_matches_file_line_col ()
+		echomsg 'wheel projection follow : already there'
 		return
 	endif
 	" follow

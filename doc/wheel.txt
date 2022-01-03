@@ -1586,7 +1586,7 @@ MRU files				    *wheel-autocommands-mru-files*
 If you want to record a list of the files you edited without adding them
 to the wheel : >
 
-  autocmd BufEnter * call wheel#attic#record()
+  autocmd BufRead * call wheel#attic#record()
 <
 
 ------------------------------------------------------------------------------
@@ -1614,7 +1614,7 @@ Here is an example of a complete autocommands configuration : >
   " Update location line & col before leaving a window
   autocmd BufLeave * call wheel#vortex#update()
   " Add current file to MRU files
-  autocmd BufEnter * call wheel#attic#record()
+  autocmd BufRead * call wheel#attic#record()
   " To record your yanks in the yank wheel
   autocmd TextYankPost * call wheel#codex#add()
 <

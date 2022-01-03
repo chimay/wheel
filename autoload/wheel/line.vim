@@ -179,7 +179,7 @@ fun! wheel#line#buffers (settings)
 		let filename = expand(fields[2])
 		let filename = fnamemodify(filename, ':p')
 		let coordin = wheel#projection#closest ('wheel', filename)
-		if len(coordin) > 0
+		if ! empty(coordin)
 			call wheel#vortex#chord (coordin)
 			call wheel#line#target (settings.target)
 			call wheel#vortex#jump ()
