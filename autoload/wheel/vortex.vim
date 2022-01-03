@@ -63,15 +63,20 @@ fun! wheel#vortex#jump (...)
 	if window
 		" switch to window containing location buffer
 		call win_gotoid(window)
+		call cursor(location.line, location.col)
 	elseif bufloaded(location.file)
 		" load buffer in current window
 		let buffer = bufname(location.file)
 		exe 'noautocmd silent buffer' buffer
+		call cursor(location.line, location.col)
+		doautocmd BufEnter
 	else
 		" edit location file
-		exe 'silent edit' fnameescape(location.file)
+		exe 'noautocmd silent edit' fnameescape(location.file)
+		call cursor(location.line, location.col)
+		doautocmd BufRead
+		doautocmd BufEnter
 	endif
-	call cursor(location.line, location.col)
 	if g:wheel_config.cd_project > 0
 		let markers = g:wheel_config.project_markers
 		call wheel#gear#project_root(markers)
