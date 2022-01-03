@@ -59,6 +59,7 @@ fun! wheel#projection#closest (...)
 	let diff = map(copy(cols), {_, val -> abs(val - colnum)})
 	let where = wheel#chain#argmin (diff)
 	let album = wheel#chain#indexes (album, where)
+	" closest
 	let closest = album[0]
 	let coordin = closest[0:1] + [closest[2].name]
 	return coordin

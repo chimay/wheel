@@ -34,51 +34,36 @@ fun! wheel#rectangle#tour ()
 	" Return closest candidate amongst windows displaying current location
 	" by exploring each one
 	" Search order :
-	"   - window in g:wheel_windows.iden
 	"   - windows in current tab page
 	"   - windows anywhere
 	" Return v:false if no window display filename
 	let original = win_getid()
-	let location = wheel#referen#location()
-	let filename = location.file
-	let line = location.line
-	" -- find window with g:wheel_windows.iden
 	let coordin = wheel#referen#names ()
-	let key = join(coordin, s:level_separ)
-	if has_key(g:wheel_windows.iden, key)
-		let iden = g:wheel_windows.iden[key]
-		noautocmd call win_gotoid(iden)
-		let cur_file = expand('%:p')
-		if filename ==# cur_file
-			noautocmd call win_gotoid(original)
-			echomsg 'iden' iden
-			return iden
-		else
-			unlet g:wheel_windows.iden[key]
-		endif
-	endif
-	" -- find window with wheel#rectangle#glasses
+	let filename = wheel#referen#location().file
+	" ---- find window where closest = current wheel location
+	" -- current tab
 	let glasses = wheel#rectangle#glasses (filename, 'tab')
-	if empty(glasses)
-		let glasses = wheel#rectangle#glasses (filename, 'all')
-	endif
-	if empty(glasses)
-		return v:false
-	endif
-	let best = glasses[0]
-	noautocmd call win_gotoid(best)
-	let best_delta = abs(line - line('.'))
-	for index in range(1, len(glasses) - 1)
-		let new = glasses[index]
-		noautocmd call win_gotoid(new)
-		let new_delta = abs(line - line('.'))
-		if new_delta < best_delta
-			let best_delta = new_delta
-			let best = new
+	for window in glasses
+		noautocmd call win_gotoid(window)
+		let closest = wheel#projection#closest ()
+		if closest == coordin
+			noautocmd call win_gotoid(original)
+			return window
 		endif
 	endfor
+	" -- anywhere
+	let glasses = wheel#rectangle#glasses (filename, 'all')
+	for window in glasses
+		noautocmd call win_gotoid(window)
+		let closest = wheel#projection#closest ()
+		if closest == coordin
+			noautocmd call win_gotoid(original)
+			return window
+		endif
+	endfor
+	" back to original
 	noautocmd call win_gotoid(original)
-	return best
+	return v:false
 endfun
 
 fun! wheel#rectangle#tab_buffers ()
