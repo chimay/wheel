@@ -78,7 +78,7 @@ fun! wheel#vortex#jump (...)
 	endif
 	call wheel#pendulum#record ()
 	normal! zv
-	doautocmd User WheelAfterJump
+	silent doautocmd User WheelAfterJump
 	call wheel#spiral#cursor ()
 	call wheel#status#dashboard ()
 	" return
