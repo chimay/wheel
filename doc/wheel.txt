@@ -365,6 +365,7 @@ the nature of the asked entry :
 
 - location, circle or torus
 - file, directory, buffer
+- tag
 - and so on
 
 Hitting |'wildchar'| (most likely `<tab>`), will trigger the completion.
