@@ -89,8 +89,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-occur) :call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
-	nnoremap <plug>(wheel-switch-tag) :call wheel#symbol#switch()<cr>
 	nnoremap <plug>(wheel-markers) :call wheel#sailing#markers()<cr>
+	nnoremap <plug>(wheel-switch-tag) :call wheel#symbol#switch()<cr>
 	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
 	" Jumps & Changes lists
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>

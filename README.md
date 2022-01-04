@@ -25,7 +25,7 @@
 	* [Example](#example)
 + [Bindings](#bindings)
 	* [Wiki](#wiki-2)
-	* [List of available mappings](#list-of-available-mappings)
+	* [Menus](#menus)
 	* [Frequently used functions](#frequently-used-functions)
 + [Step by Step](#step-by-step)
 	* [Prefix](#prefix)
@@ -330,25 +330,12 @@ For a thorough list of bindings, see
 [the bingings page](https://github.com/chimay/wheel/wiki/bindings)
 in the wiki.
 
-## List of available mappings
+## Menus
 
-To display the list of available plug mappings, press `<M-w>:`,
-then answer :
+In the help submenu of the main or meta menu, you have access to :
 
-~~~vim
-map <Plug>(wheel-
-~~~
-
-to the prompt. You can then browse the plug wheel maps in a dedicated
-wheel buffer.
-
-To see mapped keys, you can also use `<M-w>:`, and answer :
-
-~~~vim
-map <M-w>
-~~~
-
-to the prompt.
+- the list of current wheel mappings
+- the list of available mappings
 
 ## Frequently used functions
 
@@ -356,61 +343,86 @@ Here are some bindings that you may find useful, beginning with the most
 used functions :
 
 ~~~vim
-nmap <m-m>        <plug>(wheel-menu-main)
-nmap <m-=>        <plug>(wheel-menu-meta)
+" Menus
+nmap <m-m>          <plug>(wheel-menu-main)
+nmap <m-=>          <plug>(wheel-menu-meta)
 " Add, Delete
-nmap <m-insert>   <plug>(wheel-add-here)
-nmap <m-del>      <plug>(wheel-delete-location)
+nmap <m-insert>     <plug>(wheel-add-here)
+nmap <m-del>        <plug>(wheel-delete-location)
 " Next / Previous
-nmap <c-pageup>   <plug>(wheel-previous-location)
-nmap <c-pagedown> <plug>(wheel-next-location)
-nmap <c-home>     <plug>(wheel-previous-circle)
-nmap <c-end>      <plug>(wheel-next-circle)
-nmap <s-home>     <plug>(wheel-previous-torus)
-nmap <s-end>      <plug>(wheel-next-torus)
+nmap <c-pageup>     <plug>(wheel-previous-location)
+nmap <c-pagedown>   <plug>(wheel-next-location)
+nmap <c-home>       <plug>(wheel-previous-circle)
+nmap <c-end>        <plug>(wheel-next-circle)
+nmap <s-home>       <plug>(wheel-previous-torus)
+nmap <s-end>        <plug>(wheel-next-torus)
+" History
+nmap <s-pageup>     <plug>(wheel-history-newer)
+nmap <s-pagedown>   <plug>(wheel-history-older)
 " Alternate
-nmap <c-^>        <plug>(wheel-alternate-anywhere)
-nmap <m-^>        <plug>(wheel-alternate-same-circle)'
-nmap <m-c-^>      <plug>(wheel-alternate-same-torus-other-circle)'
-" Navigation in dedicated buffers
-nmap <space>      <plug>(wheel-navigation-location)
-nmap <c-space>    <plug>(wheel-navigation-circle)
-nmap <s-space>    <plug>(wheel-navigation-torus)
-nmap <m-x>        <plug>(wheel-tree)
-nmap <m-h>        <plug>(wheel-history)
+nmap <c-^>          <plug>(wheel-alternate-anywhere)
+nmap <m-^>          <plug>(wheel-alternate-same-circle)
+nmap <m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)
+" Switch prompt
+nmap <m-cr>        <plug>(wheel-switch-location)
+nmap <c-cr>        <plug>(wheel-switch-circle)
+nmap <s-cr>        <plug>(wheel-switch-torus)
+nmap <m-c-cr>      <plug>(wheel-switch-in-index)
+" Navigation buffers
+nmap <space>        <plug>(wheel-navigation-location)
+nmap <c-space>      <plug>(wheel-navigation-circle)
+nmap <s-space>      <plug>(wheel-navigation-torus)
+nmap <m-x>          <plug>(wheel-tree)
+nmap <m-c-x>        <plug>(wheel-index-locations)
+nmap <m-h>          <plug>(wheel-history)
 " Search for files
-nmap <m-u>          <plug>(wheel-mru)
 nmap <m-l>          <plug>(wheel-locate)
 nmap <m-f>          <plug>(wheel-find)
+nmap <m-c-f>        <plug>(wheel-async-find)
+nmap <m-u>          <plug>(wheel-mru)
 " Buffers
 nmap <m-b>          <plug>(wheel-buffers)
-" Tabs & windows : visible buffers in tree mode
-nmap <m-v>          <plug>(wheel-tabwins-tree)
+" Tabs & windows : visible buffers
+nmap <m-v>          <plug>(wheel-switch-tabwin)
+nmap <m-c-v>        <plug>(wheel-tabwins-tree)
 " Search inside files
 nmap <m-s>          <plug>(wheel-occur)
 nmap <m-g>          <plug>(wheel-grep)
 nmap <m-o>          <plug>(wheel-outline)
-nmap <m-t>          <plug>(wheel-tags)
+" tags, labels
+nmap <m-t>          <plug>(wheel-switch-tag)
+nmap <m-l>          <plug>(wheel-tags)
+nmap <m-k>          <plug>(wheel-markers)
 nmap <m-j>          <plug>(wheel-jumps)
 nmap <m-c>          <plug>(wheel-changes)
 " Yank
 nmap <m-y>          <plug>(wheel-yank-list)
 nmap <m-p>          <plug>(wheel-yank-plain)
-" Reorganize the wheel : toruses, circles and locations
+" Reshaping buffers
+" wheel
 nmap <m-r>          <plug>(wheel-reorganize)
-" Reorganize tabs & windows
+" tabs & windows : visible buffers
 nmap <m-c-r>        <plug>(wheel-reorg-tabwins)
-" Grep in edit mode
+" grep edit
 nmap <m-c-g>        <plug>(wheel-grep-edit)
-" Command output in dedicated buffer
+" Undo list
+nmap <m-c-u>        <plug>(wheel-undo-list)
+" Command
 nmap <m-!>          <plug>(wheel-command)
 nmap <m-&>          <plug>(wheel-async)
-" Save (push) mandala (dedicated buffer)
-nmap <m-Tab>        <plug>(wheel-mandala-push)
-" Remove (pop) mandala
-nmap <m-Backspace>  <plug>(wheel-mandala-pop)
+" Save (push) mandala buffer
+nmap <m-tab>        <plug>(wheel-mandala-push)
+" Remove (pop) mandala buffer
+nmap <m-backspace>  <plug>(wheel-mandala-pop)
 " Cycle mandala buffers
-nmap <m-space>      <plug>(wheel-mandala-cycle)
+nmap <m-home>        <plug>(wheel-mandala-backward)
+nmap <m-end>       <plug>(wheel-mandala-forward)
+" Switch mandala buffers
+nmap <m-space>      <plug>(wheel-mandala-switch)
+" Layouts
+nmap <m-z>          <plug>(wheel-zoom)
+nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
+nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
 ~~~
 
 # Step by Step

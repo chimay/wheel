@@ -270,6 +270,7 @@ You can switch :
 - location with `<M-w><Enter>`
 - circle with `<M-w><C-Enter>`
 - torus with `<M-w><S-Enter>`
+- to any location in the wheel index with `<M-w>x`
 
 A completion is available, see |wheel-prompting-functions-completion|.
 
@@ -639,6 +640,7 @@ Meta menu~
 Press `<M-w>=` to open the meta menu : each line in this buffer will
 launch a sub-menu. Each sub-menu holds the actions of the same category :
 
+- wheel help
 - add a new element to the wheel
 - rename an element
 - delete an element
@@ -2101,7 +2103,9 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-s>          <plug>(wheel-occur)'
     exe nmap '<m-g>          <plug>(wheel-grep)'
     exe nmap '<m-o>          <plug>(wheel-outline)'
-    exe nmap '<m-t>          <plug>(wheel-tags)'
+    " tags, labels
+    exe nmap '<m-t>          <plug>(wheel-switch-tag)'
+    exe nmap '<m-l>          <plug>(wheel-tags)'
     exe nmap '<m-k>          <plug>(wheel-markers)'
     exe nmap '<m-j>          <plug>(wheel-jumps)'
     exe nmap '<m-c>          <plug>(wheel-changes)'
@@ -2121,12 +2125,12 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-!>          <plug>(wheel-command)'
     exe nmap '<m-&>          <plug>(wheel-async)'
     " Save (push) mandala buffer
-    exe nmap '<m-Tab>        <plug>(wheel-mandala-push)'
+    exe nmap '<m-tab>        <plug>(wheel-mandala-push)'
     " Remove (pop) mandala buffer
-    exe nmap '<m-Backspace>  <plug>(wheel-mandala-pop)'
+    exe nmap '<m-backspace>  <plug>(wheel-mandala-pop)'
     " Cycle mandala buffers
-    exe nmap '<m-home>          <plug>(wheel-mandala-backward)'
-    exe nmap '<m-end>          <plug>(wheel-mandala-forward)'
+    exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
+    exe nmap '<m-end>       <plug>(wheel-mandala-forward)'
     " Switch mandala buffers
     exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
     " Layouts
@@ -2151,6 +2155,10 @@ File~
 You can find all default plugs and maps in the file
 `autoload/wheel/centre.vim`.
 
+In the help submenu of the main or meta menu, you have access to :
+
+- the list of current wheel mappings
+- the list of available mappings
 
 Mapped keys~
 

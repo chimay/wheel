@@ -257,8 +257,8 @@ endif
 if ! exists('s:menu_help')
 	let s:menu_help = [
 				\ ['inline help', 'wheel#guru#help'],
-				\ ['mappings', 'wheel#guru#mappings'],
-				\ ['plugs', 'wheel#guru#plugs'],
+				\ ['current mappings', 'wheel#guru#mappings'],
+				\ ['available mappings (plugs)', 'wheel#guru#plugs'],
 				\ ['autocommands', 'wheel#guru#autocomands'],
 				\]
 	lockvar s:menu_help
@@ -297,8 +297,10 @@ endif
 
 if ! exists('s:menu_disc')
 	let s:menu_disc = [
-				\ ['save wheel' ,  'wheel#disc#write_all()'],
-				\ ['load wheel' ,  'wheel#disc#read_all()'],
+				\ ['save wheel' ,  'wheel#disc#write_all'],
+				\ ['load wheel' ,  'wheel#disc#read_all'],
+				\ ['save tabs & windows session' ,  'wheel#disc#write_session'],
+				\ ['load tabs & windows session' ,  'wheel#disc#read_session'],
 				\]
 	lockvar s:menu_disc
 endif
