@@ -1750,9 +1750,10 @@ LEVEL 0						*wheel-mappings-level-0*
 
 Menus~
 
-The most important mapping is `<M-w>m` : it launches a menu in a
-dedicated buffer, and from there you can trigger all sort of actions on
-the Wheel. See |wheel-dedicated-buffers-menu| for more information.
+The most useful mapping to discover wheel functions is `<M-w>m` : it
+launches a menu in a dedicated buffer, and from there you can trigger
+all sort of actions on the Wheel. See |wheel-dedicated-buffers-menu|
+for more information.
 
 | Prefix + | With default prefix | Action                  |
 | -------- | ------------------- | ----------------------- |
