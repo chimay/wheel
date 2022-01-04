@@ -259,6 +259,7 @@ if ! exists('s:menu_help')
 				\ ['inline help', 'wheel#guru#help'],
 				\ ['mappings', 'wheel#guru#mappings'],
 				\ ['plugs', 'wheel#guru#plugs'],
+				\ ['autocommands', 'wheel#guru#autocomands'],
 				\]
 	lockvar s:menu_help
 endif
