@@ -154,7 +154,6 @@ endfun
 fun! wheel#completelist#file (arglead, cmdline, cursorpos)
 	" Complete with file name
 	" -- get tree of files & directories
-	" also works, but the doc says otherwise
 	let tree = glob('**', v:false, v:true)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, tree)
@@ -165,6 +164,27 @@ fun! wheel#completelist#directory (arglead, cmdline, cursorpos)
 	let candidates = wheel#completelist#file (a:arglead, a:cmdline, a:cursorpos)
 	call filter(candidates, {_,v -> isdirectory(v)})
 	return candidates
+endfun
+
+fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
+	" Complete with buffer name
+	let buffers = execute('buffers')
+	let buffers = split(buffers, "\n")
+	let length = len(buffers)
+	let lines = []
+	for index in range(length)
+		let elem = buffers[index]
+		let fields = split(elem)
+		let bufnum = str2nr(fields[0])
+		let filename = bufname(bufnum)
+		let is_wheel_buf = index(g:wheel_mandalas.stack, bufnum) >= 0
+		let is_without_name = filename =~ '\m^\[.*\]'
+		if ! is_wheel_buf && ! is_without_name
+			call add(lines, filename)
+		endif
+	endfor
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, lines)
 endfun
 
 fun! wheel#completelist#current_file (arglead, cmdline, cursorpos)

@@ -198,7 +198,9 @@ fun! wheel#tree#add_buffer (...)
 	if a:0 > 0
 		let buffer = a:1
 	else
-		let buffer = input('Buffer to add ? ', '', 'buffer')
+		let prompt = 'Buffer to add ? '
+		let complete =  'customlist,wheel#completelist#buffer'
+		let buffer = input(prompt, '', complete)
 	endif
 	exe 'buffer' buffer
 	call wheel#tree#add_here()
