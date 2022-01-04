@@ -2103,12 +2103,13 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-s>          <plug>(wheel-occur)'
     exe nmap '<m-g>          <plug>(wheel-grep)'
     exe nmap '<m-o>          <plug>(wheel-outline)'
-    " tags, labels
-    exe nmap '<m-t>          <plug>(wheel-switch-tag)'
-    exe nmap '<m-l>          <plug>(wheel-tags)'
+    " (neo)vim points
     exe nmap '<m-k>          <plug>(wheel-markers)'
     exe nmap '<m-j>          <plug>(wheel-jumps)'
     exe nmap '<m-c>          <plug>(wheel-changes)'
+    " tags, labels
+    exe nmap '<m-t>          <plug>(wheel-switch-tag)'
+    exe nmap '<m-l>          <plug>(wheel-tags)'
     " Yank
     exe nmap '<m-y>          <plug>(wheel-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-yank-plain)'

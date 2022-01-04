@@ -394,12 +394,13 @@ nmap <m-c-v>        <plug>(wheel-tabwins-tree)
 nmap <m-s>          <plug>(wheel-occur)
 nmap <m-g>          <plug>(wheel-grep)
 nmap <m-o>          <plug>(wheel-outline)
-" tags, labels
-nmap <m-t>          <plug>(wheel-switch-tag)
-nmap <m-l>          <plug>(wheel-tags)
+" (neo)vim points
 nmap <m-k>          <plug>(wheel-markers)
 nmap <m-j>          <plug>(wheel-jumps)
 nmap <m-c>          <plug>(wheel-changes)
+" tags, labels
+nmap <m-t>          <plug>(wheel-switch-tag)
+nmap <m-l>          <plug>(wheel-tags)
 " Yank
 nmap <m-y>          <plug>(wheel-yank-list)
 nmap <m-p>          <plug>(wheel-yank-plain)

@@ -89,12 +89,13 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-occur) :call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
+	" (neo)vim points
 	nnoremap <plug>(wheel-markers) :call wheel#sailing#markers()<cr>
-	nnoremap <plug>(wheel-switch-tag) :call wheel#symbol#switch()<cr>
-	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
-	" Jumps & Changes lists
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
 	nnoremap <plug>(wheel-changes) :call wheel#sailing#changes()<cr>
+	" Tags
+	nnoremap <plug>(wheel-switch-tag) :call wheel#symbol#switch()<cr>
+	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
@@ -246,11 +247,13 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 's <plug>(wheel-occur)'
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
-		exe nmap prefix . 't <plug>(wheel-switch-tag)'
-		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
+		" (neo)vim points
 		exe nmap prefix . '<m-m> <plug>(wheel-markers)'
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'
+		" Tags
+		exe nmap prefix . 't <plug>(wheel-switch-tag)'
+		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
 		" Yank wheel
 		exe nmap prefix . 'y <plug>(wheel-yank-list)'
 		exe nmap prefix . 'p <plug>(wheel-yank-plain)'
@@ -355,12 +358,13 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-s>          <plug>(wheel-occur)'
 		exe nmap '<m-g>          <plug>(wheel-grep)'
 		exe nmap '<m-o>          <plug>(wheel-outline)'
-		" tags, labels
-		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
-		exe nmap '<m-l>          <plug>(wheel-tags)'
+		" (neo)vim points
 		exe nmap '<m-k>          <plug>(wheel-markers)'
 		exe nmap '<m-j>          <plug>(wheel-jumps)'
 		exe nmap '<m-c>          <plug>(wheel-changes)'
+		" tags, labels
+		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
+		exe nmap '<m-l>          <plug>(wheel-tags)'
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-yank-list)'
 		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
