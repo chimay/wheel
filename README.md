@@ -337,8 +337,6 @@ augroup wheel
 augroup END
 ~~~
 
-as a starting point.
-
 # Bindings
 For a thorough list of bindings, see
 [the bingings page](https://github.com/chimay/wheel/wiki/bindings)
