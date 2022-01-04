@@ -322,6 +322,19 @@ if ! exists("g:wheel_loaded")
 
   let g:wheel_config.debug = 0
 endif
+
+augroup wheel
+	autocmd!
+	autocmd VimEnter * call wheel#void#init()
+	autocmd VimLeave * call wheel#void#exit()
+	autocmd User WheelAfterJump silent! normal! zCzO
+	autocmd WinEnter * call wheel#projection#follow()
+	"autocmd BufRead * call wheel#projection#follow()
+	"autocmd BufEnter * call wheel#projection#follow()
+	autocmd BufLeave * call wheel#vortex#update()
+	autocmd BufRead * call wheel#attic#record()
+	autocmd TextYankPost * call wheel#codex#add()
+augroup END
 ~~~
 
 as a starting point.
