@@ -2191,7 +2191,7 @@ For debugging only.
 ------------------------------------------------------------------------------
 EXHAUSTIVE LIST			*wheel-mappings-exhaustive-list*
 
-File~
+In the menus~
 
 In the help submenu of the main or meta menu, you have access to :
 
