@@ -235,7 +235,7 @@ on the wheel tracks :
 A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 It is recommended to read at least the
-[step-by-step page](https://github.com/chimay/wheel/wiki/step-by-step).
+[step-by-step](https://github.com/chimay/wheel/wiki/step-by-step)
 page, either in the wiki or in the `wheel.txt` file.
 
 ## In wheel menu
