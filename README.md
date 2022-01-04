@@ -20,12 +20,11 @@
 + [Documentation](#documentation)
 	* [Vim help](#vim-help)
 	* [Wiki](#wiki)
+	* [In wheel menu](#in-wheel-menu)
 + [Configuration](#configuration)
 	* [Wiki](#wiki-1)
 	* [Example](#example)
 + [Bindings](#bindings)
-	* [Wiki](#wiki-2)
-	* [Menus](#menus)
 	* [Frequently used functions](#frequently-used-functions)
 + [Step by Step](#step-by-step)
 + [Examples](#examples)
@@ -240,6 +239,15 @@ on the wheel tracks :
 
 A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 
+## In wheel menu
+
+In the help submenu of the main or meta menu, you have access to :
+
+- the inline help (wheel.txt)
+- the list of current wheel mappings
+- the list of available mappings
+- the list of autocommands of your wheel group
+
 # Configuration
 ## Wiki
 
@@ -318,18 +326,9 @@ endif
 as a starting point.
 
 # Bindings
-## Wiki
-
 For a thorough list of bindings, see
 [the bingings page](https://github.com/chimay/wheel/wiki/bindings)
 in the wiki.
-
-## Menus
-
-In the help submenu of the main or meta menu, you have access to :
-
-- the list of current wheel mappings
-- the list of available mappings
 
 ## Frequently used functions
 
