@@ -333,31 +333,10 @@ probably prefer the alternate functions :
 You can also use the meta or main menu.
 
 I strongly suggest you map a convenient key, like `<C-^>`,
-to `<plug>(wheel-alternate-anywhere)`, it’s one of
-the most often used binding. Same thing with `<M-C-^>` and
-`<plug>(wheel-alternate-same-torus-other-circle)`.  These bindings are
-included in the [level 10 mappings](bindings#level-10).
-
-A common case is to alternate two files in the same circle, and two
-circles in the same torus. So, you have the square :
-
-Over time, the number of circles will grow. Completion is great,
-but if you just want to alternate the two last locations in history,
-you’ll probably prefer `<M-w>^`. A  menu will appear and offer you
-these alternate variants :
-
-- alternate anywhere
-- alternate in the same circle
-- alternate in the same torus
-- alternate in another circle
-- alternate in another torus
-- alternate in same torus but another circle
-
-You can also use the meta or main menu.
-
-I strongly suggest you map a convenient key, like `<C-^>`, to
-`<plug>(wheel-alternate-anywhere)`, it’s one of the most often used
-function. See |wheel-mappings-level-10| for more informations.
+to `<plug>(wheel-alternate-anywhere)`, it’s one of the
+most often used binding. Same thing with `<M-C-^>` and
+`<plug>(wheel-alternate-same-torus-other-circle)`.  See
+|wheel-mappings-level-10| for more information.
 
 A common case is to alternate two files in the same circle, and two
 circles in the same torus. So, you have the square :
