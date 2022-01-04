@@ -241,7 +241,8 @@ A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 
 ## In wheel menu
 
-In the help submenu of the main or meta menu, you have access to :
+In the help submenu of the main menu (default map : `<M-w>m`), you have
+access to :
 
 - the inline help (wheel.txt)
 - the list of current wheel mappings
