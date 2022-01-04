@@ -361,7 +361,11 @@ COMPLETION			    *wheel-prompting-functions-completion*
 
 When a wheel function needs to prompt the user for input, it offers
 completion wherever possible. The completion type depends of course on
-the nature of the asked entry.
+the nature of the asked entry :
+
+- location, circle or torus
+- file, directory, buffer
+- and so on
 
 Hitting |'wildchar'| (most likely `<tab>`), will trigger the completion.
 
