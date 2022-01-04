@@ -220,13 +220,14 @@ ask us if we want to keep the default location name. Press enter, and
 Same process with `Coffee`. We now have a circle `Drink` containing
 three files.
 
-Now, suppose that in the `Juice` file, you have a Pineapple
-and a Mango sections, and you want to compare them. Just go to
-the Pineapple section, and use `<M-w>a`. It will add the location
-`Juice:pineapple-line:pineapple-col` to the current circle. Then, go to
-the Mango section, and do the same. The `Juice:mango-line:mango-col`
-will also be added to the circle. You can then easily alternate both,
-or display them in split windows.
+A group can contain more than one location of the same file. Suppose
+that in the `Juice` file, you have a Pineapple and a Mango sections,
+and you want to add both of them in the circle. Just go to the Pineapple
+section, and use `<M-w>a` ; we give it the `Juice-Pineapple` name. The
+location `Juice:pineapple-line:pineapple-col` is added to the current
+circle. Then, go to the Mango section, and do the same. Let's say
+we give it the `Juice-Mango` name. The `Juice:mango-line:mango-col`
+is also added to the circle.
 
 If you want to create another group (circle), let’s say `Fruits`,
 simply launch `<M-w><C-a>`, and answer `Fruits` to the prompt. You can
@@ -314,6 +315,31 @@ navigation buffer. See |wheel-dedicated-buffers-navigation|.
 
 ------------------------------------------------------------------------------
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
+
+Over time, the number of circles will grow. Completion is great, but if
+you just want to alternate the last two locations in history, you’ll
+probably prefer the alternate functions :
+
+| Default map    | Function                                      |
+| -------------- | --------------------------------------------- |
+| `<M-w><C-^>`     | alternate anywhere                            |
+| `<M-w><M-^>`     | alternate in the same circle                  |
+| `<M-w><M-C-^>`   | alternate in in same torus but another circle |
+|                | alternate in the same torus                   |
+|                | alternate in another circle                   |
+|                | alternate in another torus                    |
+| `<M-w>^`         | alternate menu                                |
+
+You can also use the meta or main menu.
+
+I strongly suggest you map a convenient key, like `<C-^>`,
+to `<plug>(wheel-alternate-anywhere)`, it’s one of
+the most often used binding. Same thing with `<M-C-^>` and
+`<plug>(wheel-alternate-same-torus-other-circle)`.  These bindings are
+included in the [level 10 mappings](bindings#level-10).
+
+A common case is to alternate two files in the same circle, and two
+circles in the same torus. So, you have the square :
 
 Over time, the number of circles will grow. Completion is great,
 but if you just want to alternate the two last locations in history,
