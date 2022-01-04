@@ -26,7 +26,7 @@ endfu
 fun! wheel#tree#name ()
 	" Prompt for a location name and return it
 	let prompt = 'Location name ? '
-	let complete = 'customlist,wheel#completelist#filename'
+	let complete = 'customlist,wheel#completelist#current_file'
 	return input(prompt, '', complete)
 endfu
 
@@ -80,7 +80,7 @@ fun! wheel#tree#add_circle (...)
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let complete = 'customlist,wheel#completelist#directory'
+		let complete = 'customlist,wheel#completelist#current_directory'
 		let circle_name = input('New circle name ? ', '', complete)
 	endif
 	" add first torus if needed
@@ -184,7 +184,9 @@ fun! wheel#tree#add_file (...)
 	if a:0 > 0
 		let file = a:1
 	else
-		let file = input('File to add ? ', '', 'file_in_path')
+		let prompt = 'File to add ? '
+		let complete =  'customlist,wheel#completelist#file'
+		let file = input(prompt, '', complete)
 	endif
 	exe 'edit' file
 	call wheel#tree#add_here()
@@ -207,7 +209,9 @@ fun! wheel#tree#add_glob (...)
 	if a:0 > 0
 		let glob = a:1
 	else
-		let glob = input('Add files matching glob : ', '', 'file_in_path')
+		let prompt = 'Add files matching glob : '
+		let complete =  'customlist,wheel#completelist#file'
+		let glob = input(prompt, '', complete)
 	endif
 	let answer = confirm('Create new circle ?', "&Yes\n&No", 2)
 	if answer == 1
@@ -243,9 +247,9 @@ fun! wheel#tree#rename (level, ...)
 		if level ==# 'torus'
 			let complete = 'customlist,wheel#completelist#empty'
 		elseif level ==# 'circle'
-			let complete = 'customlist,wheel#completelist#directory'
+			let complete = 'customlist,wheel#completelist#current_directory'
 		elseif level ==# 'location'
-			let complete = 'customlist,wheel#completelist#filename'
+			let complete = 'customlist,wheel#completelist#current_file'
 		else
 			echomsg 'wheel rename : bad level name.'
 			return v:false

@@ -584,7 +584,9 @@ fun! wheel#mandala#async ()
 	if a:0 > 0
 		let command = a:1
 	else
-		let command = input('async shell command : ', '', 'file_in_path')
+		let prompt = 'async shell command : '
+		let complete =  'customlist,wheel#completelist#file'
+		let command = input(prompt, '', complete)
 	endif
 	call wheel#vortex#update ()
 	let current = getreg('%')

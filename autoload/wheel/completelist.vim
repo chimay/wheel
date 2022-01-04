@@ -43,7 +43,6 @@ fun! wheel#completelist#torus (arglead, cmdline, cursorpos)
 		return []
 	endif
 	let toruses = copy(g:wheel.glossary)
-	"return filter(toruses, {_,v -> v =~ a:arglead})
 	let wordlist = split(a:cmdline)
 	let Matches = function('wheel#kyusu#word', [wordlist])
 	let candidates = filter(toruses, Matches)
@@ -57,7 +56,6 @@ fun! wheel#completelist#circle (arglead, cmdline, cursorpos)
 		return []
 	endif
 	let circles =  copy(cur_torus.glossary)
-	"return filter(circles, {_,v -> v =~ a:arglead})
 	let wordlist = split(a:cmdline)
 	let Matches = function('wheel#kyusu#word', [wordlist])
 	let candidates = filter(circles, Matches)
@@ -71,7 +69,6 @@ fun! wheel#completelist#location (arglead, cmdline, cursorpos)
 		return []
 	endif
 	let locations = copy(cur_circle.glossary)
-	"return filter(locations, {_,v -> v =~ a:arglead})
 	let wordlist = split(a:cmdline)
 	let Matches = function('wheel#kyusu#word', [wordlist])
 	let candidates = filter(locations, Matches)
@@ -86,7 +83,6 @@ fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
 		let entry = join(coordin, s:level_separ)
 		let choices = add(choices, entry)
 	endfor
-	"return filter(choices, {_,v -> v =~ a:arglead})
 	let wordlist = split(a:cmdline)
 	let Matches = function('wheel#kyusu#word', [wordlist])
 	let candidates = filter(choices, Matches)
@@ -110,7 +106,6 @@ fun! wheel#completelist#layer (arglead, cmdline, cursorpos)
 	call insert(types, title, top)
 	" reverse to have previous on the left and next on the right
 	call reverse(types)
-	"return filter(types, {_,v -> v =~ a:arglead})
 	let wordlist = split(a:cmdline)
 	let Matches = function('wheel#kyusu#word', [wordlist])
 	let candidates = filter(types, Matches)
@@ -123,14 +118,12 @@ fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
 	if empty(bufnums)
 		return []
 	endif
-	let current = g:wheel_mandalas.current
 	let types = []
 	for index in range(len(bufnums))
 		let num = bufnums[index]
 		let title = bufname(num)
 		call add(types, title)
 	endfor
-	"return filter(types, {_,v -> v =~ a:arglead})
 	let wordlist = split(a:cmdline)
 	let Matches = function('wheel#kyusu#word', [wordlist])
 	let candidates = filter(types, Matches)
@@ -164,7 +157,6 @@ fun! wheel#completelist#visible_buffers (arglead, cmdline, cursorpos)
 			call add(lines, record)
 		endif
 	endfor
-	"return filter(lines, {_,v -> v =~ a:arglead})
 	let wordlist = split(a:cmdline)
 	let Matches = function('wheel#kyusu#word', [wordlist])
 	let candidates = filter(lines, Matches)
@@ -173,7 +165,25 @@ endfun
 
 " files & dirs
 
-fun! wheel#completelist#filename (arglead, cmdline, cursorpos)
+fun! wheel#completelist#file (arglead, cmdline, cursorpos)
+	" Complete with file name
+	" -- get tree of files & directories
+	" also works, but the doc says otherwise
+	let tree = glob('**', v:false, v:true)
+	let wordlist = split(a:cmdline)
+	let Matches = function('wheel#kyusu#word', [wordlist])
+	let candidates = filter(tree, Matches)
+	return candidates
+endfun
+
+fun! wheel#completelist#directory (arglead, cmdline, cursorpos)
+	" Complete with directory name
+	let candidates = wheel#completelist#file (a:arglead, a:cmdline, a:cursorpos)
+	call filter(candidates, {_,v -> isdirectory(v)})
+	return candidates
+endfun
+
+fun! wheel#completelist#current_file (arglead, cmdline, cursorpos)
 	" Complete different flavours or current filename
 	let basis = expand('%')
 	" replace spaces par non-breaking spaces
@@ -192,7 +202,7 @@ fun! wheel#completelist#filename (arglead, cmdline, cursorpos)
 	return candidates
 endfun
 
-fun! wheel#completelist#directory (arglead, cmdline, cursorpos)
+fun! wheel#completelist#current_directory (arglead, cmdline, cursorpos)
 	" Complete different flavours or current file directory
 	let basis = expand('%:h')
 	" replace spaces par non-breaking spaces

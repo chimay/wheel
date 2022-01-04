@@ -209,7 +209,8 @@ fun! wheel#disc#tree_script (...)
 		let soil = a:1
 	else
 		let prompt = 'Directory to grow tree ? '
-		let soil = input(prompt, '', 'dir')
+		let complete =  'customlist,wheel#completelist#directory'
+		let soil = input(prompt, '', complete)
 	endif
 	if a:0 > 1
 		let command = a:1
@@ -267,7 +268,8 @@ fun! wheel#disc#symlink_tree (...)
 		let soil = a:1
 	else
 		let prompt = 'Directory to grow tree ? '
-		let soil = input(prompt, '', 'dir')
+		let complete =  'customlist,wheel#completelist#directory'
+		let soil = input(prompt, '', complete)
 	endif
 	let old_cdpath = &cdpath
 	set cdpath=,,
@@ -324,7 +326,8 @@ fun! wheel#disc#copied_tree ()
 		let soil = a:1
 	else
 		let prompt = 'Directory to grow tree ? '
-		let soil = input(prompt, '', 'dir')
+		let complete =  'customlist,wheel#completelist#directory'
+		let soil = input(prompt, '', complete)
 	endif
 	let old_cdpath = &cdpath
 	set cdpath=,,
