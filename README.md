@@ -26,7 +26,6 @@
 	* [Example](#example)
 + [Bindings](#bindings)
 	* [Frequently used functions](#frequently-used-functions)
-+ [Step by Step](#step-by-step)
 + [Examples](#examples)
 	* [Display matching files in splits](#display-matching-files-in-splits)
 	* [More](#more)
@@ -235,6 +234,10 @@ on the wheel tracks :
 
 A [wheel wiki](https://github.com/chimay/wheel/wiki) is also available.
 
+It is recommanded to read at least the
+[step-by-step page](https://github.com/chimay/wheel/wiki/step-by-step).
+page, either in the wiki or in the `wheel.txt` file.
+
 ## In wheel menu
 
 In the help submenu of the main menu (default map : `<M-w>m`), you have
@@ -427,11 +430,6 @@ nmap <m-z>          <plug>(wheel-zoom)
 nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
 nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
 ~~~
-
-# Step by Step
-
-See the
-[wiki step-by-step page](https://github.com/chimay/wheel/wiki/step-by-step).
 
 # Examples
 ## Display matching files in splits

@@ -271,7 +271,7 @@ also map them to more convenient keys, like `<C-Home>` and `<C-End>`.
 To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>` or
 map them to `<S-Home>` and `<S-End>`.
 
-Switch~
+Switching~
 
 You can switch :
 
@@ -285,7 +285,7 @@ A completion is available, see |wheel-prompting-functions-completion|.
 Let's say you have these entries in the wheel :
 
 | torus  | circle  | location    |
-|--------|---------|-------------|
+| ------ | ------- | ----------- |
 | config | browser | w3m         |
 | config | browser | elinks      |
 | config | browser | qutebrowser |
@@ -307,7 +307,7 @@ the plugin will only give you "config > edit > neovim".
 
 As usual, hit enter to validate you choice.
 
-Switch using a dedicated buffer~
+Switching using a dedicated buffer~
 
 You can also switch location, circle or torus by chosing it in a wheel
 navigation buffer. See |wheel-dedicated-buffers-navigation|.
