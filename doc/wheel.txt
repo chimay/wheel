@@ -2183,7 +2183,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
 ------------------------------------------------------------------------------
 LEVEL 20					*wheel-mappings-level-20*
 
-For debug only.
+For debugging only.
 
 | Prefix + | With default prefix | Action                               |
 | Z        | <M-w>Z              | Reset wheel variables to empty wheel |
@@ -2192,9 +2192,6 @@ For debug only.
 EXHAUSTIVE LIST			*wheel-mappings-exhaustive-list*
 
 File~
-
-You can find all default plugs and maps in the file
-`autoload/wheel/centre.vim`.
 
 In the help submenu of the main or meta menu, you have access to :
 
