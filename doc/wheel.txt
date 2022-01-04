@@ -2191,39 +2191,19 @@ For debugging only.
 ------------------------------------------------------------------------------
 EXHAUSTIVE LIST			*wheel-mappings-exhaustive-list*
 
-In the menus~
-
 In the help submenu of the main or meta menu, you have access to :
 
 - the list of current wheel mappings
 - the list of available mappings
 
-Mapped keys~
-
-To display the list of mapped keys, press `<M-w>:` (prefix then colon),
-and answer : >
-
-    map <M-w>
-<
-
-to the prompt. You can then browse the plugs in a dedicated wheel
-buffer. It is only a command output collector though, you can not
-launch any map from there.
-
-You will see that all keys are linked to `<plug>` maps.
+You can then browse the maps and plugs in a dedicated wheel buffer. It
+is only a command output collector though, you can not launch any map
+from there.
 
 Plugs~
 
 Plug maps are middle men between wheel autoload functions and user
-mappings. To display the list of plug maps and their matching functions,
-press `<M-w>:` (prefix then colon), and answer : >
-
-    map <plug>(wheel-
-<
-
-to the prompt.
-
-Example of key binding using a plug map : >
+mappings. Example of key binding using a plug map : >
 
     nmap <silent> <M-m> <Plug>(wheel-menu-main)
 <
