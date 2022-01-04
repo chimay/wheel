@@ -99,6 +99,10 @@ your groups will grow and adapt to your style.
 
 ## Features
 
+The group manager is the core, but it goes far beyond that : you need a
+quick navigation framework to travel in the wheel, and once it is there,
+it’s easy to add new functionalities.
+
 - add
   + files from anywhere in the filesystem
   + a file in more than one group
@@ -161,14 +165,6 @@ your groups will grow and adapt to your style.
 - save tabs & windows in minimal session file
 - batch operations
 - autogroup files by extension or directory
-
-As you see, the group manager is the core, but it goes far beyond that :
-you need a quick navigation framework to travel in the wheel, and once
-it is there, it’s easy to add new functionalities.
-
-UNIX’s philosophy is respected however, on a module level : each file in
-`autoload/wheel` deals with a specific kind of problem, and do it well ;
-the magic is when modules talk together.
 
 ## History
 
