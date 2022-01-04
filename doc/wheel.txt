@@ -169,6 +169,7 @@ One map to ring them all	|wheel-sbs-one-map-to-ring-them-all|
 First circles			|wheel-sbs-first-circles|
 Moving around			|wheel-sbs-moving-around|
 Square the circle		|wheel-sbs-square-the-circle|
+Tags				|wheel-sbs-tags|
 
 ------------------------------------------------------------------------------
 PREFIX						*wheel-sbs-prefix*
@@ -347,6 +348,17 @@ Circle Drinks | Juice           | Tea
 Circle Fruits | Apple           | Pear
 
 at your fingertips.
+
+==============================================================================
+TAGS						*wheel-sbs-tags*
+
+If you use a tags file, you can jump to any tag with `<M-w>t`.
+Completion is available at the prompt.
+
+For instance, `pro fol<tab>` gives me the function
+`wheel#projection#follow` straight away. Warp speed, Scotty.
+
+You can also search for a tag in a dedicated buffer with `<M-w><M-t>`.
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
