@@ -236,6 +236,14 @@ add `Juice`: a file can be added to more than one circle.
 If you want to create another category (torus), let’s say `Books`,
 simply launch `<M-w><S-a>`, and answer `Books` to the prompt.
 
+Adding quicker~
+
+If you want to edit a file and add it at the same time, you can use
+`<M-w>+f` ; a file completion is available at the prompt.
+
+If you want to add a buffer, you can use `<M-w>+b` ; a buffer completion
+is available.
+
 What happens if you have a lot of files ? Let's say the `novels`
 folder, located in the current directory, contains dozen of novels
 in plain text format. You can add all of them at once with the
@@ -273,6 +281,31 @@ You can switch :
 - to any location in the wheel index with `<M-w>x`
 
 A completion is available, see |wheel-prompting-functions-completion|.
+
+Let's say you have these entries in the wheel :
+
+| torus  | circle  | location    |
+|--------|---------|-------------|
+| config | browser | w3m         |
+| config | browser | elinks      |
+| config | browser | qutebrowser |
+| config | edit    | vim         |
+| config | edit    | neovim      |
+| config | edit    | emacs       |
+| script | shell   | autostart   |
+| script | shell   | autostop    |
+
+If you launch the "switch in index" action with `<M-w>x`, and pre-fill
+the prompt with "ed vi" before hitting `<tab>`, the plugin will give
+you this completion candidates :
+
+- config > edit > vim
+- config > edit > neovim
+
+If you pre-fill the prompt with "ed vi neo" before hitting `<tab>`,
+the plugin will only give you "config > edit > neovim".
+
+As usual, hit enter to validate you choice.
 
 Switch using a dedicated buffer~
 
@@ -321,8 +354,9 @@ Switch				    |wheel-prompting-functions-switch|
 ------------------------------------------------------------------------------
 COMPLETION			    *wheel-prompting-functions-completion*
 
-When a wheel function needs to prompt the user for input, it offers completion
-wherever possible, depending on the nature of the asked entry.
+When a wheel function needs to prompt the user for input, it offers
+completion wherever possible. The completion type depends of course on
+the nature of the asked entry.
 
 Hitting |'wildchar'| (most likely `<tab>`), will trigger the completion.
 
