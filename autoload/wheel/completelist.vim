@@ -44,9 +44,7 @@ fun! wheel#completelist#torus (arglead, cmdline, cursorpos)
 	endif
 	let toruses = copy(g:wheel.glossary)
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(toruses, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, toruses)
 endfu
 
 fun! wheel#completelist#circle (arglead, cmdline, cursorpos)
@@ -57,9 +55,7 @@ fun! wheel#completelist#circle (arglead, cmdline, cursorpos)
 	endif
 	let circles =  copy(cur_torus.glossary)
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(circles, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, circles)
 endfu
 
 fun! wheel#completelist#location (arglead, cmdline, cursorpos)
@@ -70,9 +66,7 @@ fun! wheel#completelist#location (arglead, cmdline, cursorpos)
 	endif
 	let locations = copy(cur_circle.glossary)
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(locations, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, locations)
 endfu
 
 fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
@@ -84,9 +78,7 @@ fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
 		let choices = add(choices, entry)
 	endfor
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(choices, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, choices)
 endfu
 
 " mandalas
@@ -107,9 +99,7 @@ fun! wheel#completelist#layer (arglead, cmdline, cursorpos)
 	" reverse to have previous on the left and next on the right
 	call reverse(types)
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(types, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, types)
 endfun
 
 fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
@@ -125,9 +115,7 @@ fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
 		call add(types, title)
 	endfor
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(types, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, types)
 endfun
 
 " buffers
@@ -158,9 +146,7 @@ fun! wheel#completelist#visible_buffers (arglead, cmdline, cursorpos)
 		endif
 	endfor
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(lines, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, lines)
 endfun
 
 " files & dirs
@@ -171,9 +157,7 @@ fun! wheel#completelist#file (arglead, cmdline, cursorpos)
 	" also works, but the doc says otherwise
 	let tree = glob('**', v:false, v:true)
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(tree, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, tree)
 endfun
 
 fun! wheel#completelist#directory (arglead, cmdline, cursorpos)
@@ -197,9 +181,7 @@ fun! wheel#completelist#current_file (arglead, cmdline, cursorpos)
 	let root = fnamemodify(basis, ':t:r')
 	let filenames = [root, simple, relative, absolute]
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(filenames, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, filenames)
 endfun
 
 fun! wheel#completelist#current_directory (arglead, cmdline, cursorpos)
@@ -215,9 +197,7 @@ fun! wheel#completelist#current_directory (arglead, cmdline, cursorpos)
 	let simple = fnamemodify(basis, ':t')
 	let directories = [simple, relative, absolute]
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(directories, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, directories)
 endfun
 
 fun! wheel#completelist#link_copy (arglead, cmdline, cursorpos)
@@ -226,9 +206,7 @@ fun! wheel#completelist#link_copy (arglead, cmdline, cursorpos)
 	" See also wheel#disc#tree_script
 	let commands = ['ln -s', 'cp -n']
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(commands, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, commands)
 endfun
 
 " tags
@@ -241,7 +219,5 @@ fun! wheel#completelist#tags (arglead, cmdline, cursorpos)
 		call add(choices, suit)
 	endfor
 	let wordlist = split(a:cmdline)
-	let Matches = function('wheel#kyusu#word', [wordlist])
-	let candidates = filter(choices, Matches)
-	return candidates
+	return wheel#kyusu#candidates(wordlist, choices)
 endfun

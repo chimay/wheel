@@ -39,6 +39,13 @@ fun! wheel#kyusu#word (wordlist, index, value)
 	return match
 endfun
 
+fun! wheel#kyusu#candidates(wordlist, list)
+	" Return elements of list matching words of wordlist
+	let Matches = function('wheel#kyusu#word', [a:wordlist])
+	let candidates = filter(a:list, Matches)
+	return candidates
+endfun
+
 fun! wheel#kyusu#tree (wordlist, index, value)
 	" Like word filter, but keep folds markers lines
 	" index is not used, it’s just for compatibility with filter()
