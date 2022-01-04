@@ -84,14 +84,9 @@ fun! wheel#projection#follow (...)
 	if index(['wheel', 'torus'], level) >= 0 && wheel#referen#empty ('circle')
 		return
 	endif
-	" check if not already in matching file & position
-	if wheel#referen#location_matches_file_line_col ()
-		"echomsg 'wheel projection follow : ' string(wheel#referen#names())  ' : already there'
-		return
-	endif
 	" follow
 	let coordin = wheel#projection#closest (level)
-	if ! empty(coordin)
+	if ! empty(coordin) && coordin != wheel#referen#names()
 		call wheel#vortex#chord (coordin)
 		if g:wheel_config.cd_project > 0
 			let markers = g:wheel_config.project_markers

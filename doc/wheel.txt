@@ -1498,6 +1498,9 @@ AUTO GROUP				*wheel-autocommands-autogroup*
 It's a good idea to group all your wheel autocommands, e.g. : >
 
     augroup wheel
+	" clear the group
+	autocmd!
+	" add your autocommands
 	autocmd ...
 	autocmd ...
 	...
@@ -1548,29 +1551,46 @@ This example open recursively the folds under the cursor line : >
 ------------------------------------------------------------------------------
 AUTO FOLLOW		    		*wheel-autocommands-auto-follow*
 
-If you wish the wheel to auto-follow the buffers you enter, you can add
-this autocommand : >
+On switching tab or window~
+
+If you wish the wheel state to auto-follow the (neo)vim windows you enter,
+you can add this autocommand : >
+
+    autocmd WinEnter * call wheel#projection#follow()
+<
+
+This means that each time you enter a tab or a window by using a native
+command (like |gt|, |:tabnext|, |CTRL-W_CTRL-W| and so on), the plugin
+will check if the current file name is in the wheel. If true, it will
+adjust its state to match the file and cursor position.
+
+Be aware that it will update the wheel cursor position of your previous
+window, which makes sense.
+
+Also note that if the file is not in the wheel, the auto-follow routine
+will do nothing.
+
+If you want to edit a file and add it to the current group (circle),
+you can use `<plug>(wheel-add-file)`. It is bound to `<M-w>+f` by default.
+
+To add a buffer, you can use `<plug>(wheel-add-buffer)`, bound to
+`<M-w>+b` by default.
+
+Other events~
+
+If you also want to trigger this auto-follow process when you edit a
+file with a native vim command (like |:edit|), you can also add it to the
+`BufRead` event : >
+
+    autocmd BufRead * call wheel#projection#follow()
+<
+
+If you also want to trigger this auto-follow process when you enter a
+buffer with a native vim command (like |:buffer|), you can also add it
+to the `BufEnter` event : >
 
     autocmd BufEnter * call wheel#projection#follow()
 <
-
-This means that each time you enter a buffer, the plugin will check if
-the filename is in the wheel. If true, it will adjust its state to match
-the current file.
-
-It is useful when you search with grep and the quickfix window, or when
-you edit a file with a classic vim command.
-
-Be aware that it will update the wheel cursor position of your previous
-buffer, which makes sense.
-
-Also note that if the file you edit is not in the wheel, the follow
-routine will do nothing.  If you want to edit a file and add it to the
-current group (circle), you can use `<plug>(wheel-add-file)`. It is
-bound to `<M-w>+f` by default.
-
-To edit and add a buffer, you can use `<plug>(wheel-add-buffer)`, bound to
-`<M-w>b` by default.
 
 ------------------------------------------------------------------------------
 AUTO UPDATE				*wheel-autocommands-auto-update*
@@ -1603,20 +1623,28 @@ EXAMPLE					    *wheel-autocommands-example*
 
 Here is an example of a complete autocommands configuration : >
 
-  " On vim enter, for autoreading
-  autocmd VimEnter * call wheel#void#init()
-  " On vim leave, for autowriting
-  autocmd VimLeave * call wheel#void#exit()
-  " Executed after jumping to a location
-  autocmd User WheelAfterJump norm zMzx
-  " For current wheel location to auto follow buffer change
-  autocmd BufEnter * call wheel#projection#follow()
-  " Update location line & col before leaving a window
-  autocmd BufLeave * call wheel#vortex#update()
-  " Add current file to MRU files
-  autocmd BufRead * call wheel#attic#record()
-  " To record your yanks in the yank wheel
-  autocmd TextYankPost * call wheel#codex#add()
+    augroup wheel
+	" Clear the group
+	autocmd!
+	" On vim enter, for autoreading
+	autocmd VimEnter * call wheel#void#init()
+	" On vim leave, for autowriting
+	autocmd VimLeave * call wheel#void#exit()
+	" Executed after jumping to a location
+	autocmd User WheelAfterJump norm zMzx
+	" For current wheel location to auto follow window changes
+	autocmd WinEnter * call wheel#projection#follow()
+	" For current wheel location to follow on editing, buffer loading
+	autocmd BufRead * call wheel#projection#follow()
+	" For current wheel location to follow on entering buffer
+	autocmd BufEnter * call wheel#projection#follow()
+	" Update location line & col before leaving a window
+	autocmd BufLeave * call wheel#vortex#update()
+	" Add current non-wheel file to MRU files
+	autocmd BufRead * call wheel#attic#record()
+	" To record your yanks in the yank wheel
+	autocmd TextYankPost * call wheel#codex#add()
+    augroup END
 <
 
 ==============================================================================
