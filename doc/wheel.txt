@@ -322,13 +322,13 @@ probably prefer the alternate functions :
 
 | Default map    | Function                                      |
 | -------------- | --------------------------------------------- |
-| `<M-w><C-^>`     | alternate anywhere                            |
-| `<M-w><M-^>`     | alternate in the same circle                  |
-| `<M-w><M-C-^>`   | alternate in in same torus but another circle |
+| <M-w><C-^>     | alternate anywhere                            |
+| <M-w><M-^>     | alternate in the same circle                  |
+| <M-w><M-C-^>   | alternate in in same torus but another circle |
 |                | alternate in the same torus                   |
 |                | alternate in another circle                   |
 |                | alternate in another torus                    |
-| `<M-w>^`         | alternate menu                                |
+| <M-w>^         | alternate menu                                |
 
 You can also use the meta or main menu.
 
