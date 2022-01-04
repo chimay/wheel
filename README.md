@@ -334,14 +334,15 @@ augroup END
 ~~~
 
 # Bindings
-For a thorough list of bindings, see
+
+For a thorough discussion on bindings, see
 [the bingings page](https://github.com/chimay/wheel/wiki/bindings)
 in the wiki.
 
 ## Frequently used functions
 
-Here are some bindings that you may find useful, beginning with the most
-used functions :
+Below are some bindings that you may find useful, beginning with the
+most used functions. They are included in the level 10 mappings :
 
 ~~~vim
 " Menus
