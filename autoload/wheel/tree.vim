@@ -188,7 +188,7 @@ fun! wheel#tree#add_file (...)
 		let complete =  'customlist,wheel#completelist#file'
 		let file = input(prompt, '', complete)
 	endif
-	exe 'edit' file
+	exe 'edit' fnameescape(file)
 	call wheel#tree#add_here()
 endfun
 
@@ -294,11 +294,15 @@ fun! wheel#tree#rename_file (...)
 		let dir = expand('%:h') . '/'
 		let cwd = getcwd() . '/'
 		let dir = substitute(dir, cwd, '', '')
-		let filename = input('Rename file as ? ', dir, 'file')
+		let prompt = 'Rename file as ? '
+		let complete =  'customlist,wheel#completelist#file'
+		let filename = input(prompt, dir, complete)
 	endif
 	" replace spaces by underscores
 	" non breaking spaces would be confusing in the user’s filesystem
 	let filename = substitute(filename, ' ', '_', 'g')
+	" escape annoying chars
+	let filename = fnameescape(filename)
 	" convert to absolute path if needed
 	if filename[0] != '/'
 		let filename = fnamemodify(filename, ':p')
@@ -332,7 +336,7 @@ fun! wheel#tree#rename_file (...)
 			endfor
 		endfor
 	endfor
-	" rename file in wheel history records
+	" rename file in wheel index
 	let g:wheel.timestamp = wheel#pendulum#timestamp()
 	call wheel#helix#rename_file(old_name, filename)
 	" rename location

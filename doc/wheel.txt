@@ -257,6 +257,9 @@ add the files in a new circle. You can answer yes and call this circle
 `Novels`. And voilà, your new `Novels` group contain all the files in
 the `novels` folder.
 
+Don’t forget to |:cd| to the right directory before launching this
+function.
+
 ------------------------------------------------------------------------------
 MOVING AROUND					     *wheel-sbs-moving-around*
 
@@ -671,7 +674,7 @@ So, there are two stack levels :
 - a buffer stack
 
 ------------------------------------------------------------------------------
-MENU BUFFERS				*wheel-dedicated-buffers-menus*
+MENU						*wheel-dedicated-buffers-menus*
 
 Each menu has its own dedicated dedicated buffer. You can filter the menu
 lines by entering patterns in insert mode.
@@ -727,7 +730,7 @@ apply to the selected or cursor line(s).
 If you change your mind and wish to come back, just press `<backspace>`.
 
 ------------------------------------------------------------------------------
-NAVIGATION BUFFERS			*wheel-dedicated-buffers-navigation*
+NAVIGATION				*wheel-dedicated-buffers-navigation*
 
 The navigation buffers allow you to quickly switch to a Wheel location
 by pressing `<enter>` on the matching line. The buffer will be opened
@@ -842,14 +845,14 @@ Open file in Most Recently Used file list.
 The default mapping is `<M-w>u`.
 
 ------------------------------------------------------------------------------
-BUFFERS	    				*wheel-dedicated-buffers-buffers*
+BUFFERS						*wheel-dedicated-buffers-buffers*
 
 Go to buffer.
 
 The default mapping is `<M-w>b`.
 
 ------------------------------------------------------------------------------
-TABS AND WINDOWS			*wheel-dedicated-buffers-tabwins*
+TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
 
 Go to visible buffer, displayed in a tab or window.
 
@@ -928,7 +931,7 @@ Go to element in changes list.
 The default mapping is `<M-w>c`.
 
 ------------------------------------------------------------------------------
-YANK BUFFER				*wheel-dedicated-buffers-yank*
+YANK						*wheel-dedicated-buffers-yank*
 
 As usual, you can filter the elements in insert mode.
 The available local maps are :
@@ -969,7 +972,7 @@ Menus~
 The yank wheel buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
-REORDERING BUFFERS			*wheel-dedicated-buffers-reordering*
+REORDERING				*wheel-dedicated-buffers-reordering*
 
 The reordering buffers allow you to quickly reorder Wheel elements by
 reordering the buffer lines. You can use yank/delete/paste operations to
@@ -1000,7 +1003,7 @@ If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
 
 ------------------------------------------------------------------------------
-RENAMING BUFFERS			*wheel-dedicated-buffers-renaming*
+RENAMING		    		*wheel-dedicated-buffers-renaming*
 
 The renaming buffers allow you to batch rename Wheel elements by editing
 the buffer lines. You can use powerful native tools, like visual block
@@ -1011,6 +1014,12 @@ To validate your change, simply |:write| the buffer.
 The number of lines will be checked and, if there is missing or excedent
 lines, Wheel will refuse to apply your change.
 
+Rename locations & files~
+
+This function display two columns : the first one is for the locations, and the
+second one for the filenames. Please be cautious and make backup before trying
+this one, it’s not heavily tested yet.
+
 Mappings~
 
 The default mappings launching reordering buffers are :
@@ -1018,6 +1027,7 @@ The default mappings launching reordering buffers are :
 - `<M-w>!n`     : rename locations
 - `<M-w>!<C-n>` : rename circles
 - `<M-w>!N`     : rename toruses
+- `<M-w>!<M-n>` : rename locations & files
 
 Menus~
 
@@ -1029,7 +1039,7 @@ If something goes wrong, you can quit the buffer and re-read the wheel
 variables with `<M-w>r`.
 
 ------------------------------------------------------------------------------
-REORGANIZING BUFFERS			*wheel-dedicated-buffers-reorganizing*
+REORGANIZING				*wheel-dedicated-buffers-reorganizing*
 
 The reorganizing buffer allows you to quickly reorganize the Wheel
 elements. All elements of the wheel are represented, and folds are used
@@ -1143,12 +1153,12 @@ and |:diffput|).
 With `x`, you can close the diff split.
 
 ------------------------------------------------------------------------------
-BATCH BUFFER				*wheel-dedicated-buffers-batch*
+BATCH						*wheel-dedicated-buffers-batch*
 
 See |wheel-batch-command|.
 
 ------------------------------------------------------------------------------
-COMMAND OUTPUT BUFFER			*wheel-dedicated-buffers-command*
+COMMAND OUTPUT					*wheel-dedicated-buffers-command*
 
 You can execute an ex or shell command and display the output in a wheel
 dedicated buffer. Shell commands must be prefixed by a `!`.

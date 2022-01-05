@@ -231,6 +231,7 @@ endif
 " Separators in mandalas
 
 if ! exists('s:separator_field')
+	" digraph : ctrl-k vv -> │ != usual |
 	let s:separator_field = ' │ '
 	lockvar s:separator_field
 endif

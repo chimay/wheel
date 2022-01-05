@@ -20,6 +20,11 @@ if ! exists('s:fold_2')
 	lockvar s:fold_2
 endif
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " Reorg tabwins helpers
 
 fun! wheel#cuboctahedron#baskets (linelist)
@@ -222,6 +227,73 @@ fun! wheel#cuboctahedron#rename (level)
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	return elements
+endfun
+
+fun! wheel#cuboctahedron#rename_files ()
+	" Rename locations & files of current circle, after buffer content
+	let circle = wheel#referen#circle ()
+	let glossary = circle.glossary
+	let locations = circle.locations
+	let lines = getline(1, '$')
+	let len_lines = len(lines)
+	let len_locations = len(locations)
+	if len_lines < len_locations
+		echomsg 'Some names seem to be missing : changes not written'
+		return []
+	endif
+	if len_lines > len_locations
+		echomsg 'Names in excess : changes not written'
+		return []
+	endif
+	for index in range(len_lines)
+		let fields = split(lines[index], s:field_separ)
+		" rename location
+		let old_name = glossary[index]
+		let new_name = fields[0]
+		let new_name = substitute(new_name, ' ', ' ', 'g')
+		let found = index(glossary, new_name)
+		if found >= 0 && found < index
+			echomsg 'Location ' . new_name . ' already present in circle'
+			continue
+		endif
+		let glossary[index] = new_name
+		let locations[index].name = new_name
+		call wheel#pendulum#rename('location', old_name, new_name)
+		" rename file
+		let old_filename = locations[index].file
+		let new_filename = fnameescape(fields[1])
+		if new_filename ==# old_filename
+			continue
+		endif
+		if filereadable(new_filename)
+			let prompt = 'Replace existing ' . new_filename . ' ?'
+			let overwrite = confirm(prompt, "&Yes\n&No", 2)
+			if overwrite != 1
+				continue
+			endif
+		endif
+		let locations[index].file = new_filename
+		let old_filename = shellescape(old_filename)
+		let new_filename = shellescape(new_filename)
+		let syscmd = 'mv -f ' . old_filename . ' ' . new_filename
+		let output = system(syscmd)
+		" rename file in all involved locations of the wheel
+		for torus in g:wheel.toruses
+			for circle in torus.circles
+				for location in circle.locations
+					if location.file ==# old_filename
+						let location.file = filename
+					endif
+				endfor
+			endfor
+		endfor
+		" rename file in wheel index
+		let g:wheel.timestamp = wheel#pendulum#timestamp()
+		call wheel#helix#rename_file(old_filename, new_filename)
+	endfor
+	setlocal nomodified
+	echomsg 'Changes written to wheel'
+	return v:true
 endfun
 
 fun! wheel#cuboctahedron#reorganize ()

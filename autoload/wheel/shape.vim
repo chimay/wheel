@@ -14,6 +14,11 @@ if ! exists('s:is_mandala')
 	lockvar s:is_mandala
 endif
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " Write commands
 
 fun! wheel#shape#write_reorder (level)
@@ -33,6 +38,16 @@ fun! wheel#shape#write_rename (level)
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
 	let function = 'call wheel#cuboctahedron#rename (' . string(a:level) . ')'
+	exe 'autocmd' group event '<buffer>' function
+endfun
+
+fun! wheel#shape#write_rename_files ()
+	" Define rename autocommands
+	setlocal buftype=acwrite
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	let function = 'call wheel#cuboctahedron#rename_files ()'
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
@@ -103,6 +118,38 @@ fun! wheel#shape#rename (level)
 	endif
 	" reload
 	let b:wheel_reload = "wheel#shape#rename('" . level . "')"
+endfun
+
+fun! wheel#shape#rename_files ()
+	" Rename locations & files of current circle, after buffer content
+	let glossary = wheel#perspective#switch ('location')
+	if empty(glossary)
+		echomsg 'wheel mandala rename_files : empty or incomplete circle'
+		return v:false
+	endif
+	let locations = deepcopy(wheel#referen#circle().locations)
+	let filenames = map(locations, {_,v -> v.file})
+	let lines = []
+	let len_circle = len(locations)
+	if len_circle != len(filenames)
+		echomsg 'shape rename_files : inconsistent circle lengths'
+		return v:false
+	endif
+	for index in range(len_circle)
+		let entry = [glossary[index], filenames[index]]
+		let record = join(entry, s:field_separ)
+		call add(lines, record)
+	endfor
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('rename/files')
+	call wheel#mandala#common_maps ()
+	call wheel#shape#write_rename_files ()
+	call wheel#mandala#fill(lines, 'delete')
+	silent global /^$/ delete
+	setlocal nomodified
+	" reload
+	let b:wheel_reload = 'wheel#shape#rename_files()'
+	return v:true
 endfun
 
 " Reorganize
