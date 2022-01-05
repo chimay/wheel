@@ -1022,7 +1022,7 @@ this one, it’s not heavily tested yet.
 
 Mappings~
 
-The default mappings launching reordering buffers are :
+The default mappings launching renaming buffers are :
 
 - `<M-w>!n`     : rename locations
 - `<M-w>!<C-n>` : rename circles
@@ -1032,11 +1032,6 @@ The default mappings launching reordering buffers are :
 Menus~
 
 The renaming buffers can also be launched from the main & meta menus.
-
-Pressed the wrong button ?~
-
-If something goes wrong, you can quit the buffer and re-read the wheel
-variables with `<M-w>r`.
 
 ------------------------------------------------------------------------------
 REORGANIZING				*wheel-dedicated-buffers-reorganizing*
@@ -1119,7 +1114,7 @@ Note that :
 
 - the plugin will not write the grepped files for you.
   + if you are satisfied with the changes, just save all your modified
-    buffers as usual with `:wa`.
+    buffers as usual with |:wall|.
 - you can of course undo the changes you made if you are not happy with it
 
 Default mapping : `<M-w><M-g>`
@@ -2558,7 +2553,7 @@ occurences of the old var name. Then, just |:write| the buffer to apply
 these changes to all your shell scripts.
 
 Satisfied with the changes ? Just save all your modified buffers with
-`:wa`.
+|:wall|.
 
 Want to go back to previous state ? You can undo your substitution in
 the dedicated buffer, and write again.
