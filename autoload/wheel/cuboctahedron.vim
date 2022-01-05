@@ -278,8 +278,8 @@ fun! wheel#cuboctahedron#rename_files ()
 		let locations[index].file = new_filename
 		let old_filename = shellescape(old_filename)
 		let new_filename = shellescape(new_filename)
-		let syscmd = 'mv -f ' . old_filename . ' ' . new_filename
-		let output = system(syscmd)
+		let syscmd_rename = 'mv -f ' . old_filename . ' ' . new_filename
+		let output = system(syscmd_rename)
 		" rename file in all involved locations of the wheel
 		for torus in g:wheel.toruses
 			for circle in torus.circles
