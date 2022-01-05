@@ -294,7 +294,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		let g:wheel.timestamp = wheel#pendulum#timestamp()
 		call wheel#helix#rename_file(old_filename, new_filename)
 	endfor
-	call wheel#mandala#related()
+	call wheel#mandala#close()
 	call wheel#vortex#jump()
 	call wheel#cylinder#recall()
 	setlocal nomodified
