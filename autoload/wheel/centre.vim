@@ -109,6 +109,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-batch-rename-location) :call wheel#shape#rename('location')<cr>
 	nnoremap <plug>(wheel-batch-rename-circle) :call wheel#shape#rename('circle')<cr>
 	nnoremap <plug>(wheel-batch-rename-torus) :call wheel#shape#rename('torus')<cr>
+	nnoremap <plug>(wheel-batch-rename-location-filename) :call wheel#shape#rename_files()<cr>
 	" Reorganize
 	nnoremap <plug>(wheel-reorganize) :call wheel#shape#reorganize()<cr>
 	" Reorganize tabs & windows
@@ -241,6 +242,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '!n <plug>(wheel-batch-rename-location)'
 		exe nmap prefix . '!<c-n> <plug>(wheel-batch-rename-circle)'
 		exe nmap prefix . '!N <plug>(wheel-batch-rename-torus)'
+		exe nmap prefix . '!<m-n> <plug>(wheel-batch-rename-location-filename)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2

@@ -353,6 +353,7 @@ if ! exists('s:menu_reorganize')
 				\ ['batch rename toruses' ,  "wheel#shape#rename('torus')"],
 				\ ['batch rename circles' ,  "wheel#shape#rename('circle')"],
 				\ ['batch rename locations' ,  "wheel#shape#rename('location')"],
+				\ ['batch rename locations & filenames' ,  'wheel#shape#rename_files'],
 				\ ['reorganize wheel' ,  'wheel#shape#reorganize'],
 				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwins'],
 				\ ['grep in edit mode' ,  'wheel#shape#grep_edit'],
