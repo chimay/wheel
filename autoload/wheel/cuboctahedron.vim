@@ -224,6 +224,9 @@ fun! wheel#cuboctahedron#rename (level)
 	endfor
 	let upper[key] = elements
 	let upper.glossary = names
+	call wheel#mandala#related()
+	call wheel#vortex#jump()
+	call wheel#cylinder#recall()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	return elements
@@ -252,7 +255,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		let new_name = fields[0]
 		let new_name = substitute(new_name, ' ', ' ', 'g')
 		let found = index(glossary, new_name)
-		if found >= 0 && found < index
+		if found >= 0 && found != index
 			echomsg 'Location ' . new_name . ' already present in circle'
 			continue
 		endif
@@ -291,6 +294,9 @@ fun! wheel#cuboctahedron#rename_files ()
 		let g:wheel.timestamp = wheel#pendulum#timestamp()
 		call wheel#helix#rename_file(old_filename, new_filename)
 	endfor
+	call wheel#mandala#related()
+	call wheel#vortex#jump()
+	call wheel#cylinder#recall()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	return v:true
