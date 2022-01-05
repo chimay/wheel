@@ -184,7 +184,7 @@ mapping prefix : >
 ONE MAP TO RING THEM ALL		*wheel-sbs-one-map-to-ring-them-all*
 
 To get an overview of the Wheel, I suggest you take a look at the main
-menu. Press `<M-w>m` and a new buffer will appear, listing the actions
+menu. Press `<M-w><M-m>` and a new buffer will appear, listing the actions
 you can perform. Insert mode is used to filter the lines. Press enter
 in normal mode to trigger an action (if you know what you’re doing),
 or `q` to quit the menu.
@@ -688,7 +688,7 @@ shortcut for `g<enter>` : launch action and leave the menu opened.
 
 Main menu~
 
-The main menu is triggered with `<M-w>m` by default. From there, you
+The main menu is triggered with `<M-w><M-m>` by default. From there, you
 can launch the action you want by pressing `<enter>` on its line. Same
 thing for `g<enter>`, but it will leave the dedicated buffer opened.
 
@@ -704,6 +704,7 @@ launch a sub-menu. Each sub-menu holds the actions of the same category :
 - add a new element to the wheel
 - rename an element
 - delete an element
+- move an element
 - navigation
 - alternate last two elements
 - reorganize elements
@@ -775,7 +776,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>s`         : occur in current file
 - `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
-- `<M-w><M-m>`     : markers
+- `<M-w>'`         : markers
 - `<M-w><M-t>`     : tags
 - `<M-w>j`         : jumps list
 - `<M-w>c`         : changes list
@@ -1848,14 +1849,14 @@ LEVEL 0						*wheel-mappings-level-0*
 
 Menus~
 
-The most useful mapping to discover wheel functions is `<M-w>m` : it
+The most useful mapping to discover wheel functions is `<M-w><M-m>` : it
 launches a menu in a dedicated buffer, and from there you can trigger
 all sort of actions on the Wheel. See |wheel-dedicated-buffers-menu|
 for more information.
 
 | Prefix + | With default prefix | Action                  |
 | -------- | ------------------- | ----------------------- |
-| m        | <M-w>m              | Main menu               |
+| m        | <M-w><M-m>          | Main menu               |
 | =        | <M-w>=              | Meta menu               |
 
 Add~
@@ -1931,6 +1932,13 @@ Delete~
 | d        | <M-w>d              | Delete current location |
 | <C-d>    | <M-w><C-d>          | Delete current circle   |
 | D        | <M-w>D              | Delete current torus    |
+
+Move~
+
+| Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
+| m        | <M-w>m              | Move current location   |
+| M        | <M-w>M              | Move current circle     |
 
 Dedicated buffers~
 
@@ -2320,6 +2328,9 @@ Prompt :
 | <plug>(wheel-delete-location)                   | delete current location                  |
 | <plug>(wheel-delete-circle)                     | delete current circle                    |
 | <plug>(wheel-delete-torus)                      | delete current torus                     |
+| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-move-location)                     | move current location                    |
+| <plug>(wheel-move-circle)                       | move current circle                      |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-switch-location)                   | switch location                          |
 | <plug>(wheel-switch-circle)                     | switch circle                            |

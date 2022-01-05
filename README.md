@@ -240,7 +240,7 @@ page, either in the wiki or in the `wheel.txt` file.
 
 ## In wheel menu
 
-In the help submenu of the main menu (default map : `<M-w>m`), you have
+In the help submenu of the main menu (default map : `<M-w><M-m>`), you have
 access to :
 
 - the inline help (wheel.txt)

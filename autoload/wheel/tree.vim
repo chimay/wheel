@@ -9,6 +9,13 @@
 "
 " To insert a non-breaking space : C-v x a 0
 
+" Script constants
+
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
 " Helpers
 
 fun! wheel#tree#is_in_circle (location, circle)
@@ -343,39 +350,22 @@ fun! wheel#tree#rename_file (...)
 	call wheel#tree#rename('location')
 endfun
 
-" Move
-
-fun! wheel#tree#move (level, ...)
-	" Move element of level to another circle
-	" level can be :
-	"   - circle : move circle to another torus
-	"   - location : move location to another circle
-	let level = a:level
-	if a:0 > 0
-		let dest = a:1
-	else
-		let prompt = 'Move ' . level . ' to ? '
-		if level ==# 'circle'
-			let complete = 'customlist,wheel#completelist#torus'
-		elseif level ==# 'location'
-			let complete = 'customlist,wheel#completelist#grid'
-		else
-			echomsg 'wheel move : bad level name.'
-			return v:false
-		endif
-		let dest = input(prompt, '', complete)
-	endif
-endfun
-
 " Delete
 
-fun! wheel#tree#delete (level)
+fun! wheel#tree#delete (level, ...)
 	" Delete current element at level
 	let level = a:level
-	let prompt = 'Delete current ' . level . ' ?'
-	let confirm = confirm(prompt, "&Yes\n&No", 2)
-	if confirm != 1
-		return v:false
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	if mode != 'force'
+		let prompt = 'Delete current ' . level . ' ?'
+		let confirm = confirm(prompt, "&Yes\n&No", 2)
+		if confirm != 1
+			return v:false
+		endif
 	endif
 	" For history
 	let old_names = wheel#referen#names ()
@@ -407,4 +397,43 @@ fun! wheel#tree#delete (level)
 	" Adjust history
 	call wheel#pendulum#delete(level, old_names)
 	return v:true
+endfun
+
+" Move
+
+fun! wheel#tree#move (level, ...)
+	" Move element of level
+	" level can be :
+	"   - circle : move circle to another torus
+	"   - location : move location to another circle
+	let level = a:level
+	if a:0 > 0
+		let destination = a:1
+	else
+		let upper_name = wheel#referen#upper_level_name (level)
+		let prompt = 'Move ' . level . ' to ' . upper_name . ' ? '
+		if level ==# 'circle'
+			let complete = 'customlist,wheel#completelist#torus'
+		elseif level ==# 'location'
+			let complete = 'customlist,wheel#completelist#grid'
+		else
+			echomsg 'wheel move : bad level name.'
+			return v:false
+		endif
+		let destination = input(prompt, '', complete)
+	endif
+	let element = deepcopy(wheel#referen#{level}())
+	call wheel#tree#delete (level, 'force')
+	if level == 'circle'
+		call wheel#vortex#tune ('torus', destination)
+		call wheel#tree#add_circle (element.name)
+		for location in element.locations
+			call wheel#tree#add_location (location)
+		endfor
+	elseif level == 'location'
+		let coordin = split(destination, s:level_separ)
+		call wheel#vortex#tune ('torus', coordin[0])
+		call wheel#vortex#tune ('circle', coordin[1])
+		call wheel#tree#add_location (element)
+	endif
 endfun

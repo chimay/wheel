@@ -296,6 +296,14 @@ if ! exists('s:menu_delete')
 	lockvar s:menu_delete
 endif
 
+if ! exists('s:menu_move')
+	let s:menu_move = [
+				\ ['move circle' ,  "wheel#tree#move('circle')"],
+				\ ['move location' ,  "wheel#tree#move('location')"],
+				\]
+	lockvar s:menu_move
+endif
+
 if ! exists('s:menu_disc')
 	let s:menu_disc = [
 				\ ['save wheel' ,  'wheel#disc#write_all'],
@@ -448,6 +456,7 @@ if ! exists('s:menu_list')
 				\ 'add',
 				\ 'rename',
 				\ 'delete',
+				\ 'move',
 				\ 'disc',
 				\ 'navigation',
 				\ 'alternate',

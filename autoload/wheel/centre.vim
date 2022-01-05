@@ -34,6 +34,9 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-delete-location) :call wheel#tree#delete('location')<cr>
 	nnoremap <plug>(wheel-delete-circle) :call wheel#tree#delete('circle')<cr>
 	nnoremap <plug>(wheel-delete-torus) :call wheel#tree#delete('torus')<cr>
+	" Move
+	nnoremap <plug>(wheel-move-location) :call wheel#tree#move('location')<cr>
+	nnoremap <plug>(wheel-move-circle) :call wheel#tree#move('circle')<cr>
 	" Load / Save wheel
 	nnoremap <plug>(wheel-read-all) :call wheel#disc#read_all()<cr>
 	nnoremap <plug>(wheel-write-all) :call wheel#disc#write_all()<cr>
@@ -175,7 +178,7 @@ fun! wheel#centre#cables ()
 	" Basic
 	if g:wheel_config.mappings >= 0
 		" Menus
-		exe nmap prefix . 'm <plug>(wheel-menu-main)'
+		exe nmap prefix . '<m-m> <plug>(wheel-menu-main)'
 		exe nmap prefix . '= <plug>(wheel-menu-meta)'
 		" Add
 		exe nmap prefix . 'a <plug>(wheel-add-here)'
@@ -234,6 +237,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'd <plug>(wheel-delete-location)'
 		exe nmap prefix . '<c-d> <plug>(wheel-delete-circle)'
 		exe nmap prefix . 'D <plug>(wheel-delete-torus)'
+		" Move
+		exe nmap prefix . 'm <plug>(wheel-move-location)'
+		exe nmap prefix . 'M <plug>(wheel-move-circle)'
 		" Reorder
 		exe nmap prefix . 'o <plug>(wheel-reorder-location)'
 		exe nmap prefix . '<c-o> <plug>(wheel-reorder-circle)'
@@ -262,7 +268,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'g <plug>(wheel-grep)'
 		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
 		" (neo)vim points
-		exe nmap prefix . '<m-m> <plug>(wheel-markers)'
+		exe nmap prefix . "' <plug>(wheel-markers)"
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
 		exe nmap prefix . 'c <plug>(wheel-changes)'
 		" Tags

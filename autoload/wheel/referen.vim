@@ -243,4 +243,3 @@ fun! wheel#referen#location_matches_file_line_col ()
 	let match = match && col('.') ==# cur_location.col
 	return match
 endfun
-
