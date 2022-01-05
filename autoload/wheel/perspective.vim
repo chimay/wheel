@@ -158,9 +158,7 @@ endfu
 fun! wheel#perspective#find (pattern)
 	" Find files in current directory using **/*pattern* glob
 	let pattern = a:pattern
-	let lines = glob(pattern)
-	let lines = split(lines, "\n")
-	return lines
+	return glob(pattern, v:false, v:true)
 endfun
 
 fun! wheel#perspective#locate (pattern)

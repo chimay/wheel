@@ -74,6 +74,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-tree) :call wheel#sailing#tree()<cr>
 	"History
 	nnoremap <plug>(wheel-history) :call wheel#sailing#history()<cr>
+	" Follow current file
+	nnoremap <plug>(wheel-follow) :call wheel#projection#follow()<cr>
 	" Search for files
 	nnoremap <plug>(wheel-locate) :call wheel#sailing#locate()<cr>
 	nnoremap <plug>(wheel-find) :call wheel#sailing#find()<cr>
@@ -103,6 +105,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-reorder-location) :call wheel#shape#reorder('location')<cr>
 	nnoremap <plug>(wheel-reorder-circle) :call wheel#shape#reorder('circle')<cr>
 	nnoremap <plug>(wheel-reorder-torus) :call wheel#shape#reorder('torus')<cr>
+	" Batch rename
+	nnoremap <plug>(wheel-batch-rename-location) :call wheel#shape#rename('location')<cr>
+	nnoremap <plug>(wheel-batch-rename-circle) :call wheel#shape#rename('circle')<cr>
+	nnoremap <plug>(wheel-batch-rename-torus) :call wheel#shape#rename('torus')<cr>
 	" Reorganize
 	nnoremap <plug>(wheel-reorganize) :call wheel#shape#reorganize()<cr>
 	" Reorganize tabs & windows
@@ -184,6 +190,13 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<c-right> <plug>(wheel-next-circle)'
 		exe nmap prefix . '<s-left> <plug>(wheel-previous-torus)'
 		exe nmap prefix . '<s-right> <plug>(wheel-next-torus)'
+		" History
+		exe nmap prefix . '<up> <plug>(wheel-history-newer)'
+		exe nmap prefix . '<down> <plug>(wheel-history-older)'
+		exe nmap prefix . '<c-^> <plug>(wheel-alternate-anywhere)'
+		exe nmap prefix . '<m-^> <plug>(wheel-alternate-same-circle)'
+		exe nmap prefix . '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
+		exe nmap prefix . '^ <plug>(wheel-alternate-menu)'
 		" Load / Save wheel
 		exe nmap prefix . 'r <plug>(wheel-read-all)'
 		exe nmap prefix . 'w <plug>(wheel-write-all)'
@@ -193,6 +206,13 @@ fun! wheel#centre#cables ()
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1
+		" Switch
+		exe nmap prefix . '<cr> <plug>(wheel-switch-location)'
+		exe nmap prefix . '<c-cr> <plug>(wheel-switch-circle)'
+		exe nmap prefix . '<s-cr> <plug>(wheel-switch-torus)'
+		exe nmap prefix . '<m-cr> <plug>(wheel-multi-switch)'
+		" Follow
+		exe nmap prefix . '<m-f> <plug>(wheel-follow)'
 		" Navigation
 		exe nmap prefix . '<space> <plug>(wheel-navigation-location)'
 		exe nmap prefix . '<c-space> <plug>(wheel-navigation-circle)'
@@ -204,10 +224,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<m-x> <plug>(wheel-tree)'
 		" History
 		exe nmap prefix . 'h <plug>(wheel-history)'
-		" Reorder
-		exe nmap prefix . 'o <plug>(wheel-reorder-location)'
-		exe nmap prefix . '<c-o> <plug>(wheel-reorder-circle)'
-		exe nmap prefix . 'O <plug>(wheel-reorder-torus)'
 		" Rename
 		exe nmap prefix . 'n <plug>(wheel-rename-location)'
 		exe nmap prefix . '<c-n> <plug>(wheel-rename-circle)'
@@ -217,25 +233,21 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'd <plug>(wheel-delete-location)'
 		exe nmap prefix . '<c-d> <plug>(wheel-delete-circle)'
 		exe nmap prefix . 'D <plug>(wheel-delete-torus)'
-		" Switch
-		exe nmap prefix . '<cr> <plug>(wheel-switch-location)'
-		exe nmap prefix . '<c-cr> <plug>(wheel-switch-circle)'
-		exe nmap prefix . '<s-cr> <plug>(wheel-switch-torus)'
-		exe nmap prefix . '<m-cr> <plug>(wheel-multi-switch)'
-		" History
-		exe nmap prefix . '<up> <plug>(wheel-history-newer)'
-		exe nmap prefix . '<down> <plug>(wheel-history-older)'
-		exe nmap prefix . '<c-^> <plug>(wheel-alternate-anywhere)'
-		exe nmap prefix . '<m-^> <plug>(wheel-alternate-same-circle)'
-		exe nmap prefix . '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
-		exe nmap prefix . '^ <plug>(wheel-alternate-menu)'
+		" Reorder
+		exe nmap prefix . 'o <plug>(wheel-reorder-location)'
+		exe nmap prefix . '<c-o> <plug>(wheel-reorder-circle)'
+		exe nmap prefix . 'O <plug>(wheel-reorder-torus)'
+		" Batch rename
+		exe nmap prefix . '!n <plug>(wheel-batch-rename-location)'
+		exe nmap prefix . '!<c-n> <plug>(wheel-batch-rename-circle)'
+		exe nmap prefix . '!N <plug>(wheel-batch-rename-torus)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Search for files
 		exe nmap prefix . 'l <plug>(wheel-locate)'
 		exe nmap prefix . 'f <plug>(wheel-find)'
-		exe nmap prefix . '<m-f> <plug>(wheel-async-find)'
+		exe nmap prefix . '&f <plug>(wheel-async-find)'
 		exe nmap prefix . 'u <plug>(wheel-mru)'
 		" Buffers
 		exe nmap prefix . 'b <plug>(wheel-buffers)'
@@ -268,7 +280,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<m-u> <plug>(wheel-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix . ': <plug>(wheel-command)'
-		exe nmap prefix . '& <plug>(wheel-async)'
+		exe nmap prefix . '&& <plug>(wheel-async)'
 		" Save (push) mandala buffer
 		exe nmap prefix . '<tab> <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer

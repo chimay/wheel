@@ -26,6 +26,16 @@ fun! wheel#shape#write_reorder (level)
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
+fun! wheel#shape#write_rename (level)
+	" Define rename autocommands
+	setlocal buftype=acwrite
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	let function = 'call wheel#cuboctahedron#rename (' . string(a:level) . ')'
+	exe 'autocmd' group event '<buffer>' function
+endfun
+
 fun! wheel#shape#write_reorganize ()
 	" Define reorganize autocommands
 	setlocal buftype=acwrite
@@ -72,6 +82,27 @@ fun! wheel#shape#reorder (level)
 	endif
 	" reload
 	let b:wheel_reload = "wheel#shape#reorder('" . level . "')"
+endfun
+
+" Batch rename
+
+fun! wheel#shape#rename (level)
+	" Rename level elements in a buffer
+	let level = a:level
+	let lines = wheel#perspective#switch (level)
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('rename/' . level)
+	call wheel#mandala#common_maps ()
+	call wheel#shape#write_rename (level)
+	if ! empty(lines)
+		call wheel#mandala#fill(lines, 'delete')
+		silent global /^$/ delete
+		setlocal nomodified
+	else
+		echomsg 'wheel mandala rename : empty or incomplete' level
+	endif
+	" reload
+	let b:wheel_reload = "wheel#shape#rename('" . level . "')"
 endfun
 
 " Reorganize

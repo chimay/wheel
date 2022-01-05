@@ -187,13 +187,41 @@ fun! wheel#cuboctahedron#reorder (level)
 	elseif len(new_list) > len(old_list)
 		echomsg 'Elements in excess : changes not written'
 	else
-		let upper[key] = []
+		"let upper[key] = []
 		let upper[key] = new_list
 		let upper.glossary = new_names
 		setlocal nomodified
 		echomsg 'Changes written to wheel'
 		return new_list
 	endif
+endfun
+
+fun! wheel#cuboctahedron#rename (level)
+	" Rename current elements at level, after buffer content
+	let level = a:level
+	let upper = wheel#referen#upper (level)
+	let upper_level_name = wheel#referen#upper_level_name(level)
+	let key = wheel#referen#list_key (upper_level_name)
+	let elements = deepcopy(wheel#referen#elements (upper))
+	let names = getline(1, '$')
+	let len_names = len(names)
+	let len_elements = len(elements)
+	if len_names < len_elements
+		echomsg 'Some names seem to be missing : changes not written'
+		return []
+	endif
+	if len_names > len_elements
+		echomsg 'Names in excess : changes not written'
+		return []
+	endif
+	for index in range(len_names)
+		let elements[index].name = names[index]
+	endfor
+	let upper[key] = elements
+	let upper.glossary = names
+	setlocal nomodified
+	echomsg 'Changes written to wheel'
+	return elements
 endfun
 
 fun! wheel#cuboctahedron#reorganize ()

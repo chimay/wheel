@@ -1628,6 +1628,12 @@ window, which makes sense.
 Also note that if the file is not in the wheel, the auto-follow routine
 will do nothing.
 
+Launch it manually~
+
+You can launch the follow routine manually with `<M-w><M-f>` by default.
+
+Edit & add~
+
 If you want to edit a file and add it to the current group (circle),
 you can use `<plug>(wheel-add-file)`. It is bound to `<M-w>+f` by default.
 
@@ -1636,16 +1642,17 @@ To add a buffer, you can use `<plug>(wheel-add-buffer)`, bound to
 
 Other events~
 
-If you also want to trigger this auto-follow process when you edit a
-file with a native vim command (like |:edit|), you can also add it to the
-`BufRead` event : >
+I find these events less useful but they are worth mentioning, just in
+case you need them in your workflow.
+
+If you want to trigger the auto-follow process when you edit a file with a
+native vim command (like |:edit|), just add it to the `BufRead` event : >
 
     autocmd BufRead * call wheel#projection#follow()
 <
 
-If you also want to trigger this auto-follow process when you enter a
-buffer with a native vim command (like |:buffer|), you can also add it
-to the `BufEnter` event : >
+Same thing when you enter a buffer with a native vim command (like
+|:buffer|), just add it to the `BufEnter` event : >
 
     autocmd BufEnter * call wheel#projection#follow()
 <
@@ -1841,6 +1848,17 @@ Next / previous~
 | <S-left>   | <M-w><S-left>         | Go to previous torus    |
 | <S-right>  | <M-w><S-right>        | Go to next torus        |
 
+History~
+
+| Prefix +    | With default prefix | Action                                        |
+| ----------- | ------------------- | --------------------------------------------- |
+| <Up>        | <M-w><PageUp>       | Go to newer location in history               |
+| <Down>      | <M-w><PageDown>     | Go to older location in history               |
+| ^           | <M-w>^              | Alternate menu                                |
+| <C-^>       | <M-w><C-^>          | Alternate anywhere                            |
+| <M-^>       | <M-w><M-^>          | Alternate in the same circle                  |
+| <M-C-^>     | <M-w><M-C-^>        | Alternate in another circle of the same torus |
+
 Read / Write file~
 
 | Prefix + | With default prefix | Action                 |
@@ -1852,6 +1870,16 @@ Read / Write file~
 
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
+
+Switch, prompting functions with completion~
+
+| Prefix +  | With default prefix | Action                                   |
+| --------- | ------------------- | ---------------------------------------- |
+| <Enter>   | <M-w><Enter>        | Switch to location                       |
+| <C-CR>    | <M-w><C-Enter>      | Switch to circle                         |
+| <S-CR>    | <M-w><S-Enter>      | Switch to torus                          |
+| <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location       |
+| x         | <M-w>x              | Switch location in index                 |
 
 Rename~
 
@@ -1868,27 +1896,6 @@ Delete~
 | d        | <M-w>d              | Delete current location |
 | <C-d>    | <M-w><C-d>          | Delete current circle   |
 | D        | <M-w>D              | Delete current torus    |
-
-Switch, prompting functions with completion~
-
-| Prefix +  | With default prefix | Action                                   |
-| --------- | ------------------- | ---------------------------------------- |
-| <Enter>   | <M-w><Enter>        | Switch to location                       |
-| <C-CR>    | <M-w><C-Enter>      | Switch to circle                         |
-| <S-CR>    | <M-w><S-Enter>      | Switch to torus                          |
-| <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location       |
-| x         | <M-w>x              | Switch location in index                 |
-
-History~
-
-| Prefix +    | With default prefix | Action                                        |
-| ----------- | ------------------- | --------------------------------------------- |
-| <Up>        | <M-w><PageUp>       | Go to newer location in history               |
-| <Down>      | <M-w><PageDown>     | Go to older location in history               |
-| ^           | <M-w>^              | Alternate menu                                |
-| <C-^>       | <M-w><C-^>          | Alternate anywhere                            |
-| <M-^>       | <M-w><M-^>          | Alternate in the same circle                  |
-| <M-C-^>     | <M-w><M-C-^>        | Alternate in another circle of the same torus |
 
 Dedicated buffers~
 
@@ -1907,6 +1914,10 @@ Dedicated buffers~
 | o          | <M-w>o                | Reorder locations in current circle    |
 | <C-o>      | <M-w><C-o>            | Reorder circles in current torus       |
 | O          | <M-w>O                | Reorder toruses in wheel               |
+| ---------- | --------------------- | -------------------------------------- |
+| !n         | <M-w>!n               | Rename locations in current circle     |
+| !<C-n>     | <M-w>!<C-n>           | Rename circles in current torus        |
+| !N         | <M-w>!N               | Rename toruses in wheel                |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
@@ -2297,6 +2308,7 @@ Dedicated buffers :
 | <plug>(wheel-index-circles)                     | index of circles                       |
 | <plug>(wheel-tree)                              | index of locations in tree fold format |
 | <plug>(wheel-history)                           | index of locations history             |
+| <plug>(wheel-follow)                            | follow current file                    |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-locate)                            | search file with locate                |
 | <plug>(wheel-find)                              | find file in current dir               |
