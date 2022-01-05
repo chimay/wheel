@@ -1024,10 +1024,10 @@ Mappings~
 
 The default mappings launching renaming buffers are :
 
-- `<M-w>!n`     : rename locations
-- `<M-w>!<C-n>` : rename circles
-- `<M-w>!N`     : rename toruses
-- `<M-w>!<M-n>` : rename locations & files
+- `<M-w>@n`     : rename locations
+- `<M-w>@<C-n>` : rename circles
+- `<M-w>@N`     : rename toruses
+- `<M-w>@<M-n>` : rename locations & files
 
 Menus~
 
@@ -1950,9 +1950,9 @@ Dedicated buffers~
 | <C-o>      | <M-w><C-o>            | Reorder circles in current torus       |
 | O          | <M-w>O                | Reorder toruses in wheel               |
 | ---------- | --------------------- | -------------------------------------- |
-| !n         | <M-w>!n               | Rename locations in current circle     |
-| !<C-n>     | <M-w>!<C-n>           | Rename circles in current torus        |
-| !N         | <M-w>!N               | Rename toruses in wheel                |
+| @n         | <M-w>@n               | Rename locations in current circle     |
+| @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus        |
+| @N         | <M-w>@N               | Rename toruses in wheel                |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*

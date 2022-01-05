@@ -343,6 +343,30 @@ fun! wheel#tree#rename_file (...)
 	call wheel#tree#rename('location')
 endfun
 
+" Move
+
+fun! wheel#tree#move (level, ...)
+	" Move element of level to another circle
+	" level can be :
+	"   - circle : move circle to another torus
+	"   - location : move location to another circle
+	let level = a:level
+	if a:0 > 0
+		let dest = a:1
+	else
+		let prompt = 'Move ' . level . ' to ? '
+		if level ==# 'circle'
+			let complete = 'customlist,wheel#completelist#torus'
+		elseif level ==# 'location'
+			let complete = 'customlist,wheel#completelist#grid'
+		else
+			echomsg 'wheel move : bad level name.'
+			return v:false
+		endif
+		let dest = input(prompt, '', complete)
+	endif
+endfun
+
 " Delete
 
 fun! wheel#tree#delete (level)

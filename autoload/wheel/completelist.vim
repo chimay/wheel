@@ -70,7 +70,7 @@ fun! wheel#completelist#location (arglead, cmdline, cursorpos)
 endfu
 
 fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
-	" Complete location coordinates in index
+	" Complete coordinates in index
 	let helix = wheel#helix#helix ()
 	let choices = []
 	for coordin in helix
@@ -80,6 +80,18 @@ fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfu
+
+fun! wheel#completelist#grid  (arglead, cmdline, cursorpos)
+	" Complete location coordinates in index
+	let grid = wheel#helix#grid ()
+	let choices = []
+	for coordin in grid
+		let entry = join(coordin, s:level_separ)
+		let choices = add(choices, entry)
+	endfor
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, choices)
+endfun
 
 " mandalas
 

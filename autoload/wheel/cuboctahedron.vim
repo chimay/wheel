@@ -220,7 +220,11 @@ fun! wheel#cuboctahedron#rename (level)
 		return []
 	endif
 	for index in range(len_names)
-		let elements[index].name = names[index]
+		let old_name = elements[index].name
+		let new_name = names[index]
+		let elements[index].name = new_name
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
+		call wheel#pendulum#rename(level, old_name, new_name)
 	endfor
 	let upper[key] = elements
 	let upper.glossary = names
@@ -261,6 +265,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		endif
 		let glossary[index] = new_name
 		let locations[index].name = new_name
+		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename('location', old_name, new_name)
 		" rename file
 		let old_filename = locations[index].file
@@ -281,11 +286,11 @@ fun! wheel#cuboctahedron#rename_files ()
 		let syscmd_rename = 'mv -f ' . old_filename . ' ' . new_filename
 		let output = system(syscmd_rename)
 		" rename file in all involved locations of the wheel
-		for torus in g:wheel.toruses
-			for circle in torus.circles
-				for location in circle.locations
-					if location.file ==# old_filename
-						let location.file = filename
+		for tor in g:wheel.toruses
+			for cir in tor.circles
+				for loca in cir.locations
+					if loca.file ==# old_filename
+						let loca.file = new_filename
 					endif
 				endfor
 			endfor

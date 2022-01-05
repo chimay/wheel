@@ -141,7 +141,7 @@ fun! wheel#shape#rename_files ()
 		call add(lines, record)
 	endfor
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('rename/files')
+	call wheel#mandala#open ('rename/locations_files')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_rename_files ()
 	call wheel#mandala#fill(lines, 'delete')

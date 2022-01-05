@@ -239,10 +239,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<c-o> <plug>(wheel-reorder-circle)'
 		exe nmap prefix . 'O <plug>(wheel-reorder-torus)'
 		" Batch rename
-		exe nmap prefix . '!n <plug>(wheel-batch-rename-location)'
-		exe nmap prefix . '!<c-n> <plug>(wheel-batch-rename-circle)'
-		exe nmap prefix . '!N <plug>(wheel-batch-rename-torus)'
-		exe nmap prefix . '!<m-n> <plug>(wheel-batch-rename-location-filename)'
+		exe nmap prefix . '@n <plug>(wheel-batch-rename-location)'
+		exe nmap prefix . '@<c-n> <plug>(wheel-batch-rename-circle)'
+		exe nmap prefix . '@N <plug>(wheel-batch-rename-torus)'
+		exe nmap prefix . '@<m-n> <plug>(wheel-batch-rename-location-filename)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
