@@ -535,6 +535,7 @@ Jumps				|wheel-dedicated-buffers-jumps|
 Changes				|wheel-dedicated-buffers-changes|
 Yank 				|wheel-dedicated-buffers-yank|
 Reordering		        |wheel-dedicated-buffers-reordering|
+Renaming		        |wheel-dedicated-buffers-renaming|
 Reorganizing			|wheel-dedicated-buffers-reorganizing|
 Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
@@ -992,6 +993,35 @@ The default mappings launching reordering buffers are :
 Menus~
 
 The reordering buffers can also be launched from the main & meta menus.
+
+Pressed the wrong button ?~
+
+If something goes wrong, you can quit the buffer and re-read the wheel
+variables with `<M-w>r`.
+
+------------------------------------------------------------------------------
+RENAMING BUFFERS			*wheel-dedicated-buffers-renaming*
+
+The renaming buffers allow you to batch rename Wheel elements by editing
+the buffer lines. You can use powerful native tools, like visual block
+or |:substitute| operations to perform the renaming.
+
+To validate your change, simply |:write| the buffer.
+
+The number of lines will be checked and, if there is missing or excedent
+lines, Wheel will refuse to apply your change.
+
+Mappings~
+
+The default mappings launching reordering buffers are :
+
+- `<M-w>!n`     : rename locations
+- `<M-w>!<C-n>` : rename circles
+- `<M-w>!N`     : rename toruses
+
+Menus~
+
+The renaming buffers can also be launched from the main & meta menus.
 
 Pressed the wrong button ?~
 
@@ -2331,6 +2361,9 @@ Dedicated buffers :
 | <plug>(wheel-reorder-location)                  | reorder locations                      |
 | <plug>(wheel-reorder-circle)                    | reorder circles                        |
 | <plug>(wheel-reorder-torus)                     | reorder toruses                        |
+| <plug>(wheel-batch-rename-location)             | batch rename locations                 |
+| <plug>(wheel-batch-rename-circle)               | batch rename circles                   |
+| <plug>(wheel-batch-rename-torus)                | batch rename toruses                   |
 | <plug>(wheel-reorganize)                        | reorganize wheel treeish structure     |
 | <plug>(wheel-reorg-tabwins)                     | reorganize tabs & windows              |
 | <plug>(wheel-grep-edit)                         | grep circle files in edit mode         |
