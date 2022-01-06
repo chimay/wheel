@@ -283,6 +283,7 @@ fun! wheel#cuboctahedron#rename_files ()
 			let mkdir = 'mkdir -p ' . directory
 			let output = system(mkdir)
 		endif
+		" check existent file
 		if filereadable(new_filename)
 			let prompt = 'Replace existing ' . new_filename . ' ?'
 			let overwrite = confirm(prompt, "&Yes\n&No", 2)
@@ -290,6 +291,7 @@ fun! wheel#cuboctahedron#rename_files ()
 				continue
 			endif
 		endif
+		" mv old new
 		echomsg 'wheel : renaming ' . old_filename . ' -> ' . new_filename
 		let locations[index].file = new_filename
 		let old_filename = shellescape(old_filename)
