@@ -688,9 +688,9 @@ shortcut for `g<enter>` : launch action and leave the menu opened.
 
 Main menu~
 
-The main menu is triggered with `<M-w><M-m>` by default. From there, you
-can launch the action you want by pressing `<enter>` on its line. Same
-thing for `g<enter>`, but it will leave the dedicated buffer opened.
+The main menu is triggered with `<M-w><M-m>` by default. From there,
+you can launch an action by pressing `<enter>` on its line. Same thing
+for `g<enter>`, but it will leave the dedicated buffer opened.
 
 The available actions are grouped by themes and folded. Just open a fold to
 access its content.
@@ -698,12 +698,13 @@ access its content.
 Meta menu~
 
 Press `<M-w>=` to open the meta menu : each line in this buffer will
-launch a sub-menu. Each sub-menu holds the actions of the same category :
+launch a sub-menu. Each sub-menu holds actions of the same category :
 
 - wheel help
 - add a new element to the wheel
 - rename an element
 - delete an element
+- copy an element
 - move an element
 - navigation
 - alternate last two elements
@@ -779,7 +780,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>'`         : markers
 - `<M-w><M-t>`     : tags
 - `<M-w>j`         : jumps list
-- `<M-w>c`         : changes list
+- `<M-w>;`         : changes list
 
 Menus~
 
@@ -915,7 +916,7 @@ MARKERS						*wheel-dedicated-buffers-markers*
 
 Go to selected marker.
 
-The default mapping is `<M-w><M-m>`.
+The default mapping is `<M-w>'`. It is inspired by the normal command |'a|.
 
 ------------------------------------------------------------------------------
 JUMPS					*wheel-dedicated-buffers-jumps*
@@ -929,7 +930,7 @@ CHANGES					*wheel-dedicated-buffers-changes*
 
 Go to element in changes list.
 
-The default mapping is `<M-w>c`.
+The default mapping is `<M-w>;`. It is inspired by the normal command |g;|
 
 ------------------------------------------------------------------------------
 YANK						*wheel-dedicated-buffers-yank*
@@ -1856,7 +1857,7 @@ for more information.
 
 | Prefix + | With default prefix | Action                  |
 | -------- | ------------------- | ----------------------- |
-| m        | <M-w><M-m>          | Main menu               |
+| <M-m>    | <M-w><M-m>          | Main menu               |
 | =        | <M-w>=              | Meta menu               |
 
 Add~
@@ -1933,6 +1934,14 @@ Delete~
 | <C-d>    | <M-w><C-d>          | Delete current circle   |
 | D        | <M-w>D              | Delete current torus    |
 
+Copy~
+
+| Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
+| c        | <M-w>c              | Copy current location   |
+| <M-c>    | <M-w><M-c>          | Copy current circle     |
+| C        | <M-w>C              | Copy current torus      |
+
 Move~
 
 | Prefix + | With default prefix | Action                  |
@@ -1994,9 +2003,9 @@ Search inside files~
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
 | t        | <M-w>t              | Tags, prompting function             |
 | <M-t>    | <M-w><M-t>          | Tags in dedicated buffer             |
-| <M-m>    | <M-w><M-m>          | Markers                              |
+| '        | <M-w>'              | Markers                              |
 | j        | <M-w>j              | Jumps                                |
-| c        | <M-w>c              | Changes                              |
+| ;        | <M-w>;              | Changes                              |
 
 Yank wheel~
 

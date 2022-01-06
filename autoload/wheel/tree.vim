@@ -55,15 +55,16 @@ fun! wheel#tree#insert_torus (torus)
 	let index = wheel.current
 	let glossary = wheel.glossary
 	let name = torus.name
-	if index(name, glossary) >= 0
-		let name = input('Insert torus with name ? ')
+	if index(glossary, name) >= 0
+		let complete = 'customlist,wheel#completelist#torus'
+		let name = input('Insert torus with name ? ', '', complete)
 	endif
-	if index(name, glossary) >= 0
+	if index(glossary, name) >= 0
 		echomsg 'Torus named' name 'already exists in wheel.'
 		return v:false
 	endif
 	let torus.name = name
-	call wheel#chain#insert_next (index, torus, wheel)
+	call wheel#chain#insert_next (index, torus, wheel.toruses)
 	let wheel.current += 1
 	call wheel#chain#insert_next (index, name, glossary)
 	let wheel.timestamp = wheel#pendulum#timestamp ()
@@ -77,18 +78,20 @@ fun! wheel#tree#insert_circle (circle)
 	let index = torus.current
 	let glossary = torus.glossary
 	let name = circle.name
-	if index(name, glossary) >= 0
-		let name = input('Insert circle with name ? ')
+	if index(glossary, name) >= 0
+		let complete = 'customlist,wheel#completelist#circle'
+		let name = input('Insert circle with name ? ', '', complete)
 	endif
-	if index(name, glossary) >= 0
+	if index(glossary, name) >= 0
 		echomsg 'Circle named' name 'already exists in torus.'
 		return v:false
 	endif
 	let circle.name = name
-	call wheel#chain#insert_next (index, circle, torus)
+	call wheel#chain#insert_next (index, circle, torus.circles)
 	let torus.current += 1
 	call wheel#chain#insert_next (index, name, glossary)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	return v:true
 endfun
 
 fun! wheel#tree#insert_location (location)
@@ -99,21 +102,23 @@ fun! wheel#tree#insert_location (location)
 	let index = circle.current
 	let glossary = circle.glossary
 	let name = location.name
-	if index(name, glossary) >= 0
-		let name = input('Insert location with name ? ')
+	if index(glossary, name) >= 0
+		let complete = 'customlist,wheel#completelist#location'
+		let name = input('Insert location with name ? ', '', complete)
 	endif
-	if index(name, glossary) >= 0
+	if index(glossary, name) >= 0
 		echomsg 'Location named' name 'already exists in circle.'
 		return v:false
 	endif
 	let location.name = name
-	call wheel#chain#insert_next (index, location, circle)
-	let torus.current += 1
+	call wheel#chain#insert_next (index, location, circle.locations)
+	let circle.current += 1
 	call wheel#chain#insert_next (index, name, glossary)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	return v:true
 endfun
 
-" Add new
+" Add new element
 
 fun! wheel#tree#add_torus (...)
 	" Add torus
@@ -419,50 +424,35 @@ endfun
 
 " Remove
 
-fun! wheel#tree#remove (level, element, ...)
+fun! wheel#tree#remove (level, element)
 	" Remove element at level
-	" TODO
+	" No confirm prompt, no jump : internal use only
 	let level = a:level
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
-	if mode != 'force'
-		let prompt = 'Delete current ' . level . ' ?'
-		let confirm = confirm(prompt, "&Yes\n&No", 2)
-		if confirm != 1
-			return v:false
-		endif
-	endif
-	" For history
+	let elem = a:element
 	let old_names = wheel#referen#names ()
-	" Remove
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
-	if empty(elements)
-		let upper_name = wheel#referen#upper_level_name (level)
-		echomsg upper_name . ' is already empty.'
-		return v:false
+	let glossary = upper.glossary
+	" find element index
+	let index = index(glossary, elem.name)
+	if index < 0
+		echomsg upper_name . 'does not contain ' elem.name
 	endif
-	let length = len(elements)
-	let upper_level_name = wheel#referen#upper_level_name (level)
-	let key = wheel#referen#list_key (upper_level_name)
-	let current = wheel#referen#current (level)
-	let index = upper.current
-	let upper[key] = wheel#chain#remove_index(index, elements)
-	let length -= 1
+	" remove from elements list
+	call wheel#chain#remove_index(index, elements)
+	" adjust current index if necessary
 	if empty(elements)
 		let upper.current = -1
-	else
+	elseif index == upper.current
+		let length = len(elements)
 		let upper.current = wheel#gear#circular_minus(index, length)
 	endif
-	let glossary = upper.glossary
-	let name = current.name
-	let upper.glossary = wheel#chain#remove_element(name, glossary)
+	" remove from glossary
+	let name = elem.name
+	call wheel#chain#remove_element(name, glossary)
+	" for index auto update at demand
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
-	call wheel#vortex#jump ()
-	" Adjust history
+	" adjust history
 	call wheel#pendulum#delete(level, old_names)
 	return v:true
 endfun
@@ -518,39 +508,70 @@ endfun
 
 " Move
 
-fun! wheel#tree#move (level, ...)
-	" Move element of level
+fun! wheel#tree#copy_move (level, mode, ...)
+	" Copy or move element of level
 	" level can be :
 	"   - circle : move circle to another torus
 	"   - location : move location to another circle
 	let level = a:level
+	let mode = a:mode
 	if a:0 > 0
 		let destination = a:1
 	else
 		let upper_name = wheel#referen#upper_level_name (level)
-		let prompt = 'Move ' . level . ' to ' . upper_name . ' ? '
-		if level ==# 'circle'
+		let prompt = mode . ' ' . level . ' to ' . upper_name . ' ? '
+		if level ==# 'torus'
+			let destination = 'wheel'
+		elseif level ==# 'circle'
 			let complete = 'customlist,wheel#completelist#torus'
+			let destination = input(prompt, '', complete)
 		elseif level ==# 'location'
 			let complete = 'customlist,wheel#completelist#grid'
+			let destination = input(prompt, '', complete)
 		else
-			echomsg 'wheel move : bad level name.'
+			echomsg 'wheel ' . mode . ' : bad level name.'
 			return v:false
 		endif
-		let destination = input(prompt, '', complete)
 	endif
 	let element = deepcopy(wheel#referen#{level}())
-	call wheel#tree#delete (level, 'force')
-	if level == 'circle'
+	let coordin = split(destination, s:level_separ)
+	" pre checks
+	if mode == 'move'
+		if level ==# 'torus'
+			echomsg 'wheel : move torus in wheel = noop'
+			return v:false
+		elseif level ==# 'circle' && destination ==# wheel#referen#torus().name
+			echomsg 'wheel : move circle to current torus = noop'
+			return v:false
+		elseif level ==# 'location' && coordin ==# wheel#referen#names()[:1]
+			echomsg 'wheel : move location to current circle = noop'
+			return v:false
+		endif
+		call wheel#tree#remove (level, element)
+	elseif mode !=# 'copy'
+		echomsg 'wheel copy/move : mode must be copy or move'
+	endif
+	" copy / move
+	if level == 'torus'
+		" mode must be copy at this stage
+		call wheel#tree#insert_torus (element)
+	elseif level == 'circle'
 		call wheel#vortex#tune ('torus', destination)
-		call wheel#tree#add_circle (element.name)
-		for location in element.locations
-			call wheel#tree#add_location (location)
-		endfor
+		call wheel#tree#insert_circle (element)
 	elseif level == 'location'
-		let coordin = split(destination, s:level_separ)
 		call wheel#vortex#tune ('torus', coordin[0])
 		call wheel#vortex#tune ('circle', coordin[1])
-		call wheel#tree#add_location (element)
+		call wheel#tree#insert_location (element)
 	endif
+	call wheel#vortex#jump ()
+endfun
+
+fun! wheel#tree#copy (level)
+	" Copy element of level
+	call wheel#tree#copy_move(a:level, 'copy')
+endfun
+
+fun! wheel#tree#move (level)
+	" Move element of level
+	call wheel#tree#copy_move(a:level, 'move')
 endfun

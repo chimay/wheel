@@ -34,6 +34,9 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-delete-location) :call wheel#tree#delete('location')<cr>
 	nnoremap <plug>(wheel-delete-circle) :call wheel#tree#delete('circle')<cr>
 	nnoremap <plug>(wheel-delete-torus) :call wheel#tree#delete('torus')<cr>
+	" Copy
+	nnoremap <plug>(wheel-copy-location) :call wheel#tree#copy('location')<cr>
+	nnoremap <plug>(wheel-copy-circle) :call wheel#tree#copy('circle')<cr>
 	" Move
 	nnoremap <plug>(wheel-move-location) :call wheel#tree#move('location')<cr>
 	nnoremap <plug>(wheel-move-circle) :call wheel#tree#move('circle')<cr>
@@ -237,6 +240,11 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . 'd <plug>(wheel-delete-location)'
 		exe nmap prefix . '<c-d> <plug>(wheel-delete-circle)'
 		exe nmap prefix . 'D <plug>(wheel-delete-torus)'
+		" Copy
+		exe nmap prefix . 'c <plug>(wheel-copy-location)'
+		" <c-c> does not work in maps
+		exe nmap prefix . '<m-c> <plug>(wheel-copy-circle)'
+		exe nmap prefix . 'C <plug>(wheel-copy-torus)'
 		" Move
 		exe nmap prefix . 'm <plug>(wheel-move-location)'
 		exe nmap prefix . 'M <plug>(wheel-move-circle)'
@@ -270,7 +278,7 @@ fun! wheel#centre#cables ()
 		" (neo)vim points
 		exe nmap prefix . "' <plug>(wheel-markers)"
 		exe nmap prefix . 'j <plug>(wheel-jumps)'
-		exe nmap prefix . 'c <plug>(wheel-changes)'
+		exe nmap prefix . '; <plug>(wheel-changes)'
 		" Tags
 		exe nmap prefix . 't <plug>(wheel-switch-tag)'
 		exe nmap prefix . '<m-t> <plug>(wheel-tags)'

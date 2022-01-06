@@ -304,6 +304,15 @@ if ! exists('s:menu_move')
 	lockvar s:menu_move
 endif
 
+if ! exists('s:menu_copy')
+	let s:menu_copy = [
+				\ ['copy torus' ,  "wheel#tree#copy('torus')"],
+				\ ['copy circle' ,  "wheel#tree#copy('circle')"],
+				\ ['copy location' ,  "wheel#tree#copy('location')"],
+				\]
+	lockvar s:menu_copy
+endif
+
 if ! exists('s:menu_disc')
 	let s:menu_disc = [
 				\ ['save wheel' ,  'wheel#disc#write_all'],
@@ -456,6 +465,7 @@ if ! exists('s:menu_list')
 				\ 'add',
 				\ 'rename',
 				\ 'delete',
+				\ 'copy',
 				\ 'move',
 				\ 'disc',
 				\ 'navigation',
