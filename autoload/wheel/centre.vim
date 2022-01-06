@@ -37,6 +37,7 @@ fun! wheel#centre#plugs ()
 	" Copy
 	nnoremap <plug>(wheel-copy-location) :call wheel#tree#copy('location')<cr>
 	nnoremap <plug>(wheel-copy-circle) :call wheel#tree#copy('circle')<cr>
+	nnoremap <plug>(wheel-copy-torus) :call wheel#tree#copy('torus')<cr>
 	" Move
 	nnoremap <plug>(wheel-move-location) :call wheel#tree#move('location')<cr>
 	nnoremap <plug>(wheel-move-circle) :call wheel#tree#move('circle')<cr>
