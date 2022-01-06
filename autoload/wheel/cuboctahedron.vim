@@ -415,8 +415,7 @@ fun! wheel#cuboctahedron#reorganize ()
 			call wheel#tree#add_circle(circle)
 		elseif line =~ pat_dict
 			" location line
-			let runme = 'let location = ' . line
-			exe runme
+			let location = eval(line)
 			call wheel#tree#insert_location(location)
 		endif
 	endfor
