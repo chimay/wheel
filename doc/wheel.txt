@@ -539,6 +539,7 @@ Changes				|wheel-dedicated-buffers-changes|
 Yank 				|wheel-dedicated-buffers-yank|
 Reordering		        |wheel-dedicated-buffers-reordering|
 Renaming		        |wheel-dedicated-buffers-renaming|
+Copy and move		        |wheel-dedicated-buffers-copy-move|
 Reorganizing			|wheel-dedicated-buffers-reorganizing|
 Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
@@ -1033,6 +1034,25 @@ The default mappings launching renaming buffers are :
 Menus~
 
 The renaming buffers can also be launched from the main & meta menus.
+
+------------------------------------------------------------------------------
+COPY AND MOVE		    		*wheel-dedicated-buffers-copy-move*
+
+The copy/move buffers allow you to batch copy or move Wheel elements by
+selecting the buffer lines. To validate your selection, simply |:write|
+the buffer.
+
+Mappings~
+
+The default mappings launching renaming buffers are :
+
+- `<M-w>@c`     : copy/move locations
+- `<M-w>@<M-c>` : copy/move circles
+- `<M-w>@C`     : copy/move toruses
+
+Menus~
+
+The copy/move buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
 REORGANIZING				*wheel-dedicated-buffers-reorganizing*
@@ -1950,25 +1970,29 @@ Move~
 
 Dedicated buffers~
 
-| Prefix +   | With default prefix   | Action                                 |
-| ---------- | --------------------- | -------------------------------------- |
-| <Space>    | <M-w><Space>          | Go to location                         |
-| <C-Space>  | <M-w><C-Space>        | Go to circle                           |
-| <S-Space>  | <M-w><S-Space>        | Go to torus                            |
-| ---------- | --------------------- | -------------------------------------- |
-| X          | <M-w>X                | Index of toruses > circles > locations |
-| <C-x>      | <M-w><C-x>            | Index of toruses > circles             |
-| <M-x>      | <M-w><M-x>            | Treeish index with folds               |
-| ---------- | --------------------- | -------------------------------------- |
-| h          | <M-w>h                | History index                          |
-| ---------- | --------------------- | -------------------------------------- |
-| o          | <M-w>o                | Reorder locations in current circle    |
-| <C-o>      | <M-w><C-o>            | Reorder circles in current torus       |
-| O          | <M-w>O                | Reorder toruses in wheel               |
-| ---------- | --------------------- | -------------------------------------- |
-| @n         | <M-w>@n               | Rename locations in current circle     |
-| @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus        |
-| @N         | <M-w>@N               | Rename toruses in wheel                |
+| Prefix +   | With default prefix   | Action                                   |
+| ---------- | --------------------- | ---------------------------------------- |
+| <Space>    | <M-w><Space>          | Go to location                           |
+| <C-Space>  | <M-w><C-Space>        | Go to circle                             |
+| <S-Space>  | <M-w><S-Space>        | Go to torus                              |
+| ---------- | --------------------- | ---------------------------------------- |
+| X          | <M-w>X                | Index of toruses > circles > locations   |
+| <C-x>      | <M-w><C-x>            | Index of toruses > circles               |
+| <M-x>      | <M-w><M-x>            | Treeish index with folds                 |
+| ---------- | --------------------- | ---------------------------------------- |
+| h          | <M-w>h                | History index                            |
+| ---------- | --------------------- | ---------------------------------------- |
+| o          | <M-w>o                | Reorder locations in current circle      |
+| <C-o>      | <M-w><C-o>            | Reorder circles in current torus         |
+| O          | <M-w>O                | Reorder toruses in wheel                 |
+| ---------- | --------------------- | ---------------------------------------- |
+| @n         | <M-w>@n               | Rename locations in current circle       |
+| @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus          |
+| @N         | <M-w>@N               | Rename toruses in wheel                  |
+| ---------- | --------------------- | ---------------------------------------- |
+| @c         | <M-w>@c               | Copy or move locations in current circle |
+| @<M-c>     | <M-w>@<M-c>           | Copy or move circles in current torus    |
+| @C         | <M-w>@C               | Copy or move toruses in wheel            |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
@@ -2298,6 +2322,8 @@ Straightforward :
 | <plug>(wheel-menu-main)                         | main menu                                 |
 | <plug>(wheel-menu-meta)                         | meta menu                                 |
 | ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-dashboard)                         | dashboard                                 |
+| ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-read-all)                          | read wheel from file                      |
 | <plug>(wheel-write-all)                         | save wheel to file                        |
 | ----------------------------------------------- | --------------------------------------    |
@@ -2336,6 +2362,10 @@ Prompt :
 | <plug>(wheel-delete-location)                   | delete current location                  |
 | <plug>(wheel-delete-circle)                     | delete current circle                    |
 | <plug>(wheel-delete-torus)                      | delete current torus                     |
+| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-copy-location)                     | copy current location                    |
+| <plug>(wheel-copy-circle)                       | copy current circle                      |
+| <plug>(wheel-copy-torus)                        | copy current torus                       |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-move-location)                     | move current location                    |
 | <plug>(wheel-move-circle)                       | move current circle                      |
@@ -2385,9 +2415,15 @@ Dedicated buffers :
 | <plug>(wheel-reorder-location)                  | reorder locations                      |
 | <plug>(wheel-reorder-circle)                    | reorder circles                        |
 | <plug>(wheel-reorder-torus)                     | reorder toruses                        |
+| ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-batch-rename-location)             | batch rename locations                 |
 | <plug>(wheel-batch-rename-circle)               | batch rename circles                   |
 | <plug>(wheel-batch-rename-torus)                | batch rename toruses                   |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-batch-copy-move-location)          | batch copy-move locations              |
+| <plug>(wheel-batch-copy-move-circle)            | batch copy-move circles                |
+| <plug>(wheel-batch-copy-move-torus)             | batch copy-move toruses                |
+| ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-reorganize)                        | reorganize wheel treeish structure     |
 | <plug>(wheel-reorg-tabwins)                     | reorganize tabs & windows              |
 | <plug>(wheel-grep-edit)                         | grep circle files in edit mode         |

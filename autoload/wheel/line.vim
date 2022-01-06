@@ -117,8 +117,7 @@ fun! wheel#line#grid (settings)
 		return v:false
 	endif
 	call wheel#line#target (a:settings.target)
-	call wheel#vortex#tune('torus', coordin[0])
-	call wheel#vortex#tune('circle', coordin[1])
+	call wheel#vortex#interval (coordin)
 	call wheel#vortex#jump (a:settings.use)
 	return win_getid ()
 endfun
@@ -138,8 +137,7 @@ fun! wheel#line#tree (settings)
 	if length == 3
 		call wheel#vortex#chord(coordin)
 	elseif length == 2
-		call wheel#vortex#tune('torus', coordin[0])
-		call wheel#vortex#tune('circle', coordin[1])
+		call wheel#vortex#interval (coordin)
 	elseif length == 1
 		call wheel#vortex#tune('torus', coordin[0])
 	else

@@ -160,8 +160,22 @@ fun! wheel#vortex#tune (level, name)
 	endif
 endfun
 
+fun! wheel#vortex#interval (coordin)
+	" Adjust wheel to circle coordin = [torus, circle]
+	let indexes = [-1, -1]
+	if len(a:coordin) == 2
+		let indexes[0] = wheel#vortex#tune ('torus', a:coordin[0])
+		if indexes[0] >= 0
+			let indexes[1] = wheel#vortex#tune ('circle', a:coordin[1])
+		endif
+	else
+		echomsg 'wheel vortex interval : [' join(a:coordin) '] should contain 2 elements.'
+	endif
+	return indexes
+endfun
+
 fun! wheel#vortex#chord (coordin)
-	" Adjust wheel to coordin = [torus, circle, location]
+	" Adjust wheel to location coordin = [torus, circle, location]
 	let indexes = [-1, -1, -1]
 	if len(a:coordin) == 3
 		let indexes[0] = wheel#vortex#tune ('torus', a:coordin[0])

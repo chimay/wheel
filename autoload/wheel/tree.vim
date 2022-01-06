@@ -447,19 +447,19 @@ endfun
 
 " Remove
 
-fun! wheel#tree#remove (level, element)
-	" Remove element at level
+fun! wheel#tree#remove (level, name)
+	" Remove element given by name at level
 	" No confirm prompt, no jump : internal use only
 	let level = a:level
-	let elem = a:element
+	let name = a:name
 	let old_names = wheel#referen#names ()
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let glossary = upper.glossary
 	" find element index
-	let index = index(glossary, elem.name)
+	let index = index(glossary, name)
 	if index < 0
-		echomsg upper_name . 'does not contain ' elem.name
+		echomsg upper_name . 'does not contain ' name
 	endif
 	" remove from elements list
 	call wheel#chain#remove_index(index, elements)
@@ -471,7 +471,6 @@ fun! wheel#tree#remove (level, element)
 		let upper.current = wheel#gear#circular_minus(index, length)
 	endif
 	" remove from glossary
-	let name = elem.name
 	call wheel#chain#remove_element(name, glossary)
 	" for index auto update at demand
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
@@ -529,7 +528,7 @@ fun! wheel#tree#delete (level, ...)
 	return v:true
 endfun
 
-" Move
+" Copy / Move
 
 fun! wheel#tree#copy_move (level, mode, ...)
 	" Copy or move element of level
@@ -558,7 +557,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 	endif
 	let element = deepcopy(wheel#referen#{level}())
 	let coordin = split(destination, s:level_separ)
-	" pre checks
+	" -- pre checks
 	if mode == 'move'
 		if level ==# 'torus'
 			echomsg 'wheel : move torus in wheel = noop'
@@ -570,20 +569,19 @@ fun! wheel#tree#copy_move (level, mode, ...)
 			echomsg 'wheel : move location to current circle = noop'
 			return v:false
 		endif
-		call wheel#tree#remove (level, element)
+		call wheel#tree#remove (level, element.name)
 	elseif mode !=# 'copy'
 		echomsg 'wheel copy/move : mode must be copy or move'
 	endif
-	" copy / move
-	if level == 'torus'
+	" -- copy / move
+	if level ==# 'torus'
 		" mode must be copy at this stage
 		call wheel#tree#insert_torus (element)
-	elseif level == 'circle'
+	elseif level ==# 'circle'
 		call wheel#vortex#tune ('torus', destination)
 		call wheel#tree#insert_circle (element)
-	elseif level == 'location'
-		call wheel#vortex#tune ('torus', coordin[0])
-		call wheel#vortex#tune ('circle', coordin[1])
+	elseif level ==# 'location'
+		call wheel#vortex#interval (coordin)
 		call wheel#tree#insert_location (element)
 	endif
 	call wheel#vortex#jump ()

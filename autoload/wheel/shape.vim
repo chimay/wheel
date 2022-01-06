@@ -51,6 +51,16 @@ fun! wheel#shape#write_rename_files ()
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
+fun! wheel#shape#write_copy_move (level)
+	" Define rename autocommands
+	setlocal buftype=acwrite
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	let function = 'call wheel#cuboctahedron#copy_move (' . string(a:level) . ')'
+	exe 'autocmd' group event '<buffer>' function
+endfun
+
 fun! wheel#shape#write_reorganize ()
 	" Define reorganize autocommands
 	setlocal buftype=acwrite
@@ -93,7 +103,7 @@ fun! wheel#shape#reorder (level)
 		silent global /^$/ delete
 		setlocal nomodified
 	else
-		echomsg 'wheel mandala reorder : empty or incomplete' level
+		echomsg 'wheel shape reorder : empty or incomplete' level
 	endif
 	" reload
 	let b:wheel_reload = "wheel#shape#reorder('" . level . "')"
@@ -114,7 +124,7 @@ fun! wheel#shape#rename (level)
 		silent global /^$/ delete
 		setlocal nomodified
 	else
-		echomsg 'wheel mandala rename : empty or incomplete' level
+		echomsg 'wheel shape rename : empty or incomplete' level
 	endif
 	" reload
 	let b:wheel_reload = "wheel#shape#rename('" . level . "')"
@@ -124,7 +134,7 @@ fun! wheel#shape#rename_files ()
 	" Rename locations & files of current circle, after buffer content
 	let glossary = wheel#perspective#switch ('location')
 	if empty(glossary)
-		echomsg 'wheel mandala rename_files : empty or incomplete circle'
+		echomsg 'wheel shape rename_files : empty or incomplete circle'
 		return v:false
 	endif
 	let locations = deepcopy(wheel#referen#circle().locations)
@@ -150,6 +160,32 @@ fun! wheel#shape#rename_files ()
 	" reload
 	let b:wheel_reload = 'wheel#shape#rename_files()'
 	return v:true
+endfun
+
+" Batch copy/move
+
+fun! wheel#shape#copy_move (level)
+	" Copy or move elements at level
+	let level = a:level
+	let lines = wheel#perspective#switch (level)
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('copy_move/' . level)
+	call wheel#mandala#common_maps ()
+	call wheel#shape#write_copy_move (level)
+	if ! empty(lines)
+		call wheel#mandala#fill(lines, 'delete')
+		silent global /^$/ delete
+		setlocal nomodified
+	else
+		echomsg 'wheel shape copy/move : empty or incomplete' level
+	endif
+	" define local selection maps
+	nnoremap <silent> <buffer> <space> :call wheel#pencil#toggle()<cr>
+	nnoremap <silent> <buffer> & :call wheel#pencil#toggle_visible()<cr>
+	nnoremap <silent> <buffer> * :call wheel#pencil#select_visible()<cr>
+	nnoremap <silent> <buffer> <bar> :call wheel#pencil#clear_visible()<cr>
+	" reload
+	let b:wheel_reload = "wheel#shape#rename('" . level . "')"
 endfun
 
 " Reorganize

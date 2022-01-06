@@ -18,6 +18,8 @@ fun! wheel#centre#plugs ()
 	" Menus
 	nnoremap <plug>(wheel-menu-main) :call wheel#hub#main()<cr>
 	nnoremap <plug>(wheel-menu-meta) :call wheel#hub#meta()<cr>
+	" Dashboard
+	nnoremap <plug>(wheel-dashboard) :call wheel#status#dashboard()<cr>
 	" Add
 	nnoremap <plug>(wheel-add-here) :call wheel#tree#add_here()<cr>
 	nnoremap <plug>(wheel-add-circle) :call wheel#tree#add_circle()<cr>
@@ -117,6 +119,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-batch-rename-circle) :call wheel#shape#rename('circle')<cr>
 	nnoremap <plug>(wheel-batch-rename-torus) :call wheel#shape#rename('torus')<cr>
 	nnoremap <plug>(wheel-batch-rename-location-filename) :call wheel#shape#rename_files()<cr>
+	" Batch copy/move
+	nnoremap <plug>(wheel-batch-copy-move-location) :call wheel#shape#copy_move('location')<cr>
+	nnoremap <plug>(wheel-batch-copy-move-circle) :call wheel#shape#copy_move('circle')<cr>
+	nnoremap <plug>(wheel-batch-copy-move-torus) :call wheel#shape#copy_move('torus')<cr>
 	" Reorganize
 	nnoremap <plug>(wheel-reorganize) :call wheel#shape#reorganize()<cr>
 	" Reorganize tabs & windows
@@ -184,6 +190,8 @@ fun! wheel#centre#cables ()
 		" Menus
 		exe nmap prefix . '<m-m> <plug>(wheel-menu-main)'
 		exe nmap prefix . '= <plug>(wheel-menu-meta)'
+		" Dashboard, info
+		exe nmap prefix . 'i <plug>(wheel-dashboard)'
 		" Add
 		exe nmap prefix . 'a <plug>(wheel-add-here)'
 		exe nmap prefix . '<c-a> <plug>(wheel-add-circle)'
@@ -258,6 +266,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '@<c-n> <plug>(wheel-batch-rename-circle)'
 		exe nmap prefix . '@N <plug>(wheel-batch-rename-torus)'
 		exe nmap prefix . '@<m-n> <plug>(wheel-batch-rename-location-filename)'
+		" Batch copy/move
+		exe nmap prefix . '@c <plug>(wheel-batch-copy-move-location)'
+		exe nmap prefix . '@<m-c> <plug>(wheel-batch-copy-move-circle)'
+		exe nmap prefix . '@C <plug>(wheel-batch-copy-move-torus)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2

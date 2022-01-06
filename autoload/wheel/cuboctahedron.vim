@@ -25,6 +25,11 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
 " Reorg tabwins helpers
 
 fun! wheel#cuboctahedron#baskets (linelist)
@@ -294,6 +299,91 @@ fun! wheel#cuboctahedron#rename_files ()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	return v:true
+endfun
+
+fun! wheel#cuboctahedron#copy_move (level)
+	" Copy or move selected elements at level
+	let level = a:level
+	" -- mode : copy or move
+	let prompt = 'Mode ? '
+	let answer = confirm(prompt, "&Copy\n&Move", 1)
+	if answer == 1
+		let mode = 'copy'
+	elseif answer == 2
+		let mode = 'move'
+	endif
+	" -- destination
+	let upper_name = wheel#referen#upper_level_name (level)
+	let prompt = mode . ' ' . level . ' to ' . upper_name . ' ? '
+	if level ==# 'torus'
+		let destination = 'wheel'
+	elseif level ==# 'circle'
+		let complete = 'customlist,wheel#completelist#torus'
+		let destination = input(prompt, '', complete)
+	elseif level ==# 'location'
+		let complete = 'customlist,wheel#completelist#grid'
+		let destination = input(prompt, '', complete)
+	else
+		echomsg 'wheel ' . mode . ' : bad level name.'
+		return v:false
+	endif
+	let coordin = split(destination, s:level_separ)
+	" -- pre checks
+	let selected = b:wheel_selected
+	if empty(selected)
+		echomsg 'wheel copy/move : you must first select element(s)'
+	endif
+	if mode == 'move'
+		if level ==# 'torus'
+			echomsg 'wheel : move torus in wheel = noop'
+			return v:false
+		elseif level ==# 'circle' && destination ==# wheel#referen#torus().name
+			echomsg 'wheel : move circle to current torus = noop'
+			return v:false
+		elseif level ==# 'location' && coordin ==# wheel#referen#names()[:1]
+			echomsg 'wheel : move location to current circle = noop'
+			return v:false
+		endif
+	endif
+	" -- copy / move selection
+	if level ==# 'torus'
+		for name in selected
+			" mode must be copy at this stage
+			let index = g:wheel.glossary->index(name)
+			let torus = deepcopy(g:wheel.toruses[index])
+			call wheel#tree#insert_torus (torus)
+		endfor
+	elseif level ==# 'circle'
+		let elements = []
+		for name in selected
+			let torus = wheel#referen#torus ()
+			let index = torus.glossary->index(name)
+			let circle = deepcopy(torus.circles[index])
+			call add(elements, circle)
+			if mode == 'move'
+				call wheel#tree#remove (level, circle.name)
+			endif
+		endfor
+		call wheel#vortex#tune ('torus', destination)
+		for circle in elements
+			call wheel#tree#insert_circle (circle)
+		endfor
+	elseif level ==# 'location'
+		let elements = []
+		for name in selected
+			let circle = wheel#referen#circle ()
+			let index = circle.glossary->index(name)
+			let location = deepcopy(circle.locations[index])
+			call add(elements, location)
+			if mode == 'move'
+				call wheel#tree#remove (level, location.name)
+			endif
+		endfor
+		call wheel#vortex#interval (coordin)
+		for location in elements
+			call wheel#tree#insert_location (location)
+		endfor
+	endif
 endfun
 
 fun! wheel#cuboctahedron#reorganize ()
