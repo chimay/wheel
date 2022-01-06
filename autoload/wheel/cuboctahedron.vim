@@ -254,10 +254,9 @@ fun! wheel#cuboctahedron#rename_files ()
 	endif
 	for index in range(len_lines)
 		let fields = split(lines[index], s:field_separ)
-		" rename location
+		" -- rename location
 		let old_name = glossary[index]
-		let new_name = fields[0]
-		let new_name = substitute(new_name, ' ', ' ', 'g')
+		let new_name = substitute(fields[0], ' ', ' ', 'g')
 		let found = index(glossary, new_name)
 		if found >= 0 && found != index
 			echomsg 'Location ' . new_name . ' already present in circle'
@@ -267,10 +266,10 @@ fun! wheel#cuboctahedron#rename_files ()
 		let locations[index].name = new_name
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename('location', old_name, new_name)
-		" rename file
+		" -- rename file
 		let old_filename = locations[index].file
-		let new_filename = fnameescape(fields[1])
-		if new_filename ==# old_filename
+		let new_filename = wheel#tree#format_filename (fields[1])
+		if old_filename ==# new_filename
 			continue
 		endif
 		if filereadable(new_filename)
@@ -280,24 +279,14 @@ fun! wheel#cuboctahedron#rename_files ()
 				continue
 			endif
 		endif
+		echomsg 'wheel : renaming ' . old_filename . ' -> ' . new_filename
 		let locations[index].file = new_filename
 		let old_filename = shellescape(old_filename)
 		let new_filename = shellescape(new_filename)
 		let syscmd_rename = 'mv -f ' . old_filename . ' ' . new_filename
 		let output = system(syscmd_rename)
 		" rename file in all involved locations of the wheel
-		for tor in g:wheel.toruses
-			for cir in tor.circles
-				for loca in cir.locations
-					if loca.file ==# old_filename
-						let loca.file = new_filename
-					endif
-				endfor
-			endfor
-		endfor
-		" rename file in wheel index
-		let g:wheel.timestamp = wheel#pendulum#timestamp()
-		call wheel#helix#rename_file(old_filename, new_filename)
+		call wheel#tree#adapt_filename (old_filename, new_filename)
 	endfor
 	call wheel#mandala#close()
 	call wheel#vortex#jump()

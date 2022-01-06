@@ -30,6 +30,26 @@ fun! wheel#tree#is_in_circle (location, circle)
 	return present
 endfu
 
+fun! wheel#tree#format_name (name)
+	" Format element name to avoid annoying characters
+	let name = a:name
+	let name = substitute(name, ' ', ' ', 'g')
+	return name
+endfun
+
+fun! wheel#tree#format_filename (filename)
+	" Format filename to avoid annoying characters
+	let filename = a:filename
+	let filename = substitute(filename, ' ', '_', 'g')
+	" escape annoying chars
+	let filename = fnameescape(filename)
+	" convert to absolute path if needed
+	if filename[0] != '/'
+		let filename = fnamemodify(filename, ':p')
+	endif
+	return filename
+endfun
+
 fun! wheel#tree#name ()
 	" Prompt for a location name and return it
 	let prompt = 'Location name ? '
@@ -128,7 +148,7 @@ fun! wheel#tree#add_torus (...)
 		let torus_name = input('New torus name ? ')
 	endif
 	" replace spaces by non-breaking spaces
-	let torus_name = substitute(torus_name, ' ', ' ', 'g')
+	let torus_name = wheel#tree#format_name (torus_name)
 	if empty(torus_name)
 		redraw!
 		echomsg 'Torus name cannot be empty.'
@@ -167,7 +187,7 @@ fun! wheel#tree#add_circle (...)
 		call wheel#tree#add_torus()
 	endif
 	" replace spaces by non-breaking spaces
-	let circle_name = substitute(circle_name, ' ', ' ', 'g')
+	let circle_name = wheel#tree#format_name (circle_name)
 	if empty(circle_name)
 		redraw!
 		echomsg 'Circle name cannot be empty.'
@@ -340,7 +360,7 @@ fun! wheel#tree#rename (level, ...)
 	let upper = wheel#referen#upper (level)
 	let current = wheel#referen#current (level)
 	" replace spaces by non-breaking spaces
-	let new = substitute(new, ' ', ' ', 'g')
+	let new = wheel#tree#format_name (new)
 	if empty(new)
 		redraw!
 		echomsg level 'name cannot be empty.'
@@ -365,59 +385,62 @@ fun! wheel#tree#rename (level, ...)
 	return v:true
 endfun
 
-fun! wheel#tree#rename_file (...)
-	" Rename current file in filesystem & in the wheel
-	if a:0 > 0
-		let filename = a:1
-	else
-		let dir = expand('%:h') . '/'
-		let cwd = getcwd() . '/'
-		let dir = substitute(dir, cwd, '', '')
-		let prompt = 'Rename file as ? '
-		let complete =  'customlist,wheel#completelist#file'
-		let filename = input(prompt, dir, complete)
-	endif
-	" replace spaces by underscores
-	" non breaking spaces would be confusing in the user’s filesystem
-	let filename = substitute(filename, ' ', '_', 'g')
-	" escape annoying chars
-	let filename = fnameescape(filename)
-	" convert to absolute path if needed
-	if filename[0] != '/'
-		let filename = fnamemodify(filename, ':p')
-	endif
-	" old name
-	let location = wheel#referen#location ()
-	let old_name = location.file
-	" link buffer to new file name
-	exe 'file' filename
-	" write it
-	write
-	" remove old file
-	let prompt = 'Remove old file ' . old_name . ' ?'
-	let confirm = confirm(prompt, "&Yes\n&No", 2)
-	if confirm == 1
-		let command = 'rm'
-		let remove = command . ' ' . shellescape(old_name)
-		call system(remove)
-		if v:shell_error
-			echomsg 'wheel rename file : error in executing system command.'
-			return v:false
-		endif
-	endif
+" Rename file
+
+fun! wheel#tree#adapt_filename (old_filename, new_filename)
+	" Adapt wheel variables to new_filename
+	let old_filename = a:old_filename
+	let new_filename = a:new_filename
 	" rename file in all involved locations of the wheel
 	for torus in g:wheel.toruses
 		for circle in torus.circles
 			for location in circle.locations
-				if location.file ==# old_name
-					let location.file = filename
+				if location.file ==# old_filename
+					let location.file = new_filename
 				endif
 			endfor
 		endfor
 	endfor
 	" rename file in wheel index
 	let g:wheel.timestamp = wheel#pendulum#timestamp()
-	call wheel#helix#rename_file(old_name, filename)
+	call wheel#helix#rename_file(old_filename, new_filename)
+endfun
+
+fun! wheel#tree#rename_file (...)
+	" Rename current file in filesystem & in the wheel
+	if a:0 > 0
+		let new_filename = a:1
+	else
+		let dir = expand('%:h') . '/'
+		let cwd = getcwd() . '/'
+		let dir = substitute(dir, cwd, '', '')
+		let prompt = 'Rename file as ? '
+		let complete =  'customlist,wheel#completelist#file'
+		let new_filename = input(prompt, dir, complete)
+	endif
+	" new name
+	let new_filename = wheel#tree#format_filename (new_filename)
+	" old name
+	let location = wheel#referen#location ()
+	let old_filename = location.file
+	" link buffer to new file name
+	exe 'file' new_filename
+	" write it
+	write
+	" remove old file
+	let prompt = 'Remove old file ' . old_filename . ' ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm == 1
+		let command = 'rm'
+		let remove = command . ' ' . shellescape(old_filename)
+		call system(remove)
+		if v:shell_error
+			echomsg 'wheel rename file : error in executing system command.'
+			return v:false
+		endif
+	endif
+	" adapt wheel variables to new_filename
+	call wheel#tree#adapt_filename (old_filename, new_filename)
 	" rename location
 	call wheel#tree#rename('location')
 endfun

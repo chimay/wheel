@@ -1019,8 +1019,7 @@ lines, Wheel will refuse to apply your change.
 Rename locations & files~
 
 This function display two columns : the first one is for the locations, and the
-second one for the filenames. Please be cautious and make backup before trying
-this one, it’s not heavily tested yet.
+second one for the filenames. You can edit both of them.
 
 Mappings~
 
