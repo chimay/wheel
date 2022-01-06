@@ -46,7 +46,74 @@ fun! wheel#tree#add_name (location)
 	return location.name
 endfu
 
-" Add
+" Insert existent element
+
+fun! wheel#tree#insert_torus (torus)
+	" Insert torus into wheel
+	let torus = a:torus
+	let wheel = g:wheel
+	let index = wheel.current
+	let glossary = wheel.glossary
+	let name = torus.name
+	if index(name, glossary) >= 0
+		let name = input('Insert torus with name ? ')
+	endif
+	if index(name, glossary) >= 0
+		echomsg 'Torus named' name 'already exists in wheel.'
+		return v:false
+	endif
+	let torus.name = name
+	call wheel#chain#insert_next (index, torus, wheel)
+	let wheel.current += 1
+	call wheel#chain#insert_next (index, name, glossary)
+	let wheel.timestamp = wheel#pendulum#timestamp ()
+	return v:true
+endfun
+
+fun! wheel#tree#insert_circle (circle)
+	" Insert circle into current torus
+	let circle = a:circle
+	let torus = g:wheel.toruses[g:wheel.current]
+	let index = torus.current
+	let glossary = torus.glossary
+	let name = circle.name
+	if index(name, glossary) >= 0
+		let name = input('Insert circle with name ? ')
+	endif
+	if index(name, glossary) >= 0
+		echomsg 'Circle named' name 'already exists in torus.'
+		return v:false
+	endif
+	let circle.name = name
+	call wheel#chain#insert_next (index, circle, torus)
+	let torus.current += 1
+	call wheel#chain#insert_next (index, name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+endfun
+
+fun! wheel#tree#insert_location (location)
+	" Insert location into current circle
+	let location = a:location
+	let torus = g:wheel.toruses[g:wheel.current]
+	let circle = torus.circles[torus.current]
+	let index = circle.current
+	let glossary = circle.glossary
+	let name = location.name
+	if index(name, glossary) >= 0
+		let name = input('Insert location with name ? ')
+	endif
+	if index(name, glossary) >= 0
+		echomsg 'Location named' name 'already exists in circle.'
+		return v:false
+	endif
+	let location.name = name
+	call wheel#chain#insert_next (index, location, circle)
+	let torus.current += 1
+	call wheel#chain#insert_next (index, name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+endfun
+
+" Add new
 
 fun! wheel#tree#add_torus (...)
 	" Add torus
@@ -348,6 +415,56 @@ fun! wheel#tree#rename_file (...)
 	call wheel#helix#rename_file(old_name, filename)
 	" rename location
 	call wheel#tree#rename('location')
+endfun
+
+" Remove
+
+fun! wheel#tree#remove (level, element, ...)
+	" Remove element at level
+	" TODO
+	let level = a:level
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	if mode != 'force'
+		let prompt = 'Delete current ' . level . ' ?'
+		let confirm = confirm(prompt, "&Yes\n&No", 2)
+		if confirm != 1
+			return v:false
+		endif
+	endif
+	" For history
+	let old_names = wheel#referen#names ()
+	" Remove
+	let upper = wheel#referen#upper (level)
+	let elements = wheel#referen#elements (upper)
+	if empty(elements)
+		let upper_name = wheel#referen#upper_level_name (level)
+		echomsg upper_name . ' is already empty.'
+		return v:false
+	endif
+	let length = len(elements)
+	let upper_level_name = wheel#referen#upper_level_name (level)
+	let key = wheel#referen#list_key (upper_level_name)
+	let current = wheel#referen#current (level)
+	let index = upper.current
+	let upper[key] = wheel#chain#remove_index(index, elements)
+	let length -= 1
+	if empty(elements)
+		let upper.current = -1
+	else
+		let upper.current = wheel#gear#circular_minus(index, length)
+	endif
+	let glossary = upper.glossary
+	let name = current.name
+	let upper.glossary = wheel#chain#remove_element(name, glossary)
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	call wheel#vortex#jump ()
+	" Adjust history
+	call wheel#pendulum#delete(level, old_names)
+	return v:true
 endfun
 
 " Delete
