@@ -1022,6 +1022,9 @@ Rename locations & files~
 This function display two columns : the first one is for the locations, and the
 second one for the filenames. You can edit both of them.
 
+You can even use it to move your files to another directory ; any non-existent
+folder will be created if needed.
+
 Mappings~
 
 The default mappings launching renaming buffers are :

@@ -277,6 +277,12 @@ fun! wheel#cuboctahedron#rename_files ()
 		if old_filename ==# new_filename
 			continue
 		endif
+		" create directory if needed
+		let directory = fnamemodify(new_filename, ':h')
+		if ! isdirectory(directory)
+			let mkdir = 'mkdir -p ' . directory
+			let output = system(mkdir)
+		endif
 		if filereadable(new_filename)
 			let prompt = 'Replace existing ' . new_filename . ' ?'
 			let overwrite = confirm(prompt, "&Yes\n&No", 2)

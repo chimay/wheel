@@ -40,13 +40,9 @@ endfun
 fun! wheel#tree#format_filename (filename)
 	" Format filename to avoid annoying characters
 	let filename = a:filename
+	let filename = fnamemodify(filename, ':p')
 	let filename = substitute(filename, ' ', '_', 'g')
-	" escape annoying chars
 	let filename = fnameescape(filename)
-	" convert to absolute path if needed
-	if filename[0] != '/'
-		let filename = fnamemodify(filename, ':p')
-	endif
 	return filename
 endfun
 
