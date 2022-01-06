@@ -417,7 +417,7 @@ fun! wheel#cuboctahedron#reorganize ()
 			" location line
 			let runme = 'let location = ' . line
 			exe runme
-			call wheel#tree#add_location(location, 'norecord')
+			call wheel#tree#insert_location(location)
 		endif
 	endfor
 	" Rebuild location index
