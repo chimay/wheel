@@ -83,7 +83,7 @@ fun! wheel#tree#insert_circle (circle)
 		let name = input('Insert circle with name ? ', '', complete)
 	endif
 	if index(glossary, name) >= 0
-		echomsg 'Circle named' name 'already exists in torus.'
+		echomsg 'Circle named' name 'already exists in torus ' . torus.name
 		return v:false
 	endif
 	let circle.name = name
@@ -107,7 +107,7 @@ fun! wheel#tree#insert_location (location)
 		let name = input('Insert location with name ? ', '', complete)
 	endif
 	if index(glossary, name) >= 0
-		echomsg 'Location named' name 'already exists in circle.'
+		echomsg 'Location named' name 'already exists in circle ' . circle.name
 		return v:false
 	endif
 	let location.name = name
