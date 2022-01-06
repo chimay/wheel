@@ -392,6 +392,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 			call wheel#tree#insert_location (location)
 		endfor
 	endif
+	call wheel#vortex#jump ()
 endfun
 
 fun! wheel#cuboctahedron#reorganize ()

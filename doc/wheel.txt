@@ -5,6 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
+Operate on wheel elements	|wheel-elements|
 Prompting functions		|wheel-prompting-functions|
 Dedicated buffers		|wheel-dedicated-buffers|
 Batch mode			|wheel-batch-operations|
@@ -352,7 +353,7 @@ Circle Fruits | Apple           | Pear
 
 at your fingertips.
 
-==============================================================================
+------------------------------------------------------------------------------
 TAGS						*wheel-sbs-tags*
 
 If you use a tags file, you can jump to any tag with `<M-w>t`.
@@ -362,6 +363,53 @@ For instance, `pro fol<tab>` gives me the function
 `wheel#projection#follow` straight away. Warp speed, Scotty.
 
 You can also search for a tag in a dedicated buffer with `<M-w><M-t>`.
+
+==============================================================================
+OPERATE ON ELEMENTS				*wheel-elements*
+
+Add					    |wheel-elements-add|
+Delete					    |wheel-elements-delete|
+Rename					    |wheel-elements-rename|
+Copy					    |wheel-elements-copy|
+Move					    |wheel-elements-move|
+
+------------------------------------------------------------------------------
+ADD							*wheel-elements-add*
+
+- `<M-w>a`     : add location at current file & position
+- `<M-w><C-a>` : add circle
+- `<M-w>A`     : add torus
+- `<M-w>+f`    : add file
+- `<M-w>+b`    : add buffer
+- `<M-w>*`     : add files matching glob
+
+------------------------------------------------------------------------------
+DELETE							*wheel-elements-delete*
+
+- `<M-w>d`     : delete location
+- `<M-w><C-d>` : delete circle
+- `<M-w>D`     : delete torus
+
+------------------------------------------------------------------------------
+RENAME							*wheel-elements-rename*
+
+- `<M-w>n`     : rename location
+- `<M-w><C-n>` : rename circle
+- `<M-w>N`     : rename torus
+- `<M-w>n`     : rename location & file
+
+------------------------------------------------------------------------------
+COPY							*wheel-elements-copy*
+
+- `<M-w>c`     : copy location to another circle
+- `<M-w><M-c>` : copy circle to another torus
+- `<M-w>C`     : copy torus
+
+------------------------------------------------------------------------------
+MOVE							*wheel-elements-move*
+
+- `<M-w>m`     : copy location to another circle
+- `<M-w>M`   : copy circle to another torus
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*

@@ -310,10 +310,21 @@ fun! wheel#tree#add_glob (...)
 		let complete =  'customlist,wheel#completelist#file'
 		let glob = input(prompt, '', complete)
 	endif
+	" add first torus if needed
+	if empty(g:wheel.toruses)
+		call wheel#tree#add_torus()
+	endif
+	" add files to a new circle ?
 	let answer = confirm('Create new circle ?', "&Yes\n&No", 2)
 	if answer == 1
 		call wheel#tree#add_circle()
 	endif
+	" add first circle if needed
+	let torus = g:wheel.toruses[g:wheel.current]
+	if empty(torus.circles)
+		call wheel#tree#add_circle()
+	endif
+	" add files
 	let filelist = glob(glob, v:false, v:true)
 	for filename in filelist
 		let location = {}
@@ -321,7 +332,7 @@ fun! wheel#tree#add_glob (...)
 		let location.file = fnamemodify(filename, ':p')
 		let location.line = 1
 		let location.col = 1
-		call wheel#tree#add_location(location, 'norecord')
+		call wheel#tree#insert_location(location)
 	endfor
 	" jump to first location of circle, if not empty
 	let circle = wheel#referen#current('circle')

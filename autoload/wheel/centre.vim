@@ -181,6 +181,8 @@ fun! wheel#centre#cables ()
 	" Link keys to <plug> mappings
 	" general prefix
 	let prefix = g:wheel_config.prefix
+	" batch subprefix
+	let batch = '@'
 	" layout subprefix
 	let lay = 'z'
 	" maps arguments
@@ -262,14 +264,14 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<c-o> <plug>(wheel-reorder-circle)'
 		exe nmap prefix . 'O <plug>(wheel-reorder-torus)'
 		" Batch rename
-		exe nmap prefix . '@n <plug>(wheel-batch-rename-location)'
-		exe nmap prefix . '@<c-n> <plug>(wheel-batch-rename-circle)'
-		exe nmap prefix . '@N <plug>(wheel-batch-rename-torus)'
-		exe nmap prefix . '@<m-n> <plug>(wheel-batch-rename-location-filename)'
+		exe nmap prefix . batch . 'n <plug>(wheel-batch-rename-location)'
+		exe nmap prefix . batch . '<c-n> <plug>(wheel-batch-rename-circle)'
+		exe nmap prefix . batch . 'N <plug>(wheel-batch-rename-torus)'
+		exe nmap prefix . batch . '<m-n> <plug>(wheel-batch-rename-location-filename)'
 		" Batch copy/move
-		exe nmap prefix . '@c <plug>(wheel-batch-copy-move-location)'
-		exe nmap prefix . '@<m-c> <plug>(wheel-batch-copy-move-circle)'
-		exe nmap prefix . '@C <plug>(wheel-batch-copy-move-torus)'
+		exe nmap prefix . batch . 'c <plug>(wheel-batch-copy-move-location)'
+		exe nmap prefix . batch . '<m-c> <plug>(wheel-batch-copy-move-circle)'
+		exe nmap prefix . batch . 'C <plug>(wheel-batch-copy-move-torus)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
