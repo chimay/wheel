@@ -89,8 +89,8 @@ fun! wheel#line#switch (settings)
 	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
 	let settings = a:settings
-	call wheel#line#target (settings.target)
-	call wheel#vortex#switch(settings.level, settings.selected, settings.use)
+	let mode = wheel#line#target (settings.target)
+	call wheel#vortex#switch(settings.level, settings.selected, mode)
 	return win_getid ()
 endfun
 
@@ -104,9 +104,9 @@ fun! wheel#line#helix (settings)
 		echomsg 'Helix line is too short'
 		return v:false
 	endif
-	call wheel#line#target (a:settings.target)
+	let mode = wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (a:settings.use)
+	call wheel#vortex#jump (mode)
 	return win_getid ()
 endfun
 
@@ -120,9 +120,9 @@ fun! wheel#line#grid (settings)
 		echomsg 'Grid line is too short'
 		return v:false
 	endif
-	call wheel#line#target (a:settings.target)
+	let mode = wheel#line#target (a:settings.target)
 	call wheel#vortex#interval (coordin)
-	call wheel#vortex#jump (a:settings.use)
+	call wheel#vortex#jump (mode)
 	return win_getid ()
 endfun
 
@@ -137,7 +137,7 @@ fun! wheel#line#tree (settings)
 	" - target : current, tab, horizontal_split, vertical_split
 	let coordin = a:settings.selected
 	let length = len(coordin)
-	call wheel#line#target (a:settings.target)
+	let mode = wheel#line#target (a:settings.target)
 	if length == 3
 		call wheel#vortex#chord(coordin)
 	elseif length == 2
@@ -147,7 +147,7 @@ fun! wheel#line#tree (settings)
 	else
 		return v:false
 	endif
-	call wheel#vortex#jump (a:settings.use)
+	call wheel#vortex#jump (mode)
 	return win_getid ()
 endfun
 
@@ -166,9 +166,9 @@ fun! wheel#line#history (settings)
 		echomsg 'History : coordinates should contain 3 elements'
 		return v:false
 	endif
-	call wheel#line#target (a:settings.target)
+	let mode = wheel#line#target (a:settings.target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (a:settings.use)
+	call wheel#vortex#jump (mode)
 	return win_getid ()
 endfun
 
