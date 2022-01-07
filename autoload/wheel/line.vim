@@ -178,9 +178,9 @@ fun! wheel#line#buffers (settings)
 		let filename = fnamemodify(filename, ':p')
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)
-			call wheel#vortex#chord (coordin)
 			call wheel#line#target (settings.target)
-			call wheel#vortex#jump ()
+			call wheel#vortex#chord (coordin)
+			call wheel#vortex#jump ('new')
 		else
 			exe 'buffer' bufnum
 		endif
