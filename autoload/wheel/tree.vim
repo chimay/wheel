@@ -19,7 +19,7 @@ endif
 " Helpers
 
 fun! wheel#tree#is_in_circle (location, circle)
-	" Whether location is in circle
+	" Whether file & cursor position is in circle
 	let local = a:location
 	let present = 0
 	for elem in a:circle.locations
@@ -228,13 +228,6 @@ fun! wheel#tree#add_location (location, ...)
 		call wheel#tree#add_circle()
 	endif
 	let circle = torus.circles[torus.current]
-	" check location is not in circle
-	if wheel#tree#is_in_circle(location, circle)
-		redraw!
-		echomsg 'Location' location.file ':' location.line
-					\ 'already exists in torus' torus.name 'circle' circle.name
-		return v:false
-	endif
 	" add a name to the location
 	let name = wheel#tree#add_name (location)
 	if empty(name)
