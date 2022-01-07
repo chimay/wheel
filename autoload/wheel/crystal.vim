@@ -121,6 +121,7 @@ if ! exists('s:normal_map_keys')
 				\ 'gS', 'gV',
 				\ 'p', 'P',
 				\ 'gp', 'gP',
+				\ '<c-s>',
 				\ ]
 	lockvar s:normal_map_keys
 endif

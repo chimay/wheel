@@ -344,8 +344,13 @@ fun! wheel#sailing#find (...)
 		let pattern = a:1
 	else
 		let prompt = 'Find file matching : '
-		let pattern = '**/*' . input(prompt) . '*'
+		let wordlist = split(input(prompt))
+		let pattern = '**/*'
+		for word in wordlist
+			let pattern .= word . '*'
+		endfor
 	endif
+	echomsg 'wheel find : using pattern' pattern
 	let lines = wheel#perspective#find (pattern)
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('find')
@@ -362,9 +367,15 @@ fun! wheel#sailing#async_find (...)
 		let pattern = a:1
 	else
 		let prompt = 'Async find file matching : '
-		let pattern = '*' . input(prompt) . '*'
-		let pattern = escape(pattern, '*')
+		let input = input(prompt)
+		let input = escape(input, '*')
+		let wordlist = split(input)
+		let pattern = '*'
+		for word in wordlist
+			let pattern .= word . '*'
+		endfor
 	endif
+	echomsg 'wheel async find : using pattern' pattern
 	call wheel#vortex#update ()
 	call wheel#mandala#open ('async_find')
 	let settings = {'action' : function('wheel#line#find')}

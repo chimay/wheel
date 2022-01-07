@@ -875,16 +875,41 @@ The default mapping is `<M-w>l`.
 ------------------------------------------------------------------------------
 FIND						*wheel-dedicated-buffers-find*
 
-Search files with find.
+Search files with |glob()|.
+
+If you enter `pattern` at the prompt, the glob used to find files will be : >
+
+    **/*pattern*
+<
+
+If you enter several words at the prompt, say `word-1 word-2` , the glob
+used to find files will be : >
+
+    **/*word-1*word-2*
+<
 
 The default mapping is `<M-w>f`.
 
 ------------------------------------------------------------------------------
 ASYNC FIND				*wheel-dedicated-buffers-async-find*
 
-Search files with find in async mode.
+Search files with unix `find` command in async mode.
 
-The default mapping is `<M-w><M-f>`.
+If you enter `pattern` at the prompt, the glob used to find files will be : >
+
+    *pattern*
+<
+
+The `find` command is recursive by default, so you don’t need the
+double asterisk prefix.
+
+If you enter several words at the prompt, say `word-1 word-2` , the glob
+used to find files will be : >
+
+    *word-1*word-2*
+<
+
+The default mapping is `<M-w>&f`.
 
 You can stop the process by using `<c-s>` in the dedicated buffer.
 
