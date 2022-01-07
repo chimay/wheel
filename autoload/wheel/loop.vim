@@ -120,8 +120,6 @@ fun! wheel#loop#sailing (settings)
 		call wheel#mandala#related ()
 	endif
 	if target != 'current'
-		" open new split or tab, do not search for
-		" match in visible buffers
 		for elem in selected
 			let settings.selected = elem
 			call wheel#gear#call(Fun, settings)
@@ -129,8 +127,6 @@ fun! wheel#loop#sailing (settings)
 			call wheel#spiral#cursor ()
 		endfor
 	else
-		" open in current window, search also
-		" for match in visible buffers
 		let settings.selected = selected[0]
 		call wheel#gear#call(Fun, settings)
 		normal! zv

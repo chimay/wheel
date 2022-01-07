@@ -63,6 +63,8 @@ endfun
 fun! wheel#line#target (target)
 	" Open target tab / win before navigation
 	let target = a:target
+	" jump mode : if new, do not search for match
+	" in visible buffers
 	let mode = 'new'
 	if target ==# 'current'
 		let mode = 'default'
