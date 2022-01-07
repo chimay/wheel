@@ -63,7 +63,10 @@ endfun
 fun! wheel#line#target (target)
 	" Open target tab / win before navigation
 	let target = a:target
-	if target ==# 'tab'
+	let mode = 'new'
+	if target ==# 'current'
+		let mode = 'default'
+	elseif target ==# 'tab'
 		tabnew
 	elseif target ==# 'horizontal_split'
 		split
@@ -74,6 +77,7 @@ fun! wheel#line#target (target)
 	elseif target ==# 'vertical_golden'
 		call wheel#spiral#vertical ()
 	endif
+	return mode
 endfu
 
 " Applications of wheel#loop#sailing
@@ -178,9 +182,9 @@ fun! wheel#line#buffers (settings)
 		let filename = fnamemodify(filename, ':p')
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)
-			call wheel#line#target (settings.target)
+			let mode = wheel#line#target (settings.target)
 			call wheel#vortex#chord (coordin)
-			call wheel#vortex#jump ('new')
+			call wheel#vortex#jump (mode)
 		else
 			exe 'buffer' bufnum
 		endif
