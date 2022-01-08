@@ -193,11 +193,12 @@ fun! wheel#cylinder#add (...)
 	" previous current mandala
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
-	" new buffer
+	" mandala window
 	let winds = win_findbuf(elder)
 	if mode != 'furtive' && ! wheel#cylinder#is_mandala ()
 		call wheel#cylinder#window ('window')
 	endif
+	" new buffer
 	enew
 	let novice = bufnr('%')
 	if novice == elder
@@ -210,6 +211,7 @@ fun! wheel#cylinder#add (...)
 	let g:wheel_mandalas.current = next
 	let novice_iden = wheel#cylinder#new_iden (iden)
 	call insert(iden, novice_iden, next)
+	call wheel#book#init ()
 	" old layer stack implementation
 	"call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
@@ -219,7 +221,7 @@ fun! wheel#cylinder#add (...)
 		" go back to previous buffer
 		silent buffer #
 	endif
-	call wheel#status#cylinder ()
+	call wheel#status#mandala ()
 	return v:true
 endfun
 
@@ -250,7 +252,7 @@ fun! wheel#cylinder#delete ()
 		exe 'silent buffer' goto
 	endif
 	exe 'silent bwipe!' removed
-	call wheel#status#cylinder ()
+	call wheel#status#mandala ()
 	return removed
 endfun
 
@@ -279,7 +281,7 @@ fun! wheel#cylinder#forward ()
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
-	call wheel#status#cylinder ()
+	call wheel#status#mandala ()
 endfun
 
 fun! wheel#cylinder#backward ()
@@ -297,7 +299,7 @@ fun! wheel#cylinder#backward ()
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
-	call wheel#status#cylinder ()
+	call wheel#status#mandala ()
 endfun
 
 " Switch
@@ -323,5 +325,5 @@ fun! wheel#cylinder#switch ()
 	endif
 	let g:wheel_mandalas.current = mandala
 	call wheel#cylinder#recall ()
-	call wheel#status#cylinder ()
+	call wheel#status#mandala ()
 endfun

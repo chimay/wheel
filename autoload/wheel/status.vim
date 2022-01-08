@@ -38,7 +38,7 @@ endfun
 
 " Mandala ring status
 
-fun! wheel#status#cylinder ()
+fun! wheel#status#mandala ()
 	" Mandala dashboard
 	" layers types
 	let bufnums = g:wheel_mandalas.ring
@@ -56,7 +56,7 @@ fun! wheel#status#cylinder ()
 		call add(types, title)
 	endfor
 	" echo
-	redraw!
+	"redraw!
 	echo 'mandalas : ' .. join(types)
 endfun
 
@@ -64,6 +64,10 @@ endfun
 
 fun! wheel#status#leaf ()
 	" Leaf dashboard
+	" -- undefined ring
+	if ! exists('b:wheel_ring')
+		return v:false
+	endif
 	" -- leaf types
 	let filenames = wheel#book#ring ('filename')
 	if empty(filenames)
@@ -84,8 +88,8 @@ endfun
 
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf ring status
-	call wheel#status#cylinder ()
-	echo "\n"
+	redraw!
+	call wheel#status#mandala ()
 	call wheel#status#leaf ()
 endfun
 

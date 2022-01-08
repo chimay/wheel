@@ -46,9 +46,8 @@ fun! wheel#book#indexes_to_keep ()
 	let current = ring.current
 	let leaves = ring.leaves
 	let length = len(leaves)
-	if maxim > length
-		" still under maxim
-		" nothing to do
+	" still under maxim : nothing to do
+	if length < maxim
 		return []
 	endif
 	" euclidian integer division
@@ -75,12 +74,22 @@ endfun
 fun! wheel#book#limit ()
 	" Limit number of leaves to the configured maximum
 	" Used to keep ring length <= g:wheel_config.maxim.layers
-	let [indexes, new_current] = wheel#book#indexes_to_keep ()
+	let maxim = g:wheel_config.maxim.layers
+	" ring
 	let ring = b:wheel_ring
 	let leaves = ring.leaves
+	let length = len(leaves)
+	" still under maxim : nothing to do
+	if length < maxim
+		" still under maxim
+		" nothing to do
+		return v:false
+	endif
+	let [indexes, new_current] = wheel#book#indexes_to_keep ()
 	let new_leaves = wheel#chain#indexes(leaves, indexes)
 	let ring.current = new_current
 	let ring.leaves = new_leaves
+	return v:true
 endfun
 
 " Init ring

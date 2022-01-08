@@ -135,7 +135,7 @@ fun! wheel#mandala#open (type)
 	call wheel#book#syncup ()
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
-	call wheel#status#cylinder ()
+	call wheel#status#mandala_leaf ()
 endfun
 
 " old layer stack implementation
