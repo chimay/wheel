@@ -121,20 +121,42 @@ endfun
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
-	if wheel#cylinder#recall()
-		if ! wheel#mandala#is_empty ()
-			call wheel#layer#push ()
-			call wheel#layer#fresh ()
-		endif
-		call wheel#layer#init ()
-	else
+	if ! wheel#cylinder#recall()
+		" first mandala
 		" split is done in the routine
 		call wheel#cylinder#first ('linger')
+	else
+		if ! wheel#mandala#is_empty ()
+			call wheel#book#fresh ()
+		endif
 	endif
+	call wheel#book#init ()
+	call wheel#book#add ()
+	call wheel#book#syncup ()
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
 	call wheel#status#cylinder ()
 endfun
+
+" old layer stack implementation
+"
+" fun! wheel#mandala#open (type)
+" 	" Open a mandala buffer
+" 	let type = a:type
+" 	if wheel#cylinder#recall()
+" 		if ! wheel#mandala#is_empty ()
+" 			call wheel#layer#push ()
+" 			call wheel#layer#fresh ()
+" 		endif
+" 		call wheel#layer#init ()
+" 	else
+" 		" split is done in the routine
+" 		call wheel#cylinder#first ('linger')
+" 	endif
+" 	call wheel#mandala#filename (type)
+" 	call wheel#mandala#common_options ()
+" 	call wheel#status#cylinder ()
+" endfun
 
 fun! wheel#mandala#close ()
 	" Close the mandala buffer
@@ -222,6 +244,8 @@ fun! wheel#mandala#fill (content, ...)
 	call wheel#gear#restore_cursor (position, 1)
 	" restore foldenable value
 	let &foldenable = ampersand
+	" update leaf ring
+	call wheel#book#syncup ()
 endfun
 
 fun! wheel#mandala#replace (content, ...)
@@ -450,10 +474,15 @@ fun! wheel#mandala#common_maps ()
 	" Reload mandala
 	nnoremap <silent> <buffer> r :call wheel#mandala#reload ()<cr>
 	" Navigate in layer ring
-	nnoremap <silent> <buffer> H :call wheel#layer#backward ()<cr>
-	nnoremap <silent> <buffer> L :call wheel#layer#forward ()<cr>
-	nnoremap <silent> <buffer> <m-l> :call wheel#layer#switch ()<cr>
-	nnoremap <silent> <buffer> <backspace> :call wheel#layer#pop ()<cr>
+	" old layer stack implementation
+	"nnoremap <silent> <buffer> H :call wheel#layer#backward ()<cr>
+	"nnoremap <silent> <buffer> L :call wheel#layer#forward ()<cr>
+	"nnoremap <silent> <buffer> <m-l> :call wheel#layer#switch ()<cr>
+	"nnoremap <silent> <buffer> <backspace> :call wheel#layer#pop ()<cr>
+	nnoremap <silent> <buffer> H :call wheel#book#backward ()<cr>
+	nnoremap <silent> <buffer> L :call wheel#book#forward ()<cr>
+	nnoremap <silent> <buffer> <m-l> :call wheel#book#switch ()<cr>
+	nnoremap <silent> <buffer> <backspace> :call wheel#book#delete ()<cr>
 endfu
 
 fun! wheel#mandala#filter_maps ()

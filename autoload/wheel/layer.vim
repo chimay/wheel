@@ -154,7 +154,7 @@ endfun
 
 " Sync & swap
 
-fun! wheel#layer#sync ()
+fun! wheel#layer#syncdown ()
 	" Sync top of the stack to mandala state : vars, options, maps
 	if wheel#layer#length () == 0
 		echomsg 'wheel layer sync : empty stack.'
@@ -237,7 +237,7 @@ fun! wheel#layer#swap ()
 		let swap.reload = ''
 	endif
 	" -- Stack top -> mandala state
-	call wheel#layer#sync ()
+	call wheel#layer#syncdown ()
 	" -- Swap space -> top of stack
 	let stack.layers[stack.top] = swap
 endfun
@@ -315,7 +315,7 @@ fun! wheel#layer#pop ()
 		return v:false
 	endif
 	" pop
-	call wheel#layer#sync ()
+	call wheel#layer#syncdown ()
 	let stack = b:wheel_stack
 	call remove(stack.layers, stack.top)
 	" update length

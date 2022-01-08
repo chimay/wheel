@@ -9,19 +9,35 @@ if ! exists('s:selected_mark')
 	lockvar s:selected_mark
 endif
 
-" Sync buffer variables & top of ring
+" Sync previous mandala layer -> current mandala state
 
-fun! wheel#boomerang#sync ()
-	" Sync selection & settings at top of ring --> mandala state
+fun! wheel#boomerang#syncdown ()
+	" Sync selection & settings in ring --> mandala state
 	" the action will be performed on the selection of the previous layer
-	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
+	let b:wheel_selected = deepcopy(wheel#book#previous('selected'))
 	if empty(b:wheel_selected)
 		" default selection = cursor line address of previous layer
-		let b:wheel_selected = [deepcopy(wheel#layer#top_field ('address'))]
+		let b:wheel_selected = [deepcopy(wheel#book#previous('address'))]
 	endif
 	" the action will be performed with the settings of the previous layer
-	let b:wheel_settings = deepcopy(wheel#layer#top_field('settings'))
+	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
 endfun
+
+" old layer stack implementation
+"
+" Sync buffer variables & top of ring
+"
+" fun! wheel#boomerang#syncdown ()
+" 	" Sync selection & settings in ring --> mandala state
+" 	" the action will be performed on the selection of the previous layer
+" 	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
+" 	if empty(b:wheel_selected)
+" 		" default selection = cursor line address of previous layer
+" 		let b:wheel_selected = [deepcopy(wheel#layer#top_field ('address'))]
+" 	endif
+" 	" the action will be performed with the settings of the previous layer
+" 	let b:wheel_settings = deepcopy(wheel#layer#top_field('settings'))
+" endfun
 
 " Helpers
 
@@ -29,9 +45,9 @@ fun! wheel#boomerang#remove_deleted ()
 	" Remove deleted elements from mandala lines of the previous layer
 	" deleted = selected or cursor address
 	" e.g. : deleted buffers, closed tabs
-	let lines = wheel#layer#top_field ('lines')
-	let filtered = wheel#layer#top_field ('filtered')
-	let selected = wheel#layer#top_field ('selected')
+	let lines = wheel#book#previous ('lines')
+	let filtered = wheel#book#previous ('filtered')
+	let selected = wheel#book#previous ('selected')
 	if ! empty(selected)
 		" if manually selected with space
 		for elem in selected
@@ -42,7 +58,7 @@ fun! wheel#boomerang#remove_deleted ()
 	else
 		" operate by default on cursor line address on top layer
 		" no manual selection, no marker
-		let elem = wheel#layer#top_field ('address')
+		let elem = wheel#book#previous ('address')
 		if type(elem) == v:t_list
 			let elem = elem[-1]
 		endif
@@ -50,6 +66,34 @@ fun! wheel#boomerang#remove_deleted ()
 		call wheel#chain#remove_element (elem, filtered)
 	endif
 endfun
+
+" old layer stack implementation
+"
+" fun! wheel#boomerang#remove_deleted ()
+" 	" Remove deleted elements from mandala lines of the previous layer
+" 	" deleted = selected or cursor address
+" 	" e.g. : deleted buffers, closed tabs
+" 	let lines = wheel#layer#top_field ('lines')
+" 	let filtered = wheel#layer#top_field ('filtered')
+" 	let selected = wheel#layer#top_field ('selected')
+" 	if ! empty(selected)
+" 		" if manually selected with space
+" 		for elem in selected
+" 			let elem = s:selected_mark . elem
+" 			call wheel#chain#remove_element (elem, lines)
+" 			call wheel#chain#remove_element (elem, filtered)
+" 		endfor
+" 	else
+" 		" operate by default on cursor line address on top layer
+" 		" no manual selection, no marker
+" 		let elem = wheel#layer#top_field ('address')
+" 		if type(elem) == v:t_list
+" 			let elem = elem[-1]
+" 		endif
+" 		call wheel#chain#remove_element (elem, lines)
+" 		call wheel#chain#remove_element (elem, filtered)
+" 	endif
+" endfun
 
 " Generic
 
@@ -72,7 +116,7 @@ fun! wheel#boomerang#menu (dictname, ...)
 	let dictname = 'context/' . a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase (settings)
-	call wheel#boomerang#sync ()
+	call wheel#boomerang#syncdown ()
 	" Let wheel#loop#context_menu handle open / close,
 	" tell wheel#loop#sailing to forget it
 	let b:wheel_settings.close = v:false

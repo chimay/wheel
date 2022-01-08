@@ -49,7 +49,29 @@ fun! wheel#book#init ()
 	endif
 endfun
 
+fun! wheel#book#template ()
+	" Return empty template leaf
+	let leaf = {}
+	let leaf.filename = ''
+	let leaf.options = {}
+	let leaf.mappings = {}
+	let leaf.autocmds = {}
+	let leaf.lines = []
+	let leaf.filtered = []
+	let leaf.position = []
+	let leaf.address = []
+	let leaf.selected = []
+	let leaf.settings = []
+	let leaf.reload = ''
+	return leaf
+endfun
+
 " State
+
+fun! wheel#book#empty ()
+	" Whether leaf ring is empty
+	return b:wheel_ring.current == -1
+ endfun
 
 fun! wheel#book#ring (...)
 	" Return ring of field given by optional argument
@@ -147,9 +169,14 @@ endfun
 fun! wheel#book#syncup ()
 	" Sync mandala state to current leaf in ring
 	" state = vars, options, maps, autocmds
-	call wheel#book#init ()
-	" leaf to fill / update
 	let ring = b:wheel_ring
+	" first leaf ?
+	if wheel#book#empty()
+		let ring.current = 0
+		let ring.leaves = [ wheel#book#template () ]
+	endif
+	" leaf to fill / update
+	let current = ring.current
 	let leaf = ring.leaves[current]
 	" pseudo filename
 	let leaf.filename = expand('%')
@@ -197,8 +224,8 @@ fun! wheel#book#syncdown ()
 	" Sync current leaf in ring to mandala state
 	" state = vars, options, maps, autocmds
 	let ring = b:wheel_ring
-	let length = length(ring.leaves)
-	if length == 0)
+	" empty ring ?
+	if wheel#book#empty()
 		echomsg 'wheel book syncdown : empty ring'
 		return v:false
 	endif
@@ -239,51 +266,12 @@ endfun
 
 fun! wheel#book#add ()
 	" Add new leaf in ring
-	" -- init leaf ring if necessary
-	call wheel#book#init ()
-	" -- build leaf
-	let leaf = {}
-	" pseudo filename
-	let leaf.filename = expand('%')
-	" options
-	let leaf.options = wheel#book#save_options ()
-	" mappings
-	let leaf.mappings = wheel#book#save_maps ()
-	" autocommands
-	let leaf.autocmds = wheel#book#save_autocmds ()
-	" lines, without filtering
-	if empty(b:wheel_lines)
-		let begin = wheel#mandala#first_data_line ()
-		let leaf.lines = getline(begin, '$')
-	else
-		let leaf.lines = copy(b:wheel_lines)
-	endif
-	" filtered content
-	let leaf.filtered = getline(1, '$')
-	" cursor position
-	let leaf.position = getcurpos()
-	" address of cursor line
-	" useful for boomerang = context menus
-	let leaf.address = wheel#line#address()
-	" selected lines
-	let leaf.selected = deepcopy(b:wheel_selected)
-	" settings
-	if exists('b:wheel_settings')
-		let leaf.settings = b:wheel_settings
-	else
-		let leaf.settings = {}
-	endif
-	" reload
-	if exists('b:wheel_reload')
-		let leaf.reload = b:wheel_reload
-	else
-		let leaf.reload = ''
-	endif
-	" -- add to leaf ring
+	let leaf = wheel#book#template ()
 	let ring = b:wheel_ring
-	let current = ring.current
-	let next = current + 1
-	call insert(ring, leaf, next)
+	let next = ring.current + 1
+	call insert(ring.leaves, leaf, next)
+	let ring.current = next
+	call wheel#status#leaf ()
 endfun
 
 fun! wheel#book#delete ()
@@ -292,20 +280,23 @@ fun! wheel#book#delete ()
 	let ring = b:wheel_ring
 	let leaves = ring.leaves
 	let length = len(leaves)
-	if empty(leaves)
+	" -- do not delete element from empty ring
+	if length == 0
 		echomsg 'wheel book delete : empty buffer ring'
 		return v:false
 	endif
 	" -- do not delete element from one element ring
-	if len(leaves) == 1
+	if length == 1
 		echomsg 'wheel book delete :' leaves[0].filename 'is the last layer in ring'
 		return v:false
 	endif
 	" -- delete
-	call remove(ring.leaves, ring.current)
+	let current = ring.current
+	call remove(ring.leaves, current)
 	let length -= 1
 	let ring.current = wheel#gear#circular_minus (current, length)
 	call wheel#book#syncdown ()
+	call wheel#status#leaf ()
 endfun
 
 " Forward & backward
@@ -321,7 +312,7 @@ fun! wheel#book#forward ()
 	let current = ring.current
 	let ring.current = wheel#gear#circular_plus (current, length)
 	call wheel#book#syncdown ()
-	call wheel#status#book ()
+	call wheel#status#leaf ()
 endfun
 
 fun! wheel#book#backward ()
@@ -335,7 +326,7 @@ fun! wheel#book#backward ()
 	let current = ring.current
 	let ring.current = wheel#gear#circular_minus (current, length)
 	call wheel#book#syncdown ()
-	call wheel#status#book ()
+	call wheel#status#leaf ()
 endfun
 
 " Switch

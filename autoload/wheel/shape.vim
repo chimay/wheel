@@ -233,9 +233,11 @@ fun! wheel#shape#grep_edit (...)
 	else
 		let file = expand('%')
 		if file =~ s:is_mandala . 'context/grep'
-			" called from context menu,
-			" original pattern is at the top of the ring
-			let settings = wheel#layer#top_field ('settings')
+			" called from context menu
+			" original pattern is in the previous leaf of the ring
+			let settings = wheel#book#previous ('settings')
+			" old layer stack implementation
+			"let settings = wheel#layer#top_field ('settings')
 			let pattern = settings.pattern
 		else
 			let pattern = input('Grep circle files for pattern [edit mode] : ')
@@ -245,7 +247,9 @@ fun! wheel#shape#grep_edit (...)
 		let sieve = a:2
 	else
 		if file =~ s:is_mandala . 'context/grep'
-			let settings = wheel#layer#top_field ('settings')
+			let settings = wheel#book#previous ('settings')
+			" old layer stack implementation
+			"let settings = wheel#layer#top_field ('settings')
 			let sieve = settings.sieve
 		else
 			let sieve = '\m.'

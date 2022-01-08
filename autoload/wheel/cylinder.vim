@@ -142,6 +142,7 @@ endfun
 fun! wheel#cylinder#first (...)
 	" Add first mandala buffer
 	if a:0 > 0
+		" linger
 		let mode = a:1
 	else
 		let mode = 'furtive'
@@ -162,7 +163,8 @@ fun! wheel#cylinder#first (...)
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
-	call wheel#layer#init ()
+	" old layer stack implementation
+	"call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive'
@@ -208,7 +210,8 @@ fun! wheel#cylinder#add (...)
 	let g:wheel_mandalas.current = next
 	let novice_iden = wheel#cylinder#new_iden (iden)
 	call insert(iden, novice_iden, next)
-	call wheel#layer#init ()
+	" old layer stack implementation
+	"call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive' && ! was_mandala
