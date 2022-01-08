@@ -712,7 +712,7 @@ Wheel manages a dedicated buffers ring. You can :
 A wheel dedicated buffer is also called a mandala.
 
 ------------------------------------------------------------------------------
-LAYER ring				*wheel-dedicated-buffers-layers*
+LAYER RING				*wheel-dedicated-buffers-layers*
 
 Each time you launch a wheel function involving a dedicated buffer, a new
 associated layer is added to a ring local to the buffer. You may see it
