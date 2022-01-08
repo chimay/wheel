@@ -71,11 +71,11 @@ fun! wheel#tree#insert_torus (torus)
 	let index = wheel.current
 	let glossary = wheel.glossary
 	let name = torus.name
-	if index(glossary, name) >= 0
+	if wheel#chain#is_inside(name, glossary)
 		let complete = 'customlist,wheel#completelist#torus'
 		let name = input('Insert torus with name ? ', '', complete)
 	endif
-	if index(glossary, name) >= 0
+	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Torus named' name 'already exists in wheel.'
 		return v:false
 	endif
@@ -94,11 +94,11 @@ fun! wheel#tree#insert_circle (circle)
 	let index = torus.current
 	let glossary = torus.glossary
 	let name = circle.name
-	if index(glossary, name) >= 0
+	if wheel#chain#is_inside(name, glossary)
 		let complete = 'customlist,wheel#completelist#circle'
 		let name = input('Insert circle with name ? ', '', complete)
 	endif
-	if index(glossary, name) >= 0
+	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Circle named' name 'already exists in torus ' . torus.name
 		return v:false
 	endif
@@ -118,11 +118,11 @@ fun! wheel#tree#insert_location (location)
 	let index = circle.current
 	let glossary = circle.glossary
 	let name = location.name
-	if index(glossary, name) >= 0
+	if wheel#chain#is_inside(name, glossary)
 		let complete = 'customlist,wheel#completelist#location'
 		let name = input('Insert location with name ? ', '', complete)
 	endif
-	if index(glossary, name) >= 0
+	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Location named' name 'already exists in circle ' . circle.name
 		return v:false
 	endif
@@ -151,7 +151,7 @@ fun! wheel#tree#add_torus (...)
 		return v:false
 	endif
 	" check if not already present
-	if index(g:wheel.glossary, torus_name) >= 0
+	if wheel#chain#is_inside(torus_name, g:wheel.glossary)
 		redraw!
 		echomsg 'Torus' torus_name 'already exists in wheel.'
 		return v:false
@@ -191,7 +191,7 @@ fun! wheel#tree#add_circle (...)
 	endif
 	" check if not already present
 	let torus = g:wheel.toruses[g:wheel.current]
-	if index(torus.glossary, circle_name) >= 0
+	if wheel#chain#is_inside(circle_name, torus.glossary)
 		redraw!
 		echomsg 'Circle' circle_name 'already exists in torus' torus.name
 		return v:false
@@ -236,7 +236,7 @@ fun! wheel#tree#add_location (location, ...)
 		return v:false
 	endif
 	" check location name is not in circle
-	if index(circle.glossary, name) >= 0
+	if wheel#chain#is_inside(name, circle.glossary)
 		redraw!
 		echomsg 'Location named' name 'already exists in circle.'
 		return v:false
@@ -367,7 +367,7 @@ fun! wheel#tree#rename (level, ...)
 		return v:false
 	endif
 	" check new is not present in upper list
-	if index(upper.glossary, new) >= 0
+	if wheel#chain#is_inside(new, upper.glossary)
 		redraw!
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
 		echomsg level new 'already exists in' upper_level_name

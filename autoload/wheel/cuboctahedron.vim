@@ -50,7 +50,7 @@ fun! wheel#cuboctahedron#baskets (linelist)
 			" tab line
 			let oldindex = str2nr(split(line)[1])
 			let newindex += 1
-			if index(tabindexes, oldindex) >= 0
+			if wheel#chain#is_inside(oldindex, tabindexes)
 				let oldindex = nextab
 				let nextab += 1
 			endif

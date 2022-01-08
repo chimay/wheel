@@ -15,7 +15,7 @@ fun! wheel#cylinder#is_mandala (...)
 		let bufnum = bufnr('%')
 	endif
 	let mandalas = g:wheel_mandalas.stack
-	if index(mandalas, bufnum) >= 0
+	if wheel#chain#is_inside(bufnum, mandalas)
 		return v:true
 	else
 		return v:false
@@ -270,7 +270,7 @@ fun! wheel#cylinder#forward ()
 	endif
 	let current = g:wheel_mandalas.current
 	let bufnum = bufnr('%')
-	if index(mandalas, bufnum) >= 0
+	if wheel#chain#is_inside(bufnum, mandalas)
 		let current = wheel#gear#circular_plus (current, length)
 		let g:wheel_mandalas.current = current
 	endif
@@ -288,7 +288,7 @@ fun! wheel#cylinder#backward ()
 	endif
 	let current = g:wheel_mandalas.current
 	let bufnum = bufnr('%')
-	if index(mandalas, bufnum) >= 0
+	if wheel#chain#is_inside(bufnum, mandalas)
 		let current = wheel#gear#circular_minus (current, length)
 		let g:wheel_mandalas.current = current
 	endif

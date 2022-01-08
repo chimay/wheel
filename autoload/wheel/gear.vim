@@ -140,7 +140,7 @@ fun! wheel#gear#short_mode (mode)
 	endif
 	if len(mode) > 1
 		let keys = keys(s:modes_letters)
-		if index(keys, mode) >= 0
+		if wheel#chain#is_inside(mode, keys)
 			return s:modes_letters[mode]
 		else
 			echomsg 'wheel gear : argument is not a valid mode name.'
@@ -148,7 +148,7 @@ fun! wheel#gear#short_mode (mode)
 		endif
 	else
 		let keys = keys(s:letters_modes)
-		if index(keys, mode) >= 0
+		if wheel#chain#is_inside(mode, keys)
 			return mode
 		else
 			echomsg 'wheel gear : argument is not a valid mode name.'
@@ -166,7 +166,7 @@ fun! wheel#gear#long_mode (mode)
 	endif
 	if len(mode) == 1
 		let keys = keys(s:letters_modes)
-		if index(keys, mode) >= 0
+		if wheel#chain#is_inside(mode, keys)
 			return s:letters_modes[mode]
 		else
 			echomsg 'wheel gear : argument is not a valid mode name.'
@@ -174,7 +174,7 @@ fun! wheel#gear#long_mode (mode)
 		endif
 	else
 		let keys = keys(s:modes_letters)
-		if index(keys, mode) >= 0
+		if wheel#chain#is_inside(mode, keys)
 			return mode
 		else
 			echomsg 'wheel gear : argument is not a valid mode name.'

@@ -9,7 +9,7 @@ fun! wheel#scroll#record (input)
 			call wheel#scroll#record (elem)
 		endfor
 	elseif type(a:input) == v:t_string
-		if index(g:wheel_input, a:input) >= 0
+		if wheel#chain#is_inside(a:input, g:wheel_input)
 			call wheel#chain#remove_element(a:input, g:wheel_input)
 		endif
 		call insert(g:wheel_input, a:input)

@@ -81,7 +81,7 @@ fun! wheel#projection#follow (...)
 		return
 	endif
 	" first add some locations before leaving empty circle
-	if index(['wheel', 'torus'], level) >= 0 && wheel#referen#empty ('circle')
+	if wheel#chain#is_inside(level, ['wheel', 'torus']) && wheel#referen#empty ('circle')
 		return
 	endif
 	" follow
