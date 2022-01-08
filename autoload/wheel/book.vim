@@ -72,12 +72,73 @@ fun! wheel#book#previous (...)
 	" Return previous field given by optional argument
 	" Return previous leaf if no argument is given
 	let stack = b:wheel_stack
-	let length = wheel#book#length ()
-	let previous = wheel#gear#circular_minus (stack.current)
+	let length = len(stack.leaves)
+	let previous = wheel#gear#circular_minus (stack.current, length)
 	if a:0 == 0
 		return stack.leaves[previous]
 	endif
 	let fieldname = a:1
 	return stack.leaves[previous][fieldname]
+endfun
+
+" Clearing things
+
+fun! wheel#book#clear_options ()
+	" Clear mandala local options
+	setlocal nofoldenable
+endfun
+
+fun! wheel#book#clear_maps ()
+	" Clear mandala local maps
+	call wheel#gear#unmap(s:map_keys)
+endfun
+
+fun! wheel#book#clear_autocmds ()
+	" Clear mandala local autocommands
+	let group = s:mandala_autocmds_group
+	let events = s:mandala_autocmds_events
+	call wheel#gear#clear_autocmds (group, events)
+endfun
+
+fun! wheel#book#clear_vars ()
+	" Clear mandala local variables, except the layer stack
+	call wheel#gear#unlet (s:mandala_vars)
+endfun
+
+fun! wheel#book#fresh ()
+	" Fresh empty layer : clear mandala local data
+	call wheel#book#clear_options ()
+	call wheel#book#clear_maps ()
+	call wheel#book#clear_autocmds ()
+	call wheel#book#clear_vars ()
+	" delete lines -> underscore _ = no storing register
+	silent! 1,$ delete _
+endfun
+
+" Saving things
+
+fun! wheel#book#save_options ()
+	" Save options
+	return wheel#gear#save_options (s:mandala_options)
+endfun
+
+fun! wheel#book#save_maps ()
+	" Save maps
+	return wheel#gear#save_maps (s:map_keys)
+endfun
+
+fun! wheel#book#save_autocmds ()
+	" Save autocommands
+	let group = s:mandala_autocmds_group
+	let events = s:mandala_autocmds_events
+	return wheel#gear#save_autocmds (group, events)
+endfun
+
+" Restoring things
+
+fun! wheel#book#restore_autocmds (autodict)
+	" Restore autocommands
+	let group = s:mandala_autocmds_group
+	call wheel#gear#restore_autocmds (group, a:autodict)
 endfun
 
