@@ -9,10 +9,10 @@ if ! exists('s:selected_mark')
 	lockvar s:selected_mark
 endif
 
-" Sync buffer variables & top of stack
+" Sync buffer variables & top of ring
 
 fun! wheel#boomerang#sync ()
-	" Sync selection & settings at top of stack --> mandala state
+	" Sync selection & settings at top of ring --> mandala state
 	" the action will be performed on the selection of the previous layer
 	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
 	if empty(b:wheel_selected)

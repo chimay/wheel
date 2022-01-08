@@ -116,7 +116,7 @@ endfun
 
 fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
 	" Return mandala buffers names
-	let bufnums = g:wheel_mandalas.stack
+	let bufnums = g:wheel_mandalas.ring
 	if empty(bufnums)
 		return []
 	endif
@@ -189,7 +189,7 @@ fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
 		let fields = split(elem)
 		let bufnum = str2nr(fields[0])
 		let filename = bufname(bufnum)
-		let is_wheel_buf = wheel#chain#is_inside(bufnum, g:wheel_mandalas.stack)
+		let is_wheel_buf = wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
 		let is_without_name = filename =~ '\m^\[.*\]'
 		if ! is_wheel_buf && ! is_without_name
 			call add(lines, filename)

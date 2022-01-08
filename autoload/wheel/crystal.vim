@@ -182,7 +182,7 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" Layer stack in mandalas
+" Layer ring in mandalas
 
 if ! exists('s:layer_stack_fields')
 	" filename : pseudo filename of the mandala

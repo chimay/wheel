@@ -31,7 +31,7 @@ endif
 " Init vars
 
 fun! wheel#mandala#init (...)
-	" Init mandala buffer variables, except the stack
+	" Init mandala buffer variables, except the layer ring
 	if a:0 > 0
 		let mode = a:1
 	else
