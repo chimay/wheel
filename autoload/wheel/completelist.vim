@@ -93,7 +93,25 @@ fun! wheel#completelist#grid  (arglead, cmdline, cursorpos)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
-" mandalas
+" mandalas = dedicated buffers
+
+fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
+	" Return mandala buffers names
+	let bufnums = g:wheel_mandalas.ring
+	if empty(bufnums)
+		return []
+	endif
+	let types = []
+	for index in range(len(bufnums))
+		let num = bufnums[index]
+		let title = bufname(num)
+		call add(types, title)
+	endfor
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, types)
+endfun
+
+" mandala layers, implemented as a stack
 
 fun! wheel#completelist#layer (arglead, cmdline, cursorpos)
 	" Return layer types
@@ -114,6 +132,8 @@ fun! wheel#completelist#layer (arglead, cmdline, cursorpos)
 	return wheel#kyusu#candidates(wordlist, types)
 endfun
 
+" leaves = mandala layers, implemented as a ring
+
 fun! wheel#completelist#leaf (arglead, cmdline, cursorpos)
 	" Return leaves types
 	let filenames = wheel#book#ring ('filename')
@@ -126,22 +146,6 @@ fun! wheel#completelist#leaf (arglead, cmdline, cursorpos)
 	let title = wheel#mandala#type ()
 	let current = b:wheel_stack.current
 	call insert(types, title, current + 1)
-	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, types)
-endfun
-
-fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
-	" Return mandala buffers names
-	let bufnums = g:wheel_mandalas.ring
-	if empty(bufnums)
-		return []
-	endif
-	let types = []
-	for index in range(len(bufnums))
-		let num = bufnums[index]
-		let title = bufname(num)
-		call add(types, title)
-	endfor
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, types)
 endfun

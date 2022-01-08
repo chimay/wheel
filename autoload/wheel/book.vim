@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Layers ring in each mandala buffer
+" Leaf (layer) ring in each mandala buffer
 "
 " A book contains leaves, sheets, layers
 

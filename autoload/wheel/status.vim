@@ -36,7 +36,7 @@ fun! wheel#status#dashboard ()
 	endif
 endfun
 
-" Layer stack status
+" Layer stack status : mandala layers, implemented as a stack
 
 fun! wheel#status#layer ()
 	" Layer dashboard
@@ -58,7 +58,7 @@ fun! wheel#status#layer ()
 	echo 'layers : ' . join(types)
 endfun
 
-" Leaf ring status
+" Leaf ring status : mandala layers, implemented as a ring
 
 fun! wheel#status#leaf ()
 	" Leaf dashboard

@@ -182,9 +182,9 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" Layer ring in mandalas
+" Layer fields in mandalas
 
-if ! exists('s:layer_stack_fields')
+if ! exists('s:layer_fields')
 	" filename : pseudo filename of the mandala
 	" options : local options
 	" mappings : mappings
@@ -196,7 +196,7 @@ if ! exists('s:layer_stack_fields')
 	" selected : selected lines
 	" settings : mandala settings
 	" reload : reload function
-	let s:layer_stack_fields = [
+	let s:layer_fields = [
 				\ 'filename',
 				\ 'options',
 				\ 'mappings',
@@ -209,7 +209,7 @@ if ! exists('s:layer_stack_fields')
 				\ 'settings',
 				\ 'reload',
 				\ ]
-	lockvar s:layer_stack_fields
+	lockvar s:layer_fields
 endif
 
 " Folds in mandalas
