@@ -6,6 +6,10 @@
 "
 " sheet
 
+" first implementation
+"
+" the stack does not contain the current mandala lines & settings
+
 " Script constants
 
 if ! exists('s:mandala_options')
