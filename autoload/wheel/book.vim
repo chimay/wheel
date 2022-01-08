@@ -38,7 +38,8 @@ endif
 " Helpers
 
 fun! wheel#book#indexes_to_keep ()
-	" Return list of indexes to keep if ring length > g:wheel_config.maxim.layers
+	" Return list of indexes to keep & new current index
+	" Used to keep ring length <= g:wheel_config.maxim.layers
 	let maxim = g:wheel_config.maxim.layers
 	" ring
 	let ring = b:wheel_ring
@@ -66,7 +67,20 @@ fun! wheel#book#indexes_to_keep ()
 			let indexes[ind] += length
 		endif
 	endfor
-	return indexes
+	" new current
+	let new_current = share
+	return [indexes, new_current]
+endfun
+
+fun! wheel#book#limit ()
+	" Limit number of leaves to the configured maximum
+	" Used to keep ring length <= g:wheel_config.maxim.layers
+	let [indexes, new_current] = wheel#book#indexes_to_keep ()
+	let ring = b:wheel_ring
+	let leaves = ring.leaves
+	let new_leaves = wheel#chain#indexes(leaves, indexes)
+	let ring.current = new_current
+	let ring.leaves = new_leaves
 endfun
 
 " Init ring
@@ -305,6 +319,7 @@ fun! wheel#book#add ()
 	let next = ring.current + 1
 	call insert(ring.leaves, leaf, next)
 	let ring.current = next
+	call wheel#book#limit ()
 	call wheel#status#leaf ()
 endfun
 
