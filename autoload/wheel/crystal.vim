@@ -538,8 +538,8 @@ if ! exists('s:context_buffers')
 				\ ['delete' ,  "wheel#boomerang#buffers('delete')"],
 				\ ['unload' ,  "wheel#boomerang#buffers('unload')"],
 				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
-				\ ['delete all hidden buffers' ,  "wheel#rectangle#delete_hidden_buffers()"],
-				\ ['wipe all hidden buffers' ,  "wheel#rectangle#delete_hidden_buffers('wipe')"],
+				\ ['delete all hidden buffers' ,  "wheel#boomerang#buffers('delete_hidden')"],
+				\ ['wipe all hidden buffers' ,  "wheel#boomerang#buffers('wipe_hidden')"],
 				\]
 	lockvar s:context_buffers
 endif

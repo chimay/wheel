@@ -73,7 +73,7 @@ fun! wheel#boomerang#menu (dictname, ...)
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase (settings)
 	call wheel#boomerang#syncdown ()
-	" Let wheel#loop#context_menu handle open / close,
+	" let wheel#loop#context_menu handle open / close,
 	" tell wheel#loop#sailing to forget it
 	let b:wheel_settings.close = v:false
 	" Reload function
@@ -128,9 +128,12 @@ fun! wheel#boomerang#buffers (action)
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
 		call wheel#loop#sailing (settings)
-		let top = b:wheel_ring.top
-		let b:wheel_ring.layers[top].selected = []
-	elseif action == ''
+		let previous_selected = wheel#book#previous ('selected')
+		let previous_selected = []
+	elseif action == 'delete_hidden'
+		call wheel#rectangle#delete_hidden_buffers ()
+	elseif action == 'wipe_hidden'
+		call wheel#rectangle#delete_hidden_buffers ('wipe')
 	endif
 endfun
 

@@ -362,6 +362,7 @@ endfun
 
 fun! wheel#book#forward ()
 	" Go forward in layer ring
+	call wheel#book#syncup ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
 	if length == 0
@@ -375,6 +376,7 @@ endfun
 
 fun! wheel#book#backward ()
 	" Go backward in layer ring
+	call wheel#book#syncup ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
 	if length == 0
@@ -390,6 +392,7 @@ endfun
 
 fun! wheel#book#switch (...)
 	" Switch to layer with completion
+	call wheel#book#syncup ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
 	if length == 0
