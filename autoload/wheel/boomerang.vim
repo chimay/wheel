@@ -139,6 +139,10 @@ fun! wheel#boomerang#buffers (action)
 		let lines = wheel#book#previous ('lines')
 		let filtered = wheel#book#previous ('filtered')
 		let hidden = wheel#rectangle#hidden_buffers ()[0]
+		if empty(hidden)
+			echomsg 'no hidden buffer.'
+			return v:false
+		endif
 		for elem in lines
 			let fields = split(elem, s:field_separ)
 			let bufnum = str2nr(fields[0])
@@ -159,6 +163,7 @@ fun! wheel#boomerang#buffers (action)
 			echomsg 'hidden buffers wiped.'
 		endif
 	endif
+	return v:true
 endfun
 
 fun! wheel#boomerang#tabwins (action)
