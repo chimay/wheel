@@ -141,13 +141,13 @@ fun! wheel#mandala#close ()
 	" -- if we are not in a mandala buffer,
 	" -- go to its window if it is visible
 	let bufnum = bufnr('%')
-	if index(g:wheel_mandalas.stack, bufnum) < 0
+	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.stack)
 		call wheel#cylinder#goto ()
 	endif
 	" -- if we are still not in a mandala buffer,
 	" -- none is visible and there is nothing to do
 	let bufnum = bufnr('%')
-	if index(g:wheel_mandalas.stack, bufnum) < 0
+	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.stack)
 		return v:false
 	endif
 	" -- mandala buffer

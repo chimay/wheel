@@ -302,7 +302,7 @@ fun! wheel#chain#tie (list)
 	let length = len(numbers)
 	let gaps = []
 	for elem in numbers
-		if index(list, elem) < 0
+		if ! wheel#chain#is_inside(elem, list)
 			call map(list, {_,v -> wheel#gear#decrease_greater(v, elem)})
 			call add(gaps, elem)
 		endif
