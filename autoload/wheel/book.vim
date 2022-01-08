@@ -317,6 +317,7 @@ fun! wheel#book#syncdown ()
 	let b:wheel_reload = leaf.reload
 	" Tell (neo)vim the buffer is to be considered not modified
 	setlocal nomodified
+	call wheel#status#leaf ()
 endfun
 
 " Add & delete
@@ -370,7 +371,6 @@ fun! wheel#book#forward ()
 	let current = ring.current
 	let ring.current = wheel#gear#circular_plus (current, length)
 	call wheel#book#syncdown ()
-	call wheel#status#leaf ()
 endfun
 
 fun! wheel#book#backward ()
@@ -384,7 +384,6 @@ fun! wheel#book#backward ()
 	let current = ring.current
 	let ring.current = wheel#gear#circular_minus (current, length)
 	call wheel#book#syncdown ()
-	call wheel#status#leaf ()
 endfun
 
 " Switch
@@ -414,5 +413,4 @@ fun! wheel#book#switch (...)
 	endif
 	let ring.current = current
 	call wheel#book#syncdown ()
-	call wheel#status#leaf ()
 endfun

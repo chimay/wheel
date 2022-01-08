@@ -23,22 +23,6 @@ fun! wheel#boomerang#syncdown ()
 	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
 endfun
 
-" old layer stack implementation
-"
-" Sync buffer variables & top of ring
-"
-" fun! wheel#boomerang#syncdown ()
-" 	" Sync selection & settings in ring --> mandala state
-" 	" the action will be performed on the selection of the previous layer
-" 	let b:wheel_selected = deepcopy(wheel#layer#top_field('selected'))
-" 	if empty(b:wheel_selected)
-" 		" default selection = cursor line address of previous layer
-" 		let b:wheel_selected = [deepcopy(wheel#layer#top_field ('address'))]
-" 	endif
-" 	" the action will be performed with the settings of the previous layer
-" 	let b:wheel_settings = deepcopy(wheel#layer#top_field('settings'))
-" endfun
-
 " Helpers
 
 fun! wheel#boomerang#remove_deleted ()
@@ -66,34 +50,6 @@ fun! wheel#boomerang#remove_deleted ()
 		call wheel#chain#remove_element (elem, filtered)
 	endif
 endfun
-
-" old layer stack implementation
-"
-" fun! wheel#boomerang#remove_deleted ()
-" 	" Remove deleted elements from mandala lines of the previous layer
-" 	" deleted = selected or cursor address
-" 	" e.g. : deleted buffers, closed tabs
-" 	let lines = wheel#layer#top_field ('lines')
-" 	let filtered = wheel#layer#top_field ('filtered')
-" 	let selected = wheel#layer#top_field ('selected')
-" 	if ! empty(selected)
-" 		" if manually selected with space
-" 		for elem in selected
-" 			let elem = s:selected_mark .. elem
-" 			call wheel#chain#remove_element (elem, lines)
-" 			call wheel#chain#remove_element (elem, filtered)
-" 		endfor
-" 	else
-" 		" operate by default on cursor line address on top layer
-" 		" no manual selection, no marker
-" 		let elem = wheel#layer#top_field ('address')
-" 		if type(elem) == v:t_list
-" 			let elem = elem[-1]
-" 		endif
-" 		call wheel#chain#remove_element (elem, lines)
-" 		call wheel#chain#remove_element (elem, filtered)
-" 	endif
-" endfun
 
 " Generic
 
@@ -172,8 +128,9 @@ fun! wheel#boomerang#buffers (action)
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
 		call wheel#loop#sailing (settings)
-		let top = b:wheel_stack.top
-		let b:wheel_stack.layers[top].selected = []
+		let top = b:wheel_ring.top
+		let b:wheel_ring.layers[top].selected = []
+	elseif action == ''
 	endif
 endfun
 
@@ -195,8 +152,8 @@ fun! wheel#boomerang#tabwins (action)
 		" closing last tab first
 		call reverse(b:wheel_selected)
 		call wheel#loop#sailing (settings)
-		let top = b:wheel_stack.top
-		let b:wheel_stack.layers[top].selected = []
+		let top = b:wheel_ring.top
+		let b:wheel_ring.layers[top].selected = []
 		return v:true
 	endif
 	return v:false
