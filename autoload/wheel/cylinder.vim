@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Mandala buffers stack / ring
+" Mandala buffers ring
 "
 " Cylinder of rotary printing press
 
@@ -14,7 +14,7 @@ fun! wheel#cylinder#is_mandala (...)
 	else
 		let bufnum = bufnr('%')
 	endif
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	if wheel#chain#is_inside(bufnum, mandalas)
 		return v:true
 	else
@@ -52,12 +52,12 @@ fun! wheel#cylinder#new_iden (iden, ...)
 endfun
 
 fun! wheel#cylinder#check ()
-	" Remove non existent mandalas buffers from stack
-	let mandalas = g:wheel_mandalas.stack
+	" Remove non existent mandalas buffers from ring
+	let mandalas = g:wheel_mandalas.ring
 	let iden = g:wheel_mandalas.iden
 	for bufnum in mandalas
 		if ! bufexists(bufnum)
-			echomsg 'wheel : removing deleted' bufnum 'buffer from mandala stack'
+			echomsg 'wheel : removing deleted' bufnum 'buffer from mandala ring'
 			let index = index(mandalas, bufnum)
 			call remove(mandalas, index)
 			call remove(iden, index)
@@ -75,7 +75,7 @@ fun! wheel#cylinder#goto (...)
 	" Find window of visible current mandala
 	" Optional argument : if tab, search only in current tab
 	let current = g:wheel_mandalas.current
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	if empty(mandalas)
 		return v:false
 	endif
@@ -95,9 +95,9 @@ fun! wheel#cylinder#window (...)
 	else
 		let mode = 'buffer'
 	endif
-	" stack
+	" ring
 	let current = g:wheel_mandalas.current
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	" any mandala ?
 	if empty(mandalas)
 		return v:false
@@ -137,18 +137,18 @@ fun! wheel#cylinder#window (...)
 	return v:true
 endfun
 
-" Push & pop
+" Add & delete
 
 fun! wheel#cylinder#first (...)
-	" Push first mandala buffer
+	" Add first mandala buffer
 	if a:0 > 0
 		let mode = a:1
 	else
 		let mode = 'furtive'
 	endif
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	if ! empty(mandalas)
-		echomsg 'wheel cylinder first : mandala stack is not empty.'
+		echomsg 'wheel cylinder first : mandala ring is not empty.'
 		return v:false
 	endif
 	let iden = g:wheel_mandalas.iden
@@ -158,7 +158,7 @@ fun! wheel#cylinder#first (...)
 	endif
 	enew
 	let novice = bufnr('%')
-	" push
+	" add
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
@@ -172,14 +172,14 @@ fun! wheel#cylinder#first (...)
 endfun
 
 fun! wheel#cylinder#add (...)
-	" Push new mandala buffer
+	" Add new mandala buffer
 	if a:0 > 0
 		let mode = a:1
 	else
 		let mode = 'furtive'
 	endif
 	call wheel#cylinder#check ()
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	let iden = g:wheel_mandalas.iden
 	" -- First one
 	if empty(mandalas)
@@ -199,10 +199,10 @@ fun! wheel#cylinder#add (...)
 	enew
 	let novice = bufnr('%')
 	if novice == elder
-		echomsg 'wheel mandala push : buffer' novice 'already in stack'
+		echomsg 'wheel mandala add : buffer' novice 'already in ring'
 		return v:false
 	endif
-	" push
+	" add
 	let length = len(mandalas)
 	let next = current + 1
 	call insert(mandalas, novice, next)
@@ -222,21 +222,21 @@ fun! wheel#cylinder#add (...)
 endfun
 
 fun! wheel#cylinder#delete ()
-	" Pop mandala buffer
+	" Delete mandala buffer
 	call wheel#cylinder#check ()
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	let iden = g:wheel_mandalas.iden
-	" do not pop empty stack
+	" do not delete element from empty ring
 	if empty(mandalas)
-		echomsg 'wheel mandala pop : empty buffer stack'
+		echomsg 'wheel mandala delete : empty buffer ring'
 		return v:false
 	endif
-	" do not pop one element stack
+	" do not delete element from one element ring
 	if len(mandalas) == 1
-		echomsg 'wheel mandala pop :' mandalas[0] 'is the last remaining dedicated buffer'
+		echomsg 'wheel mandala delete :' mandalas[0] 'is the last remaining dedicated buffer'
 		return v:false
 	endif
-	" pop
+	" delete
 	let current = g:wheel_mandalas.current
 	let removed = remove(mandalas, current)
 	call remove(iden, current)
@@ -264,10 +264,10 @@ endfun
 
 fun! wheel#cylinder#forward ()
 	" Go forward in mandalas buffers
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	let length = len(mandalas)
 	if length == 0
-		echomsg 'wheel mandala forward : empty stack.'
+		echomsg 'wheel mandala forward : empty ring.'
 		return v:false
 	endif
 	let current = g:wheel_mandalas.current
@@ -282,10 +282,10 @@ endfun
 
 fun! wheel#cylinder#backward ()
 	" Go backward in mandalas buffers
-	let mandalas = g:wheel_mandalas.stack
+	let mandalas = g:wheel_mandalas.ring
 	let length = len(mandalas)
 	if length == 0
-		echomsg 'wheel mandala backward : empty stack.'
+		echomsg 'wheel mandala backward : empty ring.'
 		return v:false
 	endif
 	let current = g:wheel_mandalas.current
@@ -302,9 +302,9 @@ endfun
 
 fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion
-	let bufnums = copy(g:wheel_mandalas.stack)
+	let bufnums = copy(g:wheel_mandalas.ring)
 	if empty(bufnums)
-		echomsg 'wheel cylinder switch : empty buffer stack.'
+		echomsg 'wheel cylinder switch : empty buffer ring.'
 		return v:false
 	endif
 	let prompt = 'Switch to mandala : '

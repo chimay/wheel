@@ -142,3 +142,46 @@ fun! wheel#book#restore_autocmds (autodict)
 	call wheel#gear#restore_autocmds (group, a:autodict)
 endfun
 
+" Sync
+
+fun! wheel#book#syncdown ()
+	" Sync current element of the stack to mandala state : vars, options, maps
+	let stack = b:wheel_stack
+	let length = length(stack.leaves)
+	if length == 0)
+		echomsg 'wheel layer sync stack -> mandala : empty stack'
+		return v:false
+	endif
+	let top = stack.top
+	let layer = stack.layers[top]
+	" pseudo filename
+	let pseudo_file = layer.filename
+	exe 'silent file' pseudo_file
+	" options
+	call wheel#gear#restore_options (layer.options)
+	" mappings
+	let mappings = deepcopy(layer.mappings)
+	call wheel#gear#restore_maps (mappings)
+	" autocommands
+	let autodict = copy(layer.autocmds)
+	call wheel#layer#restore_autocmds (autodict)
+	" lines, without filtering
+	let b:wheel_lines = copy(layer.lines)
+	" filtered mandala content
+	" layer.filtered should contain also the original first line, so we have
+	" to delete the first line added by :put in the replace routine
+	call wheel#mandala#replace (layer.filtered, 'delete')
+	" cursor position
+	call wheel#gear#restore_cursor (layer.position)
+	" address linked to cursor line & context
+	let b:wheel_address = copy(layer.address)
+	" selection
+	let b:wheel_selected = deepcopy(layer.selected)
+	" settings
+	let b:wheel_settings = deepcopy(layer.settings)
+	" reload
+	let b:wheel_reload = layer.reload
+	" Tell (neo)vim the buffer is to be considered not modified
+	setlocal nomodified
+endfun
+

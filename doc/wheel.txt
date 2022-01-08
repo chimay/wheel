@@ -2683,7 +2683,7 @@ the dedicated buffer, and write again.
 
 You can of course reuse the `shell` group for later refactoring.
 
-Replace everywhere, except in a file~
+Replace everywhere, except in a given file~
 
 Simply use the |:global| command in invert mode |:vglobal| (|:v| in
 short form), in combination with |:substitute| : >
