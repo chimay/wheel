@@ -9,6 +9,11 @@ if ! exists('s:selected_mark')
 	lockvar s:selected_mark
 endif
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " Sync previous mandala layer -> current mandala state
 
 fun! wheel#boomerang#syncdown ()
@@ -130,10 +135,29 @@ fun! wheel#boomerang#buffers (action)
 		call wheel#loop#sailing (settings)
 		let previous_selected = wheel#book#previous ('selected')
 		let previous_selected = []
-	elseif action == 'delete_hidden'
-		call wheel#rectangle#delete_hidden_buffers ()
-	elseif action == 'wipe_hidden'
-		call wheel#rectangle#delete_hidden_buffers ('wipe')
+	elseif action == 'delete_hidden' || action == 'wipe_hidden'
+		let lines = wheel#book#previous ('lines')
+		let filtered = wheel#book#previous ('filtered')
+		let hidden = wheel#rectangle#hidden_buffers ()[0]
+		for elem in lines
+			let fields = split(elem, s:field_separ)
+			let bufnum = str2nr(fields[0])
+			if wheel#chain#is_inside (bufnum, hidden)
+				call wheel#chain#remove_element (elem, lines)
+				call wheel#chain#remove_element (elem, filtered)
+			endif
+		endfor
+		if action == 'delete_hidden'
+			for bufnum in hidden
+				exe 'silent bdelete' bufnum
+			endfor
+			echomsg 'hidden buffers deleted.'
+		elseif  action == 'wipe_hidden'
+			for bufnum in hidden
+				exe 'silent bwipe' bufnum
+			endfor
+			echomsg 'hidden buffers wiped.'
+		endif
 	endif
 endfun
 

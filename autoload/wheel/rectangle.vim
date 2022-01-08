@@ -133,33 +133,22 @@ fun! wheel#rectangle#ratio ()
 	return round(width) / round(height)
 endfun
 
-fun! wheel#rectangle#delete_hidden_buffers (...)
-	" Delete hidden buffers, except unlisted and alternate one
-	if a:0 > 0
-		let delete = a:1
-	else
-		let delete = 'delete'
-	endif
-	if delete == 'delete'
-		let command = 'bdelete'
-	elseif delete == 'wipe'
-		let command = 'bwipe'
-	endif
+fun! wheel#rectangle#hidden_buffers ()
+	" Return list of hidden buffers, except unlisted and alternate one
 	let buffers = execute('buffers')
 	let buffers = split(buffers, "\n")
 	let length = len(buffers)
-	let hidden_buffers = []
+	let hidden_nums = []
+	let hidden_names = []
 	for index in range(length)
 		let elem = buffers[index]
 		let fields = split(elem)
 		let bufnum = str2nr(fields[0])
-		let indicator = fields[1]
-		let filename = expand(join(fields[2:-3]))[1:-2]
-		if indicator =~ '^h' && indicator !~ '^h.*[RF?+x]'
-			call add(hidden_buffers, [bufnum, indicator, filename])
-			exe 'silent' command bufnum
+		let filename = bufname(bufnum)
+		if empty(win_findbuf(bufnum)) && filename !=# bufname('#')
+			call add(hidden_nums, bufnum)
+			call add(hidden_names, filename)
 		endif
 	endfor
-	echomsg 'hidden buffers deleted.'
-	return hidden_buffers
+	return [hidden_nums, hidden_names]
 endfun

@@ -208,7 +208,6 @@ fun! wheel#perspective#buffers ()
 		let fields = split(elem)
 		let bufnum = str2nr(fields[0])
 		let linum = str2nr(fields[-1])
-		"let filename = expand(join(fields[2:-3]))[1:-2]
 		let filename = bufname(bufnum)
 		let is_wheel_buf = wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
 		let is_without_name = filename =~ '\m^\[.*\]'

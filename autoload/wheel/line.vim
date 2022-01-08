@@ -188,7 +188,7 @@ fun! wheel#line#buffers (settings)
 			call wheel#vortex#chord (coordin)
 			call wheel#vortex#jump (mode)
 		else
-			exe 'buffer' bufnum
+			execute 'buffer' bufnum
 		endif
 	elseif settings.ctx_action == 'delete'
 		" Delete buffer
