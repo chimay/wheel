@@ -276,7 +276,7 @@ fun! wheel#tree#add_file (...)
 		let complete =  'customlist,wheel#completelist#file'
 		let file = input(prompt, '', complete)
 	endif
-	exe 'edit' fnameescape(file)
+	execute 'edit' fnameescape(file)
 	call wheel#tree#add_here()
 endfun
 
@@ -290,7 +290,7 @@ fun! wheel#tree#add_buffer (...)
 		let complete =  'customlist,wheel#completelist#buffer'
 		let buffer = input(prompt, '', complete)
 	endif
-	exe 'buffer' buffer
+	execute 'buffer' buffer
 	call wheel#tree#add_here()
 endfun
 
@@ -424,7 +424,7 @@ fun! wheel#tree#rename_file (...)
 	let location = wheel#referen#location ()
 	let old_filename = location.file
 	" link buffer to new file name
-	exe 'file' new_filename
+	execute 'file' new_filename
 	" write it
 	write
 	" remove old file

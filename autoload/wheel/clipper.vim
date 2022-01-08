@@ -40,7 +40,7 @@ fun! wheel#clipper#maps (mode)
 	let pre = 'nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('
 	let post = ')<cr>'
 	let menu = 'yank/' .. a:mode
-	exe pre .. string(menu) .. post
+	execute pre .. string(menu) .. post
 endfun
 
 fun! wheel#clipper#template (settings)

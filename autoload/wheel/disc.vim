@@ -65,7 +65,7 @@ fun! wheel#disc#read (file)
 	" Read file
 	let file = expand(a:file)
 	if filereadable(file)
-		exe 'source' file
+		execute 'source' file
 	else
 		echomsg 'Could not read' file
 	endif
@@ -171,7 +171,7 @@ fun! wheel#disc#write_session (...)
 	if argc() == 0 && has('nvim')
 		echomsg 'Writing session to file ...'
 	endif
-	exe 'mksession!' session_file
+	execute 'mksession!' session_file
 	" restore value of sessionoptions
 	let &sessionoptions=ampersand
 	if argc() == 0 && has('nvim')
@@ -194,7 +194,7 @@ fun! wheel#disc#read_session (...)
 		echomsg 'Reading session from file ...'
 	endif
 	if filereadable(session_file)
-		exe 'source' session_file
+		execute 'source' session_file
 	else
 		echomsg 'wheel disc read session : session file does not exist.'
 	endif

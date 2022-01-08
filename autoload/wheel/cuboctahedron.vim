@@ -74,7 +74,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 	call map(tabindexes, {_,v -> v - minim})
 	" Remove inner tabs
 	for index in removed
-		exe 'tabclose' index
+		execute 'tabclose' index
 	endfor
 	" Add new tabs if necessary
 	let lentabindexes = len(tabindexes)
@@ -101,8 +101,8 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 			echoerr 'wheel reorg tabs & windows : new tab index not found.'
 			return v:false
 		endif
-		exe 'tabnext' from + 1
-		exe 'tabmove' target + 1
+		execute 'tabnext' from + 1
+		execute 'tabmove' target + 1
 		let status = wheel#chain#move(status, from, target)
 		let l:count += 1
 		if l:count > max_iter
@@ -126,16 +126,16 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 	let lastab = tabpagenr('$')
 	for index in range(lastab)
 		let tabind = index + 1
-		exe 'tabnext' tabind
+		execute 'tabnext' tabind
 		" Adding windows
 		let lastwin = winnr('$')
 		let basket = tabwindows[index]
 		let lastbasket = len(basket)
 		let minim = min([lastwin, lastbasket])
 		for winum in range(1, minim)
-			exe winum 'wincmd w'
+			execute winum 'wincmd w'
 			let filename = basket[winum - 1]
-			exe 'silent edit' filename
+			execute 'silent edit' filename
 		endfor
 		" if more buffers in basket than windows
 		for winum in range(minim + 1, lastbasket)
@@ -146,7 +146,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 				split
 			endif
 			let filename = basket[winum - 1]
-			exe 'silent edit' filename
+			execute 'silent edit' filename
 		endfor
 		" Removing windows
 		" buffers in window
@@ -155,7 +155,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 		" looping
 		let winum = winnr('$')
 		while winum > 0
-			exe winum 'wincmd w'
+			execute winum 'wincmd w'
 			let filename = expand('%:p')
 			let shadow_win = copy(winbufs)
 			let shadow_bas = copy(basket)
@@ -463,7 +463,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Back to mandala
 	let lastab = tabpagenr('$')
 	if startpage >= 1 && startpage <= lastab
-		exe 'tabnext' startpage
+		execute 'tabnext' startpage
 	else
 		tabnext 1
 	endif

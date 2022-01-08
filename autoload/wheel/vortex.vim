@@ -67,7 +67,7 @@ fun! wheel#vortex#jump (...)
 	elseif bufloaded(location.file)
 		" load buffer in current window
 		let buffer = bufname(location.file)
-		exe 'noautocmd silent buffer' buffer
+		execute 'noautocmd silent buffer' buffer
 		call cursor(location.line, location.col)
 		doautocmd BufEnter
 	else

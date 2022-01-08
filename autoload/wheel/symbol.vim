@@ -80,7 +80,7 @@ fun! wheel#symbol#switch ()
 	let file = fields[1]
 	let type = fields[2]
 	let line = fields[3][1:]
-	exe 'edit' file
+	execute 'edit' file
 	" keep old position in mark '
 	mark '
 	call cursor(1,1)

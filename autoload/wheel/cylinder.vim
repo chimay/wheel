@@ -107,7 +107,7 @@ fun! wheel#cylinder#window (...)
 	" already there ?
 	if wheel#cylinder#is_mandala ()
 		if mode == 'buffer'
-			exe 'silent buffer' goto
+			execute 'silent buffer' goto
 		endif
 		return v:true
 	endif
@@ -118,9 +118,9 @@ fun! wheel#cylinder#window (...)
 	" close it and reopen it in current tab
 	if tab != tabpagenr()
 		call wheel#mandala#close ()
-		exe 'tabnext' tab
+		execute 'tabnext' tab
 		if mode == 'buffer'
-			exe 'silent sbuffer' goto
+			execute 'silent sbuffer' goto
 		else
 			split
 		endif
@@ -129,7 +129,7 @@ fun! wheel#cylinder#window (...)
 	" current tab
 	if ! wheel#cylinder#is_mandala ()
 		if mode == 'buffer'
-			exe 'silent sbuffer' goto
+			execute 'silent sbuffer' goto
 		else
 			split
 		endif
@@ -250,9 +250,9 @@ fun! wheel#cylinder#delete ()
 	let bufnum = bufnr('%')
 	if bufnum == removed || wheel#cylinder#is_mandala ()
 		let goto = mandalas[current]
-		exe 'silent buffer' goto
+		execute 'silent buffer' goto
 	endif
-	exe 'silent bwipe!' removed
+	execute 'silent bwipe!' removed
 	call wheel#status#mandala ()
 	return removed
 endfun

@@ -286,7 +286,7 @@ fun! wheel#line#grep (settings)
 	"let line = fields[3]
 	"let col = fields[4]
 	"call wheel#line#target (a:settings.target)
-	"exe 'buffer' bufnum
+	"execute 'buffer' bufnum
 	"call cursor(line, col)
 	return win_getid ()
 endfun
@@ -300,7 +300,7 @@ fun! wheel#line#mru (settings)
 	endif
 	let filename = fields[6]
 	call wheel#line#target (a:settings.target)
-	exe 'edit' filename
+	execute 'edit' filename
 	return win_getid ()
 endfun
 
@@ -308,7 +308,7 @@ fun! wheel#line#locate (settings)
 	" Edit settings.selected locate file
 	let filename = a:settings.selected
 	call wheel#line#target (a:settings.target)
-	exe 'edit' filename
+	execute 'edit' filename
 	return win_getid ()
 endfun
 
@@ -317,7 +317,7 @@ fun! wheel#line#find (settings)
 	let filename = a:settings.selected
 	let filename = trim(filename, ' ')
 	call wheel#line#target (a:settings.target)
-	exe 'edit' filename
+	execute 'edit' filename
 	return win_getid ()
 endfun
 
@@ -327,7 +327,7 @@ fun! wheel#line#markers (settings)
 	let mark = fields[0]
 	"let line = fields[1]
 	"let column = fields[2]
-	exe "normal `" .. mark
+	execute "normal `" .. mark
 endfun
 
 fun! wheel#line#tags (settings)
@@ -342,7 +342,7 @@ fun! wheel#line#tags (settings)
 	let type = fields[2]
 	let line = fields[3][1:]
 	call wheel#line#target (a:settings.target)
-	exe 'edit' file
+	execute 'edit' file
 	" keep old position in mark '
 	mark '
 	call cursor(1, 1)
@@ -350,8 +350,8 @@ fun! wheel#line#tags (settings)
 	return win_getid ()
 	" forget it, the selection must be done in the wheel buffer,
 	" not elsewhere
-	"exe 'tag' ident
-	"exe 'tjump' ident
+	"execute 'tag' ident
+	"execute 'tjump' ident
 endfun
 
 fun! wheel#line#jumps (settings)
@@ -360,9 +360,9 @@ fun! wheel#line#jumps (settings)
 	let delta = str2nr(fields[0])
 	call wheel#line#target (a:settings.target)
 	if delta > 0
-		exe 'normal! ' .. delta .. "\<c-i>"
+		execute 'normal! ' .. delta .. "\<c-i>"
 	else
-		exe 'normal! ' .. - delta .. "\<c-o>"
+		execute 'normal! ' .. - delta .. "\<c-o>"
 	endif
 	return win_getid ()
 endfun
@@ -373,9 +373,9 @@ fun! wheel#line#changes (settings)
 	let delta = str2nr(fields[0])
 	call wheel#line#target (a:settings.target)
 	if delta > 0
-		exe 'normal! ' .. delta .. 'g,'
+		execute 'normal! ' .. delta .. 'g,'
 	else
-		exe 'normal! ' .. - delta .. 'g;'
+		execute 'normal! ' .. - delta .. 'g;'
 	endif
 	return win_getid ()
 endfun
@@ -489,7 +489,7 @@ fun! wheel#line#undolist (bufnum)
 	" Jump to change in settings.selected
 	let iden = wheel#delta#undo_iden ()
 	call wheel#mandala#related (a:bufnum)
-	exe 'undo' iden
+	execute 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
 
@@ -507,13 +507,13 @@ fun! wheel#line#undo_diff (bufnum)
 	1 delete _
 	let diff_buf = bufnr('%')
 	set buftype=nofile
-	exe 'file' 'wheel diff : ' save.name
+	execute 'file' 'wheel diff : ' save.name
 	let &filetype = save.filetype
 	diffthis
 	setlocal nomodifiable readonly
 	" original buffer
 	call wheel#mandala#related (a:bufnum)
-	exe 'undo' iden
+	execute 'undo' iden
 	call wheel#delta#save_options ()
 	diffthis
 	" back to mandala

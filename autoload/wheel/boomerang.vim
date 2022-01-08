@@ -149,12 +149,12 @@ fun! wheel#boomerang#buffers (action)
 		endfor
 		if action == 'delete_hidden'
 			for bufnum in hidden
-				exe 'silent bdelete' bufnum
+				execute 'silent bdelete' bufnum
 			endfor
 			echomsg 'hidden buffers deleted.'
 		elseif  action == 'wipe_hidden'
 			for bufnum in hidden
-				exe 'silent bwipe' bufnum
+				execute 'silent bwipe' bufnum
 			endfor
 			echomsg 'hidden buffers wiped.'
 		endif

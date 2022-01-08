@@ -290,7 +290,7 @@ fun! wheel#book#syncdown ()
 	let leaf = ring.leaves[current]
 	" pseudo filename
 	let pseudo_file = leaf.filename
-	exe 'silent file' pseudo_file
+	execute 'silent file' pseudo_file
 	" options
 	call wheel#gear#restore_options (leaf.options)
 	" mappings

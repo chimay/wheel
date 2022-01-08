@@ -50,7 +50,7 @@ endfun
 fun! wheel#delta#close_diff (bufnum)
 	" Wipe copy or original buffer
 	let diff_buf = b:wheel_settings.diff_buf
-	exe 'bwipe!' diff_buf
+	execute 'bwipe!' diff_buf
 	call wheel#mandala#related (a:bufnum)
 	call wheel#delta#restore_options ()
 	call wheel#cylinder#recall ()
@@ -64,7 +64,7 @@ fun! wheel#delta#last (bufnum)
 		let iden = wheel#delta#undo_iden (1)
 	endif
 	call wheel#mandala#related (a:bufnum)
-	exe 'undo' iden
+	execute 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
 
@@ -76,17 +76,17 @@ fun! wheel#delta#maps (bufnum)
 	" go to undo given by line
 	let pre  = ' :call wheel#line#undolist('
 	let post = ')<cr>'
-	exe map .. '<cr>' .. pre .. string(a:bufnum) .. post
+	execute map .. '<cr>' .. pre .. string(a:bufnum) .. post
 	" view diff between undo state and last one
 	let pre  = ' :call wheel#line#undo_diff('
 	" d does not work for it puts vim in operator pending mode
-	exe map .. 'D' .. pre .. string(a:bufnum) .. post
+	execute map .. 'D' .. pre .. string(a:bufnum) .. post
 	" close diff
 	let pre  = ' :call wheel#delta#close_diff('
-	exe map .. 'x' .. pre .. string(a:bufnum) .. post
+	execute map .. 'x' .. pre .. string(a:bufnum) .. post
 	" undo, go to last state
 	let pre  = ' :call wheel#delta#last('
-	exe map .. 'u' .. pre .. string(a:bufnum) .. post
+	execute map .. 'u' .. pre .. string(a:bufnum) .. post
 endfun
 
 " Undo list mandala

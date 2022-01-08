@@ -60,7 +60,7 @@ fun! wheel#gear#call (fun, ...)
 			" a:000 of wheel#gear#call is ignored
 			return eval(Fun)
 			" works, but less elegant
-			"exe 'let value =' Fun
+			"execute 'let value =' Fun
 		elseif empty(arg)
 			" form : Fun = 'function' without argument
 			return {Fun}()
@@ -88,7 +88,7 @@ fun! wheel#gear#project_root (markers)
 		echomsg 'wheel project root : argument must be either a string or a list.'
 	endif
 	let dir = expand('%:p:h')
-	exe 'lcd' dir
+	execute 'lcd' dir
 	let found = 0
 	while v:true
 		for mark in markers
@@ -233,7 +233,7 @@ fun! wheel#gear#unmap (key, ...)
 		let dict = maparg(key, mode, 0, 1)
 		let letter = wheel#gear#short_mode (mode)
 		if ! empty(dict) && dict.buffer
-			exe 'silent!' letter .. 'unmap <silent> <buffer>' key
+			execute 'silent!' letter .. 'unmap <silent> <buffer>' key
 		endif
 	elseif kind == v:t_list
 		for elem in key
@@ -261,7 +261,7 @@ fun! wheel#gear#clear_autocmds (group, event)
 	if kind == v:t_string
 		let group_event_pattern = '#' .. group .. '#' .. event .. '#<buffer>'
 		if exists(group_event_pattern)
-			exe 'autocmd!' group event '<buffer>'
+			execute 'autocmd!' group event '<buffer>'
 		endif
 	elseif kind == v:t_list
 		for elem in event
@@ -348,9 +348,9 @@ fun! wheel#gear#restore_maps (mapdict)
 		let modemaps = mapdict[mode]
 		for key in keys(modemaps)
 			if ! empty(modemaps[key])
-				exe 'silent!' letter .. 'noremap <buffer>' key modemaps[key]
+				execute 'silent!' letter .. 'noremap <buffer>' key modemaps[key]
 			else
-				exe 'silent!' letter .. 'unmap <buffer>' key
+				execute 'silent!' letter .. 'unmap <buffer>' key
 			endif
 		endfor
 	endfor
@@ -359,11 +359,11 @@ endfun
 fun! wheel#gear#restore_autocmds (group, autodict)
 	" Restore autocommands
 	for event in keys(a:autodict)
-		exe 'autocmd!' a:group event '<buffer>'
+		execute 'autocmd!' a:group event '<buffer>'
 		let autocmds = a:autodict[event]
 		if ! empty(autocmds)
 			for autocom in autocmds
-				exe 'autocmd' a:group event '<buffer>' autocom
+				execute 'autocmd' a:group event '<buffer>' autocom
 			endfor
 		endif
 	endfor

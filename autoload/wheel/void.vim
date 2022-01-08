@@ -249,7 +249,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 	" -- define wheel-mandala auto command group
-	exe 'augroup' s:mandala_autocmds_group
+	execute 'augroup' s:mandala_autocmds_group
 		autocmd!
 	augroup END
 endfun

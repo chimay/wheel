@@ -81,7 +81,7 @@ fun! wheel#mandala#filename (type)
 	" We also need a name when writing, even with BufWriteCmd
 	" Add unique buf id, so (n)vim does not complain about
 	" existing filename
-	exe 'silent file' wheel#mandala#pseudo (a:type)
+	execute 'silent file' wheel#mandala#pseudo (a:type)
 endfun
 
 fun! wheel#mandala#type (...)
@@ -324,7 +324,7 @@ fun! wheel#mandala#reload ()
 		" fill the buffer with b:wheel_lines
 		call wheel#mandala#fill (b:wheel_lines, 'blank')
 		" restore
-		exe 'silent file' filename
+		execute 'silent file' filename
 		echomsg 'wheel mandala : content reloaded.'
 	endif
 endfun
@@ -394,7 +394,7 @@ fun! wheel#mandala#related (...)
 		call win_gotoid (winiden)
 	else
 		1 wincmd w
-		exe 'buffer' bufnum
+		execute 'buffer' bufnum
 	endif
 	return v:true
 endfun
@@ -532,7 +532,7 @@ fun! wheel#mandala#folding_options (...)
 	setlocal foldmethod=marker
 	let &foldmarker = s:fold_markers
 	setlocal foldcolumn=2
-	exe 'setlocal foldtext=wheel#mandala#' .. textfun .. '()'
+	execute 'setlocal foldtext=wheel#mandala#' .. textfun .. '()'
 endfun
 
 fun! wheel#mandala#folding_text ()
@@ -635,5 +635,5 @@ fun! wheel#mandala#async ()
 	else
 		let callme  = ' :call wheel#ripple#stop()<cr>'
 	endif
-	exe map .. '<c-s>' .. callme
+	execute map .. '<c-s>' .. callme
 endfun

@@ -89,7 +89,7 @@ fun! wheel#rectangle#goto (bufnum, ...)
 	if mode == 'tab'
 		let winnr = bufwinnr(bufnum)
 		if winnr > 0
-			exe winnr 'wincmd w'
+			execute winnr 'wincmd w'
 			return v:true
 		else
 			return v:false

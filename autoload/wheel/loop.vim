@@ -71,7 +71,7 @@ fun! wheel#loop#context_menu (settings)
 			" Close it in elder tab
 			silent call wheel#mandala#close ()
 			" Go back in new tab
-			exe 'tabnext' new_tab
+			execute 'tabnext' new_tab
 			" Call mandala back in new tab
 			call wheel#cylinder#recall()
 		else

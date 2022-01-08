@@ -165,7 +165,7 @@ fun! wheel#layer#syncdown ()
 	let layer = stack.layers[top]
 	" pseudo filename
 	let pseudo_file = layer.filename
-	exe 'silent file' pseudo_file
+	execute 'silent file' pseudo_file
 	" options
 	call wheel#gear#restore_options (layer.options)
 	" mappings

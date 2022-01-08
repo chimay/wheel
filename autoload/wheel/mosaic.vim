@@ -1,8 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Tabs & windows layouts
-
-" Helpers
+" Tabs & windows layouts Helpers
 
 fun! wheel#mosaic#one_tab ()
 	" One tab
@@ -76,7 +74,7 @@ fun! wheel#mosaic#rotate_clockwise ()
 	let buffers = wheel#rectangle#tab_buffers ()
 	let buffers = wheel#chain#rotate_right (buffers)
 	for bufnum in buffers
-		exe 'buffer' bufnum
+		execute 'buffer' bufnum
 		wincmd w
 	endfor
 endfun
@@ -88,7 +86,7 @@ fun! wheel#mosaic#rotate_counter_clockwise ()
 	let buffers = wheel#rectangle#tab_buffers ()
 	let buffers = wheel#chain#rotate_left (buffers)
 	for bufnum in buffers
-		exe 'buffer' bufnum
+		execute 'buffer' bufnum
 		wincmd w
 	endfor
 endfun
@@ -341,29 +339,29 @@ fun! wheel#mosaic#grid (settings)
 	wincmd t
 	if row == 0
 		if col > 0
-			exe col .. 'wincmd l'
+			execute col .. 'wincmd l'
 		endif
 		if col < max_col - 1
 			vsplit
 			let settings.done = [row, col + 1]
 			return v:true
 		else
-			exe col .. 'wincmd h'
+			execute col .. 'wincmd h'
 			split
 			let settings.done = [1, 0]
 			return v:true
 		endif
 	else
 		if col < max_col - 1
-			exe (col + 1) .. 'wincmd l'
+			execute string(col + 1) .. 'wincmd l'
 			if row > 1
-				exe (row - 1) .. 'wincmd j'
+				execute string(row - 1) .. 'wincmd j'
 			endif
 			split
 			let settings.done = [row, col + 1]
 			return v:true
 		elseif row < max_row - 1
-			exe row .. 'wincmd j'
+			execute string(row) .. 'wincmd j'
 			split
 			let settings.done = [row + 1, 0]
 			return v:true
@@ -388,29 +386,29 @@ fun! wheel#mosaic#transposed_grid (settings)
 	wincmd t
 	if col == 0
 		if row > 0
-			exe row .. 'wincmd j'
+			execute string(row) .. 'wincmd j'
 		endif
 		if row < max_row - 1
 			split
 			let settings.done = [row + 1, col]
 			return v:true
 		else
-			exe row .. 'wincmd k'
+			execute string(row) .. 'wincmd k'
 			vsplit
 			let settings.done = [0, 1]
 			return v:true
 		endif
 	else
 		if row < max_row - 1
-			exe (row + 1) .. 'wincmd j'
+			execute string(row + 1) .. 'wincmd j'
 			if col > 1
-				exe (col - 1) .. 'wincmd l'
+				execute string(col - 1) .. 'wincmd l'
 			endif
 			vsplit
 			let settings.done = [row + 1, col]
 			return v:true
 		elseif col < max_col - 1
-			exe col .. 'wincmd l'
+			execute string(col) .. 'wincmd l'
 			vsplit
 			let settings.done = [0, col + 1]
 			return v:true
