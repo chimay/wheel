@@ -1,12 +1,12 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Layers stack / ring in each mandala buffer
+" Layers ring in each mandala buffer
 "
-" A book contains sheets, leaves, layers
+" A book contains leaves, sheets, layers
 
 " second implementation
 "
-" the stack contain the current mandala lines & settings
+" the ring contain the current mandala lines & settings
 
 " Script constants
 
@@ -35,33 +35,33 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" Init stack
+" Init ring
 
 fun! wheel#book#init ()
-	" Init stack and buffer variables
+	" Init ring and buffer variables
 	call wheel#mandala#init ()
-	if ! exists('b:wheel_stack')
-		let b:wheel_stack = {}
-		let stack = b:wheel_stack
+	if ! exists('b:wheel_ring')
+		let b:wheel_ring = {}
+		let ring = b:wheel_ring
 		" index of current leaf
-		let stack.current = -1
-		let stack.leaves = []
+		let ring.current = -1
+		let ring.leaves = []
 	endif
 endfun
 
 " State
 
-fun! wheel#book#stack (...)
-	" Return stack of field given by optional argument
-	" Return all book (leaves stack) if no argument is given
+fun! wheel#book#ring (...)
+	" Return ring of field given by optional argument
+	" Return all book (leaves ring) if no argument is given
 	" Useful for debugging
 	if a:0 == 0
-		return b:wheel_stack.leaves
+		return b:wheel_ring.leaves
 	endif
-	let stack = b:wheel_stack
+	let ring = b:wheel_ring
 	let fieldname = a:1
 	let field_stack = []
-	for elem in stack.leaves
+	for elem in ring.leaves
 		let shadow = deepcopy(elem[fieldname])
 		call add(field_stack, shadow)
 	endfor
@@ -71,14 +71,14 @@ endfun
 fun! wheel#book#previous (...)
 	" Return previous field given by optional argument
 	" Return previous leaf if no argument is given
-	let stack = b:wheel_stack
-	let length = len(stack.leaves)
-	let previous = wheel#gear#circular_minus (stack.current, length)
+	let ring = b:wheel_ring
+	let length = len(ring.leaves)
+	let previous = wheel#gear#circular_minus (ring.current, length)
 	if a:0 == 0
-		return stack.leaves[previous]
+		return ring.leaves[previous]
 	endif
 	let fieldname = a:1
-	return stack.leaves[previous][fieldname]
+	return ring.leaves[previous][fieldname]
 endfun
 
 " Clearing things
@@ -101,12 +101,12 @@ fun! wheel#book#clear_autocmds ()
 endfun
 
 fun! wheel#book#clear_vars ()
-	" Clear mandala local variables, except the layer stack
+	" Clear mandala local variables, except the leaves ring
 	call wheel#gear#unlet (s:mandala_vars)
 endfun
 
 fun! wheel#book#fresh ()
-	" Fresh empty layer : clear mandala local data
+	" Fresh empty leaves : clear mandala local data
 	call wheel#book#clear_options ()
 	call wheel#book#clear_maps ()
 	call wheel#book#clear_autocmds ()
@@ -144,43 +144,93 @@ endfun
 
 " Sync
 
+fun! wheel#book#syncup ()
+	" Sync mandala state to current leaf in ring
+	" state = vars, options, maps, autocmds
+	" -- init leaf ring if necessary
+	call wheel#book#init ()
+	" -- build leaf
+	let leaf = {}
+	" pseudo filename
+	let leaf.filename = expand('%')
+	" options
+	let leaf.options = wheel#layer#save_options ()
+	" mappings
+	let leaf.mappings = wheel#layer#save_maps ()
+	" autocommands
+	let leaf.autocmds = wheel#layer#save_autocmds ()
+	" lines, without filtering
+	if empty(b:wheel_lines)
+		let begin = wheel#mandala#first_data_line ()
+		let leaf.lines = getline(begin, '$')
+	else
+		let leaf.lines = copy(b:wheel_lines)
+	endif
+	" filtered content
+	let leaf.filtered = getline(1, '$')
+	" cursor position
+	let leaf.position = getcurpos()
+	" address of cursor line
+	" useful for boomerang = context menus
+	let leaf.address = wheel#line#address()
+	" selected lines
+	let leaf.selected = deepcopy(b:wheel_selected)
+	" settings
+	if exists('b:wheel_settings')
+		let leaf.settings = b:wheel_settings
+	else
+		let leaf.settings = {}
+	endif
+	" reload
+	if exists('b:wheel_reload')
+		let leaf.reload = b:wheel_reload
+	else
+		let leaf.reload = ''
+	endif
+	" add to leaf ring
+	let ring = b:wheel_ring
+	let current = ring.current
+	let length = length(ring.leaves)
+endfun
+
 fun! wheel#book#syncdown ()
-	" Sync current element of the stack to mandala state : vars, options, maps
-	let stack = b:wheel_stack
-	let length = length(stack.leaves)
+	" Sync current leaf in ring to mandala state
+	" state = vars, options, maps, autocmds
+	let ring = b:wheel_ring
+	let length = length(ring.leaves)
 	if length == 0)
-		echomsg 'wheel layer sync stack -> mandala : empty stack'
+		echomsg 'wheel book syncdown : empty ring'
 		return v:false
 	endif
-	let top = stack.top
-	let layer = stack.layers[top]
+	let current = ring.current
+	let leaf = ring.leaves[current]
 	" pseudo filename
-	let pseudo_file = layer.filename
+	let pseudo_file = leaf.filename
 	exe 'silent file' pseudo_file
 	" options
-	call wheel#gear#restore_options (layer.options)
+	call wheel#gear#restore_options (leaf.options)
 	" mappings
-	let mappings = deepcopy(layer.mappings)
+	let mappings = deepcopy(leaf.mappings)
 	call wheel#gear#restore_maps (mappings)
 	" autocommands
-	let autodict = copy(layer.autocmds)
-	call wheel#layer#restore_autocmds (autodict)
+	let autodict = copy(leaf.autocmds)
+	call wheel#book#restore_autocmds (autodict)
 	" lines, without filtering
-	let b:wheel_lines = copy(layer.lines)
+	let b:wheel_lines = copy(leaf.lines)
 	" filtered mandala content
-	" layer.filtered should contain also the original first line, so we have
+	" leaf.filtered should contain also the original first line, so we have
 	" to delete the first line added by :put in the replace routine
-	call wheel#mandala#replace (layer.filtered, 'delete')
+	call wheel#mandala#replace (leaf.filtered, 'delete')
 	" cursor position
-	call wheel#gear#restore_cursor (layer.position)
+	call wheel#gear#restore_cursor (leaf.position)
 	" address linked to cursor line & context
-	let b:wheel_address = copy(layer.address)
+	let b:wheel_address = copy(leaf.address)
 	" selection
-	let b:wheel_selected = deepcopy(layer.selected)
+	let b:wheel_selected = deepcopy(leaf.selected)
 	" settings
-	let b:wheel_settings = deepcopy(layer.settings)
+	let b:wheel_settings = deepcopy(leaf.settings)
 	" reload
-	let b:wheel_reload = layer.reload
+	let b:wheel_reload = leaf.reload
 	" Tell (neo)vim the buffer is to be considered not modified
 	setlocal nomodified
 endfun

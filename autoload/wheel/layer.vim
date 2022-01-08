@@ -1,10 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Layers ring in each mandala buffer
-
-" other names ideas for this file :
-"
-" sheet
+" Layers stack in each mandala buffer
 
 " first implementation
 "

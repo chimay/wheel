@@ -203,7 +203,6 @@ fun! wheel#cylinder#add (...)
 		return v:false
 	endif
 	" add
-	let length = len(mandalas)
 	let next = current + 1
 	call insert(mandalas, novice, next)
 	let g:wheel_mandalas.current = next
