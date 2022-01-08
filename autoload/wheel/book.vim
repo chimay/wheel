@@ -340,12 +340,12 @@ fun! wheel#book#delete ()
 	let length = len(leaves)
 	" -- do not delete element from empty ring
 	if length == 0
-		echomsg 'wheel book delete : empty buffer ring'
+		echomsg 'wheel leaf delete : empty buffer ring'
 		return v:false
 	endif
 	" -- do not delete element from one element ring
 	if length == 1
-		echomsg 'wheel book delete :' leaves[0].filename 'is the last layer in ring'
+		echomsg 'wheel leaf delete :' leaves[0].filename 'is the last layer in ring'
 		return v:false
 	endif
 	" -- delete

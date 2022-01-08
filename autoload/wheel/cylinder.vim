@@ -163,6 +163,7 @@ fun! wheel#cylinder#first (...)
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
+	call wheel#book#init ()
 	" old layer stack implementation
 	"call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
