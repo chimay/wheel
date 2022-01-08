@@ -45,7 +45,7 @@ fun! wheel#cylinder#new_iden (iden, ...)
 	endif
 	" default mode
 	let novice = 0
-	while index(iden, novice) >= 0
+	while wheel#chain#is_inside(novice, iden)
 		let novice += 1
 	endwhile
 	return novice

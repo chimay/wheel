@@ -194,7 +194,7 @@ fun! wheel#referen#is_in_wheel (...)
 		let filename = expand('%:p')
 	endif
 	let wheel_files = wheel#helix#files ()
-	let is_in_wheel = index(wheel_files, filename) >= 0
+	let is_in_wheel = wheel#chain#is_inside(filename, wheel_files)
 	return is_in_wheel
 endfun
 

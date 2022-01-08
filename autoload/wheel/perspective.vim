@@ -210,7 +210,7 @@ fun! wheel#perspective#buffers ()
 		let linum = str2nr(fields[-1])
 		"let filename = expand(join(fields[2:-3]))[1:-2]
 		let filename = bufname(bufnum)
-		let is_wheel_buf = index(g:wheel_mandalas.stack, bufnum) >= 0
+		let is_wheel_buf = wheel#chain#is_inside(bufnum, g:wheel_mandalas.stack)
 		let is_without_name = filename =~ '\m^\[.*\]'
 		if ! is_wheel_buf && ! is_without_name
 			let entry = [bufnum, linum, filename]
