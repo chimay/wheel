@@ -128,8 +128,8 @@ FEATURES				*wheel-introduction-features*
   + :ex or !shell command
   + async shell command
   + result can be filtered, as usual
-- dedicated buffers stack to save your searches
-  + layer stack in each dedicated buffer
+- dedicated buffers ring to save your searches
+  + layer ring in each dedicated buffer
 - display files
   + split levels : torus, circle, location
   + split
@@ -529,7 +529,22 @@ Switch visible buffer~
 | ---------------- | --------------------------------- | --------------- |
 | switch tabwins   | visible buffers in tabs & windows | <M-w>v          |
 
-Switch layer stack~
+Switch dedicated buffer~
+
+The default mapping is `<M-w><M-space>`.
+
+See |wheel-dedicated-buffers-ring|.
+
+You can complete by dedicated buffer pseudo-filename, wich will lead
+you to the buffer you want.
+
+Example of pseudo-filenames :
+
+- /wheel/0/tree
+- /wheel/1/history
+- ...
+
+Switch layer in ring~
 
 You must be in a dedicated buffer to launch it. The local mapping is `<M-l>`.
 
@@ -545,27 +560,12 @@ Example of layer type :
 - yank/plain
 - ...
 
-Switch dedicated buffer~
-
-The default mapping is `<M-w><M-space>`.
-
-See |wheel-dedicated-buffers-stack|.
-
-You can complete by dedicated buffer pseudo-filename, wich will lead
-you to the buffer you want.
-
-Example of pseudo-filenames :
-
-- /wheel/0/tree
-- /wheel/1/history
-- ...
-
 ==============================================================================
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
 
 Introduction			|wheel-dedicated-buffers-introduction|
-Layer stack			|wheel-dedicated-buffers-layers|
-Buffer stack			|wheel-dedicated-buffers-stack|
+Buffer ring			|wheel-dedicated-buffers-ring|
+Layer ring			|wheel-dedicated-buffers-layers|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
@@ -626,6 +626,12 @@ In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
 
 - if on the first line, `k` or `<up>` will go to the last line
 - if on the last line, `j` or `<down>` will go to the first line
+
+Leaf~
+
+A leaf is a synonym for a layer in a dedicated buffer.
+
+Each dedicated buffer has its own layer ring.
 
 Filtering~
 
@@ -693,23 +699,9 @@ Quit~
 Press `q` to quit the dedicated buffer.
 
 ------------------------------------------------------------------------------
-LAYER STACK				*wheel-dedicated-buffers-layers*
+BUFFERS RING				*wheel-dedicated-buffers-ring*
 
-Each time you launch a wheel function involving a dedicated buffer, a new
-associated layer is added to a stack local to the buffer. You may see it
-as a kind of dedicated buffer history. You can :
-
-- go back to the previous layer (and associated wheel function) by pressing `H`
-- go forward to the next layer by pressing `L`
-- switch to another layer with `<M-l>`, completion is available
-- destroy current layer and go back to the previous one by pressing `<backspace>`
-
-The maximum size of the layer stack is determined by `g:wheel_config.maxim.layers`
-
-------------------------------------------------------------------------------
-BUFFERS STACK				*wheel-dedicated-buffers-stack*
-
-Wheel manages a dedicated buffers stack. You can :
+Wheel manages a dedicated buffers ring. You can :
 
 - push a new dedicated buffer as default one with `<M-w><Tab>`
 - switch to another dedicated buffer with `<M-w><M-Space>`, completion is available
@@ -717,10 +709,28 @@ Wheel manages a dedicated buffers stack. You can :
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
 
-So, there are two stack levels :
+A wheel dedicated buffer is also called a mandala.
 
-- a layer stack in each dedicated buffer
-- a buffer stack
+------------------------------------------------------------------------------
+LAYER ring				*wheel-dedicated-buffers-layers*
+
+Each time you launch a wheel function involving a dedicated buffer, a new
+associated layer is added to a ring local to the buffer. You may see it
+as a kind of local history. You can :
+
+- go back to the previous layer (and associated wheel function) by pressing `H`
+- go forward to the next layer by pressing `L`
+- switch to another layer with `<M-l>`, completion is available
+- destroy current layer and go back to the previous one by pressing `<backspace>`
+
+The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers`
+
+So, there are two levels :
+
+- a layer ring in each dedicated buffer
+- a dedicated buffer ring
+
+A layer in a dedicated buffer is also called a leaf.
 
 ------------------------------------------------------------------------------
 MENU						*wheel-dedicated-buffers-menus*
@@ -1557,7 +1567,7 @@ Maximum size of elements in the yank wheel : >
 ------------------------------------------------------------------------------
 MAX LAYERS IN dedicated bufferS		    *wheel-config-maxim-layers*
 
-Maximum size of layer stack in dedicated buffers : >
+Maximum size of layer ring in dedicated buffers : >
 
 	let g:wheel_config.maxim.layers = 5
 <
@@ -2748,7 +2758,7 @@ of the modules within them.
 | complete.vim      | Completion functions                                    |
 | crystal.vim       | Internal variables                                      |
 | cuboctahedron.vim | Reshaping : reorder, reorganize                         |
-| cylinder.vim      | Dedicated buffers stack                                 |
+| cylinder.vim      | Dedicated buffers ring                                  |
 | delta.vim         | Undo & diff                                             |
 | disc.vim          | Read & write wheel file                                 |
 | gear.vim          | Generic helpers                                         |

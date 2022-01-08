@@ -149,7 +149,7 @@ it’s easy to add new functionalities.
   + async shell command
   + result can be filtered, as usual
 - dedicated buffers stack to save your searches
-  + layer stack in each dedicated buffer
+  + layer ring in each dedicated buffer
 - display files
   + split levels : torus, circle, location
   + split
@@ -308,7 +308,7 @@ if ! exists("g:wheel_loaded")
   " Maximum size of elements in yank wheel
   let g:wheel_config.maxim.yank_size = 3000
 
-  " Maximum size of layer stack
+  " Maximum size of layer ring
   let g:wheel_config.maxim.layers = 10
 
   " Maximum number of tabs in layouts
