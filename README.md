@@ -217,8 +217,7 @@ Just add the :
 - autoload
 - doc
 
-folders in the matching runtime directories of (neo)vim, and it should
-work.
+folders anywher of the (neo)vim runtimepath, and it should work.
 
 # Documentation
 ## Vim help
