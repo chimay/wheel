@@ -183,6 +183,8 @@ fun! wheel#centre#cables ()
 	let prefix = g:wheel_config.prefix
 	" batch subprefix
 	let batch = '@'
+	" async subprefix
+	let async = '&'
 	" layout subprefix
 	let lay = 'z'
 	" maps arguments
@@ -278,7 +280,7 @@ fun! wheel#centre#cables ()
 		" Search for files
 		exe nmap prefix . 'l <plug>(wheel-locate)'
 		exe nmap prefix . 'f <plug>(wheel-find)'
-		exe nmap prefix . '&f <plug>(wheel-async-find)'
+		exe nmap prefix . async . 'f <plug>(wheel-async-find)'
 		exe nmap prefix . 'u <plug>(wheel-mru)'
 		" Buffers
 		exe nmap prefix . 'b <plug>(wheel-buffers)'
@@ -311,7 +313,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . '<m-u> <plug>(wheel-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix . ': <plug>(wheel-command)'
-		exe nmap prefix . '&& <plug>(wheel-async)'
+		exe nmap prefix . async . '& <plug>(wheel-async)'
 		" Save (push) mandala buffer
 		exe nmap prefix . '<tab> <plug>(wheel-mandala-push)'
 		" Remove (pop) mandala buffer
