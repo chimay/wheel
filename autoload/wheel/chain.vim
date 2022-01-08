@@ -92,9 +92,7 @@ endfun
 
 fun! wheel#chain#pop (list)
 	" Remove first element from list ; return it
-	let elem = a:list[0]
-	call remove(a:list, 0)
-	return elem
+	return remove(a:list, 0)
 endfun
 
 " Rotation
