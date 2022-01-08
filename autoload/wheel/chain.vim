@@ -161,7 +161,7 @@ fun! wheel#chain#indexes(list, indexes)
 	" Returns list[indexes elements]
 	let sublist = []
 	for ind in a:indexes
-		call add(sublist, a:list[ind])
+		call add(sublist, deepcopy(a:list[ind]))
 	endfor
 	return sublist
 endfun

@@ -37,11 +37,36 @@ endif
 
 " Helpers
 
-fun! wheel#book#keep_indexes ()
-	" Indexes to keep if ring length > g:wheel_config.maxim.layers
+fun! wheel#book#indexes_to_keep ()
+	" Return list of indexes to keep if ring length > g:wheel_config.maxim.layers
 	let maxim = g:wheel_config.maxim.layers
+	" ring
+	let ring = b:wheel_ring
+	let current = ring.current
+	let leaves = ring.leaves
+	let length = len(leaves)
+	if maxim > length
+		" still under maxim
+		" nothing to do
+		return []
+	endif
 	" euclidian integer division
-	let half = maxim / 2
+	if maxim % 2 == 1
+		let share = maxim / 2
+	else
+		let share = maxim / 2 - 1
+	endif
+	let delta = current - share
+	" indexes
+	let indexes = range(maxim)
+	call map(indexes, { _, v -> v + delta })
+	call map(indexes, { _, v -> v % length })
+	for ind in range(maxim)
+		if indexes[ind] < 0
+			let indexes[ind] += length
+		endif
+	endfor
+	return indexes
 endfun
 
 " Init ring

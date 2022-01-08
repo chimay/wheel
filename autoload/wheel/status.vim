@@ -39,7 +39,7 @@ endfun
 " Mandala ring status
 
 fun! wheel#status#cylinder ()
-	" Layer dashboard
+	" Mandala dashboard
 	" layers types
 	let bufnums = g:wheel_mandalas.ring
 	if empty(bufnums)
@@ -78,6 +78,15 @@ fun! wheel#status#leaf ()
 	" echo
 	redraw!
 	echo 'leaves : ' .. join(types)
+endfun
+
+" Mandala & leaf status
+
+fun! wheel#status#mandala_leaf ()
+	" Mandala & leaf ring status
+	call wheel#status#cylinder ()
+	echo "\n"
+	call wheel#status#leaf ()
 endfun
 
 " old layer stack implementation
