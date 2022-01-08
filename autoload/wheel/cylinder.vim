@@ -171,7 +171,7 @@ fun! wheel#cylinder#first (...)
 	return v:true
 endfun
 
-fun! wheel#cylinder#push (...)
+fun! wheel#cylinder#add (...)
 	" Push new mandala buffer
 	if a:0 > 0
 		let mode = a:1
@@ -203,10 +203,12 @@ fun! wheel#cylinder#push (...)
 		return v:false
 	endif
 	" push
-	call add(mandalas, novice)
+	let length = len(mandalas)
+	let next = current + 1
+	call insert(mandalas, novice, next)
+	let g:wheel_mandalas.current = next
 	let novice_iden = wheel#cylinder#new_iden (iden)
-	let g:wheel_mandalas.current = len(mandalas) - 1
-	call add(iden, novice_iden)
+	call insert(iden, novice_iden, next)
 	call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
@@ -219,7 +221,7 @@ fun! wheel#cylinder#push (...)
 	return v:true
 endfun
 
-fun! wheel#cylinder#pop ()
+fun! wheel#cylinder#delete ()
 	" Pop mandala buffer
 	call wheel#cylinder#check ()
 	let mandalas = g:wheel_mandalas.stack

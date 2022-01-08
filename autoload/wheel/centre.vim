@@ -135,9 +135,9 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-command) :call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-async) :call wheel#mandala#async()<cr>
 	" Save (push) mandala buffer
-	nnoremap <plug>(wheel-mandala-push) :call wheel#cylinder#push()<cr>
+	nnoremap <plug>(wheel-mandala-add) :call wheel#cylinder#add()<cr>
 	" Remove (pop) mandala buffer
-	nnoremap <plug>(wheel-mandala-pop) :call wheel#cylinder#pop()<cr>
+	nnoremap <plug>(wheel-mandala-delete) :call wheel#cylinder#delete()<cr>
 	" Cycle mandala buffers
 	nnoremap <plug>(wheel-mandala-forward) :call wheel#cylinder#forward()<cr>
 	nnoremap <plug>(wheel-mandala-backward) :call wheel#cylinder#backward()<cr>
@@ -315,9 +315,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix . ': <plug>(wheel-command)'
 		exe nmap prefix . async . '& <plug>(wheel-async)'
 		" Save (push) mandala buffer
-		exe nmap prefix . '<tab> <plug>(wheel-mandala-push)'
+		exe nmap prefix . '<tab> <plug>(wheel-mandala-add)'
 		" Remove (pop) mandala buffer
-		exe nmap prefix . '<backspace> <plug>(wheel-mandala-pop)'
+		exe nmap prefix . '<backspace> <plug>(wheel-mandala-delete)'
 		" Cycle mandala buffers
 		exe nmap prefix . '<home> <plug>(wheel-mandala-backward)'
 		exe nmap prefix . '<end>  <plug>(wheel-mandala-forward)'
@@ -426,9 +426,9 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-!>          <plug>(wheel-command)'
 		exe nmap '<m-&>          <plug>(wheel-async)'
 		" Save (push) mandala buffer
-		exe nmap '<m-tab>        <plug>(wheel-mandala-push)'
+		exe nmap '<m-tab>        <plug>(wheel-mandala-add)'
 		" Remove (pop) mandala buffer
-		exe nmap '<m-backspace>  <plug>(wheel-mandala-pop)'
+		exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
 		" Cycle mandala buffers
 		exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
 		exe nmap '<m-end>       <plug>(wheel-mandala-forward)'
