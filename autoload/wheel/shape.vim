@@ -234,7 +234,7 @@ fun! wheel#shape#grep_edit (...)
 		let file = expand('%')
 		if file =~ s:is_mandala . 'context/grep'
 			" called from context menu,
-			" original pattern is at the top of the stack
+			" original pattern is at the top of the ring
 			let settings = wheel#layer#top_field ('settings')
 			let pattern = settings.pattern
 		else

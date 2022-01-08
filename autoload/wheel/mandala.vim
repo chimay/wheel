@@ -141,13 +141,13 @@ fun! wheel#mandala#close ()
 	" -- if we are not in a mandala buffer,
 	" -- go to its window if it is visible
 	let bufnum = bufnr('%')
-	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.stack)
+	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
 		call wheel#cylinder#goto ()
 	endif
 	" -- if we are still not in a mandala buffer,
 	" -- none is visible and there is nothing to do
 	let bufnum = bufnr('%')
-	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.stack)
+	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
 		return v:false
 	endif
 	" -- mandala buffer
@@ -449,7 +449,7 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <silent> <buffer> <up> :call wheel#mandala#wrap_up()<cr>
 	" Reload mandala
 	nnoremap <silent> <buffer> r :call wheel#mandala#reload ()<cr>
-	" Navigate in layer stack
+	" Navigate in layer ring
 	nnoremap <silent> <buffer> H :call wheel#layer#backward ()<cr>
 	nnoremap <silent> <buffer> L :call wheel#layer#forward ()<cr>
 	nnoremap <silent> <buffer> <m-l> :call wheel#layer#switch ()<cr>

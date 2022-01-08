@@ -136,8 +136,8 @@ fun! wheel#void#mandalas ()
 	if ! exists('g:wheel_mandalas')
 		let g:wheel_mandalas = {}
 	endif
-	if ! has_key(g:wheel_mandalas, 'stack')
-		let g:wheel_mandalas.stack = []
+	if ! has_key(g:wheel_mandalas, 'ring')
+		let g:wheel_mandalas.ring = []
 	endif
 	if ! has_key(g:wheel_mandalas, 'current')
 		let g:wheel_mandalas.current = -1

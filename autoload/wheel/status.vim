@@ -36,7 +36,7 @@ fun! wheel#status#dashboard ()
 	endif
 endfun
 
-" Layer stack status
+" Layer ring status
 
 fun! wheel#status#layer ()
 	" Layer dashboard
@@ -58,12 +58,12 @@ fun! wheel#status#layer ()
 	echo 'layers : ' . join(types)
 endfun
 
-" Mandala stack status
+" Mandala ring status
 
 fun! wheel#status#cylinder ()
 	" Layer dashboard
 	" layers types
-	let bufnums = g:wheel_mandalas.stack
+	let bufnums = g:wheel_mandalas.ring
 	if empty(bufnums)
 		return '[' . wheel#status#type () . ']'
 	endif
