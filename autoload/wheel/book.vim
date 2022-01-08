@@ -35,6 +35,15 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
+" Helpers
+
+fun! wheel#book#keep_indexes ()
+	" Indexes to keep if ring length > g:wheel_config.maxim.layers
+	let maxim = g:wheel_config.maxim.layers
+	" euclidian integer division
+	let half = maxim / 2
+endfun
+
 " Init ring
 
 fun! wheel#book#init ()
