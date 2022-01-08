@@ -94,7 +94,7 @@ fun! wheel#projection#follow (...)
 		endif
 		call wheel#pendulum#record ()
 		let info = 'wheel follows : '
-		let info .= coordin[0] . ' > ' . coordin[1] . ' > ' . coordin[2]
+		let info ..= coordin[0] .. ' > ' .. coordin[1] .. ' > ' .. coordin[2]
 		redraw!
 		echomsg info
 	endif

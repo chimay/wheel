@@ -27,7 +27,7 @@ fun! wheel#shape#write_reorder (level)
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
-	let function = 'call wheel#cuboctahedron#reorder (' . string(a:level) . ')'
+	let function = 'call wheel#cuboctahedron#reorder (' .. string(a:level) .. ')'
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
@@ -37,7 +37,7 @@ fun! wheel#shape#write_rename (level)
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
-	let function = 'call wheel#cuboctahedron#rename (' . string(a:level) . ')'
+	let function = 'call wheel#cuboctahedron#rename (' .. string(a:level) .. ')'
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
@@ -57,7 +57,7 @@ fun! wheel#shape#write_copy_move (level)
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
-	let function = 'call wheel#cuboctahedron#copy_move (' . string(a:level) . ')'
+	let function = 'call wheel#cuboctahedron#copy_move (' .. string(a:level) .. ')'
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
@@ -95,7 +95,7 @@ fun! wheel#shape#reorder (level)
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('reorder/' . level)
+	call wheel#mandala#open ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_reorder (level)
 	if ! empty(lines)
@@ -106,7 +106,7 @@ fun! wheel#shape#reorder (level)
 		echomsg 'wheel shape reorder : empty or incomplete' level
 	endif
 	" reload
-	let b:wheel_reload = "wheel#shape#reorder('" . level . "')"
+	let b:wheel_reload = "wheel#shape#reorder('" .. level .. "')"
 endfun
 
 " Batch rename
@@ -116,7 +116,7 @@ fun! wheel#shape#rename (level)
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('rename/' . level)
+	call wheel#mandala#open ('rename/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_rename (level)
 	if ! empty(lines)
@@ -127,7 +127,7 @@ fun! wheel#shape#rename (level)
 		echomsg 'wheel shape rename : empty or incomplete' level
 	endif
 	" reload
-	let b:wheel_reload = "wheel#shape#rename('" . level . "')"
+	let b:wheel_reload = "wheel#shape#rename('" .. level .. "')"
 endfun
 
 fun! wheel#shape#rename_files ()
@@ -169,7 +169,7 @@ fun! wheel#shape#copy_move (level)
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('copy_move/' . level)
+	call wheel#mandala#open ('copy_move/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_copy_move (level)
 	if ! empty(lines)
@@ -185,7 +185,7 @@ fun! wheel#shape#copy_move (level)
 	nnoremap <silent> <buffer> * :call wheel#pencil#select_visible()<cr>
 	nnoremap <silent> <buffer> <bar> :call wheel#pencil#clear_visible()<cr>
 	" reload
-	let b:wheel_reload = "wheel#shape#rename('" . level . "')"
+	let b:wheel_reload = "wheel#shape#rename('" .. level .. "')"
 endfun
 
 " Reorganize
@@ -232,7 +232,7 @@ fun! wheel#shape#grep_edit (...)
 		let pattern = a:1
 	else
 		let file = expand('%')
-		if file =~ s:is_mandala . 'context/grep'
+		if file =~ s:is_mandala .. 'context/grep'
 			" called from context menu
 			" original pattern is in the previous leaf of the ring
 			let settings = wheel#book#previous ('settings')
@@ -246,7 +246,7 @@ fun! wheel#shape#grep_edit (...)
 	if a:0 > 1
 		let sieve = a:2
 	else
-		if file =~ s:is_mandala . 'context/grep'
+		if file =~ s:is_mandala .. 'context/grep'
 			let settings = wheel#book#previous ('settings')
 			" old layer stack implementation
 			"let settings = wheel#layer#top_field ('settings')
@@ -278,7 +278,7 @@ fun! wheel#shape#grep_edit (...)
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
 	" reload
-	let b:wheel_reload = "wheel#shape#grep_edit('" . pattern . "','" . sieve . "')"
+	let b:wheel_reload = "wheel#shape#grep_edit('" .. pattern .. "','" .. sieve .. "')"
 	" info
 	echomsg 'adding or removing lines is not supported.'
 	return lines

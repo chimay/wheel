@@ -15,17 +15,17 @@ fun! wheel#status#dashboard ()
 	if has('nvim')
 		let [torus, circle, location] = wheel#referen#location('all')
 		if ! wheel#referen#empty('wheel')
-			let string = torus.name . ' > '
+			let string = torus.name .. ' > '
 			if ! wheel#referen#empty('torus')
-				let string .= circle.name . ' > '
+				let string ..= circle.name .. ' > '
 				if ! wheel#referen#empty('circle')
-					let string .= location.name . ' : '
-					let string .= location.file . ':' . location.line . ':' . location.col
+					let string ..= location.name .. ' : '
+					let string ..= location.file .. ':' .. location.line .. ':' .. location.col
 				else
-					let string .= '[Empty circle]'
+					let string ..= '[Empty circle]'
 				endif
 			else
-				let string .= '[Empty torus]'
+				let string ..= '[Empty torus]'
 			endif
 		else
 			let string = 'Empty wheel'
@@ -43,7 +43,7 @@ fun! wheel#status#cylinder ()
 	" layers types
 	let bufnums = g:wheel_mandalas.ring
 	if empty(bufnums)
-		return '[' . wheel#status#type () . ']'
+		return '[' .. wheel#status#type () .. ']'
 	endif
 	let current = g:wheel_mandalas.current
 	let types = []
@@ -51,13 +51,13 @@ fun! wheel#status#cylinder ()
 		let num = bufnums[index]
 		let title = wheel#status#type (bufname(num))
 		if index == current
-			let title = '[' . title . ']'
+			let title = '[' .. title .. ']'
 		endif
 		call add(types, title)
 	endfor
 	" echo
 	redraw!
-	echo 'mandalas : ' . join(types)
+	echo 'mandalas : ' .. join(types)
 endfun
 
 " Leaf ring status : mandala layers, implemented as a ring
@@ -67,17 +67,17 @@ fun! wheel#status#leaf ()
 	" -- leaf types
 	let filenames = wheel#book#ring ('filename')
 	if empty(filenames)
-		return '[' . wheel#status#type () . ']'
+		return '[' .. wheel#status#type () .. ']'
 	endif
 	let Fun = function('wheel#status#type')
 	let types = map(copy(filenames), {_,v->Fun(v)})
 	" current mandala type
-	let title = '[' . wheel#status#type () . ']'
+	let title = '[' .. wheel#status#type () .. ']'
 	let current = b:wheel_ring.current
 	let types[current] = title
 	" echo
 	redraw!
-	echo 'leaves : ' . join(types)
+	echo 'leaves : ' .. join(types)
 endfun
 
 " old layer stack implementation
@@ -91,19 +91,19 @@ endfun
 " 	"let filenames = wheel#layer#stack ('filename')
 " 	let filenames = wheel#book#ring ('filename')
 " 	if empty(filenames)
-" 		return '[' . wheel#status#type () . ']'
+" 		return '[' .. wheel#status#type () .. ']'
 " 	endif
 " 	let Fun = function('wheel#status#type')
 " 	let types = map(copy(filenames), {_,v->Fun(v)})
 " 	" current mandala type
-" 	let title = '[' . wheel#status#type () . ']'
+" 	let title = '[' .. wheel#status#type () .. ']'
 " 	let top = b:wheel_stack.top
 " 	call insert(types, title, top)
 " 	" reverse to have previous on the left and next on the right
 " 	call reverse(types)
 " 	" echo
 " 	redraw!
-" 	echo 'layers : ' . join(types)
+" 	echo 'layers : ' .. join(types)
 " endfun
 
 " Tab line
@@ -128,7 +128,7 @@ fun! wheel#status#tablabel (index)
 	if empty(label)
 		let label = '[no-name]'
 	endif
-	let label .= ' ' . modified
+	let label ..= ' ' .. modified
 	if ! has_key(g:wheel_shelve.layout, 'tabnames')
 		return label
 	endif
@@ -136,7 +136,7 @@ fun! wheel#status#tablabel (index)
 	if empty(tabnames)
 		return label
 	endif
-	let label = tabnames[index - 1] . ' ' . modified
+	let label = tabnames[index - 1] .. ' ' .. modified
 	return label
 endfun
 
@@ -146,20 +146,20 @@ fun! wheel#status#tabline ()
 	for index in range(1, tabpagenr('$'))
 		" Highlighting
 		if index == tabpagenr()
-			let text .= '%#TabLineSel#'
+			let text ..= '%#TabLineSel#'
 		else
-			let text .= '%#TabLine#'
+			let text ..= '%#TabLine#'
 		endif
 		" Tab page number (for mouse clicks)
-		let text .= '%' . index . 'T'
+		let text ..= '%' .. index .. 'T'
 		" Label of a tab
-		let text .= ' %{wheel#status#tablabel(' . index . ')} '
+		let text ..= ' %{wheel#status#tablabel(' .. index .. ')} '
 	endfor
 	" After the last tab fill with TabLineFill and reset tab page nr
-	let text .= '%#TabLineFill#%T'
+	let text ..= '%#TabLineFill#%T'
 	" Right-align the label to close the current tab page
 	if tabpagenr('$') > 1
-		let text .= '%=%#TabLine#%999X[X]'
+		let text ..= '%=%#TabLine#%999X[X]'
 	endif
 	return text
 endfun

@@ -24,7 +24,7 @@ endif
 
 fun! wheel#hub#menu_maps (dictname)
 	" Define local maps for menus
-	let dictname = 'menu/' . a:dictname
+	let dictname = 'menu/' .. a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : v:false, 'ctx_travel' : v:true}
 	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
@@ -32,7 +32,7 @@ endfun
 
 fun! wheel#hub#meta_maps (dictname)
 	" Define local maps for meta menu
-	let dictname = 'menu/' . a:dictname
+	let dictname = 'menu/' .. a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : v:false, 'ctx_travel' : v:false}
 	call wheel#tower#overlay (settings)
 	let b:wheel_settings = settings
@@ -64,10 +64,10 @@ fun! wheel#hub#folding_text ()
 		let level = 'none'
 	endif
 	let marker = s:fold_markers[0]
-	let pattern = '\m' . marker . '[12]'
-	let repl = ':: ' . level
+	let pattern = '\m' .. marker .. '[12]'
+	let repl = ':: ' .. level
 	let line = substitute(line, pattern, repl, '')
-	let text = line . ' :: ' . numlines . ' lines ' . v:folddashes
+	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
 	return text
 endfun
 
@@ -76,14 +76,14 @@ endfun
 fun! wheel#hub#menu (dictname)
 	" Menu in mandala buffer
 	let dictname = a:dictname
-	let string = 'menu/' . dictname
+	let string = 'menu/' .. dictname
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
 endfun
 
 fun! wheel#hub#submenu (dictname)
 	" Submenu
-	let dictname = 'menu/' . a:dictname
+	let dictname = 'menu/' .. a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : v:false, 'ctx_travel' : v:true}
 	call wheel#tower#staircase (settings)
 endfun
@@ -95,8 +95,8 @@ fun! wheel#hub#main ()
 	call wheel#hub#folding_options ()
 	let menu = []
 	for elem in s:menu_list
-		let header = elem . s:fold_1
-		let items = wheel#crystal#fetch('menu/' . elem)
+		let header = elem .. s:fold_1
+		let items = wheel#crystal#fetch('menu/' .. elem)
 		let submenu = wheel#matrix#items2keys (items)
 		call add(menu, header)
 		call extend(menu, submenu)

@@ -42,9 +42,9 @@ fun! wheel#spiral#cursor ()
 	let target = float2nr(round(target))
 	let delta = target - here
 	if delta > 0
-		exe 'normal! ' . delta . "\<c-y>"
+		exe 'normal! ' .. delta .. "\<c-y>"
 	elseif delta < 0
-		exe 'normal! ' . -delta . "\<c-e>"
+		exe 'normal! ' .. -delta .. "\<c-e>"
 	endif
 endfu
 
@@ -54,12 +54,12 @@ fun! wheel#spiral#horizontal ()
 	" Horizontal split with golden ratio
 	let height = wheel#spiral#height ()
 	let height = float2nr(ceil(height))
-	exe height . 'split'
+	exe height .. 'split'
 endfun
 
 fun! wheel#spiral#vertical ()
 	" Vertical split with golden ratio
 	let width = wheel#spiral#width ()
 	let width = float2nr(ceil(width))
-	exe width . 'vsplit'
+	exe width .. 'vsplit'
 endfun

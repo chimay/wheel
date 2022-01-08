@@ -187,11 +187,11 @@ endfun
 
 fun! wheel#gear#autocmds (group, event)
 	" Return a list of buffer local autocmds of group at event
-	let runme = 'autocmd ' . a:group . ' ' . a:event . ' <buffer>'
+	let runme = 'autocmd ' .. a:group .. ' ' .. a:event .. ' <buffer>'
 	let output = execute(runme)
 	let lines = split(output, '\n')
 	call filter(lines, {_,v -> v !~ '\m^--- .* ---$'})
-	call filter(lines, {_,v -> v !~ '\m^' . s:mandala_autocmds_group})
+	call filter(lines, {_,v -> v !~ '\m^' .. s:mandala_autocmds_group})
 	if empty(lines)
 		return []
 	endif
@@ -199,7 +199,7 @@ fun! wheel#gear#autocmds (group, event)
 	let here = v:false
 	for elem in lines
 		if elem =~ '<buffer=[^>]\+>'
-			if elem =~ '\m<buffer=' . bufnr('%') . '>'
+			if elem =~ '\m<buffer=' .. bufnr('%') .. '>'
 				let here = v:true
 			else
 				let here = v:false
@@ -233,7 +233,7 @@ fun! wheel#gear#unmap (key, ...)
 		let dict = maparg(key, mode, 0, 1)
 		let letter = wheel#gear#short_mode (mode)
 		if ! empty(dict) && dict.buffer
-			exe 'silent!' letter . 'unmap <silent> <buffer>' key
+			exe 'silent!' letter .. 'unmap <silent> <buffer>' key
 		endif
 	elseif kind == v:t_list
 		for elem in key
@@ -259,7 +259,7 @@ fun! wheel#gear#clear_autocmds (group, event)
 	let event = a:event
 	let kind = type(event)
 	if kind == v:t_string
-		let group_event_pattern = '#' . group . '#' . event . '#<buffer>'
+		let group_event_pattern = '#' .. group .. '#' .. event .. '#<buffer>'
 		if exists(group_event_pattern)
 			exe 'autocmd!' group event '<buffer>'
 		endif
@@ -292,7 +292,7 @@ fun! wheel#gear#save_options (optlist)
 	" Return dictionary with options whose names are in optlist
 	let ampersands = {}
 	for optname in a:optlist
-		let runme = 'let ampersands.' . optname . '=' . '&' . optname
+		let runme = 'let ampersands.' .. optname .. '=' .. '&' .. optname
 		execute runme
 	endfor
 	return ampersands
@@ -331,7 +331,7 @@ endfun
 fun! wheel#gear#restore_options (optdict)
 	" Restore options whose names and values are given by optdict
 	for [optname, value] in items(a:optdict)
-		let runme = 'let &' . optname . '=' . string(value)
+		let runme = 'let &' .. optname .. '=' .. string(value)
 		execute runme
 	endfor
 endfun
@@ -348,9 +348,9 @@ fun! wheel#gear#restore_maps (mapdict)
 		let modemaps = mapdict[mode]
 		for key in keys(modemaps)
 			if ! empty(modemaps[key])
-				exe 'silent!' letter . 'noremap <buffer>' key modemaps[key]
+				exe 'silent!' letter .. 'noremap <buffer>' key modemaps[key]
 			else
-				exe 'silent!' letter . 'unmap <buffer>' key
+				exe 'silent!' letter .. 'unmap <buffer>' key
 			endif
 		endfor
 	endfor

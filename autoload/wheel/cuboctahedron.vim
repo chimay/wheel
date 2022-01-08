@@ -37,7 +37,7 @@ fun! wheel#cuboctahedron#baskets (linelist)
 	let linelist = a:linelist
 	" fold marker
 	let marker = s:fold_markers[0]
-	let pat_fold_one = '\m' . s:fold_1 . '$'
+	let pat_fold_one = '\m' .. s:fold_1 .. '$'
 	" tabs & windows
 	let tabindexes = []
 	let tabwindows = []
@@ -264,7 +264,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		let new_name = substitute(fields[0], ' ', ' ', 'g')
 		let found = index(glossary, new_name)
 		if found >= 0 && found != index
-			echomsg 'Location ' . new_name . ' already present in circle'
+			echomsg 'Location ' .. new_name .. ' already present in circle'
 			continue
 		endif
 		let glossary[index] = new_name
@@ -280,23 +280,23 @@ fun! wheel#cuboctahedron#rename_files ()
 		" create directory if needed
 		let directory = fnamemodify(new_filename, ':h')
 		if ! isdirectory(directory)
-			let mkdir = 'mkdir -p ' . directory
+			let mkdir = 'mkdir -p ' .. directory
 			let output = system(mkdir)
 		endif
 		" check existent file
 		if filereadable(new_filename)
-			let prompt = 'Replace existing ' . new_filename . ' ?'
+			let prompt = 'Replace existing ' .. new_filename .. ' ?'
 			let overwrite = confirm(prompt, "&Yes\n&No", 2)
 			if overwrite != 1
 				continue
 			endif
 		endif
 		" mv old new
-		echomsg 'wheel : renaming ' . old_filename . ' -> ' . new_filename
+		echomsg 'wheel : renaming ' .. old_filename .. ' -> ' .. new_filename
 		let locations[index].file = new_filename
 		let old_filename = shellescape(old_filename)
 		let new_filename = shellescape(new_filename)
-		let syscmd_rename = 'mv -f ' . old_filename . ' ' . new_filename
+		let syscmd_rename = 'mv -f ' .. old_filename .. ' ' .. new_filename
 		let output = system(syscmd_rename)
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_filename (old_filename, new_filename)
@@ -322,7 +322,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	endif
 	" -- destination
 	let upper_name = wheel#referen#upper_level_name (level)
-	let prompt = mode . ' ' . level . ' to ' . upper_name . ' ? '
+	let prompt = mode .. ' ' .. level .. ' to ' .. upper_name .. ' ? '
 	if level ==# 'torus'
 		let destination = 'wheel'
 	elseif level ==# 'circle'
@@ -332,7 +332,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 		let complete = 'customlist,wheel#completelist#grid'
 		let destination = input(prompt, '', complete)
 	else
-		echomsg 'wheel ' . mode . ' : bad level name.'
+		echomsg 'wheel ' .. mode .. ' : bad level name.'
 		return v:false
 	endif
 	let coordin = split(destination, s:level_separ)
@@ -410,8 +410,8 @@ fun! wheel#cuboctahedron#reorganize ()
 	" Loop over buffer lines
 	let linelist = getline(1, '$')
 	let marker = s:fold_markers[0]
-	let pat_fold_one = '\m' . s:fold_1 . '$'
-	let pat_fold_two = '\m' . s:fold_2 . '$'
+	let pat_fold_one = '\m' .. s:fold_1 .. '$'
+	let pat_fold_two = '\m' .. s:fold_2 .. '$'
 	let pat_dict = '\m^{.*}'
 	for line in linelist
 		if line =~ pat_fold_one

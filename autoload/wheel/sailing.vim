@@ -20,31 +20,31 @@ fun! wheel#sailing#maps (settings)
 	" Close after navigation
 	let settings.close = v:true
 	let settings.target = 'current'
-	exe map . '<cr>' . pre . string(settings) . post
+	exe map .. '<cr>' .. pre .. string(settings) .. post
 	let settings.target = 'tab'
-	exe map . 't' . pre . string(settings) . post
+	exe map .. 't' .. pre .. string(settings) .. post
 	let settings.target = 'horizontal_split'
-	exe map . 's' . pre . string(settings) . post
+	exe map .. 's' .. pre .. string(settings) .. post
 	let settings.target = 'vertical_split'
-	exe map . 'v' . pre . string(settings) . post
+	exe map .. 'v' .. pre .. string(settings) .. post
 	let settings.target = 'horizontal_golden'
-	exe map . 'S' . pre . string(settings) . post
+	exe map .. 'S' .. pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
-	exe map . 'V' . pre . string(settings) . post
+	exe map .. 'V' .. pre .. string(settings) .. post
 	" Leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'current'
-	exe map . 'g<cr>' . pre . string(settings) . post
+	exe map .. 'g<cr>' .. pre .. string(settings) .. post
 	let settings.target = 'tab'
-	exe map . 'gt' . pre . string(settings) . post
+	exe map .. 'gt' .. pre .. string(settings) .. post
 	let settings.target = 'horizontal_split'
-	exe map . 'gs' . pre . string(settings) . post
+	exe map .. 'gs' .. pre .. string(settings) .. post
 	let settings.target = 'vertical_split'
-	exe map . 'gv' . pre . string(settings) . post
+	exe map .. 'gv' .. pre .. string(settings) .. post
 	let settings.target = 'horizontal_golden'
-	exe map . 'gS' . pre . string(settings) . post
+	exe map .. 'gS' .. pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
-	exe map . 'gV' . pre . string(settings) . post
+	exe map .. 'gV' .. pre .. string(settings) .. post
 	" Define local selection maps
 	nnoremap <silent> <buffer> <space> :call wheel#pencil#toggle()<cr>
 	nnoremap <silent> <buffer> & :call wheel#pencil#toggle_visible()<cr>
@@ -64,11 +64,11 @@ endfun
 fun! wheel#sailing#generic (name)
 	" Generic sailing buffer
 	let name = a:name
-	let Perspective = function('wheel#perspective#' . name)
+	let Perspective = function('wheel#perspective#' .. name)
 	let lines = Perspective ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open (name)
-	let settings = {'action' : function('wheel#line#' . name)}
+	let settings = {'action' : function('wheel#line#' .. name)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 endfun
@@ -80,7 +80,7 @@ fun! wheel#sailing#bounce (command)
 	let lines = wheel#perspective#bounce (command)
 	" mandala buffer
 	call wheel#mandala#open (command)
-	let settings = {'action' : function('wheel#line#' . command)}
+	let settings = {'action' : function('wheel#line#' .. command)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 endfun
@@ -101,11 +101,11 @@ fun! wheel#sailing#switch (level)
 	let dashboard = wheel#referen#names()
 	if maxlevel > 0
 		let maxlevel -= 1
-		let dashboard = ' in ' . join(dashboard[0:maxlevel], ':')
+		let dashboard = ' in ' .. join(dashboard[0:maxlevel], ':')
 	else
 		let dashboard = ''
 	endif
-	call wheel#mandala#open ('switch/' . level .dashboard)
+	call wheel#mandala#open ('switch/' .. level .dashboard)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)
@@ -114,7 +114,7 @@ fun! wheel#sailing#switch (level)
 		echomsg 'wheel mandala switch : empty or incomplete' level
 	endif
 	" reload
-	let b:wheel_reload = "wheel#sailing#switch('" . level . "')"
+	let b:wheel_reload = "wheel#sailing#switch('" .. level .. "')"
 endfun
 
 fun! wheel#sailing#helix ()
@@ -227,7 +227,7 @@ fun! wheel#sailing#occur (...)
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = "wheel#sailing#occur('" . pattern . "')"
+	let b:wheel_reload = "wheel#sailing#occur('" .. pattern .. "')"
 endfun
 
 fun! wheel#sailing#grep (...)
@@ -260,7 +260,7 @@ fun! wheel#sailing#grep (...)
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = "wheel#sailing#grep('" . pattern . "')"
+	let b:wheel_reload = "wheel#sailing#grep('" .. pattern .. "')"
 	" Context menu
 	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
 	" Useful if we choose edit mode on the context menu
@@ -294,7 +294,7 @@ fun! wheel#sailing#outline (...)
 	if ! empty(lines)
 		call wheel#mandala#filename ('outline')
 		" reload
-		let b:wheel_reload = "wheel#sailing#outline('" . mode . "')"
+		let b:wheel_reload = "wheel#sailing#outline('" .. mode .. "')"
 	endif
 endfun
 
@@ -335,7 +335,7 @@ fun! wheel#sailing#locate (...)
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = "wheel#sailing#locate('" . pattern . "')"
+	let b:wheel_reload = "wheel#sailing#locate('" .. pattern .. "')"
 endfun
 
 fun! wheel#sailing#find (...)
@@ -347,7 +347,7 @@ fun! wheel#sailing#find (...)
 		let wordlist = split(input(prompt))
 		let pattern = '**/*'
 		for word in wordlist
-			let pattern .= word . '*'
+			let pattern ..= word .. '*'
 		endfor
 	endif
 	echomsg 'wheel find : using pattern' pattern
@@ -358,7 +358,7 @@ fun! wheel#sailing#find (...)
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = "wheel#sailing#find('" . pattern . "')"
+	let b:wheel_reload = "wheel#sailing#find('" .. pattern .. "')"
 endfun
 
 fun! wheel#sailing#async_find (...)
@@ -372,7 +372,7 @@ fun! wheel#sailing#async_find (...)
 		let wordlist = split(input)
 		let pattern = '*'
 		for word in wordlist
-			let pattern .= word . '*'
+			let pattern ..= word .. '*'
 		endfor
 	endif
 	echomsg 'wheel async find : using pattern' pattern
@@ -394,9 +394,9 @@ fun! wheel#sailing#async_find (...)
 	else
 		let callme  = ' :call wheel#ripple#stop()<cr>'
 	endif
-	exe map . '<c-s>' . callme
+	exe map .. '<c-s>' .. callme
 	" reload
-	let b:wheel_reload = "wheel#sailing#async_find('" . pattern . "')"
+	let b:wheel_reload = "wheel#sailing#async_find('" .. pattern .. "')"
 endfun
 
 fun! wheel#sailing#jumps ()

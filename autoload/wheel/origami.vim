@@ -41,9 +41,9 @@ fun! wheel#origami#chord_parent ()
 	" Go to line of parent fold in wheel tree
 	let level = wheel#origami#chord_level ()
 	if level == 'circle'
-		let pattern = '\m' . s:fold_1 . '$'
+		let pattern = '\m' .. s:fold_1 .. '$'
 	elseif level == 'location'
-		let pattern = '\m' . s:fold_2 . '$'
+		let pattern = '\m' .. s:fold_2 .. '$'
 	else
 		" torus line : we stay there
 		return
@@ -115,7 +115,7 @@ fun! wheel#origami#tabwin_parent ()
 	" Go to line of parent fold in tabwin tree
 	let level = wheel#origami#tabwin_level ()
 	if level == 'filename'
-		let pattern = '\m' . s:fold_1 . '$'
+		let pattern = '\m' .. s:fold_1 .. '$'
 		call search(pattern, 'b')
 	else
 		" tab line : we stay there

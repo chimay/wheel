@@ -39,8 +39,8 @@ fun! wheel#clipper#maps (mode)
 	" Context menu
 	let pre = 'nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('
 	let post = ')<cr>'
-	let menu = 'yank/' . a:mode
-	exe pre . string(menu) . post
+	let menu = 'yank/' .. a:mode
+	exe pre .. string(menu) .. post
 endfun
 
 fun! wheel#clipper#template (settings)
@@ -58,12 +58,12 @@ fun! wheel#clipper#yank (mode)
 	let mode = a:mode
 	let lines = wheel#perspective#yank (mode)
 	call wheel#vortex#update ()
-	call wheel#mandala#open ('yank/' . mode)
+	call wheel#mandala#open ('yank/' .. mode)
 	let settings = {'mode' : mode}
 	call wheel#clipper#template(settings)
 	call wheel#mandala#fill (lines)
 	setlocal nomodified
 	call cursor(1,1)
 	" reload
-	let b:wheel_reload = 'wheel#clipper#yank(' . string(mode) . ')'
+	let b:wheel_reload = 'wheel#clipper#yank(' .. string(mode) .. ')'
 endfun

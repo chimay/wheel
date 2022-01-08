@@ -48,9 +48,9 @@ fun! wheel#line#address ()
 		return cursor_line
 	else
 		let file = expand('%')
-		if file =~ s:is_mandala . 'tree'
+		if file =~ s:is_mandala .. 'tree'
 			return wheel#origami#chord ()
-		elseif file =~ s:is_mandala . 'tabwins/tree'
+		elseif file =~ s:is_mandala .. 'tabwins/tree'
 			return wheel#origami#tabwin ()
 		else
 			return v:false
@@ -327,7 +327,7 @@ fun! wheel#line#markers (settings)
 	let mark = fields[0]
 	"let line = fields[1]
 	"let column = fields[2]
-	exe "normal `" . mark
+	exe "normal `" .. mark
 endfun
 
 fun! wheel#line#tags (settings)
@@ -360,9 +360,9 @@ fun! wheel#line#jumps (settings)
 	let delta = str2nr(fields[0])
 	call wheel#line#target (a:settings.target)
 	if delta > 0
-		exe 'normal! ' . delta . "\<c-i>"
+		exe 'normal! ' .. delta .. "\<c-i>"
 	else
-		exe 'normal! ' . - delta . "\<c-o>"
+		exe 'normal! ' .. - delta .. "\<c-o>"
 	endif
 	return win_getid ()
 endfun
@@ -373,9 +373,9 @@ fun! wheel#line#changes (settings)
 	let delta = str2nr(fields[0])
 	call wheel#line#target (a:settings.target)
 	if delta > 0
-		exe 'normal! ' . delta . 'g,'
+		exe 'normal! ' .. delta .. 'g,'
 	else
-		exe 'normal! ' . - delta . 'g;'
+		exe 'normal! ' .. - delta .. 'g;'
 	endif
 	return win_getid ()
 endfun

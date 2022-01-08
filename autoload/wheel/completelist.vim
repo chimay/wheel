@@ -223,7 +223,7 @@ fun! wheel#completelist#current_file (arglead, cmdline, cursorpos)
 	" replace spaces par non-breaking spaces
 	let basis = substitute(basis, ' ', ' ', 'g')
 	" relative path
-	let cwd = getcwd() . '/'
+	let cwd = getcwd() .. '/'
 	let relative = substitute(basis, cwd, '', '')
 	" abolute path
 	let absolute = fnamemodify(basis, ':p')
@@ -240,7 +240,7 @@ fun! wheel#completelist#current_directory (arglead, cmdline, cursorpos)
 	" replace spaces par non-breaking spaces
 	let basis = substitute(basis, ' ', ' ', 'g')
 	" relative path
-	let cwd = getcwd() . '/'
+	let cwd = getcwd() .. '/'
 	let relative = substitute(basis, cwd, '', '')
 	" abolute path
 	let absolute = fnamemodify(basis, ':p')

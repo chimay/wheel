@@ -76,17 +76,17 @@ fun! wheel#delta#maps (bufnum)
 	" go to undo given by line
 	let pre  = ' :call wheel#line#undolist('
 	let post = ')<cr>'
-	exe map . '<cr>' . pre . string(a:bufnum) . post
+	exe map .. '<cr>' .. pre .. string(a:bufnum) .. post
 	" view diff between undo state and last one
 	let pre  = ' :call wheel#line#undo_diff('
 	" d does not work for it puts vim in operator pending mode
-	exe map . 'D' . pre . string(a:bufnum) . post
+	exe map .. 'D' .. pre .. string(a:bufnum) .. post
 	" close diff
 	let pre  = ' :call wheel#delta#close_diff('
-	exe map . 'x' . pre . string(a:bufnum) . post
+	exe map .. 'x' .. pre .. string(a:bufnum) .. post
 	" undo, go to last state
 	let pre  = ' :call wheel#delta#last('
-	exe map . 'u' . pre . string(a:bufnum) . post
+	exe map .. 'u' .. pre .. string(a:bufnum) .. post
 endfun
 
 " Undo list mandala
@@ -103,7 +103,7 @@ fun! wheel#delta#undolist ()
 	call wheel#mandala#fill (lines)
 	let b:wheel_settings.undo_iden = wheel#delta#undo_iden(1)
 	" reload
-	let b:wheel_reload = "wheel#delta#reload('" . bufnum . "')"
+	let b:wheel_reload = "wheel#delta#reload('" .. bufnum .. "')"
 endfun
 
 " Reload mandala

@@ -99,7 +99,7 @@ fun! wheel#tree#insert_circle (circle)
 		let name = input('Insert circle with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
-		echomsg 'Circle named' name 'already exists in torus ' . torus.name
+		echomsg 'Circle named' name 'already exists in torus ' .. torus.name
 		return v:false
 	endif
 	let circle.name = name
@@ -123,7 +123,7 @@ fun! wheel#tree#insert_location (location)
 		let name = input('Insert location with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
-		echomsg 'Location named' name 'already exists in circle ' . circle.name
+		echomsg 'Location named' name 'already exists in circle ' .. circle.name
 		return v:false
 	endif
 	let location.name = name
@@ -243,9 +243,9 @@ fun! wheel#tree#add_location (location, ...)
 	endif
 	" add the location to the circle
 	redraw!
-	let info = 'Adding location ' . location.name . ' : '
-	let info .= location.file . ':' . location.line . ':' . location.col
-	let info .= ' in torus ' . torus.name . ' circle ' . circle.name
+	let info = 'Adding location ' .. location.name .. ' : '
+	let info ..= location.file .. ':' .. location.line .. ':' .. location.col
+	let info ..= ' in torus ' .. torus.name .. ' circle ' .. circle.name
 	echomsg info
 	let index = circle.current
 	let locations = circle.locations
@@ -344,7 +344,7 @@ fun! wheel#tree#rename (level, ...)
 	if a:0 > 0
 		let new = a:1
 	else
-		let prompt = 'Rename ' . level . ' as ? '
+		let prompt = 'Rename ' .. level .. ' as ? '
 		if level ==# 'torus'
 			let complete = 'customlist,wheel#completelist#empty'
 		elseif level ==# 'circle'
@@ -411,8 +411,8 @@ fun! wheel#tree#rename_file (...)
 	if a:0 > 0
 		let new_filename = a:1
 	else
-		let dir = expand('%:h') . '/'
-		let cwd = getcwd() . '/'
+		let dir = expand('%:h') .. '/'
+		let cwd = getcwd() .. '/'
 		let dir = substitute(dir, cwd, '', '')
 		let prompt = 'Rename file as ? '
 		let complete =  'customlist,wheel#completelist#file'
@@ -428,11 +428,11 @@ fun! wheel#tree#rename_file (...)
 	" write it
 	write
 	" remove old file
-	let prompt = 'Remove old file ' . old_filename . ' ?'
+	let prompt = 'Remove old file ' .. old_filename .. ' ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 1
 		let command = 'rm'
-		let remove = command . ' ' . shellescape(old_filename)
+		let remove = command .. ' ' .. shellescape(old_filename)
 		call system(remove)
 		if v:shell_error
 			echomsg 'wheel rename file : error in executing system command.'
@@ -459,7 +459,7 @@ fun! wheel#tree#remove (level, name)
 	" find element index
 	let index = index(glossary, name)
 	if index < 0
-		echomsg upper_name . 'does not contain ' name
+		echomsg upper_name .. 'does not contain ' name
 	endif
 	" remove from elements list
 	call wheel#chain#remove_index(index, elements)
@@ -490,7 +490,7 @@ fun! wheel#tree#delete (level, ...)
 		let mode = 'default'
 	endif
 	if mode != 'force'
-		let prompt = 'Delete current ' . level . ' ?'
+		let prompt = 'Delete current ' .. level .. ' ?'
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
 		if confirm != 1
 			return v:false
@@ -503,7 +503,7 @@ fun! wheel#tree#delete (level, ...)
 	let elements = wheel#referen#elements (upper)
 	if empty(elements)
 		let upper_name = wheel#referen#upper_level_name (level)
-		echomsg upper_name . ' is already empty.'
+		echomsg upper_name .. ' is already empty.'
 		return v:false
 	endif
 	let length = len(elements)
@@ -541,7 +541,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 		let destination = a:1
 	else
 		let upper_name = wheel#referen#upper_level_name (level)
-		let prompt = mode . ' ' . level . ' to ' . upper_name . ' ? '
+		let prompt = mode .. ' ' .. level .. ' to ' .. upper_name .. ' ? '
 		if level ==# 'torus'
 			let destination = 'wheel'
 		elseif level ==# 'circle'
@@ -551,7 +551,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 			let complete = 'customlist,wheel#completelist#grid'
 			let destination = input(prompt, '', complete)
 		else
-			echomsg 'wheel ' . mode . ' : bad level name.'
+			echomsg 'wheel ' .. mode .. ' : bad level name.'
 			return v:false
 		endif
 	endif

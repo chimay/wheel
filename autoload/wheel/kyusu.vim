@@ -50,7 +50,7 @@ fun! wheel#kyusu#tree (wordlist, index, value)
 	" Like word filter, but keep folds markers lines
 	" index is not used, it’s just for compatibility with filter()
 	let marker = s:fold_markers[0]
-	let pattern = '\m' . marker . '[12]$'
+	let pattern = '\m' .. marker .. '[12]$'
 	if a:value =~ pattern
 		return v:true
 	endif
@@ -65,7 +65,7 @@ fun! wheel#kyusu#fold (wordlist, candidates)
 		return []
 	endif
 	let marker = s:fold_markers[0]
-	let pattern = '\m' . marker . '[12]$'
+	let pattern = '\m' .. marker .. '[12]$'
 	let filtered = []
 	for index in range(len(candidates) - 1)
 		" --- Current line

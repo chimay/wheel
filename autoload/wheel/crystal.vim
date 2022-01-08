@@ -73,7 +73,7 @@ endif
 
 if ! exists('s:is_mandala_tabs')
 	" for output line of :tabs
-	let s:is_mandala_tabs = '\m^>\?\s*+\?\s*' . s:is_mandala
+	let s:is_mandala_tabs = '\m^>\?\s*+\?\s*' .. s:is_mandala
 	lockvar s:is_mandala_tabs
 endif
 
@@ -220,12 +220,12 @@ if ! exists('s:fold_markers')
 endif
 
 if ! exists('s:fold_one')
-	let s:fold_one = ' ' . s:fold_markers[0] . '1'
+	let s:fold_one = ' ' .. s:fold_markers[0] .. '1'
 	lockvar s:fold_one
 endif
 
 if ! exists('s:fold_two')
-	let s:fold_two = ' ' . s:fold_markers[0] . '2'
+	let s:fold_two = ' ' .. s:fold_markers[0] .. '2'
 	lockvar s:fold_two
 endif
 
@@ -617,7 +617,7 @@ fun! wheel#crystal#clear (varname)
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
 	if varname !~ '\m^s:'
-		let varname = 's:' . varname
+		let varname = 's:' .. varname
 	endif
 	unlet {varname}
 	return varname
@@ -637,7 +637,7 @@ fun! wheel#crystal#fetch (varname, ...)
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
 	if varname !~ '\m^s:'
-		let varname = 's:' . varname
+		let varname = 's:' .. varname
 	endif
 	if mode ==# 'dict' && wheel#matrix#is_nested_list ({varname})
 		return wheel#matrix#items2dict ({varname})

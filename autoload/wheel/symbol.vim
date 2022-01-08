@@ -29,7 +29,7 @@ fun! wheel#symbol#read (file)
 	endif
 	if file =~ '\m/'
 		" if tagfile is not in project root dir, we need the full path
-		let tagdir = fnamemodify(file, ':p:h') . '/'
+		let tagdir = fnamemodify(file, ':p:h') .. '/'
 	else
 		let tagdir = ''
 	endif
@@ -45,7 +45,7 @@ fun! wheel#symbol#read (file)
 		let pattern = substitute(pattern, remove, '', '')
 		let record = substitute(record, regex, '', '')
 		let fields = split(record, "\t")
-		let fields[1] = tagdir . fields[1]
+		let fields[1] = tagdir .. fields[1]
 		call add(fields, optional)
 		call add(fields, pattern)
 		call add(table, fields)

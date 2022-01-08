@@ -90,7 +90,7 @@ fun! wheel#perspective#grid ()
 	let grid = wheel#helix#grid ()
 	let lines = []
 	for coordin in grid
-		let entry = coordin[0] . s:level_separ . coordin[1]
+		let entry = coordin[0] .. s:level_separ .. coordin[1]
 		let lines = add(lines, entry)
 	endfor
 	return lines
@@ -100,10 +100,10 @@ fun! wheel#perspective#tree ()
 	" Tree representation of the wheel
 	let lines = []
 	for torus in g:wheel.toruses
-		let entry = torus.name . s:fold_1
+		let entry = torus.name .. s:fold_1
 		let lines = add(lines, entry)
 		for circle in torus.circles
-			let entry = circle.name . s:fold_2
+			let entry = circle.name .. s:fold_2
 			let lines = add(lines, entry)
 			for location in circle.locations
 				let entry = location.name
@@ -118,10 +118,10 @@ fun! wheel#perspective#reorganize ()
 	" Content for reorganize buffer
 	let lines = []
 	for torus in g:wheel.toruses
-		let entry = torus.name . s:fold_1
+		let entry = torus.name .. s:fold_1
 		let lines = add(lines, entry)
 		for circle in torus.circles
-			let entry = circle.name . s:fold_2
+			let entry = circle.name .. s:fold_2
 			let lines = add(lines, entry)
 			for location in circle.locations
 				let entry = string(location)
@@ -146,8 +146,8 @@ fun! wheel#perspective#history ()
 		let coordin = entry.coordin
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour . s:field_separ
-		let entry .= coordin[0] . s:level_separ . coordin[1] . s:level_separ . coordin[2]
+		let entry = date_hour .. s:field_separ
+		let entry ..= coordin[0] .. s:level_separ .. coordin[1] .. s:level_separ .. coordin[2]
 		let strings = add(strings, entry)
 	endfor
 	return strings
@@ -166,9 +166,9 @@ fun! wheel#perspective#locate (pattern)
 	let pattern = a:pattern
 	let database = g:wheel_config.locate_db
 	if empty(database)
-		let runme = 'locate ' . pattern
+		let runme = 'locate ' .. pattern
 	else
-		let runme = 'locate -d ' . expand(database) . ' ' . pattern
+		let runme = 'locate -d ' .. expand(database) .. ' ' .. pattern
 	endif
 	let lines = systemlist(runme)
 	return lines
@@ -188,8 +188,8 @@ fun! wheel#perspective#mru ()
 		let filename = entry.file
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour . s:field_separ
-		let entry .= filename
+		let entry = date_hour .. s:field_separ
+		let entry ..= filename
 		let strings = add(strings, entry)
 	endfor
 	return strings
@@ -266,7 +266,7 @@ fun! wheel#perspective#tabwins_tree ()
 		if elem !~ isbuffer
 			" tab line
 			let tabnum = fields[-1]
-			let record = 'tab ' . tabnum . s:fold_1
+			let record = 'tab ' .. tabnum .. s:fold_1
 		elseif elem !~ iswheel
 			" buffer line
 			let record = fnamemodify(fields[-1], ':p')
@@ -284,7 +284,7 @@ fun! wheel#perspective#occur (pattern)
 	" Occur
 	let pattern = a:pattern
 	let position = getcurpos()
-	let runme = 'global /' . pattern . '/number'
+	let runme = 'global /' .. pattern .. '/number'
 	let lines = execute(runme)
 	let lines = split(lines, "\n")
 	for index in range(len(lines))
@@ -335,12 +335,12 @@ fun! wheel#perspective#grep (pattern, sieve)
 		let errnum = index + 1
 		let bufnum = elem.bufnr
 		let record = ''
-		let record .= errnum . s:field_separ
-		let record .= bufnum . s:field_separ
-		let record .= bufname(bufnum) . s:field_separ
-		let record .= elem.lnum . s:field_separ
-		let record .= elem.col . s:field_separ
-		let record .= elem.text
+		let record ..= errnum .. s:field_separ
+		let record ..= bufnum .. s:field_separ
+		let record ..= bufname(bufnum) .. s:field_separ
+		let record ..= elem.lnum .. s:field_separ
+		let record ..= elem.col .. s:field_separ
+		let record ..= elem.text
 		call add(list, record)
 	endfor
 	return list

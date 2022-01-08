@@ -18,13 +18,13 @@ fun! wheel#vector#files (sieve)
 	" Filter files with sieve
 	let sieve = a:sieve
 	if sieve !~ '^\\m'
-		let sieve = '\m' . sieve
+		let sieve = '\m' .. sieve
 	endif
 	" Locations files
 	let locations = deepcopy(wheel#referen#circle().locations)
 	let files = map(locations, {_, val -> fnameescape(val.file)})
 	" Remove current directory part
-	let directory = '\n^' . getcwd() . '/'
+	let directory = '\n^' .. getcwd() .. '/'
 	for index in range(len(files))
 		let path = files[index]
 		let files[index] = substitute(path, directory, '', '')
@@ -71,7 +71,7 @@ fun! wheel#vector#argdo (command, ...)
 	let command = a:command
 	let yield = wheel#vector#argadd (sieve)
 	if yield
-		let runme = 'silent! argdo ' . command
+		let runme = 'silent! argdo ' .. command
 		let output = execute(runme)
 		call wheel#mandala#open('argdo')
 		call wheel#mandala#common_maps ()
@@ -111,9 +111,9 @@ fun! wheel#vector#grep (pattern, ...)
 	let files = join(files)
 	" Quote if needed
 	if pattern !~ "'"
-		let pattern = "'" . pattern . "'"
+		let pattern = "'" .. pattern .. "'"
 	elseif pattern !~ '"'
-		let pattern = '"' . pattern . '"'
+		let pattern = '"' .. pattern .. '"'
 	endif
 	" Run grep
 	let grep = g:wheel_config.grep
@@ -121,7 +121,7 @@ fun! wheel#vector#grep (pattern, ...)
 		echoerr 'wheel vector grep : bad g:wheel_config.grep value.'
 		return v:false
 	endif
-	let grep .= '!'
+	let grep ..= '!'
 	exe 'silent!' grep pattern files
 	return v:true
 endfun

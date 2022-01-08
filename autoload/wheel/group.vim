@@ -49,8 +49,8 @@ fun! wheel#group#torus(method)
 	endif
 	let method = a:method
 	let name = wheel#referen#current('torus').name
-	let name .= '-by-' . method
-	let fun = 'wheel#group#' . method
+	let name ..= '-by-' .. method
+	let fun = 'wheel#group#' .. method
 	let groups = wheel#group#dispatch(fun)
 	if wheel#tree#add_torus (name)
 		for [key, localist] in items(groups)

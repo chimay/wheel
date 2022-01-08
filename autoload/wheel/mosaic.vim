@@ -341,29 +341,29 @@ fun! wheel#mosaic#grid (settings)
 	wincmd t
 	if row == 0
 		if col > 0
-			exe col . 'wincmd l'
+			exe col .. 'wincmd l'
 		endif
 		if col < max_col - 1
 			vsplit
 			let settings.done = [row, col + 1]
 			return v:true
 		else
-			exe col . 'wincmd h'
+			exe col .. 'wincmd h'
 			split
 			let settings.done = [1, 0]
 			return v:true
 		endif
 	else
 		if col < max_col - 1
-			exe (col + 1) . 'wincmd l'
+			exe (col + 1) .. 'wincmd l'
 			if row > 1
-				exe (row - 1) . 'wincmd j'
+				exe (row - 1) .. 'wincmd j'
 			endif
 			split
 			let settings.done = [row, col + 1]
 			return v:true
 		elseif row < max_row - 1
-			exe row . 'wincmd j'
+			exe row .. 'wincmd j'
 			split
 			let settings.done = [row + 1, 0]
 			return v:true
@@ -388,29 +388,29 @@ fun! wheel#mosaic#transposed_grid (settings)
 	wincmd t
 	if col == 0
 		if row > 0
-			exe row . 'wincmd j'
+			exe row .. 'wincmd j'
 		endif
 		if row < max_row - 1
 			split
 			let settings.done = [row + 1, col]
 			return v:true
 		else
-			exe row . 'wincmd k'
+			exe row .. 'wincmd k'
 			vsplit
 			let settings.done = [0, 1]
 			return v:true
 		endif
 	else
 		if row < max_row - 1
-			exe (row + 1) . 'wincmd j'
+			exe (row + 1) .. 'wincmd j'
 			if col > 1
-				exe (col - 1) . 'wincmd l'
+				exe (col - 1) .. 'wincmd l'
 			endif
 			vsplit
 			let settings.done = [row + 1, col]
 			return v:true
 		elseif col < max_col - 1
-			exe col . 'wincmd l'
+			exe col .. 'wincmd l'
 			vsplit
 			let settings.done = [0, col + 1]
 			return v:true

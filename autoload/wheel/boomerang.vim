@@ -51,7 +51,7 @@ fun! wheel#boomerang#remove_deleted ()
 	if ! empty(selected)
 		" if manually selected with space
 		for elem in selected
-			let elem = s:selected_mark . elem
+			let elem = s:selected_mark .. elem
 			call wheel#chain#remove_element (elem, lines)
 			call wheel#chain#remove_element (elem, filtered)
 		endfor
@@ -79,7 +79,7 @@ endfun
 " 	if ! empty(selected)
 " 		" if manually selected with space
 " 		for elem in selected
-" 			let elem = s:selected_mark . elem
+" 			let elem = s:selected_mark .. elem
 " 			call wheel#chain#remove_element (elem, lines)
 " 			call wheel#chain#remove_element (elem, filtered)
 " 		endfor
@@ -113,7 +113,7 @@ fun! wheel#boomerang#menu (dictname, ...)
 		" ctx_travel = v:false by default, to be able to catch mandala buffer variables
 		let optional.ctx_travel = v:false
 	endif
-	let dictname = 'context/' . a:dictname
+	let dictname = 'context/' .. a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase (settings)
 	call wheel#boomerang#syncdown ()
@@ -121,7 +121,7 @@ fun! wheel#boomerang#menu (dictname, ...)
 	" tell wheel#loop#sailing to forget it
 	let b:wheel_settings.close = v:false
 	" Reload function
-	let b:wheel_reload = "wheel#boomerang#menu('" . a:dictname . "')"
+	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
 endfun
 
 " Applications

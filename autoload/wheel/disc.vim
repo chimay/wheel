@@ -22,7 +22,7 @@ fun! wheel#disc#writefile (varname, file, ...)
 	else
 		let mode = '>'
 	endif
-	let string = 'let ' . a:varname . ' = ' . string({a:varname})
+	let string = 'let ' .. a:varname .. ' = ' .. string({a:varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
 	if mode == '>>'
@@ -75,13 +75,13 @@ fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
 	let file = expand(a:file)
 	let suffixes = range(a:backups, 1, -1)
-	let filelist = map(suffixes, {ind, val -> file . '.' . val})
+	let filelist = map(suffixes, {ind, val -> file .. '.' .. val})
 	let filelist = add(filelist, file)
 	let command = 'cp -f '
 	while len(filelist) > 1
 		let second = expand(remove(filelist, 0))
 		let first = expand(filelist[0])
-		let copy = command . shellescape(first) . ' ' . shellescape(second)
+		let copy = command .. shellescape(first) .. ' ' .. shellescape(second)
 		if filereadable(first)
 			"echomsg copy
 			call system(copy)
@@ -228,21 +228,21 @@ fun! wheel#disc#tree_script (...)
 	endif
 	let script = []
 	call add(script, '#!/bin/sh')
-	call add(script, 'cd ' . soil)
+	call add(script, 'cd ' .. soil)
 	call add(script, 'mkdir -p wheel')
 	call add(script, 'cd wheel')
 	for torus in g:wheel.toruses
 		let torus_dir = torus.name
-		call add(script, 'mkdir -p ' . torus_dir)
-		call add(script, 'cd ' . torus_dir)
+		call add(script, 'mkdir -p ' .. torus_dir)
+		call add(script, 'cd ' .. torus_dir)
 		for circle in torus.circles
 			let circle_dir = circle.name
-			call add(script, 'mkdir -p ' . circle_dir)
-			call add(script, 'cd ' . circle_dir)
+			call add(script, 'mkdir -p ' .. circle_dir)
+			call add(script, 'cd ' .. circle_dir)
 			for location in circle.locations
 				let link = substitute(location.name, '/', '-', 'g')
 				let file = location.file
-				let make_link = command . ' ' . file . ' ' . link
+				let make_link = command .. ' ' .. file .. ' ' .. link
 				call add(script, make_link)
 			endfor
 			call add(script, 'cd ..')
@@ -250,14 +250,14 @@ fun! wheel#disc#tree_script (...)
 		call add(script, 'cd ..')
 	endfor
 	if filereadable(script_file)
-		let prompt = 'Replace existing ' . script_file . ' ?'
+		let prompt = 'Replace existing ' .. script_file .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
 		if overwrite != 1
 			return v:false
 		endif
 	endif
 	call writefile(script, script_file)
-	call system('chmod +x ' . script_file)
+	call system('chmod +x ' .. script_file)
 	return script
 endfun
 
@@ -276,7 +276,7 @@ fun! wheel#disc#symlink_tree (...)
 	let cd_parent = 'cd ..'
 	" chop newline at beginning of pwd output
 	let old_dir = execute('pwd')[1:]
-	let cd_soil = 'cd ' . soil
+	let cd_soil = 'cd ' .. soil
 	call execute(cd_soil)
 	let mkdir_wheel = 'mkdir -p wheel'
 	call system(mkdir_wheel)
@@ -285,21 +285,21 @@ fun! wheel#disc#symlink_tree (...)
 	let counter = 0
 	for torus in g:wheel.toruses
 		let torus_dir = torus.name
-		let mkdir_torus = 'mkdir -p ' . torus_dir
+		let mkdir_torus = 'mkdir -p ' .. torus_dir
 		call system(mkdir_torus)
-		let cd_torus = 'cd ' . torus_dir
+		let cd_torus = 'cd ' .. torus_dir
 		call execute(cd_torus)
 		for circle in torus.circles
 			"echomsg 'Processing circle' circle.name 'in torus' torus.name
 			let circle_dir = circle.name
-			let mkdir_circle = 'mkdir -p ' . circle_dir
+			let mkdir_circle = 'mkdir -p ' .. circle_dir
 			call system(mkdir_circle)
-			let cd_circle = 'cd ' . circle_dir
+			let cd_circle = 'cd ' .. circle_dir
 			call execute(cd_circle)
 			for location in circle.locations
 				let link = substitute(location.name, '/', '-', 'g')
 				let file = location.file
-				let make_link = 'ln -s ' . file . ' ' . link
+				let make_link = 'ln -s ' .. file .. ' ' .. link
 				"echomsg 'Linking' link '->' file
 				call system(make_link)
 				let counter += 1
@@ -311,7 +311,7 @@ fun! wheel#disc#symlink_tree (...)
 		endfor
 		call execute(cd_parent)
 	endfor
-	let cd_old_dir = 'cd ' . old_dir
+	let cd_old_dir = 'cd ' .. old_dir
 	echo cd_old_dir
 	call execute(cd_old_dir)
 	let &cdpath = old_cdpath
@@ -334,7 +334,7 @@ fun! wheel#disc#copied_tree ()
 	let cd_parent = 'cd ..'
 	" chop newline at beginning of pwd output
 	let old_dir = execute('pwd')[1:]
-	let cd_soil = 'cd ' . soil
+	let cd_soil = 'cd ' .. soil
 	call execute(cd_soil)
 	let mkdir_wheel = 'mkdir -p wheel'
 	call system(mkdir_wheel)
@@ -343,21 +343,21 @@ fun! wheel#disc#copied_tree ()
 	let counter = 0
 	for torus in g:wheel.toruses
 		let torus_dir = torus.name
-		let mkdir_torus = 'mkdir -p ' . torus_dir
+		let mkdir_torus = 'mkdir -p ' .. torus_dir
 		call system(mkdir_torus)
-		let cd_torus = 'cd ' . torus_dir
+		let cd_torus = 'cd ' .. torus_dir
 		call execute(cd_torus)
 		for circle in torus.circles
 			"echomsg 'Processing circle' circle.name 'in torus' torus.name
 			let circle_dir = circle.name
-			let mkdir_circle = 'mkdir -p ' . circle_dir
+			let mkdir_circle = 'mkdir -p ' .. circle_dir
 			call system(mkdir_circle)
-			let cd_circle = 'cd ' . circle_dir
+			let cd_circle = 'cd ' .. circle_dir
 			call execute(cd_circle)
 			for location in circle.locations
 				let backup = substitute(location.name, '/', '-', 'g')
 				let file = location.file
-				let make_backup = 'cp -n ' . file . ' ' . backup
+				let make_backup = 'cp -n ' .. file .. ' ' .. backup
 				"echomsg 'Copying' file
 				call system(make_backup)
 				let counter += 1
@@ -369,7 +369,7 @@ fun! wheel#disc#copied_tree ()
 		endfor
 		call execute(cd_parent)
 	endfor
-	let cd_old_dir = 'cd ' . old_dir
+	let cd_old_dir = 'cd ' .. old_dir
 	echo cd_old_dir
 	call execute(cd_old_dir)
 	let &cdpath = old_cdpath

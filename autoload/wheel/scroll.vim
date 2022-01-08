@@ -52,7 +52,7 @@ fun! wheel#scroll#filtered_newer ()
 		return
 	endif
 	let before = strcharpart(line, 0, col)
-	let pattern = '\m^' . before
+	let pattern = '\m^' .. before
 	let reversed = reverse(copy(g:wheel_input))
 	let index = match(reversed, pattern, 0)
 	if index >= 0
@@ -76,7 +76,7 @@ fun! wheel#scroll#filtered_older ()
 		return
 	endif
 	let before = strcharpart(line, 0, col)
-	let pattern = '\m^' . before
+	let pattern = '\m^' .. before
 	let index = match(g:wheel_input, pattern, 1)
 	if index >= 0
 		let g:wheel_input = wheel#chain#roll_left (index, g:wheel_input)

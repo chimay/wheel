@@ -192,168 +192,168 @@ fun! wheel#centre#cables ()
 	" Basic
 	if g:wheel_config.mappings >= 0
 		" Menus
-		exe nmap prefix . '<m-m> <plug>(wheel-menu-main)'
-		exe nmap prefix . '= <plug>(wheel-menu-meta)'
+		exe nmap prefix .. '<m-m> <plug>(wheel-menu-main)'
+		exe nmap prefix .. '= <plug>(wheel-menu-meta)'
 		" Dashboard, info
-		exe nmap prefix . 'i <plug>(wheel-dashboard)'
+		exe nmap prefix .. 'i <plug>(wheel-dashboard)'
 		" Add
-		exe nmap prefix . 'a <plug>(wheel-add-here)'
-		exe nmap prefix . '<c-a> <plug>(wheel-add-circle)'
-		exe nmap prefix . 'A <plug>(wheel-add-torus)'
-		exe nmap prefix . '+f <plug>(wheel-add-file)'
-		exe nmap prefix . '+b <plug>(wheel-add-buffer)'
-		exe nmap prefix . '* <plug>(wheel-add-glob)'
+		exe nmap prefix .. 'a <plug>(wheel-add-here)'
+		exe nmap prefix .. '<c-a> <plug>(wheel-add-circle)'
+		exe nmap prefix .. 'A <plug>(wheel-add-torus)'
+		exe nmap prefix .. '+f <plug>(wheel-add-file)'
+		exe nmap prefix .. '+b <plug>(wheel-add-buffer)'
+		exe nmap prefix .. '* <plug>(wheel-add-glob)'
 		" Next / Previous
-		exe nmap prefix . '<left> <plug>(wheel-previous-location)'
-		exe nmap prefix . '<right> <plug>(wheel-next-location)'
-		exe nmap prefix . '<c-left> <plug>(wheel-previous-circle)'
-		exe nmap prefix . '<c-right> <plug>(wheel-next-circle)'
-		exe nmap prefix . '<s-left> <plug>(wheel-previous-torus)'
-		exe nmap prefix . '<s-right> <plug>(wheel-next-torus)'
+		exe nmap prefix .. '<left> <plug>(wheel-previous-location)'
+		exe nmap prefix .. '<right> <plug>(wheel-next-location)'
+		exe nmap prefix .. '<c-left> <plug>(wheel-previous-circle)'
+		exe nmap prefix .. '<c-right> <plug>(wheel-next-circle)'
+		exe nmap prefix .. '<s-left> <plug>(wheel-previous-torus)'
+		exe nmap prefix .. '<s-right> <plug>(wheel-next-torus)'
 		" History
-		exe nmap prefix . '<up> <plug>(wheel-history-newer)'
-		exe nmap prefix . '<down> <plug>(wheel-history-older)'
-		exe nmap prefix . '<c-^> <plug>(wheel-alternate-anywhere)'
-		exe nmap prefix . '<m-^> <plug>(wheel-alternate-same-circle)'
-		exe nmap prefix . '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
-		exe nmap prefix . '^ <plug>(wheel-alternate-menu)'
+		exe nmap prefix .. '<up> <plug>(wheel-history-newer)'
+		exe nmap prefix .. '<down> <plug>(wheel-history-older)'
+		exe nmap prefix .. '<c-^> <plug>(wheel-alternate-anywhere)'
+		exe nmap prefix .. '<m-^> <plug>(wheel-alternate-same-circle)'
+		exe nmap prefix .. '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
+		exe nmap prefix .. '^ <plug>(wheel-alternate-menu)'
 		" Load / Save wheel
-		exe nmap prefix . 'r <plug>(wheel-read-all)'
-		exe nmap prefix . 'w <plug>(wheel-write-all)'
+		exe nmap prefix .. 'r <plug>(wheel-read-all)'
+		exe nmap prefix .. 'w <plug>(wheel-write-all)'
 		" Load / Save session file
-		exe nmap prefix . 'R <plug>(wheel-read-session)'
-		exe nmap prefix . 'W <plug>(wheel-write-session)'
+		exe nmap prefix .. 'R <plug>(wheel-read-session)'
+		exe nmap prefix .. 'W <plug>(wheel-write-session)'
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1
 		" Switch
-		exe nmap prefix . '<cr> <plug>(wheel-switch-location)'
-		exe nmap prefix . '<c-cr> <plug>(wheel-switch-circle)'
-		exe nmap prefix . '<s-cr> <plug>(wheel-switch-torus)'
-		exe nmap prefix . '<m-cr> <plug>(wheel-multi-switch)'
+		exe nmap prefix .. '<cr> <plug>(wheel-switch-location)'
+		exe nmap prefix .. '<c-cr> <plug>(wheel-switch-circle)'
+		exe nmap prefix .. '<s-cr> <plug>(wheel-switch-torus)'
+		exe nmap prefix .. '<m-cr> <plug>(wheel-multi-switch)'
 		" Follow
-		exe nmap prefix . '<m-f> <plug>(wheel-follow)'
+		exe nmap prefix .. '<m-f> <plug>(wheel-follow)'
 		" Navigation
-		exe nmap prefix . '<space> <plug>(wheel-navigation-location)'
-		exe nmap prefix . '<c-space> <plug>(wheel-navigation-circle)'
-		exe nmap prefix . '<s-space> <plug>(wheel-navigation-torus)'
+		exe nmap prefix .. '<space> <plug>(wheel-navigation-location)'
+		exe nmap prefix .. '<c-space> <plug>(wheel-navigation-circle)'
+		exe nmap prefix .. '<s-space> <plug>(wheel-navigation-torus)'
 		" Indexes
-		exe nmap prefix . 'x <plug>(wheel-switch-in-index)'
-		exe nmap prefix . 'X <plug>(wheel-index-locations)'
-		exe nmap prefix . '<c-x> <plug>(wheel-index-circles)'
-		exe nmap prefix . '<m-x> <plug>(wheel-tree)'
+		exe nmap prefix .. 'x <plug>(wheel-switch-in-index)'
+		exe nmap prefix .. 'X <plug>(wheel-index-locations)'
+		exe nmap prefix .. '<c-x> <plug>(wheel-index-circles)'
+		exe nmap prefix .. '<m-x> <plug>(wheel-tree)'
 		" History
-		exe nmap prefix . 'h <plug>(wheel-history)'
+		exe nmap prefix .. 'h <plug>(wheel-history)'
 		" Rename
-		exe nmap prefix . 'n <plug>(wheel-rename-location)'
-		exe nmap prefix . '<c-n> <plug>(wheel-rename-circle)'
-		exe nmap prefix . 'N <plug>(wheel-rename-torus)'
-		exe nmap prefix . '<m-n> <plug>(wheel-rename-file)'
+		exe nmap prefix .. 'n <plug>(wheel-rename-location)'
+		exe nmap prefix .. '<c-n> <plug>(wheel-rename-circle)'
+		exe nmap prefix .. 'N <plug>(wheel-rename-torus)'
+		exe nmap prefix .. '<m-n> <plug>(wheel-rename-file)'
 		" Delete
-		exe nmap prefix . 'd <plug>(wheel-delete-location)'
-		exe nmap prefix . '<c-d> <plug>(wheel-delete-circle)'
-		exe nmap prefix . 'D <plug>(wheel-delete-torus)'
+		exe nmap prefix .. 'd <plug>(wheel-delete-location)'
+		exe nmap prefix .. '<c-d> <plug>(wheel-delete-circle)'
+		exe nmap prefix .. 'D <plug>(wheel-delete-torus)'
 		" Copy
-		exe nmap prefix . 'c <plug>(wheel-copy-location)'
+		exe nmap prefix .. 'c <plug>(wheel-copy-location)'
 		" <c-c> does not work in maps
-		exe nmap prefix . '<m-c> <plug>(wheel-copy-circle)'
-		exe nmap prefix . 'C <plug>(wheel-copy-torus)'
+		exe nmap prefix .. '<m-c> <plug>(wheel-copy-circle)'
+		exe nmap prefix .. 'C <plug>(wheel-copy-torus)'
 		" Move
-		exe nmap prefix . 'm <plug>(wheel-move-location)'
-		exe nmap prefix . 'M <plug>(wheel-move-circle)'
+		exe nmap prefix .. 'm <plug>(wheel-move-location)'
+		exe nmap prefix .. 'M <plug>(wheel-move-circle)'
 		" Reorder
-		exe nmap prefix . 'o <plug>(wheel-reorder-location)'
-		exe nmap prefix . '<c-o> <plug>(wheel-reorder-circle)'
-		exe nmap prefix . 'O <plug>(wheel-reorder-torus)'
+		exe nmap prefix .. 'o <plug>(wheel-reorder-location)'
+		exe nmap prefix .. '<c-o> <plug>(wheel-reorder-circle)'
+		exe nmap prefix .. 'O <plug>(wheel-reorder-torus)'
 		" Batch rename
-		exe nmap prefix . batch . 'n <plug>(wheel-batch-rename-location)'
-		exe nmap prefix . batch . '<c-n> <plug>(wheel-batch-rename-circle)'
-		exe nmap prefix . batch . 'N <plug>(wheel-batch-rename-torus)'
-		exe nmap prefix . batch . '<m-n> <plug>(wheel-batch-rename-location-filename)'
+		exe nmap prefix .. batch .. 'n <plug>(wheel-batch-rename-location)'
+		exe nmap prefix .. batch .. '<c-n> <plug>(wheel-batch-rename-circle)'
+		exe nmap prefix .. batch .. 'N <plug>(wheel-batch-rename-torus)'
+		exe nmap prefix .. batch .. '<m-n> <plug>(wheel-batch-rename-location-filename)'
 		" Batch copy/move
-		exe nmap prefix . batch . 'c <plug>(wheel-batch-copy-move-location)'
-		exe nmap prefix . batch . '<m-c> <plug>(wheel-batch-copy-move-circle)'
-		exe nmap prefix . batch . 'C <plug>(wheel-batch-copy-move-torus)'
+		exe nmap prefix .. batch .. 'c <plug>(wheel-batch-copy-move-location)'
+		exe nmap prefix .. batch .. '<m-c> <plug>(wheel-batch-copy-move-circle)'
+		exe nmap prefix .. batch .. 'C <plug>(wheel-batch-copy-move-torus)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
 		" Search for files
-		exe nmap prefix . 'l <plug>(wheel-locate)'
-		exe nmap prefix . 'f <plug>(wheel-find)'
-		exe nmap prefix . async . 'f <plug>(wheel-async-find)'
-		exe nmap prefix . 'u <plug>(wheel-mru)'
+		exe nmap prefix .. 'l <plug>(wheel-locate)'
+		exe nmap prefix .. 'f <plug>(wheel-find)'
+		exe nmap prefix .. async .. 'f <plug>(wheel-async-find)'
+		exe nmap prefix .. 'u <plug>(wheel-mru)'
 		" Buffers
-		exe nmap prefix . 'b <plug>(wheel-buffers)'
+		exe nmap prefix .. 'b <plug>(wheel-buffers)'
 		" Tabs & windows : visible buffers
-		exe nmap prefix . 'v <plug>(wheel-switch-tabwin)'
-		exe nmap prefix . 'V <plug>(wheel-tabwins)'
-		exe nmap prefix . '<m-v> <plug>(wheel-tabwins-tree)'
+		exe nmap prefix .. 'v <plug>(wheel-switch-tabwin)'
+		exe nmap prefix .. 'V <plug>(wheel-tabwins)'
+		exe nmap prefix .. '<m-v> <plug>(wheel-tabwins-tree)'
 		" Search inside files
-		exe nmap prefix . 's <plug>(wheel-occur)'
-		exe nmap prefix . 'g <plug>(wheel-grep)'
-		exe nmap prefix . '<m-o> <plug>(wheel-outline)'
+		exe nmap prefix .. 's <plug>(wheel-occur)'
+		exe nmap prefix .. 'g <plug>(wheel-grep)'
+		exe nmap prefix .. '<m-o> <plug>(wheel-outline)'
 		" (neo)vim points
-		exe nmap prefix . "' <plug>(wheel-markers)"
-		exe nmap prefix . 'j <plug>(wheel-jumps)'
-		exe nmap prefix . '; <plug>(wheel-changes)'
+		exe nmap prefix .. "' <plug>(wheel-markers)"
+		exe nmap prefix .. 'j <plug>(wheel-jumps)'
+		exe nmap prefix .. '; <plug>(wheel-changes)'
 		" Tags
-		exe nmap prefix . 't <plug>(wheel-switch-tag)'
-		exe nmap prefix . '<m-t> <plug>(wheel-tags)'
+		exe nmap prefix .. 't <plug>(wheel-switch-tag)'
+		exe nmap prefix .. '<m-t> <plug>(wheel-tags)'
 		" Yank wheel
-		exe nmap prefix . 'y <plug>(wheel-yank-list)'
-		exe nmap prefix . 'p <plug>(wheel-yank-plain)'
+		exe nmap prefix .. 'y <plug>(wheel-yank-list)'
+		exe nmap prefix .. 'p <plug>(wheel-yank-plain)'
 		" Reorganize
 		" wheel
-		exe nmap prefix . '<m-r> <plug>(wheel-reorganize)'
+		exe nmap prefix .. '<m-r> <plug>(wheel-reorganize)'
 		" tabs & windows
-		exe nmap prefix . '<c-r> <plug>(wheel-reorg-tabwins)'
+		exe nmap prefix .. '<c-r> <plug>(wheel-reorg-tabwins)'
 		" grep edit
-		exe nmap prefix . '<m-g> <plug>(wheel-grep-edit)'
+		exe nmap prefix .. '<m-g> <plug>(wheel-grep-edit)'
 		" Undo list
-		exe nmap prefix . '<m-u> <plug>(wheel-undo-list)'
+		exe nmap prefix .. '<m-u> <plug>(wheel-undo-list)'
 		" Generic ex or shell command
-		exe nmap prefix . ': <plug>(wheel-command)'
-		exe nmap prefix . async . '& <plug>(wheel-async)'
+		exe nmap prefix .. ': <plug>(wheel-command)'
+		exe nmap prefix .. async .. '& <plug>(wheel-async)'
 		" Save (push) mandala buffer
-		exe nmap prefix . '<tab> <plug>(wheel-mandala-add)'
+		exe nmap prefix .. '<tab> <plug>(wheel-mandala-add)'
 		" Remove (pop) mandala buffer
-		exe nmap prefix . '<backspace> <plug>(wheel-mandala-delete)'
+		exe nmap prefix .. '<backspace> <plug>(wheel-mandala-delete)'
 		" Cycle mandala buffers
-		exe nmap prefix . '<home> <plug>(wheel-mandala-backward)'
-		exe nmap prefix . '<end>  <plug>(wheel-mandala-forward)'
+		exe nmap prefix .. '<home> <plug>(wheel-mandala-backward)'
+		exe nmap prefix .. '<end>  <plug>(wheel-mandala-forward)'
 		" Switch mandala buffer
-		exe nmap prefix . '<m-space> <plug>(wheel-mandala-switch)'
+		exe nmap prefix .. '<m-space> <plug>(wheel-mandala-switch)'
 		" Layouts
-		exe nmap prefix . lay . 'z <plug>(wheel-zoom)'
+		exe nmap prefix .. lay .. 'z <plug>(wheel-zoom)'
 		" Tabs
-		exe nmap prefix . lay . 't <plug>(wheel-tabs-locations)'
-		exe nmap prefix . lay . '<c-t> <plug>(wheel-tabs-circles)'
-		exe nmap prefix . lay . 'T <plug>(wheel-tabs-toruses)'
+		exe nmap prefix .. lay .. 't <plug>(wheel-tabs-locations)'
+		exe nmap prefix .. lay .. '<c-t> <plug>(wheel-tabs-circles)'
+		exe nmap prefix .. lay .. 'T <plug>(wheel-tabs-toruses)'
 		" Windows
-		exe nmap prefix . lay . 's <plug>(wheel-split-locations)'
-		exe nmap prefix . lay . '<c-s> <plug>(wheel-split-circles)'
-		exe nmap prefix . lay . 'S <plug>(wheel-split-toruses)'
-		exe nmap prefix . lay . 'v <plug>(wheel-vsplit-locations)'
-		exe nmap prefix . lay . '<c-v> <plug>(wheel-vsplit-circles)'
-		exe nmap prefix . lay . 'V <plug>(wheel-vsplit-toruses)'
+		exe nmap prefix .. lay .. 's <plug>(wheel-split-locations)'
+		exe nmap prefix .. lay .. '<c-s> <plug>(wheel-split-circles)'
+		exe nmap prefix .. lay .. 'S <plug>(wheel-split-toruses)'
+		exe nmap prefix .. lay .. 'v <plug>(wheel-vsplit-locations)'
+		exe nmap prefix .. lay .. '<c-v> <plug>(wheel-vsplit-circles)'
+		exe nmap prefix .. lay .. 'V <plug>(wheel-vsplit-toruses)'
 		" Main top
-		exe nmap prefix . lay . 'm <plug>(wheel-main-top-locations)'
-		exe nmap prefix . lay . '<c-m> <plug>(wheel-main-top-circles)'
-		exe nmap prefix . lay . 'M <plug>(wheel-main-top-toruses)'
+		exe nmap prefix .. lay .. 'm <plug>(wheel-main-top-locations)'
+		exe nmap prefix .. lay .. '<c-m> <plug>(wheel-main-top-circles)'
+		exe nmap prefix .. lay .. 'M <plug>(wheel-main-top-toruses)'
 		" Main left
-		exe nmap prefix . lay . 'l <plug>(wheel-main-left-locations)'
-		exe nmap prefix . lay . '<c-l> <plug>(wheel-main-left-circles)'
-		exe nmap prefix . lay . 'L <plug>(wheel-main-left-toruses)'
+		exe nmap prefix .. lay .. 'l <plug>(wheel-main-left-locations)'
+		exe nmap prefix .. lay .. '<c-l> <plug>(wheel-main-left-circles)'
+		exe nmap prefix .. lay .. 'L <plug>(wheel-main-left-toruses)'
 		" Grid
-		exe nmap prefix . lay . 'g <plug>(wheel-grid-locations)'
-		exe nmap prefix . lay . '<c-g> <plug>(wheel-grid-circles)'
-		exe nmap prefix . lay . 'G <plug>(wheel-grid-toruses)'
+		exe nmap prefix .. lay .. 'g <plug>(wheel-grid-locations)'
+		exe nmap prefix .. lay .. '<c-g> <plug>(wheel-grid-circles)'
+		exe nmap prefix .. lay .. 'G <plug>(wheel-grid-toruses)'
 		" Tabs & Windows
-		exe nmap prefix . lay . '& <plug>(wheel-tab-win-circle)'
-		exe nmap prefix . lay . '<M-&> <plug>(wheel-tab-win-torus)'
+		exe nmap prefix .. lay .. '& <plug>(wheel-tab-win-circle)'
+		exe nmap prefix .. lay .. '<M-&> <plug>(wheel-tab-win-torus)'
 		" Rotating windows
-		exe nmap prefix . lay . '<up> <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap prefix . lay . '<down> <plug>(wheel-rotate-clockwise)'
+		exe nmap prefix .. lay .. '<up> <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap prefix .. lay .. '<down> <plug>(wheel-rotate-clockwise)'
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
@@ -441,6 +441,6 @@ fun! wheel#centre#cables ()
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
-		exe nmap prefix . 'Z <plug>(wheel-debug-fresh-wheel)'
+		exe nmap prefix .. 'Z <plug>(wheel-debug-fresh-wheel)'
 	endif
 endfun

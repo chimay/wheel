@@ -10,7 +10,7 @@ endfun
 fun! wheel#guru#mappings ()
 	" List of mappings in a dedicated buffer
 	let prefix = g:wheel_config.prefix
-	let command = 'map ' . prefix
+	let command = 'map ' .. prefix
 	call wheel#mandala#command (command)
 endfun
 
@@ -22,6 +22,6 @@ endfun
 fun! wheel#guru#autocomands ()
 	" List of plugs mappings in a dedicated buffer
 	let group = input('Name of your wheel autocommand group ? ', 'wheel')
-	let command = 'autocmd ' . group
+	let command = 'autocmd ' .. group
 	call wheel#mandala#command (command)
 endfun

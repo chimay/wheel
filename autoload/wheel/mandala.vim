@@ -71,7 +71,7 @@ fun! wheel#mandala#pseudo (type, ...)
 		let iden = g:wheel_mandalas.iden[current]
 	endif
 	let type = a:type
-	let pseudo = '/wheel/' . iden . '/' . type
+	let pseudo = '/wheel/' .. iden .. '/' .. type
 	return pseudo
 endfun
 
@@ -531,7 +531,7 @@ fun! wheel#mandala#folding_options (...)
 	setlocal foldmethod=marker
 	let &foldmarker = s:fold_markers
 	setlocal foldcolumn=2
-	exe 'setlocal foldtext=wheel#mandala#' . textfun . '()'
+	exe 'setlocal foldtext=wheel#mandala#' .. textfun .. '()'
 endfun
 
 fun! wheel#mandala#folding_text ()
@@ -548,10 +548,10 @@ fun! wheel#mandala#folding_text ()
 		let level = 'none'
 	endif
 	let marker = s:fold_markers[0]
-	let pattern = '\m' . marker . '[12]'
-	let repl = ':: ' . level
+	let pattern = '\m' .. marker .. '[12]'
+	let repl = ':: ' .. level
 	let line = substitute(line, pattern, repl, '')
-	let text = line . ' :: ' . numlines . ' lines ' . v:folddashes
+	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
 	return text
 endfun
 
@@ -560,10 +560,10 @@ fun! wheel#mandala#tabwins_folding_text ()
 	let numlines = v:foldend - v:foldstart
 	let line = getline(v:foldstart)
 	let marker = s:fold_markers[0]
-	let pattern = '\m ' . marker . '[12]'
+	let pattern = '\m ' .. marker .. '[12]'
 	let repl = ''
 	let line = substitute(line, pattern, repl, '')
-	let text = line . ' :: ' . numlines . ' lines ' . v:folddashes
+	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
 	return text
 endfun
 
@@ -596,8 +596,8 @@ fun! wheel#mandala#command (...)
 		let command = command[1:]
 		let current = getreg('%')
 		let alter = getreg('#')
-		let command = substitute(command, ' %', ' ' . current, 'g')
-		let command = substitute(command, ' #', ' ' . alter, 'g')
+		let command = substitute(command, ' %', ' ' .. current, 'g')
+		let command = substitute(command, ' #', ' ' .. alter, 'g')
 		let lines = wheel#perspective#execute (command, 'system')
 	else
 		let lines = wheel#perspective#execute (command)
@@ -620,8 +620,8 @@ fun! wheel#mandala#async ()
 	call wheel#vortex#update ()
 	let current = getreg('%')
 	let alter = getreg('#')
-	let command = substitute(command, ' %', ' ' . current, 'g')
-	let command = substitute(command, ' #', ' ' . alter, 'g')
+	let command = substitute(command, ' %', ' ' .. current, 'g')
+	let command = substitute(command, ' #', ' ' .. alter, 'g')
 	if has('nvim')
 		let job = wheel#wave#start(command)
 	else
@@ -634,5 +634,5 @@ fun! wheel#mandala#async ()
 	else
 		let callme  = ' :call wheel#ripple#stop()<cr>'
 	endif
-	exe map . '<c-s>' . callme
+	exe map .. '<c-s>' .. callme
 endfun
