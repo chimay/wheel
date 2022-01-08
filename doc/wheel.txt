@@ -2629,8 +2629,8 @@ EXAMPLES						*wheel-examples*
 
 Display some locations in tabs	    |wheel-examples-locations-in-tabs|
 Display vim files in splits	    |wheel-examples-matching-files-in-splits|
-Add a tab with a similar file	    |wheel-examples-similar-tab|
 Search and replace		    |wheel-examples-search-replace|
+Add a tab with a similar file	    |wheel-examples-similar-tab|
 List all tag of a kind 		    |wheel-examples-tag-kind|
 
 ------------------------------------------------------------------------------
@@ -2651,18 +2651,6 @@ DISPLAY MATCHING FILES IN SPLITS    *wheel-examples-matching-files-in-split*
 - `v` to open all selected locations in vertical splits
 
 ------------------------------------------------------------------------------
-ADD A TAB WITH A SIMILAR FILE	    *wheel-examples-similar-tab*
-
-- press `<M-w><C-r>` to launch the tabs & windows organizer
-- copy the line with the tab you want to duplicate
-  + with closed fold, to take the files in it
-- paste it where you want
-- open the fold of the new tab
-- modify the filename in it to match the file you want to edit
-  + you can even use `<C-x><C-f>` to use vim file completion
-- apply your changes with |:write|
-
-------------------------------------------------------------------------------
 SEARCH AND REPLACE		    *wheel-examples-search-replace*
 
 Let's say you want to refactory some shell scripts, and replace
@@ -2679,9 +2667,13 @@ call this circle `shell`.
 Now that you have your group ready, you can start the search with
 `<M-w><M-g>`. It will open the grep dedicated buffer in edit mode. You
 are now in a buffer where you can edit and propagate your changes. So,
-we use the classic `:%s/old_var_name/new_var_name/g` to replace all the
-occurences of the old var name. Then, just |:write| the buffer to apply
-these changes to all your shell scripts.
+we use the classic |:substitute| (|:s| in short form) : >
+
+    :%s/old_var_name/new_var_name/g
+<
+
+to replace all the occurences of the old var name. Then, just |:write|
+the buffer to apply these changes to all your shell scripts.
 
 Satisfied with the changes ? Just save all your modified buffers with
 |:wall|.
@@ -2690,6 +2682,26 @@ Want to go back to previous state ? You can undo your substitution in
 the dedicated buffer, and write again.
 
 You can of course reuse the `shell` group for later refactoring.
+
+Replace everywhere, except in a file~
+
+Simply use the |:global| command in invert mode |:vglobal| (|:v| in
+short form), in combination with |:substitute| : >
+
+    :v/my_file/s/old_var_name/new_var_name/g
+<
+
+------------------------------------------------------------------------------
+ADD A TAB WITH A SIMILAR FILE	    *wheel-examples-similar-tab*
+
+- press `<M-w><C-r>` to launch the tabs & windows organizer
+- copy the line with the tab you want to duplicate
+  + with closed fold, to take the files in it
+- paste it where you want
+- open the fold of the new tab
+- modify the filename in it to match the file you want to edit
+  + you can even use `<C-x><C-f>` to use vim file completion
+- apply your changes with |:write|
 
 ------------------------------------------------------------------------------
 LIST ALL TAG OF A KIND				*wheel-examples-tag-kind*
