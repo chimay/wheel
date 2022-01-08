@@ -60,12 +60,12 @@ fun! wheel#book#ring (...)
 	endif
 	let ring = b:wheel_ring
 	let fieldname = a:1
-	let field_stack = []
+	let field_ring = []
 	for elem in ring.leaves
 		let shadow = deepcopy(elem[fieldname])
-		call add(field_stack, shadow)
+		call add(field_ring, shadow)
 	endfor
-	return field_stack
+	return field_ring
 endfun
 
 fun! wheel#book#previous (...)
@@ -147,18 +147,18 @@ endfun
 fun! wheel#book#syncup ()
 	" Sync mandala state to current leaf in ring
 	" state = vars, options, maps, autocmds
-	" -- init leaf ring if necessary
 	call wheel#book#init ()
-	" -- build leaf
-	let leaf = {}
+	" leaf to fill / update
+	let ring = b:wheel_ring
+	let leaf = ring.leaves[current]
 	" pseudo filename
 	let leaf.filename = expand('%')
 	" options
-	let leaf.options = wheel#layer#save_options ()
+	let leaf.options = wheel#book#save_options ()
 	" mappings
-	let leaf.mappings = wheel#layer#save_maps ()
+	let leaf.mappings = wheel#book#save_maps ()
 	" autocommands
-	let leaf.autocmds = wheel#layer#save_autocmds ()
+	let leaf.autocmds = wheel#book#save_autocmds ()
 	" lines, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
@@ -174,10 +174,14 @@ fun! wheel#book#syncup ()
 	" useful for boomerang = context menus
 	let leaf.address = wheel#line#address()
 	" selected lines
-	let leaf.selected = deepcopy(b:wheel_selected)
+	if exists('b:wheel_selected')
+		let leaf.selected = deepcopy(b:wheel_selected)
+	else
+		let leaf.selected = []
+	endif
 	" settings
 	if exists('b:wheel_settings')
-		let leaf.settings = b:wheel_settings
+		let leaf.settings = deepcopy(b:wheel_settings)
 	else
 		let leaf.settings = {}
 	endif
@@ -187,10 +191,6 @@ fun! wheel#book#syncup ()
 	else
 		let leaf.reload = ''
 	endif
-	" add to leaf ring
-	let ring = b:wheel_ring
-	let current = ring.current
-	let length = length(ring.leaves)
 endfun
 
 fun! wheel#book#syncdown ()
@@ -235,3 +235,135 @@ fun! wheel#book#syncdown ()
 	setlocal nomodified
 endfun
 
+" Add & delete
+
+fun! wheel#book#add ()
+	" Add new leaf in ring
+	" -- init leaf ring if necessary
+	call wheel#book#init ()
+	" -- build leaf
+	let leaf = {}
+	" pseudo filename
+	let leaf.filename = expand('%')
+	" options
+	let leaf.options = wheel#book#save_options ()
+	" mappings
+	let leaf.mappings = wheel#book#save_maps ()
+	" autocommands
+	let leaf.autocmds = wheel#book#save_autocmds ()
+	" lines, without filtering
+	if empty(b:wheel_lines)
+		let begin = wheel#mandala#first_data_line ()
+		let leaf.lines = getline(begin, '$')
+	else
+		let leaf.lines = copy(b:wheel_lines)
+	endif
+	" filtered content
+	let leaf.filtered = getline(1, '$')
+	" cursor position
+	let leaf.position = getcurpos()
+	" address of cursor line
+	" useful for boomerang = context menus
+	let leaf.address = wheel#line#address()
+	" selected lines
+	let leaf.selected = deepcopy(b:wheel_selected)
+	" settings
+	if exists('b:wheel_settings')
+		let leaf.settings = b:wheel_settings
+	else
+		let leaf.settings = {}
+	endif
+	" reload
+	if exists('b:wheel_reload')
+		let leaf.reload = b:wheel_reload
+	else
+		let leaf.reload = ''
+	endif
+	" -- add to leaf ring
+	let ring = b:wheel_ring
+	let current = ring.current
+	let next = current + 1
+	call insert(ring, leaf, next)
+endfun
+
+fun! wheel#book#delete ()
+	" Delete current leaf in ring
+	" -- do not delete element from empty ring
+	let ring = b:wheel_ring
+	let leaves = ring.leaves
+	let length = len(leaves)
+	if empty(leaves)
+		echomsg 'wheel book delete : empty buffer ring'
+		return v:false
+	endif
+	" -- do not delete element from one element ring
+	if len(leaves) == 1
+		echomsg 'wheel book delete :' leaves[0].filename 'is the last layer in ring'
+		return v:false
+	endif
+	" -- delete
+	call remove(ring.leaves, ring.current)
+	let length -= 1
+	let ring.current = wheel#gear#circular_minus (current, length)
+	call wheel#book#syncdown ()
+endfun
+
+" Forward & backward
+
+fun! wheel#book#forward ()
+	" Go forward in layer ring
+	let ring = b:wheel_ring
+	let length = len(ring.leaves)
+	if length == 0
+		echomsg 'wheel layer forward : empty ring.'
+		return v:false
+	endif
+	let current = ring.current
+	let ring.current = wheel#gear#circular_plus (current, length)
+	call wheel#book#syncdown ()
+	call wheel#status#book ()
+endfun
+
+fun! wheel#book#backward ()
+	" Go backward in layer ring
+	let ring = b:wheel_ring
+	let length = len(ring.leaves)
+	if length == 0
+		echomsg 'wheel layer forward : empty ring.'
+		return v:false
+	endif
+	let current = ring.current
+	let ring.current = wheel#gear#circular_minus (current, length)
+	call wheel#book#syncdown ()
+	call wheel#status#book ()
+endfun
+
+" Switch
+
+fun! wheel#book#switch (...)
+	" Switch to layer with completion
+	let ring = b:wheel_ring
+	let length = len(ring.leaves)
+	if length == 0
+		echomsg 'wheel layer switch : empty layer ring.'
+		return v:false
+	endif
+	let prompt = 'Switch to layer : '
+	let complete =  'customlist,wheel#completelist#leaf'
+	if a:0 > 0
+		let name = a:1
+	else
+		let name = input(prompt, '', complete)
+	endif
+	let name = wheel#mandala#pseudo (name)
+	let filenames = wheel#book#ring ('filename')
+	let ring = b:wheel_ring
+	let current = index(filenames, name)
+	if current < 0
+		echomsg 'wheel book switch : mandala leaf ' . name . ' not found in ring'
+		return v:false
+	endif
+	let ring.current = current
+	call wheel#book#syncdown ()
+	call wheel#status#leaf ()
+endfun

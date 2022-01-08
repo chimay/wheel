@@ -36,7 +36,7 @@ fun! wheel#status#dashboard ()
 	endif
 endfun
 
-" Layer ring status
+" Layer stack status
 
 fun! wheel#status#layer ()
 	" Layer dashboard
@@ -56,6 +56,26 @@ fun! wheel#status#layer ()
 	" echo
 	redraw!
 	echo 'layers : ' . join(types)
+endfun
+
+" Leaf ring status
+
+fun! wheel#status#leaf ()
+	" Leaf dashboard
+	" -- leaf types
+	let filenames = wheel#book#ring ('filename')
+	if empty(filenames)
+		return '[' . wheel#status#type () . ']'
+	endif
+	let Fun = function('wheel#status#type')
+	let types = map(copy(filenames), {_,v->Fun(v)})
+	" current mandala type
+	let title = '[' . wheel#status#type () . ']'
+	let current = b:wheel_ring.current
+	call insert(types, title, current + 1)
+	" echo
+	redraw!
+	echo 'leaves : ' . join(types)
 endfun
 
 " Mandala ring status

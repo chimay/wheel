@@ -114,6 +114,22 @@ fun! wheel#completelist#layer (arglead, cmdline, cursorpos)
 	return wheel#kyusu#candidates(wordlist, types)
 endfun
 
+fun! wheel#completelist#leaf (arglead, cmdline, cursorpos)
+	" Return leaves types
+	let filenames = wheel#book#ring ('filename')
+	if empty(filenames)
+		return []
+	endif
+	let Fun = function('wheel#mandala#type')
+	let types = map(copy(filenames), {_,v->Fun(v)})
+	" current mandala type
+	let title = wheel#mandala#type ()
+	let current = b:wheel_stack.current
+	call insert(types, title, current + 1)
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, types)
+endfun
+
 fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
 	" Return mandala buffers names
 	let bufnums = g:wheel_mandalas.ring
