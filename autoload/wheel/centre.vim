@@ -415,6 +415,7 @@ fun! wheel#centre#cables ()
 		exe nmap "<m-'>          <plug>(wheel-switch-marker)"
 		exe nmap '<m-j>          <plug>(wheel-switch-jump)'
 		exe nmap '<m-;>          <plug>(wheel-switch-change)'
+		exe nmap '<m-c>          <plug>(wheel-switch-change)'
 		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
 		" (neo)vim points, dedicated buffer
 		exe nmap "<m-k>          <plug>(wheel-markers)"
