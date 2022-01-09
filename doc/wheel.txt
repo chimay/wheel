@@ -530,6 +530,7 @@ Switch in (neo)vim lists~
 | switch marker         | markers            | <M-w>'          |
 | switch in jump list   | jumps              | <M-w>j          |
 | switch in change list | changes            | <M-w>;          |
+| switch tag            | tags               | <M-w>t          |
 
 Switch visible buffer~
 
