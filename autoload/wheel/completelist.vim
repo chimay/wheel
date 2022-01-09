@@ -71,27 +71,24 @@ endfu
 
 fun! wheel#completelist#helix (arglead, cmdline, cursorpos)
 	" Complete coordinates in index
-	let helix = wheel#helix#helix ()
-	let choices = []
-	for coordin in helix
-		let entry = join(coordin, s:level_separ)
-		let choices = add(choices, entry)
-	endfor
+	let choices = wheel#perspective#helix ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfu
 
 fun! wheel#completelist#grid  (arglead, cmdline, cursorpos)
 	" Complete location coordinates in index
-	let grid = wheel#helix#grid ()
-	let choices = []
-	for coordin in grid
-		let entry = join(coordin, s:level_separ)
-		let choices = add(choices, entry)
-	endfor
+	let choices = wheel#perspective#grid ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
+
+fun! wheel#completelist#history (arglead, cmdline, cursorpos)
+	" Complete coordinates in history
+	let choices = wheel#perspective#history ()
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, choices)
+endfu
 
 " mandalas = dedicated buffers
 

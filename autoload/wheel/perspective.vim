@@ -1,6 +1,9 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Content generators for mandalas
+" Content generators for :
+"
+"   - completion of prompting function
+"   - dedicated buffers (mandalas)
 
 " Script constants
 
@@ -95,7 +98,7 @@ fun! wheel#perspective#grid ()
 	let grid = wheel#helix#grid ()
 	let lines = []
 	for coordin in grid
-		let entry = coordin[0] .. s:level_separ .. coordin[1]
+		let entry = join(coordin, s:level_separ)
 		let lines = add(lines, entry)
 	endfor
 	return lines

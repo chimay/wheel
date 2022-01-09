@@ -258,3 +258,19 @@ fun! wheel#vortex#helix (...)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (mode)
 endfun
+
+fun! wheel#vortex#history (...)
+	" Switch to coordinates in history
+	" Optional argument : jump mode
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	let prompt = 'Switch to history element : '
+	let complete =  'customlist,wheel#completelist#history'
+	let record = input(prompt, '', complete)
+	let coordin = split(record, s:level_separ)
+	call wheel#vortex#chord(coordin)
+	call wheel#vortex#jump (mode)
+endfun

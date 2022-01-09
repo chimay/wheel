@@ -78,10 +78,12 @@ fun! wheel#projection#follow (...)
 	" if torus or circle is empty, assume the user
 	" wants to add something before switching
 	if level == 'wheel' && wheel#referen#is_empty ('torus')
+		echomsg 'wheel follow : torus is empty'
 		return
 	endif
 	" first add some locations before leaving empty circle
 	if wheel#chain#is_inside(level, ['wheel', 'torus']) && wheel#referen#is_empty ('circle')
+		echomsg 'wheel follow : circle is empty'
 		return
 	endif
 	" follow
@@ -98,4 +100,6 @@ fun! wheel#projection#follow (...)
 		redraw!
 		echomsg info
 	endif
+	" update location to cursor position
+	call wheel#vortex#update ()
 endfun

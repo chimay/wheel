@@ -5,7 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
-Operate on wheel elements	|wheel-elements|
+Juggling with wheel elements	|wheel-elements|
 Prompting functions		|wheel-prompting-functions|
 Dedicated buffers		|wheel-dedicated-buffers|
 Batch mode			|wheel-batch-operations|
@@ -187,7 +187,7 @@ ONE MAP TO RING THEM ALL		*wheel-sbs-one-map-to-ring-them-all*
 To get an overview of the Wheel, I suggest you take a look at the main
 menu. Press `<M-w><M-m>` and a new buffer will appear, listing the actions
 you can perform. Insert mode is used to filter the lines. Press enter
-in normal mode to trigger an action (if you know what you’re doing),
+in normal mode to trigger an action (if you know what you're doing),
 or `q` to quit the menu.
 
 If you prefer the meta menu leading you to thematic sub-menus, you can
@@ -198,12 +198,12 @@ To learn more about menus, see |wheel-dedicated-buffers-menus|.
 ------------------------------------------------------------------------------
 FIRST CIRCLES				    	    *wheel-sbs-first-circles*
 
-Let’s say we have the files `Juice`, `Tea`, `Coffee` and we want to
+Let's say we have the files `Juice`, `Tea`, `Coffee` and we want to
 group them. So, we go to `Juice` and type `<M-w>a` to add a location to
 the wheel. If no category (no torus) is present in the wheel, it will
-create it and ask for a name. Let’s say we name it `Food`. If no group
+create it and ask for a name. Let's say we name it `Food`. If no group
 (no circle) is found in the torus, it will be created and prompt for a
-name. Let’s say we choose `Drinks`. Finally, we are asked to choose a
+name. Let's say we choose `Drinks`. Finally, we are asked to choose a
 name for our location. A completion is available : if we press `<Tab>`,
 we can choose between different flavours of the current filename :
 
@@ -231,12 +231,12 @@ circle. Then, go to the Mango section, and do the same. Let's say
 we give it the `Juice-Mango` name. The `Juice:mango-line:mango-col`
 is also added to the circle.
 
-If you want to create another group (circle), let’s say `Fruits`,
+If you want to create another group (circle), let's say `Fruits`,
 simply launch `<M-w><C-a>`, and answer `Fruits` to the prompt. You can
 then add the files `Apple`, `Pear` and `Orange` to it. You can even also
 add `Juice`: a file can be added to more than one circle.
 
-If you want to create another category (torus), let’s say `Books`,
+If you want to create another category (torus), let's say `Books`,
 simply launch `<M-w><S-a>`, and answer `Books` to the prompt.
 
 Adding quicker~
@@ -258,7 +258,7 @@ add the files in a new circle. You can answer yes and call this circle
 `Novels`. And voilà, your new `Novels` group contain all the files in
 the `novels` folder.
 
-Don’t forget to |:cd| to the right directory before launching this
+Don't forget to |:cd| to the right directory before launching this
 function.
 
 ------------------------------------------------------------------------------
@@ -322,7 +322,7 @@ navigation buffer. See |wheel-dedicated-buffers-navigation|.
 SQUARE THE CIRCLE				*wheel-sbs-square-the-circle*
 
 Over time, the number of circles will grow. Completion is great, but if
-you just want to alternate the last two locations in history, you’ll
+you just want to alternate the last two locations in history, you'll
 probably prefer the alternate functions :
 
 | Default map    | Function                                      |
@@ -338,7 +338,7 @@ probably prefer the alternate functions :
 You can also use the meta or main menu.
 
 I strongly suggest you map a convenient key, like `<C-^>`,
-to `<plug>(wheel-alternate-anywhere)`, it’s one of the
+to `<plug>(wheel-alternate-anywhere)`, it's one of the
 most often used binding. Same thing with `<M-C-^>` and
 `<plug>(wheel-alternate-same-torus-other-circle)`.  See
 |wheel-mappings-level-10| for more information.
@@ -372,6 +372,8 @@ Delete					    |wheel-elements-delete|
 Rename					    |wheel-elements-rename|
 Copy					    |wheel-elements-copy|
 Move					    |wheel-elements-move|
+Navigation				    |wheel-elements-navigation|
+Sync					    |wheel-elements-sync|
 
 ------------------------------------------------------------------------------
 ADD							*wheel-elements-add*
@@ -410,6 +412,63 @@ MOVE							*wheel-elements-move*
 
 - `<M-w>m`     : copy location to another circle
 - `<M-w>M`   : copy circle to another torus
+
+------------------------------------------------------------------------------
+NAVIGATION					*wheel-elements-navigation*
+
+Next~
+
+- location : `<M-w><Right>`
+- circle : `<M-w><C-Right>`
+- torus : `<M-w><S-Right>`
+- location in history : `<M-w><Down>`
+
+Previous~
+
+- location : `<M-w><Left>`
+- circle : `<M-w><C-Left>`
+- torus : `<M-w><S-Left>`
+- location in history : `<M-w><Up>`
+
+Switch~
+
+- location : `<M-w><Space>`
+- circle : `<M-w><C-Space>`
+- torus : `<M-w><S-Space>`
+- location in index : `<M-w>x`
+
+------------------------------------------------------------------------------
+SYNC							*wheel-elements-sync*
+
+Sync down : wheel -> current window~
+
+The jump function loads the current file & position of the wheel in the
+current window.
+
+This sync-down process is automatically run by every navigation map
+that deals with elements in the wheel.
+
+Sometimes however, you want to quickly edit a file that has nothing to
+do with your usual groups. You can then go back by manually launching
+the sync-down. The default binding is : >
+
+    <M-w><M-$>
+<
+
+Sync up : current file & position -> wheel~
+
+The follow function try to find the closest location in the wheel that
+matches the current file & position. If found, the wheel current location
+is synced with the current file.
+
+Let's say you edit a file, load a buffer or go to a tab or window without
+using a wheel map. The wheel state will then be distinct from your current
+file. You can then ask the wheel to follow the current file by manually
+launch the sync-up process. The default mapping is : >
+
+    <M-w>$
+<
+
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
@@ -622,7 +681,7 @@ The available actions depend on the buffer type :
 - reorganize buffer allows you fine grain operations
   + move, copy or delete locations, circles and toruses, using folds
   + change locations settings like name, line, col
-  + be sure you know what you’re doing
+  + be sure you know what you're doing
 - reorganize tabs and windows
 
 Mandala~
@@ -919,7 +978,7 @@ If you enter `pattern` at the prompt, the glob used to find files will be : >
     *pattern*
 <
 
-The `find` command is recursive by default, so you don’t need the
+The `find` command is recursive by default, so you don't need the
 double asterisk prefix.
 
 If you enter several words at the prompt, say `word-1 word-2` , the glob
@@ -2486,16 +2545,16 @@ Prompt :
 | <plug>(wheel-move-location)                     | move current location                    |
 | <plug>(wheel-move-circle)                       | move current circle                      |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-switch-location)                   | switch location                          |
-| <plug>(wheel-switch-circle)                     | switch circle                            |
-| <plug>(wheel-switch-torus)                      | switch torus                             |
-| <plug>(wheel-multi-switch)                      | switch torus, circle & location          |
-| <plug>(wheel-switch-in-index)                   | switch location in index                 |
-| <plug>(wheel-switch-tabwin)                     | visible buffers in tabs & windows        |
+| <plug>(wheel-prompt-location)                   | switch location                          |
+| <plug>(wheel-prompt-circle)                     | switch circle                            |
+| <plug>(wheel-prompt-torus)                      | switch torus                             |
+| <plug>(wheel-multi-prompt)                      | switch torus, circle & location          |
+| <plug>(wheel-prompt-in-index)                   | switch location in index                 |
+| <plug>(wheel-prompt-tabwin)                     | visible buffers in tabs & windows        |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                        |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-switch-tag)                        | switch to tag                            |
+| <plug>(wheel-prompt-tag)                        | switch to tag                            |
 
 Dedicated buffers :
 
