@@ -24,6 +24,11 @@ if ! exists('s:fold_2')
 	lockvar s:fold_2
 endif
 
+if ! exists('s:is_mandala')
+	let s:is_mandala = wheel#crystal#fetch('is_mandala')
+	lockvar s:is_mandala
+endif
+
 if ! exists('s:is_buffer_tabs')
 	let s:is_buffer_tabs = wheel#crystal#fetch('is_buffer/tabs')
 	lockvar s:is_buffer_tabs
@@ -356,6 +361,7 @@ endfun
 fun! wheel#perspective#jumps ()
 	" Jumps
 	let lines = []
+	let mandalas = g:wheel_mandalas.ring
 	let jumplist = getjumplist()[0]
 	for jump in jumplist
 		let bufnum = jump.bufnr
@@ -366,9 +372,14 @@ fun! wheel#perspective#jumps ()
 		else
 			let filename = bufname(bufnum)
 		endif
-		let linelist = getbufline(bufnum, linum)
-		if ! empty(linelist)
-			let content = linelist[0]
+		let is_without_name = empty(filename)
+		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
+		let is_wheel_buffer = is_wheel_buffer || filename =~ s:is_mandala
+		if is_without_name || is_wheel_buffer
+			continue
+		endif
+		if bufloaded(bufnum)
+			let content = getbufline(bufnum, linum)[0]
 		else
 			let content = ' '
 		endif

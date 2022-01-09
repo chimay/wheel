@@ -61,7 +61,7 @@ endif
 
 if ! exists('s:is_mandala')
 	" mandala filename pattern
-	let s:is_mandala = '\m/wheel/[0-9]\+/'
+	let s:is_mandala = '\m^/wheel/[0-9]\+/'
 	lockvar s:is_mandala
 endif
 
