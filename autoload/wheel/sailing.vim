@@ -164,13 +164,28 @@ fun! wheel#sailing#history ()
 	let b:wheel_reload = 'wheel#sailing#history'
 endfun
 
-fun! wheel#sailing#buffers ()
+fun! wheel#sailing#buffers (...)
 	" Buffers
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#buffers ()
+	" Optional argument mode :
+	"   - listed (default) : don't return unlisted buffers
+	"   - all : also return unlisted buffers
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'listed'
+	endif
+	let lines = call('wheel#perspective#buffers', a:000)
 	call wheel#vortex#update ()
 	" mandala buffer
-	call wheel#mandala#open ('buffers')
+	if mode == 'listed'
+		call wheel#mandala#open ('buffers')
+	elseif mode == 'all'
+		call wheel#mandala#open ('buffers/all')
+	else
+		echomsg 'wheel sailing buffers : bad optional argument'
+		return []
+	endif
 	let settings = {'action' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)

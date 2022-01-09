@@ -135,10 +135,16 @@ fun! wheel#boomerang#buffers (action)
 		call wheel#loop#sailing (settings)
 		let previous_selected = wheel#book#previous ('selected')
 		let previous_selected = []
-	elseif action == 'delete_hidden' || action == 'wipe_hidden'
+	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
 		let filtered = wheel#book#previous ('filtered')
-		let hidden = wheel#rectangle#hidden_buffers ()[0]
+		if action == 'delete_hidden' || action == 'wipe_hidden'
+			let hidden = wheel#rectangle#hidden_buffers ()[0]
+		elseif action == 'delete_all_hidden' || action == 'wipe_all_hidden'
+			let hidden = wheel#rectangle#hidden_buffers ('all')[0]
+		else
+			echomsg 'wheel boomerang buffer : bad action format'
+		endif
 		if empty(hidden)
 			echomsg 'no hidden buffer.'
 			return v:false

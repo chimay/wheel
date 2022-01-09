@@ -197,9 +197,24 @@ endfu
 
 " Buffers
 
-fun! wheel#perspective#buffers ()
+fun! wheel#perspective#buffers (...)
 	" Buffers
-	let buffers = execute('buffers')
+	" Optional argument mode :
+	"   - listed (default) : don't return unlisted buffers
+	"   - all : also return unlisted buffers
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'listed'
+	endif
+	if mode == 'listed'
+		let buffers = execute('buffers')
+	elseif mode == 'all'
+		let buffers = execute('buffers!')
+	else
+		echomsg 'wheel perspective buffers : bad optional argument'
+		return []
+	endif
 	let buffers = split(buffers, "\n")
 	let length = len(buffers)
 	let lines = []

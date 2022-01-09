@@ -92,6 +92,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-mru) :call wheel#sailing#mru()<cr>
 	" Buffers
 	nnoremap <plug>(wheel-buffers) :call wheel#sailing#buffers()<cr>
+	nnoremap <plug>(wheel-buffers-all) :call wheel#sailing#buffers('all')<cr>
 	" Tabs & windows : visible buffers
 	nnoremap <plug>(wheel-switch-tabwin) :call wheel#rectangle#switch()<cr>
 	nnoremap <plug>(wheel-tabwins) :call wheel#sailing#tabwins()<cr>
@@ -284,6 +285,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'u <plug>(wheel-mru)'
 		" Buffers
 		exe nmap prefix .. 'b <plug>(wheel-buffers)'
+		exe nmap prefix .. 'B <plug>(wheel-buffers-all)'
 		" Tabs & windows : visible buffers
 		exe nmap prefix .. 'v <plug>(wheel-switch-tabwin)'
 		exe nmap prefix .. 'V <plug>(wheel-tabwins)'

@@ -12,6 +12,11 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
+if ! exists('s:is_mandala')
+	let s:is_mandala = wheel#crystal#fetch('is_mandala')
+	lockvar s:is_mandala
+endif
+
 " Tabs, Windows & buffers
 
 fun! wheel#rectangle#glasses (filename, ...)
@@ -133,11 +138,30 @@ fun! wheel#rectangle#ratio ()
 	return round(width) / round(height)
 endfun
 
-fun! wheel#rectangle#hidden_buffers ()
-	" Return list of hidden buffers, except unlisted and alternate one
-	let buffers = execute('buffers')
+fun! wheel#rectangle#hidden_buffers (...)
+	" Return list of hidden buffers, with some exceptions
+	" Exceptions :
+	"   - alternate buffer
+	"   - wheel dedicated buffers (mandalas)
+	" Optional argument mode :
+	"   - listed (default) : don't return unlisted buffers
+	"   - all : also return unlisted buffers
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'listed'
+	endif
+	if mode == 'listed'
+		let buffers = execute('buffers')
+	elseif mode == 'all'
+		let buffers = execute('buffers!')
+	else
+		echomsg 'wheel rectangle hidden buffers : bad optional argument'
+		return []
+	endif
 	let buffers = split(buffers, "\n")
 	let length = len(buffers)
+	let alternate = bufname('#')
 	let hidden_nums = []
 	let hidden_names = []
 	for index in range(length)
@@ -145,7 +169,10 @@ fun! wheel#rectangle#hidden_buffers ()
 		let fields = split(elem)
 		let bufnum = str2nr(fields[0])
 		let filename = bufname(bufnum)
-		if empty(win_findbuf(bufnum)) && filename !=# bufname('#')
+		let hide = empty(win_findbuf(bufnum))
+		let hide = hide && filename !=# alternate
+		let hide = hide && filename !~ s:is_mandala
+		if hide
 			call add(hidden_nums, bufnum)
 			call add(hidden_names, filename)
 		endif
