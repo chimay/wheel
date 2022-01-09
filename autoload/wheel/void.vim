@@ -254,6 +254,20 @@ fun! wheel#void#foundation ()
 	augroup END
 endfun
 
+" Clean mandala buffers
+
+fun! wheel#void#wipe_mandalas ()
+	" Wipe mandalas buffers
+	let buflist = getbufinfo()
+	let mandalas = g:wheel_mandalas.ring
+	for buffer in buflist
+		let bufnum = buffer.bufnr
+		if wheel#chain#is_inside(bufnum, mandalas)
+			execute 'silent bwipe' bufnum
+		endif
+	endfor
+endfun
+
 " Unlet variables
 
 fun! wheel#void#clean ()
@@ -289,20 +303,6 @@ fun! wheel#void#lighten ()
 	call wheel#gear#unlet (varlist)
 endfu
 
-" Clean mandala buffers
-
-fun! wheel#void#wipe_mandalas ()
-	" Wipe mandalas buffers
-	let buflist = getbufinfo()
-	let mandalas = g:wheel_mandalas.ring
-	for buffer in buflist
-		let bufnum = buffer.bufnr
-		if wheel#chain#is_inside(bufnum, mandalas)
-			execute 'silent bwipe' bufnum
-		endif
-	endfor
-endfun
-
 " Init & Exit
 
 fun! wheel#void#init ()
@@ -334,8 +334,8 @@ fun! wheel#void#exit ()
 	" -- save wheel, and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
-		call wheel#void#lighten ()
 		call wheel#void#wipe_mandalas ()
+		call wheel#void#lighten ()
 	endif
 endfu
 

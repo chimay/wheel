@@ -140,7 +140,7 @@ fun! wheel#boomerang#buffers (action)
 		let filtered = wheel#book#previous ('filtered')
 		if action == 'delete_hidden' || action == 'wipe_hidden'
 			let hidden = wheel#rectangle#hidden_buffers ()[0]
-		elseif action == 'delete_all_hidden' || action == 'wipe_all_hidden'
+		elseif action == 'wipe_all_hidden'
 			let hidden = wheel#rectangle#hidden_buffers ('all')[0]
 		else
 			echomsg 'wheel boomerang buffer : bad action format'
@@ -157,7 +157,7 @@ fun! wheel#boomerang#buffers (action)
 				call wheel#chain#remove_element (elem, filtered)
 			endif
 		endfor
-		if action =~ 'delete.*hidden'
+		if action == 'delete_hidden'
 			for bufnum in hidden
 				execute 'silent bdelete' bufnum
 			endfor
