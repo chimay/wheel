@@ -110,7 +110,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-markers) :call wheel#sailing#markers()<cr>
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
 	nnoremap <plug>(wheel-changes) :call wheel#sailing#changes()<cr>
-	nnoremap <plug>(wheel-tags) :call wheel#sailing#tag()<cr>
+	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
