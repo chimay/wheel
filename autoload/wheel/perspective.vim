@@ -221,8 +221,8 @@ fun! wheel#perspective#buffers (...)
 	let lines = []
 	let mandalas = g:wheel_mandalas.ring
 	for buffer in buflist
-		let bufnum = buffer.bufnr
-		let linum = buffer.lnum
+		let bufnum = printf('%3d', buffer.bufnr)
+		let linum = printf('%5d', buffer.lnum)
 		let filename = buffer.name
 		" indicator
 		let indicator = ''
@@ -273,7 +273,10 @@ fun! wheel#perspective#tabwins ()
 			endif
 			let winum += 1
 			let filename = bufname(bufnum)
-			let entry = [tabnum, winum, filename]
+			let entry = []
+			call add(entry, printf('%3d', tabnum))
+			call add(entry, printf('%3d', winum))
+			call add(entry, filename)
 			let record = join(entry, s:field_separ)
 			call add(lines, record)
 		endfor
@@ -314,8 +317,15 @@ fun! wheel#perspective#occur (pattern)
 	let lines = execute(runme)
 	let lines = split(lines, "\n")
 	for index in range(len(lines))
-		let lines[index] = trim(lines[index], ' ')
-		let lines[index] = substitute(lines[index], '\m\s\+', s:field_separ, '')
+		let elem = lines[index]
+		let fields = split(elem)
+		let linum = fields[0]
+		let linum = printf('%5d', linum)
+		let fields[0] = linum
+		let content = join(fields[1:])
+		let fields[1] = content
+		let elem = join(fields, s:field_separ)
+		let lines[index] = elem
 	endfor
 	call wheel#gear#restore_cursor(position)
 	return lines
