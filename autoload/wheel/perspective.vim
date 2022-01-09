@@ -370,7 +370,7 @@ fun! wheel#perspective#jumps ()
 		if ! empty(linelist)
 			let content = linelist[0]
 		else
-			let content = ''
+			let content = ' '
 		endif
 		let bufnum = printf('%3d', bufnum)
 		let linum = printf('%5d', linum)
