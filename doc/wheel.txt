@@ -998,13 +998,6 @@ can choose between the following header formats :
 - vimwiki
 
 ------------------------------------------------------------------------------
-TAGS						*wheel-dedicated-buffers-tags*
-
-Go to selected tag.
-
-The default mapping is `<M-w><M-t>`.
-
-------------------------------------------------------------------------------
 MARKERS						*wheel-dedicated-buffers-markers*
 
 Go to selected marker.
@@ -1024,6 +1017,13 @@ CHANGES					*wheel-dedicated-buffers-changes*
 Go to element in changes list.
 
 The default mapping is `<M-w>,`. It is inspired by the normal commands |g;| / |g,|.
+
+------------------------------------------------------------------------------
+TAGS						*wheel-dedicated-buffers-tags*
+
+Go to selected tag.
+
+The default mapping is `<M-w><M-t>`.
 
 ------------------------------------------------------------------------------
 YANK						*wheel-dedicated-buffers-yank*
