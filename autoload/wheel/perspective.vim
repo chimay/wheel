@@ -366,10 +366,16 @@ fun! wheel#perspective#jumps ()
 		else
 			let filename = bufname(bufnum)
 		endif
+		let linelist = getbufline(bufnum, linum)
+		if ! empty(linelist)
+			let content = linelist[0]
+		else
+			let content = ''
+		endif
 		let bufnum = printf('%3d', bufnum)
 		let linum = printf('%5d', linum)
 		let colnum = printf('%2d', colnum)
-		let entry = [bufnum, linum, colnum, filename]
+		let entry = [bufnum, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
 		call add(lines, record)
 	endfor
