@@ -343,8 +343,8 @@ fun! wheel#perspective#markers ()
 		let elem = markers[index]
 		let fields = split(elem)
 		let mark = fields[0]
-		let line = fields[1]
-		let column = fields[2]
+		let line = printf('%5d', fields[1])
+		let column = printf('%2d', fields[2])
 		let content = join(fields[3:])
 		let entry = [mark, line, column, content]
 		let record = join(entry, s:field_separ)
@@ -368,14 +368,15 @@ fun! wheel#perspective#grep (pattern, sieve)
 	let list = []
 	for index in range(len(quickfix))
 		let elem = quickfix[index]
-		let errnum = index + 1
-		let bufnum = elem.bufnr
+		let errnum = printf('%5d', index + 1)
+		let filename = bufname(elem.bufnr)
+		let linum = printf('%5d', elem.lnum)
+		let colnum = printf('%5d', elem.col)
 		let record = ''
 		let record ..= errnum .. s:field_separ
-		let record ..= bufnum .. s:field_separ
-		let record ..= bufname(bufnum) .. s:field_separ
-		let record ..= elem.lnum .. s:field_separ
-		let record ..= elem.col .. s:field_separ
+		let record ..= linum .. s:field_separ
+		let record ..= colnum .. s:field_separ
+		let record ..= filename .. s:field_separ
 		let record ..= elem.text
 		call add(list, record)
 	endfor
