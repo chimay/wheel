@@ -2333,9 +2333,9 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-g>          <plug>(wheel-grep)'
     exe nmap '<m-o>          <plug>(wheel-outline)'
     " (neo)vim points
-    exe nmap '<m-k>          <plug>(wheel-markers)'
-    exe nmap '<m-j>          <plug>(wheel-jumps)'
-    exe nmap '<m-c>          <plug>(wheel-changes)'
+    exe nmap '<m-k>          <plug>(wheel-switch-marker)'
+    exe nmap '<m-j>          <plug>(wheel-switch-jump)'
+    exe nmap '<m-c>          <plug>(wheel-switch-change)'
     " tags, labels
     exe nmap '<m-t>          <plug>(wheel-switch-tag)'
     exe nmap '<m-l>          <plug>(wheel-tags)'
@@ -2490,10 +2490,16 @@ Dedicated buffers :
 | <plug>(wheel-occur)                             | occurences of pattern in current file  |
 | <plug>(wheel-grep)                              | grep pattern in all circle files       |
 | <plug>(wheel-outline)                           | headers in all circle files            |
-| <plug>(wheel-markers)                           | markers                                |
-| <plug>(wheel-tags)                              | tags                                   |
-| <plug>(wheel-jumps)                             | vim jumps                              |
-| <plug>(wheel-changes)                           | vim changes                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-switch-marker)                     | markers, prompt completion             |
+| <plug>(wheel-switch-jump)                       | vim jumps, prompt completion           |
+| <plug>(wheel-switch-change)                     | vim changes, prompt completion         |
+| <plug>(wheel-switch-tag)                        | tags, prompt completion                |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-markers)                           | markers, dedicated buffer              |
+| <plug>(wheel-jumps)                             | vim jumps, dedicated buffer            |
+| <plug>(wheel-changes)                           | vim changes, dedicated buffer          |
+| <plug>(wheel-tags)                              | tags, dedicated buffer                 |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-yank-list)                         | yank wheel in list format              |
 | <plug>(wheel-yank-plain)                        | yank wheel in plain format             |
@@ -2794,6 +2800,7 @@ of the modules within them.
 | void.vim          | Initiaze & reset variables                              |
 | vortex.vim        | Navigation in the wheel                                 |
 | wave.vim          | Async job for neovim                                    |
+| whirl.vim         | Switch with native (neo)vim functions                   |
 
 Doc~
 

@@ -214,8 +214,23 @@ endfun
 
 " jumps
 
+fun! wheel#completelist#markers (arglead, cmdline, cursorpos)
+	" Complete list of markers
+	let choices = wheel#perspective#markers ()
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, choices)
+endfun
+
 fun! wheel#completelist#jumps (arglead, cmdline, cursorpos)
 	" Complete list of jumps
+	let choices = wheel#perspective#jumps ()
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, choices)
+endfun
+
+fun! wheel#completelist#changes (arglead, cmdline, cursorpos)
+	" Complete list of changes
+	let choices = wheel#perspective#changes ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
@@ -226,9 +241,16 @@ fun! wheel#completelist#tags (arglead, cmdline, cursorpos)
 	" Complete list of tags
 	let table = wheel#symbol#table ()
 	let choices = []
-	for record in table
-		let entry = join(record, s:field_separ)
-		call add(choices, entry)
+	for fields in table
+		let iden = fields[0]
+		let filename = fields[1]
+		let search = fields[2]
+		let type = fields[3]
+		let iden = printf('%5s', iden)
+		let type = printf('%2s', type)
+		let entry = [iden, filename, search, type]
+		let record = join(entry, s:field_separ)
+		call add(choices, record)
 	endfor
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
