@@ -125,7 +125,7 @@ endfun
 
 " State
 
-fun! wheel#book#empty ()
+fun! wheel#book#is_empty ()
 	" Whether leaf ring is empty
 	return b:wheel_ring.current == -1
  endfun
@@ -185,7 +185,9 @@ fun! wheel#book#clear_vars ()
 endfun
 
 fun! wheel#book#fresh ()
-	" Fresh empty leaves : clear mandala local data
+	" Fresh empty leaf : clear mandala local data
+	call wheel#book#syncup ()
+	call wheel#book#add ()
 	call wheel#book#clear_options ()
 	call wheel#book#clear_maps ()
 	call wheel#book#clear_autocmds ()
@@ -228,7 +230,7 @@ fun! wheel#book#syncup ()
 	" state = vars, options, maps, autocmds
 	let ring = b:wheel_ring
 	" first leaf ?
-	if wheel#book#empty()
+	if wheel#book#is_empty()
 		let ring.current = 0
 		let ring.leaves = [ wheel#book#template () ]
 	endif
@@ -282,7 +284,7 @@ fun! wheel#book#syncdown ()
 	" state = vars, options, maps, autocmds
 	let ring = b:wheel_ring
 	" empty ring ?
-	if wheel#book#empty()
+	if wheel#book#is_empty()
 		echomsg 'wheel book syncdown : empty ring'
 		return v:false
 	endif

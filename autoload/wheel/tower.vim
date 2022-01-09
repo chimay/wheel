@@ -39,8 +39,6 @@ fun! wheel#tower#staircase (settings)
 	" Define dict maps
 	let settings = a:settings
 	let dictname = settings.linefun
-	call wheel#book#syncup ()
-	call wheel#book#add ()
 	call wheel#book#fresh ()
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)

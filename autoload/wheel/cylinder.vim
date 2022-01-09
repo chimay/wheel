@@ -164,8 +164,6 @@ fun! wheel#cylinder#first (...)
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
 	call wheel#book#init ()
-	" old layer stack implementation
-	"call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive'
@@ -213,8 +211,6 @@ fun! wheel#cylinder#add (...)
 	let novice_iden = wheel#cylinder#new_iden (iden)
 	call insert(iden, novice_iden, next)
 	call wheel#book#init ()
-	" old layer stack implementation
-	"call wheel#layer#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive' && ! was_mandala

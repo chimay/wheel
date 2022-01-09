@@ -489,8 +489,10 @@ fun! wheel#tree#delete (level, ...)
 	else
 		let mode = 'default'
 	endif
+	let current = wheel#referen#current (level)
+	let name = current.name
 	if mode != 'force'
-		let prompt = 'Delete current ' .. level .. ' ?'
+		let prompt = 'Delete current ' .. level .. ' ' .. name .. ' ?'
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
 		if confirm != 1
 			return v:false
@@ -509,7 +511,6 @@ fun! wheel#tree#delete (level, ...)
 	let length = len(elements)
 	let upper_level_name = wheel#referen#upper_level_name (level)
 	let key = wheel#referen#list_key (upper_level_name)
-	let current = wheel#referen#current (level)
 	let index = upper.current
 	let upper[key] = wheel#chain#remove_index(index, elements)
 	let length -= 1
@@ -519,7 +520,6 @@ fun! wheel#tree#delete (level, ...)
 		let upper.current = wheel#gear#circular_minus(index, length)
 	endif
 	let glossary = upper.glossary
-	let name = current.name
 	let upper.glossary = wheel#chain#remove_element(name, glossary)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#vortex#jump ()

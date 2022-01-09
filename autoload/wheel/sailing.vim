@@ -91,7 +91,7 @@ fun! wheel#sailing#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
-	if wheel#referen#empty_upper (level)
+	if wheel#referen#is_empty_upper (level)
 		let upper = wheel#referen#upper_level_name (level)
 		echomsg 'wheel mandala switch : empty' upper
 		return
@@ -189,10 +189,14 @@ fun! wheel#sailing#buffers (...)
 	let settings = {'action' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
+	" context menu
+	if mode == 'listed'
+		nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('buffers')<cr>
+	elseif mode == 'all'
+		nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('buffers/all')<cr>
+	endif
 	" reload
-	let b:wheel_reload = 'wheel#sailing#buffers'
-	" Context menu
-	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('buffers')<cr>
+	let b:wheel_reload = "wheel#sailing#buffers('" .. mode .. "')"
 endfun
 
 fun! wheel#sailing#tabwins ()

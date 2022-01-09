@@ -139,37 +139,33 @@ fun! wheel#rectangle#ratio ()
 endfun
 
 fun! wheel#rectangle#hidden_buffers (...)
-	" Return list of hidden buffers, with some exceptions
-	" Exceptions :
-	"   - alternate buffer
-	"   - wheel dedicated buffers (mandalas)
+	" Return list of hidden or unlisted buffers, with some exceptions
 	" Optional argument mode :
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
+	" Exceptions :
+	"   - alternate buffer
+	"   - wheel dedicated buffers (mandalas)
 	if a:0 > 0
 		let mode = a:1
 	else
 		let mode = 'listed'
 	endif
 	if mode == 'listed'
-		let buffers = execute('buffers')
+		let buflist = getbufinfo({'buflisted' : 1})
 	elseif mode == 'all'
-		let buffers = execute('buffers!')
+		let buflist = getbufinfo()
 	else
 		echomsg 'wheel rectangle hidden buffers : bad optional argument'
 		return []
 	endif
-	let buffers = split(buffers, "\n")
-	let length = len(buffers)
 	let alternate = bufname('#')
 	let hidden_nums = []
 	let hidden_names = []
-	for index in range(length)
-		let elem = buffers[index]
-		let fields = split(elem)
-		let bufnum = str2nr(fields[0])
-		let filename = bufname(bufnum)
-		let hide = empty(win_findbuf(bufnum))
+	for buffer in buflist
+		let bufnum = buffer.bufnr
+		let filename = buffer.name
+		let hide = buffer.hidden || ! buffer.listed
 		let hide = hide && filename !=# alternate
 		let hide = hide && filename !~ s:is_mandala
 		if hide

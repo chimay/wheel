@@ -202,32 +202,54 @@ fun! wheel#perspective#buffers (...)
 	" Optional argument mode :
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
+	" Exceptions :
+	"   - buffers without name
+	"   - wheel dedicated buffers (mandalas)
 	if a:0 > 0
 		let mode = a:1
 	else
 		let mode = 'listed'
 	endif
 	if mode == 'listed'
-		let buffers = execute('buffers')
+		let buflist = getbufinfo({'buflisted' : 1})
 	elseif mode == 'all'
-		let buffers = execute('buffers!')
+		let buflist = getbufinfo()
 	else
 		echomsg 'wheel perspective buffers : bad optional argument'
 		return []
 	endif
-	let buffers = split(buffers, "\n")
-	let length = len(buffers)
 	let lines = []
-	for index in range(length)
-		let elem = buffers[index]
-		let fields = split(elem)
-		let bufnum = str2nr(fields[0])
-		let linum = str2nr(fields[-1])
-		let filename = bufname(bufnum)
-		let is_wheel_buf = wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
-		let is_without_name = filename =~ '\m^\[.*\]'
-		if ! is_wheel_buf && ! is_without_name
-			let entry = [bufnum, linum, filename]
+	let mandalas = g:wheel_mandalas.ring
+	for buffer in buflist
+		let bufnum = buffer.bufnr
+		let linum = buffer.lnum
+		let filename = buffer.name
+		" indicator
+		let indicator = ''
+		if buffer.listed
+			let indicator ..= ' '
+		else
+			let indicator ..= 'u'
+		endif
+		if buffer.loaded
+			if ! buffer.hidden
+				let indicator ..= 'a'
+			else
+				let indicator ..= 'h'
+			endif
+		else
+			let indicator ..= ' '
+		endif
+		if buffer.changed
+			let indicator ..= ' +'
+		else
+			let indicator ..= ' '
+		endif
+		" add to the lines
+		let is_without_name = empty(filename)
+		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
+		if ! is_without_name && ! is_wheel_buffer
+			let entry = [bufnum, indicator, linum, filename]
 			let record = join(entry, s:field_separ)
 			call add(lines, record)
 		endif

@@ -77,11 +77,11 @@ fun! wheel#projection#follow (...)
 	endif
 	" if torus or circle is empty, assume the user
 	" wants to add something before switching
-	if level == 'wheel' && wheel#referen#empty ('torus')
+	if level == 'wheel' && wheel#referen#is_empty ('torus')
 		return
 	endif
 	" first add some locations before leaving empty circle
-	if wheel#chain#is_inside(level, ['wheel', 'torus']) && wheel#referen#empty ('circle')
+	if wheel#chain#is_inside(level, ['wheel', 'torus']) && wheel#referen#is_empty ('circle')
 		return
 	endif
 	" follow

@@ -14,11 +14,11 @@ fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
 	if has('nvim')
 		let [torus, circle, location] = wheel#referen#location('all')
-		if ! wheel#referen#empty('wheel')
+		if ! wheel#referen#is_empty('wheel')
 			let string = torus.name .. ' > '
-			if ! wheel#referen#empty('torus')
+			if ! wheel#referen#is_empty('torus')
 				let string ..= circle.name .. ' > '
-				if ! wheel#referen#empty('circle')
+				if ! wheel#referen#is_empty('circle')
 					let string ..= location.name .. ' : '
 					let string ..= location.file .. ':' .. location.line .. ':' .. location.col
 				else

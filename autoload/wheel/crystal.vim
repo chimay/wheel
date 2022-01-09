@@ -540,10 +540,21 @@ if ! exists('s:context_buffers')
 				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
 				\ ['delete hidden buffers' ,  "wheel#boomerang#buffers('delete_hidden')"],
 				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffers('wipe_hidden')"],
+				\]
+	lockvar s:context_buffers
+endif
+
+if ! exists('s:context_buffers_al')
+	let s:context_buffers_all = s:context_sailing + [
+				\ ['delete' ,  "wheel#boomerang#buffers('delete')"],
+				\ ['unload' ,  "wheel#boomerang#buffers('unload')"],
+				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
+				\ ['delete hidden buffers' ,  "wheel#boomerang#buffers('delete_hidden')"],
+				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffers('wipe_hidden')"],
 				\ ['delete all hidden buffers, including unlisted ones' ,  "wheel#boomerang#buffers('delete_all_hidden')"],
 				\ ['wipe all hidden buffers, including unlisted ones' ,  "wheel#boomerang#buffers('wipe_all_hidden')"],
 				\]
-	lockvar s:context_buffers
+	lockvar s:context_buffers_all
 endif
 
 if ! exists('s:context_tabwins')

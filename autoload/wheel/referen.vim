@@ -165,7 +165,7 @@ endfun
 
 " Emptiness
 
-fun! wheel#referen#empty (level)
+fun! wheel#referen#is_empty (level)
 	" Whether current level element is empty
 	" Wheel can be wheel, torus, circle or location
 	let level = a:level
@@ -177,7 +177,7 @@ fun! wheel#referen#empty (level)
 	endif
 endfun
 
-fun! wheel#referen#empty_upper (level)
+fun! wheel#referen#is_empty_upper (level)
 	" Whether upper level element is empty
 	" Wheel can be torus, circle or location
 	return empty(wheel#referen#current (a:level))

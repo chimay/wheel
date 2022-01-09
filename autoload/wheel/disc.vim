@@ -103,7 +103,7 @@ fun! wheel#disc#write_all (...)
 			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 		endif
 	endif
-	if wheel#referen#empty ('wheel')
+	if wheel#referen#is_empty ('wheel')
 		echomsg 'Not writing empty wheel'
 		return
 	endif
