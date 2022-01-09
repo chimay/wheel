@@ -93,32 +93,6 @@ fun! wheel#status#mandala_leaf ()
 	call wheel#status#leaf ()
 endfun
 
-" old layer stack implementation
-"
-" Layer stack status : mandala layers, implemented as a stack
-"
-" fun! wheel#status#layer ()
-" 	" Layer dashboard
-" 	" layers types
-" 	" old layer stack implementation
-" 	"let filenames = wheel#layer#stack ('filename')
-" 	let filenames = wheel#book#ring ('filename')
-" 	if empty(filenames)
-" 		return '[' .. wheel#status#type () .. ']'
-" 	endif
-" 	let Fun = function('wheel#status#type')
-" 	let types = map(copy(filenames), {_,v->Fun(v)})
-" 	" current mandala type
-" 	let title = '[' .. wheel#status#type () .. ']'
-" 	let top = b:wheel_stack.top
-" 	call insert(types, title, top)
-" 	" reverse to have previous on the left and next on the right
-" 	call reverse(types)
-" 	" echo
-" 	redraw!
-" 	echo 'layers : ' .. join(types)
-" endfun
-
 " Tab line
 
 fun! wheel#status#tablabel (index)

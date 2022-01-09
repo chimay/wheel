@@ -53,26 +53,3 @@ fun! wheel#tower#staircase (settings)
 	call wheel#book#syncup ()
 	call wheel#status#leaf ()
 endfun
-
-" old layer stack implementation
-"
-" fun! wheel#tower#staircase (settings)
-" 	" Replace buffer content by a {line -> fun} layer
-" 	" Reuse current mandala buffer
-" 	" Define dict maps
-" 	let settings = a:settings
-" 	let dictname = settings.linefun
-" 	if ! wheel#mandala#is_empty ()
-" 		call wheel#layer#push ()
-" 		call wheel#layer#fresh ()
-" 	endif
-" 	call wheel#layer#init ()
-" 	let items = wheel#crystal#fetch (dictname)
-" 	let lines = wheel#matrix#items2keys (items)
-" 	call wheel#mandala#filename (dictname)
-" 	call wheel#mandala#replace (lines, 'blank')
-" 	call wheel#tower#overlay (settings)
-" 	let b:wheel_settings = settings
-" 	let b:wheel_lines = lines
-" 	call cursor(1, 1)
-" endfun
