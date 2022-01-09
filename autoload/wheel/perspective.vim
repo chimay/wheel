@@ -320,11 +320,10 @@ fun! wheel#perspective#occur (pattern)
 		let elem = lines[index]
 		let fields = split(elem)
 		let linum = fields[0]
-		let linum = printf('%5d', linum)
-		let fields[0] = linum
 		let content = join(fields[1:])
-		let fields[1] = content
-		let elem = join(fields, s:field_separ)
+		let linum = printf('%5d', linum)
+		let entry = [linum, content]
+		let elem = join(entry, s:field_separ)
 		let lines[index] = elem
 	endfor
 	call wheel#gear#restore_cursor(position)
@@ -334,73 +333,46 @@ endfun
 fun! wheel#perspective#markers ()
 	" Markers
 	let lines = []
-	let markers = execute('marks')
-	let markers = split(markers, "\n")
-	" strip header line
-	let markers = markers[1:]
-	let length = len(markers)
-	for index in range(length)
-		let elem = markers[index]
-		let fields = split(elem)
-		let mark = fields[0]
-		let line = printf('%5d', fields[1])
-		let column = printf('%2d', fields[2])
-		let content = join(fields[3:])
-		let entry = [mark, line, column, content]
+	let bufnum = bufnr('%')
+	let marklist = getmarklist()
+	call extend(marklist, getmarklist(bufnum))
+	for marker in marklist
+		let mark = marker.mark
+		if has_key(marker, 'file')
+			let filename = marker.file
+		else
+			let filename = 'local'
+		endif
+		let pos = marker.pos
+		let linum = pos[1]
+		let colnum = pos[2]
+		let entry = [mark, linum, colnum, filename]
 		let record = join(entry, s:field_separ)
 		call add(lines, record)
 	endfor
 	return lines
 endfun
 
-" from vector
-
-fun! wheel#perspective#grep (pattern, sieve)
-	" Quickfix list
-	" Each line has the format :
-	" err-number | buffer-number | file | line | col | text
-	let bool = wheel#vector#grep (a:pattern, a:sieve)
-	if ! bool
-		" no file matching a:sieve
-		return v:false
-	endif
-	let quickfix = getqflist()
-	let list = []
-	for index in range(len(quickfix))
-		let elem = quickfix[index]
-		let errnum = printf('%5d', index + 1)
-		let filename = bufname(elem.bufnr)
-		let linum = printf('%5d', elem.lnum)
-		let colnum = printf('%5d', elem.col)
-		let record = ''
-		let record ..= errnum .. s:field_separ
-		let record ..= linum .. s:field_separ
-		let record ..= colnum .. s:field_separ
-		let record ..= filename .. s:field_separ
-		let record ..= elem.text
-		call add(list, record)
-	endfor
-	return list
-endfun
-
-" from symbol
-
-fun! wheel#perspective#tags ()
-	" Tags
-	let table = wheel#symbol#table ()
+fun! wheel#perspective#jumps ()
+	" Jumps
 	let lines = []
-	for fields in table
-		let iden = fields[0]
-		let iden = printf('%5s', iden)
-		let filename = fields[1]
-		let type = fields[2]
-		let search = fields[3]
-		let type = printf('%2s', type)
-		let all = [type, iden, filename, search]
-		let record = join(all, s:field_separ)
+	let jumplist = getjumplist()
+	for jump in jumplist
+		let filename = jump.filename
+		let bufnum = jump.bufnr
+		let linum = jump.lnum
+		let olnum = jump.col
+		let entry = [linum, colnum, bufnum, filename]
+		let record = join(entry, s:field_separ)
 		call add(lines, record)
 	endfor
+	" newest first
+	call reverse(lines)
 	return lines
+endfun
+
+fun! wheel#perspective#changes ()
+	" Changes
 endfun
 
 fun! wheel#perspective#bounce (runme)
@@ -433,6 +405,56 @@ fun! wheel#perspective#bounce (runme)
 	endfor
 	" Newest first
 	call reverse(lines)
+	return lines
+endfun
+
+" from vector
+
+fun! wheel#perspective#grep (pattern, sieve)
+	" Quickfix list
+	" Each line has the format :
+	" err-number | buffer-number | file | line | col | text
+	let bool = wheel#vector#grep (a:pattern, a:sieve)
+	if ! bool
+		" no file matching a:sieve
+		return v:false
+	endif
+	let quickfix = getqflist()
+	let list = []
+	for index in range(len(quickfix))
+		let elem = quickfix[index]
+		let errnum = printf('%5d', index + 1)
+		let linum = printf('%5d', elem.lnum)
+		let colnum = printf('%5d', elem.col)
+		let filename = bufname(elem.bufnr)
+		let record = ''
+		let record ..= errnum .. s:field_separ
+		let record ..= linum .. s:field_separ
+		let record ..= colnum .. s:field_separ
+		let record ..= filename .. s:field_separ
+		let record ..= elem.text
+		call add(list, record)
+	endfor
+	return list
+endfun
+
+" from symbol
+
+fun! wheel#perspective#tags ()
+	" Tags
+	let table = wheel#symbol#table ()
+	let lines = []
+	for fields in table
+		let iden = fields[0]
+		let filename = fields[1]
+		let type = fields[2]
+		let search = fields[3]
+		let iden = printf('%5s', iden)
+		let type = printf('%2s', type)
+		let entry = [type, iden, filename, search]
+		let record = join(entry, s:field_separ)
+		call add(lines, record)
+	endfor
 	return lines
 endfun
 

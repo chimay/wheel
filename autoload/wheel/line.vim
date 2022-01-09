@@ -324,10 +324,31 @@ endfun
 fun! wheel#line#markers (settings)
 	" Go to settings.selected marker
 	let fields = split(a:settings.selected, s:field_separ)
-	let mark = fields[0]
+	let mark = fields[0][1:]
 	"let line = fields[1]
 	"let column = fields[2]
 	execute "normal `" .. mark
+endfun
+
+fun! wheel#line#jumps (settings)
+	" Go to element in jumps list given by selected
+	let fields = split(a:settings.selected, s:field_separ)
+	let filename = fields[2]
+	execute 'edit'
+	return win_getid ()
+endfun
+
+fun! wheel#line#changes (settings)
+	" Go to element in changes list given by selected
+	let fields = split(a:settings.selected)
+	let delta = str2nr(fields[0])
+	call wheel#line#target (a:settings.target)
+	if delta > 0
+		execute 'normal! ' .. delta .. 'g,'
+	else
+		execute 'normal! ' .. - delta .. 'g;'
+	endif
+	return win_getid ()
 endfun
 
 fun! wheel#line#tags (settings)
@@ -350,32 +371,6 @@ fun! wheel#line#tags (settings)
 	" not elsewhere
 	"execute 'tag' ident
 	"execute 'tjump' ident
-endfun
-
-fun! wheel#line#jumps (settings)
-	" Go to element in jumps list given by selected
-	let fields = split(a:settings.selected, s:field_separ)
-	let delta = str2nr(fields[0])
-	call wheel#line#target (a:settings.target)
-	if delta > 0
-		execute 'normal! ' .. delta .. "\<c-i>"
-	else
-		execute 'normal! ' .. - delta .. "\<c-o>"
-	endif
-	return win_getid ()
-endfun
-
-fun! wheel#line#changes (settings)
-	" Go to element in changes list given by selected
-	let fields = split(a:settings.selected)
-	let delta = str2nr(fields[0])
-	call wheel#line#target (a:settings.target)
-	if delta > 0
-		execute 'normal! ' .. delta .. 'g,'
-	else
-		execute 'normal! ' .. - delta .. 'g;'
-	endif
-	return win_getid ()
 endfun
 
 " Paste

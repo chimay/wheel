@@ -73,18 +73,6 @@ fun! wheel#sailing#generic (name)
 	call wheel#mandala#fill(lines)
 endfun
 
-fun! wheel#sailing#bounce (command)
-	" Buffer for jumps / changes lists
-	let command = a:command
-	call wheel#mandala#close ()
-	let lines = wheel#perspective#bounce (command)
-	" mandala buffer
-	call wheel#mandala#open (command)
-	let settings = {'action' : function('wheel#line#' .. command)}
-	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
-endfun
-
 " Buffers
 
 fun! wheel#sailing#switch (level)
@@ -162,6 +150,92 @@ fun! wheel#sailing#history ()
 	call wheel#sailing#generic('history')
 	" reload
 	let b:wheel_reload = 'wheel#sailing#history'
+endfun
+
+fun! wheel#sailing#locate (...)
+	" Search files using locate
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let prompt = 'Locate file matching : '
+		let pattern = input(prompt)
+	endif
+	let lines = wheel#perspective#locate (pattern)
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('locate')
+	let settings = {'action' : function('wheel#line#locate')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+	" reload
+	let b:wheel_reload = "wheel#sailing#locate('" .. pattern .. "')"
+endfun
+
+fun! wheel#sailing#find (...)
+	" Find files in current directory using **/*pattern* glob
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let prompt = 'Find file matching : '
+		let wordlist = split(input(prompt))
+		let pattern = '**/*'
+		for word in wordlist
+			let pattern ..= word .. '*'
+		endfor
+	endif
+	echomsg 'wheel find : using pattern' pattern
+	let lines = wheel#perspective#find (pattern)
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('find')
+	let settings = {'action' : function('wheel#line#find')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
+	" reload
+	let b:wheel_reload = "wheel#sailing#find('" .. pattern .. "')"
+endfun
+
+fun! wheel#sailing#async_find (...)
+	" Search files in current directory using find in async job
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let prompt = 'Async find file matching : '
+		let input = input(prompt)
+		let input = escape(input, '*')
+		let wordlist = split(input)
+		let pattern = '*'
+		for word in wordlist
+			let pattern ..= word .. '*'
+		endfor
+	endif
+	echomsg 'wheel async find : using pattern' pattern
+	call wheel#vortex#update ()
+	call wheel#mandala#open ('async_find')
+	let settings = {'action' : function('wheel#line#find')}
+	call wheel#sailing#template (settings)
+	let command = ['find', '.', '-type', 'f', '-path', pattern]
+	let settings = {'mandala_open' : v:false, 'mandala_type' : 'async_find'}
+	if has('nvim')
+		let job = wheel#wave#start(command, settings)
+	else
+		let job = wheel#ripple#start(command, settings)
+	endif
+	" Map to stop the job
+	let map  =  'nnoremap <silent> <buffer> '
+	if has('nvim')
+		let callme  = ' :call wheel#wave#stop()<cr>'
+	else
+		let callme  = ' :call wheel#ripple#stop()<cr>'
+	endif
+	exe map .. '<c-s>' .. callme
+	" reload
+	let b:wheel_reload = "wheel#sailing#async_find('" .. pattern .. "')"
+endfun
+
+fun! wheel#sailing#mru ()
+	" Most recenty used files
+	call wheel#sailing#generic('mru')
+	" reload
+	let b:wheel_reload = 'wheel#sailing#mru'
 endfun
 
 fun! wheel#sailing#buffers (...)
@@ -322,102 +396,16 @@ fun! wheel#sailing#markers ()
 	let b:wheel_reload = 'wheel#sailing#markers'
 endfun
 
-fun! wheel#sailing#tags ()
-	" Tags file
-	call wheel#sailing#generic('tags')
-	" reload
-	let b:wheel_reload = 'wheel#sailing#tags'
-endfun
-
-fun! wheel#sailing#mru ()
-	" Most recenty used files
-	call wheel#sailing#generic('mru')
-	" reload
-	let b:wheel_reload = 'wheel#sailing#mru'
-endfun
-
-fun! wheel#sailing#locate (...)
-	" Search files using locate
-	if a:0 > 0
-		let pattern = a:1
-	else
-		let prompt = 'Locate file matching : '
-		let pattern = input(prompt)
-	endif
-	let lines = wheel#perspective#locate (pattern)
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('locate')
-	let settings = {'action' : function('wheel#line#locate')}
-	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
-	" reload
-	let b:wheel_reload = "wheel#sailing#locate('" .. pattern .. "')"
-endfun
-
-fun! wheel#sailing#find (...)
-	" Find files in current directory using **/*pattern* glob
-	if a:0 > 0
-		let pattern = a:1
-	else
-		let prompt = 'Find file matching : '
-		let wordlist = split(input(prompt))
-		let pattern = '**/*'
-		for word in wordlist
-			let pattern ..= word .. '*'
-		endfor
-	endif
-	echomsg 'wheel find : using pattern' pattern
-	let lines = wheel#perspective#find (pattern)
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('find')
-	let settings = {'action' : function('wheel#line#find')}
-	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
-	" reload
-	let b:wheel_reload = "wheel#sailing#find('" .. pattern .. "')"
-endfun
-
-fun! wheel#sailing#async_find (...)
-	" Search files in current directory using find in async job
-	if a:0 > 0
-		let pattern = a:1
-	else
-		let prompt = 'Async find file matching : '
-		let input = input(prompt)
-		let input = escape(input, '*')
-		let wordlist = split(input)
-		let pattern = '*'
-		for word in wordlist
-			let pattern ..= word .. '*'
-		endfor
-	endif
-	echomsg 'wheel async find : using pattern' pattern
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('async_find')
-	let settings = {'action' : function('wheel#line#find')}
-	call wheel#sailing#template (settings)
-	let command = ['find', '.', '-type', 'f', '-path', pattern]
-	let settings = {'mandala_open' : v:false, 'mandala_type' : 'async_find'}
-	if has('nvim')
-		let job = wheel#wave#start(command, settings)
-	else
-		let job = wheel#ripple#start(command, settings)
-	endif
-	" Map to stop the job
-	let map  =  'nnoremap <silent> <buffer> '
-	if has('nvim')
-		let callme  = ' :call wheel#wave#stop()<cr>'
-	else
-		let callme  = ' :call wheel#ripple#stop()<cr>'
-	endif
-	exe map .. '<c-s>' .. callme
-	" reload
-	let b:wheel_reload = "wheel#sailing#async_find('" .. pattern .. "')"
-endfun
-
 fun! wheel#sailing#jumps ()
 	" Jumps list
-	call wheel#sailing#bounce ('jumps')
+	let command = a:command
+	call wheel#mandala#close ()
+	let lines = wheel#perspective#jumps ()
+	" mandala buffer
+	call wheel#mandala#open (command)
+	let settings = {'action' : function('wheel#line#' .. command)}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#sailing#jumps'
 endfun
@@ -427,4 +415,11 @@ fun! wheel#sailing#changes ()
 	call wheel#sailing#bounce ('changes')
 	" reload
 	let b:wheel_reload = 'wheel#sailing#changes'
+endfun
+
+fun! wheel#sailing#tags ()
+	" Tags file
+	call wheel#sailing#generic('tags')
+	" reload
+	let b:wheel_reload = 'wheel#sailing#tags'
 endfun
