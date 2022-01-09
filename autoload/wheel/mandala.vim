@@ -224,7 +224,6 @@ fun! wheel#mandala#fill (content, ...)
 	let &foldenable = ampersand
 	" update leaf ring
 	call wheel#book#syncup ()
-	call wheel#status#leaf ()
 endfun
 
 fun! wheel#mandala#replace (content, ...)
