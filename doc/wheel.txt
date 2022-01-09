@@ -2119,11 +2119,19 @@ Search inside files~
 | s        | <M-w>s              | Search lines in current file         |
 | g        | <M-w>g              | Search in circle files with grep     |
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
+
+(Neo)vim lists~
+
+| Prefix + | With default prefix | Action                               |
+| -------- | ------------------- | ------------------------------------ |
+| '        | <M-w>'              | Markers, dedicated buffer            |
+| j        | <M-w>j              | Jumps, prompting function            |
+| ;        | <M-w>;              | Changes, prompting function          |
 | t        | <M-w>t              | Tags, prompting function             |
+| <M-'>    | <M-w><M-'>          | Markers, dedicated buffer            |
+| <M-j>    | <M-w><M-j>          | Jumps, dedicated buffer              |
+| ,        | <M-w>,              | Changes, dedicated buffer            |
 | <M-t>    | <M-w><M-t>          | Tags in dedicated buffer             |
-| '        | <M-w>'              | Markers                              |
-| j        | <M-w>j              | Jumps                                |
-| ;        | <M-w>;              | Changes                              |
 
 Yank wheel~
 
@@ -2258,16 +2266,24 @@ adapt them to your taste and add them to your init file.
 | <M-u>          | Most Recently Used files not found in wheel   |
 | -------------- | --------------------------------------------- |
 | <M-b>          | Buffers (opened files)                        |
+| <M-C-b>        | All buffers, including unlisted ones          |
+| -------------- | --------------------------------------------- |
 | <M-v>          | Go to tabs & windows, prompt mode             |
 | <M-C-v>        | Tabs & windows in tree mode : visible buffers |
 | -------------- | --------------------------------------------- |
 | <M-s>          | Occur in current file                         |
 | <M-g>          | Grep in current circle files                  |
 | <M-o>          | Outline in current circle files               |
-| <M-t>          | Tags                                          |
-| <M-M>          | Markers                                       |
-| <M-j>          | Jumps                                         |
-| <M-c>          | Changes                                       |
+| -------------- | --------------------------------------------- |
+| <M-'>          | Markers, prompting function                   |
+| <M-j>          | Jumps, prompting function                     |
+| <M-;>          | Changes, prompting function                   |
+| <M-t>          | Tags, prompting function                      |
+| -------------- | --------------------------------------------- |
+| <M-k>          | Markers, dedicated buffer                     |
+| <M-C-j>        | Jumps, dedicated buffer                       |
+| <M-,>          | Changes, dedicated buffer                     |
+| <M-C-t>        | Tags, dedicated buffer                        |
 | -------------- | --------------------------------------------- |
 | <M-y>          | Paste yank wheel element in list mode         |
 | <M-p>          | Paste yank wheel element in plain mode        |
@@ -2334,6 +2350,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-u>          <plug>(wheel-mru)'
     " Buffers
     exe nmap '<m-b>          <plug>(wheel-buffers)'
+    exe nmap '<m-c-b>        <plug>(wheel-buffers-all)'
     " Tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-switch-tabwin)'
     exe nmap '<m-c-v>        <plug>(wheel-tabwins-tree)'
@@ -2341,17 +2358,17 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-s>          <plug>(wheel-occur)'
     exe nmap '<m-g>          <plug>(wheel-grep)'
     exe nmap '<m-o>          <plug>(wheel-outline)'
-    " (neo)vim points, prompt completion
+    " (neo)vim lists, prompt completion
     exe nmap "<m-'>          <plug>(wheel-switch-marker)"
     exe nmap '<m-j>          <plug>(wheel-switch-jump)'
     exe nmap '<m-;>          <plug>(wheel-switch-change)'
     exe nmap '<m-c>          <plug>(wheel-switch-change)'
     exe nmap '<m-t>          <plug>(wheel-switch-tag)'
-    " (neo)vim points, dedicated buffer
+    " (neo)vim lists, dedicated buffer
     exe nmap "<m-k>          <plug>(wheel-markers)"
     exe nmap '<m-c-j>        <plug>(wheel-jumps)'
     exe nmap '<m-,>          <plug>(wheel-changes)'
-    exe nmap '<m-l>          <plug>(wheel-tags)'
+    exe nmap '<m-c-t>        <plug>(wheel-tags)'
     " Yank
     exe nmap '<m-y>          <plug>(wheel-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-yank-plain)'

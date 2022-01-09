@@ -101,12 +101,12 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-occur) :call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-grep) :call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-outline) :call wheel#sailing#outline()<cr>
-	" (neo)vim points, prompt completion
+	" (neo)vim lists, prompt completion
 	nnoremap <plug>(wheel-switch-marker) :call wheel#whirl#marker()<cr>
 	nnoremap <plug>(wheel-switch-jump) :call wheel#whirl#jump()<cr>
 	nnoremap <plug>(wheel-switch-change) :call wheel#whirl#change()<cr>
 	nnoremap <plug>(wheel-switch-tag) :call wheel#whirl#tag()<cr>
-	" (neo)vim points, dedicated buffer
+	" (neo)vim lists, dedicated buffer
 	nnoremap <plug>(wheel-markers) :call wheel#sailing#markers()<cr>
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
 	nnoremap <plug>(wheel-changes) :call wheel#sailing#changes()<cr>
@@ -297,12 +297,12 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 's <plug>(wheel-occur)'
 		exe nmap prefix .. 'g <plug>(wheel-grep)'
 		exe nmap prefix .. '<m-o> <plug>(wheel-outline)'
-		" (neo)vim points, prompt completion
+		" (neo)vim lists, prompt completion
 		exe nmap prefix .. "' <plug>(wheel-switch-marker)"
 		exe nmap prefix .. 'j <plug>(wheel-switch-jump)'
 		exe nmap prefix .. '; <plug>(wheel-switch-change)'
 		exe nmap prefix .. 't <plug>(wheel-switch-tag)'
-		" (neo)vim points, dedicated buffer
+		" (neo)vim lists, dedicated buffer
 		exe nmap prefix .. "<m-'> <plug>(wheel-markers)"
 		exe nmap prefix .. '<m-j> <plug>(wheel-jumps)'
 		exe nmap prefix .. ', <plug>(wheel-changes)'
@@ -404,6 +404,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-u>          <plug>(wheel-mru)'
 		" Buffers
 		exe nmap '<m-b>          <plug>(wheel-buffers)'
+		exe nmap '<m-c-b>        <plug>(wheel-buffers-all)'
 		" Tabs & windows : visible buffers
 		exe nmap '<m-v>          <plug>(wheel-switch-tabwin)'
 		exe nmap '<m-c-v>        <plug>(wheel-tabwins-tree)'
@@ -411,17 +412,17 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-s>          <plug>(wheel-occur)'
 		exe nmap '<m-g>          <plug>(wheel-grep)'
 		exe nmap '<m-o>          <plug>(wheel-outline)'
-		" (neo)vim points, prompt completion
+		" (neo)vim lists, prompt completion
 		exe nmap "<m-'>          <plug>(wheel-switch-marker)"
 		exe nmap '<m-j>          <plug>(wheel-switch-jump)'
 		exe nmap '<m-;>          <plug>(wheel-switch-change)'
 		exe nmap '<m-c>          <plug>(wheel-switch-change)'
 		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
-		" (neo)vim points, dedicated buffer
+		" (neo)vim lists, dedicated buffer
 		exe nmap "<m-k>          <plug>(wheel-markers)"
 		exe nmap '<m-c-j>        <plug>(wheel-jumps)'
 		exe nmap '<m-,>          <plug>(wheel-changes)'
-		exe nmap '<m-l>          <plug>(wheel-tags)'
+		exe nmap '<m-c-t>        <plug>(wheel-tags)'
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-yank-list)'
 		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
