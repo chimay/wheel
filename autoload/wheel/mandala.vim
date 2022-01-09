@@ -130,6 +130,7 @@ fun! wheel#mandala#open (type)
 			call wheel#book#fresh ()
 		endif
 	endif
+	call wheel#mandala#init ()
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
 	call wheel#status#mandala_leaf ()

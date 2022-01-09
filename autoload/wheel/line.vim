@@ -180,7 +180,7 @@ fun! wheel#line#buffers (settings)
 	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'sailing'
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
-		let filename = expand(fields[2])
+		let filename = expand(fields[3])
 		let filename = fnamemodify(filename, ':p')
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)

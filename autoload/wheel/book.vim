@@ -96,7 +96,7 @@ endfun
 
 fun! wheel#book#init ()
 	" Init ring and buffer variables
-	call wheel#mandala#init ()
+	"call wheel#mandala#init ()
 	if ! exists('b:wheel_ring')
 		let b:wheel_ring = {}
 		let ring = b:wheel_ring

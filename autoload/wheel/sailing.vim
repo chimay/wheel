@@ -179,22 +179,19 @@ fun! wheel#sailing#buffers (...)
 	call wheel#vortex#update ()
 	" mandala buffer
 	if mode == 'listed'
-		call wheel#mandala#open ('buffers')
+		let name = 'buffers'
 	elseif mode == 'all'
-		call wheel#mandala#open ('buffers/all')
+		let name = 'buffers/all'
 	else
 		echomsg 'wheel sailing buffers : bad optional argument'
 		return []
 	endif
+	call wheel#mandala#open (name)
 	let settings = {'action' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" context menu
-	if mode == 'listed'
-		nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('buffers')<cr>
-	elseif mode == 'all'
-		nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('buffers/all')<cr>
-	endif
+	exe "nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('" .. name .. "')<cr>"
 	" reload
 	let b:wheel_reload = "wheel#sailing#buffers('" .. mode .. "')"
 endfun
