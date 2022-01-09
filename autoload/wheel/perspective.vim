@@ -389,9 +389,16 @@ fun! wheel#perspective#tags ()
 	" Tags
 	let table = wheel#symbol#table ()
 	let lines = []
-	for record in table
-		let suit = join(record, s:field_separ)
-		call add(lines, suit)
+	for fields in table
+		let iden = fields[0]
+		let iden = printf('%5s', iden)
+		let filename = fields[1]
+		let type = fields[2]
+		let search = fields[3]
+		let type = printf('%2s', type)
+		let all = [type, iden, filename, search]
+		let record = join(all, s:field_separ)
+		call add(lines, record)
 	endfor
 	return lines
 endfun

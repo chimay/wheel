@@ -337,16 +337,14 @@ fun! wheel#line#tags (settings)
 		echomsg 'Tag line is too short'
 		return v:false
 	endif
-	let ident = fields[0]
-	let file = fields[1]
-	let type = fields[2]
-	let line = fields[3][1:]
+	let file = fields[2]
+	let search = fields[3][1:]
 	call wheel#line#target (a:settings.target)
 	execute 'edit' file
 	" keep old position in mark '
 	mark '
 	call cursor(1, 1)
-	call search(line)
+	call search(search)
 	return win_getid ()
 	" forget it, the selection must be done in the wheel buffer,
 	" not elsewhere
