@@ -106,7 +106,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-jumps) :call wheel#sailing#jumps()<cr>
 	nnoremap <plug>(wheel-changes) :call wheel#sailing#changes()<cr>
 	" Tags
-	nnoremap <plug>(wheel-switch-tag) :call wheel#symbol#switch()<cr>
+	nnoremap <plug>(wheel-switch-tag) :call wheel#whirl#tags()<cr>
 	nnoremap <plug>(wheel-tags) :call wheel#sailing#tags()<cr>
 	" Yank wheel
 	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
