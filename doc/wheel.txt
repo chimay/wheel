@@ -523,6 +523,14 @@ Switch element in the wheel~
 | switch torus     | toruses in the wheel         | <M-w><S-Enter>  |
 | switch in index  | index entries                | <M-w>x          |
 
+Switch in (neo)vim lists~
+
+| Function              | Completion list    | Default binding |
+| ----------------      | ------------------ | --------------- |
+| switch marker         | markers            | <M-w>'          |
+| switch in jump list   | jumps              | <M-w>j          |
+| switch in change list | changes            | <M-w>;          |
+
 Switch visible buffer~
 
 | Function         | Completion list                   | Default binding |
@@ -836,10 +844,10 @@ The default mappings launching navigation buffers are :
 - `<M-w>s`         : occur in current file
 - `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
-- `<M-w>'`         : markers
+- `<M-w><M-'>`     : markers
+- `<M-w><M-j>`     : jumps list
+- `<M-w>,`         : changes list
 - `<M-w><M-t>`     : tags
-- `<M-w>j`         : jumps list
-- `<M-w>;`         : changes list
 
 Menus~
 
@@ -1000,21 +1008,21 @@ MARKERS						*wheel-dedicated-buffers-markers*
 
 Go to selected marker.
 
-The default mapping is `<M-w>'`. It is inspired by the normal command |'a|.
+The default mapping is `<M-w><M-'>`. It is inspired by the normal command |'a|.
 
 ------------------------------------------------------------------------------
 JUMPS					*wheel-dedicated-buffers-jumps*
 
 Go to element in jump list.
 
-The default mapping is `<M-w>j`.
+The default mapping is `<M-w><M-j>`.
 
 ------------------------------------------------------------------------------
 CHANGES					*wheel-dedicated-buffers-changes*
 
 Go to element in changes list.
 
-The default mapping is `<M-w>;`. It is inspired by the normal command |g;|
+The default mapping is `<M-w>,`. It is inspired by the normal commands |g;| / |g,|.
 
 ------------------------------------------------------------------------------
 YANK						*wheel-dedicated-buffers-yank*
@@ -2333,6 +2341,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-g>          <plug>(wheel-grep)'
     exe nmap '<m-o>          <plug>(wheel-outline)'
     " (neo)vim points
+    exe nmap "<m-'>          <plug>(wheel-switch-marker)"
     exe nmap '<m-k>          <plug>(wheel-switch-marker)'
     exe nmap '<m-j>          <plug>(wheel-switch-jump)'
     exe nmap '<m-c>          <plug>(wheel-switch-change)'

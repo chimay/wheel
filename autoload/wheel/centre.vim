@@ -413,9 +413,10 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-g>          <plug>(wheel-grep)'
 		exe nmap '<m-o>          <plug>(wheel-outline)'
 		" (neo)vim points
-		exe nmap '<m-k>          <plug>(wheel-switch-marker)'
+		exe nmap "<m-'>          <plug>(wheel-switch-marker)"
+		exe nmap "<m-k>          <plug>(wheel-switch-marker)"
 		exe nmap '<m-j>          <plug>(wheel-switch-jump)'
-		exe nmap '<m-c>          <plug>(wheel-switch-change)'
+		exe nmap '<m-;>          <plug>(wheel-switch-change)'
 		" tags, labels
 		exe nmap '<m-t>          <plug>(wheel-switch-tag)'
 		exe nmap '<m-l>          <plug>(wheel-tags)'
