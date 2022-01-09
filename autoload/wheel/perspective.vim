@@ -436,8 +436,8 @@ fun! wheel#perspective#tags ()
 	for fields in table
 		let iden = fields[0]
 		let filename = fields[1]
-		let type = fields[2]
-		let search = fields[3]
+		let search = fields[2]
+		let type = fields[3]
 		let iden = printf('%5s', iden)
 		let type = printf('%2s', type)
 		let entry = [type, iden, filename, search]

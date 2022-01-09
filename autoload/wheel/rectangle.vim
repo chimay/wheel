@@ -121,8 +121,8 @@ fun! wheel#rectangle#switch (...)
 		let file_tab_win = input(prompt, '', complete)
 	endif
 	let record = split(file_tab_win, s:field_separ)
-	let tabnum = record[1]
-	let winum = record[2]
+	let tabnum = record[0]
+	let winum = record[1]
 	execute 'tabnext' tabnum
 	execute winum 'wincmd w'
 endfun

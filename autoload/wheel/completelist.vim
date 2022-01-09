@@ -96,7 +96,7 @@ endfun
 " mandalas = dedicated buffers
 
 fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
-	" Return mandala buffers names
+	" Complete mandala buffers names
 	let bufnums = g:wheel_mandalas.ring
 	if empty(bufnums)
 		return []
@@ -114,7 +114,7 @@ endfun
 " leaves = mandala layers, implemented as a ring
 
 fun! wheel#completelist#leaf (arglead, cmdline, cursorpos)
-	" Return leaves types
+	" Complete leaves types
 	let filenames = wheel#book#ring ('filename')
 	if empty(filenames)
 		return []
@@ -128,30 +128,8 @@ endfun
 " buffers
 
 fun! wheel#completelist#visible_buffers (arglead, cmdline, cursorpos)
-	" Return list of buffers visible in tabs & windows
-	let lines = []
-	let tabnum = 'undefined'
-	let tabs = execute('tabs')
-	let tabs = split(tabs, "\n")
-	let length = len(tabs)
-	let isbuffer = s:is_buffer_tabs
-	let iswheel = s:is_mandala_tabs
-	for index in range(length)
-		let elem = tabs[index]
-		let fields = split(elem)
-		if elem !~ isbuffer
-			" tab line
-			let tabnum = fields[-1]
-			let winum = 0
-		elseif elem !~ iswheel
-			" buffer line
-			let winum += 1
-			let filename = fnamemodify(fields[-1], ':p')
-			let entry = [filename, tabnum, winum]
-			let record = join(entry, s:field_separ)
-			call add(lines, record)
-		endif
-	endfor
+	" Complete list of buffers visible in tabs & windows
+	let lines = wheel#perspective#tabwins ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, lines)
 endfun
@@ -175,18 +153,16 @@ endfun
 
 fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
-	let buffers = execute('buffers')
-	let buffers = split(buffers, "\n")
-	let length = len(buffers)
+	let buflist = getbufinfo({'buflisted' : 1})
 	let lines = []
-	for index in range(length)
-		let elem = buffers[index]
-		let fields = split(elem)
-		let bufnum = str2nr(fields[0])
-		let filename = bufname(bufnum)
-		let is_wheel_buf = wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
-		let is_without_name = filename =~ '\m^\[.*\]'
-		if ! is_wheel_buf && ! is_without_name
+	let mandalas = g:wheel_mandalas.ring
+	for buffer in buflist
+		let filename = buffer.name
+		let bufnum = printf('%3d', buffer.bufnr)
+		let linum = printf('%5d', buffer.lnum)
+		let is_without_name = empty(filename)
+		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
+		if ! is_without_name && ! is_wheel_buffer
 			call add(lines, filename)
 		endif
 	endfor
@@ -236,14 +212,23 @@ fun! wheel#completelist#link_copy (arglead, cmdline, cursorpos)
 	return wheel#kyusu#candidates(wordlist, commands)
 endfun
 
+" jumps
+
+fun! wheel#completelist#jumps (arglead, cmdline, cursorpos)
+	" Complete list of jumps
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, choices)
+endfun
+
 " tags
 
 fun! wheel#completelist#tags (arglead, cmdline, cursorpos)
+	" Complete list of tags
 	let table = wheel#symbol#table ()
 	let choices = []
 	for record in table
-		let suit = join(record, s:field_separ)
-		call add(choices, suit)
+		let entry = join(record, s:field_separ)
+		call add(choices, entry)
 	endfor
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
