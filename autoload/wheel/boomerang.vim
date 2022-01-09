@@ -30,9 +30,9 @@ endfun
 
 " Helpers
 
-fun! wheel#boomerang#remove_deleted ()
-	" Remove deleted elements from mandala lines of the previous layer
-	" deleted = selected or cursor address
+fun! wheel#boomerang#remove_selected ()
+	" Remove selected elements from mandala lines of the previous related layer
+	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
 	let lines = wheel#book#previous ('lines')
 	let filtered = wheel#book#previous ('filtered')
@@ -126,8 +126,8 @@ fun! wheel#boomerang#buffers (action)
 	let settings = b:wheel_settings
 	if action == 'delete' || action == 'wipe'
 		let settings.ctx_action = action
-		" remove deleted elements from the buffers mandala
-		call wheel#boomerang#remove_deleted ()
+		" remove selected elements from the buffers mandala
+		call wheel#boomerang#remove_selected ()
 		" To inform wheel#loop#sailing
 		" that a loop on selected elements is necessary ;
 		" it does not perform it if target == 'current'
@@ -157,12 +157,12 @@ fun! wheel#boomerang#buffers (action)
 				call wheel#chain#remove_element (elem, filtered)
 			endif
 		endfor
-		if action == 'delete_hidden'
+		if action =~ 'delete.*hidden'
 			for bufnum in hidden
 				execute 'silent bdelete' bufnum
 			endfor
 			echomsg 'hidden buffers deleted.'
-		elseif  action == 'wipe_hidden'
+		elseif  action =~ 'wipe.*hidden'
 			for bufnum in hidden
 				execute 'silent bwipe' bufnum
 			endfor

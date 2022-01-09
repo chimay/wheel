@@ -160,6 +160,7 @@ fun! wheel#rectangle#hidden_buffers (...)
 		return []
 	endif
 	let alternate = bufname('#')
+	let mandalas = g:wheel_mandalas.ring
 	let hidden_nums = []
 	let hidden_names = []
 	for buffer in buflist
@@ -167,7 +168,7 @@ fun! wheel#rectangle#hidden_buffers (...)
 		let filename = buffer.name
 		let hide = buffer.hidden || ! buffer.listed
 		let hide = hide && filename !=# alternate
-		let hide = hide && filename !~ s:is_mandala
+		let hide = hide && ! wheel#chain#is_inside(bufnum, mandalas)
 		if hide
 			call add(hidden_nums, bufnum)
 			call add(hidden_names, filename)
