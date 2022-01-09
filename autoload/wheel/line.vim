@@ -333,21 +333,20 @@ endfun
 fun! wheel#line#jumps (settings)
 	" Go to element in jumps list given by selected
 	let fields = split(a:settings.selected, s:field_separ)
-	let filename = fields[2]
-	execute 'edit'
+	let bufnum = fields[0]
+	let linum = str2nr(fields[1])
+	let colnum = str2nr(fields[2])
+	execute 'buffer' bufnum
+	call cursor(linum, colnum)
 	return win_getid ()
 endfun
 
 fun! wheel#line#changes (settings)
 	" Go to element in changes list given by selected
 	let fields = split(a:settings.selected)
-	let delta = str2nr(fields[0])
-	call wheel#line#target (a:settings.target)
-	if delta > 0
-		execute 'normal! ' .. delta .. 'g,'
-	else
-		execute 'normal! ' .. - delta .. 'g;'
-	endif
+	let linum = str2nr(fields[0])
+	let colnum = str2nr(fields[1])
+	call cursor(linum, colnum)
 	return win_getid ()
 endfun
 

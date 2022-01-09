@@ -334,18 +334,18 @@ fun! wheel#perspective#markers ()
 	" Markers
 	let lines = []
 	let bufnum = bufnr('%')
-	let marklist = getmarklist()
-	call extend(marklist, getmarklist(bufnum))
+	let marklist = getmarklist(bufnum)
+	call extend(marklist, getmarklist())
 	for marker in marklist
 		let mark = marker.mark
 		if has_key(marker, 'file')
 			let filename = marker.file
 		else
-			let filename = 'local'
+			let filename = expand('%')
 		endif
 		let pos = marker.pos
-		let linum = pos[1]
-		let colnum = pos[2]
+		let linum = printf('%5d', pos[1])
+		let colnum = printf('%2d', pos[2])
 		let entry = [mark, linum, colnum, filename]
 		let record = join(entry, s:field_separ)
 		call add(lines, record)
@@ -356,13 +356,20 @@ endfun
 fun! wheel#perspective#jumps ()
 	" Jumps
 	let lines = []
-	let jumplist = getjumplist()
+	let jumplist = getjumplist()[0]
 	for jump in jumplist
-		let filename = jump.filename
 		let bufnum = jump.bufnr
 		let linum = jump.lnum
-		let olnum = jump.col
-		let entry = [linum, colnum, bufnum, filename]
+		let colnum = jump.col
+		if has_key(jump, 'filename')
+			let filename = jump.filename
+		else
+			let filename = bufname(bufnum)
+		endif
+		let bufnum = printf('%3d', bufnum)
+		let linum = printf('%5d', linum)
+		let colnum = printf('%2d', colnum)
+		let entry = [bufnum, linum, colnum, filename]
 		let record = join(entry, s:field_separ)
 		call add(lines, record)
 	endfor
@@ -373,37 +380,19 @@ endfun
 
 fun! wheel#perspective#changes ()
 	" Changes
-endfun
-
-fun! wheel#perspective#bounce (runme)
-	" Lines for jumps / changes lists
-	let lines = wheel#perspective#execute(a:runme)[1:]
-	let past = v:true
-	let length = len(lines)
-	for index in range(length)
-		let elem = lines[index]
-		if elem =~ '\m^>'
-			let past = v:false
-			let elem = substitute(elem, '\m^>', '', '')
-			if empty(elem) && index == length - 1
-				call remove(lines, index)
-				continue
-			endif
-		endif
-		" fields : delta line col file/text
-		let fields = split(elem)
-		if past
-			let signed = - str2nr(fields[0])
-			let fields[0] = string(signed)
-		endif
-		if len(fields) > 4
-			let fields[3] = join(fields[3:])
-			let fields = fields[:3]
-		endif
-		let elem = join(fields, s:field_separ)
-		let lines[index] = elem
+	let lines = []
+	let changelist = getchangelist()[0]
+	for change in changelist
+		let linum = change.lnum
+		let colnum = change.col
+		let content = getline(linum)
+		let linum = printf('%5d', linum)
+		let colnum = printf('%2d', colnum)
+		let entry = [linum, colnum, content]
+		let record = join(entry, s:field_separ)
+		call add(lines, record)
 	endfor
-	" Newest first
+	" newest first
 	call reverse(lines)
 	return lines
 endfun

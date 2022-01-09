@@ -398,12 +398,11 @@ endfun
 
 fun! wheel#sailing#jumps ()
 	" Jumps list
-	let command = a:command
 	call wheel#mandala#close ()
 	let lines = wheel#perspective#jumps ()
 	" mandala buffer
-	call wheel#mandala#open (command)
-	let settings = {'action' : function('wheel#line#' .. command)}
+	call wheel#mandala#open ('jumps')
+	let settings = {'action' : function('wheel#line#jumps')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -411,8 +410,14 @@ fun! wheel#sailing#jumps ()
 endfun
 
 fun! wheel#sailing#changes ()
-	" Changes list
-	call wheel#sailing#bounce ('changes')
+	" Jumps list
+	call wheel#mandala#close ()
+	let lines = wheel#perspective#changes ()
+	" mandala buffer
+	call wheel#mandala#open ('changes')
+	let settings = {'action' : function('wheel#line#changes')}
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#sailing#changes'
 endfun
