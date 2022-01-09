@@ -262,27 +262,21 @@ endfun
 fun! wheel#perspective#tabwins ()
 	" Buffers visible in tabs & wins
 	let lines = []
-	let tabnum = 'undefined'
-	let tabs = execute('tabs')
-	let tabs = split(tabs, "\n")
-	let length = len(tabs)
-	let isbuffer = s:is_buffer_tabs
-	let iswheel = s:is_mandala_tabs
-	for index in range(length)
-		let elem = tabs[index]
-		let fields = split(elem)
-		if elem !~ isbuffer
-			" tab line
-			let tabnum = fields[-1]
-			let winum = 0
-		elseif elem !~ iswheel
-			" buffer line
+	let last_tab = tabpagenr('$')
+	let mandalas = g:wheel_mandalas.ring
+	for tabnum in range(1, last_tab)
+		let buflist = tabpagebuflist(tabnum)
+		let winum = 0
+		for bufnum in buflist
+			if wheel#chain#is_inside (bufnum, mandalas)
+				continue
+			endif
 			let winum += 1
-			let filename = fnamemodify(fields[-1], ':p')
+			let filename = bufname(bufnum)
 			let entry = [tabnum, winum, filename]
 			let record = join(entry, s:field_separ)
 			call add(lines, record)
-		endif
+		endfor
 	endfor
 	return lines
 endfun
