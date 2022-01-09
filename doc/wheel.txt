@@ -837,7 +837,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>h`         : history index
 - `<M-w>l`         : search files with `locate`
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
-- `<M-w><M-f>`     : search files with `find` in async mode
+- `<M-w>&f`        : search files with `find` in async mode
 - `<M-w>u`         : most recently used files not found in wheel (mru)
 - `<M-w>b`         : go to buffer (opened file)
 - `<M-w>V`         : visible buffers in tab & window (plain mode)
@@ -1287,7 +1287,7 @@ Async mode~
 You can run a shell command in async mode and display the output in a
 dedicated buffer.
 
-Default mapping : `<M-w>&`
+Default mapping : `<M-w>&&`
 
 You can stop the process by using `<c-s>` in the dedicated buffer.
 
@@ -2098,7 +2098,7 @@ Search for files~
 | -------- | ------------------- | ------------------------------------------- |
 | l        | <M-w>l              | Search files with locate                    |
 | f        | <M-w>f              | Find files in current directory using glob  |
-| <M-f>    | <M-w><M-f>          | Search files with find in async mode        |
+| &f       | <M-w>&f             | Search files with find in async mode        |
 | u        | <M-w>u              | Most recently used files not found in wheel |
 | b        | <M-w>b              | Buffers (opened files)                      |
 
