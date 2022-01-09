@@ -1,7 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
 " Move to elements
-" Move elements
 
 " other names ideas for this file :
 "

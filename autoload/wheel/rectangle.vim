@@ -19,6 +19,8 @@ endif
 
 " Tabs, Windows & buffers
 
+" helpers
+
 fun! wheel#rectangle#glasses (filename, ...)
 	" Return list of window(s) id(s) displaying filename
 	" Optional argument : if tab, search only in current tab
@@ -34,6 +36,19 @@ fun! wheel#rectangle#glasses (filename, ...)
 	endif
 	return wins
 endfun
+
+fun! wheel#rectangle#ratio ()
+	" Window width / height
+	" Real usable window width
+	" Credit : https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script
+	let width=winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn
+	let height = winheight(0)
+	" Use round as nr2float
+	" Where is nr2float btw ?
+	return round(width) / round(height)
+endfun
+
+" main
 
 fun! wheel#rectangle#tour ()
 	" Return closest candidate amongst windows displaying current location
@@ -69,15 +84,6 @@ fun! wheel#rectangle#tour ()
 	" ---- back to original
 	noautocmd call win_gotoid(original)
 	return v:false
-endfun
-
-fun! wheel#rectangle#tab_buffers ()
-	" List of buffers in current tab, starting with current one
-	let bufnum = bufnr('%')
-	let buffers = tabpagebuflist()
-	let index = index(buffers, bufnum)
-	let buffers = wheel#chain#roll_left(index, buffers)
-	return buffers
 endfun
 
 fun! wheel#rectangle#goto (bufnum, ...)
@@ -127,17 +133,6 @@ fun! wheel#rectangle#switch (...)
 	execute winum 'wincmd w'
 endfun
 
-fun! wheel#rectangle#ratio ()
-	" Window width / height
-	" Real usable window width
-	" Credit : https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script
-	let width=winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn
-	let height = winheight(0)
-	" Use round as nr2float
-	" Where is nr2float btw ?
-	return round(width) / round(height)
-endfun
-
 fun! wheel#rectangle#hidden_buffers (...)
 	" Return list of hidden or unlisted buffers, with some exceptions
 	" Optional argument mode :
@@ -175,4 +170,13 @@ fun! wheel#rectangle#hidden_buffers (...)
 		endif
 	endfor
 	return [hidden_nums, hidden_names]
+endfun
+
+fun! wheel#rectangle#tab_buffers ()
+	" List of buffers in current tab, starting with current one
+	let bufnum = bufnr('%')
+	let buffers = tabpagebuflist()
+	let index = index(buffers, bufnum)
+	let buffers = wheel#chain#roll_left(index, buffers)
+	return buffers
 endfun
