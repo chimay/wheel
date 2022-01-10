@@ -2514,6 +2514,7 @@ Straightforward :
 | <plug>(wheel-next-circle)                       | go to next circle                         |
 | <plug>(wheel-previous-torus)                    | go to previous torus                      |
 | <plug>(wheel-next-torus)                        | go to next torus                          |
+| ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-history-newer)                     | go to previous location in history        |
 | <plug>(wheel-history-older)                     | go to next location in history            |
 | ----------------------------------------------- | --------------------------------------    |

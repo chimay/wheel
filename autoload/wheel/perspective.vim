@@ -352,9 +352,17 @@ fun! wheel#perspective#markers ()
 			let filename = expand('%')
 		endif
 		let pos = marker.pos
-		let linum = printf('%5d', pos[1])
-		let colnum = printf('%2d', pos[2])
-		let entry = [mark, linum, colnum, filename]
+		let linum = pos[1]
+		let colnum = pos[2]
+		let bufnum = bufnr(filename)
+		if bufnum > 0 && bufloaded(bufnum)
+			let content = getbufline(bufnum, linum)[0]
+		else
+			let content = ' '
+		endif
+		let linum = printf('%5d', linum)
+		let colnum = printf('%2d', colnum)
+		let entry = [mark, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
 		call add(lines, record)
 	endfor

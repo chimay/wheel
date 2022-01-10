@@ -218,6 +218,14 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<c-right> <plug>(wheel-next-circle)'
 		exe nmap prefix .. '<s-left> <plug>(wheel-previous-torus)'
 		exe nmap prefix .. '<s-right> <plug>(wheel-next-torus)'
+		" History
+		exe nmap prefix .. '<up> <plug>(wheel-history-newer)'
+		exe nmap prefix .. '<down> <plug>(wheel-history-older)'
+		" Alternate
+		exe nmap prefix .. '<c-^> <plug>(wheel-alternate-anywhere)'
+		exe nmap prefix .. '<m-^> <plug>(wheel-alternate-same-circle)'
+		exe nmap prefix .. '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
+		exe nmap prefix .. '^ <plug>(wheel-alternate-menu)'
 		" Add
 		exe nmap prefix .. 'a <plug>(wheel-prompt-add-here)'
 		exe nmap prefix .. '<c-a> <plug>(wheel-prompt-add-circle)'
@@ -225,13 +233,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '+f <plug>(wheel-prompt-add-file)'
 		exe nmap prefix .. '+b <plug>(wheel-prompt-add-buffer)'
 		exe nmap prefix .. '* <plug>(wheel-prompt-add-glob)'
-		" History
-		exe nmap prefix .. '<up> <plug>(wheel-history-newer)'
-		exe nmap prefix .. '<down> <plug>(wheel-history-older)'
-		exe nmap prefix .. '<c-^> <plug>(wheel-alternate-anywhere)'
-		exe nmap prefix .. '<m-^> <plug>(wheel-alternate-same-circle)'
-		exe nmap prefix .. '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
-		exe nmap prefix .. '^ <plug>(wheel-alternate-menu)'
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1
@@ -240,7 +241,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<c-cr> <plug>(wheel-prompt-circle)'
 		exe nmap prefix .. '<s-cr> <plug>(wheel-prompt-torus)'
 		exe nmap prefix .. '<m-cr> <plug>(wheel-prompt-multi-switch)'
-		" Navigation
 		exe nmap prefix .. '<space> <plug>(wheel-dedibuf-location)'
 		exe nmap prefix .. '<c-space> <plug>(wheel-dedibuf-circle)'
 		exe nmap prefix .. '<s-space> <plug>(wheel-dedibuf-torus)'
@@ -253,22 +253,22 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'h <plug>(wheel-prompt-history)'
 		exe nmap prefix .. '<m-h> <plug>(wheel-dedibuf-history)'
 		" Rename
-		exe nmap prefix .. 'n <plug>(wheel-rename-location)'
-		exe nmap prefix .. '<c-n> <plug>(wheel-rename-circle)'
-		exe nmap prefix .. 'N <plug>(wheel-rename-torus)'
-		exe nmap prefix .. '<m-n> <plug>(wheel-rename-file)'
+		exe nmap prefix .. 'n <plug>(wheel-prompt-rename-location)'
+		exe nmap prefix .. '<c-n> <plug>(wheel-prompt-rename-circle)'
+		exe nmap prefix .. 'N <plug>(wheel-prompt-rename-torus)'
+		exe nmap prefix .. '<m-n> <plug>(wheel-prompt-rename-file)'
 		" Delete
-		exe nmap prefix .. 'd <plug>(wheel-delete-location)'
-		exe nmap prefix .. '<c-d> <plug>(wheel-delete-circle)'
-		exe nmap prefix .. 'D <plug>(wheel-delete-torus)'
+		exe nmap prefix .. 'd <plug>(wheel-prompt-delete-location)'
+		exe nmap prefix .. '<c-d> <plug>(wheel-prompt-delete-circle)'
+		exe nmap prefix .. 'D <plug>(wheel-prompt-delete-torus)'
 		" Copy
-		exe nmap prefix .. 'c <plug>(wheel-copy-location)'
+		exe nmap prefix .. 'c <plug>(wheel-prompt-copy-location)'
 		" <c-c> does not work in maps
-		exe nmap prefix .. '<m-c> <plug>(wheel-copy-circle)'
-		exe nmap prefix .. 'C <plug>(wheel-copy-torus)'
+		exe nmap prefix .. '<m-c> <plug>(wheel-prompt-copy-circle)'
+		exe nmap prefix .. 'C <plug>(wheel-prompt-copy-torus)'
 		" Move
-		exe nmap prefix .. 'm <plug>(wheel-move-location)'
-		exe nmap prefix .. 'M <plug>(wheel-move-circle)'
+		exe nmap prefix .. 'm <plug>(wheel-prompt-move-location)'
+		exe nmap prefix .. 'M <plug>(wheel-prompt-move-circle)'
 		" Reorder
 		exe nmap prefix .. 'o <plug>(wheel-dedibuf-reorder-location)'
 		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
@@ -294,19 +294,18 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'b <plug>(wheel-dedibuf-buffers)'
 		exe nmap prefix .. 'B <plug>(wheel-dedibuf-buffers-all)'
 		" Tabs & windows : visible buffers
-		exe nmap prefix .. 'v <plug>(wheel-dedibuf-prompt-tabwin)'
+		exe nmap prefix .. 'v <plug>(wheel-prompt-tabwin)'
 		exe nmap prefix .. 'V <plug>(wheel-dedibuf-tabwins)'
 		exe nmap prefix .. '<m-v> <plug>(wheel-dedibuf-tabwins-tree)'
 		" Search inside files
 		exe nmap prefix .. 's <plug>(wheel-dedibuf-occur)'
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
 		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-outline)'
-		" (neo)vim lists, prompt completion
+		" (neo)vim lists
 		exe nmap prefix .. "' <plug>(wheel-prompt-marker)"
 		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'
 		exe nmap prefix .. '; <plug>(wheel-prompt-change)'
 		exe nmap prefix .. 't <plug>(wheel-prompt-tag)'
-		" (neo)vim lists, dedicated buffer
 		exe nmap prefix .. "<m-'> <plug>(wheel-dedibuf-markers)"
 		exe nmap prefix .. '<m-j> <plug>(wheel-dedibuf-jumps)'
 		exe nmap prefix .. ', <plug>(wheel-dedibuf-changes)'
@@ -375,8 +374,8 @@ fun! wheel#centre#cables ()
 		" Sync
 		exe nmap '<m-$>          <plug>(wheel-sync-up)'
 		" Add, Delete
-		exe nmap '<m-insert>     <plug>(wheel-add-here)'
-		exe nmap '<m-del>        <plug>(wheel-delete-location)'
+		exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
+		exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
 		" Next / Previous
 		exe nmap '<c-pageup>     <plug>(wheel-previous-location)'
 		exe nmap '<c-pagedown>   <plug>(wheel-next-location)'
@@ -418,13 +417,12 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
 		exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
 		exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
-		" (neo)vim lists, prompt completion
+		" (neo)vim lists
 		exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
 		exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
 		exe nmap '<m-;>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-c>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
-		" (neo)vim lists, dedicated buffer
 		exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
 		exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
 		exe nmap '<m-,>          <plug>(wheel-dedibuf-changes)'

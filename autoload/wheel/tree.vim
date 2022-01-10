@@ -73,7 +73,7 @@ fun! wheel#tree#insert_torus (torus)
 	let name = torus.name
 	if wheel#chain#is_inside(name, glossary)
 		let complete = 'customlist,wheel#completelist#torus'
-		let name = input('Insert torus with name ? ', '', complete)
+		let name = input('Clone torus with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Torus named' name 'already exists in wheel.'
