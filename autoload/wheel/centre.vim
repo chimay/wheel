@@ -15,171 +15,172 @@ endfun
 
 fun! wheel#centre#plugs ()
 	" Link <plug> mappings to wheel functions
+	" :map-<expr> does not work
 	" Menus
-	nnoremap <plug>(wheel-menu-main) :call wheel#hub#main()<cr>
-	nnoremap <plug>(wheel-menu-meta) :call wheel#hub#meta()<cr>
+	nnoremap <plug>(wheel-menu-main) <cmd>call wheel#hub#main()<cr>
+	nnoremap <plug>(wheel-menu-meta) <cmd>call wheel#hub#meta()<cr>
 	" Dashboard
-	nnoremap <plug>(wheel-dashboard) :call wheel#status#dashboard()<cr>
+	nnoremap <plug>(wheel-dashboard) <cmd>call wheel#status#dashboard()<cr>
 	" Sync down : jump
-	nnoremap <plug>(wheel-sync-down) :call wheel#vortex#jump()<cr>
+	nnoremap <plug>(wheel-sync-down) <cmd>call wheel#vortex#jump()<cr>
 	" Sync up : follow
-	nnoremap <plug>(wheel-sync-up) :call wheel#projection#follow()<cr>
+	nnoremap <plug>(wheel-sync-up) <cmd>call wheel#projection#follow()<cr>
 	" Load / Save wheel
-	nnoremap <plug>(wheel-read-wheel) :call wheel#disc#read_all()<cr>
-	nnoremap <plug>(wheel-write-wheel) :call wheel#disc#write_all()<cr>
+	nnoremap <plug>(wheel-read-wheel) <cmd>call wheel#disc#read_all()<cr>
+	nnoremap <plug>(wheel-write-wheel) <cmd>call wheel#disc#write_all()<cr>
 	" Load / Save session
-	nnoremap <plug>(wheel-read-session) :call wheel#disc#read_session()<cr>
-	nnoremap <plug>(wheel-write-session) :call wheel#disc#write_session()<cr>
+	nnoremap <plug>(wheel-read-session) <cmd>call wheel#disc#read_session()<cr>
+	nnoremap <plug>(wheel-write-session) <cmd>call wheel#disc#write_session()<cr>
 	" Next / Previous
-	nnoremap <plug>(wheel-previous-location) :call wheel#vortex#previous('location')<cr>
-	nnoremap <plug>(wheel-next-location) :call wheel#vortex#next('location')<cr>
-	nnoremap <plug>(wheel-previous-circle) :call wheel#vortex#previous('circle')<cr>
-	nnoremap <plug>(wheel-next-circle) :call wheel#vortex#next('circle')<cr>
-	nnoremap <plug>(wheel-previous-torus) :call wheel#vortex#previous('torus')<cr>
-	nnoremap <plug>(wheel-next-torus) :call wheel#vortex#next('torus')<cr>
-	nnoremap <plug>(wheel-history-newer) :call wheel#pendulum#newer()<cr>
-	nnoremap <plug>(wheel-history-older) :call wheel#pendulum#older()<cr>
+	nnoremap <plug>(wheel-previous-location) <cmd>call wheel#vortex#previous('location')<cr>
+	nnoremap <plug>(wheel-next-location) <cmd>call wheel#vortex#next('location')<cr>
+	nnoremap <plug>(wheel-previous-circle) <cmd>call wheel#vortex#previous('circle')<cr>
+	nnoremap <plug>(wheel-next-circle) <cmd>call wheel#vortex#next('circle')<cr>
+	nnoremap <plug>(wheel-previous-torus) <cmd>call wheel#vortex#previous('torus')<cr>
+	nnoremap <plug>(wheel-next-torus) <cmd>call wheel#vortex#next('torus')<cr>
+	nnoremap <plug>(wheel-history-newer) <cmd>call wheel#pendulum#newer()<cr>
+	nnoremap <plug>(wheel-history-older) <cmd>call wheel#pendulum#older()<cr>
 	" Alternate
-	nnoremap <plug>(wheel-alternate-anywhere) :call wheel#pendulum#alternate('anywhere')<cr>
-	nnoremap <plug>(wheel-alternate-same-torus-other-circle) :call wheel#pendulum#alternate('same_torus_other_circle')<cr>
-	nnoremap <plug>(wheel-alternate-same-torus) :call wheel#pendulum#alternate('same_torus')<cr>
-	nnoremap <plug>(wheel-alternate-same-circle) :call wheel#pendulum#alternate('same_circle')<cr>
-	nnoremap <plug>(wheel-alternate-other-torus) :call wheel#pendulum#alternate('other_torus')<cr>
-	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate('other_circle')<cr>
-	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate_menu()<cr>
+	nnoremap <plug>(wheel-alternate-anywhere) <cmd>call wheel#pendulum#alternate('anywhere')<cr>
+	nnoremap <plug>(wheel-alternate-same-torus-other-circle) <cmd>call wheel#pendulum#alternate('same_torus_other_circle')<cr>
+	nnoremap <plug>(wheel-alternate-same-torus) <cmd>call wheel#pendulum#alternate('same_torus')<cr>
+	nnoremap <plug>(wheel-alternate-same-circle) <cmd>call wheel#pendulum#alternate('same_circle')<cr>
+	nnoremap <plug>(wheel-alternate-other-torus) <cmd>call wheel#pendulum#alternate('other_torus')<cr>
+	nnoremap <plug>(wheel-alternate-other-circle) <cmd>call wheel#pendulum#alternate('other_circle')<cr>
+	nnoremap <plug>(wheel-alternate-menu) <cmd>call wheel#pendulum#alternate_menu()<cr>
 	" Add
-	nnoremap <plug>(wheel-prompt-add-here) :call wheel#tree#add_here()<cr>
-	nnoremap <plug>(wheel-prompt-add-circle) :call wheel#tree#add_circle()<cr>
-	nnoremap <plug>(wheel-prompt-add-torus) :call wheel#tree#add_torus()<cr>
-	nnoremap <plug>(wheel-prompt-add-file) :call wheel#tree#add_file()<cr>
-	nnoremap <plug>(wheel-prompt-add-buffer) :call wheel#tree#add_buffer()<cr>
-	nnoremap <plug>(wheel-prompt-add-glob) :call wheel#tree#add_glob()<cr>
+	nnoremap <plug>(wheel-prompt-add-here) <cmd>call wheel#tree#add_here()<cr>
+	nnoremap <plug>(wheel-prompt-add-circle) <cmd>call wheel#tree#add_circle()<cr>
+	nnoremap <plug>(wheel-prompt-add-torus) <cmd>call wheel#tree#add_torus()<cr>
+	nnoremap <plug>(wheel-prompt-add-file) <cmd>call wheel#tree#add_file()<cr>
+	nnoremap <plug>(wheel-prompt-add-buffer) <cmd>call wheel#tree#add_buffer()<cr>
+	nnoremap <plug>(wheel-prompt-add-glob) <cmd>call wheel#tree#add_glob()<cr>
 	" Rename
-	nnoremap <plug>(wheel-prompt-rename-location) :call wheel#tree#rename('location')<cr>
-	nnoremap <plug>(wheel-prompt-rename-circle) :call wheel#tree#rename('circle')<cr>
-	nnoremap <plug>(wheel-prompt-rename-torus) :call wheel#tree#rename('torus')<cr>
-	nnoremap <plug>(wheel-prompt-rename-file) :call wheel#tree#rename_file()<cr>
+	nnoremap <plug>(wheel-prompt-rename-location) <cmd>call wheel#tree#rename('location')<cr>
+	nnoremap <plug>(wheel-prompt-rename-circle) <cmd>call wheel#tree#rename('circle')<cr>
+	nnoremap <plug>(wheel-prompt-rename-torus) <cmd>call wheel#tree#rename('torus')<cr>
+	nnoremap <plug>(wheel-prompt-rename-file) <cmd>call wheel#tree#rename_file()<cr>
 	" Delete
-	nnoremap <plug>(wheel-prompt-delete-location) :call wheel#tree#delete('location')<cr>
-	nnoremap <plug>(wheel-prompt-delete-circle) :call wheel#tree#delete('circle')<cr>
-	nnoremap <plug>(wheel-prompt-delete-torus) :call wheel#tree#delete('torus')<cr>
+	nnoremap <plug>(wheel-prompt-delete-location) <cmd>call wheel#tree#delete('location')<cr>
+	nnoremap <plug>(wheel-prompt-delete-circle) <cmd>call wheel#tree#delete('circle')<cr>
+	nnoremap <plug>(wheel-prompt-delete-torus) <cmd>call wheel#tree#delete('torus')<cr>
 	" Copy
-	nnoremap <plug>(wheel-prompt-copy-location) :call wheel#tree#copy('location')<cr>
-	nnoremap <plug>(wheel-prompt-copy-circle) :call wheel#tree#copy('circle')<cr>
-	nnoremap <plug>(wheel-prompt-copy-torus) :call wheel#tree#copy('torus')<cr>
+	nnoremap <plug>(wheel-prompt-copy-location) <cmd>call wheel#tree#copy('location')<cr>
+	nnoremap <plug>(wheel-prompt-copy-circle) <cmd>call wheel#tree#copy('circle')<cr>
+	nnoremap <plug>(wheel-prompt-copy-torus) <cmd>call wheel#tree#copy('torus')<cr>
 	" Move
-	nnoremap <plug>(wheel-prompt-move-location) :call wheel#tree#move('location')<cr>
-	nnoremap <plug>(wheel-prompt-move-circle) :call wheel#tree#move('circle')<cr>
+	nnoremap <plug>(wheel-prompt-move-location) <cmd>call wheel#tree#move('location')<cr>
+	nnoremap <plug>(wheel-prompt-move-circle) <cmd>call wheel#tree#move('circle')<cr>
 	" Switch
-	nnoremap <plug>(wheel-prompt-location) :call wheel#vortex#switch('location')<cr>
-	nnoremap <plug>(wheel-prompt-circle) :call wheel#vortex#switch('circle')<cr>
-	nnoremap <plug>(wheel-prompt-torus) :call wheel#vortex#switch('torus')<cr>
-	nnoremap <plug>(wheel-prompt-multi-switch) :call wheel#vortex#multi_switch()<cr>
-	nnoremap <plug>(wheel-dedibuf-location) :call wheel#sailing#switch('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-circle) :call wheel#sailing#switch('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-torus) :call wheel#sailing#switch('torus')<cr>
+	nnoremap <plug>(wheel-prompt-location) <cmd>call wheel#vortex#switch('location')<cr>
+	nnoremap <plug>(wheel-prompt-circle) <cmd>call wheel#vortex#switch('circle')<cr>
+	nnoremap <plug>(wheel-prompt-torus) <cmd>call wheel#vortex#switch('torus')<cr>
+	nnoremap <plug>(wheel-prompt-multi-switch) <cmd>call wheel#vortex#multi_switch()<cr>
+	nnoremap <plug>(wheel-dedibuf-location) <cmd>call wheel#sailing#switch('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-circle) <cmd>call wheel#sailing#switch('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-torus) <cmd>call wheel#sailing#switch('torus')<cr>
 	" Indexes
-	nnoremap <plug>(wheel-prompt-index) :call wheel#vortex#helix()<cr>
-	nnoremap <plug>(wheel-dedibuf-index) :call wheel#sailing#helix()<cr>
-	nnoremap <plug>(wheel-dedibuf-index-circles) :call wheel#sailing#grid()<cr>
-	nnoremap <plug>(wheel-dedibuf-tree) :call wheel#sailing#tree()<cr>
+	nnoremap <plug>(wheel-prompt-index) <cmd>call wheel#vortex#helix()<cr>
+	nnoremap <plug>(wheel-dedibuf-index) <cmd>call wheel#sailing#helix()<cr>
+	nnoremap <plug>(wheel-dedibuf-index-circles) <cmd>call wheel#sailing#grid()<cr>
+	nnoremap <plug>(wheel-dedibuf-tree) <cmd>call wheel#sailing#tree()<cr>
 	" History
-	nnoremap <plug>(wheel-prompt-history) :call wheel#vortex#history()<cr>
-	nnoremap <plug>(wheel-dedibuf-history) :call wheel#sailing#history()<cr>
+	nnoremap <plug>(wheel-prompt-history) <cmd>call wheel#vortex#history()<cr>
+	nnoremap <plug>(wheel-dedibuf-history) <cmd>call wheel#sailing#history()<cr>
 	" Search for files
-	nnoremap <plug>(wheel-dedibuf-locate) :call wheel#sailing#locate()<cr>
-	nnoremap <plug>(wheel-dedibuf-find) :call wheel#sailing#find()<cr>
-	nnoremap <plug>(wheel-dedibuf-async-find) :call wheel#sailing#async_find()<cr>
-	nnoremap <plug>(wheel-dedibuf-mru) :call wheel#sailing#mru()<cr>
+	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#sailing#locate()<cr>
+	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#sailing#find()<cr>
+	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
+	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
 	" Buffers
-	nnoremap <plug>(wheel-dedibuf-buffers) :call wheel#sailing#buffers()<cr>
-	nnoremap <plug>(wheel-dedibuf-buffers-all) :call wheel#sailing#buffers('all')<cr>
+	nnoremap <plug>(wheel-dedibuf-buffers) <cmd>call wheel#sailing#buffers()<cr>
+	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#sailing#buffers('all')<cr>
 	" Tabs & windows : visible buffers
-	nnoremap <plug>(wheel-prompt-tabwin) :call wheel#rectangle#switch()<cr>
-	nnoremap <plug>(wheel-dedibuf-tabwins) :call wheel#sailing#tabwins()<cr>
-	nnoremap <plug>(wheel-dedibuf-tabwins-tree) :call wheel#sailing#tabwins_tree()<cr>
+	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#rectangle#switch()<cr>
+	nnoremap <plug>(wheel-dedibuf-tabwins) <cmd>call wheel#sailing#tabwins()<cr>
+	nnoremap <plug>(wheel-dedibuf-tabwins-tree) <cmd>call wheel#sailing#tabwins_tree()<cr>
 	" Search inside files
-	nnoremap <plug>(wheel-dedibuf-occur) :call wheel#sailing#occur()<cr>
-	nnoremap <plug>(wheel-dedibuf-grep) :call wheel#sailing#grep()<cr>
-	nnoremap <plug>(wheel-dedibuf-outline) :call wheel#sailing#outline()<cr>
+	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#sailing#occur()<cr>
+	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#sailing#grep()<cr>
+	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#sailing#outline()<cr>
 	" (neo)vim lists, prompt completion
-	nnoremap <plug>(wheel-prompt-marker) :call wheel#whirl#marker()<cr>
-	nnoremap <plug>(wheel-prompt-jump) :call wheel#whirl#jump()<cr>
-	nnoremap <plug>(wheel-prompt-change) :call wheel#whirl#change()<cr>
-	nnoremap <plug>(wheel-prompt-tag) :call wheel#whirl#tag()<cr>
+	nnoremap <plug>(wheel-prompt-marker) <cmd>call wheel#whirl#marker()<cr>
+	nnoremap <plug>(wheel-prompt-jump) <cmd>call wheel#whirl#jump()<cr>
+	nnoremap <plug>(wheel-prompt-change) <cmd>call wheel#whirl#change()<cr>
+	nnoremap <plug>(wheel-prompt-tag) <cmd>call wheel#whirl#tag()<cr>
 	" (neo)vim lists, dedicated buffer
-	nnoremap <plug>(wheel-dedibuf-markers) :call wheel#sailing#markers()<cr>
-	nnoremap <plug>(wheel-dedibuf-jumps) :call wheel#sailing#jumps()<cr>
-	nnoremap <plug>(wheel-dedibuf-changes) :call wheel#sailing#changes()<cr>
-	nnoremap <plug>(wheel-dedibuf-tags) :call wheel#sailing#tags()<cr>
+	nnoremap <plug>(wheel-dedibuf-markers) <cmd>call wheel#sailing#markers()<cr>
+	nnoremap <plug>(wheel-dedibuf-jumps) <cmd>call wheel#sailing#jumps()<cr>
+	nnoremap <plug>(wheel-dedibuf-changes) <cmd>call wheel#sailing#changes()<cr>
+	nnoremap <plug>(wheel-dedibuf-tags) <cmd>call wheel#sailing#tags()<cr>
 	" Yank wheel
-	nnoremap <plug>(wheel-dedibuf-yank-list) :call wheel#clipper#yank('list')<cr>
-	nnoremap <plug>(wheel-dedibuf-yank-plain) :call wheel#clipper#yank('plain')<cr>
+	nnoremap <plug>(wheel-dedibuf-yank-list) <cmd>call wheel#clipper#yank('list')<cr>
+	nnoremap <plug>(wheel-dedibuf-yank-plain) <cmd>call wheel#clipper#yank('plain')<cr>
 	" Reorder
-	nnoremap <plug>(wheel-dedibuf-reorder-location) :call wheel#shape#reorder('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-reorder-circle) :call wheel#shape#reorder('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-reorder-torus) :call wheel#shape#reorder('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-location) <cmd>call wheel#shape#reorder('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-circle) <cmd>call wheel#shape#reorder('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-torus) <cmd>call wheel#shape#reorder('torus')<cr>
 	" Batch rename
-	nnoremap <plug>(wheel-dedibuf-rename-location) :call wheel#shape#rename('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-rename-circle) :call wheel#shape#rename('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-rename-torus) :call wheel#shape#rename('torus')<cr>
-	nnoremap <plug>(wheel-dedibuf-rename-location-filename) :call wheel#shape#rename_files()<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-location) <cmd>call wheel#shape#rename('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-circle) <cmd>call wheel#shape#rename('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-torus) <cmd>call wheel#shape#rename('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-location-filename) <cmd>call wheel#shape#rename_files()<cr>
 	" Batch copy/move
-	nnoremap <plug>(wheel-dedibuf-copy-move-location) :call wheel#shape#copy_move('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-copy-move-circle) :call wheel#shape#copy_move('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-copy-move-torus) :call wheel#shape#copy_move('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-copy-move-location) <cmd>call wheel#shape#copy_move('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-copy-move-circle) <cmd>call wheel#shape#copy_move('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-copy-move-torus) <cmd>call wheel#shape#copy_move('torus')<cr>
 	" Reorganize
-	nnoremap <plug>(wheel-dedibuf-reorganize) :call wheel#shape#reorganize()<cr>
+	nnoremap <plug>(wheel-dedibuf-reorganize) <cmd>call wheel#shape#reorganize()<cr>
 	" Reorganize tabs & windows
-	nnoremap <plug>(wheel-dedibuf-reorg-tabwins) :call wheel#shape#reorg_tabwins()<cr>
+	nnoremap <plug>(wheel-dedibuf-reorg-tabwins) <cmd>call wheel#shape#reorg_tabwins()<cr>
 	" Grep edit mode
-	nnoremap <plug>(wheel-dedibuf-grep-edit) :call wheel#shape#grep_edit()<cr>
+	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#shape#grep_edit()<cr>
 	" Undo list
-	nnoremap <plug>(wheel-dedibuf-undo-list) :call wheel#delta#undolist()<cr>
+	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
 	" Generic buffer from ex or shell command output
-	nnoremap <plug>(wheel-dedibuf-command) :call wheel#mandala#command()<cr>
-	nnoremap <plug>(wheel-dedibuf-async) :call wheel#mandala#async()<cr>
+	nnoremap <plug>(wheel-dedibuf-command) <cmd>call wheel#mandala#command()<cr>
+	nnoremap <plug>(wheel-dedibuf-async) <cmd>call wheel#mandala#async()<cr>
 	" Add new mandala buffer
-	nnoremap <plug>(wheel-mandala-add) :call wheel#cylinder#add()<cr>
+	nnoremap <plug>(wheel-mandala-add) <cmd>call wheel#cylinder#add()<cr>
 	" Delete mandala buffer
-	nnoremap <plug>(wheel-mandala-delete) :call wheel#cylinder#delete()<cr>
+	nnoremap <plug>(wheel-mandala-delete) <cmd>call wheel#cylinder#delete()<cr>
 	" Cycle mandala buffers
-	nnoremap <plug>(wheel-mandala-forward) :call wheel#cylinder#forward()<cr>
-	nnoremap <plug>(wheel-mandala-backward) :call wheel#cylinder#backward()<cr>
+	nnoremap <plug>(wheel-mandala-forward) <cmd>call wheel#cylinder#forward()<cr>
+	nnoremap <plug>(wheel-mandala-backward) <cmd>call wheel#cylinder#backward()<cr>
 	" Switch mandala buffer
-	nnoremap <plug>(wheel-mandala-switch) :call wheel#cylinder#switch()<cr>
+	nnoremap <plug>(wheel-mandala-switch) <cmd>call wheel#cylinder#switch()<cr>
 	" Layouts
-	nnoremap <plug>(wheel-zoom) :call wheel#mosaic#zoom()<cr>
+	nnoremap <plug>(wheel-zoom) <cmd>call wheel#mosaic#zoom()<cr>
 	" Tabs
-	nnoremap <plug>(wheel-tabs-locations) :call wheel#mosaic#tabs('location')<cr>
-	nnoremap <plug>(wheel-tabs-circles) :call wheel#mosaic#tabs('circle')<cr>
-	nnoremap <plug>(wheel-tabs-toruses) :call wheel#mosaic#tabs('torus')<cr>
+	nnoremap <plug>(wheel-tabs-locations) <cmd>call wheel#mosaic#tabs('location')<cr>
+	nnoremap <plug>(wheel-tabs-circles) <cmd>call wheel#mosaic#tabs('circle')<cr>
+	nnoremap <plug>(wheel-tabs-toruses) <cmd>call wheel#mosaic#tabs('torus')<cr>
 	" Windows
-	nnoremap <plug>(wheel-split-locations) :call wheel#mosaic#split('location')<cr>
-	nnoremap <plug>(wheel-split-circles) :call wheel#mosaic#split('circle')<cr>
-	nnoremap <plug>(wheel-split-toruses) :call wheel#mosaic#split('torus')<cr>
-	nnoremap <plug>(wheel-vsplit-locations) :call wheel#mosaic#split('location', 'vertical')<cr>
-	nnoremap <plug>(wheel-vsplit-circles) :call wheel#mosaic#split('circle', 'vertical')<cr>
-	nnoremap <plug>(wheel-vsplit-toruses) :call wheel#mosaic#split('torus', 'vertical')<cr>
-	nnoremap <plug>(wheel-main-top-locations) :call wheel#mosaic#split('location', 'main_top')<cr>
-	nnoremap <plug>(wheel-main-top-circles) :call wheel#mosaic#split('circle', 'main_top')<cr>
-	nnoremap <plug>(wheel-main-top-toruses) :call wheel#mosaic#split('torus', 'main_top')<cr>
-	nnoremap <plug>(wheel-main-left-locations) :call wheel#mosaic#split('location', 'main_left')<cr>
-	nnoremap <plug>(wheel-main-left-circles) :call wheel#mosaic#split('circle', 'main_left')<cr>
-	nnoremap <plug>(wheel-main-left-toruses) :call wheel#mosaic#split('torus', 'main_left')<cr>
-	nnoremap <plug>(wheel-grid-locations) :call wheel#mosaic#split_grid('location')<cr>
-	nnoremap <plug>(wheel-grid-circles) :call wheel#mosaic#split_grid('circle')<cr>
-	nnoremap <plug>(wheel-grid-toruses) :call wheel#mosaic#split_grid('torus')<cr>
+	nnoremap <plug>(wheel-split-locations) <cmd>call wheel#mosaic#split('location')<cr>
+	nnoremap <plug>(wheel-split-circles) <cmd>call wheel#mosaic#split('circle')<cr>
+	nnoremap <plug>(wheel-split-toruses) <cmd>call wheel#mosaic#split('torus')<cr>
+	nnoremap <plug>(wheel-vsplit-locations) <cmd>call wheel#mosaic#split('location', 'vertical')<cr>
+	nnoremap <plug>(wheel-vsplit-circles) <cmd>call wheel#mosaic#split('circle', 'vertical')<cr>
+	nnoremap <plug>(wheel-vsplit-toruses) <cmd>call wheel#mosaic#split('torus', 'vertical')<cr>
+	nnoremap <plug>(wheel-main-top-locations) <cmd>call wheel#mosaic#split('location', 'main_top')<cr>
+	nnoremap <plug>(wheel-main-top-circles) <cmd>call wheel#mosaic#split('circle', 'main_top')<cr>
+	nnoremap <plug>(wheel-main-top-toruses) <cmd>call wheel#mosaic#split('torus', 'main_top')<cr>
+	nnoremap <plug>(wheel-main-left-locations) <cmd>call wheel#mosaic#split('location', 'main_left')<cr>
+	nnoremap <plug>(wheel-main-left-circles) <cmd>call wheel#mosaic#split('circle', 'main_left')<cr>
+	nnoremap <plug>(wheel-main-left-toruses) <cmd>call wheel#mosaic#split('torus', 'main_left')<cr>
+	nnoremap <plug>(wheel-grid-locations) <cmd>call wheel#mosaic#split_grid('location')<cr>
+	nnoremap <plug>(wheel-grid-circles) <cmd>call wheel#mosaic#split_grid('circle')<cr>
+	nnoremap <plug>(wheel-grid-toruses) <cmd>call wheel#mosaic#split_grid('torus')<cr>
 	" Tabs & Windows
-	nnoremap <plug>(wheel-tab-win-torus) :call wheel#pyramid#steps('torus')<cr>
-	nnoremap <plug>(wheel-tab-win-circle) :call wheel#pyramid#steps('circle')<cr>
+	nnoremap <plug>(wheel-tab-win-torus) <cmd>call wheel#pyramid#steps('torus')<cr>
+	nnoremap <plug>(wheel-tab-win-circle) <cmd>call wheel#pyramid#steps('circle')<cr>
 	" Rotating windows
-	nnoremap <plug>(wheel-rotate-counter-clockwise) :call wheel#mosaic#rotate_counter_clockwise()<cr>
-	nnoremap <plug>(wheel-rotate-clockwise) :call wheel#mosaic#rotate_clockwise()<cr>
+	nnoremap <plug>(wheel-rotate-counter-clockwise) <cmd>call wheel#mosaic#rotate_counter_clockwise()<cr>
+	nnoremap <plug>(wheel-rotate-clockwise) <cmd>call wheel#mosaic#rotate_clockwise()<cr>
 	" Debug
-	nnoremap <plug>(wheel-debug-fresh-wheel) :call wheel#void#fresh_wheel()<cr>
+	nnoremap <plug>(wheel-debug-fresh-wheel) <cmd>call wheel#void#fresh_wheel()<cr>
 	" Misc
-	nnoremap <plug>(wheel-spiral-cursor) :call wheel#spiral#cursor()<cr>
+	nnoremap <plug>(wheel-spiral-cursor) <cmd>call wheel#spiral#cursor()<cr>
 endfun
 
 fun! wheel#centre#cables ()
