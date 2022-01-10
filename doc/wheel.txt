@@ -1671,6 +1671,12 @@ If you want wheel to manage your tabline, use this function : >
   set tabline=%!wheel#status#tabline()
 <
 
+The format is :
+
+- tabnumber:filename
+- tabnumber:filename[+] if at least a file is modified
+- tabnumber:filename(win_num) if there is more than one window
+
 Gui tabs of gvim~
 
 If you are using gui tabs in gvim, you can ask wheel to manage the
