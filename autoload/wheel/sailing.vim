@@ -46,12 +46,12 @@ fun! wheel#sailing#maps (settings)
 	let settings.target = 'vertical_golden'
 	exe map .. 'gV' .. pre .. string(settings) .. post
 	" Define local selection maps
-	nnoremap <silent> <buffer> <space> :call wheel#pencil#toggle()<cr>
-	nnoremap <silent> <buffer> & :call wheel#pencil#toggle_visible()<cr>
-	nnoremap <silent> <buffer> * :call wheel#pencil#select_visible()<cr>
-	nnoremap <silent> <buffer> <bar> :call wheel#pencil#clear_visible()<cr>
+	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
+	nnoremap <buffer> & <cmd>call wheel#pencil#toggle_visible()<cr>
+	nnoremap <buffer> * <cmd>call wheel#pencil#select_visible()<cr>
+	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
 	" Context menu
-	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('sailing')<cr>
+	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('sailing')<cr>
 endfun
 
 fun! wheel#sailing#template (settings)
@@ -265,7 +265,7 @@ fun! wheel#sailing#buffers (...)
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" context menu
-	exe "nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('" .. name .. "')<cr>"
+	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. name .. "')<cr>"
 	" reload
 	let b:wheel_reload = "wheel#sailing#buffers('" .. mode .. "')"
 endfun
@@ -283,7 +283,7 @@ fun! wheel#sailing#tabwins ()
 	" reload
 	let b:wheel_reload = 'wheel#sailing#tabwins'
 	" Context menu
-	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('tabwins')<cr>
+	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('tabwins')<cr>
 endfun
 
 fun! wheel#sailing#tabwins_tree ()
@@ -299,7 +299,7 @@ fun! wheel#sailing#tabwins_tree ()
 	" reload
 	let b:wheel_reload = 'wheel#sailing#tabwins_tree'
 	" Context menu
-	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('tabwins_tree')<cr>
+	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('tabwins_tree')<cr>
 endfun
 
 fun! wheel#sailing#occur (...)
@@ -352,7 +352,7 @@ fun! wheel#sailing#grep (...)
 	" reload
 	let b:wheel_reload = "wheel#sailing#grep('" .. pattern .. "')"
 	" Context menu
-	nnoremap <silent> <buffer> <tab> :call wheel#boomerang#menu('grep')<cr>
+	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('grep')<cr>
 	" Useful if we choose edit mode on the context menu
 	let b:wheel_settings.pattern = pattern
 	let b:wheel_settings.sieve = sieve

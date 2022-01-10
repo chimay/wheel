@@ -180,10 +180,10 @@ fun! wheel#shape#copy_move (level)
 		echomsg 'wheel shape copy/move : empty or incomplete' level
 	endif
 	" define local selection maps
-	nnoremap <silent> <buffer> <space> :call wheel#pencil#toggle()<cr>
-	nnoremap <silent> <buffer> & :call wheel#pencil#toggle_visible()<cr>
-	nnoremap <silent> <buffer> * :call wheel#pencil#select_visible()<cr>
-	nnoremap <silent> <buffer> <bar> :call wheel#pencil#clear_visible()<cr>
+	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
+	nnoremap <buffer> & <cmd>call wheel#pencil#toggle_visible()<cr>
+	nnoremap <buffer> * <cmd>call wheel#pencil#select_visible()<cr>
+	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
 	" reload
 	let b:wheel_reload = "wheel#shape#rename('" .. level .. "')"
 endfun

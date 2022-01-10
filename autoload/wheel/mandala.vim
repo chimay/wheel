@@ -444,18 +444,18 @@ endfun
 
 fun! wheel#mandala#common_maps ()
 	" Define local common maps
-	nnoremap <silent> <buffer> q :call wheel#mandala#close()<cr>
-	nnoremap <silent> <buffer> j :call wheel#mandala#wrap_down()<cr>
-	nnoremap <silent> <buffer> k :call wheel#mandala#wrap_up()<cr>
-	nnoremap <silent> <buffer> <down> :call wheel#mandala#wrap_down()<cr>
-	nnoremap <silent> <buffer> <up> :call wheel#mandala#wrap_up()<cr>
+	nnoremap <buffer> q <cmd>call wheel#mandala#close()<cr>
+	nnoremap <buffer> j <cmd>call wheel#mandala#wrap_down()<cr>
+	nnoremap <buffer> k <cmd>call wheel#mandala#wrap_up()<cr>
+	nnoremap <buffer> <down> <cmd>call wheel#mandala#wrap_down()<cr>
+	nnoremap <buffer> <up> <cmd>call wheel#mandala#wrap_up()<cr>
 	" Reload mandala
-	nnoremap <silent> <buffer> r :call wheel#mandala#reload ()<cr>
+	nnoremap <buffer> r <cmd>call wheel#mandala#reload ()<cr>
 	" Navigate in layer ring
-	nnoremap <silent> <buffer> H :call wheel#book#backward ()<cr>
-	nnoremap <silent> <buffer> L :call wheel#book#forward ()<cr>
-	nnoremap <silent> <buffer> <m-l> :call wheel#book#switch ()<cr>
-	nnoremap <silent> <buffer> <backspace> :call wheel#book#delete ()<cr>
+	nnoremap <buffer> H <cmd>call wheel#book#backward ()<cr>
+	nnoremap <buffer> L <cmd>call wheel#book#forward ()<cr>
+	nnoremap <buffer> <m-l> <cmd>call wheel#book#switch ()<cr>
+	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
 endfu
 
 fun! wheel#mandala#filter_maps ()
