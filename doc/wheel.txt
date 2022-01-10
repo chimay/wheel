@@ -790,8 +790,8 @@ The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers
 
 So, there are two levels :
 
-- a layer ring in each dedicated buffer
 - a dedicated buffer ring
+- a layer ring in each dedicated buffer
 
 A layer in a dedicated buffer is also called a leaf.
 
