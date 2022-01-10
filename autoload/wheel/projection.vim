@@ -88,18 +88,25 @@ fun! wheel#projection#follow (...)
 	endif
 	" follow
 	let coordin = wheel#projection#closest (level)
-	if ! empty(coordin) && coordin != wheel#referen#names()
-		call wheel#vortex#chord (coordin)
-		if g:wheel_config.cd_project > 0
-			let markers = g:wheel_config.project_markers
-			call wheel#gear#project_root (markers)
-		endif
-		call wheel#pendulum#record ()
-		let info = 'wheel follows : '
-		let info ..= coordin[0] .. ' > ' .. coordin[1] .. ' > ' .. coordin[2]
-		redraw!
-		echomsg info
+	if empty(coordin)
+		echomsg 'wheel follow : no location found'
+		return
 	endif
+	if coordin == wheel#referen#names()
+		call wheel#vortex#update ()
+		echomsg 'wheel follow : location updated'
+		return
+	endif
+	call wheel#vortex#chord (coordin)
+	if g:wheel_config.cd_project > 0
+		let markers = g:wheel_config.project_markers
+		call wheel#gear#project_root (markers)
+	endif
+	call wheel#pendulum#record ()
+	let info = 'wheel follows : '
+	let info ..= coordin[0] .. ' > ' .. coordin[1] .. ' > ' .. coordin[2]
+	redraw!
+	echomsg info
 	" update location to cursor position
 	call wheel#vortex#update ()
 endfun

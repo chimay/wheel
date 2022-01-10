@@ -27,7 +27,9 @@ fun! wheel#scroll#newer ()
 	endif
 	call cursor(1,1)
 	call setline('.', g:wheel_input[0])
-	startinsert!
+	" not needed
+	" not necessary with <cmd> maps
+	"startinsert!
 endfun
 
 fun! wheel#scroll#older ()
@@ -37,7 +39,8 @@ fun! wheel#scroll#older ()
 	endif
 	call cursor(1,1)
 	call setline('.', g:wheel_input[0])
-	startinsert!
+	" not necessary with <cmd> maps
+	"startinsert!
 endfun
 
 fun! wheel#scroll#filtered_newer ()
@@ -61,7 +64,8 @@ fun! wheel#scroll#filtered_newer ()
 		call setline('.', g:wheel_input[0])
 	endif
 	call cursor(1, col)
-	startinsert
+	" not necessary with <cmd> maps
+	"startinsert
 endfun
 
 fun! wheel#scroll#filtered_older ()
@@ -83,5 +87,6 @@ fun! wheel#scroll#filtered_older ()
 		call setline('.', g:wheel_input[0])
 	endif
 	call cursor(1, col)
-	startinsert
+	" not necessary with <cmd> maps
+	"startinsert
 endfun
