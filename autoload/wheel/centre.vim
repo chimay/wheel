@@ -411,7 +411,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
 		exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
 		" Buffers
-		exe nmap '<m-b>          <plug>(wheel-dedibuf-buffers)'
+		exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
+		exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
 		exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers-all)'
 		" Tabs & windows : visible buffers
 		exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'

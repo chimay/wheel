@@ -2373,7 +2373,8 @@ adapt them to your taste and add them to your init file.
 | <M-C-f>        | Async find                                    |
 | <M-u>          | Most Recently Used files not found in wheel   |
 | -------------- | --------------------------------------------- |
-| <M-b>          | Buffers (opened files)                        |
+| <M-b>          | Buffers, prompting function                   |
+| <M-S-b>        | Buffers, dedicated buffer                     |
 | <M-C-b>        | All buffers, including unlisted ones          |
 | -------------- | --------------------------------------------- |
 | <M-v>          | Go to tabs & windows, prompt mode             |
@@ -2459,7 +2460,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
     exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
     " Buffers
-    exe nmap '<m-b>          <plug>(wheel-dedibuf-buffers)'
+    exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
+    exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
     exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers-all)'
     " Tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
