@@ -122,15 +122,6 @@ fun! wheel#completelist#leaf (arglead, cmdline, cursorpos)
 	return wheel#kyusu#candidates(wordlist, types)
 endfun
 
-" buffers
-
-fun! wheel#completelist#visible_buffers (arglead, cmdline, cursorpos)
-	" Complete list of buffers visible in tabs & windows
-	let lines = wheel#perspective#tabwins ()
-	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, lines)
-endfun
-
 " files & dirs
 
 fun! wheel#completelist#file (arglead, cmdline, cursorpos)
@@ -146,25 +137,6 @@ fun! wheel#completelist#directory (arglead, cmdline, cursorpos)
 	let candidates = wheel#completelist#file (a:arglead, a:cmdline, a:cursorpos)
 	call filter(candidates, {_,v -> isdirectory(v)})
 	return candidates
-endfun
-
-fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
-	" Complete with buffer name
-	let buflist = getbufinfo({'buflisted' : 1})
-	let lines = []
-	let mandalas = g:wheel_mandalas.ring
-	for buffer in buflist
-		let filename = buffer.name
-		let bufnum = printf('%3d', buffer.bufnr)
-		let linum = printf('%5d', buffer.lnum)
-		let is_without_name = empty(filename)
-		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
-		if ! is_without_name && ! is_wheel_buffer
-			call add(lines, filename)
-		endif
-	endfor
-	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, lines)
 endfun
 
 fun! wheel#completelist#current_file (arglead, cmdline, cursorpos)
@@ -209,23 +181,53 @@ fun! wheel#completelist#link_copy (arglead, cmdline, cursorpos)
 	return wheel#kyusu#candidates(wordlist, commands)
 endfun
 
+" buffers
+
+fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
+	" Complete with buffer name
+	let buflist = getbufinfo({'buflisted' : 1})
+	let lines = []
+	let mandalas = g:wheel_mandalas.ring
+	for buffer in buflist
+		let bufnum = printf('%3d', buffer.bufnr)
+		let linum = printf('%5d', buffer.lnum)
+		let filename = buffer.name
+		let is_without_name = empty(filename)
+		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
+		if ! is_without_name && ! is_wheel_buffer
+			let entry = [bufnum, linum, filename]
+			let record = join(entry, s:field_separ)
+			call add(lines, record)
+		endif
+	endfor
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, lines)
+endfun
+
+fun! wheel#completelist#visible_buffer (arglead, cmdline, cursorpos)
+	" Complete list of buffers visible in tabs & windows
+	let lines = wheel#perspective#tabwins ()
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, lines)
+endfun
+
 " jumps
 
-fun! wheel#completelist#markers (arglead, cmdline, cursorpos)
+fun! wheel#completelist#marker (arglead, cmdline, cursorpos)
 	" Complete list of markers
 	let choices = wheel#perspective#markers ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
-fun! wheel#completelist#jumps (arglead, cmdline, cursorpos)
+fun! wheel#completelist#jump (arglead, cmdline, cursorpos)
 	" Complete list of jumps
 	let choices = wheel#perspective#jumps ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
-fun! wheel#completelist#changes (arglead, cmdline, cursorpos)
+fun! wheel#completelist#change (arglead, cmdline, cursorpos)
 	" Complete list of changes
 	let choices = wheel#perspective#changes ()
 	let wordlist = split(a:cmdline)
@@ -234,7 +236,7 @@ endfun
 
 " tags
 
-fun! wheel#completelist#tags (arglead, cmdline, cursorpos)
+fun! wheel#completelist#tag (arglead, cmdline, cursorpos)
 	" Complete list of tags
 	let table = wheel#symbol#table ()
 	let choices = []

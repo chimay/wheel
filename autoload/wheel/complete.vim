@@ -50,7 +50,7 @@
 
 " fun! wheel#complete#visible_buffers (arglead, cmdline, cursorpos)
 " 	" Complete visible buffers
-" 	let buffers = wheel#completelist#visible_buffers (a:arglead, a:cmdline, a:cursorpos)
+" 	let buffers = wheel#completelist#visible_buffer (a:arglead, a:cmdline, a:cursorpos)
 " 	return join(buffers, "\n")
 " endfun
 

@@ -578,12 +578,21 @@ SWITCH					    *wheel-prompting-functions-switch*
 
 Switch element in the wheel~
 
-| Function         | Completion list              | Default binding |
-| ---------------- | ---------------------------- | --------------- |
-| switch location  | locations of current circle  | <M-w><Enter>    |
-| switch circle    | circles of the current torus | <M-w><C-Enter>  |
-| switch torus     | toruses in the wheel         | <M-w><S-Enter>  |
-| switch in index  | index entries                | <M-w>x          |
+| Function          | Completion list              | Default binding |
+| ----------------  | ---------------------------- | --------------- |
+| switch location   | locations of current circle  | <M-w><Enter>    |
+| switch circle     | circles of the current torus | <M-w><C-Enter>  |
+| switch torus      | toruses in the wheel         | <M-w><S-Enter>  |
+| multi switch      | toruses, circles & locations | <M-w><M-Enter>  |
+| switch in index   | index entries                | <M-w>x          |
+| switch in history | history entries              | <M-w>h          |
+
+Switch buffer~
+
+| Function         | Completion list                   | Default binding |
+| ---------------- | --------------------------------- | --------------- |
+| switch buffer    | listed buffers                    | <M-w>b          |
+| switch tabwins   | visible buffers in tabs & windows | <M-w>v          |
 
 Switch in (neo)vim lists~
 
@@ -593,12 +602,6 @@ Switch in (neo)vim lists~
 | switch in jump list   | jumps              | <M-w>j          |
 | switch in change list | changes            | <M-w>;          |
 | switch tag            | tags               | <M-w>t          |
-
-Switch visible buffer~
-
-| Function         | Completion list                   | Default binding |
-| ---------------- | --------------------------------- | --------------- |
-| switch tabwins   | visible buffers in tabs & windows | <M-w>v          |
 
 Switch dedicated buffer~
 
@@ -892,7 +895,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
 - `<M-w>&f`        : search files with `find` in async mode
 - `<M-w>u`         : most recently used files not found in wheel (mru)
-- `<M-w>b`         : go to buffer (opened file)
+- `<M-w><M-b>`     : go to buffer (opened file)
 - `<M-w>V`         : visible buffers in tab & window (plain mode)
 - `<M-w><M-v>`     : visible buffers in tab & window (tree fold mode)
 - `<M-w>s`         : occur in current file
@@ -997,7 +1000,7 @@ BUFFERS						*wheel-dedicated-buffers-buffers*
 
 Go to buffer.
 
-The default mapping is `<M-w>b`.
+The default mapping is `<M-w><M-b>`.
 
 ------------------------------------------------------------------------------
 TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
