@@ -452,7 +452,7 @@ Sometimes however, you want to quickly edit a file that has nothing to
 do with your usual groups. You can then go back by manually launching
 the sync-down. The default binding is : >
 
-    <M-w><M-$>
+    <M-w>$
 <
 
 Sync up : current file & position -> wheel~
@@ -466,7 +466,7 @@ using a wheel map. The wheel state will then be distinct from your current
 file. You can then ask the wheel to follow the current file by manually
 launch the sync-up process. The default mapping is : >
 
-    <M-w>$
+    <M-w><M-$>
 <
 
 
@@ -2373,6 +2373,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Menus
     exe nmap '<m-m>          <plug>(wheel-menu-main)'
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
+    " Sync
+    exe nmap '<m-$>          <plug>(wheel-sync-up)'
     " Add, Delete
     exe nmap '<m-insert>     <plug>(wheel-add-here)'
     exe nmap '<m-del>        <plug>(wheel-delete-location)'
@@ -2390,44 +2392,44 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
     exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
     exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
-    " Switch prompt
-    exe nmap '<m-cr>        <plug>(wheel-switch-location)'
-    exe nmap '<c-cr>        <plug>(wheel-switch-circle)'
-    exe nmap '<s-cr>        <plug>(wheel-switch-torus)'
-    exe nmap '<m-c-cr>      <plug>(wheel-switch-in-index)'
-    " Navigation buffers
-    exe nmap '<space>        <plug>(wheel-navigation-location)'
-    exe nmap '<c-space>      <plug>(wheel-navigation-circle)'
-    exe nmap '<s-space>      <plug>(wheel-navigation-torus)'
-    exe nmap '<m-x>          <plug>(wheel-tree)'
-    exe nmap '<m-c-x>        <plug>(wheel-index-locations)'
-    exe nmap '<m-h>          <plug>(wheel-history)'
+    " Switch
+    exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
+    exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
+    exe nmap '<s-cr>        <plug>(wheel-prompt-torus)'
+    exe nmap '<m-c-cr>      <plug>(wheel-prompt-index)'
+    exe nmap '<m-h>         <plug>(wheel-prompt-history)'
+    exe nmap '<space>       <plug>(wheel-dedibuf-location)'
+    exe nmap '<c-space>     <plug>(wheel-dedibuf-circle)'
+    exe nmap '<s-space>     <plug>(wheel-dedibuf-torus)'
+    exe nmap '<m-x>         <plug>(wheel-dedibuf-tree)'
+    exe nmap '<m-c-x>       <plug>(wheel-dedibuf-index)'
+    exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
     " Search for files
-    exe nmap '<m-l>          <plug>(wheel-locate)'
-    exe nmap '<m-f>          <plug>(wheel-find)'
-    exe nmap '<m-c-f>        <plug>(wheel-async-find)'
-    exe nmap '<m-u>          <plug>(wheel-mru)'
+    exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
+    exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
+    exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
+    exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
     " Buffers
-    exe nmap '<m-b>          <plug>(wheel-buffers)'
-    exe nmap '<m-c-b>        <plug>(wheel-buffers-all)'
+    exe nmap '<m-b>          <plug>(wheel-dedibuf-buffers)'
+    exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers-all)'
     " Tabs & windows : visible buffers
-    exe nmap '<m-v>          <plug>(wheel-switch-tabwin)'
-    exe nmap '<m-c-v>        <plug>(wheel-tabwins-tree)'
+    exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
+    exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
     " Search inside files
-    exe nmap '<m-s>          <plug>(wheel-occur)'
-    exe nmap '<m-g>          <plug>(wheel-grep)'
-    exe nmap '<m-o>          <plug>(wheel-outline)'
+    exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
+    exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
+    exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
     " (neo)vim lists, prompt completion
-    exe nmap "<m-'>          <plug>(wheel-switch-marker)"
-    exe nmap '<m-j>          <plug>(wheel-switch-jump)'
-    exe nmap '<m-;>          <plug>(wheel-switch-change)'
-    exe nmap '<m-c>          <plug>(wheel-switch-change)'
-    exe nmap '<m-t>          <plug>(wheel-switch-tag)'
+    exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
+    exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
+    exe nmap '<m-;>          <plug>(wheel-prompt-change)'
+    exe nmap '<m-c>          <plug>(wheel-prompt-change)'
+    exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
     " (neo)vim lists, dedicated buffer
-    exe nmap "<m-k>          <plug>(wheel-markers)"
-    exe nmap '<m-c-j>        <plug>(wheel-jumps)'
-    exe nmap '<m-,>          <plug>(wheel-changes)'
-    exe nmap '<m-c-t>        <plug>(wheel-tags)'
+    exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
+    exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
+    exe nmap '<m-,>          <plug>(wheel-dedibuf-changes)'
+    exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
     " Yank
     exe nmap '<m-y>          <plug>(wheel-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-yank-plain)'
@@ -2441,12 +2443,12 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Undo list
     exe nmap '<m-c-u>        <plug>(wheel-undo-list)'
     " Command
-    exe nmap '<m-!>          <plug>(wheel-command)'
-    exe nmap '<m-&>          <plug>(wheel-async)'
-    " Save (push) mandala buffer
-    exe nmap '<m-tab>        <plug>(wheel-mandala-push)'
-    " Remove (pop) mandala buffer
-    exe nmap '<m-backspace>  <plug>(wheel-mandala-pop)'
+    exe nmap '<m-!>          <plug>(wheel-dedibuf-command)'
+    exe nmap '<m-&>          <plug>(wheel-dedibuf-async)'
+    " Add new mandala buffer
+    exe nmap '<m-tab>        <plug>(wheel-mandala-add)'
+    " Delete mandala buffer
+    exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
     " Cycle mandala buffers
     exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
     exe nmap '<m-end>       <plug>(wheel-mandala-forward)'
@@ -2498,6 +2500,8 @@ Straightforward :
 | <plug>(wheel-menu-meta)                         | meta menu                                 |
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-dashboard)                         | dashboard                                 |
+| <plug>(wheel-sync-down)                         | jump to current file & pos in wheel       |
+| <plug>(wheel-sync-up)                           | follow current file                       |
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-read-all)                          | read wheel from file                      |
 | <plug>(wheel-write-all)                         | save wheel to file                        |
@@ -2548,47 +2552,46 @@ Prompt :
 | <plug>(wheel-prompt-location)                   | switch location                          |
 | <plug>(wheel-prompt-circle)                     | switch circle                            |
 | <plug>(wheel-prompt-torus)                      | switch torus                             |
-| <plug>(wheel-multi-prompt)                      | switch torus, circle & location          |
-| <plug>(wheel-prompt-in-index)                   | switch location in index                 |
-| <plug>(wheel-prompt-tabwin)                     | visible buffers in tabs & windows        |
-| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-prompt-multi-switch)               | switch torus, circle & location          |
+| <plug>(wheel-prompt-index)                      | switch location in index                 |
+| <plug>(wheel-prompt-history)                    | switch to element in history             |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                        |
 | ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-prompt-tabwin)                     | visible buffers in tabs & windows        |
+| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-prompt-marker)                     | switch to marker                         |
+| <plug>(wheel-prompt-jump)                       | switch to jump                           |
+| <plug>(wheel-prompt-change)                     | switch to change                         |
 | <plug>(wheel-prompt-tag)                        | switch to tag                            |
 
 Dedicated buffers :
 
 | Plug maps                                       | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-navigation-location)               | switch location                        |
-| <plug>(wheel-navigation-circle)                 | switch circle                          |
-| <plug>(wheel-navigation-torus)                  | switch torus                           |
-| <plug>(wheel-index-locations)                   | index of locations                     |
-| <plug>(wheel-index-circles)                     | index of circles                       |
-| <plug>(wheel-tree)                              | index of locations in tree fold format |
-| <plug>(wheel-history)                           | index of locations history             |
-| <plug>(wheel-follow)                            | follow current file                    |
+| <plug>(wheel-dedibuf-location)                  | switch location                        |
+| <plug>(wheel-dedibuf-circle)                    | switch circle                          |
+| <plug>(wheel-dedibuf-torus)                     | switch torus                           |
+| <plug>(wheel-dedibuf-index)                     | index of locations                     |
+| <plug>(wheel-dedibuf-index-circles)             | index of circles                       |
+| <plug>(wheel-dedibuf-tree)                      | index of locations in tree fold format |
+| <plug>(wheel-dedibuf-history)                   | index of locations history             |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-locate)                            | search file with locate                |
-| <plug>(wheel-find)                              | find file in current dir               |
-| <plug>(wheel-async-find)                        | search file with !find in async mode   |
-| <plug>(wheel-mru)                               | most recently used files               |
-| <plug>(wheel-buffers)                           | buffers                                |
-| <plug>(wheel-tabwins)                           | visible buffers in tabs & windows      |
-| <plug>(wheel-tabwins-tree)                      | tabs & windows in tree fold format     |
-| <plug>(wheel-occur)                             | occurences of pattern in current file  |
-| <plug>(wheel-grep)                              | grep pattern in all circle files       |
-| <plug>(wheel-outline)                           | headers in all circle files            |
+| <plug>(wheel-dedibuf-locate)                    | search file with locate                |
+| <plug>(wheel-dedibuf-find)                      | find file in current dir               |
+| <plug>(wheel-dedibuf-async-find)                | search file with !find in async mode   |
+| <plug>(wheel-dedibuf-mru)                       | most recently used files               |
+| <plug>(wheel-dedibuf-buffers)                   | buffers                                |
+| <plug>(wheel-dedibuf-buffers)                   | all buffers, including unlisted ones   |
+| <plug>(wheel-dedibuf-tabwins)                   | visible buffers in tabs & windows      |
+| <plug>(wheel-dedibuf-tabwins-tree)              | tabs & windows in tree fold format     |
+| <plug>(wheel-dedibuf-occur)                     | occurences of pattern in current file  |
+| <plug>(wheel-dedibuf-grep)                      | grep pattern in all circle files       |
+| <plug>(wheel-dedibuf-outline)                   | headers in all circle files            |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-switch-marker)                     | markers, prompt completion             |
-| <plug>(wheel-switch-jump)                       | vim jumps, prompt completion           |
-| <plug>(wheel-switch-change)                     | vim changes, prompt completion         |
-| <plug>(wheel-switch-tag)                        | tags, prompt completion                |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-markers)                           | markers, dedicated buffer              |
-| <plug>(wheel-jumps)                             | vim jumps, dedicated buffer            |
-| <plug>(wheel-changes)                           | vim changes, dedicated buffer          |
-| <plug>(wheel-tags)                              | tags, dedicated buffer                 |
+| <plug>(wheel-dedibuf-markers)                   | markers                                |
+| <plug>(wheel-dedibuf-jumps)                     | vim jumps                              |
+| <plug>(wheel-dedibuf-changes)                   | vim changes                            |
+| <plug>(wheel-dedibuf-tags)                      | tags                                   |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-yank-list)                         | yank wheel in list format              |
 | <plug>(wheel-yank-plain)                        | yank wheel in plain format             |
@@ -2597,21 +2600,22 @@ Dedicated buffers :
 | <plug>(wheel-reorder-circle)                    | reorder circles                        |
 | <plug>(wheel-reorder-torus)                     | reorder toruses                        |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-batch-rename-location)             | batch rename locations                 |
-| <plug>(wheel-batch-rename-circle)               | batch rename circles                   |
-| <plug>(wheel-batch-rename-torus)                | batch rename toruses                   |
+| <plug>(wheel-dedibuf-rename-location)           | batch rename locations                 |
+| <plug>(wheel-dedibuf-rename-circle)             | batch rename circles                   |
+| <plug>(wheel-dedibuf-rename-torus)              | batch rename toruses                   |
+| <plug>(wheel-dedibuf-rename-location-filename)  | batch rename locations & filenames     |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-batch-copy-move-location)          | batch copy-move locations              |
-| <plug>(wheel-batch-copy-move-circle)            | batch copy-move circles                |
-| <plug>(wheel-batch-copy-move-torus)             | batch copy-move toruses                |
+| <plug>(wheel-dedibuf-copy-move-location)        | batch copy-move locations              |
+| <plug>(wheel-dedibuf-copy-move-circle)          | batch copy-move circles                |
+| <plug>(wheel-dedibuf-copy-move-torus)           | batch copy-move toruses                |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-reorganize)                        | reorganize wheel treeish structure     |
 | <plug>(wheel-reorg-tabwins)                     | reorganize tabs & windows              |
 | <plug>(wheel-grep-edit)                         | grep circle files in edit mode         |
 | <plug>(wheel-undo-list)                         | go to undo state, compare with diff    |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-command)                           | output of ex or shell command          |
-| <plug>(wheel-async)                             | output of shell command in async mode  |
+| <plug>(wheel-dedibuf-command)                   | output of ex or shell command          |
+| <plug>(wheel-dedibuf-async)                     | output of shell command in async mode  |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-mandala-push)                      | push a new dedicated buffer            |
 | <plug>(wheel-mandala-pop)                       | pop current dedicated buffer           |
@@ -2839,57 +2843,57 @@ Autoload~
 Here is a list of files in `autoload/wheel/`, and a brief description
 of the modules within them.
 
-| File              | Description                                             |
-| ----------------- | ------------------------------------------------------- |
-| attic.vim         | Most Recently Used files                                |
-| book.vim          | Layers ring for dedicated buffers (new implementation)  |
-| boomerang.vim     | Context menus                                           |
-| centre.vim        | Commands & mappings                                     |
-| chain.vim         | List helpers                                            |
-| checknfix.vim     | Check & fix variables                                   |
-| clipper.vim       | Yank buffers                                            |
-| codex.vim         | Yank wheel                                              |
-| completelist.vim  | List completion functions                               |
-| complete.vim      | Completion functions                                    |
-| crystal.vim       | Internal variables                                      |
-| cuboctahedron.vim | Reshaping : reorder, reorganize                         |
-| cylinder.vim      | Dedicated buffers ring                                  |
-| delta.vim         | Undo & diff                                             |
-| disc.vim          | Read & write wheel file                                 |
-| gear.vim          | Generic helpers                                         |
-| group.vim         | Auto grouping                                           |
-| guru.vim          | Help                                                    |
-| helix.vim         | Indexes                                                 |
-| hub.vim           | Menus                                                   |
-| kyusu.vim         | Line filters for dedicated buffers                      |
-| layer.vim         | Layers stack for dedicated buffers (old implementation) |
-| line.vim          | Activate line                                           |
-| loop.vim          | Loops on mandala lines                                  |
-| mandala.vim       | Generic dedicated buffers                               |
-| matrix.vim        | Nested lists & dictionaries                             |
-| mosaic.vim        | Windows & tabs Layouts                                  |
-| origami.vim       | Mandala folding                                         |
-| pencil.vim        | Selection in dedicated buffers                          |
-| pendulum.vim      | History                                                 |
-| perspective.vim   | Content generators for dedicated buffers                |
-| projection.vim    | Find wheel location of current buffer                   |
-| pyramid.vim       | Mix of tabs & splits layouts                            |
-| rectangle.vim     | Windows & buffers                                       |
-| referen.vim       | References to current elements                          |
-| ripple.vim        | Async job for vim                                       |
-| sailing.vim       | Dedicated buffers for navigation                        |
-| scroll.vim        | Input history                                           |
-| shape.vim         | Dedicated buffers to reshape the wheel                  |
-| spiral.vim        | Golden ratio                                            |
-| status.vim        | Print wheel status                                      |
-| symbol.vim        | Tags                                                    |
-| tower.vim         | Menu layer in dedicated buffers                         |
-| tree.vim          | Add, rename, delete elements                            |
-| vector.vim        | Batch operations                                        |
-| void.vim          | Initiaze & reset variables                              |
-| vortex.vim        | Navigation in the wheel                                 |
-| wave.vim          | Async job for neovim                                    |
-| whirl.vim         | Switch with native (neo)vim functions                   |
+| File              | Description                                   |
+| ----------------- | --------------------------------------------- |
+| attic.vim         | Most Recently Used files                      |
+| book.vim          | Layer ring for each dedicated buffer          |
+| boomerang.vim     | Context menus                                 |
+| centre.vim        | Commands & mappings                           |
+| chain.vim         | List helpers                                  |
+| checknfix.vim     | Check & fix variables                         |
+| clipper.vim       | Yank buffers                                  |
+| codex.vim         | Yank wheel                                    |
+| completelist.vim  | List completion functions                     |
+| complete.vim      | Completion functions                          |
+| crystal.vim       | Internal variables                            |
+| cuboctahedron.vim | Reshaping : reorder, reorganize               |
+| cylinder.vim      | Dedicated buffers ring                        |
+| delta.vim         | Undo & diff                                   |
+| disc.vim          | Read & write wheel file                       |
+| gear.vim          | Generic helpers                               |
+| group.vim         | Auto grouping                                 |
+| guru.vim          | Help                                          |
+| helix.vim         | Indexes                                       |
+| hub.vim           | Menus                                         |
+| kyusu.vim         | Line filters for dedicated buffers            |
+| layer.vim         | Layer stack (unused)                          |
+| line.vim          | Activate line                                 |
+| loop.vim          | Loops on mandala lines                        |
+| mandala.vim       | Generic dedicated buffers                     |
+| matrix.vim        | Nested lists & dictionaries                   |
+| mosaic.vim        | Windows & tabs Layouts                        |
+| origami.vim       | Mandala folding                               |
+| pencil.vim        | Selection in dedicated buffers                |
+| pendulum.vim      | History                                       |
+| perspective.vim   | Content generators for dedicated buffers      |
+| projection.vim    | Find wheel location of current buffer         |
+| pyramid.vim       | Mix of tabs & splits layouts                  |
+| rectangle.vim     | Windows & buffers                             |
+| referen.vim       | References to current elements                |
+| ripple.vim        | Async job for vim                             |
+| sailing.vim       | Dedicated buffers for navigation              |
+| scroll.vim        | Input history                                 |
+| shape.vim         | Dedicated buffers to reshape the wheel        |
+| spiral.vim        | Golden ratio                                  |
+| status.vim        | Print wheel status                            |
+| symbol.vim        | Tags                                          |
+| tower.vim         | Menu layer in dedicated buffers               |
+| tree.vim          | Add, rename, delete elements                  |
+| vector.vim        | Batch operations                              |
+| void.vim          | Initiaze & reset variables                    |
+| vortex.vim        | Navigation in the wheel                       |
+| wave.vim          | Async job for neovim                          |
+| whirl.vim         | Switch with native (neo)vim functions         |
 
 Doc~
 

@@ -13,6 +13,12 @@ if ! exists('s:referen_coordin')
 	let s:referen_coordin = ['torus', 'circle', 'location']
 	lockvar s:referen_coordin
 endif
+" Script constants
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
 
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
@@ -243,6 +249,8 @@ fun! wheel#vortex#multi_switch(...)
 	return indexes
 endfun
 
+" Other wheel tables
+
 fun! wheel#vortex#helix (...)
 	" Switch to coordinates in index
 	" Optional argument : jump mode
@@ -270,7 +278,9 @@ fun! wheel#vortex#history (...)
 	let prompt = 'Switch to history element : '
 	let complete =  'customlist,wheel#completelist#history'
 	let record = input(prompt, '', complete)
-	let coordin = split(record, s:level_separ)
+	let fields = split(record, s:field_separ)
+	let entry = fields[1]
+	let coordin = split(entry, s:level_separ)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (mode)
 endfun
