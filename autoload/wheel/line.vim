@@ -324,7 +324,7 @@ endfun
 fun! wheel#line#markers (settings)
 	" Go to settings.selected marker
 	let fields = split(a:settings.selected, s:field_separ)
-	let mark = fields[0][1:]
+	let mark = fields[0]
 	"let line = fields[1]
 	"let column = fields[2]
 	execute "normal `" .. mark

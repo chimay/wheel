@@ -21,7 +21,7 @@ fun! wheel#whirl#marker ()
 	let complete =  'customlist,wheel#completelist#markers'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
-	let mark = fields[0][1:]
+	let mark = fields[0]
 	execute "normal `" .. mark
 	return win_getid ()
 endfun

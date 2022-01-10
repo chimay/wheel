@@ -345,7 +345,7 @@ fun! wheel#perspective#markers ()
 	let marklist = getmarklist(bufnum)
 	call extend(marklist, getmarklist())
 	for marker in marklist
-		let mark = marker.mark
+		let mark = marker.mark[1:]
 		if has_key(marker, 'file')
 			let filename = marker.file
 		else
