@@ -2611,7 +2611,7 @@ Prompt :
 | <plug>(wheel-prompt-index)                      | switch location in index                 |
 | <plug>(wheel-prompt-history)                    | switch to element in history             |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-prompt-buffer)                     | swtich to buffer                         |
+| <plug>(wheel-prompt-buffer)                     | switch to buffer                         |
 | <plug>(wheel-prompt-tabwin)                     | visible buffers in tabs & windows        |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-prompt-marker)                     | switch to marker                         |
