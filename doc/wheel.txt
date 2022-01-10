@@ -436,14 +436,16 @@ Switch~
 - circle : `<M-w><C-Space>`
 - torus : `<M-w><S-Space>`
 - location in index : `<M-w>x`
+- location in history : `<M-w>h`
 
 ------------------------------------------------------------------------------
 SYNC							*wheel-elements-sync*
 
-Sync down : wheel -> current window~
+Sync down : wheel -> vim state~
 
-The jump function loads the current file & position of the wheel in the
-current window.
+The `jump` function loads the current file & position of the wheel in
+the current window. If the file is already displayed in another window,
+jump to it instead.
 
 This sync-down process is automatically run by every navigation map
 that deals with elements in the wheel.
@@ -457,18 +459,19 @@ the sync-down. The default binding is : >
 
 Sync up : current file & position -> wheel~
 
-The follow function try to find the closest location in the wheel that
+The `follow` function try to find the closest location in the wheel that
 matches the current file & position. If found, the wheel current location
 is synced with the current file.
 
-Let's say you edit a file, load a buffer or go to a tab or window without
-using a wheel map. The wheel state will then be distinct from your current
-file. You can then ask the wheel to follow the current file by manually
-launch the sync-up process. The default mapping is : >
+Let's say you edit a file, load a buffer or go to a tab or window
+without using a wheel map. The wheel state will then be distinct from
+your current file. You can ask the wheel to follow the current file by
+manually launch the sync-up process. The default mapping is : >
 
     <M-w><M-$>
 <
 
+This process can be partly automated, see |wheel-autocommands-auto-follow|.
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
@@ -684,22 +687,12 @@ The available actions depend on the buffer type :
   + be sure you know what you're doing
 - reorganize tabs and windows
 
-Mandala~
-
-A mandala is a synonym for a wheel dedicated buffer.
-
 Wrapping up things~
 
 In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
 
 - if on the first line, `k` or `<up>` will go to the last line
 - if on the last line, `j` or `<down>` will go to the first line
-
-Leaf~
-
-A leaf is a synonym for a layer in a dedicated buffer.
-
-Each dedicated buffer has its own layer ring.
 
 Filtering~
 
@@ -782,6 +775,8 @@ A wheel dedicated buffer is also called a mandala.
 ------------------------------------------------------------------------------
 LAYER RING				*wheel-dedicated-buffers-layers*
 
+Each dedicated buffer has its own layer ring.
+
 Each time you launch a wheel function involving a dedicated buffer, a new
 associated layer is added to a ring local to the buffer. You may see it
 as a kind of local history. You can :
@@ -803,8 +798,7 @@ A layer in a dedicated buffer is also called a leaf.
 ------------------------------------------------------------------------------
 MENU						*wheel-dedicated-buffers-menus*
 
-Each menu has its own dedicated dedicated buffer. You can filter the menu
-lines by entering patterns in insert mode.
+You can filter the menu lines by entering patterns in insert mode.
 
 Action~
 
@@ -891,9 +885,9 @@ The default mappings launching navigation buffers are :
 - `<M-w><C-space>` : go to current location of the chosen circle
 - `<M-w><S-space>` : go to current location of the chosen torus
 - `<M-w>X`         : index of toruses > circles > locations
-- `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
-- `<M-w>h`         : history index
+- `<M-w><C-x>`     : index of toruses > circles
+- `<M-w><M-h>`     : history index
 - `<M-w>l`         : search files with `locate`
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
 - `<M-w>&f`        : search files with `find` in async mode
@@ -941,7 +935,7 @@ The dedicated buffers that allow us to navigate in the wheel are :
 - `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
-- `<M-w>h`         : history index
+- `<M-w><M-h>`     : history index
 
 ------------------------------------------------------------------------------
 LOCATE						*wheel-dedicated-buffers-locate*

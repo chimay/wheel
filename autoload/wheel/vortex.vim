@@ -48,11 +48,13 @@ fun! wheel#vortex#update (...)
 	if empty(location) || location.file !=# expand('%:p')
 		return v:false
 	endif
-	if location.line == line('.') && location.col == col('.')
+	let cur_line = line('.')
+	let cur_col = col('.')
+	if location.line == cur_line && location.col == cur_col
 		return v:false
 	endif
-	let location.line = line('.')
-	let location.col  = col('.')
+	let location.line = cur_line
+	let location.col  = cur_col
 	if mode == 'verbose'
 		echomsg 'wheel : location updated'
 	endif

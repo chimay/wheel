@@ -79,23 +79,23 @@ fun! wheel#projection#follow (...)
 	" wants to add something before switching
 	if level == 'wheel' && wheel#referen#is_empty ('torus')
 		echomsg 'wheel follow : torus is empty'
-		return
+		return v:false
 	endif
 	" first add some locations before leaving empty circle
 	if wheel#chain#is_inside(level, ['wheel', 'torus']) && wheel#referen#is_empty ('circle')
 		echomsg 'wheel follow : circle is empty'
-		return
+		return v:false
 	endif
 	" follow
 	let coordin = wheel#projection#closest (level)
 	if empty(coordin)
-		echomsg 'wheel follow : outside of the wheel'
-		return
+		"echomsg 'wheel follow : outside of the wheel'
+		return v:false
 	endif
 	if coordin == wheel#referen#names()
 		" already there : let's update location line & col
 		call wheel#vortex#update ('verbose')
-		return
+		return v:false
 	endif
 	call wheel#vortex#chord (coordin)
 	if g:wheel_config.cd_project > 0
@@ -109,4 +109,5 @@ fun! wheel#projection#follow (...)
 	echomsg info
 	" update location to cursor position
 	call wheel#vortex#update ()
+	return v:true
 endfun
