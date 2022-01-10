@@ -351,9 +351,9 @@ fun! wheel#perspective#markers ()
 		else
 			let filename = expand('%')
 		endif
-		let pos = marker.pos
-		let linum = pos[1]
-		let colnum = pos[2]
+		let position = marker.pos
+		let linum = position[1]
+		let colnum = position[2]
 		let bufnum = bufnr(filename)
 		if bufnum > 0 && bufloaded(bufnum)
 			let content = getbufline(bufnum, linum)[0]
