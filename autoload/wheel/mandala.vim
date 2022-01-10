@@ -465,10 +465,10 @@ fun! wheel#mandala#filter_maps ()
 	nnoremap <silent> <buffer> a ggA
 	" insert mode
 	inoremap <silent> <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
-	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
-	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
-	inoremap <silent> <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
-	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
+	inoremap <buffer> <c-w> <c-w><cmd>call wheel#mandala#filter('insert')<cr>
+	inoremap <buffer> <c-u> <c-u><cmd>call wheel#mandala#filter('insert')<cr>
+	inoremap <buffer> <esc> <cmd>call wheel#mandala#filter()<cr>
+	inoremap <buffer> <cr> <cmd>call wheel#mandala#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
 endfun
 
@@ -476,15 +476,15 @@ fun! wheel#mandala#input_history_maps ()
 	" Define local input history maps
 	" Use Up / Down & M-p / M-n
 	" C-p / C-n is taken by (neo)vim completion
-	inoremap <silent> <buffer> <up> <esc>:call wheel#scroll#older()<cr>
-	inoremap <silent> <buffer> <down> <esc>:call wheel#scroll#newer()<cr>
-	inoremap <silent> <buffer> <M-p> <esc>:call wheel#scroll#older()<cr>
-	inoremap <silent> <buffer> <M-n> <esc>:call wheel#scroll#newer()<cr>
+	inoremap <buffer> <up> <cmd>call wheel#scroll#older()<cr>
+	inoremap <buffer> <down> <cmd>call wheel#scroll#newer()<cr>
+	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
+	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
 	" PageUp / PageDown & M-r / M-s : next / prev matching line
-	inoremap <silent> <buffer> <PageUp> <esc>:call wheel#scroll#filtered_older()<cr>
-	inoremap <silent> <buffer> <PageDown> <esc>:call wheel#scroll#filtered_newer()<cr>
-	inoremap <silent> <buffer> <M-r> <esc>:call wheel#scroll#filtered_older()<cr>
-	inoremap <silent> <buffer> <M-s> <esc>:call wheel#scroll#filtered_newer()<cr>
+	inoremap <buffer> <PageUp> <cmd>call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <PageDown> <cmd>call wheel#scroll#filtered_newer()<cr>
+	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
 endfun
 
 " Folding
