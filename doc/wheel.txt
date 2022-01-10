@@ -2579,6 +2579,8 @@ Prompt :
 
 | Plug maps                                       | Description                              |
 | ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-alternate-menu)                    | menu to alternate                        |
+| ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-prompt-add-here)                   | add current file in the current circle   |
 | <plug>(wheel-prompt-add-circle)                 | add a new circle                         |
 | <plug>(wheel-prompt-add-torus)                  | add a new torus                          |
@@ -2608,8 +2610,8 @@ Prompt :
 | <plug>(wheel-prompt-multi-switch)               | switch torus, circle & location          |
 | <plug>(wheel-prompt-index)                      | switch location in index                 |
 | <plug>(wheel-prompt-history)                    | switch to element in history             |
-| <plug>(wheel-alternate-menu)                    | menu to alternate                        |
 | ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-prompt-buffer)                     | swtich to buffer                         |
 | <plug>(wheel-prompt-tabwin)                     | visible buffers in tabs & windows        |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-prompt-marker)                     | switch to marker                         |
