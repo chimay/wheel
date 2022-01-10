@@ -49,4 +49,5 @@ fun! wheel#tower#staircase (settings)
 	let b:wheel_lines = lines
 	call cursor(1, 1)
 	call wheel#book#syncup ()
+	call wheel#status#leaf ()
 endfun
