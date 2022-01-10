@@ -95,11 +95,15 @@ endfun
 
 " Tab line
 
-fun! wheel#status#tablabel (index)
+fun! wheel#status#tablabel (tabnum)
 	" Label of a tab
-	let index = a:index
-	" Modified indicator
-	let buflist = tabpagebuflist(index)
+	let tabnum = a:tabnum
+	let buflist = tabpagebuflist(tabnum)
+	let win_num = len(buflist)
+	let winnr = tabpagewinnr(tabnum)
+	let bufnr = buflist[winnr - 1]
+	let filename = bufname(bufnr)
+	let filename = fnamemodify(filename, ':t')
 	let modified = ''
 	for bufnum in buflist
 		if getbufvar(bufnum, "&modified")
@@ -107,15 +111,13 @@ fun! wheel#status#tablabel (index)
 			break
 		endif
 	endfor
-	" Label
-	let winnr = tabpagewinnr(index)
-	let buffernr = buflist[winnr - 1]
-	let buffername = bufname(buffernr)
-	let label = fnamemodify(buffername, ':t')
-	if empty(label)
-		let label = '[no-name]'
+	if empty(filename)
+		let filename = '[no-name]'
 	endif
-	let label ..= ' ' .. modified
+	let label = tabnum .. ':' .. filename .. modified
+	if win_num > 1
+		let label ..= '(' .. win_num .. ')'
+	endif
 	if ! has_key(g:wheel_shelve.layout, 'tabnames')
 		return label
 	endif
@@ -123,24 +125,24 @@ fun! wheel#status#tablabel (index)
 	if empty(tabnames)
 		return label
 	endif
-	let label = tabnames[index - 1] .. ' ' .. modified
+	let label = tabnames[tabnum - 1] .. ' ' .. modified
 	return label
 endfun
 
 fun! wheel#status#tabline ()
 	" Tab line
 	let text = ''
-	for index in range(1, tabpagenr('$'))
+	for tabnum in range(1, tabpagenr('$'))
 		" Highlighting
-		if index == tabpagenr()
+		if tabnum == tabpagenr()
 			let text ..= '%#TabLineSel#'
 		else
 			let text ..= '%#TabLine#'
 		endif
 		" Tab page number (for mouse clicks)
-		let text ..= '%' .. index .. 'T'
+		let text ..= '%' .. tabnum .. 'T'
 		" Label of a tab
-		let text ..= ' %{wheel#status#tablabel(' .. index .. ')} '
+		let text ..= ' %{wheel#status#tablabel(' .. tabnum .. ')} '
 	endfor
 	" After the last tab fill with TabLineFill and reset tab page nr
 	let text ..= '%#TabLineFill#%T'
