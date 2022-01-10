@@ -265,8 +265,6 @@ fun! wheel#vortex#multi_switch(...)
 	return indexes
 endfun
 
-" Other wheel tables
-
 fun! wheel#vortex#helix (...)
 	" Switch to coordinates in index
 	" Optional argument : jump mode
