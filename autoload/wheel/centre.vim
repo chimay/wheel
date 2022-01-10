@@ -25,8 +25,8 @@ fun! wheel#centre#plugs ()
 	" Sync down : jump
 	nnoremap <plug>(wheel-sync-down) :call wheel#vortex#jump()<cr>
 	" Load / Save wheel
-	nnoremap <plug>(wheel-read-all) :call wheel#disc#read_all()<cr>
-	nnoremap <plug>(wheel-write-all) :call wheel#disc#write_all()<cr>
+	nnoremap <plug>(wheel-read-wheel) :call wheel#disc#read_all()<cr>
+	nnoremap <plug>(wheel-write-wheel) :call wheel#disc#write_all()<cr>
 	" Load / Save session
 	nnoremap <plug>(wheel-read-session) :call wheel#disc#read_session()<cr>
 	nnoremap <plug>(wheel-write-session) :call wheel#disc#write_session()<cr>
@@ -48,28 +48,28 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-alternate-other-circle) :call wheel#pendulum#alternate('other_circle')<cr>
 	nnoremap <plug>(wheel-alternate-menu) :call wheel#pendulum#alternate_menu()<cr>
 	" Add
-	nnoremap <plug>(wheel-add-here) :call wheel#tree#add_here()<cr>
-	nnoremap <plug>(wheel-add-circle) :call wheel#tree#add_circle()<cr>
-	nnoremap <plug>(wheel-add-torus) :call wheel#tree#add_torus()<cr>
-	nnoremap <plug>(wheel-add-file) :call wheel#tree#add_file()<cr>
-	nnoremap <plug>(wheel-add-buffer) :call wheel#tree#add_buffer()<cr>
-	nnoremap <plug>(wheel-add-glob) :call wheel#tree#add_glob()<cr>
+	nnoremap <plug>(wheel-prompt-add-here) :call wheel#tree#add_here()<cr>
+	nnoremap <plug>(wheel-prompt-add-circle) :call wheel#tree#add_circle()<cr>
+	nnoremap <plug>(wheel-prompt-add-torus) :call wheel#tree#add_torus()<cr>
+	nnoremap <plug>(wheel-prompt-add-file) :call wheel#tree#add_file()<cr>
+	nnoremap <plug>(wheel-prompt-add-buffer) :call wheel#tree#add_buffer()<cr>
+	nnoremap <plug>(wheel-prompt-add-glob) :call wheel#tree#add_glob()<cr>
 	" Rename
-	nnoremap <plug>(wheel-rename-location) :call wheel#tree#rename('location')<cr>
-	nnoremap <plug>(wheel-rename-circle) :call wheel#tree#rename('circle')<cr>
-	nnoremap <plug>(wheel-rename-torus) :call wheel#tree#rename('torus')<cr>
-	nnoremap <plug>(wheel-rename-file) :call wheel#tree#rename_file()<cr>
+	nnoremap <plug>(wheel-prompt-rename-location) :call wheel#tree#rename('location')<cr>
+	nnoremap <plug>(wheel-prompt-rename-circle) :call wheel#tree#rename('circle')<cr>
+	nnoremap <plug>(wheel-prompt-rename-torus) :call wheel#tree#rename('torus')<cr>
+	nnoremap <plug>(wheel-prompt-rename-file) :call wheel#tree#rename_file()<cr>
 	" Delete
-	nnoremap <plug>(wheel-delete-location) :call wheel#tree#delete('location')<cr>
-	nnoremap <plug>(wheel-delete-circle) :call wheel#tree#delete('circle')<cr>
-	nnoremap <plug>(wheel-delete-torus) :call wheel#tree#delete('torus')<cr>
+	nnoremap <plug>(wheel-prompt-delete-location) :call wheel#tree#delete('location')<cr>
+	nnoremap <plug>(wheel-prompt-delete-circle) :call wheel#tree#delete('circle')<cr>
+	nnoremap <plug>(wheel-prompt-delete-torus) :call wheel#tree#delete('torus')<cr>
 	" Copy
-	nnoremap <plug>(wheel-copy-location) :call wheel#tree#copy('location')<cr>
-	nnoremap <plug>(wheel-copy-circle) :call wheel#tree#copy('circle')<cr>
-	nnoremap <plug>(wheel-copy-torus) :call wheel#tree#copy('torus')<cr>
+	nnoremap <plug>(wheel-prompt-copy-location) :call wheel#tree#copy('location')<cr>
+	nnoremap <plug>(wheel-prompt-copy-circle) :call wheel#tree#copy('circle')<cr>
+	nnoremap <plug>(wheel-prompt-copy-torus) :call wheel#tree#copy('torus')<cr>
 	" Move
-	nnoremap <plug>(wheel-move-location) :call wheel#tree#move('location')<cr>
-	nnoremap <plug>(wheel-move-circle) :call wheel#tree#move('circle')<cr>
+	nnoremap <plug>(wheel-prompt-move-location) :call wheel#tree#move('location')<cr>
+	nnoremap <plug>(wheel-prompt-move-circle) :call wheel#tree#move('circle')<cr>
 	" Switch
 	nnoremap <plug>(wheel-prompt-location) :call wheel#vortex#switch('location')<cr>
 	nnoremap <plug>(wheel-prompt-circle) :call wheel#vortex#switch('circle')<cr>
@@ -95,7 +95,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-buffers) :call wheel#sailing#buffers()<cr>
 	nnoremap <plug>(wheel-dedibuf-buffers-all) :call wheel#sailing#buffers('all')<cr>
 	" Tabs & windows : visible buffers
-	nnoremap <plug>(wheel-dedibuf-prompt-tabwin) :call wheel#rectangle#switch()<cr>
+	nnoremap <plug>(wheel-prompt-tabwin) :call wheel#rectangle#switch()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins) :call wheel#sailing#tabwins()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins-tree) :call wheel#sailing#tabwins_tree()<cr>
 	" Search inside files
@@ -113,12 +113,12 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-changes) :call wheel#sailing#changes()<cr>
 	nnoremap <plug>(wheel-dedibuf-tags) :call wheel#sailing#tags()<cr>
 	" Yank wheel
-	nnoremap <plug>(wheel-yank-list) :call wheel#clipper#yank('list')<cr>
-	nnoremap <plug>(wheel-yank-plain) :call wheel#clipper#yank('plain')<cr>
+	nnoremap <plug>(wheel-dedibuf-yank-list) :call wheel#clipper#yank('list')<cr>
+	nnoremap <plug>(wheel-dedibuf-yank-plain) :call wheel#clipper#yank('plain')<cr>
 	" Reorder
-	nnoremap <plug>(wheel-reorder-location) :call wheel#shape#reorder('location')<cr>
-	nnoremap <plug>(wheel-reorder-circle) :call wheel#shape#reorder('circle')<cr>
-	nnoremap <plug>(wheel-reorder-torus) :call wheel#shape#reorder('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-location) :call wheel#shape#reorder('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-circle) :call wheel#shape#reorder('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-torus) :call wheel#shape#reorder('torus')<cr>
 	" Batch rename
 	nnoremap <plug>(wheel-dedibuf-rename-location) :call wheel#shape#rename('location')<cr>
 	nnoremap <plug>(wheel-dedibuf-rename-circle) :call wheel#shape#rename('circle')<cr>
@@ -129,13 +129,13 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-copy-move-circle) :call wheel#shape#copy_move('circle')<cr>
 	nnoremap <plug>(wheel-dedibuf-copy-move-torus) :call wheel#shape#copy_move('torus')<cr>
 	" Reorganize
-	nnoremap <plug>(wheel-reorganize) :call wheel#shape#reorganize()<cr>
+	nnoremap <plug>(wheel-dedibuf-reorganize) :call wheel#shape#reorganize()<cr>
 	" Reorganize tabs & windows
-	nnoremap <plug>(wheel-reorg-tabwins) :call wheel#shape#reorg_tabwins()<cr>
+	nnoremap <plug>(wheel-dedibuf-reorg-tabwins) :call wheel#shape#reorg_tabwins()<cr>
 	" Grep edit mode
-	nnoremap <plug>(wheel-grep-edit) :call wheel#shape#grep_edit()<cr>
+	nnoremap <plug>(wheel-dedibuf-grep-edit) :call wheel#shape#grep_edit()<cr>
 	" Undo list
-	nnoremap <plug>(wheel-undo-list) :call wheel#delta#undolist()<cr>
+	nnoremap <plug>(wheel-dedibuf-undo-list) :call wheel#delta#undolist()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-dedibuf-command) :call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-dedibuf-async) :call wheel#mandala#async()<cr>
@@ -201,13 +201,16 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '= <plug>(wheel-menu-meta)'
 		" Dashboard, info
 		exe nmap prefix .. 'i <plug>(wheel-dashboard)'
-		" Add
-		exe nmap prefix .. 'a <plug>(wheel-add-here)'
-		exe nmap prefix .. '<c-a> <plug>(wheel-add-circle)'
-		exe nmap prefix .. 'A <plug>(wheel-add-torus)'
-		exe nmap prefix .. '+f <plug>(wheel-add-file)'
-		exe nmap prefix .. '+b <plug>(wheel-add-buffer)'
-		exe nmap prefix .. '* <plug>(wheel-add-glob)'
+		" Sync up : follow
+		exe nmap prefix .. '<m-$> <plug>(wheel-sync-up)'
+		" Sync down : jump
+		exe nmap prefix .. '$ <plug>(wheel-sync-down)'
+		" Load / Save wheel
+		exe nmap prefix .. 'r <plug>(wheel-read-wheel)'
+		exe nmap prefix .. 'w <plug>(wheel-write-wheel)'
+		" Load / Save session file
+		exe nmap prefix .. 'R <plug>(wheel-read-session)'
+		exe nmap prefix .. 'W <plug>(wheel-write-session)'
 		" Next / Previous
 		exe nmap prefix .. '<left> <plug>(wheel-previous-location)'
 		exe nmap prefix .. '<right> <plug>(wheel-next-location)'
@@ -215,6 +218,13 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<c-right> <plug>(wheel-next-circle)'
 		exe nmap prefix .. '<s-left> <plug>(wheel-previous-torus)'
 		exe nmap prefix .. '<s-right> <plug>(wheel-next-torus)'
+		" Add
+		exe nmap prefix .. 'a <plug>(wheel-prompt-add-here)'
+		exe nmap prefix .. '<c-a> <plug>(wheel-prompt-add-circle)'
+		exe nmap prefix .. 'A <plug>(wheel-prompt-add-torus)'
+		exe nmap prefix .. '+f <plug>(wheel-prompt-add-file)'
+		exe nmap prefix .. '+b <plug>(wheel-prompt-add-buffer)'
+		exe nmap prefix .. '* <plug>(wheel-prompt-add-glob)'
 		" History
 		exe nmap prefix .. '<up> <plug>(wheel-history-newer)'
 		exe nmap prefix .. '<down> <plug>(wheel-history-older)'
@@ -222,12 +232,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<m-^> <plug>(wheel-alternate-same-circle)'
 		exe nmap prefix .. '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
 		exe nmap prefix .. '^ <plug>(wheel-alternate-menu)'
-		" Load / Save wheel
-		exe nmap prefix .. 'r <plug>(wheel-read-all)'
-		exe nmap prefix .. 'w <plug>(wheel-write-all)'
-		" Load / Save session file
-		exe nmap prefix .. 'R <plug>(wheel-read-session)'
-		exe nmap prefix .. 'W <plug>(wheel-write-session)'
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1
@@ -236,10 +240,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<c-cr> <plug>(wheel-prompt-circle)'
 		exe nmap prefix .. '<s-cr> <plug>(wheel-prompt-torus)'
 		exe nmap prefix .. '<m-cr> <plug>(wheel-prompt-multi-switch)'
-		" Sync up : follow
-		exe nmap prefix .. '<m-$> <plug>(wheel-sync-up)'
-		" Sync down : jump
-		exe nmap prefix .. '$ <plug>(wheel-sync-down)'
 		" Navigation
 		exe nmap prefix .. '<space> <plug>(wheel-dedibuf-location)'
 		exe nmap prefix .. '<c-space> <plug>(wheel-dedibuf-circle)'
@@ -270,9 +270,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'm <plug>(wheel-move-location)'
 		exe nmap prefix .. 'M <plug>(wheel-move-circle)'
 		" Reorder
-		exe nmap prefix .. 'o <plug>(wheel-reorder-location)'
-		exe nmap prefix .. '<c-o> <plug>(wheel-reorder-circle)'
-		exe nmap prefix .. 'O <plug>(wheel-reorder-torus)'
+		exe nmap prefix .. 'o <plug>(wheel-dedibuf-reorder-location)'
+		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
+		exe nmap prefix .. 'O <plug>(wheel-dedibuf-reorder-torus)'
 		" Batch rename
 		exe nmap prefix .. batch .. 'n <plug>(wheel-dedibuf-rename-location)'
 		exe nmap prefix .. batch .. '<c-n> <plug>(wheel-dedibuf-rename-circle)'
@@ -312,17 +312,17 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. ', <plug>(wheel-dedibuf-changes)'
 		exe nmap prefix .. '<m-t> <plug>(wheel-dedibuf-tags)'
 		" Yank wheel
-		exe nmap prefix .. 'y <plug>(wheel-yank-list)'
-		exe nmap prefix .. 'p <plug>(wheel-yank-plain)'
+		exe nmap prefix .. 'y <plug>(wheel-dedibuf-yank-list)'
+		exe nmap prefix .. 'p <plug>(wheel-dedibuf-yank-plain)'
 		" Reorganize
 		" wheel
-		exe nmap prefix .. '<m-r> <plug>(wheel-reorganize)'
+		exe nmap prefix .. '<m-r> <plug>(wheel-dedibuf-reorganize)'
 		" tabs & windows
-		exe nmap prefix .. '<c-r> <plug>(wheel-reorg-tabwins)'
+		exe nmap prefix .. '<c-r> <plug>(wheel-dedibuf-reorg-tabwins)'
 		" grep edit
-		exe nmap prefix .. '<m-g> <plug>(wheel-grep-edit)'
+		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
 		" Undo list
-		exe nmap prefix .. '<m-u> <plug>(wheel-undo-list)'
+		exe nmap prefix .. '<m-u> <plug>(wheel-dedibuf-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
 		exe nmap prefix .. async .. '& <plug>(wheel-dedibuf-async)'
@@ -430,17 +430,17 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-,>          <plug>(wheel-dedibuf-changes)'
 		exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
 		" Yank
-		exe nmap '<m-y>          <plug>(wheel-yank-list)'
-		exe nmap '<m-p>          <plug>(wheel-yank-plain)'
+		exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
+		exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
 		" Reshaping buffers
 		" wheel
-		exe nmap '<m-r>          <plug>(wheel-reorganize)'
+		exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
 		" tabs & windows : visible buffers
-		exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
+		exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
 		" grep edit
-		exe nmap '<m-c-g>        <plug>(wheel-grep-edit)'
+		exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 		" Undo list
-		exe nmap '<m-c-u>        <plug>(wheel-undo-list)'
+		exe nmap '<m-c-u>        <plug>(wheel-dedibuf-undo-list)'
 		" Command
 		exe nmap '<m-!>          <plug>(wheel-dedibuf-command)'
 		exe nmap '<m-&>          <plug>(wheel-dedibuf-async)'
@@ -450,7 +450,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
 		" Cycle mandala buffers
 		exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
-		exe nmap '<m-end>       <plug>(wheel-mandala-forward)'
+		exe nmap '<m-end>         <plug>(wheel-mandala-forward)'
 		" Switch mandala buffers
 		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 		" Layouts
