@@ -465,10 +465,10 @@ fun! wheel#mandala#filter_maps ()
 	nnoremap <silent> <buffer> a ggA
 	" insert mode
 	inoremap <silent> <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
-	inoremap <buffer> <c-w> <c-w><cmd>call wheel#mandala#filter('insert')<cr>
-	inoremap <buffer> <c-u> <c-u><cmd>call wheel#mandala#filter('insert')<cr>
-	inoremap <buffer> <esc> <cmd>call wheel#mandala#filter()<cr>
-	inoremap <buffer> <cr> <cmd>call wheel#mandala#filter()<cr>
+	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
+	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
+	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
+	inoremap <silent> <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
 endfun
 

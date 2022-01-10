@@ -60,7 +60,7 @@ fun! wheel#scroll#filtered_newer ()
 		let g:wheel_input = reverse(copy(reversed))
 		call setline('.', g:wheel_input[0])
 	endif
-	call cursor(1, col + 1)
+	call cursor(1, col)
 	startinsert
 endfun
 
@@ -82,6 +82,6 @@ fun! wheel#scroll#filtered_older ()
 		let g:wheel_input = wheel#chain#roll_left (index, g:wheel_input)
 		call setline('.', g:wheel_input[0])
 	endif
-	call cursor(1, col + 1)
+	call cursor(1, col)
 	startinsert
 endfun
