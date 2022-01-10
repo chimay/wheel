@@ -89,12 +89,12 @@ fun! wheel#projection#follow (...)
 	" follow
 	let coordin = wheel#projection#closest (level)
 	if empty(coordin)
-		echomsg 'wheel follow : no location found'
+		echomsg 'wheel follow : outside of the wheel'
 		return
 	endif
 	if coordin == wheel#referen#names()
-		call wheel#vortex#update ()
-		echomsg 'wheel follow : location updated'
+		" already there : let's update location line & col
+		call wheel#vortex#update ('verbose')
 		return
 	endif
 	call wheel#vortex#chord (coordin)
@@ -103,7 +103,7 @@ fun! wheel#projection#follow (...)
 		call wheel#gear#project_root (markers)
 	endif
 	call wheel#pendulum#record ()
-	let info = 'wheel follows : '
+	let info = 'wheel follow : '
 	let info ..= coordin[0] .. ' > ' .. coordin[1] .. ' > ' .. coordin[2]
 	redraw!
 	echomsg info

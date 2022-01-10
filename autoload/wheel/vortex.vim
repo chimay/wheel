@@ -36,13 +36,27 @@ fun! wheel#vortex#here ()
 	return location
 endfun
 
-fun! wheel#vortex#update ()
+fun! wheel#vortex#update (...)
 	" Update current location to cursor
-	let location = wheel#referen#location()
-	if ! empty(location) && location.file ==# expand('%:p')
-		let location.line = line('.')
-		let location.col  = col('.')
+	" Optional argument : default or verbose
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
 	endif
+	let location = wheel#referen#location()
+	if empty(location) || location.file !=# expand('%:p')
+		return v:false
+	endif
+	if location.line == line('.') && location.col == col('.')
+		return v:false
+	endif
+	let location.line = line('.')
+	let location.col  = col('.')
+	if mode == 'verbose'
+		echomsg 'wheel : location updated'
+	endif
+	return v:true
 endfun
 
 fun! wheel#vortex#jump (...)
