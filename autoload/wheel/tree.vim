@@ -273,7 +273,7 @@ fun! wheel#tree#add_file (...)
 		let file = a:1
 	else
 		let prompt = 'File to add ? '
-		let complete =  'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#completelist#file'
 		let file = input(prompt, '', complete)
 	endif
 	execute 'edit' fnameescape(file)
@@ -287,7 +287,7 @@ fun! wheel#tree#add_buffer (...)
 		let buffer = a:1
 	else
 		let prompt = 'Buffer to add ? '
-		let complete =  'customlist,wheel#completelist#buffer'
+		let complete = 'customlist,wheel#completelist#buffer'
 		let buffer = input(prompt, '', complete)
 	endif
 	execute 'buffer' buffer
@@ -300,7 +300,7 @@ fun! wheel#tree#add_glob (...)
 		let glob = a:1
 	else
 		let prompt = 'Add files matching glob : '
-		let complete =  'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#completelist#file'
 		let glob = input(prompt, '', complete)
 	endif
 	" add first torus if needed
@@ -415,7 +415,7 @@ fun! wheel#tree#rename_file (...)
 		let cwd = getcwd() .. '/'
 		let dir = substitute(dir, cwd, '', '')
 		let prompt = 'Rename file as ? '
-		let complete =  'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#completelist#file'
 		let new_filename = input(prompt, dir, complete)
 	endif
 	" new name

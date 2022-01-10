@@ -28,7 +28,7 @@ fun! wheel#symbol#read (file)
 	endif
 	call filter(lines, {_,val -> val !~ '\m^!_TAG_'})
 	let table = []
-	let regex =  '\m^[^\t]\+\t[^\t]\+\t\zs.\+\ze'
+	let regex = '\m^[^\t]\+\t[^\t]\+\t\zs.\+\ze'
 	let final = '\m/\%(;"\)\?\zs[^/;"]*\ze$'
 	let remove = '\m/\%(;"\)\?[^/;"]*$'
 	for record in lines

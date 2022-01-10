@@ -93,10 +93,11 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
 	" Buffers
+	nnoremap <plug>(wheel-prompt-buffers) <cmd>call wheel#whirl#buffer()<cr>
 	nnoremap <plug>(wheel-dedibuf-buffers) <cmd>call wheel#sailing#buffers()<cr>
 	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#sailing#buffers('all')<cr>
 	" Tabs & windows : visible buffers
-	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#rectangle#switch()<cr>
+	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#whirl#tabwin()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins) <cmd>call wheel#sailing#tabwins()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins-tree) <cmd>call wheel#sailing#tabwins_tree()<cr>
 	" Search inside files
@@ -296,7 +297,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
 		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-outline)'
 		" Buffers
-		exe nmap prefix .. 'b <plug>(wheel-dedibuf-buffers)'
+		exe nmap prefix .. 'b <plug>(wheel-prompt-buffers)'
+		exe nmap prefix .. '<m-b> <plug>(wheel-dedibuf-buffers)'
 		exe nmap prefix .. 'B <plug>(wheel-dedibuf-buffers-all)'
 		" Tabs & windows : visible buffers
 		exe nmap prefix .. 'v <plug>(wheel-prompt-tabwin)'

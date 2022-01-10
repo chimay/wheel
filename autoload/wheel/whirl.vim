@@ -15,10 +15,29 @@ endif
 
 " main
 
+fun! wheel#whirl#buffer ()
+	" Switch to buffer
+	let prompt = 'Switch to buffer : '
+	let complete = 'customlist,wheel#completelist#buffers'
+endfun
+
+fun! wheel#whirl#tabwin ()
+	" Switch to tab & window of visible buffer
+	let prompt = 'Switch to visible buffer : '
+	let complete = 'customlist,wheel#completelist#visible_buffers'
+	let file_tab_win = input(prompt, '', complete)
+	let record = split(file_tab_win, s:field_separ)
+	let tabnum = record[0]
+	let winum = record[1]
+	execute 'noautocmd tabnext' tabnum
+	execute 'noautocmd' winum 'wincmd w'
+	doautocmd WinEnter
+endfun
+
 fun! wheel#whirl#marker ()
 	" Switch to marker
 	let prompt = 'Switch to marker : '
-	let complete =  'customlist,wheel#completelist#markers'
+	let complete = 'customlist,wheel#completelist#markers'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let mark = fields[0]
@@ -29,7 +48,7 @@ endfun
 fun! wheel#whirl#jump ()
 	" Switch to jump
 	let prompt = 'Switch to jump : '
-	let complete =  'customlist,wheel#completelist#jumps'
+	let complete = 'customlist,wheel#completelist#jumps'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let bufnum = fields[0]
@@ -43,7 +62,7 @@ endfun
 fun! wheel#whirl#change ()
 	" Switch to change
 	let prompt = 'Switch to change : '
-	let complete =  'customlist,wheel#completelist#changes'
+	let complete = 'customlist,wheel#completelist#changes'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let linum = str2nr(fields[0])
@@ -55,7 +74,7 @@ endfun
 fun! wheel#whirl#tag ()
 	" Switch to tag
 	let prompt = 'Switch to tag : '
-	let complete =  'customlist,wheel#completelist#tags'
+	let complete = 'customlist,wheel#completelist#tags'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	if len(fields) < 4

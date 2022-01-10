@@ -117,22 +117,6 @@ fun! wheel#rectangle#goto (bufnum, ...)
 	return v:true
 endfun
 
-fun! wheel#rectangle#switch (...)
-	" Switch to tab & window of visible buffer
-	let prompt = 'Switch to visible buffer : '
-	let complete =  'customlist,wheel#completelist#visible_buffers'
-	if a:0 > 0
-		let file_tab_win = a:1
-	else
-		let file_tab_win = input(prompt, '', complete)
-	endif
-	let record = split(file_tab_win, s:field_separ)
-	let tabnum = record[0]
-	let winum = record[1]
-	execute 'tabnext' tabnum
-	execute winum 'wincmd w'
-endfun
-
 fun! wheel#rectangle#hidden_buffers (...)
 	" Return list of hidden or unlisted buffers, with some exceptions
 	" Optional argument mode :

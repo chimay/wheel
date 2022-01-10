@@ -50,7 +50,7 @@ fun! wheel#disc#write (pointer, file, ...)
 	else
 		let mode = '>'
 	endif
-	let var =  {a:pointer}
+	let var = {a:pointer}
 	redir => content
 	silent! echo 'let' a:pointer '=' var
 	redir END
@@ -209,14 +209,14 @@ fun! wheel#disc#tree_script (...)
 		let soil = a:1
 	else
 		let prompt = 'Directory to grow tree ? '
-		let complete =  'customlist,wheel#completelist#directory'
+		let complete = 'customlist,wheel#completelist#directory'
 		let soil = input(prompt, '', complete)
 	endif
 	if a:0 > 1
 		let command = a:1
 	else
 		let prompt = 'Command to link/copy ? '
-		let complete =  'customlist,wheel#completelist#link_copy'
+		let complete = 'customlist,wheel#completelist#link_copy'
 		let command = input(prompt, 'ln -s', complete)
 	endif
 	if a:0 > 2
@@ -268,7 +268,7 @@ fun! wheel#disc#symlink_tree (...)
 		let soil = a:1
 	else
 		let prompt = 'Directory to grow tree ? '
-		let complete =  'customlist,wheel#completelist#directory'
+		let complete = 'customlist,wheel#completelist#directory'
 		let soil = input(prompt, '', complete)
 	endif
 	let old_cdpath = &cdpath
@@ -326,7 +326,7 @@ fun! wheel#disc#copied_tree ()
 		let soil = a:1
 	else
 		let prompt = 'Directory to grow tree ? '
-		let complete =  'customlist,wheel#completelist#directory'
+		let complete = 'customlist,wheel#completelist#directory'
 		let soil = input(prompt, '', complete)
 	endif
 	let old_cdpath = &cdpath

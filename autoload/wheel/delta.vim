@@ -72,7 +72,7 @@ endfun
 
 fun! wheel#delta#maps (bufnum)
 	" Maps for undo list mandala
-	let map  =  'nnoremap <silent> <buffer> '
+	let map  = 'nnoremap <silent> <buffer> '
 	" go to undo given by line
 	let pre  = ' :call wheel#line#undolist('
 	let post = ')<cr>'

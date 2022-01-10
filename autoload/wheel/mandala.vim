@@ -587,7 +587,7 @@ fun! wheel#mandala#async ()
 		let command = a:1
 	else
 		let prompt = 'async shell command : '
-		let complete =  'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#completelist#file'
 		let command = input(prompt, '', complete)
 	endif
 	call wheel#vortex#update ()
@@ -601,7 +601,7 @@ fun! wheel#mandala#async ()
 		let job = wheel#ripple#start(command)
 	endif
 	" Map to stop the job
-	let map  =  'nnoremap <silent> <buffer> '
+	let map  = 'nnoremap <silent> <buffer> '
 	if has('nvim')
 		let callme  = ' :call wheel#wave#stop()<cr>'
 	else

@@ -309,7 +309,7 @@ fun! wheel#cylinder#switch ()
 		return v:false
 	endif
 	let prompt = 'Switch to mandala : '
-	let complete =  'customlist,wheel#completelist#mandala'
+	let complete = 'customlist,wheel#completelist#mandala'
 	if a:0 > 0
 		let name = a:1
 	else

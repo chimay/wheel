@@ -53,7 +53,7 @@ fun! wheel#completelist#circle (arglead, cmdline, cursorpos)
 	if ! has_key(cur_torus, 'glossary')
 		return []
 	endif
-	let circles =  copy(cur_torus.glossary)
+	let circles = copy(cur_torus.glossary)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, circles)
 endfu
