@@ -16,9 +16,9 @@ endif
 
 " Sync previous mandala layer -> current mandala state
 
-fun! wheel#boomerang#syncdown ()
-	" Sync selection & settings in ring --> mandala state
-	" the action will be performed on the selection of the previous layer
+fun! wheel#boomerang#sync_previous ()
+	" Sync selection & settings in previous layer to mandala state
+	" The action will be performed on the selection of the previous layer
 	let b:wheel_selected = deepcopy(wheel#book#previous('selected'))
 	if empty(b:wheel_selected)
 		" default selection = cursor line address of previous layer
@@ -77,7 +77,7 @@ fun! wheel#boomerang#menu (dictname, ...)
 	let dictname = 'context/' .. a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase (settings)
-	call wheel#boomerang#syncdown ()
+	call wheel#boomerang#sync_previous ()
 	" let wheel#loop#context_menu handle open / close,
 	" tell wheel#loop#sailing to forget it
 	let b:wheel_settings.close = v:false

@@ -16,7 +16,7 @@ endif
 
 " Functions
 
-fun! wheel#tower#overlay (settings)
+fun! wheel#tower#maps (settings)
 	" Define local maps for overlay
 	let settings = copy(a:settings)
 	call wheel#mandala#template ()
@@ -44,7 +44,7 @@ fun! wheel#tower#staircase (settings)
 	let lines = wheel#matrix#items2keys (items)
 	call wheel#mandala#filename (dictname)
 	call wheel#mandala#replace (lines, 'blank')
-	call wheel#tower#overlay (settings)
+	call wheel#tower#maps (settings)
 	let b:wheel_settings = settings
 	let b:wheel_lines = lines
 	call cursor(1, 1)
