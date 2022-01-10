@@ -111,54 +111,6 @@ fun! wheel#vortex#jump (...)
 	return win_getid ()
 endfun
 
-" Next / Previous
-
-fun! wheel#vortex#previous (level, ...)
-	" Previous element in level
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
-	let level = a:level
-	let upper = wheel#referen#upper(level)
-	if ! empty(upper)
-		call wheel#vortex#update ()
-		let index = upper.current
-		let elements = wheel#referen#elements(upper)
-		let length = len(elements)
-		if empty(elements)
-			let upper.current = -1
-		else
-			let upper.current = wheel#gear#circular_minus(index, length)
-		endif
-		call wheel#vortex#jump(mode)
-	endif
-endfun
-
-fun! wheel#vortex#next (level, ...)
-	" Next element in level
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
-	let level = a:level
-	let upper = wheel#referen#upper(level)
-	if ! empty(upper)
-		call wheel#vortex#update ()
-		let index = upper.current
-		let elements = wheel#referen#elements(upper)
-		let length = len(elements)
-		if empty(elements)
-			let upper.current = -1
-		else
-			let upper.current = wheel#gear#circular_plus(index, length)
-		endif
-		call wheel#vortex#jump(mode)
-	endif
-endfun
-
 " Tune
 
 fun! wheel#vortex#tune (level, name)
@@ -210,6 +162,54 @@ fun! wheel#vortex#chord (coordin)
 		echomsg 'wheel vortex chord : [' join(a:coordin) '] should contain 3 elements.'
 	endif
 	return indexes
+endfun
+
+" Next / Previous
+
+fun! wheel#vortex#previous (level, ...)
+	" Previous element in level
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	let level = a:level
+	let upper = wheel#referen#upper(level)
+	if ! empty(upper)
+		call wheel#vortex#update ()
+		let index = upper.current
+		let elements = wheel#referen#elements(upper)
+		let length = len(elements)
+		if empty(elements)
+			let upper.current = -1
+		else
+			let upper.current = wheel#gear#circular_minus(index, length)
+		endif
+		call wheel#vortex#jump(mode)
+	endif
+endfun
+
+fun! wheel#vortex#next (level, ...)
+	" Next element in level
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	let level = a:level
+	let upper = wheel#referen#upper(level)
+	if ! empty(upper)
+		call wheel#vortex#update ()
+		let index = upper.current
+		let elements = wheel#referen#elements(upper)
+		let length = len(elements)
+		if empty(elements)
+			let upper.current = -1
+		else
+			let upper.current = wheel#gear#circular_plus(index, length)
+		endif
+		call wheel#vortex#jump(mode)
+	endif
 endfun
 
 " Switch : tune and jump
