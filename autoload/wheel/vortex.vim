@@ -32,7 +32,7 @@ fun! wheel#vortex#here ()
 	let location = {}
 	let location.file = expand('%:p')
 	let location.line = line('.')
-	let location.col  = col('.')
+	let location.col = col('.')
 	return location
 endfun
 
@@ -54,7 +54,7 @@ fun! wheel#vortex#update (...)
 		return v:false
 	endif
 	let location.line = cur_line
-	let location.col  = cur_col
+	let location.col = cur_col
 	if mode == 'verbose'
 		echomsg 'wheel : location updated'
 	endif

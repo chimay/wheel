@@ -14,8 +14,8 @@ endif
 fun! wheel#sailing#maps (settings)
 	" Define local maps
 	let settings = copy(a:settings)
-	let map  = 'nnoremap <silent> <buffer> '
-	let pre  = ' :call wheel#loop#sailing('
+	let map = 'nnoremap <silent> <buffer> '
+	let pre = ' :call wheel#loop#sailing('
 	let post = ')<cr>'
 	" Close after navigation
 	let settings.close = v:true
@@ -220,11 +220,11 @@ fun! wheel#sailing#async_find (...)
 		let job = wheel#ripple#start(command, settings)
 	endif
 	" Map to stop the job
-	let map  = 'nnoremap <silent> <buffer> '
+	let map = 'nnoremap <silent> <buffer> '
 	if has('nvim')
-		let callme  = ' :call wheel#wave#stop()<cr>'
+		let callme = ' :call wheel#wave#stop()<cr>'
 	else
-		let callme  = ' :call wheel#ripple#stop()<cr>'
+		let callme = ' :call wheel#ripple#stop()<cr>'
 	endif
 	exe map .. '<c-s>' .. callme
 	" reload

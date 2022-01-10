@@ -21,8 +21,8 @@ fun! wheel#tower#overlay (settings)
 	let settings = copy(a:settings)
 	call wheel#mandala#template ()
 	" Menu specific maps
-	let map  = 'nnoremap <silent> <buffer> '
-	let pre  = ' :call wheel#loop#context_menu('
+	let map = 'nnoremap <silent> <buffer> '
+	let pre = ' :call wheel#loop#context_menu('
 	let post = ')<cr>'
 	" Open / Close : default in settings
 	exe map .. '<cr>' .. pre .. string(settings) .. post

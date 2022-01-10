@@ -72,20 +72,20 @@ endfun
 
 fun! wheel#delta#maps (bufnum)
 	" Maps for undo list mandala
-	let map  = 'nnoremap <silent> <buffer> '
+	let map = 'nnoremap <silent> <buffer> '
 	" go to undo given by line
-	let pre  = ' :call wheel#line#undolist('
+	let pre = ' :call wheel#line#undolist('
 	let post = ')<cr>'
 	execute map .. '<cr>' .. pre .. string(a:bufnum) .. post
 	" view diff between undo state and last one
-	let pre  = ' :call wheel#line#undo_diff('
+	let pre = ' :call wheel#line#undo_diff('
 	" d does not work for it puts vim in operator pending mode
 	execute map .. 'D' .. pre .. string(a:bufnum) .. post
 	" close diff
-	let pre  = ' :call wheel#delta#close_diff('
+	let pre = ' :call wheel#delta#close_diff('
 	execute map .. 'x' .. pre .. string(a:bufnum) .. post
 	" undo, go to last state
-	let pre  = ' :call wheel#delta#last('
+	let pre = ' :call wheel#delta#last('
 	execute map .. 'u' .. pre .. string(a:bufnum) .. post
 endfun
 

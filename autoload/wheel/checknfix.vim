@@ -16,8 +16,8 @@ fun! wheel#checknfix#glossaries ()
 	" Names in toruses, circles and locations are considered to be the right ones
 	let success = 1
 	let coordin = wheel#referen#circle('all')
-	let cur_torus    = coordin[0]
-	let cur_circle   = coordin[1]
+	let cur_torus = coordin[0]
+	let cur_circle = coordin[1]
 	" Wheel glossary
 	echomsg 'Checking wheel glossary'
 	let ind = 0
