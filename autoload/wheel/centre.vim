@@ -20,10 +20,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-menu-meta) :call wheel#hub#meta()<cr>
 	" Dashboard
 	nnoremap <plug>(wheel-dashboard) :call wheel#status#dashboard()<cr>
-	" Sync up : follow
-	nnoremap <plug>(wheel-sync-up) :call wheel#projection#follow()<cr>
 	" Sync down : jump
 	nnoremap <plug>(wheel-sync-down) :call wheel#vortex#jump()<cr>
+	" Sync up : follow
+	nnoremap <plug>(wheel-sync-up) :call wheel#projection#follow()<cr>
 	" Load / Save wheel
 	nnoremap <plug>(wheel-read-wheel) :call wheel#disc#read_all()<cr>
 	nnoremap <plug>(wheel-write-wheel) :call wheel#disc#write_all()<cr>
@@ -201,10 +201,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '= <plug>(wheel-menu-meta)'
 		" Dashboard, info
 		exe nmap prefix .. 'i <plug>(wheel-dashboard)'
-		" Sync up : follow
-		exe nmap prefix .. '<m-$> <plug>(wheel-sync-up)'
 		" Sync down : jump
 		exe nmap prefix .. '$ <plug>(wheel-sync-down)'
+		" Sync up : follow
+		exe nmap prefix .. '<m-$> <plug>(wheel-sync-up)'
 		" Load / Save wheel
 		exe nmap prefix .. 'r <plug>(wheel-read-wheel)'
 		exe nmap prefix .. 'w <plug>(wheel-write-wheel)'
@@ -257,6 +257,11 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<c-n> <plug>(wheel-prompt-rename-circle)'
 		exe nmap prefix .. 'N <plug>(wheel-prompt-rename-torus)'
 		exe nmap prefix .. '<m-n> <plug>(wheel-prompt-rename-file)'
+		" Batch rename
+		exe nmap prefix .. batch .. 'n <plug>(wheel-dedibuf-rename-location)'
+		exe nmap prefix .. batch .. '<c-n> <plug>(wheel-dedibuf-rename-circle)'
+		exe nmap prefix .. batch .. 'N <plug>(wheel-dedibuf-rename-torus)'
+		exe nmap prefix .. batch .. '<m-n> <plug>(wheel-dedibuf-rename-location-filename)'
 		" Delete
 		exe nmap prefix .. 'd <plug>(wheel-prompt-delete-location)'
 		exe nmap prefix .. '<c-d> <plug>(wheel-prompt-delete-circle)'
@@ -269,19 +274,14 @@ fun! wheel#centre#cables ()
 		" Move
 		exe nmap prefix .. 'm <plug>(wheel-prompt-move-location)'
 		exe nmap prefix .. 'M <plug>(wheel-prompt-move-circle)'
-		" Reorder
-		exe nmap prefix .. 'o <plug>(wheel-dedibuf-reorder-location)'
-		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
-		exe nmap prefix .. 'O <plug>(wheel-dedibuf-reorder-torus)'
-		" Batch rename
-		exe nmap prefix .. batch .. 'n <plug>(wheel-dedibuf-rename-location)'
-		exe nmap prefix .. batch .. '<c-n> <plug>(wheel-dedibuf-rename-circle)'
-		exe nmap prefix .. batch .. 'N <plug>(wheel-dedibuf-rename-torus)'
-		exe nmap prefix .. batch .. '<m-n> <plug>(wheel-dedibuf-rename-location-filename)'
 		" Batch copy/move
 		exe nmap prefix .. batch .. 'c <plug>(wheel-dedibuf-copy-move-location)'
 		exe nmap prefix .. batch .. '<m-c> <plug>(wheel-dedibuf-copy-move-circle)'
 		exe nmap prefix .. batch .. 'C <plug>(wheel-dedibuf-copy-move-torus)'
+		" Reorder
+		exe nmap prefix .. 'o <plug>(wheel-dedibuf-reorder-location)'
+		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
+		exe nmap prefix .. 'O <plug>(wheel-dedibuf-reorder-torus)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
@@ -290,6 +290,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'f <plug>(wheel-dedibuf-find)'
 		exe nmap prefix .. async .. 'f <plug>(wheel-dedibuf-async-find)'
 		exe nmap prefix .. 'u <plug>(wheel-dedibuf-mru)'
+		" Search inside files
+		exe nmap prefix .. 's <plug>(wheel-dedibuf-occur)'
+		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
+		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-outline)'
 		" Buffers
 		exe nmap prefix .. 'b <plug>(wheel-dedibuf-buffers)'
 		exe nmap prefix .. 'B <plug>(wheel-dedibuf-buffers-all)'
@@ -297,10 +301,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'v <plug>(wheel-prompt-tabwin)'
 		exe nmap prefix .. 'V <plug>(wheel-dedibuf-tabwins)'
 		exe nmap prefix .. '<m-v> <plug>(wheel-dedibuf-tabwins-tree)'
-		" Search inside files
-		exe nmap prefix .. 's <plug>(wheel-dedibuf-occur)'
-		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
-		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-outline)'
 		" (neo)vim lists
 		exe nmap prefix .. "' <plug>(wheel-prompt-marker)"
 		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'

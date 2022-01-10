@@ -2033,17 +2033,27 @@ for more information.
 | <M-m>    | <M-w><M-m>          | Main menu               |
 | =        | <M-w>=              | Meta menu               |
 
-Add~
+Info~
 
-| Prefix +   | With default prefix   | Action                             |
-| ---------- | --------------------- | ---------------------------------- |
-| a          | <M-w>a                | Add location to the current circle |
-| <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
-| A          | <M-w>A                | Add torus to the wheel             |
-| ---------- | --------------------- | ---------------------------------- |
-| +f         | <M-w>+f               | Edit and add a file                |
-| +b         | <M-w>+b               | Edit and add a buffer              |
-| *          | <M-w>*                | Add files matching glob            |
+| Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
+| i        | <M-w>i              | Dashboard               |
+
+Sync~
+
+| Prefix + | With default prefix | Action                       |
+| -------- | ------------------- | ---------------------------- |
+| $        | <M-w>$              | Sync down, jump to location  |
+| <M-$>    | <M-w><M-$>          | Sync up, follow current file |
+
+Read / Write file~
+
+| Prefix + | With default prefix | Action                 |
+| r        | <M-w>r              | Load wheel from file   |
+| w        | <M-w>w              | Save wheel to file     |
+| -------- | ------------------- | ---------------------- |
+| R        | <M-w>R              | Load session from file |
+| W        | <M-w>W              | Save session to file   |
 
 Next / previous~
 
@@ -2069,19 +2079,24 @@ History~
 | <M-^>       | <M-w><M-^>          | Alternate in the same circle                  |
 | <M-C-^>     | <M-w><M-C-^>        | Alternate in another circle of the same torus |
 
-Read / Write file~
+Add~
 
-| Prefix + | With default prefix | Action                 |
-| r        | <M-w>r              | Load wheel from file   |
-| w        | <M-w>w              | Save wheel to file     |
-| -------- | ------------------- | ---------------------- |
-| R        | <M-w>R              | Load session from file |
-| W        | <M-w>W              | Save session to file   |
+| Prefix +   | With default prefix   | Action                             |
+| ---------- | --------------------- | ---------------------------------- |
+| a          | <M-w>a                | Add location to the current circle |
+| <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
+| A          | <M-w>A                | Add torus to the wheel             |
+| ---------- | --------------------- | ---------------------------------- |
+| +f         | <M-w>+f               | Edit and add a file                |
+| +b         | <M-w>+b               | Edit and add a buffer              |
+| *          | <M-w>*                | Add files matching glob            |
 
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
 
-Switch, prompting functions with completion~
+Switch~
+
+Prompting functions :
 
 | Prefix +  | With default prefix | Action                                   |
 | --------- | ------------------- | ---------------------------------------- |
@@ -2090,14 +2105,37 @@ Switch, prompting functions with completion~
 | <S-CR>    | <M-w><S-Enter>      | Switch to torus                          |
 | <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location       |
 | x         | <M-w>x              | Switch location in index                 |
+| h         | <M-w>h              | History index                            |
+
+Dedicated buffers :
+
+| Prefix +  | With default prefix | Action                                   |
+| --------- | ------------------- | ---------------------------------------- |
+| <Space>   | <M-w><Space>        | Go to location                           |
+| <C-Space> | <M-w><C-Space>      | Go to circle                             |
+| <S-Space> | <M-w><S-Space>      | Go to torus                              |
+| X         | <M-w>X              | Index of toruses > circles > locations   |
+| <C-x>     | <M-w><C-x>          | Index of toruses > circles               |
+| <M-x>     | <M-w><M-x>          | Treeish index with folds                 |
+| <M-h>     | <M-w><M-h>          | History index                            |
 
 Rename~
+
+Prompting functions :
 
 | Prefix + | With default prefix | Action                  |
 | -------- | ------------------- | ----------------------- |
 | n        | <M-w>n              | Rename current location |
 | <C-n>    | <M-w><C-n>          | Rename current circle   |
 | N        | <M-w>N              | Rename current torus    |
+
+Dedicated buffers :
+
+| Prefix +   | With default prefix   | Action                                   |
+| ---------- | --------------------- | ---------------------------------------- |
+| @n         | <M-w>@n               | Rename locations in current circle       |
+| @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus          |
+| @N         | <M-w>@N               | Rename toruses in wheel                  |
 
 Delete~
 
@@ -2109,11 +2147,22 @@ Delete~
 
 Copy~
 
+Prompting functions :
+
 | Prefix + | With default prefix | Action                  |
 | -------- | ------------------- | ----------------------- |
 | c        | <M-w>c              | Copy current location   |
 | <M-c>    | <M-w><M-c>          | Copy current circle     |
 | C        | <M-w>C              | Copy current torus      |
+
+Dedicated buffers :
+
+| Prefix +   | With default prefix   | Action                                   |
+| ---------- | --------------------- | ---------------------------------------- |
+| @c         | <M-w>@c               | Copy or move locations in current circle |
+| @<M-c>     | <M-w>@<M-c>           | Copy or move circles in current torus    |
+| @C         | <M-w>@C               | Copy or move toruses in wheel            |
+
 
 Move~
 
@@ -2122,31 +2171,13 @@ Move~
 | m        | <M-w>m              | Move current location   |
 | M        | <M-w>M              | Move current circle     |
 
-Dedicated buffers~
+Reorder~
 
 | Prefix +   | With default prefix   | Action                                   |
-| ---------- | --------------------- | ---------------------------------------- |
-| <Space>    | <M-w><Space>          | Go to location                           |
-| <C-Space>  | <M-w><C-Space>        | Go to circle                             |
-| <S-Space>  | <M-w><S-Space>        | Go to torus                              |
-| ---------- | --------------------- | ---------------------------------------- |
-| X          | <M-w>X                | Index of toruses > circles > locations   |
-| <C-x>      | <M-w><C-x>            | Index of toruses > circles               |
-| <M-x>      | <M-w><M-x>            | Treeish index with folds                 |
-| ---------- | --------------------- | ---------------------------------------- |
-| h          | <M-w>h                | History index                            |
 | ---------- | --------------------- | ---------------------------------------- |
 | o          | <M-w>o                | Reorder locations in current circle      |
 | <C-o>      | <M-w><C-o>            | Reorder circles in current torus         |
 | O          | <M-w>O                | Reorder toruses in wheel                 |
-| ---------- | --------------------- | ---------------------------------------- |
-| @n         | <M-w>@n               | Rename locations in current circle       |
-| @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus          |
-| @N         | <M-w>@N               | Rename toruses in wheel                  |
-| ---------- | --------------------- | ---------------------------------------- |
-| @c         | <M-w>@c               | Copy or move locations in current circle |
-| @<M-c>     | <M-w>@<M-c>           | Copy or move circles in current torus    |
-| @C         | <M-w>@C               | Copy or move toruses in wheel            |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
@@ -2161,16 +2192,6 @@ Search for files~
 | u        | <M-w>u              | Most recently used files not found in wheel |
 | b        | <M-w>b              | Buffers (opened files)                      |
 
-Tabs & windows~
-
-Visible buffers displayed in tabs & windows.
-
-| Prefix + | With default prefix | Action                                            |
-| -------- | ------------------- | ------------------------------------------------  |
-| v        | <M-w>v              | Switch to visible buffer, prompting function      |
-| V        | <M-w>V              | Visible buffers in a dedicated buffer             |
-| <M-v>    | <M-w><M-v>          | Tree view of tabs & windows in a dedicated buffer |
-
 Search inside files~
 
 | Prefix + | With default prefix | Action                               |
@@ -2179,18 +2200,49 @@ Search inside files~
 | g        | <M-w>g              | Search in circle files with grep     |
 | <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
 
-(Neo)vim lists~
+Buffers~
 
 | Prefix + | With default prefix | Action                               |
 | -------- | ------------------- | ------------------------------------ |
-| '        | <M-w>'              | Markers, dedicated buffer            |
-| j        | <M-w>j              | Jumps, prompting function            |
-| ;        | <M-w>;              | Changes, prompting function          |
-| t        | <M-w>t              | Tags, prompting function             |
-| <M-'>    | <M-w><M-'>          | Markers, dedicated buffer            |
-| <M-j>    | <M-w><M-j>          | Jumps, dedicated buffer              |
-| ,        | <M-w>,              | Changes, dedicated buffer            |
-| <M-t>    | <M-w><M-t>          | Tags in dedicated buffer             |
+| b        | <M-w>b              | Buffers                              |
+| B        | <M-w>B              | All buffers, including unlisted ones |
+
+Tabs & windows~
+
+Visible buffers displayed in tabs & windows.
+
+Prompting functions :
+
+| Prefix + | With default prefix | Action                     |
+| -------- | ------------------- | -------------------------- |
+| v        | <M-w>v              | Switch to visible buffer   |
+
+Dedicated buffers :
+
+| Prefix + | With default prefix | Action                      |
+| -------- | ------------------- | --------------------------- |
+| V        | <M-w>V              | Visible buffers             |
+| <M-v>    | <M-w><M-v>          | Tree view of tabs & windows |
+
+(Neo)vim lists~
+
+Prompting functions :
+
+| Prefix + | With default prefix | Action    |
+| -------- | ------------------- | --------- |
+| '        | <M-w>'              | Markers   |
+| j        | <M-w>j              | Jumps     |
+| ;        | <M-w>;              | Changes   |
+| t        | <M-w>t              | Tags      |
+
+Dedicated buffers :
+
+| Prefix + | With default prefix | Action     |
+| -------- | ------------------- | ---------- |
+| <M-'>    | <M-w><M-'>          | Markers    |
+| <M-j>    | <M-w><M-j>          | Jumps      |
+| ,        | <M-w>,              | Changes    |
+| <M-t>    | <M-w><M-t>          | Tags       |
 
 Yank wheel~
 
@@ -2198,13 +2250,6 @@ Yank wheel~
 | -------- | ------------------- | ------------------------- |
 | y        | <M-w>y              | Yank wheel in list mode   |
 | p        | <M-w>p              | Yank wheel in plain mode  |
-
-Command output buffer~
-
-| Prefix + | With default prefix | Action                      |
-| -------- | ------------------- | ----------------------------|
-| :        | <M-w>:              | Display ex or !shell output |
-| &        | <M-w>&              | Async sheel command         |
 
 Reorganizing buffers~
 
@@ -2214,21 +2259,28 @@ Reorganizing buffers~
 | <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
 | <M-g>    | <M-w><M-g>          | Grep edit mode            |
 
-Miscellaneous~
+Undo~
 
 | Prefix + | With default prefix | Action     |
 | -------- | ------------------- | ---------- |
 | <M-u>    | <M-w><M-u>          | Undo list  |
 
+Command output buffer~
+
+| Prefix + | With default prefix | Action                      |
+| -------- | ------------------- | ----------------------------|
+| :        | <M-w>:              | Display ex or !shell output |
+| &        | <M-w>&              | Async sheel command         |
+
 Managing dedicated buffers~
 
 | Prefix +    | With default prefix | Action                             |
 | --------    | ------------------- | ---------------------------------  |
-| <Tab>       | <M-w><Tab>          | Save (push) dedicated buffer       |
-| <Backspace> | <M-w><Backspace>    | Remove (pop) dedicated buffer      |
-| <M-Space>   | <M-w><M-Space>      | Switch to another dedicated buffer |
+| <Tab>       | <M-w><Tab>          | Add new dedicated buffer           |
+| <Backspace> | <M-w><Backspace>    | Delete dedicated buffer            |
 | <M-Home>    | <M-w><M-Home>       | Cycle dedicated buffers, leftward  |
 | <End>       | <M-w><End>          | Cycle dedicated buffers, rightward |
+| <M-Space>   | <M-w><M-Space>      | Switch to another dedicated buffer |
 
 Layouts~
 
@@ -2376,8 +2428,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Sync
     exe nmap '<m-$>          <plug>(wheel-sync-up)'
     " Add, Delete
-    exe nmap '<m-insert>     <plug>(wheel-add-here)'
-    exe nmap '<m-del>        <plug>(wheel-delete-location)'
+    exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
+    exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
     " Next / Previous
     exe nmap '<c-pageup>     <plug>(wheel-previous-location)'
     exe nmap '<c-pagedown>   <plug>(wheel-next-location)'
@@ -2419,29 +2471,28 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
     exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
     exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
-    " (neo)vim lists, prompt completion
+    " (neo)vim lists
     exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
     exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
     exe nmap '<m-;>          <plug>(wheel-prompt-change)'
     exe nmap '<m-c>          <plug>(wheel-prompt-change)'
     exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
-    " (neo)vim lists, dedicated buffer
     exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
     exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
     exe nmap '<m-,>          <plug>(wheel-dedibuf-changes)'
     exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
     " Yank
-    exe nmap '<m-y>          <plug>(wheel-yank-list)'
-    exe nmap '<m-p>          <plug>(wheel-yank-plain)'
+    exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
+    exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
     " Reshaping buffers
     " wheel
-    exe nmap '<m-r>          <plug>(wheel-reorganize)'
+    exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
     " tabs & windows : visible buffers
-    exe nmap '<m-c-r>        <plug>(wheel-reorg-tabwins)'
+    exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
     " grep edit
-    exe nmap '<m-c-g>        <plug>(wheel-grep-edit)'
+    exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
     " Undo list
-    exe nmap '<m-c-u>        <plug>(wheel-undo-list)'
+    exe nmap '<m-c-u>        <plug>(wheel-dedibuf-undo-list)'
     " Command
     exe nmap '<m-!>          <plug>(wheel-dedibuf-command)'
     exe nmap '<m-&>          <plug>(wheel-dedibuf-async)'
@@ -2451,7 +2502,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
     " Cycle mandala buffers
     exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
-    exe nmap '<m-end>       <plug>(wheel-mandala-forward)'
+    exe nmap '<m-end>         <plug>(wheel-mandala-forward)'
     " Switch mandala buffers
     exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
     " Layouts
