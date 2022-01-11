@@ -36,76 +36,11 @@ fun! wheel#status#dashboard ()
 	endif
 endfun
 
-" Mandala ring status
-
-fun! wheel#status#mandala ()
-	" Mandala dashboard
-	" layers mandalas
-	let bufnums = g:wheel_mandalas.ring
-	" -- empty mandala ring
-	if empty(bufnums)
-		return 'empty mandala ring'
-	endif
-	" -- mandala ring status
-	let current = g:wheel_mandalas.current
-	let mandalas = []
-	for index in range(len(bufnums))
-		let num = bufnums[index]
-		let title = wheel#status#type (bufname(num))
-		if index == current
-			let title = '[' .. title .. ']'
-		endif
-		call add(mandalas, title)
-	endfor
-	redraw!
-	echo 'mandalas : ' .. join(mandalas)
-endfun
-
-" Leaf ring status : mandala layers, implemented as a ring
-
-fun! wheel#status#leaf ()
-	" Leaf dashboard
-	" -- undefined ring
-	if ! exists('b:wheel_ring')
-		echo 'undefined ring'
-		return v:false
-	endif
-	" -- empty ring
-	if empty(b:wheel_ring.leaves)
-		echo 'empty leaf ring'
-		return v:false
-	endif
-	" -- leaf ring status
-	let filenames = wheel#book#ring ('filename')
-	let Fun = function('wheel#status#type')
-	let leaves = map(copy(filenames), {_,v->Fun(v)})
-	" current mandala type
-	let title = '[' .. wheel#status#type () .. ']'
-	let current = b:wheel_ring.current
-	let leaves[current] = title
-	redraw!
-	echo 'leaves : ' .. join(leaves)
-endfun
-
 " Mandala & leaf status
 
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
 	let bufnums = g:wheel_mandalas.ring
-	" -- empty mandala ring
-	if empty(bufnums)
-		return 'empty mandala ring'
-	endif
-	" -- undefined leaf ring
-	if ! exists('b:wheel_ring')
-		echo 'undefined ring'
-		return v:false
-	endif
-	" -- empty leaf ring
-	if empty(b:wheel_ring.leaves)
-		echo 'empty leaf ring'
-		return v:false
-	endif
 	" -- mandala ring status
 	let current = g:wheel_mandalas.current
 	let mandalas = []
@@ -124,7 +59,7 @@ fun! wheel#status#mandala_leaf ()
 	endif
 	let Fun = function('wheel#status#type')
 	let leaves = map(copy(filenames), {_,v->Fun(v)})
-	" current mandala type
+	" current leaf type
 	let title = '[' .. wheel#status#type () .. ']'
 	let current = b:wheel_ring.current
 	let leaves[current] = title

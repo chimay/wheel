@@ -266,7 +266,7 @@ fun! wheel#cylinder#add (...)
 			silent buffer #
 		endif
 	endif
-	call wheel#status#mandala ()
+	call wheel#status#mandala_leaf ()
 	return v:true
 endfun
 
@@ -297,7 +297,7 @@ fun! wheel#cylinder#delete ()
 		execute 'silent buffer' goto
 	endif
 	execute 'silent bwipe!' removed
-	call wheel#status#mandala ()
+	call wheel#status#mandala_leaf ()
 	return removed
 endfun
 
@@ -326,7 +326,7 @@ fun! wheel#cylinder#forward ()
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
-	call wheel#status#mandala ()
+	call wheel#status#mandala_leaf ()
 endfun
 
 fun! wheel#cylinder#backward ()
@@ -344,7 +344,7 @@ fun! wheel#cylinder#backward ()
 		let g:wheel_mandalas.current = current
 	endif
 	call wheel#cylinder#recall ()
-	call wheel#status#mandala ()
+	call wheel#status#mandala_leaf ()
 endfun
 
 " Switch
@@ -370,5 +370,5 @@ fun! wheel#cylinder#switch ()
 	endif
 	let g:wheel_mandalas.current = mandala
 	call wheel#cylinder#recall ()
-	call wheel#status#mandala ()
+	call wheel#status#mandala_leaf ()
 endfun
