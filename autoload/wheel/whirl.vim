@@ -23,6 +23,9 @@ fun! wheel#whirl#mru ()
 	let fields = split(record, s:field_separ)
 	let filename = fields[1]
 	execute 'edit' filename
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -67,6 +70,9 @@ fun! wheel#whirl#tabwin ()
 	execute 'noautocmd tabnext' tabnum
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -78,6 +84,9 @@ fun! wheel#whirl#marker ()
 	let fields = split(record, s:field_separ)
 	let mark = fields[0]
 	execute "normal `" .. mark
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
