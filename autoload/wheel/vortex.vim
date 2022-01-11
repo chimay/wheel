@@ -56,7 +56,7 @@ fun! wheel#vortex#update (...)
 	let location.line = cur_line
 	let location.col = cur_col
 	if mode == 'verbose'
-		echomsg 'wheel : location updated'
+		echo 'wheel : location updated'
 	endif
 	return v:true
 endfun

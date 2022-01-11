@@ -106,7 +106,7 @@ fun! wheel#projection#follow (...)
 	let info = 'wheel follow : '
 	let info ..= coordin[0] .. ' > ' .. coordin[1] .. ' > ' .. coordin[2]
 	redraw!
-	echomsg info
+	echo info
 	" update location to cursor position
 	call wheel#vortex#update ()
 	return v:true
