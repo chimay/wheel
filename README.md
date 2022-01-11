@@ -343,8 +343,8 @@ in the wiki.
 
 ## Frequently used functions
 
-Below are some bindings that you may find useful, beginning with the
-most used functions. They are included in the level 10 mappings :
+Below are some bindings that you may find useful. They are included in
+the level 10 mappings :
 
 ~~~vim
 " Menus
