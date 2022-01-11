@@ -33,7 +33,6 @@
 + [Licence](#licence)
 
 <!-- vim-markdown-toc -->
-
 # Introduction
 ## What is it ?
 
@@ -386,6 +385,10 @@ exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
 exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
 exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
 exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
+" Search inside files
+exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
+exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
+exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
 " Buffers
 exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
 exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
@@ -393,10 +396,6 @@ exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers-all)'
 " Tabs & windows : visible buffers
 exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
 exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
-" Search inside files
-exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
-exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
 " (neo)vim lists
 exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
 exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
@@ -410,12 +409,11 @@ exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
 " Yank
 exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
 exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
-" Reshaping buffers
-" wheel
+" Reorganize wheel
 exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
-" tabs & windows : visible buffers
+" Reorganize tabs & windows
 exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
-" grep edit
+" Grep edit
 exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 " Undo list
 exe nmap '<m-c-u>        <plug>(wheel-dedibuf-undo-list)'

@@ -365,7 +365,7 @@ For instance, `pro fol<tab>` gives me the function
 You can also search for a tag in a dedicated buffer with `<M-w><M-t>`.
 
 ==============================================================================
-OPERATE ON ELEMENTS				*wheel-elements*
+JUGGLING WITH WHEEL ELEMENTS				*wheel-elements*
 
 Add					    |wheel-elements-add|
 Delete					    |wheel-elements-delete|
@@ -373,6 +373,7 @@ Rename					    |wheel-elements-rename|
 Copy					    |wheel-elements-copy|
 Move					    |wheel-elements-move|
 Navigation				    |wheel-elements-navigation|
+Info					    |wheel-elements-info|
 Sync					    |wheel-elements-sync|
 
 ------------------------------------------------------------------------------
@@ -437,6 +438,16 @@ Switch~
 - torus : `<M-w><S-Space>`
 - location in index : `<M-w>x`
 - location in history : `<M-w>h`
+
+------------------------------------------------------------------------------
+INFO							*wheel-elements-sync*
+
+Display a dashboard indicating the wheel state : >
+
+    current torus > current circle > current location
+<
+
+Default mapping : `<M-w>i`
 
 ------------------------------------------------------------------------------
 SYNC							*wheel-elements-sync*
@@ -2379,16 +2390,16 @@ adapt them to your taste and add them to your init file.
 | <M-C-f>        | Async find                                    |
 | <M-u>          | Most Recently Used files not found in wheel   |
 | -------------- | --------------------------------------------- |
+| <M-s>          | Occur in current file                         |
+| <M-g>          | Grep in current circle files                  |
+| <M-o>          | Outline in current circle files               |
+| -------------- | --------------------------------------------- |
 | <M-b>          | Buffers, prompting function                   |
 | <M-S-b>        | Buffers, dedicated buffer                     |
 | <M-C-b>        | All buffers, including unlisted ones          |
 | -------------- | --------------------------------------------- |
-| <M-v>          | Go to tabs & windows, prompt mode             |
-| <M-C-v>        | Tabs & windows in tree mode : visible buffers |
-| -------------- | --------------------------------------------- |
-| <M-s>          | Occur in current file                         |
-| <M-g>          | Grep in current circle files                  |
-| <M-o>          | Outline in current circle files               |
+| <M-v>          | Go to tab & window, prompt mode               |
+| <M-C-v>        | Tabs & windows in tree mode, dedicated buffer |
 | -------------- | --------------------------------------------- |
 | <M-'>          | Markers, prompting function                   |
 | <M-j>          | Jumps, prompting function                     |
@@ -2465,6 +2476,10 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
     exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
     exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
+    " Search inside files
+    exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
+    exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
+    exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
     " Buffers
     exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
     exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
@@ -2472,10 +2487,6 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
     exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
-    " Search inside files
-    exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
-    exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-    exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
     " (neo)vim lists
     exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
     exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
@@ -2489,10 +2500,9 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Yank
     exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
     exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
-    " Reshaping buffers
-    " wheel
+    " Reorganize wheel
     exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
-    " tabs & windows : visible buffers
+    " Reorganize tabs & windows
     exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
     " grep edit
     exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'

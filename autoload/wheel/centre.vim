@@ -92,6 +92,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#sailing#find()<cr>
 	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
+	" Search inside files
+	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#sailing#occur()<cr>
+	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#sailing#grep()<cr>
+	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#sailing#outline()<cr>
 	" Buffers
 	nnoremap <plug>(wheel-prompt-buffers) <cmd>call wheel#whirl#buffer()<cr>
 	nnoremap <plug>(wheel-dedibuf-buffers) <cmd>call wheel#sailing#buffers()<cr>
@@ -100,10 +104,6 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#whirl#tabwin()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins) <cmd>call wheel#sailing#tabwins()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins-tree) <cmd>call wheel#sailing#tabwins_tree()<cr>
-	" Search inside files
-	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#sailing#occur()<cr>
-	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#sailing#grep()<cr>
-	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#sailing#outline()<cr>
 	" (neo)vim lists, prompt completion
 	nnoremap <plug>(wheel-prompt-marker) <cmd>call wheel#whirl#marker()<cr>
 	nnoremap <plug>(wheel-prompt-jump) <cmd>call wheel#whirl#jump()<cr>
@@ -410,6 +410,10 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
 		exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
 		exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
+		" Search inside files
+		exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
+		exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
+		exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
 		" Buffers
 		exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
 		exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
@@ -417,10 +421,6 @@ fun! wheel#centre#cables ()
 		" Tabs & windows : visible buffers
 		exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
 		exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
-		" Search inside files
-		exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
-		exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-		exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
 		" (neo)vim lists
 		exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
 		exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
@@ -434,12 +434,11 @@ fun! wheel#centre#cables ()
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
 		exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
-		" Reshaping buffers
-		" wheel
+		" Reorganize wheel
 		exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
-		" tabs & windows : visible buffers
+		" Reorganize tabs & windows
 		exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
-		" grep edit
+		" Grep edit
 		exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 		" Undo list
 		exe nmap '<m-c-u>        <plug>(wheel-dedibuf-undo-list)'
