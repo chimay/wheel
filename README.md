@@ -350,7 +350,7 @@ most used functions. They are included in the level 10 mappings :
 " Menus
 exe nmap '<m-m>          <plug>(wheel-menu-main)'
 exe nmap '<m-=>          <plug>(wheel-menu-meta)'
-" Sync
+" Sync up = ask wheel to follow current file if possible
 exe nmap '<m-$>          <plug>(wheel-sync-up)'
 " Add, Delete
 exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
