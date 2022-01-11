@@ -598,7 +598,13 @@ Switch element in the wheel~
 | switch in index   | index entries                | <M-w>x          |
 | switch in history | history entries              | <M-w>h          |
 
-Switch line~
+Switch file~
+
+| Function         | Completion list                     | Default binding |
+| ---------------- | ----------------------------------- | --------------- |
+| switch mru file  | most recently used, non wheel files | <M-w>u          |
+
+Switch inside file~
 
 | Function         | Completion list                   | Default binding |
 | ---------------- | --------------------------------- | --------------- |
@@ -912,7 +918,7 @@ The default mappings launching navigation buffers are :
 - `<M-w>l`         : search files with `locate`
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
 - `<M-w>&f`        : search files with `find` in async mode
-- `<M-w>u`         : most recently used files not found in wheel (mru)
+- `<M-w><M-u>`     : most recently used files not found in wheel (mru)
 - `<M-w><M-s>`     : occur in current file
 - `<M-w>g`         : grep in circle files
 - `<M-w><M-o>`     : outline headers in circle files
@@ -1011,7 +1017,7 @@ MRU FILES				*wheel-dedicated-buffers-mru*
 
 Open file in Most Recently Used file list.
 
-The default mapping is `<M-w>u`.
+The default mapping is `<M-w><M-u>`.
 
 ------------------------------------------------------------------------------
 BUFFERS						*wheel-dedicated-buffers-buffers*
@@ -2211,7 +2217,7 @@ Search for files~
 | l        | <M-w>l              | Search files with locate                    |
 | f        | <M-w>f              | Find files in current directory using glob  |
 | &f       | <M-w>&f             | Search files with find in async mode        |
-| u        | <M-w>u              | Most recently used files not found in wheel |
+| u        | <M-w><M-u>          | Most recently used files not found in wheel |
 | b        | <M-w>b              | Buffers (opened files)                      |
 
 Search inside files~
@@ -2484,7 +2490,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
     exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
     exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
-    exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
+    exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
+    exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
     " Search inside files
     exe nmap '<m-s>          <plug>(wheel-prompt-occur)'
     exe nmap '<m-c-s>        <plug>(wheel-dedibuf-occur)'
@@ -2517,7 +2524,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " grep edit
     exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
     " Undo list
-    exe nmap '<m-c-u>        <plug>(wheel-dedibuf-undo-list)'
+    exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
     " Command
     exe nmap '<m-!>          <plug>(wheel-dedibuf-command)'
     exe nmap '<m-&>          <plug>(wheel-dedibuf-async)'

@@ -53,14 +53,14 @@ fun! wheel#perspective#execute (runme, ...)
 	endif
 	let runme = a:runme
 	if type(Execute) == v:t_func
-		let lines = Execute(runme)
+		let returnlist = Execute(runme)
 	elseif type(Execute) == v:t_string
-		let lines = {Execute}(runme)
+		let returnlist = {Execute}(runme)
 	else
 		echomsg 'wheel perspective execute : bad function argument'
 	endif
-	let lines = split(lines, "\n")
-	return lines
+	let returnlist = split(returnlist, "\n")
+	return returnlist
 endfun
 
 " Wheel elements
@@ -84,60 +84,60 @@ fun! wheel#perspective#helix ()
 	" Locations index
 	" Each coordinate is a string torus > circle > location
 	let helix = wheel#helix#helix ()
-	let lines = []
+	let returnlist = []
 	for coordin in helix
 		let entry = join(coordin, s:level_separ)
-		let lines = add(lines, entry)
+		let returnlist = add(returnlist, entry)
 	endfor
-	return lines
+	return returnlist
 endfu
 
 fun! wheel#perspective#grid ()
 	" Circle index
 	" Each coordinate is a string torus > circle
 	let grid = wheel#helix#grid ()
-	let lines = []
+	let returnlist = []
 	for coordin in grid
 		let entry = join(coordin, s:level_separ)
-		let lines = add(lines, entry)
+		let returnlist = add(returnlist, entry)
 	endfor
-	return lines
+	return returnlist
 endfu
 
 fun! wheel#perspective#tree ()
 	" Tree representation of the wheel
-	let lines = []
+	let returnlist = []
 	for torus in g:wheel.toruses
 		let entry = torus.name .. s:fold_1
-		let lines = add(lines, entry)
+		let returnlist = add(returnlist, entry)
 		for circle in torus.circles
 			let entry = circle.name .. s:fold_2
-			let lines = add(lines, entry)
+			let returnlist = add(returnlist, entry)
 			for location in circle.locations
 				let entry = location.name
-				let lines = add(lines, entry)
+				let returnlist = add(returnlist, entry)
 			endfor
 		endfor
 	endfor
-	return lines
+	return returnlist
 endfu
 
 fun! wheel#perspective#reorganize ()
 	" Content for reorganize buffer
-	let lines = []
+	let returnlist = []
 	for torus in g:wheel.toruses
 		let entry = torus.name .. s:fold_1
-		let lines = add(lines, entry)
+		let returnlist = add(returnlist, entry)
 		for circle in torus.circles
 			let entry = circle.name .. s:fold_2
-			let lines = add(lines, entry)
+			let returnlist = add(returnlist, entry)
 			for location in circle.locations
 				let entry = string(location)
-				let lines = add(lines, entry)
+				let returnlist = add(returnlist, entry)
 			endfor
 		endfor
 	endfor
-	return lines
+	return returnlist
 endfu
 
 " from pendulum
@@ -149,16 +149,16 @@ fun! wheel#perspective#history ()
 	" should not be necessary
 	"let Compare = function('wheel#pendulum#compare')
 	"let history = sort(history, Compare)
-	let strings = []
+	let returnlist = []
 	for entry in history
 		let coordin = entry.coordin
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
 		let entry = date_hour .. s:field_separ
 		let entry ..= coordin[0] .. s:level_separ .. coordin[1] .. s:level_separ .. coordin[2]
-		let strings = add(strings, entry)
+		let returnlist = add(returnlist, entry)
 	endfor
-	return strings
+	return returnlist
 endfu
 
 " Search file
@@ -178,8 +178,8 @@ fun! wheel#perspective#locate (pattern)
 	else
 		let runme = 'locate -d ' .. expand(database) .. ' ' .. pattern
 	endif
-	let lines = systemlist(runme)
-	return lines
+	let returnlist = systemlist(runme)
+	return returnlist
 endfun
 
 " from attic
@@ -191,16 +191,16 @@ fun! wheel#perspective#mru ()
 	" should not be necessary
 	"let Compare = function('wheel#pendulum#compare')
 	"let attic = sort(attic, Compare)
-	let strings = []
+	let returnlist = []
 	for entry in attic
 		let filename = entry.file
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
 		let entry = date_hour .. s:field_separ
 		let entry ..= filename
-		let strings = add(strings, entry)
+		let returnlist = add(returnlist, entry)
 	endfor
-	return strings
+	return returnlist
 endfu
 
 " Buffers
@@ -226,7 +226,7 @@ fun! wheel#perspective#buffers (...)
 		echomsg 'wheel perspective buffers : bad optional argument'
 		return []
 	endif
-	let lines = []
+	let returnlist = []
 	let mandalas = g:wheel_mandalas.ring
 	for buffer in buflist
 		let bufnum = printf('%3d', buffer.bufnr)
@@ -253,23 +253,23 @@ fun! wheel#perspective#buffers (...)
 		else
 			let indicator ..= ' '
 		endif
-		" add to the lines
+		" add to the returnlist
 		let is_without_name = empty(filename)
 		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
 		if ! is_without_name && ! is_wheel_buffer
 			let entry = [bufnum, indicator, linum, filename]
 			let record = join(entry, s:field_separ)
-			call add(lines, record)
+			call add(returnlist, record)
 		endif
 	endfor
-	return lines
+	return returnlist
 endfun
 
 " Tab & windows
 
 fun! wheel#perspective#tabwins ()
 	" Buffers visible in tabs & wins
-	let lines = []
+	let returnlist = []
 	let last_tab = tabpagenr('$')
 	let mandalas = g:wheel_mandalas.ring
 	for tabnum in range(1, last_tab)
@@ -286,20 +286,20 @@ fun! wheel#perspective#tabwins ()
 			call add(entry, printf('%3d', winum))
 			call add(entry, filename)
 			let record = join(entry, s:field_separ)
-			call add(lines, record)
+			call add(returnlist, record)
 		endfor
 	endfor
-	return lines
+	return returnlist
 endfun
 
 fun! wheel#perspective#tabwins_tree ()
 	" Buffers visible in tree of tabs & wins
-	let lines = []
+	let returnlist = []
 	let last_tab = tabpagenr('$')
 	let mandalas = g:wheel_mandalas.ring
 	for tabnum in range(1, last_tab)
 		let record = 'tab ' .. tabnum .. s:fold_1
-		call add(lines, record)
+		call add(returnlist, record)
 		let buflist = tabpagebuflist(tabnum)
 		let winum = 0
 		for bufnum in buflist
@@ -309,10 +309,10 @@ fun! wheel#perspective#tabwins_tree ()
 			let winum += 1
 			let filename = bufname(bufnum)
 			let record = filename
-			call add(lines, record)
+			call add(returnlist, record)
 		endfor
 	endfor
-	return lines
+	return returnlist
 endfun
 
 " Search inside file
@@ -322,25 +322,25 @@ fun! wheel#perspective#occur (pattern)
 	let pattern = a:pattern
 	let position = getcurpos()
 	let runme = 'global /' .. pattern .. '/number'
-	let lines = execute(runme)
-	let lines = split(lines, "\n")
-	for index in range(len(lines))
-		let elem = lines[index]
+	let returnlist = execute(runme)
+	let returnlist = split(returnlist, "\n")
+	for index in range(len(returnlist))
+		let elem = returnlist[index]
 		let fields = split(elem)
 		let linum = fields[0]
 		let content = join(fields[1:])
 		let linum = printf('%5d', linum)
 		let entry = [linum, content]
 		let elem = join(entry, s:field_separ)
-		let lines[index] = elem
+		let returnlist[index] = elem
 	endfor
 	call wheel#gear#restore_cursor(position)
-	return lines
+	return returnlist
 endfun
 
 fun! wheel#perspective#markers ()
 	" Markers
-	let lines = []
+	let returnlist = []
 	let bufnum = bufnr('%')
 	let marklist = getmarklist(bufnum)
 	call extend(marklist, getmarklist())
@@ -364,14 +364,14 @@ fun! wheel#perspective#markers ()
 		let colnum = printf('%2d', colnum)
 		let entry = [mark, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
-		call add(lines, record)
+		call add(returnlist, record)
 	endfor
-	return lines
+	return returnlist
 endfun
 
 fun! wheel#perspective#jumps ()
 	" Jumps
-	let lines = []
+	let returnlist = []
 	let mandalas = g:wheel_mandalas.ring
 	let jumplist = getjumplist()[0]
 	for jump in jumplist
@@ -399,16 +399,16 @@ fun! wheel#perspective#jumps ()
 		let colnum = printf('%2d', colnum)
 		let entry = [bufnum, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
-		call add(lines, record)
+		call add(returnlist, record)
 	endfor
 	" newest first
-	call reverse(lines)
-	return lines
+	call reverse(returnlist)
+	return returnlist
 endfun
 
 fun! wheel#perspective#changes ()
 	" Changes
-	let lines = []
+	let returnlist = []
 	let changelist = getchangelist()[0]
 	for change in changelist
 		let linum = change.lnum
@@ -418,11 +418,11 @@ fun! wheel#perspective#changes ()
 		let colnum = printf('%2d', colnum)
 		let entry = [linum, colnum, content]
 		let record = join(entry, s:field_separ)
-		call add(lines, record)
+		call add(returnlist, record)
 	endfor
 	" newest first
-	call reverse(lines)
-	return lines
+	call reverse(returnlist)
+	return returnlist
 endfun
 
 " from vector
@@ -460,7 +460,7 @@ endfun
 fun! wheel#perspective#tags ()
 	" Tags
 	let table = wheel#symbol#table ()
-	let lines = []
+	let returnlist = []
 	for fields in table
 		let iden = fields[0]
 		let filename = fields[1]
@@ -470,9 +470,9 @@ fun! wheel#perspective#tags ()
 		let type = printf('%2s', type)
 		let entry = [type, iden, filename, search]
 		let record = join(entry, s:field_separ)
-		call add(lines, record)
+		call add(returnlist, record)
 	endfor
-	return lines
+	return returnlist
 endfun
 
 " Yanks
@@ -481,21 +481,21 @@ endfun
 
 fun! wheel#perspective#yank (mode)
 	" Yank wheel
-	let lines = []
+	let returnlist = []
 	if a:mode == 'list'
 		for elem in g:wheel_yank
-			call add(lines, string(elem))
+			call add(returnlist, string(elem))
 		endfor
 	elseif a:mode == 'plain'
 		for elem in g:wheel_yank
 			let plain = join(elem, "\n")
 			" Only add if some text is there
 			if plain =~ '\m\w'
-				call add(lines, plain)
+				call add(returnlist, plain)
 			endif
 		endfor
 	endif
-	return lines
+	return returnlist
 endfun
 
 " Undo list
@@ -508,7 +508,7 @@ fun! wheel#perspective#undolist ()
 		return v:false
 	endif
 	let undolist = undolist[1:]
-	let lines = []
+	let returnlist = []
 	for elem in undolist
 		let fields = split(elem)
 		let iden = fields[0]
@@ -517,9 +517,9 @@ fun! wheel#perspective#undolist ()
 		let written = fields[-1]
 		let entry = [iden, modif, time, written]
 		let record = join(entry, s:field_separ)
-		call add(lines, record)
+		call add(returnlist, record)
 	endfor
 	" more recent first
-	call reverse(lines)
-	return lines
+	call reverse(returnlist)
+	return returnlist
 endfun

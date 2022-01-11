@@ -15,6 +15,17 @@ endif
 
 " main
 
+fun! wheel#whirl#mru ()
+	" Switch to most recently used non-wheel file
+	let prompt = 'Switch to mru file : '
+	let complete = 'customlist,wheel#completelist#mru'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let filename = fields[1]
+	execute 'edit' filename
+	return win_getid ()
+endfun
+
 fun! wheel#whirl#occur ()
 	" Switch to line
 	let prompt = 'Switch to line : '

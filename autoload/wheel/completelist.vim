@@ -93,7 +93,7 @@ endfu
 " mandalas = dedicated buffers
 
 fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
-	" Complete mandala buffers names
+	" Complete mandala buffer name
 	let bufnums = g:wheel_mandalas.ring
 	if empty(bufnums)
 		return []
@@ -111,7 +111,7 @@ endfun
 " leaves = mandala layers, implemented as a ring
 
 fun! wheel#completelist#leaf (arglead, cmdline, cursorpos)
-	" Complete leaves choices
+	" Complete leaf type
 	let filenames = wheel#book#ring ('filename')
 	if empty(filenames)
 		return []
@@ -205,16 +205,25 @@ fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
 endfun
 
 fun! wheel#completelist#visible_buffer (arglead, cmdline, cursorpos)
-	" Complete list of buffers visible in tabs & windows
+	" Complete buffer visible in tabs & windows
 	let choices = wheel#perspective#tabwins ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
+" mru non wheel files
+
+fun! wheel#completelist#mru (arglead, cmdline, cursorpos)
+	" Complete mru file
+	let files = wheel#perspective#mru ()
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, files)
+endfun
+
 " buffer lines
 
 fun! wheel#completelist#line (arglead, cmdline, cursorpos)
-	" Complete with line content
+	" Complete buffer line
 	let linelist = getline(1,'$')
 	call map(linelist, { ind, val -> string(ind + 1) .. s:field_separ .. val })
 	let wordlist = split(a:cmdline)
@@ -224,21 +233,21 @@ endfun
 " jumps
 
 fun! wheel#completelist#marker (arglead, cmdline, cursorpos)
-	" Complete list of markers
+	" Complete marker
 	let choices = wheel#perspective#markers ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
 fun! wheel#completelist#jump (arglead, cmdline, cursorpos)
-	" Complete list of jumps
+	" Complete jump
 	let choices = wheel#perspective#jumps ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
 fun! wheel#completelist#change (arglead, cmdline, cursorpos)
-	" Complete list of changes
+	" Complete change
 	let choices = wheel#perspective#changes ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
@@ -247,7 +256,7 @@ endfun
 " tags
 
 fun! wheel#completelist#tag (arglead, cmdline, cursorpos)
-	" Complete list of tags
+	" Complete tag
 	let table = wheel#symbol#table ()
 	let choices = []
 	for fields in table

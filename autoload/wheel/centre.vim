@@ -91,6 +91,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#sailing#locate()<cr>
 	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#sailing#find()<cr>
 	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
+	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#prompt#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
 	" Search inside files
 	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#whirl#occur()<cr>
@@ -292,7 +293,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'l <plug>(wheel-dedibuf-locate)'
 		exe nmap prefix .. 'f <plug>(wheel-dedibuf-find)'
 		exe nmap prefix .. async .. 'f <plug>(wheel-dedibuf-async-find)'
-		exe nmap prefix .. 'u <plug>(wheel-dedibuf-mru)'
+		exe nmap prefix .. 'u <plug>(wheel-prompt-mru)'
+		exe nmap prefix .. '<m-u> <plug>(wheel-dedibuf-mru)'
 		" Search inside files
 		exe nmap prefix .. 's <plug>(wheel-prompt-occur)'
 		exe nmap prefix .. '<m-s> <plug>(wheel-dedibuf-occur)'
@@ -411,7 +413,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
 		exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
 		exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
-		exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
+		exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
+		exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
 		" Search inside files
 		exe nmap '<m-s>          <plug>(wheel-prompt-occur)'
 		exe nmap '<m-c-s>        <plug>(wheel-dedibuf-occur)'
@@ -444,7 +447,7 @@ fun! wheel#centre#cables ()
 		" Grep edit
 		exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 		" Undo list
-		exe nmap '<m-c-u>        <plug>(wheel-dedibuf-undo-list)'
+		exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
 		" Command
 		exe nmap '<m-!>          <plug>(wheel-dedibuf-command)'
 		exe nmap '<m-&>          <plug>(wheel-dedibuf-async)'
