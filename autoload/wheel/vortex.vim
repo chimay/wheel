@@ -266,7 +266,7 @@ fun! wheel#vortex#multi_switch(...)
 endfun
 
 fun! wheel#vortex#helix (...)
-	" Switch to coordinates in index
+	" Switch to coordinates in helix index
 	" Optional argument : jump mode
 	if a:0 > 0
 		let mode = a:1
@@ -282,7 +282,7 @@ fun! wheel#vortex#helix (...)
 endfun
 
 fun! wheel#vortex#grid (...)
-	" Switch to coordinates in grid
+	" Switch to coordinates in grid index
 	" Optional argument : jump mode
 	if a:0 > 0
 		let mode = a:1
