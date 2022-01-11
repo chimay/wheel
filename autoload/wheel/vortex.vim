@@ -273,11 +273,27 @@ fun! wheel#vortex#helix (...)
 	else
 		let mode = 'default'
 	endif
-	let prompt = 'Switch to index element : '
+	let prompt = 'Switch to location in index : '
 	let complete = 'customlist,wheel#completelist#helix'
 	let record = input(prompt, '', complete)
 	let coordin = split(record, s:level_separ)
-	call wheel#vortex#chord(coordin)
+	call wheel#vortex#chord (coordin)
+	call wheel#vortex#jump (mode)
+endfun
+
+fun! wheel#vortex#grid (...)
+	" Switch to coordinates in grid
+	" Optional argument : jump mode
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
+	let prompt = 'Switch to circle in index : '
+	let complete = 'customlist,wheel#completelist#grid'
+	let record = input(prompt, '', complete)
+	let coordin = split(record, s:level_separ)
+	call wheel#vortex#interval (coordin)
 	call wheel#vortex#jump (mode)
 endfun
 

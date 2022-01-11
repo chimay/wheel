@@ -285,6 +285,7 @@ You can switch :
 - circle with `<M-w><C-Enter>`
 - torus with `<M-w><S-Enter>`
 - to any location in the wheel index with `<M-w>x`
+- to any circle in the wheel index with `<M-w><C-x>`
 
 A completion is available, see |wheel-prompting-functions-completion|.
 
@@ -440,6 +441,7 @@ Switch~
 - circle : `<M-w><C-Space>`
 - torus : `<M-w><S-Space>`
 - location in index : `<M-w>x`
+- circle in index : `<M-w><C-x>`
 - location in history : `<M-w>h`
 
 ------------------------------------------------------------------------------
@@ -592,14 +594,15 @@ SWITCH					    *wheel-prompting-functions-switch*
 
 Switch element in the wheel~
 
-| Function          | Completion list              | Default binding |
-| ----------------  | ---------------------------- | --------------- |
-| switch location   | locations of current circle  | <M-w><Enter>    |
-| switch circle     | circles of the current torus | <M-w><C-Enter>  |
-| switch torus      | toruses in the wheel         | <M-w><S-Enter>  |
-| multi switch      | toruses, circles & locations | <M-w><M-Enter>  |
-| switch in index   | index entries                | <M-w>x          |
-| switch in history | history entries              | <M-w>h          |
+| Function                 | Completion list              | Default binding |
+| ------------------------ | ---------------------------- | --------------- |
+| switch location          | locations of current circle  | <M-w><Enter>    |
+| switch circle            | circles of the current torus | <M-w><C-Enter>  |
+| switch torus             | toruses in the wheel         | <M-w><S-Enter>  |
+| multi switch             | toruses, circles & locations | <M-w><M-Enter>  |
+| switch location in index | index locations              | <M-w>x          |
+| switch circle in index   | index circles                | <M-w><C-x>      |
+| switch in history        | history entries              | <M-w>h          |
 
 Switch file~
 
@@ -916,7 +919,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><S-space>` : go to current location of the chosen torus
 - `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><M-x>`     : index with folds (see below)
-- `<M-w><C-x>`     : index of toruses > circles
+- `<M-w><C-S-x>`   : index of toruses > circles
 - `<M-w><M-h>`     : history index
 - `<M-w>l`         : search files with `locate`
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
@@ -963,8 +966,8 @@ The dedicated buffers that allow us to navigate in the wheel are :
 - `<M-w><C-space>` : current location of the chosen circle
 - `<M-w><S-space>` : current location of the chosen torus
 - `<M-w>X`         : index of toruses > circles > locations
-- `<M-w><C-x>`     : index of toruses > circles
 - `<M-w><M-x>`     : index with folds (see below)
+- `<M-w><M-S-x>`   : index of toruses > circles
 - `<M-w><M-h>`     : history index
 
 ------------------------------------------------------------------------------
@@ -2136,6 +2139,7 @@ Prompting functions :
 | <S-CR>    | <M-w><S-Enter>      | Switch to torus                          |
 | <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location       |
 | x         | <M-w>x              | Switch location in index                 |
+| <C-x>     | <M-w><C-x>          | Switch location in index                 |
 | h         | <M-w>h              | History index                            |
 
 Dedicated buffers :
@@ -2146,8 +2150,8 @@ Dedicated buffers :
 | <C-Space> | <M-w><C-Space>      | Go to circle                             |
 | <S-Space> | <M-w><S-Space>      | Go to torus                              |
 | X         | <M-w>X              | Index of toruses > circles > locations   |
-| <C-x>     | <M-w><C-x>          | Index of toruses > circles               |
 | <M-x>     | <M-w><M-x>          | Treeish index with folds                 |
+| <M-S-x>   | <M-w><M-S-x>        | Index of toruses > circles               |
 | <M-h>     | <M-w><M-h>          | History index                            |
 
 Rename~
@@ -2393,7 +2397,7 @@ adapt them to your taste and add them to your init file.
 | <M-Enter>      | Prompt for a location to switch to            |
 | <C-Enter>      | Prompt for a circle to switch to              |
 | <S-Enter>      | Prompt for a torus to switch to               |
-| <M-x>          | Prompt for an index entry to switch to        |
+| <M-x>          | Prompt for a location in index to switch to   |
 | -------------- | --------------------------------------------- |
 | <Space>        | Choose location in dedicated buffer           |
 | <C-Space>      | Choose circle in dedicated buffer             |
@@ -2645,7 +2649,12 @@ Prompt :
 | <plug>(wheel-prompt-torus)                      | switch torus                             |
 | <plug>(wheel-prompt-multi-switch)               | switch torus, circle & location          |
 | <plug>(wheel-prompt-index)                      | switch location in index                 |
+| <plug>(wheel-prompt-index-circles)              | switch circle in index                   |
 | <plug>(wheel-prompt-history)                    | switch to element in history             |
+| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-prompt-mru)                        | switch to mru non wheel file             |
+| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-prompt-occur)                      | switch to line in current file           |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-prompt-buffer)                     | switch to buffer                         |
 | <plug>(wheel-prompt-tabwin)                     | visible buffers in tabs & windows        |
@@ -2663,8 +2672,8 @@ Dedicated buffers :
 | <plug>(wheel-dedibuf-circle)                    | switch circle                          |
 | <plug>(wheel-dedibuf-torus)                     | switch torus                           |
 | <plug>(wheel-dedibuf-index)                     | index of locations                     |
-| <plug>(wheel-dedibuf-index-circles)             | index of circles                       |
 | <plug>(wheel-dedibuf-tree)                      | index of locations in tree fold format |
+| <plug>(wheel-dedibuf-index-circles)             | index of circles                       |
 | <plug>(wheel-dedibuf-history)                   | index of locations history             |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-dedibuf-locate)                    | search file with locate                |

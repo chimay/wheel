@@ -81,6 +81,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-torus) <cmd>call wheel#sailing#switch('torus')<cr>
 	" Indexes
 	nnoremap <plug>(wheel-prompt-index) <cmd>call wheel#vortex#helix()<cr>
+	nnoremap <plug>(wheel-prompt-index-circles) <cmd>call wheel#vortex#grid()<cr>
 	nnoremap <plug>(wheel-dedibuf-index) <cmd>call wheel#sailing#helix()<cr>
 	nnoremap <plug>(wheel-dedibuf-index-circles) <cmd>call wheel#sailing#grid()<cr>
 	nnoremap <plug>(wheel-dedibuf-tree) <cmd>call wheel#sailing#tree()<cr>
@@ -88,10 +89,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-history) <cmd>call wheel#vortex#history()<cr>
 	nnoremap <plug>(wheel-dedibuf-history) <cmd>call wheel#sailing#history()<cr>
 	" Search for files
+	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#whirl#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#sailing#locate()<cr>
 	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#sailing#find()<cr>
 	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
-	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#whirl#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
 	" Search inside files
 	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#whirl#occur()<cr>
@@ -250,9 +251,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<s-space> <plug>(wheel-dedibuf-torus)'
 		" Indexes
 		exe nmap prefix .. 'x <plug>(wheel-prompt-index)'
+		exe nmap prefix .. '<c-x> <plug>(wheel-prompt-index-circles)'
 		exe nmap prefix .. 'X <plug>(wheel-dedibuf-index)'
-		exe nmap prefix .. '<c-x> <plug>(wheel-dedibuf-index-circles)'
 		exe nmap prefix .. '<m-x> <plug>(wheel-dedibuf-tree)'
+		exe nmap prefix .. '<m-s-x> <plug>(wheel-dedibuf-index-circles)'
 		" History
 		exe nmap prefix .. 'h <plug>(wheel-prompt-history)'
 		exe nmap prefix .. '<m-h> <plug>(wheel-dedibuf-history)'
