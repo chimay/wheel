@@ -98,28 +98,28 @@ fun! wheel#completelist#mandala (arglead, cmdline, cursorpos)
 	if empty(bufnums)
 		return []
 	endif
-	let types = []
+	let choices = []
 	for index in range(len(bufnums))
 		let num = bufnums[index]
 		let title = bufname(num)
-		call add(types, title)
+		call add(choices, title)
 	endfor
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, types)
+	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
 " leaves = mandala layers, implemented as a ring
 
 fun! wheel#completelist#leaf (arglead, cmdline, cursorpos)
-	" Complete leaves types
+	" Complete leaves choices
 	let filenames = wheel#book#ring ('filename')
 	if empty(filenames)
 		return []
 	endif
 	let Fun = function('wheel#mandala#type')
-	let types = map(copy(filenames), {_,v->Fun(v)})
+	let choices = map(copy(filenames), {_,v->Fun(v)})
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, types)
+	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
 " files & dirs
@@ -186,7 +186,7 @@ endfun
 fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
 	let buflist = getbufinfo({'buflisted' : 1})
-	let lines = []
+	let choices = []
 	let mandalas = g:wheel_mandalas.ring
 	for buffer in buflist
 		let bufnum = printf('%3d', buffer.bufnr)
@@ -197,18 +197,28 @@ fun! wheel#completelist#buffer (arglead, cmdline, cursorpos)
 		if ! is_without_name && ! is_wheel_buffer
 			let entry = [bufnum, linum, filename]
 			let record = join(entry, s:field_separ)
-			call add(lines, record)
+			call add(choices, record)
 		endif
 	endfor
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, lines)
+	return wheel#kyusu#candidates(wordlist, choices)
 endfun
 
 fun! wheel#completelist#visible_buffer (arglead, cmdline, cursorpos)
 	" Complete list of buffers visible in tabs & windows
-	let lines = wheel#perspective#tabwins ()
+	let choices = wheel#perspective#tabwins ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, lines)
+	return wheel#kyusu#candidates(wordlist, choices)
+endfun
+
+" buffer lines
+
+fun! wheel#completelist#line (arglead, cmdline, cursorpos)
+	" Complete with line content
+	let linelist = getline(1,'$')
+	call map(linelist, { ind, val -> string(ind + 1) .. s:field_separ .. val })
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, linelist)
 endfun
 
 " jumps

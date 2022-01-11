@@ -15,6 +15,17 @@ endif
 
 " main
 
+fun! wheel#whirl#occur ()
+	" Switch to line
+	let prompt = 'Switch to line : '
+	let complete = 'customlist,wheel#completelist#line'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let linum = fields[0]
+	call cursor(linum, 1)
+	return win_getid ()
+endfun
+
 fun! wheel#whirl#buffer ()
 	" Switch to buffer
 	let prompt = 'Switch to buffer : '

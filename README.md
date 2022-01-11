@@ -386,7 +386,8 @@ exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
 exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
 exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
 " Search inside files
-exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
+exe nmap '<m-s>          <plug>(wheel-prompt-occur)'
+exe nmap '<m-c-s>        <plug>(wheel-dedibuf-occur)'
 exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
 exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
 " Buffers

@@ -93,6 +93,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
 	" Search inside files
+	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#whirl#occur()<cr>
 	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#sailing#grep()<cr>
 	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#sailing#outline()<cr>
@@ -293,7 +294,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. async .. 'f <plug>(wheel-dedibuf-async-find)'
 		exe nmap prefix .. 'u <plug>(wheel-dedibuf-mru)'
 		" Search inside files
-		exe nmap prefix .. 's <plug>(wheel-dedibuf-occur)'
+		exe nmap prefix .. 's <plug>(wheel-prompt-occur)'
+		exe nmap prefix .. '<m-s> <plug>(wheel-dedibuf-occur)'
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
 		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-outline)'
 		" Buffers
@@ -411,7 +413,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
 		exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
 		" Search inside files
-		exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
+		exe nmap '<m-s>          <plug>(wheel-prompt-occur)'
+		exe nmap '<m-c-s>        <plug>(wheel-dedibuf-occur)'
 		exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
 		exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
 		" Buffers
