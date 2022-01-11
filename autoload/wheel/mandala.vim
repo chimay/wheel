@@ -133,7 +133,6 @@ fun! wheel#mandala#open (type)
 	call wheel#mandala#init ()
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
-	call wheel#status#mandala_leaf ()
 endfun
 
 fun! wheel#mandala#close ()
@@ -224,6 +223,7 @@ fun! wheel#mandala#fill (content, ...)
 	let &foldenable = ampersand
 	" update leaf ring
 	call wheel#book#syncup ()
+	call wheel#status#mandala_leaf ()
 endfun
 
 fun! wheel#mandala#replace (content, ...)
