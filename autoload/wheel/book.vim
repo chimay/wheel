@@ -95,8 +95,7 @@ endfun
 " Init ring
 
 fun! wheel#book#init ()
-	" Init ring and buffer variables
-	"call wheel#mandala#init ()
+	" Init ring
 	if ! exists('b:wheel_ring')
 		let b:wheel_ring = {}
 		let ring = b:wheel_ring
@@ -362,7 +361,6 @@ fun! wheel#book#delete ()
 	let length -= 1
 	let ring.current = wheel#gear#circular_minus (current, length)
 	call wheel#book#syncdown ()
-	call wheel#status#mandala_leaf ()
 endfun
 
 " Forward & backward

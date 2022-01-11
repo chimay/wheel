@@ -183,6 +183,8 @@ fun! wheel#cylinder#first (...)
 	call wheel#book#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
+	" call status before going back to previous buffer
+	call wheel#status#mandala_leaf ()
 	if mode == 'furtive'
 		if empty_cur_buffer
 			" :new has opened a split, close it
@@ -256,6 +258,8 @@ fun! wheel#cylinder#add (...)
 	call wheel#book#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
+	" call status before going back to previous buffer
+	call wheel#status#mandala_leaf ()
 	if mode == 'furtive' && ! was_mandala
 		" in furtive mode, if not in mandala buffer at start,
 		" go back to previous buffer
@@ -266,7 +270,6 @@ fun! wheel#cylinder#add (...)
 			silent buffer #
 		endif
 	endif
-	call wheel#status#mandala_leaf ()
 	return v:true
 endfun
 
@@ -297,6 +300,7 @@ fun! wheel#cylinder#delete ()
 		execute 'silent buffer' goto
 	endif
 	execute 'silent bwipe!' removed
+	" mandala_leaf skip leaves if we are not a mandala
 	call wheel#status#mandala_leaf ()
 	return removed
 endfun

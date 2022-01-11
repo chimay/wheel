@@ -53,18 +53,24 @@ fun! wheel#status#mandala_leaf ()
 		call add(mandalas, title)
 	endfor
 	" -- leaf ring status
-	let filenames = wheel#book#ring ('filename')
-	if empty(filenames)
-		return '[' .. wheel#status#type () .. ']'
+	if exists('b:wheel_ring')
+		let filenames = wheel#book#ring ('filename')
+		let current = b:wheel_ring.current
+	else
+		let filenames = []
+		let current = -1
 	endif
 	let Fun = function('wheel#status#type')
 	let leaves = map(copy(filenames), {_,v->Fun(v)})
 	" current leaf type
 	let title = '[' .. wheel#status#type () .. ']'
-	let current = b:wheel_ring.current
-	let leaves[current] = title
 	redraw!
-	echo 'mandalas : ' .. join(mandalas) ' / leaves : ' .. join(leaves)
+	if current >= 0
+		let leaves[current] = title
+		echo 'mandalas : ' .. join(mandalas) ' / leaves : ' .. join(leaves)
+	else
+		echo 'mandalas : ' .. join(mandalas)
+	endif
 endfun
 
 " Tab line
