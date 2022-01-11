@@ -267,6 +267,9 @@ fun! wheel#line#occur (settings)
 	let line = str2nr(fields[0])
 	call wheel#line#target (a:settings.target)
 	call cursor(line, 1)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -338,6 +341,9 @@ fun! wheel#line#jumps (settings)
 	let colnum = str2nr(fields[2])
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -347,6 +353,9 @@ fun! wheel#line#changes (settings)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
 	call cursor(linum, colnum)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -365,6 +374,9 @@ fun! wheel#line#tags (settings)
 	mark '
 	call cursor(1, 1)
 	call search(search)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 	" forget it, the selection must be done in the wheel buffer,
 	" not elsewhere

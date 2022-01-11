@@ -91,7 +91,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#sailing#locate()<cr>
 	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#sailing#find()<cr>
 	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
-	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#prompt#mru()<cr>
+	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#whirl#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
 	" Search inside files
 	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#whirl#occur()<cr>

@@ -34,6 +34,9 @@ fun! wheel#whirl#occur ()
 	let fields = split(record, s:field_separ)
 	let linum = fields[0]
 	call cursor(linum, 1)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -47,6 +50,9 @@ fun! wheel#whirl#buffer ()
 	execute 'buffer' bufnum
 	let linum = fields[1]
 	call cursor(linum, 1)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -86,6 +92,9 @@ fun! wheel#whirl#jump ()
 	let colnum = str2nr(fields[2])
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -98,6 +107,9 @@ fun! wheel#whirl#change ()
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
 	call cursor(linum, colnum)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
 
@@ -119,5 +131,8 @@ fun! wheel#whirl#tag ()
 	mark '
 	call cursor(1,1)
 	call search(line)
+	if &foldopen =~ 'jump'
+		normal zv
+	endif
 	return win_getid ()
 endfun
