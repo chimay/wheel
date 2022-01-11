@@ -130,6 +130,9 @@ FEATURES				*wheel-introduction-features*
   + result can be filtered, as usual
 - dedicated buffers ring to save your searches
   + layer ring in each dedicated buffer
+- batch operations
+- autogroup files by extension or directory
+- save tabs & windows in minimal session file
 - display files
   + split levels : torus, circle, location
   + split
@@ -141,9 +144,6 @@ FEATURES				*wheel-introduction-features*
   + mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
-- save tabs & windows in minimal session file
-- batch operations
-- autogroup files by extension or directory
 
 ------------------------------------------------------------------------------
 HISTORY						*wheel-introduction-history*

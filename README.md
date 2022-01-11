@@ -150,6 +150,9 @@ it’s easy to add new functionalities.
   + result can be filtered, as usual
 - dedicated buffers stack to save your searches
   + layer ring in each dedicated buffer
+- batch operations
+- autogroup files by extension or directory
+- save tabs & windows in minimal session file
 - display files
   + split levels : torus, circle, location
   + split
@@ -161,9 +164,6 @@ it’s easy to add new functionalities.
   + mix of above
     * circles on tabs, locations on split
     * toruses on tabs, circles on split
-- save tabs & windows in minimal session file
-- batch operations
-- autogroup files by extension or directory
 
 ## History
 
@@ -348,86 +348,93 @@ most used functions. They are included in the level 10 mappings :
 
 ~~~vim
 " Menus
-nmap <m-m>          <plug>(wheel-menu-main)
-nmap <m-=>          <plug>(wheel-menu-meta)
+exe nmap '<m-m>          <plug>(wheel-menu-main)'
+exe nmap '<m-=>          <plug>(wheel-menu-meta)'
+" Sync
+exe nmap '<m-$>          <plug>(wheel-sync-up)'
 " Add, Delete
-nmap <m-insert>     <plug>(wheel-add-here)
-nmap <m-del>        <plug>(wheel-delete-location)
+exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
+exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
 " Next / Previous
-nmap <c-pageup>     <plug>(wheel-previous-location)
-nmap <c-pagedown>   <plug>(wheel-next-location)
-nmap <c-home>       <plug>(wheel-previous-circle)
-nmap <c-end>        <plug>(wheel-next-circle)
-nmap <s-home>       <plug>(wheel-previous-torus)
-nmap <s-end>        <plug>(wheel-next-torus)
+exe nmap '<c-pageup>     <plug>(wheel-previous-location)'
+exe nmap '<c-pagedown>   <plug>(wheel-next-location)'
+exe nmap '<c-home>       <plug>(wheel-previous-circle)'
+exe nmap '<c-end>        <plug>(wheel-next-circle)'
+exe nmap '<s-home>       <plug>(wheel-previous-torus)'
+exe nmap '<s-end>        <plug>(wheel-next-torus)'
 " History
-nmap <s-pageup>     <plug>(wheel-history-newer)
-nmap <s-pagedown>   <plug>(wheel-history-older)
+exe nmap '<s-pageup>     <plug>(wheel-history-newer)'
+exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
 " Alternate
-nmap <c-^>          <plug>(wheel-alternate-anywhere)
-nmap <m-^>          <plug>(wheel-alternate-same-circle)
-nmap <m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)
-" Switch prompt
-nmap <m-cr>        <plug>(wheel-switch-location)
-nmap <c-cr>        <plug>(wheel-switch-circle)
-nmap <s-cr>        <plug>(wheel-switch-torus)
-nmap <m-c-cr>      <plug>(wheel-switch-in-index)
-" Navigation buffers
-nmap <space>        <plug>(wheel-navigation-location)
-nmap <c-space>      <plug>(wheel-navigation-circle)
-nmap <s-space>      <plug>(wheel-navigation-torus)
-nmap <m-x>          <plug>(wheel-tree)
-nmap <m-c-x>        <plug>(wheel-index-locations)
-nmap <m-h>          <plug>(wheel-history)
+exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
+exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
+exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+" Switch
+exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
+exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
+exe nmap '<s-cr>        <plug>(wheel-prompt-torus)'
+exe nmap '<m-c-cr>      <plug>(wheel-prompt-index)'
+exe nmap '<m-h>         <plug>(wheel-prompt-history)'
+exe nmap '<space>       <plug>(wheel-dedibuf-location)'
+exe nmap '<c-space>     <plug>(wheel-dedibuf-circle)'
+exe nmap '<s-space>     <plug>(wheel-dedibuf-torus)'
+exe nmap '<m-x>         <plug>(wheel-dedibuf-tree)'
+exe nmap '<m-c-x>       <plug>(wheel-dedibuf-index)'
+exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
 " Search for files
-nmap <m-l>          <plug>(wheel-locate)
-nmap <m-f>          <plug>(wheel-find)
-nmap <m-c-f>        <plug>(wheel-async-find)
-nmap <m-u>          <plug>(wheel-mru)
+exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
+exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
+exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
+exe nmap '<m-u>          <plug>(wheel-dedibuf-mru)'
 " Buffers
-nmap <m-b>          <plug>(wheel-buffers)
+exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
+exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
+exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers-all)'
 " Tabs & windows : visible buffers
-nmap <m-v>          <plug>(wheel-switch-tabwin)
-nmap <m-c-v>        <plug>(wheel-tabwins-tree)
+exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
+exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
 " Search inside files
-nmap <m-s>          <plug>(wheel-occur)
-nmap <m-g>          <plug>(wheel-grep)
-nmap <m-o>          <plug>(wheel-outline)
-" (neo)vim points
-nmap <m-k>          <plug>(wheel-markers)
-nmap <m-j>          <plug>(wheel-jumps)
-nmap <m-c>          <plug>(wheel-changes)
-" tags, labels
-nmap <m-t>          <plug>(wheel-switch-tag)
-nmap <m-l>          <plug>(wheel-tags)
+exe nmap '<m-s>          <plug>(wheel-dedibuf-occur)'
+exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
+exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
+" (neo)vim lists
+exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
+exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
+exe nmap '<m-;>          <plug>(wheel-prompt-change)'
+exe nmap '<m-c>          <plug>(wheel-prompt-change)'
+exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
+exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
+exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
+exe nmap '<m-,>          <plug>(wheel-dedibuf-changes)'
+exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
 " Yank
-nmap <m-y>          <plug>(wheel-yank-list)
-nmap <m-p>          <plug>(wheel-yank-plain)
+exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
+exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
 " Reshaping buffers
 " wheel
-nmap <m-r>          <plug>(wheel-reorganize)
+exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
 " tabs & windows : visible buffers
-nmap <m-c-r>        <plug>(wheel-reorg-tabwins)
+exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
 " grep edit
-nmap <m-c-g>        <plug>(wheel-grep-edit)
+exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 " Undo list
-nmap <m-c-u>        <plug>(wheel-undo-list)
+exe nmap '<m-c-u>        <plug>(wheel-dedibuf-undo-list)'
 " Command
-nmap <m-!>          <plug>(wheel-command)
-nmap <m-&>          <plug>(wheel-async)
-" Save (push) mandala buffer
-nmap <m-tab>        <plug>(wheel-mandala-push)
-" Remove (pop) mandala buffer
-nmap <m-backspace>  <plug>(wheel-mandala-pop)
+exe nmap '<m-!>          <plug>(wheel-dedibuf-command)'
+exe nmap '<m-&>          <plug>(wheel-dedibuf-async)'
+" Add new mandala buffer
+exe nmap '<m-tab>        <plug>(wheel-mandala-add)'
+" Delete mandala buffer
+exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
 " Cycle mandala buffers
-nmap <m-home>        <plug>(wheel-mandala-backward)
-nmap <m-end>       <plug>(wheel-mandala-forward)
+exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
+exe nmap '<m-end>         <plug>(wheel-mandala-forward)'
 " Switch mandala buffers
-nmap <m-space>      <plug>(wheel-mandala-switch)
+exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 " Layouts
-nmap <m-z>          <plug>(wheel-zoom)
-nmap <m-pageup>     <plug>(wheel-rotate-counter-clockwise)
-nmap <m-pagedown>   <plug>(wheel-rotate-clockwise)
+exe nmap '<m-z>          <plug>(wheel-zoom)'
+exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
 ~~~
 
 # Examples
