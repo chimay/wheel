@@ -141,11 +141,17 @@ endfun
 
 fun! wheel#cylinder#first (...)
 	" Add first mandala buffer
+	" Optional argument :
+	"   - furtive (default) : use current window and go back to previous buffer at the end
+	"   - linger : use a split
 	if a:0 > 0
-		" linger
 		let mode = a:1
 	else
 		let mode = 'furtive'
+	endif
+	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
+		echomsg 'wheel cylinder first : bad mode argument'
+		return v:false
 	endif
 	let mandalas = g:wheel_mandalas.ring
 	if ! empty(mandalas)
@@ -153,11 +159,22 @@ fun! wheel#cylinder#first (...)
 		return v:false
 	endif
 	let iden = g:wheel_mandalas.iden
+	" current buffer
+	let cur_buffer = bufnr('%')
+	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" new buffer
-	if mode != 'furtive'
+	if mode == 'linger'
 		split
+		enew
+	else
+		if empty_cur_buffer
+			" :enew does not create a new buffer if current want has no name
+			" so we need to use :new
+			new
+		else
+			enew
+		endif
 	endif
-	enew
 	let novice = bufnr('%')
 	" add
 	call add(mandalas, novice)
@@ -167,17 +184,29 @@ fun! wheel#cylinder#first (...)
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive'
-		silent buffer #
+		if empty_cur_buffer
+			" :new has opened a split, close it
+			close
+		else
+			silent buffer #
+		endif
 	endif
 	return v:true
 endfun
 
 fun! wheel#cylinder#add (...)
 	" Add new mandala buffer
+	" Optional argument :
+	"   - furtive (default) : use current window and go back to previous buffer at the end
+	"   - linger : use a split
 	if a:0 > 0
 		let mode = a:1
 	else
 		let mode = 'furtive'
+	endif
+	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
+		echomsg 'wheel cylinder first : bad mode argument'
+		return v:false
 	endif
 	call wheel#cylinder#check ()
 	let mandalas = g:wheel_mandalas.ring
@@ -197,8 +226,22 @@ fun! wheel#cylinder#add (...)
 	if mode != 'furtive' && ! wheel#cylinder#is_mandala ()
 		call wheel#cylinder#window ('window')
 	endif
+	" current buffer
+	let cur_buffer = bufnr('%')
+	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" new buffer
-	enew
+	if mode == 'linger'
+		split
+		enew
+	else
+		if empty_cur_buffer
+			" :enew does not create a new buffer if current want has no name
+			" so we need to use :new
+			new
+		else
+			enew
+		endif
+	endif
 	let novice = bufnr('%')
 	if novice == elder
 		echomsg 'wheel mandala add : buffer' novice 'already in ring'
@@ -216,7 +259,12 @@ fun! wheel#cylinder#add (...)
 	if mode == 'furtive' && ! was_mandala
 		" in furtive mode, if not in mandala buffer at start,
 		" go back to previous buffer
-		silent buffer #
+		if empty_cur_buffer
+			" :new has opened a split, close it
+			close
+		else
+			silent buffer #
+		endif
 	endif
 	call wheel#status#mandala ()
 	return v:true

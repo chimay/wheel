@@ -1698,10 +1698,11 @@ labels : >
 
 Gui tabs of nvim-qt~
 
-TODO
+If you find a way to customize gui tabs labels for nvim-qt, feel free
+to describe it in a github issue.
 
 ------------------------------------------------------------------------------
-EXAMPLE					    *wheel-config-example*
+EXAMPLE						        *wheel-config-example*
 
 Here is an example of a complete configuration : >
 

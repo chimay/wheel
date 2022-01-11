@@ -229,6 +229,11 @@ fun! wheel#book#syncup ()
 	" Sync mandala state to current leaf in ring
 	" state = vars, options, maps, autocmds
 	let ring = b:wheel_ring
+	" empty mandala ?
+	if wheel#mandala#is_empty()
+		echomsg 'wheel book syncup : empty mandala'
+		return v:false
+	endif
 	" first leaf ?
 	if wheel#book#is_empty()
 		let ring.current = 0
@@ -382,7 +387,7 @@ fun! wheel#book#backward ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
 	if length == 0
-		echomsg 'wheel layer forward : empty ring.'
+		echomsg 'wheel layer backward : empty ring.'
 		return v:false
 	endif
 	let current = ring.current
