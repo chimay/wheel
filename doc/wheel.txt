@@ -2973,7 +2973,6 @@ of the modules within them.
 | checknfix.vim     | Check & fix variables                         |
 | clipper.vim       | Yank buffers                                  |
 | codex.vim         | Yank wheel                                    |
-| completelist.vim  | List completion functions                     |
 | complete.vim      | Completion functions                          |
 | crystal.vim       | Internal variables                            |
 | cuboctahedron.vim | Reshaping : reorder, reorganize               |

@@ -221,7 +221,7 @@ fun! wheel#vortex#switch (level, ...)
 	call wheel#vortex#update ()
 	let level = a:level
 	let prompt = 'Switch to ' .. level .. ' : '
-	let complete = 'customlist,wheel#completelist#' .. level
+	let complete = 'customlist,wheel#complete#' .. level
 	if a:0 > 0
 		let name = a:1
 	else
@@ -250,7 +250,7 @@ fun! wheel#vortex#multi_switch(...)
 	let indexes = [-1, -1, -1]
 	for level in s:referen_coordin
 		let prompt = 'Switch to ' .. level .. ' : '
-		let complete = 'customlist,wheel#completelist#' .. level
+		let complete = 'customlist,wheel#complete#' .. level
 		let name = input(prompt, '', complete)
 		let levind = wheel#referen#coordin_index(level)
 		let found = wheel#vortex#tune (level, name)
@@ -274,7 +274,7 @@ fun! wheel#vortex#helix (...)
 		let mode = 'default'
 	endif
 	let prompt = 'Switch to location in index : '
-	let complete = 'customlist,wheel#completelist#helix'
+	let complete = 'customlist,wheel#complete#helix'
 	let record = input(prompt, '', complete)
 	let coordin = split(record, s:level_separ)
 	call wheel#vortex#chord (coordin)
@@ -290,7 +290,7 @@ fun! wheel#vortex#grid (...)
 		let mode = 'default'
 	endif
 	let prompt = 'Switch to circle in index : '
-	let complete = 'customlist,wheel#completelist#grid'
+	let complete = 'customlist,wheel#complete#grid'
 	let record = input(prompt, '', complete)
 	let coordin = split(record, s:level_separ)
 	call wheel#vortex#interval (coordin)
@@ -306,7 +306,7 @@ fun! wheel#vortex#history (...)
 		let mode = 'default'
 	endif
 	let prompt = 'Switch to history element : '
-	let complete = 'customlist,wheel#completelist#history'
+	let complete = 'customlist,wheel#complete#history'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let entry = fields[1]

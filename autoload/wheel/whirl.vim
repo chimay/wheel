@@ -18,7 +18,7 @@ endif
 fun! wheel#whirl#mru ()
 	" Switch to most recently used non-wheel file
 	let prompt = 'Switch to mru file : '
-	let complete = 'customlist,wheel#completelist#mru'
+	let complete = 'customlist,wheel#complete#mru'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let filename = fields[1]
@@ -32,7 +32,7 @@ endfun
 fun! wheel#whirl#occur ()
 	" Switch to line
 	let prompt = 'Switch to line : '
-	let complete = 'customlist,wheel#completelist#line'
+	let complete = 'customlist,wheel#complete#line'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let linum = fields[0]
@@ -46,7 +46,7 @@ endfun
 fun! wheel#whirl#buffer ()
 	" Switch to buffer
 	let prompt = 'Switch to buffer : '
-	let complete = 'customlist,wheel#completelist#buffer'
+	let complete = 'customlist,wheel#complete#buffer'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let bufnum = fields[0]
@@ -62,7 +62,7 @@ endfun
 fun! wheel#whirl#tabwin ()
 	" Switch to tab & window of visible buffer
 	let prompt = 'Switch to visible buffer : '
-	let complete = 'customlist,wheel#completelist#visible_buffer'
+	let complete = 'customlist,wheel#complete#visible_buffer'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let tabnum = fields[0]
@@ -79,7 +79,7 @@ endfun
 fun! wheel#whirl#marker ()
 	" Switch to marker
 	let prompt = 'Switch to marker : '
-	let complete = 'customlist,wheel#completelist#marker'
+	let complete = 'customlist,wheel#complete#marker'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let mark = fields[0]
@@ -93,7 +93,7 @@ endfun
 fun! wheel#whirl#jump ()
 	" Switch to jump
 	let prompt = 'Switch to jump : '
-	let complete = 'customlist,wheel#completelist#jump'
+	let complete = 'customlist,wheel#complete#jump'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let bufnum = fields[0]
@@ -110,7 +110,7 @@ endfun
 fun! wheel#whirl#change ()
 	" Switch to change
 	let prompt = 'Switch to change : '
-	let complete = 'customlist,wheel#completelist#change'
+	let complete = 'customlist,wheel#complete#change'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let linum = str2nr(fields[0])
@@ -125,7 +125,7 @@ endfun
 fun! wheel#whirl#tag ()
 	" Switch to tag
 	let prompt = 'Switch to tag : '
-	let complete = 'customlist,wheel#completelist#tag'
+	let complete = 'customlist,wheel#complete#tag'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	if len(fields) < 4

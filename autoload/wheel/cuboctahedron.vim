@@ -326,10 +326,10 @@ fun! wheel#cuboctahedron#copy_move (level)
 	if level ==# 'torus'
 		let destination = 'wheel'
 	elseif level ==# 'circle'
-		let complete = 'customlist,wheel#completelist#torus'
+		let complete = 'customlist,wheel#complete#torus'
 		let destination = input(prompt, '', complete)
 	elseif level ==# 'location'
-		let complete = 'customlist,wheel#completelist#grid'
+		let complete = 'customlist,wheel#complete#grid'
 		let destination = input(prompt, '', complete)
 	else
 		echomsg 'wheel ' .. mode .. ' : bad level name.'

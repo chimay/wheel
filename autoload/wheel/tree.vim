@@ -49,7 +49,7 @@ endfun
 fun! wheel#tree#name ()
 	" Prompt for a location name and return it
 	let prompt = 'Location name ? '
-	let complete = 'customlist,wheel#completelist#current_file'
+	let complete = 'customlist,wheel#complete#current_file'
 	return input(prompt, '', complete)
 endfu
 
@@ -72,7 +72,7 @@ fun! wheel#tree#insert_torus (torus)
 	let glossary = wheel.glossary
 	let name = torus.name
 	if wheel#chain#is_inside(name, glossary)
-		let complete = 'customlist,wheel#completelist#torus'
+		let complete = 'customlist,wheel#complete#torus'
 		let name = input('Clone torus with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
@@ -95,7 +95,7 @@ fun! wheel#tree#insert_circle (circle)
 	let glossary = torus.glossary
 	let name = circle.name
 	if wheel#chain#is_inside(name, glossary)
-		let complete = 'customlist,wheel#completelist#circle'
+		let complete = 'customlist,wheel#complete#circle'
 		let name = input('Insert circle with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
@@ -119,7 +119,7 @@ fun! wheel#tree#insert_location (location)
 	let glossary = circle.glossary
 	let name = location.name
 	if wheel#chain#is_inside(name, glossary)
-		let complete = 'customlist,wheel#completelist#location'
+		let complete = 'customlist,wheel#complete#location'
 		let name = input('Insert location with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
@@ -175,7 +175,7 @@ fun! wheel#tree#add_circle (...)
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let complete = 'customlist,wheel#completelist#current_directory'
+		let complete = 'customlist,wheel#complete#current_directory'
 		let circle_name = input('New circle name ? ', '', complete)
 	endif
 	" add first torus if needed
@@ -273,7 +273,7 @@ fun! wheel#tree#add_file (...)
 		let file = a:1
 	else
 		let prompt = 'File to add ? '
-		let complete = 'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#complete#file'
 		let file = input(prompt, '', complete)
 	endif
 	execute 'edit' fnameescape(file)
@@ -287,7 +287,7 @@ fun! wheel#tree#add_buffer (...)
 		let buffer = a:1
 	else
 		let prompt = 'Buffer to add ? '
-		let complete = 'customlist,wheel#completelist#buffer'
+		let complete = 'customlist,wheel#complete#buffer'
 		let buffer = input(prompt, '', complete)
 	endif
 	execute 'buffer' buffer
@@ -300,7 +300,7 @@ fun! wheel#tree#add_glob (...)
 		let glob = a:1
 	else
 		let prompt = 'Add files matching glob : '
-		let complete = 'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#complete#file'
 		let glob = input(prompt, '', complete)
 	endif
 	" add first torus if needed
@@ -346,11 +346,11 @@ fun! wheel#tree#rename (level, ...)
 	else
 		let prompt = 'Rename ' .. level .. ' as ? '
 		if level ==# 'torus'
-			let complete = 'customlist,wheel#completelist#empty'
+			let complete = 'customlist,wheel#complete#empty'
 		elseif level ==# 'circle'
-			let complete = 'customlist,wheel#completelist#current_directory'
+			let complete = 'customlist,wheel#complete#current_directory'
 		elseif level ==# 'location'
-			let complete = 'customlist,wheel#completelist#current_file'
+			let complete = 'customlist,wheel#complete#current_file'
 		else
 			echomsg 'wheel rename : bad level name.'
 			return v:false
@@ -414,7 +414,7 @@ fun! wheel#tree#rename_file (...)
 		let dir = expand('%:h')
 		let dir = wheel#gear#relative_path (dir) .. '/'
 		let prompt = 'Rename file as ? '
-		let complete = 'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#complete#file'
 		let new_filename = input(prompt, dir, complete)
 	endif
 	" new name
@@ -544,10 +544,10 @@ fun! wheel#tree#copy_move (level, mode, ...)
 		if level ==# 'torus'
 			let destination = 'wheel'
 		elseif level ==# 'circle'
-			let complete = 'customlist,wheel#completelist#torus'
+			let complete = 'customlist,wheel#complete#torus'
 			let destination = input(prompt, '', complete)
 		elseif level ==# 'location'
-			let complete = 'customlist,wheel#completelist#grid'
+			let complete = 'customlist,wheel#complete#grid'
 			let destination = input(prompt, '', complete)
 		else
 			echomsg 'wheel ' .. mode .. ' : bad level name.'

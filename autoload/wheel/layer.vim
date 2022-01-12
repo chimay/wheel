@@ -367,7 +367,7 @@ fun! wheel#layer#switch (...)
 		return v:false
 	endif
 	let prompt = 'Switch to layer : '
-	let complete = 'customlist,wheel#completelist#layer'
+	let complete = 'customlist,wheel#complete#layer'
 	if a:0 > 0
 		let name = a:1
 	else

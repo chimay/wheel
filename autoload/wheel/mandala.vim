@@ -579,7 +579,7 @@ fun! wheel#mandala#async ()
 		let command = a:1
 	else
 		let prompt = 'async shell command : '
-		let complete = 'customlist,wheel#completelist#file'
+		let complete = 'customlist,wheel#complete#file'
 		let command = input(prompt, '', complete)
 	endif
 	call wheel#vortex#update ()
