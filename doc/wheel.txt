@@ -1632,8 +1632,8 @@ Whether you accept multi-line messages or not : >
 
 Defaults to `one-line`.
 
-if you set this option to multi-line, I recommend you set |'cmdheight'| to
-a minimum of 3 : >
+if you set this option to multi-line, I recommend you set |'cmdheight'|
+option to a minimum of 3 : >
 
     set cmdheight=3
 <
