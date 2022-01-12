@@ -141,16 +141,14 @@ endfun
 
 fun! wheel#completelist#current_file (arglead, cmdline, cursorpos)
 	" Complete different flavours or current filename
-	let basis = expand('%')
+	let basis = expand('%:p')
 	" replace spaces par non-breaking spaces
 	let basis = substitute(basis, ' ', ' ', 'g')
-	" relative path
-	let cwd = getcwd() .. '/'
-	let relative = substitute(basis, cwd, '', '')
-	" abolute path
-	let absolute = fnamemodify(basis, ':p')
-	let simple = fnamemodify(basis, ':t')
+	" flavours
 	let root = fnamemodify(basis, ':t:r')
+	let simple = fnamemodify(basis, ':t')
+	let relative = wheel#gear#relative_path(basis)
+	let absolute = basis
 	let filenames = [root, simple, relative, absolute]
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, filenames)
@@ -158,15 +156,13 @@ endfun
 
 fun! wheel#completelist#current_directory (arglead, cmdline, cursorpos)
 	" Complete different flavours or current file directory
-	let basis = expand('%:h')
+	let basis = expand('%:p:h')
 	" replace spaces par non-breaking spaces
 	let basis = substitute(basis, ' ', ' ', 'g')
-	" relative path
-	let cwd = getcwd() .. '/'
-	let relative = substitute(basis, cwd, '', '')
-	" abolute path
-	let absolute = fnamemodify(basis, ':p')
+	" flavours
 	let simple = fnamemodify(basis, ':t')
+	let relative = wheel#gear#relative_path(basis)
+	let absolute = basis
 	let directories = [simple, relative, absolute]
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, directories)

@@ -77,6 +77,21 @@ endfun
 
 " Directory
 
+fun! wheel#gear#relative_path (...)
+	" Return path of filename relative to current directory
+	" Optional argument :
+	"   - filename
+	"   - default : current filename
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = expand('%:p')
+	endif
+	let directory = '\m^' .. getcwd() .. '/'
+	let filename = substitute(filename, directory, '', '')
+	return filename
+endfun
+
 fun! wheel#gear#project_root (markers)
 	" Change local directory to root of project
 	" where current buffer belongs

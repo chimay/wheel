@@ -411,9 +411,8 @@ fun! wheel#tree#rename_file (...)
 	if a:0 > 0
 		let new_filename = a:1
 	else
-		let dir = expand('%:h') .. '/'
-		let cwd = getcwd() .. '/'
-		let dir = substitute(dir, cwd, '', '')
+		let dir = expand('%:h')
+		let dir = wheel#gear#relative_path (dir) .. '/'
 		let prompt = 'Rename file as ? '
 		let complete = 'customlist,wheel#completelist#file'
 		let new_filename = input(prompt, dir, complete)
