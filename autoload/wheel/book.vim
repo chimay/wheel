@@ -96,6 +96,9 @@ endfun
 
 fun! wheel#book#init ()
 	" Init ring
+	if exists('b:wheel_ring') && empty(b:wheel_ring.leaves)
+		echomsg 'wheel book init : leaf ring exists but is empty (should not happen)'
+	endif
 	if exists('b:wheel_ring')
 		return v:false
 	endif
@@ -304,7 +307,7 @@ endfun
 " Add & delete
 
 fun! wheel#book#add ()
-	" Add new fresh leaf in ring
+	" Add empty leaf in ring
 	" -- first leaf
 	if wheel#book#init ()
 		return v:false
@@ -337,6 +340,11 @@ fun! wheel#book#delete ()
 	let ring = b:wheel_ring
 	let leaves = ring.leaves
 	let length = len(leaves)
+	" -- do not delete element from empty ring
+	if length == 0
+		echomsg 'wheel leaf delete : empty leaf ring (should not happen)'
+		return v:false
+	endif
 	" -- do not delete element from one element ring
 	if length == 1
 		echomsg 'wheel leaf delete :' leaves[0].filename 'is the last layer in ring'

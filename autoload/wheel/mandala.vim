@@ -83,7 +83,7 @@ fun! wheel#mandala#filename (type)
 	" existing filename
 	execute 'silent file' wheel#mandala#pseudo (a:type)
 	" false by default
-	" true in wheel#mandala#empty
+	" true in wheel#mandala#set_empty
 	let b:wheel_empty = v:false
 endfun
 
