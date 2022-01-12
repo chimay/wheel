@@ -41,6 +41,7 @@ endfun
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
 	let bufnums = g:wheel_mandalas.ring
+	let oneline = g:wheel_config.message == 'one-line'
 	" -- mandala ring status
 	let current = g:wheel_mandalas.current
 	let mandalas = []
@@ -67,9 +68,14 @@ fun! wheel#status#mandala_leaf ()
 	redraw!
 	if current >= 0
 		let leaves[current] = title
-		echo 'mandalas : ' .. join(mandalas) ' / leaves : ' .. join(leaves)
+		if oneline
+			echo 'wheel buf: ' .. join(mandalas) ' / lay: ' .. join(leaves)
+		else
+			echo 'wheel buffers : ' .. join(mandalas) .. "\n"
+			echo '      layers  : ' .. join(leaves)
+		endif
 	else
-		echo 'mandalas : ' .. join(mandalas)
+		echo 'wheel buffers: ' .. join(mandalas) .. "\n"
 	endif
 endfun
 

@@ -336,7 +336,7 @@ fun! wheel#book#add ()
 	call insert(ring.leaves, leaf, next)
 	let ring.current = next
 	call wheel#book#limit ()
-	call wheel#status#mandala_leaf ()
+	"call wheel#status#mandala_leaf ()
 endfun
 
 fun! wheel#book#delete ()

@@ -202,6 +202,9 @@ fun! wheel#void#config ()
 		" in case external grep is not available
 		let g:wheel_config.grep = 'vimgrep'
 	endif
+	if ! has_key(g:wheel_config, 'message')
+		let g:wheel_config.message = 'one-line'
+	endif
 	" Maxim
 	if ! has_key(g:wheel_config, 'maxim')
 		let g:wheel_config.maxim = {}

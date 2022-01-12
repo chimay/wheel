@@ -1411,6 +1411,7 @@ Cd project				|wheel-config-cd_project|
 Project markers				|wheel-config-project_markers|
 Locate database				|wheel-config-locate-db|
 Grep ex command				|wheel-config-grep|
+Messages				|wheel-config-message|
 Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max MRU					|wheel-config-maxim-mru|
@@ -1620,6 +1621,24 @@ Whether to use internal |:vimgrep| or external |:grep| to grep files : >
 Defaults to internal vimgrep, in case external grep is not available.
 
 ------------------------------------------------------------------------------
+MESSAGES				    		*wheel-config-message*
+
+Whether you accept multi-line messages or not : >
+
+  let g:wheel_config.message = 'one-line'
+  " or
+  let g:wheel_config.message = 'multi-line'
+<
+
+Defaults to `one-line`.
+
+if you set this option to multi-line, I recommend you set |'cmdheight'| to
+a minimum of 2 : >
+
+    set cmdheight=2
+<
+
+------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN HISTORY		   *wheel-config-maxim-history*
 
 Maximum number of elements in the wheel history : >
@@ -1759,6 +1778,8 @@ Here is an example of a complete configuration : >
   let g:wheel_config.locate_db = '~/racine/index/locate/racine.db'
   " Grep command : :grep or :vimpgrep
   let g:wheel_config.grep = 'grep'
+  " Wheel message : all in one-line or accept multi-line
+  let g:wheel_config.message = 'one-line'
 
   " Maximum number of elements in history
   let g:wheel_config.maxim.history = 50

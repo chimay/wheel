@@ -183,9 +183,9 @@ fun! wheel#cylinder#first (...)
 	call wheel#book#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
-	" call status before going back to previous buffer
-	call wheel#status#mandala_leaf ()
 	if mode == 'furtive'
+		" call status before going back to previous buffer
+		call wheel#status#mandala_leaf ()
 		if empty_cur_buffer
 			" :new has opened a split, close it
 			close
