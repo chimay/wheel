@@ -96,13 +96,14 @@ endfun
 
 fun! wheel#book#init ()
 	" Init ring
-	if ! exists('b:wheel_ring')
-		let b:wheel_ring = {}
-		let ring = b:wheel_ring
-		" index of current leaf
-		let ring.current = -1
-		let ring.leaves = []
+	if exists('b:wheel_ring')
+		return v:false
 	endif
+	let b:wheel_ring = {}
+	let ring = b:wheel_ring
+	let ring.current = 0
+	let ring.leaves = [ wheel#book#template () ]
+	return v:true
 endfun
 
 fun! wheel#book#template ()
@@ -123,11 +124,6 @@ fun! wheel#book#template ()
 endfun
 
 " State
-
-fun! wheel#book#is_empty ()
-	" Whether leaf ring is empty
-	return b:wheel_ring.current == -1
- endfun
 
 fun! wheel#book#ring (...)
 	" Return ring of field given by optional argument
@@ -183,18 +179,6 @@ fun! wheel#book#clear_vars ()
 	call wheel#gear#unlet (s:mandala_vars)
 endfun
 
-fun! wheel#book#fresh ()
-	" Fresh empty leaf : clear mandala local data
-	call wheel#book#syncup ()
-	call wheel#book#add ()
-	call wheel#book#clear_options ()
-	call wheel#book#clear_maps ()
-	call wheel#book#clear_autocmds ()
-	call wheel#book#clear_vars ()
-	" delete lines -> underscore _ = no storing register
-	silent! 1,$ delete _
-endfun
-
 " Saving things
 
 fun! wheel#book#save_options ()
@@ -228,16 +212,11 @@ fun! wheel#book#syncup ()
 	" Sync mandala state to current leaf in ring
 	" state = vars, options, maps, autocmds
 	let ring = b:wheel_ring
-	" empty mandala ?
+	" -- empty mandala ?
 	if wheel#mandala#is_empty()
-		echomsg 'wheel book syncup : empty mandala'
 		return v:false
 	endif
-	" first leaf ?
-	if wheel#book#is_empty()
-		let ring.current = 0
-		let ring.leaves = [ wheel#book#template () ]
-	endif
+	" -- sync up
 	" leaf to fill / update
 	let current = ring.current
 	let leaf = ring.leaves[current]
@@ -281,17 +260,13 @@ fun! wheel#book#syncup ()
 	else
 		let leaf.reload = ''
 	endif
+	return v:true
 endfun
 
 fun! wheel#book#syncdown ()
 	" Sync current leaf in ring to mandala state
 	" state = vars, options, maps, autocmds
 	let ring = b:wheel_ring
-	" empty ring ?
-	if wheel#book#is_empty()
-		echomsg 'wheel book syncdown : empty ring'
-		return v:false
-	endif
 	let current = ring.current
 	let leaf = ring.leaves[current]
 	" pseudo filename
@@ -329,27 +304,39 @@ endfun
 " Add & delete
 
 fun! wheel#book#add ()
-	" Add new leaf in ring
+	" Add new fresh leaf in ring
+	" -- first leaf
+	if wheel#book#init ()
+		return v:false
+	endif
+	" -- empty mandala
+	if wheel#mandala#is_empty ()
+		return v:false
+	endif
+	" -- sync up old leaf
+	call wheel#book#syncup ()
+	" -- new leaf
 	let leaf = wheel#book#template ()
 	let ring = b:wheel_ring
 	let next = ring.current + 1
 	call insert(ring.leaves, leaf, next)
 	let ring.current = next
 	call wheel#book#limit ()
-	"call wheel#status#mandala_leaf ()
+	" -- clear mandala
+	call wheel#book#clear_options ()
+	call wheel#book#clear_maps ()
+	call wheel#book#clear_autocmds ()
+	call wheel#book#clear_vars ()
+	" delete lines -> underscore _ = no storing register
+	silent! 1,$ delete _
+	return v:true
 endfun
 
 fun! wheel#book#delete ()
 	" Delete current leaf in ring
-	" -- do not delete element from empty ring
 	let ring = b:wheel_ring
 	let leaves = ring.leaves
 	let length = len(leaves)
-	" -- do not delete element from empty ring
-	if length == 0
-		echomsg 'wheel leaf delete : empty buffer ring'
-		return v:false
-	endif
 	" -- do not delete element from one element ring
 	if length == 1
 		echomsg 'wheel leaf delete :' leaves[0].filename 'is the last layer in ring'

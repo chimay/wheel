@@ -15,11 +15,7 @@ fun! wheel#cylinder#is_mandala (...)
 		let bufnum = bufnr('%')
 	endif
 	let mandalas = g:wheel_mandalas.ring
-	if wheel#chain#is_inside(bufnum, mandalas)
-		return v:true
-	else
-		return v:false
-	endif
+	return wheel#chain#is_inside(bufnum, mandalas)
 endfun
 
 fun! wheel#cylinder#new_iden (iden, ...)
@@ -74,22 +70,25 @@ endfun
 fun! wheel#cylinder#goto (...)
 	" Find window of visible current mandala
 	" Optional argument : if tab, search only in current tab
+	if wheel#cylinder#is_mandala()
+		" already there
+		return v:false
+	endif
 	let current = g:wheel_mandalas.current
 	let mandalas = g:wheel_mandalas.ring
 	if empty(mandalas)
 		return v:false
 	endif
 	let bufnum = mandalas[current]
-	call call('wheel#rectangle#goto', [bufnum] + a:000)
+	return call('wheel#rectangle#goto', [bufnum] + a:000)
 endfun
 
 fun! wheel#cylinder#window (...)
 	" Find window of current mandala or display it in a new split
 	" Optional argument mode :
-	" if mode == 'buffer' (default) :
-	"     find or create the mandala window & load current mandala
-	" if mode == 'window' :
-	"    just find or create the mandala window
+	"  - buffer (default) : find or create
+	"    the mandala window & load current mandala
+	"   - window : just find or create the mandala window
 	if a:0 > 0
 		let mode = a:1
 	else
@@ -180,7 +179,6 @@ fun! wheel#cylinder#first (...)
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
-	call wheel#book#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive'
@@ -225,7 +223,7 @@ fun! wheel#cylinder#add (...)
 	let elder = mandalas[current]
 	" mandala window
 	let winds = win_findbuf(elder)
-	if mode != 'furtive' && ! wheel#cylinder#is_mandala ()
+	if mode != 'furtive'
 		call wheel#cylinder#window ('window')
 	endif
 	" current buffer
@@ -255,7 +253,6 @@ fun! wheel#cylinder#add (...)
 	let g:wheel_mandalas.current = next
 	let novice_iden = wheel#cylinder#new_iden (iden)
 	call insert(iden, novice_iden, next)
-	call wheel#book#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	" call status before going back to previous buffer
@@ -300,7 +297,6 @@ fun! wheel#cylinder#delete ()
 		execute 'silent buffer' goto
 	endif
 	execute 'silent bwipe!' removed
-	" mandala_leaf skip leaves if we are not a mandala
 	call wheel#status#mandala_leaf ()
 	return removed
 endfun

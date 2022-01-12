@@ -24,7 +24,7 @@ fun! wheel#whirl#mru ()
 	let filename = fields[1]
 	execute 'edit' filename
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun
@@ -38,7 +38,7 @@ fun! wheel#whirl#occur ()
 	let linum = fields[0]
 	call cursor(linum, 1)
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun
@@ -54,7 +54,7 @@ fun! wheel#whirl#buffer ()
 	let linum = fields[1]
 	call cursor(linum, 1)
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun
@@ -71,7 +71,7 @@ fun! wheel#whirl#tabwin ()
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun
@@ -85,7 +85,7 @@ fun! wheel#whirl#marker ()
 	let mark = fields[0]
 	execute "normal `" .. mark
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun
@@ -102,7 +102,7 @@ fun! wheel#whirl#jump ()
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun
@@ -117,7 +117,7 @@ fun! wheel#whirl#change ()
 	let colnum = str2nr(fields[1])
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun
@@ -141,7 +141,7 @@ fun! wheel#whirl#tag ()
 	call cursor(1,1)
 	call search(line)
 	if &foldopen =~ 'jump'
-		normal zv
+		normal! zv
 	endif
 	return win_getid ()
 endfun

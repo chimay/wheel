@@ -82,6 +82,9 @@ fun! wheel#mandala#filename (type)
 	" Add unique buf id, so (n)vim does not complain about
 	" existing filename
 	execute 'silent file' wheel#mandala#pseudo (a:type)
+	" false by default
+	" true in wheel#mandala#empty
+	let b:wheel_empty = v:false
 endfun
 
 fun! wheel#mandala#type (...)
@@ -99,21 +102,15 @@ endfun
 fun! wheel#mandala#set_empty ()
 	" Tell wheel to consider this mandala as an empty buffer
 	call wheel#mandala#filename ('empty')
+	let b:wheel_empty = v:true
 endfun
 
-fun! wheel#mandala#is_empty (...)
+fun! wheel#mandala#is_empty ()
 	" Return true if mandala is empty, false otherwise
-	" Optional argument : filename
-	if a:0 > 0
-		let filename = a:1
-	else
-		let filename = expand('%')
+	if ! exists('b:wheel_empty')
+		let b:wheel_empty = v:true
 	endif
-	if filename =~ s:mandala_empty
-		return v:true
-	else
-		return v:false
-	endif
+	return b:wheel_empty
 endfun
 
 " Window & buffer
@@ -125,11 +122,8 @@ fun! wheel#mandala#open (type)
 		" first mandala
 		" split is done in the routine
 		call wheel#cylinder#first ('linger')
-	else
-		if ! wheel#mandala#is_empty ()
-			call wheel#book#fresh ()
-		endif
 	endif
+	call wheel#book#add ()
 	call wheel#mandala#init ()
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
@@ -139,14 +133,12 @@ fun! wheel#mandala#close ()
 	" Close the mandala buffer
 	" -- if we are not in a mandala buffer,
 	" -- go to its window if it is visible
-	let bufnum = bufnr('%')
-	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
+	if ! wheel#cylinder#is_mandala()
 		call wheel#cylinder#goto ()
 	endif
 	" -- if we are still not in a mandala buffer,
 	" -- none is visible and there is nothing to do
-	let bufnum = bufnr('%')
-	if ! wheel#chain#is_inside(bufnum, g:wheel_mandalas.ring)
+	if ! wheel#cylinder#is_mandala()
 		return v:false
 	endif
 	" -- mandala buffer
@@ -210,7 +202,7 @@ fun! wheel#mandala#fill (content, ...)
 		" update b:wheel_lines
 		let b:wheel_lines = getline(2, '$')
 	elseif first == 'delete'
-		1 delete _
+		silent 1 delete _
 		silent! 2,$ global /^$/ delete _
 		" update b:wheel_lines
 		let b:wheel_lines = getline(1, '$')
@@ -268,7 +260,7 @@ fun! wheel#mandala#replace (content, ...)
 		" which is the first one on a empty buffer
 		call setline(1, '')
 	elseif first == 'delete'
-		1 delete _
+		silent 1 delete _
 	endif
 	" delete empty lines from line 2 to end
 	silent! 2,$ global /^$/ delete _
@@ -282,27 +274,26 @@ endfun
 
 fun! wheel#mandala#reload ()
 	" Reload current mandala
-	" save pseudo filename
+	" -- save pseudo filename
 	let filename = expand('%')
-	" mark the buffer as empty, to avoid pushing a new layer
-	" in wheel#mandala#open
+	" -- mark the buffer as empty, to avoid adding a leaf in wheel#mandala#open
 	call wheel#mandala#set_empty ()
-	" reinitialize buffer vars
+	" -- reinitialize buffer vars
 	call wheel#mandala#init ('refresh')
-	" delete all lines
-	1,$ delete _
-	" reload content
+	" -- delete all lines
+	silent 1,$ delete _
+	" -- reload content
 	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
 		let fun = b:wheel_reload
-		echomsg 'wheel mandala : ' fun 'reloaded.'
+		echomsg 'wheel : ' fun 'reloaded.'
 	else
 		" by default, if b:wheel_reload is not defined or empty,
 		" fill the buffer with b:wheel_lines
 		call wheel#mandala#fill (b:wheel_lines, 'blank')
 		" restore
 		execute 'silent file' filename
-		echomsg 'wheel mandala : content reloaded.'
+		echomsg 'wheel : content reloaded.'
 	endif
 endfun
 
