@@ -1333,7 +1333,7 @@ just hit `<enter>` on an undo line.
 Before playing with this, be sure you have a backup of your file (VCS
 or so).
 
-Default mapping : `<M-w><M-u>`
+Default mapping : `<M-w>U`
 
 With `u`, you can go back to the last undo state.
 
@@ -2319,7 +2319,7 @@ Undo~
 
 | Prefix + | With default prefix | Action     |
 | -------- | ------------------- | ---------- |
-| <M-u>    | <M-w><M-u>          | Undo list  |
+| U        | <M-w>U              | Undo list  |
 
 Command output buffer~
 

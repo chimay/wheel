@@ -330,7 +330,7 @@ fun! wheel#centre#cables ()
 		" grep edit
 		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
 		" Undo list
-		exe nmap prefix .. '<m-u> <plug>(wheel-dedibuf-undo-list)'
+		exe nmap prefix .. 'U <plug>(wheel-dedibuf-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
 		exe nmap prefix .. async .. '& <plug>(wheel-dedibuf-async)'
