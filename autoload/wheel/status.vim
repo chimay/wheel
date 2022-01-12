@@ -30,8 +30,7 @@ fun! wheel#status#dashboard ()
 		else
 			let string = 'Empty wheel'
 		endif
-		" echo
-		redraw!
+		echo "\r"
 		echo string
 	endif
 endfun
@@ -65,7 +64,7 @@ fun! wheel#status#mandala_leaf ()
 	let leaves = map(copy(filenames), {_,v->Fun(v)})
 	" current leaf type
 	let title = '[' .. wheel#status#type () .. ']'
-	redraw!
+	echo "\r"
 	if current >= 0
 		let leaves[current] = title
 		if oneline

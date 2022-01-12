@@ -146,18 +146,18 @@ fun! wheel#tree#add_torus (...)
 	" replace spaces by non-breaking spaces
 	let torus_name = wheel#tree#format_name (torus_name)
 	if empty(torus_name)
-		redraw!
+		echo "\r"
 		echomsg 'Torus name cannot be empty.'
 		return v:false
 	endif
 	" check if not already present
 	if wheel#chain#is_inside(torus_name, g:wheel.glossary)
-		redraw!
+		echo "\r"
 		echomsg 'Torus' torus_name 'already exists in wheel.'
 		return v:false
 	endif
 	" add torus
-	redraw!
+	echo "\r"
 	echomsg "Adding torus" torus_name
 	let index = g:wheel.current
 	let toruses = g:wheel.toruses
@@ -185,19 +185,19 @@ fun! wheel#tree#add_circle (...)
 	" replace spaces by non-breaking spaces
 	let circle_name = wheel#tree#format_name (circle_name)
 	if empty(circle_name)
-		redraw!
+		echo "\r"
 		echomsg 'Circle name cannot be empty.'
 		return v:false
 	endif
 	" check if not already present
 	let torus = g:wheel.toruses[g:wheel.current]
 	if wheel#chain#is_inside(circle_name, torus.glossary)
-		redraw!
+		echo "\r"
 		echomsg 'Circle' circle_name 'already exists in torus' torus.name
 		return v:false
 	endif
 	" add circle
-	redraw!
+	echo "\r"
 	echomsg "Adding circle" circle_name
 	let index = torus.current
 	let circles = torus.circles
@@ -231,18 +231,18 @@ fun! wheel#tree#add_location (location, ...)
 	" add a name to the location
 	let name = wheel#tree#add_name (location)
 	if empty(name)
-		redraw!
+		echo "\r"
 		echomsg 'Location name cannot be empty.'
 		return v:false
 	endif
 	" check location name is not in circle
 	if wheel#chain#is_inside(name, circle.glossary)
-		redraw!
+		echo "\r"
 		echomsg 'Location named' name 'already exists in circle.'
 		return v:false
 	endif
 	" add the location to the circle
-	redraw!
+	echo "\r"
 	let info = 'Adding location ' .. location.name .. ' : '
 	let info ..= location.file .. ':' .. location.line .. ':' .. location.col
 	let info ..= ' in torus ' .. torus.name .. ' circle ' .. circle.name
@@ -362,13 +362,13 @@ fun! wheel#tree#rename (level, ...)
 	" replace spaces by non-breaking spaces
 	let new = wheel#tree#format_name (new)
 	if empty(new)
-		redraw!
+		echo "\r"
 		echomsg level 'name cannot be empty.'
 		return v:false
 	endif
 	" check new is not present in upper list
 	if wheel#chain#is_inside(new, upper.glossary)
-		redraw!
+		echo "\r"
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
 		echomsg level new 'already exists in' upper_level_name
 		return v:false
@@ -376,7 +376,7 @@ fun! wheel#tree#rename (level, ...)
 	" rename
 	let old = current.name
 	let current.name = new
-	redraw!
+	echo "\r"
 	echomsg 'Renaming' level old '->' new
 	let glossary = upper.glossary
 	let upper.glossary = wheel#chain#replace(old, new, glossary)

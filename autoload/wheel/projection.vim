@@ -89,7 +89,7 @@ fun! wheel#projection#follow (...)
 	" follow
 	let coordin = wheel#projection#closest (level)
 	if empty(coordin)
-		"echomsg 'wheel follow : outside of the wheel'
+		" outside of the wheel
 		return v:false
 	endif
 	if coordin == wheel#referen#names()
@@ -105,7 +105,7 @@ fun! wheel#projection#follow (...)
 	call wheel#pendulum#record ()
 	let info = 'wheel follow : '
 	let info ..= coordin[0] .. ' > ' .. coordin[1] .. ' > ' .. coordin[2]
-	redraw!
+	echo "\r"
 	echo info
 	" update location to cursor position
 	call wheel#vortex#update ()

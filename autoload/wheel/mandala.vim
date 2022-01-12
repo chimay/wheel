@@ -144,9 +144,11 @@ fun! wheel#mandala#close ()
 	if winnr('$') > 1
 		" more than one window in tab ? close it.
 		close
+		echo "\r"
 	else
 		" only one window in tab ? jump to last known file in wheel.
 		call wheel#vortex#jump ()
+		echo "\r"
 	endif
 	return v:true
 endfun
