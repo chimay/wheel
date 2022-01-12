@@ -337,6 +337,9 @@ endfun
 
 fun! wheel#book#delete ()
 	" Delete current leaf in ring
+	if ! exists('b:wheel_ring')
+		return v:false
+	endif
 	let ring = b:wheel_ring
 	let leaves = ring.leaves
 	let length = len(leaves)
@@ -356,6 +359,7 @@ fun! wheel#book#delete ()
 	let length -= 1
 	let ring.current = wheel#gear#circular_minus (current, length)
 	call wheel#book#syncdown ()
+	return v:true
 endfun
 
 " Forward & backward
