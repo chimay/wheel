@@ -440,6 +440,8 @@ fun! wheel#perspective#grep (pattern, sieve)
 	let list = []
 	for index in range(len(quickfix))
 		let elem = quickfix[index]
+		" elem.nr does not work
+		" let's take the index instead
 		let errnum = printf('%5d', index + 1)
 		let linum = printf('%5d', elem.lnum)
 		let colnum = printf('%5d', elem.col)

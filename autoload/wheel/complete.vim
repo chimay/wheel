@@ -134,9 +134,10 @@ endfun
 
 fun! wheel#complete#directory (arglead, cmdline, cursorpos)
 	" Complete with directory name
-	let candidates = wheel#complete#file (a:arglead, a:cmdline, a:cursorpos)
-	call filter(candidates, {_,v -> isdirectory(v)})
-	return candidates
+	let tree = wheel#complete#file (a:arglead, a:cmdline, a:cursorpos)
+	call filter(tree, {_,v -> isdirectory(v)})
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#candidates(wordlist, tree)
 endfun
 
 fun! wheel#complete#current_file (arglead, cmdline, cursorpos)

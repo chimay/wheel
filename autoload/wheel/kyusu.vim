@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Filter for prompt completion & mandalas
+" Filter for :
+"   - prompt completion
+"   - dedicated buffers (mandalas)
 "
 " A kyusu is a japanese traditional teapot,
 " often provided with a filter inside
@@ -13,7 +15,7 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" Filters
+" helpers
 
 fun! wheel#kyusu#word (wordlist, index, value)
 	" Whether value matches all words of wordlist
@@ -39,15 +41,8 @@ fun! wheel#kyusu#word (wordlist, index, value)
 	return match
 endfun
 
-fun! wheel#kyusu#candidates(wordlist, list)
-	" Return elements of list matching words of wordlist
-	let Matches = function('wheel#kyusu#word', [a:wordlist])
-	let candidates = filter(a:list, Matches)
-	return candidates
-endfun
-
 fun! wheel#kyusu#tree (wordlist, index, value)
-	" Like word filter, but keep folds markers lines
+	" Like kyusu#word, but keep folds markers lines
 	" index is not used, it’s just for compatibility with filter()
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
@@ -96,6 +91,17 @@ fun! wheel#kyusu#fold (wordlist, candidates)
 	endif
 	return filtered
 endfun
+
+" prompt completion
+
+fun! wheel#kyusu#candidates (wordlist, list)
+	" Return elements of list matching words of wordlist
+	let Matches = function('wheel#kyusu#word', [a:wordlist])
+	let candidates = filter(a:list, Matches)
+	return candidates
+endfun
+
+" dedicated buffers
 
 fun! wheel#kyusu#line ()
 	" Return lines matching words of first line
