@@ -422,10 +422,10 @@ fun! wheel#mandala#related ()
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'unknown'
 		wincmd p
-		return v:false
+		return 'unknown'
 	endif
 	call wheel#rectangle#goto_or_load (bufnum)
-	return v:true
+	return bufnum
 endfun
 
 " Undo, redo

@@ -277,7 +277,7 @@ fun! wheel#perspective#narrow (range = [])
 	let returnlist = split(returnlist, "\n")
 	for index in range(len(returnlist))
 		let elem = returnlist[index]
-		let fields = split(elem)
+		let fields = split(elem, ' ')
 		let linum = fields[0]
 		let content = join(fields[1:])
 		let linum = printf('%5d', linum)
@@ -350,7 +350,7 @@ fun! wheel#perspective#occur (pattern)
 	let returnlist = split(returnlist, "\n")
 	for index in range(len(returnlist))
 		let elem = returnlist[index]
-		let fields = split(elem)
+		let fields = split(elem, ' ')
 		let linum = fields[0]
 		let content = join(fields[1:])
 		let linum = printf('%5d', linum)

@@ -192,6 +192,10 @@ endfun
 
 fun! wheel#centre#cables ()
 	" Link keys to <plug> mappings
+	" maps arguments
+	let nmap = 'nmap <silent>'
+	let vmap = 'vmap <silent>'
+	let nnoremapexpr = 'nnoremap <expr>'
 	" general prefix
 	let prefix = g:wheel_config.prefix
 	" batch subprefix
@@ -200,9 +204,6 @@ fun! wheel#centre#cables ()
 	let async = '&'
 	" layout subprefix
 	let lay = 'z'
-	" maps arguments
-	let nmap = 'nmap <silent>'
-	let vmap = 'vmap <silent>'
 	" Basic
 	if g:wheel_config.mappings >= 0
 		" Menus
@@ -336,6 +337,7 @@ fun! wheel#centre#cables ()
 		" Narrow, filter & apply
 		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-narrow)'
 		exe vmap prefix .. '<m-o> <plug>(wheel-dedibuf-narrow)'
+	    exe nnoremapexpr .. prefix .. 'O wheel#polyphony#operatorfunc()'
 		" Generic ex or shell command
 		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
 		exe nmap prefix .. async .. '& <plug>(wheel-dedibuf-async)'

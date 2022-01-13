@@ -49,20 +49,22 @@ endfun
 fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow
 	let linelist = getline(2, '$')
-	call wheel#mandala#related ()
-	echomsg 'buf' bufname('%')
+	let bufnum = wheel#mandala#related ()
+	if bufnum == 'unknown'
+		return v:false
+	endif
 	for line in linelist
 		let fields = split(line, s:field_separ)
 		let length = len(fields)
-		let linum = fields[0]
+		let linum = str2nr(fields[0])
 		if length > 1
 			let content = fields[1]
 		else
 			let content = ''
 		endif
-		echomsg linum content
 		call setline(linum, content)
 	endfor
 	call wheel#cylinder#recall ()
 	setlocal nomodified
+	return v:true
 endfun
