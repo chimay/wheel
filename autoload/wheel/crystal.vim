@@ -173,8 +173,8 @@ endif
 
 if ! exists('s:mandala_vars')
 	let s:mandala_vars = [
-				\ 'b:wheel_empty',
 				\ 'b:wheel_nature',
+				\ 'b:wheel_related_buffer',
 				\ 'b:wheel_lines',
 				\ 'b:wheel_address',
 				\ 'b:wheel_selected',

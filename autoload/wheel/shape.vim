@@ -246,6 +246,7 @@ fun! wheel#shape#narrow (range = []) range
 		if first != last
 			let range = [first, last]
 		else
+			" assume the user does not launch it just for one line
 			let range = [1, line('$')]
 		endif
 	endif
@@ -253,8 +254,9 @@ fun! wheel#shape#narrow (range = []) range
 	call wheel#mandala#open ('narrow')
 	call wheel#polyphony#filter_maps ()
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write ('wheel#polyphony#narrow')
+	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#shape#narrow()'
+	let b:wheel_reload = 'wheel#shape#narrow(' .. string(range) .. ')'
+	echomsg 'adding or removing lines is not supported.'
 endfun

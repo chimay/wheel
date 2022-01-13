@@ -103,6 +103,7 @@ fun! wheel#book#template ()
 	let leaf.nature = {}
 	let leaf.nature.empty = v:true
 	let leaf.nature.has_filter = v:false
+	let leaf.related_buffer = 'unknown'
 	let leaf.lines = []
 	let leaf.filtered = []
 	let leaf.position = []
@@ -211,6 +212,8 @@ fun! wheel#book#syncup ()
 	let leaf.autocmds = wheel#book#save_autocmds ()
 	" nature
 	let leaf.nature = b:wheel_nature
+	" related buffer
+	let leaf.related_buffer = b:wheel_related_buffer
 	" lines, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
@@ -265,6 +268,8 @@ fun! wheel#book#syncdown ()
 	call wheel#book#restore_autocmds (autodict)
 	" nature
 	let b:wheel_nature = leaf.nature
+	" related buffer
+	let b:wheel_related_buffer = leaf.related_buffer
 	" lines, without filtering
 	let b:wheel_lines = copy(leaf.lines)
 	" filtered mandala content

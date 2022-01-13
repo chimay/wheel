@@ -6,19 +6,26 @@
 
 " Range of original buffer
 
+" Script constants
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " Operator function
 
 fun! wheel#polyphony#operatorfunc (argument = '')
 	" Manage operator
 	" Use in a map like this :
-	"   map <expr> <F3> wheel#polyphony#operatorfunc()
+	"   map <expr> <mykey> wheel#polyphony#operatorfunc()
 	let argument = a:argument
-	" called to find the rhs of the map
+	" -- when called to find the rhs of the map
 	if argument == ''
 		set operatorfunc=wheel#polyphony#operatorfunc
 		return 'g@'
 	endif
-	" called to execute operatorfunc
+	" -- when called to execute operatorfunc
 	let first = line("'[")
 	let last = line("']")
 	call wheel#shape#narrow([first, last])
@@ -39,7 +46,23 @@ endfun
 
 " Write mandala -> related buffer
 
-fun! wheel#polyphony#narrow ()
+fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow
+	let linelist = getline(2, '$')
+	call wheel#mandala#related ()
+	echomsg 'buf' bufname('%')
+	for line in linelist
+		let fields = split(line, s:field_separ)
+		let length = len(fields)
+		let linum = fields[0]
+		if length > 1
+			let content = fields[1]
+		else
+			let content = ''
+		endif
+		echomsg linum content
+		call setline(linum, content)
+	endfor
+	call wheel#cylinder#recall ()
 	setlocal nomodified
 endfun

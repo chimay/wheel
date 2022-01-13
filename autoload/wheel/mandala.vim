@@ -59,6 +59,10 @@ fun! wheel#mandala#init (mode = 'default')
 		let b:wheel_nature.empty = v:true
 		let b:wheel_nature.has_filter = v:false
 	endif
+	" related buffer
+	if ! exists('b:wheel_related_buffer')
+		let b:wheel_related_buffer = 'unknown'
+	endif
 	" lines
 	if ! exists('b:wheel_lines')
 		let b:wheel_lines = []
@@ -119,15 +123,10 @@ endfun
 
 " Mandala pseudo filename
 
-fun! wheel#mandala#pseudo (type, ...)
+fun! wheel#mandala#pseudo (type)
 	" Return pseudo filename /wheel/<buf-id>/<type>
-	" Optional argument : mandala iden, defaults to current one
-	if a:0 > 0
-		let iden = a:1
-	else
-		let current = g:wheel_mandalas.current
-		let iden = g:wheel_mandalas.iden[current]
-	endif
+	let current = g:wheel_mandalas.current
+	let iden = g:wheel_mandalas.iden[current]
 	let type = a:type
 	let pseudo = '/wheel/' .. iden .. '/' .. type
 	return pseudo
@@ -181,6 +180,7 @@ fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
 	call wheel#vortex#update ()
+	let related_buffer = bufnr('%')
 	if ! wheel#cylinder#recall()
 		" first mandala
 		" split is done in the routine
@@ -190,6 +190,16 @@ fun! wheel#mandala#open (type)
 	call wheel#book#add ('clear')
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
+	" set related buffer
+	if related_buffer != bufnr('%')
+		let b:wheel_related_buffer = related_buffer
+	else
+		" related buffer == mandala buffer :
+		" happens when mandala is already opened at the start of this function
+		" in that case, the related buffer is considered the same as
+		" that of the previous leaf in the ring
+		let b:wheel_related_buffer = wheel#book#previous('related_buffer')
+	endif
 endfun
 
 fun! wheel#mandala#close ()
@@ -405,21 +415,18 @@ endfun
 
 fun! wheel#mandala#related (...)
 	" Go to window of related buffer if visible, or edit it in first window of tab
-	" optional argument : buffer number
-	" optional argument default : related buffer number
+	" optional argument :
+	"   - buffer number
+	"   - default : related buffer number
 	" if no optional argument and no related buffer : go to previous window
 	if a:0 > 0
 		let bufnum = a:1
 	else
-		if has_key(b:wheel_settings, 'related_buffer')
-			let bufnum = b:wheel_settings.related_buffer
-		else
-			let bufnum = 'unknown'
-		endif
+		let bufnum = b:wheel_related_buffer
 	endif
 	if bufnum == 'unknown'
 		wincmd p
-		return v:true
+		return v:false
 	endif
 	let winlist = win_findbuf(bufnum)
 	if ! empty(winlist)
