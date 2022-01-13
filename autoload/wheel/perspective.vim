@@ -205,7 +205,7 @@ endfu
 
 " Buffers
 
-fun! wheel#perspective#buffers (...)
+fun! wheel#perspective#buffers (mode = 'listed')
 	" Buffers
 	" Optional argument mode :
 	"   - listed (default) : don't return unlisted buffers
@@ -213,11 +213,7 @@ fun! wheel#perspective#buffers (...)
 	" Exceptions :
 	"   - buffers without name
 	"   - wheel dedicated buffers (mandalas)
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'listed'
-	endif
+	let mode = a:mode
 	if mode == 'listed'
 		let buflist = getbufinfo({'buflisted' : 1})
 	elseif mode == 'all'

@@ -45,13 +45,9 @@ endif
 
 " Init
 
-fun! wheel#mandala#init (...)
+fun! wheel#mandala#init (mode = 'default')
 	" Init mandala buffer variables, except the layer ring
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	if mode == 'refresh'
 		" deselect e.g. when reloading
 		let b:wheel_address = ''
@@ -454,13 +450,9 @@ endfun
 
 " Filter
 
-fun! wheel#mandala#filter (...)
+fun! wheel#mandala#filter (mode = 'normal')
 	" Keep lines matching words of first line
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'normal'
-	endif
+	let mode = a:mode
 	let lines = wheel#kyusu#line ()
 	call wheel#mandala#replace (lines, 'keep')
 	if mode == 'normal'

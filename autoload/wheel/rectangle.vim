@@ -21,14 +21,10 @@ endif
 
 " helpers
 
-fun! wheel#rectangle#glasses (filename, ...)
+fun! wheel#rectangle#glasses (filename, mode = 'all')
 	" Return list of window(s) id(s) displaying filename
 	" Optional argument : if tab, search only in current tab
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'all'
-	endif
+	let mode = a:mode
 	let wins = win_findbuf(bufnr(a:filename))
 	if mode == 'tab'
 		let tabnum = tabpagenr()
@@ -86,15 +82,11 @@ fun! wheel#rectangle#tour ()
 	return v:false
 endfun
 
-fun! wheel#rectangle#goto (bufnum, ...)
+fun! wheel#rectangle#goto (bufnum, mode = 'all')
 	" Go to window of buffer given by bufnum
 	" The window is the first one displaying bufnum buffer
 	" Optional argument : if tab, search only in current tab
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'all'
-	endif
+	let mode = a:mode
 	let bufnum = a:bufnum
 	" search in current tab
 	if mode == 'tab'
@@ -117,7 +109,7 @@ fun! wheel#rectangle#goto (bufnum, ...)
 	return v:true
 endfun
 
-fun! wheel#rectangle#hidden_buffers (...)
+fun! wheel#rectangle#hidden_buffers (mode = 'listed')
 	" Return list of hidden or unlisted buffers, with some exceptions
 	" Optional argument mode :
 	"   - listed (default) : don't return unlisted buffers
@@ -125,11 +117,7 @@ fun! wheel#rectangle#hidden_buffers (...)
 	" Exceptions :
 	"   - alternate buffer
 	"   - wheel dedicated buffers (mandalas)
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'listed'
-	endif
+	let mode = a:mode
 	if mode == 'listed'
 		let buflist = getbufinfo({'buflisted' : 1})
 	elseif mode == 'all'

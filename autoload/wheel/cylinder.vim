@@ -18,16 +18,12 @@ fun! wheel#cylinder#is_mandala (...)
 	return wheel#chain#is_inside(bufnum, mandalas)
 endfun
 
-fun! wheel#cylinder#new_iden (iden, ...)
+fun! wheel#cylinder#new_iden (iden, mode = 'default')
 	" Returns id for new mandala, that is not in iden list
 	" As low as possible, starting from zero
 	" If optional argument is quick, find new iden around iden
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
 	let iden = a:iden
+	let mode = a:mode
 	" quick mode around iden
 	if mode == 'quick'
 		let minim = min(iden) - 1
@@ -83,38 +79,35 @@ fun! wheel#cylinder#goto (...)
 	return call('wheel#rectangle#goto', [bufnum] + a:000)
 endfun
 
-fun! wheel#cylinder#window (...)
+fun! wheel#cylinder#window (mode = 'buffer')
 	" Find window of current mandala or display it in a new split
 	" Optional argument mode :
 	"  - buffer (default) : find or create
 	"    the mandala window & load current mandala
-	"   - window : just find or create the mandala window
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'buffer'
-	endif
-	" ring
+	"  - window : just find or create the mandala window,
+	"    don't load current mandala
+	let mode = a:mode
+	" -- ring
 	let current = g:wheel_mandalas.current
 	let mandalas = g:wheel_mandalas.ring
-	" any mandala ?
+	" -- any mandala ?
 	if empty(mandalas)
 		return v:false
 	endif
-	" current mandala
+	" -- current mandala
 	let goto = mandalas[current]
-	" already there ?
+	" -- already there ?
 	if wheel#cylinder#is_mandala ()
 		if mode == 'buffer'
 			execute 'silent buffer' goto
 		endif
 		return v:true
 	endif
-	" find window if mandala is visible
+	" -- find window if mandala is visible
 	let tab = tabpagenr()
 	call wheel#cylinder#goto ()
-	" if not in current tab,
-	" close it and reopen it in current tab
+	" -- if not in current tab,
+	" -- close it and reopen it in current tab
 	if tab != tabpagenr()
 		call wheel#mandala#close ()
 		execute 'tabnext' tab
@@ -125,7 +118,7 @@ fun! wheel#cylinder#window (...)
 		endif
 		return v:true
 	endif
-	" current tab
+	" -- current tab
 	if ! wheel#cylinder#is_mandala ()
 		if mode == 'buffer'
 			execute 'silent sbuffer' goto
@@ -138,16 +131,12 @@ endfun
 
 " Add & delete
 
-fun! wheel#cylinder#first (...)
+fun! wheel#cylinder#first (mode = 'furtive')
 	" Add first mandala buffer
 	" Optional argument :
 	"   - furtive (default) : use current window and go back to previous buffer at the end
 	"   - linger : use a split
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'furtive'
-	endif
+	let mode = a:mode
 	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
 		echomsg 'wheel cylinder first : bad mode argument'
 		return v:false
@@ -195,16 +184,12 @@ fun! wheel#cylinder#first (...)
 	return v:true
 endfun
 
-fun! wheel#cylinder#add (...)
+fun! wheel#cylinder#add (mode = 'furtive')
 	" Add new mandala buffer
 	" Optional argument :
 	"   - furtive (default) : use current window and go back to previous buffer at the end
 	"   - linger : use a split
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'furtive'
-	endif
+	let mode = a:mode
 	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
 		echomsg 'wheel cylinder first : bad mode argument'
 		return v:false

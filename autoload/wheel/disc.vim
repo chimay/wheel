@@ -7,7 +7,7 @@
 
 " helpers
 
-fun! wheel#disc#writefile (varname, file, ...)
+fun! wheel#disc#writefile (varname, file, mode = '>')
 	" Write variable referenced by varname to file
 	" in a format that can be :sourced
 	" If optional argument 1 is :
@@ -17,11 +17,7 @@ fun! wheel#disc#writefile (varname, file, ...)
 		return
 	endif
 	let file = expand(a:file)
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = '>'
-	endif
+	let mode = a:mode
 	let string = 'let ' .. a:varname .. ' = ' .. string({a:varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
@@ -32,7 +28,7 @@ fun! wheel#disc#writefile (varname, file, ...)
 	endif
 endfun
 
-fun! wheel#disc#write (pointer, file, ...)
+fun! wheel#disc#write (pointer, file, mode = '>')
 	" Write variable referenced by pointer to file
 	" in a format that can be :sourced
 	" Note : pointer = variable name in vim script
@@ -45,11 +41,7 @@ fun! wheel#disc#write (pointer, file, ...)
 		return
 	endif
 	let file = expand(a:file)
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = '>'
-	endif
+	let mode = a:mode
 	let var = {a:pointer}
 	redir => content
 	silent! echo 'let' a:pointer '=' var

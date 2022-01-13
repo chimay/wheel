@@ -637,17 +637,13 @@ fun! wheel#crystal#clear (varname)
 	return varname
 endfun
 
-fun! wheel#crystal#fetch (varname, ...)
+fun! wheel#crystal#fetch (varname, mode = 'default')
 	" Return script variable called varname
 	" The leading s: can be omitted
 	" If optional argument is 'dict' and varname
 	" points to an items list, convert it to a dictionary
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
 	let varname = a:varname
+	let mode = a:mode
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
 	if varname !~ '\m^s:'

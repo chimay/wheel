@@ -36,14 +36,10 @@ fun! wheel#vortex#here ()
 	return location
 endfun
 
-fun! wheel#vortex#update (...)
+fun! wheel#vortex#update (mode = 'default')
 	" Update current location to cursor
 	" Optional argument : default or verbose
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	let location = wheel#referen#location()
 	if empty(location) || location.file !=# expand('%:p')
 		return v:false
@@ -61,15 +57,12 @@ fun! wheel#vortex#update (...)
 	return v:true
 endfun
 
-fun! wheel#vortex#jump (...)
+fun! wheel#vortex#jump (mode = 'default')
 	" Jump to current location
 	" Optional argument :
-	" if new, do not search for buffer in tabs & windows
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	"   - default : search for buffer in tabs & windows
+	"   - new : do not search for buffer in tabs & windows
+	let mode = a:mode
 	" check location
 	let location = wheel#referen#location ()
 	if empty(location)
@@ -166,13 +159,9 @@ endfun
 
 " Next / Previous
 
-fun! wheel#vortex#previous (level, ...)
+fun! wheel#vortex#previous (level, mode = 'default')
 	" Previous element in level
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	let level = a:level
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
@@ -189,13 +178,9 @@ fun! wheel#vortex#previous (level, ...)
 	endif
 endfun
 
-fun! wheel#vortex#next (level, ...)
+fun! wheel#vortex#next (level, mode = 'default')
 	" Next element in level
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	let level = a:level
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
@@ -238,14 +223,10 @@ fun! wheel#vortex#switch (level, ...)
 	endif
 endfun
 
-fun! wheel#vortex#multi_switch(...)
+fun! wheel#vortex#multi_switch(mode = 'default')
 	" Switch torus, circle & location
 	" Optional argument : jump mode
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	call wheel#vortex#update ()
 	let indexes = [-1, -1, -1]
 	for level in s:referen_coordin
@@ -265,14 +246,10 @@ fun! wheel#vortex#multi_switch(...)
 	return indexes
 endfun
 
-fun! wheel#vortex#helix (...)
+fun! wheel#vortex#helix (mode = 'default')
 	" Switch to coordinates in helix index
 	" Optional argument : jump mode
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	let prompt = 'Switch to location in index : '
 	let complete = 'customlist,wheel#complete#helix'
 	let record = input(prompt, '', complete)
@@ -281,14 +258,10 @@ fun! wheel#vortex#helix (...)
 	call wheel#vortex#jump (mode)
 endfun
 
-fun! wheel#vortex#grid (...)
+fun! wheel#vortex#grid (mode = 'default')
 	" Switch to coordinates in grid index
 	" Optional argument : jump mode
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	let prompt = 'Switch to circle in index : '
 	let complete = 'customlist,wheel#complete#grid'
 	let record = input(prompt, '', complete)
@@ -297,14 +270,10 @@ fun! wheel#vortex#grid (...)
 	call wheel#vortex#jump (mode)
 endfun
 
-fun! wheel#vortex#history (...)
+fun! wheel#vortex#history (mode = 'default')
 	" Switch to coordinates in history
 	" Optional argument : jump mode
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	let prompt = 'Switch to history element : '
 	let complete = 'customlist,wheel#complete#history'
 	let record = input(prompt, '', complete)

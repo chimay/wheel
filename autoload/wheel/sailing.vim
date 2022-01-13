@@ -231,17 +231,13 @@ fun! wheel#sailing#mru ()
 	let b:wheel_reload = 'wheel#sailing#mru'
 endfun
 
-fun! wheel#sailing#buffers (...)
+fun! wheel#sailing#buffers (mode = 'listed')
 	" Buffers
 	" To be run before opening the mandala buffer
 	" Optional argument mode :
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'listed'
-	endif
+	let mode = a:mode
 	let lines = call('wheel#perspective#buffers', a:000)
 	call wheel#vortex#update ()
 	" mandala buffer

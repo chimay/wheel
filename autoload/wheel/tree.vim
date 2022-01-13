@@ -484,14 +484,13 @@ endfun
 
 " Delete
 
-fun! wheel#tree#delete (level, ...)
+fun! wheel#tree#delete (level, mode = 'default')
 	" Delete current element at level
+	" Optional argument :
+	"   - default : ask confirmation
+	"   - force : don't ask confirmation
 	let level = a:level
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	let current = wheel#referen#current (level)
 	let name = current.name
 	if mode != 'force'

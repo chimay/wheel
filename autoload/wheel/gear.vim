@@ -247,16 +247,12 @@ endfun
 
 " Clear
 
-fun! wheel#gear#unmap (key, ...)
+fun! wheel#gear#unmap (key, mode = 'normal')
 	" Unmap buffer mapping key in mode
 	" If key is a list, unmap every key in it
 	" If key is a dict, it has the form
 	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'normal'
-	endif
+	let mode = a:mode
 	let key = a:key
 	let kind = type(key)
 	if kind == v:t_string
