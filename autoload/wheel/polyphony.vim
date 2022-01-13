@@ -49,7 +49,7 @@ endfun
 fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow
 	let linelist = getline(2, '$')
-	let bufnum = wheel#mandala#related ()
+	let bufnum = b:wheel_related_buffer
 	if bufnum == 'unknown'
 		return v:false
 	endif
@@ -62,9 +62,8 @@ fun! wheel#polyphony#harmony ()
 		else
 			let content = ''
 		endif
-		call setline(linum, content)
+		call setbufline(bufnum, linum, content)
 	endfor
-	call wheel#cylinder#recall ()
 	setlocal nomodified
 	return v:true
 endfun
