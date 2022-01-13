@@ -160,30 +160,6 @@ fun! wheel#book#previous (...)
 	return ring.leaves[previous][fieldname]
 endfun
 
-" Clearing things
-
-fun! wheel#book#clear_options ()
-	" Clear mandala local options
-	setlocal nofoldenable
-endfun
-
-fun! wheel#book#clear_maps ()
-	" Clear mandala local maps
-	call wheel#gear#unmap(s:map_keys)
-endfun
-
-fun! wheel#book#clear_autocmds ()
-	" Clear mandala local autocommands
-	let group = s:mandala_autocmds_group
-	let events = s:mandala_autocmds_events
-	call wheel#gear#clear_autocmds (group, events)
-endfun
-
-fun! wheel#book#clear_vars ()
-	" Clear mandala local variables, except the leaves ring
-	call wheel#gear#unlet (s:mandala_vars)
-endfun
-
 " Saving things
 
 fun! wheel#book#save_options ()
@@ -312,8 +288,16 @@ endfun
 
 " Add & delete
 
-fun! wheel#book#add ()
+fun! wheel#book#add (...)
 	" Add empty leaf in ring
+	" Optional argument :
+	"   - clear : clear mandala
+	"   - default : just add a new leaf
+	if a:0 > 0
+		let mode = a:1
+	else
+		let mode = 'default'
+	endif
 	" -- first leaf
 	if wheel#book#init ()
 		return v:false
@@ -332,12 +316,9 @@ fun! wheel#book#add ()
 	let ring.current = next
 	call wheel#book#limit ()
 	" -- clear mandala
-	call wheel#book#clear_options ()
-	call wheel#book#clear_maps ()
-	call wheel#book#clear_autocmds ()
-	call wheel#book#clear_vars ()
-	" delete lines -> underscore _ = no storing register
-	silent! 1,$ delete _
+	if mode == 'clear'
+		call wheel#mandala#clear ()
+	endif
 	return v:true
 endfun
 

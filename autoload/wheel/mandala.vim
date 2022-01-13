@@ -12,6 +12,26 @@
 
 " Script constants
 
+if ! exists('s:map_keys')
+	let s:map_keys = wheel#crystal#fetch('map/keys')
+	lockvar s:map_keys
+endif
+
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+	lockvar s:mandala_autocmds_group
+endif
+
+if ! exists('s:mandala_autocmds_events')
+	let s:mandala_autocmds_events = wheel#crystal#fetch('mandala/autocmds/events')
+	lockvar s:mandala_autocmds_events
+endif
+
+if ! exists('s:mandala_vars')
+	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
+	lockvar s:mandala_vars
+endif
+
 if ! exists('s:is_mandala')
 	let s:is_mandala = wheel#crystal#fetch('is_mandala')
 	lockvar s:is_mandala
@@ -23,7 +43,7 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" Init vars
+" Init
 
 fun! wheel#mandala#init (...)
 	" Init mandala buffer variables, except the layer ring
@@ -37,7 +57,7 @@ fun! wheel#mandala#init (...)
 		let b:wheel_address = ''
 		let b:wheel_selected = []
 	endif
-	" mandala state
+	" mandala nature
 	if ! exists('b:wheel_nature')
 		let b:wheel_nature = {}
 		let b:wheel_nature.empty = v:true
@@ -61,6 +81,44 @@ fun! wheel#mandala#init (...)
 	if ! exists('b:wheel_reload')
 		let b:wheel_reload = ''
 	endif
+endfun
+
+" Clearing things
+
+fun! wheel#mandala#clear_options ()
+	" Clear mandala local options
+	setlocal nofoldenable
+endfun
+
+fun! wheel#mandala#clear_maps ()
+	" Clear mandala local maps
+	call wheel#gear#unmap(s:map_keys)
+endfun
+
+fun! wheel#mandala#clear_autocmds ()
+	" Clear mandala local autocommands
+	let group = s:mandala_autocmds_group
+	let events = s:mandala_autocmds_events
+	call wheel#gear#clear_autocmds (group, events)
+endfun
+
+fun! wheel#mandala#clear_vars ()
+	" Clear mandala local variables, except the leaves ring
+	call wheel#gear#unlet (s:mandala_vars)
+endfun
+
+fun! wheel#mandala#clear ()
+	" Clear mandala
+	" -- clear state
+	call wheel#mandala#clear_options ()
+	call wheel#mandala#clear_maps ()
+	call wheel#mandala#clear_autocmds ()
+	call wheel#mandala#clear_vars ()
+	" -- clear lines
+	" delete lines -> underscore _ = no storing register
+	silent! 1,$ delete _
+	" -- init vars
+	call wheel#mandala#init ()
 endfun
 
 " Mandala pseudo filename
@@ -132,8 +190,8 @@ fun! wheel#mandala#open (type)
 		" split is done in the routine
 		call wheel#cylinder#first ('linger')
 	endif
-	call wheel#book#add ()
-	call wheel#mandala#init ()
+	" add new leaf, clear mandala, init vars
+	call wheel#book#add ('clear')
 	call wheel#mandala#filename (type)
 	call wheel#mandala#common_options ()
 endfun
