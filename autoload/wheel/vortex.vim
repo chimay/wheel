@@ -38,7 +38,9 @@ endfun
 
 fun! wheel#vortex#update (mode = 'default')
 	" Update current location to cursor
-	" Optional argument : default or verbose
+	" Optional argument :
+	"   - default
+	"   - verbose
 	let mode = a:mode
 	let location = wheel#referen#location()
 	if empty(location) || location.file !=# expand('%:p')
@@ -161,8 +163,8 @@ endfun
 
 fun! wheel#vortex#previous (level, mode = 'default')
 	" Previous element in level
-	let mode = a:mode
 	let level = a:level
+	let mode = a:mode
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
 		call wheel#vortex#update ()
@@ -180,8 +182,8 @@ endfun
 
 fun! wheel#vortex#next (level, mode = 'default')
 	" Next element in level
-	let mode = a:mode
 	let level = a:level
+	let mode = a:mode
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
 		call wheel#vortex#update ()

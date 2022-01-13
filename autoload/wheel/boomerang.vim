@@ -60,6 +60,7 @@ endfun
 
 fun! wheel#boomerang#menu (dictname, optional = {})
 	" Context menu
+	let optional = a:optional
 	if ! has_key(optional, 'ctx_close')
 		" ctx_close = v:false by default, to be able to perform other
 		" operations after this one

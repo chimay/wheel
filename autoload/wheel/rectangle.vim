@@ -24,8 +24,9 @@ endif
 fun! wheel#rectangle#glasses (filename, mode = 'all')
 	" Return list of window(s) id(s) displaying filename
 	" Optional argument : if tab, search only in current tab
+	let filename = a:filename
 	let mode = a:mode
-	let wins = win_findbuf(bufnr(a:filename))
+	let wins = win_findbuf(bufnr(filename))
 	if mode == 'tab'
 		let tabnum = tabpagenr()
 		call filter(wins, {_, val -> win_id2tabwin(val)[0] == tabnum})
@@ -86,8 +87,8 @@ fun! wheel#rectangle#goto (bufnum, mode = 'all')
 	" Go to window of buffer given by bufnum
 	" The window is the first one displaying bufnum buffer
 	" Optional argument : if tab, search only in current tab
-	let mode = a:mode
 	let bufnum = a:bufnum
+	let mode = a:mode
 	" -- search in current tab
 	if mode == 'tab'
 		let winnr = bufwinnr(bufnum)

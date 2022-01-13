@@ -252,8 +252,8 @@ fun! wheel#gear#unmap (key, mode = 'normal')
 	" If key is a list, unmap every key in it
 	" If key is a dict, it has the form
 	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
-	let mode = a:mode
 	let key = a:key
+	let mode = a:mode
 	let kind = type(key)
 	if kind == v:t_string
 		" maparg returns dictionary with map caracteristics

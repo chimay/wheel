@@ -51,7 +51,7 @@ fun! wheel#delta#close_diff (bufnum)
 	" Wipe copy or original buffer
 	let diff_buf = b:wheel_settings.diff_buf
 	execute 'bwipe!' diff_buf
-	call wheel#mandala#related (a:bufnum)
+	call wheel#rectangle#goto_or_load (a:bufnum)
 	call wheel#delta#restore_options ()
 	call wheel#cylinder#recall ()
 endfun
@@ -63,7 +63,7 @@ fun! wheel#delta#last (bufnum)
 	else
 		let iden = wheel#delta#undo_iden (1)
 	endif
-	call wheel#mandala#related (a:bufnum)
+	call wheel#rectangle#goto_or_load (a:bufnum)
 	execute 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
@@ -110,6 +110,6 @@ endfun
 
 fun! wheel#delta#reload (bufnum)
 	" Reload undolist
-	call wheel#mandala#related (a:bufnum)
+	call wheel#rectangle#goto_or_load (a:bufnum)
 	call wheel#delta#undolist ()
 endfun

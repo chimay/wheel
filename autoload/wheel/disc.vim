@@ -13,12 +13,13 @@ fun! wheel#disc#writefile (varname, file, mode = '>')
 	" If optional argument 1 is :
 	" '>' : replace file content (default)
 	" '>>' : add to file content
-	if ! exists(a:varname)
+	let varname = a:varname
+	if ! exists(varname)
 		return
 	endif
 	let file = expand(a:file)
 	let mode = a:mode
-	let string = 'let ' .. a:varname .. ' = ' .. string({a:varname})
+	let string = 'let ' .. varname .. ' = ' .. string({varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
 	if mode == '>>'
@@ -37,14 +38,15 @@ fun! wheel#disc#write (pointer, file, mode = '>')
 	" '>>' : add to file content
 	" Doesn't work well with some abbreviated echoed variables content in vim
 	" wheel#disc#writefile is more reliable with vim
-	if ! exists(a:pointer)
+	let pointer = a:pointer
+	if ! exists(pointer)
 		return
 	endif
 	let file = expand(a:file)
 	let mode = a:mode
-	let var = {a:pointer}
+	let var = {pointer}
 	redir => content
-	silent! echo 'let' a:pointer '=' var
+	silent! echo 'let' pointer '=' var
 	redir END
 	let content = substitute(content, '\m[=,]', '\0\n\\', 'g')
 	let content = substitute(content, '\m\n\{2,\}', '\n', 'g')
