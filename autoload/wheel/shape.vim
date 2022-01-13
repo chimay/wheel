@@ -137,7 +137,7 @@ fun! wheel#shape#copy_move (level)
 	nnoremap <buffer> * <cmd>call wheel#pencil#select_visible()<cr>
 	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
 	" reload
-	let b:wheel_reload = "wheel#shape#rename('" .. level .. "')"
+	let b:wheel_reload = "wheel#shape#copy_move('" .. level .. "')"
 endfun
 
 " Reorganize
@@ -235,15 +235,15 @@ endfun
 
 " Narrow, filter & operate on multi-lines
 
-
 fun! wheel#shape#narrow ()
 	" Lines matching pattern
 	call wheel#mandala#close ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#narrow ()
 	call wheel#mandala#open ('narrow')
+	call wheel#mandala#filter_maps ()
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write ('narrow')
+	call wheel#shape#write ('wheel#polyphony#narrow')
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = 'wheel#sailing#narrow()'

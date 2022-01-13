@@ -160,7 +160,7 @@ fun! wheel#mandala#type (...)
 	return type
 endfun
 
-" State
+" Nature
 
 fun! wheel#mandala#set_empty ()
 	" Tell wheel to consider this mandala as an empty buffer
