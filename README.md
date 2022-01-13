@@ -168,6 +168,9 @@ it’s easy to add new functionalities.
 
 This project is inspired by :
 
+- [torus](https://github.com/chimay/torus), a file group plugin for Emacs,
+  itself inspired by [MTorus](https://www.emacswiki.org/emacs/MTorus)
+
 - [ctrlspace](https://github.com/vim-ctrlspace/vim-ctrlspace), a workspace
   plugin for Vim
 
@@ -175,11 +178,11 @@ This project is inspired by :
   [denite](https://github.com/Shougo/denite.nvim), a search plugin for
   arbitrary sources
 
-- [torus](https://github.com/chimay/torus), a similar plugin for Emacs,
-  itself inspired by MTorus
-
 - [quickfix-reflector](https://github.com/stefandtw/quickfix-reflector.vim),
   for the grep edit mode
+
+- [narrow](https://github.com/chrisbra/NrrwRgn) for the narrow & filter
+  dedicated buffer
 
 ## Prerequisites
 

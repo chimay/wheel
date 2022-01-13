@@ -66,7 +66,6 @@ fun! wheel#sailing#generic (name)
 	let name = a:name
 	let Perspective = function('wheel#perspective#' .. name)
 	let lines = Perspective ()
-	call wheel#vortex#update ()
 	call wheel#mandala#open (name)
 	let settings = {'action' : function('wheel#line#' .. name)}
 	call wheel#sailing#template (settings)
@@ -109,7 +108,6 @@ fun! wheel#sailing#helix ()
 	" Choose a location coordinate
 	" Each coordinate = [torus, circle, location]
 	let lines = wheel#perspective#helix ()
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('location/index')
 	let settings = {'action' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
@@ -122,7 +120,6 @@ fun! wheel#sailing#grid ()
 	" Choose a circle coordinate
 	" Each coordinate = [torus, circle]
 	let lines = wheel#perspective#grid ()
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('circle/index')
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
@@ -134,7 +131,6 @@ endfun
 fun! wheel#sailing#tree ()
 	" Choose an element in the wheel tree
 	let lines = wheel#perspective#tree ()
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('tree')
 	let settings = {'action' : function('wheel#line#tree')}
 	call wheel#sailing#template (settings)
@@ -161,7 +157,6 @@ fun! wheel#sailing#locate (...)
 		let pattern = input(prompt)
 	endif
 	let lines = wheel#perspective#locate (pattern)
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('locate')
 	let settings = {'action' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
@@ -184,7 +179,6 @@ fun! wheel#sailing#find (...)
 	endif
 	echomsg 'wheel find : using pattern' pattern
 	let lines = wheel#perspective#find (pattern)
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('find')
 	let settings = {'action' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
@@ -208,7 +202,6 @@ fun! wheel#sailing#async_find (...)
 		endfor
 	endif
 	echomsg 'wheel async find : using pattern' pattern
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('async_find')
 	let settings = {'action' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)

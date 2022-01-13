@@ -150,17 +150,20 @@ HISTORY						*wheel-introduction-history*
 
 This project is inspired by :
 
+- torus : https://github.com/chimay/torus, a similar plugin for Emacs,
+  itself inspired by MTorus : https://www.emacswiki.org/emacs/MTorus
+
 - ctrlspace : https://github.com/vim-ctrlspace/vim-ctrlspace, a similar
   plugin for Vim
 
 - unite : https://github.com/Shougo/unite.vim and its successor denite
-  (Shougo/denite.nvim), a search plugin for arbitrary sources
-
-- torus : https://github.com/chimay/torus, a similar plugin for Emacs,
-  itself inspired by MTorus
+  (Shougo/denite.nvim), a search & filter plugin for arbitrary sources
 
 - quickfix-reflector : https://github.com/stefandtw/quickfix-reflector.vim,
   for the grep edit mode
+
+- narrow : https://github.com/chrisbra/NrrwRgn for the narrow & filter
+  dedicated buffer
 
 ==============================================================================
 STEP BY STEP						*wheel-step-by-step*

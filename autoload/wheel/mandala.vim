@@ -117,6 +117,7 @@ endfun
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
 	let type = a:type
+	call wheel#vortex#update ()
 	if ! wheel#cylinder#recall()
 		" first mandala
 		" split is done in the routine

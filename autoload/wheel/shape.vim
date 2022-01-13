@@ -94,7 +94,6 @@ fun! wheel#shape#reorder (level)
 	" Reorder level elements in a buffer
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_reorder (level)
@@ -115,7 +114,6 @@ fun! wheel#shape#rename (level)
 	" Rename level elements in a buffer
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('rename/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_rename (level)
@@ -150,7 +148,6 @@ fun! wheel#shape#rename_files ()
 		let record = join(entry, s:field_separ)
 		call add(lines, record)
 	endfor
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('rename/locations_files')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_rename_files ()
@@ -168,7 +165,6 @@ fun! wheel#shape#copy_move (level)
 	" Copy or move elements at level
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('copy_move/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_copy_move (level)
@@ -193,7 +189,6 @@ endfun
 fun! wheel#shape#reorganize ()
 	" Reorganize the wheel tree
 	let lines = wheel#perspective#reorganize ()
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('reorganize')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_reorganize ()
@@ -211,7 +206,6 @@ endfun
 fun! wheel#shape#reorg_tabwins ()
 	" Reorganize tabs & windows
 	let lines = wheel#perspective#tabwins_tree ()
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('reorg/tabwins')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_reorg_tabwins ()
@@ -267,7 +261,6 @@ fun! wheel#shape#grep_edit (...)
 			return v:false
 		endif
 	endif
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write_grep ()
@@ -282,4 +275,19 @@ fun! wheel#shape#grep_edit (...)
 	" info
 	echomsg 'adding or removing lines is not supported.'
 	return lines
+endfun
+
+" Narrow, filter & operate on multi-lines
+
+
+fun! wheel#shape#narrow ()
+	" Lines matching pattern
+	call wheel#mandala#close ()
+	" To be run before opening the mandala buffer
+	let lines = wheel#perspective#polyphony ()
+	call wheel#mandala#open ('narrow')
+	call wheel#sailing#template (settings)
+	call wheel#mandala#fill (lines)
+	" reload
+	let b:wheel_reload = "wheel#sailing#occur('" .. pattern .. "')"
 endfun

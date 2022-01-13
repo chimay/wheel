@@ -265,6 +265,26 @@ fun! wheel#perspective#buffers (...)
 	return returnlist
 endfun
 
+fun! wheel#perspective#polyphony ()
+	" Occur
+	let position = getcurpos()
+	let runme = '%number'
+	let returnlist = execute(runme)
+	let returnlist = split(returnlist, "\n")
+	for index in range(len(returnlist))
+		let elem = returnlist[index]
+		let fields = split(elem)
+		let linum = fields[0]
+		let content = join(fields[1:])
+		let linum = printf('%5d', linum)
+		let entry = [linum, content]
+		let elem = join(entry, s:field_separ)
+		let returnlist[index] = elem
+	endfor
+	call wheel#gear#restore_cursor(position)
+	return returnlist
+endfun
+
 " Tab & windows
 
 fun! wheel#perspective#tabwins ()
