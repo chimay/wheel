@@ -4,6 +4,25 @@
 "
 " Narrow, filter and apply
 
+" Operator function
+
+fun! wheel#polyphony#operatorfunc (argument = '')
+	" Manage operator
+	" Use in a map like this :
+	"   map <expr> <F3> wheel#polyphony#operatorfunc()
+	let argument = a:argument
+	" called to find the rhs of the map
+	if argument == ''
+		set operatorfunc=wheel#polyphony#operatorfunc
+		return 'g@'
+	endif
+	" called to execute operatorfunc
+	let range = "'<,'>"
+	let runme = range .. 'number'
+	let linelist = execute(runme)
+	return linelist
+endfun
+
 " Mandalas
 
 fun! wheel#polyphony#range (start, end)
@@ -12,6 +31,12 @@ fun! wheel#polyphony#range (start, end)
 	let end = a:end
 	if start == end
 		return '%'
+	endif
+	if type(start) != v:t_string
+		let start = string(start)
+	endif
+	if type(end) != v:t_string
+		let end = string(end)
 	endif
 	let range = string(start) .. ',' .. string(end)
 	return range
