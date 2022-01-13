@@ -930,7 +930,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-u>`     : most recently used files not found in wheel (mru)
 - `<M-w><M-s>`     : occur in current file
 - `<M-w>g`         : grep in circle files
-- `<M-w><M-o>`     : outline headers in circle files
+- `<M-w>o`         : outline headers in circle files
 - `<M-w><M-b>`     : go to buffer (opened file)
 - `<M-w>V`         : visible buffers in tab & window (plain mode)
 - `<M-w><M-v>`     : visible buffers in tab & window (tree fold mode)
@@ -1076,7 +1076,7 @@ The context menu contains :
 ------------------------------------------------------------------------------
 OUTLINE					*wheel-dedicated-buffers-outline*
 
-The default mapping is `<M-w><M-o>`.
+The default mapping is `<M-w>o`.
 
 An outline buffer is a grep buffer where all your headers are displayed. You
 can choose between the following header formats :
@@ -2257,7 +2257,7 @@ Search inside files~
 | -------- | ------------------- | ------------------------------------ |
 | s        | <M-w><M-s>          | Search lines in current file         |
 | g        | <M-w>g              | Search in circle files with grep     |
-| <M-o>    | <M-w><M-o>          | Outline : folds, markdown, org mode  |
+| o        | <M-w>o              | Outline : folds, markdown, org mode  |
 
 Buffers~
 

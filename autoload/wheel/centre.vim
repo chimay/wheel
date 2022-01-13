@@ -301,7 +301,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 's <plug>(wheel-prompt-occur)'
 		exe nmap prefix .. '<m-s> <plug>(wheel-dedibuf-occur)'
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
-		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-outline)'
+		exe nmap prefix .. 'o <plug>(wheel-dedibuf-outline)'
 		" Buffers
 		exe nmap prefix .. 'b <plug>(wheel-prompt-buffers)'
 		exe nmap prefix .. '<m-b> <plug>(wheel-dedibuf-buffers)'
