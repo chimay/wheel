@@ -413,29 +413,18 @@ endfun
 
 " Related buffer
 
-fun! wheel#mandala#related (...)
+fun! wheel#mandala#related ()
 	" Go to window of related buffer if visible, or edit it in first window of tab
 	" optional argument :
 	"   - buffer number
 	"   - default : related buffer number
 	" if no optional argument and no related buffer : go to previous window
-	if a:0 > 0
-		let bufnum = a:1
-	else
-		let bufnum = b:wheel_related_buffer
-	endif
+	let bufnum = b:wheel_related_buffer
 	if bufnum == 'unknown'
 		wincmd p
 		return v:false
 	endif
-	let winlist = win_findbuf(bufnum)
-	if ! empty(winlist)
-		let winiden = winlist[0]
-		call win_gotoid (winiden)
-	else
-		1 wincmd w
-		execute 'buffer' bufnum
-	endif
+	call wheel#rectangle#goto_or_load (bufnum)
 	return v:true
 endfun
 

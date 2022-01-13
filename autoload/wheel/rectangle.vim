@@ -88,7 +88,7 @@ fun! wheel#rectangle#goto (bufnum, mode = 'all')
 	" Optional argument : if tab, search only in current tab
 	let mode = a:mode
 	let bufnum = a:bufnum
-	" search in current tab
+	" -- search in current tab
 	if mode == 'tab'
 		let winnr = bufwinnr(bufnum)
 		if winnr > 0
@@ -98,13 +98,23 @@ fun! wheel#rectangle#goto (bufnum, mode = 'all')
 			return v:false
 		endif
 	endif
-	" search everywhere
+	" -- search everywhere
 	let winds = win_findbuf(bufnum)
 	if ! empty(winds)
 		let winiden = winds[0]
 		call win_gotoid(winiden)
 	else
 		return v:false
+	endif
+	return v:true
+endfun
+
+fun! wheel#rectangle#goto_or_load (bufnum)
+	" Go to window of buffer if visible, or load it in first window of tab
+	let bufnum = a:bufnum
+	if ! wheel#rectangle#goto (bufnum)
+		1 wincmd w
+		execute 'buffer' bufnum
 	endif
 	return v:true
 endfun
