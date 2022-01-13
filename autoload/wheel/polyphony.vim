@@ -37,7 +37,7 @@ fun! wheel#polyphony#filter_maps ()
 	" Define local filter maps
 	" normal mode
 	nnoremap <silent> <buffer> <ins> ggA
-	nnoremap <silent> <buffer> <m-a> ggA
+	nnoremap <silent> <buffer> <cr> ggA
 	" insert mode
 	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
