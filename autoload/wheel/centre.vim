@@ -381,6 +381,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-m>          <plug>(wheel-menu-main)'
 		exe nmap '<m-=>          <plug>(wheel-menu-meta)'
 		" Sync
+		exe nmap '<m-i>          <plug>(wheel-dashboard)'
 		exe nmap '<m-$>          <plug>(wheel-sync-up)'
 		" Add, Delete
 		exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'

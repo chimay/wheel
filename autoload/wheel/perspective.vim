@@ -265,10 +265,18 @@ fun! wheel#perspective#buffers (...)
 	return returnlist
 endfun
 
-fun! wheel#perspective#narrow ()
-	" Occur
+fun! wheel#perspective#narrow (...)
+	" Narrow
+	" Optional argument :
+	"   - range of lines
+	"   - default : all buffer
+	if a:0 > 0
+		let range = a:1
+	else
+		let range = '%'
+	endif
 	let position = getcurpos()
-	let runme = '%number'
+	let runme = range .. 'number'
 	let returnlist = execute(runme)
 	let returnlist = split(returnlist, "\n")
 	for index in range(len(returnlist))
