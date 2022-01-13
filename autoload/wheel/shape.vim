@@ -21,71 +21,27 @@ endif
 
 " Write commands
 
-fun! wheel#shape#write_reorder (level)
-	" Define reorder autocommands
+fun! wheel#shape#write (fun_name, ...)
+	" Define BufWriteCmd autocommand
+	if a:0 > 0
+		let optional = string(a:1)
+	else
+		let optional = ''
+	endif
+	let fun_name = a:fun_name
 	setlocal buftype=acwrite
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
-	let function = 'call wheel#cuboctahedron#reorder (' .. string(a:level) .. ')'
+	if fun_name =~ '#'
+		" fun_name is the complete function name
+		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
+	else
+		" fun_name is the last part of the function
+		let function = 'call wheel#cuboctahedron#'
+		let function ..= fun_name .. '(' .. optional .. ')'
+	endif
 	exe 'autocmd' group event '<buffer>' function
-endfun
-
-fun! wheel#shape#write_rename (level)
-	" Define rename autocommands
-	setlocal buftype=acwrite
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	let function = 'call wheel#cuboctahedron#rename (' .. string(a:level) .. ')'
-	exe 'autocmd' group event '<buffer>' function
-endfun
-
-fun! wheel#shape#write_rename_files ()
-	" Define rename autocommands
-	setlocal buftype=acwrite
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	let function = 'call wheel#cuboctahedron#rename_files ()'
-	exe 'autocmd' group event '<buffer>' function
-endfun
-
-fun! wheel#shape#write_copy_move (level)
-	" Define rename autocommands
-	setlocal buftype=acwrite
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	let function = 'call wheel#cuboctahedron#copy_move (' .. string(a:level) .. ')'
-	exe 'autocmd' group event '<buffer>' function
-endfun
-
-fun! wheel#shape#write_reorganize ()
-	" Define reorganize autocommands
-	setlocal buftype=acwrite
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	exe 'autocmd' group event '<buffer> call wheel#cuboctahedron#reorganize ()'
-endfun
-
-fun! wheel#shape#write_reorg_tabwins ()
-	" Define reorg_tabwins autocommands
-	setlocal buftype=acwrite
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	exe 'autocmd' group event '<buffer> call wheel#cuboctahedron#reorg_tabwins ()'
-endfun
-
-fun! wheel#shape#write_grep ()
-	" Define grep autocommands
-	set buftype=acwrite
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	exe 'autocmd' group event '<buffer> call wheel#vector#write_quickfix ()'
 endfun
 
 " Reorder
@@ -96,7 +52,7 @@ fun! wheel#shape#reorder (level)
 	let lines = wheel#perspective#switch (level)
 	call wheel#mandala#open ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write_reorder (level)
+	call wheel#shape#write ('reorder', level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines, 'delete')
 		silent global /^$/ delete
@@ -108,7 +64,7 @@ fun! wheel#shape#reorder (level)
 	let b:wheel_reload = "wheel#shape#reorder('" .. level .. "')"
 endfun
 
-" Batch rename
+" Rename
 
 fun! wheel#shape#rename (level)
 	" Rename level elements in a buffer
@@ -116,7 +72,7 @@ fun! wheel#shape#rename (level)
 	let lines = wheel#perspective#switch (level)
 	call wheel#mandala#open ('rename/' .. level)
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write_rename (level)
+	call wheel#shape#write ('rename', level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines, 'delete')
 		silent global /^$/ delete
@@ -150,7 +106,7 @@ fun! wheel#shape#rename_files ()
 	endfor
 	call wheel#mandala#open ('rename/locations_files')
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write_rename_files ()
+	call wheel#shape#write ('rename_files')
 	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
 	setlocal nomodified
@@ -167,7 +123,7 @@ fun! wheel#shape#copy_move (level)
 	let lines = wheel#perspective#switch (level)
 	call wheel#mandala#open ('copy_move/' .. level)
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write_copy_move (level)
+	call wheel#shape#write ('copy_move', level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines, 'delete')
 		silent global /^$/ delete
@@ -191,7 +147,7 @@ fun! wheel#shape#reorganize ()
 	let lines = wheel#perspective#reorganize ()
 	call wheel#mandala#open ('reorganize')
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write_reorganize ()
+	call wheel#shape#write ('reorganize')
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
@@ -208,7 +164,7 @@ fun! wheel#shape#reorg_tabwins ()
 	let lines = wheel#perspective#tabwins_tree ()
 	call wheel#mandala#open ('reorg/tabwins')
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write_reorg_tabwins ()
+	call wheel#shape#write ('reorg_tabwins')
 	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill(lines, 'delete')
 	silent global /^$/ delete
@@ -263,7 +219,7 @@ fun! wheel#shape#grep_edit (...)
 	endif
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
-	call wheel#shape#write_grep ()
+	call wheel#shape#write ('wheel#vector#write_quickfix')
 	call wheel#mandala#fill (lines, 'delete')
 	silent global /^$/ delete
 	setlocal nomodified
@@ -284,10 +240,11 @@ fun! wheel#shape#narrow ()
 	" Lines matching pattern
 	call wheel#mandala#close ()
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#polyphony ()
+	let lines = wheel#perspective#narrow ()
 	call wheel#mandala#open ('narrow')
-	call wheel#sailing#template (settings)
+	call wheel#mandala#common_maps ()
+	call wheel#shape#write ('narrow')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = "wheel#sailing#occur('" .. pattern .. "')"
+	let b:wheel_reload = 'wheel#sailing#narrow()'
 endfun

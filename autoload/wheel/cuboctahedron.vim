@@ -363,10 +363,12 @@ fun! wheel#cuboctahedron#copy_move (level)
 		endfor
 	elseif level ==# 'circle'
 		let elements = []
+		let torus = wheel#referen#torus ()
+		let glossary = torus.glossary
+		let circlelist = torus.circles
 		for name in selected
-			let torus = wheel#referen#torus ()
-			let index = torus.glossary->index(name)
-			let circle = deepcopy(torus.circles[index])
+			let index = glossary->index(name)
+			let circle = deepcopy(circlelist[index])
 			call add(elements, circle)
 			if mode == 'move'
 				call wheel#tree#remove (level, circle.name)
@@ -378,10 +380,12 @@ fun! wheel#cuboctahedron#copy_move (level)
 		endfor
 	elseif level ==# 'location'
 		let elements = []
+		let circle = wheel#referen#circle ()
+		let glossary = circle.glossary
+		let locationlist = circle.locations
 		for name in selected
-			let circle = wheel#referen#circle ()
-			let index = circle.glossary->index(name)
-			let location = deepcopy(circle.locations[index])
+			let index = glossary->index(name)
+			let location = deepcopy(locationlist[index])
 			call add(elements, location)
 			if mode == 'move'
 				call wheel#tree#remove (level, location.name)
@@ -392,6 +396,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 			call wheel#tree#insert_location (location)
 		endfor
 	endif
+	call wheel#mandala#close ()
 	call wheel#vortex#jump ()
 endfun
 

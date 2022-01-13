@@ -3,13 +3,13 @@
 " Job control, neovim
 
 if ! has('nvim')
-	echo "\r"
+	call wheel#status#clear ()
 	echomsg 'wheel wave is for neovim : see ripple for vim'
 	finish
 endif
 
 if ! exists('*appendbufline')
-	echo "\r"
+	call wheel#status#clear ()
 	echomsg 'You need appendbufline to handle jobs'
 	finish
 endif

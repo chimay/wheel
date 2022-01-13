@@ -179,6 +179,7 @@ fun! wheel#cylinder#first (...)
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
+	call wheel#mandala#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive'
@@ -253,6 +254,7 @@ fun! wheel#cylinder#add (...)
 	let g:wheel_mandalas.current = next
 	let novice_iden = wheel#cylinder#new_iden (iden)
 	call insert(iden, novice_iden, next)
+	call wheel#mandala#init ()
 	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	" call status before going back to previous buffer

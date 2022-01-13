@@ -92,13 +92,32 @@ fun! wheel#book#limit ()
 	return v:true
 endfun
 
+fun! wheel#book#template ()
+	" Return empty template leaf
+	let leaf = {}
+	let leaf.filename = ''
+	let leaf.options = {}
+	let leaf.mappings = {}
+	let leaf.autocmds = {}
+	" buffer local variables
+	let leaf.nature = {}
+	let leaf.nature.empty = v:true
+	let leaf.nature.has_filter = v:false
+	let leaf.lines = []
+	let leaf.filtered = []
+	let leaf.position = []
+	let leaf.address = []
+	let leaf.selected = []
+	let leaf.settings = []
+	let leaf.reload = ''
+	" return
+	return leaf
+endfun
+
 " Init ring
 
 fun! wheel#book#init ()
 	" Init ring
-	if exists('b:wheel_ring') && empty(b:wheel_ring.leaves)
-		echomsg 'wheel book init : leaf ring exists but is empty (should not happen)'
-	endif
 	if exists('b:wheel_ring')
 		return v:false
 	endif
@@ -109,24 +128,7 @@ fun! wheel#book#init ()
 	return v:true
 endfun
 
-fun! wheel#book#template ()
-	" Return empty template leaf
-	let leaf = {}
-	let leaf.filename = ''
-	let leaf.options = {}
-	let leaf.mappings = {}
-	let leaf.autocmds = {}
-	let leaf.lines = []
-	let leaf.filtered = []
-	let leaf.position = []
-	let leaf.address = []
-	let leaf.selected = []
-	let leaf.settings = []
-	let leaf.reload = ''
-	return leaf
-endfun
-
-" State
+" Access elements
 
 fun! wheel#book#ring (...)
 	" Return ring of field given by optional argument
@@ -231,6 +233,8 @@ fun! wheel#book#syncup ()
 	let leaf.mappings = wheel#book#save_maps ()
 	" autocommands
 	let leaf.autocmds = wheel#book#save_autocmds ()
+	" nature
+	let leaf.nature = b:wheel_nature
 	" lines, without filtering
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
@@ -283,6 +287,8 @@ fun! wheel#book#syncdown ()
 	" autocommands
 	let autodict = copy(leaf.autocmds)
 	call wheel#book#restore_autocmds (autodict)
+	" nature
+	let b:wheel_nature = leaf.nature
 	" lines, without filtering
 	let b:wheel_lines = copy(leaf.lines)
 	" filtered mandala content

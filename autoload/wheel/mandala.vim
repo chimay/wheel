@@ -17,11 +17,6 @@ if ! exists('s:is_mandala')
 	lockvar s:is_mandala
 endif
 
-if ! exists('s:mandala_empty')
-	let s:mandala_empty = wheel#crystal#fetch('mandala/empty')
-	lockvar s:mandala_empty
-endif
-
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
 	let s:fold_markers = join(s:fold_markers, ',')
@@ -42,6 +37,13 @@ fun! wheel#mandala#init (...)
 		let b:wheel_address = ''
 		let b:wheel_selected = []
 	endif
+	" mandala state
+	if ! exists('b:wheel_nature')
+		let b:wheel_nature = {}
+		let b:wheel_nature.empty = v:true
+		let b:wheel_nature.has_filter = v:false
+	endif
+	" lines
 	if ! exists('b:wheel_lines')
 		let b:wheel_lines = []
 	endif
@@ -51,9 +53,11 @@ fun! wheel#mandala#init (...)
 	if ! exists('b:wheel_selected')
 		let b:wheel_selected = []
 	endif
+	" settings
 	if ! exists('b:wheel_settings')
 		let b:wheel_settings = {}
 	endif
+	" reload function
 	if ! exists('b:wheel_reload')
 		let b:wheel_reload = ''
 	endif
@@ -83,7 +87,7 @@ fun! wheel#mandala#filename (type)
 	execute 'silent file' wheel#mandala#pseudo (a:type)
 	" false by default
 	" set to true in wheel#mandala#set_empty
-	let b:wheel_empty = v:false
+	let b:wheel_nature.empty = v:false
 endfun
 
 fun! wheel#mandala#type (...)
@@ -98,18 +102,23 @@ fun! wheel#mandala#type (...)
 	return type
 endfun
 
+" State
+
 fun! wheel#mandala#set_empty ()
 	" Tell wheel to consider this mandala as an empty buffer
 	call wheel#mandala#filename ('empty')
-	let b:wheel_empty = v:true
+	" has to be placed after mandala#filename
+	let b:wheel_nature.empty = v:true
 endfun
 
 fun! wheel#mandala#is_empty ()
 	" Return true if mandala is empty, false otherwise
-	if ! exists('b:wheel_empty')
-		let b:wheel_empty = v:true
-	endif
-	return b:wheel_empty
+	return b:wheel_nature.empty
+endfun
+
+fun! wheel#mandala#has_filter ()
+	" Return true if mandala has filter in first line, false otherwise
+	return b:wheel_nature.has_filter
 endfun
 
 " Window & buffer
@@ -145,11 +154,11 @@ fun! wheel#mandala#close ()
 	if winnr('$') > 1
 		" more than one window in tab ? close it.
 		close
-		echo "\r"
+		call wheel#status#clear ()
 	else
 		" only one window in tab ? jump to last known file in wheel.
 		call wheel#vortex#jump ()
-		echo "\r"
+		call wheel#status#clear ()
 	endif
 	return v:true
 endfun
@@ -406,11 +415,6 @@ fun! wheel#mandala#filter (...)
 	endif
 endfun
 
-fun! wheel#mandala#has_filter ()
-	" Return true if mandala has filter in first line, false otherwise
-	return ! empty(maparg('<esc>', 'i'))
-endfun
-
 fun! wheel#mandala#first_data_line ()
 	" First data line is 1 if mandala has no filter, 2 otherwise
 	if ! wheel#mandala#has_filter ()
@@ -463,6 +467,7 @@ fun! wheel#mandala#filter_maps ()
 	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
 	inoremap <silent> <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
+	let b:wheel_nature.has_filter = v:true
 endfun
 
 fun! wheel#mandala#input_history_maps ()

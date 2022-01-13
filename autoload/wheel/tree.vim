@@ -146,18 +146,19 @@ fun! wheel#tree#add_torus (...)
 	" replace spaces by non-breaking spaces
 	let torus_name = wheel#tree#format_name (torus_name)
 	if empty(torus_name)
-		echo "\r"
+		call wheel#status#clear ()
 		echomsg 'Torus name cannot be empty.'
 		return v:false
 	endif
 	" check if not already present
 	if wheel#chain#is_inside(torus_name, g:wheel.glossary)
-		echo "\r"
+		call wheel#status#clear ()
 		echomsg 'Torus' torus_name 'already exists in wheel.'
 		return v:false
 	endif
 	" add torus
-	echo "\r"
+	redraw!
+	call wheel#status#clear ()
 	echomsg "Adding torus" torus_name
 	let index = g:wheel.current
 	let toruses = g:wheel.toruses
@@ -185,19 +186,20 @@ fun! wheel#tree#add_circle (...)
 	" replace spaces by non-breaking spaces
 	let circle_name = wheel#tree#format_name (circle_name)
 	if empty(circle_name)
-		echo "\r"
+		call wheel#status#clear ()
 		echomsg 'Circle name cannot be empty.'
 		return v:false
 	endif
 	" check if not already present
 	let torus = g:wheel.toruses[g:wheel.current]
 	if wheel#chain#is_inside(circle_name, torus.glossary)
-		echo "\r"
+		call wheel#status#clear ()
 		echomsg 'Circle' circle_name 'already exists in torus' torus.name
 		return v:false
 	endif
 	" add circle
-	echo "\r"
+	redraw!
+	call wheel#status#clear ()
 	echomsg "Adding circle" circle_name
 	let index = torus.current
 	let circles = torus.circles
@@ -231,26 +233,26 @@ fun! wheel#tree#add_location (location, ...)
 	" add a name to the location
 	let name = wheel#tree#add_name (location)
 	if empty(name)
-		echo "\r"
+		call wheel#status#clear ()
 		echomsg 'Location name cannot be empty.'
 		return v:false
 	endif
 	" check location name is not in circle
 	if wheel#chain#is_inside(name, circle.glossary)
-		echo "\r"
+		call wheel#status#clear ()
 		echomsg 'Location named' name 'already exists in circle.'
 		return v:false
 	endif
 	" add the location to the circle
-	echo "\r"
+	call wheel#status#clear ()
 	let info = 'Adding location ' .. location.name .. ' : '
 	let info ..= location.file .. ':' .. location.line .. ':' .. location.col
 	let info ..= ' in torus ' .. torus.name .. ' circle ' .. circle.name
 	echomsg info
 	let index = circle.current
-	let locations = circle.locations
+	let locationlist = circle.locations
 	let glossary = circle.glossary
-	call wheel#chain#insert_next (index, location, locations)
+	call wheel#chain#insert_next (index, location, locationlist)
 	let circle.current += 1
 	call wheel#chain#insert_next (index, name, glossary)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
@@ -362,13 +364,13 @@ fun! wheel#tree#rename (level, ...)
 	" replace spaces by non-breaking spaces
 	let new = wheel#tree#format_name (new)
 	if empty(new)
-		echo "\r"
+		call wheel#status#clear ()
 		echomsg level 'name cannot be empty.'
 		return v:false
 	endif
 	" check new is not present in upper list
 	if wheel#chain#is_inside(new, upper.glossary)
-		echo "\r"
+		call wheel#status#clear ()
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
 		echomsg level new 'already exists in' upper_level_name
 		return v:false
@@ -376,7 +378,7 @@ fun! wheel#tree#rename (level, ...)
 	" rename
 	let old = current.name
 	let current.name = new
-	echo "\r"
+	call wheel#status#clear ()
 	echomsg 'Renaming' level old '->' new
 	let glossary = upper.glossary
 	let upper.glossary = wheel#chain#replace(old, new, glossary)
@@ -465,7 +467,9 @@ fun! wheel#tree#remove (level, name)
 	" adjust current index if necessary
 	if empty(elements)
 		let upper.current = -1
-	elseif index == upper.current
+	elseif index <= upper.current
+		" if removed element index is before current one,
+		" the need to decrease current
 		let length = len(elements)
 		let upper.current = wheel#gear#circular_minus(index, length)
 	endif

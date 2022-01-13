@@ -265,7 +265,7 @@ fun! wheel#perspective#buffers (...)
 	return returnlist
 endfun
 
-fun! wheel#perspective#polyphony ()
+fun! wheel#perspective#narrow ()
 	" Occur
 	let position = getcurpos()
 	let runme = '%number'
