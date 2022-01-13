@@ -1173,9 +1173,9 @@ Mappings~
 
 The default mappings launching reordering buffers are :
 
-- `<M-w>o`     : reorder locations
-- `<M-w><C-o>` : reorder circles
-- `<M-w>O`     : reorder toruses
+- `<M-w>@o`     : reorder locations
+- `<M-w>@<C-o>` : reorder circles
+- `<M-w>@O`     : reorder toruses
 
 Menus~
 
@@ -2234,9 +2234,9 @@ Reorder~
 
 | Prefix +   | With default prefix   | Action                                   |
 | ---------- | --------------------- | ---------------------------------------- |
-| o          | <M-w>o                | Reorder locations in current circle      |
-| <C-o>      | <M-w><C-o>            | Reorder circles in current torus         |
-| O          | <M-w>O                | Reorder toruses in wheel                 |
+| @o         | <M-w>@o               | Reorder locations in current circle      |
+| @<C-o>     | <M-w>@<C-o>           | Reorder circles in current torus         |
+| @O         | <M-w>@O               | Reorder toruses in wheel                 |
 
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*

@@ -285,9 +285,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. batch .. '<m-c> <plug>(wheel-dedibuf-copy-move-circle)'
 		exe nmap prefix .. batch .. 'C <plug>(wheel-dedibuf-copy-move-torus)'
 		" Reorder
-		exe nmap prefix .. 'o <plug>(wheel-dedibuf-reorder-location)'
-		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
-		exe nmap prefix .. 'O <plug>(wheel-dedibuf-reorder-torus)'
+		exe nmap prefix .. batch .. 'o <plug>(wheel-dedibuf-reorder-location)'
+		exe nmap prefix .. batch .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
+		exe nmap prefix .. batch .. 'O <plug>(wheel-dedibuf-reorder-torus)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
