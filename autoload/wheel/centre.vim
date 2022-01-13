@@ -141,6 +141,9 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#shape#grep_edit()<cr>
 	" Undo list
 	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
+	" Narrow, filter & apply
+	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow()<cr>
+	vnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-dedibuf-command) <cmd>call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-dedibuf-async) <cmd>call wheel#mandala#async()<cr>
@@ -199,6 +202,7 @@ fun! wheel#centre#cables ()
 	let lay = 'z'
 	" maps arguments
 	let nmap = 'nmap <silent>'
+	let vmap = 'vmap <silent>'
 	" Basic
 	if g:wheel_config.mappings >= 0
 		" Menus
@@ -263,7 +267,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<c-n> <plug>(wheel-prompt-rename-circle)'
 		exe nmap prefix .. 'N <plug>(wheel-prompt-rename-torus)'
 		exe nmap prefix .. '<m-n> <plug>(wheel-prompt-rename-file)'
-		" Batch rename
 		exe nmap prefix .. batch .. 'n <plug>(wheel-dedibuf-rename-location)'
 		exe nmap prefix .. batch .. '<c-n> <plug>(wheel-dedibuf-rename-circle)'
 		exe nmap prefix .. batch .. 'N <plug>(wheel-dedibuf-rename-torus)'
@@ -280,7 +283,6 @@ fun! wheel#centre#cables ()
 		" Move
 		exe nmap prefix .. 'm <plug>(wheel-prompt-move-location)'
 		exe nmap prefix .. 'M <plug>(wheel-prompt-move-circle)'
-		" Batch copy/move
 		exe nmap prefix .. batch .. 'c <plug>(wheel-dedibuf-copy-move-location)'
 		exe nmap prefix .. batch .. '<m-c> <plug>(wheel-dedibuf-copy-move-circle)'
 		exe nmap prefix .. batch .. 'C <plug>(wheel-dedibuf-copy-move-torus)'
@@ -331,6 +333,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
 		" Undo list
 		exe nmap prefix .. 'U <plug>(wheel-dedibuf-undo-list)'
+		" Narrow, filter & apply
+		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-narrow)'
+		exe vmap prefix .. '<m-o> <plug>(wheel-dedibuf-narrow)'
 		" Generic ex or shell command
 		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
 		exe nmap prefix .. async .. '& <plug>(wheel-dedibuf-async)'
