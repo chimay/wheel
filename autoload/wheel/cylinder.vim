@@ -291,7 +291,7 @@ endfun
 " Recall
 
 fun! wheel#cylinder#recall ()
-	" Recall mandala buffer
+	" Recall mandala buffer : find its window or load it in a split
 	call wheel#cylinder#check ()
 	return wheel#cylinder#window ()
 endfun

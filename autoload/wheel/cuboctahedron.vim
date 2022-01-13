@@ -301,7 +301,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_filename (old_filename, new_filename)
 	endfor
-	call wheel#mandala#close()
+	call wheel#mandala#related()
 	call wheel#vortex#jump()
 	call wheel#cylinder#recall()
 	setlocal nomodified
@@ -397,7 +397,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 		endfor
 	endif
 	setlocal nomodified
-	call wheel#mandala#close ()
+	call wheel#mandala#related ()
 	call wheel#vortex#jump ()
 	call wheel#cylinder#recall()
 endfun
@@ -457,7 +457,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	let linelist = getline(1, '$')
 	" Current tab
 	let startpage = tabpagenr()
-	" Close mandala to work
+	" Close mandala to work : otherwise it would be added to the list of windows
 	call wheel#mandala#close ()
 	" Fill the baskets
 	let [tabindexes, tabwindows] = wheel#cuboctahedron#baskets (linelist)
