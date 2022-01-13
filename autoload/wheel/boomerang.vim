@@ -58,13 +58,8 @@ endfun
 
 " Generic
 
-fun! wheel#boomerang#menu (dictname, ...)
+fun! wheel#boomerang#menu (dictname, optional = {})
 	" Context menu
-	if a:0 > 0
-		let optional = a:1
-	else
-		let optional = {}
-	endif
 	if ! has_key(optional, 'ctx_close')
 		" ctx_close = v:false by default, to be able to perform other
 		" operations after this one

@@ -265,18 +265,18 @@ fun! wheel#perspective#buffers (...)
 	return returnlist
 endfun
 
-fun! wheel#perspective#narrow (...)
+fun! wheel#perspective#narrow (range = [])
 	" Narrow
 	" Optional argument :
 	"   - range of lines
 	"   - default : all buffer
-	if a:0 > 0
-		let range = a:1
-	else
-		let range = '%'
+	let range = a:range
+	if empty(range)
+		let range=[1, line('$')]
 	endif
+	let cmd_range = wheel#gear#vim_cmd_range (range)
 	let position = getcurpos()
-	let runme = range .. 'number'
+	let runme = cmd_range .. 'number'
 	let returnlist = execute(runme)
 	let returnlist = split(returnlist, "\n")
 	for index in range(len(returnlist))

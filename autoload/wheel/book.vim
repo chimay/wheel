@@ -288,16 +288,12 @@ endfun
 
 " Add & delete
 
-fun! wheel#book#add (...)
+fun! wheel#book#add (mode = 'default')
 	" Add empty leaf in ring
 	" Optional argument :
 	"   - clear : clear mandala
 	"   - default : just add a new leaf
-	if a:0 > 0
-		let mode = a:1
-	else
-		let mode = 'default'
-	endif
+	let mode = a:mode
 	" -- first leaf
 	if wheel#book#init ()
 		return v:false

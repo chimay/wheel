@@ -235,11 +235,20 @@ endfun
 
 " Narrow, filter & operate on multi-lines
 
-fun! wheel#shape#narrow () range
+fun! wheel#shape#narrow (range = []) range
 	" Lines matching pattern
+	let range = a:range
 	call wheel#mandala#close ()
 	" To be run before opening the mandala buffer
-	let range = wheel#polyphony#range (a:firstline, a:lastline)
+	if empty(range)
+		let first = a:firstline
+		let last = a:lastline
+		if first != last
+			let range = [first, last]
+		else
+			let range = [1, line('$')]
+		endif
+	endif
 	let lines = wheel#perspective#narrow (range)
 	call wheel#mandala#open ('narrow')
 	call wheel#polyphony#filter_maps ()
@@ -247,5 +256,5 @@ fun! wheel#shape#narrow () range
 	call wheel#shape#write ('wheel#polyphony#narrow')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#sailing#narrow()'
+	let b:wheel_reload = 'wheel#shape#narrow()'
 endfun

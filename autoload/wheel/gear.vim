@@ -75,6 +75,22 @@ fun! wheel#gear#call (fun, ...)
 	endif
 endfun
 
+" Vim cmdline range
+
+fun! wheel#gear#vim_cmd_range (...)
+	" Return range for :[range]cmd
+	" Arguments : first & last line
+	if a:0 == 2
+		let first = a:1
+		let last = a:2
+	elseif type(a:1) == v:t_list
+		let first = a:1[0]
+		let last = a:1[1]
+	endif
+	let range = string(first) .. ',' .. string(last)
+	return range
+endfun
+
 " Directory
 
 fun! wheel#gear#relative_path (...)

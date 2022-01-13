@@ -4,6 +4,8 @@
 "
 " Narrow, filter and apply
 
+" Range of original buffer
+
 " Operator function
 
 fun! wheel#polyphony#operatorfunc (argument = '')
@@ -17,30 +19,12 @@ fun! wheel#polyphony#operatorfunc (argument = '')
 		return 'g@'
 	endif
 	" called to execute operatorfunc
-	let range = "'<,'>"
-	let runme = range .. 'number'
-	let linelist = execute(runme)
-	return linelist
+	let first = line("'[")
+	let last = line("']")
+	call wheel#shape#narrow([first, last])
 endfun
 
 " Mandalas
-
-fun! wheel#polyphony#range (start, end)
-	" Return range of buffer to display in narrow
-	let start = a:start
-	let end = a:end
-	if start == end
-		return '%'
-	endif
-	if type(start) != v:t_string
-		let start = string(start)
-	endif
-	if type(end) != v:t_string
-		let end = string(end)
-	endif
-	let range = string(start) .. ',' .. string(end)
-	return range
-endfun
 
 fun! wheel#polyphony#filter_maps ()
 	" Define local filter maps
