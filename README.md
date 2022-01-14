@@ -197,7 +197,7 @@ This project is inspired by :
 
 ## Prerequisites
 
-Some functions assume a Unix-like OS, as linux or bsd.
+Some functions assume a Unix-like OS, like Linux or BSD.
 
 # Installation
 ## Using minpac
