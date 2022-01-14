@@ -18,7 +18,7 @@ if ! exists('s:field_separ_bar')
 	lockvar s:field_separ_bar
 endif
 
-" Operator function
+" Operator
 
 fun! wheel#polyphony#operator (argument = '')
 	" Operator waiting for a movement or text object to select range
@@ -31,6 +31,7 @@ fun! wheel#polyphony#operator (argument = '')
 		return 'g@'
 	endif
 	" -- when called to execute wheel#polyphony#operator
+	" -- then, argument is 'line', 'block' or 'char'
 	let first = line("'[")
 	let last = line("']")
 	call wheel#shape#narrow_file (first, last)
@@ -46,15 +47,16 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	let prompt = 'Substitute with ? '
 	let after = input(prompt)
 	" skip non-content columns
+	let prelude = '\m\('
+	let field = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
+	let coda = '.*\)\@<='
 	if mode == 'file'
-		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
+		let columns = prelude .. field .. coda
 	elseif mode == 'circle'
-		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
-		let columns ..= columns
+		let columns = prelude .. field .. field .. field .. coda
 	else
 		echomsg 'wheel polyphony substitute : mode must be file or circle'
 	endif
-	let columns = '\m^' .. columns .. '.*' .. '\zs'
 	let before = columns .. before
 	" escape separator of substitute
 	let before = escape(before, '/')
