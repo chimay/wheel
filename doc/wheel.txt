@@ -2403,7 +2403,7 @@ Search inside files~
 | -------- | ------------------- | ------------------------------------ |
 | s        | <M-w><M-s>          | Search lines in current file         |
 | g        | <M-w>g              | Search in circle files with grep     |
-| o        | <M-w>o              | Outline : folds, markdown, org mode  |
+| O        | <M-w>O              | Outline : folds, markdown, org mode  |
 
 Buffers~
 
