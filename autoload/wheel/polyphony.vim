@@ -42,6 +42,7 @@ endfun
 fun! wheel#polyphony#substitute (mode = 'file')
 	" Substitute in narrow mandala
 	let mode = a:mode
+	" user input
 	let prompt = 'Substitute pattern ? '
 	let before = input(prompt)
 	let prompt = 'Substitute with ? '
@@ -61,6 +62,7 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	" escape separator of substitute
 	let before = escape(before, '/')
 	let after = escape(after, '/')
+	" run substitution
 	let runme = '%substitute/' .. before .. '/' .. after .. '/g'
 	echomsg runme
 	execute runme
