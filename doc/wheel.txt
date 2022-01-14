@@ -2498,7 +2498,7 @@ adapt them to your taste and add them to your init file.
 | <M-u>          | Most Recently Used files not found in wheel   |
 | -------------- | --------------------------------------------- |
 | <M-o>          | Occur in current file, prompting function     |
-| <M-c-o>        | Occur in current file, dedicated buffer       |
+| <M-C-o>        | Occur in current file, dedicated buffer       |
 | <M-g>          | Grep in current circle files                  |
 | <M-S-o>        | Outline in current circle files               |
 | -------------- | --------------------------------------------- |
