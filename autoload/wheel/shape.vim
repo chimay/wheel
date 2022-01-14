@@ -277,8 +277,9 @@ fun! wheel#shape#narrow_circle (...)
 	endif
 	let lines = wheel#perspective#narrow_circle (pattern, sieve)
 	call wheel#mandala#open ('narrow/circle')
-	call wheel#polyphony#filter_maps ()
 	call wheel#mandala#common_maps ()
+	call wheel#polyphony#filter_maps ()
+	call wheel#mandala#input_history_maps ()
 	call wheel#shape#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
 	" reload

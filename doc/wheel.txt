@@ -1371,6 +1371,8 @@ much as you want before editing and propagate your changes.
 Be aware that only the visible lines will be reflected to the original
 file : this is intended.
 
+It uses and fill the vim quickfix list under the hood.
+
 Default mapping : `<M-w>-c`
 
 ------------------------------------------------------------------------------
