@@ -1428,6 +1428,10 @@ Default mappings :
   + in visual mode : open a narrow buffer with the visual range
 - `<M-w>-%` : open a narrow buffer with the entire original file content
 
+Actions :
+
+- `<M-s>` : substitute a pattern by a replacement
+
 Fields :
 
 This buffer displays the following columns :
@@ -1446,6 +1450,10 @@ file : this is intended.
 It uses and fill the vim quickfix list under the hood.
 
 Default mapping : `<M-w>-c`
+
+Actions :
+
+- `<M-s>` : substitute a pattern by a replacement
 
 Fields :
 
