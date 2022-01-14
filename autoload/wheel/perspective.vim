@@ -262,7 +262,7 @@ fun! wheel#perspective#buffers (mode = 'listed')
 endfun
 
 fun! wheel#perspective#narrow_file (first, last)
-	" Narrow
+	" Narrow file
 	" Optional argument :
 	"   - range of lines
 	"   - default : all buffer
@@ -271,6 +271,7 @@ fun! wheel#perspective#narrow_file (first, last)
 	let numlist = range(first, last)
 	let linelist = getline(first, last)
 	let returnlist = wheel#matrix#dual([numlist, linelist])
+	call map(returnlist, { _, elem -> [ printf('%5d', elem[0]), elem[1] ] })
 	call map(returnlist, { _, elem -> join(elem, s:field_separ) })
 	return returnlist
 endfun
@@ -477,7 +478,7 @@ fun! wheel#perspective#grep (pattern, sieve)
 		let elem = quickfix[index]
 		" elem.nr does not work
 		" let's take the index instead
-		let errnum = printf('%5d', index + 1)
+		let errnum = printf('%4d', index + 1)
 		let linum = printf('%5d', elem.lnum)
 		let colnum = printf('%2d', elem.col)
 		let filename = bufname(elem.bufnr)
