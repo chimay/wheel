@@ -235,13 +235,13 @@ endfun
 
 " Narrow, filter & operate on multi-lines
 
-fun! wheel#shape#narrow (first = -1, last = -1) range
-	" Lines matching pattern
+fun! wheel#shape#narrow_file (...) range
+	" Lines matching pattern in current file
 	call wheel#mandala#close ()
-	let first = a:first
-	let last = a:last
-	" To be run before opening the mandala buffer
-	if first < 0
+	if a:0 > 1
+		let first = a:1
+		let last = a:2
+	else
 		let first = a:firstline
 		let last = a:lastline
 	endif
@@ -250,13 +250,38 @@ fun! wheel#shape#narrow (first = -1, last = -1) range
 		let first = 1
 		let last = line('$')
 	endif
-	let lines = wheel#perspective#narrow (first, last)
-	call wheel#mandala#open ('narrow')
+	let lines = wheel#perspective#narrow_file (first, last)
+	call wheel#mandala#open ('narrow/file')
 	call wheel#polyphony#filter_maps ()
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#shape#narrow(' .. first .. ', ' .. last .. ')'
+	let b:wheel_reload = 'wheel#shape#narrow_file(' .. first .. ', ' .. last .. ')'
+	echomsg 'adding or removing lines is not supported.'
+endfun
+
+fun! wheel#shape#narrow_circle (...)
+	" Lines matching pattern in all circle files
+	" Like grep but with filter & edit
+	call wheel#mandala#close ()
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let pattern = input('Narrow circle files with pattern : ')
+	endif
+	if a:0 > 1
+		let sieve = a:2
+	else
+		let sieve = '\m.'
+	endif
+	let lines = wheel#perspective#narrow_circle (pattern, sieve)
+	call wheel#mandala#open ('narrow/circle')
+	call wheel#polyphony#filter_maps ()
+	call wheel#mandala#common_maps ()
+	call wheel#shape#write ('wheel#polyphony#counterpoint')
+	call wheel#mandala#fill (lines)
+	" reload
+	let b:wheel_reload = 'wheel#shape#narrow_circle(' .. pattern .. ', ' .. sieve .. ')'
 	echomsg 'adding or removing lines is not supported.'
 endfun

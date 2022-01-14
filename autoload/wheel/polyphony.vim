@@ -28,17 +28,8 @@ fun! wheel#polyphony#operator (argument = '')
 	" -- when called to execute wheel#polyphony#operator
 	let first = line("'[")
 	let last = line("']")
-	call wheel#shape#narrow(first, last)
+	call wheel#shape#narrow_file (first, last)
 endfun
-
-" does not work
-"
-" fun! wheel#polyphony#visual ()
-" 	" Manage visual mode
-" 	let first = line("'<")
-" 	let last = line("'>")
-" 	call wheel#shape#narrow(first, last)
-" endfun
 
 " Mandalas
 
@@ -46,6 +37,7 @@ fun! wheel#polyphony#filter_maps ()
 	" Define local filter maps
 	" normal mode
 	nnoremap <silent> <buffer> <ins> ggA
+	nnoremap <silent> <buffer> <m-i> ggA
 	nnoremap <silent> <buffer> <cr> ggA
 	" insert mode
 	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
@@ -56,7 +48,7 @@ endfun
 " Write mandala -> related buffer
 
 fun! wheel#polyphony#harmony ()
-	" Write function for shape#narrow
+	" Write function for shape#narrow_file
 	let linelist = getline(2, '$')
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'unknown'
@@ -68,6 +60,25 @@ fun! wheel#polyphony#harmony ()
 		let linum = str2nr(fields[0])
 		if length > 1
 			let content = fields[1]
+		else
+			let content = ''
+		endif
+		call setbufline(bufnum, linum, content)
+	endfor
+	setlocal nomodified
+	return v:true
+endfun
+
+fun! wheel#polyphony#counterpoint ()
+	" Write function for shape#narrow_circle
+	let linelist = getline(2, '$')
+	for line in linelist
+		let fields = split(line, s:field_separ)
+		let length = len(fields)
+		let bufnum = str2nr(fields[0])
+		let linum = str2nr(fields[1])
+		if length > 3
+			let content = fields[3]
 		else
 			let content = ''
 		endif

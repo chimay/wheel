@@ -142,9 +142,9 @@ fun! wheel#centre#plugs ()
 	" Undo list
 	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
 	" Narrow, filter & apply
-	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow_file()<cr>
 	" use colon instead of <cmd> to catch the range
-	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow()<cr>
+	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow_file()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-dedibuf-command) <cmd>call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-dedibuf-async) <cmd>call wheel#mandala#async()<cr>

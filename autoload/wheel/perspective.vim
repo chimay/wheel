@@ -261,7 +261,7 @@ fun! wheel#perspective#buffers (mode = 'listed')
 	return returnlist
 endfun
 
-fun! wheel#perspective#narrow (first, last)
+fun! wheel#perspective#narrow_file (first, last)
 	" Narrow
 	" Optional argument :
 	"   - range of lines
@@ -273,6 +273,31 @@ fun! wheel#perspective#narrow (first, last)
 	let returnlist = wheel#matrix#dual([numlist, linelist])
 	call map(returnlist, { _, elem -> join(elem, s:field_separ) })
 	return returnlist
+endfun
+
+fun! wheel#perspective#narrow_circle (pattern, sieve)
+	" Narrow circle files. Use quickfix list
+	" Each line has the format :
+	" buffer-number | line | file | text
+	let bool = wheel#vector#grep (a:pattern, a:sieve)
+	if ! bool
+		" no file matching a:sieve
+		return v:false
+	endif
+	let quickfix = getqflist()
+	let list = []
+	for index in range(len(quickfix))
+		let elem = quickfix[index]
+		let bufnum = printf('%3d', elem.bufnr)
+		let linum = printf('%5d', elem.lnum)
+		let filename = bufname(elem.bufnr)
+		let filename = wheel#gear#relative_path (filename)
+		let content = elem.text
+		let entry = [bufnum, linum, filename, content]
+		let record = join(entry, s:field_separ)
+		call add(list, record)
+	endfor
+	return list
 endfun
 
 " Tab & windows
@@ -440,7 +465,7 @@ endfun
 fun! wheel#perspective#grep (pattern, sieve)
 	" Quickfix list
 	" Each line has the format :
-	" err-number | buffer-number | file | line | col | text
+	" error number | line | col | file | line content
 	let bool = wheel#vector#grep (a:pattern, a:sieve)
 	if ! bool
 		" no file matching a:sieve
@@ -454,14 +479,11 @@ fun! wheel#perspective#grep (pattern, sieve)
 		" let's take the index instead
 		let errnum = printf('%5d', index + 1)
 		let linum = printf('%5d', elem.lnum)
-		let colnum = printf('%5d', elem.col)
+		let colnum = printf('%2d', elem.col)
 		let filename = bufname(elem.bufnr)
-		let record = ''
-		let record ..= errnum .. s:field_separ
-		let record ..= linum .. s:field_separ
-		let record ..= colnum .. s:field_separ
-		let record ..= filename .. s:field_separ
-		let record ..= elem.text
+		let content = elem.text
+		let entry = [errnum, linum, colnum, filename, content]
+		let record = join(entry, s:field_separ)
 		call add(list, record)
 	endfor
 	return list
