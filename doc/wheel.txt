@@ -1065,6 +1065,8 @@ This buffer displays the following columns :
 
 buffer number | indicator | line number | filename
 
+For the indicator meaning, see |:buffers|.
+
 ------------------------------------------------------------------------------
 TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
 

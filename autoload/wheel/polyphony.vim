@@ -36,6 +36,34 @@ fun! wheel#polyphony#operator (argument = '')
 	call wheel#shape#narrow_file (first, last)
 endfun
 
+" Actions
+
+fun! wheel#polyphony#substitute (mode = 'file')
+	" Substitute in narrow mandala
+	let mode = a:mode
+	let prompt = 'Substitute pattern ? '
+	let before = input(prompt)
+	let prompt = 'Substitute with ? '
+	let after = input(prompt)
+	" skip non-content columns
+	if mode == 'file'
+		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
+	elseif mode == 'circle'
+		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
+		let columns ..= columns
+	else
+		echomsg 'wheel polyphony substitute : mode must be file or circle'
+	endif
+	let columns = '\m^' .. columns .. '.*' .. '\zs'
+	let before = columns .. before
+	" escape separator of substitute
+	let before = escape(before, '/')
+	let after = escape(after, '/')
+	let runme = '%substitute/' .. before .. '/' .. after .. '/g'
+	echomsg runme
+	execute runme
+endfun
+
 " Mandalas
 
 fun! wheel#polyphony#filter_maps ()
@@ -64,35 +92,7 @@ endfun
 fun! wheel#polyphony#action_maps (mode = 'file')
 	" Define local action maps
 	let mode = a:mode
-	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony('" .. mode .. "')"
-endfun
-
-" Actions
-
-fun! wheel#polyphony#substitute (mode = 'file')
-	" Substitute in narrow mandala
-	let mode = a:mode
-	let prompt = 'Substitute pattern ? '
-	let before = input(prompt)
-	let prompt = 'Substitute with ? '
-	let after = input(prompt)
-	" skip non-content columns
-	if mode == 'file'
-		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
-	elseif mode == 'circle'
-		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
-		let columns ..= columns
-	else
-		echomsg 'wheel polyphony substitute : mode must be file or circle'
-	endif
-	let columns = '\m^' .. columns .. '.*' .. '\zs'
-	let before = columns .. before
-	" escape separator of substitute
-	let before = escape(before, '/')
-	let after = escape(after, '/')
-	let runme = '%substitute/' .. before .. '/' .. after .. '/g'
-	echomsg runme
-	execute runme
+	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mode .. "')<cr>"
 endfun
 
 " Propagate mandala changes -> original buffer(s)
@@ -126,6 +126,9 @@ fun! wheel#polyphony#counterpoint ()
 		let fields = split(line, s:field_separ)
 		let length = len(fields)
 		let bufnum = str2nr(fields[0])
+		if ! bufloaded(bufnum)
+			call bufload(bufnum)
+		endif
 		let linum = str2nr(fields[1])
 		if length > 3
 			let content = fields[3]
