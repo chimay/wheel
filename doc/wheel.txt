@@ -2355,8 +2355,9 @@ Reorganizing buffers~
 | <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
 | <M-g>    | <M-w><M-g>          | Grep edit mode            |
 | -%       | <M-w>-%             | Narrow current file       |
+| -c       | <M-w>-c             | Narrow all circle files   |
 
-Operator waiting for a move :
+Operator command, waiting for a move :
 
 | Prefix + | With default prefix | Action               |
 | -------- | ------------------- | -------------------- |
