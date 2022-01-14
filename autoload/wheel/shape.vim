@@ -227,7 +227,7 @@ fun! wheel#shape#grep_edit (...)
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
 	" reload
-	let b:wheel_reload = "wheel#shape#grep_edit('" .. pattern .. "','" .. sieve .. "')"
+	let b:wheel_reload = "wheel#shape#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
 	" info
 	echomsg 'adding or removing lines is not supported.'
 	return lines
@@ -258,7 +258,7 @@ fun! wheel#shape#narrow_file (...) range
 	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#shape#narrow_file(' .. first .. ', ' .. last .. ')'
+	let b:wheel_reload = "wheel#shape#narrow_file('" .. first .. "', '" .. last .. "')"
 	echomsg 'adding or removing lines is not supported.'
 endfun
 
@@ -284,6 +284,6 @@ fun! wheel#shape#narrow_circle (...)
 	call wheel#shape#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#shape#narrow_circle(' .. pattern .. ', ' .. sieve .. ')'
+	let b:wheel_reload = "wheel#shape#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
 	echomsg 'adding or removing lines is not supported.'
 endfun

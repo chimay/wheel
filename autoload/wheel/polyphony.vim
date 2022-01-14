@@ -56,7 +56,7 @@ fun! wheel#polyphony#input_history_maps ()
 	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
 endfun
 
-" Write mandala -> related buffer
+" Propagate mandala changes -> original buffer(s)
 
 fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow_file
