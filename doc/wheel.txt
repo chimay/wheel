@@ -3030,7 +3030,7 @@ ADD A TAB WITH A SIMILAR FILE	    *wheel-examples-similar-tab*
 LIST ALL TAG OF A KIND				*wheel-examples-tag-kind*
 
 - launch the tag navigator with `<M-w><M-t>`
-- type `i` to go to insert mode
+- type `i` to go to insert mode on filter line
 - enter `\<f\>` to keep only functions tags
   + or `\<m\>` to keep only maps tags
   + ...
