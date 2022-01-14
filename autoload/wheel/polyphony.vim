@@ -45,6 +45,17 @@ fun! wheel#polyphony#filter_maps ()
 	let b:wheel_nature.has_filter = v:true
 endfun
 
+fun! wheel#polyphony#input_history_maps ()
+	" Define local input history maps
+	" Use M-p / M-n
+	" C-p / C-n is taken by (neo)vim completion
+	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
+	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
+	" M-r / M-s : next / prev matching line
+	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
+endfun
+
 " Write mandala -> related buffer
 
 fun! wheel#polyphony#harmony ()

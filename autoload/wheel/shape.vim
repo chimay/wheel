@@ -252,8 +252,9 @@ fun! wheel#shape#narrow_file (...) range
 	endif
 	let lines = wheel#perspective#narrow_file (first, last)
 	call wheel#mandala#open ('narrow/file')
-	call wheel#polyphony#filter_maps ()
 	call wheel#mandala#common_maps ()
+	call wheel#polyphony#filter_maps ()
+	call wheel#polyphony#input_history_maps ()
 	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" reload
@@ -279,7 +280,7 @@ fun! wheel#shape#narrow_circle (...)
 	call wheel#mandala#open ('narrow/circle')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
-	call wheel#mandala#input_history_maps ()
+	call wheel#polyphony#input_history_maps ()
 	call wheel#shape#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
 	" reload
