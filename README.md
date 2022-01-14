@@ -230,7 +230,7 @@ Just add the :
 - autoload
 - doc
 
-folders anywhere of the (neo)vim runtimepath, and it should work.
+folders somewhere of the (neo)vim runtimepath, and it should work.
 
 # Documentation
 ## Vim help
