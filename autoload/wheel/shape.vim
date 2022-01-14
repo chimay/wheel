@@ -244,11 +244,11 @@ fun! wheel#shape#narrow (first = -1, last = -1) range
 	if first < 0
 		let first = a:firstline
 		let last = a:lastline
-		if first == last
-			" assume the user does not launch it just for one line
-			let first = 1
-			let last = line('$')
-		endif
+	endif
+	if first == last
+		" assume the user does not launch it just for one line
+		let first = 1
+		let last = line('$')
 	endif
 	let lines = wheel#perspective#narrow (first, last)
 	call wheel#mandala#open ('narrow')

@@ -31,12 +31,14 @@ fun! wheel#polyphony#operator (argument = '')
 	call wheel#shape#narrow(first, last)
 endfun
 
-fun! wheel#polyphony#visual ()
-	" Manage visual mode
-	let first = line("'<")
-	let last = line("'>")
-	call wheel#shape#narrow(first, last)
-endfun
+" does not work
+"
+" fun! wheel#polyphony#visual ()
+" 	" Manage visual mode
+" 	let first = line("'<")
+" 	let last = line("'>")
+" 	call wheel#shape#narrow(first, last)
+" endfun
 
 " Mandalas
 

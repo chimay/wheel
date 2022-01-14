@@ -143,7 +143,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
 	" Narrow, filter & apply
 	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow()<cr>
-	vnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#polyphony#visual()<cr>
+	" use colon instead of <cmd> to catch the range
+	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-dedibuf-command) <cmd>call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-dedibuf-async) <cmd>call wheel#mandala#async()<cr>
@@ -336,7 +337,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'U <plug>(wheel-dedibuf-undo-list)'
 		" Narrow, filter & apply
 		exe nmap prefix .. '-% <plug>(wheel-dedibuf-narrow)'
-		exe vmap prefix .. '-- <plug>(wheel-dedibuf-narrow-visual)'
+		exe vmap prefix .. '-- <plug>(wheel-dedibuf-narrow)'
 	    exe nmap_expr .. prefix .. '-- wheel#polyphony#operator()'
 		" Generic ex or shell command
 		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
