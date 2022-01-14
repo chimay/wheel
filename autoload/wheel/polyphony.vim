@@ -13,6 +13,11 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+if ! exists('s:field_separ_bar')
+	let s:field_separ_bar = wheel#crystal#fetch('separator/field/bar')
+	lockvar s:field_separ_bar
+endif
+
 " Operator function
 
 fun! wheel#polyphony#operator (argument = '')
@@ -54,6 +59,40 @@ fun! wheel#polyphony#input_history_maps ()
 	" M-r / M-s : next / prev matching line
 	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
 	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
+endfun
+
+fun! wheel#polyphony#action_maps (mode = 'file')
+	" Define local action maps
+	let mode = a:mode
+	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony('" .. mode .. "')"
+endfun
+
+" Actions
+
+fun! wheel#polyphony#substitute (mode = 'file')
+	" Substitute in narrow mandala
+	let mode = a:mode
+	let prompt = 'Substitute pattern ? '
+	let before = input(prompt)
+	let prompt = 'Substitute with ? '
+	let after = input(prompt)
+	" skip non-content columns
+	if mode == 'file'
+		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
+	elseif mode == 'circle'
+		let columns = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
+		let columns ..= columns
+	else
+		echomsg 'wheel polyphony substitute : mode must be file or circle'
+	endif
+	let columns = '\m^' .. columns .. '.*' .. '\zs'
+	let before = columns .. before
+	" escape separator of substitute
+	let before = escape(before, '/')
+	let after = escape(after, '/')
+	let runme = '%substitute/' .. before .. '/' .. after .. '/g'
+	echomsg runme
+	execute runme
 endfun
 
 " Propagate mandala changes -> original buffer(s)

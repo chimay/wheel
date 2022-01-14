@@ -123,6 +123,7 @@ if ! exists('s:normal_map_keys')
 				\ 'p', 'P',
 				\ 'gp', 'gP',
 				\ '<c-s>',
+				\ '<m-s>',
 				\ ]
 	lockvar s:normal_map_keys
 endif
@@ -238,6 +239,12 @@ if ! exists('s:separator_field')
 	" digraph : ctrl-k vv -> │ != usual | == <bar>
 	let s:separator_field = ' │ '
 	lockvar s:separator_field
+endif
+
+if ! exists('s:separator_field_bar')
+	" digraph : ctrl-k vv ->
+	let s:separator_field_bar = '│'
+	lockvar s:separator_field_bar
 endif
 
 if ! exists('s:separator_level')

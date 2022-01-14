@@ -1085,9 +1085,9 @@ List of lines matching a pattern.
 
 The default mapping is `<M-w><M-o>`.
 
-Fields~
+fields~
 
-This buffer displays the following columns :
+this buffer displays the following columns :
 
 line number | line content
 

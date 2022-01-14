@@ -255,6 +255,7 @@ fun! wheel#shape#narrow_file (...) range
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
+	call wheel#polyphony#action_maps ('file')
 	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" reload
@@ -281,6 +282,7 @@ fun! wheel#shape#narrow_circle (...)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
+	call wheel#polyphony#action_maps ('circle')
 	call wheel#shape#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
 	" reload
