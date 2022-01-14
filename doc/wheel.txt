@@ -621,9 +621,9 @@ Switch file~
 
 Switch inside file~
 
-| Function         | Completion list                   | Default binding |
-| ---------------- | --------------------------------- | --------------- |
-| switch line      | lines of current buffer           | <M-w>s          |
+| Function            | Completion list                   | Default binding |
+| ------------------- | --------------------------------- | --------------- |
+| occur : switch line | lines of current buffer           | <M-w>o          |
 
 Switch buffer~
 
@@ -938,9 +938,9 @@ The default mappings launching navigation buffers are :
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
 - `<M-w>&f`        : search files with `find` in async mode
 - `<M-w><M-u>`     : most recently used files not found in wheel (mru)
-- `<M-w><M-s>`     : occur in current file
+- `<M-w><M-o>`     : occur in current file
 - `<M-w>g`         : grep in circle files
-- `<M-w>o`         : outline headers in circle files
+- `<M-w>O`         : outline headers in circle files
 - `<M-w><M-b>`     : go to buffer (opened file)
 - `<M-w>V`         : visible buffers in tab & window (plain mode)
 - `<M-w><M-v>`     : visible buffers in tab & window (tree fold mode)
@@ -1065,7 +1065,7 @@ OCCUR						*wheel-dedicated-buffers-occur*
 
 List of lines matching a pattern.
 
-The default mapping is `<M-w><M-s>`.
+The default mapping is `<M-w><M-o>`.
 
 ------------------------------------------------------------------------------
 GREP						*wheel-dedicated-buffers-grep*
@@ -2497,10 +2497,10 @@ adapt them to your taste and add them to your init file.
 | <M-C-f>        | Async find                                    |
 | <M-u>          | Most Recently Used files not found in wheel   |
 | -------------- | --------------------------------------------- |
-| <M-s>          | Occur in current file, prompting function     |
-| <M-c-s>        | Occur in current file, dedicated buffer       |
+| <M-o>          | Occur in current file, prompting function     |
+| <M-c-o>        | Occur in current file, dedicated buffer       |
 | <M-g>          | Grep in current circle files                  |
-| <M-o>          | Outline in current circle files               |
+| <M-S-o>        | Outline in current circle files               |
 | -------------- | --------------------------------------------- |
 | <M-b>          | Buffers, prompting function                   |
 | <M-S-b>        | Buffers, dedicated buffer                     |
@@ -2592,10 +2592,10 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
     exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
     " Search inside files
-    exe nmap '<m-s>          <plug>(wheel-prompt-occur)'
-    exe nmap '<m-c-s>        <plug>(wheel-dedibuf-occur)'
+    exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
+    exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
     exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-    exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
+    exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
     " Buffers
     exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
     exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'

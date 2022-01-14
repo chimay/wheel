@@ -303,10 +303,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'u <plug>(wheel-prompt-mru)'
 		exe nmap prefix .. '<m-u> <plug>(wheel-dedibuf-mru)'
 		" Search inside files
-		exe nmap prefix .. 's <plug>(wheel-prompt-occur)'
-		exe nmap prefix .. '<m-s> <plug>(wheel-dedibuf-occur)'
+		exe nmap prefix .. 'o <plug>(wheel-prompt-occur)'
+		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-occur)'
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
-		exe nmap prefix .. 'o <plug>(wheel-dedibuf-outline)'
+		exe nmap prefix .. 'O <plug>(wheel-dedibuf-outline)'
 		" Buffers
 		exe nmap prefix .. 'b <plug>(wheel-prompt-buffers)'
 		exe nmap prefix .. '<m-b> <plug>(wheel-dedibuf-buffers)'
@@ -429,10 +429,10 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
 		exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
 		" Search inside files
-		exe nmap '<m-s>          <plug>(wheel-prompt-occur)'
-		exe nmap '<m-c-s>        <plug>(wheel-dedibuf-occur)'
+		exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
+		exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
 		exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-		exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
+		exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
 		" Buffers
 		exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
 		exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'

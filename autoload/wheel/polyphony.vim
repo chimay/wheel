@@ -16,7 +16,7 @@ endif
 " Operator function
 
 fun! wheel#polyphony#operator (argument = '')
-	" Manage operator
+	" Operator waiting for a movement or text object to select range
 	" Use in a map like this :
 	"   map <expr> <mykey> wheel#polyphony#operator()
 	let argument = a:argument
