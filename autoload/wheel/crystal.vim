@@ -111,6 +111,7 @@ if ! exists('s:normal_map_keys')
 				\ 'q',
 				\ 'j', 'k', '<down>', '<up>',
 				\ 'i', 'a',
+				\ '<m-i>', '<ins>',
 				\ '<cr>', '<space>', '<tab>',
 				\ 't', 's', 'v',
 				\ 'S', 'V',

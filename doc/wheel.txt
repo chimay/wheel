@@ -745,6 +745,9 @@ elements with each pattern you enter on the input (first) line. Typing
 `<C-c>` is not mapped, in case you need to go to normal mode without
 triggering the filter function.
 
+Pressing `i` or `a` will move the cursor to the first line and go to
+insert mode.
+
 A space between two patterns is a logical and. So, `one two` will
 display lines containing both `one` and `two`.
 
@@ -1339,8 +1342,14 @@ NARROW					*wheel-dedicated-buffers-narrow*
 
 Current file~
 
-This buffer lets you filter and edit filtered lines. Just |:write| the
-buffer to propagate your changes to the original file.
+This buffer lets you filter and edit filtered lines.
+
+To let you edit the buffer as usual :
+
+- `i` and `a` are not mapped : press `<M-i>` or `<Ins>` instead
+- `<esc>` are `<space>` are not mapped, press `<enter>` instead
+
+Just |:write| the buffer to propagate your changes to the original file.
 
 Be aware that only the visible lines will be reflected to the original
 file : this is intended.
@@ -2919,11 +2928,12 @@ COMMANDS					*wheel-commands*
 ==============================================================================
 EXAMPLES						*wheel-examples*
 
-Display some locations in tabs	    |wheel-examples-locations-in-tabs|
-Display vim files in splits	    |wheel-examples-matching-files-in-splits|
-Search and replace		    |wheel-examples-search-replace|
-Add a tab with a similar file	    |wheel-examples-similar-tab|
-List all tag of a kind 		    |wheel-examples-tag-kind|
+Display some locations in tabs		   |wheel-examples-locations-in-tabs|
+Display vim files in splits	 	   |wheel-examples-matching-files-in-splits|
+Search and replace with grep edit	   |wheel-examples-search-replace-grep|
+Search and replace with narrow circle	   |wheel-examples-search-replace-narrow|
+Add a tab with a similar file		   |wheel-examples-similar-tab|
+List all tag of a kind 		 	   |wheel-examples-tag-kind|
 
 ------------------------------------------------------------------------------
 DISPLAY SOME LOCATIONS IN TABS	    *wheel-examples-locations-in-tabs*
@@ -2935,7 +2945,7 @@ locations you want and press `t`.
 DISPLAY MATCHING FILES IN SPLITS    *wheel-examples-matching-files-in-split*
 
 - `<M-w><space>` to launch the location navigator
-- `i` to go to insert mode
+- `i` to go to insert mode & filter line
 - enter the pattern you want
   + e.g. `\.vim$` if all your vim locations end with `.vim`
 - `<enter>` to validate the pattern
@@ -2943,7 +2953,7 @@ DISPLAY MATCHING FILES IN SPLITS    *wheel-examples-matching-files-in-split*
 - `v` to open all selected locations in vertical splits
 
 ------------------------------------------------------------------------------
-SEARCH AND REPLACE		    *wheel-examples-search-replace*
+SEARCH AND REPLACE WITH GREP EDIT     *wheel-examples-search-replace-grep*
 
 Let's say you want to refactory some shell scripts, and replace
 `old_var_name` by `new_var_name`.
@@ -2982,6 +2992,25 @@ short form), in combination with |:substitute| : >
 
     :v/my_file/s/old_var_name/new_var_name/g
 <
+
+------------------------------------------------------------------------------
+SEARCH AND REPLACE WITH NARROW CIRCLE    *wheel-examples-search-replace-narrow*
+
+We open the narrow circle buffer with `<M-w>-c`and run a substitution : >
+
+    :%s/old_var_name/new_var_name/g
+<
+
+to replace all the occurences of the old var name. Then, just |:write|
+the buffer to apply these changes to all your shell scripts.
+
+Replace everywhere, except in a given file~
+
+Once in the narrow buffer, press `<m-i>`, insert `!my_file` and press
+`<enter>` to apply the filter.
+
+You can then run a substitute on the visible lines and propagate your
+changes by writing the buffer.
 
 ------------------------------------------------------------------------------
 ADD A TAB WITH A SIMILAR FILE	    *wheel-examples-similar-tab*
