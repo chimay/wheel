@@ -2399,11 +2399,19 @@ Search for files~
 
 Search inside files~
 
-| Prefix + | With default prefix | Action                               |
-| -------- | ------------------- | ------------------------------------ |
-| s        | <M-w><M-s>          | Search lines in current file         |
-| g        | <M-w>g              | Search in circle files with grep     |
-| O        | <M-w>O              | Outline : folds, markdown, org mode  |
+Prompting functions :
+
+| Prefix + | With default prefix | Action                                |
+| -------- | ------------------- | ------------------------------------- |
+| o        | <M-w>o              | Occur : search lines in current file  |
+
+Dedicated buffer :
+
+| Prefix + | With default prefix | Action                                |
+| -------- | ------------------- | ------------------------------------- |
+| <M-o>    | <M-w><M-o>          | Occur : search lines in current file  |
+| g        | <M-w>g              | Search in circle files with grep      |
+| O        | <M-w>O              | Outline : folds, markdown, org mode   |
 
 Buffers~
 
