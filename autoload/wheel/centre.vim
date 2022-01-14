@@ -139,10 +139,11 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-reorg-tabwins) <cmd>call wheel#shape#reorg_tabwins()<cr>
 	" Grep edit mode
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#shape#grep_edit()<cr>
-	" Undo list
-	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
 	" Narrow, filter & apply
 	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow_file()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#shape#narrow_circle()<cr>
+	" Undo list
+	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
 	" use colon instead of <cmd> to catch the range
 	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow_file()<cr>
 	" Generic buffer from ex or shell command output
@@ -333,12 +334,13 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<c-r> <plug>(wheel-dedibuf-reorg-tabwins)'
 		" grep edit
 		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
-		" Undo list
-		exe nmap prefix .. 'U <plug>(wheel-dedibuf-undo-list)'
 		" Narrow, filter & apply
 		exe nmap prefix .. '-% <plug>(wheel-dedibuf-narrow)'
+		exe nmap prefix .. '-c <plug>(wheel-dedibuf-narrow-circle)'
 		exe vmap prefix .. '-- <plug>(wheel-dedibuf-narrow)'
 	    exe nmap_expr .. prefix .. '-- wheel#polyphony#operator()'
+		" Undo list
+		exe nmap prefix .. 'U <plug>(wheel-dedibuf-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
 		exe nmap prefix .. async .. '& <plug>(wheel-dedibuf-async)'
@@ -457,6 +459,9 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
 		" Grep edit
 		exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
+		" Narrow
+		exe nmap_expr '<m-n>     wheel#polyphony#operator()'
+		exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
 		" Undo list
 		exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
 		" Command

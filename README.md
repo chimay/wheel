@@ -134,6 +134,9 @@ it’s easy to add new functionalities.
   + tags
   + markers
   + jumps & changes lists
+- narrow
+  + current file
+  + all circle file with a pattern
 - yank wheel using TextYankPost event
   + paste before or after, linewise or characterwise
   + plain mode : each buffer line is a yanked line

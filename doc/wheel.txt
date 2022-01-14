@@ -115,6 +115,9 @@ FEATURES				*wheel-introduction-features*
   + tags
   + markers
   + jumps & changes lists
+- narrow
+  + current file
+  + all circle file with a pattern
 - yank wheel using TextYankPost event
   + paste before or after, linewise or characterwise
   + plain mode : each buffer line is a yanked line
@@ -408,6 +411,9 @@ RENAME							*wheel-elements-rename*
 - `<M-w>N`     : rename torus
 - `<M-w>n`     : rename location & file
 
+Before renaming files, it's always a good thing to do a backup of your
+files first, or even better, to work within a VCS repository, like git.
+
 ------------------------------------------------------------------------------
 COPY							*wheel-elements-copy*
 
@@ -697,6 +703,7 @@ Copy and move		        |wheel-dedicated-buffers-copy-move|
 Reorganizing			|wheel-dedicated-buffers-reorganizing|
 Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
+Narrow				|wheel-dedicated-buffers-narrow|
 Undo list			|wheel-dedicated-buffers-undolist|
 Batch buffer			|wheel-dedicated-buffers-batch|
 Command output buffer		|wheel-dedicated-buffers-command|
@@ -1326,6 +1333,36 @@ Default mapping : `<M-w><M-g>`
 
 Anyway, it's always a good thing to do a backup of your files first,
 or even better, to work within a VCS repository, like git.
+
+------------------------------------------------------------------------------
+NARROW					*wheel-dedicated-buffers-narrow*
+
+Current file~
+
+This buffer lets you filter and edit filtered lines. Just |:write| the
+buffer to propagate your changes to the original file.
+
+Be aware that only the visible lines will be reflected to the original
+file : this is intended.
+
+Default mappings :
+
+- `<M-w>--` : depends on the mode :
+  + in normal mode : waits for a movement or a |text-objects| to select
+    the range used in the narrow buffer
+  + in visual mode : open a narrow buffer with the visual range
+- `<M-w>-%` : open a narrow buffer with the entire original file content
+
+All circle files~
+
+This is similar as |wheel-dedicated-buffers-grep-edit|, but it provides
+a powerful filter in the first line. You can narrow down the lines as
+much as you want before editing and propagate your changes.
+
+Be aware that only the visible lines will be reflected to the original
+file : this is intended.
+
+Default mapping : `<M-w>-c`
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
@@ -2317,6 +2354,19 @@ Reorganizing buffers~
 | <M-r>    | <M-w><M-r>          | Reorganize wheel elements |
 | <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
 | <M-g>    | <M-w><M-g>          | Grep edit mode            |
+| -%       | <M-w>-%             | Narrow current file       |
+
+Operator waiting for a move :
+
+| Prefix + | With default prefix | Action               |
+| -------- | ------------------- | -------------------- |
+| --       | <M-w>--             | Narrow current file  |
+
+Visual mode :
+
+| Prefix + | With default prefix | Action               |
+| -------- | ------------------- | -------------------- |
+| --       | <M-w>--             | Narrow current file  |
 
 Undo~
 
@@ -2463,6 +2513,8 @@ adapt them to your taste and add them to your init file.
 | <M-r>          | Reorganize wheel elements                     |
 | <M-C-r>        | Reorganize tabs and windows                   |
 | <M-C-g>        | Grep in edit mode                             |
+| <M-n>          | Narrow current file                           |
+| <M-C-n>        | Narrow all circle files                       |
 | -------------- | --------------------------------------------- |
 | <M-C-u>        | Undo list                                     |
 | -------------- | --------------------------------------------- |
@@ -2483,6 +2535,9 @@ Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
 
     let nmap = 'nmap <silent>'
+    let vmap = 'vmap <silent>'
+    let nmap_expr = 'nnoremap <expr>'
+
     " Menus
     exe nmap '<m-m>          <plug>(wheel-menu-main)'
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
@@ -2553,8 +2608,11 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
     " Reorganize tabs & windows
     exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
-    " grep edit
+    " Grep edit
     exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
+    " Narrow
+    exe nmap_expr '<m-n>     wheel#polyphony#operator()'
+    exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
     " Undo list
     exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
     " Command
@@ -2737,6 +2795,8 @@ Dedicated buffers :
 | <plug>(wheel-dedibuf-reorganize)                | reorganize wheel treeish structure     |
 | <plug>(wheel-dedibuf-reorg-tabwins)             | reorganize tabs & windows              |
 | <plug>(wheel-dedibuf-grep-edit)                 | grep circle files in edit mode         |
+| <plug>(wheel-dedibuf-narrow)                    | narrow current file                    |
+| <plug>(wheel-dedibuf-narrow-circle)             | narrow all circle files                |
 | <plug>(wheel-dedibuf-undo-list)                 | go to undo state, compare with diff    |
 | ----------------------------------------------- | -------------------------------------- |
 | <plug>(wheel-dedibuf-command)                   | output of ex or shell command          |
