@@ -1038,6 +1038,12 @@ Open file in Most Recently Used file list.
 
 The default mapping is `<M-w><M-u>`.
 
+Fields~
+
+This buffer displays the following columns :
+
+date & time of last edit | filename
+
 ------------------------------------------------------------------------------
 BUFFERS						*wheel-dedicated-buffers-buffers*
 
@@ -1045,12 +1051,24 @@ Go to buffer.
 
 The default mapping is `<M-w><M-b>`.
 
+Fields~
+
+This buffer displays the following columns :
+
+buffer number | indicator | line number | filename
+
 ------------------------------------------------------------------------------
 TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
 
 Go to visible buffer, displayed in a tab or window.
 
 The default mapping is `<M-w>V`.
+
+Fields~
+
+This buffer displays the following columns :
+
+tab number | window number | filename
 
 ------------------------------------------------------------------------------
 TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwins-tree*
@@ -1066,6 +1084,12 @@ OCCUR						*wheel-dedicated-buffers-occur*
 List of lines matching a pattern.
 
 The default mapping is `<M-w><M-o>`.
+
+Fields~
+
+This buffer displays the following columns :
+
+line number | line content
 
 ------------------------------------------------------------------------------
 GREP						*wheel-dedicated-buffers-grep*
@@ -1083,10 +1107,16 @@ The context menu contains :
 - an edit mode, see |wheel-dedicated-buffers-grep-edit|
 - a quickfix window opener
 
+Fields~
+
+This buffer displays the following columns :
+
+error number | line number | column number | filename | line content
+
 ------------------------------------------------------------------------------
 OUTLINE					*wheel-dedicated-buffers-outline*
 
-The default mapping is `<M-w>o`.
+The default mapping is `<M-w><O`.
 
 An outline buffer is a grep buffer where all your headers are displayed. You
 can choose between the following header formats :
@@ -1096,12 +1126,24 @@ can choose between the following header formats :
 - org mode
 - vimwiki
 
+Fields~
+
+This buffer displays the following columns :
+
+error number | line number | column number | filename | line content
+
 ------------------------------------------------------------------------------
 MARKERS						*wheel-dedicated-buffers-markers*
 
 Go to selected marker.
 
 The default mapping is `<M-w><M-'>`. It is inspired by the normal command |'a|.
+
+Fields~
+
+This buffer displays the following columns :
+
+mark | line number | column number | filename | line content
 
 ------------------------------------------------------------------------------
 JUMPS					*wheel-dedicated-buffers-jumps*
@@ -1110,6 +1152,12 @@ Go to element in jump list.
 
 The default mapping is `<M-w><M-j>`.
 
+Fields~
+
+This buffer displays the following columns :
+
+buffer number | line number | column number | filename | line content
+
 ------------------------------------------------------------------------------
 CHANGES					*wheel-dedicated-buffers-changes*
 
@@ -1117,12 +1165,24 @@ Go to element in changes list.
 
 The default mapping is `<M-w>,`. It is inspired by the normal commands |g;| / |g,|.
 
+Fields~
+
+This buffer displays the following columns :
+
+line number | column number | line content
+
 ------------------------------------------------------------------------------
 TAGS						*wheel-dedicated-buffers-tags*
 
 Go to selected tag.
 
 The default mapping is `<M-w><M-t>`.
+
+Fields~
+
+This buffer displays the following columns :
+
+tag type | tag iden | filename | search string
 
 ------------------------------------------------------------------------------
 YANK						*wheel-dedicated-buffers-yank*
@@ -1337,6 +1397,12 @@ Default mapping : `<M-w><M-g>`
 Anyway, it's always a good thing to do a backup of your files first,
 or even better, to work within a VCS repository, like git.
 
+Fields~
+
+This buffer displays the following columns :
+
+error number | line number | column number | filename | line content
+
 ------------------------------------------------------------------------------
 NARROW					*wheel-dedicated-buffers-narrow*
 
@@ -1362,6 +1428,12 @@ Default mappings :
   + in visual mode : open a narrow buffer with the visual range
 - `<M-w>-%` : open a narrow buffer with the entire original file content
 
+Fields :
+
+This buffer displays the following columns :
+
+lin number | line content
+
 All circle files~
 
 This is similar as |wheel-dedicated-buffers-grep-edit|, but it provides
@@ -1374,6 +1446,12 @@ file : this is intended.
 It uses and fill the vim quickfix list under the hood.
 
 Default mapping : `<M-w>-c`
+
+Fields :
+
+This buffer displays the following columns :
+
+buffer number | line number | filename | line content
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
@@ -1399,6 +1477,12 @@ You can even make some modifications with |do| and |dp| (or |:diffget|
 and |:diffput|).
 
 With `x`, you can close the diff split.
+
+Fields~
+
+This buffer displays the following columns :
+
+iden | modif | time | written
 
 ------------------------------------------------------------------------------
 BATCH						*wheel-dedicated-buffers-batch*
