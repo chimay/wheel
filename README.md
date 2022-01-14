@@ -362,10 +362,15 @@ Below are some bindings that you may find useful. They are included in
 the level 10 mappings :
 
 ~~~vim
+let nmap = 'nmap <silent>'
+let vmap = 'vmap <silent>'
+let nmap_expr = 'nnoremap <expr>'
+
 " Menus
 exe nmap '<m-m>          <plug>(wheel-menu-main)'
 exe nmap '<m-=>          <plug>(wheel-menu-meta)'
-" Sync up = ask wheel to follow current file if possible
+" Sync
+exe nmap '<m-i>          <plug>(wheel-dashboard)'
 exe nmap '<m-$>          <plug>(wheel-sync-up)'
 " Add, Delete
 exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
@@ -388,13 +393,13 @@ exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
 exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
 exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
 exe nmap '<s-cr>        <plug>(wheel-prompt-torus)'
-exe nmap '<m-c-cr>      <plug>(wheel-prompt-index)'
+exe nmap '<m-x>         <plug>(wheel-prompt-index)'
 exe nmap '<m-h>         <plug>(wheel-prompt-history)'
 exe nmap '<space>       <plug>(wheel-dedibuf-location)'
 exe nmap '<c-space>     <plug>(wheel-dedibuf-circle)'
 exe nmap '<s-space>     <plug>(wheel-dedibuf-torus)'
-exe nmap '<m-x>         <plug>(wheel-dedibuf-tree)'
-exe nmap '<m-c-x>       <plug>(wheel-dedibuf-index)'
+exe nmap '<m-c-x>       <plug>(wheel-dedibuf-tree)'
+exe nmap '<m-s-x>       <plug>(wheel-dedibuf-index)'
 exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
 " Search for files
 exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
@@ -403,10 +408,10 @@ exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
 exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
 exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
 " Search inside files
-exe nmap '<m-s>          <plug>(wheel-prompt-occur)'
-exe nmap '<m-c-s>        <plug>(wheel-dedibuf-occur)'
+exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
+exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
 exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-exe nmap '<m-o>          <plug>(wheel-dedibuf-outline)'
+exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
 " Buffers
 exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
 exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
@@ -433,6 +438,9 @@ exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
 exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
 " Grep edit
 exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
+" Narrow
+exe nmap_expr '<m-n>     wheel#polyphony#operator()'
+exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
 " Undo list
 exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
 " Command
