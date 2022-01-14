@@ -3090,18 +3090,16 @@ short form), in combination with |:substitute| : >
 ------------------------------------------------------------------------------
 SEARCH AND REPLACE WITH NARROW CIRCLE    *wheel-examples-search-replace-narrow*
 
-We open the narrow circle buffer with `<M-w>-c`and run a substitution : >
+We open the narrow circle buffer with `<M-w>-c` and run a substitution,
+either with |:substitute| or with `<M-s>`.
 
-    :%s/old_var_name/new_var_name/g
-<
-
-to replace all the occurences of the old var name. Then, just |:write|
-the buffer to apply these changes to all your shell scripts.
+Then, just |:write| the buffer to apply these changes to all your shell
+scripts.
 
 Replace everywhere, except in a given file~
 
-Once in the narrow buffer, press `<m-i>`, insert `!my_file` and press
-`<enter>` to apply the filter.
+Once in the narrow buffer, press `<m-i>`, insert `!my_file` in the first
+line and press `<enter>` to apply the filter.
 
 You can then run a substitute on the visible lines and propagate your
 changes by writing the buffer.
