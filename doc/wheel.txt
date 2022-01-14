@@ -1428,15 +1428,18 @@ Default mappings :
   + in visual mode : open a narrow buffer with the visual range
 - `<M-w>-%` : open a narrow buffer with the entire original file content
 
-Actions :
-
-- `<M-s>` : substitute a pattern by a replacement
-
 Fields :
 
 This buffer displays the following columns :
 
 lin number | line content
+
+Actions :
+
+- `<M-s>` : substitute a pattern by a replacement
+
+Advantage : only the line content is modified, the other fields remain
+all intact.
 
 All circle files~
 
@@ -1451,15 +1454,18 @@ It uses and fill the vim quickfix list under the hood.
 
 Default mapping : `<M-w>-c`
 
-Actions :
-
-- `<M-s>` : substitute a pattern by a replacement
-
 Fields :
 
 This buffer displays the following columns :
 
 buffer number | line number | filename | line content
+
+Actions :
+
+- `<M-s>` : substitute a pattern by a replacement
+
+Advantage : only the line content is modified, the other fields remain
+all intact.
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
@@ -3090,8 +3096,8 @@ short form), in combination with |:substitute| : >
 ------------------------------------------------------------------------------
 SEARCH AND REPLACE WITH NARROW CIRCLE    *wheel-examples-search-replace-narrow*
 
-We open the narrow circle buffer with `<M-w>-c` and run a substitution,
-either with |:substitute| or with `<M-s>`.
+We open the narrow circle buffer with `<M-w>-c` and run a substitution
+with `<M-s>`.
 
 Then, just |:write| the buffer to apply these changes to all your shell
 scripts.
@@ -3149,56 +3155,57 @@ Autoload~
 Here is a list of files in `autoload/wheel/`, and a brief description
 of the modules within them.
 
-| File              | Description                                   |
-| ----------------- | --------------------------------------------- |
-| attic.vim         | Most Recently Used files                      |
-| book.vim          | Layer ring for each dedicated buffer          |
-| boomerang.vim     | Context menus                                 |
-| centre.vim        | Commands & mappings                           |
-| chain.vim         | List helpers                                  |
-| checknfix.vim     | Check & fix variables                         |
-| clipper.vim       | Yank buffers                                  |
-| codex.vim         | Yank wheel                                    |
-| complete.vim      | Completion functions                          |
-| crystal.vim       | Internal variables                            |
-| cuboctahedron.vim | Reshaping : reorder, reorganize               |
-| cylinder.vim      | Dedicated buffers ring                        |
-| delta.vim         | Undo & diff                                   |
-| disc.vim          | Read & write wheel file                       |
-| gear.vim          | Generic helpers                               |
-| group.vim         | Auto grouping                                 |
-| guru.vim          | Help                                          |
-| helix.vim         | Indexes                                       |
-| hub.vim           | Menus                                         |
-| kyusu.vim         | Line filters for dedicated buffers            |
-| layer.vim         | Layer stack (unused)                          |
-| line.vim          | Activate line                                 |
-| loop.vim          | Loops on mandala lines                        |
-| mandala.vim       | Generic dedicated buffers                     |
-| matrix.vim        | Nested lists & dictionaries                   |
-| mosaic.vim        | Windows & tabs Layouts                        |
-| origami.vim       | Mandala folding                               |
-| pencil.vim        | Selection in dedicated buffers                |
-| pendulum.vim      | History                                       |
-| perspective.vim   | Content generators for dedicated buffers      |
-| projection.vim    | Find wheel location of current buffer         |
-| pyramid.vim       | Mix of tabs & splits layouts                  |
-| rectangle.vim     | Windows & buffers                             |
-| referen.vim       | References to current elements                |
-| ripple.vim        | Async job for vim                             |
-| sailing.vim       | Dedicated buffers for navigation              |
-| scroll.vim        | Input history                                 |
-| shape.vim         | Dedicated buffers to reshape the wheel        |
-| spiral.vim        | Golden ratio                                  |
-| status.vim        | Print wheel status                            |
-| symbol.vim        | Tags                                          |
-| tower.vim         | Menu layer in dedicated buffers               |
-| tree.vim          | Add, rename, delete elements                  |
-| vector.vim        | Batch operations                              |
-| void.vim          | Initiaze & reset variables                    |
-| vortex.vim        | Navigation in the wheel                       |
-| wave.vim          | Async job for neovim                          |
-| whirl.vim         | Switch with native (neo)vim functions         |
+| File              | Description                                |
+| ----------------- | ------------------------------------------ |
+| attic.vim         | Most Recently Used files                   |
+| book.vim          | Layer ring for each dedicated buffer       |
+| boomerang.vim     | Context menus                              |
+| centre.vim        | Commands & mappings                        |
+| chain.vim         | List helpers                               |
+| checknfix.vim     | Check & fix variables                      |
+| clipper.vim       | Yank buffers                               |
+| codex.vim         | Yank wheel                                 |
+| complete.vim      | Completion functions                       |
+| crystal.vim       | Internal variables                         |
+| cuboctahedron.vim | Reshaping : reorder, reorganize            |
+| cylinder.vim      | Dedicated buffers ring                     |
+| delta.vim         | Undo & diff                                |
+| disc.vim          | Read & write wheel file                    |
+| gear.vim          | Generic helpers                            |
+| group.vim         | Auto grouping                              |
+| guru.vim          | Help                                       |
+| helix.vim         | Indexes                                    |
+| hub.vim           | Menus                                      |
+| kyusu.vim         | Line filters for dedicated buffers         |
+| layer.vim         | Layer stack (unused)                       |
+| line.vim          | Activate line                              |
+| loop.vim          | Loops on mandala lines                     |
+| mandala.vim       | Generic dedicated buffers                  |
+| matrix.vim        | Nested lists & dictionaries                |
+| mosaic.vim        | Windows & tabs Layouts                     |
+| origami.vim       | Mandala folding                            |
+| pencil.vim        | Selection in dedicated buffers             |
+| pendulum.vim      | History                                    |
+| perspective.vim   | Content generators for dedicated buffers   |
+| polyphony.vim     | Narrow, filter & apply                     |
+| projection.vim    | Find wheel location of current buffer      |
+| pyramid.vim       | Mix of tabs & splits layouts               |
+| rectangle.vim     | Windows & buffers                          |
+| referen.vim       | References to current elements             |
+| ripple.vim        | Async job for vim                          |
+| sailing.vim       | Dedicated buffers for navigation           |
+| scroll.vim        | Input history                              |
+| shape.vim         | Dedicated buffers to reshape the wheel     |
+| spiral.vim        | Golden ratio                               |
+| status.vim        | Print wheel status                         |
+| symbol.vim        | Tags                                       |
+| tower.vim         | Menu layer in dedicated buffers            |
+| tree.vim          | Add, rename, delete elements               |
+| vector.vim        | Batch operations                           |
+| void.vim          | Initiaze & reset variables                 |
+| vortex.vim        | Navigation in the wheel                    |
+| wave.vim          | Async job for neovim                       |
+| whirl.vim         | Switch with native (neo)vim functions      |
 
 Doc~
 
