@@ -261,31 +261,17 @@ fun! wheel#perspective#buffers (mode = 'listed')
 	return returnlist
 endfun
 
-fun! wheel#perspective#narrow (range = [])
+fun! wheel#perspective#narrow (first, last)
 	" Narrow
 	" Optional argument :
 	"   - range of lines
 	"   - default : all buffer
-	let range = a:range
-	if empty(range)
-		let range=[1, line('$')]
-	endif
-	let cmd_range = wheel#gear#vim_cmd_range (range)
-	let position = getcurpos()
-	let runme = cmd_range .. 'number'
-	let returnlist = execute(runme)
-	let returnlist = split(returnlist, "\n")
-	for index in range(len(returnlist))
-		let elem = returnlist[index]
-		let fields = split(elem, ' ')
-		let linum = fields[0]
-		let content = join(fields[1:])
-		let linum = printf('%5d', linum)
-		let entry = [linum, content]
-		let elem = join(entry, s:field_separ)
-		let returnlist[index] = elem
-	endfor
-	call wheel#gear#restore_cursor(position)
+	let first = a:first
+	let last = a:last
+	let numlist = range(first, last)
+	let linelist = getline(first, last)
+	let returnlist = wheel#matrix#dual([numlist, linelist])
+	call map(returnlist, { _, elem -> join(elem, s:field_separ) })
 	return returnlist
 endfun
 

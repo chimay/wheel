@@ -235,28 +235,28 @@ endfun
 
 " Narrow, filter & operate on multi-lines
 
-fun! wheel#shape#narrow (range = []) range
+fun! wheel#shape#narrow (first = -1, last = -1) range
 	" Lines matching pattern
-	let range = a:range
 	call wheel#mandala#close ()
+	let first = a:first
+	let last = a:last
 	" To be run before opening the mandala buffer
-	if empty(range)
+	if first < 0
 		let first = a:firstline
 		let last = a:lastline
-		if first != last
-			let range = [first, last]
-		else
+		if first == last
 			" assume the user does not launch it just for one line
-			let range = [1, line('$')]
+			let first = 1
+			let last = line('$')
 		endif
 	endif
-	let lines = wheel#perspective#narrow (range)
+	let lines = wheel#perspective#narrow (first, last)
 	call wheel#mandala#open ('narrow')
 	call wheel#polyphony#filter_maps ()
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#shape#narrow(' .. string(range) .. ')'
+	let b:wheel_reload = 'wheel#shape#narrow(' .. first .. ', ' .. last .. ')'
 	echomsg 'adding or removing lines is not supported.'
 endfun

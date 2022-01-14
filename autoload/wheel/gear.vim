@@ -86,6 +86,8 @@ fun! wheel#gear#vim_cmd_range (...)
 	elseif type(a:1) == v:t_list
 		let first = a:1[0]
 		let last = a:1[1]
+	else
+		echomsg 'wheel gear vim_cmd_range : bad argument format'
 	endif
 	let range = string(first) .. ',' .. string(last)
 	return range
@@ -386,7 +388,9 @@ endfun
 fun! wheel#gear#restore_autocmds (group, autodict)
 	" Restore autocommands
 	for event in keys(a:autodict)
+		" empty group event
 		execute 'autocmd!' a:group event '<buffer>'
+		" restore
 		let autocmds = a:autodict[event]
 		if ! empty(autocmds)
 			for autocom in autocmds

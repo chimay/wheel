@@ -15,20 +15,27 @@ endif
 
 " Operator function
 
-fun! wheel#polyphony#operatorfunc (argument = '')
+fun! wheel#polyphony#operator (argument = '')
 	" Manage operator
 	" Use in a map like this :
-	"   map <expr> <mykey> wheel#polyphony#operatorfunc()
+	"   map <expr> <mykey> wheel#polyphony#operator()
 	let argument = a:argument
 	" -- when called to find the rhs of the map
 	if argument == ''
-		set operatorfunc=wheel#polyphony#operatorfunc
+		set operatorfunc=wheel#polyphony#operator
 		return 'g@'
 	endif
-	" -- when called to execute operatorfunc
+	" -- when called to execute wheel#polyphony#operator
 	let first = line("'[")
 	let last = line("']")
-	call wheel#shape#narrow([first, last])
+	call wheel#shape#narrow(first, last)
+endfun
+
+fun! wheel#polyphony#visual ()
+	" Manage visual mode
+	let first = line("'<")
+	let last = line("'>")
+	call wheel#shape#narrow(first, last)
 endfun
 
 " Mandalas
