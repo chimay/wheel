@@ -380,6 +380,36 @@ fun! wheel#line#tags (settings)
 	return win_getid ()
 endfun
 
+fun! wheel#line#narrow_file (settings)
+	" Go to settings.selected narrowed line of current file
+	let bufnum = a:settings.bufnum
+	let fields = split(a:settings.selected, s:field_separ)
+	if len(fields) < 2
+		echomsg 'Narrow file : line is too short'
+		return v:false
+	endif
+	execute 'buffer' bufnum
+	let linum = str2nr(fields[0])
+	call wheel#line#target (a:settings.target)
+	call cursor(linum, 1)
+	return win_getid ()
+endfun
+
+fun! wheel#line#narrow_circle (settings)
+	" Go to settings.selected narrowed line in circle
+	let fields = split(a:settings.selected, s:field_separ)
+	if len(fields) < 4
+		echomsg 'Narrow circle : line is too short'
+		return v:false
+	endif
+	let bufnum = str2nr(fields[0])
+	let linum = str2nr(fields[1])
+	call wheel#line#target (a:settings.target)
+	execute 'buffer' bufnum
+	call cursor(linum, 1)
+	return win_getid ()
+endfun
+
 " Paste
 
 fun! wheel#line#paste_list (...)

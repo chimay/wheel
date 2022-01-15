@@ -144,12 +144,12 @@ fun! wheel#centre#plugs ()
 	" Grep edit mode
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#shape#grep_edit()<cr>
 	" Narrow, filter & apply
-	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow_file()<cr>
-	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#shape#narrow_circle()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#polyphony#narrow_file()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#polyphony#narrow_circle()<cr>
 	" Undo list
 	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
 	" use colon instead of <cmd> to catch the range
-	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow_file()<cr>
+	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#polyphony#narrow_file()<cr>
 	" Generic buffer from ex or shell command output
 	nnoremap <plug>(wheel-dedibuf-command) <cmd>call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-dedibuf-async) <cmd>call wheel#mandala#async()<cr>

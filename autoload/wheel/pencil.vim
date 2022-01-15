@@ -41,6 +41,7 @@ fun! wheel#pencil#select ()
 		return v:false
 	endif
 	call add(b:wheel_selected, address)
+	setlocal nomodified
 	return v:true
 endfun
 
@@ -69,6 +70,7 @@ fun! wheel#pencil#clear ()
 		return v:false
 	endif
 	call remove(b:wheel_selected, index)
+	setlocal nomodified
 	return v:true
 endfun
 
@@ -80,6 +82,8 @@ fun! wheel#pencil#toggle ()
 	else
 		call wheel#pencil#clear ()
 	endif
+	setlocal nomodified
+	return v:true
 endfun
 
 " Visible, filtered lines
@@ -97,6 +101,8 @@ fun! wheel#pencil#select_visible ()
 		call wheel#pencil#select ()
 	endfor
 	call wheel#gear#restore_cursor (position)
+	setlocal nomodified
+	return v:true
 endfun
 
 fun! wheel#pencil#clear_visible ()
@@ -112,6 +118,8 @@ fun! wheel#pencil#clear_visible ()
 		call wheel#pencil#clear ()
 	endfor
 	call wheel#gear#restore_cursor (position)
+	setlocal nomodified
+	return v:true
 endfun
 
 fun! wheel#pencil#toggle_visible ()
@@ -127,4 +135,6 @@ fun! wheel#pencil#toggle_visible ()
 		call wheel#pencil#toggle ()
 	endfor
 	call wheel#gear#restore_cursor (position)
+	setlocal nomodified
+	return v:true
 endfun

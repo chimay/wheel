@@ -271,7 +271,7 @@ fun! wheel#pendulum#newer (level = 'wheel')
 	let level = a:level
 	if wheel#referen#is_empty(level)
 		echomsg 'wheel newer :' level 'is empty'
-		return -1
+		return v:false
 	endif
 	if level == 'wheel'
 		return wheel#pendulum#newer_anywhere ()
@@ -295,7 +295,7 @@ fun! wheel#pendulum#newer (level = 'wheel')
 	" newer found in same torus or circle ?
 	if names[:level_index] != coordin[:level_index]
 		echomsg 'wheel newer : no location found in same' level
-		return -1
+		return v:false
 	endif
 	" update track : rotate left / right return a copy
 	let g:wheel_track = track
@@ -309,7 +309,7 @@ fun! wheel#pendulum#older (level = 'wheel')
 	let level = a:level
 	if wheel#referen#is_empty(level)
 		echomsg 'wheel older :' level 'is empty'
-		return -1
+		return v:false
 	endif
 	if level == 'wheel'
 		return wheel#pendulum#older_anywhere ()
@@ -333,7 +333,7 @@ fun! wheel#pendulum#older (level = 'wheel')
 	" older found in same torus or circle ?
 	if names[:level_index] != coordin[:level_index]
 		echomsg 'wheel older : no location found in same' level
-		return -1
+		return v:false
 	endif
 	" update track : rotate left / right return a copy
 	let g:wheel_track = track

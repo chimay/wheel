@@ -34,7 +34,7 @@ fun! wheel#polyphony#operator (argument = '')
 	" -- then, argument is 'line', 'block' or 'char'
 	let first = line("'[")
 	let last = line("']")
-	call wheel#shape#narrow_file (first, last)
+	call wheel#polyphony#narrow_file (first, last)
 endfun
 
 " Actions
@@ -87,37 +87,6 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	return v:true
 endfun
 
-" Mandalas
-
-fun! wheel#polyphony#filter_maps ()
-	" Define local filter maps
-	" normal mode
-	nnoremap <silent> <buffer> <ins> ggA
-	nnoremap <silent> <buffer> <m-i> ggA
-	nnoremap <silent> <buffer> <cr> ggA
-	" insert mode
-	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
-	" <C-c> is not mapped, in case you need a regular escape
-	let b:wheel_nature.has_filter = v:true
-endfun
-
-fun! wheel#polyphony#input_history_maps ()
-	" Define local input history maps
-	" Use M-p / M-n
-	" C-p / C-n is taken by (neo)vim completion
-	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
-	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
-	" M-r / M-s : next / prev matching line
-	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
-	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
-endfun
-
-fun! wheel#polyphony#action_maps (mode = 'file')
-	" Define local action maps
-	let mode = a:mode
-	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mode .. "')<cr>"
-endfun
-
 " Propagate mandala changes -> original buffer(s)
 
 fun! wheel#polyphony#harmony ()
@@ -162,4 +131,96 @@ fun! wheel#polyphony#counterpoint ()
 	endfor
 	setlocal nomodified
 	return v:true
+endfun
+
+" Mandalas
+
+fun! wheel#polyphony#filter_maps ()
+	" Define local filter maps
+	" normal mode
+	nnoremap <silent> <buffer> <ins> ggA
+	nnoremap <silent> <buffer> <m-i> ggA
+	nnoremap <silent> <buffer> <cr> ggA
+	" insert mode
+	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
+	" <C-c> is not mapped, in case you need a regular escape
+	let b:wheel_nature.has_filter = v:true
+endfun
+
+fun! wheel#polyphony#input_history_maps ()
+	" Define local input history maps
+	" Use M-p / M-n
+	" C-p / C-n is taken by (neo)vim completion
+	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
+	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
+	" M-r / M-s : next / prev matching line
+	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
+endfun
+
+fun! wheel#polyphony#action_maps (mode = 'file')
+	" Define local action maps
+	let mode = a:mode
+	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mode .. "')<cr>"
+endfun
+
+fun! wheel#polyphony#narrow_file (...) range
+	" Lines matching pattern in current file
+	call wheel#mandala#close ()
+	if a:0 > 1
+		let first = a:1
+		let last = a:2
+	else
+		let first = a:firstline
+		let last = a:lastline
+	endif
+	if first == last
+		" assume the user does not launch it just for one line
+		let first = 1
+		let last = line('$')
+	endif
+	let lines = wheel#perspective#narrow_file (first, last)
+	call wheel#mandala#open ('narrow/file')
+	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
+	call wheel#mandala#common_maps ()
+	call wheel#polyphony#filter_maps ()
+	call wheel#polyphony#input_history_maps ()
+	let settings = #{ action : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
+	call wheel#sailing#maps (settings)
+	call wheel#polyphony#action_maps ('file')
+	call wheel#shape#write ('wheel#polyphony#harmony')
+	call wheel#mandala#fill (lines)
+	" reload
+	let b:wheel_reload = "wheel#polyphony#narrow_file('" .. first .. "', '" .. last .. "')"
+	echomsg 'adding or removing lines is not supported.'
+endfun
+
+fun! wheel#polyphony#narrow_circle (...)
+	" Lines matching pattern in all circle files
+	" Like grep but with filter & edit
+	call wheel#mandala#close ()
+	if a:0 > 0
+		let pattern = a:1
+	else
+		let pattern = input('Narrow circle files with pattern : ')
+	endif
+	if a:0 > 1
+		let sieve = a:2
+	else
+		let sieve = '\m.'
+	endif
+	let lines = wheel#perspective#narrow_circle (pattern, sieve)
+	call wheel#mandala#open ('narrow/circle')
+	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
+	call wheel#mandala#common_maps ()
+	call wheel#polyphony#filter_maps ()
+	call wheel#polyphony#input_history_maps ()
+	let settings = {'action' : function('wheel#line#narrow_circle')}
+	call wheel#sailing#maps (settings)
+	call wheel#polyphony#action_maps ('circle')
+	call wheel#shape#write ('wheel#polyphony#counterpoint')
+	call wheel#mandala#fill (lines)
+	" reload
+	let b:wheel_reload = "wheel#polyphony#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
+	echomsg 'adding or removing lines is not supported.'
 endfun

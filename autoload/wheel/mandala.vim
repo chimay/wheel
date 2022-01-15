@@ -215,15 +215,15 @@ fun! wheel#mandala#close ()
 		return v:false
 	endif
 	" -- mandala buffer
+	let related_buffer = b:wheel_related_buffer
 	if winnr('$') > 1
 		" more than one window in tab ? close it.
 		close
-		call wheel#status#clear ()
 	else
-		" only one window in tab ? jump to last known file in wheel.
-		call wheel#vortex#jump ()
-		call wheel#status#clear ()
+		" only one window in tab ? go to related buffer
+		call wheel#rectangle#goto_or_load (related_buffer)
 	endif
+	call wheel#status#clear ()
 	return v:true
 endfun
 
