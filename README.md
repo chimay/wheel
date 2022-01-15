@@ -125,6 +125,10 @@ it’s easy to add new functionalities.
     * folds matching wheel tree structure
     * context menus
   + auto `:lcd` to project root of current file
+  + history of wheel files
+    * anywhere
+    * in same group
+    * in same category
 - search files
   + using locate
   + using find
