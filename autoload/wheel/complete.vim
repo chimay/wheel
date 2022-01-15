@@ -191,7 +191,7 @@ endfun
 
 fun! wheel#complete#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
-	let choices = wheel#perspective#buffers ()
+	let choices = wheel#perspective#buffers ('all')
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun
