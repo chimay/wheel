@@ -47,10 +47,10 @@ fun! wheel#line#address ()
 		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
 		return cursor_line
 	else
-		let file = expand('%')
-		if file =~ s:is_mandala_file .. 'tree'
+		let type = wheel#mandala#type ()
+		if type == 'tree'
 			return wheel#origami#chord ()
-		elseif file =~ s:is_mandala_file .. 'tabwins/tree'
+		elseif type == 'tabwins/tree'
 			return wheel#origami#tabwin ()
 		else
 			return v:false
@@ -216,8 +216,9 @@ fun! wheel#line#tabwins (settings)
 		let fields = split(settings.selected, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
-		execute 'tabnext' tabnum
-		execute winum 'wincmd w'
+		execute 'noautocmd tabnext' tabnum
+		execute 'noautocmd' winum 'wincmd w'
+		doautocmd WinEnter
 	elseif settings.ctx_action == 'tabnew'
 		tabnew
 	elseif settings.ctx_action == 'tabclose'
@@ -243,11 +244,12 @@ fun! wheel#line#tabwins_tree (settings)
 	let tabnum = hierarchy[0]
 	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
 		" Find matching tab
-		execute 'tabnext' tabnum
+		execute 'noautocmd tabnext' tabnum
 		if len(hierarchy) > 1
 			let winum = hierarchy[1]
-			execute winum 'wincmd w'
+			execute 'noautocmd' winum 'wincmd w'
 		endif
+		doautocmd WinEnter
 	elseif settings.ctx_action == 'tabnew'
 		tabnew
 	elseif settings.ctx_action == 'tabclose'

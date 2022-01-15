@@ -160,7 +160,7 @@ fun! wheel#boomerang#buffers (action)
 			echomsg 'hidden buffers deleted.'
 		elseif  action =~ 'wipe.*hidden'
 			for bufnum in hidden
-				execute 'silent bwipe' bufnum
+				execute 'silent bwipe!' bufnum
 			endfor
 			echomsg 'hidden buffers wiped.'
 		endif

@@ -44,8 +44,14 @@ fun! wheel#attic#record (...)
 		" Only add non wheel files
 		return v:false
 	endif
-	if filename =~ s:is_mandala_file
+	let bufnum = bufnr('%')
+	let mandalas = g:wheel_mandalas.ring
+	if wheel#chain#is_inside(bufnum, mandalas)
 		" Do not add mandala buffer
+		return v:false
+	endif
+	if filename =~ s:is_mandala_file
+		" Do not add mandala filename
 		return v:false
 	endif
 	if filename =~ '^term://'

@@ -270,7 +270,7 @@ fun! wheel#void#wipe_mandalas ()
 	for buffer in buflist
 		let bufnum = buffer.bufnr
 		if wheel#chain#is_inside(bufnum, mandalas)
-			execute 'silent bwipe' bufnum
+			execute 'silent bwipe!' bufnum
 		endif
 	endfor
 endfun
