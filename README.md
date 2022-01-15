@@ -379,8 +379,12 @@ exe nmap '<c-end>        <plug>(wheel-next-circle)'
 exe nmap '<s-home>       <plug>(wheel-previous-torus)'
 exe nmap '<s-end>        <plug>(wheel-next-torus)'
 " History
-exe nmap '<s-pageup>     <plug>(wheel-history-newer)'
-exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
+exe nmap '<m-pageup>     <plug>(wheel-history-newer)'
+exe nmap '<m-pagedown>   <plug>(wheel-history-older)'
+exe nmap '<m-c-pageup>     <plug>(wheel-history-newer-in-circle)'
+exe nmap '<m-c-pagedown>   <plug>(wheel-history-older-in-circle)'
+exe nmap '<m-s-pageup>     <plug>(wheel-history-newer-in-torus)'
+exe nmap '<m-s-pagedown>   <plug>(wheel-history-older-in-torus)'
 " Alternate
 exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
 exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
@@ -410,8 +414,8 @@ exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
 exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
 " Buffers
 exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
-exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
-exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers-all)'
+exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers)'
+exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers-all)'
 " Tabs & windows : visible buffers
 exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
 exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
@@ -453,8 +457,8 @@ exe nmap '<m-end>         <plug>(wheel-mandala-forward)'
 exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 " Layouts
 exe nmap '<m-z>          <plug>(wheel-zoom)'
-exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
-exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
+exe nmap '<s-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+exe nmap '<s-pagedown>   <plug>(wheel-rotate-clockwise)'
 ~~~
 
 # Examples

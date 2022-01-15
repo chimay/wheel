@@ -48,7 +48,7 @@ fun! wheel#line#address ()
 		return cursor_line
 	else
 		let type = wheel#mandala#type ()
-		if type == 'tree'
+		if type == 'index/tree'
 			return wheel#origami#chord ()
 		elseif type == 'tabwins/tree'
 			return wheel#origami#tabwin ()

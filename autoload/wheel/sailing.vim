@@ -108,7 +108,7 @@ fun! wheel#sailing#helix ()
 	" Choose a location coordinate
 	" Each coordinate = [torus, circle, location]
 	let lines = wheel#perspective#helix ()
-	call wheel#mandala#open ('location/index')
+	call wheel#mandala#open ('index/location')
 	let settings = {'action' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -120,7 +120,7 @@ fun! wheel#sailing#grid ()
 	" Choose a circle coordinate
 	" Each coordinate = [torus, circle]
 	let lines = wheel#perspective#grid ()
-	call wheel#mandala#open ('circle/index')
+	call wheel#mandala#open ('index/circle')
 	let settings = {'action' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
@@ -131,7 +131,7 @@ endfun
 fun! wheel#sailing#tree ()
 	" Choose an element in the wheel tree
 	let lines = wheel#perspective#tree ()
-	call wheel#mandala#open ('tree')
+	call wheel#mandala#open ('index/tree')
 	let settings = {'action' : function('wheel#line#tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()

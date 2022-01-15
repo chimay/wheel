@@ -2747,10 +2747,10 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " History
     exe nmap '<m-pageup>     <plug>(wheel-history-newer)'
     exe nmap '<m-pagedown>   <plug>(wheel-history-older)'
-    exe nmap '<m-c-pageup>   <plug>(wheel-history-newer-in-circle)'
-    exe nmap '<m-c-pagedown> <plug>(wheel-history-older-in-circle)'
-    exe nmap '<m-s-pageup>   <plug>(wheel-history-newer-in-torus)'
-    exe nmap '<m-s-pagedown> <plug>(wheel-history-older-in-torus)'
+    exe nmap '<m-c-pageup>     <plug>(wheel-history-newer-in-circle)'
+    exe nmap '<m-c-pagedown>   <plug>(wheel-history-older-in-circle)'
+    exe nmap '<m-s-pageup>     <plug>(wheel-history-newer-in-torus)'
+    exe nmap '<m-s-pagedown>   <plug>(wheel-history-older-in-torus)'
     " Alternate
     exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
     exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
@@ -2780,8 +2780,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
     " Buffers
     exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
-    exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers)'
-    exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers-all)'
+    exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers)'
+    exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers-all)'
     " Tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
     exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'

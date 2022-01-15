@@ -61,19 +61,17 @@ endfun
 
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
-	let bufnums = g:wheel_mandalas.ring
 	let oneline = g:wheel_config.message == 'one-line'
+	let bufnums = g:wheel_mandalas.ring
+	" -- current leaf type
+	let title = '[' .. wheel#status#type () .. ']'
+	" -- type function
+	let Type = function('wheel#status#type')
 	" -- mandala ring status
+	let mandalas = map(copy(bufnums), { _, val -> bufname(val) })
+	call map(mandalas, { _, val -> Type(val) })
 	let current = g:wheel_mandalas.current
-	let mandalas = []
-	for index in range(len(bufnums))
-		let num = bufnums[index]
-		let title = wheel#status#type (bufname(num))
-		if index == current
-			let title = '[' .. title .. ']'
-		endif
-		call add(mandalas, title)
-	endfor
+	let mandalas[current] = title
 	" -- leaf ring status
 	if exists('b:wheel_ring')
 		let filenames = wheel#book#ring ('filename')
@@ -82,10 +80,8 @@ fun! wheel#status#mandala_leaf ()
 		let filenames = []
 		let current = -1
 	endif
-	let Fun = function('wheel#status#type')
-	let leaves = map(copy(filenames), { _, val -> Fun(val) })
-	" current leaf type
-	let title = '[' .. wheel#status#type () .. ']'
+	let leaves = map(copy(filenames), { _, val -> Type(val) })
+	" echo
 	call wheel#status#clear ()
 	if current >= 0
 		let leaves[current] = title
