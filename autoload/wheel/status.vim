@@ -76,15 +76,14 @@ fun! wheel#status#mandala_leaf ()
 	if exists('b:wheel_ring')
 		let filenames = wheel#book#ring ('filename')
 		let current = b:wheel_ring.current
+		let leaves = map(copy(filenames), { _, val -> Type(val) })
+		let leaves[current] = title
 	else
-		let filenames = []
 		let current = -1
 	endif
-	let leaves = map(copy(filenames), { _, val -> Type(val) })
 	" echo
 	call wheel#status#clear ()
 	if current >= 0
-		let leaves[current] = title
 		if oneline
 			echo 'wheel buf:' join(mandalas) '/ lay:' join(leaves)
 		else
