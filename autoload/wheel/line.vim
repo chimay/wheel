@@ -370,18 +370,14 @@ fun! wheel#line#tags (settings)
 	let search = fields[3][1:]
 	call wheel#line#target (a:settings.target)
 	execute 'edit' file
-	" keep old position in mark '
-	mark '
-	call cursor(1, 1)
-	call search(search, 'w')
+	let found = search(search, 'sw')
+	if found == 0
+		echomsg 'wheel : tag not found : maybe you should update your tag file'
+	endif
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
 	return win_getid ()
-	" forget it, the selection must be done in the wheel buffer,
-	" not elsewhere
-	"execute 'tag' ident
-	"execute 'tjump' ident
 endfun
 
 " Paste

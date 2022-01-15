@@ -62,7 +62,7 @@ fun! wheel#polyphony#substitute (mode = 'file')
 			echomsg 'wheel polyphony substitute : mode must be file or circle'
 		endif
 		let check = columns .. '\<' .. after .. '\>'
-		let found = search(check, 'w')
+		let found = search(check, 'nw')
 		if found > 0
 			let prompt = 'Replacing pattern ' .. after .. ' found in buffer. Continue ?'
 			let continue = confirm(prompt, "&Yes\n&No", 2)

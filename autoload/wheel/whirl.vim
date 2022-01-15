@@ -136,10 +136,10 @@ fun! wheel#whirl#tag ()
 	let file = fields[1]
 	let line = fields[2][1:]
 	execute 'edit' file
-	" keep old position in mark '
-	mark '
-	call cursor(1,1)
-	call search(line, 'w')
+	let found = search(line, 'sw')
+	if found == 0
+		echomsg 'wheel : tag not found : maybe you should update your tag file'
+	endif
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif

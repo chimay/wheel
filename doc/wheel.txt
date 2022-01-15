@@ -1447,8 +1447,8 @@ Substitution~
 The map `<M-s>` launch a |:substitute| wrapper. There are a few advantages
 to use it instead of a plain `:s/.../.../g`.
 
-First, only the line contents are modified, the line numbers remain
-intact.
+First, only the line contents are modified, the other fields remain
+intact. If you are curious about how it is done, check |/\@<=|.
 
 Second, if the replacing word is already present in the buffer, it will
 ask you confirmation before running the substitution. So, you can avoid
@@ -1480,7 +1480,7 @@ The map `<M-s>` launch a |:substitute| wrapper. There are a few advantages
 to use it instead of a plain `:s/.../.../g`.
 
 First, only the line contents are modified, the other fields remain
-intact.
+intact. If you are curious about how it is done, check |/\@<=|.
 
 Second, if the replacing word is already present in the buffer, it will
 ask you confirmation before running the substitution. So, you can avoid
