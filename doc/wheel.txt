@@ -1432,7 +1432,10 @@ error number | line number | column number | filename | line content
 ------------------------------------------------------------------------------
 NARROW CURRENT FILE			*wheel-dedicated-buffers-narrow-file*
 
-This buffer lets you filter and modify filtered lines.
+This function narrow the current file lines. In the dedicated buffer, you can :
+
+- navigate to the selected line(s)
+- modify filtered lines
 
 To let you edit the buffer as usual :
 
@@ -1475,6 +1478,12 @@ confusion in variable names, for instance.
 
 ------------------------------------------------------------------------------
 NARROW ALL CIRCLE FILES			*wheel-dedicated-buffers-narrow-circle*
+
+This function narrow the lines of all circle files. In the dedicated
+buffer, you can :
+
+- navigate to the selected line(s)
+- modify filtered lines
 
 This is similar as |wheel-dedicated-buffers-grep-edit|, but it provides
 a powerful filter in the first line. You can narrow down the lines as
