@@ -321,8 +321,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'B <plug>(wheel-dedibuf-buffers-all)'
 		" Tabs & windows : visible buffers
 		exe nmap prefix .. 'v <plug>(wheel-prompt-tabwin)'
-		exe nmap prefix .. 'V <plug>(wheel-dedibuf-tabwins)'
 		exe nmap prefix .. '<m-v> <plug>(wheel-dedibuf-tabwins-tree)'
+		exe nmap prefix .. 'V <plug>(wheel-dedibuf-tabwins)'
 		" (neo)vim lists
 		exe nmap prefix .. "' <plug>(wheel-prompt-marker)"
 		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'
