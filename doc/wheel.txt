@@ -1533,15 +1533,19 @@ confusion in variable names, for instance.
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
 
-In this buffer, you can reset the buffer to a previous undo position,
-just hit `<enter>` on an undo line.
+In this buffer, you can navigate in the undo tree of the related buffer.
+
+Actions available :
+
+- `<enter>` : go to the undo position of the current line
+- `-` : perform |:earlier| on the related buffer
+- `+` : perform |:later| on the related buffer
+- `u` : go back to the last undo state
 
 Before playing with this, be sure you have a backup of your file (VCS
 or so).
 
 Default mapping : `<M-w><C-u>`
-
-With `u`, you can go back to the last undo state.
 
 Diff mode~
 
