@@ -177,7 +177,7 @@ This project is inspired by :
 - quickfix-reflector : https://github.com/stefandtw/quickfix-reflector.vim,
   for the grep edit mode
 
-- narrow : https://github.com/chrisbra/NrrwRgn, for the narrow & filter
+- narrow : https://github.com/chrisbra/NrrwRgn, for the narrow, filter & apply
   dedicated buffer
 
 ==============================================================================
