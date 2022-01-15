@@ -327,12 +327,16 @@ fun! wheel#gear#save_options (optlist)
 	return ampersands
 endfun
 
-fun! wheel#gear#save_maps (keysdict)
+fun! wheel#gear#save_maps (keysdict, scope = 'all')
 	" Save maps of keys in keysdict
 	" keysdict has the form
 	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
 	" Returns nested dict of the form
 	" {'normal' : {'key' : maparg, ...}, 'insert' : {'key' : maparg, ...}, ...}
+	" Optional argument mode :
+	"   - all : default, save global or buffer local maps
+	"   - local : save only local buffer maps
+	let scope = a:scope
 	let keysdict = a:keysdict
 	let mapdict = {}
 	for mode in keys(keysdict)
@@ -340,7 +344,14 @@ fun! wheel#gear#save_maps (keysdict)
 		let letter = wheel#gear#short_mode (mode)
 		let mapdict[modename] = {}
 		for key in keysdict[mode]
-			let mapdict[modename][key] = maparg(key, letter)
+			let maparg = maparg(key, letter, v:false, v:true)
+			if empty(maparg)
+				let mapdict[modename][key] = ''
+				continue
+			endif
+			if scope == 'all' || maparg.buffer == 1
+				let mapdict[modename][key] = maparg.rhs
+			endif
 		endfor
 	endfor
 	return mapdict
