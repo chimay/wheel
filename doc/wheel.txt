@@ -24,6 +24,7 @@ What is it ?			|wheel-introduction-what|
 File groups			|wheel-introduction-file-groups|
 Features			|wheel-introduction-features|
 History				|wheel-introduction-history|
+Prerequisites			|wheel-introduction-prerequisites|
 
 ------------------------------------------------------------------------------
 WHAT IS IT					*wheel-introduction-what*
@@ -178,6 +179,14 @@ This project is inspired by :
   for the grep edit mode
 
 - narrow : https://github.com/chrisbra/NrrwRgn, for the narrow dedicated buffers
+
+------------------------------------------------------------------------------
+PREREQUISITES				*wheel-introduction-prerequisites*
+
+Some functions assume a Unix-like OS, like Linux or BSD.
+
+Most of it should work out of the box on other OSes, however. If you
+encounter some problem, please let me know.
 
 ==============================================================================
 STEP BY STEP						*wheel-step-by-step*

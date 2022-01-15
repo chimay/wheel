@@ -192,6 +192,9 @@ This project is inspired by :
 
 Some functions assume a Unix-like OS, like Linux or BSD.
 
+Most of it should work out of the box on other OSes, however. If you
+encounter some problem, please let me know.
+
 # Installation
 ## Using minpac
 
