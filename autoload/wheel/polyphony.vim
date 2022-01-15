@@ -42,44 +42,47 @@ endfun
 fun! wheel#polyphony#substitute (mode = 'file')
 	" Substitute in narrow mandala
 	let mode = a:mode
-	" user input
+	" -- user input
 	let prompt = 'Substitute pattern ? '
 	let before = input(prompt)
 	let prompt = 'Substitute with ? '
 	let after = input(prompt)
-	" patterns bricks
-	let prelude = '\m\('
+	" -- patterns bricks
+	let prelude = '\m\%('
 	let field = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
 	let coda = '.*\)\@<='
-	" check replacing pattern is not present if buffer
-	if mode == 'file'
-		let columns = prelude .. field .. coda
-	elseif mode == 'circle'
-		let columns = prelude .. field .. field .. field .. coda
-	else
-		echomsg 'wheel polyphony substitute : mode must be file or circle'
-	endif
-	let check = columns .. '\<' .. after .. '\>'
-	let found = search(check, 'w')
-	if found > 0
-		let prompt = 'Replacing pattern ' .. after .. ' found in buffer. Continue ?'
-		let continue = confirm(prompt, "&Yes\n&No", 2)
-		if continue == 2
-			return v:false
+	" -- check replacing pattern is not present if buffer
+	" -- unless back references chars are included
+	if after !~ '[&\\]'
+		if mode == 'file'
+			let columns = prelude .. field .. coda
+		elseif mode == 'circle'
+			let columns = prelude .. field .. field .. field .. coda
+		else
+			echomsg 'wheel polyphony substitute : mode must be file or circle'
+		endif
+		let check = columns .. '\<' .. after .. '\>'
+		let found = search(check, 'w')
+		if found > 0
+			let prompt = 'Replacing pattern ' .. after .. ' found in buffer. Continue ?'
+			let continue = confirm(prompt, "&Yes\n&No", 2)
+			if continue == 2
+				return v:false
+			endif
 		endif
 	endif
-	" skip non-content columns
+	" -- skip non-content columns
 	if mode == 'file'
 		let columns = prelude .. field .. coda
 	elseif mode == 'circle'
 		let columns = prelude .. field .. field .. field .. coda
 	endif
 	let before = columns .. before
-	" escape separator of substitute
+	" -- escape separator of substitution
 	let before = escape(before, '/')
 	let after = escape(after, '/')
-	" run substitution
-	let runme = '%substitute/' .. before .. '/' .. after .. '/g'
+	" -- run substitution
+	let runme = 'silent %substitute/' .. before .. '/' .. after .. '/g'
 	execute runme
 	return v:true
 endfun
