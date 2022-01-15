@@ -2681,8 +2681,8 @@ adapt them to your taste and add them to your init file.
 | <M-S-o>        | Outline in current circle files               |
 | -------------- | --------------------------------------------- |
 | <M-b>          | Buffers, prompting function                   |
-| <M-S-b>        | Buffers, dedicated buffer                     |
-| <M-C-b>        | All buffers, including unlisted ones          |
+| <M-C-b>        | Buffers, dedicated buffer                     |
+| <M-S-b>        | All buffers, including unlisted ones          |
 | -------------- | --------------------------------------------- |
 | <M-v>          | Go to tab & window, prompt mode               |
 | <M-C-v>        | Tabs & windows in tree mode, dedicated buffer |
