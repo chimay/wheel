@@ -351,6 +351,8 @@ fun! wheel#gear#save_maps (keysdict, scope = 'all')
 			endif
 			if scope == 'all' || maparg.buffer == 1
 				let mapdict[modename][key] = maparg.rhs
+			else
+				let mapdict[modename][key] = ''
 			endif
 		endfor
 	endfor
