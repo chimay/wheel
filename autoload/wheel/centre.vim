@@ -314,15 +314,15 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'o <plug>(wheel-prompt-occur)'
 		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-occur)'
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
-		exe nmap prefix .. 'O <plug>(wheel-dedibuf-outline)'
+		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-outline)'
 		" Buffers
 		exe nmap prefix .. 'b <plug>(wheel-prompt-buffers)'
 		exe nmap prefix .. '<m-b> <plug>(wheel-dedibuf-buffers)'
-		exe nmap prefix .. 'B <plug>(wheel-dedibuf-buffers-all)'
+		exe nmap prefix .. '<c-b> <plug>(wheel-dedibuf-buffers-all)'
 		" Tabs & windows : visible buffers
 		exe nmap prefix .. 'v <plug>(wheel-prompt-tabwin)'
 		exe nmap prefix .. '<m-v> <plug>(wheel-dedibuf-tabwins-tree)'
-		exe nmap prefix .. 'V <plug>(wheel-dedibuf-tabwins)'
+		exe nmap prefix .. '<c-v> <plug>(wheel-dedibuf-tabwins)'
 		" (neo)vim lists
 		exe nmap prefix .. "' <plug>(wheel-prompt-marker)"
 		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'
@@ -348,7 +348,7 @@ fun! wheel#centre#cables ()
 		exe vmap prefix .. '-- <plug>(wheel-dedibuf-narrow)'
 	    exe nmap_expr .. prefix .. '-- wheel#polyphony#operator()'
 		" Undo list
-		exe nmap prefix .. 'U <plug>(wheel-dedibuf-undo-list)'
+		exe nmap prefix .. '<c-u> <plug>(wheel-dedibuf-undo-list)'
 		" Generic ex or shell command
 		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
 		exe nmap prefix .. async .. '& <plug>(wheel-dedibuf-async)'

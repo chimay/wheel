@@ -711,15 +711,15 @@ Find 				|wheel-dedicated-buffers-find|
 Async find 			|wheel-dedicated-buffers-async-find|
 MRU files			|wheel-dedicated-buffers-mru|
 Buffers				|wheel-dedicated-buffers-buffers|
-Tabs & windows			|wheel-dedicated-buffers-tabwins|
 Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
+Tabs & windows			|wheel-dedicated-buffers-tabwins|
 Occur				|wheel-dedicated-buffers-occur|
 Grep				|wheel-dedicated-buffers-grep|
 Outline				|wheel-dedicated-buffers-outline|
-Tags				|wheel-dedicated-buffers-tags|
 Markers				|wheel-dedicated-buffers-markers|
 Jumps				|wheel-dedicated-buffers-jumps|
 Changes				|wheel-dedicated-buffers-changes|
+Tags				|wheel-dedicated-buffers-tags|
 Yank 				|wheel-dedicated-buffers-yank|
 Reordering		        |wheel-dedicated-buffers-reordering|
 Renaming		        |wheel-dedicated-buffers-renaming|
@@ -954,20 +954,21 @@ The default mappings launching navigation buffers are :
 - `<M-w><Space>`   : go to location
 - `<M-w><C-space>` : go to current location of the chosen circle
 - `<M-w><S-space>` : go to current location of the chosen torus
-- `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><M-x>`     : index with folds (see below)
-- `<M-w><C-S-x>`   : index of toruses > circles
+- `<M-w>X`         : index of toruses > circles > locations
+- `<M-w><M-S-x>`   : index of toruses > circles
 - `<M-w><M-h>`     : history index
 - `<M-w>l`         : search files with `locate`
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
 - `<M-w>&f`        : search files with `find` in async mode
 - `<M-w><M-u>`     : most recently used files not found in wheel (mru)
+- `<M-w><M-b>`     : switch to buffer (opened file)
+- `<M-w><C-b>`     : switch to buffer, included unlisted ones
+- `<M-w><M-v>`     : switch to visible buffer in tab & window (tree fold mode)
+- `<M-w><C-v>`     : switch to visible buffer in tab & window (plain mode)
 - `<M-w><M-o>`     : occur in current file
 - `<M-w>g`         : grep in circle files
-- `<M-w>O`         : outline headers in circle files
-- `<M-w><M-b>`     : go to buffer (opened file)
-- `<M-w>V`         : visible buffers in tab & window (plain mode)
-- `<M-w><M-v>`     : visible buffers in tab & window (tree fold mode)
+- `<M-w><C-o>`     : outline headers in circle files
 - `<M-w><M-'>`     : markers
 - `<M-w><M-j>`     : jumps list
 - `<M-w>,`         : changes list
@@ -1073,7 +1074,10 @@ BUFFERS						*wheel-dedicated-buffers-buffers*
 
 Go to buffer.
 
-The default mapping is `<M-w><M-b>`.
+The default mapping are :
+
+- `<M-w><M-b>` for ordinary buffers
+- `<M-w><C-b>` for all buffers, included unlisted ones
 
 Fields~
 
@@ -1084,25 +1088,25 @@ buffer number | indicator | line number | filename
 For the indicator meaning, see |:buffers|.
 
 ------------------------------------------------------------------------------
-TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
-
-Go to visible buffer, displayed in a tab or window.
-
-The default mapping is `<M-w>V`.
-
-Fields~
-
-This buffer displays the following columns :
-
-tab number | window number | filename
-
-------------------------------------------------------------------------------
 TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwins-tree*
 
 Go to visible buffer, displayed in a tab or window. Folding mode
 matching the tree of tabs and windows.
 
 The default mapping is `<M-w><M-v>`.
+
+------------------------------------------------------------------------------
+TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
+
+Go to visible buffer, displayed in a tab or window.
+
+The default mapping is `<M-w><C-v>`.
+
+Fields~
+
+This buffer displays the following columns :
+
+tab number | window number | filename
 
 ------------------------------------------------------------------------------
 OCCUR						*wheel-dedicated-buffers-occur*
@@ -1142,7 +1146,7 @@ error number | line number | column number | filename | line content
 ------------------------------------------------------------------------------
 OUTLINE					*wheel-dedicated-buffers-outline*
 
-The default mapping is `<M-w><O`.
+The default mapping is `<M-w><C-o>`.
 
 An outline buffer is a grep buffer where all your headers are displayed. You
 can choose between the following header formats :
@@ -1535,7 +1539,7 @@ just hit `<enter>` on an undo line.
 Before playing with this, be sure you have a backup of your file (VCS
 or so).
 
-Default mapping : `<M-w>U`
+Default mapping : `<M-w><C-u>`
 
 With `u`, you can go back to the last undo state.
 
@@ -2475,14 +2479,14 @@ Dedicated buffer :
 | -------- | ------------------- | ------------------------------------- |
 | <M-o>    | <M-w><M-o>          | Occur : search lines in current file  |
 | g        | <M-w>g              | Search in circle files with grep      |
-| O        | <M-w>O              | Outline : folds, markdown, org mode   |
+| <C-o>    | <M-w><C-o>          | Outline : folds, markdown, org mode   |
 
 Buffers~
 
 | Prefix + | With default prefix | Action                               |
 | -------- | ------------------- | ------------------------------------ |
 | b        | <M-w>b              | Buffers                              |
-| B        | <M-w>B              | All buffers, including unlisted ones |
+| <C-b>    | <M-w><C-b>          | All buffers, including unlisted ones |
 
 Tabs & windows~
 
@@ -2496,10 +2500,10 @@ Prompting functions :
 
 Dedicated buffers :
 
-| Prefix + | With default prefix | Action                      |
-| -------- | ------------------- | --------------------------- |
-| V        | <M-w>V              | Visible buffers             |
-| <M-v>    | <M-w><M-v>          | Tree view of tabs & windows |
+| Prefix + | With default prefix | Action                            |
+| -------- | ------------------- | --------------------------------- |
+| <M-v>    | <M-w><M-v>          | Tree view of tabs & windows       |
+| <C-v>    | <M-w><C-v>          | Visible buffers in tabs & windows |
 
 (Neo)vim lists~
 
@@ -2554,7 +2558,7 @@ Undo~
 
 | Prefix + | With default prefix | Action     |
 | -------- | ------------------- | ---------- |
-| U        | <M-w>U              | Undo list  |
+| <C-u>    | <M-w><C-u>          | Undo list  |
 
 Command output buffer~
 
