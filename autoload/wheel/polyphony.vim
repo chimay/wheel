@@ -47,10 +47,11 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	let before = input(prompt)
 	let prompt = 'Substitute with ? '
 	let after = input(prompt)
-	" skip non-content columns
+	" patterns bricks
 	let prelude = '\m\('
 	let field = '[^' .. s:field_separ_bar .. ']\+' .. s:field_separ
 	let coda = '.*\)\@<='
+	" check replacing pattern is not present if buffer
 	if mode == 'file'
 		let columns = prelude .. field .. coda
 	elseif mode == 'circle'
@@ -58,14 +59,29 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	else
 		echomsg 'wheel polyphony substitute : mode must be file or circle'
 	endif
+	let check = columns .. '\<' .. after .. '\>'
+	let found = search(check, 'w')
+	if found > 0
+		let prompt = 'Replacing pattern ' .. after .. ' found in buffer. Continue ?'
+		let continue = confirm(prompt, "&Yes\n&No", 2)
+		if continue == 2
+			return v:false
+		endif
+	endif
+	" skip non-content columns
+	if mode == 'file'
+		let columns = prelude .. field .. coda
+	elseif mode == 'circle'
+		let columns = prelude .. field .. field .. field .. coda
+	endif
 	let before = columns .. before
 	" escape separator of substitute
 	let before = escape(before, '/')
 	let after = escape(after, '/')
 	" run substitution
 	let runme = '%substitute/' .. before .. '/' .. after .. '/g'
-	echomsg runme
 	execute runme
+	return v:true
 endfun
 
 " Mandalas

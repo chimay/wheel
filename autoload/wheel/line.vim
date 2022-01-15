@@ -373,7 +373,7 @@ fun! wheel#line#tags (settings)
 	" keep old position in mark '
 	mark '
 	call cursor(1, 1)
-	call search(search)
+	call search(search, 'w')
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif

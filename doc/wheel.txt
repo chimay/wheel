@@ -1414,11 +1414,9 @@ This buffer displays the following columns :
 error number | line number | column number | filename | line content
 
 ------------------------------------------------------------------------------
-NARROW					*wheel-dedicated-buffers-narrow*
+NARROW CURRENT FILE			*wheel-dedicated-buffers-narrow-file*
 
-Current file~
-
-This buffer lets you filter and edit filtered lines.
+This buffer lets you filter and modify filtered lines.
 
 To let you edit the buffer as usual :
 
@@ -1438,44 +1436,55 @@ Default mappings :
   + in visual mode : open a narrow buffer with the visual range
 - `<M-w>-%` : open a narrow buffer with the entire original file content
 
-Fields :
+Fields~
 
 This buffer displays the following columns :
 
 lin number | line content
 
-Actions :
+Substitution~
 
-- `<M-s>` : substitute a pattern by a replacement
+The map `<M-s>` launch a |:substitute| wrapper. There are a few advantages
+to use it instead of a plain `:s/.../.../g`.
 
-Advantage : only the line content is modified, the other fields remain
-all intact.
+First, only the line contents are modified, the line numbers remain
+intact.
 
-All circle files~
+Second, if the replacing word is already present in the buffer, it will
+ask you confirmation before running the substitution. So, you can avoid
+confusion in variable names, for instance.
+
+------------------------------------------------------------------------------
+NARROW ALL CIRCLE FILES			*wheel-dedicated-buffers-narrow-circle*
 
 This is similar as |wheel-dedicated-buffers-grep-edit|, but it provides
 a powerful filter in the first line. You can narrow down the lines as
 much as you want before editing and propagate your changes.
 
 Be aware that only the visible lines will be reflected to the original
-file : this is intended.
+files : this is intended.
 
 It uses and fill the vim quickfix list under the hood.
 
 Default mapping : `<M-w>-c`
 
-Fields :
+Fields~
 
 This buffer displays the following columns :
 
 buffer number | line number | filename | line content
 
-Actions :
+Substitution~
 
-- `<M-s>` : substitute a pattern by a replacement
+The map `<M-s>` launch a |:substitute| wrapper. There are a few advantages
+to use it instead of a plain `:s/.../.../g`.
 
-Advantage : only the line content is modified, the other fields remain
-all intact.
+First, only the line contents are modified, the other fields remain
+intact.
+
+Second, if the replacing word is already present in the buffer, it will
+ask you confirmation before running the substitution. So, you can avoid
+confusion in variable names, for instance.
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
