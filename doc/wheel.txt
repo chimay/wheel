@@ -443,14 +443,18 @@ Next~
 - location : `<M-w><Right>`
 - circle : `<M-w><C-Right>`
 - torus : `<M-w><S-Right>`
-- location in history : `<M-w><Down>`
+- older location in history : `<M-w><Down>`
+- older location in same circle : `<M-w><C-Down>`
+- older location in same torus : `<M-w><S-Down>`
 
 Previous~
 
 - location : `<M-w><Left>`
 - circle : `<M-w><C-Left>`
 - torus : `<M-w><S-Left>`
-- location in history : `<M-w><Up>`
+- newer location in history : `<M-w><Up>`
+- newer location in same circle : `<M-w><C-Up>`
+- newer location in same torus : `<M-w><S-Up>`
 
 Switch~
 
@@ -2310,6 +2314,11 @@ History~
 | ----------- | ------------------- | --------------------------------------------- |
 | <Up>        | <M-w><PageUp>       | Go to newer location in history               |
 | <Down>      | <M-w><PageDown>     | Go to older location in history               |
+| <C-Up>      | <M-w><C-PageUp>     | Go to newer location in circle                |
+| <C-Down>    | <M-w><C-PageDown>   | Go to older location in circle                |
+| <S-Up>      | <M-w><S-PageUp>     | Go to newer location in torus                 |
+| <S-Down>    | <M-w><S-PageDown>   | Go to older location in torus                 |
+| ----------- | ------------------- | --------------------------------------------- |
 | ^           | <M-w>^              | Alternate menu                                |
 | <C-^>       | <M-w><C-^>          | Alternate anywhere                            |
 | <M-^>       | <M-w><M-^>          | Alternate in the same circle                  |
@@ -2611,8 +2620,12 @@ adapt them to your taste and add them to your init file.
 | <S-Home>       | Go to previous torus                          |
 | <S-End>        | Go to next torus                              |
 | -------------- | --------------------------------------------- |
-| <S-PageUp>     | Go to newer location in history               |
-| <S-PageDown>   | Go to older location in history               |
+| <M-PageUp>     | Go to newer location in history               |
+| <M-PageDown>   | Go to older location in history               |
+| <M-C-PageUp>   | Go to newer location in same circle           |
+| <M-C-PageDown> | Go to older location in same circle           |
+| <M-S-PageUp>   | Go to newer location in same torus            |
+| <M-S-PageDown> | Go to older location in same torus            |
 | -------------- | --------------------------------------------- |
 | <C-^>          | Alternate last two locations                  |
 | <M-^>          | Alternate in the same circle                  |
@@ -2678,8 +2691,8 @@ adapt them to your taste and add them to your init file.
 | <M-Space>      | Switch dedicated buffer                       |
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
-| <M-PageUp>     | Rotate windows counter clockwise              |
-| <M-PageDown>   | Rotate windows clockwise                      |
+| <S-PageUp>     | Rotate windows counter clockwise              |
+| <S-PageDown>   | Rotate windows clockwise                      |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -2705,8 +2718,12 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<s-home>       <plug>(wheel-previous-torus)'
     exe nmap '<s-end>        <plug>(wheel-next-torus)'
     " History
-    exe nmap '<s-pageup>     <plug>(wheel-history-newer)'
-    exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
+    exe nmap '<m-pageup>     <plug>(wheel-history-newer)'
+    exe nmap '<m-pagedown>   <plug>(wheel-history-older)'
+    exe nmap '<m-c-pageup>   <plug>(wheel-history-newer-in-circle)'
+    exe nmap '<m-c-pagedown> <plug>(wheel-history-older-in-circle)'
+    exe nmap '<m-s-pageup>   <plug>(wheel-history-newer-in-torus)'
+    exe nmap '<m-s-pagedown> <plug>(wheel-history-older-in-torus)'
     " Alternate
     exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
     exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
@@ -2779,8 +2796,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
     " Layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
-    exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
-    exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
+    exe nmap '<s-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+    exe nmap '<s-pagedown>   <plug>(wheel-rotate-clockwise)'
 <
 
 ------------------------------------------------------------------------------
@@ -2840,6 +2857,10 @@ Straightforward :
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-history-newer)                     | go to previous location in history        |
 | <plug>(wheel-history-older)                     | go to next location in history            |
+| <plug>(wheel-history-newer-in-circle)           | go to previous location in circle         |
+| <plug>(wheel-history-older-in-circle)           | go to next location in circle             |
+| <plug>(wheel-history-newer-in-torus)            | go to previous location in torus          |
+| <plug>(wheel-history-older-in-torus)            | go to next location in torus              |
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-alternate-anywhere)                | alternate with last location              |
 | <plug>(wheel-alternate-same-circle)             | alternate locations in same circle        |

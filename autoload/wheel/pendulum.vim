@@ -244,42 +244,100 @@ endfun
 
 " newer & older
 
-fun! wheel#pendulum#newer ()
+fun! wheel#pendulum#newer_anywhere ()
 	" Go to newer entry in g:wheel_track
 	call wheel#vortex#update ()
 	let track = g:wheel_track
-	let g:wheel_track = wheel#chain#rotate_right (track)
-	let coordin = g:wheel_track[0].coordin
+	let track = wheel#chain#rotate_right (track)
+	let coordin = track[0].coordin
+	let g:wheel_track = track
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
 
-fun! wheel#pendulum#older ()
+fun! wheel#pendulum#older_anywhere ()
 	" Go to older entry in g:wheel_track
 	call wheel#vortex#update ()
 	let track = g:wheel_track
-	let g:wheel_track = wheel#chain#rotate_left (track)
-	let coordin = g:wheel_track[0].coordin
+	let track = wheel#chain#rotate_left (track)
+	let coordin = track[0].coordin
+	let g:wheel_track = track
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
 
-fun! wheel#pendulum#newer_in_circle ()
+fun! wheel#pendulum#newer (level = 'wheel')
 	" Go to newer entry in g:wheel_track
+	let level = a:level
+	if wheel#referen#is_empty(level)
+		echomsg 'wheel newer :' level 'is empty'
+		return -1
+	endif
+	if level == 'wheel'
+		return wheel#pendulum#newer_anywhere ()
+	endif
 	call wheel#vortex#update ()
+	" current coordin
+	let names = wheel#referen#names ()
+	" index for range in coordin
+	let level_index = wheel#referen#coordin_index (level)
+	" back in history
 	let track = g:wheel_track
-	let g:wheel_track = wheel#chain#rotate_right (track)
-	let coordin = g:wheel_track[0].coordin
+	let track = wheel#chain#rotate_right (track)
+	let coordin = track[0].coordin
+	let counter = 0
+	let length = len(track)
+	while names[:level_index] != coordin[:level_index] && counter < length
+		let track = wheel#chain#rotate_right (track)
+		let coordin = track[0].coordin
+		let counter += 1
+	endwhile
+	" newer found in same torus or circle ?
+	if names[:level_index] != coordin[:level_index]
+		echomsg 'wheel newer : no location found in same' level
+		return -1
+	endif
+	" update track : rotate left / right return a copy
+	let g:wheel_track = track
+	" jump
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
 
-fun! wheel#pendulum#older_in_circle ()
+fun! wheel#pendulum#older (level = 'wheel')
 	" Go to older entry in g:wheel_track
+	let level = a:level
+	if wheel#referen#is_empty(level)
+		echomsg 'wheel older :' level 'is empty'
+		return -1
+	endif
+	if level == 'wheel'
+		return wheel#pendulum#older_anywhere ()
+	endif
 	call wheel#vortex#update ()
+	" current coordin
+	let names = wheel#referen#names ()
+	" index for range in coordin
+	let level_index = wheel#referen#coordin_index (level)
+	" back in history
 	let track = g:wheel_track
-	let g:wheel_track = wheel#chain#rotate_left (track)
-	let coordin = g:wheel_track[0].coordin
+	let track = wheel#chain#rotate_left (track)
+	let coordin = track[0].coordin
+	let counter = 0
+	let length = len(track)
+	while names[:level_index] != coordin[:level_index] && counter < length
+		let track = wheel#chain#rotate_left (track)
+		let coordin = track[0].coordin
+		let counter += 1
+	endwhile
+	" older found in same torus or circle ?
+	if names[:level_index] != coordin[:level_index]
+		echomsg 'wheel older : no location found in same' level
+		return -1
+	endif
+	" update track : rotate left / right return a copy
+	let g:wheel_track = track
+	" jump
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun

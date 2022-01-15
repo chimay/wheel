@@ -264,7 +264,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		let new_name = substitute(fields[0], ' ', ' ', 'g')
 		let found = index(glossary, new_name)
 		if found >= 0 && found != index
-			echomsg 'Location ' .. new_name .. ' already present in circle'
+			echomsg 'Location' new_name 'already present in circle'
 			continue
 		endif
 		let glossary[index] = new_name
@@ -292,7 +292,7 @@ fun! wheel#cuboctahedron#rename_files ()
 			endif
 		endif
 		" mv old new
-		echomsg 'wheel : renaming ' .. old_filename .. ' -> ' .. new_filename
+		echomsg 'wheel : renaming' old_filename '->' new_filename
 		let locations[index].file = new_filename
 		let old_filename = shellescape(old_filename)
 		let new_filename = shellescape(new_filename)
@@ -332,7 +332,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 		let complete = 'customlist,wheel#complete#grid'
 		let destination = input(prompt, '', complete)
 	else
-		echomsg 'wheel ' .. mode .. ' : bad level name.'
+		echomsg 'wheel' mode ': bad level name.'
 		return v:false
 	endif
 	let coordin = split(destination, s:level_separ)

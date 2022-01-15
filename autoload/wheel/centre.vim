@@ -40,6 +40,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-next-torus) <cmd>call wheel#vortex#next('torus')<cr>
 	nnoremap <plug>(wheel-history-newer) <cmd>call wheel#pendulum#newer()<cr>
 	nnoremap <plug>(wheel-history-older) <cmd>call wheel#pendulum#older()<cr>
+	nnoremap <plug>(wheel-history-newer-in-circle) <cmd>call wheel#pendulum#newer('circle')<cr>
+	nnoremap <plug>(wheel-history-older-in-circle) <cmd>call wheel#pendulum#older('circle')<cr>
+	nnoremap <plug>(wheel-history-newer-in-torus) <cmd>call wheel#pendulum#newer('torus')<cr>
+	nnoremap <plug>(wheel-history-older-in-torus) <cmd>call wheel#pendulum#older('torus')<cr>
 	" Alternate
 	nnoremap <plug>(wheel-alternate-anywhere) <cmd>call wheel#pendulum#alternate('anywhere')<cr>
 	nnoremap <plug>(wheel-alternate-same-torus-other-circle) <cmd>call wheel#pendulum#alternate('same_torus_other_circle')<cr>
@@ -233,6 +237,10 @@ fun! wheel#centre#cables ()
 		" History
 		exe nmap prefix .. '<up> <plug>(wheel-history-newer)'
 		exe nmap prefix .. '<down> <plug>(wheel-history-older)'
+		exe nmap prefix .. '<c-up> <plug>(wheel-history-newer-in-circle)'
+		exe nmap prefix .. '<c-down> <plug>(wheel-history-older-in-circle)'
+		exe nmap prefix .. '<s-up> <plug>(wheel-history-newer-in-torus)'
+		exe nmap prefix .. '<s-down> <plug>(wheel-history-older-in-torus)'
 		" Alternate
 		exe nmap prefix .. '<c-^> <plug>(wheel-alternate-anywhere)'
 		exe nmap prefix .. '<m-^> <plug>(wheel-alternate-same-circle)'
@@ -404,8 +412,12 @@ fun! wheel#centre#cables ()
 		exe nmap '<s-home>       <plug>(wheel-previous-torus)'
 		exe nmap '<s-end>        <plug>(wheel-next-torus)'
 		" History
-		exe nmap '<s-pageup>     <plug>(wheel-history-newer)'
-		exe nmap '<s-pagedown>   <plug>(wheel-history-older)'
+		exe nmap '<m-pageup>     <plug>(wheel-history-newer)'
+		exe nmap '<m-pagedown>   <plug>(wheel-history-older)'
+		exe nmap '<m-c-pageup>     <plug>(wheel-history-newer-in-circle)'
+		exe nmap '<m-c-pagedown>   <plug>(wheel-history-older-in-circle)'
+		exe nmap '<m-s-pageup>     <plug>(wheel-history-newer-in-torus)'
+		exe nmap '<m-s-pagedown>   <plug>(wheel-history-older-in-torus)'
 		" Alternate
 		exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
 		exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
@@ -478,8 +490,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 		" Layouts
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
-		exe nmap '<m-pageup>     <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap '<m-pagedown>   <plug>(wheel-rotate-clockwise)'
+		exe nmap '<s-pageup>     <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap '<s-pagedown>   <plug>(wheel-rotate-clockwise)'
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

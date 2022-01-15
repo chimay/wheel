@@ -403,7 +403,7 @@ fun! wheel#book#switch (...)
 	let ring = b:wheel_ring
 	let current = index(filenames, name)
 	if current < 0
-		echomsg 'wheel book switch : mandala leaf ' .. name .. ' not found in ring'
+		echomsg 'wheel book switch : mandala leaf' name ' not found in ring'
 		return v:false
 	endif
 	let ring.current = current

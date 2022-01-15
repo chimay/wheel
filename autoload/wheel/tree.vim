@@ -99,7 +99,7 @@ fun! wheel#tree#insert_circle (circle)
 		let name = input('Insert circle with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
-		echomsg 'Circle named' name 'already exists in torus ' .. torus.name
+		echomsg 'Circle named' name 'already exists in torus' torus.name
 		return v:false
 	endif
 	let circle.name = name
@@ -123,7 +123,7 @@ fun! wheel#tree#insert_location (location)
 		let name = input('Insert location with name ? ', '', complete)
 	endif
 	if wheel#chain#is_inside(name, glossary)
-		echomsg 'Location named' name 'already exists in circle ' .. circle.name
+		echomsg 'Location named' name 'already exists in circle' circle.name
 		return v:false
 	endif
 	let location.name = name
@@ -460,7 +460,7 @@ fun! wheel#tree#remove (level, name)
 	" find element index
 	let index = index(glossary, name)
 	if index < 0
-		echomsg upper_name .. 'does not contain ' name
+		echomsg upper_name 'does not contain' name
 	endif
 	" remove from elements list
 	call wheel#chain#remove_index(index, elements)
@@ -507,7 +507,7 @@ fun! wheel#tree#delete (level, mode = 'default')
 	let elements = wheel#referen#elements (upper)
 	if empty(elements)
 		let upper_name = wheel#referen#upper_level_name (level)
-		echomsg upper_name .. ' is already empty.'
+		echomsg upper_name 'is already empty.'
 		return v:false
 	endif
 	let length = len(elements)
@@ -553,7 +553,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 			let complete = 'customlist,wheel#complete#grid'
 			let destination = input(prompt, '', complete)
 		else
-			echomsg 'wheel ' .. mode .. ' : bad level name.'
+			echomsg 'wheel' mode ': bad level name.'
 			return v:false
 		endif
 	endif

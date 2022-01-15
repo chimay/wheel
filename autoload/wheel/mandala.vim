@@ -138,7 +138,7 @@ fun! wheel#mandala#filename (type)
 	" We also need a name when writing, even with BufWriteCmd
 	" Add unique buf id, so (n)vim does not complain about existing filename
 	execute 'silent file' wheel#mandala#pseudo (a:type)
-	" false by default
+	" should be false when called
 	" set to true in wheel#mandala#set_empty
 	let b:wheel_nature.empty = v:false
 endfun

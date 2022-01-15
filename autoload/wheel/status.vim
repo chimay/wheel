@@ -76,13 +76,13 @@ fun! wheel#status#mandala_leaf ()
 	if current >= 0
 		let leaves[current] = title
 		if oneline
-			echo 'wheel buf: ' .. join(mandalas) ' / lay: ' .. join(leaves)
+			echo 'wheel buf:' join(mandalas) '/ lay:' join(leaves)
 		else
-			echo 'wheel buffers : ' .. join(mandalas) .. "\n"
-			echo '      layers  : ' .. join(leaves)
+			echo 'wheel buffers : ' join(mandalas) "\n"
+			echo '      layers  : ' join(leaves)
 		endif
 	else
-		echo 'wheel buffers: ' .. join(mandalas) .. "\n"
+		echo 'wheel buffers: ' join(mandalas) "\n"
 	endif
 endfun
 
