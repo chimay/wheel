@@ -14,37 +14,37 @@ endif
 fun! wheel#sailing#maps (settings)
 	" Define local maps
 	let settings = copy(a:settings)
-	let map = 'nnoremap <silent> <buffer> '
-	let pre = ' :call wheel#loop#sailing('
+	let map = 'nnoremap <silent> <buffer>'
+	let pre = '<cmd>call wheel#loop#sailing('
 	let post = ')<cr>'
 	" Close after navigation
 	let settings.close = v:true
 	let settings.target = 'current'
-	exe map .. '<cr>' .. pre .. string(settings) .. post
+	exe map '<cr>' pre .. string(settings) .. post
 	let settings.target = 'tab'
-	exe map .. 't' .. pre .. string(settings) .. post
+	exe map 't' pre .. string(settings) .. post
 	let settings.target = 'horizontal_split'
-	exe map .. 's' .. pre .. string(settings) .. post
+	exe map 's' pre .. string(settings) .. post
 	let settings.target = 'vertical_split'
-	exe map .. 'v' .. pre .. string(settings) .. post
+	exe map 'v' pre .. string(settings) .. post
 	let settings.target = 'horizontal_golden'
-	exe map .. 'S' .. pre .. string(settings) .. post
+	exe map 'S' pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
-	exe map .. 'V' .. pre .. string(settings) .. post
+	exe map 'V' pre .. string(settings) .. post
 	" Leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'current'
-	exe map .. 'g<cr>' .. pre .. string(settings) .. post
+	exe map 'g<cr>' pre .. string(settings) .. post
 	let settings.target = 'tab'
-	exe map .. 'gt' .. pre .. string(settings) .. post
+	exe map 'gt' pre .. string(settings) .. post
 	let settings.target = 'horizontal_split'
-	exe map .. 'gs' .. pre .. string(settings) .. post
+	exe map 'gs' pre .. string(settings) .. post
 	let settings.target = 'vertical_split'
-	exe map .. 'gv' .. pre .. string(settings) .. post
+	exe map 'gv' pre .. string(settings) .. post
 	let settings.target = 'horizontal_golden'
-	exe map .. 'gS' .. pre .. string(settings) .. post
+	exe map 'gS' pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
-	exe map .. 'gV' .. pre .. string(settings) .. post
+	exe map 'gV' pre .. string(settings) .. post
 	" Define local selection maps
 	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
 	nnoremap <buffer> & <cmd>call wheel#pencil#toggle_visible()<cr>
@@ -217,13 +217,13 @@ fun! wheel#sailing#async_find (...)
 		let job = wheel#ripple#start(command, settings)
 	endif
 	" Map to stop the job
-	let map = 'nnoremap <silent> <buffer> '
+	let map = 'nnoremap <silent> <buffer>'
 	if has('nvim')
-		let callme = ' :call wheel#wave#stop()<cr>'
+		let callme = '<cmd>call wheel#wave#stop()<cr>'
 	else
-		let callme = ' :call wheel#ripple#stop()<cr>'
+		let callme = '<cmd>call wheel#ripple#stop()<cr>'
 	endif
-	exe map .. '<c-s>' .. callme
+	exe map '<c-s>' callme
 	" reload
 	let b:wheel_reload = "wheel#sailing#async_find('" .. pattern .. "')"
 endfun

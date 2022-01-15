@@ -259,7 +259,7 @@ fun! wheel#gear#unmap (key, mode = 'normal')
 	let kind = type(key)
 	if kind == v:t_string
 		" maparg returns dictionary with map caracteristics
-		let dict = maparg(key, mode, 0, 1)
+		let dict = maparg(key, mode, v:false, v:true)
 		let letter = wheel#gear#short_mode (mode)
 		if ! empty(dict) && dict.buffer
 			execute 'silent!' letter .. 'unmap <silent> <buffer>' key

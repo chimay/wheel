@@ -547,20 +547,21 @@ endfun
 
 fun! wheel#perspective#undolist ()
 	" Undo list
-	let undolist = execute('undolist')
-	let undolist = split(undolist, '\n')
-	if len(undolist) < 2
+	let undotree = undotree()
+	let undolist = undotree.entries
+	if empty(undolist)
 		return v:false
 	endif
-	let undolist = undolist[1:]
 	let returnlist = []
 	for elem in undolist
-		let fields = split(elem)
-		let iden = fields[0]
-		let modif = fields[1]
-		let time = join(fields[2:-2])
-		let written = fields[-1]
-		let entry = [iden, modif, time, written]
+		let iden = printf('%4d', elem.seq)
+		let time = wheel#pendulum#date_hour(elem.time)
+		if has_key(elem, 'save')
+			let written = elem.save
+		else
+			let written = ''
+		endif
+		let entry = [iden, time, written]
 		let record = join(entry, s:field_separ)
 		call add(returnlist, record)
 	endfor

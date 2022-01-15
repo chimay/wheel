@@ -1559,7 +1559,7 @@ Fields~
 
 This buffer displays the following columns :
 
-iden | modif | time | written
+iden | time | written
 
 ------------------------------------------------------------------------------
 BATCH						*wheel-dedicated-buffers-batch*
