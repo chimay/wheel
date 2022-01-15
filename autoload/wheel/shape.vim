@@ -252,6 +252,7 @@ fun! wheel#shape#narrow_file (...) range
 	endif
 	let lines = wheel#perspective#narrow_file (first, last)
 	call wheel#mandala#open ('narrow/file')
+	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
@@ -279,6 +280,7 @@ fun! wheel#shape#narrow_circle (...)
 	endif
 	let lines = wheel#perspective#narrow_circle (pattern, sieve)
 	call wheel#mandala#open ('narrow/circle')
+	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()

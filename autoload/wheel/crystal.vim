@@ -86,6 +86,7 @@ endif
 
 if ! exists('s:mandala_options')
 	let s:mandala_options = [
+				\ 'filetype',
 				\ 'buftype',
 				\ 'bufhidden',
 				\ 'buflisted',
@@ -193,6 +194,8 @@ if ! exists('s:layer_fields')
 	" options : local options
 	" mappings : mappings
 	" autocmds : local autocommands
+	" nature : empty mandala ? has_filter ?
+	" related_buffer : bufnum of related buffer
 	" lines : lines mandala content, without filtering
 	" filtered : filtered mandala content
 	" position : cursor position
@@ -205,6 +208,8 @@ if ! exists('s:layer_fields')
 				\ 'options',
 				\ 'mappings',
 				\ 'autocmds',
+				\ 'nature',
+				\ 'related_buffer',
 				\ 'lines',
 				\ 'filtered',
 				\ 'position',

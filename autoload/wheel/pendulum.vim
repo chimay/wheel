@@ -264,6 +264,26 @@ fun! wheel#pendulum#older ()
 	return wheel#vortex#jump ()
 endfun
 
+fun! wheel#pendulum#newer_in_circle ()
+	" Go to newer entry in g:wheel_track
+	call wheel#vortex#update ()
+	let track = g:wheel_track
+	let g:wheel_track = wheel#chain#rotate_right (track)
+	let coordin = g:wheel_track[0].coordin
+	call wheel#vortex#chord(coordin)
+	return wheel#vortex#jump ()
+endfun
+
+fun! wheel#pendulum#older_in_circle ()
+	" Go to older entry in g:wheel_track
+	call wheel#vortex#update ()
+	let track = g:wheel_track
+	let g:wheel_track = wheel#chain#rotate_left (track)
+	let coordin = g:wheel_track[0].coordin
+	call wheel#vortex#chord(coordin)
+	return wheel#vortex#jump ()
+endfun
+
 " alternate
 
 fun! wheel#pendulum#alternate (mode)

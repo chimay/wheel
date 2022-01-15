@@ -99,7 +99,7 @@ fun! wheel#status#tablabel (tabnum)
 	let filename = fnamemodify(filename, ':t')
 	let modified = ''
 	for bufnum in buflist
-		if getbufvar(bufnum, "&modified")
+		if getbufvar(bufnum, '&modified')
 			let modified = '[+]'
 			break
 		endif
