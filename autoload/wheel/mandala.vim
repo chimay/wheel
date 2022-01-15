@@ -46,7 +46,7 @@ endif
 " Init
 
 fun! wheel#mandala#init (mode = 'default')
-	" Init mandala buffer variables, except the layer ring
+	" Init mandala buffer variables
 	let mode = a:mode
 	if mode == 'refresh'
 		" deselect e.g. when reloading
@@ -57,6 +57,7 @@ fun! wheel#mandala#init (mode = 'default')
 	if ! exists('b:wheel_nature')
 		let b:wheel_nature = {}
 		let b:wheel_nature.empty = v:true
+		let b:wheel_nature.type = 'empty'
 		let b:wheel_nature.has_filter = v:false
 	endif
 	" related buffer
@@ -81,6 +82,8 @@ fun! wheel#mandala#init (mode = 'default')
 	if ! exists('b:wheel_reload')
 		let b:wheel_reload = ''
 	endif
+	" leaf ring
+	call wheel#book#init ()
 endfun
 
 " Clearing things
@@ -133,26 +136,21 @@ fun! wheel#mandala#pseudo (type)
 endfun
 
 fun! wheel#mandala#filename (type)
-	" Set buffer filename to pseudo filename
+	" Set type & buffer filename to pseudo filename
 	" Useful as information
 	" We also need a name when writing, even with BufWriteCmd
+	let type = a:type
+	let b:wheel_nature.type = type
 	" Add unique buf id, so (n)vim does not complain about existing filename
-	execute 'silent file' wheel#mandala#pseudo (a:type)
+	execute 'silent file' wheel#mandala#pseudo (type)
 	" should be false when called
 	" set to true in wheel#mandala#set_empty
 	let b:wheel_nature.empty = v:false
 endfun
 
-fun! wheel#mandala#type (...)
+fun! wheel#mandala#type ()
 	" Type of a mandala buffer
-	" Optional argument : filename
-	if a:0 > 0
-		let filename = a:1
-	else
-		let filename = expand('%')
-	endif
-	let type = substitute(filename, s:is_mandala_file, '', '')
-	return type
+	return b:wheel_nature.type
 endfun
 
 " Nature

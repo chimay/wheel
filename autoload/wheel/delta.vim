@@ -84,9 +84,9 @@ endfun
 
 " Maps
 
-fun! wheel#delta#maps (bufnum)
+fun! wheel#delta#maps ()
 	" Maps for undo list mandala
-	let bufnum = string(a:bufnum)
+	let bufnum = b:wheel_related_buffer
 	let map = 'nnoremap <silent> <buffer>'
 	let post = ')<cr>'
 	" earlier or later
@@ -115,23 +115,20 @@ endfun
 
 fun! wheel#delta#undolist ()
 	" Undo list mandala
-	call wheel#mandala#close ()
+	if wheel#cylinder#is_mandala ()
+		let bufnum = b:wheel_related_buffer
+		call wheel#rectangle#goto_or_load (bufnum)
+		call wheel#mandala#close ()
+	else
+		let bufnum = bufnr('%')
+	endif
 	let lines = wheel#perspective#undolist ()
-	let bufnum = bufnr('%')
 	call wheel#vortex#update ()
-	call wheel#mandala#open('undo')
+	call wheel#mandala#open('undo/' .. bufnum)
 	call wheel#mandala#template ()
-	call wheel#delta#maps (bufnum)
+	call wheel#delta#maps ()
 	call wheel#mandala#fill (lines)
 	let b:wheel_settings.undo_iden = wheel#delta#undo_iden(1)
 	" reload
-	let b:wheel_reload = "wheel#delta#reload('" .. bufnum .. "')"
-endfun
-
-" Reload mandala
-
-fun! wheel#delta#reload (bufnum)
-	" Reload undolist
-	call wheel#rectangle#goto_or_load (a:bufnum)
-	call wheel#delta#undolist ()
+	let b:wheel_reload = 'wheel#delta#undolist'
 endfun

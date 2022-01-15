@@ -1,11 +1,25 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Script constants
+
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
+endif
+
 " Helpers
 
 fun! wheel#status#type (...)
-	" Type of a mandala buffer in short form
-	let type = call('wheel#mandala#type', a:000)
-	return substitute(type, '\s.*', '', '')
+	" Type of a mandala buffer
+	" Optional argument : filename
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = expand('%')
+	endif
+	let type = substitute(filename, s:is_mandala_file, '', '')
+	let type = substitute(type, '\s.*', '', '')
+	return type
 endfun
 
 " Clear cmd line
@@ -69,7 +83,7 @@ fun! wheel#status#mandala_leaf ()
 		let current = -1
 	endif
 	let Fun = function('wheel#status#type')
-	let leaves = map(copy(filenames), {_,v->Fun(v)})
+	let leaves = map(copy(filenames), { _, val -> Fun(val) })
 	" current leaf type
 	let title = '[' .. wheel#status#type () .. ']'
 	call wheel#status#clear ()

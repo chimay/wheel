@@ -116,8 +116,8 @@ fun! wheel#complete#leaf (arglead, cmdline, cursorpos)
 	if empty(filenames)
 		return []
 	endif
-	let Fun = function('wheel#mandala#type')
-	let choices = map(copy(filenames), {_,v->Fun(v)})
+	let Fun = function('wheel#status#type')
+	let choices = map(copy(filenames), { _, val -> Fun(val) })
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun

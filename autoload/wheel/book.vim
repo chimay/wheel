@@ -102,6 +102,7 @@ fun! wheel#book#template ()
 	" buffer local variables
 	let leaf.nature = {}
 	let leaf.nature.empty = v:true
+	let leaf.nature.type = 'empty'
 	let leaf.nature.has_filter = v:false
 	let leaf.related_buffer = 'unknown'
 	let leaf.lines = []
@@ -193,12 +194,12 @@ endfun
 fun! wheel#book#syncup ()
 	" Sync mandala state to current leaf in ring
 	" state = vars, options, maps, autocmds
-	let ring = b:wheel_ring
 	" -- empty mandala ?
 	if wheel#mandala#is_empty()
 		return v:false
 	endif
 	" -- sync up
+	let ring = b:wheel_ring
 	" leaf to fill / update
 	let current = ring.current
 	let leaf = ring.leaves[current]
@@ -325,7 +326,8 @@ endfun
 
 fun! wheel#book#delete ()
 	" Delete current leaf in ring
-	if ! exists('b:wheel_ring')
+	if wheel#mandala#is_empty()
+		echomsg 'wheel leaf delete : empty mandala'
 		return v:false
 	endif
 	let ring = b:wheel_ring
@@ -354,6 +356,10 @@ endfun
 
 fun! wheel#book#forward ()
 	" Go forward in layer ring
+	if wheel#mandala#is_empty()
+		echomsg 'wheel leaf forward : empty mandala'
+		return v:false
+	endif
 	call wheel#book#syncup ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
@@ -368,6 +374,10 @@ endfun
 
 fun! wheel#book#backward ()
 	" Go backward in layer ring
+	if wheel#mandala#is_empty()
+		echomsg 'wheel leaf backward : empty mandala'
+		return v:false
+	endif
 	call wheel#book#syncup ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
@@ -384,6 +394,10 @@ endfun
 
 fun! wheel#book#switch (...)
 	" Switch to layer with completion
+	if wheel#mandala#is_empty()
+		echomsg 'wheel leaf switch : empty mandala'
+		return v:false
+	endif
 	call wheel#book#syncup ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
