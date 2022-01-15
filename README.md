@@ -44,7 +44,7 @@ Wheel is a :
 
 for Vim and Neovim.
 
-Our favorite editor has already plenty of nice navigation functions; Wheel
+Our favorite editor has already plenty of nice navigation functions. Wheel
 enhanced their interface by using :
 
 - intuitive completion with multi-pattern support for prompting functions
