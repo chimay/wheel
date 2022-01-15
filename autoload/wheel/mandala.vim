@@ -418,6 +418,9 @@ fun! wheel#mandala#related ()
 	"   - buffer number
 	"   - default : related buffer number
 	" if no optional argument and no related buffer : go to previous window
+	if ! wheel#cylinder#is_mandala ()
+		return v:false
+	endif
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'unknown'
 		wincmd p

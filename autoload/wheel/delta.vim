@@ -115,13 +115,8 @@ endfun
 
 fun! wheel#delta#undolist ()
 	" Undo list mandala
-	if wheel#cylinder#is_mandala ()
-		let bufnum = b:wheel_related_buffer
-		call wheel#rectangle#goto_or_load (bufnum)
-		call wheel#mandala#close ()
-	else
-		let bufnum = bufnr('%')
-	endif
+	call wheel#mandala#related ()
+	let bufnum = bufnr('%')
 	let lines = wheel#perspective#undolist ()
 	call wheel#vortex#update ()
 	call wheel#mandala#open('undo/' .. bufnum)

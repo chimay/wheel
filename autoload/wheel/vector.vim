@@ -173,7 +173,7 @@ fun! wheel#vector#write_quickfix ()
 		endif
 	endfor
 	" Propagate
-	call wheel#mandala#close ()
+	call wheel#mandala#related ()
 	silent cdo call wheel#vector#cdo(newlines)
 	call wheel#cylinder#recall ()
 	" Info

@@ -166,7 +166,7 @@ endfun
 
 fun! wheel#polyphony#narrow_file (...) range
 	" Lines matching pattern in current file
-	call wheel#mandala#close ()
+	call wheel#mandala#related ()
 	if a:0 > 1
 		let first = a:1
 		let last = a:2
@@ -179,8 +179,9 @@ fun! wheel#polyphony#narrow_file (...) range
 		let first = 1
 		let last = line('$')
 	endif
+	let bufnum = bufnr('%')
 	let lines = wheel#perspective#narrow_file (first, last)
-	call wheel#mandala#open ('narrow/file')
+	call wheel#mandala#open ('narrow/file/' .. bufnum)
 	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
@@ -198,7 +199,6 @@ endfun
 fun! wheel#polyphony#narrow_circle (...)
 	" Lines matching pattern in all circle files
 	" Like grep but with filter & edit
-	call wheel#mandala#close ()
 	if a:0 > 0
 		let pattern = a:1
 	else

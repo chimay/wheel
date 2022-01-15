@@ -1324,7 +1324,7 @@ COPY AND MOVE		    		*wheel-dedicated-buffers-copy-move*
 
 The copy/move buffers allow you to batch copy or move Wheel elements by
 selecting the buffer lines. To validate your selection, simply |:write|
-the buffer.
+the buffer. It will ask you if you want to copy or move the selection.
 
 Mappings~
 

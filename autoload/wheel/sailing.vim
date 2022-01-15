@@ -302,7 +302,7 @@ fun! wheel#sailing#occur (...)
 	else
 		let pattern = input('Lines matching pattern : ')
 	endif
-	call wheel#mandala#close ()
+	call wheel#mandala#related ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
 	call wheel#mandala#open ('occur')
@@ -383,7 +383,7 @@ endfun
 
 fun! wheel#sailing#markers ()
 	" Markers
-	call wheel#mandala#close ()
+	call wheel#mandala#related ()
 	call wheel#sailing#generic('markers')
 	" reload
 	let b:wheel_reload = 'wheel#sailing#markers'
@@ -391,7 +391,7 @@ endfun
 
 fun! wheel#sailing#jumps ()
 	" Jumps list
-	call wheel#mandala#close ()
+	call wheel#mandala#related ()
 	let lines = wheel#perspective#jumps ()
 	" mandala buffer
 	call wheel#mandala#open ('jumps')
@@ -404,7 +404,7 @@ endfun
 
 fun! wheel#sailing#changes ()
 	" Jumps list
-	call wheel#mandala#close ()
+	call wheel#mandala#related ()
 	let lines = wheel#perspective#changes ()
 	" mandala buffer
 	call wheel#mandala#open ('changes')
