@@ -233,7 +233,14 @@ fun! wheel#void#config ()
 	endif
 endfun
 
-" Initialize all variables
+fun! wheel#void#autogroup ()
+	" Define empty wheel-mandala auto command group
+	execute 'augroup' s:mandala_autocmds_group
+		autocmd!
+	augroup END
+endfun
+
+" Initialize all variables & augroup
 
 fun! wheel#void#foundation ()
 	" Initialize wheel
@@ -251,10 +258,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#mandalas ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
-	" -- define wheel-mandala auto command group
-	execute 'augroup' s:mandala_autocmds_group
-		autocmd!
-	augroup END
+	call wheel#void#autogroup ()
 endfun
 
 " Clean mandala buffers
