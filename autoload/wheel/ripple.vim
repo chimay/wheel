@@ -2,6 +2,11 @@
 
 " Job control, vim 8
 
+if ! has('unix')
+	echomsg 'wheel : ripple is only supported on Unix systems.'
+	finish
+endif
+
 if has('nvim')
 	echomsg 'wheel ripple is for vim : see wave for neovim'
 	finish

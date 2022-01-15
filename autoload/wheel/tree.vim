@@ -410,6 +410,10 @@ endfun
 
 fun! wheel#tree#rename_file (...)
 	" Rename current file in filesystem & in the wheel
+	if ! has('unix')
+		echomsg 'wheel : this function is only supported on Unix systems.'
+		return v:false
+	endif
 	if a:0 > 0
 		let new_filename = a:1
 	else

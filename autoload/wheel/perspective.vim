@@ -171,6 +171,10 @@ endfun
 
 fun! wheel#perspective#locate (pattern)
 	" Locate
+	if ! has('unix')
+		echomsg 'wheel : this function is only supported on Unix systems.'
+		return v:false
+	endif
 	let pattern = a:pattern
 	let database = g:wheel_config.locate_db
 	if empty(database)

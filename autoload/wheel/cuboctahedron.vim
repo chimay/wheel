@@ -243,6 +243,10 @@ endfun
 
 fun! wheel#cuboctahedron#rename_files ()
 	" Rename locations & files of current circle, after buffer content
+	if ! has('unix')
+		echomsg 'wheel : this function is only supported on Unix systems.'
+		return v:false
+	endif
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
 	let locations = circle.locations

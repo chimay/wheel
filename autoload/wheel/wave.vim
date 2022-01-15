@@ -2,6 +2,11 @@
 
 " Job control, neovim
 
+if ! has('unix')
+	echomsg 'wheel : wave is only supported on Unix systems.'
+	finish
+endif
+
 if ! has('nvim')
 	call wheel#status#clear ()
 	echomsg 'wheel wave is for neovim : see ripple for vim'
