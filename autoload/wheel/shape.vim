@@ -9,9 +9,9 @@ if ! exists('s:mandala_autocmds_group')
 	lockvar s:mandala_autocmds_group
 endif
 
-if ! exists('s:is_mandala')
-	let s:is_mandala = wheel#crystal#fetch('is_mandala')
-	lockvar s:is_mandala
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
 endif
 
 if ! exists('s:field_separ')
@@ -182,7 +182,7 @@ fun! wheel#shape#grep_edit (...)
 		let pattern = a:1
 	else
 		let file = expand('%')
-		if file =~ s:is_mandala .. 'context/grep'
+		if file =~ s:is_mandala_file .. 'context/grep'
 			" called from context menu
 			" original pattern is in the previous leaf of the ring
 			let settings = wheel#book#previous ('settings')
@@ -196,7 +196,7 @@ fun! wheel#shape#grep_edit (...)
 	if a:0 > 1
 		let sieve = a:2
 	else
-		if file =~ s:is_mandala .. 'context/grep'
+		if file =~ s:is_mandala_file .. 'context/grep'
 			let settings = wheel#book#previous ('settings')
 			" old layer stack implementation
 			"let settings = wheel#layer#top_field ('settings')

@@ -27,9 +27,9 @@ if ! exists('s:fold_2')
 	lockvar s:fold_2
 endif
 
-if ! exists('s:is_mandala')
-	let s:is_mandala = wheel#crystal#fetch('is_mandala')
-	lockvar s:is_mandala
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
 endif
 
 if ! exists('s:is_buffer_tabs')
@@ -253,14 +253,17 @@ fun! wheel#perspective#buffers (mode = 'listed')
 		else
 			let indicator ..= ' '
 		endif
-		" add to the returnlist
-		let is_without_name = empty(filename)
+		" check for nameless or mandalas buffers
+		let is_nameless = empty(filename)
 		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
-		if ! is_without_name && ! is_wheel_buffer
-			let entry = [bufnum, indicator, linum, filename]
-			let record = join(entry, s:field_separ)
-			call add(returnlist, record)
+		let has_wheel_filename = filename =~ s:is_mandala_file
+		if is_nameless || is_wheel_buffer || has_wheel_filename
+			continue
 		endif
+		" add to the returnlist
+		let entry = [bufnum, indicator, linum, filename]
+		let record = join(entry, s:field_separ)
+		call add(returnlist, record)
 	endfor
 	return returnlist
 endfun
@@ -423,17 +426,20 @@ fun! wheel#perspective#jumps ()
 		else
 			let filename = bufname(bufnum)
 		endif
-		let is_without_name = empty(filename)
+		" check for nameless or mandalas buffers
+		let is_nameless = empty(filename)
 		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
-		let is_wheel_buffer = is_wheel_buffer || filename =~ s:is_mandala
-		if is_without_name || is_wheel_buffer
+		let has_wheel_filename = filename =~ s:is_mandala_file
+		if is_nameless || is_wheel_buffer || has_wheel_filename
 			continue
 		endif
+		" loaded ?
 		if bufloaded(bufnum)
 			let content = getbufline(bufnum, linum)[0]
 		else
 			let content = ' '
 		endif
+		" add to the returnlist
 		let bufnum = printf('%3d', bufnum)
 		let linum = printf('%5d', linum)
 		let colnum = printf('%2d', colnum)

@@ -7,9 +7,9 @@
 
 " Script constants
 
-if ! exists('s:is_mandala')
-	let s:is_mandala = wheel#crystal#fetch('is_mandala')
-	lockvar s:is_mandala
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
 endif
 
 if ! exists('s:selected_pattern')
@@ -48,9 +48,9 @@ fun! wheel#line#address ()
 		return cursor_line
 	else
 		let file = expand('%')
-		if file =~ s:is_mandala .. 'tree'
+		if file =~ s:is_mandala_file .. 'tree'
 			return wheel#origami#chord ()
-		elseif file =~ s:is_mandala .. 'tabwins/tree'
+		elseif file =~ s:is_mandala_file .. 'tabwins/tree'
 			return wheel#origami#tabwin ()
 		else
 			return v:false

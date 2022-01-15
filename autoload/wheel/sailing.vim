@@ -242,7 +242,7 @@ fun! wheel#sailing#buffers (mode = 'listed')
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
 	let mode = a:mode
-	let lines = call('wheel#perspective#buffers', a:000)
+	let lines = wheel#perspective#buffers (mode)
 	call wheel#vortex#update ()
 	" mandala buffer
 	if mode == 'listed'

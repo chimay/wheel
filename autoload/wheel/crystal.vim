@@ -59,10 +59,10 @@ endif
 
 " Mandala patterns
 
-if ! exists('s:is_mandala')
+if ! exists('s:is_mandala_file')
 	" mandala filename pattern
-	let s:is_mandala = '\m^/wheel/[0-9]\+/'
-	lockvar s:is_mandala
+	let s:is_mandala_file = '\m^/wheel/[0-9]\+/'
+	lockvar s:is_mandala_file
 endif
 
 if ! exists('s:is_buffer_tabs')
@@ -73,7 +73,7 @@ endif
 
 if ! exists('s:is_mandala_tabs')
 	" for output line of :tabs
-	let s:is_mandala_tabs = '\m^>\?\s*+\?\s*' .. s:is_mandala
+	let s:is_mandala_tabs = '\m^>\?\s*+\?\s*' .. s:is_mandala_file
 	lockvar s:is_mandala_tabs
 endif
 

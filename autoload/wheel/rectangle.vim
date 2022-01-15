@@ -12,9 +12,9 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-if ! exists('s:is_mandala')
-	let s:is_mandala = wheel#crystal#fetch('is_mandala')
-	lockvar s:is_mandala
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
 endif
 
 " Tabs, Windows & buffers

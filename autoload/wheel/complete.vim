@@ -191,21 +191,7 @@ endfun
 
 fun! wheel#complete#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
-	let buflist = getbufinfo({'buflisted' : 1})
-	let choices = []
-	let mandalas = g:wheel_mandalas.ring
-	for buffer in buflist
-		let bufnum = printf('%3d', buffer.bufnr)
-		let linum = printf('%5d', buffer.lnum)
-		let filename = buffer.name
-		let is_without_name = empty(filename)
-		let is_wheel_buffer = wheel#chain#is_inside(bufnum, mandalas)
-		if ! is_without_name && ! is_wheel_buffer
-			let entry = [bufnum, linum, filename]
-			let record = join(entry, s:field_separ)
-			call add(choices, record)
-		endif
-	endfor
+	let choices = wheel#perspective#buffers ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
 endfun

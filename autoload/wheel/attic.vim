@@ -4,9 +4,9 @@
 
 " Script constants
 
-if ! exists('s:is_mandala')
-	let s:is_mandala = wheel#crystal#fetch('is_mandala')
-	lockvar s:is_mandala
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
 endif
 
 " Helpers
@@ -44,7 +44,7 @@ fun! wheel#attic#record (...)
 		" Only add non wheel files
 		return v:false
 	endif
-	if filename =~ s:is_mandala
+	if filename =~ s:is_mandala_file
 		" Do not add mandala buffer
 		return v:false
 	endif

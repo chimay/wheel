@@ -199,7 +199,7 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	let iden = g:wheel_mandalas.iden
 	" -- First one
 	if empty(mandalas)
-		return call('wheel#cylinder#first', a:000)
+		return wheel#cylinder#first (mode)
 	endif
 	" -- Not the first one
 	" is current buffer a mandala buffer ?

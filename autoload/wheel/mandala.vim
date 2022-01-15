@@ -32,9 +32,9 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-if ! exists('s:is_mandala')
-	let s:is_mandala = wheel#crystal#fetch('is_mandala')
-	lockvar s:is_mandala
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
 endif
 
 if ! exists('s:fold_markers')
@@ -151,7 +151,7 @@ fun! wheel#mandala#type (...)
 	else
 		let filename = expand('%')
 	endif
-	let type = substitute(filename, s:is_mandala, '', '')
+	let type = substitute(filename, s:is_mandala_file, '', '')
 	return type
 endfun
 
@@ -358,6 +358,7 @@ fun! wheel#mandala#reload ()
 	" -- delete all lines
 	silent 1,$ delete _
 	" -- reload content
+	call wheel#status#clear ()
 	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
 		let fun = b:wheel_reload
