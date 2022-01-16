@@ -180,8 +180,10 @@ fun! wheel#polyphony#narrow_file (...) range
 		let last = line('$')
 	endif
 	let bufnum = bufnr('%')
+	let filename = bufname(bufnum)
+	let filename = fnamemodify(filename, ':t')
 	let lines = wheel#perspective#narrow_file (first, last)
-	call wheel#mandala#open ('narrow/file/' .. bufnum)
+	call wheel#mandala#open ('narrow/file/' .. filename)
 	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
@@ -210,7 +212,8 @@ fun! wheel#polyphony#narrow_circle (...)
 		let sieve = '\m.'
 	endif
 	let lines = wheel#perspective#narrow_circle (pattern, sieve)
-	call wheel#mandala#open ('narrow/circle')
+	let word = substitute(pattern, '\W.*', '', '')
+	call wheel#mandala#open ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
