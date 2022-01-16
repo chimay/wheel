@@ -171,7 +171,7 @@ endfun
 
 fun! wheel#book#save_maps ()
 	" Save maps
-	return wheel#gear#save_maps (s:map_keys, 'local')
+	return wheel#gear#save_maps (s:map_keys)
 endfun
 
 fun! wheel#book#save_autocmds ()

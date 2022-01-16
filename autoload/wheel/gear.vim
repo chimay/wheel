@@ -14,11 +14,6 @@ if ! exists('s:letters_modes')
 	lockvar s:letters_modes
 endif
 
-if ! exists('s:mandala_autocmds_group')
-	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
-	lockvar s:mandala_autocmds_group
-endif
-
 " Rotating
 
 fun! wheel#gear#circular_plus (index, length)
@@ -218,39 +213,10 @@ endfun
 
 " Autocommands
 
-fun! wheel#gear#autocmds (group, event)
-	" Return a list of buffer local autocmds of group at event
-	let runme = 'autocmd ' .. a:group .. ' ' .. a:event .. ' <buffer>'
-	let output = execute(runme)
-	let lines = split(output, '\n')
-	call filter(lines, {_,v -> v !~ '\m^--- .* ---$'})
-	call filter(lines, {_,v -> v !~ '\m^' .. s:mandala_autocmds_group})
-	if empty(lines)
-		return []
-	endif
-	let autocmds = []
-	let here = v:false
-	for elem in lines
-		if elem =~ '<buffer=[^>]\+>'
-			if elem =~ '\m<buffer=' .. bufnr('%') .. '>'
-				let here = v:true
-			else
-				let here = v:false
-			endif
-		else
-			if here
-				let elem = substitute(elem, '\m^\s*', '', '')
-				call add(autocmds, elem)
-			endif
-		endif
-	endfor
-	return autocmds
-endfun
-
 " Clear
 
 fun! wheel#gear#unmap (key, mode = 'normal')
-	" Unmap buffer mapping key in mode
+	" Unmap buffer local mapping key in mode
 	" If key is a list, unmap every key in it
 	" If key is a dict, it has the form
 	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
@@ -262,7 +228,7 @@ fun! wheel#gear#unmap (key, mode = 'normal')
 		let dict = maparg(key, mode, v:false, v:true)
 		let letter = wheel#gear#short_mode (mode)
 		if ! empty(dict) && dict.buffer
-			execute 'silent!' letter .. 'unmap <silent> <buffer>' key
+			execute 'silent!' letter .. 'unmap <buffer>' key
 		endif
 	elseif kind == v:t_list
 		for elem in key
@@ -282,7 +248,7 @@ fun! wheel#gear#unmap (key, mode = 'normal')
 endfun
 
 fun! wheel#gear#clear_autocmds (group, event)
-	" Clear local autocommands in group at event
+	" Clear buffer local autocommands in group at event
 	" If event is a list, clear every event autocmds in it
 	let group = a:group
 	let event = a:event
@@ -327,45 +293,64 @@ fun! wheel#gear#save_options (optlist)
 	return ampersands
 endfun
 
-fun! wheel#gear#save_maps (keysdict, scope = 'all')
-	" Save maps of keys in keysdict
+fun! wheel#gear#save_maps (keysdict)
+	" Save buffer local maps of keys in keysdict
 	" keysdict has the form
 	" {'normal' : [normal keys list], 'insert' : [insert keys list], ...}
 	" Returns nested dict of the form
-	" {'normal' : {'key' : maparg, ...}, 'insert' : {'key' : maparg, ...}, ...}
-	" Optional argument mode :
-	"   - all : default, save global or buffer local maps
-	"   - local : save only local buffer maps
-	let scope = a:scope
+	" {'normal' : {'key' : rhs, ...}, 'insert' : {'key' : rhs, ...}, ...}
 	let keysdict = a:keysdict
 	let mapdict = {}
 	for mode in keys(keysdict)
 		let modename = wheel#gear#long_mode (mode)
 		let letter = wheel#gear#short_mode (mode)
-		let mapdict[modename] = {}
+		let modemaps = {}
 		for key in keysdict[mode]
 			let maparg = maparg(key, letter, v:false, v:true)
 			if empty(maparg)
-				let mapdict[modename][key] = ''
+				let modemaps[key] = ''
 				continue
 			endif
-			if scope == 'all' || maparg.buffer == 1
-				let mapdict[modename][key] = maparg.rhs
+			if maparg.buffer == 1
+				let modemaps[key] = maparg.rhs
 			else
-				let mapdict[modename][key] = ''
+				let modemaps[key] = ''
 			endif
 		endfor
+		let mapdict[modename] = modemaps
 	endfor
 	return mapdict
 endfun
 
 fun! wheel#gear#save_autocmds (group, events)
-	" Save autocommands
-	let autodict = {}
-	for event in a:events
-		let autodict[event] = wheel#gear#autocmds (a:group, event)
-	endfor
-	return autodict
+	" Save buffer local autocommands
+	let kind = type(a:events)
+	if kind == v:t_string
+		let group = a:group
+		let event = a:events
+		let buffer = '<buffer=' .. bufnr('%') ..  '>'
+		let runme = 'autocmd ' .. group .. ' ' .. event .. ' ' .. buffer
+		let output = execute(runme)
+		let lines = split(output, '\n')
+		call filter(lines, { _, val -> val !~ '\m^--- .* ---$'})
+		call filter(lines, { _, val -> val !~ '\m^' .. group })
+		call filter(lines, { _, val -> val !~ '\m' .. '<buffer[^>]*>' })
+		if empty(lines)
+			return []
+		endif
+		let autocmds = []
+		for elem in lines
+			let elem = substitute(elem, '\m^\s*', '', '')
+			call add(autocmds, elem)
+		endfor
+		return autocmds
+	elseif kind == v:t_list
+		let autodict = {}
+		for event in a:events
+			let autodict[event] = wheel#gear#save_autocmds (a:group, event)
+		endfor
+		return autodict
+	endif
 endfun
 
 " Restore
@@ -379,7 +364,7 @@ fun! wheel#gear#restore_options (optdict)
 endfun
 
 fun! wheel#gear#restore_maps (mapdict)
-	" Restore maps
+	" Restore buffer local maps
 	" mapdict has the form
 	" {'normal' : {'key' : maparg, ...}, 'insert' : {'key' : maparg, ...}, ...}
 	" like the one returned by wheel#gear#save_maps
@@ -399,7 +384,7 @@ fun! wheel#gear#restore_maps (mapdict)
 endfun
 
 fun! wheel#gear#restore_autocmds (group, autodict)
-	" Restore autocommands
+	" Restore buffer local autocommands
 	for event in keys(a:autodict)
 		" empty group event
 		execute 'autocmd!' a:group event '<buffer>'
