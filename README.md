@@ -2,6 +2,8 @@
 
 <!-- vim-markdown-toc GFM -->
 
++ [Introduction](#introduction)
+	* [What is it ?](#what-is-it-)
 	* [What does it look like ?](#what-does-it-look-like-)
 		- [Main menu](#main-menu)
 		- [More screenshots](#more-screenshots)
@@ -31,6 +33,14 @@
 + [Licence](#licence)
 
 <!-- vim-markdown-toc -->
+# Introduction
+## What is it ?
+
+Wheel is a :
+
+- file group manager
+- navigation plugin
+- refactoring tool
 
 for Vim and Neovim.
 
