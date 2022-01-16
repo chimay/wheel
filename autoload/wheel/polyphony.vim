@@ -42,6 +42,7 @@ endfun
 fun! wheel#polyphony#substitute (mode = 'file')
 	" Substitute in narrow mandala
 	let mode = a:mode
+	call wheel#pencil#clear_visible ()
 	" -- user input
 	let prompt = 'Substitute pattern ? '
 	let before = input(prompt)
