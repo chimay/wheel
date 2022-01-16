@@ -59,8 +59,8 @@ fun! wheel#book#indexes_to_keep ()
 	let delta = current - share
 	" indexes
 	let indexes = range(maxim)
-	call map(indexes, { _, v -> v + delta })
-	call map(indexes, { _, v -> v % length })
+	eval indexes->map({ _, val -> val + delta })
+	eval indexes->map({ _, val -> val % length })
 	for ind in range(maxim)
 		if indexes[ind] < 0
 			let indexes[ind] += length

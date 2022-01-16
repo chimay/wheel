@@ -303,7 +303,7 @@ fun! wheel#chain#tie (list)
 	let gaps = []
 	for elem in numbers
 		if ! wheel#chain#is_inside(elem, list)
-			eval list->map({_,v -> wheel#gear#decrease_greater(v, elem)})
+			eval list->map({ _, val -> wheel#gear#decrease_greater(val, elem) })
 			eval gaps->add(elem)
 		endif
 	endfor

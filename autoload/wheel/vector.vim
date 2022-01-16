@@ -24,7 +24,7 @@ fun! wheel#vector#files (sieve)
 	let locations = deepcopy(wheel#referen#circle().locations)
 	let files = map(locations, {_, val -> fnameescape(val.file)})
 	let directory = '\m^' .. getcwd() .. '/'
-	call map(files, {_, path -> substitute(path, directory, '', '')})
+	eval files->map({ _, path -> substitute(path, directory, '', '') })
 	" Filter with sieve
 	call filter(files, {_, val -> val =~ sieve})
 	" Done

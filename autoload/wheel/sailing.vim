@@ -83,16 +83,7 @@ fun! wheel#sailing#switch (level)
 		echomsg 'wheel mandala switch : empty' upper
 		return
 	endif
-	call wheel#vortex#update ()
-	let maxlevel = wheel#referen#coordin_index(level)
-	let dashboard = wheel#referen#names()
-	if maxlevel > 0
-		let maxlevel -= 1
-		let dashboard = '/' .. join(dashboard[0:maxlevel], '/') .. '/*'
-	else
-		let dashboard = ''
-	endif
-	call wheel#mandala#open ('switch/' .. level .. dashboard)
+	call wheel#mandala#open ('switch/' .. level)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)
@@ -243,7 +234,6 @@ fun! wheel#sailing#buffers (mode = 'listed')
 	"   - all : also return unlisted buffers
 	let mode = a:mode
 	let lines = wheel#perspective#buffers (mode)
-	call wheel#vortex#update ()
 	" mandala buffer
 	if mode == 'listed'
 		let name = 'buffers'
@@ -267,8 +257,6 @@ fun! wheel#sailing#tabwins ()
 	" Buffers visible in tabs & wins
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins ()
-	call wheel#vortex#update ()
-	" mandala buffer
 	call wheel#mandala#open ('tabwins')
 	let settings = {'action' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
@@ -283,7 +271,6 @@ fun! wheel#sailing#tabwins_tree ()
 	" Buffers visible in tree of tabs & wins
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins_tree ()
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('tabwins/tree')
 	let settings = {'action' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
@@ -337,13 +324,14 @@ fun! wheel#sailing#grep (...)
 			return v:false
 		endif
 	endif
-	call wheel#vortex#update ()
-	call wheel#mandala#open ('grep')
+	call wheel#mandala#related ()
+	let word = substitute(pattern, '\W.*', '', '')
+	call wheel#mandala#open ('grep/' .. word)
 	let settings = {'action' : function('wheel#line#grep')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = "wheel#sailing#grep('" .. pattern .. "')"
+	let b:wheel_reload = "wheel#sailing#grep('" .. pattern .. "', '" .. sieve .. "')"
 	" Context menu
 	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('grep')<cr>
 	" Useful if we choose edit mode on the context menu

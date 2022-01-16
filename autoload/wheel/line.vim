@@ -404,11 +404,22 @@ fun! wheel#line#narrow_circle (settings)
 		echomsg 'Narrow circle : line is too short'
 		return v:false
 	endif
+	" -- bufnum & linum
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
 	call wheel#line#target (a:settings.target)
-	execute 'buffer' bufnum
-	call cursor(linum, 1)
+	"execute 'buffer' bufnum
+	"call cursor(linum, 1)
+	" -- error number
+	let quickfix = getqflist()
+	for index in range(len(quickfix))
+		let elem = quickfix[index]
+		if bufnum == elem.bufnr && linum == elem.lnum
+			break
+		endif
+	endfor
+	let errnum = index + 1
+	execute 'cc' errnum
 	return win_getid ()
 endfun
 

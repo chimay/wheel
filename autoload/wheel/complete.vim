@@ -208,7 +208,7 @@ endfun
 fun! wheel#complete#line (arglead, cmdline, cursorpos)
 	" Complete buffer line
 	let linelist = getline(1,'$')
-	call map(linelist, { ind, val -> string(ind + 1) .. s:field_separ .. val })
+	eval linelist->map({ ind, val -> string(ind + 1) .. s:field_separ .. val })
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, linelist)
 endfun

@@ -90,7 +90,7 @@ fun! wheel#wave#start (command, ...)
 	endif
 	call wheel#wave#template (options.mandala_type)
 	" Expand tilde in filenames
-	call map(command, {_, val -> expand(val)})
+	eval command->map({ _, val -> expand(val) })
 	" Job
 	let job = {}
 	let job.name = fnamemodify(command[0], ':t:r')

@@ -71,7 +71,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 	let [tabindexes, removed] = wheel#chain#tie(tabindexes)
 	" tabindexes : start from 0
 	let minim = min(tabindexes)
-	call map(tabindexes, {_,v -> v - minim})
+	eval tabindexes->map({ _, val -> val - minim })
 	" Remove inner tabs
 	for index in removed
 		execute 'tabclose' index

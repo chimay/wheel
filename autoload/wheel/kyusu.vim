@@ -23,7 +23,7 @@ fun! wheel#kyusu#word (wordlist, index, value)
 	" Pipe | in word means logical or
 	" index is not used, it’s just for compatibility with filter()
 	let wordlist = copy(a:wordlist)
-	call map(wordlist, {_, val -> substitute(val, '|', '\\|', 'g')})
+	eval wordlist->map({ _, val -> substitute(val, '|', '\\|', 'g') })
 	let match = 1
 	for word in wordlist
 		if word !~ '\m^!'

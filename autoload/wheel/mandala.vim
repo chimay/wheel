@@ -621,7 +621,6 @@ fun! wheel#mandala#command (...)
 	else
 		let lines = wheel#perspective#execute (command)
 	endif
-	call wheel#vortex#update ()
 	call wheel#mandala#open ('command')
 	call wheel#mandala#template ()
 	call wheel#mandala#fill (lines)
@@ -636,7 +635,6 @@ fun! wheel#mandala#async ()
 		let complete = 'customlist,wheel#complete#file'
 		let command = input(prompt, '', complete)
 	endif
-	call wheel#vortex#update ()
 	let current = getreg('%')
 	let alter = getreg('#')
 	let command = substitute(command, ' %', ' ' .. current, 'g')

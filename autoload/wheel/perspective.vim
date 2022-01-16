@@ -278,8 +278,8 @@ fun! wheel#perspective#narrow_file (first, last)
 	let numlist = range(first, last)
 	let linelist = getline(first, last)
 	let returnlist = wheel#matrix#dual([numlist, linelist])
-	call map(returnlist, { _, elem -> [ printf('%5d', elem[0]), elem[1] ] })
-	call map(returnlist, { _, elem -> join(elem, s:field_separ) })
+	eval returnlist->map({ _, elem -> [ printf('%5d', elem[0]), elem[1] ] })
+	eval returnlist->map({ _, elem -> join(elem, s:field_separ) })
 	return returnlist
 endfun
 

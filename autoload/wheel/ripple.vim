@@ -61,7 +61,7 @@ fun! wheel#ripple#start (command, ...)
 	endif
 	call wheel#ripple#template ()
 	" Expand tilde in filenames
-	call map(command, {_, val -> expand(val)})
+	eval command->map({ _, val -> expand(val) })
 	" Job
 	let jobopts = {}
 	let jobopts.out_io = 'buffer'

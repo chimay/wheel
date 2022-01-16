@@ -68,7 +68,7 @@ fun! wheel#status#mandala_leaf ()
 	let Type = function('wheel#status#type')
 	" -- mandala ring status
 	let mandalas = map(copy(bufnums), { _, val -> bufname(val) })
-	call map(mandalas, { _, val -> Type(val) })
+	eval mandalas->map({  _, val -> Type(val) })
 	let current = g:wheel_mandalas.current
 	let mandalas[current] = title
 	" -- leaf ring status
