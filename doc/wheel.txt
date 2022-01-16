@@ -1441,14 +1441,26 @@ This function narrow the current file lines. In the dedicated buffer, you can :
 - navigate to the selected line(s)
 - modify filtered lines
 
+You can narrow down the lines as much as you want before editing them.
+
 To let you edit the buffer as usual :
 
 - `i` and `a` are not mapped in normal mode : press `<M-i>` or `<Ins>` instead
 - `<esc>` are `<space>` are not mapped in insert mode
   + press `<enter>` instead of `<esc>`
 
-You can modify the existing lines as much as you want, but adding or
-removing lines is currently not supported.
+You can modify the existing lines as much as you want. There is also a
+limited support to add line with buffer local maps :
+
+- `o` : add line below current one
+- `O` : add line above current one
+  + adding a line above the first one is not supported
+- `<M-y>` : duplicate line below current one
+- `<M-z>` : duplicate line above current one
+  + duplicate a line above the first one is not supported
+
+If you need to use the first-line filter, it's important to do it before
+adding new lines, or the numbering could be incorrect.
 
 Just |:write| the buffer to propagate your changes to the original file.
 

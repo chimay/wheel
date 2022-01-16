@@ -87,25 +87,78 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	return v:true
 endfun
 
+fun! wheel#polyphony#append (mode = 'below')
+	" Append a line in narrow file mandala
+	let mode = a:mode
+	let mandala_linum = line('.')
+	if mode == 'above'
+		let mandala_linum -= 1
+	endif
+	let mandala_linum = max([mandala_linum, 2])
+	let columns = 'added' .. s:field_separ
+	call append(mandala_linum, columns)
+	let mandala_linum += 1
+	call cursor(mandala_linum, 1)
+	startinsert!
+endfun
+
+fun! wheel#polyphony#duplicate (mode = 'below')
+	" Duplicate a line in narrow file mandala
+	let mode = a:mode
+	let mandala_linum = line('.')
+	let fields = split(getline('.'), s:field_separ)
+	let length = len(fields)
+	if length > 1
+		let content = fields[1]
+	else
+		let content = ''
+	endif
+	if mode == 'above'
+		let mandala_linum -= 1
+	endif
+	let mandala_linum = max([mandala_linum, 2])
+	let columns = 'added' .. s:field_separ .. content
+	call append(mandala_linum, columns)
+	let mandala_linum += 1
+	call cursor(mandala_linum, 1)
+endfun
+
 " Propagate mandala changes -> original buffer(s)
 
 fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow_file
-	let linelist = getline(2, '$')
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'unknown'
 		return v:false
 	endif
+	let linelist = getline(2, '$')
+	let mandala_num = 2
+	let shift = 0
 	for line in linelist
 		let fields = split(line, s:field_separ)
 		let length = len(fields)
-		let linum = str2nr(fields[0])
+		let object = fields[0]
 		if length > 1
 			let content = fields[1]
 		else
 			let content = ''
 		endif
-		call setbufline(bufnum, linum, content)
+		if object == 'added'
+			" added line
+			let shift += 1
+			let newnum = linum + shift
+			let newline = newnum .. s:field_separ .. content
+			call setline(mandala_num, newline)
+			call appendbufline(bufnum, newnum - 1, content)
+		else
+			" unchanged or modified line
+			let linum = str2nr(object)
+			let newnum = linum + shift
+			let newline = newnum .. s:field_separ .. content
+			call setline(mandala_num, newline)
+			call setbufline(bufnum, newnum, content)
+		endif
+		let mandala_num += 1
 	endfor
 	setlocal nomodified
 	return v:true
@@ -162,6 +215,12 @@ fun! wheel#polyphony#action_maps (mode = 'file')
 	" Define local action maps
 	let mode = a:mode
 	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mode .. "')<cr>"
+	if mode == 'file'
+		exe "nnoremap <buffer> o <cmd>call wheel#polyphony#append('below')<cr>"
+		exe "nnoremap <buffer> O <cmd>call wheel#polyphony#append('above')<cr>"
+		exe "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"
+		exe "nnoremap <buffer> <m-z> <cmd>call wheel#polyphony#duplicate('above')<cr>"
+	endif
 endfun
 
 fun! wheel#polyphony#narrow_file (...) range
@@ -195,7 +254,6 @@ fun! wheel#polyphony#narrow_file (...) range
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = "wheel#polyphony#narrow_file('" .. first .. "', '" .. last .. "')"
-	echomsg 'adding or removing lines is not supported.'
 endfun
 
 fun! wheel#polyphony#narrow_circle (...)
