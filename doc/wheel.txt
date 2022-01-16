@@ -1454,10 +1454,8 @@ limited support to add line with buffer local maps :
 
 - `o` : add line below current one
 - `O` : add line above current one
-  + adding a line above the first one is not supported
 - `<M-y>` : duplicate line below current one
 - `<M-z>` : duplicate line above current one
-  + duplicate a line above the first one is not supported
 
 If you need to use the first-line filter, it's important to do it before
 adding new lines, or the numbering could be incorrect.

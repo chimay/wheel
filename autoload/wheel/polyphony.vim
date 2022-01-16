@@ -90,12 +90,26 @@ endfun
 fun! wheel#polyphony#append (mode = 'below')
 	" Append a line in narrow file mandala
 	let mode = a:mode
+	if ! mode->wheel#chain#is_inside(['below', 'above'])
+		echomsg 'wheel polyphony append : bad mode' mode
+	endif
+	call wheel#pencil#clear_visible ()
 	let mandala_linum = line('.')
+	let fields = split(getline('.'), s:field_separ)
+	let object = fields[0]
+	if object =~ '^[+-]'
+		let object = object[1:]
+	endif
+	let linum = str2nr(object)
 	if mode == 'above'
 		let mandala_linum -= 1
 	endif
-	let mandala_linum = max([mandala_linum, 2])
-	let columns = 'added' .. s:field_separ
+	if mode == 'below'
+		let linum = printf('+%4d', linum)
+	else
+		let linum = printf('-%4d', linum)
+	endif
+	let columns = linum  .. s:field_separ
 	call append(mandala_linum, columns)
 	let mandala_linum += 1
 	call cursor(mandala_linum, 1)
@@ -105,8 +119,17 @@ endfun
 fun! wheel#polyphony#duplicate (mode = 'below')
 	" Duplicate a line in narrow file mandala
 	let mode = a:mode
+	if ! mode->wheel#chain#is_inside(['below', 'above'])
+		echomsg 'wheel polyphony duplicate : bad mode' mode
+	endif
+	call wheel#pencil#clear_visible ()
 	let mandala_linum = line('.')
 	let fields = split(getline('.'), s:field_separ)
+	let object = fields[0]
+	if object =~ '^[+-]'
+		let object = object[1:]
+	endif
+	let linum = str2nr(object)
 	let length = len(fields)
 	if length > 1
 		let content = fields[1]
@@ -116,8 +139,12 @@ fun! wheel#polyphony#duplicate (mode = 'below')
 	if mode == 'above'
 		let mandala_linum -= 1
 	endif
-	let mandala_linum = max([mandala_linum, 2])
-	let columns = 'added' .. s:field_separ .. content
+	if mode == 'below'
+		let linum = printf('+%4d', linum)
+	else
+		let linum = printf('-%4d', linum)
+	endif
+	let columns = linum .. s:field_separ .. content
 	call append(mandala_linum, columns)
 	let mandala_linum += 1
 	call cursor(mandala_linum, 1)
@@ -127,12 +154,13 @@ endfun
 
 fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow_file
+	call wheel#pencil#clear_visible ()
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'unknown'
 		return v:false
 	endif
 	let linelist = getline(2, '$')
-	let mandala_num = 2
+	let mandala_linum = 2
 	let shift = 0
 	for line in linelist
 		let fields = split(line, s:field_separ)
@@ -143,22 +171,34 @@ fun! wheel#polyphony#harmony ()
 		else
 			let content = ''
 		endif
-		if object == 'added'
-			" added line
+		if object =~ '^+'
+			" line added below
+			let linum = str2nr(object[1:])
 			let shift += 1
 			let newnum = linum + shift
-			let newline = newnum .. s:field_separ .. content
-			call setline(mandala_num, newline)
 			call appendbufline(bufnum, newnum - 1, content)
+			let newnum = printf('%5d', newnum)
+			let newline =  newnum .. s:field_separ .. content
+			call setline(mandala_linum, newline)
+		elseif object =~ '^-'
+			" line added above
+			let linum = str2nr(object[1:])
+			let shift += 1
+			let newnum = linum + shift - 1
+			call appendbufline(bufnum, newnum - 1, content)
+			let newnum = printf('%5d', newnum)
+			let newline =  newnum .. s:field_separ .. content
+			call setline(mandala_linum, newline)
 		else
 			" unchanged or modified line
 			let linum = str2nr(object)
 			let newnum = linum + shift
-			let newline = newnum .. s:field_separ .. content
-			call setline(mandala_num, newline)
 			call setbufline(bufnum, newnum, content)
+			let newnum = printf('%5d', newnum)
+			let newline = newnum .. s:field_separ .. content
+			call setline(mandala_linum, newline)
 		endif
-		let mandala_num += 1
+		let mandala_linum += 1
 	endfor
 	setlocal nomodified
 	return v:true
@@ -166,6 +206,7 @@ endfun
 
 fun! wheel#polyphony#counterpoint ()
 	" Write function for shape#narrow_circle
+	call wheel#pencil#clear_visible ()
 	let linelist = getline(2, '$')
 	for line in linelist
 		let fields = split(line, s:field_separ)
