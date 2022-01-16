@@ -144,7 +144,7 @@ fun! wheel#book#ring (...)
 	let field_ring = []
 	for elem in ring.leaves
 		let shadow = deepcopy(elem[fieldname])
-		call add(field_ring, shadow)
+		eval field_ring->add(shadow)
 	endfor
 	return field_ring
 endfun

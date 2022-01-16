@@ -161,7 +161,7 @@ fun! wheel#chain#indexes(list, indexes)
 	" Returns list[indexes elements]
 	let sublist = []
 	for ind in a:indexes
-		call add(sublist, deepcopy(a:list[ind]))
+		eval sublist->add(deepcopy(a:list[ind]))
 	endfor
 	return sublist
 endfun
@@ -175,7 +175,7 @@ fun! wheel#chain#argmin (list)
 	let indexes = []
 	for ind in range(len(list))
 		if list[ind] == minimum
-			call add(indexes, ind)
+			eval indexes->add(ind)
 		endif
 	endfor
 	return indexes
@@ -188,7 +188,7 @@ fun! wheel#chain#argmax (list)
 	let indexes = []
 	for ind in range(len(list))
 		if list[ind] == maximum
-			call add(indexes, ind)
+			eval indexes->add(ind)
 		endif
 	endfor
 	return indexes
@@ -303,8 +303,8 @@ fun! wheel#chain#tie (list)
 	let gaps = []
 	for elem in numbers
 		if ! wheel#chain#is_inside(elem, list)
-			call map(list, {_,v -> wheel#gear#decrease_greater(v, elem)})
-			call add(gaps, elem)
+			eval list->map({_,v -> wheel#gear#decrease_greater(v, elem)})
+			eval gaps->add(elem)
 		endif
 	endfor
 	return [list, gaps]

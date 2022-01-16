@@ -145,9 +145,10 @@ fun! wheel#rectangle#hidden_buffers (mode = 'listed')
 		let bufnum = buffer.bufnr
 		let filename = buffer.name
 		let hide = buffer.hidden || ! buffer.listed
-		let hide = hide && filename !=# alternate
-		let hide = hide && ! wheel#chain#is_inside(bufnum, mandalas)
-		if hide
+		let not_alternate = filename !=# alternate
+		let not_mandala = ! wheel#chain#is_inside(bufnum, mandalas)
+		let not_wheel_filename = filename !~ s:is_mandala_file
+		if hide && not_alternate && not_mandala && not_wheel_filename
 			call add(hidden_nums, bufnum)
 			call add(hidden_names, filename)
 		endif
