@@ -118,6 +118,10 @@ fun! wheel#vector#grep (pattern, ...)
 		return v:false
 	endif
 	let grep ..= '!'
+	" do not jump to first pattern
+	if grep == 'vimgrep'
+		let pattern ..= 'j'
+	endif
 	execute 'silent!' grep pattern files
 	return v:true
 endfun

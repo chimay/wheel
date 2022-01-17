@@ -56,7 +56,7 @@ fun! wheel#chain#remove_index (index, list)
 	" Remove element at index from list
 	let index = a:index
 	let list = a:list
-	call remove(list, index)
+	eval list->remove(index)
 	return list
 endfun
 
@@ -66,10 +66,21 @@ fun! wheel#chain#remove_element (element, list)
 	let list = a:list
 	let index = index(list, element)
 	if index >= 0
-		return wheel#chain#remove_index(index, list)
-	else
-		return v:false
+		eval list->remove(index)
 	endif
+	return list
+endfun
+
+fun! wheel#chain#remove_all_elements (element, list)
+	" Remove all elements == element from list
+	let element = a:element
+	let list = a:list
+	let index = index(list, element)
+	while index >= 0
+		eval list->remove(index)
+		let index = index(list, element)
+	endwhile
+	return list
 endfun
 
 " Move
@@ -123,7 +134,7 @@ fun! wheel#chain#rotate_right (list)
 endfun
 
 fun! wheel#chain#roll_left (index, list)
-	" Roll index in list -> left = beginning
+	" Roll index in list until left = beginning
 	let index = a:index
 	let list = a:list
 	if index > 0 && index < len(list)
@@ -134,7 +145,7 @@ fun! wheel#chain#roll_left (index, list)
 endfun
 
 fun! wheel#chain#roll_right (index, list)
-	" Roll index of list -> right = end
+	" Roll index of list until right = end
 	let index = a:index
 	let list = a:list
 	if index >= 0 && index < len(list) - 1
@@ -146,7 +157,7 @@ endfun
 
 " Swap
 
-fun! wheel#chain#swap (list)
+fun! wheel#chain#swap_first_two (list)
 	" Swap first and second element of list
 	if len(a:list) > 1
 		return [a:list[1]] + [a:list[0]] + a:list[2:]
@@ -157,7 +168,7 @@ endfun
 
 " Indexes
 
-fun! wheel#chain#indexes(list, indexes)
+fun! wheel#chain#brackets (list, indexes)
 	" Returns list[indexes elements]
 	let sublist = []
 	for ind in a:indexes

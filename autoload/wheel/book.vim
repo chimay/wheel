@@ -86,7 +86,7 @@ fun! wheel#book#limit ()
 		return v:false
 	endif
 	let [indexes, new_current] = wheel#book#indexes_to_keep ()
-	let new_leaves = wheel#chain#indexes(leaves, indexes)
+	let new_leaves = leaves->wheel#chain#brackets(indexes)
 	let ring.current = new_current
 	let ring.leaves = new_leaves
 	return v:true
