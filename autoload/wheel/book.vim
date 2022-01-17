@@ -276,7 +276,7 @@ fun! wheel#book#syncdown ()
 	" filtered mandala content
 	" leaf.filtered should contain also the original first line, so we have
 	" to delete the first line added by :put in the replace routine
-	call wheel#mandala#replace (leaf.filtered, 'delete')
+	call wheel#mandala#replace (leaf.filtered, 'delete-first')
 	" cursor position
 	call wheel#gear#restore_cursor (leaf.position)
 	" address linked to cursor line & context

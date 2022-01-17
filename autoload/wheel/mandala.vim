@@ -291,7 +291,7 @@ fun! wheel#mandala#fill (content, ...)
 	call wheel#status#mandala_leaf ()
 endfun
 
-fun! wheel#mandala#replace (content, ...)
+fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Replace mandala buffer with content
 	" Similar as wheel#mandala#fill, but do not update mandala variables
 	" Content can be :
@@ -308,13 +308,9 @@ fun! wheel#mandala#replace (content, ...)
 	" if fold is enabled during replacement, we lose the first line
 	let ampersand = &foldenable
 	set nofoldenable
-	" arg
+	" arguments
 	let content = a:content
-	if a:0 > 0
-		let first = a:1
-	else
-		let first = 'keep'
-	endif
+	let first = a:first
 	" cursor
 	let position = getcurpos()
 	" delete old content
@@ -327,12 +323,12 @@ fun! wheel#mandala#replace (content, ...)
 	silent put =content
 	" first line
 	call cursor(1,1)
-	if first == 'blank'
-		" first lines should already be blank :
+	if first == 'blank-first'
+		" first line should already be blank :
 		" :put add stuff after current line,
 		" which is the first one on a empty buffer
 		call setline(1, '')
-	elseif first == 'delete'
+	elseif first == 'delete-first'
 		silent 1 delete _
 	endif
 	" delete empty lines from line 2 to end
@@ -452,7 +448,7 @@ fun! wheel#mandala#filter (mode = 'normal')
 	" Keep lines matching words of first line
 	let mode = a:mode
 	let lines = wheel#kyusu#line ()
-	call wheel#mandala#replace (lines, 'keep')
+	call wheel#mandala#replace (lines, 'keep-first')
 	if mode == 'normal'
 		if line('$') > 1
 			call cursor(2, 1)
