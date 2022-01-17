@@ -326,11 +326,11 @@ fun! wheel#centre#cables ()
 		" (neo)vim lists
 		exe nmap prefix .. "' <plug>(wheel-prompt-marker)"
 		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'
-		exe nmap prefix .. '; <plug>(wheel-prompt-change)'
+		exe nmap prefix .. ', <plug>(wheel-prompt-change)'
 		exe nmap prefix .. 't <plug>(wheel-prompt-tag)'
 		exe nmap prefix .. "<m-'> <plug>(wheel-dedibuf-markers)"
 		exe nmap prefix .. '<m-j> <plug>(wheel-dedibuf-jumps)'
-		exe nmap prefix .. ', <plug>(wheel-dedibuf-changes)'
+		exe nmap prefix .. '; <plug>(wheel-dedibuf-changes)'
 		exe nmap prefix .. '<m-t> <plug>(wheel-dedibuf-tags)'
 		" Yank wheel
 		exe nmap prefix .. 'y <plug>(wheel-dedibuf-yank-list)'
@@ -455,12 +455,12 @@ fun! wheel#centre#cables ()
 		" (neo)vim lists
 		exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
 		exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
-		exe nmap '<m-;>          <plug>(wheel-prompt-change)'
+		exe nmap '<m-,>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-c>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
 		exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
 		exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
-		exe nmap '<m-,>          <plug>(wheel-dedibuf-changes)'
+		exe nmap '<m-;>          <plug>(wheel-dedibuf-changes)'
 		exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
 		" Yank
 		exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'

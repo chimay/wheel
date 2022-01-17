@@ -662,7 +662,7 @@ Switch in (neo)vim lists~
 | ----------------      | ------------------ | --------------- |
 | switch marker         | markers            | <M-w>'          |
 | switch in jump list   | jumps              | <M-w>j          |
-| switch in change list | changes            | <M-w>;          |
+| switch in change list | changes            | <M-w>,          |
 | switch tag            | tags               | <M-w>t          |
 
 Switch dedicated buffer~
@@ -971,7 +971,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><C-o>`     : outline headers in circle files
 - `<M-w><M-'>`     : markers
 - `<M-w><M-j>`     : jumps list
-- `<M-w>,`         : changes list
+- `<M-w>;`         : changes list
 - `<M-w><M-t>`     : tags
 
 Menus~
@@ -1193,7 +1193,7 @@ CHANGES					*wheel-dedicated-buffers-changes*
 
 Go to element in changes list.
 
-The default mapping is `<M-w>,`. It is inspired by the normal commands |g;| / |g,|.
+The default mapping is `<M-w>;`. It is inspired by the normal commands |g;| / |g,|.
 
 Fields~
 
@@ -2527,7 +2527,7 @@ Prompting functions :
 | -------- | ------------------- | --------- |
 | '        | <M-w>'              | Markers   |
 | j        | <M-w>j              | Jumps     |
-| ;        | <M-w>;              | Changes   |
+| ;        | <M-w>,              | Changes   |
 | t        | <M-w>t              | Tags      |
 
 Dedicated buffers :
@@ -2536,7 +2536,7 @@ Dedicated buffers :
 | -------- | ------------------- | ---------- |
 | <M-'>    | <M-w><M-'>          | Markers    |
 | <M-j>    | <M-w><M-j>          | Jumps      |
-| ,        | <M-w>,              | Changes    |
+| ,        | <M-w>;              | Changes    |
 | <M-t>    | <M-w><M-t>          | Tags       |
 
 Yank wheel~
@@ -2703,12 +2703,12 @@ adapt them to your taste and add them to your init file.
 | -------------- | --------------------------------------------- |
 | <M-'>          | Markers, prompting function                   |
 | <M-j>          | Jumps, prompting function                     |
-| <M-;>          | Changes, prompting function                   |
+| <M-,>          | Changes, prompting function                   |
 | <M-t>          | Tags, prompting function                      |
 | -------------- | --------------------------------------------- |
 | <M-k>          | Markers, dedicated buffer                     |
 | <M-C-j>        | Jumps, dedicated buffer                       |
-| <M-,>          | Changes, dedicated buffer                     |
+| <M-;>          | Changes, dedicated buffer                     |
 | <M-C-t>        | Tags, dedicated buffer                        |
 | -------------- | --------------------------------------------- |
 | <M-y>          | Paste yank wheel element in list mode         |
@@ -2802,12 +2802,12 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " (neo)vim lists
     exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
     exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
-    exe nmap '<m-;>          <plug>(wheel-prompt-change)'
+    exe nmap '<m-,>          <plug>(wheel-prompt-change)'
     exe nmap '<m-c>          <plug>(wheel-prompt-change)'
     exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
     exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
     exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
-    exe nmap '<m-,>          <plug>(wheel-dedibuf-changes)'
+    exe nmap '<m-;>          <plug>(wheel-dedibuf-changes)'
     exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
     " Yank
     exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
