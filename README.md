@@ -429,6 +429,7 @@ exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers-all)'
 " Tabs & windows : visible buffers
 exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
 exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
+exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
 " (neo)vim lists
 exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
 exe nmap '<m-j>          <plug>(wheel-prompt-jump)'

@@ -61,8 +61,10 @@ fun! wheel#clipper#yank (mode)
 	let settings = {'mode' : mode}
 	call wheel#clipper#template(settings)
 	call wheel#mandala#fill (lines)
+	" yank ring is not related to any particular buffer
+	let b:wheel_related_buffer = 'unknown'
 	setlocal nomodified
-	call cursor(1,1)
+	call cursor(1, 1)
 	" reload
 	let b:wheel_reload = 'wheel#clipper#yank(' .. string(mode) .. ')'
 endfun

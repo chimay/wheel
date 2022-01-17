@@ -2700,6 +2700,7 @@ adapt them to your taste and add them to your init file.
 | -------------- | --------------------------------------------- |
 | <M-v>          | Go to tab & window, prompt mode               |
 | <M-C-v>        | Tabs & windows in tree mode, dedicated buffer |
+| <M-S-v>        | Tabs & windows, dedicated buffer              |
 | -------------- | --------------------------------------------- |
 | <M-'>          | Markers, prompting function                   |
 | <M-j>          | Jumps, prompting function                     |
@@ -2799,6 +2800,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     " Tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
     exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
+    exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
     " (neo)vim lists
     exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
     exe nmap '<m-j>          <plug>(wheel-prompt-jump)'

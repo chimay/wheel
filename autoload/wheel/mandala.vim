@@ -213,12 +213,12 @@ fun! wheel#mandala#close ()
 		return v:false
 	endif
 	" -- mandala buffer
-	let related_buffer = b:wheel_related_buffer
 	if winnr('$') > 1
 		" more than one window in tab ? close it.
 		close
 	else
 		" only one window in tab ? go to related buffer
+		let related_buffer = b:wheel_related_buffer
 		call wheel#rectangle#goto_or_load (related_buffer)
 	endif
 	call wheel#status#clear ()
