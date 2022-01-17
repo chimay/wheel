@@ -1193,7 +1193,7 @@ CHANGES					*wheel-dedicated-buffers-changes*
 
 Go to element in changes list.
 
-The default mapping is `<M-w>;`. It is inspired by the normal commands |g;| / |g,|.
+The default mapping is `<M-w>;`. It is inspired by the normal commands |g;|.
 
 Fields~
 
