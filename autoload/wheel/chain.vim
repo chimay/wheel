@@ -166,7 +166,7 @@ fun! wheel#chain#swap_first_two (list)
 	endif
 endfun
 
-" Indexes
+" List bracket of indexes
 
 fun! wheel#chain#brackets (list, indexes)
 	" Returns list[indexes elements]
@@ -175,6 +175,33 @@ fun! wheel#chain#brackets (list, indexes)
 		eval sublist->add(deepcopy(a:list[ind]))
 	endfor
 	return sublist
+endfun
+
+" List indexes from filtered sublist
+
+fun! wheel#chain#indexes (list, sublist)
+	" Returns indexes of list that give sublist
+	" Reverse function of chain#brackets.
+	" If elements of list are unique, after :
+	"   let sublist = list->wheel#chain#bracket(indexes)
+	"   let other_indexes = list->wheel#chain#indexes(sublist)
+	" you should have indexes = other_indexes
+	" Unfortunate that filter() doesnt return this
+	let list = a:list
+	let sublist = a:sublist
+	let stardict = {}
+	let indexes = []
+	for element in sublist
+		if ! has_key(stardict, element)
+			let where = list->index(element)
+		else
+			let start = stardict[element]
+			let where = list->index(element, start)
+		endif
+		let stardict[element] = where + 1
+		eval indexes->add(where)
+	endfor
+	return indexes
 endfun
 
 " Extrema
