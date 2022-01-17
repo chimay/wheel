@@ -169,7 +169,7 @@ endfun
 " Sublist at indexes of list
 
 fun! wheel#chain#sublist (list, indexes)
-	" Returns list[indexes elements]
+	" Returns list[indexes]
 	let sublist = []
 	for ind in a:indexes
 		eval sublist->add(deepcopy(a:list[ind]))
