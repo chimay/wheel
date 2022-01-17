@@ -86,7 +86,7 @@ fun! wheel#book#limit ()
 		return v:false
 	endif
 	let [indexes, new_current] = wheel#book#indexes_to_keep ()
-	let new_leaves = leaves->wheel#chain#brackets(indexes)
+	let new_leaves = leaves->wheel#chain#sublist(indexes)
 	let ring.current = new_current
 	let ring.leaves = new_leaves
 	return v:true
@@ -95,22 +95,32 @@ endfun
 fun! wheel#book#template ()
 	" Return empty template leaf
 	let leaf = {}
-	let leaf.filename = ''
+	" -- vim stuff
 	let leaf.options = {}
 	let leaf.mappings = {}
 	let leaf.autocmds = {}
-	" buffer local variables
+	" -- buffer local variables
+	let leaf.filename = ''
+	" nature of mandala
 	let leaf.nature = {}
 	let leaf.nature.empty = v:true
 	let leaf.nature.type = 'empty'
 	let leaf.nature.has_filter = v:false
+	" related buffer
 	let leaf.related_buffer = 'unknown'
+	" all original lines
 	let leaf.lines = []
-	let leaf.filtered = []
+	" visible lines in mandala
+	let leaf.visible = []
+	" cursor position
 	let leaf.position = []
+	" address of current line
 	let leaf.address = []
+	" selected elements
 	let leaf.selected = []
+	" settings for loop & line functions
 	let leaf.settings = []
+	" reload function string
 	let leaf.reload = ''
 	" return
 	return leaf
@@ -212,7 +222,7 @@ fun! wheel#book#syncup ()
 	" autocommands
 	let leaf.autocmds = wheel#book#save_autocmds ()
 	" nature
-	let leaf.nature = b:wheel_nature
+	let leaf.nature = copy(b:wheel_nature)
 	" related buffer
 	let leaf.related_buffer = b:wheel_related_buffer
 	" lines, without filtering
@@ -222,8 +232,8 @@ fun! wheel#book#syncup ()
 	else
 		let leaf.lines = copy(b:wheel_lines)
 	endif
-	" filtered content
-	let leaf.filtered = getline(1, '$')
+	" visible content
+	let leaf.visible = getline(1, '$')
 	" cursor position
 	let leaf.position = getcurpos()
 	" address of cursor line
@@ -268,15 +278,15 @@ fun! wheel#book#syncdown ()
 	let autodict = copy(leaf.autocmds)
 	call wheel#book#restore_autocmds (autodict)
 	" nature
-	let b:wheel_nature = leaf.nature
+	let b:wheel_nature = copy(leaf.nature)
 	" related buffer
 	let b:wheel_related_buffer = leaf.related_buffer
 	" lines, without filtering
 	let b:wheel_lines = copy(leaf.lines)
-	" filtered mandala content
-	" leaf.filtered should contain also the original first line, so we have
+	" visible mandala content
+	" leaf.visible contain also the original first line, so we have
 	" to delete the first line added by :put in the replace routine
-	call wheel#mandala#replace (leaf.filtered, 'delete-first')
+	call wheel#mandala#replace (leaf.visible, 'delete-first')
 	" cursor position
 	call wheel#gear#restore_cursor (leaf.position)
 	" address linked to cursor line & context

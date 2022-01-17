@@ -166,9 +166,9 @@ fun! wheel#chain#swap_first_two (list)
 	endif
 endfun
 
-" List bracket of indexes
+" Sublist at indexes of list
 
-fun! wheel#chain#brackets (list, indexes)
+fun! wheel#chain#sublist (list, indexes)
 	" Returns list[indexes elements]
 	let sublist = []
 	for ind in a:indexes
@@ -181,9 +181,9 @@ endfun
 
 fun! wheel#chain#indexes (list, sublist)
 	" Returns indexes of list that give sublist
-	" Reverse function of chain#brackets.
-	" If elements of list are unique, after :
-	"   let sublist = list->wheel#chain#bracket(indexes)
+	" Reverse function of chain#sublist.
+	" If indexes are sorted in ascending order, after :
+	"   let sublist = list->wheel#chain#sublist(indexes)
 	"   let other_indexes = list->wheel#chain#indexes(sublist)
 	" you should have indexes = other_indexes
 	" Unfortunate that filter() doesnt return this
