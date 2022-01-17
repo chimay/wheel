@@ -17,7 +17,7 @@ endif
 
 " helpers
 
-fun! wheel#kyusu#word (wordlist, index, value)
+fun! wheel#kyusu#wordlist (wordlist, index, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
 	" Pipe | in word means logical or
@@ -45,22 +45,22 @@ endfun
 
 fun! wheel#kyusu#candidates (wordlist, list)
 	" Return elements of list matching words of wordlist
-	let Matches = function('wheel#kyusu#word', [a:wordlist])
+	let Matches = function('wheel#kyusu#wordlist', [a:wordlist])
 	let candidates = filter(a:list, Matches)
 	return candidates
 endfun
 
 " dedicated buffers
 
-fun! wheel#kyusu#tree (wordlist, index, value)
-	" Like kyusu#word, but keep folds markers lines
+fun! wheel#kyusu#words_or_folds (wordlist, index, value)
+	" Like kyusu#wordlist, but keep folds markers lines
 	" index is not used, it’s just for compatibility with filter()
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
 	if a:value =~ pattern
 		return v:true
 	endif
-	return wheel#kyusu#word(a:wordlist, 0, a:value)
+	return wheel#kyusu#wordlist (a:wordlist, 0, a:value)
 endfun
 
 fun! wheel#kyusu#remove_folds (wordlist, matrix)
@@ -74,8 +74,9 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 	endif
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
-	let filtered_index = []
-	let filtered = []
+	let filtered_indexes = []
+	let filtered_values = []
+	" ---- all but last element
 	for index in range(len(candidates) - 1)
 		" --- Current line
 		let cur_value = candidates[index]
@@ -92,21 +93,23 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 		" and current fold level will be >= than next one
 		if cur_value =~ pattern && next_value =~ pattern && cur_last >= next_last
 			" Add line only if matches wordlist
-			if wheel#kyusu#word(wordlist, 0, cur_value)
-				eval filtered_index->add(indexlist[index])
-				eval filtered->add(cur_value)
+			if wheel#kyusu#wordlist (wordlist, 0, cur_value)
+				eval filtered_indexes->add(indexlist[index])
+				eval filtered_values->add(cur_value)
 			endif
 		else
-			eval filtered_index->add(indexlist[index])
-			eval filtered->add(cur_value)
+			" Always add line
+			eval filtered_indexes->add(indexlist[index])
+			eval filtered_values->add(cur_value)
 		endif
 	endfor
+	" ---- last element
 	let value = candidates[-1]
-	if wheel#kyusu#word(wordlist, 0, value)
-		eval filtered_index->add(indexlist[index])
-		eval filtered->add(value)
+	if wheel#kyusu#wordlist (wordlist, 0, value)
+		eval filtered_indexes->add(indexlist[index])
+		eval filtered_values->add(value)
 	endif
-	return [filtered_index, filtered]
+	return [filtered_indexes, filtered_values]
 endfun
 
 fun! wheel#kyusu#indexes_and_lines ()
@@ -118,15 +121,10 @@ fun! wheel#kyusu#indexes_and_lines ()
 		return linelist
 	endif
 	call wheel#scroll#record(first)
-	let indexlist = range(len(linelist))
-	let matrix = [indexlist, linelist]
-	" list of pairs [ind, line]
-	let dual = wheel#matrix#dual (matrix)
 	" filter function
-	let Matches = function('wheel#kyusu#tree', [wordlist])
+	let Matches = function('wheel#kyusu#words_or_folds', [wordlist, 0])
 	" filtering
-	eval dual->filter({ _, pair -> Matches(pair[1]) })
-	let matrix = wheel#matrix#dual (dual)
+	let matrix = linelist->wheel#chain#filter(Matches)
 	" two times : cleans a level each time
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
@@ -135,6 +133,17 @@ fun! wheel#kyusu#indexes_and_lines ()
 endfu
 
 " old functions
+
+fun! wheel#kyusu#tree (wordlist, index, value)
+	" Like kyusu#wordlist, but keep folds markers lines
+	" index is not used, it’s just for compatibility with filter()
+	let marker = s:fold_markers[0]
+	let pattern = '\m' .. marker .. '[12]$'
+	if a:value =~ pattern
+		return v:true
+	endif
+	return wheel#kyusu#wordlist (a:wordlist, 0, a:value)
+endfun
 
 fun! wheel#kyusu#fold (wordlist, candidates)
 	" Remove non-matching empty folds
@@ -162,7 +171,7 @@ fun! wheel#kyusu#fold (wordlist, candidates)
 		" and current fold level will be >= than next one
 		if cur_value =~ pattern && next_value =~ pattern && cur_last >= next_last
 			" Add line only if matches wordlist
-			if wheel#kyusu#word(wordlist, 0, cur_value)
+			if wheel#kyusu#wordlist(wordlist, 0, cur_value)
 				call add(filtered, cur_value)
 			endif
 		else
@@ -170,7 +179,7 @@ fun! wheel#kyusu#fold (wordlist, candidates)
 		endif
 	endfor
 	let value = candidates[-1]
-	if wheel#kyusu#word(wordlist, 0, value)
+	if wheel#kyusu#wordlist(wordlist, 0, value)
 		call add(filtered, value)
 	endif
 	return filtered

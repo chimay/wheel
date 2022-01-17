@@ -32,15 +32,17 @@ endfun
 
 " Functions
 
-fun! wheel#gear#function (function)
+fun! wheel#gear#function (function, ...)
 	" Return funcref of function string
-	" Does nothing if already funcref
+	" Optional arguments are passed to Fun
+	" If already funcref, simply return it
 	let Fun = a:function
+	let arg = a:000
 	let kind = type(Fun)
-	if kind == v:t_func
+	if kind == v:t_string
+		return function(Fun, arg)
+	elseif kind == v:t_func
 		return Fun
-	elseif kind == v:t_string
-		return function(Fun)
 	else
 		echomsg 'wheel gear function : bad argument'
 	endif

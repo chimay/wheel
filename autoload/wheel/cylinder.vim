@@ -113,8 +113,10 @@ fun! wheel#cylinder#window (mode = 'buffer')
 		execute 'tabnext' tab
 		if mode == 'buffer'
 			execute 'silent sbuffer' goto
+			wincmd J
 		else
 			split
+			wincmd J
 		endif
 		return v:true
 	endif
@@ -122,8 +124,10 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	if ! wheel#cylinder#is_mandala ()
 		if mode == 'buffer'
 			execute 'silent sbuffer' goto
+			wincmd J
 		else
 			split
+			wincmd J
 		endif
 	endif
 	return v:true
@@ -153,6 +157,7 @@ fun! wheel#cylinder#first (mode = 'furtive')
 	" new buffer
 	if mode == 'linger'
 		split
+		wincmd J
 		enew
 	else
 		if empty_cur_buffer
@@ -218,6 +223,7 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	" new buffer
 	if mode == 'linger'
 		split
+		wincmd J
 		enew
 	else
 		if empty_cur_buffer
