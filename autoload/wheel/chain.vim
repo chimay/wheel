@@ -232,6 +232,24 @@ fun! wheel#chain#argmax (list)
 	return indexes
 endfun
 
+" Filter
+
+fun! wheel#chain#filter (list, function, indexes = [])
+	" Return filtered [indexes, elements]
+	let list = deepcopy(a:list)
+	let Fun = wheel#gear#function(a:function)
+	let indexes = copy(a:indexes)
+	if empty(indexes)
+		let indexes = range(len(list))
+	endif
+	let matrix = [indexes, list]
+	" list of pairs [ind, elem]
+	let dual = wheel#matrix#dual (matrix)
+	eval dual->filter({ _, pair -> Fun(pair[1]) })
+	let matrix = wheel#matrix#dual (dual)
+	return matrix
+endfun
+
 " Sort
 
 fun! wheel#chain#compare (first, second)

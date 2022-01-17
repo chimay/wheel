@@ -74,6 +74,7 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 	endif
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
+	let filtered_index = []
 	let filtered = []
 	for index in range(len(candidates) - 1)
 		" --- Current line
@@ -92,20 +93,20 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 		if cur_value =~ pattern && next_value =~ pattern && cur_last >= next_last
 			" Add line only if matches wordlist
 			if wheel#kyusu#word(wordlist, 0, cur_value)
-				eval indexlist->add(index)
+				eval filtered_index->add(indexlist[index])
 				eval filtered->add(cur_value)
 			endif
 		else
-			eval indexlist->add(index)
+			eval filtered_index->add(indexlist[index])
 			eval filtered->add(cur_value)
 		endif
 	endfor
 	let value = candidates[-1]
 	if wheel#kyusu#word(wordlist, 0, value)
-		eval indexlist->add(index)
+		eval filtered_index->add(indexlist[index])
 		eval filtered->add(value)
 	endif
-	return [indexlist, filtered]
+	return [filtered_index, filtered]
 endfun
 
 fun! wheel#kyusu#indexes_and_lines ()
