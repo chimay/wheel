@@ -100,7 +100,12 @@ fun! wheel#mandala#filename (type)
 	let type = a:type
 	let b:wheel_nature.type = type
 	" Add unique buf id, so (n)vim does not complain about existing filename
-	execute 'silent file' wheel#mandala#pseudo (type)
+	let pseudo = wheel#mandala#pseudo (type)
+	if bufexists(pseudo)
+		" almost certainly an old mandala, it should be safe to wipe it
+		execute 'silent bwipe' pseudo
+	endif
+	execute 'silent file' pseudo
 	if type != 'empty'
 		" should be false when called
 		" set to true in wheel#mandala#set_empty

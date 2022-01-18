@@ -17,7 +17,7 @@ fun! wheel#attic#remove_if_present (entry)
 	let attic = g:wheel_attic
 	for elem in g:wheel_attic
 		if elem.file ==# entry.file
-			let g:wheel_attic = wheel#chain#remove_element(elem, attic)
+			eval g:wheel_attic->wheel#chain#remove_element(elem)
 		endif
 	endfor
 endfu

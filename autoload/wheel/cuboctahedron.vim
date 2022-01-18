@@ -289,7 +289,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		endif
 		" check existent file
 		if filereadable(new_filename)
-			let prompt = 'Replace existing ' .. new_filename .. ' ?'
+			let prompt = 'Replace existing' new_filename '?'
 			let overwrite = confirm(prompt, "&Yes\n&No", 2)
 			if overwrite != 1
 				continue

@@ -20,11 +20,11 @@ fun! wheel#chain#insert_next (list, index, new)
 		return add(list, new)
 	endif
 	if index < len(list)
-		return insert(list, new, index)
+		return list->insert(new, index)
 	elseif index == len(list)
 		" could be done with
 		" insert(list, new, len(list))
-		return add(list, new)
+		return list->add(new)
 	endif
 endfun
 

@@ -4,7 +4,14 @@
 "
 " Cylinder of rotary printing press
 
-" Helpers
+" script constants
+
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
+endif
+
+" helpers
 
 fun! wheel#cylinder#is_mandala (...)
 	" Return true if current buffer is a mandala buffer, false otherwise
@@ -67,7 +74,7 @@ fun! wheel#cylinder#split ()
 	wincmd J
 endfun
 
-" Window
+" window
 
 fun! wheel#cylinder#goto (...)
 	" Find window of visible current mandala
@@ -129,7 +136,7 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	return v:true
 endfun
 
-" Add & delete
+" add
 
 fun! wheel#cylinder#first (mode = 'furtive')
 	" Add first mandala buffer
@@ -137,6 +144,7 @@ fun! wheel#cylinder#first (mode = 'furtive')
 	"   - furtive (default) : use current window and go back to previous buffer at the end
 	"   - linger : use a split
 	let mode = a:mode
+	" -- pre-checks
 	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
 		echomsg 'wheel cylinder first : bad mode argument'
 		return v:false
@@ -146,11 +154,13 @@ fun! wheel#cylinder#first (mode = 'furtive')
 		echomsg 'wheel cylinder first : mandala ring is not empty.'
 		return v:false
 	endif
+	call wheel#cylinder#delete_unused ()
+	" -- mandalas ring
 	let iden = g:wheel_mandalas.iden
-	" current buffer
+	" -- current buffer
 	let cur_buffer = bufnr('%')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
-	" new buffer
+	" -- new buffer
 	if mode == 'linger'
 		call wheel#cylinder#split ()
 		enew
@@ -164,12 +174,13 @@ fun! wheel#cylinder#first (mode = 'furtive')
 		endif
 	endif
 	let novice = bufnr('%')
-	" add
+	" -- add
 	call add(mandalas, novice)
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
+	" -- coda
 	if mode == 'furtive'
 		" call status before going back to previous buffer
 		call wheel#status#mandala_leaf ()
@@ -189,6 +200,7 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	"   - furtive (default) : use current window and go back to previous buffer at the end
 	"   - linger : use a split
 	let mode = a:mode
+	" ---- pre-checks
 	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
 		echomsg 'wheel cylinder first : bad mode argument'
 		return v:false
@@ -196,25 +208,26 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	call wheel#cylinder#check ()
 	let mandalas = g:wheel_mandalas.ring
 	let iden = g:wheel_mandalas.iden
-	" -- First one
+	call wheel#cylinder#delete_unused ()
+	" ---- first one
 	if empty(mandalas)
 		return wheel#cylinder#first (mode)
 	endif
-	" -- Not the first one
-	" is current buffer a mandala buffer ?
+	" ---- not the first one
+	" -- is current buffer a mandala buffer ?
 	let was_mandala = wheel#cylinder#is_mandala ()
-	" previous current mandala
+	" -- previous current mandala
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
-	" mandala window
+	" -- mandala window
 	let winds = win_findbuf(elder)
 	if mode != 'furtive'
 		call wheel#cylinder#window ('window')
 	endif
-	" current buffer
+	" -- current buffer
 	let cur_buffer = bufnr('%')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
-	" new buffer
+	" -- new buffer
 	if mode == 'linger'
 		call wheel#cylinder#split ()
 		enew
@@ -232,7 +245,7 @@ fun! wheel#cylinder#add (mode = 'furtive')
 		echomsg 'wheel mandala add : buffer' novice 'already in ring'
 		return v:false
 	endif
-	" add
+	" -- add
 	let next = current + 1
 	call insert(mandalas, novice, next)
 	let g:wheel_mandalas.current = next
@@ -240,8 +253,9 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	call insert(iden, novice_iden, next)
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
-	" call status before going back to previous buffer
+	" -- call status before going back to previous buffer
 	call wheel#status#mandala_leaf ()
+	" -- coda
 	if mode == 'furtive' && ! was_mandala
 		" in furtive mode, if not in mandala buffer at start,
 		" go back to previous buffer
@@ -254,6 +268,8 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	endif
 	return v:true
 endfun
+
+" delete
 
 fun! wheel#cylinder#delete ()
 	" Delete mandala buffer
@@ -286,7 +302,41 @@ fun! wheel#cylinder#delete ()
 	return removed
 endfun
 
-" Recall
+fun! wheel#cylinder#delete_unused ()
+	" Delete old, unused mandalas
+	let mandalas = g:wheel_mandalas.ring
+	" -- unused buffer list
+	let buflist = getbufinfo({'buflisted' : 1})
+	let numlist = []
+	let filelist = []
+	for buffer in buflist
+		let bufnum = buffer.bufnr
+		let filename = buffer.name
+		let not_mandala = ! wheel#chain#is_inside(bufnum, mandalas)
+		let wheel_filename = filename =~ s:is_mandala_file
+		if not_mandala && wheel_filename
+			call add(numlist, bufnum)
+			call add(filelist, filename)
+		endif
+	endfor
+	if empty(numlist)
+		return [ [], [] ]
+	endif
+	" -- confirm
+	echomsg 'wheel : old, unused mandalas are lingering :'
+	echomsg join(filelist, ' - ')
+	let prompt = 'Delete them ?'
+	let overwrite = confirm(prompt, "&Yes\n&No", 2)
+	if overwrite != 1
+		return [numlist, filelist]
+	endif
+	" -- wipe
+	for bufnum in numlist
+		execute 'silent bwipe!' bufnum
+	endfor
+endfun
+
+" recall
 
 fun! wheel#cylinder#recall ()
 	" Recall mandala buffer : find its window or load it in a split
@@ -294,7 +344,7 @@ fun! wheel#cylinder#recall ()
 	return wheel#cylinder#window ()
 endfun
 
-" Forward & backward
+" forward & backward
 
 fun! wheel#cylinder#forward ()
 	" Go forward in mandalas buffers
@@ -332,7 +382,7 @@ fun! wheel#cylinder#backward ()
 	call wheel#status#mandala_leaf ()
 endfun
 
-" Switch
+" switch
 
 fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion
