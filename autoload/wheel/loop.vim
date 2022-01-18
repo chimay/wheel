@@ -53,11 +53,8 @@ fun! wheel#loop#context_menu (settings)
 	" ---- call function linked to cursor line
 	let value = dict[key]
 	let winiden = wheel#gear#call (value)
-	" ---- close ?
+	" ---- coda
 	if close
-		" -- go back to mandala
-		call wheel#cylinder#recall ()
-		" -- close it
 		call wheel#mandala#close ()
 		" -- go to last destination
 		call wheel#gear#win_gotoid (winiden)
@@ -80,7 +77,7 @@ fun! wheel#loop#sailing (settings)
 	" Go to element(s) on cursor line or selected line(s)
 	" settings keys :
 	"   - related buffer of current mandala
-	"   - target : current, tab, horizontal or vertical split,
+	"   - target : current window, tab, horizontal or vertical split,
 	"              even or with golden ratio
 	"   - close : whether to close mandala
 	"   - action : navigation function name or funcref
@@ -115,8 +112,15 @@ fun! wheel#loop#sailing (settings)
 	endif
 	" ---- go to previous window before processing
 	call wheel#rectangle#previous ()
-	" ---- target : tab, split ?
-	if target != 'current'
+	" ---- target : current window or not ?
+	if target == 'current'
+		let settings.selected = selected[0]
+		let winiden = wheel#gear#call(Fun, settings)
+		if &foldopen =~ 'jump'
+			normal! zv
+		endif
+		call wheel#spiral#cursor ()
+	else
 		for elem in selected
 			let settings.selected = elem
 			let winiden = wheel#gear#call(Fun, settings)
@@ -125,13 +129,6 @@ fun! wheel#loop#sailing (settings)
 			endif
 			call wheel#spiral#cursor ()
 		endfor
-	else
-		let settings.selected = selected[0]
-		let winiden = wheel#gear#call(Fun, settings)
-		if &foldopen =~ 'jump'
-			normal! zv
-		endif
-		call wheel#spiral#cursor ()
 	endif
 	echomsg 'winiden' winiden
 	" ---- coda

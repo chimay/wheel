@@ -114,6 +114,11 @@ fun! wheel#book#template ()
 	let leaf.filter.words = []
 	let leaf.filter.indexes = []
 	let leaf.filter.lines = []
+	" -- selection
+	let leaf.selection = {}
+	let leaf.selection.indexes = []
+	let leaf.selection.lines = []
+	let leaf.selection.cursor_address = ''
 	" -- cursor position
 	let leaf.position = []
 	" -- address of current line
@@ -302,7 +307,7 @@ fun! wheel#book#syncdown ()
 	" -- cursor position
 	call wheel#gear#restore_cursor (leaf.position)
 	" -- address linked to cursor line & context
-	let b:wheel_address = copy(leaf.address)
+	let b:wheel_selection.address = copy(leaf.address)
 	" -- selection
 	let b:wheel_selected = deepcopy(leaf.selected)
 	" -- settings

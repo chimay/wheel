@@ -93,6 +93,11 @@ fun! wheel#mandala#has_filter ()
 	return b:wheel_nature.has_filter
 endfun
 
+fun! wheel#mandala#is_filtered ()
+	" Whether current mandala is filtered
+	return ! empty(b:wheel_filter.words)
+endfun
+
 " Init
 
 fun! wheel#mandala#init ()
@@ -121,11 +126,11 @@ fun! wheel#mandala#init ()
 		let b:wheel_filter.lines = []
 	endif
 	" -- selection
-	if ! exists('b:wheel_address')
-		let b:wheel_address = ''
-	endif
-	if ! exists('b:wheel_selected')
-		let b:wheel_selected = []
+	if ! exists('b:wheel_selection')
+		let b:wheel_selection = {}
+		let b:wheel_selection.indexes = []
+		let b:wheel_selection.addresses = []
+		let b:wheel_selection.cursor_address = ''
 	endif
 	" -- settings for action on line
 	if ! exists('b:wheel_settings')
@@ -148,7 +153,6 @@ fun! wheel#mandala#refresh ()
 	let b:wheel_filter.words = []
 	let b:wheel_filter.indexes = []
 	let b:wheel_filter.lines = []
-	let b:wheel_address = ''
 	let b:wheel_selected = []
 endfun
 
