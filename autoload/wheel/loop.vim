@@ -27,7 +27,7 @@ fun! wheel#loop#context_menu (settings)
 	let travel = settings.ctx_travel
 	" ---- cursor line
 	let cursor_line = getline('.')
-	let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
+	let cursor_line = wheel#pencil#erase (cursor_line)
 	if empty(cursor_line)
 		echomsg 'wheel line menu : you selected an empty line'
 		return v:false

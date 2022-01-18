@@ -14,7 +14,27 @@ if ! exists('s:selected_pattern')
 	lockvar s:selected_pattern
 endif
 
-" Current line
+" helpers
+
+fun! wheel#pencil#draw (line)
+	" Return marked line
+	let line = a:line
+	if line =~ s:selected_pattern
+		return line
+	endif
+	return substitute(line, '\m^', s:selected_mark, '')
+endfun
+
+fun! wheel#pencil#erase (line)
+	" Return unmarked line
+	let line = a:line
+	if line !~ s:selected_pattern
+		return line
+	endif
+	return substitute(line, s:selected_pattern, '', '')
+endfun
+
+" current line
 
 fun! wheel#pencil#select ()
 	" Select current line
@@ -26,7 +46,7 @@ fun! wheel#pencil#select ()
 		return v:false
 	endif
 	" update buffer line
-	let marked_line = substitute(line, '\m^', s:selected_mark, '')
+	let marked_line = wheel#pencil#draw (line)
 	call setline('.', marked_line)
 	" update b:wheel_lines
 	let index = index(b:wheel_lines, line)
@@ -55,7 +75,7 @@ fun! wheel#pencil#clear ()
 		return v:false
 	endif
 	" update buffer line
-	let unmarked_line = substitute(line, s:selected_pattern, '', '')
+	let unmarked_line = wheel#pencil#erase (line)
 	call setline('.', unmarked_line)
 	" update b:wheel_lines
 	let index = index(b:wheel_lines, line)
@@ -86,7 +106,7 @@ fun! wheel#pencil#toggle ()
 	return v:true
 endfun
 
-" Visible, filtered lines
+" visible, filtered lines
 
 fun! wheel#pencil#select_visible ()
 	" Select visible, filtered lines

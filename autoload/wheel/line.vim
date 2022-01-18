@@ -44,8 +44,7 @@ fun! wheel#line#address ()
 	call wheel#line#default ()
 	if ! &foldenable
 		let cursor_line = getline('.')
-		let cursor_line = substitute(cursor_line, s:selected_pattern, '', '')
-		return cursor_line
+		return wheel#pencil#erase (cursor_line)
 	else
 		let type = wheel#mandala#type ()
 		if type == 'index/tree'
