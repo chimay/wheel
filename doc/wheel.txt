@@ -2703,11 +2703,12 @@ adapt them to your taste and add them to your init file.
 | <M-S-v>        | Tabs & windows, dedicated buffer              |
 | -------------- | --------------------------------------------- |
 | <M-'>          | Markers, prompting function                   |
+| <M-k>          | Markers, prompting function                   |
 | <M-j>          | Jumps, prompting function                     |
 | <M-,>          | Changes, prompting function                   |
 | <M-t>          | Tags, prompting function                      |
 | -------------- | --------------------------------------------- |
-| <M-k>          | Markers, dedicated buffer                     |
+| <M-C-k>        | Markers, dedicated buffer                     |
 | <M-C-j>        | Jumps, dedicated buffer                       |
 | <M-;>          | Changes, dedicated buffer                     |
 | <M-C-t>        | Tags, dedicated buffer                        |
@@ -2803,11 +2804,12 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
     " (neo)vim lists
     exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
+    exe nmap "<m-k>          <plug>(wheel-prompt-marker)"
     exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
     exe nmap '<m-,>          <plug>(wheel-prompt-change)'
     exe nmap '<m-c>          <plug>(wheel-prompt-change)'
     exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
-    exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
+    exe nmap "<m-c-k>        <plug>(wheel-dedibuf-markers)"
     exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
     exe nmap '<m-;>          <plug>(wheel-dedibuf-changes)'
     exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'

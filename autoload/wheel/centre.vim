@@ -455,11 +455,12 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
 		" (neo)vim lists
 		exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
+		exe nmap "<m-k>          <plug>(wheel-prompt-marker)"
 		exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
 		exe nmap '<m-,>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-c>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
-		exe nmap "<m-k>          <plug>(wheel-dedibuf-markers)"
+		exe nmap "<m-c-k>        <plug>(wheel-dedibuf-markers)"
 		exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
 		exe nmap '<m-;>          <plug>(wheel-dedibuf-changes)'
 		exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
