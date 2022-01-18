@@ -43,7 +43,46 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" Mandala pseudo filename
+" wrap
+
+fun! wheel#mandala#wrap_up ()
+	" Line up, or line 1 -> end of file
+	" If fold is closed, take the first line of it
+	if &foldenable
+		let line = foldclosed('.')
+		if line < 0
+			let line = line('.')
+		endif
+	else
+		let line = line('.')
+	endif
+	" Wrap
+	if line == 1
+		call cursor(line('$'), 1)
+	else
+		normal! k
+	endif
+endfun
+
+fun! wheel#mandala#wrap_down ()
+	" Line down, or line end of file -> 1
+	" If fold is closed, take the last line of it
+	if &foldenable
+		let line = foldclosedend('.')
+		if line < 0
+			let line = line('.')
+		endif
+	else
+		let line = line('.')
+	endif
+	if line == line('$')
+		call cursor(1, 1)
+	else
+		normal! j
+	endif
+endfun
+
+" mandala pseudo filename
 
 fun! wheel#mandala#pseudo (type)
 	" Return pseudo filename /wheel/<buf-id>/<type>
@@ -69,7 +108,7 @@ fun! wheel#mandala#filename (type)
 	endif
 endfun
 
-" Nature
+" nature
 
 fun! wheel#mandala#set_empty ()
 	" Tell wheel to consider this mandala as an empty buffer
@@ -88,17 +127,17 @@ fun! wheel#mandala#type ()
 	return b:wheel_nature.type
 endfun
 
-fun! wheel#mandala#has_filter ()
-	" Return true if mandala has filter in first line, false otherwise
-	return b:wheel_nature.has_filter
-endfun
-
 fun! wheel#mandala#is_filtered ()
 	" Whether current mandala is filtered
 	return ! empty(b:wheel_filter.words)
 endfun
 
-" Init
+fun! wheel#mandala#has_selection ()
+	" Whether current mandala is filtered
+	return ! empty(b:wheel_selection.indexes)
+endfun
+
+" init
 
 fun! wheel#mandala#init ()
 	" Init mandala buffer variables
@@ -130,7 +169,6 @@ fun! wheel#mandala#init ()
 		let b:wheel_selection = {}
 		let b:wheel_selection.indexes = []
 		let b:wheel_selection.addresses = []
-		let b:wheel_selection.cursor_address = ''
 	endif
 	" -- settings for action on line
 	if ! exists('b:wheel_settings')
@@ -144,7 +182,7 @@ fun! wheel#mandala#init ()
 	call wheel#book#init ()
 endfun
 
-" Refresh
+" refresh
 
 fun! wheel#mandala#refresh ()
 	" Refresh mandala buffer : unfilter & deselect all
@@ -156,7 +194,7 @@ fun! wheel#mandala#refresh ()
 	let b:wheel_selected = []
 endfun
 
-" Clearing things
+" clearing things
 
 fun! wheel#mandala#clear_options ()
 	" Clear mandala local options
@@ -194,7 +232,7 @@ fun! wheel#mandala#clear ()
 	call wheel#mandala#init ()
 endfun
 
-" Window & buffer
+" window & buffer
 
 fun! wheel#mandala#open (type)
 	" Open a mandala buffer
@@ -246,7 +284,25 @@ fun! wheel#mandala#close ()
 	return v:true
 endfun
 
-" Content
+fun! wheel#mandala#related ()
+	" Go to window of related buffer if visible, or edit it in first window of tab
+	" optional argument :
+	"   - buffer number
+	"   - default : related buffer number
+	" if no optional argument and no related buffer : go to previous window
+	if ! wheel#cylinder#is_mandala ()
+		return v:false
+	endif
+	let bufnum = b:wheel_related_buffer
+	if bufnum == 'undefined'
+		wincmd p
+		return 'undefined'
+	endif
+	call wheel#rectangle#goto_or_load (bufnum)
+	return bufnum
+endfun
+
+" content
 
 fun! wheel#mandala#fill (content, ...)
 	" Fill mandala buffer with content
@@ -388,66 +444,7 @@ fun! wheel#mandala#reload ()
 	endif
 endfun
 
-" Wrap
-
-fun! wheel#mandala#wrap_up ()
-	" Line up, or line 1 -> end of file
-	" If fold is closed, take the first line of it
-	if &foldenable
-		let line = foldclosed('.')
-		if line < 0
-			let line = line('.')
-		endif
-	else
-		let line = line('.')
-	endif
-	" Wrap
-	if line == 1
-		call cursor(line('$'), 1)
-	else
-		normal! k
-	endif
-endfun
-
-fun! wheel#mandala#wrap_down ()
-	" Line down, or line end of file -> 1
-	" If fold is closed, take the last line of it
-	if &foldenable
-		let line = foldclosedend('.')
-		if line < 0
-			let line = line('.')
-		endif
-	else
-		let line = line('.')
-	endif
-	if line == line('$')
-		call cursor(1, 1)
-	else
-		normal! j
-	endif
-endfun
-
-" Related buffer
-
-fun! wheel#mandala#related ()
-	" Go to window of related buffer if visible, or edit it in first window of tab
-	" optional argument :
-	"   - buffer number
-	"   - default : related buffer number
-	" if no optional argument and no related buffer : go to previous window
-	if ! wheel#cylinder#is_mandala ()
-		return v:false
-	endif
-	let bufnum = b:wheel_related_buffer
-	if bufnum == 'undefined'
-		wincmd p
-		return 'undefined'
-	endif
-	call wheel#rectangle#goto_or_load (bufnum)
-	return bufnum
-endfun
-
-" Undo, redo
+" undo, redo
 
 fun! wheel#mandala#undo ()
 	" Undo action in previous window
@@ -463,7 +460,7 @@ fun! wheel#mandala#redo ()
 	call wheel#cylinder#recall ()
 endfun
 
-" Filter
+" filter
 
 fun! wheel#mandala#filter (mode = 'normal')
 	" Keep lines matching words of first line
@@ -487,14 +484,30 @@ endfun
 
 fun! wheel#mandala#first_data_line ()
 	" First data line is 1 if mandala has no filter, 2 otherwise
-	if ! wheel#mandala#has_filter ()
-		return 1
-	else
+	if wheel#teapot#has_filter ()
 		return 2
+	else
+		return 1
 	endif
 endfun
 
-" Options
+" selection
+
+fun! wheel#mandala#selected ()
+	" Return selected addresses
+	" If empty, return address of current line
+	let addresses = b:wheel_selection.addresses
+	if empty(addresses)
+		return [wheel#line#address ()]
+	elseif type(addresses) == v:t_list
+		return addresses
+	else
+		echomsg 'wheel mandala selected : bad format for b:wheel_selected'
+		return []
+	endif
+endfun
+
+" options
 
 fun! wheel#mandala#common_options ()
 	" Set local common options
@@ -507,7 +520,7 @@ fun! wheel#mandala#common_options ()
 	setlocal nofoldenable
 endfun
 
-" Maps
+" maps
 
 fun! wheel#mandala#common_maps ()
 	" Define local common maps
@@ -555,7 +568,7 @@ fun! wheel#mandala#input_history_maps ()
 	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
 endfun
 
-" Folding
+" folding
 
 fun! wheel#mandala#folding_options (...)
 	" Folding options for mandala buffers
@@ -608,7 +621,7 @@ fun! wheel#mandala#tabwins_folding_text ()
 	return text
 endfun
 
-" Template
+" template
 
 fun! wheel#mandala#template (...)
 	" Template with filter & input history
@@ -623,7 +636,7 @@ fun! wheel#mandala#template (...)
 	setlocal nofoldenable
 endfun
 
-" Generic commands
+" generic commands
 
 fun! wheel#mandala#command (...)
 	" Generic ex or shell command

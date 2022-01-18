@@ -58,20 +58,10 @@ fun! wheel#pencil#select ()
 	let linum = line('.')
 	let address = wheel#line#address ()
 	" -- shift between b:wheel_lines indexes and buffer line numbers
-	if wheel#mandala#has_filter ()
-		let shift = 2
-	else
-		let shift = 1
-	endif
+	let shift = wheel#mandala#first_data_line ()
 	" -- indexes
-	let index = linum - shift
-	if wheel#mandala#is_filtered ()
-		let indexlist = b:wheel_filter.indexes
-		let global_index = indexlist[index]
-	else
-		let global_index = index
-	endif
-	eval selection.indexes->add(global_index)
+	let index = wheel#teapot#index ()
+	eval selection.indexes->add(index)
 	" -- address
 	eval selection.addresses->add(address)
 	" -- coda
@@ -95,21 +85,9 @@ fun! wheel#pencil#clear ()
 	let selection = b:wheel_selection
 	let linum = line('.')
 	let address = wheel#line#address ()
-	" -- shift between b:wheel_lines indexes and buffer line numbers
-	if wheel#mandala#has_filter ()
-		let shift = 2
-	else
-		let shift = 1
-	endif
 	" -- indexes
-	let index = linum - shift
-	if wheel#mandala#is_filtered ()
-		let indexlist = b:wheel_filter.indexes
-		let global_index = indexlist[index]
-	else
-		let global_index = index
-	endif
-	let found = selection.indexes->index(global_index)
+	let index = wheel#teapot#index ()
+	let found = selection.indexes->index(index)
 	eval selection.indexes->remove(found)
 	eval selection.addresses->remove(found)
 	setlocal nomodified

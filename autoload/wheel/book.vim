@@ -117,16 +117,15 @@ fun! wheel#book#template ()
 	" -- selection
 	let leaf.selection = {}
 	let leaf.selection.indexes = []
-	let leaf.selection.lines = []
-	let leaf.selection.cursor_address = ''
-	" -- cursor position
-	let leaf.position = []
-	" -- address of current line
-	let leaf.address = []
-	" -- selected lines
-	let leaf.selected = []
+	let leaf.selection.addresses = []
+	" -- cursor
+	let leaf.cursor = {}
+	let leaf.cursor.position = []
+	let leaf.cursor.address = ''
+	" index of cursor line in b:wheel_lines
+	let leaf.cursor.index = ''
 	" -- settings for loop & line functions
-	let leaf.settings = []
+	let leaf.settings = {}
 	" -- reload function string
 	let leaf.reload = ''
 	" coda
@@ -177,6 +176,20 @@ fun! wheel#book#previous (...)
 	endif
 	let fieldname = a:1
 	return ring.leaves[previous][fieldname]
+endfun
+
+fun! wheel#book#selected ()
+	" Return selected addresses of previous leaf in ring
+	" If empty, return previous address of current line
+	let addresses = wheel#book#previous('selection').addresses
+	if empty(addresses)
+		return [ wheel#book#previous('cursor').address ]
+	elseif type(addresses) == v:t_list
+		return addresses
+	else
+		echomsg 'wheel book previous_selected : bad format for b:wheel_selected'
+		return []
+	endif
 endfun
 
 " Saving things
@@ -241,10 +254,12 @@ fun! wheel#book#syncup ()
 	endif
 	" -- filter
 	let leaf.filter = deepcopy(b:wheel_filter)
-	" -- cursor position
-	let leaf.position = getcurpos()
-	" -- address of cursor line : useful for context menus
-	let leaf.address = wheel#line#address()
+	" -- cursor
+	" position
+	let cursor = leaf.cursor
+	let cursor.position = getcurpos()
+	" address of cursor line : useful for context menus
+	let cursor.address = wheel#line#address()
 	" -- selection
 	let leaf.selection = deepcopy(b:wheel_selection)
 	" -- settings
@@ -292,12 +307,12 @@ fun! wheel#book#syncdown ()
 		call setline(1, words)
 	endif
 	call wheel#mandala#replace (visible_lines, 'keep-first')
-	" -- cursor position
-	call wheel#gear#restore_cursor (leaf.position)
-	" -- address linked to cursor line & context
-	let b:wheel_selection.address = copy(leaf.address)
+	" -- cursor
+	let cursor = leaf.cursor
+	" position
+	call wheel#gear#restore_cursor (cursor.position)
 	" -- selection
-	let b:wheel_selected = deepcopy(leaf.selected)
+	let b:wheel_selection = deepcopy(leaf.selection)
 	" -- settings
 	let b:wheel_settings = deepcopy(leaf.settings)
 	" -- reload

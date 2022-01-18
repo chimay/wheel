@@ -13,7 +13,7 @@ if ! exists('s:selected_pattern')
 	lockvar s:selected_pattern
 endif
 
-" Looping
+" looping
 
 fun! wheel#loop#context_menu (settings)
 	" Calls function given by the key = cursor line
@@ -102,14 +102,8 @@ fun! wheel#loop#sailing (settings)
 	else
 		let Fun = 'wheel#line#switch'
 	endif
-	if empty(b:wheel_selected)
-		let selected = [wheel#line#address ()]
-	elseif type(b:wheel_selected) == v:t_list
-		let selected = b:wheel_selected
-	else
-		echomsg 'wheel line sailing : bad format for b:wheel_selected'
-		return v:false
-	endif
+	" ---- selection
+	let selected = wheel#mandala#selected ()
 	" ---- go to previous window before processing
 	call wheel#rectangle#previous ()
 	" ---- target : current window or not ?

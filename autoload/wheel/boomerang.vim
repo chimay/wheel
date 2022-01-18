@@ -18,13 +18,13 @@ endif
 
 fun! wheel#boomerang#sync_previous ()
 	" Sync selection & settings in previous layer to mandala state
-	" The action will be performed on the selection of the previous layer
-	let b:wheel_selected = deepcopy(wheel#book#previous('selected'))
-	if empty(b:wheel_selected)
-		" default selection = cursor line address of previous layer
-		let b:wheel_selected = [deepcopy(wheel#book#previous('address'))]
+	" -- the action will be performed on the selection of the previous layer
+	let b:wheel_selection = deepcopy(wheel#book#previous('selection'))
+	if ! wheel#mandala#has_selection ()
+		let cursor = deepcopy(wheel#book#previous('cursor'))
+		let b:wheel_selection.addresses = [cursor.address]
 	endif
-	" the action will be performed with the settings of the previous layer
+	" -- the action will be performed with the settings of the previous layer
 	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
 endfun
 
@@ -36,7 +36,11 @@ fun! wheel#boomerang#remove_selected ()
 	" e.g. : deleted buffers, closed tabs
 	let lines = wheel#book#previous ('lines')
 	let filtered = wheel#book#previous ('filtered')
-	let selected = wheel#book#previous ('selected')
+	let selection = wheel#book#previous ('selection')
+	if empty(selection.indexes)
+		let cursor = wheel#book#previous ('cursor')
+		let selection.addresses = [ cursor.address ]
+	endif
 	if ! empty(selected)
 		" if manually selected with space
 		for elem in selected
@@ -47,7 +51,7 @@ fun! wheel#boomerang#remove_selected ()
 	else
 		" operate by default on cursor line address on top layer
 		" no manual selection, no marker
-		let elem = wheel#book#previous ('address')
+		let elem = wheel#book#previous ('cursor').address
 		if type(elem) == v:t_list
 			let elem = elem[-1]
 		endif
@@ -184,10 +188,9 @@ fun! wheel#boomerang#tabwins (action)
 		" inform wheel#loop#sailing that a loop on selected elements is necessary
 		let settings.target = 'none'
 		" closing last tab first
-		call reverse(b:wheel_selected)
+		call reverse(b:wheel_selection.addresses)
 		call wheel#loop#sailing (settings)
-		let top = b:wheel_ring.top
-		let b:wheel_ring.layers[top].selected = []
+		call reverse(b:wheel_selection.addresses)
 		return v:true
 	endif
 	return v:false

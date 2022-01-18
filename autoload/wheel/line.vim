@@ -31,7 +31,7 @@ endif
 
 fun! wheel#line#default ()
 	" If on filtering line, put the cursor in default line 2
-	if wheel#mandala#has_filter() && line('.') == 1 && line('$') > 1
+	if wheel#teapot#has_filter() && line('.') == 1 && line('$') > 1
 		call cursor(2, 1)
 	endif
 endfun
@@ -83,7 +83,7 @@ fun! wheel#line#target (target)
 	return mode
 endfu
 
-" Applications of wheel#loop#sailing
+" Applications of loop#sailing
 
 fun! wheel#line#switch (settings)
 	" Switch to settings.selected element in wheel
