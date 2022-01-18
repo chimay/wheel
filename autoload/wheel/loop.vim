@@ -79,13 +79,16 @@ endfun
 fun! wheel#loop#sailing (settings)
 	" Go to element(s) on cursor line or selected line(s)
 	" settings keys :
-	" - level : torus, circle or location
-	" - target : current, tab, horizontal or vertical split,
-	"            even or with golden ratio
-	" - close : whether to close mandala
-	" - action : navigation function name or funcref
+	"   - related buffer of current mandala
+	"   - target : current, tab, horizontal or vertical split,
+	"              even or with golden ratio
+	"   - close : whether to close mandala
+	"   - action : navigation function name or funcref
 	let settings = copy(a:settings)
 	" ---- default values
+	if ! has_key(settings, 'related_buffer')
+		let settings.related_buffer = b:wheel_related_buffer
+	endif
 	if has_key(settings, 'target')
 		let target = settings.target
 	else

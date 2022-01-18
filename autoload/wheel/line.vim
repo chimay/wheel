@@ -267,7 +267,9 @@ fun! wheel#line#occur (settings)
 	" Go to line given by selected
 	let fields = split(a:settings.selected, s:field_separ)
 	let line = str2nr(fields[0])
+	let bufnum = a:settings.related_buffer
 	call wheel#line#target (a:settings.target)
+	execute 'buffer' bufnum
 	call cursor(line, 1)
 	if &foldopen =~ 'jump'
 		normal! zv
@@ -332,6 +334,7 @@ fun! wheel#line#markers (settings)
 	let mark = fields[0]
 	"let line = fields[1]
 	"let column = fields[2]
+	call wheel#line#target (a:settings.target)
 	execute "normal `" .. mark
 	return win_getid ()
 endfun
@@ -342,6 +345,7 @@ fun! wheel#line#jumps (settings)
 	let bufnum = fields[0]
 	let linum = str2nr(fields[1])
 	let colnum = str2nr(fields[2])
+	call wheel#line#target (a:settings.target)
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
@@ -355,6 +359,9 @@ fun! wheel#line#changes (settings)
 	let fields = split(a:settings.selected)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
+	let bufnum = a:settings.related_buffer
+	call wheel#line#target (a:settings.target)
+	execute 'buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
 		normal! zv
