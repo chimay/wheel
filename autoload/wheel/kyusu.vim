@@ -72,12 +72,13 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 	if empty(candidates)
 		return [ [], [] ]
 	endif
+	let length = len(candidates)
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
 	let filtered_indexes = []
 	let filtered_values = []
 	" ---- all but last element
-	for index in range(len(candidates) - 1)
+	for index in range(length - 1)
 		" --- Current line
 		let cur_value = candidates[index]
 		let cur_length = strchars(cur_value)
@@ -104,6 +105,7 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 		endif
 	endfor
 	" ---- last element
+	let index = length - 1
 	let value = candidates[-1]
 	if wheel#kyusu#wordlist (wordlist, 0, value)
 		eval filtered_indexes->add(indexlist[index])

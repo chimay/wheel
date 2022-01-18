@@ -15,64 +15,6 @@ endif
 
 " looping
 
-fun! wheel#loop#context_menu (settings)
-	" Calls function given by the key = cursor line
-	" settings is a dictionary, whose keys can be :
-	" - dict : name of a dictionary variable in storage.vim
-	" - close : whether to close mandala buffer
-	" - travel : whether to go back to previous window before applying action
-	let settings = a:settings
-	let dict = wheel#crystal#fetch (settings.linefun, 'dict')
-	let close = settings.ctx_close
-	let travel = settings.ctx_travel
-	" ---- cursor line
-	let cursor_line = getline('.')
-	let cursor_line = wheel#pencil#erase (cursor_line)
-	if empty(cursor_line)
-		echomsg 'wheel line menu : you selected an empty line'
-		return v:false
-	endif
-	let key = cursor_line
-	if ! has_key(dict, key)
-		if &foldopen =~ 'jump'
-			normal! zv
-		endif
-		call wheel#spiral#cursor ()
-		echomsg 'wheel line menu : key not found'
-		return v:false
-	endif
-	" ---- tab page of mandala before processing
-	let elder_tab = tabpagenr()
-	" ---- travel before processing ?
-	" true for helm menus
-	" false for context menus
-	" in case of sailing, it's managed by loop#sailing
-	if travel
-		call wheel#rectangle#previous ()
-	endif
-	" ---- call function linked to cursor line
-	let value = dict[key]
-	let winiden = wheel#gear#call (value)
-	" ---- coda
-	if close
-		call wheel#mandala#close ()
-		" -- go to last destination
-		call wheel#gear#win_gotoid (winiden)
-	else
-		call wheel#gear#win_gotoid (winiden)
-		let new_tab = tabpagenr()
-		" -- tab changed, move mandala to new tab
-		if elder_tab != new_tab
-			" close it in elder tab
-			silent call wheel#mandala#close ()
-			" go back in new tab
-			execute 'tabnext' new_tab
-		endif
-		call wheel#cylinder#recall()
-	endif
-	return v:true
-endfun
-
 fun! wheel#loop#sailing (settings)
 	" Go to element(s) on cursor line or selected line(s)
 	" settings keys :
@@ -134,4 +76,62 @@ fun! wheel#loop#sailing (settings)
 		" let the user clear the selection with <bar> if he chooses to
 	endif
 	return winiden
+endfun
+
+fun! wheel#loop#context_menu (settings)
+	" Calls function given by the key = cursor line
+	" settings is a dictionary, whose keys can be :
+	" - dict : name of a dictionary variable in storage.vim
+	" - close : whether to close mandala buffer
+	" - travel : whether to go back to previous window before applying action
+	let settings = a:settings
+	let dict = wheel#crystal#fetch (settings.linefun, 'dict')
+	let close = settings.ctx_close
+	let travel = settings.ctx_travel
+	" ---- cursor line
+	let cursor_line = getline('.')
+	let cursor_line = wheel#pencil#erase (cursor_line)
+	if empty(cursor_line)
+		echomsg 'wheel line menu : you selected an empty line'
+		return v:false
+	endif
+	let key = cursor_line
+	if ! has_key(dict, key)
+		if &foldopen =~ 'jump'
+			normal! zv
+		endif
+		call wheel#spiral#cursor ()
+		echomsg 'wheel line menu : key not found'
+		return v:false
+	endif
+	" ---- tab page of mandala before processing
+	let elder_tab = tabpagenr()
+	" ---- travel before processing ?
+	" true for helm menus
+	" false for context menus
+	" in case of sailing, it's managed by loop#sailing
+	if travel
+		call wheel#rectangle#previous ()
+	endif
+	" ---- call function linked to cursor line
+	let value = dict[key]
+	let winiden = wheel#gear#call (value)
+	" ---- coda
+	if close
+		call wheel#mandala#close ()
+		" -- go to last destination
+		call wheel#gear#win_gotoid (winiden)
+	else
+		call wheel#gear#win_gotoid (winiden)
+		let new_tab = tabpagenr()
+		" -- tab changed, move mandala to new tab
+		if elder_tab != new_tab
+			" close it in elder tab
+			silent call wheel#mandala#close ()
+			" go back in new tab
+			execute 'tabnext' new_tab
+		endif
+		call wheel#cylinder#recall()
+	endif
+	return v:true
 endfun

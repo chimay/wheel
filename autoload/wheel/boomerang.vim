@@ -14,31 +14,79 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" Sync previous mandala layer -> current mandala state
+" helpers
+
+fun! wheel#boomerang#has_filter ()
+	" Whether previous leaf has filter
+	let nature = wheel#book#previous('nature')
+	return nature.has_filter
+endfun
+
+fun! wheel#boomerang#is_filtered ()
+	" Whether previous leaf is filtered
+	let filter = wheel#book#previous('filter')
+	return ! empty(filter.words)
+endfun
+
+fun! wheel#boomerang#first_data_line ()
+	" First data line is 1 if previous leaf has no filter, 2 otherwise
+	if wheel#boomerang#has_filter ()
+		let shift = 2
+	else
+		let shift = 1
+	endif
+endfun
+
+fun! wheel#boomerang#line_index (...)
+	" Return index of previous line number in previous b:wheel_lines
+	" Default : current line number
+	if a:0 > 1
+		let linum = a:1
+	else
+		let linum = line('.')
+	endif
+	let shift = wheel#boomerang#first_data_line ()
+	let index = linum - shift
+	let filter = wheel#book#previous('filter')
+	if wheel#boomerang#is_filtered ()
+		let indexlist = filter.indexes
+		return indexlist[index]
+	else
+		return index
+	endif
+endfun
+
+" sync previous mandala layer -> current mandala state
 
 fun! wheel#boomerang#sync_previous ()
 	" Sync selection & settings in previous layer to mandala state
 	" -- the action will be performed on the selection of the previous layer
-	let b:wheel_selection = deepcopy(wheel#book#previous('selection'))
+	let selection = deepcopy(wheel#book#previous ('selection'))
 	if ! wheel#mandala#has_selection ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
-		let b:wheel_selection.addresses = [cursor.address]
+		let line_index = wheel#boomerang#line_index (cursor.position[1])
+		echomsg cursor.position[1] line_index
+		let selection.indexes = [ line_index ]
+		let selection.addresses = [cursor.address]
 	endif
+	let b:wheel_selection = selection
 	" -- the action will be performed with the settings of the previous layer
 	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
 endfun
 
-" Helpers
+" selection
 
 fun! wheel#boomerang#remove_selected ()
 	" Remove selected elements from mandala lines of the previous related layer
 	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
-	let lines = wheel#book#previous ('lines')
-	let filtered = wheel#book#previous ('filtered')
-	let selection = wheel#book#previous ('selection')
+	let lines = deepcopy(wheel#book#previous ('lines'))
+	let filtered = deepcopy(wheel#book#previous ('filtered'))
+	let selection = deepcopy(wheel#book#previous ('selection'))
 	if empty(selection.indexes)
 		let cursor = wheel#book#previous ('cursor')
+		let line_index = wheel#teapot#line_index (cursor.position[1])
+		let selection.indexes = [ line_index ]
 		let selection.addresses = [ cursor.address ]
 	endif
 	if ! empty(selected)
@@ -60,7 +108,7 @@ fun! wheel#boomerang#remove_selected ()
 	endif
 endfun
 
-" Generic
+" generic
 
 fun! wheel#boomerang#menu (dictname, optional = {})
 	" Context menu
@@ -78,14 +126,14 @@ fun! wheel#boomerang#menu (dictname, optional = {})
 	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
 	call wheel#tower#staircase (settings)
 	call wheel#boomerang#sync_previous ()
-	" let wheel#loop#context_menu handle open / close,
-	" tell wheel#loop#sailing to forget it
+	" let loop#context_menu handle open / close,
+	" tell loop#sailing to forget it
 	let b:wheel_settings.close = v:false
 	" Reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
 endfun
 
-" Applications
+" applications
 
 fun! wheel#boomerang#sailing (action)
 	" Sailing actions
@@ -133,8 +181,8 @@ fun! wheel#boomerang#buffers (action)
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
 		call wheel#loop#sailing (settings)
-		let previous_selected = wheel#book#previous ('selected')
-		let previous_selected = []
+		let previous_selection = wheel#book#previous ('selection')
+		let previous_selection = []
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
 		let filtered = wheel#book#previous ('filtered')

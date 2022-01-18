@@ -14,7 +14,16 @@ fun! wheel#teapot#is_filtered ()
 	return ! empty(b:wheel_filter.words)
 endfun
 
-fun! wheel#teapot#line_index ()
+fun! wheel#teapot#first_data_line ()
+	" First data line is 1 if mandala has no filter, 2 otherwise
+	if wheel#teapot#has_filter ()
+		return 2
+	else
+		return 1
+	endif
+endfun
+
+fun! wheel#teapot#line_index (...)
 	" Return index of line number in b:wheel_lines
 	" Default : current line number
 	if a:0 > 1
@@ -29,15 +38,6 @@ fun! wheel#teapot#line_index ()
 		return indexlist[index]
 	else
 		return index
-	endif
-endfun
-
-fun! wheel#teapot#first_data_line ()
-	" First data line is 1 if mandala has no filter, 2 otherwise
-	if wheel#teapot#has_filter ()
-		return 2
-	else
-		return 1
 	endif
 endfun
 

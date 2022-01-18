@@ -178,7 +178,7 @@ fun! wheel#book#previous (...)
 	return ring.leaves[previous][fieldname]
 endfun
 
-fun! wheel#book#selected ()
+fun! wheel#book#previous_selected ()
 	" Return selected addresses of previous leaf in ring
 	" If empty, return previous address of current line
 	let addresses = wheel#book#previous('selection').addresses
