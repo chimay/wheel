@@ -46,7 +46,7 @@ fun! wheel#pencil#selected ()
 	" If empty, return address of current line
 	let addresses = b:wheel_selection.addresses
 	if empty(addresses)
-		return [wheel#line#address ()]
+		return [ wheel#line#address () ]
 	elseif type(addresses) == v:t_list
 		return addresses
 	else
@@ -75,7 +75,7 @@ fun! wheel#pencil#select ()
 	let address = wheel#line#address ()
 	" -- shift between b:wheel_lines indexes and buffer line numbers
 	let shift = wheel#teapot#first_data_line ()
-	" -- indexes
+	" -- global index of current line in b:wheel_lines
 	let index = wheel#teapot#line_index ()
 	eval selection.indexes->add(index)
 	" -- address

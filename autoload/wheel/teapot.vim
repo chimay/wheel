@@ -26,7 +26,7 @@ endfun
 fun! wheel#teapot#line_index (...)
 	" Return index of line number in b:wheel_lines
 	" Default : current line number
-	if a:0 > 1
+	if a:0 > 0
 		let linum = a:1
 	else
 		let linum = line('.')

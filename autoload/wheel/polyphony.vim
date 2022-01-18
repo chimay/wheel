@@ -285,6 +285,7 @@ endfun
 fun! wheel#polyphony#narrow_file (...) range
 	" Lines matching pattern in current file
 	call wheel#mandala#related ()
+	" 0 or 2 optional arguments
 	if a:0 > 1
 		let first = a:1
 		let last = a:2
