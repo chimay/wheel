@@ -147,40 +147,40 @@ endfun
 
 fun! wheel#vector#write_quickfix ()
 	" Apply changes done in grep mandala
-	" Confirm
+	" -- confirm
 	let prompt = 'Propagate changes to grepped files ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 2
 		return v:false
 	endif
-	" List of (modified) lines
+	" -- list of (modified) lines
 	let linelist = getline(1, '$')
-	" Number of original lines must be equal to number of modified lines
+	" -- number of original lines must be equal to number of modified lines
 	let elder_len = len(b:wheel_lines)
 	let new_len = len(linelist)
 	if new_len > elder_len
-		echomsg 'wheel quickfix write : there are too much line(s).'
+		echomsg 'wheel quickfix write : there are too much line(s)'
 		return v:false
 	elseif new_len < elder_len
-		echomsg 'wheel quickfix write : some line(s) are missing.'
+		echomsg 'wheel quickfix write : some line(s) are missing'
 		return v:false
 	endif
-	" fill modified lines list
+	" -- fill modified lines list
 	let newlines = []
 	for line in linelist
 		if ! empty(line)
 			let fields = split(line, s:field_separ)
 			call add(newlines, fields[-1])
 		else
-			echomsg 'wheel write quickfix : line should not be empty.'
+			echomsg 'wheel write quickfix : line should not be empty'
 			return v:false
 		endif
 	endfor
-	" Propagate
+	" -- propagate
 	call wheel#mandala#related ()
 	silent cdo call wheel#vector#cdo(newlines)
 	call wheel#cylinder#recall ()
-	" Info
+	" -- info
 	setlocal nomodified
-	echomsg 'quickfix changes propagated.'
+	echomsg 'quickfix changes propagated'
 endfun

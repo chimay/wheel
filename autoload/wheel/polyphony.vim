@@ -155,11 +155,19 @@ endfun
 
 fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow_file
+	" -- confirm
+	let prompt = 'Propagate changes to file ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm == 2
+		return v:false
+	endif
+	" -- buffer
 	call wheel#pencil#clear_visible ()
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'undefined'
 		return v:false
 	endif
+	" -- modify file lines
 	let linelist = getline(2, '$')
 	let mandala_linum = 2
 	let shift = 0
@@ -202,11 +210,19 @@ fun! wheel#polyphony#harmony ()
 		let mandala_linum += 1
 	endfor
 	setlocal nomodified
+	echomsg 'changes propagated'
 	return v:true
 endfun
 
 fun! wheel#polyphony#counterpoint ()
 	" Write function for shape#narrow_circle
+	" -- confirm
+	let prompt = 'Propagate changes to circle files ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm == 2
+		return v:false
+	endif
+	" -- modify file lines
 	call wheel#pencil#clear_visible ()
 	let linelist = getline(2, '$')
 	for line in linelist
@@ -225,6 +241,7 @@ fun! wheel#polyphony#counterpoint ()
 		call setbufline(bufnum, linum, content)
 	endfor
 	setlocal nomodified
+	echomsg 'changes propagated to circle'
 	return v:true
 endfun
 

@@ -2,6 +2,8 @@
 
 " Filter aspect of mandalas
 
+" helpers
+
 fun! wheel#teapot#has_filter ()
 	" Return true if mandala has filter in first line, false otherwise
 	return b:wheel_nature.has_filter
@@ -12,7 +14,7 @@ fun! wheel#teapot#is_filtered ()
 	return ! empty(b:wheel_filter.words)
 endfun
 
-fun! wheel#teapot#index ()
+fun! wheel#teapot#line_index ()
 	" Return index of line number in b:wheel_lines
 	" Default : current line number
 	if a:0 > 1
@@ -30,8 +32,19 @@ fun! wheel#teapot#index ()
 	endif
 endfun
 
+fun! wheel#teapot#first_data_line ()
+	" First data line is 1 if mandala has no filter, 2 otherwise
+	if wheel#teapot#has_filter ()
+		return 2
+	else
+		return 1
+	endif
+endfun
+
+" run filter
+
 fun! wheel#teapot#filter (mode = 'normal')
-	" Keep lines matching words of first line
+	" Filter : keep only lines matching words of first line
 	let mode = a:mode
 	let matrix = wheel#kyusu#indexes_and_lines ()
 	let indexes = matrix[0]
@@ -50,14 +63,7 @@ fun! wheel#teapot#filter (mode = 'normal')
 	endif
 endfun
 
-fun! wheel#teapot#first_data_line ()
-	" First data line is 1 if mandala has no filter, 2 otherwise
-	if wheel#teapot#has_filter ()
-		return 2
-	else
-		return 1
-	endif
-endfun
+" maps
 
 fun! wheel#teapot#filter_maps ()
 	" Define local filter maps

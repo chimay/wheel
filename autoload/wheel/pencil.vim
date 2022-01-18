@@ -76,7 +76,7 @@ fun! wheel#pencil#select ()
 	" -- shift between b:wheel_lines indexes and buffer line numbers
 	let shift = wheel#teapot#first_data_line ()
 	" -- indexes
-	let index = wheel#teapot#index ()
+	let index = wheel#teapot#line_index ()
 	eval selection.indexes->add(index)
 	" -- address
 	eval selection.addresses->add(address)
@@ -102,7 +102,7 @@ fun! wheel#pencil#clear ()
 	let linum = line('.')
 	let address = wheel#line#address ()
 	" -- indexes
-	let index = wheel#teapot#index ()
+	let index = wheel#teapot#line_index ()
 	let found = selection.indexes->index(index)
 	eval selection.indexes->remove(found)
 	eval selection.addresses->remove(found)

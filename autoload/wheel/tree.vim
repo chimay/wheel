@@ -16,6 +16,11 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " Helpers
 
 fun! wheel#tree#is_in_circle (location, circle)
@@ -290,7 +295,9 @@ fun! wheel#tree#add_buffer (...)
 	else
 		let prompt = 'Buffer to add ? '
 		let complete = 'customlist,wheel#complete#buffer'
-		let buffer = input(prompt, '', complete)
+		let choice = input(prompt, '', complete)
+		let fields = split(choice, s:field_separ)
+		let buffer = fields[3]
 	endif
 	execute 'buffer' buffer
 	call wheel#tree#add_here()
