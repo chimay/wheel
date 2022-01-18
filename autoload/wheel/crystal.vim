@@ -261,12 +261,20 @@ endif
 " Selections in mandalas
 
 if ! exists('s:selected_mark')
-	let s:selected_mark = '* '
+	let s:selected_mark = '☰ '
+	"let s:selected_mark = '☯ '
+	"let s:selected_mark = '𑇍 '
+	"let s:selected_mark = '᚛ '
+	"let s:selected_mark = '⊗ '
+	"let s:selected_mark = '⊛ '
+	"let s:selected_mark = '✶ '
+	"let s:selected_mark = '🗸 '
+	"let s:selected_mark = '𐄂 '
 	lockvar s:selected_mark
 endif
 
 if ! exists('s:selected_pattern')
-	let s:selected_pattern = '\m^\* '
+	let s:selected_pattern = '\m^' .. s:selected_mark
 	lockvar s:selected_pattern
 endif
 

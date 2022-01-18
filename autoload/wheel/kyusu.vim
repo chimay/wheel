@@ -70,7 +70,7 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 	let indexlist = matrix[0]
 	let candidates = matrix[1]
 	if empty(candidates)
-		return []
+		return [ [], [] ]
 	endif
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
