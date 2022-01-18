@@ -242,8 +242,8 @@ endif
 " Separators in mandalas
 
 if ! exists('s:separator_field')
-	" digraph : ctrl-k vv -> │ != usual | == <bar>
 	let s:separator_field = ' │ '
+	" digraph : in insert mode : ctrl-k vv -> │ != usual | == <bar>
 	lockvar s:separator_field
 endif
 
@@ -270,6 +270,12 @@ if ! exists('s:selected_mark')
 	"let s:selected_mark = '✶ '
 	"let s:selected_mark = '🗸 '
 	"let s:selected_mark = '𐄂 '
+	" enter unicode : in insert mode :
+	"   - ctrl-v u 12ab
+	"   - ctrl-v U 12ab34cd
+	" see :
+	"   - :help i_CTRL-V_digit
+	"   - https://unicode-table.com/en/
 	lockvar s:selected_mark
 endif
 
