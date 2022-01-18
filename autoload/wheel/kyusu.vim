@@ -121,10 +121,17 @@ fun! wheel#kyusu#indexes_and_lines ()
 		return linelist
 	endif
 	call wheel#scroll#record(first)
-	" filter function
-	let Matches = function('wheel#kyusu#words_or_folds', [wordlist, 0])
-	" filtering
-	let matrix = linelist->wheel#chain#filter(Matches)
+	" filter with word_or_folds
+	let filtered_indexes = []
+	let filtered_values = []
+	for index in range(len(linelist))
+		let value = linelist[index]
+		if wordlist->wheel#kyusu#words_or_folds(0, value)
+			eval filtered_indexes->add(index)
+			eval filtered_values->add(value)
+		endif
+	endfor
+	let matrix = [filtered_indexes, filtered_values]
 	" two times : cleans a level each time
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)

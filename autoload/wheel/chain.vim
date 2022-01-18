@@ -2,7 +2,7 @@
 
 " Lists operations
 
-" Test
+" Booleans
 
 fun! wheel#chain#is_inside (element, list)
 	" Whether element is in list
