@@ -157,7 +157,7 @@ fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow_file
 	call wheel#pencil#clear_visible ()
 	let bufnum = b:wheel_related_buffer
-	if bufnum == 'unknown'
+	if bufnum == 'undefined'
 		return v:false
 	endif
 	let linelist = getline(2, '$')

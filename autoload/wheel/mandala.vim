@@ -62,7 +62,7 @@ fun! wheel#mandala#init (mode = 'default')
 	endif
 	" related buffer
 	if ! exists('b:wheel_related_buffer')
-		let b:wheel_related_buffer = 'unknown'
+		let b:wheel_related_buffer = 'undefined'
 	endif
 	" lines
 	if ! exists('b:wheel_lines')
@@ -418,9 +418,9 @@ fun! wheel#mandala#related ()
 		return v:false
 	endif
 	let bufnum = b:wheel_related_buffer
-	if bufnum == 'unknown'
+	if bufnum == 'undefined'
 		wincmd p
-		return 'unknown'
+		return 'undefined'
 	endif
 	call wheel#rectangle#goto_or_load (bufnum)
 	return bufnum

@@ -62,7 +62,7 @@ fun! wheel#clipper#yank (mode)
 	call wheel#clipper#template(settings)
 	call wheel#mandala#fill (lines)
 	" yank ring is not related to any particular buffer
-	let b:wheel_related_buffer = 'unknown'
+	let b:wheel_related_buffer = 'undefined'
 	setlocal nomodified
 	call cursor(1, 1)
 	" reload

@@ -61,6 +61,12 @@ fun! wheel#cylinder#check ()
 	endfor
 endfun
 
+fun! wheel#cylinder#split ()
+	" Create a new split window and put it at the bottom
+	split
+	wincmd J
+endfun
+
 " Window
 
 fun! wheel#cylinder#goto (...)
@@ -115,8 +121,7 @@ fun! wheel#cylinder#window (mode = 'buffer')
 			execute 'silent sbuffer' goto
 			wincmd J
 		else
-			split
-			wincmd J
+			call wheel#cylinder#split ()
 		endif
 		return v:true
 	endif
@@ -126,8 +131,7 @@ fun! wheel#cylinder#window (mode = 'buffer')
 			execute 'silent sbuffer' goto
 			wincmd J
 		else
-			split
-			wincmd J
+			call wheel#cylinder#split ()
 		endif
 	endif
 	return v:true
@@ -156,8 +160,7 @@ fun! wheel#cylinder#first (mode = 'furtive')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" new buffer
 	if mode == 'linger'
-		split
-		wincmd J
+		call wheel#cylinder#split ()
 		enew
 	else
 		if empty_cur_buffer
@@ -222,8 +225,7 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" new buffer
 	if mode == 'linger'
-		split
-		wincmd J
+		call wheel#cylinder#split ()
 		enew
 	else
 		if empty_cur_buffer

@@ -107,7 +107,7 @@ fun! wheel#book#template ()
 	let leaf.nature.type = 'empty'
 	let leaf.nature.has_filter = v:false
 	" related buffer
-	let leaf.related_buffer = 'unknown'
+	let leaf.related_buffer = 'undefined'
 	" all original lines
 	let leaf.lines = []
 	" visible lines in mandala
