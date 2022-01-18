@@ -31,22 +31,24 @@ endfun
 fun! wheel#boomerang#first_data_line ()
 	" First data line is 1 if previous leaf has no filter, 2 otherwise
 	if wheel#boomerang#has_filter ()
-		let shift = 2
+		return 2
 	else
-		let shift = 1
+		return 1
 	endif
 endfun
 
-fun! wheel#boomerang#line_index (...)
+fun! wheel#boomerang#has_selection ()
+	" Whether previous leaf is filtered
+	let selection = wheel#book#previous('selection')
+	return ! empty(selection.indexes)
+endfun
+
+fun! wheel#boomerang#line_index (linum)
 	" Return index of previous line number in previous b:wheel_lines
-	" Default : current line number
-	if a:0 > 1
-		let linum = a:1
-	else
-		let linum = line('.')
-	endif
+	let linum = a:linum
 	let shift = wheel#boomerang#first_data_line ()
 	let index = linum - shift
+	echomsg linum shift index
 	let filter = wheel#book#previous('filter')
 	if wheel#boomerang#is_filtered ()
 		let indexlist = filter.indexes
@@ -61,11 +63,13 @@ endfun
 fun! wheel#boomerang#sync_previous ()
 	" Sync selection & settings in previous layer to mandala state
 	" -- the action will be performed on the selection of the previous layer
-	let selection = deepcopy(wheel#book#previous ('selection'))
-	if ! wheel#mandala#has_selection ()
+	if wheel#boomerang#has_selection ()
+		let selection = deepcopy(wheel#book#previous ('selection'))
+	else
 		let cursor = deepcopy(wheel#book#previous('cursor'))
-		let line_index = wheel#boomerang#line_index (cursor.position[1])
-		echomsg cursor.position[1] line_index
+		let linum = cursor.position[1]
+		let line_index = wheel#boomerang#line_index (linum)
+		let selection = {}
 		let selection.indexes = [ line_index ]
 		let selection.addresses = [cursor.address]
 	endif
