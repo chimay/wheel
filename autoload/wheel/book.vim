@@ -296,17 +296,25 @@ fun! wheel#book#syncdown ()
 	" -- filter
 	let filter = deepcopy(leaf.filter)
 	let b:wheel_filter = filter
-	if empty(filter.indexes)
-		" not filtered
+	if wheel#teapot#has_filter ()
+		" filter available
+		if wheel#teapot#is_filtered ()
+			" filtered
+			let words = join(filter.words)
+			let visible_lines = filter.lines
+			call setline(1, words)
+		else
+			" not filtered
+			let visible_lines = b:wheel_lines
+			call setline(1, '')
+		endif
+		call wheel#mandala#replace (visible_lines, 'keep-first')
+	else
+		" no filter
 		let visible_lines = b:wheel_lines
 		call setline(1, '')
-	else
-		" filtered
-		let words = join(filter.words)
-		let visible_lines = filter.lines
-		call setline(1, words)
+		call wheel#mandala#replace (visible_lines, 'delete-first')
 	endif
-	call wheel#mandala#replace (visible_lines, 'keep-first')
 	" -- cursor
 	let cursor = leaf.cursor
 	" position
