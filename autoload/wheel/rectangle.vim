@@ -21,6 +21,11 @@ endif
 
 " helpers
 
+fun! wheel#rectangle#previous ()
+	" Go to previous window in tab
+	wincmd p
+endfun
+
 fun! wheel#rectangle#glasses (filename, mode = 'all')
 	" Return list of window(s) id(s) displaying filename
 	" Optional argument : if tab, search only in current tab

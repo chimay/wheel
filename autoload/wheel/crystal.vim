@@ -515,22 +515,22 @@ endif
 
 if ! exists('s:menu_meta')
 	let s:menu_meta = [
-				\ ['help' ,  "wheel#hub#submenu('help')"],
-				\ ['add' ,  "wheel#hub#submenu('add')"],
-				\ ['rename' ,  "wheel#hub#submenu('rename')"],
-				\ ['delete' ,  "wheel#hub#submenu('delete')"],
-				\ ['copy' ,  "wheel#hub#submenu('copy')"],
-				\ ['move' ,  "wheel#hub#submenu('move')"],
-				\ ['disc' ,  "wheel#hub#submenu('disc')"],
-				\ ['navigation' ,  "wheel#hub#submenu('navigation')"],
-				\ ['alternate' ,  "wheel#hub#submenu('alternate')"],
-				\ ['reorganize' ,  "wheel#hub#submenu('reorganize')"],
-				\ ['command' ,  "wheel#hub#submenu('command')"],
-				\ ['yank' ,  "wheel#hub#submenu('yank')"],
-				\ ['layouts : generic', "wheel#hub#submenu('layout')"],
-				\ ['layouts : tabs', "wheel#hub#submenu('layout_tabs')"],
-				\ ['layouts : window', "wheel#hub#submenu('layout_windows')"],
-				\ ['layouts : mixed', "wheel#hub#submenu('layout_mixed')"],
+				\ ['help' ,  "wheel#helm#submenu('help')"],
+				\ ['add' ,  "wheel#helm#submenu('add')"],
+				\ ['rename' ,  "wheel#helm#submenu('rename')"],
+				\ ['delete' ,  "wheel#helm#submenu('delete')"],
+				\ ['copy' ,  "wheel#helm#submenu('copy')"],
+				\ ['move' ,  "wheel#helm#submenu('move')"],
+				\ ['disc' ,  "wheel#helm#submenu('disc')"],
+				\ ['navigation' ,  "wheel#helm#submenu('navigation')"],
+				\ ['alternate' ,  "wheel#helm#submenu('alternate')"],
+				\ ['reorganize' ,  "wheel#helm#submenu('reorganize')"],
+				\ ['command' ,  "wheel#helm#submenu('command')"],
+				\ ['yank' ,  "wheel#helm#submenu('yank')"],
+				\ ['layouts : generic', "wheel#helm#submenu('layout')"],
+				\ ['layouts : tabs', "wheel#helm#submenu('layout_tabs')"],
+				\ ['layouts : window', "wheel#helm#submenu('layout_windows')"],
+				\ ['layouts : mixed', "wheel#helm#submenu('layout_mixed')"],
 				\]
 	lockvar s:menu_meta
 endif

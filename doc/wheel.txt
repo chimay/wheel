@@ -3283,7 +3283,7 @@ of the modules within them.
 | group.vim         | Auto grouping                              |
 | guru.vim          | Help                                       |
 | helix.vim         | Indexes                                    |
-| hub.vim           | Menus                                      |
+| helm.vim          | Menus                                      |
 | kyusu.vim         | Line filters for dedicated buffers         |
 | layer.vim         | Layer stack (unused)                       |
 | line.vim          | Activate line                              |

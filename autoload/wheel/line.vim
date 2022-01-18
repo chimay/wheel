@@ -333,6 +333,7 @@ fun! wheel#line#markers (settings)
 	"let line = fields[1]
 	"let column = fields[2]
 	execute "normal `" .. mark
+	return win_getid ()
 endfun
 
 fun! wheel#line#jumps (settings)

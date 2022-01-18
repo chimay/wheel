@@ -289,7 +289,7 @@ fun! wheel#sailing#occur (...)
 	else
 		let pattern = input('Lines matching pattern : ')
 	endif
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
 	call wheel#mandala#open ('occur')
@@ -324,7 +324,7 @@ fun! wheel#sailing#grep (...)
 			return v:false
 		endif
 	endif
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#open ('grep/' .. word)
 	let settings = {'action' : function('wheel#line#grep')}
@@ -371,7 +371,7 @@ endfun
 
 fun! wheel#sailing#markers ()
 	" Markers
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	call wheel#sailing#generic('markers')
 	" reload
 	let b:wheel_reload = 'wheel#sailing#markers'
@@ -379,7 +379,7 @@ endfun
 
 fun! wheel#sailing#jumps ()
 	" Jumps list
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	let lines = wheel#perspective#jumps ()
 	" mandala buffer
 	call wheel#mandala#open ('jumps')
@@ -392,7 +392,7 @@ endfun
 
 fun! wheel#sailing#changes ()
 	" Jumps list
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	let lines = wheel#perspective#changes ()
 	" mandala buffer
 	call wheel#mandala#open ('changes')

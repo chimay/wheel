@@ -113,7 +113,8 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	let tab = tabpagenr()
 	call wheel#cylinder#goto ()
 	" -- if not in same tab, mandala is open
-	" -- close it go to right tab
+	" -- and we are inside
+	" -- close it and go to the right tab
 	if tab != tabpagenr()
 		close
 		execute 'tabnext' tab

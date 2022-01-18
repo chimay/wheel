@@ -17,8 +17,8 @@ fun! wheel#centre#plugs ()
 	" Link <plug> mappings to wheel functions
 	" :map-<expr> does not work
 	" Menus
-	nnoremap <plug>(wheel-menu-main) <cmd>call wheel#hub#main()<cr>
-	nnoremap <plug>(wheel-menu-meta) <cmd>call wheel#hub#meta()<cr>
+	nnoremap <plug>(wheel-menu-main) <cmd>call wheel#helm#main()<cr>
+	nnoremap <plug>(wheel-menu-meta) <cmd>call wheel#helm#meta()<cr>
 	" Dashboard
 	nnoremap <plug>(wheel-dashboard) <cmd>call wheel#status#dashboard()<cr>
 	" Sync down : jump
