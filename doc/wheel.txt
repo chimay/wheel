@@ -3074,15 +3074,17 @@ Some bindings that you may find useful : >
     " index of locations in torus > circle > location format
     nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
 
+    nmap <silent> <d-j>       <plug>(wheel-dedibuf-jumps)
+
     " undo list
     nmap <silent> <d-u>       <plug>(wheel-dedibuf-undo-list)
+
+    " reorganize tabs & windows (visible buffers)
+    nmap <silent> <d-r> <plug>(wheel-reorg-tabwins)
 
     " next/previous dedicated buffer
     nmap <silent> <d-space>   <plug>(wheel-mandala-forward)
     nmap <silent> <d-s-space> <plug>(wheel-mandala-backward)
-
-    " reorganize tabs & windows (visible buffers)
-    nmap <silent> <d-r> <plug>(wheel-reorg-tabwins)
 
     " k on the beginning of the buffer -> end
     nmap <silent> k :call wheel#mandala#wrap_up()<cr>
