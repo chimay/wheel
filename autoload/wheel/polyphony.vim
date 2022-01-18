@@ -237,7 +237,7 @@ fun! wheel#polyphony#filter_maps ()
 	nnoremap <silent> <buffer> <m-i> ggA
 	nnoremap <silent> <buffer> <cr> ggA
 	" insert mode
-	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
+	inoremap <silent> <buffer> <cr> <esc>:call wheel#teapot#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun

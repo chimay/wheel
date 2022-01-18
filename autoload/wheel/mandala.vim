@@ -127,11 +127,6 @@ fun! wheel#mandala#type ()
 	return b:wheel_nature.type
 endfun
 
-fun! wheel#mandala#is_filtered ()
-	" Whether current mandala is filtered
-	return ! empty(b:wheel_filter.words)
-endfun
-
 fun! wheel#mandala#has_selection ()
 	" Whether current mandala is filtered
 	return ! empty(b:wheel_selection.indexes)
@@ -460,53 +455,6 @@ fun! wheel#mandala#redo ()
 	call wheel#cylinder#recall ()
 endfun
 
-" filter
-
-fun! wheel#mandala#filter (mode = 'normal')
-	" Keep lines matching words of first line
-	let mode = a:mode
-	let matrix = wheel#kyusu#indexes_and_lines ()
-	let indexes = matrix[0]
-	let lines = matrix[1]
-	let b:wheel_filter.words = split(getline(1))
-	let b:wheel_filter.indexes = indexes
-	let b:wheel_filter.lines = lines
-	call wheel#mandala#replace (lines, 'keep-first')
-	if mode == 'normal'
-		if line('$') > 1
-			call cursor(2, 1)
-		endif
-	elseif mode == 'insert'
-		call cursor(1, 1)
-		startinsert!
-	endif
-endfun
-
-fun! wheel#mandala#first_data_line ()
-	" First data line is 1 if mandala has no filter, 2 otherwise
-	if wheel#teapot#has_filter ()
-		return 2
-	else
-		return 1
-	endif
-endfun
-
-" selection
-
-fun! wheel#mandala#selected ()
-	" Return selected addresses
-	" If empty, return address of current line
-	let addresses = b:wheel_selection.addresses
-	if empty(addresses)
-		return [wheel#line#address ()]
-	elseif type(addresses) == v:t_list
-		return addresses
-	else
-		echomsg 'wheel mandala selected : bad format for b:wheel_selected'
-		return []
-	endif
-endfun
-
 " options
 
 fun! wheel#mandala#common_options ()
@@ -537,21 +485,6 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> <m-l> <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
 endfu
-
-fun! wheel#mandala#filter_maps ()
-	" Define local filter maps
-	" normal mode
-	nnoremap <silent> <buffer> i ggA
-	nnoremap <silent> <buffer> a ggA
-	" insert mode
-	inoremap <silent> <buffer> <space> <esc>:call wheel#mandala#filter('insert')<cr><space>
-	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#mandala#filter('insert')<cr>
-	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#mandala#filter('insert')<cr>
-	inoremap <silent> <buffer> <cr> <esc>:call wheel#mandala#filter()<cr>
-	inoremap <silent> <buffer> <esc> <esc>:call wheel#mandala#filter()<cr>
-	" <C-c> is not mapped, in case you need a regular escape
-	let b:wheel_nature.has_filter = v:true
-endfun
 
 fun! wheel#mandala#input_history_maps ()
 	" Define local input history maps
@@ -629,7 +562,7 @@ fun! wheel#mandala#template (...)
 		let b:wheel_settings = a:1
 	endif
 	call wheel#mandala#common_maps ()
-	call wheel#mandala#filter_maps ()
+	call wheel#teapot#filter_maps ()
 	call wheel#mandala#input_history_maps ()
 	" By default, tell wheel#line#address it’s not a tree buffer
 	" Overridden by folding_options

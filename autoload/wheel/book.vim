@@ -247,7 +247,7 @@ fun! wheel#book#syncup ()
 	let leaf.related_buffer = b:wheel_related_buffer
 	" -- all original lines
 	if empty(b:wheel_lines)
-		let begin = wheel#mandala#first_data_line ()
+		let begin = wheel#teapot#first_data_line ()
 		let leaf.lines = getline(begin, '$')
 	else
 		let leaf.lines = copy(b:wheel_lines)

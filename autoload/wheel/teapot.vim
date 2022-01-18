@@ -1,10 +1,15 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Filter routines for mandalas
+" Filter aspect of mandalas
 
 fun! wheel#teapot#has_filter ()
 	" Return true if mandala has filter in first line, false otherwise
 	return b:wheel_nature.has_filter
+endfun
+
+fun! wheel#teapot#is_filtered ()
+	" Whether current mandala is filtered
+	return ! empty(b:wheel_filter.words)
 endfun
 
 fun! wheel#teapot#index ()
@@ -15,9 +20,9 @@ fun! wheel#teapot#index ()
 	else
 		let linum = line('.')
 	endif
-	let shift = wheel#mandala#first_data_line ()
+	let shift = wheel#teapot#first_data_line ()
 	let index = linum - shift
-	if wheel#mandala#is_filtered ()
+	if wheel#teapot#is_filtered ()
 		let indexlist = b:wheel_filter.indexes
 		return indexlist[index]
 	else
@@ -25,3 +30,46 @@ fun! wheel#teapot#index ()
 	endif
 endfun
 
+fun! wheel#teapot#filter (mode = 'normal')
+	" Keep lines matching words of first line
+	let mode = a:mode
+	let matrix = wheel#kyusu#indexes_and_lines ()
+	let indexes = matrix[0]
+	let lines = matrix[1]
+	let b:wheel_filter.words = split(getline(1))
+	let b:wheel_filter.indexes = indexes
+	let b:wheel_filter.lines = lines
+	call wheel#mandala#replace (lines, 'keep-first')
+	if mode == 'normal'
+		if line('$') > 1
+			call cursor(2, 1)
+		endif
+	elseif mode == 'insert'
+		call cursor(1, 1)
+		startinsert!
+	endif
+endfun
+
+fun! wheel#teapot#first_data_line ()
+	" First data line is 1 if mandala has no filter, 2 otherwise
+	if wheel#teapot#has_filter ()
+		return 2
+	else
+		return 1
+	endif
+endfun
+
+fun! wheel#teapot#filter_maps ()
+	" Define local filter maps
+	" normal mode
+	nnoremap <silent> <buffer> i ggA
+	nnoremap <silent> <buffer> a ggA
+	" insert mode
+	inoremap <silent> <buffer> <space> <esc>:call wheel#teapot#filter('insert')<cr><space>
+	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#teapot#filter('insert')<cr>
+	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#teapot#filter('insert')<cr>
+	inoremap <silent> <buffer> <cr> <esc>:call wheel#teapot#filter()<cr>
+	inoremap <silent> <buffer> <esc> <esc>:call wheel#teapot#filter()<cr>
+	" <C-c> is not mapped, in case you need a regular escape
+	let b:wheel_nature.has_filter = v:true
+endfun

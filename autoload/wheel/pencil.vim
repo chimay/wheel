@@ -39,6 +39,22 @@ fun! wheel#pencil#erase (line)
 	return substitute(line, s:selected_pattern, '', '')
 endfun
 
+" selection addresses
+
+fun! wheel#pencil#selected ()
+	" Return selected addresses
+	" If empty, return address of current line
+	let addresses = b:wheel_selection.addresses
+	if empty(addresses)
+		return [wheel#line#address ()]
+	elseif type(addresses) == v:t_list
+		return addresses
+	else
+		echomsg 'wheel mandala selected : bad format for b:wheel_selected'
+		return []
+	endif
+endfun
+
 " current line
 
 fun! wheel#pencil#select ()
@@ -58,7 +74,7 @@ fun! wheel#pencil#select ()
 	let linum = line('.')
 	let address = wheel#line#address ()
 	" -- shift between b:wheel_lines indexes and buffer line numbers
-	let shift = wheel#mandala#first_data_line ()
+	let shift = wheel#teapot#first_data_line ()
 	" -- indexes
 	let index = wheel#teapot#index ()
 	eval selection.indexes->add(index)
@@ -110,7 +126,7 @@ endfun
 
 fun! wheel#pencil#select_visible ()
 	" Select visible, filtered lines
-	let begin = wheel#mandala#first_data_line ()
+	let begin = wheel#teapot#first_data_line ()
 	let buflines = getline(begin, '$')
 	" save cursor position
 	let position = getcurpos()
@@ -127,7 +143,7 @@ endfun
 
 fun! wheel#pencil#clear_visible ()
 	" Deselect visible, filtered lines
-	let begin = wheel#mandala#first_data_line ()
+	let begin = wheel#teapot#first_data_line ()
 	let buflines = getline(begin, '$')
 	" save cursor position
 	let position = getcurpos()
@@ -144,7 +160,7 @@ endfun
 
 fun! wheel#pencil#toggle_visible ()
 	" Toggle visible, filtered lines
-	let begin = wheel#mandala#first_data_line ()
+	let begin = wheel#teapot#first_data_line ()
 	let buflines = getline(begin, '$')
 	" save cursor position
 	let position = getcurpos()

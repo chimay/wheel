@@ -103,7 +103,7 @@ fun! wheel#loop#sailing (settings)
 		let Fun = 'wheel#line#switch'
 	endif
 	" ---- selection
-	let selected = wheel#mandala#selected ()
+	let selected = wheel#pencil#selected ()
 	" ---- go to previous window before processing
 	call wheel#rectangle#previous ()
 	" ---- target : current window or not ?

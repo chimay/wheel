@@ -25,7 +25,7 @@ fun! wheel#delta#undo_iden (...)
 	if line == '.'
 		call wheel#line#default ()
 	elseif line == 1
-		let line = wheel#mandala#first_data_line ()
+		let line = wheel#teapot#first_data_line ()
 	endif
 	let line = getline(line)
 	let fields = split(line)
