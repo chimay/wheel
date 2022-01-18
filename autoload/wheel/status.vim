@@ -68,12 +68,13 @@ fun! wheel#status#mandala_leaf ()
 	let Type = function('wheel#status#type')
 	" -- mandala ring status
 	let mandalas = map(copy(bufnums), { _, val -> bufname(val) })
-	eval mandalas->map({  _, val -> Type(val) })
+	eval mandalas->map({ _, val -> Type(val) })
 	let current = g:wheel_mandalas.current
 	let mandalas[current] = title
 	" -- leaf ring status
 	if exists('b:wheel_ring')
-		let filenames = wheel#book#ring ('filename')
+		let nature = wheel#book#ring ('nature')
+		let filenames = nature->map({ _, val -> val.type })
 		let current = b:wheel_ring.current
 		let leaves = map(copy(filenames), { _, val -> Type(val) })
 		let leaves[current] = title

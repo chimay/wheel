@@ -155,7 +155,7 @@ fun! wheel#cylinder#first (mode = 'furtive')
 		enew
 	else
 		if empty_cur_buffer
-			" :enew does not create a new buffer if current want has no name
+			" :enew does not create a new buffer if current one has no name
 			" so we need to use :new
 			new
 		else
@@ -168,7 +168,6 @@ fun! wheel#cylinder#first (mode = 'furtive')
 	let g:wheel_mandalas.current = 0
 	call add(iden, 0)
 	call wheel#mandala#init ()
-	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	if mode == 'furtive'
 		" call status before going back to previous buffer
@@ -239,7 +238,6 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	let novice_iden = wheel#cylinder#new_iden (iden)
 	call insert(iden, novice_iden, next)
 	call wheel#mandala#init ()
-	call wheel#mandala#set_empty ()
 	call wheel#mandala#common_maps ()
 	" call status before going back to previous buffer
 	call wheel#status#mandala_leaf ()

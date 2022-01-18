@@ -43,22 +43,67 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
+" Mandala pseudo filename
+
+fun! wheel#mandala#pseudo (type)
+	" Return pseudo filename /wheel/<buf-id>/<type>
+	let current = g:wheel_mandalas.current
+	let iden = g:wheel_mandalas.iden[current]
+	let type = a:type
+	let pseudo = '/wheel/' .. iden .. '/' .. type
+	return pseudo
+endfun
+
+fun! wheel#mandala#filename (type)
+	" Set type & buffer filename to pseudo filename
+	" Useful as information
+	" We also need a name when writing, even with BufWriteCmd
+	let type = a:type
+	let b:wheel_nature.type = type
+	" Add unique buf id, so (n)vim does not complain about existing filename
+	execute 'silent file' wheel#mandala#pseudo (type)
+	if type != 'empty'
+		" should be false when called
+		" set to true in wheel#mandala#set_empty
+		let b:wheel_nature.empty = v:false
+	endif
+endfun
+
+" Nature
+
+fun! wheel#mandala#set_empty ()
+	" Tell wheel to consider this mandala as an empty buffer
+	call wheel#mandala#filename ('empty')
+	" has to be placed after mandala#filename
+	let b:wheel_nature.empty = v:true
+endfun
+
+fun! wheel#mandala#is_empty ()
+	" Return true if mandala is empty, false otherwise
+	return b:wheel_nature.empty
+endfun
+
+fun! wheel#mandala#type ()
+	" Type of a mandala buffer
+	return b:wheel_nature.type
+endfun
+
+fun! wheel#mandala#has_filter ()
+	" Return true if mandala has filter in first line, false otherwise
+	return b:wheel_nature.has_filter
+endfun
+
 " Init
 
-fun! wheel#mandala#init (mode = 'default')
+fun! wheel#mandala#init ()
 	" Init mandala buffer variables
-	let mode = a:mode
-	if mode == 'refresh'
-		" deselect e.g. when reloading
-		let b:wheel_address = ''
-		let b:wheel_selected = []
-	endif
 	" mandala nature
 	if ! exists('b:wheel_nature')
 		let b:wheel_nature = {}
 		let b:wheel_nature.empty = v:true
 		let b:wheel_nature.type = 'empty'
 		let b:wheel_nature.has_filter = v:false
+		call wheel#mandala#filename ('empty')
 	endif
 	" related buffer
 	if ! exists('b:wheel_related_buffer')
@@ -84,6 +129,14 @@ fun! wheel#mandala#init (mode = 'default')
 	endif
 	" leaf ring
 	call wheel#book#init ()
+endfun
+
+" Refresh
+
+fun! wheel#mandala#refresh ()
+	" Deselect all, e.g. when reloading
+	let b:wheel_address = ''
+	let b:wheel_selected = []
 endfun
 
 " Clearing things
@@ -122,54 +175,6 @@ fun! wheel#mandala#clear ()
 	silent! 1,$ delete _
 	" -- init vars
 	call wheel#mandala#init ()
-endfun
-
-" Mandala pseudo filename
-
-fun! wheel#mandala#pseudo (type)
-	" Return pseudo filename /wheel/<buf-id>/<type>
-	let current = g:wheel_mandalas.current
-	let iden = g:wheel_mandalas.iden[current]
-	let type = a:type
-	let pseudo = '/wheel/' .. iden .. '/' .. type
-	return pseudo
-endfun
-
-fun! wheel#mandala#filename (type)
-	" Set type & buffer filename to pseudo filename
-	" Useful as information
-	" We also need a name when writing, even with BufWriteCmd
-	let type = a:type
-	let b:wheel_nature.type = type
-	" Add unique buf id, so (n)vim does not complain about existing filename
-	execute 'silent file' wheel#mandala#pseudo (type)
-	" should be false when called
-	" set to true in wheel#mandala#set_empty
-	let b:wheel_nature.empty = v:false
-endfun
-
-fun! wheel#mandala#type ()
-	" Type of a mandala buffer
-	return b:wheel_nature.type
-endfun
-
-" Nature
-
-fun! wheel#mandala#set_empty ()
-	" Tell wheel to consider this mandala as an empty buffer
-	call wheel#mandala#filename ('empty')
-	" has to be placed after mandala#filename
-	let b:wheel_nature.empty = v:true
-endfun
-
-fun! wheel#mandala#is_empty ()
-	" Return true if mandala is empty, false otherwise
-	return b:wheel_nature.empty
-endfun
-
-fun! wheel#mandala#has_filter ()
-	" Return true if mandala has filter in first line, false otherwise
-	return b:wheel_nature.has_filter
 endfun
 
 " Window & buffer
@@ -348,7 +353,7 @@ fun! wheel#mandala#reload ()
 	" -- mark the buffer as empty, to avoid adding a leaf in wheel#mandala#open
 	call wheel#mandala#set_empty ()
 	" -- reinitialize buffer vars
-	call wheel#mandala#init ('refresh')
+	call wheel#mandala#refresh ()
 	" -- delete all lines
 	silent 1,$ delete _
 	" -- reload content
