@@ -80,9 +80,9 @@ fun! wheel#tree#insert_torus (torus)
 		return v:false
 	endif
 	let torus.name = name
-	eval wheel.toruses->wheel#chain#insert_next (index, torus)
+	eval wheel.toruses->wheel#chain#insert_next(index, torus)
 	let wheel.current += 1
-	eval glossary->wheel#chain#insert_next (index, name)
+	eval glossary->wheel#chain#insert_next(index, name)
 	let wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
 endfun
@@ -103,9 +103,9 @@ fun! wheel#tree#insert_circle (circle)
 		return v:false
 	endif
 	let circle.name = name
-	eval torus.circles->wheel#chain#insert_next (index, circle)
+	eval torus.circles->wheel#chain#insert_next(index, circle)
 	let torus.current += 1
-	eval glossary->wheel#chain#insert_next (index, name)
+	eval glossary->wheel#chain#insert_next(index, name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
 endfun
@@ -127,9 +127,9 @@ fun! wheel#tree#insert_location (location)
 		return v:false
 	endif
 	let location.name = name
-	eval circle.locations->wheel#chain#insert_next (index, location)
+	eval circle.locations->wheel#chain#insert_next(index, location)
 	let circle.current += 1
-	eval glossary->wheel#chain#insert_next (index, name)
+	eval glossary->wheel#chain#insert_next(index, name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
 endfun
@@ -164,8 +164,8 @@ fun! wheel#tree#add_torus (...)
 	let toruses = g:wheel.toruses
 	let glossary = g:wheel.glossary
 	let template = wheel#void#template ({'name': torus_name, 'circles': []})
-	eval toruses->wheel#chain#insert_next (index, template)
-	eval glossary->wheel#chain#insert_next (index, torus_name)
+	eval toruses->wheel#chain#insert_next(index, template)
+	eval glossary->wheel#chain#insert_next(index, torus_name)
 	let g:wheel.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
@@ -205,8 +205,8 @@ fun! wheel#tree#add_circle (...)
 	let circles = torus.circles
 	let glossary = torus.glossary
 	let template = wheel#void#template ({'name': circle_name, 'locations': []})
-	eval circles->wheel#chain#insert_next (index, template)
-	eval glossary->wheel#chain#insert_next (index, circle_name)
+	eval circles->wheel#chain#insert_next(index, template)
+	eval glossary->wheel#chain#insert_next(index, circle_name)
 	let torus.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
@@ -252,9 +252,9 @@ fun! wheel#tree#add_location (location, ...)
 	let index = circle.current
 	let locationlist = circle.locations
 	let glossary = circle.glossary
-	eval locationlist->wheel#chain#insert_next (index, location)
+	eval locationlist->wheel#chain#insert_next(index, location)
 	let circle.current += 1
-	eval glossary->wheel#chain#insert_next (index, name)
+	eval glossary->wheel#chain#insert_next(index, name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	if optional !=# 'norecord'
 		call wheel#pendulum#record ()

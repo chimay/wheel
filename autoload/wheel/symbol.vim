@@ -8,7 +8,7 @@ fun! wheel#symbol#files ()
 	" Tags file(s) related to current directory
 	let files = tagfiles ()
 	" no emacs TAGS
-	call filter(files, {_, val -> val !=# 'TAGS' })
+	eval files->filter({ _, val -> val !=# 'TAGS' })
 	return files
 endfun
 
@@ -26,7 +26,7 @@ fun! wheel#symbol#read (file)
 	else
 		let tagdir = ''
 	endif
-	call filter(lines, {_,val -> val !~ '\m^!_TAG_'})
+	eval lines->filter({ _,val -> val !~ '\m^!_TAG_' })
 	let table = []
 	let regex = '\m^[^\t]\+\t[^\t]\+\t\zs.\+\ze'
 	let final = '\m/\%(;"\)\?\zs[^/;"]*\ze$'

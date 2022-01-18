@@ -348,9 +348,9 @@ fun! wheel#gear#save_autocmds (group, events)
 		let runme = 'autocmd ' .. group .. ' ' .. event .. ' ' .. buffer
 		let output = execute(runme)
 		let lines = split(output, '\n')
-		call filter(lines, { _, val -> val !~ '\m^--- .* ---$'})
-		call filter(lines, { _, val -> val !~ '\m^' .. group })
-		call filter(lines, { _, val -> val !~ '\m' .. '<buffer[^>]*>' })
+		eval lines->filter({ _, val -> val !~ '\m^--- .* ---$' })
+		eval lines->filter({ _, val -> val !~ '\m^' .. group })
+		eval lines->filter({ _, val -> val !~ '\m' .. '<buffer[^>]*>' })
 		if empty(lines)
 			return []
 		endif

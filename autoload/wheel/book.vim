@@ -246,23 +246,11 @@ fun! wheel#book#syncup ()
 	" -- address of cursor line : useful for context menus
 	let leaf.address = wheel#line#address()
 	" -- selection
-	if exists('b:wheel_selected')
-		let leaf.selected = deepcopy(b:wheel_selected)
-	else
-		let leaf.selected = []
-	endif
+	let leaf.selection = deepcopy(b:wheel_selection)
 	" -- settings
-	if exists('b:wheel_settings')
-		let leaf.settings = deepcopy(b:wheel_settings)
-	else
-		let leaf.settings = {}
-	endif
+	let leaf.settings = deepcopy(b:wheel_settings)
 	" -- reload
-	if exists('b:wheel_reload')
-		let leaf.reload = b:wheel_reload
-	else
-		let leaf.reload = ''
-	endif
+	let leaf.reload = b:wheel_reload
 	return v:true
 endfun
 

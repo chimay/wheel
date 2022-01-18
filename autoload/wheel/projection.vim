@@ -37,13 +37,13 @@ fun! wheel#projection#closest (...)
 	endif
 	" no global var, should be fine without deepcopy
 	let album = wheel#helix#album ()
-	call filter(album, {_,value -> value[2].file ==# filename})
+	eval album->filter({ _,value -> value[2].file ==# filename })
 	" narrow down to current level
 	let narrow = wheel#referen#coordin_index(level)
 	if narrow >= 0
 		let narrow_names = wheel#referen#names()
 		for index in range(0, narrow)
-			call filter(album, {_,value -> value[index] == narrow_names[index]})
+			eval album->filter({ _,value -> value[index] == narrow_names[index] })
 		endfor
 	endif
 	if empty(album)

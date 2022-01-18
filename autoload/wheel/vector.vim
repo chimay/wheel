@@ -22,11 +22,11 @@ fun! wheel#vector#files (sieve)
 	endif
 	" Locations files
 	let locations = deepcopy(wheel#referen#circle().locations)
-	let files = map(locations, {_, val -> fnameescape(val.file)})
+	let files = locations->map({ _, val -> fnameescape(val.file) })
 	let directory = '\m^' .. getcwd() .. '/'
 	eval files->map({ _, path -> substitute(path, directory, '', '') })
 	" Filter with sieve
-	call filter(files, {_, val -> val =~ sieve})
+	eval files->filter({ _, val -> val =~ sieve })
 	" Done
 	return files
 endfu

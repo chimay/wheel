@@ -34,7 +34,7 @@ fun! wheel#rectangle#glasses (filename, mode = 'all')
 	let wins = win_findbuf(bufnr(filename))
 	if mode == 'tab'
 		let tabnum = tabpagenr()
-		call filter(wins, {_, val -> win_id2tabwin(val)[0] == tabnum})
+		eval wins->filter({ _, val -> win_id2tabwin(val)[0] == tabnum })
 	endif
 	return wins
 endfun
