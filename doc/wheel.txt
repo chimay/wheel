@@ -3075,6 +3075,7 @@ Some bindings that you may find useful : >
     nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
 
     nmap <silent> <d-o>       <plug>(wheel-dedibuf-occur)
+    nmap <silent> <d-b>       <plug>(wheel-dedibuf-buffers-all)
     nmap <silent> <d-j>       <plug>(wheel-dedibuf-jumps)
 
     " undo list

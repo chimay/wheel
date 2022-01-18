@@ -112,16 +112,11 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	" -- find window if mandala is visible
 	let tab = tabpagenr()
 	call wheel#cylinder#goto ()
-	" -- if not in current tab,
-	" -- close it and reopen it in current tab
+	" -- if not in same tab,
+	" -- close it go to right tab
 	if tab != tabpagenr()
 		call wheel#mandala#close ()
 		execute 'tabnext' tab
-		call wheel#cylinder#split ()
-		if mode == 'buffer'
-			execute 'silent buffer' goto
-		endif
-		return v:true
 	endif
 	" -- current tab
 	if ! wheel#cylinder#is_mandala ()
