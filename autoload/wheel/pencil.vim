@@ -16,6 +16,11 @@ endif
 
 " helpers
 
+fun! wheel#pencil#is_selection_empty ()
+	" Whether selection is empty
+	return empty(b:wheel_selection.indexes)
+endfun
+
 fun! wheel#pencil#is_selected (line)
 	" Whether line is selected
 	return a:line =~ s:selected_pattern
@@ -50,7 +55,7 @@ fun! wheel#pencil#selected ()
 	elseif type(addresses) == v:t_list
 		return addresses
 	else
-		echomsg 'wheel mandala selected : bad format for b:wheel_selected'
+		echomsg 'wheel pencil selected : bad selection addresses'
 		return []
 	endif
 endfun
@@ -66,9 +71,6 @@ fun! wheel#pencil#select ()
 	if wheel#pencil#is_selected (line)
 		return v:false
 	endif
-	" ---- update buffer line
-	let marked_line = wheel#pencil#draw (line)
-	call setline('.', marked_line)
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
 	let linum = line('.')
@@ -80,7 +82,10 @@ fun! wheel#pencil#select ()
 	eval selection.indexes->add(index)
 	" -- address
 	eval selection.addresses->add(address)
-	" -- coda
+	" ---- update buffer line
+	let marked_line = wheel#pencil#draw (line)
+	call setline('.', marked_line)
+	" ---- coda
 	setlocal nomodified
 	return v:true
 endfun
@@ -94,9 +99,6 @@ fun! wheel#pencil#clear ()
 	if ! wheel#pencil#is_selected (line)
 		return v:false
 	endif
-	" ---- update buffer line
-	let unmarked_line = wheel#pencil#erase (line)
-	call setline('.', unmarked_line)
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
 	let linum = line('.')
@@ -106,6 +108,10 @@ fun! wheel#pencil#clear ()
 	let found = selection.indexes->index(index)
 	eval selection.indexes->remove(found)
 	eval selection.addresses->remove(found)
+	" ---- update buffer line
+	let unmarked_line = wheel#pencil#erase (line)
+	call setline('.', unmarked_line)
+	" ---- coda
 	setlocal nomodified
 	return v:true
 endfun

@@ -446,8 +446,9 @@ fun! wheel#line#paste_list (...)
 	else
 		let close = 'close'
 	endif
-	if ! empty(b:wheel_selected)
-		let content = eval(b:wheel_selected[0])
+	if ! wheel#pencil#is_selection_empty ()
+		let addresses = b:wheel_selection.addresses
+		let content = eval(addresses[0])
 	else
 		let line = getline('.')
 		if empty(line)
@@ -481,8 +482,9 @@ fun! wheel#line#paste_plain (...)
 	else
 		let close = 'close'
 	endif
-	if ! empty(b:wheel_selected)
-		let content = b:wheel_selected[0]
+	if ! wheel#pencil#is_selection_empty ()
+		let addresses = b:wheel_selection.addresses
+		let content = addresses[0]
 	else
 		let content = getline('.')
 	endif

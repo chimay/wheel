@@ -187,11 +187,15 @@ endfun
 fun! wheel#mandala#refresh ()
 	" Refresh mandala buffer : unfilter & deselect all
 	" e.g. when reloading
+	" -- filter
 	let b:wheel_filter = {}
 	let b:wheel_filter.words = []
 	let b:wheel_filter.indexes = []
 	let b:wheel_filter.lines = []
-	let b:wheel_selected = []
+	" -- selection
+	let b:wheel_selection = {}
+	let b:wheel_selection.indexes = []
+	let b:wheel_selection.addresses = []
 endfun
 
 " clearing things

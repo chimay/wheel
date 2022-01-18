@@ -187,7 +187,7 @@ fun! wheel#book#previous_selected ()
 	elseif type(addresses) == v:t_list
 		return addresses
 	else
-		echomsg 'wheel book previous_selected : bad format for b:wheel_selected'
+		echomsg 'wheel book previous_selected : bad previous selection addresses'
 		return []
 	endif
 endfun
