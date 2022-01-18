@@ -49,6 +49,7 @@ fun! wheel#clipper#template (settings)
 	call wheel#mandala#template (settings)
 	call wheel#clipper#options (settings.mode)
 	call wheel#clipper#maps (settings.mode)
+	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
 endfun
 
 " Buffer

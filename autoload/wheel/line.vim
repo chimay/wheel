@@ -447,8 +447,10 @@ fun! wheel#line#paste_list (...)
 		let close = 'close'
 	endif
 	if ! wheel#pencil#is_selection_empty ()
-		let addresses = b:wheel_selection.addresses
-		let content = eval(addresses[0])
+		let addresses = deepcopy(b:wheel_selection.addresses)
+		eval addresses->map({ _, list_string -> eval(list_string) })
+		eval addresses->map({ _, list -> join(list, "\n") })
+		let content = join(addresses, "\n")
 	else
 		let line = getline('.')
 		if empty(line)
@@ -484,7 +486,7 @@ fun! wheel#line#paste_plain (...)
 	endif
 	if ! wheel#pencil#is_selection_empty ()
 		let addresses = b:wheel_selection.addresses
-		let content = addresses[0]
+		let content = join(addresses, "\n")
 	else
 		let content = getline('.')
 	endif
