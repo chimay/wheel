@@ -132,12 +132,36 @@ fun! wheel#kyusu#indexes_and_lines ()
 		endif
 	endfor
 	let matrix = [filtered_indexes, filtered_values]
-	" two times : cleans a level each time
+	" remove folds two times : cleans a level each time
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
-	" Return
+	" return
 	return matrix
 endfu
+
+" alternative implementation
+"
+" also works : uses chain#filter, matrix#dual
+
+" fun! wheel#kyusu#indexes_and_lines ()
+" 	" Return lines matching words of first line
+" 	let linelist = copy(b:wheel_lines)
+" 	let first = getline(1)
+" 	let wordlist = split(first)
+" 	if empty(wordlist)
+" 		return linelist
+" 	endif
+" 	call wheel#scroll#record(first)
+" 	" filter function
+" 	let Matches = function('wheel#kyusu#words_or_folds', [wordlist, 0])
+" 	" filtering
+" 	let matrix = linelist->wheel#chain#filter(Matches)
+" 	" two times : cleans a level each time
+" 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
+" 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
+" 	" Return
+" 	return matrix
+" endfu
 
 " old functions
 
