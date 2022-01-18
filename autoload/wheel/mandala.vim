@@ -97,7 +97,7 @@ endfun
 
 fun! wheel#mandala#init ()
 	" Init mandala buffer variables
-	" mandala nature
+	" -- general qualities
 	if ! exists('b:wheel_nature')
 		let b:wheel_nature = {}
 		let b:wheel_nature.empty = v:true
@@ -105,21 +105,29 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.has_filter = v:false
 		call wheel#mandala#filename ('empty')
 	endif
-	" related buffer
+	" -- related buffer
 	if ! exists('b:wheel_related_buffer')
 		let b:wheel_related_buffer = 'undefined'
 	endif
-	" lines
+	" -- all original lines
 	if ! exists('b:wheel_lines')
 		let b:wheel_lines = []
 	endif
+	" -- filter
+	if ! exists('b:wheel_filter')
+		let b:wheel_filter = {}
+		let b:wheel_filter.words = []
+		let b:wheel_filter.indexes = []
+		let b:wheel_filter.lines = []
+	endif
+	" -- selection
 	if ! exists('b:wheel_address')
 		let b:wheel_address = ''
 	endif
 	if ! exists('b:wheel_selected')
 		let b:wheel_selected = []
 	endif
-	" settings
+	" -- settings for action on line
 	if ! exists('b:wheel_settings')
 		let b:wheel_settings = {}
 	endif
@@ -134,7 +142,12 @@ endfun
 " Refresh
 
 fun! wheel#mandala#refresh ()
-	" Deselect all, e.g. when reloading
+	" Refresh mandala buffer : unfilter & deselect all
+	" e.g. when reloading
+	let b:wheel_filter = {}
+	let b:wheel_filter.words = []
+	let b:wheel_filter.indexes = []
+	let b:wheel_filter.lines = []
 	let b:wheel_address = ''
 	let b:wheel_selected = []
 endfun
@@ -451,7 +464,12 @@ endfun
 fun! wheel#mandala#filter (mode = 'normal')
 	" Keep lines matching words of first line
 	let mode = a:mode
-	let lines = wheel#kyusu#line ()
+	let matrix = wheel#kyusu#indexes_and_lines ()
+	let indexes = matrix[0]
+	let lines = matrix[1]
+	let b:wheel_filter.words = split(getline(1))
+	let b:wheel_filter.indexes = indexes
+	let b:wheel_filter.lines = lines
 	call wheel#mandala#replace (lines, 'keep-first')
 	if mode == 'normal'
 		if line('$') > 1

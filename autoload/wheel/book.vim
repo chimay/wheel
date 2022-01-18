@@ -96,33 +96,35 @@ fun! wheel#book#template ()
 	" Return empty template leaf
 	let leaf = {}
 	" -- vim stuff
+	let leaf.filename = ''
 	let leaf.options = {}
 	let leaf.mappings = {}
 	let leaf.autocmds = {}
-	" -- buffer local variables
-	let leaf.filename = ''
-	" nature of mandala
+	" -- general qualities
 	let leaf.nature = {}
 	let leaf.nature.empty = v:true
 	let leaf.nature.type = 'empty'
 	let leaf.nature.has_filter = v:false
-	" related buffer
+	" -- related buffer
 	let leaf.related_buffer = 'undefined'
-	" all original lines
+	" -- all original lines
 	let leaf.lines = []
-	" visible lines in mandala
-	let leaf.visible = []
-	" cursor position
+	" -- filter
+	let leaf.filter = {}
+	let leaf.filter.words = []
+	let leaf.filter.indexes = []
+	let leaf.filter.lines = []
+	" -- cursor position
 	let leaf.position = []
-	" address of current line
+	" -- address of current line
 	let leaf.address = []
-	" selected elements
+	" -- selected lines
 	let leaf.selected = []
-	" settings for loop & line functions
+	" -- settings for loop & line functions
 	let leaf.settings = []
-	" reload function string
+	" -- reload function string
 	let leaf.reload = ''
-	" return
+	" coda
 	return leaf
 endfun
 
@@ -204,54 +206,53 @@ endfun
 fun! wheel#book#syncup ()
 	" Sync mandala state to current leaf in ring
 	" state = vars, options, maps, autocmds
-	" -- empty mandala ?
+	" ---- empty mandala ?
 	if wheel#mandala#is_empty()
 		return v:false
 	endif
-	" -- sync up
+	" ---- sync up
 	let ring = b:wheel_ring
-	" leaf to fill / update
+	" -- leaf to fill / update
 	let current = ring.current
 	let leaf = ring.leaves[current]
-	" pseudo filename
+	" -- pseudo filename
 	let leaf.filename = expand('%')
-	" options
+	" -- options
 	let leaf.options = wheel#book#save_options ()
-	" mappings
+	" -- mappings
 	let leaf.mappings = wheel#book#save_maps ()
-	" autocommands
+	" -- autocommands
 	let leaf.autocmds = wheel#book#save_autocmds ()
-	" nature
+	" -- nature
 	let leaf.nature = copy(b:wheel_nature)
-	" related buffer
+	" -- related buffer
 	let leaf.related_buffer = b:wheel_related_buffer
-	" lines, without filtering
+	" -- all original lines
 	if empty(b:wheel_lines)
 		let begin = wheel#mandala#first_data_line ()
 		let leaf.lines = getline(begin, '$')
 	else
 		let leaf.lines = copy(b:wheel_lines)
 	endif
-	" visible content
-	let leaf.visible = getline(1, '$')
-	" cursor position
+	" -- filter
+	let leaf.filter = deepcopy(b:wheel_filter)
+	" -- cursor position
 	let leaf.position = getcurpos()
-	" address of cursor line
-	" useful for boomerang = context menus
+	" -- address of cursor line : useful for context menus
 	let leaf.address = wheel#line#address()
-	" selected lines
+	" -- selection
 	if exists('b:wheel_selected')
 		let leaf.selected = deepcopy(b:wheel_selected)
 	else
 		let leaf.selected = []
 	endif
-	" settings
+	" -- settings
 	if exists('b:wheel_settings')
 		let leaf.settings = deepcopy(b:wheel_settings)
 	else
 		let leaf.settings = {}
 	endif
-	" reload
+	" -- reload
 	if exists('b:wheel_reload')
 		let leaf.reload = b:wheel_reload
 	else
@@ -263,41 +264,52 @@ endfun
 fun! wheel#book#syncdown ()
 	" Sync current leaf in ring to mandala state
 	" state = vars, options, maps, autocmds
+	" -- leaf to activate
 	let ring = b:wheel_ring
 	let current = ring.current
 	let leaf = ring.leaves[current]
-	" pseudo filename
+	" -- pseudo filename
 	let pseudo_file = leaf.filename
 	execute 'silent file' pseudo_file
-	" options
+	" -- options
 	call wheel#gear#restore_options (leaf.options)
-	" mappings
+	" -- mappings
 	let mappings = deepcopy(leaf.mappings)
 	call wheel#gear#restore_maps (mappings)
-	" autocommands
+	" -- autocommands
 	let autodict = copy(leaf.autocmds)
 	call wheel#book#restore_autocmds (autodict)
-	" nature
+	" -- nature
 	let b:wheel_nature = copy(leaf.nature)
-	" related buffer
+	" -- related buffer
 	let b:wheel_related_buffer = leaf.related_buffer
-	" lines, without filtering
+	" -- all original lines
 	let b:wheel_lines = copy(leaf.lines)
-	" visible mandala content
-	" leaf.visible contain also the original first line, so we have
-	" to delete the first line added by :put in the replace routine
-	call wheel#mandala#replace (leaf.visible, 'delete-first')
-	" cursor position
+	" -- filter
+	let filter = deepcopy(leaf.filter)
+	let b:wheel_filter = filter
+	if empty(filter.indexes)
+		" not filtered
+		let visible_lines = b:wheel_lines
+		call setline(1, '')
+	else
+		" filtered
+		let words = join(filter.words)
+		let visible_lines = filter.lines
+		call setline(1, words)
+	endif
+	call wheel#mandala#replace (visible_lines, 'keep-first')
+	" -- cursor position
 	call wheel#gear#restore_cursor (leaf.position)
-	" address linked to cursor line & context
+	" -- address linked to cursor line & context
 	let b:wheel_address = copy(leaf.address)
-	" selection
+	" -- selection
 	let b:wheel_selected = deepcopy(leaf.selected)
-	" settings
+	" -- settings
 	let b:wheel_settings = deepcopy(leaf.settings)
-	" reload
+	" -- reload
 	let b:wheel_reload = leaf.reload
-	" Tell (neo)vim the buffer is to be considered not modified
+	" -- tell (neo)vim the buffer is to be considered not modified
 	setlocal nomodified
 	call wheel#status#mandala_leaf ()
 endfun
