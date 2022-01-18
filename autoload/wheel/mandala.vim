@@ -222,9 +222,8 @@ fun! wheel#mandala#close ()
 		" more than one window in tab ? close it.
 		close
 	else
-		" only one window in tab ? go to related buffer
-		let related_buffer = b:wheel_related_buffer
-		call wheel#rectangle#goto_or_load (related_buffer)
+		" only one window in tab ? jump to current wheel location
+		call wheel#vortex#jump ()
 	endif
 	call wheel#status#clear ()
 	return v:true

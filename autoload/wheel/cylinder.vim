@@ -88,8 +88,8 @@ endfun
 fun! wheel#cylinder#window (mode = 'buffer')
 	" Find window of current mandala or display it in a new split
 	" Optional argument mode :
-	"  - buffer (default) : find or create
-	"    the mandala window & load current mandala
+	"  - buffer (default) : find or create the mandala window &
+	"    load current mandala
 	"  - window : just find or create the mandala window,
 	"    don't load current mandala
 	let mode = a:mode
@@ -112,10 +112,10 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	" -- find window if mandala is visible
 	let tab = tabpagenr()
 	call wheel#cylinder#goto ()
-	" -- if not in same tab,
+	" -- if not in same tab, mandala is open
 	" -- close it go to right tab
 	if tab != tabpagenr()
-		call wheel#mandala#close ()
+		close
 		execute 'tabnext' tab
 	endif
 	" -- current tab
@@ -176,7 +176,7 @@ fun! wheel#cylinder#first (mode = 'furtive')
 			" :new has opened a split, close it
 			close
 		else
-			silent buffer #
+			execute 'silent buffer' cur_buffer
 		endif
 	endif
 	return v:true
