@@ -86,5 +86,5 @@ fun! wheel#ripple#stop (...)
 		endif
 	endif
 	call job_stop(job)
-	call wheel#chain#remove_element(job, g:wheel_ripple)
+	eval g:wheel_ripple->wheel#chain#remove_element(job)
 endfun

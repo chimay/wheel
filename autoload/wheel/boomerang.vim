@@ -41,8 +41,8 @@ fun! wheel#boomerang#remove_selected ()
 		" if manually selected with space
 		for elem in selected
 			let elem = s:selected_mark .. elem
-			call wheel#chain#remove_element (elem, lines)
-			call wheel#chain#remove_element (elem, filtered)
+			eval lines->wheel#chain#remove_element (elem)
+			eval filtered->wheel#chain#remove_element (elem)
 		endfor
 	else
 		" operate by default on cursor line address on top layer
@@ -51,8 +51,8 @@ fun! wheel#boomerang#remove_selected ()
 		if type(elem) == v:t_list
 			let elem = elem[-1]
 		endif
-		call wheel#chain#remove_element (elem, lines)
-		call wheel#chain#remove_element (elem, filtered)
+		eval lines->wheel#chain#remove_element (elem)
+		eval filtered->wheel#chain#remove_element (elem)
 	endif
 endfun
 
@@ -149,8 +149,8 @@ fun! wheel#boomerang#buffers (action)
 			let fields = split(elem, s:field_separ)
 			let bufnum = str2nr(fields[0])
 			if wheel#chain#is_inside (bufnum, hidden)
-				call wheel#chain#remove_element (elem, lines)
-				call wheel#chain#remove_element (elem, filtered)
+				eval lines->wheel#chain#remove_element (elem)
+				eval filtered->wheel#chain#remove_element (elem)
 			endif
 		endfor
 		if action == 'delete_hidden'

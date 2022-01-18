@@ -45,7 +45,7 @@ fun! s:Exit (chan, data, event) dict
 	let bufnum = self.bufnum
 	let code = a:data
 	let text = printf('%s %s : %s', self.name, a:event, code)
-	call wheel#chain#remove_element(self, g:wheel_wave)
+	eval g:wheel_wave->wheel#chain#remove_element(self)
 	echomsg text
 endfun
 
@@ -126,5 +126,5 @@ fun! wheel#wave#stop (...)
 		endif
 	endif
 	call jobstop(job.iden)
-	call wheel#chain#remove_element(job, g:wheel_wave)
+	eval g:wheel_wave->wheel#chain#remove_element(job)
 endfun

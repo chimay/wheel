@@ -80,9 +80,9 @@ fun! wheel#tree#insert_torus (torus)
 		return v:false
 	endif
 	let torus.name = name
-	call wheel#chain#insert_next (index, torus, wheel.toruses)
+	eval wheel.toruses->wheel#chain#insert_next (index, torus)
 	let wheel.current += 1
-	call wheel#chain#insert_next (index, name, glossary)
+	eval glossary->wheel#chain#insert_next (index, name)
 	let wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
 endfun
@@ -103,9 +103,9 @@ fun! wheel#tree#insert_circle (circle)
 		return v:false
 	endif
 	let circle.name = name
-	call wheel#chain#insert_next (index, circle, torus.circles)
+	eval torus.circles->wheel#chain#insert_next (index, circle)
 	let torus.current += 1
-	call wheel#chain#insert_next (index, name, glossary)
+	eval glossary->wheel#chain#insert_next (index, name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
 endfun
@@ -127,9 +127,9 @@ fun! wheel#tree#insert_location (location)
 		return v:false
 	endif
 	let location.name = name
-	call wheel#chain#insert_next (index, location, circle.locations)
+	eval circle.locations->wheel#chain#insert_next (index, location)
 	let circle.current += 1
-	call wheel#chain#insert_next (index, name, glossary)
+	eval glossary->wheel#chain#insert_next (index, name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
 endfun
@@ -164,8 +164,8 @@ fun! wheel#tree#add_torus (...)
 	let toruses = g:wheel.toruses
 	let glossary = g:wheel.glossary
 	let template = wheel#void#template ({'name': torus_name, 'circles': []})
-	call wheel#chain#insert_next (index, template, toruses)
-	call wheel#chain#insert_next (index, torus_name, glossary)
+	eval toruses->wheel#chain#insert_next (index, template)
+	eval glossary->wheel#chain#insert_next (index, torus_name)
 	let g:wheel.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
@@ -205,8 +205,8 @@ fun! wheel#tree#add_circle (...)
 	let circles = torus.circles
 	let glossary = torus.glossary
 	let template = wheel#void#template ({'name': circle_name, 'locations': []})
-	call wheel#chain#insert_next (index, template, circles)
-	call wheel#chain#insert_next (index, circle_name, glossary)
+	eval circles->wheel#chain#insert_next (index, template)
+	eval glossary->wheel#chain#insert_next (index, circle_name)
 	let torus.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
@@ -252,9 +252,9 @@ fun! wheel#tree#add_location (location, ...)
 	let index = circle.current
 	let locationlist = circle.locations
 	let glossary = circle.glossary
-	call wheel#chain#insert_next (index, location, locationlist)
+	eval locationlist->wheel#chain#insert_next (index, location)
 	let circle.current += 1
-	call wheel#chain#insert_next (index, name, glossary)
+	eval glossary->wheel#chain#insert_next (index, name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	if optional !=# 'norecord'
 		call wheel#pendulum#record ()
@@ -381,7 +381,7 @@ fun! wheel#tree#rename (level, ...)
 	call wheel#status#clear ()
 	echomsg 'Renaming' level old '->' new
 	let glossary = upper.glossary
-	let upper.glossary = wheel#chain#replace(old, new, glossary)
+	let upper.glossary = glossary->wheel#chain#replace(old, new)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#pendulum#rename(level, old, new)
 	return v:true
@@ -467,7 +467,7 @@ fun! wheel#tree#remove (level, name)
 		echomsg upper_name 'does not contain' name
 	endif
 	" remove from elements list
-	call wheel#chain#remove_index(index, elements)
+	eval elements->remove(index)
 	" adjust current index if necessary
 	if empty(elements)
 		let upper.current = -1
@@ -478,7 +478,7 @@ fun! wheel#tree#remove (level, name)
 		let upper.current = wheel#gear#circular_minus(index, length)
 	endif
 	" remove from glossary
-	call wheel#chain#remove_element(name, glossary)
+	eval glossary->wheel#chain#remove_element(name)
 	" for index auto update at demand
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	" adjust history
@@ -518,15 +518,15 @@ fun! wheel#tree#delete (level, mode = 'default')
 	let upper_level_name = wheel#referen#upper_level_name (level)
 	let key = wheel#referen#list_key (upper_level_name)
 	let index = upper.current
-	let upper[key] = wheel#chain#remove_index(index, elements)
+	"let upper[key] = elements->wheel#chain#remove_index(index)
+	eval elements->remove(index)
 	let length -= 1
 	if empty(elements)
 		let upper.current = -1
 	else
 		let upper.current = wheel#gear#circular_minus(index, length)
 	endif
-	let glossary = upper.glossary
-	let upper.glossary = wheel#chain#remove_element(name, glossary)
+	eval upper.glossary->wheel#chain#remove_element(name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#vortex#jump ()
 	" Adjust history

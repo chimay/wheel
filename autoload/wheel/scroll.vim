@@ -10,7 +10,7 @@ fun! wheel#scroll#record (input)
 		endfor
 	elseif type(a:input) == v:t_string
 		if wheel#chain#is_inside(a:input, g:wheel_input)
-			call wheel#chain#remove_element(a:input, g:wheel_input)
+			eval g:wheel_input->wheel#chain#remove_element(a:input)
 		endif
 		call insert(g:wheel_input, a:input)
 		let max = g:wheel_config.maxim.input

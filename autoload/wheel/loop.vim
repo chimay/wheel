@@ -130,7 +130,6 @@ fun! wheel#loop#sailing (settings)
 			call wheel#spiral#cursor ()
 		endfor
 	endif
-	echomsg 'winiden' winiden
 	" ---- coda
 	if close
 		call wheel#mandala#close ()

@@ -49,14 +49,13 @@ fun! wheel#pendulum#remove_if_present (entry)
 	let history = g:wheel_history
 	for elem in g:wheel_history
 		if elem.coordin ==# entry.coordin
-			let g:wheel_history = wheel#chain#remove_element(elem, history)
+			eval g:wheel_history->wheel#chain#remove_element(elem)
 		endif
 	endfor
 	" g:wheel_track
-	let track = g:wheel_track
 	for elem in g:wheel_track
 		if elem.coordin ==# entry.coordin
-			let g:wheel_track = wheel#chain#remove_element(elem, track)
+			eval g:wheel_track->wheel#chain#remove_element(elem)
 		endif
 	endfor
 endfu
@@ -193,8 +192,7 @@ fun! wheel#pendulum#delete(level, old_names)
 	for elem in history
 		let coordin = elem.coordin
 		if coordin[:index] == a:old_names[:index]
-			let g:wheel_history =
-						\ wheel#chain#remove_element(elem, g:wheel_history)
+			eval g:wheel_history->wheel#chain#remove_element(elem)
 		endif
 	endfor
 	" g:wheel_track
@@ -202,8 +200,7 @@ fun! wheel#pendulum#delete(level, old_names)
 	for elem in track
 		let coordin = elem.coordin
 		if coordin[:index] == a:old_names[:index]
-			let g:wheel_track =
-						\ wheel#chain#remove_element(elem, g:wheel_track)
+			eval g:wheel_track->wheel#chain#remove_element(elem)
 		endif
 	endfor
 endfun
@@ -221,7 +218,7 @@ fun! wheel#pendulum#broom ()
 		if ! wheel#chain#is_inside(coordin, helix)
 			let success = 0
 			echomsg 'Removing [' join(coordin, ', ') '] from history.'
-			call wheel#chain#remove_element(history[ind], g:wheel_history)
+			eval g:wheel_history->wheel#chain#remove_element(history[ind])
 		endif
 		let ind += 1
 	endwhile
@@ -234,7 +231,7 @@ fun! wheel#pendulum#broom ()
 		if ! wheel#chain#is_inside(coordin, helix)
 			let success = 0
 			echomsg 'Removing [' join(coordin, ', ') '] from track.'
-			call wheel#chain#remove_element(track[ind], g:wheel_track)
+			eval g:wheel_track->wheel#chain#remove_element(track[ind])
 		endif
 		let ind += 1
 	endwhile

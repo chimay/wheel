@@ -11,10 +11,10 @@ endfun
 
 " Insert
 
-fun! wheel#chain#insert_next (index, new, list)
+fun! wheel#chain#insert_next (list, index, new)
 	" Insert new element in list just after index
-	let index = a:index + 1
 	let list = a:list
+	let index = a:index + 1
 	let new = a:new
 	if empty(list)
 		return add(list, new)
@@ -28,19 +28,19 @@ fun! wheel#chain#insert_next (index, new, list)
 	endif
 endfun
 
-fun! wheel#chain#insert_after (element, new, list)
+fun! wheel#chain#insert_after (list, element, new)
 	" Insert new in list just after element
 	let index = index(a:list, a:element)
-	return wheel#chain#insert_next (index, a:new, a:list)
+	return a:list->wheel#chain#insert_next (index, a:new)
 endfun
 
 " Replace
 
-fun! wheel#chain#replace (old, new, list)
+fun! wheel#chain#replace (list, old, new)
 	" Replace old by new in list
+	let list = a:list
 	let old = a:old
 	let new = a:new
-	let list = a:list
 	let index = index(list, old)
 	if index >= 0
 		let list[index] = new
@@ -52,18 +52,18 @@ endfun
 
 " Remove
 
-fun! wheel#chain#remove_index (index, list)
-	" Remove element at index from list
-	let index = a:index
-	let list = a:list
-	eval list->remove(index)
-	return list
+fun! wheel#chain#remove_index (list, index)
+	" Remove element at index from list ; return list
+	eval a:list->remove(a:index)
+	" note : remove() returns the removed element
+	" so we need to explicitly return the list
+	return a:list
 endfun
 
-fun! wheel#chain#remove_element (element, list)
+fun! wheel#chain#remove_element (list, element)
 	" Remove element from list
-	let element = a:element
 	let list = a:list
+	let element = a:element
 	let index = index(list, element)
 	if index >= 0
 		eval list->remove(index)
@@ -71,10 +71,10 @@ fun! wheel#chain#remove_element (element, list)
 	return list
 endfun
 
-fun! wheel#chain#remove_all_elements (element, list)
+fun! wheel#chain#remove_all_elements (list, element)
 	" Remove all elements == element from list
-	let element = a:element
 	let list = a:list
+	let element = a:element
 	let index = index(list, element)
 	while index >= 0
 		eval list->remove(index)
@@ -307,7 +307,7 @@ fun! wheel#chain#sort (list, ...)
 	return [indexes, sorted]
 endfun
 
-fun! wheel#chain#revert_sort (indexes, list)
+fun! wheel#chain#revert_sort (list, indexes)
 	" Revert sort in list by reordering indexes from smallest to biggest
 	" Returns [revert_indexes, original_list]
 	let Cmp = 'wheel#chain#compare_first'
@@ -341,7 +341,7 @@ fun! wheel#chain#unique (list, ...)
 	call uniq(dual, Cmp)
 	" revert sort
 	let [sorted, indexes] = wheel#matrix#dual (dual)
-	let [rev_ind, unique] = wheel#chain#revert_sort (indexes, sorted)
+	let [rev_ind, unique] = wheel#chain#revert_sort (sorted, indexes)
 	" return
 	return unique
 endfun
