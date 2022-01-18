@@ -117,21 +117,17 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	if tab != tabpagenr()
 		call wheel#mandala#close ()
 		execute 'tabnext' tab
+		call wheel#cylinder#split ()
 		if mode == 'buffer'
-			execute 'silent sbuffer' goto
-			wincmd J
-		else
-			call wheel#cylinder#split ()
+			execute 'silent buffer' goto
 		endif
 		return v:true
 	endif
 	" -- current tab
 	if ! wheel#cylinder#is_mandala ()
+		call wheel#cylinder#split ()
 		if mode == 'buffer'
-			execute 'silent sbuffer' goto
-			wincmd J
-		else
-			call wheel#cylinder#split ()
+			execute 'silent buffer' goto
 		endif
 	endif
 	return v:true
