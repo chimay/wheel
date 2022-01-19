@@ -318,7 +318,7 @@ fun! wheel#book#syncdown ()
 	endif
 	" -- cursor
 	let cursor = deepcopy(leaf.cursor)
-	" position
+	" position ; must be done after mandala#replace
 	call wheel#gear#restore_cursor (cursor.position)
 	" -- selection
 	let b:wheel_selection = deepcopy(leaf.selection)

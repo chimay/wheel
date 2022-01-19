@@ -86,6 +86,8 @@ fun! wheel#helm#menu (dictname)
 	let string = 'menu/' .. dictname
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
+	" -- selection property
+	let b:wheel_nature.has_selection = v:false
 	" -- menu property
 	let b:wheel_nature.menu = v:true
 endfun

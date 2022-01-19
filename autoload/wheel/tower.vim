@@ -34,7 +34,7 @@ fun! wheel#tower#mappings (settings)
 endfun
 
 fun! wheel#tower#staircase (settings)
-	" Replace buffer content by a {line -> fun} layer
+	" Replace buffer content by a {line -> fun} leaf
 	" Define dict maps
 	let settings = a:settings
 	let dictname = settings.linefun
@@ -44,8 +44,8 @@ fun! wheel#tower#staircase (settings)
 	call wheel#mandala#filename (dictname)
 	call wheel#mandala#fill (lines, 'blank-first')
 	call wheel#tower#mappings (settings)
-	let b:wheel_settings = settings
 	let b:wheel_lines = lines
+	let b:wheel_settings = settings
 	call cursor(1, 1)
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()

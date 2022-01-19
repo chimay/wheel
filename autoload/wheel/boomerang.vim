@@ -75,9 +75,9 @@ fun! wheel#boomerang#addresses ()
 	endif
 endfun
 
-" sync previous mandala layer -> current mandala state
+" sync parent leaf -> current one
 
-fun! wheel#boomerang#sync_previous ()
+fun! wheel#boomerang#sync_from_parent ()
 	" Sync selection & settings in previous layer to mandala state
 	" -- selection
 	if wheel#boomerang#is_selection_empty ()
@@ -127,8 +127,7 @@ endfun
 
 fun! wheel#boomerang#menu (dictname, optional = {})
 	" Context menu
-	" -- context menu property
-	let b:wheel_nature.context_menu = v:true
+	" ---- optional settings
 	let optional = a:optional
 	if ! has_key(optional, 'ctx_close')
 		" ctx_close = v:false by default, to be able to perform other
@@ -140,13 +139,19 @@ fun! wheel#boomerang#menu (dictname, optional = {})
 		let optional.ctx_travel = v:false
 	endif
 	let dictname = 'context/' .. a:dictname
-	let settings = {'linefun' : dictname, 'ctx_close' : optional.ctx_close, 'ctx_travel' : optional.ctx_travel}
+	let settings = #{linefun : dictname, ctx_close : optional.ctx_close, ctx_travel : optional.ctx_travel}
+	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
-	call wheel#boomerang#sync_previous ()
-	" let loop#context_menu handle open / close,
-	" tell loop#sailing to forget it
+	" ---- seek selection & settings from parent leaf
+	call wheel#boomerang#sync_from_parent ()
+	" ---- properties ; must come after tower#staircase
+	" -- selection property
+	let b:wheel_nature.has_selection = v:false
+	" -- context menu property
+	let b:wheel_nature.context_menu = v:true
+	" -- let loop#context_menu handle open / close, tell loop#sailing to forget it
 	let b:wheel_settings.close = v:false
-	" Reload function
+	" -- reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
 endfun
 
@@ -288,5 +293,6 @@ endfun
 
 fun! wheel#boomerang#mappings ()
 	" Define context menu maps & set property
+	" -- sailing by default
 	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('sailing')<cr>
 endfun
