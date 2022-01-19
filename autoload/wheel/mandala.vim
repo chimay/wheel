@@ -404,8 +404,11 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	else
 		silent! 2,$ delete
 	endif
-	" Cannot use setline() or append() : does not work with yank lists
-	silent put =content
+	" ============================================================
+	" alternative : use :silent put =content
+	" setline() or append() used to not work with yank lists
+	" ============================================================
+	call append('.', content)
 	" first line
 	call cursor(1,1)
 	if first == 'blank-first'
