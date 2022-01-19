@@ -251,14 +251,34 @@ endfun
 
 " Mandalas
 
+fun! wheel#polyphony#feed (key, mode = 'normal', angle = 'no-angle')
+	" Enter on insert mode, or run filter if on first line
+	" Optional argument :
+	"   - no-angle : plain key
+	"   - with-angle, or '>' : special key -> "\<key>"
+	let key = a:key
+	let mode = a:mode
+	execute 'let key =' '"\<' .. key .. '>"'
+	if line('.') == 1
+		" end on normal mode
+		call wheel#teapot#filter(mode)
+	else
+		call feedkeys(key)
+	endif
+endfun
+
 fun! wheel#polyphony#filter_maps ()
 	" Define local filter maps
 	" normal mode
-	nnoremap <silent> <buffer> <ins> ggA
-	nnoremap <silent> <buffer> <m-i> ggA
-	nnoremap <silent> <buffer> <cr> ggA
+	nnoremap <silent> <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
+	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	" insert mode
-	inoremap <silent> <buffer> <cr> <esc>:call wheel#teapot#filter()<cr>
+	let inoremap = 'inoremap <silent> <buffer>'
+	exe inoremap "<space> <esc>:call wheel#polyphony#feed('space', 'insert', '>')<cr><space>"
+	exe inoremap "<c-w> <c-w><esc>:call wheel#polyphony#feed('c-w', 'insert', '>')<cr>"
+	exe inoremap "<c-u> <c-u><esc>:call wheel#polyphony#feed('c-u', 'insert', '>')<cr>"
+	exe inoremap "<cr> <esc>:call wheel#polyphony#feed('cr', 'normal', '>')<cr>"
+	exe inoremap "<esc> <esc>:call wheel#polyphony#feed('esc', 'normal', '>')<cr>"
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun
@@ -309,10 +329,10 @@ fun! wheel#polyphony#narrow_file (...) range
 	call wheel#mandala#open ('narrow/file/' .. filename)
 	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#filter_maps ()
-	call wheel#polyphony#input_history_maps ()
 	let settings = #{ action : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
 	call wheel#sailing#maps (settings)
+	call wheel#polyphony#filter_maps ()
+	call wheel#polyphony#input_history_maps ()
 	call wheel#polyphony#action_maps ('file')
 	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)

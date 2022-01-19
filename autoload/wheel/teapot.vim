@@ -43,8 +43,25 @@ endfun
 
 " run filter
 
+fun! wheel#teapot#goto_filter_line (mode = 'normal')
+	" Go to filter line
+	" Optional argument mode :
+	"   - normal : end in normal mode
+	"   - insert : end in insert mode
+	let mode = a:mode
+	call cursor(1, 1)
+	normal! $
+	if mode == 'insert'
+		" ! = insert at the end of line
+		startinsert!
+	endif
+endfun
+
 fun! wheel#teapot#filter (mode = 'normal')
 	" Filter : keep only lines matching words of first line
+	" Optional argument mode :
+	"   - normal : end in normal mode
+	"   - insert : end in insert mode
 	let mode = a:mode
 	let matrix = wheel#kyusu#indexes_and_lines ()
 	let indexes = matrix[0]
@@ -59,7 +76,8 @@ fun! wheel#teapot#filter (mode = 'normal')
 			call cursor(2, 1)
 		endif
 	elseif mode == 'insert'
-		call cursor(1, 1)
+		"call cursor(1, 1)
+		" ! = insert at the end of line
 		startinsert!
 	endif
 endfun
@@ -69,8 +87,8 @@ endfun
 fun! wheel#teapot#filter_maps ()
 	" Define local filter maps
 	" normal mode
-	nnoremap <silent> <buffer> i ggA
-	nnoremap <silent> <buffer> a ggA
+	nnoremap <silent> <buffer> i <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
+	nnoremap <silent> <buffer> a <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	" insert mode
 	inoremap <silent> <buffer> <space> <esc>:call wheel#teapot#filter('insert')<cr><space>
 	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#teapot#filter('insert')<cr>
