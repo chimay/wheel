@@ -7,29 +7,29 @@
 
 " helpers
 
-fun! wheel#disc#writefile (varname, file, mode = '>')
+fun! wheel#disc#writefile (varname, file, where = '>')
 	" Write variable referenced by varname to file
 	" in a format that can be :sourced
-	" If optional argument 1 is :
-	" '>' : replace file content (default)
-	" '>>' : add to file content
+	" If optional argument is :
+	"   - '>' : replace file content (default)
+	"   - '>>' : add to file content
 	let varname = a:varname
 	if ! exists(varname)
 		return
 	endif
 	let file = expand(a:file)
-	let mode = a:mode
+	let where = a:where
 	let string = 'let ' .. varname .. ' = ' .. string({varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
-	if mode == '>>'
+	if where == '>>'
 		call writefile(list, file, 'a')
 	else
 		call writefile(list, file)
 	endif
 endfun
 
-fun! wheel#disc#write (pointer, file, mode = '>')
+fun! wheel#disc#write (pointer, file, where = '>')
 	" Write variable referenced by pointer to file
 	" in a format that can be :sourced
 	" Note : pointer = variable name in vim script
@@ -43,14 +43,14 @@ fun! wheel#disc#write (pointer, file, mode = '>')
 		return
 	endif
 	let file = expand(a:file)
-	let mode = a:mode
+	let where = a:where
 	let var = {pointer}
 	redir => content
 	silent! echo 'let' pointer '=' var
 	redir END
 	let content = substitute(content, '\m[=,]', '\0\n\\', 'g')
 	let content = substitute(content, '\m\n\{2,\}', '\n', 'g')
-	exec 'redir!' mode file
+	exec 'redir!' where file
 	silent! echo content
 	redir END
 endfun
