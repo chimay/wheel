@@ -209,18 +209,18 @@ endfun
 
 " Buffers
 
-fun! wheel#perspective#buffers (mode = 'listed')
+fun! wheel#perspective#buffers (scope = 'listed')
 	" Buffers
-	" Optional argument mode :
+	" Optional argument :
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
 	" Exceptions :
 	"   - buffers without name
 	"   - wheel dedicated buffers (mandalas)
-	let mode = a:mode
-	if mode == 'listed'
+	let scope = a:scope
+	if scope == 'listed'
 		let buflist = getbufinfo({'buflisted' : 1})
-	elseif mode == 'all'
+	elseif scope == 'all'
 		let buflist = getbufinfo()
 	else
 		echomsg 'wheel perspective buffers : bad optional argument'

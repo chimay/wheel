@@ -226,18 +226,18 @@ fun! wheel#sailing#mru ()
 	let b:wheel_reload = 'wheel#sailing#mru'
 endfun
 
-fun! wheel#sailing#buffers (mode = 'listed')
+fun! wheel#sailing#buffers (scope = 'listed')
 	" Buffers
 	" To be run before opening the mandala buffer
-	" Optional argument mode :
+	" Optional argument scope :
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
-	let mode = a:mode
-	let lines = wheel#perspective#buffers (mode)
+	let scope = a:scope
+	let lines = wheel#perspective#buffers (scope)
 	" mandala buffer
-	if mode == 'listed'
+	if scope == 'listed'
 		let name = 'buffers'
-	elseif mode == 'all'
+	elseif scope == 'all'
 		let name = 'buffers/all'
 	else
 		echomsg 'wheel sailing buffers : bad optional argument'
@@ -250,7 +250,7 @@ fun! wheel#sailing#buffers (mode = 'listed')
 	" context menu
 	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. name .. "')<cr>"
 	" reload
-	let b:wheel_reload = "wheel#sailing#buffers('" .. mode .. "')"
+	let b:wheel_reload = "wheel#sailing#buffers('" .. scope .. "')"
 endfun
 
 fun! wheel#sailing#tabwins ()

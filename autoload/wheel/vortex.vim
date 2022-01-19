@@ -36,12 +36,12 @@ fun! wheel#vortex#here ()
 	return location
 endfun
 
-fun! wheel#vortex#update (mode = 'default')
+fun! wheel#vortex#update (verbose = 'quiet')
 	" Update current location to cursor
 	" Optional argument :
-	"   - default
+	"   - quiet (default)
 	"   - verbose
-	let mode = a:mode
+	let verbose = a:verbose
 	let location = wheel#referen#location()
 	if empty(location) || location.file !=# expand('%:p')
 		return v:false
@@ -53,25 +53,26 @@ fun! wheel#vortex#update (mode = 'default')
 	endif
 	let location.line = cur_line
 	let location.col = cur_col
-	if mode == 'verbose'
+	if verbose == 'verbose'
 		echo 'wheel : location updated'
 	endif
 	return v:true
 endfun
 
-fun! wheel#vortex#jump (mode = 'default')
+fun! wheel#vortex#jump (where = 'search')
 	" Jump to current location
 	" Optional argument :
-	"   - default : search for buffer in tabs & windows
-	"   - new : do not search for buffer in tabs & windows
-	let mode = a:mode
+	"   - search (default) : search for active buffer in tabs & windows
+	"   - here : load the buffer in current window,
+	"            do not search in tabs & windows
+	let where = a:where
 	" check location
 	let location = wheel#referen#location ()
 	if empty(location)
 		return win_getid ()
 	endif
 	" jump
-	if mode != 'new'
+	if where == 'search'
 		let window = wheel#rectangle#tour ()
 	else
 		let window = v:false

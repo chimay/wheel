@@ -119,7 +119,7 @@ fun! wheel#mosaic#tabs (level)
 	if length == 0
 		return
 	endif
-	call wheel#vortex#jump ('new')
+	call wheel#vortex#jump ('here')
 	for index in range(min([maxtabs - 1, length - 1]))
 		tabnew
 		call wheel#vortex#next (level, 'new')
@@ -129,17 +129,14 @@ fun! wheel#mosaic#tabs (level)
 	let g:wheel_shelve.layout.tab = level
 endfun
 
-fun! wheel#mosaic#split (level, ...)
+fun! wheel#mosaic#split (level, action = 'horizontal', ...)
 	" One level element per split
 	" Optional arguments :
 	" 1. action to obtain split layout
 	" 2. settings to pass as argument -> action(settings)
+	let level = a:level
+	let horizontal = a:horizontal
 	if a:0 > 0
-		let action = a:1
-	else
-		let action = 'horizontal'
-	endif
-	if a:0 > 1
 		let settings = a:2
 	else
 		let settings = {'golden' : v:false}
@@ -147,7 +144,6 @@ fun! wheel#mosaic#split (level, ...)
 	if ! wheel#mosaic#one_window ()
 		return
 	endif
-	let level = a:level
 	let upper = wheel#referen#upper (level)
 	let upper_level = wheel#referen#upper_level_name (level)
 	let elements = wheel#referen#elements (upper)
@@ -155,7 +151,7 @@ fun! wheel#mosaic#split (level, ...)
 	if length == 0
 		return
 	endif
-	call wheel#vortex#jump ('new')
+	call wheel#vortex#jump ('here')
 	for index in range(length - 1)
 		let alright = wheel#mosaic#{action} (settings)
 		if ! alright

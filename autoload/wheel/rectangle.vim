@@ -129,18 +129,18 @@ fun! wheel#rectangle#goto_or_load (bufnum)
 	return v:true
 endfun
 
-fun! wheel#rectangle#hidden_buffers (mode = 'listed')
+fun! wheel#rectangle#hidden_buffers (scope = 'listed')
 	" Return list of hidden or unlisted buffers, with some exceptions
-	" Optional argument mode :
+	" Optional argument :
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
 	" Exceptions :
 	"   - alternate buffer
 	"   - wheel dedicated buffers (mandalas)
-	let mode = a:mode
-	if mode == 'listed'
+	let scope = a:scope
+	if scope == 'listed'
 		let buflist = getbufinfo({'buflisted' : 1})
-	elseif mode == 'all'
+	elseif scope == 'all'
 		let buflist = getbufinfo()
 	else
 		echomsg 'wheel rectangle hidden buffers : bad optional argument'
