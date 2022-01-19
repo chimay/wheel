@@ -331,12 +331,12 @@ endfun
 
 " Add & delete
 
-fun! wheel#book#add (mode = 'default')
+fun! wheel#book#add (clear_mandala = 'dont-clear')
 	" Add empty leaf in ring
 	" Optional argument :
-	"   - clear : clear mandala
-	"   - default : just add a new leaf
-	let mode = a:mode
+	"   - default : add a new leaf
+	"   - clear : add a new leaf and clear mandala
+	let clear_mandala = a:clear_mandala
 	" -- first leaf
 	if wheel#book#init ()
 		return v:false
@@ -355,7 +355,7 @@ fun! wheel#book#add (mode = 'default')
 	let ring.current = next
 	call wheel#book#limit ()
 	" -- clear mandala
-	if mode == 'clear'
+	if clear_mandala == 'clear'
 		call wheel#mandala#clear ()
 	endif
 	return v:true
