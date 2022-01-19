@@ -12,7 +12,7 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	" in a format that can be :sourced
 	" If optional argument is :
 	"   - '>' : replace file content (default)
-	"   - '>>' : add to file content
+	"   - '>>' : append to file content
 	let varname = a:varname
 	if ! exists(varname)
 		return
@@ -34,8 +34,8 @@ fun! wheel#disc#write (pointer, file, where = '>')
 	" in a format that can be :sourced
 	" Note : pointer = variable name in vim script
 	" If optional argument 1 is :
-	" '>' : replace file content (default)
-	" '>>' : add to file content
+	"   - '>' : replace file content (default)
+	"   - '>>' : append to file content
 	" Doesn't work well with some abbreviated echoed variables content in vim
 	" wheel#disc#writefile is more reliable with vim
 	let pointer = a:pointer
