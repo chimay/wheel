@@ -88,14 +88,16 @@ fun! wheel#rectangle#tour ()
 	return v:false
 endfun
 
-fun! wheel#rectangle#goto (bufnum, mode = 'all')
+fun! wheel#rectangle#goto (bufnum, scope = 'all')
 	" Go to window of buffer given by bufnum
 	" The window is the first one displaying bufnum buffer
-	" Optional argument : if tab, search only in current tab
+	" Optional argument :
+	"   - all : search in all tabs & windows
+	"   - tab : search only in current tab
 	let bufnum = a:bufnum
-	let mode = a:mode
+	let scope = a:scope
 	" -- search in current tab
-	if mode == 'tab'
+	if scope == 'tab'
 		let winnr = bufwinnr(bufnum)
 		if winnr > 0
 			execute winnr 'wincmd w'

@@ -10,11 +10,13 @@
 " scroll, coil, spool
 " scriptorium
 
-fun! wheel#codex#register (register, mode = 'default')
+fun! wheel#codex#register (register, move = 'dont-move')
 	" Add register to yank wheel
-	" If mode == begin and register content is already in yank wheel,
-	" move it at the beginning of the list
-	let mode = a:mode
+	" Optional argument :
+	"   - dont-move : register content
+	"   - begin : register and, if register content is already in yank wheel,
+	"             move it at the beginning of the list
+	let move = a:move
 	let yanks = g:wheel_yank
 	let content = getreg(a:register)
 	if strchars(content) > g:wheel_config.maxim.yank_size
@@ -25,7 +27,7 @@ fun! wheel#codex#register (register, mode = 'default')
 	if index < 0
 		call insert(yanks, content)
 	else
-		if mode == 'begin'
+		if move == 'begin'
 			call remove(yanks, index)
 			call insert(yanks, content)
 		endif

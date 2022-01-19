@@ -159,8 +159,8 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 			let filename = expand('%:p')
 			let shadow_win = copy(winbufs)
 			let shadow_bas = copy(basket)
-			let occur_win = len(filter(shadow_win, {_,v -> v == filename}))
-			let occur_bas = len(filter(shadow_bas, {_,v -> v == filename}))
+			let occur_win = len(filter(shadow_win, { _, val -> val == filename }))
+			let occur_bas = len(filter(shadow_bas, { _, val -> val == filename }))
 			if occur_bas < occur_win && winnr('$') > 1
 				eval winbufs->wheel#chain#remove_element(filename)
 				close

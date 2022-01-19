@@ -324,6 +324,7 @@ fun! wheel#perspective#tabwins ()
 			endif
 			let winum += 1
 			let filename = bufname(bufnum)
+			let filename = fnamemodify(filename, ':p')
 			let entry = []
 			call add(entry, printf('%3d', tabnum))
 			call add(entry, printf('%3d', winum))
@@ -351,6 +352,7 @@ fun! wheel#perspective#tabwins_tree ()
 			endif
 			let winum += 1
 			let filename = bufname(bufnum)
+			let filename = fnamemodify(filename, ':p')
 			let record = filename
 			call add(returnlist, record)
 		endfor
