@@ -18,21 +18,32 @@ endif
 
 fun! wheel#pencil#is_selection_empty ()
 	" Whether selection is empty
-	let index = wheel#teapot#line_index ()
+	return empty(b:wheel_selection.indexes)
+endfun
+
+fun! wheel#pencil#is_selected (...)
+	" Whether line at line number linum is selected
+	" Default : current line number
+	if a:0 > 0
+		let linum = a:1
+	else
+		let linum = line('.')
+	endif
+	let index = wheel#teapot#line_index (linum)
 	let reference = b:wheel_selection.indexes
 	let found = index->wheel#chain#is_inside(reference)
 	return found
 endfun
 
-fun! wheel#pencil#is_selected (line)
-	" Whether line is selected
+fun! wheel#pencil#has_selection_mark (line)
+	" Whether line has selection mark
 	return a:line =~ s:selected_pattern
 endfun
 
 fun! wheel#pencil#draw (line)
 	" Return marked line
 	let line = a:line
-	if wheel#pencil#is_selected (line)
+	if wheel#pencil#has_selection_mark (line)
 		return line
 	endif
 	return substitute(line, '\m^', s:selected_mark, '')
@@ -41,7 +52,7 @@ endfun
 fun! wheel#pencil#erase (line)
 	" Return unmarked line
 	let line = a:line
-	if ! wheel#pencil#is_selected (line)
+	if ! wheel#pencil#has_selection_mark (line)
 		return line
 	endif
 	return substitute(line, s:selected_pattern, '', '')
@@ -67,16 +78,16 @@ endfun
 
 fun! wheel#pencil#select ()
 	" Select current line
+	let linum = line('.')
 	let line = getline('.')
 	if empty(line)
 		return v:false
 	endif
-	if wheel#pencil#is_selected (line)
+	if wheel#pencil#is_selected (linum)
 		return v:false
 	endif
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
-	let linum = line('.')
 	let address = wheel#line#address ()
 	" -- shift between b:wheel_lines indexes and buffer line numbers
 	let shift = wheel#teapot#first_data_line ()
@@ -95,11 +106,12 @@ endfun
 
 fun! wheel#pencil#clear ()
 	" Deselect current line
+	let linum = line('.')
 	let line = getline('.')
 	if empty(line)
 		return v:false
 	endif
-	if ! wheel#pencil#is_selected (line)
+	if ! wheel#pencil#is_selected (linum)
 		return v:false
 	endif
 	" ---- update b:wheel_selection
