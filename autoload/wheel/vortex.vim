@@ -73,7 +73,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 		return win_getid ()
 	endif
 	" jump
-	if where == 'search'
+	if where == 'search-window'
 		let window = wheel#rectangle#tour ()
 	else
 		let window = v:false
