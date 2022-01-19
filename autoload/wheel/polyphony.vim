@@ -45,7 +45,7 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	"   - file : for narrow file mandala
 	"   - circle : for narrow circle mandala
 	let mandala = a:mandala
-	call wheel#pencil#clear_visible ()
+	call wheel#pencil#hide ()
 	" -- user input
 	let prompt = 'Substitute pattern ? '
 	let before = input(prompt)
@@ -88,6 +88,7 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	" -- run substitution
 	let runme = 'silent %substitute/' .. before .. '/' .. after .. '/g'
 	execute runme
+	call wheel#pencil#show ()
 	return v:true
 endfun
 
@@ -100,7 +101,7 @@ fun! wheel#polyphony#append (where = 'below')
 	if ! where->wheel#chain#is_inside(['below', 'above'])
 		echomsg 'wheel polyphony append : bad argument where' where
 	endif
-	call wheel#pencil#clear_visible ()
+	call wheel#pencil#hide ()
 	let mandala_linum = line('.')
 	let fields = split(getline('.'), s:field_separ)
 	let object = fields[0]
@@ -120,6 +121,7 @@ fun! wheel#polyphony#append (where = 'below')
 	call append(mandala_linum, columns)
 	let mandala_linum += 1
 	call cursor(mandala_linum, 1)
+	call wheel#pencil#show ()
 	startinsert!
 endfun
 
@@ -131,7 +133,7 @@ fun! wheel#polyphony#duplicate (where = 'below')
 	if ! where->wheel#chain#is_inside(['below', 'above'])
 		echomsg 'wheel polyphony duplicate : bad where' where
 	endif
-	call wheel#pencil#clear_visible ()
+	call wheel#pencil#hide ()
 	let mandala_linum = line('.')
 	let fields = split(getline('.'), s:field_separ)
 	let object = fields[0]
@@ -157,6 +159,7 @@ fun! wheel#polyphony#duplicate (where = 'below')
 	call append(mandala_linum, columns)
 	let mandala_linum += 1
 	call cursor(mandala_linum, 1)
+	call wheel#pencil#show ()
 endfun
 
 " Propagate mandala changes -> original buffer(s)
@@ -172,7 +175,7 @@ fun! wheel#polyphony#harmony ()
 	" -- update b:wheel_lines
 	call wheel#mandala#update_var_lines ()
 	" -- buffer
-	call wheel#pencil#clear_visible ()
+	call wheel#pencil#hide ()
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'undefined'
 		return v:false
@@ -221,6 +224,7 @@ fun! wheel#polyphony#harmony ()
 	endfor
 	setlocal nomodified
 	echomsg 'changes propagated'
+	call wheel#pencil#show ()
 	return v:true
 endfun
 
@@ -235,7 +239,7 @@ fun! wheel#polyphony#counterpoint ()
 	" -- update b:wheel_lines
 	call wheel#mandala#update_var_lines ()
 	" -- modify file lines
-	call wheel#pencil#clear_visible ()
+	call wheel#pencil#hide ()
 	let linelist = getline(2, '$')
 	for line in linelist
 		let fields = split(line, s:field_separ)
@@ -254,6 +258,7 @@ fun! wheel#polyphony#counterpoint ()
 	endfor
 	setlocal nomodified
 	echomsg 'changes propagated to circle'
+	call wheel#pencil#show ()
 	return v:true
 endfun
 
