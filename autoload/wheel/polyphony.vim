@@ -161,6 +161,8 @@ fun! wheel#polyphony#harmony ()
 	if confirm == 2
 		return v:false
 	endif
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
 	" -- buffer
 	call wheel#pencil#clear_visible ()
 	let bufnum = b:wheel_related_buffer
@@ -222,6 +224,8 @@ fun! wheel#polyphony#counterpoint ()
 	if confirm == 2
 		return v:false
 	endif
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
 	" -- modify file lines
 	call wheel#pencil#clear_visible ()
 	let linelist = getline(2, '$')

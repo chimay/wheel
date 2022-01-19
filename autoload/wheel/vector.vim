@@ -153,6 +153,8 @@ fun! wheel#vector#write_quickfix ()
 	if confirm == 2
 		return v:false
 	endif
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
 	" -- list of (modified) lines
 	let linelist = getline(1, '$')
 	" -- number of original lines must be equal to number of modified lines

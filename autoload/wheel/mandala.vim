@@ -308,7 +308,7 @@ endfun
 
 " content
 
-fun! wheel#mandala#update_lines ()
+fun! wheel#mandala#update_var_lines ()
 	" Update b:wheel_lines from mandala lines
 	let start = wheel#teapot#first_data_line ()
 	let lines = getline(start, '$')
@@ -360,6 +360,8 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	endif
 	" -- delete empty lines from line 2 to end
 	silent! 2,$ global /^$/ delete _
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
 	" -- tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" -- restore cursor if possible, else place it on line 1

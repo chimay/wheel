@@ -175,6 +175,9 @@ endfun
 fun! wheel#cuboctahedron#reorder (level)
 	" Reorder current elements at level, after buffer content
 	let level = a:level
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
+	" -- reorder
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
 	let key = wheel#referen#list_key (upper_level_name)
@@ -209,6 +212,9 @@ endfun
 fun! wheel#cuboctahedron#rename (level)
 	" Rename current elements at level, after buffer content
 	let level = a:level
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
+	" -- rename
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
 	let key = wheel#referen#list_key (upper_level_name)
@@ -247,6 +253,9 @@ fun! wheel#cuboctahedron#rename_files ()
 		echomsg 'wheel : this function is only supported on Unix systems.'
 		return v:false
 	endif
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
+	" -- rename
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
 	let locations = circle.locations
@@ -316,6 +325,8 @@ endfun
 fun! wheel#cuboctahedron#copy_move (level)
 	" Copy or move selected elements at level
 	let level = a:level
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
 	" -- mode : copy or move
 	let prompt = 'Mode ? '
 	let answer = confirm(prompt, "&Copy\n&Move", 1)
@@ -415,10 +426,12 @@ fun! wheel#cuboctahedron#reorganize ()
 	if confirm == 1
 		call wheel#disc#write_all ()
 	endif
-	" Start from empty wheel
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
+	" -- start from empty wheel
 	call wheel#gear#unlet ('g:wheel')
 	call wheel#void#wheel ()
-	" Loop over buffer lines
+	" -- loop over buffer lines
 	let linelist = getline(1, '$')
 	let marker = s:fold_markers[0]
 	let pat_fold_one = '\m' .. s:fold_1 .. '$'
@@ -439,18 +452,18 @@ fun! wheel#cuboctahedron#reorganize ()
 			call wheel#tree#insert_location(location)
 		endif
 	endfor
-	" Rebuild location index
+	" -- rebuild location index
 	call wheel#helix#helix ()
-	" Rebuild circle index
+	" -- rebuild circle index
 	call wheel#helix#grid ()
-	" Rebuild file index
+	" -- rebuild file index
 	call wheel#helix#files ()
-	" Remove invalid entries from history
+	" -- remove invalid entries from history
 	call wheel#pendulum#broom ()
-	" Info
+	" -- info
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
-	" Tune wheel coordinates to first entry in history
+	" -- tune wheel coordinates to first entry in history
 	call wheel#vortex#chord(g:wheel_history[0].coordin)
 endfun
 
@@ -458,20 +471,23 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Reorganize tabs & windows
 	" Mandala line list
 	" Keep old layouts if possible
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
+	" -- list of lines
 	let linelist = getline(1, '$')
-	" Current tab
+	" -- current tab
 	let startpage = tabpagenr()
-	" Close mandala to work : otherwise it would be added to the list of windows
+	" -- close mandala to work : otherwise it would be added to the list of windows
 	call wheel#mandala#close ()
-	" Fill the baskets
+	" -- fill the baskets
 	let [tabindexes, tabwindows] = wheel#cuboctahedron#baskets (linelist)
-	" Find the new tab index of mandala tab page
+	" -- find the new tab index of mandala tab page
 	let startpage = index(tabindexes, startpage) + 1
-	" Arrange tabs : reorder, add and remove
+	" -- arrange tabs : reorder, add and remove
 	let [tabindexes, removed] = wheel#cuboctahedron#arrange_tabs (tabindexes)
-	" Add or remove windows
+	" -- add or remove windows
 	call wheel#cuboctahedron#arrange_windows (tabwindows)
-	" Back to mandala
+	" -- back to mandala
 	let lastab = tabpagenr('$')
 	if startpage >= 1 && startpage <= lastab
 		execute 'tabnext' startpage
@@ -479,14 +495,14 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 		tabnext 1
 	endif
 	call wheel#cylinder#recall ()
-	" Clean wheel shelve
+	" -- clean wheel shelve
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
 	let g:wheel_shelve.layout.tab = 'none'
 	let g:wheel_shelve.layout.tabnames = []
-	" Tell the world the job is done
+	" -- tell the world the job is done
 	setlocal nomodified
 	echomsg 'tabs & windows reorganized.'
-	" Return value
+	" -- return value
 	return [tabindexes, tabwindows, removed]
 endfun
