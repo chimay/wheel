@@ -665,19 +665,20 @@ fun! wheel#crystal#clear (varname)
 	return varname
 endfun
 
-fun! wheel#crystal#fetch (varname, mode = 'default')
+fun! wheel#crystal#fetch (varname, conversion = 'no-conversion')
 	" Return script variable called varname
 	" The leading s: can be omitted
-	" If optional argument is 'dict' and varname
-	" points to an items list, convert it to a dictionary
+	" Optional argument :
+	"   - no-conversion : simply returns the asked variable, dont convert anything
+	"   - dict : if varname points to an items list, convert it to a dictionary
 	let varname = a:varname
-	let mode = a:mode
+	let conversion = a:conversion
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
 	if varname !~ '\m^s:'
 		let varname = 's:' .. varname
 	endif
-	if mode ==# 'dict' && wheel#matrix#is_nested_list ({varname})
+	if conversion ==# 'dict' && wheel#matrix#is_nested_list ({varname})
 		return wheel#matrix#items2dict ({varname})
 	else
 		return {varname}

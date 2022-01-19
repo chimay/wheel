@@ -198,10 +198,7 @@ fun! wheel#disc#read_session (...)
 	endif
 	" even windows in each tab
 	" does not work
-	"for tabind in range(1, tabpagenr('$'))
-		"execute 'tabnext' tabind
-		"wincmd =
-	"endfor
+	"tabdo wincmd =
 	"tabnext 1
 endfun
 
