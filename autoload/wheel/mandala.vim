@@ -308,15 +308,7 @@ endfun
 
 " content
 
-fun! wheel#mandala#update_var_lines ()
-	" Update b:wheel_lines from mandala lines
-	let start = wheel#teapot#first_data_line ()
-	let lines = getline(start, '$')
-	let b:wheel_lines = lines
-	return lines
-endfun
-
-fun! wheel#mandala#replace (content, first = 'keep-first', update_var_lines = v:true)
+fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Replace mandala buffer with content
 	" Similar as mandala#fill, but do not update mandala variables
 	" Content can be :
@@ -336,7 +328,6 @@ fun! wheel#mandala#replace (content, first = 'keep-first', update_var_lines = v:
 	" -- arguments
 	let content = a:content
 	let first = a:first
-	let update_var_lines = a:update_var_lines
 	" -- cursor
 	let position = getcurpos()
 	" -- delete old content
@@ -359,16 +350,20 @@ fun! wheel#mandala#replace (content, first = 'keep-first', update_var_lines = v:
 	elseif first == 'delete-first'
 		silent 1 delete _
 	endif
-	" -- update b:wheel_lines
-	if update_var_lines
-		call wheel#mandala#update_var_lines ()
-	endif
 	" -- tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" -- restore cursor if possible, else place it on line 1
 	call wheel#gear#restore_cursor (position, 1)
 	" -- restore folding
 	let &foldenable = ampersand
+endfun
+
+fun! wheel#mandala#update_var_lines ()
+	" Update b:wheel_lines from mandala lines
+	let start = wheel#teapot#first_data_line ()
+	let lines = getline(start, '$')
+	let b:wheel_lines = lines
+	return lines
 endfun
 
 fun! wheel#mandala#fill (content, first = 'keep-first')
@@ -382,6 +377,8 @@ fun! wheel#mandala#fill (content, first = 'keep-first')
 	" - delete-first : delete first line
 	" ---- replace old content, fill if empty
 	call wheel#mandala#replace(a:content, a:first)
+	" -- update b:wheel_lines
+	call wheel#mandala#update_var_lines ()
 	" ---- update leaf ring
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()
@@ -442,7 +439,7 @@ fun! wheel#mandala#common_options ()
 	setlocal nofoldenable
 endfun
 
-" maps
+" mappings
 
 fun! wheel#mandala#common_maps ()
 	" Define local common maps

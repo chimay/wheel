@@ -69,8 +69,7 @@ fun! wheel#teapot#filter (mode = 'normal')
 	let b:wheel_filter.words = split(getline(1))
 	let b:wheel_filter.indexes = indexes
 	let b:wheel_filter.lines = lines
-	let update_var_lines = v:false
-	call wheel#mandala#replace (lines, 'keep-first', update_var_lines)
+	call wheel#mandala#replace (lines, 'keep-first')
 	call wheel#pencil#show ()
 	if mode == 'normal'
 		if line('$') > 1
