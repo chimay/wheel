@@ -40,6 +40,8 @@ fun! wheel#pencil#has_selection_mark (line)
 	return a:line =~ s:selected_pattern
 endfun
 
+" add / remove mark
+
 fun! wheel#pencil#draw (line)
 	" Return marked line
 	let line = a:line
@@ -147,13 +149,13 @@ endfun
 
 fun! wheel#pencil#select_visible ()
 	" Select visible, filtered lines
-	let begin = wheel#teapot#first_data_line ()
-	let buflines = getline(begin, '$')
+	let start = wheel#teapot#first_data_line ()
+	let buflines = getline(start, '$')
 	" save cursor position
 	let position = getcurpos()
 	" select
 	for index in range(len(buflines))
-		let linum = index + begin
+		let linum = index + start
 		call cursor(linum, 1)
 		call wheel#pencil#select ()
 	endfor
@@ -164,13 +166,13 @@ endfun
 
 fun! wheel#pencil#clear_visible ()
 	" Deselect visible, filtered lines
-	let begin = wheel#teapot#first_data_line ()
-	let buflines = getline(begin, '$')
+	let start = wheel#teapot#first_data_line ()
+	let buflines = getline(start, '$')
 	" save cursor position
 	let position = getcurpos()
 	" select
 	for index in range(len(buflines))
-		let linum = index + begin
+		let linum = index + start
 		call cursor(linum, 1)
 		call wheel#pencil#clear ()
 	endfor
@@ -181,13 +183,13 @@ endfun
 
 fun! wheel#pencil#toggle_visible ()
 	" Toggle visible, filtered lines
-	let begin = wheel#teapot#first_data_line ()
-	let buflines = getline(begin, '$')
+	let start = wheel#teapot#first_data_line ()
+	let buflines = getline(start, '$')
 	" save cursor position
 	let position = getcurpos()
 	" select
 	for index in range(len(buflines))
-		let linum = index + begin
+		let linum = index + start
 		call cursor(linum, 1)
 		call wheel#pencil#toggle ()
 	endfor
@@ -202,9 +204,9 @@ fun! wheel#pencil#hide ()
 	" Remove selected mark from all visible lines
 	" This does not clear the selection
 	let start = wheel#teapot#first_data_line ()
+	let lastline = line('$')
 	let linelist = getline(start, '$')
-	let length = len(linelist)
-	for linum in range(start, length + start)
+	for linum in range(start, lastline)
 		let line = getline(linum)
 		let cleared = wheel#pencil#erase (line)
 		call setline(linum, cleared)
@@ -214,20 +216,17 @@ endfun
 fun! wheel#pencil#show ()
 	" Add selected mark to all selected lines
 	" This does not alter the selection
-	let is_filtered = wheel#teapot#is_filtered ()
-	if is_filtered
-	else
-		let reference = b:wheel_selection.indexes
-		let shift = wheel#teapot#first_data_line ()
-		let lastline = line('$')
-		for linum in range(2, lastline)
-			let index = linum - shift
-			let found = index->wheel#chain#is_inside(reference)
-			if found
-				let line = getline(linum)
-				let drawed = wheel#pencil#draw (line)
-				call setline(linum, drawed)
-			endif
-		endfor
-	endif
+	let start = wheel#teapot#first_data_line ()
+	let lastline = line('$')
+	let linelist = getline(start, '$')
+	let reference = b:wheel_selection.indexes
+	for linum in range(start, lastline)
+		let index = wheel#teapot#line_index (linum)
+		let inside = index->wheel#chain#is_inside(reference)
+		if inside
+			let line = getline(linum)
+			let drawed = wheel#pencil#draw (line)
+			call setline(linum, drawed)
+		endif
+	endfor
 endfun
