@@ -140,15 +140,15 @@ endfun
 
 " add
 
-fun! wheel#cylinder#first (mode = 'furtive')
+fun! wheel#cylinder#first (window = 'furtive')
 	" Add first mandala buffer
 	" Optional argument :
 	"   - furtive (default) : use current window and go back to previous buffer at the end
-	"   - linger : use a split
-	let mode = a:mode
+	"   - split : use a split
+	let window = a:window
 	" -- pre-checks
-	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
-		echomsg 'wheel cylinder first : bad mode argument'
+	if ! window->wheel#chain#is_inside(['split', 'furtive'])
+		echomsg 'wheel cylinder first : bad window argument'
 		return v:false
 	endif
 	let mandalas = g:wheel_mandalas.ring
@@ -163,7 +163,7 @@ fun! wheel#cylinder#first (mode = 'furtive')
 	let cur_buffer = bufnr('%')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" -- new buffer
-	if mode == 'linger'
+	if window == 'split'
 		call wheel#cylinder#split ()
 		enew
 	else
@@ -183,7 +183,7 @@ fun! wheel#cylinder#first (mode = 'furtive')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" -- coda
-	if mode == 'furtive'
+	if window == 'furtive'
 		" call status before going back to previous buffer
 		call wheel#status#mandala_leaf ()
 		if empty_cur_buffer
@@ -196,15 +196,15 @@ fun! wheel#cylinder#first (mode = 'furtive')
 	return v:true
 endfun
 
-fun! wheel#cylinder#add (mode = 'furtive')
+fun! wheel#cylinder#add (window = 'furtive')
 	" Add new mandala buffer
 	" Optional argument :
 	"   - furtive (default) : use current window and go back to previous buffer at the end
-	"   - linger : use a split
-	let mode = a:mode
+	"   - split : use a split
+	let window = a:window
 	" ---- pre-checks
-	if ! mode->wheel#chain#is_inside(['linger', 'furtive'])
-		echomsg 'wheel cylinder first : bad mode argument'
+	if ! window->wheel#chain#is_inside(['split', 'furtive'])
+		echomsg 'wheel cylinder first : bad window argument'
 		return v:false
 	endif
 	call wheel#cylinder#check ()
@@ -213,7 +213,7 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	call wheel#cylinder#delete_unused ()
 	" ---- first one
 	if empty(mandalas)
-		return wheel#cylinder#first (mode)
+		return wheel#cylinder#first (window)
 	endif
 	" ---- not the first one
 	" -- is current buffer a mandala buffer ?
@@ -223,14 +223,14 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	let elder = mandalas[current]
 	" -- mandala window
 	let winds = win_findbuf(elder)
-	if mode != 'furtive'
+	if window != 'furtive'
 		call wheel#cylinder#window ('window')
 	endif
 	" -- current buffer
 	let cur_buffer = bufnr('%')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" -- new buffer
-	if mode == 'linger'
+	if window == 'split'
 		call wheel#cylinder#split ()
 		enew
 	else
@@ -258,8 +258,8 @@ fun! wheel#cylinder#add (mode = 'furtive')
 	" -- call status before going back to previous buffer
 	call wheel#status#mandala_leaf ()
 	" -- coda
-	if mode == 'furtive' && ! was_mandala
-		" in furtive mode, if not in mandala buffer at start,
+	if window == 'furtive' && ! was_mandala
+		" in furtive window, if not in mandala buffer at start,
 		" go back to previous buffer
 		if empty_cur_buffer
 			" :new has opened a split, close it

@@ -246,7 +246,7 @@ fun! wheel#mandala#open (type)
 	if ! wheel#cylinder#recall()
 		" first mandala
 		" split is done in the routine
-		call wheel#cylinder#first ('linger')
+		call wheel#cylinder#first ('split')
 	endif
 	" add new leaf, clear mandala, init vars
 	call wheel#book#add ('clear')
