@@ -210,6 +210,8 @@ fun! wheel#pencil#hide ()
 		let cleared = wheel#pencil#erase (line)
 		call setline(linum, cleared)
 	endfor
+	setlocal nomodified
+	return v:true
 endfun
 
 fun! wheel#pencil#show ()
@@ -228,4 +230,6 @@ fun! wheel#pencil#show ()
 			call setline(linum, drawed)
 		endif
 	endfor
+	setlocal nomodified
+	return v:true
 endfun
