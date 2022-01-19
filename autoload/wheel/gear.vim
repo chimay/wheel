@@ -154,15 +154,15 @@ endfun
 fun! wheel#gear#restore_cursor (position, ...)
 	" Restore cursor position
 	if a:0 > 0
-		let default = a:1
+		let default_line = a:1
 	else
-		let default = '$'
+		let default_line = '$'
 	endif
 	let position = a:position
 	if line('$') > position[1]
 		call setpos('.', position)
 	else
-		call cursor(default, 1)
+		call cursor(default_line, 1)
 	endif
 endfun
 

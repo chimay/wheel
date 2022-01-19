@@ -312,7 +312,6 @@ fun! wheel#book#syncdown ()
 	else
 		" no filter
 		let visible_lines = b:wheel_lines
-		call setline(1, '')
 		call wheel#mandala#replace (visible_lines, 'delete-first')
 	endif
 	" -- cursor

@@ -316,7 +316,7 @@ fun! wheel#mandala#update_var_lines ()
 	return lines
 endfun
 
-fun! wheel#mandala#replace (content, first = 'keep-first')
+fun! wheel#mandala#replace (content, first = 'keep-first', update_var_lines = v:true)
 	" Replace mandala buffer with content
 	" Similar as mandala#fill, but do not update mandala variables
 	" Content can be :
@@ -336,6 +336,7 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	" -- arguments
 	let content = a:content
 	let first = a:first
+	let update_var_lines = a:update_var_lines
 	" -- cursor
 	let position = getcurpos()
 	" -- delete old content
@@ -358,10 +359,10 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	elseif first == 'delete-first'
 		silent 1 delete _
 	endif
-	" -- delete empty lines from line 2 to end
-	silent! 2,$ global /^$/ delete _
 	" -- update b:wheel_lines
-	call wheel#mandala#update_var_lines ()
+	if update_var_lines
+		call wheel#mandala#update_var_lines ()
+	endif
 	" -- tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" -- restore cursor if possible, else place it on line 1
