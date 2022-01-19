@@ -495,16 +495,16 @@ endfun
 
 " Delete
 
-fun! wheel#tree#delete (level, mode = 'default')
+fun! wheel#tree#delete (level, ask = 'confirm')
 	" Delete current element at level
 	" Optional argument :
-	"   - default : ask confirmation
+	"   - confirm : ask confirmation
 	"   - force : don't ask confirmation
 	let level = a:level
-	let mode = a:mode
+	let ask = a:ask
 	let current = wheel#referen#current (level)
 	let name = current.name
-	if mode != 'force'
+	if ask != 'force'
 		let prompt = 'Delete current ' .. level .. ' ' .. name .. ' ?'
 		let confirm = confirm(prompt, "&Yes\n&No", 2)
 		if confirm != 1
