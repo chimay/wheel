@@ -5,7 +5,7 @@
 " helpers
 
 fun! wheel#teapot#has_filter ()
-	" Return true if mandala has filter in first line, false otherwise
+	" Whether mandala has filter in first line, false otherwise
 	return b:wheel_nature.has_filter
 endfun
 

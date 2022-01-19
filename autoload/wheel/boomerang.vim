@@ -165,15 +165,12 @@ fun! wheel#boomerang#buffers (action)
 	let settings = b:wheel_settings
 	if action == 'delete' || action == 'wipe'
 		let settings.ctx_action = action
-		" remove selected elements from the buffers mandala
+		" remove selected elements from the parent buffer mandala
 		call wheel#boomerang#remove_selected ()
-		" To inform wheel#loop#sailing
-		" that a loop on selected elements is necessary ;
+		" inform loop#sailing that a loop on selected elements is necessary
 		" it does not perform it if target == 'current'
 		let settings.target = 'none'
 		call wheel#loop#sailing (settings)
-		let previous_selection = wheel#book#previous ('selection')
-		let previous_selection = []
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
 		let filtered = wheel#book#previous ('filtered')

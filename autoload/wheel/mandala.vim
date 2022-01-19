@@ -123,18 +123,13 @@ fun! wheel#mandala#set_empty ()
 endfun
 
 fun! wheel#mandala#is_empty ()
-	" Return true if mandala is empty, false otherwise
+	" Whether mandala is empty
 	return b:wheel_nature.empty
 endfun
 
 fun! wheel#mandala#type ()
 	" Type of a mandala buffer
 	return b:wheel_nature.type
-endfun
-
-fun! wheel#mandala#is_selected ()
-	" Whether current mandala has non empty selection
-	return ! empty(b:wheel_selection.indexes)
 endfun
 
 " init
@@ -147,6 +142,7 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.empty = v:true
 		let b:wheel_nature.type = 'empty'
 		let b:wheel_nature.has_filter = v:false
+		let b:wheel_nature.has_selection = v:false
 		call wheel#mandala#filename ('empty')
 	endif
 	" -- related buffer

@@ -316,11 +316,13 @@ fun! wheel#sailing#grep (...)
 	if type(lines) == v:t_list
 		if empty(lines)
 			echomsg 'wheel sailing grep : no match found.'
+			let b:wheel_nature.empty = v:false
 			return v:false
 		endif
-	elseif type(lines) == type(v:true)
+	elseif type(lines) == v:t_bool
 		if ! lines
 			echomsg 'wheel sailing grep : lines parameter is false.'
+			let b:wheel_nature.empty = v:false
 			return v:false
 		endif
 	endif

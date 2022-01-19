@@ -16,6 +16,11 @@ endif
 
 " helpers
 
+fun! wheel#pencil#has_selection ()
+	" Whether mandala has selection
+	return ! empty(b:wheel_nature.has_selection)
+endfun
+
 fun! wheel#pencil#is_selection_empty ()
 	" Whether selection is empty
 	return empty(b:wheel_selection.indexes)
@@ -62,7 +67,7 @@ endfun
 
 " selection addresses
 
-fun! wheel#pencil#selected ()
+fun! wheel#pencil#addresses ()
 	" Return selected addresses
 	" If empty, return address of current line
 	let addresses = b:wheel_selection.addresses

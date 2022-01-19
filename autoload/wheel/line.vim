@@ -189,6 +189,8 @@ endfun
 fun! wheel#line#buffers (settings)
 	" Go to opened file given by selected
 	let settings = a:settings
+	echomsg settings
+	return
 	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'sailing'
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
@@ -206,17 +208,17 @@ fun! wheel#line#buffers (settings)
 		" Delete buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
-		execute 'bdelete' bufnum
+		execute 'silent bdelete' bufnum
 	elseif settings.ctx_action == 'unload'
 		" Unload buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
-		execute 'bunload' bufnum
+		execute 'silent bunload' bufnum
 	elseif settings.ctx_action == 'wipe'
 		" Wipe buffer
 		let fields = split(settings.selected, s:field_separ)
 		let bufnum = fields[0]
-		execute 'bwipe' bufnum
+		execute 'silent bwipe' bufnum
 	endif
 	return win_getid ()
 endfun

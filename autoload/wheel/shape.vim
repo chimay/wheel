@@ -89,6 +89,7 @@ fun! wheel#shape#rename_files ()
 	let glossary = wheel#perspective#switch ('location')
 	if empty(glossary)
 		echomsg 'wheel shape rename_files : empty or incomplete circle'
+		let b:wheel_nature.empty = v:false
 		return v:false
 	endif
 	let locations = deepcopy(wheel#referen#circle().locations)
@@ -97,6 +98,7 @@ fun! wheel#shape#rename_files ()
 	let len_circle = len(locations)
 	if len_circle != len(filenames)
 		echomsg 'shape rename_files : inconsistent circle lengths'
+		let b:wheel_nature.empty = v:false
 		return v:false
 	endif
 	for index in range(len_circle)
@@ -209,11 +211,13 @@ fun! wheel#shape#grep_edit (...)
 	if type(lines) == v:t_list
 		if empty(lines)
 			echomsg 'wheel sailing grep : no match found.'
+			let b:wheel_nature.empty = v:false
 			return v:false
 		endif
 	elseif type(lines) == type(v:true)
 		if ! lines
 			echomsg 'wheel sailing grep : lines parameter is false.'
+			let b:wheel_nature.empty = v:false
 			return v:false
 		endif
 	endif
