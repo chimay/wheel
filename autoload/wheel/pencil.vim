@@ -70,6 +70,8 @@ endfun
 fun! wheel#pencil#addresses ()
 	" Return selected addresses
 	" If empty, return address of current line
+	if ! wheel#pencil#has_selection ()
+	endif
 	let addresses = b:wheel_selection.addresses
 	if empty(addresses)
 		return [ wheel#line#address () ]

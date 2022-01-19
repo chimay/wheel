@@ -1,6 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Context menus, acting back on a mandala buffer
+" Context menu
+" Act back on parent, previous leaf of mandala
 
 " Script constants
 
@@ -17,20 +18,20 @@ endif
 " helpers
 
 fun! wheel#boomerang#has_filter ()
-	" Whether previous leaf has filter
+	" Whether parent leaf has filter
 	let nature = wheel#book#previous('nature')
 	return nature.has_filter
 endfun
 
 fun! wheel#boomerang#is_filtered ()
-	" Whether previous leaf is filtered
+	" Whether parent leaf is filtered
 	let filter = wheel#book#previous('filter')
 	return ! empty(filter.words)
 endfun
 
 fun! wheel#boomerang#first_data_line ()
-	" First data line of previous leaf
-	" Return 1 if previous leaf has no filter, 2 otherwise
+	" First data line of parent leaf
+	" Return 1 if parent leaf has no filter, 2 otherwise
 	if wheel#boomerang#has_filter ()
 		return 2
 	else
@@ -38,14 +39,14 @@ fun! wheel#boomerang#first_data_line ()
 	endif
 endfun
 
-fun! wheel#boomerang#has_selection ()
-	" Whether previous leaf has non empty selection
+fun! wheel#boomerang#is_selection_empty ()
+	" Whether parent leaf has non empty selection
 	let selection = wheel#book#previous('selection')
-	return ! empty(selection.indexes)
+	return empty(selection.indexes)
 endfun
 
 fun! wheel#boomerang#line_index (linum)
-	" Return index of previous line number in previous b:wheel_lines
+	" Return index of parent line number in parent b:wheel_lines
 	let linum = a:linum
 	let shift = wheel#boomerang#first_data_line ()
 	let index = linum - shift
@@ -58,23 +59,27 @@ fun! wheel#boomerang#line_index (linum)
 	endif
 endfun
 
+fun! wheel#boomerang#addresses ()
+	" Return selected addresses of parent leaf
+endfun
+
 " sync previous mandala layer -> current mandala state
 
 fun! wheel#boomerang#sync_previous ()
 	" Sync selection & settings in previous layer to mandala state
-	" -- the action will be performed on the selection of the previous layer
-	if wheel#boomerang#has_selection ()
-		let selection = deepcopy(wheel#book#previous ('selection'))
-	else
+	" -- selection
+	if wheel#boomerang#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
 		let linum = cursor.position[1]
 		let line_index = wheel#boomerang#line_index (linum)
 		let selection = {}
 		let selection.indexes = [ line_index ]
-		let selection.addresses = [cursor.address]
+		let selection.addresses = [ cursor.address ]
+	else
+		let selection = deepcopy(wheel#book#previous ('selection'))
 	endif
 	let b:wheel_selection = selection
-	" -- the action will be performed with the settings of the previous layer
+	" -- settings
 	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
 endfun
 

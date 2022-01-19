@@ -26,7 +26,7 @@ fun! wheel#helm#menu_maps (dictname)
 	" Define local maps for menus
 	let dictname = 'menu/' .. a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : v:false, 'ctx_travel' : v:true}
-	call wheel#tower#maps (settings)
+	call wheel#tower#mappings (settings)
 	let b:wheel_settings = settings
 endfun
 
@@ -34,7 +34,7 @@ fun! wheel#helm#meta_maps (dictname)
 	" Define local maps for meta menu
 	let dictname = 'menu/' .. a:dictname
 	let settings = {'linefun' : dictname, 'ctx_close' : v:false, 'ctx_travel' : v:false}
-	call wheel#tower#maps (settings)
+	call wheel#tower#mappings (settings)
 	let b:wheel_settings = settings
 	return
 endfun

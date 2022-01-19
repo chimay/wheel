@@ -357,7 +357,7 @@ fun! wheel#polyphony#narrow_file (...) range
 	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
 	let settings = #{ action : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
-	call wheel#sailing#maps (settings)
+	call wheel#sailing#mappings (settings)
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
 	call wheel#polyphony#action_maps ('file')
@@ -387,7 +387,7 @@ fun! wheel#polyphony#narrow_circle (...)
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
 	let settings = {'action' : function('wheel#line#narrow_circle')}
-	call wheel#sailing#maps (settings)
+	call wheel#sailing#mappings (settings)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#shape#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
