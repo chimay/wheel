@@ -67,10 +67,10 @@ endfun
 fun! wheel#boomerang#addresses ()
 	" Return selected addresses of parent leaf
 	if wheel#boomerang#is_selection_empty ()
-		let cursor = deepcopy(wheel#book#previous('cursor'))
+		let cursor = wheel#book#previous('cursor')
 		return [ cursor.address ]
 	else
-		let selection = copy(wheel#book#previous ('selection'))
+		let selection = wheel#book#previous ('selection')
 		return selection.addresses
 	endif
 endfun
@@ -88,7 +88,7 @@ fun! wheel#boomerang#sync_previous ()
 		let selection.indexes = [ line_index ]
 		let selection.addresses = [ cursor.address ]
 	else
-		let selection = deepcopy(wheel#book#previous ('selection'))
+		let selection = deepcopy(wheel#book#previous('selection'))
 	endif
 	let b:wheel_selection = selection
 	" -- settings
@@ -98,18 +98,25 @@ endfun
 " selection
 
 fun! wheel#boomerang#remove_selected ()
-	" Remove selected elements from mandala lines of the previous related layer
+	" Remove selection & related lines from parent leaf
 	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
-	" -- previous leaf
+	" ---- previous leaf
+	" -- clear lines
 	let lines = wheel#book#previous ('lines')
 	let selection = wheel#book#previous ('selection')
-	for element in selection.addresses
-		eval lines->wheel#chain#remove_element(element)
+	for index in selection.indexes
+		eval lines->remove(index)
 	endfor
+	" -- clear selection
 	let selection.indexes = []
 	let selection.addresses = []
-	" -- current leaf
+	" -- clear filter
+	let filter = wheel#book#previous ('filter')
+	let filter.words = []
+	let filter.indexes = []
+	let filter.lines = []
+	" ---- current leaf
 	let cur_selection = {}
 	let cur_selection.indexes = []
 	let cur_selection.addresses = []

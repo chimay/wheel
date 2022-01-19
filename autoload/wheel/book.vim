@@ -125,8 +125,6 @@ fun! wheel#book#template ()
 	let leaf.cursor = {}
 	let leaf.cursor.position = []
 	let leaf.cursor.address = ''
-	" index of cursor line in b:wheel_lines
-	let leaf.cursor.index = ''
 	" -- settings for loop & line functions
 	let leaf.settings = {}
 	" -- reload function string
@@ -319,7 +317,7 @@ fun! wheel#book#syncdown ()
 		call wheel#mandala#replace (visible_lines, 'delete-first')
 	endif
 	" -- cursor
-	let cursor = leaf.cursor
+	let cursor = deepcopy(leaf.cursor)
 	" position
 	call wheel#gear#restore_cursor (cursor.position)
 	" -- selection
