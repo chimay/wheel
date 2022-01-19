@@ -12,12 +12,12 @@ endif
 " Helpers
 
 fun! wheel#sailing#maps (settings)
-	" Define local maps
+	" Define sailing maps
 	let settings = copy(a:settings)
 	let map = 'nnoremap <silent> <buffer>'
 	let pre = '<cmd>call wheel#loop#sailing('
 	let post = ')<cr>'
-	" Close after navigation
+	" -- close after navigation
 	let settings.close = v:true
 	let settings.target = 'current'
 	exe map '<cr>' pre .. string(settings) .. post
@@ -31,7 +31,7 @@ fun! wheel#sailing#maps (settings)
 	exe map 'S' pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
 	exe map 'V' pre .. string(settings) .. post
-	" Leave open after navigation
+	" -- leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'current'
 	exe map 'g<cr>' pre .. string(settings) .. post
@@ -45,15 +45,10 @@ fun! wheel#sailing#maps (settings)
 	exe map 'gS' pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
 	exe map 'gV' pre .. string(settings) .. post
-	" Define local selection maps
-	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
-	nnoremap <buffer> & <cmd>call wheel#pencil#toggle_visible()<cr>
-	nnoremap <buffer> * <cmd>call wheel#pencil#select_visible()<cr>
-	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
-	" Context menu
-	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('sailing')<cr>
-	" selection property
-	let b:wheel_nature.has_selection = v:true
+	" -- selection
+	call wheel#pencil#mappings ()
+	" -- context menu
+	call wheel#boomerang#mappings ()
 endfun
 
 fun! wheel#sailing#template (settings)

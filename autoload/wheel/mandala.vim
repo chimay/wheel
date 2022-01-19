@@ -528,7 +528,7 @@ fun! wheel#mandala#template (...)
 		let b:wheel_settings = a:1
 	endif
 	call wheel#mandala#common_maps ()
-	call wheel#teapot#filter_maps ()
+	call wheel#teapot#mappings ()
 	call wheel#mandala#input_history_maps ()
 	" By default, tell wheel#line#address it’s not a tree buffer
 	" Overridden by folding_options

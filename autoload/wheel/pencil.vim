@@ -222,6 +222,9 @@ endfun
 fun! wheel#pencil#show ()
 	" Add selected mark to all selected lines
 	" This does not alter the selection
+	if ! wheel#pencil#has_selection ()
+		return v:false
+	endif
 	let start = wheel#teapot#first_data_line ()
 	let lastline = line('$')
 	let linelist = getline(start, '$')
@@ -237,4 +240,17 @@ fun! wheel#pencil#show ()
 	endfor
 	setlocal nomodified
 	return v:true
+endfun
+
+" mappings
+
+fun! wheel#pencil#mappings ()
+	" Define selection maps & set property
+	" -- selection property
+	let b:wheel_nature.has_selection = v:true
+	" -- normal mode
+	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
+	nnoremap <buffer> & <cmd>call wheel#pencil#toggle_visible()<cr>
+	nnoremap <buffer> * <cmd>call wheel#pencil#select_visible()<cr>
+	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
 endfun

@@ -83,20 +83,20 @@ fun! wheel#teapot#filter (mode = 'normal')
 	endif
 endfun
 
-" maps
+" mappings
 
-fun! wheel#teapot#filter_maps ()
-	" Define local filter maps
-	" normal mode
+fun! wheel#teapot#mappings ()
+	" Define filter maps & set property
+	" -- filter property
+	let b:wheel_nature.has_filter = v:true
+	" -- normal mode
 	nnoremap <silent> <buffer> i <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <silent> <buffer> a <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	" insert mode
+	" -- insert mode
 	inoremap <silent> <buffer> <space> <space><esc>:call wheel#teapot#filter('insert')<cr>
 	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#teapot#filter('insert')<cr>
 	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#teapot#filter('insert')<cr>
 	inoremap <silent> <buffer> <cr> <esc>:call wheel#teapot#filter()<cr>
 	inoremap <silent> <buffer> <esc> <esc>:call wheel#teapot#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
-	" filter property
-	let b:wheel_nature.has_filter = v:true
 endfun

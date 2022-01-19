@@ -257,3 +257,10 @@ fun! wheel#boomerang#yank (action)
 	let mode = b:wheel_settings.mode
 	call wheel#line#paste_{mode} (action, 'open')
 endfun
+
+" mappings
+
+fun! wheel#boomerang#mappings ()
+	" Define context menu maps & set property
+	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('sailing')<cr>
+endfun
