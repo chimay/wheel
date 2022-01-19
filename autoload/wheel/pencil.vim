@@ -18,7 +18,10 @@ endif
 
 fun! wheel#pencil#is_selection_empty ()
 	" Whether selection is empty
-	return empty(b:wheel_selection.indexes)
+	let index = wheel#teapot#line_index ()
+	let reference = b:wheel_selection.indexes
+	let found = index->wheel#chain#is_inside(reference)
+	return found
 endfun
 
 fun! wheel#pencil#is_selected (line)
@@ -181,24 +184,38 @@ fun! wheel#pencil#toggle_visible ()
 	return v:true
 endfun
 
-" show & hide
-
-fun! wheel#pencil#show ()
-	" Add selected mark to all selected lines
-	let is_filtered = wheel#teapot#is_filtered ()
-endfun
+" hide & show
 
 fun! wheel#pencil#hide ()
 	" Remove selected mark from all visible lines
 	" This does not clear the selection
 	let start = wheel#teapot#first_data_line ()
-	let shift = start
 	let linelist = getline(start, '$')
 	let length = len(linelist)
-	for index in range(length)
-		let linum = index + shift
+	for linum in range(start, length + start)
 		let line = getline(linum)
 		let cleared = wheel#pencil#erase (line)
 		call setline(linum, cleared)
 	endfor
+endfun
+
+fun! wheel#pencil#show ()
+	" Add selected mark to all selected lines
+	" This does not alter the selection
+	let is_filtered = wheel#teapot#is_filtered ()
+	if is_filtered
+	else
+		let reference = b:wheel_selection.indexes
+		let shift = wheel#teapot#first_data_line ()
+		let lastline = line('$')
+		for linum in range(2, lastline)
+			let index = linum - shift
+			let found = index->wheel#chain#is_inside(reference)
+			if found
+				let line = getline(linum)
+				let drawed = wheel#pencil#draw (line)
+				call setline(linum, drawed)
+			endif
+		endfor
+	endif
 endfun
