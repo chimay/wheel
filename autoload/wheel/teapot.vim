@@ -90,7 +90,7 @@ fun! wheel#teapot#filter_maps ()
 	nnoremap <silent> <buffer> i <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <silent> <buffer> a <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	" insert mode
-	inoremap <silent> <buffer> <space> <esc>:call wheel#teapot#filter('insert')<cr><space>
+	inoremap <silent> <buffer> <space> <space><esc>:call wheel#teapot#filter('insert')<cr>
 	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#teapot#filter('insert')<cr>
 	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#teapot#filter('insert')<cr>
 	inoremap <silent> <buffer> <cr> <esc>:call wheel#teapot#filter()<cr>

@@ -258,27 +258,38 @@ fun! wheel#polyphony#feed (key, mode = 'normal', angle = 'no-angle')
 	"   - with-angle, or '>' : special key -> "\<key>"
 	let key = a:key
 	let mode = a:mode
-	execute 'let key =' '"\<' .. key .. '>"'
+	let angle = a:angle
 	if line('.') == 1
-		" end on normal mode
 		call wheel#teapot#filter(mode)
 	else
-		call feedkeys(key)
+		let position = getcurpos()
+		if angle == '>' || angle == 'with-angle'
+			execute 'normal' '"\<' .. key .. '>"'
+		else
+			execute 'normal' key
+		endif
+		if mode == 'insert'
+			call wheel#gear#restore_cursor (position)
+			normal l
+			startinsert
+		endif
 	endif
 endfun
 
 fun! wheel#polyphony#filter_maps ()
 	" Define local filter maps
-	" normal mode
+	" -- normal mode
 	nnoremap <silent> <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	" insert mode
-	let inoremap = 'inoremap <silent> <buffer>'
-	exe inoremap "<space> <esc>:call wheel#polyphony#feed('space', 'insert', '>')<cr><space>"
-	exe inoremap "<c-w> <c-w><esc>:call wheel#polyphony#feed('c-w', 'insert', '>')<cr>"
-	exe inoremap "<c-u> <c-u><esc>:call wheel#polyphony#feed('c-u', 'insert', '>')<cr>"
-	exe inoremap "<cr> <esc>:call wheel#polyphony#feed('cr', 'normal', '>')<cr>"
-	exe inoremap "<esc> <esc>:call wheel#polyphony#feed('esc', 'normal', '>')<cr>"
+	" -- insert mode
+	let imap = 'inoremap <silent> <buffer>'
+	" insert mode at the end
+	exe imap "<space> <space><esc>:call wheel#polyphony#feed('space', 'insert', '>')<cr>"
+	exe imap "<c-w> <c-w><esc>:call wheel#polyphony#feed('c-w', 'insert', '>')<cr>"
+	exe imap "<c-u> <c-u><esc>:call wheel#polyphony#feed('c-w', 'insert', '>')<cr>"
+	" normal mode at the end
+	exe imap "<cr> <esc>:call wheel#polyphony#feed('cr', 'normal', '>')<cr>"
+	exe imap "<esc> <esc>:call wheel#polyphony#feed('esc', 'normal', '>')<cr>"
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun

@@ -25,14 +25,16 @@ fun! wheel#cylinder#is_mandala (...)
 	return wheel#chain#is_inside(bufnum, mandalas)
 endfun
 
-fun! wheel#cylinder#new_iden (iden, mode = 'default')
+fun! wheel#cylinder#new_iden (iden, algo = 'default')
 	" Returns id for new mandala, that is not in iden list
 	" As low as possible, starting from zero
-	" If optional argument is quick, find new iden around iden
+	" Optional argument :
+    "   - default : find lowest new iden, inside or around iden list
+    "   - quick : find new iden around iden list
 	let iden = a:iden
-	let mode = a:mode
-	" quick mode around iden
-	if mode == 'quick'
+	let algo = a:algo
+	" quick algo around iden
+	if algo == 'quick'
 		let minim = min(iden) - 1
 		let maxim = max(iden) + 1
 		if minim >= 0
@@ -42,7 +44,7 @@ fun! wheel#cylinder#new_iden (iden, mode = 'default')
 		endif
 		return novice
 	endif
-	" default mode
+	" default algo
 	let novice = 0
 	while wheel#chain#is_inside(novice, iden)
 		let novice += 1
