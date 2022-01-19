@@ -39,9 +39,12 @@ endfun
 
 " Actions
 
-fun! wheel#polyphony#substitute (mode = 'file')
+fun! wheel#polyphony#substitute (mandala = 'file')
 	" Substitute in narrow mandala
-	let mode = a:mode
+	" Optional argument :
+	"   - file : for narrow file mandala
+	"   - circle : for narrow circle mandala
+	let mandala = a:mandala
 	call wheel#pencil#clear_visible ()
 	" -- user input
 	let prompt = 'Substitute pattern ? '
@@ -55,12 +58,12 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	" -- check replacing pattern is not present if buffer
 	" -- unless back references chars are included
 	if after !~ '[&\\]'
-		if mode == 'file'
+		if mandala == 'file'
 			let columns = prelude .. field .. coda
-		elseif mode == 'circle'
+		elseif mandala == 'circle'
 			let columns = prelude .. field .. field .. field .. coda
 		else
-			echomsg 'wheel polyphony substitute : mode must be file or circle'
+			echomsg 'wheel polyphony substitute : mandala argument must be file or circle'
 		endif
 		let check = columns .. '\<' .. after .. '\>'
 		let found = search(check, 'nw')
@@ -73,9 +76,9 @@ fun! wheel#polyphony#substitute (mode = 'file')
 		endif
 	endif
 	" -- skip non-content columns
-	if mode == 'file'
+	if mandala == 'file'
 		let columns = prelude .. field .. coda
-	elseif mode == 'circle'
+	elseif mandala == 'circle'
 		let columns = prelude .. field .. field .. field .. coda
 	endif
 	let before = columns .. before
@@ -88,11 +91,14 @@ fun! wheel#polyphony#substitute (mode = 'file')
 	return v:true
 endfun
 
-fun! wheel#polyphony#append (mode = 'below')
+fun! wheel#polyphony#append (where = 'below')
 	" Append a line in narrow file mandala
-	let mode = a:mode
-	if ! mode->wheel#chain#is_inside(['below', 'above'])
-		echomsg 'wheel polyphony append : bad mode' mode
+	" Optional argument :
+	"   - below (default) : place new line below current one
+	"   - above : place new line above current one
+	let where = a:where
+	if ! where->wheel#chain#is_inside(['below', 'above'])
+		echomsg 'wheel polyphony append : bad argument where' where
 	endif
 	call wheel#pencil#clear_visible ()
 	let mandala_linum = line('.')
@@ -102,10 +108,10 @@ fun! wheel#polyphony#append (mode = 'below')
 		let object = object[1:]
 	endif
 	let linum = str2nr(object)
-	if mode == 'above'
+	if where == 'above'
 		let mandala_linum -= 1
 	endif
-	if mode == 'below'
+	if where == 'below'
 		let linum = printf('+%4d', linum)
 	else
 		let linum = printf('-%4d', linum)
@@ -117,11 +123,13 @@ fun! wheel#polyphony#append (mode = 'below')
 	startinsert!
 endfun
 
-fun! wheel#polyphony#duplicate (mode = 'below')
+fun! wheel#polyphony#duplicate (where = 'below')
 	" Duplicate a line in narrow file mandala
-	let mode = a:mode
-	if ! mode->wheel#chain#is_inside(['below', 'above'])
-		echomsg 'wheel polyphony duplicate : bad mode' mode
+	"   - below (default) : duplicate new line below current one
+	"   - above : duplicate new line above current one
+	let where = a:where
+	if ! where->wheel#chain#is_inside(['below', 'above'])
+		echomsg 'wheel polyphony duplicate : bad where' where
 	endif
 	call wheel#pencil#clear_visible ()
 	let mandala_linum = line('.')
@@ -137,10 +145,10 @@ fun! wheel#polyphony#duplicate (mode = 'below')
 	else
 		let content = ''
 	endif
-	if mode == 'above'
+	if where == 'above'
 		let mandala_linum -= 1
 	endif
-	if mode == 'below'
+	if where == 'below'
 		let linum = printf('+%4d', linum)
 	else
 		let linum = printf('-%4d', linum)
@@ -305,11 +313,14 @@ fun! wheel#polyphony#input_history_maps ()
 	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
 endfun
 
-fun! wheel#polyphony#action_maps (mode = 'file')
+fun! wheel#polyphony#action_maps (mandala = 'file')
 	" Define local action maps
-	let mode = a:mode
-	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mode .. "')<cr>"
-	if mode == 'file'
+	" Optional argument :
+	"   - file : for narrow file mandala
+	"   - circle : for narrow circle mandala
+	let mandala = a:mandala
+	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mandala .. "')<cr>"
+	if mandala == 'file'
 		exe "nnoremap <buffer> o <cmd>call wheel#polyphony#append('below')<cr>"
 		exe "nnoremap <buffer> O <cmd>call wheel#polyphony#append('above')<cr>"
 		exe "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"

@@ -29,8 +29,8 @@ fun! wheel#cylinder#new_iden (iden, algo = 'default')
 	" Returns id for new mandala, that is not in iden list
 	" As low as possible, starting from zero
 	" Optional argument :
-    "   - default : find lowest new iden, inside or around iden list
-    "   - around : find new iden around iden list
+	"   - default : find lowest new iden, inside or around iden list
+	"   - around : find new iden around iden list
 	let iden = a:iden
 	let algo = a:algo
 	" algo around iden
