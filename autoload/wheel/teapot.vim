@@ -10,12 +10,13 @@ fun! wheel#teapot#has_filter ()
 endfun
 
 fun! wheel#teapot#is_filtered ()
-	" Whether current mandala is filtered
+	" Whether mandala is filtered
 	return ! empty(b:wheel_filter.words)
 endfun
 
 fun! wheel#teapot#first_data_line ()
-	" First data line is 1 if mandala has no filter, 2 otherwise
+	" First data line
+	" Return 1 if mandala has no filter, 2 otherwise
 	if wheel#teapot#has_filter ()
 		return 2
 	else

@@ -22,7 +22,8 @@ fun! wheel#pencil#is_selection_empty ()
 endfun
 
 fun! wheel#pencil#is_selected (...)
-	" Whether line at line number linum is selected
+	" Whether line is selected
+	" Optional argument : line number
 	" Default : current line number
 	if a:0 > 0
 		let linum = a:1
@@ -31,8 +32,7 @@ fun! wheel#pencil#is_selected (...)
 	endif
 	let index = wheel#teapot#line_index (linum)
 	let reference = b:wheel_selection.indexes
-	let found = index->wheel#chain#is_inside(reference)
-	return found
+	return index->wheel#chain#is_inside(reference)
 endfun
 
 fun! wheel#pencil#has_selection_mark (line)
@@ -78,10 +78,16 @@ endfun
 
 " current line
 
-fun! wheel#pencil#select ()
-	" Select current line
-	let linum = line('.')
-	let line = getline('.')
+fun! wheel#pencil#select (...)
+	" Select line
+	" Optional argument : line number
+	" Default : current line number
+	if a:0 > 0
+		let linum = a:1
+	else
+		let linum = line('.')
+	endif
+	let line = getline(linum)
 	if empty(line)
 		return v:false
 	endif
@@ -90,26 +96,32 @@ fun! wheel#pencil#select ()
 	endif
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
-	let address = wheel#line#address ()
+	let address = wheel#line#address (linum)
 	" -- shift between b:wheel_lines indexes and buffer line numbers
 	let shift = wheel#teapot#first_data_line ()
 	" -- global index of current line in b:wheel_lines
-	let index = wheel#teapot#line_index ()
+	let index = wheel#teapot#line_index (linum)
 	eval selection.indexes->add(index)
 	" -- address
 	eval selection.addresses->add(address)
 	" ---- update buffer line
 	let marked_line = wheel#pencil#draw (line)
-	call setline('.', marked_line)
+	call setline(linum, marked_line)
 	" ---- coda
 	setlocal nomodified
 	return v:true
 endfun
 
-fun! wheel#pencil#clear ()
-	" Deselect current line
-	let linum = line('.')
-	let line = getline('.')
+fun! wheel#pencil#clear (...)
+	" Deselect line
+	" Optional argument : line number
+	" Default : current line number
+	if a:0 > 0
+		let linum = a:1
+	else
+		let linum = line('.')
+	endif
+	let line = getline(linum)
 	if empty(line)
 		return v:false
 	endif
@@ -118,28 +130,33 @@ fun! wheel#pencil#clear ()
 	endif
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
-	let linum = line('.')
-	let address = wheel#line#address ()
+	let address = wheel#line#address (linum)
 	" -- indexes
-	let index = wheel#teapot#line_index ()
+	let index = wheel#teapot#line_index (linum)
 	let found = selection.indexes->index(index)
 	eval selection.indexes->remove(found)
 	eval selection.addresses->remove(found)
 	" ---- update buffer line
 	let unmarked_line = wheel#pencil#erase (line)
-	call setline('.', unmarked_line)
+	call setline(linum, unmarked_line)
 	" ---- coda
 	setlocal nomodified
 	return v:true
 endfun
 
-fun! wheel#pencil#toggle ()
-	" Toggle selection of current line
-	let linum = line('.')
-	if wheel#pencil#is_selected (linum)
-		call wheel#pencil#clear ()
+fun! wheel#pencil#toggle (...)
+	" Toggle selection of line
+	" Optional argument : line number
+	" Default : current line number
+	if a:0 > 0
+		let linum = a:1
 	else
-		call wheel#pencil#select ()
+		let linum = line('.')
+	endif
+	if wheel#pencil#is_selected (linum)
+		call wheel#pencil#clear (linum)
+	else
+		call wheel#pencil#select (linum)
 	endif
 	setlocal nomodified
 	return v:true
@@ -148,52 +165,34 @@ endfun
 " visible lines in the mandala, filtered or not
 
 fun! wheel#pencil#select_visible ()
-	" Select visible, filtered lines
+	" Select all visible, filtered lines
 	let start = wheel#teapot#first_data_line ()
-	let buflines = getline(start, '$')
-	" save cursor position
-	let position = getcurpos()
-	" select
-	for index in range(len(buflines))
-		let linum = index + start
-		call cursor(linum, 1)
-		call wheel#pencil#select ()
+	let lastline = line('$')
+	for linum in range(start, lastline)
+		call wheel#pencil#select (linum)
 	endfor
-	call wheel#gear#restore_cursor (position)
 	setlocal nomodified
 	return v:true
 endfun
 
 fun! wheel#pencil#clear_visible ()
-	" Deselect visible, filtered lines
+	" Deselect all visible, filtered lines
 	let start = wheel#teapot#first_data_line ()
-	let buflines = getline(start, '$')
-	" save cursor position
-	let position = getcurpos()
-	" select
-	for index in range(len(buflines))
-		let linum = index + start
-		call cursor(linum, 1)
-		call wheel#pencil#clear ()
+	let lastline = line('$')
+	for linum in range(start, lastline)
+		call wheel#pencil#clear (linum)
 	endfor
-	call wheel#gear#restore_cursor (position)
 	setlocal nomodified
 	return v:true
 endfun
 
 fun! wheel#pencil#toggle_visible ()
-	" Toggle visible, filtered lines
+	" Toggle all visible, filtered lines
 	let start = wheel#teapot#first_data_line ()
-	let buflines = getline(start, '$')
-	" save cursor position
-	let position = getcurpos()
-	" select
-	for index in range(len(buflines))
-		let linum = index + start
-		call cursor(linum, 1)
-		call wheel#pencil#toggle ()
+	let lastline = line('$')
+	for linum in range(start, lastline)
+		call wheel#pencil#toggle (linum)
 	endfor
-	call wheel#gear#restore_cursor (position)
 	setlocal nomodified
 	return v:true
 endfun

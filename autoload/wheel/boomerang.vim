@@ -29,7 +29,8 @@ fun! wheel#boomerang#is_filtered ()
 endfun
 
 fun! wheel#boomerang#first_data_line ()
-	" First data line is 1 if previous leaf has no filter, 2 otherwise
+	" First data line of previous leaf
+	" Return 1 if previous leaf has no filter, 2 otherwise
 	if wheel#boomerang#has_filter ()
 		return 2
 	else
@@ -38,7 +39,7 @@ fun! wheel#boomerang#first_data_line ()
 endfun
 
 fun! wheel#boomerang#has_selection ()
-	" Whether previous leaf is filtered
+	" Whether previous leaf has non empty selection
 	let selection = wheel#book#previous('selection')
 	return ! empty(selection.indexes)
 endfun
@@ -48,7 +49,6 @@ fun! wheel#boomerang#line_index (linum)
 	let linum = a:linum
 	let shift = wheel#boomerang#first_data_line ()
 	let index = linum - shift
-	echomsg linum shift index
 	let filter = wheel#book#previous('filter')
 	if wheel#boomerang#is_filtered ()
 		let indexlist = filter.indexes
@@ -84,32 +84,19 @@ fun! wheel#boomerang#remove_selected ()
 	" Remove selected elements from mandala lines of the previous related layer
 	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
-	let lines = deepcopy(wheel#book#previous ('lines'))
-	let filtered = deepcopy(wheel#book#previous ('filtered'))
-	let selection = deepcopy(wheel#book#previous ('selection'))
-	if empty(selection.indexes)
-		let cursor = wheel#book#previous ('cursor')
-		let line_index = wheel#teapot#line_index (cursor.position[1])
-		let selection.indexes = [ line_index ]
-		let selection.addresses = [ cursor.address ]
-	endif
-	if ! empty(selected)
-		" if manually selected with space
-		for elem in selected
-			let elem = s:selected_mark .. elem
-			eval lines->wheel#chain#remove_element(elem)
-			eval filtered->wheel#chain#remove_element(elem)
-		endfor
-	else
-		" operate by default on cursor line address on top layer
-		" no manual selection, no marker
-		let elem = wheel#book#previous ('cursor').address
-		if type(elem) == v:t_list
-			let elem = elem[-1]
-		endif
-		eval lines->wheel#chain#remove_element(elem)
-		eval filtered->wheel#chain#remove_element(elem)
-	endif
+	" -- previous leaf
+	let lines = wheel#book#previous ('lines')
+	let selection = wheel#book#previous ('selection')
+	for element in selection.addresses
+		eval lines->wheel#chain#remove_element(element)
+	endfor
+	let selection.indexes = []
+	let selection.addresses = []
+	" -- current leaf
+	let cur_selection = {}
+	let cur_selection.indexes = []
+	let cur_selection.addresses = []
+	let b:wheel_selection = cur_selection
 endfun
 
 " generic

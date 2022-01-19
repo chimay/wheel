@@ -132,8 +132,8 @@ fun! wheel#mandala#type ()
 	return b:wheel_nature.type
 endfun
 
-fun! wheel#mandala#has_selection ()
-	" Whether current mandala is filtered
+fun! wheel#mandala#is_selected ()
+	" Whether current mandala has non empty selection
 	return ! empty(b:wheel_selection.indexes)
 endfun
 

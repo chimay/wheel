@@ -6,7 +6,12 @@
 
 fun! wheel#chain#is_inside (element, list)
 	" Whether element is in list
-	return a:list->index(a:element) >= 0
+	let index = a:list->index(a:element)
+	if index >= 0
+		return v:true
+	else
+		return v:false
+	endif
 endfun
 
 " Insert

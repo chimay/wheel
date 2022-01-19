@@ -38,24 +38,35 @@ endfun
 
 " Address of current line
 
-fun! wheel#line#address ()
+fun! wheel#line#address (...)
 	" Return complete information of element at line
 	" This can be :
 	"   - plain : in ordinary mandala buffer
 	"   - treeish : in folded mandala buffer
+	" Optional argument : line number
+	" Default : current line number
+	if a:0 > 0
+		let linum = a:1
+	else
+		let linum = line('.')
+	endif
 	call wheel#line#default ()
 	if ! &foldenable
-		let cursor_line = getline('.')
+		let cursor_line = getline(linum)
 		return wheel#pencil#erase (cursor_line)
 	else
+		let position = getcurpos()
+		call cursor(linum, 1)
 		let type = wheel#mandala#type ()
 		if type == 'index/tree'
-			return wheel#origami#chord ()
+			let address = wheel#origami#chord ()
 		elseif type == 'tabwins/tree'
-			return wheel#origami#tabwin ()
+			let address = wheel#origami#tabwin ()
 		else
-			return v:false
+			let address = []
 		endif
+		call wheel#gear#restore_cursor (position)
+		return address
 	endif
 endfun
 
