@@ -101,14 +101,17 @@ fun! wheel#boomerang#remove_selected ()
 	" Remove selection & related lines from parent leaf
 	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
-	" ---- previous leaf
 	" -- clear lines
 	let lines = wheel#book#previous ('lines')
-	let selection = wheel#book#previous ('selection')
+	let selection = b:wheel_selection
 	for index in selection.indexes
 		eval lines->remove(index)
 	endfor
 	" -- clear selection
+	let selection.indexes = []
+	let selection.addresses = []
+	" parent leaf
+	let selection = wheel#book#previous('selection')
 	let selection.indexes = []
 	let selection.addresses = []
 	" -- clear filter
@@ -116,11 +119,6 @@ fun! wheel#boomerang#remove_selected ()
 	let filter.words = []
 	let filter.indexes = []
 	let filter.lines = []
-	" ---- current leaf
-	let cur_selection = {}
-	let cur_selection.indexes = []
-	let cur_selection.addresses = []
-	let b:wheel_selection = cur_selection
 endfun
 
 " generic
@@ -204,7 +202,7 @@ fun! wheel#boomerang#buffers (action)
 		call wheel#loop#sailing (settings)
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
-		let filtered = wheel#book#previous ('filtered')
+		let filtered = wheel#book#previous ('filter')
 		if action == 'delete_hidden' || action == 'wipe_hidden'
 			let hidden = wheel#rectangle#hidden_buffers ()[0]
 		elseif action == 'wipe_all_hidden'
