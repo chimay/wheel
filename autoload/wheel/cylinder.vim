@@ -222,8 +222,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let current = g:wheel_mandalas.current
 	let elder = mandalas[current]
 	" -- mandala window
-	let winds = win_findbuf(elder)
-	if window != 'furtive'
+	if window == 'split'
 		call wheel#cylinder#window ('window')
 	endif
 	" -- current buffer

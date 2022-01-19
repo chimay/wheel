@@ -26,13 +26,15 @@ fun! wheel#rectangle#previous ()
 	wincmd p
 endfun
 
-fun! wheel#rectangle#glasses (filename, mode = 'all')
+fun! wheel#rectangle#glasses (filename, scope = 'all')
 	" Return list of window(s) id(s) displaying filename
-	" Optional argument : if tab, search only in current tab
+	" Optional argument :
+	"   - all : search in all tabs & windows
+	"   - tab : search only in current tab
 	let filename = a:filename
-	let mode = a:mode
+	let scope = a:scope
 	let wins = win_findbuf(bufnr(filename))
-	if mode == 'tab'
+	if scope == 'tab'
 		let tabnum = tabpagenr()
 		eval wins->filter({ _, val -> win_id2tabwin(val)[0] == tabnum })
 	endif
