@@ -128,7 +128,7 @@ fun! wheel#pencil#toggle ()
 	return v:true
 endfun
 
-" visible, filtered lines
+" visible lines in the mandala, filtered or not
 
 fun! wheel#pencil#select_visible ()
 	" Select visible, filtered lines
@@ -179,4 +179,15 @@ fun! wheel#pencil#toggle_visible ()
 	call wheel#gear#restore_cursor (position)
 	setlocal nomodified
 	return v:true
+endfun
+
+" show & hide
+
+fun! wheel#pencil#show ()
+	" Add selected mark to all selected lines
+endfun
+
+fun! wheel#pencil#hide ()
+	" Remove selected mark from all visible lines
+	" This does not clear the selection
 endfun

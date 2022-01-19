@@ -320,7 +320,7 @@ fun! wheel#mandala#fill (content, ...)
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer.'
 	endif
-	" disable folding
+	" -- disable folding
 	let ampersand = &foldenable
 	set nofoldenable
 	" arg
@@ -330,18 +330,22 @@ fun! wheel#mandala#fill (content, ...)
 	else
 		let first = 'keep'
 	endif
-	" cursor
+	" -- cursor
 	let position = getcurpos()
-	" delete old content
+	" -- delete old content
 	if exists('*deletebufline')
 		silent! call deletebufline('%', 2, '$')
 	else
 		silent! 2,$ delete
 	endif
-	" Cannot use setline() or append() : does not work with yank lists
-	silent put =content
-	" new lines
-	call cursor(1,1)
+	" -- new lines
+	" ============================================================
+	" alternative : use :silent put =content
+	" setline() or append() used to not work with yank lists
+	" ============================================================
+	call append('.', content)
+	" -- first line & empty lines
+	call cursor(1, 1)
 	if first == 'keep'
 		" delete empty lines from line 2 to end
 		silent! 2,$ global /^$/ delete _
@@ -361,13 +365,13 @@ fun! wheel#mandala#fill (content, ...)
 		" update b:wheel_lines
 		let b:wheel_lines = getline(1, '$')
 	endif
-	" tell (neo)vim the buffer is unmodified
+	" -- tell (neo)vim the buffer is unmodified
 	setlocal nomodified
-	" restore cursor if possible, else place it on line 1
+	" -- restore cursor if possible, else place it on line 1
 	call wheel#gear#restore_cursor (position, 1)
-	" restore foldenable value
+	" -- restore foldenable value
 	let &foldenable = ampersand
-	" update leaf ring
+	" -- update leaf ring
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()
 endfun
