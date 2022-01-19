@@ -251,7 +251,7 @@ endfun
 
 " Mandalas
 
-fun! wheel#polyphony#feed (key, mode = 'normal', angle = 'no-angle')
+fun! wheel#polyphony#crossroad (key, mode = 'normal', angle = 'no-angle')
 	" Enter on insert mode, or run filter if on first line
 	" Optional argument :
 	"   - no-angle : plain key
@@ -284,12 +284,12 @@ fun! wheel#polyphony#filter_maps ()
 	" -- insert mode
 	let imap = 'inoremap <silent> <buffer>'
 	" insert mode at the end
-	exe imap "<space> <space><esc>:call wheel#polyphony#feed('space', 'insert', '>')<cr>"
-	exe imap "<c-w> <c-w><esc>:call wheel#polyphony#feed('c-w', 'insert', '>')<cr>"
-	exe imap "<c-u> <c-u><esc>:call wheel#polyphony#feed('c-w', 'insert', '>')<cr>"
+	exe imap "<space> <space><esc>:call wheel#polyphony#crossroad('space', 'insert', '>')<cr>"
+	exe imap "<c-w> <c-w><esc>:call wheel#polyphony#crossroad('c-w', 'insert', '>')<cr>"
+	exe imap "<c-u> <c-u><esc>:call wheel#polyphony#crossroad('c-w', 'insert', '>')<cr>"
 	" normal mode at the end
-	exe imap "<cr> <esc>:call wheel#polyphony#feed('cr', 'normal', '>')<cr>"
-	exe imap "<esc> <esc>:call wheel#polyphony#feed('esc', 'normal', '>')<cr>"
+	exe imap "<cr> <esc>:call wheel#polyphony#crossroad('cr', 'normal', '>')<cr>"
+	exe imap "<esc> <esc>:call wheel#polyphony#crossroad('esc', 'normal', '>')<cr>"
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun

@@ -30,11 +30,11 @@ fun! wheel#cylinder#new_iden (iden, algo = 'default')
 	" As low as possible, starting from zero
 	" Optional argument :
     "   - default : find lowest new iden, inside or around iden list
-    "   - quick : find new iden around iden list
+    "   - around : find new iden around iden list
 	let iden = a:iden
 	let algo = a:algo
-	" quick algo around iden
-	if algo == 'quick'
+	" algo around iden
+	if algo == 'around'
 		let minim = min(iden) - 1
 		let maxim = max(iden) + 1
 		if minim >= 0
@@ -94,14 +94,14 @@ fun! wheel#cylinder#goto (...)
 	return call('wheel#rectangle#goto', [bufnum] + a:000)
 endfun
 
-fun! wheel#cylinder#window (mode = 'buffer')
+fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 	" Find window of current mandala or display it in a new split
-	" Optional argument mode :
-	"  - buffer (default) : find or create the mandala window &
+	" Optional argument load_buffer :
+	"  - load-buffer (default) : find or create the mandala window &
 	"    load current mandala
-	"  - window : just find or create the mandala window,
+	"  - dont-load-buffer : just find or create the mandala window,
 	"    don't load current mandala
-	let mode = a:mode
+	let load_buffer = a:load_buffer
 	" -- ring
 	let current = g:wheel_mandalas.current
 	let mandalas = g:wheel_mandalas.ring
@@ -113,7 +113,7 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	let goto = mandalas[current]
 	" -- already there ?
 	if wheel#cylinder#is_mandala ()
-		if mode == 'buffer'
+		if load_buffer == 'load-buffer'
 			execute 'silent buffer' goto
 		endif
 		return v:true
@@ -131,7 +131,7 @@ fun! wheel#cylinder#window (mode = 'buffer')
 	" -- current tab
 	if ! wheel#cylinder#is_mandala ()
 		call wheel#cylinder#split ()
-		if mode == 'buffer'
+		if load_buffer == 'load-buffer'
 			execute 'silent buffer' goto
 		endif
 	endif
