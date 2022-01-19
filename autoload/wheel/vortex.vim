@@ -59,10 +59,11 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	return v:true
 endfun
 
-fun! wheel#vortex#jump (where = 'search')
+fun! wheel#vortex#jump (where = 'search-window')
 	" Jump to current location
 	" Optional argument :
-	"   - search (default) : search for active buffer in tabs & windows
+	"   - search-window (default) : search for active buffer
+	"                               in tabs & windows
 	"   - here : load the buffer in current window,
 	"            do not search in tabs & windows
 	let where = a:where
@@ -162,10 +163,11 @@ endfun
 
 " Next / Previous
 
-fun! wheel#vortex#previous (level, mode = 'default')
+fun! wheel#vortex#previous (level, where = 'search-window')
 	" Previous element in level
+	" Optional argument : see vortex#jump
 	let level = a:level
-	let mode = a:mode
+	let where = a:where
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
 		call wheel#vortex#update ()
@@ -177,14 +179,15 @@ fun! wheel#vortex#previous (level, mode = 'default')
 		else
 			let upper.current = wheel#gear#circular_minus(index, length)
 		endif
-		call wheel#vortex#jump(mode)
+		call wheel#vortex#jump(where)
 	endif
 endfun
 
-fun! wheel#vortex#next (level, mode = 'default')
+fun! wheel#vortex#next (level, where = 'search-window')
 	" Next element in level
+	" Optional argument : see vortex#jump
 	let level = a:level
-	let mode = a:mode
+	let where = a:where
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper)
 		call wheel#vortex#update ()
@@ -196,7 +199,7 @@ fun! wheel#vortex#next (level, mode = 'default')
 		else
 			let upper.current = wheel#gear#circular_plus(index, length)
 		endif
-		call wheel#vortex#jump(mode)
+		call wheel#vortex#jump(where)
 	endif
 endfun
 
@@ -205,20 +208,20 @@ endfun
 fun! wheel#vortex#switch (level, ...)
 	" Switch to element with completion
 	" Optional argument 0 : name of element
-	" Optional argument 1 : jump mode
+	" Optional argument 1 : see vortex#jump optional argument
 	call wheel#vortex#update ()
 	let level = a:level
-	let prompt = 'Switch to ' .. level .. ' : '
-	let complete = 'customlist,wheel#complete#' .. level
 	if a:0 > 0
 		let name = a:1
 	else
+		let prompt = 'Switch to ' .. level .. ' : '
+		let complete = 'customlist,wheel#complete#' .. level
 		let name = input(prompt, '', complete)
 	endif
 	if a:0 > 1
 		let mode = a:2
 	else
-		let mode = 'default'
+		let mode = 'search-window'
 	endif
 	let index = wheel#vortex#tune (level, name)
 	if index >= 0
@@ -226,10 +229,10 @@ fun! wheel#vortex#switch (level, ...)
 	endif
 endfun
 
-fun! wheel#vortex#multi_switch(mode = 'default')
+fun! wheel#vortex#multi_switch(where = 'search-window')
 	" Switch torus, circle & location
-	" Optional argument : jump mode
-	let mode = a:mode
+	" Optional argument : see vortex#jump optional argument
+	let where = a:where
 	call wheel#vortex#update ()
 	let indexes = [-1, -1, -1]
 	for level in s:referen_coordin
@@ -245,38 +248,38 @@ fun! wheel#vortex#multi_switch(mode = 'default')
 			return indexes
 		endif
 	endfor
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 	return indexes
 endfun
 
-fun! wheel#vortex#helix (mode = 'default')
+fun! wheel#vortex#helix (where = 'search-window')
 	" Switch to coordinates in helix index
-	" Optional argument : jump mode
-	let mode = a:mode
+	" Optional argument : see vortex#jump optional argument
+	let where = a:where
 	let prompt = 'Switch to location in index : '
 	let complete = 'customlist,wheel#complete#helix'
 	let record = input(prompt, '', complete)
 	let coordin = split(record, s:level_separ)
 	call wheel#vortex#chord (coordin)
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 endfun
 
-fun! wheel#vortex#grid (mode = 'default')
+fun! wheel#vortex#grid (where = 'search-window')
 	" Switch to coordinates in grid index
-	" Optional argument : jump mode
-	let mode = a:mode
+	" Optional argument : see vortex#jump optional argument
+	let where = a:where
 	let prompt = 'Switch to circle in index : '
 	let complete = 'customlist,wheel#complete#grid'
 	let record = input(prompt, '', complete)
 	let coordin = split(record, s:level_separ)
 	call wheel#vortex#interval (coordin)
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 endfun
 
-fun! wheel#vortex#history (mode = 'default')
+fun! wheel#vortex#history (where = 'search-window')
 	" Switch to coordinates in history
-	" Optional argument : jump mode
-	let mode = a:mode
+	" Optional argument : see vortex#jump optional argument
+	let where = a:where
 	let prompt = 'Switch to history element : '
 	let complete = 'customlist,wheel#complete#history'
 	let record = input(prompt, '', complete)
@@ -284,5 +287,5 @@ fun! wheel#vortex#history (mode = 'default')
 	let entry = fields[1]
 	let coordin = split(entry, s:level_separ)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 endfun
