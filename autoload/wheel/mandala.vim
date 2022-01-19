@@ -308,22 +308,32 @@ endfun
 
 " content
 
-fun! wheel#mandala#fill (content, first = 'keep-first')
-	" Fill mandala buffer with content
+fun! wheel#mandala#update_lines ()
+	" Update b:wheel_lines from mandala lines
+	let start = wheel#teapot#first_data_line ()
+	let lines = getline(start, '$')
+	let b:wheel_lines = lines
+	return lines
+endfun
+
+fun! wheel#mandala#replace (content, first = 'keep-first')
+	" Replace mandala buffer with content
+	" Similar as mandala#fill, but do not update mandala variables
 	" Content can be :
 	" - a monoline string
 	" - a list of lines
 	" Optional argument handle the first line filtering input :
-	" - keep : keep input
-	" - blank : blank input
-	" - delete : delete first line
+	" - keep-first : keep input
+	" - blank-first : blank input
+	" - delete-first : delete first line
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer.'
 	endif
 	" -- disable folding
+	" if fold is enabled during replacement, we lose the first line
 	let ampersand = &foldenable
 	set nofoldenable
-	" arguments
+	" -- arguments
 	let content = a:content
 	let first = a:first
 	" -- cursor
@@ -334,95 +344,44 @@ fun! wheel#mandala#fill (content, first = 'keep-first')
 	else
 		silent! 2,$ delete
 	endif
-	" -- new lines
+	" -- new content
 	" ============================================================
 	" alternative : use :silent put =content
-	" setline() or append() used to not work with yank lists
+	" setline() or append() did not used to work with yank lists
+	" note : append() / :put add stuff after current line
 	" ============================================================
-	call append('.', content)
-	" -- first line & empty lines
 	call cursor(1, 1)
-	if first == 'keep-first'
-		" delete empty lines from line 2 to end
-		silent! 2,$ global /^$/ delete _
-		" update b:wheel_lines
-		let b:wheel_lines = getline(2, '$')
-	elseif first == 'blank-first'
-		" first lines should already be blank :
-		" append() / :put add stuff after current line,
-		" which is the first one on a empty buffer
+	call append('.', content)
+	" -- first line
+	if first == 'blank-first'
 		call setline(1, '')
-		silent! 2,$ global /^$/ delete _
-		" update b:wheel_lines
-		let b:wheel_lines = getline(2, '$')
 	elseif first == 'delete-first'
 		silent 1 delete _
-		silent! 2,$ global /^$/ delete _
-		" update b:wheel_lines
-		let b:wheel_lines = getline(1, '$')
 	endif
+	" -- delete empty lines from line 2 to end
+	silent! 2,$ global /^$/ delete _
 	" -- tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" -- restore cursor if possible, else place it on line 1
 	call wheel#gear#restore_cursor (position, 1)
-	" -- restore foldenable value
+	" -- restore folding
 	let &foldenable = ampersand
-	" -- update leaf ring
-	call wheel#book#syncup ()
-	call wheel#status#mandala_leaf ()
 endfun
 
-fun! wheel#mandala#replace (content, first = 'keep-first')
-	" Replace mandala buffer with content
-	" Similar as mandala#fill, but do not update mandala variables
+fun! wheel#mandala#fill (content, first = 'keep-first')
+	" Fill mandala buffer with content
 	" Content can be :
 	" - a monoline string
 	" - a list of lines
 	" Optional argument handle the first line filtering input :
-	" - keep : keep input
-	" - blank : blank input
-	" - delete : delete first line
-	if ! wheel#cylinder#is_mandala ()
-		echomsg 'wheel mandala fill : not in mandala buffer.'
-	endif
-	" disable folding
-	" if fold is enabled during replacement, we lose the first line
-	let ampersand = &foldenable
-	set nofoldenable
-	" arguments
-	let content = a:content
-	let first = a:first
-	" cursor
-	let position = getcurpos()
-	" delete old content
-	if exists('*deletebufline')
-		silent! call deletebufline('%', 2, '$')
-	else
-		silent! 2,$ delete
-	endif
-	" ============================================================
-	" alternative : use :silent put =content
-	" setline() or append() used to not work with yank lists
-	" ============================================================
-	call append('.', content)
-	" first line
-	call cursor(1,1)
-	if first == 'blank-first'
-		" first line should already be blank :
-		" append() / :put add stuff after current line,
-		" which is the first one on a empty buffer
-		call setline(1, '')
-	elseif first == 'delete-first'
-		silent 1 delete _
-	endif
-	" delete empty lines from line 2 to end
-	silent! 2,$ global /^$/ delete _
-	" tell (neo)vim the buffer is unmodified
-	setlocal nomodified
-	" restore cursor if possible, else place it on line 1
-	call wheel#gear#restore_cursor (position, 1)
-	" restore foldenable value
-	let &foldenable = ampersand
+	" - keep-first : keep input
+	" - blank-first : blank input
+	" - delete-first : delete first line
+	" ---- replace old content, fill if empty
+	call wheel#mandala#replace(a:content, a:first)
+	" ---- update leaf ring
+	call wheel#book#syncup ()
+	call wheel#status#mandala_leaf ()
 endfun
 
 fun! wheel#mandala#reload ()
