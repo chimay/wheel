@@ -14,7 +14,7 @@ if ! exists('s:selected_pattern')
 	lockvar s:selected_pattern
 endif
 
-" helpers
+" booleans
 
 fun! wheel#pencil#has_selection ()
 	" Whether mandala has selection

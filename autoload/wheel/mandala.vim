@@ -306,7 +306,6 @@ endfun
 
 fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Replace mandala buffer with content
-	" Similar as mandala#fill, but do not update mandala variables
 	" Content can be :
 	" - a monoline string
 	" - a list of lines

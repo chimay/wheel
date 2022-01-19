@@ -52,6 +52,8 @@ fun! wheel#sailing#maps (settings)
 	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
 	" Context menu
 	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('sailing')<cr>
+	" selection property
+	let b:wheel_nature.has_selection = v:true
 endfun
 
 fun! wheel#sailing#template (settings)
