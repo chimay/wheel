@@ -135,8 +135,8 @@ endfun
 
 fun! wheel#pencil#toggle ()
 	" Toggle selection of current line
-	let line = getline('.')
-	if wheel#pencil#is_selected (line)
+	let linum = line('.')
+	if wheel#pencil#is_selected (linum)
 		call wheel#pencil#clear ()
 	else
 		call wheel#pencil#select ()
