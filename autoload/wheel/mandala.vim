@@ -308,7 +308,7 @@ endfun
 
 " content
 
-fun! wheel#mandala#fill (content, ...)
+fun! wheel#mandala#fill (content, first = 'keep-first')
 	" Fill mandala buffer with content
 	" Content can be :
 	" - a monoline string
@@ -323,13 +323,9 @@ fun! wheel#mandala#fill (content, ...)
 	" -- disable folding
 	let ampersand = &foldenable
 	set nofoldenable
-	" arg
+	" arguments
 	let content = a:content
-	if a:0 > 0
-		let first = a:1
-	else
-		let first = 'keep'
-	endif
+	let first = a:first
 	" -- cursor
 	let position = getcurpos()
 	" -- delete old content
@@ -346,20 +342,20 @@ fun! wheel#mandala#fill (content, ...)
 	call append('.', content)
 	" -- first line & empty lines
 	call cursor(1, 1)
-	if first == 'keep'
+	if first == 'keep-first'
 		" delete empty lines from line 2 to end
 		silent! 2,$ global /^$/ delete _
 		" update b:wheel_lines
 		let b:wheel_lines = getline(2, '$')
-	elseif first == 'blank'
+	elseif first == 'blank-first'
 		" first lines should already be blank :
-		" :put add stuff after current line,
+		" append() / :put add stuff after current line,
 		" which is the first one on a empty buffer
 		call setline(1, '')
 		silent! 2,$ global /^$/ delete _
 		" update b:wheel_lines
 		let b:wheel_lines = getline(2, '$')
-	elseif first == 'delete'
+	elseif first == 'delete-first'
 		silent 1 delete _
 		silent! 2,$ global /^$/ delete _
 		" update b:wheel_lines
@@ -378,7 +374,7 @@ endfun
 
 fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Replace mandala buffer with content
-	" Similar as wheel#mandala#fill, but do not update mandala variables
+	" Similar as mandala#fill, but do not update mandala variables
 	" Content can be :
 	" - a monoline string
 	" - a list of lines
@@ -413,7 +409,7 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	call cursor(1,1)
 	if first == 'blank-first'
 		" first line should already be blank :
-		" :put add stuff after current line,
+		" append() / :put add stuff after current line,
 		" which is the first one on a empty buffer
 		call setline(1, '')
 	elseif first == 'delete-first'
@@ -448,7 +444,7 @@ fun! wheel#mandala#reload ()
 	else
 		" by default, if b:wheel_reload is not defined or empty,
 		" fill the buffer with b:wheel_lines
-		call wheel#mandala#fill (b:wheel_lines, 'blank')
+		call wheel#mandala#fill (b:wheel_lines, 'blank-first')
 		" restore
 		execute 'silent file' filename
 		echomsg 'wheel : content reloaded.'

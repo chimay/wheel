@@ -54,7 +54,7 @@ fun! wheel#shape#reorder (level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('reorder', level)
 	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'delete')
+		call wheel#mandala#fill(lines, 'delete-first')
 		silent global /^$/ delete
 		setlocal nomodified
 	else
@@ -74,7 +74,7 @@ fun! wheel#shape#rename (level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('rename', level)
 	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'delete')
+		call wheel#mandala#fill(lines, 'delete-first')
 		silent global /^$/ delete
 		setlocal nomodified
 	else
@@ -107,7 +107,7 @@ fun! wheel#shape#rename_files ()
 	call wheel#mandala#open ('rename/locations_files')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('rename_files')
-	call wheel#mandala#fill(lines, 'delete')
+	call wheel#mandala#fill(lines, 'delete-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	" reload
@@ -125,7 +125,7 @@ fun! wheel#shape#copy_move (level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('copy_move', level)
 	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'delete')
+		call wheel#mandala#fill(lines, 'delete-first')
 		silent global /^$/ delete
 		setlocal nomodified
 	else
@@ -149,7 +149,7 @@ fun! wheel#shape#reorganize ()
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('reorganize')
 	call wheel#mandala#folding_options ()
-	call wheel#mandala#fill(lines, 'delete')
+	call wheel#mandala#fill(lines, 'delete-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
@@ -166,7 +166,7 @@ fun! wheel#shape#reorg_tabwins ()
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('reorg_tabwins')
 	call wheel#mandala#folding_options ('tabwins_folding_text')
-	call wheel#mandala#fill(lines, 'delete')
+	call wheel#mandala#fill(lines, 'delete-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
@@ -220,7 +220,7 @@ fun! wheel#shape#grep_edit (...)
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('wheel#vector#write_quickfix')
-	call wheel#mandala#fill (lines, 'delete')
+	call wheel#mandala#fill (lines, 'delete-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline

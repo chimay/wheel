@@ -398,7 +398,7 @@ fun! wheel#cylinder#switch ()
 	else
 		let name = input(prompt, '', complete)
 	endif
-	let filenames = map(bufnums, {_,v->bufname(v)})
+	let filenames = bufnums->map({ _, val->bufname(val) })
 	let mandala = index(filenames, name)
 	if mandala < 0
 		return v:false

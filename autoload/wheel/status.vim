@@ -73,6 +73,7 @@ fun! wheel#status#mandala_leaf ()
 	let mandalas[current] = title
 	" -- leaf ring status
 	if exists('b:wheel_ring')
+		" we are in a mandala
 		let nature = wheel#book#ring ('nature')
 		let filenames = nature->map({ _, val -> val.type })
 		let current = b:wheel_ring.current

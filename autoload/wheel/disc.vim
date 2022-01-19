@@ -196,6 +196,13 @@ fun! wheel#disc#read_session (...)
 	else
 		echomsg 'wheel disc read session : session file does not exist.'
 	endif
+	" even windows in each tab
+	" does not work
+	"for tabind in range(1, tabpagenr('$'))
+		"execute 'tabnext' tabind
+		"wincmd =
+	"endfor
+	"tabnext 1
 endfun
 
 " tree torus/circle/location in the filesystem
