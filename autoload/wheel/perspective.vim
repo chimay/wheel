@@ -90,7 +90,7 @@ fun! wheel#perspective#helix ()
 		let returnlist = add(returnlist, entry)
 	endfor
 	return returnlist
-endfu
+endfun
 
 fun! wheel#perspective#grid ()
 	" Circle index
@@ -102,7 +102,7 @@ fun! wheel#perspective#grid ()
 		let returnlist = add(returnlist, entry)
 	endfor
 	return returnlist
-endfu
+endfun
 
 fun! wheel#perspective#tree ()
 	" Tree representation of the wheel
@@ -120,7 +120,7 @@ fun! wheel#perspective#tree ()
 		endfor
 	endfor
 	return returnlist
-endfu
+endfun
 
 fun! wheel#perspective#reorganize ()
 	" Content for reorganize buffer
@@ -138,7 +138,7 @@ fun! wheel#perspective#reorganize ()
 		endfor
 	endfor
 	return returnlist
-endfu
+endfun
 
 " from pendulum
 
@@ -159,7 +159,7 @@ fun! wheel#perspective#history ()
 		let returnlist = add(returnlist, entry)
 	endfor
 	return returnlist
-endfu
+endfun
 
 " Search file
 
@@ -205,7 +205,7 @@ fun! wheel#perspective#mru ()
 		let returnlist = add(returnlist, entry)
 	endfor
 	return returnlist
-endfu
+endfun
 
 " Buffers
 

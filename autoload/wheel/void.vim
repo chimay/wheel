@@ -308,7 +308,7 @@ fun! wheel#void#lighten ()
 				\ 'g:wheel_config',
 				\]
 	call wheel#gear#unlet (varlist)
-endfu
+endfun
 
 " Init & Exit
 
@@ -325,7 +325,7 @@ fun! wheel#void#init ()
 	if g:wheel_config.autoread_session > 0
 		call wheel#disc#read_session ()
 	endif
-endfu
+endfun
 
 fun! wheel#void#exit ()
 	" Main exit function
@@ -344,7 +344,7 @@ fun! wheel#void#exit ()
 		call wheel#void#wipe_mandalas ()
 		call wheel#void#lighten ()
 	endif
-endfu
+endfun
 
 " Fresh empty wheel, for testing
 

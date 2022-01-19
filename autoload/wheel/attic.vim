@@ -20,7 +20,7 @@ fun! wheel#attic#remove_if_present (entry)
 			eval g:wheel_attic->wheel#chain#remove_element(elem)
 		endif
 	endfor
-endfu
+endfun
 
 " Operations
 
@@ -67,4 +67,4 @@ fun! wheel#attic#record (...)
 	let max = g:wheel_config.maxim.mru
 	let g:wheel_attic = g:wheel_attic[:max - 1]
 	return v:true
-endfu
+endfun

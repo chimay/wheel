@@ -457,7 +457,7 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> L <cmd>call wheel#book#forward ()<cr>
 	nnoremap <buffer> <m-l> <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
-endfu
+endfun
 
 fun! wheel#mandala#input_history_maps ()
 	" Define local input history maps

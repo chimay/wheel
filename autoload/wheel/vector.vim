@@ -29,7 +29,7 @@ fun! wheel#vector#files (sieve)
 	eval files->filter({ _, val -> val =~ sieve })
 	" Done
 	return files
-endfu
+endfun
 
 " Arg list
 

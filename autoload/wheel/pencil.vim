@@ -185,9 +185,20 @@ endfun
 
 fun! wheel#pencil#show ()
 	" Add selected mark to all selected lines
+	let is_filtered = wheel#teapot#is_filtered ()
 endfun
 
 fun! wheel#pencil#hide ()
 	" Remove selected mark from all visible lines
 	" This does not clear the selection
+	let start = wheel#teapot#first_data_line ()
+	let shift = start
+	let linelist = getline(start, '$')
+	let length = len(linelist)
+	for index in range(length)
+		let linum = index + shift
+		let line = getline(linum)
+		let cleared = wheel#pencil#erase (line)
+		call setline(linum, cleared)
+	endfor
 endfun

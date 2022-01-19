@@ -46,7 +46,7 @@ fun! wheel#spiral#cursor ()
 	elseif delta < 0
 		execute 'normal! ' .. -delta .. "\<c-e>"
 	endif
-endfu
+endfun
 
 " Splits
 

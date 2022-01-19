@@ -45,7 +45,7 @@ fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	let toruses = copy(g:wheel.glossary)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, toruses)
-endfu
+endfun
 
 fun! wheel#complete#circle (arglead, cmdline, cursorpos)
 	" Complete circle name
@@ -56,7 +56,7 @@ fun! wheel#complete#circle (arglead, cmdline, cursorpos)
 	let circles = copy(cur_torus.glossary)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, circles)
-endfu
+endfun
 
 fun! wheel#complete#location (arglead, cmdline, cursorpos)
 	" Complete location name
@@ -67,14 +67,14 @@ fun! wheel#complete#location (arglead, cmdline, cursorpos)
 	let locations = copy(cur_circle.glossary)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, locations)
-endfu
+endfun
 
 fun! wheel#complete#helix (arglead, cmdline, cursorpos)
 	" Complete coordinates in index
 	let choices = wheel#perspective#helix ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
-endfu
+endfun
 
 fun! wheel#complete#grid  (arglead, cmdline, cursorpos)
 	" Complete location coordinates in index
@@ -88,7 +88,7 @@ fun! wheel#complete#history (arglead, cmdline, cursorpos)
 	let choices = wheel#perspective#history ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#candidates(wordlist, choices)
-endfu
+endfun
 
 " mandalas = dedicated buffers
 

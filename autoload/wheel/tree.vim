@@ -33,7 +33,7 @@ fun! wheel#tree#is_in_circle (location, circle)
 		endif
 	endfor
 	return present
-endfu
+endfun
 
 fun! wheel#tree#format_name (name)
 	" Format element name to avoid annoying characters
@@ -56,7 +56,7 @@ fun! wheel#tree#name ()
 	let prompt = 'Location name ? '
 	let complete = 'customlist,wheel#complete#current_file'
 	return input(prompt, '', complete)
-endfu
+endfun
 
 fun! wheel#tree#add_name (location)
 	" Fill the name key of location and return it
@@ -65,7 +65,7 @@ fun! wheel#tree#add_name (location)
 		let location.name = wheel#tree#name ()
 	endif
 	return location.name
-endfu
+endfun
 
 " Insert existent element
 
@@ -174,7 +174,7 @@ fun! wheel#tree#add_torus (...)
 	let g:wheel.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
-endfu
+endfun
 
 fun! wheel#tree#add_circle (...)
 	" Add circle
@@ -215,7 +215,7 @@ fun! wheel#tree#add_circle (...)
 	let torus.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	return v:true
-endfu
+endfun
 
 fun! wheel#tree#add_location (location, ...)
 	" Add location

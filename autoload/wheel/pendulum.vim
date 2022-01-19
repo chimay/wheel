@@ -24,7 +24,7 @@
 fun! wheel#pendulum#timestamp ()
 	" Timestamp in seconds since epoch
 	 return str2nr(strftime('%s'))
-endfu
+endfun
 
 fun! wheel#pendulum#date_hour (timestamp)
 	" Timestamp in date & hour format
@@ -33,12 +33,12 @@ fun! wheel#pendulum#date_hour (timestamp)
 	else
 		return strftime('%Y %B %d %A %H:%M', a:timestamp)
 	endif
-endfu
+endfun
 
 fun! wheel#pendulum#compare (one, two)
 	" Comparison of history entries : used to sort index
 	return a:two.timestamp - a:one.timestamp
-endfu
+endfun
 
 " helpers
 
@@ -58,7 +58,7 @@ fun! wheel#pendulum#remove_if_present (entry)
 			eval g:wheel_track->wheel#chain#remove_element(elem)
 		endif
 	endfor
-endfu
+endfun
 
 fun! wheel#pendulum#update_alternate ()
 	" Update g:wheel_alternate
@@ -140,7 +140,7 @@ fun! wheel#pendulum#record ()
 	let g:wheel_track = g:wheel_track[:max - 1]
 	" -- alternate history
 	call wheel#pendulum#update_alternate ()
-endfu
+endfun
 
 fun! wheel#pendulum#rename(level, old, new)
 	" Rename all occurences old -> new in history

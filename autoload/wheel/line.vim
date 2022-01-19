@@ -81,7 +81,7 @@ fun! wheel#line#target (target)
 		call wheel#spiral#vertical ()
 	endif
 	return mode
-endfu
+endfun
 
 " Applications of loop#sailing
 

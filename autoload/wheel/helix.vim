@@ -17,7 +17,7 @@ fun! wheel#helix#album ()
 		endfor
 	endfor
 	return album
-endfu
+endfun
 
 fun! wheel#helix#helix ()
 	" Index of locations coordinates in the wheel
@@ -38,7 +38,7 @@ fun! wheel#helix#helix ()
 		let helix = g:wheel_helix.table
 	endif
 	return helix
-endfu
+endfun
 
 fun! wheel#helix#grid ()
 	" Index of circles coordinates in the wheel
@@ -57,7 +57,7 @@ fun! wheel#helix#grid ()
 		let grid = g:wheel_grid.table
 	endif
 	return grid
-endfu
+endfun
 
 fun! wheel#helix#files ()
 	" Index of files in the wheel
@@ -78,7 +78,7 @@ fun! wheel#helix#files ()
 		let files = g:wheel_files.table
 	endif
 	return files
-endfu
+endfun
 
 fun! wheel#helix#rename_file(old, new)
 	" Rename all occurences old -> new filename
