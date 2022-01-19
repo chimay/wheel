@@ -11,7 +11,7 @@ endif
 
 " Helpers
 
-fun! wheel#sailing#maps (settings)
+fun! wheel#sailing#mappings (settings)
 	" Define sailing maps
 	let settings = copy(a:settings)
 	let map = 'nnoremap <silent> <buffer>'
@@ -55,7 +55,7 @@ fun! wheel#sailing#template (settings)
 	" Template
 	let settings = a:settings
 	call wheel#mandala#template (settings)
-	call wheel#sailing#maps (settings)
+	call wheel#sailing#mappings (settings)
 endfun
 
 fun! wheel#sailing#generic (name)

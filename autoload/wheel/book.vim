@@ -106,6 +106,8 @@ fun! wheel#book#template ()
 	let leaf.nature.type = 'empty'
 	let leaf.nature.has_filter = v:false
 	let leaf.nature.has_selection = v:false
+	let leaf.nature.menu = v:false
+	let leaf.nature.context_menu = v:false
 	" -- related buffer
 	let leaf.related_buffer = 'undefined'
 	" -- all original lines

@@ -40,7 +40,7 @@ fun! wheel#pencil#is_selected (...)
 	return index->wheel#chain#is_inside(reference)
 endfun
 
-fun! wheel#pencil#has_selection_mark (line)
+fun! wheel#pencil#has_select_mark (line)
 	" Whether line has selection mark
 	return a:line =~ s:selected_pattern
 endfun
@@ -50,7 +50,7 @@ endfun
 fun! wheel#pencil#draw (line)
 	" Return marked line
 	let line = a:line
-	if wheel#pencil#has_selection_mark (line)
+	if wheel#pencil#has_select_mark (line)
 		return line
 	endif
 	return substitute(line, '\m^', s:selected_mark, '')
@@ -59,31 +59,13 @@ endfun
 fun! wheel#pencil#erase (line)
 	" Return unmarked line
 	let line = a:line
-	if ! wheel#pencil#has_selection_mark (line)
+	if ! wheel#pencil#has_select_mark (line)
 		return line
 	endif
 	return substitute(line, s:selected_pattern, '', '')
 endfun
 
-" selection addresses
-
-fun! wheel#pencil#addresses ()
-	" Return selected addresses
-	" If empty, return address of current line
-	if ! wheel#pencil#has_selection ()
-	endif
-	let addresses = b:wheel_selection.addresses
-	if empty(addresses)
-		return [ wheel#line#address () ]
-	elseif type(addresses) == v:t_list
-		return addresses
-	else
-		echomsg 'wheel pencil selected : bad selection addresses'
-		return []
-	endif
-endfun
-
-" current line
+" one line
 
 fun! wheel#pencil#select (...)
 	" Select line
@@ -169,7 +151,8 @@ fun! wheel#pencil#toggle (...)
 	return v:true
 endfun
 
-" visible lines in the mandala, filtered or not
+" all visible lines in the mandala
+" they may be filtered or not
 
 fun! wheel#pencil#select_visible ()
 	" Select all visible, filtered lines
@@ -242,6 +225,20 @@ fun! wheel#pencil#show ()
 	endfor
 	setlocal nomodified
 	return v:true
+endfun
+
+" selection addresses
+
+fun! wheel#pencil#addresses ()
+	" Return selected addresses
+	" If empty, return address of current line
+	if wheel#boomerang#is_context_menu ()
+		return wheel#boomerang#addresses ()
+	endif
+	if wheel#pencil#is_selection_empty ()
+		return [ wheel#line#address () ]
+	endif
+	return b:wheel_selection.addresses
 endfun
 
 " mappings

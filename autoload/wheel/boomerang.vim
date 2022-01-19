@@ -17,6 +17,11 @@ endif
 
 " helpers
 
+fun! wheel#boomerang#is_context_menu ()
+	" Whether mandala leaf is a context menu
+	return b:wheel_nature.context_menu
+endfun
+
 fun! wheel#boomerang#has_filter ()
 	" Whether parent leaf has filter
 	let nature = wheel#book#previous('nature')
@@ -61,6 +66,13 @@ endfun
 
 fun! wheel#boomerang#addresses ()
 	" Return selected addresses of parent leaf
+	if wheel#boomerang#is_selection_empty ()
+		let cursor = deepcopy(wheel#book#previous('cursor'))
+		return [ cursor.address ]
+	else
+		let selection = copy(wheel#book#previous ('selection'))
+		return selection.addresses
+	endif
 endfun
 
 " sync previous mandala layer -> current mandala state
@@ -108,6 +120,8 @@ endfun
 
 fun! wheel#boomerang#menu (dictname, optional = {})
 	" Context menu
+	" -- context menu property
+	let b:wheel_nature.context_menu = v:true
 	let optional = a:optional
 	if ! has_key(optional, 'ctx_close')
 		" ctx_close = v:false by default, to be able to perform other

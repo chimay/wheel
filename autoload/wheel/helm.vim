@@ -20,7 +20,14 @@ if ! exists('s:menu_list')
 	lockvar s:menu_list
 endif
 
-" Maps
+" booleans
+
+fun! wheel#helm#is_menu ()
+	" Whether mandala leaf is a context menu
+	return b:wheel_nature.menu
+endfun
+
+" maps
 
 fun! wheel#helm#menu_maps (dictname)
 	" Define local maps for menus
@@ -39,7 +46,7 @@ fun! wheel#helm#meta_maps (dictname)
 	return
 endfun
 
-" Folding
+" folding
 
 fun! wheel#helm#folding_options ()
 	" Folding options for menu
@@ -71,7 +78,7 @@ fun! wheel#helm#folding_text ()
 	return text
 endfun
 
-" Menus
+" menus
 
 fun! wheel#helm#menu (dictname)
 	" Menu in mandala buffer
@@ -79,6 +86,8 @@ fun! wheel#helm#menu (dictname)
 	let string = 'menu/' .. dictname
 	call wheel#mandala#open (string)
 	call wheel#mandala#template ()
+	" -- menu property
+	let b:wheel_nature.menu = v:true
 endfun
 
 fun! wheel#helm#submenu (dictname)

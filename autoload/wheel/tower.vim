@@ -17,7 +17,7 @@ endif
 " Functions
 
 fun! wheel#tower#mappings (settings)
-	" Define local maps for overlay
+	" Define maps
 	let settings = copy(a:settings)
 	call wheel#mandala#template ()
 	" Menu specific maps
@@ -35,7 +35,6 @@ endfun
 
 fun! wheel#tower#staircase (settings)
 	" Replace buffer content by a {line -> fun} layer
-	" Reuse current mandala buffer
 	" Define dict maps
 	let settings = a:settings
 	let dictname = settings.linefun

@@ -143,6 +143,8 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.type = 'empty'
 		let b:wheel_nature.has_filter = v:false
 		let b:wheel_nature.has_selection = v:false
+		let b:wheel_nature.menu = v:false
+		let b:wheel_nature.context_menu = v:false
 		call wheel#mandala#filename ('empty')
 	endif
 	" -- related buffer
