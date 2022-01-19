@@ -320,6 +320,7 @@ fun! wheel#book#syncdown ()
 	call wheel#gear#restore_cursor (cursor.position)
 	" -- selection
 	let b:wheel_selection = deepcopy(leaf.selection)
+	call wheel#pencil#show ()
 	" -- settings
 	let b:wheel_settings = deepcopy(leaf.settings)
 	" -- reload
