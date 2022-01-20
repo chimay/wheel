@@ -18,7 +18,7 @@ endif
 fun! wheel#loop#sailing (settings)
 	" Navigation loop for element(s) in cursor line or selected line(s)
 	" settings keys :
-	"   - action : navigation function name or funcref
+	"   - function : navigation function name or funcref
 	"   - target : current window, tab, horizontal or vertical split,
 	"              even or with golden ratio
 	"   - related buffer of current mandala
@@ -26,7 +26,7 @@ fun! wheel#loop#sailing (settings)
 	let settings = copy(a:settings)
 	" ---- default values
 	if has_key(settings, 'function')
-		let Fun = settings.action
+		let Fun = settings.function
 	else
 		let Fun = 'wheel#line#switch'
 	endif
