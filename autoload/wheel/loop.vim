@@ -83,16 +83,18 @@ endfun
 
 fun! wheel#loop#boomerang (settings)
 	" Loop for non-sailing actions in boomerang
-	" settings keys :
-	"   - menu_action : action name or funcref
-	"   - menu_close : whether to close mandala
+	" settings is a dictionary containing settings.menu
+	" settings.menu keys can be :
+	"   - action : action name or funcref
+	"   - close : whether to close mandala
 	let settings = copy(a:settings)
+	let menu_settings = settings.menu
 	" ---- default values
-	let Fun = settings.menu_action
-	if has_key(settings, 'menu_close')
-		let menu_close = settings.menu_close
+	let Fun = menu_settings.action
+	if has_key(menu_settings, 'close')
+		let close = menu_settings.close
 	else
-		let menu_close = v:false
+		let close = v:false
 	endif
 	" ---- selection
 	let selected = wheel#pencil#addresses ()
@@ -109,7 +111,7 @@ fun! wheel#loop#boomerang (settings)
 		call wheel#spiral#cursor ()
 	endfor
 	" ---- coda
-	if menu_close
+	if close
 		call wheel#mandala#close ()
 	else
 		call wheel#cylinder#recall ()

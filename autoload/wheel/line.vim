@@ -206,13 +206,13 @@ fun! wheel#line#buffers (settings)
 	let fields = split(selected, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let filename = fnamemodify(fields[3], ':p')
-	if ! has_key(settings, 'menu_action')
-		let menu_action = 'sailing'
+	if wheel#boomerang#is_context_menu ()
+		let action = settings.menu.action
 	else
-		let menu_action = settings.menu_action
+		let action = 'sailing'
 	endif
 	" ---- actions
-	if menu_action == 'sailing'
+	if action == 'sailing'
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)
 			let where = wheel#line#where (target)
@@ -223,11 +223,11 @@ fun! wheel#line#buffers (settings)
 			call wheel#line#target (target)
 			execute 'buffer' bufnum
 		endif
-	elseif menu_action == 'delete'
+	elseif action == 'delete'
 		execute 'silent bdelete' bufnum
-	elseif menu_action == 'unload'
+	elseif action == 'unload'
 		execute 'silent bunload' bufnum
-	elseif menu_action == 'wipe'
+	elseif action == 'wipe'
 		execute 'silent bwipe' bufnum
 	endif
 	return win_getid ()
@@ -238,13 +238,13 @@ fun! wheel#line#tabwins (settings)
 	" ---- settings
 	let settings = a:settings
 	let selected = settings.selected
-	if ! has_key(settings, 'menu_action')
-		let menu_action = 'open'
+	if wheel#boomerang#is_context_menu ()
+		let action = settings.menu.action
 	else
-		let menu_action = settings.menu_action
+		let action = 'open'
 	endif
 	" ---- actions
-	if menu_action == 'open'
+	if action == 'open'
 		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
@@ -254,9 +254,9 @@ fun! wheel#line#tabwins (settings)
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
-	elseif menu_action == 'tabnew'
+	elseif action == 'tabnew'
 		tabnew
-	elseif menu_action == 'tabclose'
+	elseif action == 'tabclose'
 		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		if tabnum != tabpagenr()
@@ -274,13 +274,13 @@ fun! wheel#line#tabwins_tree (settings)
 	let settings = a:settings
 	let hierarchy = settings.selected
 	let tabnum = hierarchy[0]
-	if ! has_key(settings, 'menu_action')
-		let menu_action = 'open'
+	if wheel#boomerang#is_context_menu ()
+		let action = settings.menu.action
 	else
-		let menu_action = settings.menu_action
+		let action = 'open'
 	endif
 	" ---- actions
-	if menu_action == 'open'
+	if action == 'open'
 		if tabnum != tabpagenr()
 			call wheel#mandala#close()
 		endif
@@ -290,9 +290,9 @@ fun! wheel#line#tabwins_tree (settings)
 			execute 'noautocmd' winum 'wincmd w'
 		endif
 		doautocmd WinEnter
-	elseif menu_action == 'tabnew'
+	elseif action == 'tabnew'
 		tabnew
-	elseif menu_action == 'tabclose'
+	elseif action == 'tabclose'
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else
