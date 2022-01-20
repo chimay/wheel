@@ -136,10 +136,10 @@ fun! wheel#boomerang#launch_map (type)
 endfun
 
 fun! wheel#boomerang#menu (dictname)
-	" Context menu
+	" Build context menu
 	let dictname = 'context/' .. a:dictname
 	let settings = b:wheel_settings
-	let settings.menu = #{linefun : dictname, close : v:false, travel : v:false}
+	let settings.menu = #{kind : 'context', linefun : dictname, close : v:false, travel : v:false}
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
 	" ---- seek selection & settings from parent leaf
@@ -228,19 +228,23 @@ fun! wheel#boomerang#tabwins (action)
 	let settings = b:wheel_settings
 	let settings.menu.action = action
 	if action == 'open'
-		" wheel#loop#sailing will process the first selected line
+		" loop#sailing will process the first selected line
 		let settings.target = 'current'
 		return wheel#loop#sailing (settings)
 	elseif action == 'tabnew'
 		call wheel#loop#sailing (settings)
 		return v:true
 	elseif action == 'tabclose'
-		" inform wheel#loop#sailing that a loop on selected elements is necessary
-		let settings.target = 'none'
 		" closing last tab first
-		call reverse(b:wheel_selection.addresses)
-		call wheel#loop#sailing (settings)
-		call reverse(b:wheel_selection.addresses)
+		let settings.menu.kind = 'context'
+		let addresses = b:wheel_selection.addresses
+		let addresses = wheel#chain#sort(addresses)[1]
+		call reverse(addresses)
+		echomsg addresses
+		return
+		call wheel#loop#boomerang (settings)
+		call reverse(addresses)
+		let b:wheel_selection.addresses = addresses
 		return v:true
 	endif
 	return v:false

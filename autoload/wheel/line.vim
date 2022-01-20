@@ -238,11 +238,12 @@ fun! wheel#line#tabwins (settings)
 	" ---- settings
 	let settings = a:settings
 	let selected = settings.selected
-	if wheel#boomerang#is_context_menu ()
+	if settings.menu.kind == 'context'
 		let action = settings.menu.action
 	else
 		let action = 'open'
 	endif
+	echomsg settings
 	" ---- actions
 	if action == 'open'
 		let fields = split(selected, s:field_separ)

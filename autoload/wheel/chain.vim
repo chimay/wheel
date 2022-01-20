@@ -245,7 +245,7 @@ fun! wheel#chain#filter (list, function, indexes = [])
 	" Return filtered [indexes, elements]
 	let list = deepcopy(a:list)
 	let Fun = wheel#gear#function(a:function)
-	let indexes = copy(a:indexes)
+	let indexes = deepcopy(a:indexes)
 	if empty(indexes)
 		let indexes = range(len(list))
 	endif
@@ -309,7 +309,7 @@ fun! wheel#chain#sort (list, ...)
 	else
 		let Cmp = 'wheel#chain#compare_first'
 	endif
-	let list = copy(a:list)
+	let list = deepcopy(a:list)
 	let indexes = range(len(list))
 	let dual = wheel#matrix#dual([list, indexes])
 	call sort(dual, Cmp)
@@ -321,7 +321,7 @@ fun! wheel#chain#revert_sort (list, indexes)
 	" Revert sort in list by reordering indexes from smallest to biggest
 	" Returns [revert_indexes, original_list]
 	let Cmp = 'wheel#chain#compare_first'
-	let list = copy(a:list)
+	let list = deepcopy(a:list)
 	let indexes = a:indexes
 	if len(list) != len(indexes)
 		echomsg 'wheel chain revert sort : arguments are not of the same length.'
