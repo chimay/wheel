@@ -15,6 +15,11 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+if ! exists('s:mandala_targets')
+	let s:mandala_targets = wheel#crystal#fetch('mandala/targets')
+	lockvar s:mandala_targets
+endif
+
 " helpers
 
 fun! wheel#boomerang#is_context_menu ()
@@ -152,33 +157,13 @@ endfun
 
 " applications
 
-fun! wheel#boomerang#sailing (action)
+fun! wheel#boomerang#sailing (target)
 	" Sailing actions
-	let action = a:action
+	let target = a:target
 	let settings = b:wheel_settings
 	let settings.menu.action = 'sailing'
-	if action == 'current'
-		let settings.target = 'current'
-		call wheel#loop#sailing (settings)
-		return v:true
-	elseif action == 'tab'
-		let settings.target = 'tab'
-		call wheel#loop#sailing (settings)
-		return v:true
-	elseif action == 'horizontal_split'
-		let settings.target = 'horizontal_split'
-		call wheel#loop#sailing (settings)
-		return v:true
-	elseif action == 'vertical_split'
-		let settings.target = 'vertical_split'
-		call wheel#loop#sailing (settings)
-		return v:true
-	elseif action == 'horizontal_golden'
-		let settings.target = 'horizontal_golden'
-		call wheel#loop#sailing (settings)
-		return v:true
-	elseif action == 'vertical_golden'
-		let settings.target = 'vertical_golden'
+	if target->wheel#chain#is_inside (s:mandala_targets)
+		let settings.target = target
 		call wheel#loop#sailing (settings)
 		return v:true
 	endif
@@ -190,7 +175,7 @@ fun! wheel#boomerang#buffers (action)
 	" Only called for non-sailing actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.menu_action = action
+	let settings.menu.action = action
 	if action == 'delete'
 		" dont remove parent selection on buffers/all
 		if wheel#mandala#type () == 'buffers'
@@ -241,7 +226,7 @@ fun! wheel#boomerang#tabwins (action)
 	" Buffers visible in tabs & wins
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.menu_action = action
+	let settings.menu.action = action
 	if action == 'open'
 		" wheel#loop#sailing will process the first selected line
 		let settings.target = 'current'
@@ -270,7 +255,7 @@ fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.menu_action = action
+	let settings.menu.action = action
 	if action == 'quickfix'
 		call wheel#mandala#close ()
 		call wheel#vector#copen ()
@@ -282,7 +267,7 @@ fun! wheel#boomerang#yank (action)
 	" action = before / after
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.menu_action = action
+	let settings.menu.action = action
 	let mode = b:wheel_settings.mode
 	call wheel#line#paste_{mode} (action, 'open')
 endfun

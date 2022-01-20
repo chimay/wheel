@@ -224,7 +224,7 @@ endif
 " Folds in mandalas
 
 if ! exists('s:fold_markers')
-	let s:fold_markers = ['>', '<']
+	let s:fold_markers = ['⧽', '⧼']
 	lockvar s:fold_markers
 endif
 
@@ -254,7 +254,6 @@ endif
 
 if ! exists('s:separator_level')
 	let s:separator_level = ' ⧽ '
-	"let s:separator_level = ' 〉'
 	lockvar s:separator_level
 endif
 
@@ -282,6 +281,20 @@ endif
 if ! exists('s:selected_pattern')
 	let s:selected_pattern = '\m^' .. s:selected_mark
 	lockvar s:selected_pattern
+endif
+
+" Targets in mandalas
+
+if ! exists('s:mandala_targets')
+	let s:mandala_targets = [
+				\ 'current',
+				\ 'tab',
+				\ 'horizontal_split',
+				\ 'vertical_split',
+				\ 'horizontal_golden',
+				\ 'vertical_golden',
+				\]
+	lockvar s:mandala_targets
 endif
 
 " Menus
