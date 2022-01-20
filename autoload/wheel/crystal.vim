@@ -188,7 +188,7 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" Layer fields in mandalas
+" Leaf : layer fields in mandalas
 
 if ! exists('s:layer_fields')
 	" filename : pseudo filename of the mandala
@@ -212,10 +212,9 @@ if ! exists('s:layer_fields')
 				\ 'nature',
 				\ 'related_buffer',
 				\ 'lines',
-				\ 'filtered',
-				\ 'position',
-				\ 'address',
-				\ 'selected',
+				\ 'filter',
+				\ 'selection',
+				\ 'cursor',
 				\ 'settings',
 				\ 'reload',
 				\ ]
@@ -254,7 +253,8 @@ if ! exists('s:separator_field_bar')
 endif
 
 if ! exists('s:separator_level')
-	let s:separator_level = ' > '
+	let s:separator_level = ' ⧽ '
+	"let s:separator_level = ' 〉'
 	lockvar s:separator_level
 endif
 

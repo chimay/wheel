@@ -1,6 +1,15 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Find & follow the closest element in wheel
+" find & follow the closest element in wheel
+
+" scripts constants
+
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
+" projection
 
 fun! wheel#projection#closest (...)
 	" Find closest location to :
@@ -104,7 +113,7 @@ fun! wheel#projection#follow (...)
 	endif
 	call wheel#pendulum#record ()
 	let info = 'wheel follow : '
-	let info ..= coordin[0] .. ' > ' .. coordin[1] .. ' > ' .. coordin[2]
+	let info ..= coordin[0] .. s:level_separ .. coordin[1] .. s:level_separ .. coordin[2]
 	call wheel#status#clear ()
 	echo info
 	" update location to cursor position

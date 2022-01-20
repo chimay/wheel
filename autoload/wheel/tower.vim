@@ -49,8 +49,8 @@ fun! wheel#tower#menu (settings)
 		call wheel#rectangle#previous ()
 	endif
 	" ---- call function linked to cursor line
-	let value = dict[key]
-	let winiden = wheel#gear#call (value)
+	let function = dict[key]
+	let winiden = wheel#gear#call (function)
 	" ---- coda
 	if close
 		call wheel#mandala#close ()

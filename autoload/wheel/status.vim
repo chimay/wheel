@@ -7,6 +7,11 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
+if ! exists('s:level_separ')
+	let s:level_separ = wheel#crystal#fetch('separator/level')
+	lockvar s:level_separ
+endif
+
 " Helpers
 
 fun! wheel#status#type (...)
@@ -36,9 +41,9 @@ fun! wheel#status#dashboard ()
 	if has('nvim')
 		let [torus, circle, location] = wheel#referen#location('all')
 		if ! wheel#referen#is_empty('wheel')
-			let string = torus.name .. ' > '
+			let string = torus.name .. s:level_separ
 			if ! wheel#referen#is_empty('torus')
-				let string ..= circle.name .. ' > '
+				let string ..= circle.name .. s:level_separ
 				if ! wheel#referen#is_empty('circle')
 					let string ..= location.name .. ' : '
 					let string ..= location.file .. ':' .. location.line .. ':' .. location.col

@@ -130,21 +130,11 @@ fun! wheel#boomerang#launch_map (type)
 	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. type .. "')<cr>"
 endfun
 
-fun! wheel#boomerang#menu (dictname, optional = {})
+fun! wheel#boomerang#menu (dictname)
 	" Context menu
-	" ---- optional settings
-	let optional = a:optional
-	if ! has_key(optional, 'menu_close')
-		" menu_close = v:false by default, to be able to perform other
-		" operations after this one
-		let optional.menu_close = v:false
-	endif
-	if ! has_key(optional, 'menu_travel')
-		" menu_travel = v:false by default, to be able to catch mandala buffer variables
-		let optional.menu_travel = v:false
-	endif
 	let dictname = 'context/' .. a:dictname
-	let settings = #{linefun : dictname, menu_close : optional.menu_close, menu_travel : optional.menu_travel}
+	let settings = b:wheel_settings
+	let settings.menu = #{linefun : dictname, close : v:false, travel : v:false}
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
 	" ---- seek selection & settings from parent leaf
@@ -166,7 +156,7 @@ fun! wheel#boomerang#sailing (action)
 	" Sailing actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.menu_action = 'sailing'
+	let settings.menu.action = 'sailing'
 	if action == 'current'
 		let settings.target = 'current'
 		call wheel#loop#sailing (settings)
