@@ -513,7 +513,7 @@ fun! wheel#mandala#template (...)
 	call wheel#mandala#common_maps ()
 	call wheel#teapot#mappings ()
 	call wheel#scroll#mappings ()
-	" By default, tell line#address it’s not a tree buffer
+	" By default, tell line#address it's not a tree buffer
 	" Overridden by folding_options
 	setlocal nofoldenable
 endfun

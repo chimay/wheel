@@ -21,7 +21,7 @@ fun! wheel#kyusu#steep (wordlist, index, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
 	" Pipe | in word means logical or
-	" index is not used, it’s just for compatibility with filter()
+	" index is not used, it's just for compatibility with filter()
 	let wordlist = copy(a:wordlist)
 	eval wordlist->map({ _, val -> substitute(val, '|', '\\|', 'g') })
 	let match = v:true
@@ -55,7 +55,7 @@ endfun
 
 fun! wheel#kyusu#words_or_folds (wordlist, index, value)
 	" Like kyusu#steep, but keep folds markers lines
-	" index is not used, it’s just for compatibility with filter()
+	" index is not used, it's just for compatibility with filter()
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
 	if a:value =~ pattern

@@ -420,7 +420,7 @@ endfun
 fun! wheel#cuboctahedron#reorganize ()
 	" Rebuild wheel by adding elements contained in buffer
 	" Follow folding tree
-	" The add_* will record new timestamps ; let’s keep the old ones
+	" The add_* will record new timestamps ; let's keep the old ones
 	let prompt = 'Write old wheel to file before reorganizing ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)
 	if confirm == 1

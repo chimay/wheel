@@ -45,30 +45,32 @@ endfun
 fun! wheel#matrix#dual (nested)
 	" Return transposed of nested list
 	let nested = a:nested
-	" lengthes
-	let lenlist = []
+	" -- outer length
+	let outer_length = len(nested)
+	" -- inner length
+	let lengthes = []
 	for elem in nested
-		call add(lenlist, len(elem))
+		call add(lengthes, len(elem))
 	endfor
-	let innerlen = min(lenlist)
-	if innerlen < max(lenlist)
+	let inner_length = min(lengthes)
+	if inner_length < max(lengthes)
 		echomsg 'wheel matrix dual : inner lists are not of the same length.'
 		return v:false
 	endif
-	let outerlen = len(nested)
-	" span
-	let in_span = range(innerlen)
-	let out_span = range(outerlen)
-	" double loop
-	let dual = []
-	for inner in in_span
-		let dualelem = []
-		for outer in out_span
+	" -- span
+	let outer_span = range(outer_length)
+	let inner_span = range(inner_length)
+	" -- init dual
+	" -- can't use repeat() with empty list
+	let dual = copy(inner_span)->map({ _, val -> [] })
+	" -- double loop
+	for inner in inner_span
+		let dualelem = dual[inner]
+		for outer in outer_span
 			call add(dualelem, nested[outer][inner])
 		endfor
-		call add(dual, dualelem)
 	endfor
-	" return
+	" -- coda
 	return dual
 endfun
 

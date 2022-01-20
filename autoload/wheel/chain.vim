@@ -254,6 +254,9 @@ fun! wheel#chain#filter (list, function, indexes = [])
 	let dual = wheel#matrix#dual (matrix)
 	eval dual->filter({ _, pair -> Fun(pair[1]) })
 	let matrix = wheel#matrix#dual (dual)
+	if empty(matrix)
+		return [ [], [] ]
+	endif
 	return matrix
 endfun
 
