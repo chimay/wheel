@@ -38,7 +38,7 @@ fun! wheel#clipper#mappings (mode)
 	nnoremap <buffer> <c-r> <cmd>call wheel#mandala#redo()<cr>
 	" Context menu
 	let menu = 'yank/' .. a:mode
-	call wheel#boomerang#mappings (menu)
+	call wheel#boomerang#launch_map (menu)
 endfun
 
 fun! wheel#clipper#template (settings)

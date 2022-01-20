@@ -48,7 +48,7 @@ fun! wheel#sailing#mappings (settings)
 	" -- selection
 	call wheel#pencil#mappings ()
 	" -- context menu
-	call wheel#boomerang#mappings ('sailing')
+	call wheel#boomerang#launch_map ('sailing')
 endfun
 
 fun! wheel#sailing#template (settings)
@@ -64,7 +64,7 @@ fun! wheel#sailing#generic (name)
 	let Perspective = function('wheel#perspective#' .. name)
 	let lines = Perspective ()
 	call wheel#mandala#open (name)
-	let settings = {'action' : function('wheel#line#' .. name)}
+	let settings = {'function' : function('wheel#line#' .. name)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 endfun
@@ -97,7 +97,7 @@ fun! wheel#sailing#helix ()
 	" Each coordinate = [torus, circle, location]
 	let lines = wheel#perspective#helix ()
 	call wheel#mandala#open ('index/location')
-	let settings = {'action' : function('wheel#line#helix')}
+	let settings = {'function' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -109,7 +109,7 @@ fun! wheel#sailing#grid ()
 	" Each coordinate = [torus, circle]
 	let lines = wheel#perspective#grid ()
 	call wheel#mandala#open ('index/circle')
-	let settings = {'action' : function('wheel#line#grid')}
+	let settings = {'function' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
@@ -120,7 +120,7 @@ fun! wheel#sailing#tree ()
 	" Choose an element in the wheel tree
 	let lines = wheel#perspective#tree ()
 	call wheel#mandala#open ('index/tree')
-	let settings = {'action' : function('wheel#line#tree')}
+	let settings = {'function' : function('wheel#line#tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
@@ -146,7 +146,7 @@ fun! wheel#sailing#locate (...)
 	endif
 	let lines = wheel#perspective#locate (pattern)
 	call wheel#mandala#open ('locate')
-	let settings = {'action' : function('wheel#line#locate')}
+	let settings = {'function' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -168,7 +168,7 @@ fun! wheel#sailing#find (...)
 	echomsg 'wheel find : using pattern' pattern
 	let lines = wheel#perspective#find (pattern)
 	call wheel#mandala#open ('find')
-	let settings = {'action' : function('wheel#line#find')}
+	let settings = {'function' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -196,7 +196,7 @@ fun! wheel#sailing#async_find (...)
 	echomsg 'wheel async find : using pattern' pattern
 	" mandala
 	call wheel#mandala#open ('async_find')
-	let settings = {'action' : function('wheel#line#find')}
+	let settings = {'function' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
 	" job
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
@@ -243,7 +243,7 @@ fun! wheel#sailing#buffers (scope = 'listed')
 		return []
 	endif
 	call wheel#mandala#open (name)
-	let settings = {'action' : function('wheel#line#buffers')}
+	let settings = {'function' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" context menu
@@ -257,13 +257,13 @@ fun! wheel#sailing#tabwins ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins ()
 	call wheel#mandala#open ('tabwins')
-	let settings = {'action' : function('wheel#line#tabwins')}
+	let settings = {'function' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = 'wheel#sailing#tabwins'
 	" Context menu
-	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('tabwins')<cr>
+	call wheel#boomerang#launch_map ('tabwins')
 endfun
 
 fun! wheel#sailing#tabwins_tree ()
@@ -271,14 +271,14 @@ fun! wheel#sailing#tabwins_tree ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins_tree ()
 	call wheel#mandala#open ('tabwins/tree')
-	let settings = {'action' : function('wheel#line#tabwins_tree')}
+	let settings = {'function' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = 'wheel#sailing#tabwins_tree'
 	" Context menu
-	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('tabwins_tree')<cr>
+	call wheel#boomerang#launch_map ('tabwins_tree')
 endfun
 
 fun! wheel#sailing#occur (...)
@@ -292,7 +292,7 @@ fun! wheel#sailing#occur (...)
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
 	call wheel#mandala#open ('occur')
-	let settings = {'action' : function('wheel#line#occur')}
+	let settings = {'function' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
@@ -323,7 +323,7 @@ fun! wheel#sailing#grep (...)
 	call wheel#rectangle#previous ()
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#open ('grep/' .. word)
-	let settings = {'action' : function('wheel#line#grep')}
+	let settings = {'function' : function('wheel#line#grep')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
@@ -379,7 +379,7 @@ fun! wheel#sailing#jumps ()
 	let lines = wheel#perspective#jumps ()
 	" mandala buffer
 	call wheel#mandala#open ('jumps')
-	let settings = {'action' : function('wheel#line#jumps')}
+	let settings = {'function' : function('wheel#line#jumps')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -392,7 +392,7 @@ fun! wheel#sailing#changes ()
 	let lines = wheel#perspective#changes ()
 	" mandala buffer
 	call wheel#mandala#open ('changes')
-	let settings = {'action' : function('wheel#line#changes')}
+	let settings = {'function' : function('wheel#line#changes')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload

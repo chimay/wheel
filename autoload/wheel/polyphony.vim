@@ -394,7 +394,7 @@ fun! wheel#polyphony#narrow_circle (...)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
-	let settings = {'action' : function('wheel#line#narrow_circle')}
+	let settings = {'function' : function('wheel#line#narrow_circle')}
 	call wheel#sailing#mappings (settings)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#shape#write ('wheel#polyphony#counterpoint')

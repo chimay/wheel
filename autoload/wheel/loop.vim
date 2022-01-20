@@ -16,17 +16,19 @@ endif
 " looping
 
 fun! wheel#loop#sailing (settings)
-	" Go to element(s) on cursor line or selected line(s)
+	" Navigation loop for element(s) in cursor line or selected line(s)
 	" settings keys :
-	"   - related buffer of current mandala
+	"   - action : navigation function name or funcref
 	"   - target : current window, tab, horizontal or vertical split,
 	"              even or with golden ratio
+	"   - related buffer of current mandala
 	"   - close : whether to close mandala
-	"   - action : navigation function name or funcref
 	let settings = copy(a:settings)
 	" ---- default values
-	if ! has_key(settings, 'related_buffer')
-		let settings.related_buffer = b:wheel_related_buffer
+	if has_key(settings, 'function')
+		let Fun = settings.action
+	else
+		let Fun = 'wheel#line#switch'
 	endif
 	if has_key(settings, 'target')
 		let target = settings.target
@@ -34,15 +36,13 @@ fun! wheel#loop#sailing (settings)
 		let target = 'current'
 		let settings.target = target
 	endif
+	if ! has_key(settings, 'related_buffer')
+		let settings.related_buffer = b:wheel_related_buffer
+	endif
 	if has_key(settings, 'close')
 		let close = settings.close
 	else
 		let close = v:true
-	endif
-	if has_key(settings, 'action')
-		let Fun = settings.action
-	else
-		let Fun = 'wheel#line#switch'
 	endif
 	" ---- selection
 	let selected = wheel#pencil#addresses ()
@@ -81,60 +81,38 @@ fun! wheel#loop#sailing (settings)
 	return winiden
 endfun
 
-fun! wheel#loop#menu (settings)
-	" Calls function given by the key = cursor line
-	" settings is a dictionary, whose keys can be :
-	" - dict : name of a dictionary variable in storage.vim
-	" - travel : whether to go back to pre-mandala window before applying action
-	" - close : whether to close mandala buffer
-	let settings = a:settings
-	let dict = wheel#crystal#fetch (settings.linefun, 'dict')
-	let travel = settings.menu_travel
-	let close = settings.menu_close
-	" ---- cursor line
-	let cursor_line = getline('.')
-	let cursor_line = wheel#pencil#erase (cursor_line)
-	if empty(cursor_line)
-		echomsg 'wheel line menu : you selected an empty line'
+fun! wheel#loop#boomerang (settings)
+	" Loop for non-sailing actions in boomerang
+	" settings keys :
+	"   - menu_action : action name or funcref
+	"   - menu_close : whether to close mandala
+	let settings = copy(a:settings)
+	" ---- default values
+	let Fun = settings.menu_action
+	if has_key(settings, 'menu_close')
+		let menu_close = settings.menu_close
+	else
+		let menu_close = v:false
+	endif
+	" ---- selection
+	let selected = wheel#pencil#addresses ()
+	if empty(selected[0])
 		return v:false
 	endif
-	let key = cursor_line
-	if ! has_key(dict, key)
+	" ---- loop
+	for elem in selected
+		let settings.selected = elem
+		let winiden = wheel#gear#call(Fun, settings)
 		if &foldopen =~ 'jump'
 			normal! zv
 		endif
 		call wheel#spiral#cursor ()
-		echomsg 'wheel line menu : key not found'
-		return v:false
-	endif
-	" ---- tab page of mandala before processing
-	let elder_tab = tabpagenr()
-	" ---- travel before processing ?
-	" true for helm menus
-	" false for context menus
-	" in case of sailing, it's managed by loop#sailing
-	if travel
-		call wheel#rectangle#previous ()
-	endif
-	" ---- call function linked to cursor line
-	let value = dict[key]
-	let winiden = wheel#gear#call (value)
+	endfor
 	" ---- coda
-	if close
+	if menu_close
 		call wheel#mandala#close ()
-		" -- go to last destination
-		call wheel#gear#win_gotoid (winiden)
 	else
-		call wheel#gear#win_gotoid (winiden)
-		let new_tab = tabpagenr()
-		" -- tab changed, move mandala to new tab
-		if elder_tab != new_tab
-			" close it in elder tab
-			silent call wheel#mandala#close ()
-			" go back in new tab
-			execute 'tabnext' new_tab
-		endif
-		call wheel#cylinder#recall()
+		call wheel#cylinder#recall ()
 	endif
-	return v:true
+	return winiden
 endfun

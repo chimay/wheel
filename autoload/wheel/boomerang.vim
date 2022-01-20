@@ -98,7 +98,7 @@ endfun
 " selection
 
 fun! wheel#boomerang#remove_selected ()
-	" Remove selection & related lines from parent leaf
+	" Parent leaf : remove selection & related lines, reset filter
 	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
 	" -- clear lines
@@ -121,7 +121,14 @@ fun! wheel#boomerang#remove_selected ()
 	let filter.lines = []
 endfun
 
-" generic
+" mandalas
+
+fun! wheel#boomerang#launch_map (type)
+	" Define map to launch context menu
+	" -- sailing by default
+	let type = a:type
+	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. type .. "')<cr>"
+endfun
 
 fun! wheel#boomerang#menu (dictname, optional = {})
 	" Context menu
@@ -190,16 +197,19 @@ endfun
 
 fun! wheel#boomerang#buffers (action)
 	" Buffers actions
+	" Only called for non-sailing actions
 	let action = a:action
 	let settings = b:wheel_settings
-	if action == 'delete' || action == 'wipe'
-		let settings.menu_action = action
-		" remove selected elements from the parent buffer mandala
+	let settings.menu_action = action
+	if action == 'delete'
+		" dont remove parent selection on buffers/all
+		if wheel#mandala#type () == 'buffers'
+			call wheel#boomerang#remove_selected ()
+		endif
+		call wheel#loop#boomerang (settings)
+	if action == 'wipe'
 		call wheel#boomerang#remove_selected ()
-		" inform loop#sailing that a loop on selected elements is necessary
-		" it does not perform it if target == 'current'
-		let settings.target = 'none'
-		call wheel#loop#sailing (settings)
+		call wheel#loop#boomerang (settings)
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
 		let filtered = wheel#book#previous ('filter')
@@ -285,13 +295,4 @@ fun! wheel#boomerang#yank (action)
 	let settings.menu_action = action
 	let mode = b:wheel_settings.mode
 	call wheel#line#paste_{mode} (action, 'open')
-endfun
-
-" mappings
-
-fun! wheel#boomerang#mappings (type)
-	" Define context menu maps & set property
-	" -- sailing by default
-	let type = a:type
-	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. type .. "')<cr>"
 endfun
