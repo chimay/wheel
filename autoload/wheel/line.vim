@@ -253,9 +253,12 @@ endfun
 
 fun! wheel#line#tabwins (settings)
 	" Go to tab & win given by selected
+	" ---- settings
 	let settings = a:settings
+	let selected = settings.selected
+	" ---- actions
 	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
-		let fields = split(settings.selected, s:field_separ)
+		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
 		execute 'noautocmd tabnext' tabnum
@@ -264,8 +267,7 @@ fun! wheel#line#tabwins (settings)
 	elseif settings.ctx_action == 'tabnew'
 		tabnew
 	elseif settings.ctx_action == 'tabclose'
-		" Close tab
-		let fields = split(settings.selected, s:field_separ)
+		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
@@ -278,12 +280,14 @@ endfun
 
 fun! wheel#line#tabwins_tree (settings)
 	" Go to tab & win given by selected
+	" ---- settings
 	let settings = a:settings
-	let hierarchy = a:settings.selected
+	let hierarchy = settings.selected
 	if empty(hierarchy)
 		return v:false
 	endif
 	let tabnum = hierarchy[0]
+	" ---- actions
 	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
 		" Find matching tab
 		execute 'noautocmd tabnext' tabnum
