@@ -22,7 +22,7 @@ fun! wheel#tower#mappings (settings)
 	call wheel#mandala#template ()
 	" Menu specific maps
 	let map = 'nnoremap <silent> <buffer>'
-	let pre = '<cmd>call wheel#loop#context_menu('
+	let pre = '<cmd>call wheel#loop#menu('
 	let post = ')<cr>'
 	" Open / Close : default in settings
 	exe map '<cr>' pre .. string(settings) .. post

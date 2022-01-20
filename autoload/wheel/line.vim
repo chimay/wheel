@@ -288,8 +288,11 @@ fun! wheel#line#tabwins_tree (settings)
 	endif
 	let tabnum = hierarchy[0]
 	" ---- actions
-	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
-		" Find matching tab
+	let find_tabwin = ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
+	if find_tabwin
+		if tabnum != tabpagenr()
+			call wheel#mandala#close()
+		endif
 		execute 'noautocmd tabnext' tabnum
 		if len(hierarchy) > 1
 			let winum = hierarchy[1]
@@ -299,7 +302,6 @@ fun! wheel#line#tabwins_tree (settings)
 	elseif settings.ctx_action == 'tabnew'
 		tabnew
 	elseif settings.ctx_action == 'tabclose'
-		" Close tab
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else

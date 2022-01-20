@@ -78,7 +78,7 @@ fun! wheel#loop#sailing (settings)
 	return winiden
 endfun
 
-fun! wheel#loop#context_menu (settings)
+fun! wheel#loop#menu (settings)
 	" Calls function given by the key = cursor line
 	" settings is a dictionary, whose keys can be :
 	" - dict : name of a dictionary variable in storage.vim
