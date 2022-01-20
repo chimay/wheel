@@ -7,7 +7,7 @@
 " A kyusu is a japanese traditional teapot,
 " often provided with a filter inside
 
-" Script constants
+" ====== script constants
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
@@ -15,7 +15,7 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" helpers
+" ====== helpers
 
 fun! wheel#kyusu#steep (wordlist, index, value)
 	" Whether value matches all words of wordlist
@@ -41,7 +41,7 @@ fun! wheel#kyusu#steep (wordlist, index, value)
 	return match
 endfun
 
-" prompt completion
+" ====== prompt completion
 
 fun! wheel#kyusu#pour (wordlist, list)
 	" Return elements of list matching words of wordlist
@@ -51,7 +51,7 @@ fun! wheel#kyusu#pour (wordlist, list)
 	return candidates
 endfun
 
-" dedicated buffers
+" ====== dedicated buffers
 
 fun! wheel#kyusu#words_or_folds (wordlist, index, value)
 	" Like kyusu#steep, but keep folds markers lines
@@ -114,6 +114,8 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 	endif
 	return [filtered_indexes, filtered_values]
 endfun
+
+" ==== indexes & lines
 
 " first implementation
 "
