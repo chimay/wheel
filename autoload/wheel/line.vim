@@ -167,11 +167,12 @@ fun! wheel#line#tree (settings)
 	" - [torus]
 	" - [torus, circle]
 	" - [torus, circle, location]
-	" settings keys :
-	" - selected : where to go
-	" - target : current, tab, horizontal_split, vertical_split
-	let coordin = a:settings.selected
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let coordin = settings.selected
 	let length = len(coordin)
+	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (a:settings.target)
 	if length == 3
@@ -183,60 +184,67 @@ fun! wheel#line#tree (settings)
 	else
 		return v:false
 	endif
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 	return win_getid ()
 endfun
 
 fun! wheel#line#history (settings)
 	" Go to settings.selected history location
-	" settings keys :
-	" - selected : where to go
-	" - target : current, tab, horizontal_split, vertical_split
-	let fields = split(a:settings.selected, s:field_separ)
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let selected = settings.selected
+	" ---- jump
+	let fields = split(selected, s:field_separ)
 	if len(fields) < 2
 		echomsg 'History line is too short'
 		return v:false
 	endif
-	let coordin = split(fields[1], ' > ')
+	let coordin = split(fields[1], s:level_separ)
 	if len(coordin) < 3
 		echomsg 'History : coordinates should contain 3 elements'
 		return v:false
 	endif
-	let mode = wheel#line#target (a:settings.target)
+	let where = wheel#line#where (target)
+	call wheel#line#target (target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 	return win_getid ()
 endfun
 
 fun! wheel#line#buffers (settings)
 	" Go to opened file given by selected
+	" ---- settings
 	let settings = a:settings
-	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'sailing'
-		let fields = split(settings.selected, s:field_separ)
+	let target = settings.target
+	let selected = settings.selected
+	" ---- actions
+	let sail = ! has_key(settings, 'ctx_action') || settings.ctx_action == 'sailing'
+	if sail
+		let fields = split(selected, s:field_separ)
 		let bufnum = fields[0]
 		let filename = expand(fields[3])
 		let filename = fnamemodify(filename, ':p')
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)
-			let mode = wheel#line#target (settings.target)
+			let where = wheel#line#where (target)
+			call wheel#line#target (target)
 			call wheel#vortex#chord (coordin)
-			call wheel#vortex#jump (mode)
+			call wheel#vortex#jump (where)
 		else
+			call wheel#line#target (target)
 			execute 'buffer' bufnum
 		endif
 	elseif settings.ctx_action == 'delete'
-		" Delete buffer
-		let fields = split(settings.selected, s:field_separ)
+		let fields = split(selected, s:field_separ)
 		let bufnum = str2nr(fields[0])
 		execute 'silent bdelete' bufnum
 	elseif settings.ctx_action == 'unload'
-		" Unload buffer
-		let fields = split(settings.selected, s:field_separ)
+		let fields = split(selected, s:field_separ)
 		let bufnum = str2nr(fields[0])
 		execute 'silent bunload' bufnum
 	elseif settings.ctx_action == 'wipe'
-		" Wipe buffer
-		let fields = split(settings.selected, s:field_separ)
+		let fields = split(selected, s:field_separ)
 		let bufnum = str2nr(fields[0])
 		execute 'silent bwipe' bufnum
 	endif
