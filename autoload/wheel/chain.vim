@@ -123,19 +123,21 @@ endfun
 fun! wheel#chain#rotate_left (list)
 	" Rotate list to the left
 	if len(a:list) > 1
-		return a:list[1:] + [a:list[0]]
+		let rotated = deepcopy(a:list[1:]) + deepcopy([a:list[0]])
 	else
-		return a:list
+		let rotated = deepcopy(a:list)
 	endif
+	return rotated
 endfun
 
 fun! wheel#chain#rotate_right (list)
 	" Rotate list to the right
 	if len(a:list) > 1
-		return [a:list[-1]] + a:list[:-2]
+		let rotated = deepcopy([a:list[-1]]) + deepcopy(a:list[:-2])
 	else
-		return a:list
+		let rotated = deepcopy(a:list)
 	endif
+	return rotated
 endfun
 
 fun! wheel#chain#roll_left (index, list)

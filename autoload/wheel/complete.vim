@@ -3,9 +3,13 @@
 " Completion list functions
 "
 " Return entries as list
+"
 " vim does not filter the entries,
 " if needed, it has to be done
 " in the function body
+"
+" Note : kyusu#steep makes a deepcopy of the list before
+" processing, no need to do it here
 
 " Script constants
 
@@ -42,9 +46,9 @@ fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	if ! has_key(g:wheel, 'glossary')
 		return []
 	endif
-	let toruses = copy(g:wheel.glossary)
+	let toruses = g:wheel.glossary
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, toruses)
+	return wheel#kyusu#steep(wordlist, toruses)
 endfun
 
 fun! wheel#complete#circle (arglead, cmdline, cursorpos)
@@ -53,9 +57,9 @@ fun! wheel#complete#circle (arglead, cmdline, cursorpos)
 	if ! has_key(cur_torus, 'glossary')
 		return []
 	endif
-	let circles = copy(cur_torus.glossary)
+	let circles = cur_torus.glossary
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, circles)
+	return wheel#kyusu#steep(wordlist, circles)
 endfun
 
 fun! wheel#complete#location (arglead, cmdline, cursorpos)
@@ -64,30 +68,30 @@ fun! wheel#complete#location (arglead, cmdline, cursorpos)
 	if ! has_key(cur_circle, 'glossary')
 		return []
 	endif
-	let locations = copy(cur_circle.glossary)
+	let locations = cur_circle.glossary
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, locations)
+	return wheel#kyusu#steep(wordlist, locations)
 endfun
 
 fun! wheel#complete#helix (arglead, cmdline, cursorpos)
 	" Complete coordinates in index
 	let choices = wheel#perspective#helix ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 fun! wheel#complete#grid  (arglead, cmdline, cursorpos)
 	" Complete location coordinates in index
 	let choices = wheel#perspective#grid ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 fun! wheel#complete#history (arglead, cmdline, cursorpos)
 	" Complete coordinates in history
 	let choices = wheel#perspective#history ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 " mandalas = dedicated buffers
@@ -105,7 +109,7 @@ fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 		call add(choices, title)
 	endfor
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 " leaves = mandala layers, implemented as a ring
@@ -119,7 +123,7 @@ fun! wheel#complete#leaf (arglead, cmdline, cursorpos)
 	let Fun = function('wheel#status#type')
 	let choices = map(copy(filenames), { _, val -> Fun(val) })
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 " files & dirs
@@ -129,7 +133,7 @@ fun! wheel#complete#file (arglead, cmdline, cursorpos)
 	" -- get tree of files & directories
 	let tree = glob('**', v:false, v:true)
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, tree)
+	return wheel#kyusu#steep(wordlist, tree)
 endfun
 
 fun! wheel#complete#directory (arglead, cmdline, cursorpos)
@@ -137,7 +141,7 @@ fun! wheel#complete#directory (arglead, cmdline, cursorpos)
 	let tree = wheel#complete#file (a:arglead, a:cmdline, a:cursorpos)
 	eval tree->filter({ _, val -> isdirectory(val) })
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, tree)
+	return wheel#kyusu#steep(wordlist, tree)
 endfun
 
 fun! wheel#complete#current_file (arglead, cmdline, cursorpos)
@@ -152,7 +156,7 @@ fun! wheel#complete#current_file (arglead, cmdline, cursorpos)
 	let absolute = basis
 	let filenames = [root, simple, relative, absolute]
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, filenames)
+	return wheel#kyusu#steep(wordlist, filenames)
 endfun
 
 fun! wheel#complete#current_directory (arglead, cmdline, cursorpos)
@@ -166,7 +170,7 @@ fun! wheel#complete#current_directory (arglead, cmdline, cursorpos)
 	let absolute = basis
 	let directories = [simple, relative, absolute]
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, directories)
+	return wheel#kyusu#steep(wordlist, directories)
 endfun
 
 fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)
@@ -175,7 +179,7 @@ fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)
 	" See also wheel#disc#tree_script
 	let commands = ['ln -s', 'cp -n']
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, commands)
+	return wheel#kyusu#steep(wordlist, commands)
 endfun
 
 " mru non wheel files
@@ -184,7 +188,7 @@ fun! wheel#complete#mru (arglead, cmdline, cursorpos)
 	" Complete mru file
 	let files = wheel#perspective#mru ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, files)
+	return wheel#kyusu#steep(wordlist, files)
 endfun
 
 " buffers
@@ -193,14 +197,14 @@ fun! wheel#complete#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
 	let choices = wheel#perspective#buffers ('all')
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 fun! wheel#complete#visible_buffer (arglead, cmdline, cursorpos)
 	" Complete buffer visible in tabs & windows
 	let choices = wheel#perspective#tabwins ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 " buffer lines
@@ -210,7 +214,7 @@ fun! wheel#complete#line (arglead, cmdline, cursorpos)
 	let linelist = getline(1,'$')
 	eval linelist->map({ ind, val -> string(ind + 1) .. s:field_separ .. val })
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, linelist)
+	return wheel#kyusu#steep(wordlist, linelist)
 endfun
 
 " vim lists
@@ -219,21 +223,21 @@ fun! wheel#complete#marker (arglead, cmdline, cursorpos)
 	" Complete marker
 	let choices = wheel#perspective#markers ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 fun! wheel#complete#jump (arglead, cmdline, cursorpos)
 	" Complete jump
 	let choices = wheel#perspective#jumps ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 fun! wheel#complete#change (arglead, cmdline, cursorpos)
 	" Complete change
 	let choices = wheel#perspective#changes ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun
 
 fun! wheel#complete#tag (arglead, cmdline, cursorpos)
@@ -252,5 +256,5 @@ fun! wheel#complete#tag (arglead, cmdline, cursorpos)
 		call add(choices, record)
 	endfor
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#candidates(wordlist, choices)
+	return wheel#kyusu#steep(wordlist, choices)
 endfun

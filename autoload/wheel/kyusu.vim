@@ -43,10 +43,11 @@ endfun
 
 " prompt completion
 
-fun! wheel#kyusu#candidates (wordlist, list)
+fun! wheel#kyusu#steep (wordlist, list)
 	" Return elements of list matching words of wordlist
+	let list = deepcopy(a:list)
 	let Matches = function('wheel#kyusu#wordlist', [a:wordlist])
-	let candidates = filter(a:list, Matches)
+	let candidates = filter(list, Matches)
 	return candidates
 endfun
 
@@ -144,31 +145,31 @@ endfun
 "
 " use a loop
 
-fun! wheel#kyusu#indexes_and_lines ()
-	" Return lines matching words of first line
-	let linelist = copy(b:wheel_lines)
-	let first = getline(1)
-	let wordlist = split(first)
-	if empty(wordlist)
-		let filtered_indexes = range(len(linelist))
-		let filtered_values = linelist
-		return [filtered_indexes, filtered_values]
-	endif
-	call wheel#scroll#record(first)
-	" filter with word_or_folds
-	let filtered_indexes = []
-	let filtered_values = []
-	for index in range(len(linelist))
-		let value = linelist[index]
-		if wordlist->wheel#kyusu#words_or_folds(0, value)
-			eval filtered_indexes->add(index)
-			eval filtered_values->add(value)
-		endif
-	endfor
-	let matrix = [filtered_indexes, filtered_values]
-	" remove folds two times : cleans a level each time
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
-	" return
-	return matrix
-endfun
+" fun! wheel#kyusu#indexes_and_lines ()
+" 	" Return lines matching words of first line
+" 	let linelist = copy(b:wheel_lines)
+" 	let first = getline(1)
+" 	let wordlist = split(first)
+" 	if empty(wordlist)
+" 		let filtered_indexes = range(len(linelist))
+" 		let filtered_values = linelist
+" 		return [filtered_indexes, filtered_values]
+" 	endif
+" 	call wheel#scroll#record(first)
+" 	" filter with word_or_folds
+" 	let filtered_indexes = []
+" 	let filtered_values = []
+" 	for index in range(len(linelist))
+" 		let value = linelist[index]
+" 		if wordlist->wheel#kyusu#words_or_folds(0, value)
+" 			eval filtered_indexes->add(index)
+" 			eval filtered_values->add(value)
+" 		endif
+" 	endfor
+" 	let matrix = [filtered_indexes, filtered_values]
+" 	" remove folds two times : cleans a level each time
+" 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
+" 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
+" 	" return
+" 	return matrix
+" endfun
