@@ -72,7 +72,7 @@ fun! wheel#wave#start (command, ...)
 	if a:0 > 0
 		let options = a:1
 	else
-		let options = {'mandala_open' : v:true, 'mandala_type' : 'wave'}
+		let options = {'mandala_type' : 'wave'}
 	endif
 	if type(a:command) == v:t_list
 		let command = a:command
@@ -82,14 +82,15 @@ fun! wheel#wave#start (command, ...)
 		echomsg 'wheel wave new : bad command format'
 		return
 	endif
-	" Buffer
-	if options.mandala_open
-		call wheel#mandala#open (options.mandala_type)
+	" mandala
+	let mandala_type = options.mandala_type
+	if ! wheel#cylinder#is_mandala ()
+		call wheel#mandala#open (mandala_type)
 	endif
-	call wheel#wave#template (options.mandala_type)
-	" Expand tilde in filenames
+	call wheel#wave#template (mandala_type)
+	" expand tilde in filenames
 	eval command->map({ _, val -> expand(val) })
-	" Job
+	" job
 	let job = {}
 	let job.name = fnamemodify(command[0], ':t:r')
 	let job.bufnum = bufnr('%')

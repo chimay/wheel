@@ -12,7 +12,7 @@ fun! wheel#clipper#options (mode)
 	endif
 endfun
 
-fun! wheel#clipper#maps (mode)
+fun! wheel#clipper#mappings (mode)
 	" Define local yank maps
 	if a:mode == 'list'
 		nnoremap <buffer> <cr> <cmd>call wheel#line#paste_list ('after', 'close')<cr>
@@ -48,7 +48,7 @@ fun! wheel#clipper#template (settings)
 	let settings = a:settings
 	call wheel#mandala#template (settings)
 	call wheel#clipper#options (settings.mode)
-	call wheel#clipper#maps (settings.mode)
+	call wheel#clipper#mappings (settings.mode)
 	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
 endfun
 

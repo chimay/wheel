@@ -101,14 +101,10 @@ fun! wheel#mandala#filename (type)
 	let b:wheel_nature.type = type
 	" Add unique buf id, so (n)vim does not complain about existing filename
 	let pseudo = wheel#mandala#pseudo (type)
-	if bufexists(pseudo)
-		" almost certainly an old mandala, it should be safe to wipe it
-		execute 'silent bwipe' pseudo
-	endif
 	execute 'silent file' pseudo
 	if type != 'empty'
 		" should be false when called
-		" set to true in wheel#mandala#set_empty
+		" set to true in mandala#set_empty
 		let b:wheel_nature.empty = v:false
 	endif
 endfun
@@ -454,21 +450,6 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
 endfun
 
-fun! wheel#mandala#input_history_maps ()
-	" Define local input history maps
-	" Use Up / Down & M-p / M-n
-	" C-p / C-n is taken by (neo)vim completion
-	inoremap <buffer> <up> <cmd>call wheel#scroll#older()<cr>
-	inoremap <buffer> <down> <cmd>call wheel#scroll#newer()<cr>
-	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
-	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
-	" PageUp / PageDown & M-r / M-s : next / prev matching line
-	inoremap <buffer> <PageUp> <cmd>call wheel#scroll#filtered_older()<cr>
-	inoremap <buffer> <PageDown> <cmd>call wheel#scroll#filtered_newer()<cr>
-	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
-	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
-endfun
-
 " folding
 
 fun! wheel#mandala#folding_options (...)
@@ -531,8 +512,8 @@ fun! wheel#mandala#template (...)
 	endif
 	call wheel#mandala#common_maps ()
 	call wheel#teapot#mappings ()
-	call wheel#mandala#input_history_maps ()
-	" By default, tell wheel#line#address it’s not a tree buffer
+	call wheel#scroll#mappings ()
+	" By default, tell line#address it’s not a tree buffer
 	" Overridden by folding_options
 	setlocal nofoldenable
 endfun

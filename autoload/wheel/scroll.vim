@@ -90,3 +90,20 @@ fun! wheel#scroll#filtered_older ()
 	" not necessary with <cmd> maps
 	"startinsert
 endfun
+
+" mandala
+
+fun! wheel#scroll#mappings ()
+	" Define local input history maps
+	" Use Up / Down & M-p / M-n
+	" C-p / C-n is taken by (neo)vim completion
+	inoremap <buffer> <up> <cmd>call wheel#scroll#older()<cr>
+	inoremap <buffer> <down> <cmd>call wheel#scroll#newer()<cr>
+	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
+	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
+	" PageUp / PageDown & M-r / M-s : next / prev matching line
+	inoremap <buffer> <PageUp> <cmd>call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <PageDown> <cmd>call wheel#scroll#filtered_newer()<cr>
+	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
+endfun

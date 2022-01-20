@@ -32,8 +32,6 @@ fun! wheel#ripple#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
 	setlocal bufhidden=hide
-	let current = g:wheel_mandalas.current
-	let iden = g:wheel_mandalas.iden[current]
 	cal wheel#mandala#filename (a:mandala_type)
 	call append(0, '')
 endfun
@@ -45,7 +43,7 @@ fun! wheel#ripple#start (command, ...)
 	if a:0 > 0
 		let options = a:1
 	else
-		let options = {'mandala_open' : v:true, 'mandala_type' : 'ripple'}
+		let options = {'mandala_type' : 'ripple'}
 	endif
 	if type(a:command) == v:t_list
 		let command = a:command
@@ -55,14 +53,15 @@ fun! wheel#ripple#start (command, ...)
 		echomsg 'wheel ripple new : bad command format'
 		return
 	endif
-	" Buffer
-	if options.mandala_open
-		call wheel#mandala#open (options.mandala_type)
+	" mandala
+	let mandala_type = options.mandala_type
+	if ! wheel#cylinder#is_mandala ()
+		call wheel#mandala#open (mandala_type)
 	endif
-	call wheel#ripple#template ()
-	" Expand tilde in filenames
+	call wheel#ripple#template (mandala_type)
+	" expand tilde in filenames
 	eval command->map({ _, val -> expand(val) })
-	" Job
+	" job
 	let jobopts = {}
 	let jobopts.out_io = 'buffer'
 	let bufname = bufname(bufnr('%'))

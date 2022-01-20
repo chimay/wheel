@@ -46,6 +46,9 @@ fun! wheel#loop#sailing (settings)
 	endif
 	" ---- selection
 	let selected = wheel#pencil#addresses ()
+	if empty(selected[0])
+		return v:false
+	endif
 	" ---- go to previous window before processing
 	call wheel#rectangle#previous ()
 	" ---- target : current window or not ?

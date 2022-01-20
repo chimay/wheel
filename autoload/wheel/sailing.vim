@@ -77,7 +77,7 @@ fun! wheel#sailing#switch (level)
 	let lines = wheel#perspective#switch (level)
 	if wheel#referen#is_empty_upper (level)
 		let upper = wheel#referen#upper_level_name (level)
-		echomsg 'wheel mandala switch : empty' upper
+		echomsg 'wheel sailing switch : empty' upper
 		return
 	endif
 	call wheel#mandala#open ('switch/' .. level)
@@ -86,7 +86,7 @@ fun! wheel#sailing#switch (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)
 	else
-		echomsg 'wheel mandala switch : empty or incomplete' level
+		echomsg 'wheel sailing switch : empty or incomplete' level
 	endif
 	" reload
 	let b:wheel_reload = "wheel#sailing#switch('" .. level .. "')"
@@ -194,17 +194,19 @@ fun! wheel#sailing#async_find (...)
 		endfor
 	endif
 	echomsg 'wheel async find : using pattern' pattern
+	" mandala
 	call wheel#mandala#open ('async_find')
 	let settings = {'action' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
+	" job
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
-	let settings = {'mandala_open' : v:false, 'mandala_type' : 'async_find'}
+	let settings = {'mandala_type' : 'async_find'}
 	if has('nvim')
 		let job = wheel#wave#start(command, settings)
 	else
 		let job = wheel#ripple#start(command, settings)
 	endif
-	" Map to stop the job
+	" map to stop the job
 	let map = 'nnoremap <silent> <buffer>'
 	if has('nvim')
 		let callme = '<cmd>call wheel#wave#stop()<cr>'
