@@ -3012,6 +3012,7 @@ Dedicated buffers :
 | <plug>(wheel-dedibuf-reorg-tabwins)             | reorganize tabs & windows              |
 | <plug>(wheel-dedibuf-grep-edit)                 | grep circle files in edit mode         |
 | <plug>(wheel-dedibuf-narrow)                    | narrow current file                    |
+| <plug>(wheel-dedibuf-narrow-operator)           | narrow current file, operator pending  |
 | <plug>(wheel-dedibuf-narrow-circle)             | narrow all circle files                |
 | <plug>(wheel-dedibuf-undo-list)                 | go to undo state, compare with diff    |
 | ----------------------------------------------- | -------------------------------------- |
@@ -3081,6 +3082,10 @@ Some bindings that you may find useful : >
     nmap <silent> <d-k>       <plug>(wheel-dedibuf-markers)
     nmap <silent> <d-j>       <plug>(wheel-dedibuf-jumps)
     nmap <silent> <d-c>       <plug>(wheel-dedibuf-changes)
+
+    " narrow
+    nmap <silent> <d-n>       <plug>(wheel-dedibuf-narrow-operator)
+    vmap <silent> <d-n>       <plug>(wheel-dedibuf-narrow)
 
     " undo list
     nmap <silent> <d-u>       <plug>(wheel-dedibuf-undo-list)

@@ -15,7 +15,6 @@ endfun
 
 fun! wheel#centre#plugs ()
 	" Link <plug> mappings to wheel functions
-	" :map-<expr> does not work
 	" Menus
 	nnoremap <plug>(wheel-menu-main) <cmd>call wheel#helm#main()<cr>
 	nnoremap <plug>(wheel-menu-meta) <cmd>call wheel#helm#meta()<cr>
@@ -145,6 +144,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#shape#grep_edit()<cr>
 	" Narrow, filter & apply
 	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#polyphony#narrow_file()<cr>
+	nnoremap <expr> <plug>(wheel-dedibuf-narrow-operator) wheel#polyphony#operator()
 	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#polyphony#narrow_circle()<cr>
 	" Undo list
 	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
@@ -344,9 +344,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
 		" Narrow, filter & apply
 		exe nmap prefix .. '-% <plug>(wheel-dedibuf-narrow)'
-		exe nmap prefix .. '-c <plug>(wheel-dedibuf-narrow-circle)'
+		exe nmap prefix .. '-- <plug>(wheel-dedibuf-narrow-operator)'
 		exe vmap prefix .. '-- <plug>(wheel-dedibuf-narrow)'
-	    exe nmap_expr .. prefix .. '-- wheel#polyphony#operator()'
+		exe nmap prefix .. '-c <plug>(wheel-dedibuf-narrow-circle)'
 		" Undo list
 		exe nmap prefix .. '<c-u> <plug>(wheel-dedibuf-undo-list)'
 		" Generic ex or shell command
