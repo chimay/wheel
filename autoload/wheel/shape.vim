@@ -214,24 +214,13 @@ fun! wheel#shape#grep_edit (...)
 		endif
 	endif
 	let lines = wheel#perspective#grep (pattern, sieve)
-	if type(lines) == v:t_list
-		if empty(lines)
-			echomsg 'wheel sailing grep : no match found.'
-			if wheel#cylinder#is_mandala ()
-				" for reload
-				let b:wheel_nature.empty = v:false
-			endif
-			return v:false
+	if empty(lines)
+		echomsg 'wheel sailing grep : no match found.'
+		if wheel#cylinder#is_mandala ()
+			" when reloading
+			let b:wheel_nature.empty = v:false
 		endif
-	elseif type(lines) == type(v:true)
-		if ! lines
-			echomsg 'wheel sailing grep : lines parameter is false.'
-			if wheel#cylinder#is_mandala ()
-				" for reload
-				let b:wheel_nature.empty = v:false
-			endif
-			return v:false
-		endif
+		return v:false
 	endif
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()

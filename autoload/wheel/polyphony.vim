@@ -381,6 +381,14 @@ fun! wheel#polyphony#narrow_circle (...)
 		let sieve = '\m.'
 	endif
 	let lines = wheel#perspective#narrow_circle (pattern, sieve)
+	if empty(lines)
+		echomsg 'wheel narrow circle : no match found.'
+		if wheel#cylinder#is_mandala ()
+			" when reloading
+			let b:wheel_nature.empty = v:false
+		endif
+		return v:false
+	endif
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#open ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()

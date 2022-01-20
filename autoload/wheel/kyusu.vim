@@ -17,7 +17,7 @@ endif
 
 " helpers
 
-fun! wheel#kyusu#wordlist (wordlist, index, value)
+fun! wheel#kyusu#steep (wordlist, index, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
 	" Pipe | in word means logical or
@@ -46,7 +46,7 @@ endfun
 fun! wheel#kyusu#pour (wordlist, list)
 	" Return elements of list matching words of wordlist
 	let list = deepcopy(a:list)
-	let Matches = function('wheel#kyusu#wordlist', [a:wordlist])
+	let Matches = function('wheel#kyusu#steep', [a:wordlist])
 	let candidates = filter(list, Matches)
 	return candidates
 endfun
@@ -54,14 +54,14 @@ endfun
 " dedicated buffers
 
 fun! wheel#kyusu#words_or_folds (wordlist, index, value)
-	" Like kyusu#wordlist, but keep folds markers lines
+	" Like kyusu#steep, but keep folds markers lines
 	" index is not used, it’s just for compatibility with filter()
 	let marker = s:fold_markers[0]
 	let pattern = '\m' .. marker .. '[12]$'
 	if a:value =~ pattern
 		return v:true
 	endif
-	return wheel#kyusu#wordlist (a:wordlist, 0, a:value)
+	return wheel#kyusu#steep (a:wordlist, 0, a:value)
 endfun
 
 fun! wheel#kyusu#remove_folds (wordlist, matrix)
@@ -95,7 +95,7 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 		" and current fold level will be >= than next one
 		if cur_value =~ pattern && next_value =~ pattern && cur_last >= next_last
 			" Add line only if matches wordlist
-			if wheel#kyusu#wordlist (wordlist, 0, cur_value)
+			if wheel#kyusu#steep (wordlist, 0, cur_value)
 				eval filtered_indexes->add(indexlist[index])
 				eval filtered_values->add(cur_value)
 			endif
@@ -108,7 +108,7 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 	" ---- last element
 	let index = length - 1
 	let value = candidates[-1]
-	if wheel#kyusu#wordlist (wordlist, 0, value)
+	if wheel#kyusu#steep (wordlist, 0, value)
 		eval filtered_indexes->add(indexlist[index])
 		eval filtered_values->add(value)
 	endif

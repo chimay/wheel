@@ -290,7 +290,7 @@ fun! wheel#perspective#narrow_circle (pattern, sieve)
 	let bool = wheel#vector#grep (a:pattern, a:sieve)
 	if ! bool
 		" no file matching a:sieve
-		return v:false
+		return []
 	endif
 	let quickfix = getqflist()
 	let list = []
@@ -482,7 +482,7 @@ fun! wheel#perspective#grep (pattern, sieve)
 	let bool = wheel#vector#grep (a:pattern, a:sieve)
 	if ! bool
 		" no file matching a:sieve
-		return v:false
+		return []
 	endif
 	let quickfix = getqflist()
 	let list = []
