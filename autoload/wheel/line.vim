@@ -201,7 +201,6 @@ fun! wheel#line#buffers (settings)
 	" Go to opened file given by selected
 	" ---- settings
 	let settings = a:settings
-	let target = settings.target
 	let selected = settings.selected
 	let fields = split(selected, s:field_separ)
 	let bufnum = str2nr(fields[0])
@@ -209,6 +208,7 @@ fun! wheel#line#buffers (settings)
 	if wheel#boomerang#is_context_menu ()
 		let action = settings.menu.action
 	else
+		let target = settings.target
 		let action = 'sailing'
 	endif
 	" ---- actions

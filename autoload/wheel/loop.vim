@@ -89,13 +89,8 @@ fun! wheel#loop#boomerang (settings)
 	"   - close : whether to close mandala
 	let settings = copy(a:settings)
 	let menu_settings = settings.menu
-	" ---- default values
-	let Fun = menu_settings.action
-	if has_key(menu_settings, 'close')
-		let close = menu_settings.close
-	else
-		let close = v:false
-	endif
+	let Fun = settings.function
+	let close = menu_settings.close
 	" ---- selection
 	let selected = wheel#pencil#addresses ()
 	if empty(selected[0])
