@@ -20,6 +20,9 @@ fun! wheel#vector#files (sieve)
 	if sieve !~ '^\\m'
 		let sieve = '\m' .. sieve
 	endif
+	if wheel#referen#is_empty ('circle')
+		return []
+	endif
 	" Locations files
 	let locations = deepcopy(wheel#referen#circle().locations)
 	let files = locations->map({ _, val -> fnameescape(val.file) })

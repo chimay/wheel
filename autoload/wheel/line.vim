@@ -131,10 +131,6 @@ fun! wheel#line#helix (settings)
 	let selected = settings.selected
 	let coordin = split(selected, s:level_separ)
 	" ---- jump
-	if len(coordin) < 3
-		echomsg 'Helix line is too short'
-		return v:false
-	endif
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
 	call wheel#vortex#chord(coordin)
@@ -150,10 +146,6 @@ fun! wheel#line#grid (settings)
 	let selected = settings.selected
 	let coordin = split(selected, s:level_separ)
 	" ---- jump
-	if len(coordin) < 2
-		echomsg 'Grid line is too short'
-		return v:false
-	endif
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
 	call wheel#vortex#interval (coordin)
@@ -194,17 +186,9 @@ fun! wheel#line#history (settings)
 	let settings = a:settings
 	let target = settings.target
 	let selected = settings.selected
-	" ---- jump
 	let fields = split(selected, s:field_separ)
-	if len(fields) < 2
-		echomsg 'History line is too short'
-		return v:false
-	endif
 	let coordin = split(fields[1], s:level_separ)
-	if len(coordin) < 3
-		echomsg 'History : coordinates should contain 3 elements'
-		return v:false
-	endif
+	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
 	call wheel#vortex#chord(coordin)
@@ -218,13 +202,16 @@ fun! wheel#line#buffers (settings)
 	let settings = a:settings
 	let target = settings.target
 	let selected = settings.selected
+	let fields = split(selected, s:field_separ)
+	let bufnum = str2nr(fields[0])
+	let filename = fnamemodify(fields[3], ':p')
+	if ! has_key(settings, 'menu_action')
+		let menu_action = 'sailing'
+	else
+		let menu_action = settings.menu_action
+	endif
 	" ---- actions
-	let sail = ! has_key(settings, 'menu_action') || settings.menu_action == 'sailing'
-	if sail
-		let fields = split(selected, s:field_separ)
-		let bufnum = fields[0]
-		let filename = expand(fields[3])
-		let filename = fnamemodify(filename, ':p')
+	if menu_action == 'sailing'
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)
 			let where = wheel#line#where (target)
@@ -235,17 +222,11 @@ fun! wheel#line#buffers (settings)
 			call wheel#line#target (target)
 			execute 'buffer' bufnum
 		endif
-	elseif settings.menu_action == 'delete'
-		let fields = split(selected, s:field_separ)
-		let bufnum = str2nr(fields[0])
+	elseif menu_action == 'delete'
 		execute 'silent bdelete' bufnum
-	elseif settings.menu_action == 'unload'
-		let fields = split(selected, s:field_separ)
-		let bufnum = str2nr(fields[0])
+	elseif menu_action == 'unload'
 		execute 'silent bunload' bufnum
-	elseif settings.menu_action == 'wipe'
-		let fields = split(selected, s:field_separ)
-		let bufnum = str2nr(fields[0])
+	elseif menu_action == 'wipe'
 		execute 'silent bwipe' bufnum
 	endif
 	return win_getid ()
@@ -256,17 +237,25 @@ fun! wheel#line#tabwins (settings)
 	" ---- settings
 	let settings = a:settings
 	let selected = settings.selected
+	if ! has_key(settings, 'menu_action')
+		let menu_action = 'open'
+	else
+		let menu_action = settings.menu_action
+	endif
 	" ---- actions
-	if ! has_key(settings, 'menu_action') || settings.menu_action == 'open'
+	if menu_action == 'open'
 		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
+		if tabnum != tabpagenr()
+			call wheel#mandala#close()
+		endif
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
-	elseif settings.menu_action == 'tabnew'
+	elseif menu_action == 'tabnew'
 		tabnew
-	elseif settings.menu_action == 'tabclose'
+	elseif menu_action == 'tabclose'
 		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		if tabnum != tabpagenr()
@@ -283,13 +272,14 @@ fun! wheel#line#tabwins_tree (settings)
 	" ---- settings
 	let settings = a:settings
 	let hierarchy = settings.selected
-	if empty(hierarchy)
-		return v:false
-	endif
 	let tabnum = hierarchy[0]
+	if ! has_key(settings, 'menu_action')
+		let menu_action = 'open'
+	else
+		let menu_action = settings.menu_action
+	endif
 	" ---- actions
-	let find_tabwin = ! has_key(settings, 'menu_action') || settings.menu_action == 'open'
-	if find_tabwin
+	if menu_action == 'open'
 		if tabnum != tabpagenr()
 			call wheel#mandala#close()
 		endif
@@ -299,9 +289,9 @@ fun! wheel#line#tabwins_tree (settings)
 			execute 'noautocmd' winum 'wincmd w'
 		endif
 		doautocmd WinEnter
-	elseif settings.menu_action == 'tabnew'
+	elseif menu_action == 'tabnew'
 		tabnew
-	elseif settings.menu_action == 'tabclose'
+	elseif menu_action == 'tabclose'
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else
@@ -313,10 +303,15 @@ endfun
 
 fun! wheel#line#occur (settings)
 	" Go to line given by selected
-	let fields = split(a:settings.selected, s:field_separ)
-	let line = str2nr(fields[0])
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let selected = settings.selected
 	let bufnum = a:settings.related_buffer
-	call wheel#line#target (a:settings.target)
+	" ---- go
+	let fields = split(selected, s:field_separ)
+	let line = str2nr(fields[0])
+	call wheel#line#target (target)
 	execute 'buffer' bufnum
 	call cursor(line, 1)
 	if &foldopen =~ 'jump'
@@ -327,20 +322,20 @@ endfun
 
 fun! wheel#line#grep (settings)
 	" Go to settings.selected quickfix line
-	let fields = split(a:settings.selected, s:field_separ)
-	if len(fields) < 5
-		echomsg 'Grep line is too short'
-		return v:false
-	endif
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let selected = settings.selected
+	let fields = split(selected, s:field_separ)
+	" ---- go
+	call wheel#line#target (a:settings.target)
 	" -- using error number
 	let errnum = fields[0]
-	call wheel#line#target (a:settings.target)
 	execute 'cc' errnum
 	" -- using buffer, line & col
 	"let bufnum = fields[1]
 	"let line = fields[3]
 	"let col = fields[4]
-	"call wheel#line#target (a:settings.target)
 	"execute 'buffer' bufnum
 	"call cursor(line, col)
 	return win_getid ()
@@ -348,12 +343,13 @@ endfun
 
 fun! wheel#line#mru (settings)
 	" Edit settings.selected MRU file
-	let fields = split(a:settings.selected)
-	if len(fields) < 2
-		echomsg 'MRU line is too short'
-		return v:false
-	endif
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let selected = settings.selected
+	let fields = split(selected)
 	let filename = fields[6]
+	" ---- go
 	call wheel#line#target (a:settings.target)
 	execute 'edit' filename
 	return win_getid ()
@@ -420,10 +416,6 @@ endfun
 fun! wheel#line#tags (settings)
 	" Go to settings.selected tag
 	let fields = split(a:settings.selected, s:field_separ)
-	if len(fields) < 4
-		echomsg 'Tag line is too short'
-		return v:false
-	endif
 	let file = fields[2]
 	let search = fields[3][1:]
 	call wheel#line#target (a:settings.target)
@@ -442,10 +434,6 @@ fun! wheel#line#narrow_file (settings)
 	" Go to settings.selected narrowed line of current file
 	let bufnum = a:settings.bufnum
 	let fields = split(a:settings.selected, s:field_separ)
-	if len(fields) < 2
-		echomsg 'Narrow file : line is too short'
-		return v:false
-	endif
 	execute 'buffer' bufnum
 	let linum = str2nr(fields[0])
 	call wheel#line#target (a:settings.target)
@@ -456,10 +444,6 @@ endfun
 fun! wheel#line#narrow_circle (settings)
 	" Go to settings.selected narrowed line in circle
 	let fields = split(a:settings.selected, s:field_separ)
-	if len(fields) < 4
-		echomsg 'Narrow circle : line is too short'
-		return v:false
-	endif
 	" -- bufnum & linum
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
