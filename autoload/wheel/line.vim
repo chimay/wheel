@@ -219,7 +219,7 @@ fun! wheel#line#buffers (settings)
 	let target = settings.target
 	let selected = settings.selected
 	" ---- actions
-	let sail = ! has_key(settings, 'ctx_action') || settings.ctx_action == 'sailing'
+	let sail = ! has_key(settings, 'menu_action') || settings.menu_action == 'sailing'
 	if sail
 		let fields = split(selected, s:field_separ)
 		let bufnum = fields[0]
@@ -235,15 +235,15 @@ fun! wheel#line#buffers (settings)
 			call wheel#line#target (target)
 			execute 'buffer' bufnum
 		endif
-	elseif settings.ctx_action == 'delete'
+	elseif settings.menu_action == 'delete'
 		let fields = split(selected, s:field_separ)
 		let bufnum = str2nr(fields[0])
 		execute 'silent bdelete' bufnum
-	elseif settings.ctx_action == 'unload'
+	elseif settings.menu_action == 'unload'
 		let fields = split(selected, s:field_separ)
 		let bufnum = str2nr(fields[0])
 		execute 'silent bunload' bufnum
-	elseif settings.ctx_action == 'wipe'
+	elseif settings.menu_action == 'wipe'
 		let fields = split(selected, s:field_separ)
 		let bufnum = str2nr(fields[0])
 		execute 'silent bwipe' bufnum
@@ -257,16 +257,16 @@ fun! wheel#line#tabwins (settings)
 	let settings = a:settings
 	let selected = settings.selected
 	" ---- actions
-	if ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
+	if ! has_key(settings, 'menu_action') || settings.menu_action == 'open'
 		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
-	elseif settings.ctx_action == 'tabnew'
+	elseif settings.menu_action == 'tabnew'
 		tabnew
-	elseif settings.ctx_action == 'tabclose'
+	elseif settings.menu_action == 'tabclose'
 		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]
 		if tabnum != tabpagenr()
@@ -288,7 +288,7 @@ fun! wheel#line#tabwins_tree (settings)
 	endif
 	let tabnum = hierarchy[0]
 	" ---- actions
-	let find_tabwin = ! has_key(settings, 'ctx_action') || settings.ctx_action == 'open'
+	let find_tabwin = ! has_key(settings, 'menu_action') || settings.menu_action == 'open'
 	if find_tabwin
 		if tabnum != tabpagenr()
 			call wheel#mandala#close()
@@ -299,9 +299,9 @@ fun! wheel#line#tabwins_tree (settings)
 			execute 'noautocmd' winum 'wincmd w'
 		endif
 		doautocmd WinEnter
-	elseif settings.ctx_action == 'tabnew'
+	elseif settings.menu_action == 'tabnew'
 		tabnew
-	elseif settings.ctx_action == 'tabclose'
+	elseif settings.menu_action == 'tabclose'
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else

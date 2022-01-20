@@ -43,7 +43,7 @@ endfun
 
 " prompt completion
 
-fun! wheel#kyusu#steep (wordlist, list)
+fun! wheel#kyusu#pour (wordlist, list)
 	" Return elements of list matching words of wordlist
 	let list = deepcopy(a:list)
 	let Matches = function('wheel#kyusu#wordlist', [a:wordlist])

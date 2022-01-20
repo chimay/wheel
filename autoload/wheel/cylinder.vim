@@ -121,11 +121,10 @@ fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 	" -- find window if mandala is visible
 	let tab = tabpagenr()
 	call wheel#cylinder#goto ()
-	" -- if not in same tab, mandala is open
-	" -- and we are inside
+	" -- if not in same tab, mandala is open and we are inside
 	" -- close it and go to the right tab
 	if tab != tabpagenr()
-		close
+		noautocmd close
 		execute 'tabnext' tab
 	endif
 	" -- current tab
@@ -188,7 +187,7 @@ fun! wheel#cylinder#first (window = 'furtive')
 		call wheel#status#mandala_leaf ()
 		if empty_cur_buffer
 			" :new has opened a split, close it
-			close
+			noautocmd close
 		else
 			execute 'silent buffer' cur_buffer
 		endif
@@ -262,7 +261,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 		" go back to previous buffer
 		if empty_cur_buffer
 			" :new has opened a split, close it
-			close
+			noautocmd close
 		else
 			silent buffer #
 		endif

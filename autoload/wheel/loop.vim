@@ -82,12 +82,12 @@ fun! wheel#loop#menu (settings)
 	" Calls function given by the key = cursor line
 	" settings is a dictionary, whose keys can be :
 	" - dict : name of a dictionary variable in storage.vim
+	" - travel : whether to go back to pre-mandala window before applying action
 	" - close : whether to close mandala buffer
-	" - travel : whether to go back to previous window before applying action
 	let settings = a:settings
 	let dict = wheel#crystal#fetch (settings.linefun, 'dict')
-	let close = settings.ctx_close
-	let travel = settings.ctx_travel
+	let travel = settings.menu_travel
+	let close = settings.menu_close
 	" ---- cursor line
 	let cursor_line = getline('.')
 	let cursor_line = wheel#pencil#erase (cursor_line)

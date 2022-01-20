@@ -127,17 +127,17 @@ fun! wheel#boomerang#menu (dictname, optional = {})
 	" Context menu
 	" ---- optional settings
 	let optional = a:optional
-	if ! has_key(optional, 'ctx_close')
-		" ctx_close = v:false by default, to be able to perform other
+	if ! has_key(optional, 'menu_close')
+		" menu_close = v:false by default, to be able to perform other
 		" operations after this one
-		let optional.ctx_close = v:false
+		let optional.menu_close = v:false
 	endif
-	if ! has_key(optional, 'ctx_travel')
-		" ctx_travel = v:false by default, to be able to catch mandala buffer variables
-		let optional.ctx_travel = v:false
+	if ! has_key(optional, 'menu_travel')
+		" menu_travel = v:false by default, to be able to catch mandala buffer variables
+		let optional.menu_travel = v:false
 	endif
 	let dictname = 'context/' .. a:dictname
-	let settings = #{linefun : dictname, ctx_close : optional.ctx_close, ctx_travel : optional.ctx_travel}
+	let settings = #{linefun : dictname, menu_close : optional.menu_close, menu_travel : optional.menu_travel}
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
 	" ---- seek selection & settings from parent leaf
@@ -147,7 +147,7 @@ fun! wheel#boomerang#menu (dictname, optional = {})
 	let b:wheel_nature.has_selection = v:false
 	" -- context menu property
 	let b:wheel_nature.context_menu = v:true
-	" -- let loop#context_menu handle open / close, tell loop#sailing to forget it
+	" -- let loop#menu handle open / close, tell loop#sailing to forget it
 	let b:wheel_settings.close = v:false
 	" -- reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
@@ -159,7 +159,7 @@ fun! wheel#boomerang#sailing (action)
 	" Sailing actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_action = 'sailing'
+	let settings.menu_action = 'sailing'
 	if action == 'current'
 		let settings.target = 'current'
 		call wheel#loop#sailing (settings)
@@ -193,7 +193,7 @@ fun! wheel#boomerang#buffers (action)
 	let action = a:action
 	let settings = b:wheel_settings
 	if action == 'delete' || action == 'wipe'
-		let settings.ctx_action = action
+		let settings.menu_action = action
 		" remove selected elements from the parent buffer mandala
 		call wheel#boomerang#remove_selected ()
 		" inform loop#sailing that a loop on selected elements is necessary
@@ -241,7 +241,7 @@ fun! wheel#boomerang#tabwins (action)
 	" Buffers visible in tabs & wins
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_action = action
+	let settings.menu_action = action
 	if action == 'open'
 		" wheel#loop#sailing will process the first selected line
 		let settings.target = 'current'
@@ -270,7 +270,7 @@ fun! wheel#boomerang#grep (action)
 	" Grep actions
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_action = action
+	let settings.menu_action = action
 	if action == 'quickfix'
 		call wheel#mandala#close ()
 		call wheel#vector#copen ()
@@ -282,7 +282,7 @@ fun! wheel#boomerang#yank (action)
 	" action = before / after
 	let action = a:action
 	let settings = b:wheel_settings
-	let settings.ctx_action = action
+	let settings.menu_action = action
 	let mode = b:wheel_settings.mode
 	call wheel#line#paste_{mode} (action, 'open')
 endfun
