@@ -58,13 +58,13 @@ fun! wheel#sailing#template (settings)
 	call wheel#sailing#mappings (settings)
 endfun
 
-fun! wheel#sailing#generic (name)
+fun! wheel#sailing#generic (type)
 	" Generic sailing buffer
-	let name = a:name
-	let Perspective = function('wheel#perspective#' .. name)
+	let type = a:type
+	let Perspective = function('wheel#perspective#' .. type)
 	let lines = Perspective ()
-	call wheel#mandala#open (name)
-	let settings = {'function' : function('wheel#line#' .. name)}
+	call wheel#mandala#open (type)
+	let settings = {'function' : function('wheel#line#' .. type)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 endfun
@@ -235,19 +235,19 @@ fun! wheel#sailing#buffers (scope = 'listed')
 	let lines = wheel#perspective#buffers (scope)
 	" mandala buffer
 	if scope == 'listed'
-		let name = 'buffers'
+		let type = 'buffers'
 	elseif scope == 'all'
-		let name = 'buffers/all'
+		let type = 'buffers/all'
 	else
 		echomsg 'wheel sailing buffers : bad optional argument'
 		return []
 	endif
-	call wheel#mandala#open (name)
+	call wheel#mandala#open (type)
 	let settings = {'function' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 	" context menu
-	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. name .. "')<cr>"
+	call wheel#boomerang#launch_map (type)
 	" reload
 	let b:wheel_reload = "wheel#sailing#buffers('" .. scope .. "')"
 endfun
@@ -329,7 +329,7 @@ fun! wheel#sailing#grep (...)
 	" reload
 	let b:wheel_reload = "wheel#sailing#grep('" .. pattern .. "', '" .. sieve .. "')"
 	" Context menu
-	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('grep')<cr>
+	call wheel#boomerang#launch_map ('grep')
 	" Useful if we choose edit mode on the context menu
 	let b:wheel_settings.pattern = pattern
 	let b:wheel_settings.sieve = sieve

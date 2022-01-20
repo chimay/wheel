@@ -207,7 +207,7 @@ fun! wheel#boomerang#buffers (action)
 			call wheel#boomerang#remove_selected ()
 		endif
 		call wheel#loop#boomerang (settings)
-	if action == 'wipe'
+	elseif action == 'wipe'
 		call wheel#boomerang#remove_selected ()
 		call wheel#loop#boomerang (settings)
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'

@@ -18,27 +18,24 @@ endif
 
 fun! wheel#tower#menu (settings)
 	" Calls function given by the key = cursor line
-	" settings is a dictionary, whose keys can be :
+	" settings is a dictionary containing settings.menu
+	" settings.menu keys can be :
 	" - linefun : name of a dictionary variable in storage.vim
-	" - menu_travel : whether to go back to pre-mandala window before applying action
-	" - menu_close : whether to close mandala buffer
+	" - travel : whether to go back to pre-mandala window before applying action
+	" - close : whether to close mandala buffer
 	let settings = a:settings
-	let dict = wheel#crystal#fetch (settings.linefun, 'dict')
-	let travel = settings.menu_travel
-	let menu_close = settings.menu_close
+	let menu_settings = settings.menu
+	let dict = wheel#crystal#fetch (menu_settings.linefun, 'dict')
+	let travel = menu_settings.travel
+	let close = menu_settings.close
 	" ---- cursor line
 	let cursor_line = getline('.')
-	let cursor_line = wheel#pencil#erase (cursor_line)
 	if empty(cursor_line)
 		echomsg 'wheel line menu : you selected an empty line'
 		return v:false
 	endif
 	let key = cursor_line
 	if ! has_key(dict, key)
-		if &foldopen =~ 'jump'
-			normal! zv
-		endif
-		call wheel#spiral#cursor ()
 		echomsg 'wheel line menu : key not found'
 		return v:false
 	endif
@@ -55,7 +52,7 @@ fun! wheel#tower#menu (settings)
 	let value = dict[key]
 	let winiden = wheel#gear#call (value)
 	" ---- coda
-	if menu_close
+	if close
 		call wheel#mandala#close ()
 		" -- go to last destination
 		call wheel#gear#win_gotoid (winiden)
@@ -76,7 +73,8 @@ endfun
 
 fun! wheel#tower#mappings (settings)
 	" Define maps
-	let settings = copy(a:settings)
+	let settings = deepcopy(a:settings)
+	let menu_settings = settings.menu
 	call wheel#mandala#template ()
 	" Menu specific maps
 	let map = 'nnoremap <silent> <buffer>'
@@ -86,7 +84,7 @@ fun! wheel#tower#mappings (settings)
 	exe map '<cr>' pre .. string(settings) .. post
 	exe map '<tab>' pre .. string(settings) .. post
 	" Leave the mandala Open
-	let settings.close = v:false
+	let menu_settings.close = v:false
 	exe map 'g<cr>' pre .. string(settings) .. post
 	exe map '<space>' pre .. string(settings) .. post
 endfun
@@ -94,6 +92,9 @@ endfun
 fun! wheel#tower#staircase (settings)
 	" Replace buffer content by a {line -> fun} leaf
 	" Define dict maps
+	" Used for :
+	"   - submenu of meta menu
+	"   - context menu leaf
 	let settings = a:settings
 	let dictname = settings.linefun
 	call wheel#book#add ()
