@@ -386,6 +386,7 @@ fun! wheel#line#markers (settings)
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
+	let selected = settings.selected
 	let fields = split(selected, s:field_separ)
 	let mark = fields[0]
 	"let line = fields[1]
@@ -401,6 +402,7 @@ fun! wheel#line#jumps (settings)
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
+	let selected = settings.selected
 	let fields = split(selected, s:field_separ)
 	let bufnum = fields[0]
 	let linum = str2nr(fields[1])
@@ -420,6 +422,7 @@ fun! wheel#line#changes (settings)
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
+	let selected = settings.selected
 	let fields = split(selected, s:field_separ)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
@@ -439,6 +442,7 @@ fun! wheel#line#tags (settings)
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
+	let selected = settings.selected
 	let fields = split(selected, s:field_separ)
 	let file = fields[2]
 	let search = fields[3][1:]
@@ -460,6 +464,7 @@ fun! wheel#line#narrow_file (settings)
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
+	let selected = settings.selected
 	let bufnum = settings.bufnum
 	let fields = split(selected, s:field_separ)
 	let linum = str2nr(fields[0])
@@ -475,6 +480,7 @@ fun! wheel#line#narrow_circle (settings)
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
+	let selected = settings.selected
 	let fields = split(selected, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
