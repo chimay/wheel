@@ -289,8 +289,9 @@ endfun
 
 " mappings
 
-fun! wheel#boomerang#mappings ()
+fun! wheel#boomerang#mappings (type)
 	" Define context menu maps & set property
 	" -- sailing by default
-	nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('sailing')<cr>
+	let type = a:type
+	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. type .. "')<cr>"
 endfun

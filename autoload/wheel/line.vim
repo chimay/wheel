@@ -518,17 +518,16 @@ fun! wheel#line#paste_list (...)
 	else
 		let close = 'close'
 	endif
-	if ! wheel#pencil#is_selection_empty ()
-		let addresses = deepcopy(b:wheel_selection.addresses)
-		eval addresses->map({ _, list_string -> eval(list_string) })
-		eval addresses->map({ _, list -> join(list, "\n") })
-		let content = join(addresses, "\n")
-	else
+	if wheel#pencil#is_selection_empty ()
 		let line = getline('.')
 		if empty(line)
 			return v:false
 		endif
 		let content = eval(line)
+	else
+		let content = deepcopy(b:wheel_selection.addresses)
+		eval content->map({ _, list_string -> eval(list_string) })
+		eval content->map({ _, list -> join(list, "\n") })
 	endif
 	call wheel#mandala#related ()
 	if where == 'after'
@@ -556,11 +555,10 @@ fun! wheel#line#paste_plain (...)
 	else
 		let close = 'close'
 	endif
-	if ! wheel#pencil#is_selection_empty ()
-		let addresses = b:wheel_selection.addresses
-		let content = join(addresses, "\n")
-	else
+	if wheel#pencil#is_selection_empty ()
 		let content = getline('.')
+	else
+		let content = b:wheel_selection.addresses
 	endif
 	if empty(content)
 		return v:false

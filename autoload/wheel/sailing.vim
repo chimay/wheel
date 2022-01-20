@@ -48,7 +48,7 @@ fun! wheel#sailing#mappings (settings)
 	" -- selection
 	call wheel#pencil#mappings ()
 	" -- context menu
-	call wheel#boomerang#mappings ()
+	call wheel#boomerang#mappings ('sailing')
 endfun
 
 fun! wheel#sailing#template (settings)

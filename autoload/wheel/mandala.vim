@@ -435,7 +435,7 @@ endfun
 " mappings
 
 fun! wheel#mandala#common_maps ()
-	" Define local common maps
+	" Define mandala common maps
 	nnoremap <buffer> q <cmd>call wheel#mandala#close()<cr>
 	nnoremap <buffer> j <cmd>call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> k <cmd>call wheel#mandala#wrap_up()<cr>
@@ -507,14 +507,17 @@ endfun
 
 fun! wheel#mandala#template (...)
 	" Template with filter & input history
+	" No fold by default
 	if a:0 > 0
 		let b:wheel_settings = a:1
 	endif
 	call wheel#mandala#common_maps ()
+	" filter
 	call wheel#teapot#mappings ()
+	" input history
 	call wheel#scroll#mappings ()
-	" By default, tell line#address it's not a tree buffer
-	" Overridden by folding_options
+	" by default, tell line#address it's not a tree buffer
+	" overridden by folding_options
 	setlocal nofoldenable
 endfun
 

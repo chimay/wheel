@@ -37,19 +37,19 @@ fun! wheel#clipper#mappings (mode)
 	nnoremap <buffer> u <cmd>call wheel#mandala#undo()<cr>
 	nnoremap <buffer> <c-r> <cmd>call wheel#mandala#redo()<cr>
 	" Context menu
-	let pre = 'nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('
-	let post = ')<cr>'
 	let menu = 'yank/' .. a:mode
-	execute pre .. string(menu) .. post
+	call wheel#boomerang#mappings (menu)
 endfun
 
 fun! wheel#clipper#template (settings)
 	" Template
 	let settings = a:settings
+	let mode = settings.mode
 	call wheel#mandala#template (settings)
-	call wheel#clipper#options (settings.mode)
-	call wheel#clipper#mappings (settings.mode)
-	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
+	call wheel#clipper#options (mode)
+	call wheel#clipper#mappings (mode)
+	" selection
+	call wheel#pencil#mappings ()
 endfun
 
 " Buffer
