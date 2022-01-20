@@ -237,14 +237,18 @@ fun! wheel#boomerang#tabwins (action)
 	elseif action == 'tabclose'
 		" closing last tab first
 		let settings.menu.kind = 'context'
-		let addresses = b:wheel_selection.addresses
-		let addresses = wheel#chain#sort(addresses)[1]
-		call reverse(addresses)
-		echomsg addresses
-		return
+		let original_indexes = b:wheel_selection.indexes
+		let original_addresses = b:wheel_selection.addresses
+		let indexes = original_indexes
+		let addresses = original_addresses
+		let [indexlist, indexes] = wheel#chain#sort(indexes)
+		call reverse(indexes)
+		call reverse(indexlist)
+		let b:wheel_selection.indexes = indexes
+		let b:wheel_selection.addresses = addresses->wheel#chain#sublist(indexlist)
 		call wheel#loop#boomerang (settings)
-		call reverse(addresses)
-		let b:wheel_selection.addresses = addresses
+		let b:wheel_selection.indexes = original_indexes
+		let b:wheel_selection.addresses = original_addresses
 		return v:true
 	endif
 	return v:false
