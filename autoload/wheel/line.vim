@@ -339,6 +339,7 @@ fun! wheel#line#grep (settings)
 	"let col = fields[4]
 	"execute 'buffer' bufnum
 	"call cursor(line, col)
+	" ---- coda
 	return win_getid ()
 endfun
 
@@ -486,10 +487,7 @@ fun! wheel#line#narrow_circle (settings)
 	let linum = str2nr(fields[1])
 	" ---- go
 	call wheel#line#target (a:settings.target)
-	" -- buffer, line, col
-	"execute 'buffer' bufnum
-	"call cursor(linum, 1)
-	" -- error number
+	" -- using error number
 	let quickfix = getqflist()
 	for index in range(len(quickfix))
 		let elem = quickfix[index]
@@ -499,6 +497,10 @@ fun! wheel#line#narrow_circle (settings)
 	endfor
 	let errnum = index + 1
 	execute 'cc' errnum
+	" -- using buffer, line & col
+	"execute 'buffer' bufnum
+	"call cursor(linum, 1)
+	" ---- coda
 	return win_getid ()
 endfun
 
