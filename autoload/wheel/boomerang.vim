@@ -162,7 +162,7 @@ fun! wheel#boomerang#sailing (target)
 	let target = a:target
 	let settings = b:wheel_settings
 	let settings.menu.action = 'sailing'
-	if target->wheel#chain#is_inside (s:mandala_targets)
+	if target->wheel#chain#is_inside(s:mandala_targets)
 		let settings.target = target
 		call wheel#loop#sailing (settings)
 		return v:true

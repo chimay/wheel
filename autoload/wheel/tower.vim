@@ -96,7 +96,7 @@ fun! wheel#tower#staircase (settings)
 	"   - submenu of meta menu
 	"   - context menu leaf
 	let settings = a:settings
-	let dictname = settings.linefun
+	let dictname = settings.menu.linefun
 	call wheel#book#add ()
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)
