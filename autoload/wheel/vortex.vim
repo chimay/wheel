@@ -219,13 +219,13 @@ fun! wheel#vortex#switch (level, ...)
 		let name = input(prompt, '', complete)
 	endif
 	if a:0 > 1
-		let mode = a:2
+		let where = a:2
 	else
-		let mode = 'search-window'
+		let where = 'search-window'
 	endif
 	let index = wheel#vortex#tune (level, name)
 	if index >= 0
-		call wheel#vortex#jump (mode)
+		call wheel#vortex#jump (where)
 	endif
 endfun
 

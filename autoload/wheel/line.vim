@@ -72,26 +72,35 @@ endfun
 
 " Target
 
+fun! wheel#line#where (target)
+	" Where to jump
+	" Return value :
+	"   - search-window : search for active buffer
+	"                     in tabs & windows
+	"   - here : load the buffer in current window,
+	"            do not search in tabs & windows
+	let target = a:target
+	" search for window is better with prompt functions
+	"if target ==# 'current'
+		"return 'search-window'
+	"endif
+	return 'here'
+endfun
+
 fun! wheel#line#target (target)
 	" Open target tab / win before navigation
 	let target = a:target
-	" jump mode : if new, do not search for match
-	" in visible buffers
-	let mode = 'new'
-	if target ==# 'current'
-		let mode = 'default'
-	elseif target ==# 'tab'
+	if target ==# 'tab'
 		tabnew
 	elseif target ==# 'horizontal_split'
 		split
 	elseif target ==# 'vertical_split'
 		vsplit
 	elseif target ==# 'horizontal_golden'
-		call wheel#spiral#horizontal ()
+		call wheel#spiral#horizontal_split ()
 	elseif target ==# 'vertical_golden'
-		call wheel#spiral#vertical ()
+		call wheel#spiral#vertical_split ()
 	endif
-	return mode
 endfun
 
 " Applications of loop#sailing
@@ -99,44 +108,56 @@ endfun
 fun! wheel#line#switch (settings)
 	" Switch to settings.selected element in wheel
 	" settings keys :
-	" - selected : where to switch
-	" - level : torus, circle or location
 	" - target : current, tab, horizontal_split, vertical_split
+	" - level : torus, circle or location
+	" - selected : place to jump to
+	" ---- settings
 	let settings = a:settings
-	let mode = wheel#line#target (settings.target)
-	call wheel#vortex#switch(settings.level, settings.selected, mode)
+	let target = settings.target
+	let level = settings.level
+	let selected = settings.selected
+	" ---- jump
+	let where = wheel#line#where (target)
+	call wheel#line#target (target)
+	call wheel#vortex#switch(level, selected, where)
 	return win_getid ()
 endfun
 
 fun! wheel#line#helix (settings)
 	" Go to settings.selected = torus > circle > location
-	" settings keys :
-	" - selected : where to go
-	" - target : current, tab, horizontal_split, vertical_split
-	let coordin = split(a:settings.selected, s:level_separ)
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let selected = settings.selected
+	let coordin = split(selected, s:level_separ)
+	" ---- jump
 	if len(coordin) < 3
 		echomsg 'Helix line is too short'
 		return v:false
 	endif
-	let mode = wheel#line#target (a:settings.target)
+	let where = wheel#line#where (target)
+	call wheel#line#target (target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 	return win_getid ()
 endfun
 
 fun! wheel#line#grid (settings)
 	" Go to settings.selected = torus > circle
-	" settings keys :
-	" - selected : where to go
-	" - target : current, tab, horizontal_split, vertical_split
-	let coordin = split(a:settings.selected, ' > ')
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let selected = settings.selected
+	let coordin = split(selected, s:level_separ)
+	" ---- jump
 	if len(coordin) < 2
 		echomsg 'Grid line is too short'
 		return v:false
 	endif
-	let mode = wheel#line#target (a:settings.target)
+	let where = wheel#line#where (target)
+	call wheel#line#target (target)
 	call wheel#vortex#interval (coordin)
-	call wheel#vortex#jump (mode)
+	call wheel#vortex#jump (where)
 	return win_getid ()
 endfun
 
@@ -151,7 +172,8 @@ fun! wheel#line#tree (settings)
 	" - target : current, tab, horizontal_split, vertical_split
 	let coordin = a:settings.selected
 	let length = len(coordin)
-	let mode = wheel#line#target (a:settings.target)
+	let where = wheel#line#where (target)
+	call wheel#line#target (a:settings.target)
 	if length == 3
 		call wheel#vortex#chord(coordin)
 	elseif length == 2

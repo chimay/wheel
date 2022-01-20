@@ -210,7 +210,7 @@ fun! wheel#mosaic#horizontal (...)
 	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
 		if settings.golden
-			call wheel#spiral#horizontal ()
+			call wheel#spiral#horizontal_split ()
 		else
 			split
 		endif
@@ -237,7 +237,7 @@ fun! wheel#mosaic#vertical (...)
 	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
 		if settings.golden
-			call wheel#spiral#vertical ()
+			call wheel#spiral#vertical_split ()
 		else
 			vsplit
 		endif
@@ -263,7 +263,7 @@ fun! wheel#mosaic#main_left (...)
 	endif
 	if w:coordin == [0, 0]
 		if settings.golden
-			call wheel#spiral#vertical ()
+			call wheel#spiral#vertical_split ()
 		else
 			vsplit
 		endif
@@ -273,7 +273,7 @@ fun! wheel#mosaic#main_left (...)
 	let next = w:coordin[0] + 1
 	if next < g:wheel_config.maxim.horizontal
 		if settings.golden
-			call wheel#spiral#horizontal ()
+			call wheel#spiral#horizontal_split ()
 		else
 			split
 		endif
@@ -299,7 +299,7 @@ fun! wheel#mosaic#main_top (...)
 	endif
 	if w:coordin == [0, 0]
 		if settings.golden
-			call wheel#spiral#horizontal ()
+			call wheel#spiral#horizontal_split ()
 		else
 			split
 		endif
@@ -309,7 +309,7 @@ fun! wheel#mosaic#main_top (...)
 	let next = w:coordin[1] + 1
 	if next < g:wheel_config.maxim.vertical
 		if settings.golden
-			call wheel#spiral#vertical ()
+			call wheel#spiral#vertical_split ()
 		else
 			vsplit
 		endif

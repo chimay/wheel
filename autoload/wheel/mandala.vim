@@ -282,7 +282,7 @@ fun! wheel#mandala#close ()
 		" only one window in tab ? jump to current wheel location
 		call wheel#vortex#jump ()
 	endif
-	call wheel#status#clear ()
+	"call wheel#status#clear ()
 	return v:true
 endfun
 

@@ -50,14 +50,14 @@ endfun
 
 " Splits
 
-fun! wheel#spiral#horizontal ()
+fun! wheel#spiral#horizontal_split ()
 	" Horizontal split with golden ratio
 	let height = wheel#spiral#height ()
 	let height = float2nr(ceil(height))
 	execute height .. 'split'
 endfun
 
-fun! wheel#spiral#vertical ()
+fun! wheel#spiral#vertical_split ()
 	" Vertical split with golden ratio
 	let width = wheel#spiral#width ()
 	let width = float2nr(ceil(width))
