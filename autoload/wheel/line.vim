@@ -27,9 +27,10 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" Default data line
+" Cursor default line
 
 fun! wheel#line#default ()
+	" Put the cursor on default line
 	" If on filtering line, put the cursor in default line 2
 	if wheel#teapot#has_filter() && line('.') == 1 && line('$') > 1
 		call cursor(2, 1)
@@ -88,7 +89,7 @@ fun! wheel#line#where (target)
 endfun
 
 fun! wheel#line#target (target)
-	" Open target tab / win before navigation
+	" Open target tab / win if needed before navigation
 	let target = a:target
 	if target ==# 'tab'
 		tabnew
@@ -328,7 +329,7 @@ fun! wheel#line#grep (settings)
 	let selected = settings.selected
 	let fields = split(selected, s:field_separ)
 	" ---- go
-	call wheel#line#target (a:settings.target)
+	call wheel#line#target (target)
 	" -- using error number
 	let errnum = fields[0]
 	execute 'cc' errnum
@@ -347,49 +348,65 @@ fun! wheel#line#mru (settings)
 	let settings = a:settings
 	let target = settings.target
 	let selected = settings.selected
-	let fields = split(selected)
-	let filename = fields[6]
+	let fields = split(selected, s:field_separ)
+	let filename = fields[1]
 	" ---- go
-	call wheel#line#target (a:settings.target)
+	call wheel#line#target (target)
 	execute 'edit' filename
 	return win_getid ()
 endfun
 
 fun! wheel#line#locate (settings)
 	" Edit settings.selected locate file
-	let filename = a:settings.selected
-	call wheel#line#target (a:settings.target)
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let filename = settings.selected
+	" ---- go
+	call wheel#line#target (target)
 	execute 'edit' filename
 	return win_getid ()
 endfun
 
 fun! wheel#line#find (settings)
 	" Edit settings.selected locate file
-	let filename = a:settings.selected
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let filename = settings.selected
 	let filename = trim(filename, ' ')
-	call wheel#line#target (a:settings.target)
+	" ---- go
+	call wheel#line#target (target)
 	execute 'edit' filename
 	return win_getid ()
 endfun
 
 fun! wheel#line#markers (settings)
 	" Go to settings.selected marker
-	let fields = split(a:settings.selected, s:field_separ)
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let fields = split(selected, s:field_separ)
 	let mark = fields[0]
 	"let line = fields[1]
 	"let column = fields[2]
-	call wheel#line#target (a:settings.target)
+	" ---- go
+	call wheel#line#target (target)
 	execute "normal `" .. mark
 	return win_getid ()
 endfun
 
 fun! wheel#line#jumps (settings)
 	" Go to element in jumps list given by selected
-	let fields = split(a:settings.selected, s:field_separ)
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let fields = split(selected, s:field_separ)
 	let bufnum = fields[0]
 	let linum = str2nr(fields[1])
 	let colnum = str2nr(fields[2])
-	call wheel#line#target (a:settings.target)
+	" ---- go
+	call wheel#line#target (target)
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
@@ -400,11 +417,15 @@ endfun
 
 fun! wheel#line#changes (settings)
 	" Go to element in changes list given by selected
-	let fields = split(a:settings.selected)
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let fields = split(selected, s:field_separ)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
 	let bufnum = a:settings.related_buffer
-	call wheel#line#target (a:settings.target)
+	" ---- go
+	call wheel#line#target (target)
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
@@ -415,10 +436,14 @@ endfun
 
 fun! wheel#line#tags (settings)
 	" Go to settings.selected tag
-	let fields = split(a:settings.selected, s:field_separ)
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let fields = split(selected, s:field_separ)
 	let file = fields[2]
 	let search = fields[3][1:]
-	call wheel#line#target (a:settings.target)
+	" ---- go
+	call wheel#line#target (target)
 	execute 'edit' file
 	let found = search(search, 'sw')
 	if found == 0
@@ -432,22 +457,30 @@ endfun
 
 fun! wheel#line#narrow_file (settings)
 	" Go to settings.selected narrowed line of current file
-	let bufnum = a:settings.bufnum
-	let fields = split(a:settings.selected, s:field_separ)
-	execute 'buffer' bufnum
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let bufnum = settings.bufnum
+	let fields = split(selected, s:field_separ)
 	let linum = str2nr(fields[0])
-	call wheel#line#target (a:settings.target)
+	" ---- go
+	call wheel#line#target (target)
+	execute 'buffer' bufnum
 	call cursor(linum, 1)
 	return win_getid ()
 endfun
 
 fun! wheel#line#narrow_circle (settings)
 	" Go to settings.selected narrowed line in circle
-	let fields = split(a:settings.selected, s:field_separ)
-	" -- bufnum & linum
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let fields = split(selected, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
+	" ---- go
 	call wheel#line#target (a:settings.target)
+	" -- buffer, line, col
 	"execute 'buffer' bufnum
 	"call cursor(linum, 1)
 	" -- error number
