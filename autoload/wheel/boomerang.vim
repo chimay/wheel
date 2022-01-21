@@ -79,13 +79,13 @@ fun! wheel#boomerang#buffers (action)
 		call wheel#loop#boomerang (settings)
 		" dont remove parent selection on buffers/all
 		if wheel#mandala#type () == 'buffers'
-			call wheel#branch#remove_selection ()
+			call wheel#upstream#remove_selection ()
 		endif
 	elseif action == 'unload'
 		call wheel#loop#boomerang (settings)
 	elseif action == 'wipe'
 		call wheel#loop#boomerang (settings)
-		call wheel#branch#remove_selection ()
+		call wheel#upstream#remove_selection ()
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
 		let filtered = wheel#book#previous ('filter')
