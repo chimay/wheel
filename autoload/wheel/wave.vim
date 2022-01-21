@@ -3,7 +3,7 @@
 " Job control, neovim
 
 if ! has('unix')
-	echomsg 'wheel : wave is only supported on Unix systems.'
+	echomsg 'wheel : wave is only supported on Unix systems'
 	finish
 endif
 
@@ -122,7 +122,7 @@ fun! wheel#wave#stop (...)
 		if ! empty(g:wheel_wave)
 			let job = g:wheel_wave[-1]
 		else
-			echomsg 'wheel wave stop : no more job left.'
+			echomsg 'wheel wave stop : no more job left'
 			return v:false
 		endif
 	endif

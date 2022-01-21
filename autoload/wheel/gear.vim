@@ -129,7 +129,7 @@ fun! wheel#gear#project_root (markers)
 	elseif type(a:markers) == v:t_list
 		let markers = a:markers
 	else
-		echomsg 'wheel project root : argument must be either a string or a list.'
+		echomsg 'wheel project root : argument must be either a string or a list'
 	endif
 	let dir = expand('%:p:h')
 	execute 'lcd' dir
@@ -183,7 +183,7 @@ fun! wheel#gear#short_mode (mode)
 		if wheel#chain#is_inside(mode, keys)
 			return s:modes_letters[mode]
 		else
-			echomsg 'wheel gear : argument is not a valid mode name.'
+			echomsg 'wheel gear : argument is not a valid mode name'
 			return v:false
 		endif
 	else
@@ -191,7 +191,7 @@ fun! wheel#gear#short_mode (mode)
 		if wheel#chain#is_inside(mode, keys)
 			return mode
 		else
-			echomsg 'wheel gear : argument is not a valid mode name.'
+			echomsg 'wheel gear : argument is not a valid mode name'
 			return v:false
 		endif
 	endif
@@ -209,7 +209,7 @@ fun! wheel#gear#long_mode (mode)
 		if wheel#chain#is_inside(mode, keys)
 			return s:letters_modes[mode]
 		else
-			echomsg 'wheel gear : argument is not a valid mode name.'
+			echomsg 'wheel gear : argument is not a valid mode name'
 			return v:false
 		endif
 	else
@@ -217,7 +217,7 @@ fun! wheel#gear#long_mode (mode)
 		if wheel#chain#is_inside(mode, keys)
 			return mode
 		else
-			echomsg 'wheel gear : argument is not a valid mode name.'
+			echomsg 'wheel gear : argument is not a valid mode name'
 			return v:false
 		endif
 	endif

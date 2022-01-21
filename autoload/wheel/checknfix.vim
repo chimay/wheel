@@ -34,7 +34,7 @@ fun! wheel#checknfix#glossaries ()
 				echomsg 'Adding' torus.name
 				let glossary = add(glossary, torus.name)
 			else
-				echomsg 'Error in check glossaries : wheel glossary is too short.'
+				echomsg 'Error in check glossaries : wheel glossary is too short'
 				break
 			endif
 		endif
@@ -56,7 +56,7 @@ fun! wheel#checknfix#glossaries ()
 				echomsg 'Adding' circle.name
 				let glossary = add(glossary, circle.name)
 			else
-				echomsg 'Error in check glossaries : torus glossary is too short.'
+				echomsg 'Error in check glossaries : torus glossary is too short'
 				break
 			endif
 		endif
@@ -78,7 +78,7 @@ fun! wheel#checknfix#glossaries ()
 				echomsg 'Adding' location.name
 				let glossary = add(glossary, location.name)
 			else
-				echomsg 'Error in check glossaries : circle glossary is too short.'
+				echomsg 'Error in check glossaries : circle glossary is too short'
 				break
 			endif
 		endif

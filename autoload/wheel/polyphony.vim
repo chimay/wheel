@@ -382,7 +382,7 @@ fun! wheel#polyphony#narrow_circle (...)
 	endif
 	let lines = wheel#perspective#narrow_circle (pattern, sieve)
 	if empty(lines)
-		echomsg 'wheel narrow circle : no match found.'
+		echomsg 'wheel narrow circle : no match found'
 		if wheel#cylinder#is_mandala ()
 			" when reloading
 			let b:wheel_nature.empty = v:false
@@ -401,5 +401,5 @@ fun! wheel#polyphony#narrow_circle (...)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = "wheel#polyphony#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
-	echomsg 'adding or removing lines is not supported.'
+	echomsg 'adding or removing lines is not supported'
 endfun

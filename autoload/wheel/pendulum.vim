@@ -217,7 +217,7 @@ fun! wheel#pendulum#broom ()
 		let coordin = history[ind].coordin
 		if ! wheel#chain#is_inside(coordin, helix)
 			let success = 0
-			echomsg 'Removing [' join(coordin, ', ') '] from history.'
+			echomsg 'Removing [' join(coordin, ', ') '] from history'
 			eval g:wheel_history->wheel#chain#remove_element(history[ind])
 		endif
 		let ind += 1
@@ -230,7 +230,7 @@ fun! wheel#pendulum#broom ()
 		let coordin = track[ind].coordin
 		if ! wheel#chain#is_inside(coordin, helix)
 			let success = 0
-			echomsg 'Removing [' join(coordin, ', ') '] from track.'
+			echomsg 'Removing [' join(coordin, ', ') '] from track'
 			eval g:wheel_track->wheel#chain#remove_element(track[ind])
 		endif
 		let ind += 1

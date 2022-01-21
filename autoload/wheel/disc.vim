@@ -68,7 +68,7 @@ endfun
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems.'
+		echomsg 'wheel : this function is only supported on Unix systems'
 		return v:false
 	endif
 	let file = expand(a:file)
@@ -107,7 +107,7 @@ fun! wheel#disc#write_all (...)
 	endif
 	call wheel#vortex#update ()
 	if argc() == 0 && has('nvim')
-		echomsg 'Writing wheel variables to file ...'
+		echomsg 'Writing wheel variables to file ..'
 	endif
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
 	call wheel#disc#writefile('g:wheel', wheel_file, '>')
@@ -139,7 +139,7 @@ fun! wheel#disc#read_all (...)
 		endif
 	endif
 	if argc() == 0 && has('nvim')
-		echomsg 'Reading wheel variables from file ...'
+		echomsg 'Reading wheel variables from file ..'
 	endif
 	call wheel#disc#read (wheel_file)
 	if argc() == 0
@@ -167,7 +167,7 @@ fun! wheel#disc#write_session (...)
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
 	" writing session
 	if argc() == 0 && has('nvim')
-		echomsg 'Writing session to file ...'
+		echomsg 'Writing session to file ..'
 	endif
 	execute 'mksession!' session_file
 	" restore value of sessionoptions
@@ -189,12 +189,12 @@ fun! wheel#disc#read_session (...)
 		endif
 	endif
 	if argc() == 0 && has('nvim')
-		echomsg 'Reading session from file ...'
+		echomsg 'Reading session from file ..'
 	endif
 	if filereadable(session_file)
 		execute 'source' session_file
 	else
-		echomsg 'wheel disc read session : session file does not exist.'
+		echomsg 'wheel disc read session : session file does not exist'
 	endif
 	" even windows in each tab
 	" does not work
@@ -208,7 +208,7 @@ fun! wheel#disc#tree_script (...)
 	" Write a shell script which generates a tree of symlinks or copies
 	" following the wheel hierarchy torus/circle/location
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems.'
+		echomsg 'wheel : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0
@@ -271,7 +271,7 @@ fun! wheel#disc#symlink_tree (...)
 	" Tree of symlinks following the wheel hierarchy
 	" torus/circle/link-to-location-file
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems.'
+		echomsg 'wheel : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0
@@ -333,7 +333,7 @@ fun! wheel#disc#copied_tree ()
 	" torus/circle/copy-of-the-location-file
 	" Useful to make a backup of the wheel files
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems.'
+		echomsg 'wheel : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0

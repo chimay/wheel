@@ -152,7 +152,7 @@ fun! wheel#cylinder#first (window = 'furtive')
 	endif
 	let mandalas = g:wheel_mandalas.ring
 	if ! empty(mandalas)
-		echomsg 'wheel cylinder first : mandala ring is not empty.'
+		echomsg 'wheel cylinder first : mandala ring is not empty'
 		return v:false
 	endif
 	call wheel#cylinder#delete_unused ()
@@ -351,7 +351,7 @@ fun! wheel#cylinder#forward ()
 	let mandalas = g:wheel_mandalas.ring
 	let length = len(mandalas)
 	if length == 0
-		echomsg 'wheel mandala forward : empty ring.'
+		echomsg 'wheel mandala forward : empty ring'
 		return v:false
 	endif
 	let current = g:wheel_mandalas.current
@@ -369,7 +369,7 @@ fun! wheel#cylinder#backward ()
 	let mandalas = g:wheel_mandalas.ring
 	let length = len(mandalas)
 	if length == 0
-		echomsg 'wheel mandala backward : empty ring.'
+		echomsg 'wheel mandala backward : empty ring'
 		return v:false
 	endif
 	let current = g:wheel_mandalas.current
@@ -388,7 +388,7 @@ fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion
 	let bufnums = copy(g:wheel_mandalas.ring)
 	if empty(bufnums)
-		echomsg 'wheel cylinder switch : empty buffer ring.'
+		echomsg 'wheel cylinder switch : empty buffer ring'
 		return v:false
 	endif
 	let prompt = 'Switch to mandala : '

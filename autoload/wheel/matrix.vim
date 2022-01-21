@@ -54,7 +54,7 @@ fun! wheel#matrix#dual (nested)
 	endfor
 	let inner_length = min(lengthes)
 	if inner_length < max(lengthes)
-		echomsg 'wheel matrix dual : inner lists are not of the same length.'
+		echomsg 'wheel matrix dual : inner lists are not of the same length'
 		return v:false
 	endif
 	" -- span

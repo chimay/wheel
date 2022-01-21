@@ -178,7 +178,7 @@ endfun
 fun! wheel#sailing#async_find (...)
 	" Search files in current directory using find in async job
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems.'
+		echomsg 'wheel : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0
@@ -313,7 +313,7 @@ fun! wheel#sailing#grep (...)
 	endif
 	let lines = wheel#perspective#grep (pattern, sieve)
 	if empty(lines)
-		echomsg 'wheel sailing grep : no match found.'
+		echomsg 'wheel sailing grep : no match found'
 		if wheel#cylinder#is_mandala ()
 			" when reloading
 			let b:wheel_nature.empty = v:false

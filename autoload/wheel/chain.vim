@@ -324,7 +324,7 @@ fun! wheel#chain#revert_sort (list, indexes)
 	let list = deepcopy(a:list)
 	let indexes = a:indexes
 	if len(list) != len(indexes)
-		echomsg 'wheel chain revert sort : arguments are not of the same length.'
+		echomsg 'wheel chain revert sort : arguments are not of the same length'
 	endif
 	let matrix = [indexes, list]
 	let dual = wheel#matrix#dual(matrix)

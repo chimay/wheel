@@ -3,7 +3,7 @@
 " Job control, vim 8
 
 if ! has('unix')
-	echomsg 'wheel : ripple is only supported on Unix systems.'
+	echomsg 'wheel : ripple is only supported on Unix systems'
 	finish
 endif
 
@@ -80,7 +80,7 @@ fun! wheel#ripple#stop (...)
 		if ! empty(g:wheel_ripple)
 			let job = g:wheel_ripple[-1]
 		else
-			echomsg 'wheel ripple stop : no more job left.'
+			echomsg 'wheel ripple stop : no more job left'
 			return v:false
 		endif
 	endif

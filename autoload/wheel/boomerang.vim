@@ -133,7 +133,7 @@ fun! wheel#boomerang#buffers (action)
 			echomsg 'wheel boomerang buffer : bad action format'
 		endif
 		if empty(hidden)
-			echomsg 'no hidden buffer.'
+			echomsg 'no hidden buffer'
 			return v:false
 		endif
 		for elem in lines
@@ -148,12 +148,12 @@ fun! wheel#boomerang#buffers (action)
 			for bufnum in hidden
 				execute 'silent bdelete' bufnum
 			endfor
-			echomsg 'hidden buffers deleted.'
+			echomsg 'hidden buffers deleted'
 		elseif  action =~ 'wipe.*hidden'
 			for bufnum in hidden
 				execute 'silent bwipe!' bufnum
 			endfor
-			echomsg 'hidden buffers wiped.'
+			echomsg 'hidden buffers wiped'
 		endif
 	endif
 	return v:true

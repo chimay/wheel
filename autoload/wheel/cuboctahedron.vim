@@ -98,7 +98,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 		let findme = status[from]
 		let target = index(tabindexes, findme)
 		if target <= 0
-			echoerr 'wheel reorg tabs & windows : new tab index not found.'
+			echoerr 'wheel reorg tabs & windows : new tab index not found'
 			return v:false
 		endif
 		execute 'tabnext' from + 1
@@ -106,7 +106,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 		let status = wheel#chain#move(status, from, target)
 		let l:count += 1
 		if l:count > max_iter
-			echomsg 'wheel reorg tabs & windows : reached max iter.'
+			echomsg 'wheel reorg tabs & windows : reached max iter'
 			break
 		endif
 	endwhile
@@ -250,7 +250,7 @@ endfun
 fun! wheel#cuboctahedron#rename_files ()
 	" Rename locations & files of current circle, after buffer content
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems.'
+		echomsg 'wheel : this function is only supported on Unix systems'
 		return v:false
 	endif
 	" -- update b:wheel_lines
@@ -351,7 +351,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 		let complete = 'customlist,wheel#complete#grid'
 		let destination = input(prompt, '', complete)
 	else
-		echomsg 'wheel' mode ': bad level name.'
+		echomsg 'wheel' mode ': bad level name'
 		return v:false
 	endif
 	let coordin = split(destination, s:level_separ)
@@ -506,7 +506,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	let g:wheel_shelve.layout.tabnames = []
 	" -- tell the world the job is done
 	setlocal nomodified
-	echomsg 'tabs & windows reorganized.'
+	echomsg 'tabs & windows reorganized'
 	" -- return value
 	return [tabindexes, tabwindows, removed]
 endfun

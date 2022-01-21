@@ -117,7 +117,7 @@ fun! wheel#vector#grep (pattern, ...)
 	" Run grep
 	let grep = g:wheel_config.grep
 	if ! wheel#chain#is_inside(grep, ['grep', 'vimgrep'])
-		echoerr 'wheel vector grep : bad g:wheel_config.grep value.'
+		echoerr 'wheel vector grep : bad g:wheel_config.grep value'
 		return v:false
 	endif
 	let grep ..= '!'
@@ -144,7 +144,7 @@ fun! wheel#vector#cdo (newlines)
 		let line = remove(newlines, 0)
 		call setline('.', line)
 	else
-		echomsg 'wheel cdo : quickfix list is prematurely empty.'
+		echomsg 'wheel cdo : quickfix list is prematurely empty'
 	endif
 endfun
 

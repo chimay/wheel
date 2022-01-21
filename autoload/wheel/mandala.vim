@@ -312,7 +312,7 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	" - blank-first : blank input
 	" - delete-first : delete first line
 	if ! wheel#cylinder#is_mandala ()
-		echomsg 'wheel mandala fill : not in mandala buffer.'
+		echomsg 'wheel mandala fill : not in mandala buffer'
 	endif
 	" -- disable folding
 	" if fold is enabled during replacement, we lose the first line
@@ -392,14 +392,14 @@ fun! wheel#mandala#reload ()
 	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
 		let fun = b:wheel_reload
-		echomsg 'wheel : ' fun 'reloaded.'
+		echomsg 'wheel : ' fun 'reloaded'
 	else
 		" by default, if b:wheel_reload is not defined or empty,
 		" fill the buffer with b:wheel_lines
 		call wheel#mandala#fill (b:wheel_lines, 'blank-first')
 		" restore
 		execute 'silent file' filename
-		echomsg 'wheel : content reloaded.'
+		echomsg 'wheel : content reloaded'
 	endif
 endfun
 

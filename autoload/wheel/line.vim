@@ -263,7 +263,7 @@ fun! wheel#line#tabwins (settings)
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else
-			echomsg 'wheel line tabwins : will not close current tab page.'
+			echomsg 'wheel line tabwins : will not close current tab page'
 		endif
 	endif
 	return win_getid ()
@@ -297,7 +297,7 @@ fun! wheel#line#tabwins_tree (settings)
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else
-			echomsg 'wheel line tabwins_tree : will not close current tab page.'
+			echomsg 'wheel line tabwins_tree : will not close current tab page'
 		endif
 	endif
 	return win_getid ()

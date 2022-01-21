@@ -404,7 +404,7 @@ fun! wheel#book#forward ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
 	if length == 0
-		echomsg 'wheel layer forward : empty ring.'
+		echomsg 'wheel layer forward : empty ring'
 		return v:false
 	endif
 	let current = ring.current
@@ -422,7 +422,7 @@ fun! wheel#book#backward ()
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
 	if length == 0
-		echomsg 'wheel layer backward : empty ring.'
+		echomsg 'wheel layer backward : empty ring'
 		return v:false
 	endif
 	let current = ring.current
@@ -442,7 +442,7 @@ fun! wheel#book#switch (...)
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
 	if length == 0
-		echomsg 'wheel layer switch : empty layer ring.'
+		echomsg 'wheel layer switch : empty layer ring'
 		return v:false
 	endif
 	let prompt = 'Switch to layer : '

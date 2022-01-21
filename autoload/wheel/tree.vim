@@ -84,7 +84,7 @@ fun! wheel#tree#insert_torus (torus)
 		let name = wheel#tree#format_name (name)
 	endif
 	if wheel#chain#is_inside(name, glossary)
-		echomsg 'Torus named' name 'already exists in wheel.'
+		echomsg 'Torus named' name 'already exists in wheel'
 		return v:false
 	endif
 	let torus.name = name
@@ -156,13 +156,13 @@ fun! wheel#tree#add_torus (...)
 	let torus_name = wheel#tree#format_name (torus_name)
 	if empty(torus_name)
 		call wheel#status#clear ()
-		echomsg 'Torus name cannot be empty.'
+		echomsg 'Torus name cannot be empty'
 		return v:false
 	endif
 	" check if not already present
 	if wheel#chain#is_inside(torus_name, g:wheel.glossary)
 		call wheel#status#clear ()
-		echomsg 'Torus' torus_name 'already exists in wheel.'
+		echomsg 'Torus' torus_name 'already exists in wheel'
 		return v:false
 	endif
 	" add torus
@@ -197,7 +197,7 @@ fun! wheel#tree#add_circle (...)
 	let circle_name = wheel#tree#format_name (circle_name)
 	if empty(circle_name)
 		call wheel#status#clear ()
-		echomsg 'Circle name cannot be empty.'
+		echomsg 'Circle name cannot be empty'
 		return v:false
 	endif
 	" check if not already present
@@ -244,13 +244,13 @@ fun! wheel#tree#add_location (location, ...)
 	let name = wheel#tree#add_name (location)
 	if empty(name)
 		call wheel#status#clear ()
-		echomsg 'Location name cannot be empty.'
+		echomsg 'Location name cannot be empty'
 		return v:false
 	endif
 	" check location name is not in circle
 	if wheel#chain#is_inside(name, circle.glossary)
 		call wheel#status#clear ()
-		echomsg 'Location named' name 'already exists in circle.'
+		echomsg 'Location named' name 'already exists in circle'
 		return v:false
 	endif
 	" add the location to the circle
@@ -366,7 +366,7 @@ fun! wheel#tree#rename (level, ...)
 		elseif level ==# 'location'
 			let complete = 'customlist,wheel#complete#current_file'
 		else
-			echomsg 'wheel rename : bad level name.'
+			echomsg 'wheel rename : bad level name'
 			return v:false
 		endif
 		let new = input(prompt, '', complete)
@@ -377,7 +377,7 @@ fun! wheel#tree#rename (level, ...)
 	let new = wheel#tree#format_name (new)
 	if empty(new)
 		call wheel#status#clear ()
-		echomsg level 'name cannot be empty.'
+		echomsg level 'name cannot be empty'
 		return v:false
 	endif
 	" check new is not present in upper list
@@ -423,7 +423,7 @@ endfun
 fun! wheel#tree#rename_file (...)
 	" Rename current file in filesystem & in the wheel
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems.'
+		echomsg 'wheel : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0
@@ -455,7 +455,7 @@ fun! wheel#tree#rename_file (...)
 	if confirm == 1
 		let code = delete(old_filename)
 		if code != 0
-			echomsg 'wheel rename file : error in deleting old filename.'
+			echomsg 'wheel rename file : error in deleting old filename'
 			return v:false
 		endif
 	endif
@@ -527,7 +527,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	let elements = wheel#referen#elements (upper)
 	if empty(elements)
 		let upper_name = wheel#referen#upper_level_name (level)
-		echomsg upper_name 'is already empty.'
+		echomsg upper_name 'is already empty'
 		return v:false
 	endif
 	let length = len(elements)
@@ -573,7 +573,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 			let complete = 'customlist,wheel#complete#grid'
 			let destination = input(prompt, '', complete)
 		else
-			echomsg 'wheel' mode ': bad level name.'
+			echomsg 'wheel' mode ': bad level name'
 			return v:false
 		endif
 	endif

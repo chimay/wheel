@@ -215,7 +215,7 @@ fun! wheel#shape#grep_edit (...)
 	endif
 	let lines = wheel#perspective#grep (pattern, sieve)
 	if empty(lines)
-		echomsg 'wheel sailing grep : no match found.'
+		echomsg 'wheel sailing grep : no match found'
 		if wheel#cylinder#is_mandala ()
 			" when reloading
 			let b:wheel_nature.empty = v:false
@@ -234,6 +234,6 @@ fun! wheel#shape#grep_edit (...)
 	" reload
 	let b:wheel_reload = "wheel#shape#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
 	" info
-	echomsg 'adding or removing lines is not supported.'
+	echomsg 'adding or removing lines is not supported'
 	return lines
 endfun

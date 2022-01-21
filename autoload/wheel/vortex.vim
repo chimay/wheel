@@ -139,7 +139,7 @@ fun! wheel#vortex#interval (coordin)
 			let indexes[1] = wheel#vortex#tune ('circle', a:coordin[1])
 		endif
 	else
-		echomsg 'wheel vortex interval : [' join(a:coordin) '] should contain 2 elements.'
+		echomsg 'wheel vortex interval : [' join(a:coordin) '] should contain 2 elements'
 	endif
 	return indexes
 endfun
@@ -156,7 +156,7 @@ fun! wheel#vortex#chord (coordin)
 			let indexes[2] = wheel#vortex#tune ('location', a:coordin[2])
 		endif
 	else
-		echomsg 'wheel vortex chord : [' join(a:coordin) '] should contain 3 elements.'
+		echomsg 'wheel vortex chord : [' join(a:coordin) '] should contain 3 elements'
 	endif
 	return indexes
 endfun
