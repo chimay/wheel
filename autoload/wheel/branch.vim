@@ -26,7 +26,7 @@ fun! wheel#branch#first_data_line ()
 	endif
 endfun
 
-fun! wheel#boomerang#is_parent_selection_empty ()
+fun! wheel#branch#is_selection_empty ()
 	" Whether parent leaf has empty selection
 	let selection = wheel#book#previous('selection')
 	return empty(selection.indexes)
@@ -46,10 +46,10 @@ fun! wheel#branch#line_index (linum)
 	endif
 endfun
 
-fun! wheel#boomerang#selection ()
+fun! wheel#branch#selection ()
 	" Return selection of parent leaf
 	" If empty, return index & address parent line
-	if wheel#boomerang#is_parent_selection_empty ()
+	if wheel#branch#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
 		let linum = cursor.position[1]
 		let parent_line_index = wheel#branch#line_index (linum)
@@ -62,7 +62,7 @@ fun! wheel#boomerang#selection ()
 	return selection
 endfun
 
-fun! wheel#boomerang#addresses ()
+fun! wheel#branch#addresses ()
 	" Return selected addresses of parent leaf
 	" If empty, return address of parent line
 	if wheel#pencil#is_selection_empty ()
@@ -70,4 +70,42 @@ fun! wheel#boomerang#addresses ()
 		call wheel#boomerang#sync_from_parent ()
 	endif
 	return b:wheel_selection.addresses
+endfun
+
+" sync parent leaf -> current one
+
+fun! wheel#branch#sync ()
+	" Sync selection & settings in previous layer to mandala state
+	" -- selection
+	let b:wheel_selection = wheel#branch#selection ()
+	" -- settings
+	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
+endfun
+
+" remove selection & related lines
+
+fun! wheel#branch#remove_selection ()
+	" Parent leaf : remove selection & related lines, reset filter
+	" removed = selected lines or cursor address
+	" e.g. : deleted buffers, closed tabs
+	" -- selection in current leaf
+	" -- should be synced from parent
+	let selection = b:wheel_selection
+	" -- clear lines in parent leaf
+	let lines = wheel#book#previous ('lines')
+	for index in selection.indexes
+		eval lines->remove(index)
+	endfor
+	" -- clear selection in current leaf
+	let selection.indexes = []
+	let selection.addresses = []
+	" -- clear selection in parent leaf
+	let selection = wheel#book#previous('selection')
+	let selection.indexes = []
+	let selection.addresses = []
+	" -- clear filter in parent leaf
+	let filter = wheel#book#previous ('filter')
+	let filter.words = []
+	let filter.indexes = []
+	let filter.lines = []
 endfun

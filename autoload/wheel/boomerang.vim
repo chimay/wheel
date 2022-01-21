@@ -27,42 +27,6 @@ fun! wheel#boomerang#is_context_menu ()
 	return b:wheel_nature.context_menu
 endfun
 
-" sync parent leaf -> current one
-
-fun! wheel#boomerang#sync_from_parent ()
-	" Sync selection & settings in previous layer to mandala state
-	" -- selection
-	let b:wheel_selection = wheel#boomerang#selection ()
-	" -- settings
-	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
-endfun
-
-" selection
-
-fun! wheel#boomerang#remove_selected ()
-	" Parent leaf : remove selection & related lines, reset filter
-	" removed = selected lines or cursor address
-	" e.g. : deleted buffers, closed tabs
-	" -- clear lines
-	let lines = wheel#book#previous ('lines')
-	let selection = b:wheel_selection
-	for index in selection.indexes
-		eval lines->remove(index)
-	endfor
-	" -- clear selection
-	let selection.indexes = []
-	let selection.addresses = []
-	" parent leaf
-	let selection = wheel#book#previous('selection')
-	let selection.indexes = []
-	let selection.addresses = []
-	" -- clear filter
-	let filter = wheel#book#previous ('filter')
-	let filter.words = []
-	let filter.indexes = []
-	let filter.lines = []
-endfun
-
 " mandalas
 
 fun! wheel#boomerang#launch_map (type)
@@ -80,7 +44,7 @@ fun! wheel#boomerang#menu (dictname)
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
 	" ---- seek selection & settings from parent leaf
-	call wheel#boomerang#sync_from_parent ()
+	call wheel#branch#sync ()
 	" ---- properties ; must come after tower#staircase
 	" -- selection property
 	let b:wheel_nature.has_selection = v:false
@@ -116,11 +80,11 @@ fun! wheel#boomerang#buffers (action)
 	if action == 'delete'
 		" dont remove parent selection on buffers/all
 		if wheel#mandala#type () == 'buffers'
-			call wheel#boomerang#remove_selected ()
+			call wheel#branch#remove_selection ()
 		endif
 		call wheel#loop#boomerang (settings)
 	elseif action == 'wipe'
-		call wheel#boomerang#remove_selected ()
+		call wheel#branch#remove_selection ()
 		call wheel#loop#boomerang (settings)
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
