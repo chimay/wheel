@@ -3277,7 +3277,6 @@ of the modules within them.
 | attic.vim         | Most Recently Used files                   |
 | book.vim          | Layer ring for each dedicated buffer       |
 | boomerang.vim     | Context menus                              |
-| branch.vim        | Parent leaf of context menu                |
 | centre.vim        | Commands & mappings                        |
 | chain.vim         | List helpers                               |
 | checknfix.vim     | Check & fix variables                      |
@@ -3319,6 +3318,7 @@ of the modules within them.
 | teapot.vim        | Filter aspect of dedicated buffers         |
 | tower.vim         | Menu layer in dedicated buffers            |
 | tree.vim          | Add, rename, delete elements               |
+| upstream.vim      | Parent leaf of context menu                |
 | vector.vim        | Batch operations                           |
 | void.vim          | Initiaze & reset variables                 |
 | vortex.vim        | Navigation in the wheel                    |
