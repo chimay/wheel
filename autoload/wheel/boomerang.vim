@@ -88,7 +88,7 @@ fun! wheel#boomerang#buffers (action)
 		call wheel#upstream#remove_selection ()
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
-		let filter_indexes = wheel#book#previous ('filter').indexes
+		let filter = wheel#book#previous ('filter')
 		" hidden buffers
 		if action == 'delete_hidden' || action == 'wipe_hidden'
 			let hidden = wheel#rectangle#hidden_buffers ()[0]
@@ -110,7 +110,9 @@ fun! wheel#boomerang#buffers (action)
 			let bufnum = str2nr(fields[0])
 			if bufnum->wheel#chain#is_inside(hidden)
 				eval lines->remove(index)
-				eval filter_indexes->wheel#chain#remove_element(index)
+				let where = filter.indexes->index(index)
+				eval filter.indexes->remove(where)
+				eval filter.lines->remove(where)
 			endif
 		endfor
 		" remove buffers
