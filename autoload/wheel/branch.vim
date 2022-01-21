@@ -52,7 +52,7 @@ fun! wheel#branch#selection ()
 	if wheel#branch#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
 		let linum = cursor.position[1]
-		let parent_line_index = wheel#branch#line_index (linum)
+		let line_index = wheel#branch#line_index (linum)
 		let selection = {}
 		let selection.indexes = [ line_index ]
 		let selection.addresses = [ cursor.address ]
@@ -65,11 +65,13 @@ endfun
 fun! wheel#branch#addresses ()
 	" Return selected addresses of parent leaf
 	" If empty, return address of parent line
-	if wheel#pencil#is_selection_empty ()
-		echomsg 'wheel boomerang addresses : selection should not be empty'
-		call wheel#boomerang#sync_from_parent ()
+	if wheel#branch#is_selection_empty ()
+		let cursor = deepcopy(wheel#book#previous('cursor'))
+		return [ cursor.address ]
+	else
+		let selection = deepcopy(wheel#book#previous('selection'))
+		return selection.addresses
 	endif
-	return b:wheel_selection.addresses
 endfun
 
 " sync parent leaf -> current one

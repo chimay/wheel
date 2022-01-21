@@ -209,11 +209,11 @@ fun! wheel#line#buffers (settings)
 	if is_context_menu
 		let action = settings.menu.action
 	else
-		let target = settings.target
 		let action = 'sailing'
 	endif
 	" ---- actions
 	if action == 'sailing'
+		let target = settings.target
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)
 			let where = wheel#line#where (target)
@@ -226,10 +226,13 @@ fun! wheel#line#buffers (settings)
 		endif
 	elseif action == 'delete'
 		execute 'silent bdelete' bufnum
+		echomsg 'buffer' bufnum 'deleted'
 	elseif action == 'unload'
 		execute 'silent bunload' bufnum
+		echomsg 'buffer' bufnum 'unloaded'
 	elseif action == 'wipe'
 		execute 'silent bwipe' bufnum
+		echomsg 'buffer' bufnum 'wiped'
 	endif
 	return win_getid ()
 endfun
@@ -245,7 +248,6 @@ fun! wheel#line#tabwins (settings)
 	else
 		let action = 'open'
 	endif
-	echomsg settings
 	" ---- actions
 	if action == 'open'
 		let fields = split(selected, s:field_separ)

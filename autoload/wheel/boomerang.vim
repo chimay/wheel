@@ -27,6 +27,16 @@ fun! wheel#boomerang#is_context_menu ()
 	return b:wheel_nature.context_menu
 endfun
 
+fun! wheel#boomerang#addresses ()
+	" Return selected addresses of current leaf
+	" If empty, return address of parent line
+	if wheel#pencil#is_selection_empty ()
+		echomsg 'wheel boomerang addresses : selection should not be empty'
+		call wheel#boomerang#sync_from_parent ()
+	endif
+	return b:wheel_selection.addresses
+endfun
+
 " mandalas
 
 fun! wheel#boomerang#launch_map (type)
@@ -78,14 +88,16 @@ fun! wheel#boomerang#buffers (action)
 	let settings = b:wheel_settings
 	let settings.menu.action = action
 	if action == 'delete'
+		call wheel#loop#boomerang (settings)
 		" dont remove parent selection on buffers/all
 		if wheel#mandala#type () == 'buffers'
 			call wheel#branch#remove_selection ()
 		endif
+	elseif action == 'unload'
 		call wheel#loop#boomerang (settings)
 	elseif action == 'wipe'
-		call wheel#branch#remove_selection ()
 		call wheel#loop#boomerang (settings)
+		call wheel#branch#remove_selection ()
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		let lines = wheel#book#previous ('lines')
 		let filtered = wheel#book#previous ('filter')
