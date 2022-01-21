@@ -90,7 +90,16 @@ fun! wheel#vortex#jump (where = 'search-window')
 		doautocmd BufEnter
 	else
 		" edit location file
-		exe 'noautocmd silent edit' fnameescape(location.file)
+		let filename = location.file
+		if ! filereadable (filename)
+			let prompt = 'File not found. Delete broken location ?'
+			let confirm = confirm(prompt, "&Yes\n&No", 1)
+			if confirm == 1
+				call wheel#tree#delete('location', 'force')
+			endif
+			return v:false
+		endif
+		exe 'noautocmd silent edit' filename
 		call cursor(location.line, location.col)
 		doautocmd BufRead
 		doautocmd BufEnter

@@ -34,6 +34,14 @@ fun! wheel#status#clear ()
 	echo "\r"
 endfun
 
+" Message
+
+fun! wheel#status#message (message)
+	" Echo message
+	call wheel#status#clear ()
+	echomsg a:message
+endfun
+
 " Wheel status
 
 fun! wheel#status#dashboard ()
