@@ -96,15 +96,19 @@ fun! wheel#tower#staircase (settings)
 	"   - submenu of meta menu
 	"   - context menu leaf
 	let settings = a:settings
-	let dictname = settings.menu.linefun
+	" add new leaf
 	call wheel#book#add ()
+	" fill it
+	let dictname = settings.menu.linefun
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)
+	let b:wheel_lines = lines
 	call wheel#mandala#filename (dictname)
 	call wheel#mandala#fill (lines, 'blank-first')
 	call wheel#tower#mappings (settings)
-	let b:wheel_lines = lines
+	" save settings
 	let b:wheel_settings = settings
+	" coda
 	call cursor(1, 1)
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()
