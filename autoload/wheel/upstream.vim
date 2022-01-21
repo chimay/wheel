@@ -77,24 +77,23 @@ endfun
 " remove selection & related lines
 
 fun! wheel#upstream#remove_selection ()
-	" Parent leaf : remove selection & related lines, reset filter
+	" Parent leaf : remove selection & related lines
 	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
 	let lines = wheel#book#previous ('lines')
 	let filter = wheel#book#previous ('filter')
 	let selection = wheel#book#previous ('selection')
 	let selection_or_cursor = wheel#upstream#selection ()
-	" -- clear lines in parent leaf
+	" -- remove selection in lines & filter
 	let indexlist = sort(copy(selection_or_cursor.indexes))
 	let indexlist = reverse(indexlist)
 	for index in indexlist
 		eval lines->remove(index)
+		let where = filter.indexes->index(index)
+		eval filter.indexes->remove(where)
+		eval filter.lines->remove(where)
 	endfor
 	" -- clear selection
 	let selection.indexes = []
 	let selection.addresses = []
-	" -- clear filter
-	let filter.words = []
-	let filter.indexes = []
-	let filter.lines = []
 endfun
