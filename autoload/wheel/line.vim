@@ -277,7 +277,8 @@ fun! wheel#line#tabwins_tree (settings)
 	let settings = a:settings
 	let hierarchy = settings.selected
 	let tabnum = hierarchy[0]
-	if wheel#boomerang#is_context_menu ()
+	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'context'
+	if is_context_menu
 		let action = settings.menu.action
 	else
 		let action = 'open'
