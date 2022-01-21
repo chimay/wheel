@@ -760,6 +760,15 @@ In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
 - if on the first line, `k` or `<up>` will go to the last line
 - if on the last line, `j` or `<down>` will go to the first line
 
+Select entries~
+
+Some dedicated buffers can act on selected entries. You can hit :
+
+- `<space>` to toggle the selection of a line
+- `&` to reverse the selection of all visible lines
+- `*` to select all visible lines
+- `|` to clear the selection of all visible lines
+
 Filtering~
 
 In most dedicated buffers, the first line is left empty : it is used as an
@@ -792,6 +801,10 @@ For example, if you have the completion list `small flower`, `big flower`,
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
 
+There are also special words :
+
+- `=s` or `=selection` : the filtered elements will belong to the current selection
+
 Input history~
 
 An input history is available in insert mode. You can insert the
@@ -807,15 +820,6 @@ The main keys are :
 
 - `<enter>` : trigger the default action, close the dedicated buffer
 - `g<enter>` : trigger the default action, leave the dedicated buffer opened
-
-Select entries~
-
-Some dedicated buffers will act on selected entries. You can hit :
-
-- `<space>` to toggle the selection of a line
-- `&` to reverse the selection of all visible lines
-- `*` to select all visible lines
-- `|` to clear the selection of all visible lines
 
 Reload~
 

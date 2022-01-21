@@ -238,6 +238,11 @@ if ! exists('s:fold_two')
 	lockvar s:fold_two
 endif
 
+if ! exists('s:fold_pattern')
+	let s:fold_pattern = '\m' .. s:fold_markers[0] .. '[12]$'
+	lockvar s:fold_pattern
+endif
+
 " Separators in mandalas
 
 if ! exists('s:separator_field')

@@ -7,15 +7,14 @@
 " A kyusu is a japanese traditional teapot,
 " often provided with a filter inside
 
-" ====== script constants
+" script constants
 
-if ! exists('s:fold_markers')
-	let s:fold_markers = wheel#crystal#fetch('fold/markers')
-	let s:fold_markers = join(s:fold_markers, ',')
-	lockvar s:fold_markers
+if ! exists('s:fold_pattern')
+	let s:fold_pattern = wheel#crystal#fetch('fold/pattern')
+	lockvar s:fold_pattern
 endif
 
-" ====== helpers
+" helpers
 
 fun! wheel#kyusu#steep (wordlist, index, value)
 	" Whether value matches all words of wordlist
@@ -41,7 +40,7 @@ fun! wheel#kyusu#steep (wordlist, index, value)
 	return match
 endfun
 
-" ====== prompt completion
+" prompt completion
 
 fun! wheel#kyusu#pour (wordlist, list)
 	" Return elements of list matching words of wordlist
@@ -51,56 +50,58 @@ fun! wheel#kyusu#pour (wordlist, list)
 	return candidates
 endfun
 
-" ====== dedicated buffers
+" dedicated buffers
 
-fun! wheel#kyusu#words_or_folds (wordlist, index, value)
-	" Like kyusu#steep, but keep folds markers lines
+fun! wheel#kyusu#intermix (wordlist, index, value, sel_switch)
+	" Like kyusu#steep, but take selection switch into account
 	" index is not used, it's just for compatibility with filter()
-	let marker = s:fold_markers[0]
-	let pattern = '\m' .. marker .. '[12]$'
-	if a:value =~ pattern
-		return v:true
-	endif
-	return wheel#kyusu#steep (a:wordlist, 0, a:value)
+	let wordlist = a:wordlist
+	let index = a:index
+	let value = a:value
+	let sel_switch = a:sel_switch
+	let sel_indexes = b:wheel_selection.indexes
+	let pass = ! sel_switch || index->wheel#chain#is_inside(sel_indexes)
+	let pass = pass && wordlist->wheel#kyusu#steep(0, value)
+	return pass
 endfun
 
-fun! wheel#kyusu#remove_folds (wordlist, matrix)
+fun! wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
 	" Remove non-matching empty folds
 	let wordlist = a:wordlist
 	let matrix = a:matrix
+	let sel_switch = a:sel_switch
 	let indexlist = matrix[0]
 	let candidates = matrix[1]
 	if empty(candidates)
 		return [ [], [] ]
 	endif
 	let length = len(candidates)
-	let marker = s:fold_markers[0]
-	let pattern = '\m' .. marker .. '[12]$'
 	let filtered_indexes = []
 	let filtered_values = []
 	" ---- all but last element
 	for index in range(length - 1)
-		" --- Current line
+		" -- current line
 		let cur_value = candidates[index]
 		let cur_length = strchars(cur_value)
-		" Last char of fold start line contains fold level 1 or 2
 		let cur_last = strcharpart(cur_value, cur_length - 1, 1)
-		" --- Next line
+		" -- next line
 		let next_value = candidates[index + 1]
 		let next_length = strchars(next_value)
-		" Last char of fold start line contains fold level 1 or 2
 		let next_last = strcharpart(next_value, next_length - 1, 1)
-		" --- Comparison
+		" -- comparison
 		" if empty fold, value and next will contain marker
 		" and current fold level will be >= than next one
-		if cur_value =~ pattern && next_value =~ pattern && cur_last >= next_last
-			" Add line only if matches wordlist
-			if wheel#kyusu#steep (wordlist, 0, cur_value)
+		let empty_fold = cur_value =~ s:fold_pattern
+		let empty_fold = empty_fold && next_value =~ s:fold_pattern
+		let empty_fold = empty_fold && cur_last >= next_last
+		if empty_fold
+			" add line only if matches wordlist
+			if wheel#kyusu#intermix(wordlist, indexlist[index], cur_value, sel_switch)
 				eval filtered_indexes->add(indexlist[index])
 				eval filtered_values->add(cur_value)
 			endif
 		else
-			" Always add line
+			" always add line
 			eval filtered_indexes->add(indexlist[index])
 			eval filtered_values->add(cur_value)
 		endif
@@ -108,18 +109,14 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix)
 	" ---- last element
 	let index = length - 1
 	let value = candidates[-1]
-	if wheel#kyusu#steep (wordlist, 0, value)
+	if wheel#kyusu#intermix (wordlist, indexlist[index], value, sel_switch)
 		eval filtered_indexes->add(indexlist[index])
 		eval filtered_values->add(value)
 	endif
 	return [filtered_indexes, filtered_values]
 endfun
 
-" ==== indexes & lines
-
-" first implementation
-"
-" uses chain#filter, matrix#dual
+" indexes & lines
 
 fun! wheel#kyusu#indexes_and_lines ()
 	" Return lines matching words of first line
@@ -132,46 +129,30 @@ fun! wheel#kyusu#indexes_and_lines ()
 		return [filtered_indexes, filtered_values]
 	endif
 	call wheel#scroll#record(first)
-	" filter function
-	let Matches = function('wheel#kyusu#words_or_folds', [wordlist, 0])
-	" filtering
-	let matrix = linelist->wheel#chain#filter(Matches)
+	" special words
+	let sel_switch = v:false
+	for index in range(len(wordlist))
+		if wordlist[index] =~ '^=s'
+			let sel_switch = v:true
+			eval wordlist->remove(index)
+			break
+		endif
+	endfor
+	" filter
+	let filtered_indexes = []
+	let filtered_values = []
+	for index in range(len(linelist))
+		let value = linelist[index]
+		let pass = wheel#kyusu#intermix (wordlist, index, value, sel_switch) || value =~ s:fold_pattern
+		if pass
+			eval filtered_indexes->add(index)
+			eval filtered_values->add(value)
+		endif
+	endfor
+	let matrix = [filtered_indexes, filtered_values]
 	" remove folds two times : cleans a level each time
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
+	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
+	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
 	" return
 	return matrix
 endfun
-
-" second implementations
-"
-" use a loop
-
-" fun! wheel#kyusu#indexes_and_lines ()
-" 	" Return lines matching words of first line
-" 	let linelist = copy(b:wheel_lines)
-" 	let first = getline(1)
-" 	let wordlist = split(first)
-" 	if empty(wordlist)
-" 		let filtered_indexes = range(len(linelist))
-" 		let filtered_values = linelist
-" 		return [filtered_indexes, filtered_values]
-" 	endif
-" 	call wheel#scroll#record(first)
-" 	" filter with word_or_folds
-" 	let filtered_indexes = []
-" 	let filtered_values = []
-" 	for index in range(len(linelist))
-" 		let value = linelist[index]
-" 		if wordlist->wheel#kyusu#words_or_folds(0, value)
-" 			eval filtered_indexes->add(index)
-" 			eval filtered_values->add(value)
-" 		endif
-" 	endfor
-" 	let matrix = [filtered_indexes, filtered_values]
-" 	" remove folds two times : cleans a level each time
-" 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
-" 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix)
-" 	" return
-" 	return matrix
-" endfun
