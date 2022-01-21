@@ -230,7 +230,7 @@ fun! wheel#disc#tree_script (...)
 	else
 		let prompt = 'Write script in file ? '
 		let script_file = input(prompt, '', 'file')
-		let script_file = expand(script_file)
+		let script_file = wheel#tree#format_filename (script_file)
 	endif
 	let script = []
 	call add(script, '#!/bin/sh')

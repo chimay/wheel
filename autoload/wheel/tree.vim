@@ -38,7 +38,8 @@ endfun
 fun! wheel#tree#format_name (name)
 	" Format element name to avoid annoying characters
 	let name = a:name
-	let name = substitute(name, ' ', ' ', 'g')
+	let filename = trim(filename, ' ')
+	let name = substitute(name, ' ', '_', 'g')
 	return name
 endfun
 
@@ -46,8 +47,9 @@ fun! wheel#tree#format_filename (filename)
 	" Format filename to avoid annoying characters
 	let filename = a:filename
 	let filename = fnamemodify(filename, ':p')
-	let filename = substitute(filename, ' ', '_', 'g')
 	let filename = fnameescape(filename)
+	let filename = trim(filename, ' ')
+	let filename = substitute(filename, ' ', '_', 'g')
 	return filename
 endfun
 
@@ -79,6 +81,7 @@ fun! wheel#tree#insert_torus (torus)
 	if wheel#chain#is_inside(name, glossary)
 		let complete = 'customlist,wheel#complete#torus'
 		let name = input('Clone torus with name ? ', '', complete)
+		let name = wheel#tree#format_name (name)
 	endif
 	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Torus named' name 'already exists in wheel.'
@@ -102,6 +105,7 @@ fun! wheel#tree#insert_circle (circle)
 	if wheel#chain#is_inside(name, glossary)
 		let complete = 'customlist,wheel#complete#circle'
 		let name = input('Insert circle with name ? ', '', complete)
+		let name = wheel#tree#format_name (name)
 	endif
 	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Circle named' name 'already exists in torus' torus.name
@@ -126,6 +130,7 @@ fun! wheel#tree#insert_location (location)
 	if wheel#chain#is_inside(name, glossary)
 		let complete = 'customlist,wheel#complete#location'
 		let name = input('Insert location with name ? ', '', complete)
+		let name = wheel#tree#format_name (name)
 	endif
 	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Location named' name 'already exists in circle' circle.name
@@ -148,7 +153,6 @@ fun! wheel#tree#add_torus (...)
 	else
 		let torus_name = input('New torus name ? ')
 	endif
-	" replace spaces by non-breaking spaces
 	let torus_name = wheel#tree#format_name (torus_name)
 	if empty(torus_name)
 		call wheel#status#clear ()
@@ -184,6 +188,7 @@ fun! wheel#tree#add_circle (...)
 		let complete = 'customlist,wheel#complete#current_directory'
 		let circle_name = input('New circle name ? ', '', complete)
 	endif
+	let circle_name = wheel#tree#format_name (circle_name)
 	" add first torus if needed
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
@@ -435,6 +440,11 @@ fun! wheel#tree#rename_file (...)
 	" old name
 	let location = wheel#referen#location ()
 	let old_filename = location.file
+	if new_filename ==# old_filename
+		call wheel#status#clear ()
+		echomsg 'wheel tree rename file : new filename must be distinct from old one'
+		return v:false
+	endif
 	" link buffer to new file name
 	execute 'file' new_filename
 	" write it
@@ -443,11 +453,9 @@ fun! wheel#tree#rename_file (...)
 	let prompt = 'Remove old file ' .. old_filename .. ' ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 1
-		let command = 'rm'
-		let remove = command .. ' ' .. shellescape(old_filename)
-		call system(remove)
-		if v:shell_error
-			echomsg 'wheel rename file : error in executing system command.'
+		let code = delete(old_filename)
+		if code != 0
+			echomsg 'wheel rename file : error in deleting old filename.'
 			return v:false
 		endif
 	endif
@@ -455,6 +463,7 @@ fun! wheel#tree#rename_file (...)
 	call wheel#tree#adapt_filename (old_filename, new_filename)
 	" rename location
 	call wheel#tree#rename('location')
+	return v:true
 endfun
 
 " Remove

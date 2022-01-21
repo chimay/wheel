@@ -270,11 +270,11 @@ fun! wheel#cuboctahedron#rename_files ()
 		echomsg 'Names in excess : changes not written'
 		return []
 	endif
+	" -- rename location
 	for index in range(len_lines)
 		let fields = split(lines[index], s:field_separ)
-		" -- rename location
 		let old_name = glossary[index]
-		let new_name = substitute(fields[0], ' ', ' ', 'g')
+		let new_name = wheel#tree#format_name(fields[0])
 		let found = index(glossary, new_name)
 		if found >= 0 && found != index
 			echomsg 'Location' new_name 'already present in circle'
@@ -284,6 +284,9 @@ fun! wheel#cuboctahedron#rename_files ()
 		let locations[index].name = new_name
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename('location', old_name, new_name)
+	endfor
+	for index in range(len_lines)
+		let fields = split(lines[index], s:field_separ)
 		" -- rename file
 		let old_filename = locations[index].file
 		let new_filename = wheel#tree#format_filename (fields[1])
@@ -304,13 +307,14 @@ fun! wheel#cuboctahedron#rename_files ()
 				continue
 			endif
 		endif
-		" mv old new
+		" old -> new
 		echomsg 'wheel : renaming' old_filename '->' new_filename
 		let locations[index].file = new_filename
-		let old_filename = shellescape(old_filename)
-		let new_filename = shellescape(new_filename)
-		let syscmd_rename = 'mv -f ' .. old_filename .. ' ' .. new_filename
-		let output = system(syscmd_rename)
+		let code = rename(old_filename, new_filename)
+		if code != 0
+			echomsg 'wheel batch rename files : error in deleting old filename'
+			return v:false
+		endif
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_filename (old_filename, new_filename)
 	endfor
