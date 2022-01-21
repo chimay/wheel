@@ -73,12 +73,8 @@ fun! wheel#vortex#jump (where = 'search-window')
 		return win_getid ()
 	endif
 	" jump
-	if where == 'search-window'
-		let window = wheel#rectangle#tour ()
-	else
-		let window = v:false
-	endif
-	if window
+	let window = wheel#rectangle#tour ()
+	if where == 'search-window' && window
 		" switch to window containing location buffer
 		call win_gotoid(window)
 		call cursor(location.line, location.col)
