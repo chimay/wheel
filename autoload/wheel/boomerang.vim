@@ -105,7 +105,7 @@ fun! wheel#boomerang#buffers (action)
 		let rangelines = reverse(range(len(lines)))
 		" remove lines
 		for index in rangelines
-			let record = rangelines[index]
+			let record = lines[index]
 			let fields = split(record, s:field_separ)
 			let bufnum = str2nr(fields[0])
 			if bufnum->wheel#chain#is_inside(hidden)
