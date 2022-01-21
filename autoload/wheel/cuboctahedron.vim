@@ -251,13 +251,14 @@ fun! wheel#cuboctahedron#rename_files ()
 	" Rename locations & files of current circle, after buffer content
 	" -- update b:wheel_lines
 	call wheel#mandala#update_var_lines ()
-	" -- rename
+	" -- init
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
 	let locations = circle.locations
 	let lines = getline(1, '$')
 	let len_lines = len(lines)
 	let len_locations = len(locations)
+	" -- pre-checks
 	if len_lines < len_locations
 		echomsg 'Some names seem to be missing : changes not written'
 		return []
@@ -271,7 +272,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		let fields = split(lines[index], s:field_separ)
 		let old_name = glossary[index]
 		let new_name = wheel#tree#format_name(fields[0])
-		let found = index(glossary, new_name)
+		let found = glossary->index(new_name)
 		if found >= 0 && found != index
 			echomsg 'Location' new_name 'already present in circle'
 			continue
@@ -281,26 +282,28 @@ fun! wheel#cuboctahedron#rename_files ()
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename('location', old_name, new_name)
 	endfor
+	" -- rename file
 	for index in range(len_lines)
 		let fields = split(lines[index], s:field_separ)
-		" -- rename file
 		let old_filename = locations[index].file
 		let new_filename = wheel#tree#format_filename (fields[1])
+		" nothing to do if old == new
 		if old_filename ==# new_filename
 			continue
 		endif
 		" create directory if needed
 		let directory = fnamemodify(new_filename, ':h')
 		if ! isdirectory(directory)
+			echomsg 'wheel : mkdir' directory
 			let code = mkdir(directory, 'p')
 			if code == v:false
-				echomsg 'wheel batch rename files : error in creating directory' directory
+				echomsg 'wheel batch rename files : error creating dir' directory
 				return v:false
 			endif
 		endif
 		" check existent file
 		if filereadable(new_filename)
-			let prompt = 'Replace existing' new_filename '?'
+			let prompt = 'Replace existing ' .. new_filename .. ' ?'
 			let overwrite = confirm(prompt, "&Yes\n&No", 2)
 			if overwrite != 1
 				continue
@@ -311,7 +314,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		let locations[index].file = new_filename
 		let code = rename(old_filename, new_filename)
 		if code != 0
-			echomsg 'wheel batch rename files : error in renaming' old_filename '->' new_filename
+			echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
 			return v:false
 		endif
 		" rename file in all involved locations of the wheel

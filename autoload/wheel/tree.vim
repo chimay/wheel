@@ -38,7 +38,7 @@ endfun
 fun! wheel#tree#format_name (name)
 	" Format element name to avoid annoying characters
 	let name = a:name
-	let filename = trim(filename, ' ')
+	let filename = trim(name, ' ')
 	let name = substitute(name, ' ', '_', 'g')
 	return name
 endfun
@@ -46,10 +46,10 @@ endfun
 fun! wheel#tree#format_filename (filename)
 	" Format filename to avoid annoying characters
 	let filename = a:filename
-	let filename = fnamemodify(filename, ':p')
-	let filename = fnameescape(filename)
 	let filename = trim(filename, ' ')
 	let filename = substitute(filename, ' ', '_', 'g')
+	let filename = fnamemodify(filename, ':p')
+	let filename = fnameescape(filename)
 	return filename
 endfun
 
@@ -431,15 +431,25 @@ fun! wheel#tree#rename_file (...)
 		let complete = 'customlist,wheel#complete#file'
 		let new_filename = input(prompt, dir, complete)
 	endif
-	" new name
-	let new_filename = wheel#tree#format_filename (new_filename)
 	" old name
 	let location = wheel#referen#location ()
 	let old_filename = location.file
-	if new_filename ==# old_filename
+	" new name
+	let new_filename = wheel#tree#format_filename (new_filename)
+	" nothing to do if old == new
+	if old_filename ==# new_filename
 		call wheel#status#clear ()
 		echomsg 'wheel tree rename file : new filename must be distinct from old one'
 		return v:false
+	endif
+	" create directory if needed
+	let directory = fnamemodify(new_filename, ':h')
+	if ! isdirectory(directory)
+		let code = mkdir(directory, 'p')
+		if code == v:false
+			echomsg 'wheel batch rename files : error in creating directory' directory
+			return v:false
+		endif
 	endif
 	" link buffer to new file name
 	execute 'file' new_filename
