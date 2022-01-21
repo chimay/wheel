@@ -9,7 +9,7 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" Helpers
+" helpers
 
 fun! wheel#sailing#mappings (settings)
 	" Define sailing maps
@@ -63,23 +63,27 @@ fun! wheel#sailing#generic (type)
 	let type = a:type
 	let Perspective = function('wheel#perspective#' .. type)
 	let lines = Perspective ()
+	if empty(lines)
+		echomsg 'wheel sailing generic : empty lines in' type
+		return v:false
+	endif
 	call wheel#mandala#open (type)
 	let settings = {'function' : function('wheel#line#' .. type)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
 endfun
 
-" Buffers
+" dedicated buffers
 
 fun! wheel#sailing#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
-	let lines = wheel#perspective#switch (level)
 	if wheel#referen#is_empty_upper (level)
 		let upper = wheel#referen#upper_level_name (level)
 		echomsg 'wheel sailing switch : empty' upper
-		return
+		return v:false
 	endif
+	let lines = wheel#perspective#switch (level)
 	call wheel#mandala#open ('switch/' .. level)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
@@ -96,6 +100,10 @@ fun! wheel#sailing#helix ()
 	" Choose a location coordinate
 	" Each coordinate = [torus, circle, location]
 	let lines = wheel#perspective#helix ()
+	if empty(lines)
+		echomsg 'wheel sailing helix : empty wheel'
+		return v:false
+	endif
 	call wheel#mandala#open ('index/location')
 	let settings = {'function' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
@@ -108,6 +116,10 @@ fun! wheel#sailing#grid ()
 	" Choose a circle coordinate
 	" Each coordinate = [torus, circle]
 	let lines = wheel#perspective#grid ()
+	if empty(lines)
+		echomsg 'wheel sailing grid : empty wheel'
+		return v:false
+	endif
 	call wheel#mandala#open ('index/circle')
 	let settings = {'function' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
@@ -119,6 +131,10 @@ endfun
 fun! wheel#sailing#tree ()
 	" Choose an element in the wheel tree
 	let lines = wheel#perspective#tree ()
+	if empty(lines)
+		echomsg 'wheel sailing tree : empty wheel'
+		return v:false
+	endif
 	call wheel#mandala#open ('index/tree')
 	let settings = {'function' : function('wheel#line#tree')}
 	call wheel#sailing#template (settings)
@@ -145,6 +161,10 @@ fun! wheel#sailing#locate (...)
 		let pattern = input(prompt)
 	endif
 	let lines = wheel#perspective#locate (pattern)
+	if empty(lines)
+		echomsg 'wheel sailing locate : no match found'
+		return v:false
+	endif
 	call wheel#mandala#open ('locate')
 	let settings = {'function' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
@@ -167,6 +187,10 @@ fun! wheel#sailing#find (...)
 	endif
 	echomsg 'wheel find : using pattern' pattern
 	let lines = wheel#perspective#find (pattern)
+	if empty(lines)
+		echomsg 'wheel sailing find : no match found'
+		return v:false
+	endif
 	call wheel#mandala#open ('find')
 	let settings = {'function' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
@@ -233,6 +257,10 @@ fun! wheel#sailing#buffers (scope = 'listed')
 	"   - all : also return unlisted buffers
 	let scope = a:scope
 	let lines = wheel#perspective#buffers (scope)
+	if empty(lines)
+		echomsg 'wheel sailing buffers : empty result'
+		return v:false
+	endif
 	" mandala buffer
 	if scope == 'listed'
 		let type = 'buffers'
@@ -256,6 +284,10 @@ fun! wheel#sailing#tabwins ()
 	" Buffers visible in tabs & wins
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins ()
+	if empty(lines)
+		echomsg 'wheel sailing tabwins : empty result'
+		return v:false
+	endif
 	call wheel#mandala#open ('tabwins')
 	let settings = {'function' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
@@ -270,6 +302,10 @@ fun! wheel#sailing#tabwins_tree ()
 	" Buffers visible in tree of tabs & wins
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins_tree ()
+	if empty(lines)
+		echomsg 'wheel sailing tabwins tree : empty result'
+		return v:false
+	endif
 	call wheel#mandala#open ('tabwins/tree')
 	let settings = {'function' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
@@ -291,6 +327,10 @@ fun! wheel#sailing#occur (...)
 	call wheel#rectangle#previous ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
+	if empty(lines)
+		echomsg 'wheel sailing occur : no match found'
+		return v:false
+	endif
 	call wheel#mandala#open ('occur')
 	let settings = {'function' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)
@@ -373,6 +413,10 @@ fun! wheel#sailing#jumps ()
 	" Jumps list
 	call wheel#rectangle#previous ()
 	let lines = wheel#perspective#jumps ()
+	if empty(lines)
+		echomsg 'wheel sailing jumps : empty result'
+		return v:false
+	endif
 	" mandala buffer
 	call wheel#mandala#open ('jumps')
 	let settings = {'function' : function('wheel#line#jumps')}
@@ -386,6 +430,10 @@ fun! wheel#sailing#changes ()
 	" Jumps list
 	call wheel#rectangle#previous ()
 	let lines = wheel#perspective#changes ()
+	if empty(lines)
+		echomsg 'wheel sailing changes : empty result'
+		return v:false
+	endif
 	" mandala buffer
 	call wheel#mandala#open ('changes')
 	let settings = {'function' : function('wheel#line#changes')}
