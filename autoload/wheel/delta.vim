@@ -84,7 +84,7 @@ endfun
 
 " maps
 
-fun! wheel#delta#maps ()
+fun! wheel#delta#mappings ()
 	" Maps for undo list mandala
 	let bufnum = b:wheel_related_buffer
 	let map = 'nnoremap <silent> <buffer>'
@@ -121,7 +121,7 @@ fun! wheel#delta#undolist ()
 	let lines = wheel#perspective#undolist ()
 	call wheel#mandala#open('undo/' .. filename)
 	call wheel#mandala#template ()
-	call wheel#delta#maps ()
+	call wheel#delta#mappings ()
 	call wheel#mandala#fill (lines)
 	let b:wheel_settings.undo_iden = wheel#delta#undo_iden(1)
 	" reload

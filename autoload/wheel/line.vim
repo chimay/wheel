@@ -528,7 +528,7 @@ fun! wheel#line#paste_list (...)
 		endif
 		let content = eval(line)
 	else
-		let content = deepcopy(b:wheel_selection.addresses)
+		let content = deepcopy( wheel#pencil#addresses () )
 		eval content->map({ _, list_string -> eval(list_string) })
 		eval content->map({ _, list -> join(list, "\n") })
 	endif
@@ -561,7 +561,7 @@ fun! wheel#line#paste_plain (...)
 	if wheel#pencil#is_selection_empty ()
 		let content = getline('.')
 	else
-		let content = b:wheel_selection.addresses
+		let content = deepcopy( wheel#pencil#addresses () )
 	endif
 	if empty(content)
 		return v:false

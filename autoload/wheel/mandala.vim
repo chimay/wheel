@@ -407,14 +407,14 @@ endfun
 
 fun! wheel#mandala#undo ()
 	" Undo action in previous window
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	undo
 	call wheel#cylinder#recall ()
 endfun
 
 fun! wheel#mandala#redo ()
 	" Redo action in previous window
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	redo
 	call wheel#cylinder#recall ()
 endfun
