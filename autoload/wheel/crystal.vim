@@ -60,7 +60,7 @@ endif
 " Mandala prompt
 
 if ! exists('s:mandala_prompt')
-	let s:mandala_prompt = 'wheel 𝦏 '
+	let s:mandala_prompt = 'wheel 🞋 '
 	lockvar s:mandala_prompt
 endif
 
