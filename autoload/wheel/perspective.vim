@@ -172,7 +172,7 @@ endfun
 fun! wheel#perspective#locate (pattern)
 	" Locate
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems'
+		echomsg 'wheel perspective locate : this function is only supported on Unix systems'
 		return v:false
 	endif
 	let pattern = a:pattern

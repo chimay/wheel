@@ -68,7 +68,7 @@ endfun
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems'
+		echomsg 'wheel roll backups : this function is only supported on Unix systems'
 		return v:false
 	endif
 	let file = expand(a:file)
@@ -208,7 +208,7 @@ fun! wheel#disc#tree_script (...)
 	" Write a shell script which generates a tree of symlinks or copies
 	" following the wheel hierarchy torus/circle/location
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems'
+		echomsg 'wheel tree script : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0
@@ -271,7 +271,7 @@ fun! wheel#disc#symlink_tree (...)
 	" Tree of symlinks following the wheel hierarchy
 	" torus/circle/link-to-location-file
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems'
+		echomsg 'wheel symlink tree : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0
@@ -333,7 +333,7 @@ fun! wheel#disc#copied_tree ()
 	" torus/circle/copy-of-the-location-file
 	" Useful to make a backup of the wheel files
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems'
+		echomsg 'wheel copied tree : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0

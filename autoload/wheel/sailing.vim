@@ -178,7 +178,7 @@ endfun
 fun! wheel#sailing#async_find (...)
 	" Search files in current directory using find in async job
 	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems'
+		echomsg 'wheel async find : this function is only supported on Unix systems'
 		return v:false
 	endif
 	if a:0 > 0

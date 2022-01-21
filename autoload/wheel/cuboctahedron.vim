@@ -249,10 +249,6 @@ endfun
 
 fun! wheel#cuboctahedron#rename_files ()
 	" Rename locations & files of current circle, after buffer content
-	if ! has('unix')
-		echomsg 'wheel : this function is only supported on Unix systems'
-		return v:false
-	endif
 	" -- update b:wheel_lines
 	call wheel#mandala#update_var_lines ()
 	" -- rename
@@ -296,8 +292,11 @@ fun! wheel#cuboctahedron#rename_files ()
 		" create directory if needed
 		let directory = fnamemodify(new_filename, ':h')
 		if ! isdirectory(directory)
-			let mkdir = 'mkdir -p ' .. directory
-			let output = system(mkdir)
+			let code = mkdir(directory, 'p')
+			if code == v:false
+				echomsg 'wheel batch rename files : error in creating directory' directory
+				return v:false
+			endif
 		endif
 		" check existent file
 		if filereadable(new_filename)
@@ -312,7 +311,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		let locations[index].file = new_filename
 		let code = rename(old_filename, new_filename)
 		if code != 0
-			echomsg 'wheel batch rename files : error in deleting old filename'
+			echomsg 'wheel batch rename files : error in renaming' old_filename '->' new_filename
 			return v:false
 		endif
 		" rename file in all involved locations of the wheel
