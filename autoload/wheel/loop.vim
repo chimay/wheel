@@ -92,7 +92,7 @@ fun! wheel#loop#boomerang (settings)
 	let Fun = settings.function
 	let close = menu_settings.close
 	" ---- selection
-	let selected = wheel#boomerang#addresses ()
+	let selected = wheel#branch#addresses ()
 	if empty(selected[0])
 		return v:false
 	endif

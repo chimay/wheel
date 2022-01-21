@@ -232,6 +232,10 @@ endfun
 fun! wheel#pencil#addresses ()
 	" Return selected addresses
 	" If empty, return address of current line
+	" If context menu, look in previous leaf
+	if wheel#boomerang#is_context_menu ()
+		return wheel#branch#addresses ()
+	endif
 	if wheel#pencil#is_selection_empty ()
 		return [ wheel#line#address () ]
 	endif

@@ -27,16 +27,6 @@ fun! wheel#boomerang#is_context_menu ()
 	return b:wheel_nature.context_menu
 endfun
 
-fun! wheel#boomerang#addresses ()
-	" Return selected addresses of current leaf
-	" If empty, return address of parent line
-	if wheel#pencil#is_selection_empty ()
-		echomsg 'wheel boomerang addresses : selection should not be empty'
-		call wheel#boomerang#sync_from_parent ()
-	endif
-	return b:wheel_selection.addresses
-endfun
-
 " mandalas
 
 fun! wheel#boomerang#launch_map (type)
@@ -53,8 +43,6 @@ fun! wheel#boomerang#menu (dictname)
 	let settings.menu = #{kind : 'context', linefun : dictname, close : v:false, travel : v:false}
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
-	" ---- seek selection & settings from parent leaf
-	call wheel#branch#sync ()
 	" ---- properties ; must come after tower#staircase
 	" -- selection property
 	let b:wheel_nature.has_selection = v:false
@@ -150,18 +138,19 @@ fun! wheel#boomerang#tabwins (action)
 	elseif action == 'tabclose'
 		" closing last tab first
 		let settings.menu.kind = 'context'
-		let original_indexes = b:wheel_selection.indexes
-		let original_addresses = b:wheel_selection.addresses
-		let indexes = original_indexes
-		let addresses = original_addresses
+		let selection = wheel#book#previous('selection')
+		let indexes = selection.indexes
+		let addresses = selection.addresses
+		let original_indexes = copy(indexes)
+		let original_addresses = copy(addresses)
 		let [indexlist, indexes] = wheel#chain#sort(indexes)
 		call reverse(indexes)
 		call reverse(indexlist)
-		let b:wheel_selection.indexes = indexes
-		let b:wheel_selection.addresses = addresses->wheel#chain#sublist(indexlist)
+		let selection.indexes = indexes
+		let selection.addresses = addresses->wheel#chain#sublist(indexlist)
 		call wheel#loop#boomerang (settings)
-		let b:wheel_selection.indexes = original_indexes
-		let b:wheel_selection.addresses = original_addresses
+		let selection.indexes = original_indexes
+		let selection.addresses = original_addresses
 		return v:true
 	endif
 	return v:false

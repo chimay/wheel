@@ -74,39 +74,26 @@ fun! wheel#branch#addresses ()
 	endif
 endfun
 
-" sync parent leaf -> current one
-
-fun! wheel#branch#sync ()
-	" Sync selection & settings in previous layer to mandala state
-	" -- selection
-	let b:wheel_selection = wheel#branch#selection ()
-	" -- settings
-	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
-endfun
-
 " remove selection & related lines
 
 fun! wheel#branch#remove_selection ()
 	" Parent leaf : remove selection & related lines, reset filter
 	" removed = selected lines or cursor address
 	" e.g. : deleted buffers, closed tabs
-	" -- selection in current leaf
-	" -- should be synced from parent
-	let selection = b:wheel_selection
-	" -- clear lines in parent leaf
 	let lines = wheel#book#previous ('lines')
-	for index in selection.indexes
+	let filter = wheel#book#previous ('filter')
+	let selection = wheel#book#previous ('selection')
+	let selection_or_cursor = wheel#branch#selection ()
+	" -- clear lines in parent leaf
+	let indexlist = sort(copy(selection_or_cursor.indexes))
+	let indexlist = reverse(indexlist)
+	for index in indexlist
 		eval lines->remove(index)
 	endfor
-	" -- clear selection in current leaf
+	" -- clear selection
 	let selection.indexes = []
 	let selection.addresses = []
-	" -- clear selection in parent leaf
-	let selection = wheel#book#previous('selection')
-	let selection.indexes = []
-	let selection.addresses = []
-	" -- clear filter in parent leaf
-	let filter = wheel#book#previous ('filter')
+	" -- clear filter
 	let filter.words = []
 	let filter.indexes = []
 	let filter.lines = []
