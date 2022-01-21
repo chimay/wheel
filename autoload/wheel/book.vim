@@ -307,9 +307,8 @@ fun! wheel#book#syncdown ()
 		" filter available
 		if wheel#teapot#is_filtered ()
 			" filtered
-			let words = join(filter.words)
 			let visible_lines = filter.lines
-			call wheel#teapot#prompt (join(filter.words))
+			call wheel#teapot#prompt (filter.words)
 		else
 			" not filtered
 			let visible_lines = b:wheel_lines

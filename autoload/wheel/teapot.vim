@@ -47,6 +47,35 @@ fun! wheel#teapot#line_index (...)
 	endif
 endfun
 
+" prompt
+
+fun! wheel#teapot#prompt (...)
+	" Add prompt at first line if not already there
+	" Optional argument :
+	"   - line content after prompt
+	"   - default : first line content, except prompt
+	if a:0 > 0
+		let content = a:1
+		if type(content) == v:t_list
+			let content = join(content)
+		endif
+	else
+		let content = getline(1)
+	endif
+	if content !~ '\m^' .. s:mandala_prompt
+		let content = s:mandala_prompt .. content
+	endif
+	call setline(1, content)
+endfun
+
+fun! wheel#teapot#wordlist ()
+	" Return words of filtering first line, except prompt
+	let pattern = '\m^' .. s:mandala_prompt
+	let words = getline(1)
+	let words = substitute(words, pattern, '', '')
+	return split(words)
+endfun
+
 " run filter
 
 fun! wheel#teapot#goto_filter_line (mode = 'normal')
@@ -69,14 +98,20 @@ fun! wheel#teapot#filter (mode = 'normal')
 	"   - normal : end in normal mode
 	"   - insert : end in insert mode
 	let mode = a:mode
-	let matrix = wheel#kyusu#indexes_and_lines ()
-	let indexes = matrix[0]
-	let lines = matrix[1]
-	let words = getline(1)
-	let words = substitute(words, s:mandala_prompt, '', '')
-	let b:wheel_filter.words = split(words)
-	let b:wheel_filter.indexes = indexes
-	let b:wheel_filter.lines = lines
+	let words = wheel#teapot#wordlist ()
+	if empty(words)
+		let lines = b:wheel_lines
+		let b:wheel_filter.words = []
+		let b:wheel_filter.indexes = []
+		let b:wheel_filter.lines = []
+	else
+		let matrix = wheel#kyusu#indexes_and_lines ()
+		let indexes = matrix[0]
+		let lines = matrix[1]
+		let b:wheel_filter.words = words
+		let b:wheel_filter.indexes = indexes
+		let b:wheel_filter.lines = lines
+	endif
 	call wheel#mandala#replace (lines, 'keep-first')
 	call wheel#pencil#show ()
 	if mode == 'normal'
@@ -90,19 +125,7 @@ fun! wheel#teapot#filter (mode = 'normal')
 	endif
 endfun
 
-" prompt
-
-fun! wheel#teapot#prompt (...)
-	if a:0 > 0
-		let content = a:1
-	else
-		let content = getline(1)
-	endif
-	if content !~ '\m^' .. s:mandala_prompt
-		let content = s:mandala_prompt .. content
-	endif
-	call setline(1, content)
-endfun
+" mappings
 
 fun! wheel#teapot#ctrl_u ()
 	" Ctrl-U on filter line
