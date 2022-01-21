@@ -366,10 +366,6 @@ endfun
 
 fun! wheel#book#delete ()
 	" Delete current leaf in ring
-	if wheel#mandala#is_empty()
-		echomsg 'wheel leaf delete : empty mandala'
-		return v:false
-	endif
 	let ring = b:wheel_ring
 	let leaves = ring.leaves
 	let length = len(leaves)
@@ -397,8 +393,8 @@ endfun
 fun! wheel#book#forward ()
 	" Go forward in layer ring
 	if wheel#mandala#is_empty()
-		echomsg 'wheel leaf forward : empty mandala'
-		return v:false
+		echomsg 'wheel leaf forward : deleting empty leaf'
+		call wheel#book#delete ()
 	endif
 	call wheel#book#syncup ()
 	let ring = b:wheel_ring
@@ -415,8 +411,8 @@ endfun
 fun! wheel#book#backward ()
 	" Go backward in layer ring
 	if wheel#mandala#is_empty()
-		echomsg 'wheel leaf backward : empty mandala'
-		return v:false
+		echomsg 'wheel leaf backward : deleting empty leaf'
+		call wheel#book#delete ()
 	endif
 	call wheel#book#syncup ()
 	let ring = b:wheel_ring
@@ -435,8 +431,8 @@ endfun
 fun! wheel#book#switch (...)
 	" Switch to layer with completion
 	if wheel#mandala#is_empty()
-		echomsg 'wheel leaf switch : empty mandala'
-		return v:false
+		echomsg 'wheel leaf switch : deleting empty leaf'
+		call wheel#book#delete ()
 	endif
 	call wheel#book#syncup ()
 	let ring = b:wheel_ring

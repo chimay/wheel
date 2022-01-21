@@ -341,7 +341,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	elseif answer == 2
 		let mode = 'move'
 	endif
-	" -- destination
+	" -- prompt for destination
 	let upper_name = wheel#referen#upper_level_name (level)
 	let prompt = mode .. ' ' .. level .. ' to ' .. upper_name .. ' ? '
 	if level ==# 'torus'
@@ -360,7 +360,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	" -- pre checks
 	let selected = b:wheel_selection.addresses
 	if empty(selected)
-		echomsg 'wheel copy/move : you must first select element(s)'
+		echomsg 'wheel copy / move : you must first select element(s)'
 	endif
 	if mode == 'move'
 		if level ==# 'torus'
@@ -374,46 +374,40 @@ fun! wheel#cuboctahedron#copy_move (level)
 			return v:false
 		endif
 	endif
-	" -- copy / move selection
-	if level ==# 'torus'
+	" -- departure
+	if level ==# 'wheel'
+		echomsg 'Cannot copy or move the wheel'
+		return v:false
+	elseif level ==# 'torus'
 		for name in selected
 			" mode must be copy at this stage
 			let index = g:wheel.glossary->index(name)
 			let torus = deepcopy(g:wheel.toruses[index])
 			call wheel#tree#insert_torus (torus)
 		endfor
-	elseif level ==# 'circle'
-		let elements = []
-		let torus = wheel#referen#torus ()
-		let glossary = torus.glossary
-		let circlelist = torus.circles
+	else
+		let upper = wheel#referen#upper (level)
+		let glossary = upper.glossary
+		let elements = wheel#referen#elements (upper)
+		let travellers = []
 		for name in selected
 			let index = glossary->index(name)
-			let circle = deepcopy(circlelist[index])
-			call add(elements, circle)
+			let elem = deepcopy(elements[index])
+			eval travellers->add(elem)
 			if mode == 'move'
-				call wheel#tree#remove (level, circle.name)
+				call wheel#tree#remove (level, elem.name)
 			endif
 		endfor
+	endif
+	" -- destination
+	if level ==# 'circle'
 		call wheel#vortex#tune ('torus', destination)
-		for circle in elements
+		for circle in travellers
 			call wheel#tree#insert_circle (circle)
 		endfor
 	elseif level ==# 'location'
-		let elements = []
-		let circle = wheel#referen#circle ()
-		let glossary = circle.glossary
-		let locationlist = circle.locations
-		for name in selected
-			let index = glossary->index(name)
-			let location = deepcopy(locationlist[index])
-			call add(elements, location)
-			if mode == 'move'
-				call wheel#tree#remove (level, location.name)
-			endif
-		endfor
 		call wheel#vortex#interval (coordin)
-		for location in elements
+		for location in travellers
 			call wheel#tree#insert_location (location)
 		endfor
 	endif

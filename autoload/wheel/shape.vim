@@ -23,12 +23,14 @@ endif
 
 fun! wheel#shape#write (fun_name, ...)
 	" Define BufWriteCmd autocommand
+	" -- arguments
+	let fun_name = a:fun_name
 	if a:0 > 0
 		let optional = string(a:1)
 	else
 		let optional = ''
 	endif
-	let fun_name = a:fun_name
+	" -- mandala
 	setlocal buftype=acwrite
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
@@ -50,16 +52,16 @@ fun! wheel#shape#reorder (level)
 	" Reorder level elements in a buffer
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
+	if empty(lines)
+		echomsg 'wheel shape reorder : empty or incomplete' level
+		return v:false
+	endif
 	call wheel#mandala#open ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('reorder', level)
-	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'delete-first')
-		silent global /^$/ delete
-		setlocal nomodified
-	else
-		echomsg 'wheel shape reorder : empty or incomplete' level
-	endif
+	call wheel#mandala#fill(lines, 'delete-first')
+	silent global /^$/ delete
+	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#shape#reorder('" .. level .. "')"
 endfun
@@ -86,32 +88,14 @@ endfun
 
 fun! wheel#shape#rename_files ()
 	" Rename locations & files of current circle, after buffer content
-	let glossary = wheel#perspective#switch ('location')
-	if empty(glossary)
+	" -- lines
+	let lines = wheel#perspective#rename_files ()
+	" -- pre-checks
+	if empty(lines)
 		echomsg 'wheel shape rename_files : empty or incomplete circle'
-		if wheel#cylinder#is_mandala ()
-			" for reload
-			let b:wheel_nature.empty = v:false
-		endif
 		return v:false
 	endif
-	let locations = deepcopy(wheel#referen#circle().locations)
-	let filenames = map(locations, {_,v -> v.file})
-	let lines = []
-	let len_circle = len(locations)
-	if len_circle != len(filenames)
-		echomsg 'shape rename_files : inconsistent circle lengths'
-		if wheel#cylinder#is_mandala ()
-			" for reload
-			let b:wheel_nature.empty = v:false
-		endif
-		return v:false
-	endif
-	for index in range(len_circle)
-		let entry = [glossary[index], filenames[index]]
-		let record = join(entry, s:field_separ)
-		call add(lines, record)
-	endfor
+	" -- mandala
 	call wheel#mandala#open ('rename/locations_files')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('rename_files')
@@ -186,6 +170,7 @@ endfun
 
 fun! wheel#shape#grep_edit (...)
 	" Reorder level elements in a buffer
+	" -- arguments
 	if a:0 > 0
 		let pattern = a:1
 	else
@@ -213,15 +198,14 @@ fun! wheel#shape#grep_edit (...)
 			let sieve = '\m.'
 		endif
 	endif
+	" -- lines
 	let lines = wheel#perspective#grep (pattern, sieve)
+	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel sailing grep : no match found'
-		if wheel#cylinder#is_mandala ()
-			" when reloading
-			let b:wheel_nature.empty = v:false
-		endif
 		return v:false
 	endif
+	" -- mandala
 	call wheel#mandala#open ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('wheel#vector#write_quickfix')

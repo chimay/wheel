@@ -78,6 +78,25 @@ fun! wheel#perspective#switch (level)
 	endif
 endfun
 
+fun! wheel#perspective#rename_files ()
+	" Locations & files names
+	let circle = deepcopy(wheel#referen#circle())
+	if empty(circle) || empty(circle.glossary)
+		return []
+	endif
+	let glossary = circle.glossary
+	let locations = circle.locations
+	let filenames = locations->map({ _, val -> val.file })
+	let returnlist = []
+	let len_circle = len(locations)
+	for index in range(len_circle)
+		let entry = [glossary[index], filenames[index]]
+		let record = join(entry, s:field_separ)
+		call add(returnlist, record)
+	endfor
+	return returnlist
+endfun
+
 " from helix
 
 fun! wheel#perspective#helix ()

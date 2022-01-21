@@ -314,10 +314,6 @@ fun! wheel#sailing#grep (...)
 	let lines = wheel#perspective#grep (pattern, sieve)
 	if empty(lines)
 		echomsg 'wheel sailing grep : no match found'
-		if wheel#cylinder#is_mandala ()
-			" when reloading
-			let b:wheel_nature.empty = v:false
-		endif
 		return v:false
 	endif
 	call wheel#rectangle#previous ()
