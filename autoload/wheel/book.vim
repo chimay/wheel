@@ -10,6 +10,11 @@
 
 " Script constants
 
+if ! exists('s:mandala_prompt')
+	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
+	lockvar s:mandala_prompt
+endif
+
 if ! exists('s:mandala_options')
 	let s:mandala_options = wheel#crystal#fetch('mandala/options')
 	lockvar s:mandala_options
@@ -248,7 +253,6 @@ fun! wheel#book#syncup ()
 	let leaf.related_buffer = b:wheel_related_buffer
 	" -- all original lines
 	if empty(b:wheel_lines)
-		echomsg 'empty mandala lines'
 		let begin = wheel#teapot#first_data_line ()
 		let leaf.lines = getline(begin, '$')
 	else
@@ -305,11 +309,11 @@ fun! wheel#book#syncdown ()
 			" filtered
 			let words = join(filter.words)
 			let visible_lines = filter.lines
-			call setline(1, words)
+			call wheel#teapot#prompt (join(filter.words))
 		else
 			" not filtered
 			let visible_lines = b:wheel_lines
-			call setline(1, '')
+			call wheel#teapot#prompt ('')
 		endif
 		call wheel#mandala#replace (visible_lines, 'keep-first')
 	else

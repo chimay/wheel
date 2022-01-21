@@ -9,6 +9,11 @@
 
 " script constants
 
+if ! exists('s:mandala_prompt')
+	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
+	lockvar s:mandala_prompt
+endif
+
 if ! exists('s:fold_pattern')
 	let s:fold_pattern = wheel#crystal#fetch('fold/pattern')
 	lockvar s:fold_pattern
@@ -122,6 +127,7 @@ fun! wheel#kyusu#indexes_and_lines ()
 	" Return lines matching words of first line
 	let linelist = copy(b:wheel_lines)
 	let first = getline(1)
+	let first = substitute(first, s:mandala_prompt, '', '')
 	let wordlist = split(first)
 	if empty(wordlist)
 		let filtered_indexes = range(len(linelist))

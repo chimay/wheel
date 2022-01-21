@@ -299,7 +299,7 @@ fun! wheel#polyphony#filter_maps ()
 	" insert mode at the end
 	exe imap "<space> <space><esc>:call wheel#polyphony#crossroad('space', 'insert', '>')<cr>"
 	exe imap "<c-w> <c-w><esc>:call wheel#polyphony#crossroad('c-w', 'insert', '>')<cr>"
-	exe imap "<c-u> <c-u><esc>:call wheel#polyphony#crossroad('c-w', 'insert', '>')<cr>"
+	exe imap "<c-u> <esc>:call wheel#teapot#ctrl_u()<cr>"
 	" normal mode at the end
 	exe imap "<cr> <esc>:call wheel#polyphony#crossroad('cr', 'normal', '>')<cr>"
 	exe imap "<esc> <esc>:call wheel#polyphony#crossroad('esc', 'normal', '>')<cr>"

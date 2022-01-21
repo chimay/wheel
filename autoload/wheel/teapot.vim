@@ -4,6 +4,11 @@
 
 " helpers
 
+if ! exists('s:mandala_prompt')
+	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
+	lockvar s:mandala_prompt
+endif
+
 fun! wheel#teapot#has_filter ()
 	" Whether mandala has filter in first line, false otherwise
 	return b:wheel_nature.has_filter
@@ -67,7 +72,9 @@ fun! wheel#teapot#filter (mode = 'normal')
 	let matrix = wheel#kyusu#indexes_and_lines ()
 	let indexes = matrix[0]
 	let lines = matrix[1]
-	let b:wheel_filter.words = split(getline(1))
+	let words = getline(1)
+	let words = substitute(words, s:mandala_prompt, '', '')
+	let b:wheel_filter.words = split(words)
 	let b:wheel_filter.indexes = indexes
 	let b:wheel_filter.lines = lines
 	call wheel#mandala#replace (lines, 'keep-first')
@@ -83,7 +90,29 @@ fun! wheel#teapot#filter (mode = 'normal')
 	endif
 endfun
 
-" mappings
+" prompt
+
+fun! wheel#teapot#prompt (...)
+	if a:0 > 0
+		let content = a:1
+	else
+		let content = getline(1)
+	endif
+	if content !~ '\m^' .. s:mandala_prompt
+		let content = s:mandala_prompt .. content
+	endif
+	call setline(1, content)
+endfun
+
+fun! wheel#teapot#ctrl_u ()
+	" Ctrl-U on filter line
+	let linum = line('.')
+	if linum != 1
+		return v:false
+	endif
+	call setline(1, s:mandala_prompt)
+	call wheel#teapot#filter('insert')
+endfun
 
 fun! wheel#teapot#mappings ()
 	" Define filter maps & set property
@@ -95,7 +124,7 @@ fun! wheel#teapot#mappings ()
 	" -- insert mode
 	inoremap <silent> <buffer> <space> <space><esc>:call wheel#teapot#filter('insert')<cr>
 	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#teapot#filter('insert')<cr>
-	inoremap <silent> <buffer> <c-u> <c-u><esc>:call wheel#teapot#filter('insert')<cr>
+	inoremap <silent> <buffer> <c-u> <esc>:call wheel#teapot#ctrl_u()<cr>
 	inoremap <silent> <buffer> <cr> <esc>:call wheel#teapot#filter()<cr>
 	inoremap <silent> <buffer> <esc> <esc>:call wheel#teapot#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape

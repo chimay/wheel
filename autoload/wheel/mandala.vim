@@ -12,6 +12,11 @@
 
 " Script constants
 
+if ! exists('s:mandala_prompt')
+	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
+	lockvar s:mandala_prompt
+endif
+
 if ! exists('s:map_keys')
 	let s:map_keys = wheel#crystal#fetch('map/keys')
 	lockvar s:map_keys
@@ -338,8 +343,10 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	call cursor(1, 1)
 	call append('.', content)
 	" -- first line
-	if first == 'blank-first'
-		call setline(1, '')
+	if first == 'keep-first'
+		call wheel#teapot#prompt ()
+	elseif first == 'blank-first'
+		call setline(1, s:mandala_prompt)
 	elseif first == 'delete-first'
 		silent 1 delete _
 	endif
