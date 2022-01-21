@@ -258,6 +258,7 @@ fun! wheel#book#syncup ()
 	let leaf.filter = deepcopy(b:wheel_filter)
 	" -- cursor
 	" position
+	call wheel#line#default ()
 	let cursor = leaf.cursor
 	let cursor.position = getcurpos()
 	" address of cursor line : useful for context menus
