@@ -202,7 +202,7 @@ fun! wheel#line#buffers (settings)
 	" ---- settings
 	let settings = a:settings
 	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let fields = split(selected, s:field_separ, v:true)
 	let bufnum = str2nr(fields[0])
 	let filename = fnamemodify(fields[3], ':p')
 	if wheel#boomerang#is_context_menu ()

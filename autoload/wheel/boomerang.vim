@@ -50,7 +50,7 @@ fun! wheel#boomerang#first_data_line ()
 endfun
 
 fun! wheel#boomerang#is_selection_empty ()
-	" Whether parent leaf has non empty selection
+	" Whether parent leaf has empty selection
 	let selection = wheel#book#previous('selection')
 	return empty(selection.indexes)
 endfun
@@ -69,10 +69,27 @@ fun! wheel#boomerang#line_index (linum)
 	endif
 endfun
 
+fun! wheel#boomerang#selection ()
+	" Return selection of parent leaf
+	" If empty, return index & address parent line
+	if wheel#boomerang#is_selection_empty ()
+		let cursor = deepcopy(wheel#book#previous('cursor'))
+		let linum = cursor.position[1]
+		let line_index = wheel#boomerang#line_index (linum)
+		let selection = {}
+		let selection.indexes = [ line_index ]
+		let selection.addresses = [ cursor.address ]
+	else
+		let selection = deepcopy(wheel#book#previous('selection'))
+	endif
+	return selection
+endfun
+
 fun! wheel#boomerang#addresses ()
 	" Return selected addresses of parent leaf
+	" If empty, return address of parent line
 	if wheel#boomerang#is_selection_empty ()
-		let cursor = wheel#book#previous('cursor')
+		let cursor = deepcopy(wheel#book#previous('cursor'))
 		return [ cursor.address ]
 	else
 		let selection = wheel#book#previous ('selection')
@@ -85,17 +102,7 @@ endfun
 fun! wheel#boomerang#sync_from_parent ()
 	" Sync selection & settings in previous layer to mandala state
 	" -- selection
-	if wheel#boomerang#is_selection_empty ()
-		let cursor = deepcopy(wheel#book#previous('cursor'))
-		let linum = cursor.position[1]
-		let line_index = wheel#boomerang#line_index (linum)
-		let selection = {}
-		let selection.indexes = [ line_index ]
-		let selection.addresses = [ cursor.address ]
-	else
-		let selection = deepcopy(wheel#book#previous('selection'))
-	endif
-	let b:wheel_selection = selection
+	let b:wheel_selection = wheel#boomerang#selection ()
 	" -- settings
 	let b:wheel_settings = deepcopy(wheel#book#previous('settings'))
 endfun

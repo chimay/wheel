@@ -61,8 +61,9 @@ fun! wheel#matrix#dual (nested)
 	let outer_span = range(outer_length)
 	let inner_span = range(inner_length)
 	" -- init dual
-	" -- can't use repeat() with empty list
-	let dual = copy(inner_span)->map({ _, val -> [] })
+	" can't use repeat() with nested list :
+	" it uses references to the same inner list
+	let dual = copy(inner_span)->map('[]')
 	" -- double loop
 	for inner in inner_span
 		let dualelem = dual[inner]
