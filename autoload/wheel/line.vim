@@ -259,8 +259,6 @@ fun! wheel#line#tabwins (settings)
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
-	elseif action == 'tabnew'
-		tabnew
 	elseif action == 'tabclose'
 		let fields = split(selected, s:field_separ)
 		let tabnum = fields[0]

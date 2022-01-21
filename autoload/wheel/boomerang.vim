@@ -145,7 +145,7 @@ fun! wheel#boomerang#tabwins (action)
 		let settings.target = 'current'
 		return wheel#loop#sailing (settings)
 	elseif action == 'tabnew'
-		call wheel#loop#sailing (settings)
+		tabnew
 		return v:true
 	elseif action == 'tabclose'
 		" closing last tab first
