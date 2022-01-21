@@ -358,7 +358,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	endif
 	let coordin = split(destination, s:level_separ)
 	" -- pre checks
-	let selected = b:wheel_selection.addresses
+	let selected = wheel#pencil#addresses()
 	if empty(selected)
 		echomsg 'wheel copy / move : you must first select element(s)'
 	endif
