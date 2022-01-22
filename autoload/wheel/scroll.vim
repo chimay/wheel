@@ -66,7 +66,7 @@ fun! wheel#scroll#filtered_newer ()
 		return v:false
 	endif
 	let colnum = col('.')
-	let line = getline('.')
+	let line = getline(1)
 	if empty(line)
 		call wheel#scroll#newer ()
 		return v:true
@@ -93,7 +93,7 @@ fun! wheel#scroll#filtered_older ()
 		return v:false
 	endif
 	let colnum = col('.')
-	let line = getline('.')
+	let line = getline(1)
 	if empty(line)
 		call wheel#scroll#older ()
 		return v:true
