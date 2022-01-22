@@ -130,14 +130,14 @@ endfun
 fun! wheel#kyusu#indexes_and_lines ()
 	" Return lines matching words of first line
 	let linelist = copy(b:wheel_lines)
-	let wordlist = wheel#teapot#wordlist ()
-	if empty(wordlist)
+	let input = wheel#teapot#without_prompt ()
+	if empty(input)
 		let filtered_indexes = range(len(linelist))
 		let filtered_values = linelist
 		return [filtered_indexes, filtered_values]
 	endif
-	let input = join(wordlist)
 	call wheel#scroll#record(input)
+	let wordlist = split(input)
 	" special words
 	let sel_switch = v:false
 	for index in range(len(wordlist))

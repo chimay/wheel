@@ -52,8 +52,8 @@ endfun
 fun! wheel#teapot#prompt (...)
 	" Add prompt at first line if not already there
 	" Optional argument :
-	"   - line content after prompt
-	"   - default : first line content, except prompt
+	"   - line content, as string or word list
+	"   - default : first line content
 	if a:0 > 0
 		let content = a:1
 		if type(content) == v:t_list
@@ -68,12 +68,31 @@ fun! wheel#teapot#prompt (...)
 	call setline(1, content)
 endfun
 
+fun! wheel#teapot#without_prompt (...)
+	" Return line content without prompt
+	" Optional argument :
+	"   - line content, as string or word list
+	"   - default : first line content, except prompt
+	if a:0 > 0
+		let content = a:1
+		if type(content) == v:t_list
+			let content = join(content)
+		endif
+	else
+		let content = getline(1)
+	endif
+	let pattern = '\m^' .. s:mandala_prompt
+	let content = substitute(content, pattern, '', '')
+	return content
+endfun
+
 fun! wheel#teapot#wordlist ()
-	" Return words of filtering first line, except prompt
+	" Return words of filtering first line, without prompt
 	let pattern = '\m^' .. s:mandala_prompt
 	let words = getline(1)
 	let words = substitute(words, pattern, '', '')
-	return split(words)
+	let words = split(words)
+	return words
 endfun
 
 " run filter
