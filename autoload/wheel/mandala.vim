@@ -169,6 +169,12 @@ fun! wheel#mandala#init ()
 		let b:wheel_selection.indexes = []
 		let b:wheel_selection.addresses = []
 	endif
+	" -- preview
+	if ! exists('b:wheel_preview')
+		let b:wheel_preview = {}
+		let b:wheel_preview.switch = v:false
+		let b:wheel_preview.follow = v:false
+	endif
 	" -- settings for action on line
 	if ! exists('b:wheel_settings')
 		let b:wheel_settings = {}

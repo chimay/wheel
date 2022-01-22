@@ -126,6 +126,10 @@ fun! wheel#book#template ()
 	let leaf.selection = {}
 	let leaf.selection.indexes = []
 	let leaf.selection.addresses = []
+	" -- preview
+	let leaf.preview = {}
+	let leaf.preview.switch = v:false
+	let leaf.preview.follow = v:false
 	" -- cursor
 	let leaf.cursor = {}
 	let leaf.cursor.position = []
@@ -255,6 +259,8 @@ fun! wheel#book#syncup ()
 	let leaf.lines = copy(b:wheel_lines)
 	" -- filter
 	let leaf.filter = deepcopy(b:wheel_filter)
+	" -- preview
+	let leaf.preview = copy(b:wheel_preview)
 	" -- cursor
 	" position
 	call wheel#line#default ()
@@ -315,6 +321,8 @@ fun! wheel#book#syncdown ()
 		let visible_lines = b:wheel_lines
 		call wheel#mandala#replace (visible_lines, 'delete-first')
 	endif
+	" -- preview
+	let b:wheel_preview = copy(leaf.preview)
 	" -- cursor
 	let cursor = deepcopy(leaf.cursor)
 	" position ; must be done after mandala#replace
