@@ -356,13 +356,15 @@ fun! wheel#polyphony#narrow_file (...) range
 	call wheel#mandala#blank ('narrow/file/' .. filename)
 	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
-	let settings = #{ action : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
+	let settings = #{ function : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
 	call wheel#sailing#mappings (settings)
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
 	call wheel#polyphony#action_maps ('file')
 	call wheel#shape#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
+	" settings
+	let b:wheel_settings = settings
 	" reload
 	let b:wheel_reload = "wheel#polyphony#narrow_file('" .. first .. "', '" .. last .. "')"
 endfun
@@ -395,6 +397,8 @@ fun! wheel#polyphony#narrow_circle (...)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#shape#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
+	" settings
+	let b:wheel_settings = settings
 	" reload
 	let b:wheel_reload = "wheel#polyphony#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
 	echomsg 'adding or removing lines is not supported'

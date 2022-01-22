@@ -9,6 +9,28 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
+" default values
+
+fun! wheel#sailing#default (settings)
+	" Default settings values
+	let settings = a:settings
+	if ! has_key(settings, 'function')
+		let settings.function = 'wheel#line#switch'
+	endif
+	if ! has_key(settings, 'level')
+		let settings.level = 'location'
+	endif
+	if ! has_key(settings, 'target')
+		let settings.target = 'current'
+	endif
+	if ! has_key(settings, 'related_buffer')
+		let settings.related_buffer = b:wheel_related_buffer
+	endif
+	if ! has_key(settings, 'close')
+		let settings.close = v:true
+	endif
+endfun
+
 " helpers
 
 fun! wheel#sailing#mappings (settings)
@@ -73,25 +95,6 @@ fun! wheel#sailing#generic (type)
 	let settings = {'function' : function('wheel#line#' .. type)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
-endfun
-
-" default values
-
-fun! wheel#sailing#default (settings)
-	" Default settings values
-	let settings = a:settings
-	if ! has_key(settings, 'function')
-		let settings.function = 'wheel#line#switch'
-	endif
-	if ! has_key(settings, 'target')
-		let settings.target = 'current'
-	endif
-	if ! has_key(settings, 'related_buffer')
-		let settings.related_buffer = b:wheel_related_buffer
-	endif
-	if ! has_key(settings, 'close')
-		let settings.close = v:true
-	endif
 endfun
 
 " applications
