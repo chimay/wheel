@@ -18,6 +18,11 @@ fun! wheel#orbiter#preview ()
 	return winiden
 endfun
 
+fun! wheel#orbiter#switch_off ()
+	" Switch off b:wheel_preview.used
+	let b:wheel_preview.used = v:false
+endfun
+
 fun! wheel#orbiter#original ()
 	" Restore original buffer
 	let original = b:wheel_preview.original

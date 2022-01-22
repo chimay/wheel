@@ -33,6 +33,8 @@ fun! wheel#loop#sailing (settings)
 	if empty(selected[0])
 		return v:false
 	endif
+	" ---- switch off preview
+	call wheel#orbiter#switch_off ()
 	" ---- go to previous window before processing
 	call wheel#rectangle#previous ()
 	" ---- target : current window or not ?
