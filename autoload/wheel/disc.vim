@@ -106,9 +106,7 @@ fun! wheel#disc#write_all (...)
 		return
 	endif
 	call wheel#vortex#update ()
-	if argc() == 0 && has('nvim')
-		echomsg 'Writing wheel variables to file ..'
-	endif
+	echomsg 'Writing wheel variables to file ..'
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
 	call wheel#disc#writefile('g:wheel', wheel_file, '>')
 	call wheel#disc#writefile('g:wheel_helix', wheel_file, '>>')
@@ -121,9 +119,7 @@ fun! wheel#disc#write_all (...)
 	call wheel#disc#writefile('g:wheel_attic', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_shelve', wheel_file, '>>')
-	if argc() == 0 && has('nvim')
-		echomsg 'Writing done !'
-	endif
+	echomsg 'Writing done !'
 endfun
 
 fun! wheel#disc#read_all (...)
@@ -166,15 +162,11 @@ fun! wheel#disc#write_session (...)
 	" backup old sessions
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
 	" writing session
-	if argc() == 0 && has('nvim')
-		echomsg 'Writing session to file ..'
-	endif
+	echomsg 'Writing session to file ..'
 	execute 'mksession!' session_file
 	" restore value of sessionoptions
 	let &sessionoptions=ampersand
-	if argc() == 0 && has('nvim')
-		echomsg 'Writing done !'
-	endif
+	echomsg 'Writing done !'
 endfun
 
 fun! wheel#disc#read_session (...)
