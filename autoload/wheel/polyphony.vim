@@ -2,7 +2,7 @@
 
 " Multi-line operations on a buffer
 "
-" Narrow, filter and apply
+" Narrow, filter, edit and apply
 
 " Range of original buffer
 

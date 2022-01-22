@@ -128,7 +128,7 @@ fun! wheel#book#template ()
 	let leaf.selection.addresses = []
 	" -- preview
 	let leaf.preview = {}
-	let leaf.preview.switch = v:false
+	let leaf.preview.used = v:false
 	let leaf.preview.follow = v:false
 	let leaf.preview.original_buffer = 'undefined'
 	" -- cursor

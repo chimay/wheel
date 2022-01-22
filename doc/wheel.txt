@@ -3286,42 +3286,43 @@ of the modules within them.
 | ----------------- | ------------------------------------------ |
 | attic.vim         | Most Recently Used files                   |
 | book.vim          | Layer ring for each dedicated buffer       |
-| boomerang.vim     | Context menus                              |
+| boomerang.vim     | Context menus in dedicated buffers         |
 | centre.vim        | Commands & mappings                        |
 | chain.vim         | List helpers                               |
 | checknfix.vim     | Check & fix variables                      |
-| clipper.vim       | Yank buffers                               |
+| clipper.vim       | Yank dedicated buffers                     |
 | codex.vim         | Yank wheel                                 |
 | complete.vim      | Completion functions                       |
 | crystal.vim       | Internal variables                         |
 | cuboctahedron.vim | Reshaping : reorder, reorganize            |
 | cylinder.vim      | Dedicated buffers ring                     |
-| delta.vim         | Undo & diff                                |
-| disc.vim          | Read & write wheel file                    |
+| delta.vim         | Undo & diff dedicated buffer               |
+| disc.vim          | Read & write wheel & session file          |
 | gear.vim          | Generic helpers                            |
-| group.vim         | Auto grouping                              |
+| group.vim         | Auto grouping of files                     |
 | guru.vim          | Help                                       |
-| helix.vim         | Indexes                                    |
-| helm.vim          | Menus                                      |
-| kyusu.vim         | Line filters for dedicated buffers         |
-| line.vim          | Activate line                              |
-| loop.vim          | Loops on mandala lines                     |
+| helix.vim         | Wheel indexes                              |
+| helm.vim          | Menus in dedicated buffers                 |
+| kyusu.vim         | Filter for prompt & dedicated buffers      |
+| line.vim          | Activate line in dedicated buffers         |
+| loop.vim          | Loops on dedicated buffers lines           |
 | mandala.vim       | Generic dedicated buffers                  |
 | matrix.vim        | Nested lists & dictionaries                |
 | mosaic.vim        | Windows & tabs Layouts                     |
-| origami.vim       | Mandala folding                            |
+| orbiter.vim       | Preview for dedicated buffers              |
+| origami.vim       | Dedicated buffers folding                  |
 | pencil.vim        | Selection in dedicated buffers             |
-| pendulum.vim      | History                                    |
+| pendulum.vim      | Wheel history                              |
 | perspective.vim   | Content generators for dedicated buffers   |
-| polyphony.vim     | Narrow, filter & apply                     |
+| polyphony.vim     | Narrow, edit & apply dedicated buffers     |
 | projection.vim    | Find wheel location of current buffer      |
 | pyramid.vim       | Mix of tabs & splits layouts               |
-| rectangle.vim     | Windows & buffers                          |
-| referen.vim       | References to current elements             |
+| rectangle.vim     | Tabs, windows & buffers                    |
+| referen.vim       | References to current wheel elements       |
 | ripple.vim        | Async job for vim                          |
-| sailing.vim       | Dedicated buffers for navigation           |
-| scroll.vim        | Input history                              |
-| shape.vim         | Dedicated buffers to reshape the wheel     |
+| sailing.vim       | Navigation dedicated buffers               |
+| scroll.vim        | Input history in dedicated buffers         |
+| shape.vim         | Reorganizing dedicated buffers             |
 | spiral.vim        | Golden ratio                               |
 | status.vim        | Print wheel status                         |
 | symbol.vim        | Tags                                       |
@@ -3329,11 +3330,11 @@ of the modules within them.
 | tower.vim         | Menu layer in dedicated buffers            |
 | tree.vim          | Add, rename, delete elements               |
 | upstream.vim      | Parent leaf of context menu                |
-| vector.vim        | Batch operations                           |
+| vector.vim        | Batch operations on current group files    |
 | void.vim          | Initiaze & reset variables                 |
 | vortex.vim        | Navigation in the wheel                    |
 | wave.vim          | Async job for neovim                       |
-| whirl.vim         | Switch with native (neo)vim functions      |
+| whirl.vim         | Navigation with native (neo)vim functions  |
 
 Doc~
 
