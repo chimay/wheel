@@ -251,7 +251,7 @@ fun! wheel#book#syncup ()
 	let leaf.mappings = wheel#book#save_maps ()
 	" -- autocommands
 	let leaf.autocmds = wheel#book#save_autocmds ()
-	" -- nature
+	" -- general qualities
 	let leaf.nature = copy(b:wheel_nature)
 	" -- related buffer
 	let leaf.related_buffer = b:wheel_related_buffer
@@ -259,6 +259,8 @@ fun! wheel#book#syncup ()
 	let leaf.lines = copy(b:wheel_lines)
 	" -- filter
 	let leaf.filter = deepcopy(b:wheel_filter)
+	" -- selection
+	let leaf.selection = deepcopy(b:wheel_selection)
 	" -- preview
 	let leaf.preview = copy(b:wheel_preview)
 	" -- cursor
@@ -268,8 +270,6 @@ fun! wheel#book#syncup ()
 	let cursor.position = getcurpos()
 	" address of cursor line : useful for context menus
 	let cursor.address = wheel#line#address()
-	" -- selection
-	let leaf.selection = deepcopy(b:wheel_selection)
 	" -- settings
 	let leaf.settings = deepcopy(b:wheel_settings)
 	" -- reload
@@ -295,7 +295,7 @@ fun! wheel#book#syncdown ()
 	" -- autocommands
 	let autodict = copy(leaf.autocmds)
 	call wheel#book#restore_autocmds (autodict)
-	" -- nature
+	" -- general qualities
 	let b:wheel_nature = copy(leaf.nature)
 	" -- related buffer
 	let b:wheel_related_buffer = leaf.related_buffer
@@ -321,15 +321,15 @@ fun! wheel#book#syncdown ()
 		let visible_lines = b:wheel_lines
 		call wheel#mandala#replace (visible_lines, 'delete-first')
 	endif
+	" -- selection
+	let b:wheel_selection = deepcopy(leaf.selection)
+	call wheel#pencil#show ()
 	" -- preview
 	let b:wheel_preview = copy(leaf.preview)
 	" -- cursor
 	let cursor = deepcopy(leaf.cursor)
 	" position ; must be done after mandala#replace
 	call wheel#gear#restore_cursor (cursor.position)
-	" -- selection
-	let b:wheel_selection = deepcopy(leaf.selection)
-	call wheel#pencil#show ()
 	" -- settings
 	let b:wheel_settings = deepcopy(leaf.settings)
 	" -- reload
