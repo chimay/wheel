@@ -1514,7 +1514,7 @@ Fields~
 
 This buffer displays the following columns :
 
-lin number | line content
+line number | line content
 
 Substitution~
 
