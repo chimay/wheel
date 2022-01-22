@@ -359,7 +359,7 @@ endfun
 " Fill the gaps
 
 fun! wheel#chain#tie (list)
-	" Translate integer elements of the list to fill the gaps
+	" Shift integer elements of the list to fill the gaps
 	let list = a:list
 	let minim = min(list)
 	let maxim = max(list)
@@ -374,4 +374,14 @@ fun! wheel#chain#tie (list)
 		endif
 	endfor
 	return [list, gaps]
+endfun
+
+fun! wheel#chain#lowest_outside (list)
+	" Returns lowest integer >= 0 that is not in list
+	let list = a:list
+	let engulf = 0
+	while wheel#chain#is_inside(engulf, list)
+		let engulf += 1
+	endwhile
+	return engulf
 endfun

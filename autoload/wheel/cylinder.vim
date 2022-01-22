@@ -25,33 +25,6 @@ fun! wheel#cylinder#is_mandala (...)
 	return wheel#chain#is_inside(bufnum, mandalas)
 endfun
 
-fun! wheel#cylinder#new_iden (iden, algo = 'default')
-	" Returns id for new mandala, that is not in iden list
-	" As low as possible, starting from zero
-	" Optional argument :
-	"   - default : find lowest new iden, inside or around iden list
-	"   - around : find new iden around iden list
-	let iden = a:iden
-	let algo = a:algo
-	" algo around iden
-	if algo == 'around'
-		let minim = min(iden) - 1
-		let maxim = max(iden) + 1
-		if minim >= 0
-			let novice = minim
-		else
-			let novice = maxim
-		endif
-		return novice
-	endif
-	" default algo
-	let novice = 0
-	while wheel#chain#is_inside(novice, iden)
-		let novice += 1
-	endwhile
-	return novice
-endfun
-
 fun! wheel#cylinder#check ()
 	" Remove non existent mandalas buffers from ring
 	let mandalas = g:wheel_mandalas.ring
@@ -249,7 +222,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let next = current + 1
 	call insert(mandalas, novice, next)
 	let g:wheel_mandalas.current = next
-	let novice_iden = wheel#cylinder#new_iden (iden)
+	let novice_iden = wheel#chain#lowest_outside (iden)
 	call insert(iden, novice_iden, next)
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
