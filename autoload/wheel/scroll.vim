@@ -36,7 +36,7 @@ fun! wheel#scroll#newer ()
 endfun
 
 fun! wheel#scroll#older ()
-	" Replace current line by older element in input history
+	" Replace first line by older element in input history
 	if line('.') != 1
 		return v:false
 	endif
@@ -50,49 +50,49 @@ fun! wheel#scroll#older ()
 endfun
 
 fun! wheel#scroll#filtered_newer ()
-	" Replace current line by newer element in input history
+	" Replace first line by newer element that matches line until cursor
 	if line('.') != 1
 		return v:false
 	endif
-	let col = col('.')
+	let colnum = col('.')
 	let line = getline('.')
 	if empty(line)
 		call wheel#scroll#newer ()
 		return v:true
 	endif
-	let before = strcharpart(line, 0, col)
+	let before = strcharpart(line, 0, colnum)
 	let pattern = '\m^' .. before
 	let reversed = reverse(copy(g:wheel_input))
 	let index = match(reversed, pattern, 0)
 	if index >= 0
-		let reversed = wheel#chain#roll_right (index, reversed)
+		let reversed = reversed->wheel#chain#roll_right(index)
 		let g:wheel_input = reverse(copy(reversed))
-		call setline('.', g:wheel_input[0])
+		call setline(1, g:wheel_input[0])
 	endif
-	call cursor(1, col)
+	call cursor(1, colnum)
 	" not necessary with <cmd> maps
 	"startinsert
 endfun
 
 fun! wheel#scroll#filtered_older ()
-	" Replace current line by older element in input history
+	" Replace first line by older element that matches line until cursor
 	if line('.') != 1
 		return v:false
 	endif
-	let col = col('.')
+	let colnum = col('.')
 	let line = getline('.')
 	if empty(line)
 		call wheel#scroll#older ()
 		return v:true
 	endif
-	let before = strcharpart(line, 0, col)
+	let before = strcharpart(line, 0, colnum)
 	let pattern = '\m^' .. before
 	let index = match(g:wheel_input, pattern, 1)
 	if index >= 0
-		let g:wheel_input = wheel#chain#roll_left (index, g:wheel_input)
-		call setline('.', g:wheel_input[0])
+		let g:wheel_input = g:wheel_input->wheel#chain#roll_left(index)
+		call setline(1, g:wheel_input[0])
 	endif
-	call cursor(1, col)
+	call cursor(1, colnum)
 	" not necessary with <cmd> maps
 	"startinsert
 endfun

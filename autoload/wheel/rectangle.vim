@@ -170,6 +170,6 @@ fun! wheel#rectangle#tab_buffers ()
 	let bufnum = bufnr('%')
 	let buffers = tabpagebuflist()
 	let index = index(buffers, bufnum)
-	let buffers = wheel#chain#roll_left(index, buffers)
+	let buffers = buffers->wheel#chain#roll_left(index)
 	return buffers
 endfun

@@ -140,7 +140,7 @@ fun! wheel#chain#rotate_right (list)
 	return rotated
 endfun
 
-fun! wheel#chain#roll_left (index, list)
+fun! wheel#chain#roll_left (list, index)
 	" Roll index in list until left = beginning
 	let index = a:index
 	let list = a:list
@@ -151,7 +151,7 @@ fun! wheel#chain#roll_left (index, list)
 	endif
 endfun
 
-fun! wheel#chain#roll_right (index, list)
+fun! wheel#chain#roll_right (list, index)
 	" Roll index of list until right = end
 	let index = a:index
 	let list = a:list
