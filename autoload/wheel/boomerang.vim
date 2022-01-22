@@ -175,7 +175,7 @@ fun! wheel#boomerang#grep (action)
 	let settings = b:wheel_settings
 	let settings.menu.action = action
 	if action == 'quickfix'
-		call wheel#mandala#close ()
+		call wheel#cylinder#close ()
 		call wheel#vector#copen ()
 	endif
 endfun

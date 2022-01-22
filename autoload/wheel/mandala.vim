@@ -173,11 +173,11 @@ fun! wheel#mandala#init ()
 	if ! exists('b:wheel_settings')
 		let b:wheel_settings = {}
 	endif
-	" reload function
+	" -- reload function
 	if ! exists('b:wheel_reload')
 		let b:wheel_reload = ''
 	endif
-	" leaf ring
+	" -- leaf ring
 	call wheel#book#init ()
 endfun
 
@@ -235,56 +235,18 @@ fun! wheel#mandala#clear ()
 	call wheel#mandala#init ()
 endfun
 
-" window & buffer
+" related buffer
 
-fun! wheel#mandala#open (type)
-	" Open a mandala buffer
-	let type = a:type
-	call wheel#vortex#update ()
-	let related_buffer = bufnr('%')
-	if ! wheel#cylinder#recall()
-		" first mandala
-		" split is done in the routine
-		call wheel#cylinder#first ('split')
-	endif
-	" add new leaf, clear mandala, init vars
-	call wheel#book#add ('clear')
-	call wheel#mandala#filename (type)
-	call wheel#mandala#common_options ()
-	" set related buffer
-	if related_buffer != bufnr('%')
-		let b:wheel_related_buffer = related_buffer
+fun! wheel#mandala#guess_related ()
+	" Guess related buffer
+	if wheel#cylinder#is_mandala ()
+		call wheel#rectangle#previous ()
+		let related_buffer = bufnr('%')
+		call wheel#cylinder#recall ()
 	else
-		" related buffer == mandala buffer :
-		" happens when mandala is already opened at the start of this function
-		" in that case, the related buffer is considered the same as
-		" that of the previous leaf in the ring
-		let b:wheel_related_buffer = wheel#book#previous('related_buffer')
+		let related_buffer = bufnr('%')
 	endif
-endfun
-
-fun! wheel#mandala#close ()
-	" Close the mandala buffer
-	" -- if we are not in a mandala buffer,
-	" -- go to its window if it is visible
-	if ! wheel#cylinder#is_mandala()
-		call wheel#cylinder#goto ()
-	endif
-	" -- if we are still not in a mandala buffer,
-	" -- none is visible and there is nothing to do
-	if ! wheel#cylinder#is_mandala()
-		return v:false
-	endif
-	" -- mandala buffer
-	if winnr('$') > 1
-		" more than one window in tab ? close it.
-		noautocmd close
-	else
-		" only one window in tab ? jump to current wheel location
-		call wheel#vortex#jump ()
-	endif
-	"call wheel#status#clear ()
-	return v:true
+	return related_buffer
 endfun
 
 fun! wheel#mandala#related ()
@@ -303,6 +265,26 @@ fun! wheel#mandala#related ()
 	endif
 	call wheel#rectangle#goto_or_load (bufnum)
 	return bufnum
+endfun
+
+" blank sheet
+
+fun! wheel#mandala#blank (type)
+	" Open a mandala buffer
+	let type = a:type
+	call wheel#vortex#update ()
+	let related_buffer = bufnr('%')
+	if ! wheel#cylinder#recall()
+		" first mandala
+		" split is done in the routine
+		call wheel#cylinder#first ('split')
+	endif
+	" add new leaf, clear mandala, init vars
+	call wheel#book#add ('clear')
+	call wheel#mandala#filename (type)
+	call wheel#mandala#common_options ()
+	" set related buffer
+	let b:wheel_related_buffer = wheel#mandala#guess_related ()
 endfun
 
 " content
@@ -414,7 +396,7 @@ fun! wheel#mandala#reload ()
 	" Reload current mandala
 	" -- save pseudo filename
 	let filename = expand('%')
-	" -- mark the buffer as empty, to avoid adding a leaf in wheel#mandala#open
+	" -- mark the buffer as empty, to avoid adding a leaf in wheel#mandala#blank
 	call wheel#mandala#set_empty ()
 	" -- reinitialize buffer vars
 	call wheel#mandala#refresh ()
@@ -469,7 +451,7 @@ endfun
 
 fun! wheel#mandala#common_maps ()
 	" Define mandala common maps
-	nnoremap <buffer> q <cmd>call wheel#mandala#close()<cr>
+	nnoremap <buffer> q <cmd>call wheel#cylinder#close()<cr>
 	nnoremap <buffer> j <cmd>call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> k <cmd>call wheel#mandala#wrap_up()<cr>
 	nnoremap <buffer> <down> <cmd>call wheel#mandala#wrap_down()<cr>
@@ -574,7 +556,7 @@ fun! wheel#mandala#command (...)
 	else
 		let lines = wheel#perspective#execute (command)
 	endif
-	call wheel#mandala#open ('command')
+	call wheel#mandala#blank ('command')
 	call wheel#mandala#template ()
 	call wheel#mandala#fill (lines)
 endfun

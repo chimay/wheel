@@ -478,7 +478,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" -- current tab
 	let startpage = tabpagenr()
 	" -- close mandala to work : otherwise it would be added to the list of windows
-	call wheel#mandala#close ()
+	call wheel#cylinder#close ()
 	" -- fill the baskets
 	let [tabindexes, tabwindows] = wheel#cuboctahedron#baskets (linelist)
 	" -- find the new tab index of mandala tab page

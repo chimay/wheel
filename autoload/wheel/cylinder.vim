@@ -344,6 +344,32 @@ fun! wheel#cylinder#recall ()
 	return wheel#cylinder#window ()
 endfun
 
+" close
+
+fun! wheel#cylinder#close ()
+	" Close the mandala buffer
+	" -- if we are not in a mandala buffer,
+	" -- go to its window if it is visible
+	if ! wheel#cylinder#is_mandala()
+		call wheel#cylinder#goto ()
+	endif
+	" -- if we are still not in a mandala buffer,
+	" -- none is visible and there is nothing to do
+	if ! wheel#cylinder#is_mandala()
+		return v:false
+	endif
+	" -- mandala buffer
+	if winnr('$') > 1
+		" more than one window in tab ? close it.
+		noautocmd close
+	else
+		" only one window in tab ? jump to current wheel location
+		call wheel#vortex#jump ()
+	endif
+	"call wheel#status#clear ()
+	return v:true
+endfun
+
 " forward & backward
 
 fun! wheel#cylinder#forward ()

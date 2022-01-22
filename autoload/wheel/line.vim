@@ -254,7 +254,7 @@ fun! wheel#line#tabwins (settings)
 		let tabnum = fields[0]
 		let winum = fields[1]
 		if tabnum != tabpagenr()
-			call wheel#mandala#close()
+			call wheel#cylinder#close()
 		endif
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
@@ -286,7 +286,7 @@ fun! wheel#line#tabwins_tree (settings)
 	" ---- actions
 	if action == 'open'
 		if tabnum != tabpagenr()
-			call wheel#mandala#close()
+			call wheel#cylinder#close()
 		endif
 		execute 'noautocmd tabnext' tabnum
 		if len(hierarchy) > 1
@@ -542,7 +542,7 @@ fun! wheel#line#paste_list (...)
 	let @" = join(content, "\n")
 	call wheel#cylinder#recall ()
 	if close == 'close'
-		call wheel#mandala#close ()
+		call wheel#cylinder#close ()
 	endif
 	return win_getid ()
 endfun
@@ -582,7 +582,7 @@ fun! wheel#line#paste_plain (...)
 	let @" = content
 	call wheel#cylinder#recall ()
 	if close == 'close'
-		call wheel#mandala#close ()
+		call wheel#cylinder#close ()
 	endif
 	return win_getid ()
 endfun
@@ -608,7 +608,7 @@ fun! wheel#line#paste_visual (...)
 	endif
 	call wheel#cylinder#recall ()
 	if close == 'close'
-		call wheel#mandala#close ()
+		call wheel#cylinder#close ()
 	endif
 	return win_getid ()
 endfun

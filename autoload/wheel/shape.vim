@@ -56,7 +56,7 @@ fun! wheel#shape#reorder (level)
 		echomsg 'wheel shape reorder : empty or incomplete' level
 		return v:false
 	endif
-	call wheel#mandala#open ('reorder/' .. level)
+	call wheel#mandala#blank ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('reorder', level)
 	call wheel#mandala#fill(lines, 'delete-first')
@@ -76,7 +76,7 @@ fun! wheel#shape#rename (level)
 		echomsg 'wheel shape rename : empty or incomplete' level
 		return v:false
 	endif
-	call wheel#mandala#open ('rename/' .. level)
+	call wheel#mandala#blank ('rename/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('rename', level)
 	if ! empty(lines)
@@ -100,7 +100,7 @@ fun! wheel#shape#rename_files ()
 		return v:false
 	endif
 	" -- mandala
-	call wheel#mandala#open ('rename/locations_files')
+	call wheel#mandala#blank ('rename/locations_files')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('rename_files')
 	call wheel#mandala#fill(lines, 'delete-first')
@@ -121,7 +121,7 @@ fun! wheel#shape#copy_move (level)
 		echomsg 'wheel shape copy / move : empty or incomplete' level
 		return v:false
 	endif
-	call wheel#mandala#open ('copy_move/' .. level)
+	call wheel#mandala#blank ('copy_move/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('copy_move', level)
 	if ! empty(lines)
@@ -149,7 +149,7 @@ fun! wheel#shape#reorganize ()
 		echomsg 'wheel shape reorganize : empty wheel'
 		return v:false
 	endif
-	call wheel#mandala#open ('reorganize')
+	call wheel#mandala#blank ('reorganize')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('reorganize')
 	call wheel#mandala#folding_options ()
@@ -170,7 +170,7 @@ fun! wheel#shape#reorg_tabwins ()
 		echomsg 'wheel shape reorganize tabs & windows : empty lines'
 		return v:false
 	endif
-	call wheel#mandala#open ('reorg/tabwins')
+	call wheel#mandala#blank ('reorg/tabwins')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('reorg_tabwins')
 	call wheel#mandala#folding_options ('tabwins_folding_text')
@@ -222,7 +222,7 @@ fun! wheel#shape#grep_edit (...)
 		return v:false
 	endif
 	" -- mandala
-	call wheel#mandala#open ('grep/edit')
+	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#shape#write ('wheel#vector#write_quickfix')
 	call wheel#mandala#fill (lines, 'delete-first')

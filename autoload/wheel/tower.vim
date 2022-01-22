@@ -53,7 +53,7 @@ fun! wheel#tower#menu (settings)
 	let winiden = wheel#gear#call (function)
 	" ---- coda
 	if close
-		call wheel#mandala#close ()
+		call wheel#cylinder#close ()
 		" -- go to last destination
 		call wheel#gear#win_gotoid (winiden)
 	else
@@ -62,7 +62,7 @@ fun! wheel#tower#menu (settings)
 		" -- tab changed, move mandala to new tab
 		if elder_tab != new_tab
 			" close it in elder tab
-			silent call wheel#mandala#close ()
+			silent call wheel#cylinder#close ()
 			" go back in new tab
 			execute 'tabnext' new_tab
 		endif

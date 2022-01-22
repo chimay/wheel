@@ -67,7 +67,7 @@ fun! wheel#sailing#generic (type)
 		echomsg 'wheel sailing generic : empty lines in' type
 		return v:false
 	endif
-	call wheel#mandala#open (type)
+	call wheel#mandala#blank (type)
 	let settings = {'function' : function('wheel#line#' .. type)}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -84,7 +84,7 @@ fun! wheel#sailing#switch (level)
 		return v:false
 	endif
 	let lines = wheel#perspective#switch (level)
-	call wheel#mandala#open ('switch/' .. level)
+	call wheel#mandala#blank ('switch/' .. level)
 	let settings = {'level' : level}
 	call wheel#sailing#template (settings)
 	if ! empty(lines)
@@ -104,7 +104,7 @@ fun! wheel#sailing#helix ()
 		echomsg 'wheel sailing helix : empty wheel'
 		return v:false
 	endif
-	call wheel#mandala#open ('index/location')
+	call wheel#mandala#blank ('index/location')
 	let settings = {'function' : function('wheel#line#helix')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -120,7 +120,7 @@ fun! wheel#sailing#grid ()
 		echomsg 'wheel sailing grid : empty wheel'
 		return v:false
 	endif
-	call wheel#mandala#open ('index/circle')
+	call wheel#mandala#blank ('index/circle')
 	let settings = {'function' : function('wheel#line#grid')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
@@ -135,7 +135,7 @@ fun! wheel#sailing#tree ()
 		echomsg 'wheel sailing tree : empty wheel'
 		return v:false
 	endif
-	call wheel#mandala#open ('index/tree')
+	call wheel#mandala#blank ('index/tree')
 	let settings = {'function' : function('wheel#line#tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ()
@@ -165,7 +165,7 @@ fun! wheel#sailing#locate (...)
 		echomsg 'wheel sailing locate : no match found'
 		return v:false
 	endif
-	call wheel#mandala#open ('locate')
+	call wheel#mandala#blank ('locate')
 	let settings = {'function' : function('wheel#line#locate')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -191,7 +191,7 @@ fun! wheel#sailing#find (...)
 		echomsg 'wheel sailing find : no match found'
 		return v:false
 	endif
-	call wheel#mandala#open ('find')
+	call wheel#mandala#blank ('find')
 	let settings = {'function' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -219,7 +219,7 @@ fun! wheel#sailing#async_find (...)
 	endif
 	echomsg 'wheel async find : using pattern' pattern
 	" mandala
-	call wheel#mandala#open ('async_find')
+	call wheel#mandala#blank ('async_find')
 	let settings = {'function' : function('wheel#line#find')}
 	call wheel#sailing#template (settings)
 	" job
@@ -270,7 +270,7 @@ fun! wheel#sailing#buffers (scope = 'listed')
 		echomsg 'wheel sailing buffers : bad optional argument'
 		return []
 	endif
-	call wheel#mandala#open (type)
+	call wheel#mandala#blank (type)
 	let settings = {'function' : function('wheel#line#buffers')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -288,7 +288,7 @@ fun! wheel#sailing#tabwins ()
 		echomsg 'wheel sailing tabwins : empty result'
 		return v:false
 	endif
-	call wheel#mandala#open ('tabwins')
+	call wheel#mandala#blank ('tabwins')
 	let settings = {'function' : function('wheel#line#tabwins')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
@@ -306,7 +306,7 @@ fun! wheel#sailing#tabwins_tree ()
 		echomsg 'wheel sailing tabwins tree : empty result'
 		return v:false
 	endif
-	call wheel#mandala#open ('tabwins/tree')
+	call wheel#mandala#blank ('tabwins/tree')
 	let settings = {'function' : function('wheel#line#tabwins_tree')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#folding_options ('tabwins_folding_text')
@@ -331,7 +331,7 @@ fun! wheel#sailing#occur (...)
 		echomsg 'wheel sailing occur : no match found'
 		return v:false
 	endif
-	call wheel#mandala#open ('occur')
+	call wheel#mandala#blank ('occur')
 	let settings = {'function' : function('wheel#line#occur')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
@@ -358,7 +358,7 @@ fun! wheel#sailing#grep (...)
 	endif
 	call wheel#rectangle#previous ()
 	let word = substitute(pattern, '\W.*', '', '')
-	call wheel#mandala#open ('grep/' .. word)
+	call wheel#mandala#blank ('grep/' .. word)
 	let settings = {'function' : function('wheel#line#grep')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill (lines)
@@ -418,7 +418,7 @@ fun! wheel#sailing#jumps ()
 		return v:false
 	endif
 	" mandala buffer
-	call wheel#mandala#open ('jumps')
+	call wheel#mandala#blank ('jumps')
 	let settings = {'function' : function('wheel#line#jumps')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)
@@ -435,7 +435,7 @@ fun! wheel#sailing#changes ()
 		return v:false
 	endif
 	" mandala buffer
-	call wheel#mandala#open ('changes')
+	call wheel#mandala#blank ('changes')
 	let settings = {'function' : function('wheel#line#changes')}
 	call wheel#sailing#template (settings)
 	call wheel#mandala#fill(lines)

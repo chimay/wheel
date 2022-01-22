@@ -72,7 +72,7 @@ fun! wheel#vector#argdo (command, ...)
 	if yield
 		let runme = 'silent! argdo ' .. command
 		let output = execute(runme)
-		call wheel#mandala#open('argdo')
+		call wheel#mandala#blank('argdo')
 		call wheel#mandala#common_maps ()
 		setlocal nofoldenable
 		put =output

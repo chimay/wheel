@@ -71,7 +71,7 @@ fun! wheel#loop#sailing (settings)
 	endif
 	" ---- coda
 	if close
-		call wheel#mandala#close ()
+		call wheel#cylinder#close ()
 		" go to last destination
 		call win_gotoid (winiden)
 	else
@@ -107,7 +107,7 @@ fun! wheel#loop#boomerang (settings)
 	endfor
 	" ---- coda
 	if close
-		call wheel#mandala#close ()
+		call wheel#cylinder#close ()
 	else
 		call wheel#cylinder#recall ()
 	endif

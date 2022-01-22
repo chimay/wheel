@@ -58,7 +58,7 @@ fun! wheel#clipper#yank (mode)
 	" Choose yank and paste
 	let mode = a:mode
 	let lines = wheel#perspective#yank (mode)
-	call wheel#mandala#open ('yank/' .. mode)
+	call wheel#mandala#blank ('yank/' .. mode)
 	let settings = {'mode' : mode}
 	call wheel#clipper#template(settings)
 	call wheel#mandala#fill (lines)

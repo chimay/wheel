@@ -86,7 +86,7 @@ fun! wheel#helm#menu (dictname)
 	" Menu in mandala buffer
 	let dictname = a:dictname
 	let string = 'menu/' .. dictname
-	call wheel#mandala#open (string)
+	call wheel#mandala#blank (string)
 	call wheel#mandala#template ()
 	" -- selection property
 	let b:wheel_nature.has_selection = v:false

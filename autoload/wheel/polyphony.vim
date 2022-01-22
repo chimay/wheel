@@ -353,7 +353,7 @@ fun! wheel#polyphony#narrow_file (...) range
 	let filename = bufname(bufnum)
 	let filename = fnamemodify(filename, ':t')
 	let lines = wheel#perspective#narrow_file (first, last)
-	call wheel#mandala#open ('narrow/file/' .. filename)
+	call wheel#mandala#blank ('narrow/file/' .. filename)
 	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
 	call wheel#mandala#common_maps ()
 	let settings = #{ action : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
@@ -386,7 +386,7 @@ fun! wheel#polyphony#narrow_circle (...)
 		return v:false
 	endif
 	let word = substitute(pattern, '\W.*', '', '')
-	call wheel#mandala#open ('narrow/circle/' .. word)
+	call wheel#mandala#blank ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
