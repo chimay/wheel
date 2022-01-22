@@ -3314,6 +3314,7 @@ of the modules within them.
 | attic.vim         | Most Recently Used files                   |
 | book.vim          | Layer ring for each dedicated buffer       |
 | boomerang.vim     | Context menus in dedicated buffers         |
+| chakra.vim        | Signs on wheel locations                   |
 | centre.vim        | Commands & mappings                        |
 | chain.vim         | List helpers                               |
 | checknfix.vim     | Check & fix variables                      |
