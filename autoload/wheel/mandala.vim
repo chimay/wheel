@@ -307,19 +307,38 @@ endfun
 
 " content
 
-fun! wheel#mandala#update_var_lines ()
+fun! wheel#mandala#update_var_lines (mood = 'patient')
 	" Update b:wheel_lines from mandala lines
-	call wheel#pencil#hide ()
+	" Optional argument :
+	"   - patient (default) : update with all checks
+	"   - hurry : update from rough buffer lines
+	"             works only if selction is empty and
+	"             content if _not_ filtered
+	let mood = a:mood
 	let start = wheel#teapot#first_data_line ()
+	if mood == 'hurry'
+		let lines = getline(start, '$')
+		let b:wheel_lines = lines
+		return v:true
+	endif
 	if wheel#teapot#is_filtered ()
+		let lastline = line('$')
 		for linum in range(start, lastline)
+			let visible = getline(linum)
+			let visible = wheel#pencil#erase (visible)
+			let line_index = wheel#teapot#line_index (linum)
+			let b:wheel_lines[line_index] = visible
 		endfor
 	else
 		let lines = getline(start, '$')
+		let length = len(lines)
+		for index in range(length)
+			let visible = lines[index]
+			let lines[index] = wheel#pencil#erase (visible)
+		endfor
 		let b:wheel_lines = lines
 	endif
-	call wheel#pencil#show ()
-	return lines
+	return v:true
 endfun
 
 fun! wheel#mandala#replace (content, first = 'keep-first')
@@ -385,7 +404,7 @@ fun! wheel#mandala#fill (content, first = 'keep-first')
 	" ---- replace old content, fill if empty
 	call wheel#mandala#replace(a:content, a:first)
 	" -- update b:wheel_lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#mandala#update_var_lines ('hurry')
 	" ---- update leaf ring
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()

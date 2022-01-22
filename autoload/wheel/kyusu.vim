@@ -101,16 +101,16 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
 		let empty_fold = cur_value =~ s:fold_pattern
 		let empty_fold = empty_fold && next_value =~ s:fold_pattern
 		let empty_fold = empty_fold && cur_last >= next_last
-		let global_index = indexlist[index]
+		let line_index = indexlist[index]
 		if empty_fold
 			" add line only if matches wordlist
-			if wheel#kyusu#intermix(wordlist, global_index, cur_value, sel_switch)
-				eval filtered_indexes->add(global_index)
+			if wheel#kyusu#intermix(wordlist, line_index, cur_value, sel_switch)
+				eval filtered_indexes->add(line_index)
 				eval filtered_values->add(cur_value)
 			endif
 		else
 			" always add line
-			eval filtered_indexes->add(global_index)
+			eval filtered_indexes->add(line_index)
 			eval filtered_values->add(cur_value)
 		endif
 	endfor
@@ -118,7 +118,8 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
 	let index = length - 1
 	let value = candidates[-1]
 	if wheel#kyusu#intermix (wordlist, indexlist[index], value, sel_switch)
-		eval filtered_indexes->add(indexlist[index])
+		let line_index = indexlist[index]
+		eval filtered_indexes->add(line_index)
 		eval filtered_values->add(value)
 	endif
 	return [filtered_indexes, filtered_values]
@@ -129,15 +130,14 @@ endfun
 fun! wheel#kyusu#indexes_and_lines ()
 	" Return lines matching words of first line
 	let linelist = copy(b:wheel_lines)
-	let first = getline(1)
-	let first = substitute(first, s:mandala_prompt, '', '')
-	let wordlist = split(first)
+	let wordlist = wheel#teapot#wordlist ()
 	if empty(wordlist)
 		let filtered_indexes = range(len(linelist))
 		let filtered_values = linelist
 		return [filtered_indexes, filtered_values]
 	endif
-	call wheel#scroll#record(first)
+	let input = join(wordlist)
+	call wheel#scroll#record(input)
 	" special words
 	let sel_switch = v:false
 	for index in range(len(wordlist))
@@ -152,7 +152,8 @@ fun! wheel#kyusu#indexes_and_lines ()
 	let filtered_values = []
 	for index in range(len(linelist))
 		let value = linelist[index]
-		let pass = wheel#kyusu#intermix (wordlist, index, value, sel_switch) || value =~ s:fold_pattern
+		let pass = wheel#kyusu#intermix (wordlist, index, value, sel_switch)
+		let pass = pass || value =~ s:fold_pattern
 		if pass
 			eval filtered_indexes->add(index)
 			eval filtered_values->add(value)

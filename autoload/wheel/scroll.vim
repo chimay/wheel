@@ -4,15 +4,16 @@
 
 fun! wheel#scroll#record (input)
 	" Add input = string or list to beginning of input history
-	if type(a:input) == v:t_list
-		for elem in a:input
+	let input = a:input
+	if type(input) == v:t_list
+		for elem in input
 			call wheel#scroll#record (elem)
 		endfor
-	elseif type(a:input) == v:t_string
-		if wheel#chain#is_inside(a:input, g:wheel_input)
-			eval g:wheel_input->wheel#chain#remove_element(a:input)
+	elseif type(input) == v:t_string
+		if input->wheel#chain#is_inside(g:wheel_input)
+			eval g:wheel_input->wheel#chain#remove_element(input)
 		endif
-		call insert(g:wheel_input, a:input)
+		eval g:wheel_input->insert(input)
 		let max = g:wheel_config.maxim.input
 		let g:wheel_input = g:wheel_input[:max - 1]
 	else
@@ -21,24 +22,29 @@ fun! wheel#scroll#record (input)
 endfun
 
 fun! wheel#scroll#newer ()
-	" Replace current line by newer element in input history
-	if ! empty(getline('.'))
+	" Replace first line by newer element in input history
+	if line('.') != 1
+		return v:false
+	endif
+	let line = getline(1)
+	if ! empty(line)
 		let g:wheel_input = wheel#chain#rotate_right (g:wheel_input)
 	endif
-	call cursor(1,1)
-	call setline('.', g:wheel_input[0])
-	" not needed
+	call setline(1, g:wheel_input[0])
 	" not necessary with <cmd> maps
 	"startinsert!
 endfun
 
 fun! wheel#scroll#older ()
 	" Replace current line by older element in input history
-	if ! empty(getline('.'))
+	if line('.') != 1
+		return v:false
+	endif
+	let line = getline(1)
+	if ! empty(line)
 		let g:wheel_input = wheel#chain#rotate_left (g:wheel_input)
 	endif
-	call cursor(1,1)
-	call setline('.', g:wheel_input[0])
+	call setline(1, g:wheel_input[0])
 	" not necessary with <cmd> maps
 	"startinsert!
 endfun
@@ -46,13 +52,13 @@ endfun
 fun! wheel#scroll#filtered_newer ()
 	" Replace current line by newer element in input history
 	if line('.') != 1
-		return
+		return v:false
 	endif
 	let col = col('.')
 	let line = getline('.')
 	if empty(line)
 		call wheel#scroll#newer ()
-		return
+		return v:true
 	endif
 	let before = strcharpart(line, 0, col)
 	let pattern = '\m^' .. before
@@ -71,13 +77,13 @@ endfun
 fun! wheel#scroll#filtered_older ()
 	" Replace current line by older element in input history
 	if line('.') != 1
-		return
+		return v:false
 	endif
 	let col = col('.')
 	let line = getline('.')
 	if empty(line)
 		call wheel#scroll#older ()
-		return
+		return v:true
 	endif
 	let before = strcharpart(line, 0, col)
 	let pattern = '\m^' .. before

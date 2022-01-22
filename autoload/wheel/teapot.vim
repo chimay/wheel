@@ -47,7 +47,7 @@ fun! wheel#teapot#line_index (...)
 	endif
 endfun
 
-" prompt
+" filter line
 
 fun! wheel#teapot#prompt (...)
 	" Add prompt at first line if not already there
