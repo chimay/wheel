@@ -147,6 +147,13 @@ fun! wheel#void#mandalas ()
 	endif
 endfun
 
+fun! wheel#void#signs ()
+	" Initialize signs list
+	if ! exists('g:wheel_signs')
+		let g:wheel_signs = {}
+	endif
+endfun
+
 fun! wheel#void#shelve ()
 	" Initialize shelve : misc status variables
 	if ! exists('g:wheel_shelve')
@@ -256,6 +263,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#wave ()
 	call wheel#void#yank ()
 	call wheel#void#mandalas ()
+	call wheel#void#signs ()
 	call wheel#void#shelve ()
 	call wheel#void#config ()
 	call wheel#void#autogroup ()
