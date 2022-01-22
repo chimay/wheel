@@ -130,7 +130,7 @@ fun! wheel#book#template ()
 	let leaf.preview = {}
 	let leaf.preview.used = v:false
 	let leaf.preview.follow = v:false
-	let leaf.preview.original_buffer = 'undefined'
+	let leaf.preview.original = 'undefined'
 	" -- cursor
 	let leaf.cursor = {}
 	let leaf.cursor.position = []

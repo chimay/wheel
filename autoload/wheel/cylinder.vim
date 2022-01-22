@@ -358,6 +358,11 @@ fun! wheel#cylinder#close ()
 	if ! wheel#cylinder#is_mandala()
 		return v:false
 	endif
+	" -- if preview was used, go to original buffer
+	let used_preview = b:wheel_preview.used
+	if used_preview
+		call wheel#orbiter#original ()
+	endif
 	" -- mandala buffer
 	if winnr('$') > 1
 		" more than one window in tab ? close it.

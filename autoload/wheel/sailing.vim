@@ -47,6 +47,8 @@ fun! wheel#sailing#mappings (settings)
 	exe map 'gV' pre .. string(settings) .. post
 	" -- selection
 	call wheel#pencil#mappings ()
+	" -- preview
+	call wheel#orbiter#mappings ()
 	" -- context menu
 	call wheel#boomerang#launch_map ('sailing')
 endfun
@@ -73,7 +75,26 @@ fun! wheel#sailing#generic (type)
 	call wheel#mandala#fill(lines)
 endfun
 
-" dedicated buffers
+" default values
+
+fun! wheel#sailing#default (settings)
+	" Default settings values
+	let settings = a:settings
+	if ! has_key(settings, 'function')
+		let settings.function = 'wheel#line#switch'
+	endif
+	if ! has_key(settings, 'target')
+		let settings.target = 'current'
+	endif
+	if ! has_key(settings, 'related_buffer')
+		let settings.related_buffer = b:wheel_related_buffer
+	endif
+	if ! has_key(settings, 'close')
+		let settings.close = v:true
+	endif
+endfun
+
+" applications
 
 fun! wheel#sailing#switch (level)
 	" Choose an element of level to switch to

@@ -26,6 +26,14 @@ fun! wheel#rectangle#previous ()
 	wincmd p
 endfun
 
+fun! wheel#rectangle#previous_buffer ()
+	" Return previous buffer number
+	call wheel#rectangle#previous ()
+	let original = bufnr('%')
+	call wheel#cylinder#recall ()
+	return original
+endfun
+
 fun! wheel#rectangle#glasses (filename, scope = 'all')
 	" Return list of window(s) id(s) displaying filename
 	" Optional argument :

@@ -5,7 +5,7 @@
 " - Paste
 " - Undo & diff
 
-" Script constants
+" script constants
 
 if ! exists('s:is_mandala_file')
 	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
@@ -27,7 +27,7 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" Cursor default line
+" cursor default line
 
 fun! wheel#line#default ()
 	" Put the cursor on default line
@@ -37,7 +37,7 @@ fun! wheel#line#default ()
 	endif
 endfun
 
-" Address of current line
+" address of current line
 
 fun! wheel#line#address (...)
 	" Return complete information of element at line
@@ -71,7 +71,7 @@ fun! wheel#line#address (...)
 	endif
 endfun
 
-" Target
+" target
 
 fun! wheel#line#where (target)
 	" Where to jump
@@ -104,7 +104,7 @@ fun! wheel#line#target (target)
 	endif
 endfun
 
-" Applications of loop#sailing
+" applications of loop#sailing, and sometimes loop#boomerang
 
 fun! wheel#line#switch (settings)
 	" Switch to settings.selected element in wheel
@@ -508,7 +508,7 @@ fun! wheel#line#narrow_circle (settings)
 	return win_getid ()
 endfun
 
-" Paste
+" paste
 
 fun! wheel#line#paste_list (...)
 	" Paste elements in current line from yank buffer in fields mode
@@ -613,7 +613,7 @@ fun! wheel#line#paste_visual (...)
 	return win_getid ()
 endfun
 
-" Undo list
+" undo list
 
 fun! wheel#line#undolist (bufnum)
 	" Jump to change in settings.selected

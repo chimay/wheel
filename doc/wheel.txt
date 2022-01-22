@@ -700,6 +700,7 @@ Example of layer type :
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
 
 Introduction			|wheel-dedicated-buffers-introduction|
+Tools				|wheel-dedicated-buffers-tools|
 Buffer ring			|wheel-dedicated-buffers-ring|
 Layer ring			|wheel-dedicated-buffers-layers|
 Menu				|wheel-dedicated-buffers-menus|
@@ -746,12 +747,21 @@ The available actions depend on the buffer type :
   + MRU file, locate file
   + grep result
   + and so on
-- reordering buffers allow you to reorder locations, circles or toruses
-- reorganize buffer allows you fine grain operations
-  + move, copy or delete locations, circles and toruses, using folds
-  + change locations settings like name, line, col
-  + be sure you know what you're doing
-- reorganize tabs and windows
+- reorganizing buffers allow you to
+  + rename locations, circles or toruses
+  + rename files
+  + reorder locations, circles or toruses
+  + move, copy or delete locations, circles and toruses
+  + perform fine grain operation
+      + change locations settings like name, line, col
+  + reorganize tabs and windows
+- edit buffers allow you to
+  + edit grep results
+  + edit narrow of current file
+  + edit narrow of all circle files
+
+------------------------------------------------------------------------------
+TOOLS						*wheel-dedicated-buffers-tools*
 
 Wrapping up things~
 
@@ -771,12 +781,12 @@ Some dedicated buffers can act on selected entries. You can hit :
 
 Filtering~
 
-In most dedicated buffers, the first line is left empty : it is used as an
-input line to filter the buffer. You can go to insert mode and filter the
-elements with each pattern you enter on the input (first) line. Typing
-`<space>`, `<esc>` or `<enter>` will update the candidates. Note that
-`<C-c>` is not mapped, in case you need to go to normal mode without
-triggering the filter function.
+In most dedicated buffers, the first line is left almost empty, with
+just a prompt : it is used as an input line to filter the buffer. You
+can go to insert mode and filter the elements with each pattern you
+enter on the input (first) line. Typing `<space>`, `<esc>` or `<enter>`
+will update the candidates. Note that `<C-c>` is not mapped, in case
+you need to go to normal mode without triggering the filter function.
 
 Pressing `i` or `a` will move the cursor to the first line and go to
 insert mode.
@@ -793,10 +803,6 @@ matching this pattern will be removed from the buffer.
 Here, `one` and `two` can be any vim regex. Most of the time, they are
 simply part of the result you want.
 
-There are also special words :
-
-- `=s` or `=selection` : the filtered elements will belong to the current selection
-
 For example, if you have the completion list `small flower`, `big flower`,
 `small fruit` and `big fruit` :
 
@@ -804,6 +810,12 @@ For example, if you have the completion list `small flower`, `big flower`,
 - the patterns `sm fl` will narrow down to `small flower`
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
+
+Special keywords~
+
+Special filtering keywords are available :
+
+- `=s` or `=selection` : the filtered elements will belong to the current selection
 
 If `small flower` and `big fruit` are selected :
 
@@ -813,8 +825,8 @@ If `small flower` and `big fruit` are selected :
 
 Input history~
 
-An input history is available in insert mode. You can insert the
-previous/next input with `<Up>`/`<Down>` or `<M-p>`/`<M-n>`.
+An input history is available in the filter line. You can insert the
+previous/next input in insert mode with `<Up>`/`<Down>` or `<M-p>`/`<M-n>`.
 
 The keys `<PageUp>`/`PageDown` or `<M-r>`/`<M-s>` will insert the
 previous/next input matching the beginning of the inserted line, until
@@ -839,7 +851,7 @@ Quit~
 Press `q` to quit the dedicated buffer.
 
 ------------------------------------------------------------------------------
-BUFFERS RING				*wheel-dedicated-buffers-ring*
+BUFFERS RING	    				*wheel-dedicated-buffers-ring*
 
 Wheel manages a dedicated buffers ring. You can :
 

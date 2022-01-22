@@ -6,7 +6,7 @@
 "
 " ouroboros
 
-" Script constants
+" script constants
 
 if ! exists('s:selected_pattern')
 	let s:selected_pattern = wheel#crystal#fetch('selected/pattern')
@@ -24,26 +24,10 @@ fun! wheel#loop#sailing (settings)
 	"   - related buffer of current mandala
 	"   - close : whether to close mandala
 	let settings = copy(a:settings)
-	" ---- default values
-	if has_key(settings, 'function')
-		let Fun = settings.function
-	else
-		let Fun = 'wheel#line#switch'
-	endif
-	if has_key(settings, 'target')
-		let target = settings.target
-	else
-		let target = 'current'
-		let settings.target = target
-	endif
-	if ! has_key(settings, 'related_buffer')
-		let settings.related_buffer = b:wheel_related_buffer
-	endif
-	if has_key(settings, 'close')
-		let close = settings.close
-	else
-		let close = v:true
-	endif
+	call wheel#sailing#default (settings)
+	let Fun = settings.function
+	let target = settings.target
+	let close = settings.close
 	" ---- selection
 	let selected = wheel#pencil#addresses ()
 	if empty(selected[0])
