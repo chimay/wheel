@@ -122,6 +122,8 @@ it’s easy to add new functionalities.
   + single or multi-pattern completion in prompting functions
   + choose file, group or category in dedicated buffer
     * filter candidates
+    * selection tools
+    * preview
     * folds matching wheel tree structure
     * context menus
   + auto `:lcd` to project root of current file
