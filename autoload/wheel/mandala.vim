@@ -174,6 +174,7 @@ fun! wheel#mandala#init ()
 		let b:wheel_preview = {}
 		let b:wheel_preview.switch = v:false
 		let b:wheel_preview.follow = v:false
+		let b:wheel_preview.original_buffer = 'undefined'
 	endif
 	" -- settings for action on line
 	if ! exists('b:wheel_settings')
