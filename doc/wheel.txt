@@ -762,15 +762,33 @@ The available actions depend on the buffer type :
   + edit narrow of current file
   + edit narrow of all circle files
 
-------------------------------------------------------------------------------
-TOOLS						*wheel-dedicated-buffers-tools*
-
 Wrapping up things~
 
 In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
 
 - if on the first line, `k` or `<up>` will go to the last line
 - if on the last line, `j` or `<down>` will go to the first line
+
+Action~
+
+The main keys are :
+
+- `<enter>` : trigger the default action, close the dedicated buffer
+- `g<enter>` : trigger the default action, leave the dedicated buffer opened
+
+Reload~
+
+Press `r` and the dedicated buffer will reload its content.
+
+Available on most dedicated buffers. It is not lost : you can reopen it
+any time with `<m-w><end>`.
+
+Quit~
+
+Press `q` to quit the dedicated buffer.
+
+------------------------------------------------------------------------------
+TOOLS						*wheel-dedicated-buffers-tools*
 
 Select entries~
 
@@ -834,23 +852,20 @@ The keys `<PageUp>`/`PageDown` or `<M-r>`/`<M-s>` will insert the
 previous/next input matching the beginning of the inserted line, until
 the cursor.
 
-Action~
+Preview~
 
-The main keys are :
+In navigation buffers, you can preview the buffer/location matching the
+cursor line with `p`. It is displayed in the previous tab window.
 
-- `<enter>` : trigger the default action, close the dedicated buffer
-- `g<enter>` : trigger the default action, leave the dedicated buffer opened
+You can go back any time in the original buffer with `o`.
 
-Reload~
+Follow mode~
 
-Press `r` and the dedicated buffer will reload its content.
+The key `f` enable the follow mode : the preview will then follow the cursor
+each time you press `j` or `k`.
 
-Available on most dedicated buffers. It is not lost : you can reopen it
-any time with `<m-w><end>`.
-
-Quit~
-
-Press `q` to quit the dedicated buffer.
+It's a toggle key : press `f` again and the follow mode is disabled. You
+should go back automatically to the original buffer.
 
 ------------------------------------------------------------------------------
 BUFFERS RING	    				*wheel-dedicated-buffers-ring*
