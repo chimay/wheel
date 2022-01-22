@@ -152,6 +152,13 @@ fun! wheel#void#signs ()
 	if ! exists('g:wheel_signs')
 		let g:wheel_signs = {}
 	endif
+	if ! has_key(g:wheel_signs, 'iden')
+		let g:wheel_signs.iden = []
+	endif
+	if ! has_key(g:wheel_signs, 'table')
+		" torus > circle > location -> iden
+		let g:wheel_signs.table = {}
+	endif
 endfun
 
 fun! wheel#void#shelve ()

@@ -376,10 +376,11 @@ fun! wheel#chain#tie (list)
 	return [list, gaps]
 endfun
 
-fun! wheel#chain#lowest_outside (list)
-	" Returns lowest integer >= 0 that is not in list
+fun! wheel#chain#lowest_outside (list, start = 0)
+	" Returns lowest integer >= start that is not in list
 	let list = a:list
-	let engulf = 0
+	let start = a:start
+	let engulf = start
 	while wheel#chain#is_inside(engulf, list)
 		let engulf += 1
 	endwhile

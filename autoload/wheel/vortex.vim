@@ -3,9 +3,6 @@
 " Move to elements
 
 " other names ideas for this file :
-"
-" chakra
-" caduceus
 
 " Variables
 
@@ -37,7 +34,7 @@ fun! wheel#vortex#here ()
 endfun
 
 fun! wheel#vortex#update (verbose = 'quiet')
-	" Update current location to cursor
+	" Update current location line & col to cursor
 	" Optional argument :
 	"   - quiet (default)
 	"   - verbose
@@ -53,6 +50,7 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	endif
 	let location.line = cur_line
 	let location.col = cur_col
+	call wheel#chakra#update ()
 	if verbose == 'verbose'
 		echo 'wheel : location updated'
 	endif
@@ -105,6 +103,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 		call wheel#gear#project_root(markers)
 	endif
 	call wheel#pendulum#record ()
+	call wheel#chakra#update ()
 	normal! zv
 	silent doautocmd User WheelAfterJump
 	call wheel#spiral#cursor ()

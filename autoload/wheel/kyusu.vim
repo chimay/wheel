@@ -9,11 +9,6 @@
 
 " script constants
 
-if ! exists('s:mandala_prompt')
-	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
-	lockvar s:mandala_prompt
-endif
-
 if ! exists('s:fold_pattern')
 	let s:fold_pattern = wheel#crystal#fetch('fold/pattern')
 	lockvar s:fold_pattern
