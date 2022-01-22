@@ -855,7 +855,7 @@ the cursor.
 Preview~
 
 In navigation buffers, you can preview the buffer/location matching the
-cursor line with `p`. It is displayed in the previous tab window.
+cursor line with `p`. It is displayed in the previous window.
 
 You can go back any time in the original buffer with `o`.
 
