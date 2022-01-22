@@ -799,6 +799,10 @@ Some dedicated buffers can act on selected entries. You can hit :
 - `*` to select all visible lines
 - `|` to clear the selection of all visible lines
 
+If a line is selected, it will begin with a distinctive marker.
+
+You can open all selected files in tabs, splits or vertical splits.
+
 Filtering~
 
 In most dedicated buffers, the first line is left almost empty, with
@@ -1027,12 +1031,6 @@ empty folds will be removed.
 
 Similarly, the map `<M-w><M-t>` opens a dedicated buffer where folds
 are used to reflect the tree structure of tabs and windows in (neo)vim.
-
-Selection~
-
-Pressing `<Space>` will toggle the selection of the current line. If a
-line is selected, it will begin with an asterisk. You can then open all
-selected files in tabs, splits or vertical splits.
 
 ------------------------------------------------------------------------------
 WITHIN THE WHEEL			*wheel-dedicated-buffers-within-wheel*
