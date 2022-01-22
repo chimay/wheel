@@ -361,6 +361,8 @@ fun! wheel#cylinder#close ()
 	" -- if preview was used, go to original buffer
 	let used_preview = b:wheel_preview.used
 	if used_preview
+		let b:wheel_preview.used = v:false
+		let b:wheel_preview.follow = v:false
 		call wheel#orbiter#original ()
 	endif
 	" -- mandala buffer

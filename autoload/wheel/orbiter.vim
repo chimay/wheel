@@ -33,10 +33,12 @@ fun! wheel#orbiter#follow ()
 		let b:wheel_preview.original = wheel#rectangle#previous_buffer ()
 	endif
 	let b:wheel_preview.follow = v:true
+	call wheel#orbiter#preview ()
 endfun
 
 fun! wheel#orbiter#unfollow ()
 	" Cancel preview following
+	let b:wheel_preview.used = v:false
 	let b:wheel_preview.follow = v:false
 	call wheel#orbiter#original ()
 endfun

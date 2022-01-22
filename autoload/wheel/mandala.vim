@@ -67,6 +67,14 @@ fun! wheel#mandala#wrap_up ()
 	else
 		normal! k
 	endif
+	if ! wheel#cylinder#is_mandala ()
+		" can also be mapped in regular buffer
+		return v:true
+	endif
+	if b:wheel_preview.follow
+		call wheel#orbiter#preview ()
+	endif
+	return v:true
 endfun
 
 fun! wheel#mandala#wrap_down ()
@@ -85,6 +93,14 @@ fun! wheel#mandala#wrap_down ()
 	else
 		normal! j
 	endif
+	if ! wheel#cylinder#is_mandala ()
+		" can also be mapped in regular buffer
+		return v:true
+	endif
+	if b:wheel_preview.follow
+		call wheel#orbiter#preview ()
+	endif
+	return v:true
 endfun
 
 " mandala pseudo filename
