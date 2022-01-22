@@ -307,6 +307,21 @@ endfun
 
 " content
 
+fun! wheel#mandala#update_var_lines ()
+	" Update b:wheel_lines from mandala lines
+	call wheel#pencil#hide ()
+	let start = wheel#teapot#first_data_line ()
+	if wheel#teapot#is_filtered ()
+		for linum in range(start, lastline)
+		endfor
+	else
+		let lines = getline(start, '$')
+		let b:wheel_lines = lines
+	endif
+	call wheel#pencil#show ()
+	return lines
+endfun
+
 fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Replace mandala buffer with content
 	" Content can be :
@@ -356,14 +371,6 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	call wheel#gear#restore_cursor (position, 1)
 	" -- restore folding
 	let &foldenable = ampersand
-endfun
-
-fun! wheel#mandala#update_var_lines ()
-	" Update b:wheel_lines from mandala lines
-	let start = wheel#teapot#first_data_line ()
-	let lines = getline(start, '$')
-	let b:wheel_lines = lines
-	return lines
 endfun
 
 fun! wheel#mandala#fill (content, first = 'keep-first')

@@ -793,6 +793,10 @@ matching this pattern will be removed from the buffer.
 Here, `one` and `two` can be any vim regex. Most of the time, they are
 simply part of the result you want.
 
+There are also special words :
+
+- `=s` or `=selection` : the filtered elements will belong to the current selection
+
 For example, if you have the completion list `small flower`, `big flower`,
 `small fruit` and `big fruit` :
 
@@ -801,9 +805,11 @@ For example, if you have the completion list `small flower`, `big flower`,
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
 
-There are also special words :
+If `small flower` and `big fruit` are selected :
 
-- `=s` or `=selection` : the filtered elements will belong to the current selection
+- the pattern `=s` will narrow down to `small flower`, `big fruit`
+- the patterns `=s fl` will narrow down to `small flower`
+- the patterns `=s bi` will narrow down to `big fruit`
 
 Input history~
 

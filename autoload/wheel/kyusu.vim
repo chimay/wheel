@@ -59,7 +59,7 @@ endfun
 
 fun! wheel#kyusu#intermix (wordlist, index, value, sel_switch)
 	" Like kyusu#steep, but take selection switch into account
-	" index is not used, it's just for compatibility with filter()
+	" =s[selection] enable selected only filter
 	let wordlist = a:wordlist
 	let index = a:index
 	let value = a:value
@@ -89,25 +89,28 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
 		let cur_value = candidates[index]
 		let cur_length = strchars(cur_value)
 		let cur_last = strcharpart(cur_value, cur_length - 1, 1)
+		let cur_last = str2nr(cur_last)
 		" -- next line
 		let next_value = candidates[index + 1]
 		let next_length = strchars(next_value)
 		let next_last = strcharpart(next_value, next_length - 1, 1)
+		let next_last = str2nr(next_last)
 		" -- comparison
 		" if empty fold, value and next will contain marker
 		" and current fold level will be >= than next one
 		let empty_fold = cur_value =~ s:fold_pattern
 		let empty_fold = empty_fold && next_value =~ s:fold_pattern
 		let empty_fold = empty_fold && cur_last >= next_last
+		let global_index = indexlist[index]
 		if empty_fold
 			" add line only if matches wordlist
-			if wheel#kyusu#intermix(wordlist, indexlist[index], cur_value, sel_switch)
-				eval filtered_indexes->add(indexlist[index])
+			if wheel#kyusu#intermix(wordlist, global_index, cur_value, sel_switch)
+				eval filtered_indexes->add(global_index)
 				eval filtered_values->add(cur_value)
 			endif
 		else
 			" always add line
-			eval filtered_indexes->add(indexlist[index])
+			eval filtered_indexes->add(global_index)
 			eval filtered_values->add(cur_value)
 		endif
 	endfor
