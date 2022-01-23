@@ -104,7 +104,6 @@ endif
 
 if ! exists('s:mandala_prompt')
 	let s:mandala_prompt = '☯ '
-	"let s:mandala_prompt = 'wheel 🞋 '
 	lockvar s:mandala_prompt
 endif
 

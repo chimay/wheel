@@ -1684,6 +1684,9 @@ Max layers in dedicated buffers		|wheel-config-maxim-layers|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
+Filter prompt in dedidcated buffers	|wheel-config-display-prompt|
+Selection marker			|wheel-config-display-selection|
+Signs					|wheel-config-display-sign|
 Tabline					|wheel-config-tabline|
 Example					|wheel-config-example|
 
@@ -1721,8 +1724,10 @@ DICTIONARY					  *wheel-config-dictionary*
 Customization is done using the `g:wheel_config` dictionary. You must
 first initialize it : >
 
-    let g:wheel_config       = {}
-    let g:wheel_config.maxim = {}
+    let g:wheel_config              = {}
+    let g:wheel_config.maxim        = {}
+    let g:wheel_config.display      = {}
+    let g:wheel_config.display.sign = {}
 <
 
 ------------------------------------------------------------------------------
@@ -1974,6 +1979,45 @@ Maximum number of vertical splits in layouts : >
 <
 
 ------------------------------------------------------------------------------
+FILTER PROMPT IN DEDICATED BUFFERS		*wheel-config-display-prompt*
+
+You can customize the filter prompt in dedicated buffers : >
+
+
+    let g:wheel_config.display.prompt = 'wheel $ '
+<
+
+Default : '☯ '
+
+------------------------------------------------------------------------------
+SELECTION MARKER				*wheel-config-display-prompt*
+
+You can customize the selection marker in dedicated buffers : >
+
+
+    let g:wheel_config.display.selection = '-> '
+<
+
+Default : '☰ '
+
+------------------------------------------------------------------------------
+SIGNS						*wheel-config-display-sign*
+
+By default, signs are displayed at wheel locations. You can disable it
+if you want : >
+
+    let g:wheel_config.display.sign.switch = v:false
+<
+
+The sign settings for wheel location can also be modified : >
+
+
+    let g:wheel_config.display.sign.settings = { 'text' : '@' }
+<
+
+Default : '☯'
+
+------------------------------------------------------------------------------
 TABLINE					*wheel-config-tabline*
 
 Text~
@@ -2008,8 +2052,10 @@ EXAMPLE						        *wheel-config-example*
 Here is an example of a complete configuration : >
 
   " Init
-  let g:wheel_config={}
-  let g:wheel_config.maxim={}
+  let g:wheel_config              = {}
+  let g:wheel_config.maxim        = {}
+  let g:wheel_config.display      = {}
+  let g:wheel_config.display.sign = {}
 
   " The file where toruses and circles will be stored and read
   let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
@@ -2063,6 +2109,13 @@ Here is an example of a complete configuration : >
   let g:wheel_config.maxim.horizontal = 3
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
+
+  " Filter prompt in dedicated buffers
+  let g:wheel_config.display.prompt = 'wheel $ '
+  " Selection marker in dedicated buffers
+  let g:wheel_config.display.selection = '-> '
+  " Sign text at wheel locations
+  let g:wheel_config.display.sign.settings = { 'text' : '@' }
 <
 
 ==============================================================================

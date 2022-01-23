@@ -58,6 +58,7 @@ fun! wheel#cylinder#goto (...)
 		" already there
 		return v:false
 	endif
+	call wheel#vortex#update ()
 	let current = g:wheel_mandalas.current
 	let mandalas = g:wheel_mandalas.ring
 	if empty(mandalas)
