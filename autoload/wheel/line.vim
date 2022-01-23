@@ -233,7 +233,9 @@ fun! wheel#line#buffers (settings)
 		execute 'silent bwipe' bufnum
 		echomsg 'buffer' bufnum 'wiped'
 	endif
-	call wheel#projection#follow ()
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -405,7 +407,9 @@ fun! wheel#line#markers (settings)
 	" ---- go
 	call wheel#line#target (target)
 	execute "normal `" .. mark
-	call wheel#projection#follow ()
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -426,7 +430,9 @@ fun! wheel#line#jumps (settings)
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
-	call wheel#projection#follow ()
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -469,7 +475,9 @@ fun! wheel#line#tags (settings)
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
-	call wheel#projection#follow ()
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
