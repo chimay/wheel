@@ -5,7 +5,7 @@
 " - Paste
 " - Undo & diff
 
-" script constants
+" ---- script constants
 
 if ! exists('s:is_mandala_file')
 	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
@@ -22,7 +22,7 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" cursor default line
+" ---- cursor default line
 
 fun! wheel#line#default ()
 	" Put the cursor on default line
@@ -32,7 +32,7 @@ fun! wheel#line#default ()
 	endif
 endfun
 
-" address of current line
+" ---- address of current line
 
 fun! wheel#line#address (...)
 	" Return complete information of element at line
@@ -66,7 +66,7 @@ fun! wheel#line#address (...)
 	endif
 endfun
 
-" target
+" ---- target
 
 fun! wheel#line#where (target)
 	" Where to jump
@@ -99,7 +99,9 @@ fun! wheel#line#target (target)
 	endif
 endfun
 
-" applications of loop#sailing, and sometimes loop#boomerang
+" ---- applications of loop#sailing, and sometimes loop#boomerang
+
+" -- wheel
 
 fun! wheel#line#switch (settings)
 	" Switch to settings.selection element in wheel
@@ -192,6 +194,8 @@ fun! wheel#line#history (settings)
 	return win_getid ()
 endfun
 
+" -- others
+
 fun! wheel#line#buffers (settings)
 	" Go to opened file given by selection
 	" ---- settings
@@ -229,6 +233,7 @@ fun! wheel#line#buffers (settings)
 		execute 'silent bwipe' bufnum
 		echomsg 'buffer' bufnum 'wiped'
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -394,6 +399,7 @@ fun! wheel#line#markers (settings)
 	" ---- go
 	call wheel#line#target (target)
 	execute "normal `" .. mark
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -414,6 +420,7 @@ fun! wheel#line#jumps (settings)
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -456,6 +463,7 @@ fun! wheel#line#tags (settings)
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -503,7 +511,7 @@ fun! wheel#line#narrow_circle (settings)
 	return win_getid ()
 endfun
 
-" paste
+" -- paste
 
 fun! wheel#line#paste_list (...)
 	" Paste elements in current line from yank buffer in fields mode
@@ -608,7 +616,7 @@ fun! wheel#line#paste_visual (...)
 	return win_getid ()
 endfun
 
-" undo list
+" -- undo list
 
 fun! wheel#line#undolist (bufnum)
 	" Jump to change in settings.selection
