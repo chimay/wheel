@@ -69,15 +69,22 @@ if ! exists('s:sign_group')
 	lockvar s:sign_group
 endif
 
+if ! exists('s:sign_text')
+	let s:sign_text = '☯'
+	lockvar s:sign_text
+endif
+
 if ! exists('s:sign_settings')
 	let s:sign_settings = #{
-				\ text : '☯',
+				\ text : s:sign_text,
 				\ }
 	lockvar s:sign_settings
+endif
+
+" highlight groups for sign
 " 				\ texthl : 'Normal',
 " 				\ numhl : 'Normal',
 " 				\ linehl : 'Normal',
-endif
 
 " mandala prompt
 
@@ -294,28 +301,28 @@ endif
 
 " selections in mandalas
 
-if ! exists('s:selected_mark')
-	let s:selected_mark = '☰ '
-	"let s:selected_mark = '☯ '
-	"let s:selected_mark = '𑇍 '
-	"let s:selected_mark = '᚛ '
-	"let s:selected_mark = '⊗ '
-	"let s:selected_mark = '⊛ '
-	"let s:selected_mark = '✶ '
-	"let s:selected_mark = '🗸 '
-	"let s:selected_mark = '𐄂 '
+if ! exists('s:selection_mark')
+	let s:selection_mark = '☰ '
+	"let s:selection_mark = '☯ '
+	"let s:selection_mark = '𑇍 '
+	"let s:selection_mark = '᚛ '
+	"let s:selection_mark = '⊗ '
+	"let s:selection_mark = '⊛ '
+	"let s:selection_mark = '✶ '
+	"let s:selection_mark = '🗸 '
+	"let s:selection_mark = '𐄂 '
 	" enter unicode : in insert mode :
 	"   - ctrl-v u 12ab
 	"   - ctrl-v U 12ab34cd
 	" see :
 	"   - :help i_CTRL-V_digit
 	"   - https://unicode-table.com/en/
-	lockvar s:selected_mark
+	lockvar s:selection_mark
 endif
 
-if ! exists('s:selected_pattern')
-	let s:selected_pattern = '\m^' .. s:selected_mark
-	lockvar s:selected_pattern
+if ! exists('s:selection_pattern')
+	let s:selection_pattern = '\m^' .. s:selection_mark
+	lockvar s:selection_pattern
 endif
 
 " targets in mandalas

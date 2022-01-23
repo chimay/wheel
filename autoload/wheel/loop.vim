@@ -8,9 +8,9 @@
 
 " script constants
 
-if ! exists('s:selected_pattern')
-	let s:selected_pattern = wheel#crystal#fetch('selected/pattern')
-	lockvar s:selected_pattern
+if ! exists('s:selection_pattern')
+	let s:selection_pattern = wheel#crystal#fetch('selection/pattern')
+	lockvar s:selection_pattern
 endif
 
 " looping

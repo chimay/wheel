@@ -4,14 +4,14 @@
 
 " Script constants
 
-if ! exists('s:selected_mark')
-	let s:selected_mark = wheel#crystal#fetch('selected/mark')
-	lockvar s:selected_mark
+if ! exists('s:selection_mark')
+	let s:selection_mark = wheel#crystal#fetch('selection/mark')
+	lockvar s:selection_mark
 endif
 
-if ! exists('s:selected_pattern')
-	let s:selected_pattern = wheel#crystal#fetch('selected/pattern')
-	lockvar s:selected_pattern
+if ! exists('s:selection_pattern')
+	let s:selection_pattern = wheel#crystal#fetch('selection/pattern')
+	lockvar s:selection_pattern
 endif
 
 " booleans
@@ -42,7 +42,7 @@ endfun
 
 fun! wheel#pencil#has_select_mark (line)
 	" Whether line has selection mark
-	return a:line =~ s:selected_pattern
+	return a:line =~ s:selection_pattern
 endfun
 
 " add / remove mark
@@ -53,7 +53,7 @@ fun! wheel#pencil#draw (line)
 	if wheel#pencil#has_select_mark (line)
 		return line
 	endif
-	return substitute(line, '\m^', s:selected_mark, '')
+	return substitute(line, '\m^', s:selection_mark, '')
 endfun
 
 fun! wheel#pencil#erase (line)
@@ -62,7 +62,7 @@ fun! wheel#pencil#erase (line)
 	if ! wheel#pencil#has_select_mark (line)
 		return line
 	endif
-	return substitute(line, s:selected_pattern, '', '')
+	return substitute(line, s:selection_pattern, '', '')
 endfun
 
 " one line

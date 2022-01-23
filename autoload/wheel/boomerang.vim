@@ -5,9 +5,9 @@
 
 " Script constants
 
-if ! exists('s:selected_mark')
-	let s:selected_mark = wheel#crystal#fetch('selected/mark')
-	lockvar s:selected_mark
+if ! exists('s:selection_mark')
+	let s:selection_mark = wheel#crystal#fetch('selection/mark')
+	lockvar s:selection_mark
 endif
 
 if ! exists('s:field_separ')

@@ -219,7 +219,7 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'message')
 		let g:wheel_config.message = 'one-line'
 	endif
-	" Maxim
+	" ---- maxim
 	if ! has_key(g:wheel_config, 'maxim')
 		let g:wheel_config.maxim = {}
 	endif
@@ -241,7 +241,27 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'layers')
 		let g:wheel_config.maxim.layers = 5
 	endif
-	" Debug
+	" ---- display
+	if ! has_key(g:wheel_config, 'display')
+		let g:wheel_config.display = {}
+	endif
+	if ! has_key(g:wheel_config.display, 'prompt')
+		let g:wheel_config.display.prompt = wheel#crystal#fetch ('mandala/prompt')
+	endif
+	if ! has_key(g:wheel_config.display, 'selection')
+		let g:wheel_config.display.selection = wheel#crystal#fetch ('selection/mark')
+	endif
+	" -- display sign
+	if ! has_key(g:wheel_config.display, 'sign')
+		let g:wheel_config.display.sign = {}
+	endif
+	if ! has_key(g:wheel_config.display.sign, 'switch')
+		let g:wheel_config.display.sign.switch = v:true
+	endif
+	if ! has_key(g:wheel_config.display.sign, 'text')
+		let g:wheel_config.display.sign.text = wheel#crystal#fetch ('sign/text')
+	endif
+	" ---- debug
 	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0
 	endif
