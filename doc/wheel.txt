@@ -1990,7 +1990,7 @@ You can customize the filter prompt in dedicated buffers : >
 Default : '☯ '
 
 ------------------------------------------------------------------------------
-SELECTION MARKER				*wheel-config-display-prompt*
+SELECTION MARKER				*wheel-config-display-selection*
 
 You can customize the selection marker in dedicated buffers : >
 
@@ -2016,6 +2016,8 @@ The sign settings for wheel location can also be modified : >
 <
 
 Default : '☯'
+
+See also |sign.txt| and |:sign|.
 
 ------------------------------------------------------------------------------
 TABLINE					*wheel-config-tabline*
