@@ -255,9 +255,6 @@ fun! wheel#line#tabwins (settings)
 		let fields = split(selection, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
-		if tabnum != tabpagenr()
-			call wheel#cylinder#close()
-		endif
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
@@ -290,9 +287,6 @@ fun! wheel#line#tabwins_tree (settings)
 	endif
 	" ---- actions
 	if action == 'open'
-		if tabnum != tabpagenr()
-			call wheel#cylinder#close()
-		endif
 		execute 'noautocmd tabnext' tabnum
 		if len(hierarchy) > 1
 			let winum = hierarchy[1]
