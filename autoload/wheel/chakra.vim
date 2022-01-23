@@ -87,10 +87,27 @@ fun! wheel#chakra#place ()
 	return new_iden
 endfun
 
+fun! wheel#chakra#clear ()
+	" Unplace all wheel signs
+	let group = s:sign_group
+	let signs = g:wheel_signs
+	let iden = signs.iden
+	for old_iden in iden
+		let dict = #{ id : old_iden }
+		call sign_unplace(group, dict)
+	endfor
+endfun
+
 fun! wheel#chakra#update ()
 	" Add or update sign at location
+	let display_sign = g:wheel_config.display.sign.switch
+	if ! display_sign
+		call wheel#chakra#clear ()
+		return v:false
+	endif
 	let signs = g:wheel_signs
 	call wheel#chakra#define ()
 	call wheel#chakra#unplace ()
 	call wheel#chakra#place ()
+	return v:true
 endfun
