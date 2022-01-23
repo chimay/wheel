@@ -12,11 +12,6 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
-if ! exists('s:selection_pattern')
-	let s:selection_pattern = wheel#crystal#fetch('selection/pattern')
-	lockvar s:selection_pattern
-endif
-
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ

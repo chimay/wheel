@@ -5,11 +5,6 @@
 
 " Script constants
 
-if ! exists('s:selection_mark')
-	let s:selection_mark = wheel#crystal#fetch('selection/mark')
-	lockvar s:selection_mark
-endif
-
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ

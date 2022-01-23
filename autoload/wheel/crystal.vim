@@ -303,26 +303,7 @@ endif
 
 if ! exists('s:selection_mark')
 	let s:selection_mark = '☰ '
-	"let s:selection_mark = '☯ '
-	"let s:selection_mark = '𑇍 '
-	"let s:selection_mark = '᚛ '
-	"let s:selection_mark = '⊗ '
-	"let s:selection_mark = '⊛ '
-	"let s:selection_mark = '✶ '
-	"let s:selection_mark = '🗸 '
-	"let s:selection_mark = '𐄂 '
-	" enter unicode : in insert mode :
-	"   - ctrl-v u 12ab
-	"   - ctrl-v U 12ab34cd
-	" see :
-	"   - :help i_CTRL-V_digit
-	"   - https://unicode-table.com/en/
 	lockvar s:selection_mark
-endif
-
-if ! exists('s:selection_pattern')
-	let s:selection_pattern = '\m^' .. s:selection_mark
-	lockvar s:selection_pattern
 endif
 
 " targets in mandalas

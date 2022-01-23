@@ -2,18 +2,6 @@
 
 " Selection in mandalas
 
-" Script constants
-
-if ! exists('s:selection_mark')
-	let s:selection_mark = wheel#crystal#fetch('selection/mark')
-	lockvar s:selection_mark
-endif
-
-if ! exists('s:selection_pattern')
-	let s:selection_pattern = wheel#crystal#fetch('selection/pattern')
-	lockvar s:selection_pattern
-endif
-
 " booleans
 
 fun! wheel#pencil#has_selection ()
@@ -42,7 +30,9 @@ endfun
 
 fun! wheel#pencil#has_select_mark (line)
 	" Whether line has selection mark
-	return a:line =~ s:selection_pattern
+	let selection_mark = g:wheel_config.display.selection
+	let selection_pattern = '\m^' .. selection_mark
+	return a:line =~ selection_pattern
 endfun
 
 " add / remove mark
@@ -53,7 +43,8 @@ fun! wheel#pencil#draw (line)
 	if wheel#pencil#has_select_mark (line)
 		return line
 	endif
-	return substitute(line, '\m^', s:selection_mark, '')
+	let selection_mark = g:wheel_config.display.selection
+	return substitute(line, '\m^', selection_mark, '')
 endfun
 
 fun! wheel#pencil#erase (line)
@@ -62,7 +53,9 @@ fun! wheel#pencil#erase (line)
 	if ! wheel#pencil#has_select_mark (line)
 		return line
 	endif
-	return substitute(line, s:selection_pattern, '', '')
+	let selection_mark = g:wheel_config.display.selection
+	let selection_pattern = '\m^' .. selection_mark
+	return substitute(line, selection_pattern, '', '')
 endfun
 
 " one line

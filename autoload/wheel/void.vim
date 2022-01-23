@@ -267,6 +267,19 @@ fun! wheel#void#config ()
 	endif
 endfun
 
+" unicode store
+"
+" enter unicode : in insert mode :
+"
+"   - ctrl-v u 12ab
+"   - ctrl-v U 12ab34cd
+" see :
+"
+"   - :help i_CTRL-V_digit
+"   - https://unicode-table.com/en/
+"
+" ☯ 𑇍 ᚛ ⊗ ⊛ ✶ 🗸 𐄂
+
 fun! wheel#void#autogroup ()
 	" Define empty wheel-mandala auto command group
 	execute 'augroup' s:mandala_autocmds_group

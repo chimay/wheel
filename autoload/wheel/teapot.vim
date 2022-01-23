@@ -4,11 +4,6 @@
 
 " helpers
 
-if ! exists('s:mandala_prompt')
-	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
-	lockvar s:mandala_prompt
-endif
-
 fun! wheel#teapot#has_filter ()
 	" Whether mandala has filter in first line, false otherwise
 	return b:wheel_nature.has_filter
@@ -62,8 +57,10 @@ fun! wheel#teapot#prompt (...)
 	else
 		let content = getline(1)
 	endif
-	if content !~ '\m^' .. s:mandala_prompt
-		let content = s:mandala_prompt .. content
+	let mandala_prompt = g:wheel_config.display.prompt
+	let pattern = '\m^' .. mandala_prompt
+	if content !~ '\m^' .. mandala_prompt
+		let content = mandala_prompt .. content
 	endif
 	call setline(1, content)
 endfun
@@ -81,14 +78,16 @@ fun! wheel#teapot#without_prompt (...)
 	else
 		let content = getline(1)
 	endif
-	let pattern = '\m^' .. s:mandala_prompt
+	let mandala_prompt = g:wheel_config.display.prompt
+	let pattern = '\m^' .. mandala_prompt
 	let content = substitute(content, pattern, '', '')
 	return content
 endfun
 
 fun! wheel#teapot#wordlist ()
 	" Return words of filtering first line, without prompt
-	let pattern = '\m^' .. s:mandala_prompt
+	let mandala_prompt = g:wheel_config.display.prompt
+	let pattern = '\m^' .. mandala_prompt
 	let words = getline(1)
 	let words = substitute(words, pattern, '', '')
 	let words = split(words)
@@ -152,7 +151,8 @@ fun! wheel#teapot#ctrl_u ()
 	if linum != 1
 		return v:false
 	endif
-	call setline(1, s:mandala_prompt)
+	let mandala_prompt = g:wheel_config.display.prompt
+	call setline(1, mandala_prompt)
 	call wheel#teapot#filter('insert')
 endfun
 

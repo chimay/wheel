@@ -4,11 +4,6 @@
 
 " Script constants
 
-if ! exists('s:selection_pattern')
-	let s:selection_pattern = wheel#crystal#fetch('selection/pattern')
-	lockvar s:selection_pattern
-endif
-
 if ! exists('s:fold_1')
 	let s:fold_1 = wheel#crystal#fetch('fold/one')
 	lockvar s:fold_1

@@ -2,18 +2,6 @@
 
 " Menu leaf for mandalas
 
-" script constants
-
-if ! exists('s:selection_mark')
-	let s:selection_mark = wheel#crystal#fetch('selection/mark')
-	lockvar s:selection_mark
-endif
-
-if ! exists('s:selection_pattern')
-	let s:selection_pattern = wheel#crystal#fetch('selection/pattern')
-	lockvar s:selection_pattern
-endif
-
 " functions
 
 fun! wheel#tower#menu (settings)
