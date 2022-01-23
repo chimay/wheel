@@ -2,14 +2,14 @@
 
 " Enter the void, and ride the wheel
 
-" Script constants
+" script constants
 
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
 	lockvar s:mandala_autocmds_group
 endif
 
-" Helpers
+" helpers
 
 fun! wheel#void#template(init)
 	" Generate template to add to g:wheel lists
@@ -21,7 +21,7 @@ fun! wheel#void#template(init)
 	return template
 endfun
 
-" Initialize individual variables
+" initialize individual variables
 
 fun! wheel#void#wheel ()
 	" Initialize wheel
@@ -258,27 +258,14 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.display.sign, 'switch')
 		let g:wheel_config.display.sign.switch = v:true
 	endif
-	if ! has_key(g:wheel_config.display.sign, 'text')
-		let g:wheel_config.display.sign.text = wheel#crystal#fetch ('sign/text')
+	if ! has_key(g:wheel_config.display.sign, 'settings')
+		let g:wheel_config.display.sign.settings = wheel#crystal#fetch ('sign/settings')
 	endif
 	" ---- debug
 	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0
 	endif
 endfun
-
-" unicode store
-"
-" enter unicode : in insert mode :
-"
-"   - ctrl-v u 12ab
-"   - ctrl-v U 12ab34cd
-" see :
-"
-"   - :help i_CTRL-V_digit
-"   - https://unicode-table.com/en/
-"
-" ☯ 𑇍 ᚛ ⊗ ⊛ ✶ 🗸 𐄂
 
 fun! wheel#void#autogroup ()
 	" Define empty wheel-mandala auto command group
@@ -287,7 +274,7 @@ fun! wheel#void#autogroup ()
 	augroup END
 endfun
 
-" Initialize all variables & augroup
+" initialize all variables & augroup
 
 fun! wheel#void#foundation ()
 	" Initialize wheel
@@ -309,7 +296,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#autogroup ()
 endfun
 
-" Clean mandala buffers
+" clean mandala buffers
 
 fun! wheel#void#wipe_mandalas ()
 	" Wipe mandalas buffers
@@ -323,7 +310,7 @@ fun! wheel#void#wipe_mandalas ()
 	endfor
 endfun
 
-" Unlet variables
+" unlet variables
 
 fun! wheel#void#clean ()
 	" Clean variables before writing wheel to file
@@ -358,7 +345,7 @@ fun! wheel#void#lighten ()
 	call wheel#gear#unlet (varlist)
 endfun
 
-" Init & Exit
+" init & exit
 
 fun! wheel#void#init ()
 	" Main init function
@@ -394,7 +381,7 @@ fun! wheel#void#exit ()
 	endif
 endfun
 
-" Fresh empty wheel, for testing
+" fresh empty wheel, for testing
 
 fun! wheel#void#fresh_wheel ()
 	" Fresh empty wheel variables

@@ -18,11 +18,6 @@ if ! exists('s:sign_group')
 	lockvar s:sign_group
 endif
 
-if ! exists('s:sign_settings')
-	let s:sign_settings = wheel#crystal#fetch('sign/settings')
-	lockvar s:sign_settings
-endif
-
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
 	lockvar s:level_separ
@@ -33,11 +28,22 @@ endif
 fun! wheel#chakra#define ()
 	" Define wheel sign
 	let signs = g:wheel_signs
+	let name = s:sign_name
+	let settings = g:wheel_config.display.sign.settings
+	" first definition
 	if empty(signs.iden)
-		let name = s:sign_name
-		let settings = s:sign_settings
-		let code = sign_define(name, settings)
+		call sign_define(name, settings)
+		return v:true
 	endif
+	" change of settings in g:wheel_config
+	let defined = sign_getdefined()
+	let wheel_sign = defined->filter({ _, val -> val.name == name })[0]
+	let text = wheel_sign.text
+	if settings.text != text
+		call sign_undefine(name)
+		call sign_define(name, settings)
+	endif
+	return v:true
 endfun
 
 fun! wheel#chakra#unplace ()
@@ -54,7 +60,7 @@ fun! wheel#chakra#unplace ()
 	let group = s:sign_group
 	let old_iden = table[chord]
 	let dict = #{ id : old_iden }
-	let code = sign_unplace(group, dict)
+	call sign_unplace(group, dict)
 	eval iden->wheel#chain#remove_element(old_iden)
 	unlet table[chord]
 	return old_iden
@@ -73,7 +79,7 @@ fun! wheel#chakra#place ()
 	let file = location.file
 	let linum = location.line
 	let dict = #{ lnum : linum }
-	let code = sign_place(new_iden, group, name, file, dict)
+	call sign_place(new_iden, group, name, file, dict)
 	let coordin = wheel#referen#names ()
 	let chord = join(coordin, s:level_separ)
 	eval iden->add(new_iden)

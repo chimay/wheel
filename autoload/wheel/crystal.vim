@@ -5,6 +5,20 @@
 " Dictionaries are defined as list of items to preserve the order
 " of keys. Useful for menus & context menus
 
+" unicode store
+"
+" enter unicode : in insert mode :
+"
+"   - ctrl-v u 12ab
+"   - ctrl-v U 12ab34cd
+"
+" see :
+"
+"   - :help i_CTRL-V_digit
+"   - https://unicode-table.com/en/
+"
+" ☯ 𑇍 ᚛ ⊗ ⊛ ✶ 🗸 𐄂
+
 " wheel levels
 
 if ! exists('s:referen_levels')
@@ -60,12 +74,12 @@ endif
 " signs
 
 if ! exists('s:sign_name')
-	let s:sign_name = 'wheel'
+	let s:sign_name = 'wheel-sign-name'
 	lockvar s:sign_name
 endif
 
 if ! exists('s:sign_group')
-	let s:sign_group = 'wheel'
+	let s:sign_group = 'wheel-sign-group'
 	lockvar s:sign_group
 endif
 
