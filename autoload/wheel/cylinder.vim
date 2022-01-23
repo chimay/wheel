@@ -54,7 +54,7 @@ endfun
 fun! wheel#cylinder#goto (...)
 	" Find window of visible current mandala
 	" Optional argument : if tab, search only in current tab
-	if wheel#cylinder#is_mandala()
+	if wheel#cylinder#is_mandala ()
 		" already there
 		return v:false
 	endif
@@ -333,12 +333,7 @@ fun! wheel#cylinder#close ()
 		return v:false
 	endif
 	" -- if preview was used, go to original buffer
-	let used_preview = b:wheel_preview.used
-	if used_preview
-		let b:wheel_preview.used = v:false
-		let b:wheel_preview.follow = v:false
-		call wheel#orbiter#original ()
-	endif
+	call wheel#orbiter#original ()
 	" -- mandala buffer
 	if winnr('$') > 1
 		" more than one window in tab ? close it.

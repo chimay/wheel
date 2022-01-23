@@ -23,7 +23,7 @@ endif
 
 fun! wheel#rectangle#previous ()
 	" Go to previous window in tab
-	wincmd p
+	noautocmd wincmd p
 endfun
 
 fun! wheel#rectangle#previous_buffer ()

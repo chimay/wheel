@@ -348,7 +348,9 @@ fun! wheel#sailing#occur (...)
 	else
 		let pattern = input('Lines matching pattern : ')
 	endif
-	call wheel#rectangle#previous ()
+	if wheel#cylinder#is_mandala ()
+		call wheel#rectangle#previous ()
+	endif
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
 	if empty(lines)
@@ -380,7 +382,9 @@ fun! wheel#sailing#grep (...)
 		echomsg 'wheel sailing grep : no match found'
 		return v:false
 	endif
-	call wheel#rectangle#previous ()
+	if wheel#cylinder#is_mandala ()
+		call wheel#rectangle#previous ()
+	endif
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('grep/' .. word)
 	let settings = {'function' : function('wheel#line#grep')}
@@ -427,7 +431,9 @@ endfun
 
 fun! wheel#sailing#markers ()
 	" Markers
-	call wheel#rectangle#previous ()
+	if wheel#cylinder#is_mandala ()
+		call wheel#rectangle#previous ()
+	endif
 	call wheel#sailing#generic('markers')
 	" reload
 	let b:wheel_reload = 'wheel#sailing#markers'
@@ -435,7 +441,9 @@ endfun
 
 fun! wheel#sailing#jumps ()
 	" Jumps list
-	call wheel#rectangle#previous ()
+	if wheel#cylinder#is_mandala ()
+		call wheel#rectangle#previous ()
+	endif
 	let lines = wheel#perspective#jumps ()
 	if empty(lines)
 		echomsg 'wheel sailing jumps : empty result'
@@ -452,7 +460,9 @@ endfun
 
 fun! wheel#sailing#changes ()
 	" Jumps list
-	call wheel#rectangle#previous ()
+	if wheel#cylinder#is_mandala ()
+		call wheel#rectangle#previous ()
+	endif
 	let lines = wheel#perspective#changes ()
 	if empty(lines)
 		echomsg 'wheel sailing changes : empty result'

@@ -21,14 +21,26 @@ endfun
 fun! wheel#orbiter#switch_off ()
 	" Switch off b:wheel_preview.used
 	let b:wheel_preview.used = v:false
+	let b:wheel_preview.follow = v:false
 endfun
 
 fun! wheel#orbiter#original ()
 	" Restore original buffer
+	if ! b:wheel_preview.used
+		return v:true
+	endif
 	let original = b:wheel_preview.original
+	let type = wheel#status#type ()
+	if type =~ 'tabwins'
+		call wheel#rectangle#goto_or_load (original)
+		call wheel#cylinder#recall ()
+		return v:true
+	endif
 	call wheel#rectangle#previous ()
 	execute 'buffer' original
 	call wheel#cylinder#recall ()
+	call wheel#orbiter#switch_off ()
+	return v:true
 endfun
 
 fun! wheel#orbiter#follow ()
@@ -43,8 +55,6 @@ endfun
 
 fun! wheel#orbiter#unfollow ()
 	" Cancel preview following
-	let b:wheel_preview.used = v:false
-	let b:wheel_preview.follow = v:false
 	call wheel#orbiter#original ()
 endfun
 
