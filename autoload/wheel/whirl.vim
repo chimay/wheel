@@ -56,6 +56,7 @@ fun! wheel#whirl#buffer ()
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -73,6 +74,7 @@ fun! wheel#whirl#tabwin ()
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -87,6 +89,7 @@ fun! wheel#whirl#marker ()
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -104,6 +107,7 @@ fun! wheel#whirl#jump ()
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 
@@ -143,5 +147,6 @@ fun! wheel#whirl#tag ()
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
