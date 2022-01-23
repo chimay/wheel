@@ -74,6 +74,7 @@ fun! wheel#whirl#tabwin ()
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	call wheel#projection#follow ()
 	return win_getid ()
 endfun
 

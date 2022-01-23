@@ -99,7 +99,7 @@ fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 	" -- close it and go to the right tab
 	if tab != tabpagenr()
 		noautocmd close
-		execute 'tabnext' tab
+		execute 'noautocmd tabnext' tab
 	endif
 	" -- current tab
 	if ! wheel#cylinder#is_mandala ()

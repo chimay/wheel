@@ -26,6 +26,9 @@ fun! wheel#sailing#default (settings)
 	if ! has_key(settings, 'related_buffer')
 		let settings.related_buffer = b:wheel_related_buffer
 	endif
+	if ! has_key(settings, 'follow')
+		let settings.follow = v:true
+	endif
 	if ! has_key(settings, 'close')
 		let settings.close = v:true
 	endif

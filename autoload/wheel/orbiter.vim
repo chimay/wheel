@@ -11,6 +11,7 @@ fun! wheel#orbiter#preview ()
 	let settings = b:wheel_settings
 	call wheel#sailing#default (settings)
 	let settings.selection = wheel#line#address ()
+	let settings.follow = v:false
 	call wheel#rectangle#previous ()
 	let Fun = settings.function
 	let winiden = wheel#gear#call (Fun, settings)
@@ -19,9 +20,10 @@ fun! wheel#orbiter#preview ()
 endfun
 
 fun! wheel#orbiter#switch_off ()
-	" Switch off b:wheel_preview.used
+	" Switch off preview local variables
 	let b:wheel_preview.used = v:false
 	let b:wheel_preview.follow = v:false
+	let b:wheel_preview.original = 'undefined'
 endfun
 
 fun! wheel#orbiter#original ()
@@ -30,6 +32,7 @@ fun! wheel#orbiter#original ()
 		return v:true
 	endif
 	let original = b:wheel_preview.original
+	call wheel#orbiter#switch_off ()
 	let type = wheel#status#type ()
 	if type =~ 'tabwins'
 		call wheel#rectangle#goto_or_load (original)
@@ -39,7 +42,6 @@ fun! wheel#orbiter#original ()
 	call wheel#rectangle#previous ()
 	execute 'buffer' original
 	call wheel#cylinder#recall ()
-	call wheel#orbiter#switch_off ()
 	return v:true
 endfun
 
@@ -49,8 +51,8 @@ fun! wheel#orbiter#follow ()
 		let b:wheel_preview.used = v:true
 		let b:wheel_preview.original = wheel#rectangle#previous_buffer ()
 	endif
-	let b:wheel_preview.follow = v:true
 	call wheel#orbiter#preview ()
+	let b:wheel_preview.follow = v:true
 endfun
 
 fun! wheel#orbiter#unfollow ()

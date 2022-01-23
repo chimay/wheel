@@ -30,7 +30,7 @@ fun! wheel#rectangle#previous_buffer ()
 	" Return previous buffer number
 	call wheel#rectangle#previous ()
 	let original = bufnr('%')
-	call wheel#cylinder#recall ()
+	call wheel#rectangle#previous ()
 	return original
 endfun
 
@@ -110,7 +110,7 @@ fun! wheel#rectangle#goto (bufnum, scope = 'all')
 	if scope == 'tab'
 		let winnr = bufwinnr(bufnum)
 		if winnr > 0
-			execute winnr 'wincmd w'
+			execute winnr 'noautocmd wincmd w'
 			return v:true
 		else
 			return v:false
@@ -120,7 +120,7 @@ fun! wheel#rectangle#goto (bufnum, scope = 'all')
 	let winds = win_findbuf(bufnum)
 	if ! empty(winds)
 		let winiden = winds[0]
-		call win_gotoid(winiden)
+		noautocmd call win_gotoid(winiden)
 	else
 		return v:false
 	endif
@@ -131,7 +131,7 @@ fun! wheel#rectangle#goto_or_load (bufnum)
 	" Go to window of buffer if visible, or load it in first window of tab
 	let bufnum = a:bufnum
 	if ! wheel#rectangle#goto (bufnum)
-		1 wincmd w
+		noautocmd 1 wincmd w
 		execute 'buffer' bufnum
 	endif
 	return v:true

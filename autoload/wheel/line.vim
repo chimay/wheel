@@ -268,6 +268,9 @@ fun! wheel#line#tabwins (settings)
 			echomsg 'wheel line tabwins : will not close current tab page'
 		endif
 	endif
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -302,6 +305,9 @@ fun! wheel#line#tabwins_tree (settings)
 		else
 			echomsg 'wheel line tabwins_tree : will not close current tab page'
 		endif
+	endif
+	if settings.follow
+		call wheel#projection#follow ()
 	endif
 	return win_getid ()
 endfun
