@@ -63,7 +63,7 @@ fun! wheel#upstream#selection ()
 endfun
 
 fun! wheel#upstream#addresses ()
-	" Return selected addresses of parent leaf
+	" Return selection addresses of parent leaf
 	" If empty, return address of parent line
 	if wheel#upstream#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
@@ -78,7 +78,7 @@ endfun
 
 fun! wheel#upstream#remove_selection ()
 	" Parent leaf : remove selection & related lines
-	" removed = selected lines or cursor address
+	" removed = selection lines or cursor address
 	" e.g. : deleted buffers, closed tabs
 	let lines = wheel#book#previous ('lines')
 	let filter = wheel#book#previous ('filter')

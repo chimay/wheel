@@ -189,8 +189,8 @@ fun! wheel#book#previous (...)
 	return ring.leaves[previous][fieldname]
 endfun
 
-fun! wheel#book#previous_selected ()
-	" Return selected addresses of previous leaf in ring
+fun! wheel#book#previous_selection ()
+	" Return selection addresses of previous leaf in ring
 	" If empty, return previous address of current line
 	let addresses = wheel#book#previous('selection').addresses
 	if empty(addresses)
@@ -198,7 +198,7 @@ fun! wheel#book#previous_selected ()
 	elseif type(addresses) == v:t_list
 		return addresses
 	else
-		echomsg 'wheel book previous_selected : bad previous selection addresses'
+		echomsg 'wheel book previous selection : bad previous selection addresses'
 		return []
 	endif
 endfun

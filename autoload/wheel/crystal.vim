@@ -238,7 +238,7 @@ if ! exists('s:layer_fields')
 	" filtered : filtered mandala content
 	" position : cursor position
 	" address : address associated with cursor line
-	" selected : selected lines
+	" selection : selection lines
 	" settings : mandala settings
 	" reload : reload function
 	let s:layer_fields = [

@@ -190,7 +190,7 @@ endfun
 " hide & show
 
 fun! wheel#pencil#hide ()
-	" Remove selected mark from all visible lines
+	" Remove selection mark from all visible lines
 	" This does not clear the selection
 	let start = wheel#teapot#first_data_line ()
 	let lastline = line('$')
@@ -205,7 +205,7 @@ fun! wheel#pencil#hide ()
 endfun
 
 fun! wheel#pencil#show ()
-	" Add selected mark to all selected lines
+	" Add selection mark to all selected lines
 	" This does not alter the selection
 	if ! wheel#pencil#has_selection ()
 		return v:false
@@ -230,7 +230,7 @@ endfun
 " selection addresses
 
 fun! wheel#pencil#addresses ()
-	" Return selected addresses
+	" Return selection addresses
 	" If empty, return address of current line
 	" If context menu, look in previous leaf
 	if wheel#boomerang#is_context_menu ()

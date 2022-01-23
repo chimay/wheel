@@ -54,7 +54,7 @@ endfun
 
 fun! wheel#kyusu#intermix (wordlist, index, value, sel_switch)
 	" Like kyusu#steep, but take selection switch into account
-	" =s[selection] enable selected only filter
+	" =s[selection] enable selection only filter
 	let wordlist = a:wordlist
 	let index = a:index
 	let value = a:value

@@ -16,7 +16,7 @@ endif
 " looping
 
 fun! wheel#loop#sailing (settings)
-	" Navigation loop for element(s) in cursor line or selected line(s)
+	" Navigation loop for element(s) in cursor line or selection line(s)
 	" settings keys :
 	"   - function : navigation function name or funcref
 	"   - target : current window, tab, horizontal or vertical split,
@@ -29,8 +29,8 @@ fun! wheel#loop#sailing (settings)
 	let target = settings.target
 	let close = settings.close
 	" ---- selection
-	let selected = wheel#pencil#addresses ()
-	if empty(selected[0])
+	let selection = wheel#pencil#addresses ()
+	if empty(selection[0])
 		return v:false
 	endif
 	" ---- switch off preview
@@ -39,15 +39,15 @@ fun! wheel#loop#sailing (settings)
 	call wheel#rectangle#previous ()
 	" ---- target : current window or not ?
 	if target == 'current'
-		let settings.selected = selected[0]
+		let settings.selection = selection[0]
 		let winiden = wheel#gear#call(Fun, settings)
 		if &foldopen =~ 'jump'
 			normal! zv
 		endif
 		call wheel#spiral#cursor ()
 	else
-		for elem in selected
-			let settings.selected = elem
+		for elem in selection
+			let settings.selection = elem
 			let winiden = wheel#gear#call(Fun, settings)
 			if &foldopen =~ 'jump'
 				normal! zv
@@ -78,13 +78,13 @@ fun! wheel#loop#boomerang (settings)
 	let Fun = settings.function
 	let close = menu_settings.close
 	" ---- selection
-	let selected = wheel#upstream#addresses ()
-	if empty(selected[0])
+	let selection = wheel#upstream#addresses ()
+	if empty(selection[0])
 		return v:false
 	endif
 	" ---- loop
-	for elem in selected
-		let settings.selected = elem
+	for elem in selection
+		let settings.selection = elem
 		let winiden = wheel#gear#call(Fun, settings)
 		if &foldopen =~ 'jump'
 			normal! zv

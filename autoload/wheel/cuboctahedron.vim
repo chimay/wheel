@@ -329,7 +329,7 @@ fun! wheel#cuboctahedron#rename_files ()
 endfun
 
 fun! wheel#cuboctahedron#copy_move (level)
-	" Copy or move selected elements at level
+	" Copy or move selection elements at level
 	let level = a:level
 	" -- update b:wheel_lines
 	call wheel#mandala#update_var_lines ()
@@ -358,8 +358,8 @@ fun! wheel#cuboctahedron#copy_move (level)
 	endif
 	let coordin = split(destination, s:level_separ)
 	" -- pre checks
-	let selected = wheel#pencil#addresses()
-	if empty(selected)
+	let selection = wheel#pencil#addresses()
+	if empty(selection)
 		echomsg 'wheel copy / move : you must first select element(s)'
 	endif
 	if mode == 'move'
@@ -379,7 +379,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 		echomsg 'Cannot copy or move the wheel'
 		return v:false
 	elseif level ==# 'torus'
-		for name in selected
+		for name in selection
 			" mode must be copy at this stage
 			let index = g:wheel.glossary->index(name)
 			let torus = deepcopy(g:wheel.toruses[index])
@@ -390,7 +390,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 		let glossary = upper.glossary
 		let elements = wheel#referen#elements (upper)
 		let travellers = []
-		for name in selected
+		for name in selection
 			let index = glossary->index(name)
 			let elem = deepcopy(elements[index])
 			eval travellers->add(elem)

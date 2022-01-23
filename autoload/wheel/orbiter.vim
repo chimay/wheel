@@ -10,7 +10,7 @@ fun! wheel#orbiter#preview ()
 	endif
 	let settings = b:wheel_settings
 	call wheel#sailing#default (settings)
-	let settings.selected = wheel#line#address ()
+	let settings.selection = wheel#line#address ()
 	call wheel#rectangle#previous ()
 	let Fun = settings.function
 	let winiden = wheel#gear#call (Fun, settings)

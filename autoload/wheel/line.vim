@@ -107,30 +107,30 @@ endfun
 " applications of loop#sailing, and sometimes loop#boomerang
 
 fun! wheel#line#switch (settings)
-	" Switch to settings.selected element in wheel
+	" Switch to settings.selection element in wheel
 	" settings keys :
 	" - target : current, tab, horizontal_split, vertical_split
 	" - level : torus, circle or location
-	" - selected : place to jump to
+	" - selection : place to jump to
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
 	let level = settings.level
-	let selected = settings.selected
+	let selection = settings.selection
 	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
-	call wheel#vortex#switch(level, selected, where)
+	call wheel#vortex#switch(level, selection, where)
 	return win_getid ()
 endfun
 
 fun! wheel#line#helix (settings)
-	" Go to settings.selected = torus > circle > location
+	" Go to settings.selection = torus > circle > location
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let coordin = split(selected, s:level_separ)
+	let selection = settings.selection
+	let coordin = split(selection, s:level_separ)
 	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
@@ -140,12 +140,12 @@ fun! wheel#line#helix (settings)
 endfun
 
 fun! wheel#line#grid (settings)
-	" Go to settings.selected = torus > circle
+	" Go to settings.selection = torus > circle
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let coordin = split(selected, s:level_separ)
+	let selection = settings.selection
+	let coordin = split(selection, s:level_separ)
 	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
@@ -155,15 +155,15 @@ fun! wheel#line#grid (settings)
 endfun
 
 fun! wheel#line#tree (settings)
-	" Go to settings.selected in tree view
-	" Possible vallues of selected :
+	" Go to settings.selection in tree view
+	" Possible vallues of selection :
 	" - [torus]
 	" - [torus, circle]
 	" - [torus, circle, location]
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let coordin = settings.selected
+	let coordin = settings.selection
 	let length = len(coordin)
 	" ---- jump
 	let where = wheel#line#where (target)
@@ -182,12 +182,12 @@ fun! wheel#line#tree (settings)
 endfun
 
 fun! wheel#line#history (settings)
-	" Go to settings.selected history location
+	" Go to settings.selection history location
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	let coordin = split(fields[1], s:level_separ)
 	" ---- jump
 	let where = wheel#line#where (target)
@@ -198,11 +198,11 @@ fun! wheel#line#history (settings)
 endfun
 
 fun! wheel#line#buffers (settings)
-	" Go to opened file given by selected
+	" Go to opened file given by selection
 	" ---- settings
 	let settings = a:settings
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ, v:true)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ, v:true)
 	let bufnum = str2nr(fields[0])
 	let filename = fnamemodify(fields[3], ':p')
 	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'context'
@@ -238,10 +238,10 @@ fun! wheel#line#buffers (settings)
 endfun
 
 fun! wheel#line#tabwins (settings)
-	" Go to tab & win given by selected
+	" Go to tab & win given by selection
 	" ---- settings
 	let settings = a:settings
-	let selected = settings.selected
+	let selection = settings.selection
 	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'context'
 	if is_context_menu
 		let action = settings.menu.action
@@ -250,7 +250,7 @@ fun! wheel#line#tabwins (settings)
 	endif
 	" ---- actions
 	if action == 'open'
-		let fields = split(selected, s:field_separ)
+		let fields = split(selection, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
 		if tabnum != tabpagenr()
@@ -260,7 +260,7 @@ fun! wheel#line#tabwins (settings)
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
 	elseif action == 'tabclose'
-		let fields = split(selected, s:field_separ)
+		let fields = split(selection, s:field_separ)
 		let tabnum = fields[0]
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
@@ -272,10 +272,10 @@ fun! wheel#line#tabwins (settings)
 endfun
 
 fun! wheel#line#tabwins_tree (settings)
-	" Go to tab & win given by selected
+	" Go to tab & win given by selection
 	" ---- settings
 	let settings = a:settings
-	let hierarchy = settings.selected
+	let hierarchy = settings.selection
 	let tabnum = hierarchy[0]
 	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'context'
 	if is_context_menu
@@ -307,14 +307,14 @@ fun! wheel#line#tabwins_tree (settings)
 endfun
 
 fun! wheel#line#occur (settings)
-	" Go to line given by selected
+	" Go to line given by selection
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
+	let selection = settings.selection
 	let bufnum = a:settings.related_buffer
 	" ---- go
-	let fields = split(selected, s:field_separ)
+	let fields = split(selection, s:field_separ)
 	let line = str2nr(fields[0])
 	call wheel#line#target (target)
 	execute 'buffer' bufnum
@@ -326,12 +326,12 @@ fun! wheel#line#occur (settings)
 endfun
 
 fun! wheel#line#grep (settings)
-	" Go to settings.selected quickfix line
+	" Go to settings.selection quickfix line
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	" ---- go
 	call wheel#line#target (target)
 	" -- using error number
@@ -348,12 +348,12 @@ fun! wheel#line#grep (settings)
 endfun
 
 fun! wheel#line#mru (settings)
-	" Edit settings.selected MRU file
+	" Edit settings.selection MRU file
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	let filename = fields[1]
 	" ---- go
 	call wheel#line#target (target)
@@ -362,11 +362,11 @@ fun! wheel#line#mru (settings)
 endfun
 
 fun! wheel#line#locate (settings)
-	" Edit settings.selected locate file
+	" Edit settings.selection locate file
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let filename = settings.selected
+	let filename = settings.selection
 	" ---- go
 	call wheel#line#target (target)
 	execute 'edit' filename
@@ -374,11 +374,11 @@ fun! wheel#line#locate (settings)
 endfun
 
 fun! wheel#line#find (settings)
-	" Edit settings.selected locate file
+	" Edit settings.selection locate file
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let filename = settings.selected
+	let filename = settings.selection
 	let filename = trim(filename, ' ')
 	" ---- go
 	call wheel#line#target (target)
@@ -387,12 +387,12 @@ fun! wheel#line#find (settings)
 endfun
 
 fun! wheel#line#markers (settings)
-	" Go to settings.selected marker
+	" Go to settings.selection marker
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	let mark = fields[0]
 	"let line = fields[1]
 	"let column = fields[2]
@@ -403,12 +403,12 @@ fun! wheel#line#markers (settings)
 endfun
 
 fun! wheel#line#jumps (settings)
-	" Go to element in jumps list given by selected
+	" Go to element in jumps list given by selection
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	let bufnum = fields[0]
 	let linum = str2nr(fields[1])
 	let colnum = str2nr(fields[2])
@@ -423,12 +423,12 @@ fun! wheel#line#jumps (settings)
 endfun
 
 fun! wheel#line#changes (settings)
-	" Go to element in changes list given by selected
+	" Go to element in changes list given by selection
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
 	let bufnum = a:settings.related_buffer
@@ -443,12 +443,12 @@ fun! wheel#line#changes (settings)
 endfun
 
 fun! wheel#line#tags (settings)
-	" Go to settings.selected tag
+	" Go to settings.selection tag
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	let file = fields[2]
 	let search = fields[3][1:]
 	" ---- go
@@ -465,13 +465,13 @@ fun! wheel#line#tags (settings)
 endfun
 
 fun! wheel#line#narrow_file (settings)
-	" Go to settings.selected narrowed line of current file
+	" Go to settings.selection narrowed line of current file
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
+	let selection = settings.selection
 	let bufnum = settings.bufnum
-	let fields = split(selected, s:field_separ)
+	let fields = split(selection, s:field_separ)
 	let linum = str2nr(fields[0])
 	" ---- go
 	call wheel#line#target (target)
@@ -481,12 +481,12 @@ fun! wheel#line#narrow_file (settings)
 endfun
 
 fun! wheel#line#narrow_circle (settings)
-	" Go to settings.selected narrowed line in circle
+	" Go to settings.selection narrowed line in circle
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selected = settings.selected
-	let fields = split(selected, s:field_separ)
+	let selection = settings.selection
+	let fields = split(selection, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
 	" ---- go
@@ -616,7 +616,7 @@ endfun
 " undo list
 
 fun! wheel#line#undolist (bufnum)
-	" Jump to change in settings.selected
+	" Jump to change in settings.selection
 	let iden = wheel#delta#undo_iden ()
 	call wheel#rectangle#goto_or_load (a:bufnum)
 	execute 'undo' iden
