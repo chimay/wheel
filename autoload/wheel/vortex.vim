@@ -43,6 +43,7 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	if empty(location) || location.file !=# expand('%:p')
 		return v:false
 	endif
+	call wheel#chakra#update ()
 	let cur_line = line('.')
 	let cur_col = col('.')
 	if location.line == cur_line && location.col == cur_col
@@ -50,7 +51,6 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	endif
 	let location.line = cur_line
 	let location.col = cur_col
-	call wheel#chakra#update ()
 	if verbose == 'verbose'
 		echo 'wheel : location updated'
 	endif
