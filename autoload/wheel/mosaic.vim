@@ -112,7 +112,6 @@ fun! wheel#mosaic#tabs (level)
 	let name = wheel#referen#current (level).name
 	let glossary = copy(upper.glossary)
 	let pos = index(glossary, name)
-	let glossary = glossary->wheel#chain#roll_left(pos)
 	let g:wheel_shelve.layout.tabnames = glossary[:maxtabs - 1]
 	let elements = wheel#referen#elements (upper)
 	let length = len(elements)

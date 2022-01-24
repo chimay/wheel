@@ -180,6 +180,25 @@ fun! wheel#perspective#history ()
 	return returnlist
 endfun
 
+fun! wheel#perspective#history_circuit ()
+	" History circuit
+	" Each entry is a string : date hour | torus > circle > location
+	let timeloop = g:wheel_history.circuit
+	" should not be necessary
+	"let Compare = function('wheel#pendulum#compare')
+	"let timeloop = sort(timeloop, Compare)
+	let returnlist = []
+	for entry in timeloop
+		let coordin = entry.coordin
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour .. s:field_separ
+		let entry ..= coordin[0] .. s:level_separ .. coordin[1] .. s:level_separ .. coordin[2]
+		let returnlist = add(returnlist, entry)
+	endfor
+	return returnlist
+endfun
+
 " Search file
 
 fun! wheel#perspective#find (pattern)

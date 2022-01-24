@@ -88,8 +88,15 @@ fun! wheel#complete#grid  (arglead, cmdline, cursorpos)
 endfun
 
 fun! wheel#complete#history (arglead, cmdline, cursorpos)
-	" Complete coordinates in history
+	" Complete coordinates in history timeline
 	let choices = wheel#perspective#history ()
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
+fun! wheel#complete#history_circuit (arglead, cmdline, cursorpos)
+	" Complete coordinates in history circuit
+	let choices = wheel#perspective#history_circuit ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun

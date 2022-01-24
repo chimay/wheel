@@ -190,10 +190,12 @@ fun! wheel#centre#plugs ()
 	" Rotating windows
 	nnoremap <plug>(wheel-rotate-counter-clockwise) <cmd>call wheel#mosaic#rotate_counter_clockwise()<cr>
 	nnoremap <plug>(wheel-rotate-clockwise) <cmd>call wheel#mosaic#rotate_clockwise()<cr>
-	" Debug
-	nnoremap <plug>(wheel-debug-fresh-wheel) <cmd>call wheel#void#fresh_wheel()<cr>
 	" Misc
 	nnoremap <plug>(wheel-spiral-cursor) <cmd>call wheel#spiral#cursor()<cr>
+	" Debug
+	nnoremap <plug>(wheel-debug-fresh-wheel) <cmd>call wheel#void#fresh_wheel()<cr>
+	nnoremap <plug>(wheel-debug-prompt-history-circuit) <cmd>call wheel#vortex#history_circuit()<cr>
+	nnoremap <plug>(wheel-debug-dedibuf-history-circuit) <cmd>call wheel#sailing#history_circuit()<cr>
 endfun
 
 fun! wheel#centre#cables ()
@@ -204,12 +206,11 @@ fun! wheel#centre#cables ()
 	let nmap_expr = 'nnoremap <expr>'
 	" general prefix
 	let prefix = g:wheel_config.prefix
-	" batch subprefix
+	" subprefixes
 	let batch = '@'
-	" async subprefix
 	let async = '&'
-	" layout subprefix
-	let lay = 'z'
+	let layout = 'z'
+	let debug = 'Z'
 	" Basic
 	if g:wheel_config.mappings >= 0
 		" Menus
@@ -362,36 +363,36 @@ fun! wheel#centre#cables ()
 		" Switch mandala buffer
 		exe nmap prefix .. '<m-space> <plug>(wheel-mandala-switch)'
 		" Layouts
-		exe nmap prefix .. lay .. 'z <plug>(wheel-zoom)'
+		exe nmap prefix .. layout .. 'z <plug>(wheel-zoom)'
 		" Tabs
-		exe nmap prefix .. lay .. 't <plug>(wheel-tabs-locations)'
-		exe nmap prefix .. lay .. '<c-t> <plug>(wheel-tabs-circles)'
-		exe nmap prefix .. lay .. 'T <plug>(wheel-tabs-toruses)'
+		exe nmap prefix .. layout .. 't <plug>(wheel-tabs-locations)'
+		exe nmap prefix .. layout .. '<c-t> <plug>(wheel-tabs-circles)'
+		exe nmap prefix .. layout .. 'T <plug>(wheel-tabs-toruses)'
 		" Windows
-		exe nmap prefix .. lay .. 's <plug>(wheel-split-locations)'
-		exe nmap prefix .. lay .. '<c-s> <plug>(wheel-split-circles)'
-		exe nmap prefix .. lay .. 'S <plug>(wheel-split-toruses)'
-		exe nmap prefix .. lay .. 'v <plug>(wheel-vsplit-locations)'
-		exe nmap prefix .. lay .. '<c-v> <plug>(wheel-vsplit-circles)'
-		exe nmap prefix .. lay .. 'V <plug>(wheel-vsplit-toruses)'
+		exe nmap prefix .. layout .. 's <plug>(wheel-split-locations)'
+		exe nmap prefix .. layout .. '<c-s> <plug>(wheel-split-circles)'
+		exe nmap prefix .. layout .. 'S <plug>(wheel-split-toruses)'
+		exe nmap prefix .. layout .. 'v <plug>(wheel-vsplit-locations)'
+		exe nmap prefix .. layout .. '<c-v> <plug>(wheel-vsplit-circles)'
+		exe nmap prefix .. layout .. 'V <plug>(wheel-vsplit-toruses)'
 		" Main top
-		exe nmap prefix .. lay .. 'm <plug>(wheel-main-top-locations)'
-		exe nmap prefix .. lay .. '<c-m> <plug>(wheel-main-top-circles)'
-		exe nmap prefix .. lay .. 'M <plug>(wheel-main-top-toruses)'
+		exe nmap prefix .. layout .. 'm <plug>(wheel-main-top-locations)'
+		exe nmap prefix .. layout .. '<c-m> <plug>(wheel-main-top-circles)'
+		exe nmap prefix .. layout .. 'M <plug>(wheel-main-top-toruses)'
 		" Main left
-		exe nmap prefix .. lay .. 'l <plug>(wheel-main-left-locations)'
-		exe nmap prefix .. lay .. '<c-l> <plug>(wheel-main-left-circles)'
-		exe nmap prefix .. lay .. 'L <plug>(wheel-main-left-toruses)'
+		exe nmap prefix .. layout .. 'l <plug>(wheel-main-left-locations)'
+		exe nmap prefix .. layout .. '<c-l> <plug>(wheel-main-left-circles)'
+		exe nmap prefix .. layout .. 'L <plug>(wheel-main-left-toruses)'
 		" Grid
-		exe nmap prefix .. lay .. 'g <plug>(wheel-grid-locations)'
-		exe nmap prefix .. lay .. '<c-g> <plug>(wheel-grid-circles)'
-		exe nmap prefix .. lay .. 'G <plug>(wheel-grid-toruses)'
+		exe nmap prefix .. layout .. 'g <plug>(wheel-grid-locations)'
+		exe nmap prefix .. layout .. '<c-g> <plug>(wheel-grid-circles)'
+		exe nmap prefix .. layout .. 'G <plug>(wheel-grid-toruses)'
 		" Tabs & Windows
-		exe nmap prefix .. lay .. '& <plug>(wheel-tab-win-circle)'
-		exe nmap prefix .. lay .. '<M-&> <plug>(wheel-tab-win-torus)'
+		exe nmap prefix .. layout .. '& <plug>(wheel-tab-win-circle)'
+		exe nmap prefix .. layout .. '<M-&> <plug>(wheel-tab-win-torus)'
 		" Rotating windows
-		exe nmap prefix .. lay .. '<up> <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap prefix .. lay .. '<down> <plug>(wheel-rotate-clockwise)'
+		exe nmap prefix .. layout .. '<up> <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap prefix .. layout .. '<down> <plug>(wheel-rotate-clockwise)'
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
@@ -400,6 +401,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-=>          <plug>(wheel-menu-meta)'
 		" Sync
 		exe nmap '<m-i>          <plug>(wheel-dashboard)'
+		exe nmap '<c-$>          <plug>(wheel-sync-down)'
 		exe nmap '<m-$>          <plug>(wheel-sync-up)'
 		" Add, Delete
 		exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
@@ -497,6 +499,8 @@ fun! wheel#centre#cables ()
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
-		exe nmap prefix .. 'Z <plug>(wheel-debug-fresh-wheel)'
+		exe nmap prefix .. debug .. 'Z <plug>(wheel-debug-fresh-wheel)'
+		exe nmap prefix .. debug .. 'h <plug>(wheel-debug-prompt-history-circuit)'
+		exe nmap prefix .. debug .. '<m-h> <plug>(wheel-debug-dedibuf-history-circuit)'
 	endif
 endfun

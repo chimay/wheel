@@ -100,7 +100,7 @@ fun! wheel#sailing#generic (type)
 	call wheel#mandala#fill(lines)
 endfun
 
-" applications
+" wheel applications
 
 fun! wheel#sailing#switch (level)
 	" Choose an element of level to switch to
@@ -178,6 +178,16 @@ fun! wheel#sailing#history ()
 	" reload
 	let b:wheel_reload = 'wheel#sailing#history'
 endfun
+
+fun! wheel#sailing#history_circuit ()
+	" Choose a location coordinate in history
+	" Each coordinate = [torus, circle, location]
+	call wheel#sailing#generic('history_circuit')
+	" reload
+	let b:wheel_reload = 'wheel#sailing#history_circuit'
+endfun
+
+" non wheel applications
 
 fun! wheel#sailing#locate (...)
 	" Search files using locate

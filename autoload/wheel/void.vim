@@ -157,8 +157,7 @@ fun! wheel#void#signs ()
 		let g:wheel_signs.iden = []
 	endif
 	if ! has_key(g:wheel_signs, 'table')
-		" torus > circle > location -> iden
-		let g:wheel_signs.table = {}
+		let g:wheel_signs.table = []
 	endif
 endfun
 
@@ -374,9 +373,9 @@ fun! wheel#void#exit ()
 	" -- save wheel, and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_all()
-		call wheel#void#wipe_mandalas ()
-		call wheel#void#lighten ()
 	endif
+	call wheel#void#wipe_mandalas ()
+	call wheel#void#lighten ()
 endfun
 
 " fresh empty wheel, for testing
@@ -400,6 +399,7 @@ fun! wheel#void#fresh_wheel ()
 				\ 'g:wheel_ripple',
 				\ 'g:wheel_yank',
 				\ 'g:wheel_mandalas',
+				\ 'g:wheel_signs',
 				\ 'g:wheel_shelve',
 				\]
 	call wheel#gear#unlet (varlist)

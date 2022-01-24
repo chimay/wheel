@@ -101,7 +101,7 @@ endfun
 
 " ---- applications of loop#sailing, and sometimes loop#boomerang
 
-" -- wheel
+" -- wheel applications
 
 fun! wheel#line#switch (settings)
 	" Switch to settings.selection element in wheel
@@ -194,7 +194,7 @@ fun! wheel#line#history (settings)
 	return win_getid ()
 endfun
 
-" -- others
+" -- non wheel applications
 
 fun! wheel#line#buffers (settings)
 	" Go to opened file given by selection

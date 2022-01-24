@@ -93,9 +93,9 @@ fun! wheel#rectangle#tour ()
 			return window
 		endif
 	endfor
-	" ---- back to original
+	" ---- not found
 	noautocmd call win_gotoid(original)
-	return v:false
+	return -1
 endfun
 
 fun! wheel#rectangle#goto (bufnum, scope = 'all')

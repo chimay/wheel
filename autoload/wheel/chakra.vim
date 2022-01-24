@@ -23,6 +23,22 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
+" helpers
+
+fun! wheel#chakra#same ()
+	" Whether current location is the same as when the sign has been placed
+	let signs = g:wheel_signs
+	let subtable = deepcopy(signs.table)
+	let coordin = wheel#referen#names ()
+	eval subtable->filter({ _, val -> val.coordin == coordin })
+	if empty(subtable)
+		return v:true
+	endif
+	let entry = subtable[0]
+	let location = wheel#referen#location ()
+	return entry.line == location.line
+endfun
+
 " functions
 
 fun! wheel#chakra#define ()
@@ -46,31 +62,10 @@ fun! wheel#chakra#define ()
 	return v:true
 endfun
 
-fun! wheel#chakra#unplace ()
-	" Unplace old sign at current location
-	let signs = g:wheel_signs
-	let iden = signs.iden
-	" torus > circle > location -> iden
-	let table = signs.table
-	let coordin = wheel#referen#names ()
-	let chord = join(coordin, s:level_separ)
-	if ! has_key(table, chord)
-		return v:true
-	endif
-	let group = s:sign_group
-	let old_iden = table[chord]
-	let dict = #{ id : old_iden }
-	call sign_unplace(group, dict)
-	eval iden->wheel#chain#remove_element(old_iden)
-	unlet table[chord]
-	return old_iden
-endfun
-
 fun! wheel#chakra#place ()
 	" Place sign at current location
 	let signs = g:wheel_signs
 	let iden = signs.iden
-	" torus > circle > location -> iden
 	let table = signs.table
 	let new_iden = wheel#chain#lowest_outside (iden, 1)
 	let group = s:sign_group
@@ -81,10 +76,31 @@ fun! wheel#chakra#place ()
 	let dict = #{ lnum : linum }
 	call sign_place(new_iden, group, name, file, dict)
 	let coordin = wheel#referen#names ()
-	let chord = join(coordin, s:level_separ)
 	eval iden->add(new_iden)
-	let table[chord] = new_iden
+	let entry = #{ iden : new_iden, coordin : coordin, line : linum }
+	eval table->filter({ _, val -> val.coordin != coordin })
+	eval table->add(entry)
 	return new_iden
+endfun
+
+fun! wheel#chakra#unplace ()
+	" Unplace old sign at current location
+	let signs = g:wheel_signs
+	let iden = signs.iden
+	let subtable = deepcopy(signs.table)
+	let coordin = wheel#referen#names ()
+	eval subtable->filter({ _, val -> val.coordin == coordin })
+	if empty(subtable)
+		return v:true
+	endif
+	let entry = subtable[0]
+	let group = s:sign_group
+	let old_iden = entry.iden
+	let dict = #{ id : old_iden }
+	call sign_unplace(group, dict)
+	eval iden->wheel#chain#remove_element(old_iden)
+	eval g:wheel_signs.table->filter({ _, val -> val.iden != old_iden })
+	return old_iden
 endfun
 
 fun! wheel#chakra#clear ()
@@ -96,7 +112,10 @@ fun! wheel#chakra#clear ()
 		let dict = #{ id : old_iden }
 		call sign_unplace(group, dict)
 	endfor
+	call wheel#void#signs ()
 endfun
+
+" update sign
 
 fun! wheel#chakra#update ()
 	" Add or update sign at location
@@ -105,7 +124,9 @@ fun! wheel#chakra#update ()
 		call wheel#chakra#clear ()
 		return v:false
 	endif
-	let signs = g:wheel_signs
+	if wheel#chakra#same ()
+		return v:true
+	endif
 	call wheel#chakra#define ()
 	call wheel#chakra#unplace ()
 	call wheel#chakra#place ()

@@ -43,7 +43,6 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	if empty(location) || location.file !=# expand('%:p')
 		return v:false
 	endif
-	call wheel#chakra#update ()
 	let cur_line = line('.')
 	let cur_col = col('.')
 	if location.line == cur_line && location.col == cur_col
@@ -51,6 +50,7 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	endif
 	let location.line = cur_line
 	let location.col = cur_col
+	call wheel#chakra#update ()
 	if verbose == 'verbose'
 		echo 'wheel : location updated'
 	endif
@@ -65,14 +65,14 @@ fun! wheel#vortex#jump (where = 'search-window')
 	"   - here : load the buffer in current window,
 	"            do not search in tabs & windows
 	let where = a:where
-	" check location
+	" -- check location
 	let location = wheel#referen#location ()
 	if empty(location)
 		return win_getid ()
 	endif
-	" jump
+	" -- jump
 	let window = wheel#rectangle#tour ()
-	if where == 'search-window' && window
+	if where == 'search-window' && window >= 0
 		" switch to window containing location buffer
 		call win_gotoid(window)
 		call cursor(location.line, location.col)
@@ -98,17 +98,24 @@ fun! wheel#vortex#jump (where = 'search-window')
 		doautocmd BufRead
 		doautocmd BufEnter
 	endif
+	" -- auto change dir to project root
 	if g:wheel_config.cd_project > 0
 		let markers = g:wheel_config.project_markers
 		call wheel#gear#project_root(markers)
 	endif
+	" -- record in history
 	call wheel#pendulum#record ()
+	" -- update signs
 	call wheel#chakra#update ()
+	" -- view in fold
 	normal! zv
+	" -- user autocmd
 	silent doautocmd User WheelAfterJump
+	" -- cursor
 	call wheel#spiral#cursor ()
+	" -- dashboard
 	call wheel#status#dashboard ()
-	" return
+	" -- coda
 	return win_getid ()
 endfun
 
@@ -286,6 +293,20 @@ fun! wheel#vortex#history (where = 'search-window')
 	let where = a:where
 	let prompt = 'Switch to history element : '
 	let complete = 'customlist,wheel#complete#history'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let entry = fields[1]
+	let coordin = split(entry, s:level_separ)
+	call wheel#vortex#chord(coordin)
+	call wheel#vortex#jump (where)
+endfun
+
+fun! wheel#vortex#history_circuit (where = 'search-window')
+	" Switch to coordinates in history
+	" Optional argument : see vortex#jump optional argument
+	let where = a:where
+	let prompt = 'Switch to history element : '
+	let complete = 'customlist,wheel#complete#history_circuit'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let entry = fields[1]

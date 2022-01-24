@@ -2740,6 +2740,10 @@ adapt them to your taste and add them to your init file.
 | <M-=>          | Meta menu                                     |
 | <M-m>          | Main menu                                     |
 | -------------- | --------------------------------------------- |
+| <M-i>          | Wheel dashboard : torus > circle > location   |
+| <C-$>          | Sync down : jump to current location          |
+| <M-$>          | Sync up : find closest wheel location         |
+| -------------- | --------------------------------------------- |
 | <M-Insert>     | Add location to the current circle            |
 | <M-Del>        | Delete current location                       |
 | -------------- | --------------------------------------------- |
@@ -2838,6 +2842,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
     " Sync
     exe nmap '<m-i>          <plug>(wheel-dashboard)'
+    exe nmap '<c-$>          <plug>(wheel-sync-down)'
     exe nmap '<m-$>          <plug>(wheel-sync-up)'
     " Add, Delete
     exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
@@ -3157,9 +3162,6 @@ OTHER IDEAS				*wheel-mappings-ideas*
 
 Some bindings that you may find useful : >
 
-    " jump to current location in wheel
-    nmap <silent> <d-$>       <plug>(wheel-sync-down)
-
     " alternate
     nmap <silent> <d-^>       <plug>(wheel-alternate-other-torus)
 
@@ -3354,7 +3356,8 @@ after/plugin/wheel.vim :
 
 - link keys to <plug> maps
 
-This way, we can know the customized value of `g:wheel_config.mappings` level.
+This way, we can know the customized value of `g:wheel_config.mappings`
+level.
 
 Autoload~
 
