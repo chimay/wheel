@@ -347,6 +347,13 @@ if ! exists("g:wheel_loaded")
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
 
+  " Filter prompt in dedicated buffers
+  let g:wheel_config.display.prompt = 'wheel $ '
+  " Selection marker in dedicated buffers
+  let g:wheel_config.display.selection = '-> '
+  " Sign text at wheel locations
+  let g:wheel_config.display.sign.settings = { 'text' : '@' }
+
   let g:wheel_config.debug = 0
 endif
 
