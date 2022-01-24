@@ -105,14 +105,14 @@ fun! wheel#vortex#jump (where = 'search-window')
 	endif
 	" -- record in history
 	call wheel#pendulum#record ()
-	" -- update signs
-	call wheel#chakra#update ()
 	" -- view in fold
 	normal! zv
 	" -- user autocmd
 	silent doautocmd User WheelAfterJump
 	" -- cursor
 	call wheel#spiral#cursor ()
+	" -- update signs
+	call wheel#chakra#update ()
 	" -- dashboard
 	call wheel#status#dashboard ()
 	" -- coda

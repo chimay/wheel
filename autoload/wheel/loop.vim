@@ -15,6 +15,7 @@ fun! wheel#loop#sailing (settings)
 	"   - target : current window, tab, horizontal or vertical split,
 	"              even or with golden ratio
 	"   - related buffer of current mandala
+	"   - follow : whether to find closest wheel location after arrival
 	"   - close : whether to close mandala
 	let settings = copy(a:settings)
 	call wheel#sailing#default (settings)
@@ -67,6 +68,7 @@ fun! wheel#loop#boomerang (settings)
 	"   - action : action name or funcref
 	"   - close : whether to close mandala
 	let settings = copy(a:settings)
+	call wheel#sailing#default (settings)
 	let menu_settings = settings.menu
 	let Fun = settings.function
 	let close = menu_settings.close

@@ -32,7 +32,7 @@ fun! wheel#chakra#same ()
 	let coordin = wheel#referen#names ()
 	eval subtable->filter({ _, val -> val.coordin == coordin })
 	if empty(subtable)
-		return v:true
+		return v:false
 	endif
 	let entry = subtable[0]
 	let location = wheel#referen#location ()
@@ -46,14 +46,18 @@ fun! wheel#chakra#define ()
 	let signs = g:wheel_signs
 	let name = s:sign_name
 	let settings = g:wheel_config.display.sign.settings
-	" first definition
+	" -- first definition
 	if empty(signs.iden)
 		call sign_define(name, settings)
 		return v:true
 	endif
-	" change of settings in g:wheel_config
+	" -- change of settings in g:wheel_config
 	let defined = sign_getdefined()
-	let wheel_sign = defined->filter({ _, val -> val.name == name })[0]
+	let subdef = defined->filter({ _, val -> val.name == name })
+	if empty(subdef)
+		echomsg 'wheel : sign define : empty definition'
+	endif
+	let wheel_sign = subdef[0]
 	let text = wheel_sign.text
 	if settings.text != text
 		call sign_undefine(name)
@@ -72,12 +76,13 @@ fun! wheel#chakra#place ()
 	let name = s:sign_name
 	let location = wheel#referen#location ()
 	let file = location.file
+	let bufnum = bufnr('%')
 	let linum = location.line
 	let dict = #{ lnum : linum }
-	call sign_place(new_iden, group, name, file, dict)
 	let coordin = wheel#referen#names ()
+	let entry = #{ iden : new_iden, coordin : coordin, buffer : bufnum, line : linum }
+	call sign_place(new_iden, group, name, bufnum, dict)
 	eval iden->add(new_iden)
-	let entry = #{ iden : new_iden, coordin : coordin, line : linum }
 	eval table->filter({ _, val -> val.coordin != coordin })
 	eval table->add(entry)
 	return new_iden
@@ -93,8 +98,8 @@ fun! wheel#chakra#unplace ()
 	if empty(subtable)
 		return v:true
 	endif
-	let entry = subtable[0]
 	let group = s:sign_group
+	let entry = subtable[0]
 	let old_iden = entry.iden
 	let dict = #{ id : old_iden }
 	call sign_unplace(group, dict)
@@ -122,6 +127,10 @@ fun! wheel#chakra#update ()
 	let display_sign = g:wheel_config.display.sign.switch
 	if ! display_sign
 		call wheel#chakra#clear ()
+		return v:false
+	endif
+	let location = wheel#referen#location ()
+	if empty(location) || location.file !=# expand('%:p')
 		return v:false
 	endif
 	if wheel#chakra#same ()

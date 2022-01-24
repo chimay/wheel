@@ -89,9 +89,11 @@ fun! wheel#upstream#remove_selection ()
 	let indexlist = reverse(indexlist)
 	for index in indexlist
 		eval lines->remove(index)
-		let where = filter.indexes->index(index)
-		eval filter.indexes->remove(where)
-		eval filter.lines->remove(where)
+		if ! empty(filter.indexes)
+			let where = filter.indexes->index(index)
+			eval filter.indexes->remove(where)
+			eval filter.lines->remove(where)
+		endif
 	endfor
 	" -- clear selection
 	let selection.indexes = []
