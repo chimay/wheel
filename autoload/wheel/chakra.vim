@@ -60,6 +60,7 @@ fun! wheel#chakra#define ()
 	let wheel_sign = subdef[0]
 	let text = wheel_sign.text
 	if settings.text != text
+		cal wheel#chakra#clear ()
 		call sign_undefine(name)
 		call sign_define(name, settings)
 	endif
@@ -125,9 +126,9 @@ fun! wheel#chakra#update ()
 		return v:false
 	endif
 	let location = wheel#referen#location ()
-	"if wheel#chakra#same ()
-		"return v:true
-	"endif
+	if wheel#chakra#same ()
+		return v:true
+	endif
 	call wheel#chakra#define ()
 	call wheel#chakra#unplace ()
 	call wheel#chakra#place ()

@@ -78,7 +78,7 @@ endfun
 
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
-	let oneline = g:wheel_config.message == 'one-line'
+	let oneline = g:wheel_config.display.message == 'one-line'
 	let bufnums = g:wheel_mandalas.ring
 	" -- current leaf type
 	let title = '[' .. wheel#status#type () .. ']'
