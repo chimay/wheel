@@ -295,8 +295,8 @@ fun! wheel#cuboctahedron#rename_files ()
 		let directory = fnamemodify(new_filename, ':h')
 		if ! isdirectory(directory)
 			echomsg 'wheel : mkdir' directory
-			let code = mkdir(directory, 'p')
-			if code == v:false
+			let success = mkdir(directory, 'p')
+			if success == v:false
 				echomsg 'wheel batch rename files : error creating dir' directory
 				return v:false
 			endif
@@ -312,8 +312,8 @@ fun! wheel#cuboctahedron#rename_files ()
 		" old -> new
 		echomsg 'wheel : renaming' old_filename '->' new_filename
 		let locations[index].file = new_filename
-		let code = rename(old_filename, new_filename)
-		if code != 0
+		let zero = rename(old_filename, new_filename)
+		if zero != 0
 			echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
 			return v:false
 		endif

@@ -202,7 +202,10 @@ This project is inspired by :
 
 ## Prerequisites
 
-Some functions assume a Unix-like OS, like Linux or BSD.
+Some functions assume a Unix-like OS, like Linux or BSD :
+
+- async functions
+- generation of a script to symlink or copy the wheel as a filesystem tree
 
 Most of it should work out of the box on other OSes, however. If you
 encounter some problem, please let me know.

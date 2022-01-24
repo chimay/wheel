@@ -67,10 +67,6 @@ endfun
 
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
-	if ! has('unix')
-		echomsg 'wheel roll backups : this function is only supported on Unix systems'
-		return v:false
-	endif
 	let file = expand(a:file)
 	let suffixes = range(a:backups, 1, -1)
 	let filelist = map(suffixes, {ind, val -> file .. '.' .. val})
@@ -79,10 +75,12 @@ fun! wheel#disc#roll_backups (file, backups)
 	while len(filelist) > 1
 		let second = expand(remove(filelist, 0))
 		let first = expand(filelist[0])
-		let copy = command .. shellescape(first) .. ' ' .. shellescape(second)
 		if filereadable(first)
-			"echomsg copy
-			call system(copy)
+			let zero = rename(first, second)
+			if zero != 0
+				echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
+				return v:false
+			endif
 		endif
 	endwhile
 endfun

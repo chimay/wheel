@@ -445,8 +445,8 @@ fun! wheel#tree#rename_file (...)
 	" create directory if needed
 	let directory = fnamemodify(new_filename, ':h')
 	if ! isdirectory(directory)
-		let code = mkdir(directory, 'p')
-		if code == v:false
+		let success = mkdir(directory, 'p')
+		if success == v:false
 			echomsg 'wheel batch rename files : error in creating directory' directory
 			return v:false
 		endif
@@ -459,8 +459,8 @@ fun! wheel#tree#rename_file (...)
 	let prompt = 'Remove old file ' .. old_filename .. ' ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm == 1
-		let code = delete(old_filename)
-		if code != 0
+		let zero = delete(old_filename)
+		if zero != 0
 			echomsg 'wheel rename file : error in deleting' old_filename
 			return v:false
 		endif
