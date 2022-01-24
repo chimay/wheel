@@ -464,7 +464,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	" -- tune wheel coordinates to first entry in history
-	call wheel#vortex#chord(g:wheel_history[0].coordin)
+	call wheel#vortex#chord(g:wheel_history.line[0].coordin)
 endfun
 
 fun! wheel#cuboctahedron#reorg_tabwins ()

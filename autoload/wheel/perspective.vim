@@ -162,14 +162,14 @@ endfun
 " from pendulum
 
 fun! wheel#perspective#history ()
-	" Sorted history index
+	" Sorted timeline index
 	" Each entry is a string : date hour | torus > circle > location
-	let history = deepcopy(g:wheel_history)
+	let timeline = g:wheel_history.line
 	" should not be necessary
 	"let Compare = function('wheel#pendulum#compare')
-	"let history = sort(history, Compare)
+	"let timeline = sort(timeline, Compare)
 	let returnlist = []
-	for entry in history
+	for entry in timeline
 		let coordin = entry.coordin
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)

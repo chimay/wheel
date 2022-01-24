@@ -5,7 +5,7 @@
 
 " read & write wheel variables
 
-" helpers
+" write & read
 
 fun! wheel#disc#writefile (varname, file, where = '>')
 	" Write variable referenced by varname to file
@@ -65,6 +65,8 @@ fun! wheel#disc#read (file)
 	endif
 endfun
 
+" backups
+
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
 	let file = expand(a:file)
@@ -86,6 +88,30 @@ fun! wheel#disc#roll_backups (file, backups)
 	endwhile
 endfun
 
+" conversion from old data structure
+
+fun! wheel#disc#convert ()
+	" Convert old data structure to new one
+	" ---- history
+	if type(g:wheel_history) == v:t_list
+		let new_history = {}
+		let new_history.line = g:wheel_history
+		if exists('g:wheel_track')
+			let new_history.circuit = g:wheel_track
+		else
+			let new_history.circuit = g:wheel_history
+		endif
+		if exists('g:wheel_track')
+			let new_history.alternate = g:wheel_alternate
+		else
+			let new_history.alternate = {}
+		endif
+		let g:wheel_history = new_history
+		unlet g:wheel_track
+		unlet g:wheel_alternate
+	endif
+endfun
+
 " wheel file
 
 fun! wheel#disc#write_all (...)
@@ -105,15 +131,16 @@ fun! wheel#disc#write_all (...)
 		return
 	endif
 	call wheel#vortex#update ()
+	call wheel#disc#convert ()
 	echomsg 'Writing wheel variables to file ..'
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
+	" replace >
 	call wheel#disc#writefile('g:wheel', wheel_file, '>')
+	" append >>
 	call wheel#disc#writefile('g:wheel_helix', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_grid', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_files', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_history', wheel_file, '>>')
-	call wheel#disc#writefile('g:wheel_track', wheel_file, '>>')
-	call wheel#disc#writefile('g:wheel_alternate', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_input', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_attic', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
@@ -137,12 +164,13 @@ fun! wheel#disc#read_all (...)
 		echomsg 'Reading wheel variables from file ..'
 	endif
 	call wheel#disc#read (wheel_file)
+	call wheel#disc#convert ()
 	if argc() == 0
 		call wheel#vortex#jump ()
 	endif
 endfun
 
-" session : layout of tabs & windows
+" session file : layout of tabs & windows
 
 fun! wheel#disc#write_session (...)
 	" Write session layout to session file
@@ -193,7 +221,7 @@ fun! wheel#disc#read_session (...)
 	"tabnext 1
 endfun
 
-" tree torus/circle/location in the filesystem
+" tree following torus/circle/location hierarchy in the filesystem
 
 fun! wheel#disc#tree_script (...)
 	" Write a shell script which generates a tree of symlinks or copies

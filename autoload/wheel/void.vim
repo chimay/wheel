@@ -84,17 +84,18 @@ endfun
 fun! wheel#void#history ()
 	" Initialize history
 	if ! exists('g:wheel_history')
-		let g:wheel_history = []
+		let g:wheel_history = {}
 	endif
-	if ! exists('g:wheel_track')
-		let g:wheel_track = []
+	if ! has_key(g:wheel_history, 'line')
+		" naturally sorted time line
+		let g:wheel_history.line = []
 	endif
-endfun
-
-fun! wheel#void#alternate ()
-	" Initialize alternate history
-	if ! exists('g:wheel_alternate')
-		let g:wheel_alternate = {}
+	if ! has_key(g:wheel_history, 'circuit')
+		" rolled time loop
+		let g:wheel_history.circuit = []
+	endif
+	if ! has_key(g:wheel_history, 'alternate')
+		let g:wheel_history.alternate = {}
 	endif
 endfun
 
@@ -284,7 +285,6 @@ fun! wheel#void#foundation ()
 	call wheel#void#grid ()
 	call wheel#void#files ()
 	call wheel#void#history ()
-	call wheel#void#alternate ()
 	call wheel#void#input ()
 	call wheel#void#attic ()
 	call wheel#void#wave ()
@@ -331,8 +331,6 @@ fun! wheel#void#lighten ()
 				\ 'g:wheel_grid',
 				\ 'g:wheel_files',
 				\ 'g:wheel_history',
-				\ 'g:wheel_track',
-				\ 'g:wheel_alternate',
 				\ 'g:wheel_input',
 				\ 'g:wheel_attic',
 				\ 'g:wheel_wave',
@@ -396,8 +394,6 @@ fun! wheel#void#fresh_wheel ()
 				\ 'g:wheel_grid',
 				\ 'g:wheel_files',
 				\ 'g:wheel_history',
-				\ 'g:wheel_track',
-				\ 'g:wheel_alternate',
 				\ 'g:wheel_input',
 				\ 'g:wheel_attic',
 				\ 'g:wheel_wave',

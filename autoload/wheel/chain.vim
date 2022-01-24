@@ -39,22 +39,6 @@ fun! wheel#chain#insert_after (list, element, new)
 	return a:list->wheel#chain#insert_next(index, a:new)
 endfun
 
-" Replace
-
-fun! wheel#chain#replace (list, old, new)
-	" Replace old by new in list
-	let list = a:list
-	let old = a:old
-	let new = a:new
-	let index = index(list, old)
-	if index >= 0
-		let list[index] = new
-	else
-		echomsg 'List' string(list) 'does not contain' old
-	endif
-	return list
-endfun
-
 " Remove
 
 fun! wheel#chain#remove_index (list, index)
@@ -69,7 +53,7 @@ fun! wheel#chain#remove_element (list, element)
 	" Remove element from list
 	let list = a:list
 	let element = a:element
-	let index = index(list, element)
+	let index = list->index(element)
 	if index >= 0
 		eval list->remove(index)
 	endif
@@ -80,10 +64,10 @@ fun! wheel#chain#remove_all_elements (list, element)
 	" Remove all elements == element from list
 	let list = a:list
 	let element = a:element
-	let index = index(list, element)
+	let index = list->index(element)
 	while index >= 0
 		eval list->remove(index)
-		let index = index(list, element)
+		let index = list->index(element)
 	endwhile
 	return list
 endfun
@@ -111,7 +95,53 @@ fun! wheel#chain#move (list, from, target)
 	return list
 endfun
 
+" Replace
+
+fun! wheel#chain#replace (list, old, new)
+	" Replace old by new in list
+	let list = a:list
+	let old = a:old
+	let new = a:new
+	let index = list->index(old)
+	if index >= 0
+		let list[index] = new
+	endif
+	return list
+endfun
+
+fun! wheel#chain#replace_all (list, old, new)
+	" Replace all occurences of old by new in list
+	let list = a:list
+	let old = a:old
+	let new = a:new
+	let index = list->index(old)
+	while index >= 0
+		let list[index] = new
+		let index = list->index(old)
+	endwhile
+	return list
+endfun
+
 " Stack
+
+fun! wheel#chain#push_unique (list, element)
+	" Push element at beginning of list and remove duplicates
+	let list = a:list
+	let element = a:element
+	eval list->wheel#chain#remove_all_elements(element)
+	eval list->insert(element)
+	return list
+endfun
+
+fun! wheel#chain#push_max (list, element, maxim)
+	" Push element at beginning of list and remove elements beyond maxim
+	let list = a:list
+	let element = a:element
+	let maxim = a:maxim
+	eval list->insert(element)
+	let list = list[:maxim - 1]
+	return list
+endfun
 
 fun! wheel#chain#pop (list)
 	" Remove first element from list ; return it

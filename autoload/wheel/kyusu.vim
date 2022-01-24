@@ -16,11 +16,11 @@ endif
 
 " helpers
 
-fun! wheel#kyusu#steep (wordlist, index, value)
+fun! wheel#kyusu#steep (wordlist, unused, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
 	" Pipe | in word means logical or
-	" index is not used, it's just for compatibility with filter()
+	" unused argument is for compatibility with filter()
 	let wordlist = copy(a:wordlist)
 	eval wordlist->map({ _, val -> substitute(val, '|', '\\|', 'g') })
 	let match = v:true

@@ -113,6 +113,7 @@ FEATURES				*wheel-introduction-features*
     * anywhere
     * in same group
     * in same category
+  + signs displayed at wheel locations
 - search files
   + using locate
   + using find
@@ -1713,13 +1714,6 @@ To enable nice completion in prompting wheel functions : >
 <
 
 See |'wildmode'| to adapt it to your taste.
-
-To spot the cursor line in other windows while browsing
-a |wheel-dedicated-buffers|, you can either :
-
-- activate the |'cursorline'| option
-- activate the |'number'| and |'relativenumber'| options,
-  and set |hl-CursorLineNr| to a different color than |hl-LineNr|
 
 ------------------------------------------------------------------------------
 DICTIONARY					  *wheel-config-dictionary*

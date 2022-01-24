@@ -131,6 +131,7 @@ it’s easy to add new functionalities.
     * anywhere
     * in same group
     * in same category
+  + signs displayed at wheel locations
 - search files
   + using locate
   + using find
