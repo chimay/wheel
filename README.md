@@ -286,8 +286,10 @@ Here is an example of configuration :
 ~~~vim
 if ! exists("g:wheel_loaded")
   " Init
-  let g:wheel_config={}
-  let g:wheel_config.maxim={}
+  let g:wheel_config              = {}
+  let g:wheel_config.maxim        = {}
+  let g:wheel_config.display      = {}
+  let g:wheel_config.display.sign = {}
 
   " The file where toruses and circles will be stored and read
   let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
