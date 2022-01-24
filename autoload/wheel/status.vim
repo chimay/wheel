@@ -31,7 +31,12 @@ endfun
 fun! wheel#status#clear ()
 	" Clear command line space
 	redraw!
-	echo "\r"
+	"echo "\r"
+	"echo
+	"echon
+	" credit :
+	" https://neovim.discourse.group/t/how-to-clear-the-echo-message-in-the-command-line/268/2
+	call feedkeys(':','nx')
 endfun
 
 " Message

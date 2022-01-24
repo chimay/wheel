@@ -50,7 +50,17 @@ fun! wheel#pendulum#distinct_coordin (index, one, unused, two)
 	let one = a:one
 	let two = a:two
 	let index = a:index
-	return one.coordin[:index] != two.coordin[:index]
+	let type_one = type(one)
+	let type_two = type(two)
+	if type_one == v:t_list && type_two == v:t_list
+		return one[:index] != two[:index]
+	elseif type_one == v:t_dict && type_two == v:t_dict
+		return one.coordin[:index] != two.coordin[:index]
+	elseif type_one == v:t_list && type_two == v:t_dict
+		return one[:index] != two.coordin[:index]
+	elseif type_one == v:t_dict && type_two == v:t_list
+		return one.coordin[:index] != two[:index]
+	endif
 endfun
 
 fun! wheel#pendulum#coordin_inside_wheel (unused, entry)
@@ -185,7 +195,7 @@ fun! wheel#pendulum#rename (level, old, new)
 	endfor
 endfun
 
-fun! wheel#pendulum#delete(level, old_names)
+fun! wheel#pendulum#delete (level, old_names)
 	" Delete all occurences of old_names in history
 	" level = 0 or torus    : delete torus
 	" level = 1 or circle   : delete circle
@@ -198,12 +208,13 @@ fun! wheel#pendulum#delete(level, old_names)
 		echomsg 'Pendulum delete : level arg must be number or string'
 		return
 	end
+	let old_names = a:old_names
 	" -- history line
 	let timeline = g:wheel_history.line
-	eval timeline->filter(function('wheel#pendulum#distinct_coordin', [index, entry]))
+	eval timeline->filter(function('wheel#pendulum#distinct_coordin', [index, old_names]))
 	" -- history circuit
 	let timeloop = g:wheel_history.circuit
-	eval timeloop->filter(function('wheel#pendulum#distinct_coordin', [index, entry]))
+	eval timeloop->filter(function('wheel#pendulum#distinct_coordin', [index, old_names]))
 endfun
 
 fun! wheel#pendulum#broom ()

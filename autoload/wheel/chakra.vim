@@ -111,12 +111,7 @@ endfun
 fun! wheel#chakra#clear ()
 	" Unplace all wheel signs
 	let group = s:sign_group
-	let signs = g:wheel_signs
-	let iden = signs.iden
-	for old_iden in iden
-		let dict = #{ id : old_iden }
-		call sign_unplace(group, dict)
-	endfor
+	call sign_unplace(group)
 	call wheel#void#signs ()
 endfun
 
@@ -130,12 +125,9 @@ fun! wheel#chakra#update ()
 		return v:false
 	endif
 	let location = wheel#referen#location ()
-	if empty(location) || location.file !=# expand('%:p')
-		return v:false
-	endif
-	if wheel#chakra#same ()
-		return v:true
-	endif
+	"if wheel#chakra#same ()
+		"return v:true
+	"endif
 	call wheel#chakra#define ()
 	call wheel#chakra#unplace ()
 	call wheel#chakra#place ()

@@ -504,7 +504,7 @@ fun! wheel#tree#remove (level, name)
 	" for index auto update at demand
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	" adjust history
-	call wheel#pendulum#delete(level, old_names)
+	call wheel#pendulum#delete (level, old_names)
 	return v:true
 endfun
 
@@ -552,7 +552,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#vortex#jump ()
 	" Adjust history
-	call wheel#pendulum#delete(level, old_names)
+	call wheel#pendulum#delete (level, old_names)
 	return v:true
 endfun
 

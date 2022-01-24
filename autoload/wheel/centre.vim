@@ -194,6 +194,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-spiral-cursor) <cmd>call wheel#spiral#cursor()<cr>
 	" Debug
 	nnoremap <plug>(wheel-debug-fresh-wheel) <cmd>call wheel#void#fresh_wheel()<cr>
+	nnoremap <plug>(wheel-debug-clear-echo-area) <cmd>call wheel#status#clear()<cr>
 	nnoremap <plug>(wheel-debug-prompt-history-circuit) <cmd>call wheel#vortex#history_circuit()<cr>
 	nnoremap <plug>(wheel-debug-dedibuf-history-circuit) <cmd>call wheel#sailing#history_circuit()<cr>
 endfun
@@ -500,6 +501,7 @@ fun! wheel#centre#cables ()
 	" Debug
 	if g:wheel_config.mappings >= 20
 		exe nmap prefix .. debug .. 'Z <plug>(wheel-debug-fresh-wheel)'
+		exe nmap prefix .. debug .. 'c <plug>(wheel-debug-clear-echo-area)'
 		exe nmap prefix .. debug .. 'h <plug>(wheel-debug-prompt-history-circuit)'
 		exe nmap prefix .. debug .. '<m-h> <plug>(wheel-debug-dedibuf-history-circuit)'
 	endif
