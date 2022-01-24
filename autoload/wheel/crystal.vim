@@ -84,9 +84,9 @@ if ! exists('s:sign_group')
 endif
 
 if ! exists('s:sign_text')
-	let s:sign_text = '☯ '
+	let s:sign_text = '☯'
 	" sign text must be 2 chars or a space will be added by vim
-	" and confuse chakra#define
+	" an extra space is added by chakra#define to avoid confusion
 	lockvar s:sign_text
 endif
 

@@ -48,6 +48,14 @@ fun! wheel#chakra#define ()
 	let settings = g:wheel_config.display.sign.settings
 	" -- first definition
 	if empty(signs.iden)
+		" sign text must be 2 chars or a space will be added by vim
+		let text = settings.text
+		if empty(text)
+			let settings.text = wheel#crystal#fetch('sign/text')
+		elseif strchars(text) == 1
+			let settings.text ..= ' '
+		endif
+		" define
 		call sign_define(name, settings)
 		return v:true
 	endif
@@ -56,6 +64,7 @@ fun! wheel#chakra#define ()
 	let subdef = defined->filter({ _, val -> val.name == name })
 	if empty(subdef)
 		echomsg 'wheel : sign define : empty definition'
+		return v:false
 	endif
 	let wheel_sign = subdef[0]
 	let text = wheel_sign.text
