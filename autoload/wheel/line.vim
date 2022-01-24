@@ -571,7 +571,7 @@ fun! wheel#line#paste_plain (...)
 		let close = 'close'
 	endif
 	if wheel#pencil#is_selection_empty ()
-		let content = getline('.')
+		let content = [ getline('.') ]
 	else
 		let content = deepcopy( wheel#pencil#addresses () )
 	endif
@@ -590,7 +590,7 @@ fun! wheel#line#paste_plain (...)
 		let @" = content
 		normal! P
 	endif
-	let @" = content
+	let @" = join(content)
 	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#cylinder#close ()
