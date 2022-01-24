@@ -76,6 +76,7 @@ fun! wheel#disc#roll_backups (file, backups)
 		let second = expand(remove(filelist, 0))
 		let first = expand(filelist[0])
 		if filereadable(first)
+			"echomsg 'renaming' first '->' second
 			let zero = rename(first, second)
 			if zero != 0
 				echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
