@@ -79,7 +79,7 @@ fun! wheel#disc#roll_backups (file, backups)
 			"echomsg 'renaming' first '->' second
 			let zero = rename(first, second)
 			if zero != 0
-				echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
+				echomsg 'wheel batch rename files : error renaming' first '->' second
 				return v:false
 			endif
 		endif

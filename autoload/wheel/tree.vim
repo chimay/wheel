@@ -447,7 +447,7 @@ fun! wheel#tree#rename_file (...)
 	if ! isdirectory(directory)
 		let success = mkdir(directory, 'p')
 		if success == v:false
-			echomsg 'wheel batch rename files : error in creating directory' directory
+			echomsg 'wheel batch rename files : error creating directory' directory
 			return v:false
 		endif
 	endif
