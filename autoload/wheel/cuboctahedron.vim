@@ -294,7 +294,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		" create directory if needed
 		let directory = fnamemodify(new_filename, ':h')
 		if ! isdirectory(directory)
-			echomsg 'wheel : mkdir' directory
+			echomsg 'wheel : creating directory' directory
 			let success = mkdir(directory, 'p')
 			if success == v:false
 				echomsg 'wheel batch rename files : error creating dir' directory
