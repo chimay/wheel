@@ -216,9 +216,6 @@ fun! wheel#void#config ()
 		" in case external grep is not available
 		let g:wheel_config.grep = 'vimgrep'
 	endif
-	if ! has_key(g:wheel_config, 'message')
-		let g:wheel_config.message = 'one-line'
-	endif
 	" ---- maxim
 	if ! has_key(g:wheel_config, 'maxim')
 		let g:wheel_config.maxim = {}
@@ -244,6 +241,9 @@ fun! wheel#void#config ()
 	" ---- display
 	if ! has_key(g:wheel_config, 'display')
 		let g:wheel_config.display = {}
+	endif
+	if ! has_key(g:wheel_config.display, 'message')
+		let g:wheel_config.display.message = 'one-line'
 	endif
 	if ! has_key(g:wheel_config.display, 'prompt')
 		let g:wheel_config.display.prompt = wheel#crystal#fetch ('mandala/prompt')

@@ -321,8 +321,6 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.locate_db = '~/racine/index/locate/racine.db'
   " Grep command : :grep or :vimpgrep
   let g:wheel_config.grep = 'grep'
-  " Wheel message : all in one-line or accept multi-line
-  let g:wheel_config.message = 'one-line'
 
   " Maximum number of elements in history
   let g:wheel_config.maxim.history = 50
@@ -347,6 +345,8 @@ if ! exists("g:wheel_loaded")
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
 
+  " Wheel message : all in one-line or accept multi-line
+  let g:wheel_config.display.message = 'one-line'
   " Filter prompt in dedicated buffers
   let g:wheel_config.display.prompt = 'wheel $ '
   " Selection marker in dedicated buffers
