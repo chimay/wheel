@@ -2,7 +2,7 @@
 
 " Generic helpers
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:modes_letters')
 	let s:modes_letters = wheel#crystal#fetch('modes-letters')
@@ -14,7 +14,7 @@ if ! exists('s:letters_modes')
 	lockvar s:letters_modes
 endif
 
-" Rotating
+" ---- rotating
 
 fun! wheel#gear#circular_plus (index, length)
 	" Rotate/increase index with modulo
@@ -30,7 +30,7 @@ fun! wheel#gear#circular_minus (index, length)
 	return index
 endfun
 
-" Functions
+" ---- functions
 
 fun! wheel#gear#function (function, ...)
 	" Return funcref of function string
@@ -86,7 +86,7 @@ fun! wheel#gear#call (fun, ...)
 	endif
 endfun
 
-" Vim cmdline range
+" ---- vim cmdline range
 
 fun! wheel#gear#vim_cmd_range (...)
 	" Return range for :[range]cmd
@@ -104,7 +104,31 @@ fun! wheel#gear#vim_cmd_range (...)
 	return range
 endfun
 
-" Directory
+" ---- file system
+
+" -- file
+
+fun! wheel#gear#copy (source, destination)
+	" Copy old -> new without using external command
+	let source = a:source
+	let destination = a:destination
+	if ! filereadable(source)
+		echomsg 'wheel gear copy : source file not readable'
+		return -1
+	endif
+	if filereadable(destination)
+		let prompt = 'Replace existing ' .. destination .. ' ?'
+		let overwrite = confirm(prompt, "&Yes\n&No", 2)
+		if overwrite != 1
+			return -1
+		endif
+	endif
+	let content = readfile(source, 'b')
+	let zero = writefile(content, destination, 'b')
+	return zero
+endfun
+
+" -- directory
 
 fun! wheel#gear#relative_path (...)
 	" Return path of filename relative to current directory
@@ -149,7 +173,7 @@ fun! wheel#gear#project_root (markers)
 	endwhile
 endfun
 
-" Cursor
+" ---- location
 
 fun! wheel#gear#restore_cursor (position, default_line = '$')
 	" Restore cursor position
@@ -169,7 +193,9 @@ fun! wheel#gear#win_gotoid (iden)
 	endif
 endfun
 
-" Map modes
+" ---- status : variables, options, maps, autocommands
+
+" -- map modes
 
 fun! wheel#gear#short_mode (mode)
 	" Returns short one letter name of mode
@@ -223,9 +249,7 @@ fun! wheel#gear#long_mode (mode)
 	endif
 endfun
 
-" Autocommands
-
-" Clear
+" -- clear
 
 fun! wheel#gear#unmap (key, mode = 'normal')
 	" Unmap buffer local mapping key in mode
@@ -293,7 +317,7 @@ fun! wheel#gear#unlet (variable)
 	endif
 endfun
 
-" Save
+" -- save
 
 fun! wheel#gear#save_options (optlist)
 	" Return dictionary with options whose names are in optlist
@@ -365,7 +389,7 @@ fun! wheel#gear#save_autocmds (group, events)
 	endif
 endfun
 
-" Restore
+" -- restore
 
 fun! wheel#gear#restore_options (optdict)
 	" Restore options whose names and values are given by optdict
@@ -410,9 +434,9 @@ fun! wheel#gear#restore_autocmds (group, autodict)
 	endfor
 endfun
 
-" Misc
+" ---- misc
 
-" Used by chain#tie
+" used by chain#tie
 
 fun! wheel#gear#decrease_greater(number, treshold)
 	" Return number - 1 if > treshold, else return number
