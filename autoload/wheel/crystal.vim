@@ -3,7 +3,9 @@
 " Internal Constants made crystal clear
 
 " Dictionaries are defined as list of items to preserve the order
-" of keys. Useful for menus & context menus
+" of keys.
+"
+" Useful for menus & context menus
 
 " unicode store
 "
@@ -351,7 +353,7 @@ if ! exists('s:menu_add')
 	let s:menu_add = [
 				\ ['add a new torus' ,  'wheel#tree#add_torus'],
 				\ ['add a new circle' ,  'wheel#tree#add_circle'],
-				\ ['add here as new location' ,  'wheel#tree#add_here'],
+				\ ['add new location at cursor' ,  'wheel#tree#add_here'],
 				\ ['add a new file' ,  'wheel#tree#add_file'],
 				\ ['add a new buffer' ,  'wheel#tree#add_buffer'],
 				\ ['add files matching glob' ,  'wheel#tree#add_glob'],
@@ -446,17 +448,17 @@ endif
 
 if ! exists('s:menu_reorganize')
 	let s:menu_reorganize = [
-				\ ['reorder toruses' ,  "wheel#shape#reorder('torus')"],
-				\ ['reorder circles' ,  "wheel#shape#reorder('circle')"],
-				\ ['reorder locations' ,  "wheel#shape#reorder('location')"],
-				\ ['batch rename toruses' ,  "wheel#shape#rename('torus')"],
-				\ ['batch rename circles' ,  "wheel#shape#rename('circle')"],
-				\ ['batch rename locations' ,  "wheel#shape#rename('location')"],
-				\ ['batch rename locations & filenames' ,  'wheel#shape#rename_files'],
-				\ ['batch copy/move toruses' ,  "wheel#shape#copy_move('torus')"],
-				\ ['batch copy/move circles' ,  "wheel#shape#copy_move('circle')"],
-				\ ['batch copy/move locations' ,  "wheel#shape#copy_move('location')"],
-				\ ['reorganize wheel' ,  'wheel#shape#reorganize'],
+				\ ['reorder toruses' ,  "wheel#yggdrasil#reorder('torus')"],
+				\ ['reorder circles' ,  "wheel#yggdrasil#reorder('circle')"],
+				\ ['reorder locations' ,  "wheel#yggdrasil#reorder('location')"],
+				\ ['batch rename toruses' ,  "wheel#yggdrasil#rename('torus')"],
+				\ ['batch rename circles' ,  "wheel#yggdrasil#rename('circle')"],
+				\ ['batch rename locations' ,  "wheel#yggdrasil#rename('location')"],
+				\ ['batch rename locations & filenames' ,  'wheel#yggdrasil#rename_files'],
+				\ ['batch copy/move toruses' ,  "wheel#yggdrasil#copy_move('torus')"],
+				\ ['batch copy/move circles' ,  "wheel#yggdrasil#copy_move('circle')"],
+				\ ['batch copy/move locations' ,  "wheel#yggdrasil#copy_move('location')"],
+				\ ['reorganize wheel' ,  'wheel#yggdrasil#reorganize'],
 				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwins'],
 				\ ['grep in edit mode' ,  'wheel#shape#grep_edit'],
 				\ ['undo list' ,  'wheel#delta#undolist'],
@@ -556,8 +558,8 @@ if ! exists('s:menu_list')
 				\ 'navigation',
 				\ 'alternate',
 				\ 'reorganize',
-				\ 'command',
 				\ 'yank',
+				\ 'command',
 				\ 'layout',
 				\ 'layout_tabs',
 				\ 'layout_windows',

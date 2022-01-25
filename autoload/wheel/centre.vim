@@ -102,10 +102,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-rename-circle) <cmd>call wheel#tree#rename('circle')<cr>
 	nnoremap <plug>(wheel-prompt-rename-torus) <cmd>call wheel#tree#rename('torus')<cr>
 	nnoremap <plug>(wheel-prompt-rename-file) <cmd>call wheel#tree#rename_file()<cr>
-	nnoremap <plug>(wheel-dedibuf-rename-location) <cmd>call wheel#shape#rename('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-rename-circle) <cmd>call wheel#shape#rename('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-rename-torus) <cmd>call wheel#shape#rename('torus')<cr>
-	nnoremap <plug>(wheel-dedibuf-rename-location-filename) <cmd>call wheel#shape#rename_files()<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-location) <cmd>call wheel#yggdrasil#rename('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-circle) <cmd>call wheel#yggdrasil#rename('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-torus) <cmd>call wheel#yggdrasil#rename('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-rename-location-filename) <cmd>call wheel#yggdrasil#rename_files()<cr>
 	" -- delete
 	nnoremap <plug>(wheel-prompt-delete-location) <cmd>call wheel#tree#delete('location')<cr>
 	nnoremap <plug>(wheel-prompt-delete-circle) <cmd>call wheel#tree#delete('circle')<cr>
@@ -116,15 +116,15 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-copy-torus) <cmd>call wheel#tree#copy('torus')<cr>
 	nnoremap <plug>(wheel-prompt-move-location) <cmd>call wheel#tree#move('location')<cr>
 	nnoremap <plug>(wheel-prompt-move-circle) <cmd>call wheel#tree#move('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-copy-move-location) <cmd>call wheel#shape#copy_move('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-copy-move-circle) <cmd>call wheel#shape#copy_move('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-copy-move-torus) <cmd>call wheel#shape#copy_move('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-copy-move-location) <cmd>call wheel#yggdrasil#copy_move('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-copy-move-circle) <cmd>call wheel#yggdrasil#copy_move('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-copy-move-torus) <cmd>call wheel#yggdrasil#copy_move('torus')<cr>
 	" -- reorder
-	nnoremap <plug>(wheel-dedibuf-reorder-location) <cmd>call wheel#shape#reorder('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-reorder-circle) <cmd>call wheel#shape#reorder('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-reorder-torus) <cmd>call wheel#shape#reorder('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-location) <cmd>call wheel#yggdrasil#reorder('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-circle) <cmd>call wheel#yggdrasil#reorder('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-torus) <cmd>call wheel#yggdrasil#reorder('torus')<cr>
 	" -- reorganize
-	nnoremap <plug>(wheel-dedibuf-reorganize) <cmd>call wheel#shape#reorganize()<cr>
+	nnoremap <plug>(wheel-dedibuf-reorganize) <cmd>call wheel#yggdrasil#reorganize()<cr>
 	" ---- organize elsewhere
 	" -- tabs & windows
 	nnoremap <plug>(wheel-dedibuf-reorg-tabwins) <cmd>call wheel#shape#reorg_tabwins()<cr>

@@ -361,7 +361,7 @@ fun! wheel#polyphony#narrow_file (...) range
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
 	call wheel#polyphony#action_maps ('file')
-	call wheel#shape#write ('wheel#polyphony#harmony')
+	call wheel#yggdrasil#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" settings
 	let b:wheel_settings = settings
@@ -395,7 +395,7 @@ fun! wheel#polyphony#narrow_circle (...)
 	let settings = {'function' : function('wheel#line#narrow_circle')}
 	call wheel#sailing#mappings (settings)
 	call wheel#polyphony#action_maps ('circle')
-	call wheel#shape#write ('wheel#polyphony#counterpoint')
+	call wheel#yggdrasil#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
 	" settings
 	let b:wheel_settings = settings
