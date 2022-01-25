@@ -152,7 +152,7 @@ it’s easy to add new functionalities.
 - narrow
   + current file
   + all circle file with a pattern
-- yank wheel using TextYankPost event
+- yank ring using TextYankPost event
   + paste before or after, linewise or characterwise
   + plain mode : each buffer line is a yanked line
   + list mode : each buffer line is a yank
@@ -330,9 +330,9 @@ if ! exists("g:wheel_loaded")
   " Maximum number of elements in mru
   let g:wheel_config.maxim.mru = 120
 
-  " Maximum number of elements in yank wheel
+  " Maximum number of elements in yank ring
   let g:wheel_config.maxim.yanks = 300
-  " Maximum size of elements in yank wheel
+  " Maximum size of elements in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 
   " Maximum size of layer ring

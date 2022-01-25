@@ -46,26 +46,6 @@ fun! wheel#shape#write (fun_name, ...)
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
-" reorder
-
-fun! wheel#shape#reorder (level)
-	" Reorder level elements in a buffer
-	let level = a:level
-	let lines = wheel#perspective#switch (level)
-	if empty(lines)
-		echomsg 'wheel shape reorder : empty or incomplete' level
-		return v:false
-	endif
-	call wheel#mandala#blank ('reorder/' .. level)
-	call wheel#mandala#common_maps ()
-	call wheel#shape#write ('reorder', level)
-	call wheel#mandala#fill(lines, 'delete-first')
-	silent global /^$/ delete
-	setlocal nomodified
-	" reload
-	let b:wheel_reload = "wheel#shape#reorder('" .. level .. "')"
-endfun
-
 " rename
 
 fun! wheel#shape#rename (level)
@@ -111,7 +91,27 @@ fun! wheel#shape#rename_files ()
 	return v:true
 endfun
 
-" batch copy/move
+" reorder
+
+fun! wheel#shape#reorder (level)
+	" Reorder level elements in a buffer
+	let level = a:level
+	let lines = wheel#perspective#switch (level)
+	if empty(lines)
+		echomsg 'wheel shape reorder : empty or incomplete' level
+		return v:false
+	endif
+	call wheel#mandala#blank ('reorder/' .. level)
+	call wheel#mandala#common_maps ()
+	call wheel#shape#write ('reorder', level)
+	call wheel#mandala#fill(lines, 'delete-first')
+	silent global /^$/ delete
+	setlocal nomodified
+	" reload
+	let b:wheel_reload = "wheel#shape#reorder('" .. level .. "')"
+endfun
+
+" copy / move
 
 fun! wheel#shape#copy_move (level)
 	" Copy or move elements at level
@@ -182,7 +182,7 @@ fun! wheel#shape#reorg_tabwins ()
 	let b:wheel_reload = 'wheel#shape#reorg_tabwins'
 endfun
 
-" grep
+" grep edit
 
 fun! wheel#shape#grep_edit (...)
 	" Reorder level elements in a buffer

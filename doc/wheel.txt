@@ -134,7 +134,7 @@ FEATURES				*wheel-introduction-features*
 - narrow
   + current file
   + all circle file with a pattern
-- yank wheel using TextYankPost event
+- yank ring using TextYankPost event
   + paste before or after, linewise or characterwise
   + plain mode : each buffer line is a yanked line
   + list mode : each buffer line is a yank
@@ -948,7 +948,7 @@ launch a sub-menu. Each sub-menu holds actions of the same category :
 - alternate last two elements
 - reorganize elements
 - run a command and collect its output
-- paste from yank wheel
+- paste from yank ring
 - layouts
   + in tabs
   + in windows
@@ -1547,30 +1547,30 @@ As usual, you can filter the elements in insert mode.
 The available local maps are :
 
  - `<enter>` : paste a yank after cursor
- - `g<enter>` : paste a yank after cursor, leave yank wheel opened
- - `p` : paste a yank after cursor, leave yank wheel opened
- - `P` : paste a yank before cursor, leave yank wheel opened
+ - `g<enter>` : paste a yank after cursor, leave yank ring opened
+ - `p` : paste a yank after cursor, leave yank ring opened
+ - `P` : paste a yank before cursor, leave yank ring opened
 
 List mode~
 
-The yank wheel buffer in list mode is launched by `<M-w>y`.
+The yank ring buffer in list mode is launched by `<M-w>y`.
 
 Each line of the dedicated buffer is one of your yanks, represented as a
 list, one element per line.
 
 Plain mode~
 
-The yank wheel buffer in plain mode is launched by `<M-w>p`.
+The yank ring buffer in plain mode is launched by `<M-w>p`.
 
 All your yanks are concatenated and displayed in the dedicated buffer.
 
 In normal mode, the paste is done linewise or characterwise, depending
 on the mapping used :
 
- - `p` : paste a yank linewise after cursor, leave yank wheel opened
- - `P` : paste a yank linewise before cursor, leave yank wheel opened
- - `gp` : paste a yank characterwise after cursor, leave yank wheel opened
- - `gP` : paste a yank characterwise before cursor, leave yank wheel opened
+ - `p` : paste a yank linewise after cursor, leave yank ring opened
+ - `P` : paste a yank linewise before cursor, leave yank ring opened
+ - `gp` : paste a yank characterwise after cursor, leave yank ring opened
+ - `gP` : paste a yank characterwise before cursor, leave yank ring opened
 
 Visual mode~
 
@@ -1579,7 +1579,7 @@ done characterwise.
 
 Menus~
 
-The yank wheel buffers can also be launched from the main & meta menus.
+The yank ring buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
@@ -1930,7 +1930,7 @@ Maximum number of elements in mru : >
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN YANK WHEEL		   *wheel-config-maxim-yanks*
 
-Maximum number of elements in the yank wheel : >
+Maximum number of elements in the yank ring : >
 
     let g:wheel_config.maxim.yanks = 300
 <
@@ -1938,7 +1938,7 @@ Maximum number of elements in the yank wheel : >
 ------------------------------------------------------------------------------
 MAX SIZE OF A YANK IN YANK WHEEL	   *wheel-config-maxim-yank_size*
 
-Maximum size of elements in the yank wheel : >
+Maximum size of elements in the yank ring : >
 
     let g:wheel_config.maxim.yank_size = 3000
 <
@@ -2095,9 +2095,9 @@ Here is an example of a complete configuration : >
   " Maximum number of elements in mru
   let g:wheel_config.maxim.mru = 120
 
-  " Maximum number of elements in yank wheel
+  " Maximum number of elements in yank ring
   let g:wheel_config.maxim.yanks = 300
-  " Maximum size of elements in yank wheel
+  " Maximum size of elements in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 
   " Maximum number of tabs
@@ -2127,7 +2127,7 @@ After jump			|wheel-autocommands-after-jump|
 Auto follow			|wheel-autocommands-auto-follow|
 Auto update			|wheel-autocommands-auto-update|
 MRU files			|wheel-autocommands-mru-files|
-Yank wheel			|wheel-autocommands-yank|
+Yank ring			|wheel-autocommands-yank|
 Example				|wheel-autocommands-example|
 
 ------------------------------------------------------------------------------
@@ -2287,7 +2287,7 @@ Here is an example of a complete autocommands configuration : >
 	autocmd BufLeave * call wheel#vortex#update()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
-	" To record your yanks in the yank wheel
+	" To record your yanks in the yank ring
 	autocmd TextYankPost * call wheel#codex#add()
     augroup END
 <
@@ -2628,12 +2628,12 @@ Dedicated buffers :
 | ,        | <M-w>;              | Changes    |
 | <M-t>    | <M-w><M-t>          | Tags       |
 
-Yank wheel~
+Yank ring~
 
 | Prefix + | With default prefix | Action                    |
 | -------- | ------------------- | ------------------------- |
-| y        | <M-w>y              | Yank wheel in list mode   |
-| p        | <M-w>p              | Yank wheel in plain mode  |
+| y        | <M-w>y              | Yank ring in list mode   |
+| p        | <M-w>p              | Yank ring in plain mode  |
 
 Reorganizing buffers~
 
@@ -2813,8 +2813,8 @@ adapt them to your taste and add them to your init file.
 | <M-g>          | Grep in current circle files                  |
 | <M-S-o>        | Outline in current circle files               |
 | -------------- | --------------------------------------------- |
-| <M-y>          | Paste yank wheel element in list mode         |
-| <M-p>          | Paste yank wheel element in plain mode        |
+| <M-y>          | Paste yank ring element in list mode         |
+| <M-p>          | Paste yank ring element in plain mode        |
 | -------------- | --------------------------------------------- |
 | <M-S-u>        | Undo list                                     |
 | -------------- | --------------------------------------------- |
@@ -3144,12 +3144,12 @@ Search inside files~
 | <plug>(wheel-dedibuf-grep)         | grep pattern in all circle files       |
 | <plug>(wheel-dedibuf-outline)      | headers in all circle files            |
 
-Yank wheel~
+Yank ring~
 
 | Plug maps                                       | Description                              |
 | ----------------------------------------------- | --------------------------------------   |
-| <plug>(wheel-dedibuf-yank-list)                 | yank wheel in list format                |
-| <plug>(wheel-dedibuf-yank-plain)                | yank wheel in plain format               |
+| <plug>(wheel-dedibuf-yank-list)                 | yank ring in list format                |
+| <plug>(wheel-dedibuf-yank-plain)                | yank ring in plain format               |
 
 Undo list~
 
@@ -3437,7 +3437,7 @@ of the modules within them.
 | chakra.vim        | Signs on wheel locations                   |
 | checknfix.vim     | Check & fix variables                      |
 | clipper.vim       | Yank dedicated buffers                     |
-| codex.vim         | Yank wheel                                 |
+| codex.vim         | Yank ring                                  |
 | complete.vim      | Completion functions                       |
 | crystal.vim       | Internal variables                         |
 | cuboctahedron.vim | Reshaping : reorder, reorganize            |
