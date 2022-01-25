@@ -45,16 +45,19 @@ fun! wheel#codex#add ()
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
 
-fun! wheel#codex#paste_list (...)
+fun! wheel#codex#yank_list (...)
 	" Paste yank from yank ring in list mode
-	let prompt = 'Yank element : '
+	let prompt = 'Yank element (list mode) : '
 	let complete = 'customlist,wheel#complete#yank_list'
-	let list = input(prompt, '', complete)
+	let line = input(prompt, '', complete)
+	let content = eval(line)
+	put =content
 endfun
 
-fun! wheel#codex#paste_plain (...)
+fun! wheel#codex#yank_plain (...)
 	" Paste yank from yank ring in plain mode
-	let prompt = 'Yank element : '
+	let prompt = 'Yank element (plain mode) : '
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
+	put =content
 endfun

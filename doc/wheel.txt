@@ -5,7 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
-Juggling with wheel elements	|wheel-elements|
+Straightforward functions	|wheel-straightforward-functions|
 Prompting functions		|wheel-prompting-functions|
 Dedicated buffers		|wheel-dedicated-buffers|
 Batch mode			|wheel-batch-operations|
@@ -401,90 +401,38 @@ There are also functions for buffers, marks, jumps or changes.
 See |wheel-prompting-functions-switch|.
 
 ==============================================================================
-JUGGLING WITH WHEEL ELEMENTS				*wheel-elements*
+STRAIGHTFORWARD FUNCTIONS			*wheel-straightforward-functions*
 
-Add					    |wheel-elements-add|
-Delete					    |wheel-elements-delete|
-Rename					    |wheel-elements-rename|
-Copy					    |wheel-elements-copy|
-Move					    |wheel-elements-move|
-Navigation				    |wheel-elements-navigation|
-Info					    |wheel-elements-info|
-Sync					    |wheel-elements-sync|
+Navigation			    |wheel-straightforward-functions-navigation|
+Info				    |wheel-straightforward-functions-info|
+Sync				    |wheel-straightforward-functions-sync|
 
 ------------------------------------------------------------------------------
-ADD							*wheel-elements-add*
-
-- `<M-w>a`     : add location at current file & position
-- `<M-w><C-a>` : add circle
-- `<M-w>A`     : add torus
-- `<M-w>+f`    : add file
-- `<M-w>+b`    : add buffer
-- `<M-w>*`     : add files matching glob
-
-------------------------------------------------------------------------------
-DELETE							*wheel-elements-delete*
-
-- `<M-w>d`     : delete location
-- `<M-w><C-d>` : delete circle
-- `<M-w>D`     : delete torus
-
-------------------------------------------------------------------------------
-RENAME							*wheel-elements-rename*
-
-- `<M-w>n`     : rename location
-- `<M-w><C-n>` : rename circle
-- `<M-w>N`     : rename torus
-- `<M-w>n`     : rename location & file
-
-Before renaming files, it's always a good thing to do a backup of your
-files first, or even better, to work within a VCS repository, like git.
-
-------------------------------------------------------------------------------
-COPY							*wheel-elements-copy*
-
-- `<M-w>c`     : copy location to another circle
-- `<M-w><M-c>` : copy circle to another torus
-- `<M-w>C`     : copy torus
-
-------------------------------------------------------------------------------
-MOVE							*wheel-elements-move*
-
-- `<M-w>m`     : copy location to another circle
-- `<M-w>M`   : copy circle to another torus
-
-------------------------------------------------------------------------------
-NAVIGATION					*wheel-elements-navigation*
+NAVIGATION				*wheel-straightforward-functions-navigation*
 
 Next~
 
 - location : `<M-w><Right>`
 - circle : `<M-w><C-Right>`
 - torus : `<M-w><S-Right>`
-- older location in history : `<M-w><Down>`
-- older location in same circle : `<M-w><C-Down>`
-- older location in same torus : `<M-w><S-Down>`
 
 Previous~
 
 - location : `<M-w><Left>`
 - circle : `<M-w><C-Left>`
 - torus : `<M-w><S-Left>`
+
+History~
+
+- older location in history : `<M-w><Down>`
 - newer location in history : `<M-w><Up>`
+- older location in same circle : `<M-w><C-Down>`
 - newer location in same circle : `<M-w><C-Up>`
+- older location in same torus : `<M-w><S-Down>`
 - newer location in same torus : `<M-w><S-Up>`
 
-Switch~
-
-- location : `<M-w><Space>`
-- circle : `<M-w><C-Space>`
-- torus : `<M-w><S-Space>`
-- location in index : `<M-w>x`
-- circle in index : `<M-w><C-x>`
-- location in history : `<M-w>h`
-
 ------------------------------------------------------------------------------
-INFO							*wheel-elements-info*
+INFO					*wheel-straightforward-functions-info*
 
 Display a dashboard indicating the wheel state : >
 
@@ -494,7 +442,7 @@ Display a dashboard indicating the wheel state : >
 Default mapping : `<M-w>i`
 
 ------------------------------------------------------------------------------
-SYNC							*wheel-elements-sync*
+SYNC					*wheel-straightforward-functions-sync*
 
 Sync down : wheel -> vim state~
 
@@ -532,9 +480,13 @@ This process can be partly automated, see |wheel-autocommands-auto-follow|.
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
 
 Completion			    |wheel-prompting-functions-completion|
-Add				    |wheel-prompting-functions-add|
-Rename				    |wheel-prompting-functions-rename|
 Switch				    |wheel-prompting-functions-switch|
+Add				    |wheel-prompting-functions-add|
+Delete				    |wheel-prompting-functions-delete|
+Rename				    |wheel-prompting-functions-rename|
+Copy				    |wheel-prompting-functions-copy|
+Move				    |wheel-prompting-functions-move|
+Yank ring			    |wheel-prompting-functions-yank|
 
 ------------------------------------------------------------------------------
 COMPLETION			    *wheel-prompting-functions-completion*
@@ -570,6 +522,80 @@ For example, if you have the completion list `small flower`, `big flower`,
 - the patterns `sm fl` will narrow down to `small flower`
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
+
+------------------------------------------------------------------------------
+SWITCH					    *wheel-prompting-functions-switch*
+
+Switch element in the wheel~
+
+| Function                 | Completion list              | Default binding |
+| ------------------------ | ---------------------------- | --------------- |
+| switch location          | locations of current circle  | <M-w><Enter>    |
+| switch circle            | circles of the current torus | <M-w><C-Enter>  |
+| switch torus             | toruses in the wheel         | <M-w><S-Enter>  |
+| multi switch             | toruses, circles & locations | <M-w><M-Enter>  |
+| switch location in index | index locations              | <M-w>x          |
+| switch circle in index   | index circles                | <M-w><C-x>      |
+| switch in history        | history entries              | <M-w>h          |
+
+Switch buffer~
+
+| Function         | Completion list                   | Default binding |
+| ---------------- | --------------------------------- | --------------- |
+| switch buffer    | listed buffers                    | <M-w>b          |
+| switch tabwins   | visible buffers in tabs & windows | <M-w>v          |
+
+Switch in (neo)vim lists~
+
+| Function              | Completion list    | Default binding |
+| ----------------      | ------------------ | --------------- |
+| switch marker         | markers            | <M-w>'          |
+| switch in jump list   | jumps              | <M-w>j          |
+| switch in change list | changes            | <M-w>,          |
+| switch tag            | tags               | <M-w>t          |
+
+Search file~
+
+| Function         | Completion list                     | Default binding |
+| ---------------- | ----------------------------------- | --------------- |
+| switch mru file  | most recently used, non wheel files | <M-w>u          |
+
+Search inside file~
+
+| Function            | Completion list                   | Default binding |
+| ------------------- | --------------------------------- | --------------- |
+| occur : switch line | lines of current buffer           | <M-w>o          |
+
+Switch dedicated buffer~
+
+The default mapping is `<M-w><M-space>`.
+
+See |wheel-dedicated-buffers-ring|.
+
+You can complete by dedicated buffer pseudo-filename, wich will lead
+you to the buffer you want.
+
+Example of pseudo-filenames :
+
+- /wheel/0/tree
+- /wheel/1/history
+- ...
+
+Switch layer in ring~
+
+You must be in a dedicated buffer to launch it. The local mapping is `<M-l>`.
+
+See also |wheel-dedicated-buffers-layers|.
+
+You can complete by layer types, wich will lead you to the layer you want.
+
+Example of layer type :
+
+- tree
+- history
+- buffers
+- yank/plain
+- ...
 
 ------------------------------------------------------------------------------
 ADD					    *wheel-prompting-functions-add*
@@ -609,6 +635,21 @@ You can of course adapt the completed name before confirming with
 `<enter>`. In fact, the name you choose can be anything you want, as
 long as it is not already in the current circle.
 
+You can also add :
+
+- a file with `<M-w>+f`
+- a buffer with `<M-w>+b`
+- all files matching a glob with `<M-w>*`
+
+------------------------------------------------------------------------------
+DELETE					    *wheel-prompting-functions-delete*
+
+Default mappings :
+
+- `<M-w>d`     : delete location
+- `<M-w><C-d>` : delete circle
+- `<M-w>D`     : delete torus
+
 ------------------------------------------------------------------------------
 RENAME					    *wheel-prompting-functions-rename*
 
@@ -628,79 +669,44 @@ The default mapping is `<M-w>n`.
 
 The completion is the same as for adding a location.
 
+Rename current location & file~
+
+The default mapping is `<M-w><M-n>`.
+
+Before renaming files, it's always a good thing to do a backup of your
+files first, or even better, to work within a VCS repository, like git.
+
 ------------------------------------------------------------------------------
-SWITCH					    *wheel-prompting-functions-switch*
+COPY					    *wheel-prompting-functions-copy*
 
-Switch element in the wheel~
+- `<M-w>c`     : copy location to another circle
+- `<M-w><M-c>` : copy circle to another torus
+- `<M-w>C`     : copy torus
 
-| Function                 | Completion list              | Default binding |
-| ------------------------ | ---------------------------- | --------------- |
-| switch location          | locations of current circle  | <M-w><Enter>    |
-| switch circle            | circles of the current torus | <M-w><C-Enter>  |
-| switch torus             | toruses in the wheel         | <M-w><S-Enter>  |
-| multi switch             | toruses, circles & locations | <M-w><M-Enter>  |
-| switch location in index | index locations              | <M-w>x          |
-| switch circle in index   | index circles                | <M-w><C-x>      |
-| switch in history        | history entries              | <M-w>h          |
+------------------------------------------------------------------------------
+MOVE					    *wheel-prompting-functions-move*
 
-Switch file~
+- `<M-w>m`     : copy location to another circle
+- `<M-w>M`   : copy circle to another torus
 
-| Function         | Completion list                     | Default binding |
-| ---------------- | ----------------------------------- | --------------- |
-| switch mru file  | most recently used, non wheel files | <M-w>u          |
+------------------------------------------------------------------------------
+YANK						*wheel-prompting-functions-yank*
 
-Switch inside file~
+List mode~
 
-| Function            | Completion list                   | Default binding |
-| ------------------- | --------------------------------- | --------------- |
-| occur : switch line | lines of current buffer           | <M-w>o          |
+The yank ring buffer in list mode is launched by `<M-w>y`.
 
-Switch buffer~
+Each candidate of the completion list is one of your yanks, represented as a
+list, one element per line.
 
-| Function         | Completion list                   | Default binding |
-| ---------------- | --------------------------------- | --------------- |
-| switch buffer    | listed buffers                    | <M-w>b          |
-| switch tabwins   | visible buffers in tabs & windows | <M-w>v          |
+The action is to paste it, of course.
 
-Switch in (neo)vim lists~
+Plain mode~
 
-| Function              | Completion list    | Default binding |
-| ----------------      | ------------------ | --------------- |
-| switch marker         | markers            | <M-w>'          |
-| switch in jump list   | jumps              | <M-w>j          |
-| switch in change list | changes            | <M-w>,          |
-| switch tag            | tags               | <M-w>t          |
+The yank ring buffer in plain mode is launched by `<M-w>p`.
 
-Switch dedicated buffer~
-
-The default mapping is `<M-w><M-space>`.
-
-See |wheel-dedicated-buffers-ring|.
-
-You can complete by dedicated buffer pseudo-filename, wich will lead
-you to the buffer you want.
-
-Example of pseudo-filenames :
-
-- /wheel/0/tree
-- /wheel/1/history
-- ...
-
-Switch layer in ring~
-
-You must be in a dedicated buffer to launch it. The local mapping is `<M-l>`.
-
-See also |wheel-dedicated-buffers-layers|.
-
-You can complete by layer types, wich will lead you to the layer you want.
-
-Example of layer type :
-
-- tree
-- history
-- buffers
-- yank/plain
-- ...
+Each candidate of the completion list is one of your yanks, represented as a
+concatened string.
 
 ==============================================================================
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
@@ -713,13 +719,13 @@ Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
 Within the wheel		|wheel-dedicated-buffers-within-wheel|
+Buffers				|wheel-dedicated-buffers-buffers|
+Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
+Tabs & windows			|wheel-dedicated-buffers-tabwins|
 Locate	 			|wheel-dedicated-buffers-locate|
 Find 				|wheel-dedicated-buffers-find|
 Async find 			|wheel-dedicated-buffers-async-find|
 MRU files			|wheel-dedicated-buffers-mru|
-Buffers				|wheel-dedicated-buffers-buffers|
-Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
-Tabs & windows			|wheel-dedicated-buffers-tabwins|
 Occur				|wheel-dedicated-buffers-occur|
 Grep				|wheel-dedicated-buffers-grep|
 Outline				|wheel-dedicated-buffers-outline|
@@ -1050,6 +1056,45 @@ The dedicated buffers that allow us to navigate in the wheel are :
 - `<M-w><M-h>`     : history index
 
 ------------------------------------------------------------------------------
+BUFFERS						*wheel-dedicated-buffers-buffers*
+
+Go to buffer.
+
+The default mapping are :
+
+- `<M-w><M-b>` for ordinary buffers
+- `<M-w><C-b>` for all buffers, included unlisted ones
+
+Fields~
+
+This buffer displays the following columns :
+
+buffer number | indicator | line number | filename
+
+For the indicator meaning, see |:buffers|.
+
+------------------------------------------------------------------------------
+TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwins-tree*
+
+Go to visible buffer, displayed in a tab or window. Folding mode
+matching the tree of tabs and windows.
+
+The default mapping is `<M-w><M-v>`.
+
+------------------------------------------------------------------------------
+TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
+
+Go to visible buffer, displayed in a tab or window.
+
+The default mapping is `<M-w><C-v>`.
+
+Fields~
+
+This buffer displays the following columns :
+
+tab number | window number | filename
+
+------------------------------------------------------------------------------
 LOCATE						*wheel-dedicated-buffers-locate*
 
 Search files with locate.
@@ -1109,45 +1154,6 @@ Fields~
 This buffer displays the following columns :
 
 date & time of last edit | filename
-
-------------------------------------------------------------------------------
-BUFFERS						*wheel-dedicated-buffers-buffers*
-
-Go to buffer.
-
-The default mapping are :
-
-- `<M-w><M-b>` for ordinary buffers
-- `<M-w><C-b>` for all buffers, included unlisted ones
-
-Fields~
-
-This buffer displays the following columns :
-
-buffer number | indicator | line number | filename
-
-For the indicator meaning, see |:buffers|.
-
-------------------------------------------------------------------------------
-TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwins-tree*
-
-Go to visible buffer, displayed in a tab or window. Folding mode
-matching the tree of tabs and windows.
-
-The default mapping is `<M-w><M-v>`.
-
-------------------------------------------------------------------------------
-TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
-
-Go to visible buffer, displayed in a tab or window.
-
-The default mapping is `<M-w><C-v>`.
-
-Fields~
-
-This buffer displays the following columns :
-
-tab number | window number | filename
 
 ------------------------------------------------------------------------------
 OCCUR						*wheel-dedicated-buffers-occur*
@@ -1553,14 +1559,14 @@ The available local maps are :
 
 List mode~
 
-The yank ring buffer in list mode is launched by `<M-w>y`.
+The yank ring buffer in list mode is launched by `<M-w><M-y>`.
 
 Each line of the dedicated buffer is one of your yanks, represented as a
 list, one element per line.
 
 Plain mode~
 
-The yank ring buffer in plain mode is launched by `<M-w>p`.
+The yank ring buffer in plain mode is launched by `<M-w><M-p>`.
 
 All your yanks are concatenated and displayed in the dedicated buffer.
 
@@ -2630,10 +2636,12 @@ Dedicated buffers :
 
 Yank ring~
 
-| Prefix + | With default prefix | Action                    |
-| -------- | ------------------- | ------------------------- |
-| y        | <M-w>y              | Yank ring in list mode   |
-| p        | <M-w>p              | Yank ring in plain mode  |
+| Prefix + | With default prefix | Action                                    |
+| -------- | ------------------- | ----------------------------------------- |
+| y        | <M-w>y              | Yank ring in list mode, prompt            |
+| p        | <M-w>p              | Yank ring in plain mode, prompt           |
+| <M-y>    | <M-w><M-y>          | Yank ring in list mode, dedicated buffer  |
+| <M-p>    | <M-w><M-p>          | Yank ring in plain mode, dedicated buffer |
 
 Reorganizing buffers~
 

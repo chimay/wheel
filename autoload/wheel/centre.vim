@@ -150,6 +150,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#frigate#grep()<cr>
 	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#frigate#outline()<cr>
 	" ---- yank ring
+	nnoremap <plug>(wheel-prompt-yank-list) <cmd>call wheel#codex#yank_list()<cr>
+	nnoremap <plug>(wheel-prompt-yank-plain) <cmd>call wheel#codex#yank_plain()<cr>
 	nnoremap <plug>(wheel-dedibuf-yank-list) <cmd>call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-dedibuf-yank-plain) <cmd>call wheel#clipper#yank('plain')<cr>
 	" ---- undo list
@@ -353,8 +355,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
 		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-outline)'
 		" ---- yank ring
-		exe nmap prefix .. 'y <plug>(wheel-dedibuf-yank-list)'
-		exe nmap prefix .. 'p <plug>(wheel-dedibuf-yank-plain)'
+		exe nmap prefix .. 'y <plug>(wheel-prompt-yank-list)'
+		exe nmap prefix .. 'p <plug>(wheel-prompt-yank-plain)'
+		exe nmap prefix .. '<m-y> <plug>(wheel-dedibuf-yank-list)'
+		exe nmap prefix .. '<m-p> <plug>(wheel-dedibuf-yank-plain)'
 		" ---- undo list
 		exe nmap prefix .. '<c-u> <plug>(wheel-dedibuf-undo-list)'
 		" ---- generic ex or shell command
@@ -483,8 +487,10 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
 		exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
 		" ---- yank ring
-		exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
-		exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
+		exe nmap '<m-y>          <plug>(wheel-prompt-yank-list)'
+		exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain)'
+		exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-list)'
+		exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-plain)'
 		" ---- undo list
 		exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
 		" ---- ex or shell command output
