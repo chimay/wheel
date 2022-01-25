@@ -25,6 +25,24 @@ endif
 
 " helpers
 
+fun! wheel#chakra#format ()
+	" Format sign text to ensure it contains 2 chars
+	" sign text must be 2 chars or a space will be added by vim
+	let signs = g:wheel_signs
+	let settings = g:wheel_config.display.sign.settings
+	let text = settings.text
+	if empty(text)
+		let settings.text = wheel#crystal#fetch('sign/text')
+	endif
+	let length = strchars(text)
+	if length == 1
+		let settings.text ..= ' '
+	elseif length > 2
+		let settings.text = strcharpart(text, 0, 2)
+	endif
+	return settings
+endfun
+
 fun! wheel#chakra#same ()
 	" Whether current location is the same as when the sign has been placed
 	let signs = g:wheel_signs
@@ -46,32 +64,22 @@ fun! wheel#chakra#define ()
 	let signs = g:wheel_signs
 	let name = s:sign_name
 	let settings = g:wheel_config.display.sign.settings
+	let defined = sign_getdefined()
+	let subdef = defined->filter({ _, val -> val.name == name })
 	" -- first definition
-	if empty(signs.iden)
-		" sign text must be 2 chars or a space will be added by vim
-		let text = settings.text
-		if empty(text)
-			let settings.text = wheel#crystal#fetch('sign/text')
-		elseif strchars(text) == 1
-			let settings.text ..= ' '
-		endif
+	if empty(subdef)
+		call wheel#chakra#format ()
 		" define
 		call sign_define(name, settings)
 		return v:true
 	endif
 	" -- change of settings in g:wheel_config
-	let defined = sign_getdefined()
-	let subdef = defined->filter({ _, val -> val.name == name })
-	if empty(subdef)
-		echomsg 'wheel : sign define : empty definition'
-		return v:false
-	endif
-	let wheel_sign = subdef[0]
-	let text = wheel_sign.text
-	if settings.text != text
-		cal wheel#chakra#clear ()
+	let current_sign = subdef[0]
+	if settings.text != current_sign.text
+		call wheel#chakra#format ()
 		call sign_undefine(name)
 		call sign_define(name, settings)
+		call wheel#chakra#replace_all ()
 	endif
 	return v:true
 endfun
@@ -98,6 +106,29 @@ fun! wheel#chakra#place ()
 	return new_iden
 endfun
 
+fun! wheel#chakra#replace_all ()
+	" Replace all signs to adapt to new settings
+	let signs = g:wheel_signs
+	let group = s:sign_group
+	let name = s:sign_name
+	let table = signs.table
+	for flag in signs.iden
+		let subtable = deepcopy(table)
+		eval subtable->filter({ _, val -> val.iden == flag })
+		if empty(subtable)
+			echomsg 'wheel chakra replace all : no entry found for' flag 'iden'
+			return v:false
+		endif
+		let entry = subtable[0]
+		let bufnum = entry.buffer
+		let linum = entry.line
+		let unplace = #{ id : flag }
+		let place = #{ lnum : linum }
+		call sign_unplace(group, unplace)
+		call sign_place(flag, group, name, bufnum, place)
+	endfor
+endfun
+
 fun! wheel#chakra#unplace ()
 	" Unplace old sign at current location
 	let signs = g:wheel_signs
@@ -120,9 +151,16 @@ endfun
 
 fun! wheel#chakra#clear ()
 	" Unplace all wheel signs
+	let signs = g:wheel_signs
+	if empty(signs.iden)
+		return v:false
+	endif
+	" clear wheel var
+	let signs.iden = []
+	let signs.table = []
+	" unplace
 	let group = s:sign_group
 	call sign_unplace(group)
-	call wheel#void#signs ()
 endfun
 
 " update sign
@@ -134,11 +172,10 @@ fun! wheel#chakra#update ()
 		call wheel#chakra#clear ()
 		return v:false
 	endif
-	let location = wheel#referen#location ()
+	call wheel#chakra#define ()
 	if wheel#chakra#same ()
 		return v:true
 	endif
-	call wheel#chakra#define ()
 	call wheel#chakra#unplace ()
 	call wheel#chakra#place ()
 	return v:true
