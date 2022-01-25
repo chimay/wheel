@@ -44,3 +44,17 @@ fun! wheel#codex#add ()
 	let max = g:wheel_config.maxim.yanks
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
+
+fun! wheel#codex#paste_list (...)
+	" Paste yank from yank ring in list mode
+	let prompt = 'Yank element : '
+	let complete = 'customlist,wheel#complete#yank_list'
+	let list = input(prompt, '', complete)
+endfun
+
+fun! wheel#codex#paste_plain (...)
+	" Paste yank from yank ring in plain mode
+	let prompt = 'Yank element : '
+	let complete = 'customlist,wheel#complete#yank_plain'
+	let content = input(prompt, '', complete)
+endfun

@@ -265,3 +265,20 @@ fun! wheel#complete#tag (arglead, cmdline, cursorpos)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
+
+" yank ring
+
+fun! wheel#complete#yank_list (arglead, cmdline, cursorpos)
+	" Complete yank from yank ring in list mode
+	let choices = wheel#perspective#yank ('list')
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
+fun! wheel#complete#yank_plain (arglead, cmdline, cursorpos)
+	" Complete yank from yank ring in plain mode
+	let choices = wheel#perspective#yank ('plain')
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
