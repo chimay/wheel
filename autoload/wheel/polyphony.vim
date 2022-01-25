@@ -34,7 +34,7 @@ fun! wheel#polyphony#operator (argument = '')
 	" -- then, argument is 'line', 'block' or 'char'
 	let first = line("'[")
 	let last = line("']")
-	call wheel#polyphony#narrow_file (first, last)
+	call wheel#shape#narrow_file (first, last)
 endfun
 
 " Actions
@@ -331,75 +331,4 @@ fun! wheel#polyphony#action_maps (mandala = 'file')
 		exe "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"
 		exe "nnoremap <buffer> <m-z> <cmd>call wheel#polyphony#duplicate('above')<cr>"
 	endif
-endfun
-
-fun! wheel#polyphony#narrow_file (...) range
-	" Lines matching pattern in current file
-	call wheel#mandala#related ()
-	" 0 or 2 optional arguments
-	if a:0 > 1
-		let first = a:1
-		let last = a:2
-	else
-		let first = a:firstline
-		let last = a:lastline
-	endif
-	if first == last
-		" assume the user does not launch it just for one line
-		let first = 1
-		let last = line('$')
-	endif
-	let bufnum = bufnr('%')
-	let filename = bufname(bufnum)
-	let filename = fnamemodify(filename, ':t')
-	let lines = wheel#perspective#narrow_file (first, last)
-	call wheel#mandala#blank ('narrow/file/' .. filename)
-	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
-	call wheel#mandala#common_maps ()
-	let settings = #{ function : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
-	call wheel#sailing#mappings (settings)
-	call wheel#polyphony#filter_maps ()
-	call wheel#polyphony#input_history_maps ()
-	call wheel#polyphony#action_maps ('file')
-	call wheel#yggdrasil#write ('wheel#polyphony#harmony')
-	call wheel#mandala#fill (lines)
-	" settings
-	let b:wheel_settings = settings
-	" reload
-	let b:wheel_reload = "wheel#polyphony#narrow_file('" .. first .. "', '" .. last .. "')"
-endfun
-
-fun! wheel#polyphony#narrow_circle (...)
-	" Lines matching pattern in all circle files
-	" Like grep but with filter & edit
-	if a:0 > 0
-		let pattern = a:1
-	else
-		let pattern = input('Narrow circle files with pattern : ')
-	endif
-	if a:0 > 1
-		let sieve = a:2
-	else
-		let sieve = '\m.'
-	endif
-	let lines = wheel#perspective#narrow_circle (pattern, sieve)
-	if empty(lines)
-		echomsg 'wheel narrow circle : no match found'
-		return v:false
-	endif
-	let word = substitute(pattern, '\W.*', '', '')
-	call wheel#mandala#blank ('narrow/circle/' .. word)
-	call wheel#mandala#common_maps ()
-	call wheel#polyphony#filter_maps ()
-	call wheel#polyphony#input_history_maps ()
-	let settings = {'function' : function('wheel#line#narrow_circle')}
-	call wheel#sailing#mappings (settings)
-	call wheel#polyphony#action_maps ('circle')
-	call wheel#yggdrasil#write ('wheel#polyphony#counterpoint')
-	call wheel#mandala#fill (lines)
-	" settings
-	let b:wheel_settings = settings
-	" reload
-	let b:wheel_reload = "wheel#polyphony#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
-	echomsg 'adding or removing lines is not supported'
 endfun

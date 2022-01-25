@@ -132,11 +132,11 @@ fun! wheel#centre#plugs ()
 	" -- grep edit mode
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#shape#grep_edit()<cr>
 	" -- narrow
-	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#polyphony#narrow_file()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow_file()<cr>
 	nnoremap <expr> <plug>(wheel-dedibuf-narrow-operator) wheel#polyphony#operator()
-	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#polyphony#narrow_circle()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#shape#narrow_circle()<cr>
 	" use colon instead of <cmd> to catch the range
-	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#polyphony#narrow_file()<cr>
+	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow_file()<cr>
 	" ---- search
 	" -- files
 	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#whirl#mru()<cr>
@@ -153,7 +153,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-yank-list) <cmd>call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-dedibuf-yank-plain) <cmd>call wheel#clipper#yank('plain')<cr>
 	" ---- undo list
-	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#delta#undolist()<cr>
+	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#triangle#undolist()<cr>
 	" ---- ex or shell command output
 	nnoremap <plug>(wheel-dedibuf-command) <cmd>call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-dedibuf-async) <cmd>call wheel#mandala#async()<cr>

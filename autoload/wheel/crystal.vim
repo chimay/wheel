@@ -447,7 +447,7 @@ if ! exists('s:menu_refactor')
 	let s:menu_refactor = [
 				\ ['grep in edit mode' ,  'wheel#shape#grep_edit'],
 				\ ['narrow current file' ,  'wheel#polyphony#operator'],
-				\ ['narrow all files in circle' ,  'wheel#polyphony#narrow_circle'],
+				\ ['narrow all files in circle' ,  'wheel#shape#narrow_circle'],
 				\]
 	lockvar s:menu_refactor
 endif
@@ -481,7 +481,7 @@ endif
 
 if ! exists('s:menu_undo')
 	let s:menu_undo = [
-				\ ['undo list' ,  'wheel#delta#undolist'],
+				\ ['undo list' ,  'wheel#triangle#undolist'],
 				\]
 	lockvar s:menu_undo
 endif

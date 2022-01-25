@@ -1,7 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Yank wheel
-" Take advantage of TextYankPost event
+" Yank ring
+"
+" Takes advantage of TextYankPost event
 
 " codex were rewritten by copists
 "
