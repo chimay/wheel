@@ -11,6 +11,9 @@ endfun
 
 fun! wheel#pencil#is_selection_empty ()
 	" Whether selection is empty
+	if wheel#boomerang#is_context_menu ()
+		return v:false
+	endif
 	return empty(b:wheel_selection.indexes)
 endfun
 
