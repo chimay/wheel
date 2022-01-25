@@ -26,7 +26,7 @@ endfun
 
 fun! wheel#boomerang#launch_map (type)
 	" Define map to launch context menu
-	" -- sailing by default
+	" -- navigation by default
 	let type = a:type
 	exe "nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu('" .. type .. "')<cr>"
 endfun
@@ -43,7 +43,7 @@ fun! wheel#boomerang#menu (dictname)
 	let b:wheel_nature.has_selection = v:false
 	" -- context menu property
 	let b:wheel_nature.context_menu = v:true
-	" -- let loop#menu handle open / close, tell loop#sailing to forget it
+	" -- let loop#menu handle open / close, tell loop#selection to forget it
 	let b:wheel_settings.close = v:false
 	" -- reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
@@ -51,11 +51,11 @@ endfun
 
 " applications
 
-fun! wheel#boomerang#sailing (target)
-	" Sailing actions
+fun! wheel#boomerang#navigation (target)
+	" Navigation actions
 	let target = a:target
 	let settings = b:wheel_settings
-	let settings.menu.action = 'sailing'
+	let settings.menu.action = 'navigation'
 	if target->wheel#chain#is_inside(s:mandala_targets)
 		let settings.target = target
 		call wheel#loop#selection (settings)
@@ -66,7 +66,7 @@ endfun
 
 fun! wheel#boomerang#buffers (action)
 	" Buffers actions
-	" Only called for non-sailing actions
+	" Only called for non navigation actions
 	let action = a:action
 	let settings = b:wheel_settings
 	let settings.menu.action = action
@@ -105,9 +105,11 @@ fun! wheel#boomerang#buffers (action)
 			let bufnum = str2nr(fields[0])
 			if bufnum->wheel#chain#is_inside(hidden)
 				eval lines->remove(index)
-				let where = filter.indexes->index(index)
-				eval filter.indexes->remove(where)
-				eval filter.lines->remove(where)
+				if ! empty(filter.indexes)
+					let where = filter.indexes->index(index)
+					eval filter.indexes->remove(where)
+					eval filter.lines->remove(where)
+				endif
 			endif
 		endfor
 		" remove buffers
@@ -132,7 +134,7 @@ fun! wheel#boomerang#tabwins (action)
 	let settings = b:wheel_settings
 	let settings.menu.action = action
 	if action == 'open'
-		" loop#sailing will process the first selected line
+		" loop#selection will process the first selected line
 		let settings.target = 'current'
 		return wheel#loop#selection (settings)
 	elseif action == 'tabnew'

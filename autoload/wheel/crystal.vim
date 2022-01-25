@@ -615,20 +615,20 @@ endif
 
 " contextual menus
 
-if ! exists('s:context_sailing')
-	let s:context_sailing = [
-				\ ['open' ,  "wheel#boomerang#sailing('current')"],
-				\ ['open in tab(s)' ,  "wheel#boomerang#sailing('tab')"],
-				\ ['open in horizontal split(s)' ,  "wheel#boomerang#sailing('horizontal_split')"],
-				\ ['open in vertical split(s)' ,  "wheel#boomerang#sailing('vertical_split')"],
-				\ ['open in horizontal golden split(s)' ,  "wheel#boomerang#sailing('horizontal_golden')"],
-				\ ['open in vertical golden split(s)' ,  "wheel#boomerang#sailing('vertical_golden')"],
+if ! exists('s:context_navigation')
+	let s:context_navigation = [
+				\ ['open' ,  "wheel#boomerang#navigation('current')"],
+				\ ['open in tab(s)' ,  "wheel#boomerang#navigation('tab')"],
+				\ ['open in horizontal split(s)' ,  "wheel#boomerang#navigation('horizontal_split')"],
+				\ ['open in vertical split(s)' ,  "wheel#boomerang#navigation('vertical_split')"],
+				\ ['open in horizontal golden split(s)' ,  "wheel#boomerang#navigation('horizontal_golden')"],
+				\ ['open in vertical golden split(s)' ,  "wheel#boomerang#navigation('vertical_golden')"],
 				\]
-	lockvar s:context_sailing
+	lockvar s:context_navigation
 endif
 
 if ! exists('s:context_buffers')
-	let s:context_buffers = s:context_sailing + [
+	let s:context_buffers = s:context_navigation + [
 				\ ['delete' ,  "wheel#boomerang#buffers('delete')"],
 				\ ['unload' ,  "wheel#boomerang#buffers('unload')"],
 				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
@@ -639,7 +639,7 @@ if ! exists('s:context_buffers')
 endif
 
 if ! exists('s:context_buffers_all')
-	let s:context_buffers_all = s:context_sailing + [
+	let s:context_buffers_all = s:context_navigation + [
 				\ ['delete' ,  "wheel#boomerang#buffers('delete')"],
 				\ ['unload' ,  "wheel#boomerang#buffers('unload')"],
 				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
@@ -671,7 +671,7 @@ if ! exists('s:context_tabwins_tree')
 endif
 
 if ! exists('s:context_grep')
-	let s:context_grep = s:context_sailing + [
+	let s:context_grep = s:context_navigation + [
 				\ ['edit mode' ,  "wheel#shape#grep_edit()"],
 				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
 				\]

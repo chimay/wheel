@@ -71,7 +71,7 @@ fun! wheel#shape#grep_edit (...)
 	let lines = wheel#perspective#grep (pattern, sieve)
 	" -- pre-checks
 	if empty(lines)
-		echomsg 'wheel sailing grep edit : no match found'
+		echomsg 'wheel shape grep edit : no match found'
 		return v:false
 	endif
 	" -- mandala

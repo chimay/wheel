@@ -37,7 +37,7 @@ endfun
 " helpers
 
 fun! wheel#whirl#mappings (settings)
-	" Define sailing maps
+	" Define whirl maps
 	let settings = copy(a:settings)
 	let map = 'nnoremap <silent> <buffer>'
 	let pre = '<cmd>call wheel#loop#selection('
@@ -75,7 +75,7 @@ fun! wheel#whirl#mappings (settings)
 	" -- preview
 	call wheel#orbiter#mappings ()
 	" -- context menu
-	call wheel#boomerang#launch_map ('sailing')
+	call wheel#boomerang#launch_map ('navigation')
 endfun
 
 fun! wheel#whirl#template (settings)
@@ -86,12 +86,12 @@ fun! wheel#whirl#template (settings)
 endfun
 
 fun! wheel#whirl#generic (type)
-	" Generic sailing buffer
+	" Generic whirl buffer
 	let type = a:type
 	let Perspective = function('wheel#perspective#' .. type)
 	let lines = Perspective ()
 	if empty(lines)
-		echomsg 'wheel sailing generic : empty lines in' type
+		echomsg 'wheel whirl generic : empty lines in' type
 		return v:false
 	endif
 	call wheel#mandala#blank (type)
@@ -107,7 +107,7 @@ fun! wheel#whirl#switch (level)
 	let level = a:level
 	if wheel#referen#is_empty_upper (level)
 		let upper = wheel#referen#upper_level_name (level)
-		echomsg 'wheel sailing switch : empty' upper
+		echomsg 'wheel whirl switch : empty' upper
 		return v:false
 	endif
 	let lines = wheel#perspective#switch (level)
@@ -117,7 +117,7 @@ fun! wheel#whirl#switch (level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)
 	else
-		echomsg 'wheel sailing switch : empty or incomplete' level
+		echomsg 'wheel whirl switch : empty or incomplete' level
 	endif
 	" reload
 	let b:wheel_reload = "wheel#whirl#switch('" .. level .. "')"
@@ -128,7 +128,7 @@ fun! wheel#whirl#helix ()
 	" Each coordinate = [torus, circle, location]
 	let lines = wheel#perspective#helix ()
 	if empty(lines)
-		echomsg 'wheel sailing helix : empty wheel'
+		echomsg 'wheel whirl helix : empty wheel'
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/location')
@@ -144,7 +144,7 @@ fun! wheel#whirl#grid ()
 	" Each coordinate = [torus, circle]
 	let lines = wheel#perspective#grid ()
 	if empty(lines)
-		echomsg 'wheel sailing grid : empty wheel'
+		echomsg 'wheel whirl grid : empty wheel'
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/circle')
@@ -159,7 +159,7 @@ fun! wheel#whirl#tree ()
 	" Choose an element in the wheel tree
 	let lines = wheel#perspective#tree ()
 	if empty(lines)
-		echomsg 'wheel sailing tree : empty wheel'
+		echomsg 'wheel whirl tree : empty wheel'
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/tree')

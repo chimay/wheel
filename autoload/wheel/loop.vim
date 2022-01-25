@@ -62,7 +62,7 @@ fun! wheel#loop#selection (settings)
 endfun
 
 fun! wheel#loop#boomerang (settings)
-	" Loop for non-sailing actions in boomerang
+	" Loop for non-navigation actions in boomerang
 	" settings is a dictionary containing settings.menu
 	" settings.menu keys can be :
 	"   - action : action name or funcref

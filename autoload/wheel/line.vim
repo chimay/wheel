@@ -99,7 +99,7 @@ fun! wheel#line#target (target)
 	endif
 endfun
 
-" ---- applications of loop#sailing, and sometimes loop#boomerang
+" ---- applications of loop#selection, and sometimes loop#boomerang
 
 " -- wheel applications
 
@@ -208,10 +208,10 @@ fun! wheel#line#buffers (settings)
 	if is_context_menu
 		let action = settings.menu.action
 	else
-		let action = 'sailing'
+		let action = 'navigation'
 	endif
 	" ---- actions
-	if action == 'sailing'
+	if action == 'navigation'
 		let target = settings.target
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)

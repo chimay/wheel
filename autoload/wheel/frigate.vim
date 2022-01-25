@@ -11,7 +11,7 @@ fun! wheel#frigate#buffers (scope = 'listed')
 	let scope = a:scope
 	let lines = wheel#perspective#buffers (scope)
 	if empty(lines)
-		echomsg 'wheel sailing buffers : empty result'
+		echomsg 'wheel frigate buffers : empty result'
 		return v:false
 	endif
 	" mandala buffer
@@ -20,7 +20,7 @@ fun! wheel#frigate#buffers (scope = 'listed')
 	elseif scope == 'all'
 		let type = 'buffers/all'
 	else
-		echomsg 'wheel sailing buffers : bad optional argument'
+		echomsg 'wheel frigate buffers : bad optional argument'
 		return []
 	endif
 	call wheel#mandala#blank (type)
@@ -38,7 +38,7 @@ fun! wheel#frigate#tabwins_tree ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins_tree ()
 	if empty(lines)
-		echomsg 'wheel sailing tabwins tree : empty result'
+		echomsg 'wheel frigate tabwins tree : empty result'
 		return v:false
 	endif
 	call wheel#mandala#blank ('tabwins/tree')
@@ -57,7 +57,7 @@ fun! wheel#frigate#tabwins ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins ()
 	if empty(lines)
-		echomsg 'wheel sailing tabwins : empty result'
+		echomsg 'wheel frigate tabwins : empty result'
 		return v:false
 	endif
 	call wheel#mandala#blank ('tabwins')
@@ -89,7 +89,7 @@ fun! wheel#frigate#jumps ()
 	endif
 	let lines = wheel#perspective#jumps ()
 	if empty(lines)
-		echomsg 'wheel sailing jumps : empty result'
+		echomsg 'wheel frigate jumps : empty result'
 		return v:false
 	endif
 	" mandala buffer
@@ -108,7 +108,7 @@ fun! wheel#frigate#changes ()
 	endif
 	let lines = wheel#perspective#changes ()
 	if empty(lines)
-		echomsg 'wheel sailing changes : empty result'
+		echomsg 'wheel frigate changes : empty result'
 		return v:false
 	endif
 	" mandala buffer
@@ -146,7 +146,7 @@ fun! wheel#frigate#locate (...)
 	endif
 	let lines = wheel#perspective#locate (pattern)
 	if empty(lines)
-		echomsg 'wheel sailing locate : no match found'
+		echomsg 'wheel frigate locate : no match found'
 		return v:false
 	endif
 	call wheel#mandala#blank ('locate')
@@ -172,7 +172,7 @@ fun! wheel#frigate#find (...)
 	echomsg 'wheel find : using pattern' pattern
 	let lines = wheel#perspective#find (pattern)
 	if empty(lines)
-		echomsg 'wheel sailing find : no match found'
+		echomsg 'wheel frigate find : no match found'
 		return v:false
 	endif
 	call wheel#mandala#blank ('find')
@@ -241,7 +241,7 @@ fun! wheel#frigate#occur (...)
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
 	if empty(lines)
-		echomsg 'wheel sailing occur : no match found'
+		echomsg 'wheel frigate occur : no match found'
 		return v:false
 	endif
 	call wheel#mandala#blank ('occur')
@@ -266,7 +266,7 @@ fun! wheel#frigate#grep (...)
 	endif
 	let lines = wheel#perspective#grep (pattern, sieve)
 	if empty(lines)
-		echomsg 'wheel sailing grep : no match found'
+		echomsg 'wheel frigate grep : no match found'
 		return v:false
 	endif
 	if wheel#cylinder#is_mandala ()

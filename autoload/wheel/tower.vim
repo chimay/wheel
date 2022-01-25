@@ -32,7 +32,7 @@ fun! wheel#tower#menu (settings)
 	" ---- travel before processing ?
 	" true for helm menus
 	" false for context menus
-	" in case of sailing, it's managed by loop#sailing
+	" in case of navigation, it's managed by loop#selection
 	if travel
 		call wheel#rectangle#previous ()
 	endif
