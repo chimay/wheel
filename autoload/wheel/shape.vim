@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Dedicated buffers to organize
+" Dedicated buffers to organize & refactor
 
 " script constants
 
