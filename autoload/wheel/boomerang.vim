@@ -143,7 +143,7 @@ fun! wheel#boomerang#tabwins (action)
 	elseif action == 'tabclose'
 		" closing last tab first
 		let settings.menu.kind = 'context'
-		let selection = wheel#book#previous('selection')
+		let selection = wheel#upstream#selection()
 		let indexes = selection.indexes
 		let addresses = selection.addresses
 		let original_indexes = copy(indexes)

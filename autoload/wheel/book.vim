@@ -189,20 +189,6 @@ fun! wheel#book#previous (...)
 	return ring.leaves[previous][fieldname]
 endfun
 
-fun! wheel#book#previous_selection ()
-	" Return selection addresses of previous leaf in ring
-	" If empty, return previous address of current line
-	let addresses = wheel#book#previous('selection').addresses
-	if empty(addresses)
-		return [ wheel#book#previous('cursor').address ]
-	elseif type(addresses) == v:t_list
-		return addresses
-	else
-		echomsg 'wheel book previous selection : bad previous selection addresses'
-		return []
-	endif
-endfun
-
 " Saving things
 
 fun! wheel#book#save_options ()
