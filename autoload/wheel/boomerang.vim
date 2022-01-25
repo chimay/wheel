@@ -58,7 +58,7 @@ fun! wheel#boomerang#sailing (target)
 	let settings.menu.action = 'sailing'
 	if target->wheel#chain#is_inside(s:mandala_targets)
 		let settings.target = target
-		call wheel#loop#sailing (settings)
+		call wheel#loop#selection (settings)
 		return v:true
 	endif
 	return v:false
@@ -134,7 +134,7 @@ fun! wheel#boomerang#tabwins (action)
 	if action == 'open'
 		" loop#sailing will process the first selected line
 		let settings.target = 'current'
-		return wheel#loop#sailing (settings)
+		return wheel#loop#selection (settings)
 	elseif action == 'tabnew'
 		tabnew
 		return v:true

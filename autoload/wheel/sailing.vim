@@ -40,7 +40,7 @@ fun! wheel#sailing#mappings (settings)
 	" Define sailing maps
 	let settings = copy(a:settings)
 	let map = 'nnoremap <silent> <buffer>'
-	let pre = '<cmd>call wheel#loop#sailing('
+	let pre = '<cmd>call wheel#loop#selection('
 	let post = ')<cr>'
 	" -- close after navigation
 	let settings.close = v:true

@@ -3439,9 +3439,9 @@ of the modules within them.
 | codex.vim         | Yank ring                                  |
 | complete.vim      | Completion functions                       |
 | crystal.vim       | Internal variables                         |
-| cuboctahedron.vim | Reshaping : reorder, reorganize            |
+| cuboctahedron.vim | Organize : order, name, copy, move, ...    |
 | cylinder.vim      | Dedicated buffers ring                     |
-| delta.vim         | Undo & diff dedicated buffer               |
+| delta.vim         | Undo & diff                                |
 | disc.vim          | Read & write wheel & session file          |
 | frigate.vim       | Non-wheel navigation dedicated buffers     |
 | gear.vim          | Generic helpers                            |
@@ -3468,19 +3468,21 @@ of the modules within them.
 | ripple.vim        | Async job for vim                          |
 | sailing.vim       | Wheel navigation dedicated buffers         |
 | scroll.vim        | Input history in dedicated buffers         |
-| shape.vim         | Reorganizing dedicated buffers             |
+| shape.vim         | Reorganize native vim elmements            |
 | spiral.vim        | Golden ratio                               |
 | status.vim        | Print wheel status                         |
 | symbol.vim        | Tags                                       |
 | teapot.vim        | Filter aspect of dedicated buffers         |
 | tower.vim         | Menu layer in dedicated buffers            |
-| tree.vim          | Add, rename, delete, move & copy elements  |
+| tree.vim          | Organize wheel element : add, rename, ...  |
+| triangle.vim      | Undo & diff dedicated buffer               |
 | upstream.vim      | Parent leaf of context menu                |
 | vector.vim        | Batch operations on current group files    |
 | void.vim          | Initiaze & reset variables                 |
 | vortex.vim        | Navigation in the wheel                    |
 | wave.vim          | Async job for neovim                       |
 | whirl.vim         | Non-wheel navigation, native vim functions |
+| yggdrasil.vim     | Organize wheel in dedicated buffers        |
 
 Doc~
 

@@ -1,8 +1,10 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Reorganize elements
+"
 " Changes of internal structure
 
-" Script constants
+" script constants
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
@@ -30,7 +32,7 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" Reorg tabwins helpers
+" reorganize tabwins helpers
 
 fun! wheel#cuboctahedron#baskets (linelist)
 	" Fill new tab indexes and windows for reorg_tabwins
@@ -170,7 +172,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 	endfor
 endfun
 
-" Functions
+" wheel elements
 
 fun! wheel#cuboctahedron#reorder (level)
 	" Reorder current elements at level, after buffer content
@@ -466,6 +468,8 @@ fun! wheel#cuboctahedron#reorganize ()
 	" -- tune wheel coordinates to first entry in history
 	call wheel#vortex#chord(g:wheel_history.line[0].coordin)
 endfun
+
+" native
 
 fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Reorganize tabs & windows
