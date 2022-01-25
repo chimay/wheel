@@ -3062,7 +3062,6 @@ Navigate with vim native tools~
 | <plug>(wheel-prompt-jump)            | switch to jump                           |
 | <plug>(wheel-prompt-change)          | switch to change                         |
 | <plug>(wheel-prompt-tag)             | switch to tag                            |
-| ------------------------------------ | --------------------------------------   |
 | <plug>(wheel-dedibuf-markers)        | markers                                  |
 | <plug>(wheel-dedibuf-jumps)          | vim jumps                                |
 | <plug>(wheel-dedibuf-changes)        | vim changes                              |
@@ -3078,6 +3077,10 @@ Organize the wheel~
 | <plug>(wheel-prompt-add-file)                   | add a file in the current circle         |
 | <plug>(wheel-prompt-add-buffer)                 | add a buffer in the current circle       |
 | <plug>(wheel-prompt-add-glob)                   | add files matching glob in circle        |
+| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-dedibuf-reorder-location)          | reorder locations                        |
+| <plug>(wheel-dedibuf-reorder-circle)            | reorder circles                          |
+| <plug>(wheel-dedibuf-reorder-torus)             | reorder toruses                          |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-prompt-rename-location)            | rename current location (not the file)   |
 | <plug>(wheel-prompt-rename-circle)              | rename current circle                    |
@@ -3100,10 +3103,6 @@ Organize the wheel~
 | <plug>(wheel-dedibuf-copy-move-location)        | batch copy-move locations                |
 | <plug>(wheel-dedibuf-copy-move-circle)          | batch copy-move circles                  |
 | <plug>(wheel-dedibuf-copy-move-torus)           | batch copy-move toruses                  |
-| ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-dedibuf-reorder-location)          | reorder locations                        |
-| <plug>(wheel-dedibuf-reorder-circle)            | reorder circles                          |
-| <plug>(wheel-dedibuf-reorder-torus)             | reorder toruses                          |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-dedibuf-reorganize)                | reorganize wheel treeish structure       |
 
@@ -3166,13 +3165,13 @@ Ex or shell command output~
 
 Handling dedicated buffers~
 
-| Plug maps                                       | Description                              |
-| ----------------------------------------------- | --------------------------------------   |
-| <plug>(wheel-mandala-push)                      | push a new dedicated buffer              |
-| <plug>(wheel-mandala-pop)                       | pop current dedicated buffer             |
-| <plug>(wheel-mandala-forward)                   | go to next dedicated buffer              |
-| <plug>(wheel-mandala-backward)                  | go to previous dedicated buffer          |
-| <plug>(wheel-mandala-switch)                    | switch to another dedicated buffer       |
+| Plug maps                                       | Description                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-mandala-add)                       | push a new dedicated buffer            |
+| <plug>(wheel-mandala-delete)                    | pop current dedicated buffer           |
+| <plug>(wheel-mandala-forward)                   | go to next dedicated buffer            |
+| <plug>(wheel-mandala-backward)                  | go to previous dedicated buffer        |
+| <plug>(wheel-mandala-switch)                    | switch to another dedicated buffer     |
 
 Layouts~
 

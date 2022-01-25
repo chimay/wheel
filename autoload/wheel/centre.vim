@@ -97,6 +97,10 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-add-file) <cmd>call wheel#tree#add_file()<cr>
 	nnoremap <plug>(wheel-prompt-add-buffer) <cmd>call wheel#tree#add_buffer()<cr>
 	nnoremap <plug>(wheel-prompt-add-glob) <cmd>call wheel#tree#add_glob()<cr>
+	" -- reorder
+	nnoremap <plug>(wheel-dedibuf-reorder-location) <cmd>call wheel#yggdrasil#reorder('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-circle) <cmd>call wheel#yggdrasil#reorder('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-reorder-torus) <cmd>call wheel#yggdrasil#reorder('torus')<cr>
 	" -- rename
 	nnoremap <plug>(wheel-prompt-rename-location) <cmd>call wheel#tree#rename('location')<cr>
 	nnoremap <plug>(wheel-prompt-rename-circle) <cmd>call wheel#tree#rename('circle')<cr>
@@ -119,10 +123,6 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-copy-move-location) <cmd>call wheel#yggdrasil#copy_move('location')<cr>
 	nnoremap <plug>(wheel-dedibuf-copy-move-circle) <cmd>call wheel#yggdrasil#copy_move('circle')<cr>
 	nnoremap <plug>(wheel-dedibuf-copy-move-torus) <cmd>call wheel#yggdrasil#copy_move('torus')<cr>
-	" -- reorder
-	nnoremap <plug>(wheel-dedibuf-reorder-location) <cmd>call wheel#yggdrasil#reorder('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-reorder-circle) <cmd>call wheel#yggdrasil#reorder('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-reorder-torus) <cmd>call wheel#yggdrasil#reorder('torus')<cr>
 	" -- reorganize
 	nnoremap <plug>(wheel-dedibuf-reorganize) <cmd>call wheel#yggdrasil#reorganize()<cr>
 	" ---- organize elsewhere
@@ -281,6 +281,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'h <plug>(wheel-prompt-history)'
 		" ---- organize wheel
 		exe nmap prefix .. '<m-h> <plug>(wheel-dedibuf-history)'
+		" -- reorder
+		exe nmap prefix .. batch .. 'o <plug>(wheel-dedibuf-reorder-location)'
+		exe nmap prefix .. batch .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
+		exe nmap prefix .. batch .. 'O <plug>(wheel-dedibuf-reorder-torus)'
 		" -- rename
 		exe nmap prefix .. 'n <plug>(wheel-prompt-rename-location)'
 		exe nmap prefix .. '<c-n> <plug>(wheel-prompt-rename-circle)'
@@ -305,10 +309,6 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. batch .. 'c <plug>(wheel-dedibuf-copy-move-location)'
 		exe nmap prefix .. batch .. '<m-c> <plug>(wheel-dedibuf-copy-move-circle)'
 		exe nmap prefix .. batch .. 'C <plug>(wheel-dedibuf-copy-move-torus)'
-		" -- reorder
-		exe nmap prefix .. batch .. 'o <plug>(wheel-dedibuf-reorder-location)'
-		exe nmap prefix .. batch .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
-		exe nmap prefix .. batch .. 'O <plug>(wheel-dedibuf-reorder-torus)'
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2

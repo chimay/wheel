@@ -349,66 +349,27 @@ if ! exists('s:menu_help')
 	lockvar s:menu_help
 endif
 
-if ! exists('s:menu_add')
-	let s:menu_add = [
-				\ ['add a new torus' ,  'wheel#tree#add_torus'],
-				\ ['add a new circle' ,  'wheel#tree#add_circle'],
-				\ ['add new location at cursor' ,  'wheel#tree#add_here'],
-				\ ['add a new file' ,  'wheel#tree#add_file'],
-				\ ['add a new buffer' ,  'wheel#tree#add_buffer'],
-				\ ['add files matching glob' ,  'wheel#tree#add_glob'],
+if ! exists('s:menu_status')
+	let s:menu_status = [
+				\ ['dashboard', 'wheel#status#dashboard'],
+				\ ['jump to current wheel location', 'wheel#vortex#jump'],
+				\ ['find closest wheel location to cursor', 'wheel#projection#follow'],
 				\]
-	lockvar s:menu_add
+	lockvar s:menu_status
 endif
 
-if ! exists('s:menu_rename')
-	let s:menu_rename = [
-				\ ['rename torus' ,  "wheel#tree#rename('torus')"],
-				\ ['rename circle' ,  "wheel#tree#rename('circle')"],
-				\ ['rename location' ,  "wheel#tree#rename('location')"],
-				\ ['rename file' ,  'wheel#tree#rename_file'],
+if ! exists('s:menu_save_and_load')
+	let s:menu_save_and_load = [
+				\ ['save wheel', 'wheel#disc#write_all'],
+				\ ['load wheel', 'wheel#disc#read_all'],
+				\ ['save session', 'wheel#disc#write_session'],
+				\ ['load session', 'wheel#disc#read_session'],
 				\]
-	lockvar s:menu_rename
+	lockvar s:menu_save_and_load
 endif
 
-if ! exists('s:menu_delete')
-	let s:menu_delete = [
-				\ ['delete torus' ,  "wheel#tree#delete('torus')"],
-				\ ['delete circle' ,  "wheel#tree#delete('circle')"],
-				\ ['delete location' ,  "wheel#tree#delete('location')"],
-				\]
-	lockvar s:menu_delete
-endif
-
-if ! exists('s:menu_move')
-	let s:menu_move = [
-				\ ['move circle' ,  "wheel#tree#move('circle')"],
-				\ ['move location' ,  "wheel#tree#move('location')"],
-				\]
-	lockvar s:menu_move
-endif
-
-if ! exists('s:menu_copy')
-	let s:menu_copy = [
-				\ ['copy torus' ,  "wheel#tree#copy('torus')"],
-				\ ['copy circle' ,  "wheel#tree#copy('circle')"],
-				\ ['copy location' ,  "wheel#tree#copy('location')"],
-				\]
-	lockvar s:menu_copy
-endif
-
-if ! exists('s:menu_disc')
-	let s:menu_disc = [
-				\ ['save wheel' ,  'wheel#disc#write_all'],
-				\ ['load wheel' ,  'wheel#disc#read_all'],
-				\ ['save tabs & windows session' ,  'wheel#disc#write_session'],
-				\ ['load tabs & windows session' ,  'wheel#disc#read_session'],
-				\]
-	lockvar s:menu_disc
-endif
-
-if ! exists('s:menu_navigation')
-	let s:menu_navigation = [
+if ! exists('s:menu_wheel_navigation')
+	let s:menu_wheel_navigation = [
 				\ ['go to torus' ,  "wheel#sailing#switch('torus')"],
 				\ ['go to circle' ,  "wheel#sailing#switch('circle')"],
 				\ ['go to location' ,  "wheel#sailing#switch('location')"],
@@ -416,26 +377,6 @@ if ! exists('s:menu_navigation')
 				\ ['go to circle in index' ,  'wheel#sailing#grid'],
 				\ ['go to element in wheel tree' ,  'wheel#sailing#tree'],
 				\ ['go to location in history' ,  'wheel#sailing#history'],
-				\ ['go to locate result' ,  'wheel#frigate#locate'],
-				\ ['go to find result' ,  'wheel#frigate#find'],
-				\ ['go to async find result' ,  'wheel#frigate#async_find'],
-				\ ['go to most recently used file (mru)' ,  'wheel#frigate#mru'],
-				\ ['go to buffer' ,  'wheel#frigate#buffers'],
-				\ ['go to tab & window' ,  'wheel#frigate#tabwins'],
-				\ ['go to tab & window (fold tree mode)' ,  'wheel#frigate#tabwins_tree'],
-				\ ['go to matching line (occur)' ,  'wheel#frigate#occur'],
-				\ ['go to grep result' ,  'wheel#frigate#grep()'],
-				\ ['go to outline result' ,  'wheel#frigate#outline()'],
-				\ ['go to tag' ,  'wheel#frigate#tags()'],
-				\ ['go to marker' ,  'wheel#frigate#markers()'],
-				\ ['go to jump' ,  'wheel#frigate#jumps()'],
-				\ ['go to change' ,  'wheel#frigate#changes()'],
-				\]
-	lockvar s:menu_navigation
-endif
-
-if ! exists('s:menu_alternate')
-	let s:menu_alternate = [
 				\ ['alternate anywhere' ,  "wheel#pendulum#alternate('anywhere')"],
 				\ ['alternate in same torus' ,  "wheel#pendulum#alternate('same_torus')"],
 				\ ['alternate in same circle' ,  "wheel#pendulum#alternate('same_circle')"],
@@ -443,27 +384,106 @@ if ! exists('s:menu_alternate')
 				\ ['alternate in other circle' ,  "wheel#pendulum#alternate('other_circle')"],
 				\ ['alternate in same torus, other circle' ,  "wheel#pendulum#alternate('same_torus_other_circle')"],
 				\]
-	lockvar s:menu_alternate
+	lockvar s:menu_wheel_navigation
 endif
 
-if ! exists('s:menu_reorganize')
-	let s:menu_reorganize = [
+if ! exists('s:menu_native_navigation')
+	let s:menu_native_navigation = [
+				\ ['go to buffer' ,  'wheel#frigate#buffers'],
+				\ ['go to buffer (include unlisted)' ,  "wheel#frigate#buffers('all')"],
+				\ ['go to tab & window' ,  'wheel#frigate#tabwins'],
+				\ ['go to tab & window (fold tree mode)' ,  'wheel#frigate#tabwins_tree'],
+				\ ['go to marker' ,  'wheel#frigate#markers()'],
+				\ ['go to jump' ,  'wheel#frigate#jumps()'],
+				\ ['go to change' ,  'wheel#frigate#changes()'],
+				\ ['go to tag' ,  'wheel#frigate#tags()'],
+				\]
+	lockvar s:menu_native_navigation
+endif
+
+if ! exists('s:menu_organize_wheel')
+	let s:menu_organize_wheel = [
+				\ ['add a new torus' ,  'wheel#tree#add_torus'],
+				\ ['add a new circle' ,  'wheel#tree#add_circle'],
+				\ ['add new location at cursor' ,  'wheel#tree#add_here'],
+				\ ['add a new file' ,  'wheel#tree#add_file'],
+				\ ['add a new buffer' ,  'wheel#tree#add_buffer'],
+				\ ['add files matching glob' ,  'wheel#tree#add_glob'],
 				\ ['reorder toruses' ,  "wheel#yggdrasil#reorder('torus')"],
 				\ ['reorder circles' ,  "wheel#yggdrasil#reorder('circle')"],
 				\ ['reorder locations' ,  "wheel#yggdrasil#reorder('location')"],
-				\ ['batch rename toruses' ,  "wheel#yggdrasil#rename('torus')"],
-				\ ['batch rename circles' ,  "wheel#yggdrasil#rename('circle')"],
-				\ ['batch rename locations' ,  "wheel#yggdrasil#rename('location')"],
-				\ ['batch rename locations & filenames' ,  'wheel#yggdrasil#rename_files'],
-				\ ['batch copy/move toruses' ,  "wheel#yggdrasil#copy_move('torus')"],
-				\ ['batch copy/move circles' ,  "wheel#yggdrasil#copy_move('circle')"],
-				\ ['batch copy/move locations' ,  "wheel#yggdrasil#copy_move('location')"],
+				\ ['rename torus' ,  "wheel#tree#rename('torus')"],
+				\ ['rename circle' ,  "wheel#tree#rename('circle')"],
+				\ ['rename location' ,  "wheel#tree#rename('location')"],
+				\ ['rename file & location' ,  'wheel#tree#rename_file'],
+				\ ['rename toruses' ,  "wheel#yggdrasil#rename('torus')"],
+				\ ['rename circles' ,  "wheel#yggdrasil#rename('circle')"],
+				\ ['rename locations' ,  "wheel#yggdrasil#rename('location')"],
+				\ ['rename locations & filenames' ,  'wheel#yggdrasil#rename_files'],
+				\ ['delete torus' ,  "wheel#tree#delete('torus')"],
+				\ ['delete circle' ,  "wheel#tree#delete('circle')"],
+				\ ['delete location' ,  "wheel#tree#delete('location')"],
+				\ ['move circle' ,  "wheel#tree#move('circle')"],
+				\ ['move location' ,  "wheel#tree#move('location')"],
+				\ ['copy torus' ,  "wheel#tree#copy('torus')"],
+				\ ['copy circle' ,  "wheel#tree#copy('circle')"],
+				\ ['copy location' ,  "wheel#tree#copy('location')"],
+				\ ['copy or move toruses' ,  "wheel#yggdrasil#copy_move('torus')"],
+				\ ['copy or move circles' ,  "wheel#yggdrasil#copy_move('circle')"],
+				\ ['copy or move locations' ,  "wheel#yggdrasil#copy_move('location')"],
 				\ ['reorganize wheel' ,  'wheel#yggdrasil#reorganize'],
+				\]
+	lockvar s:menu_organize_wheel
+endif
+
+if ! exists('s:menu_organize_native')
+	let s:menu_organize_native = [
 				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwins'],
+				\]
+	lockvar s:menu_organize_native
+endif
+
+if ! exists('s:menu_refactor')
+	let s:menu_refactor = [
 				\ ['grep in edit mode' ,  'wheel#shape#grep_edit'],
+				\ ['narrow current file' ,  'wheel#polyphony#operator'],
+				\ ['narrow all files in circle' ,  'wheel#polyphony#narrow_circle'],
+				\]
+	lockvar s:menu_refactor
+endif
+
+if ! exists('s:menu_search_file')
+	let s:menu_search_file = [
+				\ ['go to most recently used file (mru)' ,  'wheel#frigate#mru'],
+				\ ['go to locate result' ,  'wheel#frigate#locate'],
+				\ ['go to find result' ,  'wheel#frigate#find'],
+				\ ['go to async find result' ,  'wheel#frigate#async_find'],
+				\]
+	lockvar s:menu_search_file
+endif
+
+if ! exists('s:menu_search_inside_file')
+	let s:menu_search_inside_file = [
+				\ ['go to matching line (occur)' ,  'wheel#frigate#occur'],
+				\ ['go to grep result' ,  'wheel#frigate#grep()'],
+				\ ['go to outline result' ,  'wheel#frigate#outline()'],
+				\]
+	lockvar s:menu_search_inside_file
+endif
+
+if ! exists('s:menu_yank')
+	let s:menu_yank = [
+				\ ['yank wheel in list mode' ,  "wheel#clipper#yank('list')"],
+				\ ['yank wheel in plain mode' ,  "wheel#clipper#yank('plain')"],
+				\]
+	lockvar s:menu_yank
+endif
+
+if ! exists('s:menu_undo')
+	let s:menu_undo = [
 				\ ['undo list' ,  'wheel#delta#undolist'],
 				\]
-	lockvar s:menu_reorganize
+	lockvar s:menu_undo
 endif
 
 if ! exists('s:menu_command')
@@ -474,12 +494,13 @@ if ! exists('s:menu_command')
 	lockvar s:menu_command
 endif
 
-if ! exists('s:menu_yank')
-	let s:menu_yank = [
-				\ ['yank wheel in list mode' ,  "wheel#clipper#yank('list')"],
-				\ ['yank wheel in plain mode' ,  "wheel#clipper#yank('plain')"],
+if ! exists('s:menu_dedicated_buffers')
+	let s:menu_dedicated_buffers = [
+				\ ['add new dedicated buffer', 'wheel#cylinder#add()'],
+				\ ['delete current dedicated buffer', 'wheel#cylinder#add()'],
+				\ ['switch dedicated buffer', 'wheel#cylinder#switch()'],
 				\]
-	lockvar s:menu_yank
+	lockvar s:menu_dedicated_buffers
 endif
 
 if ! exists('s:menu_layout')
@@ -549,16 +570,17 @@ endif
 if ! exists('s:menu_list')
 	let s:menu_list = [
 				\ 'help',
-				\ 'add',
-				\ 'rename',
-				\ 'delete',
-				\ 'copy',
-				\ 'move',
-				\ 'disc',
-				\ 'navigation',
-				\ 'alternate',
-				\ 'reorganize',
+				\ 'status',
+				\ 'save and load',
+				\ 'wheel navigation',
+				\ 'native navigation',
+				\ 'organize wheel',
+				\ 'organize native',
+				\ 'refactor',
+				\ 'search file',
+				\ 'search inside file',
 				\ 'yank',
+				\ 'undo',
 				\ 'command',
 				\ 'layout',
 				\ 'layout_tabs',
@@ -573,7 +595,8 @@ endif
 if ! exists('s:menu_main')
 	let s:menu_main = []
 	for name in s:menu_list
-		call extend(s:menu_main, s:menu_{name})
+		let s:short_name = substitute(name, ' ', '_', 'g')
+		call extend(s:menu_main, s:menu_{s:short_name})
 	endfor
 	lockvar s:menu_main
 endif
@@ -581,24 +604,12 @@ endif
 " meta menu
 
 if ! exists('s:menu_meta')
-	let s:menu_meta = [
-				\ ['help' ,  "wheel#helm#submenu('help')"],
-				\ ['add' ,  "wheel#helm#submenu('add')"],
-				\ ['rename' ,  "wheel#helm#submenu('rename')"],
-				\ ['delete' ,  "wheel#helm#submenu('delete')"],
-				\ ['copy' ,  "wheel#helm#submenu('copy')"],
-				\ ['move' ,  "wheel#helm#submenu('move')"],
-				\ ['disc' ,  "wheel#helm#submenu('disc')"],
-				\ ['navigation' ,  "wheel#helm#submenu('navigation')"],
-				\ ['alternate' ,  "wheel#helm#submenu('alternate')"],
-				\ ['reorganize' ,  "wheel#helm#submenu('reorganize')"],
-				\ ['command' ,  "wheel#helm#submenu('command')"],
-				\ ['yank' ,  "wheel#helm#submenu('yank')"],
-				\ ['layouts : generic', "wheel#helm#submenu('layout')"],
-				\ ['layouts : tabs', "wheel#helm#submenu('layout_tabs')"],
-				\ ['layouts : window', "wheel#helm#submenu('layout_windows')"],
-				\ ['layouts : mixed', "wheel#helm#submenu('layout_mixed')"],
-				\]
+	let s:menu_meta = []
+	for name in s:menu_list
+		let s:short_name = substitute(name, ' ', '_', 'g')
+		let s:function = "wheel#helm#submenu('" .. s:short_name .. "')"
+		call add(s:menu_meta, [name, s:function])
+	endfor
 	lockvar s:menu_meta
 endif
 
@@ -728,6 +739,7 @@ fun! wheel#crystal#fetch (varname, conversion = 'no-conversion')
 	let conversion = a:conversion
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
+	let varname = substitute(varname, ' ', '_', 'g')
 	if varname !~ '\m^s:'
 		let varname = 's:' .. varname
 	endif

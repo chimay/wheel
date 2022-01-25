@@ -163,7 +163,7 @@ fun! wheel#disc#read_all (...)
 			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 		endif
 	endif
-	if argc() == 0 && has('nvim')
+	if argc() == 0
 		echomsg 'Reading wheel variables from file ..'
 	endif
 	call wheel#disc#read (wheel_file)
