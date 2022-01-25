@@ -74,21 +74,21 @@ fun! wheel#centre#plugs ()
 	" ---- navigate with vim native tools
 	" -- buffers
 	nnoremap <plug>(wheel-prompt-buffers) <cmd>call wheel#whirl#buffer()<cr>
-	nnoremap <plug>(wheel-dedibuf-buffers) <cmd>call wheel#sailing#buffers()<cr>
-	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#sailing#buffers('all')<cr>
+	nnoremap <plug>(wheel-dedibuf-buffers) <cmd>call wheel#frigate#buffers()<cr>
+	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#frigate#buffers('all')<cr>
 	" -- tabs & windows : visible buffers
 	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#whirl#tabwin()<cr>
-	nnoremap <plug>(wheel-dedibuf-tabwins) <cmd>call wheel#sailing#tabwins()<cr>
-	nnoremap <plug>(wheel-dedibuf-tabwins-tree) <cmd>call wheel#sailing#tabwins_tree()<cr>
+	nnoremap <plug>(wheel-dedibuf-tabwins) <cmd>call wheel#frigate#tabwins()<cr>
+	nnoremap <plug>(wheel-dedibuf-tabwins-tree) <cmd>call wheel#frigate#tabwins_tree()<cr>
 	" -- (neo)vim lists
 	nnoremap <plug>(wheel-prompt-marker) <cmd>call wheel#whirl#marker()<cr>
 	nnoremap <plug>(wheel-prompt-jump) <cmd>call wheel#whirl#jump()<cr>
 	nnoremap <plug>(wheel-prompt-change) <cmd>call wheel#whirl#change()<cr>
 	nnoremap <plug>(wheel-prompt-tag) <cmd>call wheel#whirl#tag()<cr>
-	nnoremap <plug>(wheel-dedibuf-markers) <cmd>call wheel#sailing#markers()<cr>
-	nnoremap <plug>(wheel-dedibuf-jumps) <cmd>call wheel#sailing#jumps()<cr>
-	nnoremap <plug>(wheel-dedibuf-changes) <cmd>call wheel#sailing#changes()<cr>
-	nnoremap <plug>(wheel-dedibuf-tags) <cmd>call wheel#sailing#tags()<cr>
+	nnoremap <plug>(wheel-dedibuf-markers) <cmd>call wheel#frigate#markers()<cr>
+	nnoremap <plug>(wheel-dedibuf-jumps) <cmd>call wheel#frigate#jumps()<cr>
+	nnoremap <plug>(wheel-dedibuf-changes) <cmd>call wheel#frigate#changes()<cr>
+	nnoremap <plug>(wheel-dedibuf-tags) <cmd>call wheel#frigate#tags()<cr>
 	" ---- organize the wheel
 	" -- add
 	nnoremap <plug>(wheel-prompt-add-here) <cmd>call wheel#tree#add_here()<cr>
@@ -140,15 +140,15 @@ fun! wheel#centre#plugs ()
 	" ---- search
 	" -- files
 	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#whirl#mru()<cr>
-	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#sailing#mru()<cr>
-	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#sailing#locate()<cr>
-	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#sailing#find()<cr>
-	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#sailing#async_find()<cr>
+	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#frigate#mru()<cr>
+	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#frigate#locate()<cr>
+	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#frigate#find()<cr>
+	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#frigate#async_find()<cr>
 	" -- inside files
 	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#whirl#occur()<cr>
-	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#sailing#occur()<cr>
-	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#sailing#grep()<cr>
-	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#sailing#outline()<cr>
+	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#frigate#occur()<cr>
+	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#frigate#grep()<cr>
+	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#frigate#outline()<cr>
 	" ---- yank ring
 	nnoremap <plug>(wheel-dedibuf-yank-list) <cmd>call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-dedibuf-yank-plain) <cmd>call wheel#clipper#yank('plain')<cr>
