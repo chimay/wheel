@@ -3444,6 +3444,7 @@ of the modules within them.
 | cylinder.vim      | Dedicated buffers ring                     |
 | delta.vim         | Undo & diff dedicated buffer               |
 | disc.vim          | Read & write wheel & session file          |
+| frigate.vim       | Non-wheel navigation dedicated buffers     |
 | gear.vim          | Generic helpers                            |
 | group.vim         | Auto grouping of files                     |
 | guru.vim          | Help                                       |
@@ -3466,7 +3467,7 @@ of the modules within them.
 | rectangle.vim     | Tabs, windows & buffers                    |
 | referen.vim       | References to current wheel elements       |
 | ripple.vim        | Async job for vim                          |
-| sailing.vim       | Navigation dedicated buffers               |
+| sailing.vim       | Wheel navigation dedicated buffers         |
 | scroll.vim        | Input history in dedicated buffers         |
 | shape.vim         | Reorganizing dedicated buffers             |
 | spiral.vim        | Golden ratio                               |
@@ -3474,13 +3475,13 @@ of the modules within them.
 | symbol.vim        | Tags                                       |
 | teapot.vim        | Filter aspect of dedicated buffers         |
 | tower.vim         | Menu layer in dedicated buffers            |
-| tree.vim          | Add, rename, delete elements               |
+| tree.vim          | Add, rename, delete, move & copy elements  |
 | upstream.vim      | Parent leaf of context menu                |
 | vector.vim        | Batch operations on current group files    |
 | void.vim          | Initiaze & reset variables                 |
 | vortex.vim        | Navigation in the wheel                    |
 | wave.vim          | Async job for neovim                       |
-| whirl.vim         | Navigation with native (neo)vim functions  |
+| whirl.vim         | Non-wheel navigation, native vim functions |
 
 Doc~
 
