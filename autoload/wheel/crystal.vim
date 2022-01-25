@@ -370,13 +370,13 @@ endif
 
 if ! exists('s:menu_wheel_navigation')
 	let s:menu_wheel_navigation = [
-				\ ['go to torus' ,  "wheel#sailing#switch('torus')"],
-				\ ['go to circle' ,  "wheel#sailing#switch('circle')"],
-				\ ['go to location' ,  "wheel#sailing#switch('location')"],
-				\ ['go to location in index' ,  'wheel#sailing#helix'],
-				\ ['go to circle in index' ,  'wheel#sailing#grid'],
-				\ ['go to element in wheel tree' ,  'wheel#sailing#tree'],
-				\ ['go to location in history' ,  'wheel#sailing#history'],
+				\ ['go to torus' ,  "wheel#whirl#switch('torus')"],
+				\ ['go to circle' ,  "wheel#whirl#switch('circle')"],
+				\ ['go to location' ,  "wheel#whirl#switch('location')"],
+				\ ['go to location in index' ,  'wheel#whirl#helix'],
+				\ ['go to circle in index' ,  'wheel#whirl#grid'],
+				\ ['go to element in wheel tree' ,  'wheel#whirl#tree'],
+				\ ['go to location in history' ,  'wheel#whirl#history'],
 				\ ['alternate anywhere' ,  "wheel#pendulum#alternate('anywhere')"],
 				\ ['alternate in same torus' ,  "wheel#pendulum#alternate('same_torus')"],
 				\ ['alternate in same circle' ,  "wheel#pendulum#alternate('same_circle')"],

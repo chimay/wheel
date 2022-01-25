@@ -18,7 +18,7 @@ fun! wheel#loop#selection (settings)
 	"   - follow : whether to find closest wheel location after arrival
 	"   - close : whether to close mandala
 	let settings = copy(a:settings)
-	call wheel#sailing#default (settings)
+	call wheel#whirl#default (settings)
 	let Fun = settings.function
 	let target = settings.target
 	let close = settings.close
@@ -68,7 +68,7 @@ fun! wheel#loop#boomerang (settings)
 	"   - action : action name or funcref
 	"   - close : whether to close mandala
 	let settings = copy(a:settings)
-	call wheel#sailing#default (settings)
+	call wheel#whirl#default (settings)
 	let menu_settings = settings.menu
 	let Fun = settings.function
 	let close = menu_settings.close

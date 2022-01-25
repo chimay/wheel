@@ -1,188 +1,154 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-"  Dedicated buffers for navigation in the wheel
+" Non wheel navigation, prompt functions
+"
+" Switch with native (neo)vim functions
+"
+" Move to file & cursor position
+"
+" Like vortex.vim, but does not involve wheel elements
 
-" Script constants
+" script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ
 endif
 
-" default values
+" main
 
-fun! wheel#sailing#default (settings)
-	" Default settings values
-	let settings = a:settings
-	if ! has_key(settings, 'function')
-		let settings.function = 'wheel#line#switch'
+fun! wheel#sailing#mru ()
+	" Switch to most recently used non-wheel file
+	let prompt = 'Switch to mru file : '
+	let complete = 'customlist,wheel#complete#mru'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let filename = fields[1]
+	execute 'edit' filename
+	if &foldopen =~ 'jump'
+		normal! zv
 	endif
-	if ! has_key(settings, 'level')
-		let settings.level = 'location'
-	endif
-	if ! has_key(settings, 'target')
-		let settings.target = 'current'
-	endif
-	if ! has_key(settings, 'related_buffer')
-		let settings.related_buffer = b:wheel_related_buffer
-	endif
-	if ! has_key(settings, 'follow')
-		let settings.follow = v:true
-	endif
-	if ! has_key(settings, 'close')
-		let settings.close = v:true
-	endif
+	return win_getid ()
 endfun
 
-" helpers
-
-fun! wheel#sailing#mappings (settings)
-	" Define sailing maps
-	let settings = copy(a:settings)
-	let map = 'nnoremap <silent> <buffer>'
-	let pre = '<cmd>call wheel#loop#selection('
-	let post = ')<cr>'
-	" -- close after navigation
-	let settings.close = v:true
-	let settings.target = 'current'
-	exe map '<cr>' pre .. string(settings) .. post
-	let settings.target = 'tab'
-	exe map 't' pre .. string(settings) .. post
-	let settings.target = 'horizontal_split'
-	exe map 's' pre .. string(settings) .. post
-	let settings.target = 'vertical_split'
-	exe map 'v' pre .. string(settings) .. post
-	let settings.target = 'horizontal_golden'
-	exe map 'S' pre .. string(settings) .. post
-	let settings.target = 'vertical_golden'
-	exe map 'V' pre .. string(settings) .. post
-	" -- leave open after navigation
-	let settings.close = v:false
-	let settings.target = 'current'
-	exe map 'g<cr>' pre .. string(settings) .. post
-	let settings.target = 'tab'
-	exe map 'gt' pre .. string(settings) .. post
-	let settings.target = 'horizontal_split'
-	exe map 'gs' pre .. string(settings) .. post
-	let settings.target = 'vertical_split'
-	exe map 'gv' pre .. string(settings) .. post
-	let settings.target = 'horizontal_golden'
-	exe map 'gS' pre .. string(settings) .. post
-	let settings.target = 'vertical_golden'
-	exe map 'gV' pre .. string(settings) .. post
-	" -- selection
-	call wheel#pencil#mappings ()
-	" -- preview
-	call wheel#orbiter#mappings ()
-	" -- context menu
-	call wheel#boomerang#launch_map ('sailing')
+fun! wheel#sailing#occur ()
+	" Switch to line
+	let prompt = 'Switch to line : '
+	let complete = 'customlist,wheel#complete#line'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let linum = fields[0]
+	call cursor(linum, 1)
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	return win_getid ()
 endfun
 
-fun! wheel#sailing#template (settings)
-	" Template
-	let settings = a:settings
-	call wheel#mandala#template (settings)
-	call wheel#sailing#mappings (settings)
+fun! wheel#sailing#buffer ()
+	" Switch to buffer
+	let prompt = 'Switch to buffer : '
+	let complete = 'customlist,wheel#complete#buffer'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let bufnum = fields[0]
+	execute 'buffer' bufnum
+	let linum = fields[1]
+	call cursor(linum, 1)
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	call wheel#projection#follow ()
+	return win_getid ()
 endfun
 
-fun! wheel#sailing#generic (type)
-	" Generic sailing buffer
-	let type = a:type
-	let Perspective = function('wheel#perspective#' .. type)
-	let lines = Perspective ()
-	if empty(lines)
-		echomsg 'wheel sailing generic : empty lines in' type
+fun! wheel#sailing#tabwin ()
+	" Switch to tab & window of visible buffer
+	let prompt = 'Switch to visible buffer : '
+	let complete = 'customlist,wheel#complete#visible_buffer'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let tabnum = fields[0]
+	let winum = fields[1]
+	execute 'noautocmd tabnext' tabnum
+	execute 'noautocmd' winum 'wincmd w'
+	doautocmd WinEnter
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	call wheel#projection#follow ()
+	return win_getid ()
+endfun
+
+fun! wheel#sailing#marker ()
+	" Switch to marker
+	let prompt = 'Switch to marker : '
+	let complete = 'customlist,wheel#complete#marker'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let mark = fields[0]
+	execute "normal `" .. mark
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	call wheel#projection#follow ()
+	return win_getid ()
+endfun
+
+fun! wheel#sailing#jump ()
+	" Switch to jump
+	let prompt = 'Switch to jump : '
+	let complete = 'customlist,wheel#complete#jump'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let bufnum = fields[0]
+	let linum = str2nr(fields[1])
+	let colnum = str2nr(fields[2])
+	execute 'buffer' bufnum
+	call cursor(linum, colnum)
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	call wheel#projection#follow ()
+	return win_getid ()
+endfun
+
+fun! wheel#sailing#change ()
+	" Switch to change
+	let prompt = 'Switch to change : '
+	let complete = 'customlist,wheel#complete#change'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let linum = str2nr(fields[0])
+	let colnum = str2nr(fields[1])
+	call cursor(linum, colnum)
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	return win_getid ()
+endfun
+
+fun! wheel#sailing#tag ()
+	" Switch to tag
+	let prompt = 'Switch to tag : '
+	let complete = 'customlist,wheel#complete#tag'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	if len(fields) < 4
+		echomsg 'Tag line is too short'
 		return v:false
 	endif
-	call wheel#mandala#blank (type)
-	let settings = {'function' : function('wheel#line#' .. type)}
-	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
-endfun
-
-" applications
-
-fun! wheel#sailing#switch (level)
-	" Choose an element of level to switch to
-	let level = a:level
-	if wheel#referen#is_empty_upper (level)
-		let upper = wheel#referen#upper_level_name (level)
-		echomsg 'wheel sailing switch : empty' upper
-		return v:false
+	let ident = fields[0]
+	let file = fields[1]
+	let line = fields[2][1:]
+	execute 'edit' file
+	let found = search(line, 'sw')
+	if found == 0
+		echomsg 'wheel : tag not found : maybe you should update your tag file'
 	endif
-	let lines = wheel#perspective#switch (level)
-	call wheel#mandala#blank ('switch/' .. level)
-	let settings = {'level' : level}
-	call wheel#sailing#template (settings)
-	if ! empty(lines)
-		call wheel#mandala#fill(lines)
-	else
-		echomsg 'wheel sailing switch : empty or incomplete' level
+	if &foldopen =~ 'jump'
+		normal! zv
 	endif
-	" reload
-	let b:wheel_reload = "wheel#sailing#switch('" .. level .. "')"
-endfun
-
-fun! wheel#sailing#helix ()
-	" Choose a location coordinate
-	" Each coordinate = [torus, circle, location]
-	let lines = wheel#perspective#helix ()
-	if empty(lines)
-		echomsg 'wheel sailing helix : empty wheel'
-		return v:false
-	endif
-	call wheel#mandala#blank ('index/location')
-	let settings = {'function' : function('wheel#line#helix')}
-	call wheel#sailing#template (settings)
-	call wheel#mandala#fill(lines)
-	" reload
-	let b:wheel_reload = 'wheel#sailing#helix'
-endfun
-
-fun! wheel#sailing#grid ()
-	" Choose a circle coordinate
-	" Each coordinate = [torus, circle]
-	let lines = wheel#perspective#grid ()
-	if empty(lines)
-		echomsg 'wheel sailing grid : empty wheel'
-		return v:false
-	endif
-	call wheel#mandala#blank ('index/circle')
-	let settings = {'function' : function('wheel#line#grid')}
-	call wheel#sailing#template (settings)
-	call wheel#mandala#fill (lines)
-	" reload
-	let b:wheel_reload = 'wheel#sailing#grid'
-endfun
-
-fun! wheel#sailing#tree ()
-	" Choose an element in the wheel tree
-	let lines = wheel#perspective#tree ()
-	if empty(lines)
-		echomsg 'wheel sailing tree : empty wheel'
-		return v:false
-	endif
-	call wheel#mandala#blank ('index/tree')
-	let settings = {'function' : function('wheel#line#tree')}
-	call wheel#sailing#template (settings)
-	call wheel#mandala#folding_options ()
-	call wheel#mandala#fill(lines)
-	" reload
-	let b:wheel_reload = 'wheel#sailing#tree'
-endfun
-
-fun! wheel#sailing#history ()
-	" Choose a location coordinate in history
-	" Each coordinate = [torus, circle, location]
-	call wheel#sailing#generic('history')
-	" reload
-	let b:wheel_reload = 'wheel#sailing#history'
-endfun
-
-fun! wheel#sailing#history_circuit ()
-	" Choose a location coordinate in history
-	" Each coordinate = [torus, circle, location]
-	call wheel#sailing#generic('history_circuit')
-	" reload
-	let b:wheel_reload = 'wheel#sailing#history_circuit'
+	call wheel#projection#follow ()
+	return win_getid ()
 endfun

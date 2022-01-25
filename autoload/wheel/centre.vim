@@ -45,15 +45,15 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-circle) <cmd>call wheel#vortex#switch('circle')<cr>
 	nnoremap <plug>(wheel-prompt-torus) <cmd>call wheel#vortex#switch('torus')<cr>
 	nnoremap <plug>(wheel-prompt-multi-switch) <cmd>call wheel#vortex#multi_switch()<cr>
-	nnoremap <plug>(wheel-dedibuf-location) <cmd>call wheel#sailing#switch('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-circle) <cmd>call wheel#sailing#switch('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-torus) <cmd>call wheel#sailing#switch('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-location) <cmd>call wheel#whirl#switch('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-circle) <cmd>call wheel#whirl#switch('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-torus) <cmd>call wheel#whirl#switch('torus')<cr>
 	" -- indexes
 	nnoremap <plug>(wheel-prompt-index) <cmd>call wheel#vortex#helix()<cr>
 	nnoremap <plug>(wheel-prompt-index-circles) <cmd>call wheel#vortex#grid()<cr>
-	nnoremap <plug>(wheel-dedibuf-index) <cmd>call wheel#sailing#helix()<cr>
-	nnoremap <plug>(wheel-dedibuf-index-circles) <cmd>call wheel#sailing#grid()<cr>
-	nnoremap <plug>(wheel-dedibuf-tree) <cmd>call wheel#sailing#tree()<cr>
+	nnoremap <plug>(wheel-dedibuf-index) <cmd>call wheel#whirl#helix()<cr>
+	nnoremap <plug>(wheel-dedibuf-index-circles) <cmd>call wheel#whirl#grid()<cr>
+	nnoremap <plug>(wheel-dedibuf-tree) <cmd>call wheel#whirl#tree()<cr>
 	" -- history
 	nnoremap <plug>(wheel-history-newer) <cmd>call wheel#pendulum#newer()<cr>
 	nnoremap <plug>(wheel-history-older) <cmd>call wheel#pendulum#older()<cr>
@@ -62,7 +62,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-history-newer-in-torus) <cmd>call wheel#pendulum#newer('torus')<cr>
 	nnoremap <plug>(wheel-history-older-in-torus) <cmd>call wheel#pendulum#older('torus')<cr>
 	nnoremap <plug>(wheel-prompt-history) <cmd>call wheel#vortex#history()<cr>
-	nnoremap <plug>(wheel-dedibuf-history) <cmd>call wheel#sailing#history()<cr>
+	nnoremap <plug>(wheel-dedibuf-history) <cmd>call wheel#whirl#history()<cr>
 	" -- alternate
 	nnoremap <plug>(wheel-alternate-anywhere) <cmd>call wheel#pendulum#alternate('anywhere')<cr>
 	nnoremap <plug>(wheel-alternate-same-torus) <cmd>call wheel#pendulum#alternate('same_torus')<cr>
@@ -73,18 +73,18 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-alternate-menu) <cmd>call wheel#pendulum#alternate_menu()<cr>
 	" ---- navigate with vim native tools
 	" -- buffers
-	nnoremap <plug>(wheel-prompt-buffers) <cmd>call wheel#whirl#buffer()<cr>
+	nnoremap <plug>(wheel-prompt-buffers) <cmd>call wheel#sailing#buffer()<cr>
 	nnoremap <plug>(wheel-dedibuf-buffers) <cmd>call wheel#frigate#buffers()<cr>
 	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#frigate#buffers('all')<cr>
 	" -- tabs & windows : visible buffers
-	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#whirl#tabwin()<cr>
+	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#sailing#tabwin()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins) <cmd>call wheel#frigate#tabwins()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwins-tree) <cmd>call wheel#frigate#tabwins_tree()<cr>
 	" -- (neo)vim lists
-	nnoremap <plug>(wheel-prompt-marker) <cmd>call wheel#whirl#marker()<cr>
-	nnoremap <plug>(wheel-prompt-jump) <cmd>call wheel#whirl#jump()<cr>
-	nnoremap <plug>(wheel-prompt-change) <cmd>call wheel#whirl#change()<cr>
-	nnoremap <plug>(wheel-prompt-tag) <cmd>call wheel#whirl#tag()<cr>
+	nnoremap <plug>(wheel-prompt-marker) <cmd>call wheel#sailing#marker()<cr>
+	nnoremap <plug>(wheel-prompt-jump) <cmd>call wheel#sailing#jump()<cr>
+	nnoremap <plug>(wheel-prompt-change) <cmd>call wheel#sailing#change()<cr>
+	nnoremap <plug>(wheel-prompt-tag) <cmd>call wheel#sailing#tag()<cr>
 	nnoremap <plug>(wheel-dedibuf-markers) <cmd>call wheel#frigate#markers()<cr>
 	nnoremap <plug>(wheel-dedibuf-jumps) <cmd>call wheel#frigate#jumps()<cr>
 	nnoremap <plug>(wheel-dedibuf-changes) <cmd>call wheel#frigate#changes()<cr>
@@ -139,13 +139,13 @@ fun! wheel#centre#plugs ()
 	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow_file()<cr>
 	" ---- search
 	" -- files
-	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#whirl#mru()<cr>
+	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#sailing#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#frigate#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#frigate#locate()<cr>
 	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#frigate#find()<cr>
 	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#frigate#async_find()<cr>
 	" -- inside files
-	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#whirl#occur()<cr>
+	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#frigate#occur()<cr>
 	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#frigate#grep()<cr>
 	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#frigate#outline()<cr>
@@ -197,7 +197,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-debug-fresh-wheel) <cmd>call wheel#void#fresh_wheel()<cr>
 	nnoremap <plug>(wheel-debug-clear-echo-area) <cmd>call wheel#status#clear()<cr>
 	nnoremap <plug>(wheel-debug-prompt-history-circuit) <cmd>call wheel#vortex#history_circuit()<cr>
-	nnoremap <plug>(wheel-debug-dedibuf-history-circuit) <cmd>call wheel#sailing#history_circuit()<cr>
+	nnoremap <plug>(wheel-debug-dedibuf-history-circuit) <cmd>call wheel#whirl#history_circuit()<cr>
 endfun
 
 fun! wheel#centre#cables ()

@@ -3466,9 +3466,9 @@ of the modules within them.
 | rectangle.vim     | Tabs, windows & buffers                    |
 | referen.vim       | References to current wheel elements       |
 | ripple.vim        | Async job for vim                          |
-| sailing.vim       | Wheel navigation dedicated buffers         |
+| sailing.vim       | Non wheel navigation                       |
 | scroll.vim        | Input history in dedicated buffers         |
-| shape.vim         | Reorganize native vim elmements            |
+| shape.vim         | Organize native vim elements               |
 | spiral.vim        | Golden ratio                               |
 | status.vim        | Print wheel status                         |
 | symbol.vim        | Tags                                       |
@@ -3481,7 +3481,7 @@ of the modules within them.
 | void.vim          | Initiaze & reset variables                 |
 | vortex.vim        | Navigation in the wheel                    |
 | wave.vim          | Async job for neovim                       |
-| whirl.vim         | Non-wheel navigation, native vim functions |
+| whirl.vim         | Wheel navigation dedicated buffers         |
 | yggdrasil.vim     | Organize wheel in dedicated buffers        |
 
 Doc~

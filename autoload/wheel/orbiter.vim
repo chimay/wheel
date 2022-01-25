@@ -9,7 +9,7 @@ fun! wheel#orbiter#preview ()
 		let b:wheel_preview.original = wheel#rectangle#previous_buffer ()
 	endif
 	let settings = b:wheel_settings
-	call wheel#sailing#default (settings)
+	call wheel#whirl#default (settings)
 	let settings.selection = wheel#line#address ()
 	let settings.follow = v:false
 	call wheel#rectangle#previous ()

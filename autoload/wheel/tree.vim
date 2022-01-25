@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Prompt functions to organize the wheel
+" Organize wheel elements, prompt functions
 "
 " Tree = toruses / circles / locations
 "

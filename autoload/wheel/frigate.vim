@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-"  Dedicated buffers for non-wheel navigation
+"  Non-wheel navigation, dedicated buffers
 
 fun! wheel#frigate#buffers (scope = 'listed')
 	" Buffers
@@ -25,7 +25,7 @@ fun! wheel#frigate#buffers (scope = 'listed')
 	endif
 	call wheel#mandala#blank (type)
 	let settings = {'function' : function('wheel#line#buffers')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" context menu
 	call wheel#boomerang#launch_map (type)
@@ -43,7 +43,7 @@ fun! wheel#frigate#tabwins_tree ()
 	endif
 	call wheel#mandala#blank ('tabwins/tree')
 	let settings = {'function' : function('wheel#line#tabwins_tree')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill (lines)
 	" reload
@@ -62,7 +62,7 @@ fun! wheel#frigate#tabwins ()
 	endif
 	call wheel#mandala#blank ('tabwins')
 	let settings = {'function' : function('wheel#line#tabwins')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#tabwins'
@@ -77,7 +77,7 @@ fun! wheel#frigate#markers ()
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
 	endif
-	call wheel#sailing#generic('markers')
+	call wheel#whirl#generic('markers')
 	" reload
 	let b:wheel_reload = 'wheel#frigate#markers'
 endfun
@@ -95,7 +95,7 @@ fun! wheel#frigate#jumps ()
 	" mandala buffer
 	call wheel#mandala#blank ('jumps')
 	let settings = {'function' : function('wheel#line#jumps')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#jumps'
@@ -114,7 +114,7 @@ fun! wheel#frigate#changes ()
 	" mandala buffer
 	call wheel#mandala#blank ('changes')
 	let settings = {'function' : function('wheel#line#changes')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#changes'
@@ -122,7 +122,7 @@ endfun
 
 fun! wheel#frigate#tags ()
 	" Tags file
-	call wheel#sailing#generic('tags')
+	call wheel#whirl#generic('tags')
 	" reload
 	let b:wheel_reload = 'wheel#frigate#tags'
 endfun
@@ -131,7 +131,7 @@ endfun
 
 fun! wheel#frigate#mru ()
 	" Most recenty used files
-	call wheel#sailing#generic('mru')
+	call wheel#whirl#generic('mru')
 	" reload
 	let b:wheel_reload = 'wheel#frigate#mru'
 endfun
@@ -151,7 +151,7 @@ fun! wheel#frigate#locate (...)
 	endif
 	call wheel#mandala#blank ('locate')
 	let settings = {'function' : function('wheel#line#locate')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#locate('" .. pattern .. "')"
@@ -177,7 +177,7 @@ fun! wheel#frigate#find (...)
 	endif
 	call wheel#mandala#blank ('find')
 	let settings = {'function' : function('wheel#line#find')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#find('" .. pattern .. "')"
@@ -205,7 +205,7 @@ fun! wheel#frigate#async_find (...)
 	" mandala
 	call wheel#mandala#blank ('async_find')
 	let settings = {'function' : function('wheel#line#find')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	" job
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
 	let settings = {'mandala_type' : 'async_find'}
@@ -246,7 +246,7 @@ fun! wheel#frigate#occur (...)
 	endif
 	call wheel#mandala#blank ('occur')
 	let settings = {'function' : function('wheel#line#occur')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#occur('" .. pattern .. "')"
@@ -275,7 +275,7 @@ fun! wheel#frigate#grep (...)
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('grep/' .. word)
 	let settings = {'function' : function('wheel#line#grep')}
-	call wheel#sailing#template (settings)
+	call wheel#whirl#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#grep('" .. pattern .. "', '" .. sieve .. "')"

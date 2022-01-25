@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Navigation prompt for wheel elements
+" Wheel navigation, straightforward and prompt functions
 
 " Variables
 
