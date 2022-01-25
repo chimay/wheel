@@ -727,7 +727,6 @@ Markers				|wheel-dedicated-buffers-markers|
 Jumps				|wheel-dedicated-buffers-jumps|
 Changes				|wheel-dedicated-buffers-changes|
 Tags				|wheel-dedicated-buffers-tags|
-Yank 				|wheel-dedicated-buffers-yank|
 Reordering		        |wheel-dedicated-buffers-reordering|
 Renaming		        |wheel-dedicated-buffers-renaming|
 Copy and move		        |wheel-dedicated-buffers-copy-move|
@@ -735,6 +734,7 @@ Reorganizing			|wheel-dedicated-buffers-reorganizing|
 Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
 Narrow				|wheel-dedicated-buffers-narrow|
+Yank 				|wheel-dedicated-buffers-yank|
 Undo list			|wheel-dedicated-buffers-undolist|
 Batch buffer			|wheel-dedicated-buffers-batch|
 Command output buffer		|wheel-dedicated-buffers-command|
@@ -1256,47 +1256,6 @@ This buffer displays the following columns :
 tag type | tag iden | filename | search string
 
 ------------------------------------------------------------------------------
-YANK						*wheel-dedicated-buffers-yank*
-
-As usual, you can filter the elements in insert mode.
-The available local maps are :
-
- - `<enter>` : paste a yank after cursor
- - `g<enter>` : paste a yank after cursor, leave yank wheel opened
- - `p` : paste a yank after cursor, leave yank wheel opened
- - `P` : paste a yank before cursor, leave yank wheel opened
-
-List mode~
-
-The yank wheel buffer in list mode is launched by `<M-w>y`.
-
-Each line of the dedicated buffer is one of your yanks, represented as a
-list, one element per line.
-
-Plain mode~
-
-The yank wheel buffer in plain mode is launched by `<M-w>p`.
-
-All your yanks are concatenated and displayed in the dedicated buffer.
-
-In normal mode, the paste is done linewise or characterwise, depending
-on the mapping used :
-
- - `p` : paste a yank linewise after cursor, leave yank wheel opened
- - `P` : paste a yank linewise before cursor, leave yank wheel opened
- - `gp` : paste a yank characterwise after cursor, leave yank wheel opened
- - `gP` : paste a yank characterwise before cursor, leave yank wheel opened
-
-Visual mode~
-
-You can also go to visual mode and paste your selection. The paste is
-done characterwise.
-
-Menus~
-
-The yank wheel buffers can also be launched from the main & meta menus.
-
-------------------------------------------------------------------------------
 REORDERING				*wheel-dedicated-buffers-reordering*
 
 The reordering buffers allow you to quickly reorder Wheel elements by
@@ -1580,6 +1539,47 @@ intact. If you are curious about how it is done, check |/\@<=|.
 Second, if the replacing word is already present in the buffer, it will
 ask you confirmation before running the substitution. So, you can avoid
 confusion in variable names, for instance.
+
+------------------------------------------------------------------------------
+YANK						*wheel-dedicated-buffers-yank*
+
+As usual, you can filter the elements in insert mode.
+The available local maps are :
+
+ - `<enter>` : paste a yank after cursor
+ - `g<enter>` : paste a yank after cursor, leave yank wheel opened
+ - `p` : paste a yank after cursor, leave yank wheel opened
+ - `P` : paste a yank before cursor, leave yank wheel opened
+
+List mode~
+
+The yank wheel buffer in list mode is launched by `<M-w>y`.
+
+Each line of the dedicated buffer is one of your yanks, represented as a
+list, one element per line.
+
+Plain mode~
+
+The yank wheel buffer in plain mode is launched by `<M-w>p`.
+
+All your yanks are concatenated and displayed in the dedicated buffer.
+
+In normal mode, the paste is done linewise or characterwise, depending
+on the mapping used :
+
+ - `p` : paste a yank linewise after cursor, leave yank wheel opened
+ - `P` : paste a yank linewise before cursor, leave yank wheel opened
+ - `gp` : paste a yank characterwise after cursor, leave yank wheel opened
+ - `gP` : paste a yank characterwise before cursor, leave yank wheel opened
+
+Visual mode~
+
+You can also go to visual mode and paste your selection. The paste is
+done characterwise.
+
+Menus~
+
+The yank wheel buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
@@ -2744,9 +2744,6 @@ adapt them to your taste and add them to your init file.
 | <C-$>          | Sync down : jump to current location          |
 | <M-$>          | Sync up : find closest wheel location         |
 | -------------- | --------------------------------------------- |
-| <M-Insert>     | Add location to the current circle            |
-| <M-Del>        | Delete current location                       |
-| -------------- | --------------------------------------------- |
 | <C-PageUp>     | Go to previous location                       |
 | <C-PageDown>   | Go to next location                           |
 | <C-Home>       | Go to previous circle                         |
@@ -2754,38 +2751,29 @@ adapt them to your taste and add them to your init file.
 | <S-Home>       | Go to previous torus                          |
 | <S-End>        | Go to next torus                              |
 | -------------- | --------------------------------------------- |
+| <M-Enter>      | Prompt for a location to switch to            |
+| <C-Enter>      | Prompt for a circle to switch to              |
+| <S-Enter>      | Prompt for a torus to switch to               |
+| <Space>        | Choose location in dedicated buffer           |
+| <C-Space>      | Choose circle in dedicated buffer             |
+| <S-Space>      | Choose torus in dedicated buffer              |
+| -------------- | --------------------------------------------- |
+| <M-x>          | Prompt for a location in index to switch to   |
+| <M-S-x>        | Index of toruses > circles > locations        |
+| <M-C-x>        | Choose element in wheel folding tree          |
+| -------------- | --------------------------------------------- |
 | <M-PageUp>     | Go to newer location in history               |
 | <M-PageDown>   | Go to older location in history               |
 | <M-C-PageUp>   | Go to newer location in same circle           |
 | <M-C-PageDown> | Go to older location in same circle           |
 | <M-S-PageUp>   | Go to newer location in same torus            |
 | <M-S-PageDown> | Go to older location in same torus            |
+| <M-h>          | History index in prompt                       |
+| <M-C-h>        | History index in dedicated buffer             |
 | -------------- | --------------------------------------------- |
 | <C-^>          | Alternate last two locations                  |
 | <M-^>          | Alternate in the same circle                  |
 | <M-C-^>        | Alternate in another circle of the same torus |
-| -------------- | --------------------------------------------- |
-| <M-Enter>      | Prompt for a location to switch to            |
-| <C-Enter>      | Prompt for a circle to switch to              |
-| <S-Enter>      | Prompt for a torus to switch to               |
-| <M-x>          | Prompt for a location in index to switch to   |
-| -------------- | --------------------------------------------- |
-| <Space>        | Choose location in dedicated buffer           |
-| <C-Space>      | Choose circle in dedicated buffer             |
-| <S-Space>      | Choose torus in dedicated buffer              |
-| <M-C-x>        | Choose element in wheel folding tree          |
-| <M-S-x>        | Index of toruses > circles > locations        |
-| <M-h>          | History index                                 |
-| -------------- | --------------------------------------------- |
-| <M-l>          | Locate                                        |
-| <M-f>          | Find                                          |
-| <M-C-f>        | Async find                                    |
-| <M-u>          | Most Recently Used files not found in wheel   |
-| -------------- | --------------------------------------------- |
-| <M-o>          | Occur in current file, prompting function     |
-| <M-C-o>        | Occur in current file, dedicated buffer       |
-| <M-g>          | Grep in current circle files                  |
-| <M-S-o>        | Outline in current circle files               |
 | -------------- | --------------------------------------------- |
 | <M-b>          | Buffers, prompting function                   |
 | <M-C-b>        | Buffers, dedicated buffer                     |
@@ -2800,22 +2788,35 @@ adapt them to your taste and add them to your init file.
 | <M-j>          | Jumps, prompting function                     |
 | <M-,>          | Changes, prompting function                   |
 | <M-t>          | Tags, prompting function                      |
-| -------------- | --------------------------------------------- |
 | <M-C-k>        | Markers, dedicated buffer                     |
 | <M-C-j>        | Jumps, dedicated buffer                       |
 | <M-;>          | Changes, dedicated buffer                     |
 | <M-C-t>        | Tags, dedicated buffer                        |
 | -------------- | --------------------------------------------- |
-| <M-y>          | Paste yank wheel element in list mode         |
-| <M-p>          | Paste yank wheel element in plain mode        |
-| -------------- | --------------------------------------------- |
+| <M-Insert>     | Add location to the current circle            |
+| <M-Del>        | Delete current location                       |
 | <M-r>          | Reorganize wheel elements                     |
+| -------------- | --------------------------------------------- |
 | <M-C-r>        | Reorganize tabs and windows                   |
+| -------------- | --------------------------------------------- |
 | <M-C-g>        | Grep in edit mode                             |
 | <M-n>          | Narrow current file                           |
 | <M-C-n>        | Narrow all circle files                       |
 | -------------- | --------------------------------------------- |
-| <M-C-u>        | Undo list                                     |
+| <M-l>          | Locate                                        |
+| <M-f>          | Find                                          |
+| <M-C-f>        | Async find                                    |
+| <M-u>          | Most Recently Used files not found in wheel   |
+| -------------- | --------------------------------------------- |
+| <M-o>          | Occur in current file, prompting function     |
+| <M-C-o>        | Occur in current file, dedicated buffer       |
+| <M-g>          | Grep in current circle files                  |
+| <M-S-o>        | Outline in current circle files               |
+| -------------- | --------------------------------------------- |
+| <M-y>          | Paste yank wheel element in list mode         |
+| <M-p>          | Paste yank wheel element in plain mode        |
+| -------------- | --------------------------------------------- |
+| <M-S-u>        | Undo list                                     |
 | -------------- | --------------------------------------------- |
 | <M-!>          | Buffer with output of ex or shell command     |
 | <M-&>          | Async shell command in dedicated buffer       |
@@ -2836,7 +2837,6 @@ mapping level to less than 10, then copy and adapt the following lines : >
     let nmap = 'nmap <silent>'
     let vmap = 'vmap <silent>'
     let nmap_expr = 'nnoremap <expr>'
-
     " Menus
     exe nmap '<m-m>          <plug>(wheel-menu-main)'
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
@@ -2844,59 +2844,48 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-i>          <plug>(wheel-dashboard)'
     exe nmap '<c-$>          <plug>(wheel-sync-down)'
     exe nmap '<m-$>          <plug>(wheel-sync-up)'
-    " Add, Delete
-    exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
-    exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
-    " Next / Previous
+    " ---- navigate in the wheel
+    " --  next / previous
     exe nmap '<c-pageup>     <plug>(wheel-previous-location)'
     exe nmap '<c-pagedown>   <plug>(wheel-next-location)'
     exe nmap '<c-home>       <plug>(wheel-previous-circle)'
     exe nmap '<c-end>        <plug>(wheel-next-circle)'
     exe nmap '<s-home>       <plug>(wheel-previous-torus)'
     exe nmap '<s-end>        <plug>(wheel-next-torus)'
-    " History
+    " -- switch
+    exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
+    exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
+    exe nmap '<s-cr>        <plug>(wheel-prompt-torus)'
+    exe nmap '<space>       <plug>(wheel-dedibuf-location)'
+    exe nmap '<c-space>     <plug>(wheel-dedibuf-circle)'
+    exe nmap '<s-space>     <plug>(wheel-dedibuf-torus)'
+    " -- index
+    exe nmap '<m-x>         <plug>(wheel-prompt-index)'
+    exe nmap '<m-s-x>       <plug>(wheel-dedibuf-index)'
+    exe nmap '<m-c-x>       <plug>(wheel-dedibuf-tree)'
+    " -- history
     exe nmap '<m-pageup>     <plug>(wheel-history-newer)'
     exe nmap '<m-pagedown>   <plug>(wheel-history-older)'
     exe nmap '<m-c-pageup>     <plug>(wheel-history-newer-in-circle)'
     exe nmap '<m-c-pagedown>   <plug>(wheel-history-older-in-circle)'
     exe nmap '<m-s-pageup>     <plug>(wheel-history-newer-in-torus)'
     exe nmap '<m-s-pagedown>   <plug>(wheel-history-older-in-torus)'
-    " Alternate
+    exe nmap '<m-h>         <plug>(wheel-prompt-history)'
+    exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
+    " -- alternate
     exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
     exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
     exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
-    " Switch
-    exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
-    exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
-    exe nmap '<s-cr>        <plug>(wheel-prompt-torus)'
-    exe nmap '<m-x>         <plug>(wheel-prompt-index)'
-    exe nmap '<m-h>         <plug>(wheel-prompt-history)'
-    exe nmap '<space>       <plug>(wheel-dedibuf-location)'
-    exe nmap '<c-space>     <plug>(wheel-dedibuf-circle)'
-    exe nmap '<s-space>     <plug>(wheel-dedibuf-torus)'
-    exe nmap '<m-c-x>       <plug>(wheel-dedibuf-tree)'
-    exe nmap '<m-s-x>       <plug>(wheel-dedibuf-index)'
-    exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
-    " Search for files
-    exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
-    exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
-    exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
-    exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
-    exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
-    " Search inside files
-    exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
-    exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
-    exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-    exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
-    " Buffers
+    " ---- navigate with vim native tools
+    " -- buffers
     exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
     exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers)'
     exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers-all)'
-    " Tabs & windows : visible buffers
+    " -- tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
     exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
     exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
-    " (neo)vim lists
+    " -- (neo)vim lists
     exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
     exe nmap "<m-k>          <plug>(wheel-prompt-marker)"
     exe nmap '<m-j>          <plug>(wheel-prompt-jump)'
@@ -2907,40 +2896,50 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
     exe nmap '<m-;>          <plug>(wheel-dedibuf-changes)'
     exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
-    " Yank
-    exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
-    exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
-    " Reorganize wheel
+    " ---- organize the wheel
+    exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
+    exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
     exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
-    " Reorganize tabs & windows
+    " ---- organize other things
     exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
-    " Grep edit
+    " ---- refactor
     exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
-    " Narrow
     exe nmap_expr '<m-n>     wheel#polyphony#operator()'
     exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
-    " Undo list
+    " ---- search
+    " -- files
+    exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
+    exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
+    exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
+    exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
+    exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
+    " -- inside files
+    exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
+    exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
+    exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
+    exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
+    " ---- yank ring
+    exe nmap '<m-y>          <plug>(wheel-dedibuf-yank-list)'
+    exe nmap '<m-p>          <plug>(wheel-dedibuf-yank-plain)'
+    " ---- undo list
     exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
-    " Command
+    " ---- ex or shell command output
     exe nmap '<m-!>          <plug>(wheel-dedibuf-command)'
     exe nmap '<m-&>          <plug>(wheel-dedibuf-async)'
-    " Add new mandala buffer
+    " ---- dedicated buffers
     exe nmap '<m-tab>        <plug>(wheel-mandala-add)'
-    " Delete mandala buffer
     exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
-    " Cycle mandala buffers
     exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
     exe nmap '<m-end>         <plug>(wheel-mandala-forward)'
-    " Switch mandala buffers
     exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
-    " Layouts
+    " ---- layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
     exe nmap '<s-pageup>     <plug>(wheel-rotate-counter-clockwise)'
     exe nmap '<s-pagedown>   <plug>(wheel-rotate-clockwise)'
 <
 
 ------------------------------------------------------------------------------
-LEVEL 20					*wheel-mappings-level-20*
+LEVEL 20						*wheel-mappings-level-20*
 
 For debugging only.
 
@@ -2948,7 +2947,7 @@ For debugging only.
 | Z        | <M-w>Z              | Reset wheel variables to empty wheel |
 
 ------------------------------------------------------------------------------
-EXHAUSTIVE LIST			*wheel-mappings-exhaustive-list*
+EXHAUSTIVE LIST					*wheel-mappings-exhaustive-list*
 
 In the help submenu of the main or meta menu, you have access to :
 
@@ -2959,7 +2958,12 @@ You can then browse the maps and plugs in a dedicated wheel buffer. It
 is only a command output collector though, you can not launch any map
 from there.
 
-Plugs~
+Convention~
+
+- prompting functions plugs : contain `-prompt-`
+- dedicated buffer functions plugs : contain `-dedibuf-`
+
+Plug maps~
 
 Plug maps are middle men between wheel autoload functions and user
 mappings. Example of key binding using a plug map : >
@@ -2971,48 +2975,102 @@ Do not use no-recursive maps like |:nnoremap|, it would not work.
 
 All of these plugs are listed below.
 
-Straightforward :
+Menus~
+
+| Plug maps                | Description  |
+| ------------------------ | ------------ |
+| <plug>(wheel-menu-main)  | main menu    |
+| <plug>(wheel-menu-meta)  | meta menu    |
+
+Dashboard~
+
+| Plug maps                | Description  |
+| ------------------------ | ------------ |
+| <plug>(wheel-dashboard)  | dashboard    |
+
+Sync up & down~
+
+| Plug maps                 | Description                            |
+| ------------------------- | -------------------------------------- |
+| <plug>(wheel-sync-down)   | jump to current file & pos in wheel    |
+| <plug>(wheel-sync-up)     | follow current file                    |
+
+Load & save~
+
+| Plug maps                      | Description            |
+| ------------------------------ | ---------------------- |
+| <plug>(wheel-read-wheel)       | read wheel from file   |
+| <plug>(wheel-write-wheel)      | save wheel to file     |
+| <plug>(wheel-read-session)     | read wheel from file   |
+| <plug>(wheel-write-session)    | save wheel to file     |
+
+Navigate in the wheel~
 
 | Plug maps                                       | Description                               |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-menu-main)                         | main menu                                 |
-| <plug>(wheel-menu-meta)                         | meta menu                                 |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-dashboard)                         | dashboard                                 |
-| <plug>(wheel-sync-down)                         | jump to current file & pos in wheel       |
-| <plug>(wheel-sync-up)                           | follow current file                       |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-read-wheel)                        | read wheel from file                      |
-| <plug>(wheel-write-wheel)                       | save wheel to file                        |
-| <plug>(wheel-read-session)                      | read wheel from file                      |
-| <plug>(wheel-write-session)                     | save wheel to file                        |
-| ----------------------------------------------- | --------------------------------------    |
+| ----------------------------------------------- | ----------------------------------------- |
 | <plug>(wheel-previous-location)                 | go to previous location                   |
 | <plug>(wheel-next-location)                     | go to next location                       |
 | <plug>(wheel-previous-circle)                   | go to previous circle                     |
 | <plug>(wheel-next-circle)                       | go to next circle                         |
 | <plug>(wheel-previous-torus)                    | go to previous torus                      |
 | <plug>(wheel-next-torus)                        | go to next torus                          |
-| ----------------------------------------------- | --------------------------------------    |
+| ----------------------------------------------- | ----------------------------------------- |
+| <plug>(wheel-prompt-location)                   | switch location                           |
+| <plug>(wheel-prompt-circle)                     | switch circle                             |
+| <plug>(wheel-prompt-torus)                      | switch torus                              |
+| <plug>(wheel-prompt-multi-switch)               | switch torus, circle & location           |
+| <plug>(wheel-dedibuf-location)                  | switch location                           |
+| <plug>(wheel-dedibuf-circle)                    | switch circle                             |
+| <plug>(wheel-dedibuf-torus)                     | switch torus                              |
+| ----------------------------------------------- | ----------------------------------------- |
+| <plug>(wheel-prompt-index)                      | switch location in index                  |
+| <plug>(wheel-prompt-index-circles)              | switch circle in index                    |
+| <plug>(wheel-dedibuf-index)                     | index of locations                        |
+| <plug>(wheel-dedibuf-index-circles)             | index of circles                          |
+| <plug>(wheel-dedibuf-tree)                      | index of locations in tree fold format    |
+| ----------------------------------------------- | ----------------------------------------- |
 | <plug>(wheel-history-newer)                     | go to previous location in history        |
 | <plug>(wheel-history-older)                     | go to next location in history            |
 | <plug>(wheel-history-newer-in-circle)           | go to previous location in circle         |
 | <plug>(wheel-history-older-in-circle)           | go to next location in circle             |
 | <plug>(wheel-history-newer-in-torus)            | go to previous location in torus          |
 | <plug>(wheel-history-older-in-torus)            | go to next location in torus              |
-| ----------------------------------------------- | --------------------------------------    |
+| <plug>(wheel-prompt-history)                    | switch to element in history              |
+| <plug>(wheel-dedibuf-history)                   | index of locations history                |
+| ----------------------------------------------- | ----------------------------------------- |
 | <plug>(wheel-alternate-anywhere)                | alternate with last location              |
-| <plug>(wheel-alternate-same-circle)             | alternate locations in same circle        |
 | <plug>(wheel-alternate-same-torus)              | alternate locations in same torus         |
-| <plug>(wheel-alternate-other-circle)            | alternate locations in other circle       |
+| <plug>(wheel-alternate-same-circle)             | alternate locations in same circle        |
 | <plug>(wheel-alternate-other-torus)             | alternate locations in other torus        |
+| <plug>(wheel-alternate-other-circle)            | alternate locations in other circle       |
 | <plug>(wheel-alternate-same-torus-other-circle) | alternate in same torus, but other circle |
+| <plug>(wheel-alternate-menu)                    | menu to alternate                         |
 
-Prompt :
+Navigate with vim native tools~
+
+| Plug maps                            | Description                              |
+| ------------------------------------ | ---------------------------------------- |
+| <plug>(wheel-prompt-buffer)          | switch to buffer                         |
+| <plug>(wheel-dedibuf-buffers)        | buffers                                  |
+| <plug>(wheel-dedibuf-buffers-all)    | all buffers, including unlisted ones     |
+| ------------------------------------ | ---------------------------------------- |
+| <plug>(wheel-prompt-tabwin)          | visible buffers in tabs & windows        |
+| <plug>(wheel-dedibuf-tabwins)        | visible buffers in tabs & windows        |
+| <plug>(wheel-dedibuf-tabwins-tree)   | tabs & windows in tree fold format       |
+| ------------------------------------ | ---------------------------------------- |
+| <plug>(wheel-prompt-marker)          | switch to marker                         |
+| <plug>(wheel-prompt-jump)            | switch to jump                           |
+| <plug>(wheel-prompt-change)          | switch to change                         |
+| <plug>(wheel-prompt-tag)             | switch to tag                            |
+| ------------------------------------ | --------------------------------------   |
+| <plug>(wheel-dedibuf-markers)        | markers                                  |
+| <plug>(wheel-dedibuf-jumps)          | vim jumps                                |
+| <plug>(wheel-dedibuf-changes)        | vim changes                              |
+| <plug>(wheel-dedibuf-tags)           | tags                                     |
+
+Organize the wheel~
 
 | Plug maps                                       | Description                              |
-| ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-alternate-menu)                    | menu to alternate                        |
 | ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-prompt-add-here)                   | add current file in the current circle   |
 | <plug>(wheel-prompt-add-circle)                 | add a new circle                         |
@@ -3025,7 +3083,11 @@ Prompt :
 | <plug>(wheel-prompt-rename-circle)              | rename current circle                    |
 | <plug>(wheel-prompt-rename-torus)               | rename current torus                     |
 | <plug>(wheel-prompt-rename-file)                | rename current file & location           |
-| ----------------------------------------------- | ---------------------------------------- |
+| <plug>(wheel-dedibuf-rename-location)           | rename locations                         |
+| <plug>(wheel-dedibuf-rename-circle)             | rename circles                           |
+| <plug>(wheel-dedibuf-rename-torus)              | rename toruses                           |
+| <plug>(wheel-dedibuf-rename-location-filename)  | rename locations & filenames             |
+| ----------------------------------------------- | --------------------------------------   |
 | <plug>(wheel-prompt-delete-location)            | delete current location                  |
 | <plug>(wheel-prompt-delete-circle)              | delete current circle                    |
 | <plug>(wheel-prompt-delete-torus)               | delete current torus                     |
@@ -3033,93 +3095,86 @@ Prompt :
 | <plug>(wheel-prompt-copy-location)              | copy current location                    |
 | <plug>(wheel-prompt-copy-circle)                | copy current circle                      |
 | <plug>(wheel-prompt-copy-torus)                 | copy current torus                       |
-| ----------------------------------------------- | ---------------------------------------- |
 | <plug>(wheel-prompt-move-location)              | move current location                    |
 | <plug>(wheel-prompt-move-circle)                | move current circle                      |
+| <plug>(wheel-dedibuf-copy-move-location)        | batch copy-move locations                |
+| <plug>(wheel-dedibuf-copy-move-circle)          | batch copy-move circles                  |
+| <plug>(wheel-dedibuf-copy-move-torus)           | batch copy-move toruses                  |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-prompt-location)                   | switch location                          |
-| <plug>(wheel-prompt-circle)                     | switch circle                            |
-| <plug>(wheel-prompt-torus)                      | switch torus                             |
-| <plug>(wheel-prompt-multi-switch)               | switch torus, circle & location          |
-| <plug>(wheel-prompt-index)                      | switch location in index                 |
-| <plug>(wheel-prompt-index-circles)              | switch circle in index                   |
-| <plug>(wheel-prompt-history)                    | switch to element in history             |
+| <plug>(wheel-dedibuf-reorder-location)          | reorder locations                        |
+| <plug>(wheel-dedibuf-reorder-circle)            | reorder circles                          |
+| <plug>(wheel-dedibuf-reorder-torus)             | reorder toruses                          |
 | ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-prompt-mru)                        | switch to mru non wheel file             |
-| ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-prompt-occur)                      | switch to line in current file           |
-| ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-prompt-buffer)                     | switch to buffer                         |
-| <plug>(wheel-prompt-tabwin)                     | visible buffers in tabs & windows        |
-| ----------------------------------------------- | ---------------------------------------- |
-| <plug>(wheel-prompt-marker)                     | switch to marker                         |
-| <plug>(wheel-prompt-jump)                       | switch to jump                           |
-| <plug>(wheel-prompt-change)                     | switch to change                         |
-| <plug>(wheel-prompt-tag)                        | switch to tag                            |
+| <plug>(wheel-dedibuf-reorganize)                | reorganize wheel treeish structure       |
 
-Dedicated buffers :
+Organize other things~
 
-| Plug maps                                       | Description                            |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-location)                  | switch location                        |
-| <plug>(wheel-dedibuf-circle)                    | switch circle                          |
-| <plug>(wheel-dedibuf-torus)                     | switch torus                           |
-| <plug>(wheel-dedibuf-index)                     | index of locations                     |
-| <plug>(wheel-dedibuf-tree)                      | index of locations in tree fold format |
-| <plug>(wheel-dedibuf-index-circles)             | index of circles                       |
-| <plug>(wheel-dedibuf-history)                   | index of locations history             |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-locate)                    | search file with locate                |
-| <plug>(wheel-dedibuf-find)                      | find file in current dir               |
-| <plug>(wheel-dedibuf-async-find)                | search file with !find in async mode   |
-| <plug>(wheel-dedibuf-mru)                       | most recently used files               |
-| <plug>(wheel-dedibuf-buffers)                   | buffers                                |
-| <plug>(wheel-dedibuf-buffers)                   | all buffers, including unlisted ones   |
-| <plug>(wheel-dedibuf-tabwins)                   | visible buffers in tabs & windows      |
-| <plug>(wheel-dedibuf-tabwins-tree)              | tabs & windows in tree fold format     |
-| <plug>(wheel-dedibuf-occur)                     | occurences of pattern in current file  |
-| <plug>(wheel-dedibuf-grep)                      | grep pattern in all circle files       |
-| <plug>(wheel-dedibuf-outline)                   | headers in all circle files            |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-markers)                   | markers                                |
-| <plug>(wheel-dedibuf-jumps)                     | vim jumps                              |
-| <plug>(wheel-dedibuf-changes)                   | vim changes                            |
-| <plug>(wheel-dedibuf-tags)                      | tags                                   |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-yank-list)                 | yank wheel in list format              |
-| <plug>(wheel-dedibuf-yank-plain)                | yank wheel in plain format             |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-reorder-location)          | reorder locations                      |
-| <plug>(wheel-dedibuf-reorder-circle)            | reorder circles                        |
-| <plug>(wheel-dedibuf-reorder-torus)             | reorder toruses                        |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-rename-location)           | batch rename locations                 |
-| <plug>(wheel-dedibuf-rename-circle)             | batch rename circles                   |
-| <plug>(wheel-dedibuf-rename-torus)              | batch rename toruses                   |
-| <plug>(wheel-dedibuf-rename-location-filename)  | batch rename locations & filenames     |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-copy-move-location)        | batch copy-move locations              |
-| <plug>(wheel-dedibuf-copy-move-circle)          | batch copy-move circles                |
-| <plug>(wheel-dedibuf-copy-move-torus)           | batch copy-move toruses                |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-reorganize)                | reorganize wheel treeish structure     |
-| <plug>(wheel-dedibuf-reorg-tabwins)             | reorganize tabs & windows              |
-| <plug>(wheel-dedibuf-grep-edit)                 | grep circle files in edit mode         |
-| <plug>(wheel-dedibuf-narrow)                    | narrow current file                    |
-| <plug>(wheel-dedibuf-narrow-operator)           | narrow current file, operator pending  |
-| <plug>(wheel-dedibuf-narrow-circle)             | narrow all circle files                |
-| <plug>(wheel-dedibuf-undo-list)                 | go to undo state, compare with diff    |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-command)                   | output of ex or shell command          |
-| <plug>(wheel-dedibuf-async)                     | output of shell command in async mode  |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-mandala-push)                      | push a new dedicated buffer            |
-| <plug>(wheel-mandala-pop)                       | pop current dedicated buffer           |
-| <plug>(wheel-mandala-forward)                   | go to next dedicated buffer            |
-| <plug>(wheel-mandala-backward)                  | go to previous dedicated buffer        |
-| <plug>(wheel-mandala-switch)                    | switch to another dedicated buffer     |
+| Plug maps                             | Description                            |
+| ------------------------------------- | -------------------------------------- |
+| <plug>(wheel-dedibuf-reorg-tabwins)   | reorganize tabs & windows              |
 
-Layouts :
+Refactor~
+
+| Plug maps                             | Description                            |
+| ------------------------------------- | -------------------------------------- |
+| <plug>(wheel-dedibuf-grep-edit)       | grep circle files in edit mode         |
+| ------------------------------------- | -------------------------------------- |
+| <plug>(wheel-dedibuf-narrow)          | narrow current file                    |
+| <plug>(wheel-dedibuf-narrow-operator) | narrow current file, operator pending  |
+| <plug>(wheel-dedibuf-narrow-circle)   | narrow all circle files                |
+
+Search files~
+
+| Plug maps                          | Description                              |
+| ---------------------------------- | --------------------------------------   |
+| <plug>(wheel-prompt-mru)           | switch to mru non wheel file             |
+| <plug>(wheel-dedibuf-mru)          | most recently used files                 |
+| ---------------------------------- | --------------------------------------   |
+| <plug>(wheel-dedibuf-locate)       | search file with locate                  |
+| <plug>(wheel-dedibuf-find)         | find file in current dir                 |
+| <plug>(wheel-dedibuf-async-find)   | search file with !find in async mode     |
+
+Search inside files~
+
+| Plug maps                          | Description                            |
+| ---------------------------------- | -------------------------------------- |
+| <plug>(wheel-prompt-occur)         | switch to line in current file         |
+| <plug>(wheel-dedibuf-occur)        | occurences of pattern in current file  |
+| ---------------------------------- | -------------------------------------- |
+| <plug>(wheel-dedibuf-grep)         | grep pattern in all circle files       |
+| <plug>(wheel-dedibuf-outline)      | headers in all circle files            |
+
+Yank wheel~
+
+| Plug maps                                       | Description                              |
+| ----------------------------------------------- | --------------------------------------   |
+| <plug>(wheel-dedibuf-yank-list)                 | yank wheel in list format                |
+| <plug>(wheel-dedibuf-yank-plain)                | yank wheel in plain format               |
+
+Undo list~
+
+| Plug maps                                       | Description                              |
+| ----------------------------------------------- | --------------------------------------   |
+| <plug>(wheel-dedibuf-undo-list)                 | go to undo state, compare with diff      |
+
+Ex or shell command output~
+
+| Plug maps                                       | Description                              |
+| ----------------------------------------------- | --------------------------------------   |
+| <plug>(wheel-dedibuf-command)                   | output of ex or shell command            |
+| <plug>(wheel-dedibuf-async)                     | output of shell command in async mode    |
+
+Handling dedicated buffers~
+
+| Plug maps                                       | Description                              |
+| ----------------------------------------------- | --------------------------------------   |
+| <plug>(wheel-mandala-push)                      | push a new dedicated buffer              |
+| <plug>(wheel-mandala-pop)                       | pop current dedicated buffer             |
+| <plug>(wheel-mandala-forward)                   | go to next dedicated buffer              |
+| <plug>(wheel-mandala-backward)                  | go to previous dedicated buffer          |
+| <plug>(wheel-mandala-switch)                    | switch to another dedicated buffer       |
+
+Layouts~
 
 | Plug maps                                       | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
@@ -3150,12 +3205,20 @@ Layouts :
 | <plug>(wheel-rotate-counter-clockwise)          | rotate windows counter clockwise       |
 | <plug>(wheel-rotate-clockwise)                  | rotate windows clockwise               |
 
-Miscellaneous :
+Miscellaneous~
 
 | Plug maps                                       | Description                               |
 | ----------------------------------------------- | --------------------------------------    |
 | <plug>(wheel-spiral-cursor)                     | put the cursor in a golden ratio position |
-| <plug>(wheel-debug-fresh-wheel)                 | empty the wheel for debugging purpose     |
+
+Debug~
+
+| Plug maps                                       | Description                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-debug-fresh-wheel)                 | empty the wheel for debugging purpose  |
+| <plug>(wheel-debug-clear-echo-area)             | clear echo area                        |
+| <plug>(wheel-prompt-history-circuit)            | history circuit                        |
+| <plug>(wheel-dedibuf-history-circuit)           | history circuit                        |
 
 ------------------------------------------------------------------------------
 OTHER IDEAS				*wheel-mappings-ideas*

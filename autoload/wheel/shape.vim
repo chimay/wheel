@@ -1,8 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Reshaping, reorganizing dedicated buffers
+" Dedicated buffers to organize
 
-" Script constants
+" script constants
 
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
@@ -19,7 +19,7 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" Write commands
+" write commands
 
 fun! wheel#shape#write (fun_name, ...)
 	" Define BufWriteCmd autocommand
@@ -46,7 +46,7 @@ fun! wheel#shape#write (fun_name, ...)
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
-" Reorder
+" reorder
 
 fun! wheel#shape#reorder (level)
 	" Reorder level elements in a buffer
@@ -66,7 +66,7 @@ fun! wheel#shape#reorder (level)
 	let b:wheel_reload = "wheel#shape#reorder('" .. level .. "')"
 endfun
 
-" Rename
+" rename
 
 fun! wheel#shape#rename (level)
 	" Rename level elements in a buffer
@@ -111,7 +111,7 @@ fun! wheel#shape#rename_files ()
 	return v:true
 endfun
 
-" Batch copy/move
+" batch copy/move
 
 fun! wheel#shape#copy_move (level)
 	" Copy or move elements at level
@@ -140,7 +140,7 @@ fun! wheel#shape#copy_move (level)
 	let b:wheel_reload = "wheel#shape#copy_move('" .. level .. "')"
 endfun
 
-" Reorganize
+" reorganize
 
 fun! wheel#shape#reorganize ()
 	" Reorganize the wheel tree
@@ -161,7 +161,7 @@ fun! wheel#shape#reorganize ()
 	let b:wheel_reload = 'wheel#shape#reorganize'
 endfun
 
-" Reorganize tabs
+" reorganize tabs
 
 fun! wheel#shape#reorg_tabwins ()
 	" Reorganize tabs & windows
@@ -182,7 +182,7 @@ fun! wheel#shape#reorg_tabwins ()
 	let b:wheel_reload = 'wheel#shape#reorg_tabwins'
 endfun
 
-" Grep
+" grep
 
 fun! wheel#shape#grep_edit (...)
 	" Reorder level elements in a buffer

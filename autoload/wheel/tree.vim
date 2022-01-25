@@ -1,6 +1,9 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Prompt functions to organize the wheel
+"
 " Tree = toruses / circles / locations
+"
 " Adding
 " Renaming
 " Removing
@@ -9,7 +12,7 @@
 "
 " To insert a non-breaking space : C-v x a 0
 
-" Script constants
+" script constants
 
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
@@ -21,7 +24,7 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" Helpers
+" helpers
 
 fun! wheel#tree#is_in_circle (location, circle)
 	" Whether file & cursor position is in circle
@@ -69,7 +72,7 @@ fun! wheel#tree#add_name (location)
 	return location.name
 endfun
 
-" Insert existent element
+" insert existent element
 
 fun! wheel#tree#insert_torus (torus)
 	" Insert torus into wheel
@@ -144,7 +147,7 @@ fun! wheel#tree#insert_location (location)
 	return v:true
 endfun
 
-" Add new element
+" add new element
 
 fun! wheel#tree#add_torus (...)
 	" Add torus
@@ -350,7 +353,7 @@ fun! wheel#tree#add_glob (...)
 	return filelist
 endfun
 
-" Rename
+" rename
 
 fun! wheel#tree#rename (level, ...)
 	" Rename current element at level -> new
@@ -399,7 +402,7 @@ fun! wheel#tree#rename (level, ...)
 	return v:true
 endfun
 
-" Rename file
+" rename file
 
 fun! wheel#tree#adapt_filename (old_filename, new_filename)
 	" Adapt wheel variables to new_filename
@@ -472,7 +475,7 @@ fun! wheel#tree#rename_file (...)
 	return v:true
 endfun
 
-" Remove
+" remove
 
 fun! wheel#tree#remove (level, name)
 	" Remove element given by name at level
@@ -508,7 +511,7 @@ fun! wheel#tree#remove (level, name)
 	return v:true
 endfun
 
-" Delete
+" delete
 
 fun! wheel#tree#delete (level, ask = 'confirm')
 	" Delete current element at level
@@ -556,7 +559,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	return v:true
 endfun
 
-" Copy / Move
+" copy / move
 
 fun! wheel#tree#copy_move (level, mode, ...)
 	" Copy or move element of level
