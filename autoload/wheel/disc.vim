@@ -70,13 +70,16 @@ endfun
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
 	let file = expand(a:file)
-	let suffixes = range(a:backups, 1, -1)
+	let backups = a:backups
+	let padding = len(string(backups))
+	let format = '%0' .. padding .. 'd'
+	let suffixes = range(backups, 1, -1)
+	eval suffixes->map({ _, val -> printf(format, val) })
 	let filelist = map(suffixes, {ind, val -> file .. '.' .. val})
 	let filelist = add(filelist, file)
-	let command = 'cp -f '
 	while len(filelist) > 1
-		let second = expand(remove(filelist, 0))
-		let first = expand(filelist[0])
+		let second = remove(filelist, 0)
+		let first = filelist[0]
 		if filereadable(first)
 			"echomsg 'renaming' first '->' second
 			let zero = rename(first, second)

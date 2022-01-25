@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Navigation buffers
+" Navigation dedicated buffers
 
 " Script constants
 

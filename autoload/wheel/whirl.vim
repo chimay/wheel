@@ -1,9 +1,11 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Navigation prompt for non-wheel places
+"
 " Switch with native (neo)vim functions
 "
 " Move to file & cursor position
-
+"
 " Like vortex.vim, but does not involve wheel elements
 
 " script constants

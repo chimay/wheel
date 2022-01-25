@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Reshaping buffers
+" Reshaping, reorganizing dedicated buffers
 
 " Script constants
 
