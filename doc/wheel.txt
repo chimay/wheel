@@ -2836,7 +2836,6 @@ mapping level to less than 10, then copy and adapt the following lines : >
 
     let nmap = 'nmap <silent>'
     let vmap = 'vmap <silent>'
-    let nmap_expr = 'nnoremap <expr>'
     " Menus
     exe nmap '<m-m>          <plug>(wheel-menu-main)'
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
@@ -2904,7 +2903,8 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
     " ---- refactor
     exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
-    exe nmap_expr '<m-n>     wheel#polyphony#operator()'
+    exe nmap '<m-n>          <plug>(wheel-dedibuf-narrow-operator)'
+    exe vmap '<m-n>          <plug>(wheel-dedibuf-narrow)'
     exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
     " ---- search
     " -- files

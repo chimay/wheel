@@ -205,7 +205,6 @@ fun! wheel#centre#cables ()
 	" maps arguments
 	let nmap = 'nmap <silent>'
 	let vmap = 'vmap <silent>'
-	let nmap_expr = 'nnoremap <expr>'
 	" general prefix
 	let prefix = g:wheel_config.prefix
 	" subprefixes
@@ -468,7 +467,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
 		" ---- refactor
 		exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
-		exe nmap_expr '<m-n>     wheel#polyphony#operator()'
+		exe nmap '<m-n>          <plug>(wheel-dedibuf-narrow-operator)'
+		exe vmap '<m-n>          <plug>(wheel-dedibuf-narrow)'
 		exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
 		" ---- search
 		" -- files
