@@ -459,6 +459,11 @@ fun! wheel#perspective#jumps ()
 	let jumplist = getjumplist()[0]
 	for jump in jumplist
 		let bufnum = jump.bufnr
+		" valid number ?
+		if bufnum <= 0
+			"echomsg 'wheel perspective jumps : bufnum' bufnum 'on' jump
+			continue
+		endif
 		let linum = jump.lnum
 		let colnum = jump.col
 		if has_key(jump, 'filename')
