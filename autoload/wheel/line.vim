@@ -1,6 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
 " Action of the cursor line :
+"
 " - Going to an element
 " - Paste
 " - Undo & diff
@@ -22,50 +23,6 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" ---- cursor default line
-
-fun! wheel#line#default ()
-	" Put the cursor on default line
-	" If on filtering line, put the cursor in default line 2
-	if wheel#teapot#has_filter() && line('.') == 1 && line('$') > 1
-		call cursor(2, 1)
-	endif
-endfun
-
-" ---- address of current line
-
-fun! wheel#line#address (...)
-	" Return complete information of element at line
-	" This can be :
-	"   - plain : in ordinary mandala buffer
-	"   - treeish : in folded mandala buffer
-	" Optional argument : line number
-	" Default : current line number
-	if a:0 > 0
-		let linum = a:1
-	else
-		let linum = line('.')
-	endif
-	call wheel#line#default ()
-	if ! &foldenable
-		let cursor_line = getline(linum)
-		return wheel#pencil#erase (cursor_line)
-	else
-		let position = getcurpos()
-		call cursor(linum, 1)
-		let type = wheel#mandala#type ()
-		if type == 'index/tree'
-			let address = wheel#origami#chord ()
-		elseif type == 'tabwins/tree'
-			let address = wheel#origami#tabwin ()
-		else
-			let address = []
-		endif
-		call wheel#gear#restore_cursor (position)
-		return address
-	endif
-endfun
-
 " ---- target
 
 fun! wheel#line#where (target)
@@ -75,11 +32,14 @@ fun! wheel#line#where (target)
 	"                     in tabs & windows
 	"   - here : load the buffer in current window,
 	"            do not search in tabs & windows
+	" See also vortex#jump
+	" -- arguments
 	let target = a:target
-	" search for window is better with prompt functions
+	" -- search for window is better with prompt functions
 	"if target ==# 'current'
 		"return 'search-window'
 	"endif
+	" -- coda
 	return 'here'
 endfun
 
@@ -87,11 +47,11 @@ fun! wheel#line#target (target)
 	" Open target tab / win if needed before navigation
 	let target = a:target
 	if target ==# 'tab'
-		tabnew
+		noautocmd tabnew
 	elseif target ==# 'horizontal_split'
-		split
+		noautocmd split
 	elseif target ==# 'vertical_split'
-		vsplit
+		noautocmd vsplit
 	elseif target ==# 'horizontal_golden'
 		call wheel#spiral#horizontal_split ()
 	elseif target ==# 'vertical_golden'
@@ -534,7 +494,8 @@ fun! wheel#line#paste_list (...)
 		endif
 		let content = eval(line)
 	else
-		let content = deepcopy( wheel#pencil#addresses () )
+		let selection = wheel#pencil#selection ()
+		let content = deepcopy(selection.addresses)
 		eval content->map({ _, list_string -> eval(list_string) })
 		eval content->map({ _, list -> join(list, "\n") })
 	endif
@@ -567,7 +528,8 @@ fun! wheel#line#paste_plain (...)
 	if wheel#pencil#is_selection_empty ()
 		let content = [ getline('.') ]
 	else
-		let content = deepcopy( wheel#pencil#addresses () )
+		let selection = wheel#pencil#selection ()
+		let content = deepcopy(selection.addresses)
 	endif
 	if empty(content)
 		return v:false

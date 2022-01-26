@@ -23,7 +23,7 @@ fun! wheel#loop#selection (settings)
 	let target = settings.target
 	let close = settings.close
 	" ---- selection
-	let selection = wheel#pencil#addresses ()
+	let selection = wheel#pencil#selection ()
 	if empty(selection[0])
 		return v:false
 	endif
@@ -33,14 +33,14 @@ fun! wheel#loop#selection (settings)
 	call wheel#rectangle#previous ()
 	" ---- target : current window or not ?
 	if target == 'current'
-		let settings.selection = selection[0]
+		let settings.selection = selection.addresses[0]
 		let winiden = wheel#gear#call(Fun, settings)
 		if &foldopen =~ 'jump'
 			normal! zv
 		endif
 		call wheel#spiral#cursor ()
 	else
-		for elem in selection
+		for elem in selection.addresses
 			let settings.selection = elem
 			let winiden = wheel#gear#call(Fun, settings)
 			if &foldopen =~ 'jump'

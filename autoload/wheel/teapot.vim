@@ -143,6 +143,35 @@ fun! wheel#teapot#filter (mode = 'normal')
 	endif
 endfun
 
+" clear filter
+
+fun! wheel#teapot#clear (mode = 'normal')
+	" Filter : keep only lines matching words of first line
+	" Optional argument mode :
+	"   - normal : end in normal mode
+	"   - insert : end in insert mode
+	let mode = a:mode
+	let words = wheel#teapot#wordlist ()
+	if ! empty(words)
+		let lines = b:wheel_lines
+		let b:wheel_filter.words = []
+		let b:wheel_filter.indexes = []
+		let b:wheel_filter.lines = []
+	endif
+	call wheel#teapot#prompt('')
+	call wheel#mandala#replace (lines, 'keep-first')
+	call wheel#pencil#show ()
+	if mode == 'normal'
+		if line('$') > 1
+			call cursor(2, 1)
+		endif
+	elseif mode == 'insert'
+		"call cursor(1, 1)
+		" ! = insert at the end of line
+		startinsert!
+	endif
+endfun
+
 " mappings
 
 fun! wheel#teapot#ctrl_u ()

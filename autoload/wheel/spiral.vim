@@ -54,12 +54,12 @@ fun! wheel#spiral#horizontal_split ()
 	" Horizontal split with golden ratio
 	let height = wheel#spiral#height ()
 	let height = float2nr(ceil(height))
-	execute height .. 'split'
+	execute 'noautocmd' height 'split'
 endfun
 
 fun! wheel#spiral#vertical_split ()
 	" Vertical split with golden ratio
 	let width = wheel#spiral#width ()
 	let width = float2nr(ceil(width))
-	execute width .. 'vsplit'
+	execute 'noautocmd' width 'vsplit'
 endfun

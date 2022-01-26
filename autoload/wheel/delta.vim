@@ -19,7 +19,7 @@ fun! wheel#delta#undo_iden (...)
 		let line = '.'
 	endif
 	if line == '.'
-		call wheel#line#default ()
+		call wheel#pencil#default_line ()
 	elseif line == 1
 		let line = wheel#teapot#first_data_line ()
 	endif

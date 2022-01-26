@@ -38,6 +38,66 @@ fun! wheel#pencil#has_select_mark (line)
 	return a:line =~ selection_pattern
 endfun
 
+" address at current line
+
+fun! wheel#pencil#default_line ()
+	" If on filter line, put the cursor on line 2 if possible
+	" If on filtering line, put the cursor in default line 2
+	let has_filter = wheel#teapot#has_filter()
+	let is_filtered = wheel#teapot#is_filtered ()
+	if line('$') == 1 && is_filtered
+		call wheel#teapot#clear()
+	endif
+	if line('$') == 1
+		echomsg 'wheel pencil default line : mandala is empty'
+		return v:false
+	endif
+	let cur_line = line('.')
+	let last_line = line('$')
+	if has_filter && cur_line == 1 && last_line > 1
+		call cursor(2, 1)
+	endif
+	return v:true
+endfun
+
+fun! wheel#pencil#address (...)
+	" Return complete information of element at line
+	" This can be :
+	"   - plain : in ordinary mandala buffer
+	"   - treeish : in folded mandala buffer
+	" Optional argument : line number
+	" Default : current line number
+	" ---- default line if needed
+	" ---- must come before : line('.')
+	call wheel#pencil#default_line ()
+	" ---- arguments
+	if a:0 > 0
+		let linum = a:1
+	else
+		let linum = line('.')
+	endif
+	" ---- address
+	if ! &foldenable
+		" -- plain
+		let cursor_line = getline(linum)
+		return wheel#pencil#erase (cursor_line)
+	else
+		" -- treeish
+		let position = getcurpos()
+		call cursor(linum, 1)
+		let type = wheel#mandala#type ()
+		if type == 'index/tree'
+			let address = wheel#origami#chord ()
+		elseif type == 'tabwins/tree'
+			let address = wheel#origami#tabwin ()
+		else
+			let address = []
+		endif
+		call wheel#gear#restore_cursor (position)
+		return address
+	endif
+endfun
+
 " add / remove mark
 
 fun! wheel#pencil#draw (line)
@@ -81,7 +141,7 @@ fun! wheel#pencil#select (...)
 	endif
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
-	let address = wheel#line#address (linum)
+	let address = wheel#pencil#address (linum)
 	" -- shift between b:wheel_lines indexes and buffer line numbers
 	let shift = wheel#teapot#first_data_line ()
 	" -- global index of current line in b:wheel_lines
@@ -115,7 +175,7 @@ fun! wheel#pencil#clear (...)
 	endif
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
-	let address = wheel#line#address (linum)
+	let address = wheel#pencil#address (linum)
 	" -- indexes
 	let index = wheel#teapot#line_index (linum)
 	let found = selection.indexes->index(index)
@@ -232,9 +292,11 @@ fun! wheel#pencil#selection ()
 		return wheel#upstream#selection ()
 	endif
 	if wheel#pencil#is_selection_empty ()
+		" go to default line if neede
+		" must come before line('.')
+		let address = wheel#pencil#address ()
 		let linum = line('.')
 		let line_index = wheel#teapot#line_index (linum)
-		let address = wheel#line#address ()
 		let selection = {}
 		let selection.indexes = [ line_index ]
 		let selection.addresses = [ address ]
@@ -242,19 +304,6 @@ fun! wheel#pencil#selection ()
 		let selection = b:wheel_selection
 	endif
 	return selection
-endfun
-
-fun! wheel#pencil#addresses ()
-	" Return selection addresses
-	" If empty, return address of current line
-	" If context menu, look in previous leaf
-	if wheel#boomerang#is_context_menu ()
-		return wheel#upstream#addresses ()
-	endif
-	if wheel#pencil#is_selection_empty ()
-		return [ wheel#line#address () ]
-	endif
-	return b:wheel_selection.addresses
 endfun
 
 " mappings

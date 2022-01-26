@@ -252,11 +252,11 @@ fun! wheel#book#syncup ()
 	let leaf.preview = copy(b:wheel_preview)
 	" -- cursor
 	" position
-	call wheel#line#default ()
+	call wheel#pencil#default_line ()
 	let cursor = leaf.cursor
 	let cursor.position = getcurpos()
 	" address of cursor line : useful for context menus
-	let cursor.address = wheel#line#address()
+	let cursor.address = wheel#pencil#address()
 	" -- settings
 	let leaf.settings = deepcopy(b:wheel_settings)
 	" -- reload
