@@ -2,8 +2,9 @@
 
 " Check & fix
 "
-" Kintsugi is a traditional japanese art that fixes
-" a broken object by highlighting the damages
+" Kintsugi is a traditional japanese art
+" that fixes a broken object by highlighting the joins.
+" The damages are considered a part of the object history
 
 " Script constants
 
