@@ -270,14 +270,14 @@ fun! wheel#line#tabwins_tree (settings)
 endfun
 
 fun! wheel#line#occur (settings)
-	" Go to line given by selection
+	" Go to buffer line matching pattern
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
+	let component = settings.selection.component
 	let bufnum = a:settings.related_buffer
 	" ---- go
-	let fields = split(selection, s:field_separ)
+	let fields = split(component, s:field_separ)
 	let line = str2nr(fields[0])
 	call wheel#line#target (target)
 	execute 'buffer' bufnum
@@ -289,12 +289,12 @@ fun! wheel#line#occur (settings)
 endfun
 
 fun! wheel#line#grep (settings)
-	" Go to settings.selection quickfix line
+	" Go to grep quickfix line
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	" ---- go
 	call wheel#line#target (target)
 	" -- using error number
@@ -311,12 +311,12 @@ fun! wheel#line#grep (settings)
 endfun
 
 fun! wheel#line#mru (settings)
-	" Edit settings.selection MRU file
+	" Edit Most Recently Used file
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	let filename = fields[1]
 	" ---- go
 	call wheel#line#target (target)
@@ -325,11 +325,11 @@ fun! wheel#line#mru (settings)
 endfun
 
 fun! wheel#line#locate (settings)
-	" Edit settings.selection locate file
+	" Find file with locate command
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let filename = settings.selection
+	let filename = settings.selection.component
 	" ---- go
 	call wheel#line#target (target)
 	execute 'edit' filename
@@ -337,11 +337,11 @@ fun! wheel#line#locate (settings)
 endfun
 
 fun! wheel#line#find (settings)
-	" Edit settings.selection locate file
+	" Find file with find command
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let filename = settings.selection
+	let filename = settings.selection.component
 	let filename = trim(filename, ' ')
 	" ---- go
 	call wheel#line#target (target)
@@ -350,12 +350,12 @@ fun! wheel#line#find (settings)
 endfun
 
 fun! wheel#line#markers (settings)
-	" Go to settings.selection marker
+	" Go to vim marker
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	let mark = fields[0]
 	"let line = fields[1]
 	"let column = fields[2]
@@ -369,12 +369,12 @@ fun! wheel#line#markers (settings)
 endfun
 
 fun! wheel#line#jumps (settings)
-	" Go to element in jumps list given by selection
+	" Go to element in jumps list
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	let bufnum = fields[0]
 	let linum = str2nr(fields[1])
 	let colnum = str2nr(fields[2])
@@ -392,12 +392,12 @@ fun! wheel#line#jumps (settings)
 endfun
 
 fun! wheel#line#changes (settings)
-	" Go to element in changes list given by selection
+	" Go to element in changes list
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
 	let bufnum = a:settings.related_buffer
@@ -412,12 +412,12 @@ fun! wheel#line#changes (settings)
 endfun
 
 fun! wheel#line#tags (settings)
-	" Go to settings.selection tag
+	" Go to tag
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	let file = fields[2]
 	let search = fields[3][1:]
 	" ---- go
@@ -437,13 +437,13 @@ fun! wheel#line#tags (settings)
 endfun
 
 fun! wheel#line#narrow_file (settings)
-	" Go to settings.selection narrowed line of current file
+	" Go to narrowed line of current file
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
+	let component = settings.selection.component
 	let bufnum = settings.bufnum
-	let fields = split(selection, s:field_separ)
+	let fields = split(component, s:field_separ)
 	let linum = str2nr(fields[0])
 	" ---- go
 	call wheel#line#target (target)
@@ -453,23 +453,23 @@ fun! wheel#line#narrow_file (settings)
 endfun
 
 fun! wheel#line#narrow_circle (settings)
-	" Go to settings.selection narrowed line in circle
+	" Go to narrowed line in circle
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	"let index = selection.index
-	let fields = split(selection, s:field_separ)
+	let index = settings.selection.index
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
 	" ---- go
 	call wheel#line#target (a:settings.target)
 	" -- using error number
-	"let errnum = index + 1
-	"execute 'cc' errnum
+	let errnum = index + 1
+	execute 'cc' errnum
 	" -- using buffer, line & col
-	execute 'buffer' bufnum
-	call cursor(linum, 1)
+	"execute 'buffer' bufnum
+	"call cursor(linum, 1)
 	" ---- coda
 	return win_getid ()
 endfun
