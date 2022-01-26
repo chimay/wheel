@@ -181,6 +181,10 @@ fun! wheel#book#previous (...)
 	" Return previous leaf if no argument is given
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
+	if length == 0
+		echomsg 'wheel book previous : empty leaf ring (should not happen)'
+		return v:false
+	endif
 	if length == 1
 		echomsg 'wheel book previous : only one leaf in the ring'
 		return []
@@ -198,6 +202,10 @@ fun! wheel#book#next (...)
 	" Return next leaf if no argument is given
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
+	if length == 0
+		echomsg 'wheel book next : empty leaf ring (should not happen)'
+		return v:false
+	endif
 	if length == 1
 		echomsg 'wheel book next : only one leaf in the ring'
 		return []
@@ -386,12 +394,12 @@ fun! wheel#book#delete ()
 	let length = len(leaves)
 	" -- do not delete element from empty ring
 	if length == 0
-		echomsg 'wheel leaf delete : empty leaf ring (should not happen)'
+		echomsg 'wheel book delete : empty leaf ring (should not happen)'
 		return v:false
 	endif
 	" -- do not delete element from one element ring
 	if length == 1
-		echomsg 'wheel leaf delete :' leaves[0].filename 'is the last layer in ring'
+		echomsg 'wheel book delete :' leaves[0].filename 'is the last layer in ring'
 		return v:false
 	endif
 	" -- do not delete if child context menu is next
@@ -417,7 +425,7 @@ endfun
 fun! wheel#book#forward ()
 	" Go forward in layer ring
 	if wheel#mandala#is_empty()
-		echomsg 'wheel leaf forward : deleting empty leaf'
+		echomsg 'wheel book forward : deleting empty leaf'
 		call wheel#book#delete ()
 	endif
 	call wheel#book#syncup ()
@@ -435,7 +443,7 @@ endfun
 fun! wheel#book#backward ()
 	" Go backward in layer ring
 	if wheel#mandala#is_empty()
-		echomsg 'wheel leaf backward : deleting empty leaf'
+		echomsg 'wheel book backward : deleting empty leaf'
 		call wheel#book#delete ()
 	endif
 	call wheel#book#syncup ()
@@ -455,7 +463,7 @@ endfun
 fun! wheel#book#switch (...)
 	" Switch to layer with completion
 	if wheel#mandala#is_empty()
-		echomsg 'wheel leaf switch : deleting empty leaf'
+		echomsg 'wheel book switch : deleting empty leaf'
 		call wheel#book#delete ()
 	endif
 	call wheel#book#syncup ()
