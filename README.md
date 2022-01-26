@@ -323,15 +323,15 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.grep = 'grep'
 
   " Maximum number of elements in history
-  let g:wheel_config.maxim.history = 50
+  let g:wheel_config.maxim.history = 400
   " Maximum number of elements in input history
-  let g:wheel_config.maxim.input = 100
+  let g:wheel_config.maxim.input = 200
 
   " Maximum number of elements in mru
-  let g:wheel_config.maxim.mru = 120
+  let g:wheel_config.maxim.mru = 300
 
   " Maximum number of elements in yank ring
-  let g:wheel_config.maxim.yanks = 300
+  let g:wheel_config.maxim.yanks = 500
   " Maximum size of elements in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 
