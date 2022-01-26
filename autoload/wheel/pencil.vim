@@ -62,40 +62,45 @@ endfun
 
 fun! wheel#pencil#address (...)
 	" Return complete information of element at line
-	" This can be :
+	" Returns [line index in b:wheel_lines, full line information]
+	" Mandala can be :
 	"   - plain : in ordinary mandala buffer
 	"   - treeish : in folded mandala buffer
-	" Optional argument : line number
-	" Default : current line number
+	" Optional argument :
+	"   - line number
+	"   - default : current line number
 	" ---- default line if needed
 	" ---- must come before : line('.')
-	call wheel#pencil#default_line ()
+	if ! wheel#pencil#default_line ()
+		return []
+	endif
 	" ---- arguments
 	if a:0 > 0
 		let linum = a:1
 	else
 		let linum = line('.')
 	endif
-	" ---- address
+	" ---- plain
 	if ! &foldenable
-		" -- plain
 		let cursor_line = getline(linum)
-		return wheel#pencil#erase (cursor_line)
-	else
-		" -- treeish
-		let position = getcurpos()
-		call cursor(linum, 1)
-		let type = wheel#mandala#type ()
-		if type == 'index/tree'
-			let address = wheel#origami#chord ()
-		elseif type == 'tabwins/tree'
-			let address = wheel#origami#tabwin ()
-		else
-			let address = []
-		endif
-		call wheel#gear#restore_cursor (position)
-		return address
+		let line_index = wheel#teapot#line_index (linum)
+		let content = wheel#pencil#erase (cursor_line)
+		let cursor_selection = [line_index, content]
+		return cursor_selection
 	endif
+	" ---- treeish
+	let position = getcurpos()
+	call cursor(linum, 1)
+	let type = wheel#mandala#type ()
+	if type == 'index/tree'
+		let address = wheel#origami#chord ()
+	elseif type == 'tabwins/tree'
+		let address = wheel#origami#tabwin ()
+	else
+		let address = []
+	endif
+	call wheel#gear#restore_cursor (position)
+	return [linum, address]
 endfun
 
 " add / remove mark
@@ -292,13 +297,11 @@ fun! wheel#pencil#selection ()
 		return wheel#upstream#selection ()
 	endif
 	if wheel#pencil#is_selection_empty ()
-		" go to default line if neede
-		" must come before line('.')
-		let address = wheel#pencil#address ()
-		let linum = line('.')
-		let line_index = wheel#teapot#line_index (linum)
+		let cursor_selection = wheel#pencil#address ()
+		let index = cursor_selection[0]
+		let address = cursor_selection[1]
 		let selection = {}
-		let selection.indexes = [ line_index ]
+		let selection.indexes = [ index ]
 		let selection.addresses = [ address ]
 	else
 		let selection = b:wheel_selection

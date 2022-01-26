@@ -457,18 +457,18 @@ fun! wheel#line#narrow_circle (settings)
 	let settings = a:settings
 	let target = settings.target
 	let selection = settings.selection
+	"let index = selection.index
 	let fields = split(selection, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
 	" ---- go
 	call wheel#line#target (a:settings.target)
 	" -- using error number
-	let index = wheel#teapot#line_index(linum)
-	let errnum = index + 1
-	execute 'cc' errnum
+	"let errnum = index + 1
+	"execute 'cc' errnum
 	" -- using buffer, line & col
-	"execute 'buffer' bufnum
-	"call cursor(linum, 1)
+	execute 'buffer' bufnum
+	call cursor(linum, 1)
 	" ---- coda
 	return win_getid ()
 endfun

@@ -24,7 +24,9 @@ fun! wheel#loop#selection (settings)
 	let close = settings.close
 	" ---- selection
 	let selection = wheel#pencil#selection ()
-	if empty(selection[0])
+	let indexes = selection.indexes
+	let addresses = selection.addresses
+	if empty(indexes)
 		return v:false
 	endif
 	" ---- switch off preview

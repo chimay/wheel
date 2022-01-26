@@ -123,12 +123,11 @@ endfun
 
 fun! wheel#complete#leaf (arglead, cmdline, cursorpos)
 	" Complete leaf type
-	let filenames = copy( wheel#book#ring ('filename') )
-	if empty(filenames)
+	let forest = copy( wheel#book#ring ('nature') )
+	if empty(forest)
 		return []
 	endif
-	let Fun = function('wheel#status#type')
-	let choices = map(filenames, { _, val -> Fun(val) })
+	let choices = map(forest, { _, val -> val.type })
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun

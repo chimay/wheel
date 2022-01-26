@@ -81,7 +81,7 @@ fun! wheel#status#mandala_leaf ()
 	let oneline = g:wheel_config.display.message == 'one-line'
 	let bufnums = g:wheel_mandalas.ring
 	" -- current leaf type
-	let title = '[' .. wheel#status#type () .. ']'
+	let title = '[' .. wheel#mandala#type () .. ']'
 	" -- type function
 	let Type = function('wheel#status#type')
 	" -- mandala ring status
