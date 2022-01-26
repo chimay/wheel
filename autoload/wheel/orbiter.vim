@@ -10,7 +10,9 @@ fun! wheel#orbiter#preview ()
 	endif
 	let settings = b:wheel_settings
 	call wheel#whirl#default (settings)
-	let settings.selection = wheel#pencil#cursor_selection ()
+	let cursor_selection = wheel#pencil#cursor_selection ()
+	let settings.selection.index = cursor_selection.indexes[0]
+	let settings.selection.component = cursor_selection.components[0]
 	let settings.follow = v:false
 	call wheel#rectangle#previous ()
 	let Fun = settings.function

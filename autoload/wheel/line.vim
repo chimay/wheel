@@ -74,6 +74,7 @@ fun! wheel#line#switch (settings)
 	let settings = a:settings
 	let target = settings.target
 	let level = settings.level
+	echomsg settings
 	let component = settings.selection.component
 	" ---- jump
 	let where = wheel#line#where (target)
