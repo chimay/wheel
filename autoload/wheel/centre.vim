@@ -369,7 +369,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<backspace> <plug>(wheel-mandala-delete)'
 		exe nmap prefix .. '<left> <plug>(wheel-mandala-backward)'
 		exe nmap prefix .. '<right>  <plug>(wheel-mandala-forward)'
-		exe nmap prefix .. '<m-space> <plug>(wheel-mandala-switch)'
+		exe nmap prefix .. '<up> <plug>(wheel-mandala-switch)'
 		" ---- layouts
 		exe nmap prefix .. layout .. 'z <plug>(wheel-layout-zoom)'
 		" -- tabs

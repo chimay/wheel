@@ -574,7 +574,7 @@ Search inside file~
 
 Switch dedicated buffer~
 
-The default mapping is `<M-w><M-space>`.
+The default mapping is `<M-w><Up>`.
 
 See |wheel-dedicated-buffers-ring|.
 
@@ -897,7 +897,7 @@ BUFFERS RING	    				*wheel-dedicated-buffers-ring*
 Wheel manages a dedicated buffers ring. You can :
 
 - push a new dedicated buffer as default one with `<M-w><Tab>`
-- switch to another dedicated buffer with `<M-w><M-Space>`, completion is available
+- switch to another dedicated buffer with `<M-w><Up>`, completion is available
 - cycle the dedicated buffers with `<M-w><Left>` or `<M-w><Right>`
     + open the current dedicated buffer if it is closed
 - remove the current dedicated buffer with `<M-w><Backspace>`
@@ -2695,7 +2695,7 @@ Managing dedicated buffers~
 | <Backspace> | <M-w><Backspace>    | Delete dedicated buffer            |
 | <Left>      | <M-w><Left>         | Cycle dedicated buffers, leftward  |
 | <Right>     | <M-w><Right>        | Cycle dedicated buffers, rightward |
-| <M-Space>   | <M-w><M-Space>      | Switch to another dedicated buffer |
+| <Up>        | <M-w><Up>           | Switch to another dedicated buffer |
 
 Layouts~
 
@@ -3226,18 +3226,18 @@ Layouts~
 
 Miscellaneous~
 
-| Plug maps                                       | Description                               |
-| ----------------------------------------------- | --------------------------------------    |
-| <plug>(wheel-spiral-cursor)                     | put the cursor in a golden ratio position |
+| Plug maps                     | Description                                |
+| ----------------------------- | ------------------------------------------ |
+| <plug>(wheel-spiral-cursor)   | put the cursor in a golden ratio position  |
 
 Debug~
 
-| Plug maps                                       | Description                            |
-| ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-debug-fresh-wheel)                 | empty the wheel for debugging purpose  |
-| <plug>(wheel-debug-clear-echo-area)             | clear echo area                        |
-| <plug>(wheel-prompt-history-circuit)            | history circuit                        |
-| <plug>(wheel-dedibuf-history-circuit)           | history circuit                        |
+| Plug maps                              | Description                            |
+| -------------------------------------- | -------------------------------------- |
+| <plug>(wheel-debug-fresh-wheel)        | empty the wheel for debugging purpose  |
+| <plug>(wheel-debug-clear-echo-area)    | clear echo area                        |
+| <plug>(wheel-prompt-history-circuit)   | history circuit                        |
+| <plug>(wheel-dedibuf-history-circuit)  | history circuit                        |
 
 ------------------------------------------------------------------------------
 OTHER IDEAS				*wheel-mappings-ideas*
