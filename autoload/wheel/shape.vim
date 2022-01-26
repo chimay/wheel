@@ -2,18 +2,6 @@
 
 " Organize non-wheel elements, dedicated buffers
 
-" script constants
-
-if ! exists('s:is_mandala_file')
-	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
-	lockvar s:is_mandala_file
-endif
-
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
-endif
-
 " reorganize tabs
 
 fun! wheel#shape#reorg_tabwins ()

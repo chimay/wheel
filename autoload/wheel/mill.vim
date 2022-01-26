@@ -1,6 +1,13 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Refactoring non-wheel elements, dedicated buffers
+" Refactoring, dedicated buffers
+
+" script constants
+
+if ! exists('s:is_mandala_file')
+	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+	lockvar s:is_mandala_file
+endif
 
 " grep edit
 
@@ -73,8 +80,18 @@ fun! wheel#mill#narrow_file (...) range
 	endif
 	if first == last
 		" assume the user does not launch it just for one line
-		let first = 1
-		let last = line('$')
+		let range = input('Range of line to narrow ? ')
+		if empty(range)
+			let rangelist = [1, line('$')]
+		endif
+		for separ in [',', ';', '-', ' ']
+			if range =~ separ
+				let rangelist = split(range, separ)
+				break
+			endif
+		endfor
+		let first = str2nr(rangelist[0])
+		let last = str2nr(rangelist[1])
 	endif
 	let bufnum = bufnr('%')
 	let filename = bufname(bufnum)

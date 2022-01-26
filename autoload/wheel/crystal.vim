@@ -459,7 +459,7 @@ endif
 if ! exists('s:menu_refactoring')
 	let s:menu_refactoring = [
 				\ ['grep in edit mode' ,  'wheel#mill#grep_edit'],
-				\ ['narrow current file' ,  'wheel#polyphony#operator'],
+				\ ['narrow current file' ,  'wheel#mill#narrow_file'],
 				\ ['narrow all files in circle' ,  'wheel#mill#narrow_circle'],
 				\]
 	lockvar s:menu_refactoring
