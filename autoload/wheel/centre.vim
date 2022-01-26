@@ -423,7 +423,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
 		exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
 		exe nmap '<s-cr>        <plug>(wheel-prompt-torus)'
-		exe nmap '<space>       <plug>(wheel-dedibuf-location)'
+		exe nmap '<m-space>     <plug>(wheel-dedibuf-location)'
 		exe nmap '<c-space>     <plug>(wheel-dedibuf-circle)'
 		exe nmap '<s-space>     <plug>(wheel-dedibuf-torus)'
 		" -- index
@@ -501,11 +501,11 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
 		exe nmap '<m-left>       <plug>(wheel-mandala-backward)'
 		exe nmap '<m-right>      <plug>(wheel-mandala-forward)'
-		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
+		exe nmap '<m-up>         <plug>(wheel-mandala-switch)'
 		" ---- layouts
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
-		exe nmap '<m-up>         <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap '<m-down>       <plug>(wheel-rotate-clockwise)'
+		exe nmap '<c-up>         <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap '<c-down>       <plug>(wheel-rotate-clockwise)'
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20

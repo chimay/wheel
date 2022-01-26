@@ -2771,7 +2771,7 @@ adapt them to your taste and add them to your init file.
 | <M-Enter>      | Prompt for a location to switch to            |
 | <C-Enter>      | Prompt for a circle to switch to              |
 | <S-Enter>      | Prompt for a torus to switch to               |
-| <Space>        | Choose location in dedicated buffer           |
+| <M-Space>      | Choose location in dedicated buffer           |
 | <C-Space>      | Choose circle in dedicated buffer             |
 | <S-Space>      | Choose torus in dedicated buffer              |
 | -------------- | --------------------------------------------- |
@@ -2842,11 +2842,11 @@ adapt them to your taste and add them to your init file.
 | <M-Backspace>  | Remove (pop) dedicated buffer                 |
 | <M-Home>       | Cycle dedicated buffers, leftward             |
 | <M-End>        | Cycle dedicated buffers, rightward            |
-| <M-Space>      | Switch dedicated buffer                       |
+| <M-Up>         | Switch dedicated buffer                       |
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
-| <M-Up>         | Rotate windows counter clockwise              |
-| <M-Down>       | Rotate windows clockwise                      |
+| <C-Up>         | Rotate windows counter clockwise              |
+| <C-Down>       | Rotate windows clockwise                      |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -2872,7 +2872,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
     exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
     exe nmap '<s-cr>        <plug>(wheel-prompt-torus)'
-    exe nmap '<space>       <plug>(wheel-dedibuf-location)'
+    exe nmap '<m-space>     <plug>(wheel-dedibuf-location)'
     exe nmap '<c-space>     <plug>(wheel-dedibuf-circle)'
     exe nmap '<s-space>     <plug>(wheel-dedibuf-torus)'
     " -- index
@@ -2950,11 +2950,11 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
     exe nmap '<m-left>       <plug>(wheel-mandala-backward)'
     exe nmap '<m-right>      <plug>(wheel-mandala-forward)'
-    exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
+    exe nmap '<m-up>         <plug>(wheel-mandala-switch)'
     " ---- layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
-    exe nmap '<m-up>         <plug>(wheel-rotate-counter-clockwise)'
-    exe nmap '<m-down>       <plug>(wheel-rotate-clockwise)'
+    exe nmap '<c-up>         <plug>(wheel-rotate-counter-clockwise)'
+    exe nmap '<c-down>       <plug>(wheel-rotate-clockwise)'
 <
 
 ------------------------------------------------------------------------------
