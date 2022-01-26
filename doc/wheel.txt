@@ -1953,7 +1953,7 @@ Maximum number of elements in the yank ring : >
 ------------------------------------------------------------------------------
 MAX SIZE OF A YANK IN YANK WHEEL	   *wheel-config-maxim-yank_size*
 
-Maximum size of elements in the yank ring : >
+Maximum size of each element in the yank ring, in bytes : >
 
     let g:wheel_config.maxim.yank_size = 3000
 <
