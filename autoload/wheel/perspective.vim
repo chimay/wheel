@@ -289,7 +289,7 @@ fun! wheel#perspective#buffers (scope = 'listed')
 		if buffer.changed
 			let indicator ..= ' +'
 		else
-			let indicator ..= ' '
+			let indicator ..= '  '
 		endif
 		" check for nameless or mandalas buffers
 		let is_nameless = empty(filename)

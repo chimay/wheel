@@ -331,6 +331,9 @@ fun! wheel#line#narrow_circle (settings)
 	"execute 'buffer' bufnum
 	"call cursor(linum, 1)
 	" ---- coda
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 

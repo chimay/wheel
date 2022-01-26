@@ -50,11 +50,7 @@ fun! wheel#upstream#selection ()
 	" Return selection of parent leaf or parent index & component if empty
 	if wheel#upstream#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
-		let linum = cursor.position[1]
-		let line_index = wheel#upstream#line_index (linum)
-		let selection = {}
-		let selection.indexes = [ line_index ]
-		let selection.components = [ cursor.component ]
+		let selection = cursor.selection
 	else
 		let selection = deepcopy(wheel#book#previous('selection'))
 	endif
