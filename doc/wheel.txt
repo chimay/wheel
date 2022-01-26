@@ -298,16 +298,17 @@ MOVING AROUND					     *wheel-sbs-moving-around*
 
 Cycling~
 
-You can cycle the files of a circle with `<M-w><Left>` and
-`<M-w><Right>`. These are often used bindings, so I suggest you map
+You can cycle the files of a circle with `<M-w><PageUp>` and
+`<M-w><PageDown>`. These are often used bindings, so I suggest you map
 them to more convenient keys, like `<M-PageUp>` and `<M-PageDown>`. See
 |wheel-mappings-level-10|.
 
-To cycle the circles, use `<M-w><C-Left>` and `<M-w><C-Right>`. You can
-also map them to more convenient keys, like `<C-Home>` and `<C-End>`.
+To cycle the circles, use `<M-w><C-PageUp>` and `<M-w><C-PageDown>`. You
+can also map them to more convenient keys, like `<C-PageUp>` and
+`<C-PageDown>`.
 
-To cycle the toruses, use `<M-w><S-Left>` and `<M-w><S-Right>` or
-map them to `<S-Home>` and `<S-End>`.
+To cycle the toruses, use `<M-w><S-PageUp>` and `<M-w><S-PageDown>`
+or map them to `<S-PageUp>` and `<S-PageDown>`.
 
 Switching~
 
@@ -340,13 +341,13 @@ Let's say you have these entries in the wheel :
 | script | shell   | autostop    |
 
 If you launch the "switch in index" action with `<M-w>x`, and pre-fill
-the prompt with "ed vi" before hitting `<tab>`, the plugin will give
+the prompt with "ed vi" before hitting `<Tab>`, the plugin will give
 you this completion candidates :
 
 - config > edit > vim
 - config > edit > neovim
 
-If you pre-fill the prompt with "ed vi neo" before hitting `<tab>`,
+If you pre-fill the prompt with "ed vi neo" before hitting `<Tab>`,
 the plugin will only give you "config > edit > neovim".
 
 As usual, hit enter to validate you choice.
@@ -397,7 +398,7 @@ TAGS						*wheel-sbs-tags*
 If you use a tags file, you can jump to any tag with `<M-w>t`.
 Completion is available at the prompt.
 
-For instance, `pro fol<tab>` gives me the function
+For instance, `pro fol<Tab>` gives me the function
 `wheel#projection#follow` straight away. Warp speed, Scotty.
 
 You can also search for a tag in a dedicated buffer with `<M-w><M-t>`.
@@ -417,24 +418,24 @@ NAVIGATION				*wheel-straightforward-functions-navigation*
 
 Next~
 
-- location : `<M-w><Right>`
-- circle : `<M-w><C-Right>`
-- torus : `<M-w><S-Right>`
+- location : `<M-w><PageDown>`
+- circle : `<M-w><C-PageDown>`
+- torus : `<M-w><S-PageDown>`
 
 Previous~
 
-- location : `<M-w><Left>`
-- circle : `<M-w><C-Left>`
-- torus : `<M-w><S-Left>`
+- location : `<M-w><PageUp>`
+- circle : `<M-w><C-PageUp>`
+- torus : `<M-w><S-PageUp>`
 
 History~
 
-- older location in history : `<M-w><Down>`
-- newer location in history : `<M-w><Up>`
-- older location in same circle : `<M-w><C-Down>`
-- newer location in same circle : `<M-w><C-Up>`
-- older location in same torus : `<M-w><S-Down>`
-- newer location in same torus : `<M-w><S-Up>`
+- older location in history : `<M-w><Home>`
+- newer location in history : `<M-w><End>`
+- older location in same circle : `<M-w><C-Home>`
+- newer location in same circle : `<M-w><C-End>`
+- older location in same torus : `<M-w><S-Home>`
+- newer location in same torus : `<M-w><S-End>`
 
 ------------------------------------------------------------------------------
 INFO					*wheel-straightforward-functions-info*
@@ -505,7 +506,7 @@ the nature of the asked entry :
 - tag
 - and so on
 
-Hitting |'wildchar'| (most likely `<tab>`), will trigger the completion.
+Hitting |'wildchar'| (most likely `<Tab>`), will trigger the completion.
 
 You can enter one or more patterns before hitting |'wildchar'| to narrow
 the completion list :
@@ -621,7 +622,7 @@ based on the current file directory. Different flavours are available :
 - absolute path
 
 You can of course adapt the completed name before confirming with
-`<enter>`. In fact, the name you choose can be anything you want, as
+`<Enter>`. In fact, the name you choose can be anything you want, as
 long as it is not already in the current torus.
 
 Add a location to the current circle~
@@ -637,7 +638,7 @@ based on the current file name. Different flavours are available :
 - file name with absolute path
 
 You can of course adapt the completed name before confirming with
-`<enter>`. In fact, the name you choose can be anything you want, as
+`<Enter>`. In fact, the name you choose can be anything you want, as
 long as it is not already in the current circle.
 
 You can also add :
@@ -789,8 +790,8 @@ Action~
 
 The main keys are :
 
-- `<enter>` : trigger the default action, close the dedicated buffer
-- `g<enter>` : trigger the default action, leave the dedicated buffer opened
+- `<Enter>` : trigger the default action, close the dedicated buffer
+- `g<Enter>` : trigger the default action, leave the dedicated buffer opened
 
 Reload~
 
@@ -802,7 +803,7 @@ Quit~
 
 Press `q` to quit the dedicated buffer.
 
-It is not lost : you can reopen it any time with `<m-w><end>`.
+It is not lost : you can reopen it any time with `<M-w><Right>`.
 
 ------------------------------------------------------------------------------
 TOOLS						*wheel-dedicated-buffers-tools*
@@ -811,7 +812,7 @@ Select entries~
 
 Some dedicated buffers can act on selected entries. You can hit :
 
-- `<space>` to toggle the selection of a line
+- `<Space>` to toggle the selection of a line
 - `&` to reverse the selection of all visible lines
 - `*` to select all visible lines
 - `|` to clear the selection of all visible lines
@@ -825,7 +826,7 @@ Filtering~
 In most dedicated buffers, the first line is left almost empty, with
 just a prompt : it is used as an input line to filter the buffer. You
 can go to insert mode and filter the elements with each pattern you
-enter on the input (first) line. Typing `<space>`, `<esc>` or `<enter>`
+enter on the input (first) line. Typing `<Space>`, `<Esc>` or `<Enter>`
 will update the candidates. Note that `<C-c>` is not mapped, in case
 you need to go to normal mode without triggering the filter function.
 
@@ -895,7 +896,7 @@ Wheel manages a dedicated buffers ring. You can :
 
 - push a new dedicated buffer as default one with `<M-w><Tab>`
 - switch to another dedicated buffer with `<M-w><M-Space>`, completion is available
-- cycle the dedicated buffers with `<M-w><home>` (left) or `<M-w><end>` (right)
+- cycle the dedicated buffers with `<M-w><Left>` or `<M-w><Right>`
     + open the current dedicated buffer if it is closed
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
@@ -914,7 +915,7 @@ as a kind of local history. You can :
 - go back to the previous layer (and associated wheel function) by pressing `H`
 - go forward to the next layer by pressing `L`
 - switch to another layer with `<M-l>`, completion is available
-- destroy current layer and go back to the previous one by pressing `<backspace>`
+- destroy current layer and go back to the previous one by pressing `<Backspace>`
 
 The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers`
 
@@ -932,16 +933,16 @@ You can filter the menu lines by entering patterns in insert mode.
 
 Action~
 
-In menu buffers, `<tab>` is a synonym for `<enter>` : trigger action.
+In menu buffers, `<Tab>` is a synonym for `<Enter>` : trigger action.
 
-Since there is no need to select multiple elements, `<space>` is a
-shortcut for `g<enter>` : launch action and leave the menu opened.
+Since there is no need to select multiple elements, `<Space>` is a
+shortcut for `g<Enter>` : launch action and leave the menu opened.
 
 Main menu~
 
 The main menu is triggered with `<M-w><M-m>` by default. From there,
-you can launch an action by pressing `<enter>` on its line. Same thing
-for `g<enter>`, but it will leave the dedicated buffer opened.
+you can launch an action by pressing `<Enter>` on its line. Same thing
+for `g<Enter>`, but it will leave the dedicated buffer opened.
 
 The available actions are grouped by themes and folded. Just open a fold to
 access its content.
@@ -969,24 +970,24 @@ launch a sub-menu. Each sub-menu holds actions of the same category :
 
 In these sub-menus, you can use the keys :
 
-- `<enter>`             : launch the action on the cursor line
-- `g<enter>`, `<space>`   : launch action and leave the menu opened
-- `<backspace>`         : leads you back to the meta menu
+- `<Enter>`             : launch the action on the cursor line
+- `g<Enter>`, `<Space>`   : launch action and leave the menu opened
+- `<Backspace>`         : leads you back to the meta menu
 
 ------------------------------------------------------------------------------
 CONTEXT MENUS				*wheel-dedicated-buffers-context*
 
 Some dedicated buffers have context menu support. In that case, pressing
-`<tab>` will open a menu where you can choose the action you want to
+`<Tab>` will open a menu where you can choose the action you want to
 apply to the selected or cursor line(s).
 
-If you change your mind and wish to come back, just press `<backspace>`.
+If you change your mind and wish to come back, just press `<Backspace>`.
 
 ------------------------------------------------------------------------------
 NAVIGATION				*wheel-dedicated-buffers-navigation*
 
 The navigation buffers allow you to quickly switch to a Wheel location
-by pressing `<enter>` on the matching line. You can also use the keys :
+by pressing `<Enter>` on the matching line. You can also use the keys :
 
 - `t` : open element in a new tab
 - `s` : open element in a new split
@@ -996,7 +997,7 @@ by pressing `<enter>` on the matching line. You can also use the keys :
 
 Same keys as above, but leave the navigation buffer opened :
 
-- `g<enter>` : same as `<enter>`
+- `g<Enter>` : same as `<Enter>`
 - `gt` : same as `t`
 - `gs` : same as `s`
 - `gv` : same as `v`
@@ -1458,8 +1459,8 @@ You can narrow down the lines as much as you want before editing them.
 To let you edit the buffer as usual :
 
 - `i` and `a` are not mapped in normal mode : press `<M-i>` or `<Ins>` instead
-- `<esc>` are `<space>` are not mapped in insert mode
-  + press `<enter>` instead of `<esc>`
+- `<Esc>` are `<Space>` are not mapped in insert mode
+  + press `<Enter>` instead of `<Esc>`
 
 You can modify the existing lines as much as you want. There is also a
 limited support to add line with buffer local maps :
@@ -1519,8 +1520,8 @@ much as you want before editing them.
 To let you edit the buffer as usual :
 
 - `i` and `a` are not mapped in normal mode : press `<M-i>` or `<Ins>` instead
-- `<esc>` are `<space>` are not mapped in insert mode
-  + press `<enter>` instead of `<esc>`
+- `<Esc>` are `<Space>` are not mapped in insert mode
+  + press `<Enter>` instead of `<Esc>`
 
 You can modify the existing lines as much as you want, but adding or
 removing lines is currently not supported.
@@ -1558,8 +1559,8 @@ YANK						*wheel-dedicated-buffers-yank*
 As usual, you can filter the elements in insert mode.
 The available local maps are :
 
- - `<enter>` : paste a yank after cursor
- - `g<enter>` : paste a yank after cursor, leave yank ring opened
+ - `<Enter>` : paste a yank after cursor
+ - `g<Enter>` : paste a yank after cursor, leave yank ring opened
  - `p` : paste a yank after cursor, leave yank ring opened
  - `P` : paste a yank before cursor, leave yank ring opened
 
@@ -1600,7 +1601,7 @@ In this buffer, you can navigate in the undo tree of the related buffer.
 
 Actions available :
 
-- `<enter>` : go to the undo position of the current line
+- `<Enter>` : go to the undo position of the current line
 - `-` : perform |:earlier| on the related buffer
 - `+` : perform |:later| on the related buffer
 - `u` : go back to the last undo state
@@ -2439,27 +2440,27 @@ Read / Write file~
 
 Next / previous~
 
-| Prefix +   | With default prefix   | Action                  |
-| ---------- | --------------------- | ----------------------- |
-| <left>     | <M-w><left>           | Go to previous location |
-| <right>    | <M-w><right>          | Go to next location     |
-| ---------- | --------------------- | ----------------------- |
-| <C-left>   | <M-w><C-left>         | Go to previous circle   |
-| <C-right>  | <M-w><C-right>        | Go to next circle       |
-| ---------- | --------------------- | ----------------------- |
-| <S-left>   | <M-w><S-left>         | Go to previous torus    |
-| <S-right>  | <M-w><S-right>        | Go to next torus        |
+| Prefix +     | With default prefix   | Action                  |
+| ----------   | --------------------- | ----------------------- |
+| <PageUp>     | <M-w><PageUp>         | Go to previous location |
+| <PageDown>   | <M-w><PageDown>       | Go to next location     |
+| ----------   | --------------------- | ----------------------- |
+| <C-PageUp>   | <M-w><C-PageUp>       | Go to previous circle   |
+| <C-PageDown> | <M-w><C-PageDown>     | Go to next circle       |
+| ----------   | --------------------- | ----------------------- |
+| <S-PageUp>   | <M-w><S-PageUp>       | Go to previous torus    |
+| <S-PageDown> | <M-w><S-PageDown>     | Go to next torus        |
 
 History~
 
 | Prefix +    | With default prefix | Action                                        |
 | ----------- | ------------------- | --------------------------------------------- |
-| <Up>        | <M-w><Up>           | Go to newer location in history               |
-| <Down>      | <M-w><Down>         | Go to older location in history               |
-| <C-Up>      | <M-w><C-Up>         | Go to newer location in circle                |
-| <C-Down>    | <M-w><C-Down>       | Go to older location in circle                |
-| <S-Up>      | <M-w><S-Up>         | Go to newer location in torus                 |
-| <S-Down>    | <M-w><S-Down>       | Go to older location in torus                 |
+| <Home>      | <M-w><Home>         | Go to newer location in history               |
+| <End>       | <M-w><End>          | Go to older location in history               |
+| <C-Home>    | <M-w><C-Home>       | Go to newer location in circle                |
+| <C-End>     | <M-w><C-End>        | Go to older location in circle                |
+| <S-Home>    | <M-w><S-Home>       | Go to newer location in torus                 |
+| <S-End>     | <M-w><S-End>        | Go to older location in torus                 |
 | ----------- | ------------------- | --------------------------------------------- |
 | ^           | <M-w>^              | Alternate menu                                |
 | <C-^>       | <M-w><C-^>          | Alternate anywhere                            |
@@ -2690,8 +2691,8 @@ Managing dedicated buffers~
 | --------    | ------------------- | ---------------------------------  |
 | <Tab>       | <M-w><Tab>          | Add new dedicated buffer           |
 | <Backspace> | <M-w><Backspace>    | Delete dedicated buffer            |
-| <M-Home>    | <M-w><M-Home>       | Cycle dedicated buffers, leftward  |
-| <End>       | <M-w><End>          | Cycle dedicated buffers, rightward |
+| <Left>      | <M-w><Left>         | Cycle dedicated buffers, leftward  |
+| <Right>     | <M-w><Right>        | Cycle dedicated buffers, rightward |
 | <M-Space>   | <M-w><M-Space>      | Switch to another dedicated buffer |
 
 Layouts~
@@ -3322,17 +3323,17 @@ List all tag of a kind 		 	   |wheel-examples-tag-kind|
 ------------------------------------------------------------------------------
 DISPLAY SOME LOCATIONS IN TABS	    *wheel-examples-locations-in-tabs*
 
-Just press `<M-w><space>` to launch the location navigator, select the
+Just press `<M-w><Space>` to launch the location navigator, select the
 locations you want and press `t`.
 
 ------------------------------------------------------------------------------
 DISPLAY MATCHING FILES IN SPLITS    *wheel-examples-matching-files-in-split*
 
-- `<M-w><space>` to launch the location navigator
+- `<M-w><Space>` to launch the location navigator
 - `i` to go to insert mode & filter line
 - enter the pattern you want
   + e.g. `\.vim$` if all your vim locations end with `.vim`
-- `<enter>` to validate the pattern
+- `<Enter>` to validate the pattern
 - `*` to select all the visible (filtered) locations
 - `v` to open all selected locations in vertical splits
 
@@ -3389,7 +3390,7 @@ scripts.
 Replace everywhere, except in a given file~
 
 Once in the narrow buffer, press `<m-i>`, insert `!my_file` in the first
-line and press `<enter>` to apply the filter.
+line and press `<Enter>` to apply the filter.
 
 You can then run a substitute on the visible lines and propagate your
 changes by writing the buffer.

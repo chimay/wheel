@@ -235,19 +235,19 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'W <plug>(wheel-write-session)'
 		" ---- navigate in the wheel
 		" -- next / previous
-		exe nmap prefix .. '<left> <plug>(wheel-previous-location)'
-		exe nmap prefix .. '<right> <plug>(wheel-next-location)'
-		exe nmap prefix .. '<c-left> <plug>(wheel-previous-circle)'
-		exe nmap prefix .. '<c-right> <plug>(wheel-next-circle)'
-		exe nmap prefix .. '<s-left> <plug>(wheel-previous-torus)'
-		exe nmap prefix .. '<s-right> <plug>(wheel-next-torus)'
+		exe nmap prefix .. '<pageup>     <plug>(wheel-previous-location)'
+		exe nmap prefix .. '<pagedown>   <plug>(wheel-next-location)'
+		exe nmap prefix .. '<c-pageup>   <plug>(wheel-previous-circle)'
+		exe nmap prefix .. '<c-pagedown> <plug>(wheel-next-circle)'
+		exe nmap prefix .. '<s-pageup>   <plug>(wheel-previous-torus)'
+		exe nmap prefix .. '<s-pagedown> <plug>(wheel-next-torus)'
 		" -- history
-		exe nmap prefix .. '<up> <plug>(wheel-history-newer)'
-		exe nmap prefix .. '<down> <plug>(wheel-history-older)'
-		exe nmap prefix .. '<c-up> <plug>(wheel-history-newer-in-circle)'
-		exe nmap prefix .. '<c-down> <plug>(wheel-history-older-in-circle)'
-		exe nmap prefix .. '<s-up> <plug>(wheel-history-newer-in-torus)'
-		exe nmap prefix .. '<s-down> <plug>(wheel-history-older-in-torus)'
+		exe nmap prefix .. '<home>   <plug>(wheel-history-newer)'
+		exe nmap prefix .. '<end>    <plug>(wheel-history-older)'
+		exe nmap prefix .. '<c-home> <plug>(wheel-history-newer-in-circle)'
+		exe nmap prefix .. '<c-end>  <plug>(wheel-history-older-in-circle)'
+		exe nmap prefix .. '<s-home> <plug>(wheel-history-newer-in-torus)'
+		exe nmap prefix .. '<s-end>  <plug>(wheel-history-older-in-torus)'
 		" -- alternate
 		exe nmap prefix .. '<c-^> <plug>(wheel-alternate-anywhere)'
 		exe nmap prefix .. '<m-^> <plug>(wheel-alternate-same-circle)'
@@ -367,8 +367,8 @@ fun! wheel#centre#cables ()
 		" ---- dedicated buffers
 		exe nmap prefix .. '<tab> <plug>(wheel-mandala-add)'
 		exe nmap prefix .. '<backspace> <plug>(wheel-mandala-delete)'
-		exe nmap prefix .. '<home> <plug>(wheel-mandala-backward)'
-		exe nmap prefix .. '<end>  <plug>(wheel-mandala-forward)'
+		exe nmap prefix .. '<left> <plug>(wheel-mandala-backward)'
+		exe nmap prefix .. '<right>  <plug>(wheel-mandala-forward)'
 		exe nmap prefix .. '<m-space> <plug>(wheel-mandala-switch)'
 		" ---- layouts
 		exe nmap prefix .. layout .. 'z <plug>(wheel-zoom)'
