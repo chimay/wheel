@@ -1,162 +1,21 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Action of the cursor line :
+" Non-wheel action of the cursor line :
 "
-" - Going to an element
-" - Paste
-" - Undo & diff
+" - going to an element
+" - paste
+" - undo & diff
+"
+" called by loop#selection, and sometimes loop#boomerang
 
 " ---- script constants
-
-if ! exists('s:is_mandala_file')
-	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
-	lockvar s:is_mandala_file
-endif
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ
 endif
 
-if ! exists('s:level_separ')
-	let s:level_separ = wheel#crystal#fetch('separator/level')
-	lockvar s:level_separ
-endif
-
-" ---- target
-
-fun! wheel#line#where (target)
-	" Where to jump
-	" Return value :
-	"   - search-window : search for active buffer
-	"                     in tabs & windows
-	"   - here : load the buffer in current window,
-	"            do not search in tabs & windows
-	" See also vortex#jump
-	" -- arguments
-	let target = a:target
-	" -- search for window is better with prompt functions
-	"if target ==# 'current'
-		"return 'search-window'
-	"endif
-	" -- coda
-	return 'here'
-endfun
-
-fun! wheel#line#target (target)
-	" Open target tab / win if needed before navigation
-	let target = a:target
-	if target ==# 'tab'
-		noautocmd tabnew
-	elseif target ==# 'horizontal_split'
-		noautocmd split
-	elseif target ==# 'vertical_split'
-		noautocmd vsplit
-	elseif target ==# 'horizontal_golden'
-		call wheel#spiral#horizontal_split ()
-	elseif target ==# 'vertical_golden'
-		call wheel#spiral#vertical_split ()
-	endif
-endfun
-
-" ---- applications of loop#selection, and sometimes loop#boomerang
-
-" -- wheel applications
-
-fun! wheel#line#switch (settings)
-	" Switch to element in wheel
-	" settings keys :
-	" - target : current, tab, horizontal_split, vertical_split
-	" - level : torus, circle or location
-	" - selection : selection item
-	" - selection.component : place to jump to
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let level = settings.level
-	echomsg settings
-	let component = settings.selection.component
-	" ---- jump
-	let where = wheel#line#where (target)
-	call wheel#line#target (target)
-	call wheel#vortex#switch(level, component, where)
-	return win_getid ()
-endfun
-
-fun! wheel#line#helix (settings)
-	" Go to torus > circle > location
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let component = settings.selection.component
-	let coordin = split(component, s:level_separ)
-	" ---- jump
-	let where = wheel#line#where (target)
-	call wheel#line#target (target)
-	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (where)
-	return win_getid ()
-endfun
-
-fun! wheel#line#grid (settings)
-	" Go to torus > circle
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let component = settings.selection.component
-	let coordin = split(component, s:level_separ)
-	" ---- jump
-	let where = wheel#line#where (target)
-	call wheel#line#target (target)
-	call wheel#vortex#interval (coordin)
-	call wheel#vortex#jump (where)
-	return win_getid ()
-endfun
-
-fun! wheel#line#tree (settings)
-	" Go to torus, circle or location in tree view
-	" Possible vallues of selection component :
-	" - [torus]
-	" - [torus, circle]
-	" - [torus, circle, location]
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let coordin = settings.selection.component
-	let length = len(coordin)
-	" ---- jump
-	let where = wheel#line#where (target)
-	call wheel#line#target (a:settings.target)
-	if length == 3
-		call wheel#vortex#chord(coordin)
-	elseif length == 2
-		call wheel#vortex#interval (coordin)
-	elseif length == 1
-		call wheel#vortex#tune('torus', coordin[0])
-	else
-		return v:false
-	endif
-	call wheel#vortex#jump (where)
-	return win_getid ()
-endfun
-
-fun! wheel#line#history (settings)
-	" Go to location in history
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let component = settings.selection.component
-	let fields = split(component, s:field_separ)
-	let coordin = split(fields[1], s:level_separ)
-	" ---- jump
-	let where = wheel#line#where (target)
-	call wheel#line#target (target)
-	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (where)
-	return win_getid ()
-endfun
-
-" -- non wheel applications
+" -- applications
 
 fun! wheel#line#buffers (settings)
 	" Go to buffer
@@ -177,12 +36,12 @@ fun! wheel#line#buffers (settings)
 		let target = settings.target
 		let coordin = wheel#projection#closest ('wheel', filename)
 		if ! empty(coordin)
-			let where = wheel#line#where (target)
-			call wheel#line#target (target)
+			let where = wheel#curve#where (target)
+			call wheel#curve#target (target)
 			call wheel#vortex#chord (coordin)
 			call wheel#vortex#jump (where)
 		else
-			call wheel#line#target (target)
+			call wheel#curve#target (target)
 			execute 'buffer' bufnum
 		endif
 	elseif action == 'delete'
@@ -280,7 +139,7 @@ fun! wheel#line#occur (settings)
 	" ---- go
 	let fields = split(component, s:field_separ)
 	let line = str2nr(fields[0])
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'buffer' bufnum
 	call cursor(line, 1)
 	if &foldopen =~ 'jump'
@@ -297,7 +156,7 @@ fun! wheel#line#grep (settings)
 	let component = settings.selection.component
 	let fields = split(component, s:field_separ)
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	" -- using error number
 	let errnum = fields[0]
 	execute 'cc' errnum
@@ -320,7 +179,7 @@ fun! wheel#line#mru (settings)
 	let fields = split(component, s:field_separ)
 	let filename = fields[1]
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'edit' filename
 	return win_getid ()
 endfun
@@ -332,7 +191,7 @@ fun! wheel#line#locate (settings)
 	let target = settings.target
 	let filename = settings.selection.component
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'edit' filename
 	return win_getid ()
 endfun
@@ -345,7 +204,7 @@ fun! wheel#line#find (settings)
 	let filename = settings.selection.component
 	let filename = trim(filename, ' ')
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'edit' filename
 	return win_getid ()
 endfun
@@ -361,7 +220,7 @@ fun! wheel#line#markers (settings)
 	"let line = fields[1]
 	"let column = fields[2]
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute "normal `" .. mark
 	if settings.follow
 		call wheel#projection#follow ()
@@ -380,7 +239,7 @@ fun! wheel#line#jumps (settings)
 	let linum = str2nr(fields[1])
 	let colnum = str2nr(fields[2])
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
@@ -403,7 +262,7 @@ fun! wheel#line#changes (settings)
 	let colnum = str2nr(fields[1])
 	let bufnum = a:settings.related_buffer
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
@@ -422,7 +281,7 @@ fun! wheel#line#tags (settings)
 	let file = fields[2]
 	let search = fields[3][1:]
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'edit' file
 	let found = search(search, 'sw')
 	if found == 0
@@ -447,7 +306,7 @@ fun! wheel#line#narrow_file (settings)
 	let fields = split(component, s:field_separ)
 	let linum = str2nr(fields[0])
 	" ---- go
-	call wheel#line#target (target)
+	call wheel#curve#target (target)
 	execute 'buffer' bufnum
 	call cursor(linum, 1)
 	return win_getid ()
@@ -464,7 +323,7 @@ fun! wheel#line#narrow_circle (settings)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
 	" ---- go
-	call wheel#line#target (a:settings.target)
+	call wheel#curve#target (a:settings.target)
 	" -- using error number
 	let errnum = index + 1
 	execute 'cc' errnum

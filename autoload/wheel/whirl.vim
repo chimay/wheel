@@ -15,7 +15,7 @@ fun! wheel#whirl#default (settings)
 	" Default settings values
 	let settings = a:settings
 	if ! has_key(settings, 'function')
-		let settings.function = 'wheel#line#switch'
+		let settings.function = 'wheel#curve#switch'
 	endif
 	if ! has_key(settings, 'selection')
 		let settings.selection = {}
@@ -137,7 +137,7 @@ fun! wheel#whirl#helix ()
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/location')
-	let settings = {'function' : function('wheel#line#helix')}
+	let settings = {'function' : function('wheel#curve#helix')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -153,7 +153,7 @@ fun! wheel#whirl#grid ()
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/circle')
-	let settings = {'function' : function('wheel#line#grid')}
+	let settings = {'function' : function('wheel#curve#grid')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
@@ -168,7 +168,7 @@ fun! wheel#whirl#tree ()
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/tree')
-	let settings = {'function' : function('wheel#line#tree')}
+	let settings = {'function' : function('wheel#curve#tree')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)

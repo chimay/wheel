@@ -46,7 +46,7 @@ fun! wheel#loop#selection (settings)
 		let length = len(indexes)
 		for ind in range(length)
 			let settings.selection.index = selection.indexes[ind]
-			let settings.selection.component = selection.component[ind]
+			let settings.selection.component = selection.components[ind]
 			let winiden = wheel#gear#call(Fun, settings)
 			if &foldopen =~ 'jump'
 				normal! zv
