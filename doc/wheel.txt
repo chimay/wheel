@@ -2981,6 +2981,7 @@ Convention~
 
 - prompting functions plugs : contain `-prompt-`
 - dedicated buffer functions plugs : contain `-dedibuf-`
+- layout functions plugs : contain `-layout-`
 
 Plug maps~
 
