@@ -2065,7 +2065,7 @@ If you prefer using text tabs even in nvim-qt, simply put : >
     GuiTabline 0
 <
 
-in your ginit.vim.
+in your `ginit.vim`.
 
 ------------------------------------------------------------------------------
 EXAMPLE						        *wheel-config-example*
