@@ -123,7 +123,7 @@ fun! wheel#teapot#filter (mode = 'normal')
 		let b:wheel_filter.indexes = []
 		let b:wheel_filter.lines = []
 	else
-		let matrix = wheel#kyusu#indexes_and_lines ()
+		let matrix = wheel#kyusu#gaiwan ()
 		let indexes = matrix[0]
 		let lines = matrix[1]
 		let b:wheel_filter.words = words

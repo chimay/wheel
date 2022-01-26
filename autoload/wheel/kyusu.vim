@@ -6,6 +6,8 @@
 "
 " A kyusu is a japanese traditional teapot,
 " often provided with a filter inside
+"
+" A gaiwan is a chinese tea cup
 
 " script constants
 
@@ -134,7 +136,7 @@ endfun
 
 " indexes & lines
 
-fun! wheel#kyusu#indexes_and_lines ()
+fun! wheel#kyusu#gaiwan ()
 	" Return lines matching words of first line
 	let linelist = copy(b:wheel_lines)
 	let input = wheel#teapot#without_prompt ()
