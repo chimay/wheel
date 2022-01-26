@@ -128,15 +128,15 @@ fun! wheel#centre#plugs ()
 	" ---- organize elsewhere
 	" -- tabs & windows
 	nnoremap <plug>(wheel-dedibuf-reorg-tabwins) <cmd>call wheel#shape#reorg_tabwins()<cr>
-	" ---- refactor
+	" ---- refactoring
 	" -- grep edit mode
-	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#shape#grep_edit()<cr>
+	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#mill#grep_edit()<cr>
 	" -- narrow
-	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#shape#narrow_file()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#mill#narrow_file()<cr>
 	nnoremap <expr> <plug>(wheel-dedibuf-narrow-operator) wheel#polyphony#operator()
-	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#shape#narrow_circle()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#mill#narrow_circle()<cr>
 	" use colon instead of <cmd> to catch the range
-	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shape#narrow_file()<cr>
+	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#mill#narrow_file()<cr>
 	" ---- search
 	" -- files
 	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#sailing#mru()<cr>
@@ -336,7 +336,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<m-r> <plug>(wheel-dedibuf-reorganize)'
 		" ---- reorganize other things
 		exe nmap prefix .. '<c-r> <plug>(wheel-dedibuf-reorg-tabwins)'
-		" ---- refactor
+		" ---- refactoring
 		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
 		exe nmap prefix .. '-% <plug>(wheel-dedibuf-narrow)'
 		exe nmap prefix .. '-- <plug>(wheel-dedibuf-narrow-operator)'
@@ -469,7 +469,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
 		" ---- organize other things
 		exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
-		" ---- refactor
+		" ---- refactoring
 		exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 		exe nmap '<m-n>          <plug>(wheel-dedibuf-narrow-operator)'
 		exe vmap '<m-n>          <plug>(wheel-dedibuf-narrow)'

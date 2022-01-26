@@ -311,15 +311,20 @@ map them to `<S-Home>` and `<S-End>`.
 
 Switching~
 
-You can switch :
+You can also switch wheel element by name :
 
-- location with `<M-w><Enter>`
-- circle with `<M-w><C-Enter>`
-- torus with `<M-w><S-Enter>`
-- to any location in the wheel index with `<M-w>x`
-- to any circle in the wheel index with `<M-w><C-x>`
+- `<M-w><Enter>` : switch location by name
+- circle with `<M-w><C-Enter>` : switch circle by name
+- torus with `<M-w><S-Enter>` : switch torus by name
 
 A completion is available, see |wheel-prompting-functions-completion|.
+
+If you want to go to a far place in the wheel, use the wheel index :
+
+- switch to any location in the wheel index with `<M-w>x`
+- switch to any circle in the wheel index with `<M-w><C-x>`
+
+As usual, name completion is available at the prompt.
 
 Let's say you have these entries in the wheel :
 
@@ -756,18 +761,19 @@ The available actions depend on the buffer type :
 - menu buffers allow you to launch a wheel function
 - navigation buffers allow you to go to a :
   + location, circle or torus
+  + buffer, window, tab
   + MRU file, locate file
   + grep result
   + and so on
 - reorganizing buffers allow you to
+  + reorder locations, circles or toruses
   + rename locations, circles or toruses
   + rename files
-  + reorder locations, circles or toruses
   + move, copy or delete locations, circles and toruses
   + perform fine grain operation
       + change locations settings like name, line, col
   + reorganize tabs and windows
-- edit buffers allow you to
+- refactoring buffers allow you to
   + edit grep results
   + edit narrow of current file
   + edit narrow of all circle files
@@ -979,14 +985,13 @@ If you change your mind and wish to come back, just press `<backspace>`.
 NAVIGATION				*wheel-dedicated-buffers-navigation*
 
 The navigation buffers allow you to quickly switch to a Wheel location
-by pressing `<enter>` on the matching line. The buffer will be opened
-in previous used window. You can also use the keys :
+by pressing `<enter>` on the matching line. You can also use the keys :
 
-- `t` : open buffer in a new tab
-- `s` : open buffer in a new split
-- `v` : open buffer in a new vsplit
-- `S` : open buffer in a new split with golden ratio
-- `V` : open buffer in a new vsplit with golden ratio
+- `t` : open element in a new tab
+- `s` : open element in a new split
+- `v` : open element in a new vsplit
+- `S` : open element in a new split with golden ratio
+- `V` : open element in a new vsplit with golden ratio
 
 Same keys as above, but leave the navigation buffer opened :
 
@@ -2909,7 +2914,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
     " ---- organize other things
     exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
-    " ---- refactor
+    " ---- refactoring
     exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
     exe nmap '<m-n>          <plug>(wheel-dedibuf-narrow-operator)'
     exe vmap '<m-n>          <plug>(wheel-dedibuf-narrow)'
@@ -3120,7 +3125,7 @@ Organize other things~
 | ------------------------------------- | -------------------------------------- |
 | <plug>(wheel-dedibuf-reorg-tabwins)   | reorganize tabs & windows              |
 
-Refactor~
+Refactoring~
 
 | Plug maps                             | Description                            |
 | ------------------------------------- | -------------------------------------- |
@@ -3463,6 +3468,7 @@ of the modules within them.
 | loop.vim          | Loops on dedicated buffers lines             |
 | mandala.vim       | Generic dedicated buffers                    |
 | matrix.vim        | Nested lists & dictionaries                  |
+| mill.vim          | Refactoring dedicated buffers                |
 | mosaic.vim        | Windows & tabs Layouts                       |
 | orbiter.vim       | Preview for dedicated buffers                |
 | origami.vim       | Dedicated buffers folding                    |

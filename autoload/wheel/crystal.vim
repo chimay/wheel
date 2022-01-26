@@ -456,13 +456,13 @@ if ! exists('s:menu_organize_native')
 	lockvar s:menu_organize_native
 endif
 
-if ! exists('s:menu_refactor')
-	let s:menu_refactor = [
-				\ ['grep in edit mode' ,  'wheel#shape#grep_edit'],
+if ! exists('s:menu_refactoring')
+	let s:menu_refactoring = [
+				\ ['grep in edit mode' ,  'wheel#mill#grep_edit'],
 				\ ['narrow current file' ,  'wheel#polyphony#operator'],
-				\ ['narrow all files in circle' ,  'wheel#shape#narrow_circle'],
+				\ ['narrow all files in circle' ,  'wheel#mill#narrow_circle'],
 				\]
-	lockvar s:menu_refactor
+	lockvar s:menu_refactoring
 endif
 
 if ! exists('s:menu_search_file')
@@ -589,7 +589,7 @@ if ! exists('s:menu_list')
 				\ 'native navigation',
 				\ 'organize wheel',
 				\ 'organize native',
-				\ 'refactor',
+				\ 'refactoring',
 				\ 'search file',
 				\ 'search inside file',
 				\ 'yank',
@@ -685,7 +685,7 @@ endif
 
 if ! exists('s:context_grep')
 	let s:context_grep = s:context_navigation + [
-				\ ['edit mode' ,  "wheel#shape#grep_edit()"],
+				\ ['edit mode' ,  "wheel#mill#grep_edit()"],
 				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
 				\]
 	lockvar s:context_grep

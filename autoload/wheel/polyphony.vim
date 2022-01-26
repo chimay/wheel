@@ -34,7 +34,7 @@ fun! wheel#polyphony#operator (argument = '')
 	" -- then, argument is 'line', 'block' or 'char'
 	let first = line("'[")
 	let last = line("']")
-	call wheel#shape#narrow_file (first, last)
+	call wheel#mill#narrow_file (first, last)
 endfun
 
 " Actions
