@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Wheel action of the cursor line :
+" Wheel action on the cursor line :
 "
 " - switching element
 " - element in index

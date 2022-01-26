@@ -404,7 +404,7 @@ endfun
 
 " rename file
 
-fun! wheel#tree#adapt_filename (old_filename, new_filename)
+fun! wheel#tree#adapt_to_filename (old_filename, new_filename)
 	" Adapt wheel variables to new_filename
 	let old_filename = a:old_filename
 	let new_filename = a:new_filename
@@ -445,6 +445,14 @@ fun! wheel#tree#rename_file (...)
 		echomsg 'wheel tree rename file : new filename must be distinct from old one'
 		return v:false
 	endif
+	" check existent file
+	if filereadable(new_filename)
+		let prompt = 'Replace existing ' .. new_filename .. ' ?'
+		let overwrite = confirm(prompt, "&Yes\n&No", 2)
+		if overwrite != 1
+			return v:false
+		endif
+	endif
 	" create directory if needed
 	let directory = fnamemodify(new_filename, ':h')
 	if ! isdirectory(directory)
@@ -454,22 +462,16 @@ fun! wheel#tree#rename_file (...)
 			return v:false
 		endif
 	endif
-	" link buffer to new file name
-	execute 'file' new_filename
-	" write it
-	write
-	" remove old file
-	let prompt = 'Remove old file ' .. old_filename .. ' ?'
-	let confirm = confirm(prompt, "&Yes\n&No", 2)
-	if confirm == 1
-		let zero = delete(old_filename)
-		if zero != 0
-			echomsg 'wheel rename file : error in deleting' old_filename
-			return v:false
-		endif
+	" rename file
+	let zero = rename(old_filename, new_filename)
+	if zero != 0
+		echomsg 'wheel rename file : error renaming' old_filename '->' new_filename
+		return v:false
 	endif
+	" link buffer to new file name
+	execute 'saveas!' new_filename
 	" adapt wheel variables to new_filename
-	call wheel#tree#adapt_filename (old_filename, new_filename)
+	call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	" rename location
 	call wheel#tree#rename('location')
 	return v:true

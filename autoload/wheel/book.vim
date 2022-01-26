@@ -181,12 +181,33 @@ fun! wheel#book#previous (...)
 	" Return previous leaf if no argument is given
 	let ring = b:wheel_ring
 	let length = len(ring.leaves)
+	if length == 1
+		echomsg 'wheel book previous : only one leaf in the ring'
+		return []
+	endif
 	let previous = wheel#gear#circular_minus (ring.current, length)
 	if a:0 == 0
 		return ring.leaves[previous]
 	endif
 	let fieldname = a:1
 	return ring.leaves[previous][fieldname]
+endfun
+
+fun! wheel#book#next (...)
+	" Return next field given by optional argument
+	" Return next leaf if no argument is given
+	let ring = b:wheel_ring
+	let length = len(ring.leaves)
+	if length == 1
+		echomsg 'wheel book next : only one leaf in the ring'
+		return []
+	endif
+	let next = wheel#gear#circular_plus (ring.current, length)
+	if a:0 == 0
+		return ring.leaves[next]
+	endif
+	let fieldname = a:1
+	return ring.leaves[next][fieldname]
 endfun
 
 " Saving things
@@ -371,6 +392,15 @@ fun! wheel#book#delete ()
 	" -- do not delete element from one element ring
 	if length == 1
 		echomsg 'wheel leaf delete :' leaves[0].filename 'is the last layer in ring'
+		return v:false
+	endif
+	" -- do not delete if child context menu is next
+	let next_nature = wheel#book#next('nature')
+	let next_class = next_nature.class
+	if next_class  == 'menu/context'
+		let info = 'Please delete child context menu first. '
+		let info ..= 'Press L to access it, backspace to remove.'
+		echomsg info
 		return v:false
 	endif
 	" -- delete

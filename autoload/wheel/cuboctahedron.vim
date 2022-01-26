@@ -293,6 +293,14 @@ fun! wheel#cuboctahedron#rename_files ()
 		if old_filename ==# new_filename
 			continue
 		endif
+		" check existent file
+		if filereadable(new_filename)
+			let prompt = 'Replace existing ' .. new_filename .. ' ?'
+			let overwrite = confirm(prompt, "&Yes\n&No", 2)
+			if overwrite != 1
+				continue
+			endif
+		endif
 		" create directory if needed
 		let directory = fnamemodify(new_filename, ':h')
 		if ! isdirectory(directory)
@@ -301,14 +309,6 @@ fun! wheel#cuboctahedron#rename_files ()
 			if success == v:false
 				echomsg 'wheel batch rename files : error creating directory' directory
 				return v:false
-			endif
-		endif
-		" check existent file
-		if filereadable(new_filename)
-			let prompt = 'Replace existing ' .. new_filename .. ' ?'
-			let overwrite = confirm(prompt, "&Yes\n&No", 2)
-			if overwrite != 1
-				continue
 			endif
 		endif
 		" old -> new
@@ -320,7 +320,7 @@ fun! wheel#cuboctahedron#rename_files ()
 			return v:false
 		endif
 		" rename file in all involved locations of the wheel
-		call wheel#tree#adapt_filename (old_filename, new_filename)
+		call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	endfor
 	call wheel#mandala#related()
 	call wheel#vortex#jump()

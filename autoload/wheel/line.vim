@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Non-wheel action of the cursor line :
+" Non-wheel action on the cursor line :
 "
 " - going to an element
 " - paste
