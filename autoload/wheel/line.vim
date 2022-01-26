@@ -477,7 +477,7 @@ endfun
 " -- paste
 
 fun! wheel#line#paste_list (...)
-	" Paste elements in current line from yank buffer in fields mode
+	" Paste line(s) from yank buffer in list mode
 	if a:0 > 0
 		let where = a:1
 	else
@@ -515,7 +515,7 @@ fun! wheel#line#paste_list (...)
 endfun
 
 fun! wheel#line#paste_plain (...)
-	" Paste line from yank buffer in plain mode
+	" Paste line(s) from yank buffer in plain mode
 	if a:0 > 0
 		let where = a:1
 	else
@@ -584,7 +584,7 @@ endfun
 " -- undo list
 
 fun! wheel#line#undolist (bufnum)
-	" Jump to change in settings.selection
+	" Apply change in undo list
 	let iden = wheel#delta#undo_iden ()
 	call wheel#rectangle#goto_or_load (a:bufnum)
 	execute 'undo' iden
