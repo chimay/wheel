@@ -256,7 +256,7 @@ fun! wheel#void#config ()
 		let g:wheel_config.display.sign = {}
 	endif
 	if ! has_key(g:wheel_config.display.sign, 'switch')
-		let g:wheel_config.display.sign.switch = v:true
+		let g:wheel_config.display.sign.switch = 1
 	endif
 	if ! has_key(g:wheel_config.display.sign, 'settings')
 		let settings = deepcopy(wheel#crystal#fetch ('sign/settings'))
