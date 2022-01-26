@@ -269,7 +269,7 @@ access to :
 
 - the inline help (wheel.txt)
 - the list of current wheel mappings
-- the list of available mappings
+- the list of available plug mappings
 - the list of autocommands of your wheel group
 
 # Configuration
