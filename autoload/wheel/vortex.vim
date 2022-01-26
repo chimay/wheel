@@ -155,17 +155,18 @@ endfun
 
 fun! wheel#vortex#chord (coordin)
 	" Adjust wheel to location coordin = [torus, circle, location]
+	let coordin = a:coordin
 	let indexes = [-1, -1, -1]
-	if len(a:coordin) == 3
-		let indexes[0] = wheel#vortex#tune ('torus', a:coordin[0])
+	if len(coordin) == 3
+		let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
 		if indexes[0] >= 0
-			let indexes[1] = wheel#vortex#tune ('circle', a:coordin[1])
+			let indexes[1] = wheel#vortex#tune ('circle', coordin[1])
 		endif
 		if indexes[1] >= 0
-			let indexes[2] = wheel#vortex#tune ('location', a:coordin[2])
+			let indexes[2] = wheel#vortex#tune ('location', coordin[2])
 		endif
 	else
-		echomsg 'wheel vortex chord : [' join(a:coordin) '] should contain 3 elements'
+		echomsg 'wheel vortex chord : [' join(coordin) '] should contain 3 elements'
 	endif
 	return indexes
 endfun

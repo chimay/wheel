@@ -53,7 +53,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-index-circles) <cmd>call wheel#vortex#grid()<cr>
 	nnoremap <plug>(wheel-dedibuf-index) <cmd>call wheel#whirl#helix()<cr>
 	nnoremap <plug>(wheel-dedibuf-index-circles) <cmd>call wheel#whirl#grid()<cr>
-	nnoremap <plug>(wheel-dedibuf-tree) <cmd>call wheel#whirl#tree()<cr>
+	nnoremap <plug>(wheel-dedibuf-index-tree) <cmd>call wheel#whirl#tree()<cr>
 	" -- history
 	nnoremap <plug>(wheel-history-newer) <cmd>call wheel#pendulum#newer()<cr>
 	nnoremap <plug>(wheel-history-older) <cmd>call wheel#pendulum#older()<cr>
@@ -277,7 +277,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'x <plug>(wheel-prompt-index)'
 		exe nmap prefix .. '<c-x> <plug>(wheel-prompt-index-circles)'
 		exe nmap prefix .. 'X <plug>(wheel-dedibuf-index)'
-		exe nmap prefix .. '<m-x> <plug>(wheel-dedibuf-tree)'
+		exe nmap prefix .. '<m-x> <plug>(wheel-dedibuf-index-tree)'
 		exe nmap prefix .. '<m-s-x> <plug>(wheel-dedibuf-index-circles)'
 		" -- history
 		exe nmap prefix .. 'h <plug>(wheel-prompt-history)'
@@ -429,7 +429,7 @@ fun! wheel#centre#cables ()
 		" -- index
 		exe nmap '<m-x>         <plug>(wheel-prompt-index)'
 		exe nmap '<m-s-x>       <plug>(wheel-dedibuf-index)'
-		exe nmap '<m-c-x>       <plug>(wheel-dedibuf-tree)'
+		exe nmap '<m-c-x>       <plug>(wheel-dedibuf-index-tree)'
 		" -- history
 		exe nmap '<m-home>      <plug>(wheel-history-newer)'
 		exe nmap '<m-end>       <plug>(wheel-history-older)'

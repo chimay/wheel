@@ -12,10 +12,23 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" Helpers
+" Clear cmd line
+
+fun! wheel#status#clear ()
+	" Clear command line space
+	"redraw!
+	"echo "\r"
+	"echo
+	"echon
+	" credit :
+	" https://neovim.discourse.group/t/how-to-clear-the-echo-message-in-the-command-line/268/2
+	call feedkeys(':','nx')
+endfun
+
+" Mandala type
 
 fun! wheel#status#type (...)
-	" Type of a mandala buffer
+	" Type of a mandala buffer, from filename
 	" Optional argument : filename
 	if a:0 > 0
 		let filename = a:1
@@ -24,19 +37,6 @@ fun! wheel#status#type (...)
 	endif
 	let type = substitute(filename, s:is_mandala_file, '', '')
 	return type
-endfun
-
-" Clear cmd line
-
-fun! wheel#status#clear ()
-	" Clear command line space
-	redraw!
-	"echo "\r"
-	"echo
-	"echon
-	" credit :
-	" https://neovim.discourse.group/t/how-to-clear-the-echo-message-in-the-command-line/268/2
-	call feedkeys(':','nx')
 endfun
 
 " Message
