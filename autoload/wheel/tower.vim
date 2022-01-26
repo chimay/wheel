@@ -49,8 +49,6 @@ fun! wheel#tower#menu (settings)
 		let new_tab = tabpagenr()
 		" -- tab changed, move mandala to new tab
 		if elder_tab != new_tab
-			" close it in elder tab
-			silent call wheel#cylinder#close ()
 			" go back in new tab
 			execute 'tabnext' new_tab
 		endif

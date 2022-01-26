@@ -204,7 +204,7 @@ fun! wheel#line#buffers (settings)
 	let fields = split(selection, s:field_separ, v:true)
 	let bufnum = str2nr(fields[0])
 	let filename = fnamemodify(fields[3], ':p')
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'context'
+	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
 	if is_context_menu
 		let action = settings.menu.action
 	else
@@ -244,7 +244,7 @@ fun! wheel#line#tabwins (settings)
 	" ---- settings
 	let settings = a:settings
 	let selection = settings.selection
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'context'
+	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
 	if is_context_menu
 		let action = settings.menu.action
 	else
@@ -279,7 +279,7 @@ fun! wheel#line#tabwins_tree (settings)
 	let settings = a:settings
 	let hierarchy = settings.selection
 	let tabnum = hierarchy[0]
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'context'
+	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
 	if is_context_menu
 		let action = settings.menu.action
 	else
@@ -503,13 +503,7 @@ fun! wheel#line#narrow_circle (settings)
 	" ---- go
 	call wheel#line#target (a:settings.target)
 	" -- using error number
-	let quickfix = getqflist()
-	for index in range(len(quickfix))
-		let elem = quickfix[index]
-		if bufnum == elem.bufnr && linum == elem.lnum
-			break
-		endif
-	endfor
+	let index = wheel#teapot#line_index(linum)
 	let errnum = index + 1
 	execute 'cc' errnum
 	" -- using buffer, line & col

@@ -47,8 +47,7 @@ fun! wheel#upstream#line_index (linum)
 endfun
 
 fun! wheel#upstream#selection ()
-	" Return selection of parent leaf
-	" If empty, return index & address parent line
+	" Return selection of parent leaf or parent index & address if empty
 	if wheel#upstream#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
 		let linum = cursor.position[1]
@@ -63,8 +62,7 @@ fun! wheel#upstream#selection ()
 endfun
 
 fun! wheel#upstream#addresses ()
-	" Return selection addresses of parent leaf
-	" If empty, return address of parent line
+	" Return selection addresses of parent leaf or address of parent line if empty
 	if wheel#upstream#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
 		return [ cursor.address ]

@@ -3442,7 +3442,7 @@ of the modules within them.
 | centre.vim        | Commands & mappings                        |
 | chain.vim         | List helpers                               |
 | chakra.vim        | Signs on wheel locations                   |
-| checknfix.vim     | Check & fix variables                      |
+| kintsugi.vim      | Check & fix wheel variables                |
 | clipper.vim       | Yank dedicated buffers                     |
 | codex.vim         | Yank ring                                  |
 | complete.vim      | Completion functions                       |

@@ -35,7 +35,7 @@ fun! wheel#boomerang#menu (dictname)
 	" Build context menu
 	let dictname = 'context/' .. a:dictname
 	let settings = b:wheel_settings
-	let settings.menu = #{kind : 'context', linefun : dictname, close : v:false, travel : v:false}
+	let settings.menu = #{kind : 'menu/context', linefun : dictname, close : v:false, travel : v:false}
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
 	" ---- properties ; must come after tower#staircase
@@ -142,7 +142,7 @@ fun! wheel#boomerang#tabwins (action)
 		return v:true
 	elseif action == 'tabclose'
 		" closing last tab first
-		let settings.menu.kind = 'context'
+		let settings.menu.kind = 'menu/context'
 		let selection = wheel#upstream#selection()
 		let indexes = selection.indexes
 		let addresses = selection.addresses

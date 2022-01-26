@@ -370,19 +370,31 @@ endif
 
 if ! exists('s:menu_wheel_navigation')
 	let s:menu_wheel_navigation = [
+				\ ['previous location' ,  "wheel#vortex#previous('location')"],
+				\ ['next location' ,  "wheel#vortex#next('location')"],
+				\ ['previous circle' ,  "wheel#vortex#previous('circle')"],
+				\ ['next circle' ,  "wheel#vortex#next('circle')"],
+				\ ['previous torus' ,  "wheel#vortex#previous('torus')"],
+				\ ['next torus' ,  "wheel#vortex#next('torus')"],
 				\ ['go to torus' ,  "wheel#whirl#switch('torus')"],
 				\ ['go to circle' ,  "wheel#whirl#switch('circle')"],
 				\ ['go to location' ,  "wheel#whirl#switch('location')"],
 				\ ['go to location in index' ,  'wheel#whirl#helix'],
 				\ ['go to circle in index' ,  'wheel#whirl#grid'],
 				\ ['go to element in wheel tree' ,  'wheel#whirl#tree'],
-				\ ['go to location in history' ,  'wheel#whirl#history'],
+				\ ['newer location in history' ,  'wheel#pendulum#newer'],
+				\ ['older location in history' ,  'wheel#pendulum#older'],
+				\ ['newer location in same circle' ,  "wheel#pendulum#newer('circle')"],
+				\ ['older location in same circle' ,  "wheel#pendulum#older('circle')"],
+				\ ['newer location in same torus' ,  "wheel#pendulum#newer('torus')"],
+				\ ['older location in same torus' ,  "wheel#pendulum#older('torus')"],
 				\ ['alternate anywhere' ,  "wheel#pendulum#alternate('anywhere')"],
 				\ ['alternate in same torus' ,  "wheel#pendulum#alternate('same_torus')"],
 				\ ['alternate in same circle' ,  "wheel#pendulum#alternate('same_circle')"],
 				\ ['alternate in other torus' ,  "wheel#pendulum#alternate('other_torus')"],
 				\ ['alternate in other circle' ,  "wheel#pendulum#alternate('other_circle')"],
 				\ ['alternate in same torus, other circle' ,  "wheel#pendulum#alternate('same_torus_other_circle')"],
+				\ ['go to location in history' ,  'wheel#whirl#history'],
 				\]
 	lockvar s:menu_wheel_navigation
 endif

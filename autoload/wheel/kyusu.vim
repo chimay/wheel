@@ -14,6 +14,11 @@ if ! exists('s:fold_pattern')
 	lockvar s:fold_pattern
 endif
 
+if ! exists('s:unused')
+	let s:unused = 0
+	lockvar s:unused
+endif
+
 " helpers
 
 fun! wheel#kyusu#steep (wordlist, unused, value)
@@ -52,24 +57,31 @@ endfun
 
 " dedicated buffers
 
-fun! wheel#kyusu#intermix (wordlist, index, value, sel_switch)
+fun! wheel#kyusu#intermix (wordlist, index, value, ternar)
 	" Like kyusu#steep, but take selection switch into account
 	" =s[selection] enable selection only filter
 	let wordlist = a:wordlist
 	let index = a:index
 	let value = a:value
-	let sel_switch = a:sel_switch
+	let ternar = a:ternar
+	" selection
+	let sel_ter = ternar.selection
 	let sel_indexes = b:wheel_selection.indexes
-	let pass = ! sel_switch || index->wheel#chain#is_inside(sel_indexes)
-	let pass = pass && wordlist->wheel#kyusu#steep(0, value)
+	let found = index->wheel#chain#is_inside(sel_indexes)
+	let yang = sel_ter != 1 || found
+	let yin = sel_ter != -1 || ! found
+	" steep
+	let steep = wordlist->wheel#kyusu#steep(s:unused, value)
+	" coda
+	let pass = yang && yin && steep
 	return pass
 endfun
 
-fun! wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
+fun! wheel#kyusu#remove_folds (wordlist, matrix, ternar)
 	" Remove non-matching empty folds
 	let wordlist = a:wordlist
 	let matrix = a:matrix
-	let sel_switch = a:sel_switch
+	let ternar = a:ternar
 	let indexlist = matrix[0]
 	let candidates = matrix[1]
 	if empty(candidates)
@@ -99,7 +111,7 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
 		let line_index = indexlist[index]
 		if empty_fold
 			" add line only if matches wordlist
-			if wheel#kyusu#intermix(wordlist, line_index, cur_value, sel_switch)
+			if wheel#kyusu#intermix (wordlist, line_index, cur_value, ternar)
 				eval filtered_indexes->add(line_index)
 				eval filtered_values->add(cur_value)
 			endif
@@ -112,7 +124,7 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
 	" ---- last element
 	let index = length - 1
 	let value = candidates[-1]
-	if wheel#kyusu#intermix (wordlist, indexlist[index], value, sel_switch)
+	if wheel#kyusu#intermix (wordlist, indexlist[index], value, ternar)
 		let line_index = indexlist[index]
 		eval filtered_indexes->add(line_index)
 		eval filtered_values->add(value)
@@ -134,10 +146,15 @@ fun! wheel#kyusu#indexes_and_lines ()
 	call wheel#scroll#record(input)
 	let wordlist = split(input)
 	" special words
-	let sel_switch = v:false
+	let ternar = {}
+	let ternar.selection = 0
 	for index in range(len(wordlist))
 		if wordlist[index] =~ '^=s'
-			let sel_switch = v:true
+			let ternar.selection = 1
+			eval wordlist->remove(index)
+			break
+		elseif wordlist[index] =~ '^!=s'
+			let ternar.selection = -1
 			eval wordlist->remove(index)
 			break
 		endif
@@ -147,7 +164,7 @@ fun! wheel#kyusu#indexes_and_lines ()
 	let filtered_values = []
 	for index in range(len(linelist))
 		let value = linelist[index]
-		let pass = wheel#kyusu#intermix (wordlist, index, value, sel_switch)
+		let pass = wheel#kyusu#intermix (wordlist, index, value, ternar)
 		let pass = pass || value =~ s:fold_pattern
 		if pass
 			eval filtered_indexes->add(index)
@@ -156,8 +173,8 @@ fun! wheel#kyusu#indexes_and_lines ()
 	endfor
 	let matrix = [filtered_indexes, filtered_values]
 	" remove folds two times : cleans a level each time
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, sel_switch)
+	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, ternar)
+	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, ternar)
 	" return
 	return matrix
 endfun

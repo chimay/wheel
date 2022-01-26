@@ -1,6 +1,9 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
 " Check & fix
+"
+" Kintsugi is a traditional japanese art that fixes
+" a broken object by highlighting the damages
 
 " Script constants
 
@@ -11,7 +14,7 @@ endif
 
 " Functions
 
-fun! wheel#checknfix#glossaries ()
+fun! wheel#kintsugi#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
 	" Names in toruses, circles and locations are considered to be the right ones
 	let success = 1
@@ -88,7 +91,7 @@ fun! wheel#checknfix#glossaries ()
 	return success
 endfun
 
-fun! wheel#checknfix#mandala_vars ()
+fun! wheel#kintsugi#mandala_vars ()
 	" Display mandala vars
 	for varname in s:mandala_vars
 		echomsg varname ': ' string({varname})

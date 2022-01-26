@@ -223,7 +223,26 @@ fun! wheel#pencil#show ()
 	return v:true
 endfun
 
-" selection addresses
+" selection
+
+fun! wheel#pencil#selection ()
+	" Return selection or line & address of current line
+	" If context menu, look in previous leaf
+	if wheel#boomerang#is_context_menu ()
+		return wheel#upstream#selection ()
+	endif
+	if wheel#pencil#is_selection_empty ()
+		let linum = line('.')
+		let line_index = wheel#teapot#line_index (linum)
+		let address = wheel#line#address ()
+		let selection = {}
+		let selection.indexes = [ line_index ]
+		let selection.addresses = [ address ]
+	else
+		let selection = b:wheel_selection
+	endif
+	return selection
+endfun
 
 fun! wheel#pencil#addresses ()
 	" Return selection addresses
