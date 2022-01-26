@@ -150,3 +150,8 @@ fun! wheel#curve#history (settings)
 	call wheel#vortex#jump (where)
 	return win_getid ()
 endfun
+
+fun! wheel#curve#history_circuit (settings)
+	" Go to location in history circuit
+	return wheel#curve#history (a:settings)
+endfun

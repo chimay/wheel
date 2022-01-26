@@ -15,6 +15,8 @@ fun! wheel#orbiter#preview ()
 	let settings.selection.component = cursor_selection.components[0]
 	let settings.follow = v:false
 	call wheel#rectangle#previous ()
+	call wheel#projection#follow ()
+	call wheel#vortex#update ()
 	let Fun = settings.function
 	let winiden = wheel#gear#call (Fun, settings)
 	call wheel#cylinder#recall ()
@@ -44,6 +46,7 @@ fun! wheel#orbiter#original ()
 	call wheel#rectangle#previous ()
 	execute 'buffer' original
 	call wheel#projection#follow ()
+	call wheel#vortex#jump ()
 	call wheel#cylinder#recall ()
 	return v:true
 endfun

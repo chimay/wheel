@@ -100,9 +100,11 @@ fun! wheel#whirl#generic (type)
 		return v:false
 	endif
 	call wheel#mandala#blank (type)
-	let settings = {'function' : function('wheel#line#' .. type)}
+	let settings = {'function' : function('wheel#curve#' .. type)}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
+	" reload
+	let b:wheel_reload = 'wheel#whirl#' .. type
 endfun
 
 " applications
@@ -180,14 +182,10 @@ fun! wheel#whirl#history ()
 	" Choose a location coordinate in history
 	" Each coordinate = [torus, circle, location]
 	call wheel#whirl#generic('history')
-	" reload
-	let b:wheel_reload = 'wheel#whirl#history'
 endfun
 
 fun! wheel#whirl#history_circuit ()
 	" Choose a location coordinate in history
 	" Each coordinate = [torus, circle, location]
 	call wheel#whirl#generic('history_circuit')
-	" reload
-	let b:wheel_reload = 'wheel#whirl#history_circuit'
 endfun

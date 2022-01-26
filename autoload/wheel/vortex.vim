@@ -304,7 +304,7 @@ fun! wheel#vortex#history_circuit (where = 'search-window')
 	" Switch to coordinates in history
 	" Optional argument : see vortex#jump optional argument
 	let where = a:where
-	let prompt = 'Switch to history element : '
+	let prompt = 'Switch to history circuit element : '
 	let complete = 'customlist,wheel#complete#history_circuit'
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)

@@ -2,6 +2,27 @@
 
 "  Non-wheel navigation, dedicated buffers
 
+" helpers
+
+fun! wheel#frigate#generic (type)
+	" Generic whirl buffer
+	let type = a:type
+	let Perspective = function('wheel#perspective#' .. type)
+	let lines = Perspective ()
+	if empty(lines)
+		echomsg 'wheel frigate generic : empty lines in' type
+		return v:false
+	endif
+	call wheel#mandala#blank (type)
+	let settings = {'function' : function('wheel#line#' .. type)}
+	call wheel#whirl#template (settings)
+	call wheel#mandala#fill(lines)
+	" reload
+	let b:wheel_reload = 'wheel#frigate#' .. type
+endfun
+
+" buffers, tabs, windows
+
 fun! wheel#frigate#buffers (scope = 'listed')
 	" Buffers
 	" To be run before opening the mandala buffer
@@ -77,7 +98,7 @@ fun! wheel#frigate#markers ()
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
 	endif
-	call wheel#whirl#generic('markers')
+	call wheel#frigate#generic('markers')
 	" reload
 	let b:wheel_reload = 'wheel#frigate#markers'
 endfun
@@ -122,7 +143,7 @@ endfun
 
 fun! wheel#frigate#tags ()
 	" Tags file
-	call wheel#whirl#generic('tags')
+	call wheel#frigate#generic('tags')
 	" reload
 	let b:wheel_reload = 'wheel#frigate#tags'
 endfun
@@ -131,7 +152,7 @@ endfun
 
 fun! wheel#frigate#mru ()
 	" Most recenty used files
-	call wheel#whirl#generic('mru')
+	call wheel#frigate#generic('mru')
 	" reload
 	let b:wheel_reload = 'wheel#frigate#mru'
 endfun
