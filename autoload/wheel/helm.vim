@@ -33,7 +33,7 @@ fun! wheel#helm#menu_maps (dictname)
 	" Define local maps for menus
 	let dictname = 'menu/' .. a:dictname
 	let settings = {}
-	let settings.menu = #{kind : 'menu/generic', linefun : dictname, close : v:false, travel : v:true}
+	let settings.menu = #{class : 'menu', linefun : dictname, close : v:false, travel : v:true}
 	call wheel#tower#mappings (settings)
 	let b:wheel_settings = settings
 endfun
@@ -42,7 +42,7 @@ fun! wheel#helm#meta_maps (dictname)
 	" Define local maps for meta menu
 	let dictname = 'menu/' .. a:dictname
 	let settings = {}
-	let settings.menu = #{kind : 'menu/meta', linefun : dictname, close : v:false, travel : v:false}
+	let settings.menu = #{class : 'menu/meta', linefun : dictname, close : v:false, travel : v:false}
 	call wheel#tower#mappings (settings)
 	let b:wheel_settings = settings
 	return
@@ -88,18 +88,20 @@ fun! wheel#helm#menu (dictname)
 	let string = 'menu/' .. dictname
 	call wheel#mandala#blank (string)
 	call wheel#mandala#template ()
+	" -- class
+	let b:wheel_nature.class = 'menu'
 	" -- selection property
 	let b:wheel_nature.has_selection = v:false
-	" -- menu property
-	let b:wheel_nature.menu = v:true
 endfun
 
 fun! wheel#helm#submenu (dictname)
 	" Submenu
 	let dictname = 'menu/' .. a:dictname
 	let settings = {}
-	let settings.menu = #{kind : 'menu/submenu', linefun : dictname, close : v:false, travel : v:true}
+	let settings.menu = #{class : 'menu/submenu', linefun : dictname, close : v:false, travel : v:true}
 	call wheel#tower#staircase (settings)
+	" -- class
+	let b:wheel_nature.class = 'menu/submenu'
 endfun
 
 fun! wheel#helm#main ()

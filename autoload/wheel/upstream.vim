@@ -61,17 +61,6 @@ fun! wheel#upstream#selection ()
 	return selection
 endfun
 
-fun! wheel#upstream#components ()
-	" Return selection components of parent leaf or component of parent line if empty
-	if wheel#upstream#is_selection_empty ()
-		let cursor = deepcopy(wheel#book#previous('cursor'))
-		return [ cursor.component ]
-	else
-		let selection = deepcopy(wheel#book#previous('selection'))
-		return selection.components
-	endif
-endfun
-
 " remove selection & related lines
 
 fun! wheel#upstream#remove_selection ()

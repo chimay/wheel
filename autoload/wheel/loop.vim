@@ -78,13 +78,17 @@ fun! wheel#loop#boomerang (settings)
 	let Fun = settings.function
 	let close = menu_settings.close
 	" ---- selection
-	let selection = wheel#upstream#components ()
-	if empty(selection[0])
+	let selection = wheel#upstream#selection ()
+	let indexes = selection.indexes
+	let components = selection.components
+	if empty(indexes)
 		return v:false
 	endif
 	" ---- loop
-	for elem in selection
-		let settings.selection = elem
+	let length = len(indexes)
+	for ind in range(length)
+		let settings.selection.index = selection.indexes[ind]
+		let settings.selection.component = selection.components[ind]
 		let winiden = wheel#gear#call(Fun, settings)
 		if &foldopen =~ 'jump'
 			normal! zv

@@ -165,7 +165,7 @@ fun! wheel#line#buffers (settings)
 	let fields = split(component, s:field_separ, v:true)
 	let bufnum = str2nr(fields[0])
 	let filename = fnamemodify(fields[3], ':p')
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
+	let is_context_menu = has_key(settings, 'menu') && settings.menu.class == 'menu/context'
 	if is_context_menu
 		let action = settings.menu.action
 	else
@@ -205,7 +205,7 @@ fun! wheel#line#tabwins (settings)
 	" ---- settings
 	let settings = a:settings
 	let component = settings.selection.component
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
+	let is_context_menu = has_key(settings, 'menu') && settings.menu.class == 'menu/context'
 	if is_context_menu
 		let action = settings.menu.action
 	else
@@ -240,7 +240,7 @@ fun! wheel#line#tabwins_tree (settings)
 	let settings = a:settings
 	let hierarchy = settings.selection.component
 	let tabnum = hierarchy[0]
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
+	let is_context_menu = has_key(settings, 'menu') && settings.menu.class == 'menu/context'
 	if is_context_menu
 		let action = settings.menu.action
 	else
