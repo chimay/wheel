@@ -499,13 +499,13 @@ fun! wheel#centre#cables ()
 		" ---- dedicated buffers
 		exe nmap '<m-tab>        <plug>(wheel-mandala-add)'
 		exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
-		exe nmap '<m-home>        <plug>(wheel-mandala-backward)'
-		exe nmap '<m-end>         <plug>(wheel-mandala-forward)'
+		exe nmap '<m-left>       <plug>(wheel-mandala-backward)'
+		exe nmap '<m-right>      <plug>(wheel-mandala-forward)'
 		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 		" ---- layouts
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
-		exe nmap '<m-c-pageup>   <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap '<m-c-pagedown> <plug>(wheel-rotate-clockwise)'
+		exe nmap '<m-up>         <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap '<m-down>       <plug>(wheel-rotate-clockwise)'
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
