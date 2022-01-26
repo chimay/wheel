@@ -145,17 +145,17 @@ fun! wheel#boomerang#tabwins (action)
 		let settings.menu.kind = 'menu/context'
 		let selection = wheel#upstream#selection()
 		let indexes = selection.indexes
-		let addresses = selection.addresses
+		let components = selection.components
 		let original_indexes = copy(indexes)
-		let original_addresses = copy(addresses)
+		let original_components = copy(components)
 		let [indexlist, indexes] = wheel#chain#sort(indexes)
 		call reverse(indexes)
 		call reverse(indexlist)
 		let selection.indexes = indexes
-		let selection.addresses = addresses->wheel#chain#sublist(indexlist)
+		let selection.components = components->wheel#chain#sublist(indexlist)
 		call wheel#loop#boomerang (settings)
 		let selection.indexes = original_indexes
-		let selection.addresses = original_addresses
+		let selection.components = original_components
 		return v:true
 	endif
 	return v:false

@@ -47,28 +47,28 @@ fun! wheel#upstream#line_index (linum)
 endfun
 
 fun! wheel#upstream#selection ()
-	" Return selection of parent leaf or parent index & address if empty
+	" Return selection of parent leaf or parent index & component if empty
 	if wheel#upstream#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
 		let linum = cursor.position[1]
 		let line_index = wheel#upstream#line_index (linum)
 		let selection = {}
 		let selection.indexes = [ line_index ]
-		let selection.addresses = [ cursor.address ]
+		let selection.components = [ cursor.component ]
 	else
 		let selection = deepcopy(wheel#book#previous('selection'))
 	endif
 	return selection
 endfun
 
-fun! wheel#upstream#addresses ()
-	" Return selection addresses of parent leaf or address of parent line if empty
+fun! wheel#upstream#components ()
+	" Return selection components of parent leaf or component of parent line if empty
 	if wheel#upstream#is_selection_empty ()
 		let cursor = deepcopy(wheel#book#previous('cursor'))
-		return [ cursor.address ]
+		return [ cursor.component ]
 	else
 		let selection = deepcopy(wheel#book#previous('selection'))
-		return selection.addresses
+		return selection.components
 	endif
 endfun
 
@@ -76,7 +76,7 @@ endfun
 
 fun! wheel#upstream#remove_selection ()
 	" Parent leaf : remove selection & related lines
-	" removed = selection lines or cursor address
+	" removed = selection lines or cursor component
 	" e.g. : deleted buffers, closed tabs
 	let lines = wheel#book#previous ('lines')
 	let filter = wheel#book#previous ('filter')
@@ -95,5 +95,5 @@ fun! wheel#upstream#remove_selection ()
 	endfor
 	" -- clear selection
 	let selection.indexes = []
-	let selection.addresses = []
+	let selection.components = []
 endfun

@@ -17,6 +17,11 @@ fun! wheel#whirl#default (settings)
 	if ! has_key(settings, 'function')
 		let settings.function = 'wheel#line#switch'
 	endif
+	if ! has_key(settings, 'selection')
+		let settings.selection = {}
+		let settings.selection.index = -1
+		let settings.selection.component = ''
+	endif
 	if ! has_key(settings, 'level')
 		let settings.level = 'location'
 	endif

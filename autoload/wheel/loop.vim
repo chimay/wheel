@@ -25,7 +25,7 @@ fun! wheel#loop#selection (settings)
 	" ---- selection
 	let selection = wheel#pencil#selection ()
 	let indexes = selection.indexes
-	let addresses = selection.addresses
+	let components = selection.components
 	if empty(indexes)
 		return v:false
 	endif
@@ -35,15 +35,18 @@ fun! wheel#loop#selection (settings)
 	call wheel#rectangle#previous ()
 	" ---- target : current window or not ?
 	if target == 'current'
-		let settings.selection = selection.addresses[0]
+		let settings.selection.index = selection.indexes[0]
+		let settings.selection.component = selection.components[0]
 		let winiden = wheel#gear#call(Fun, settings)
 		if &foldopen =~ 'jump'
 			normal! zv
 		endif
 		call wheel#spiral#cursor ()
 	else
-		for elem in selection.addresses
-			let settings.selection = elem
+		let length = len(indexes)
+		for ind in range(length)
+			let settings.selection.index = selection.indexes[ind]
+			let settings.selection.component = selection.component[ind]
 			let winiden = wheel#gear#call(Fun, settings)
 			if &foldopen =~ 'jump'
 				normal! zv
@@ -75,7 +78,7 @@ fun! wheel#loop#boomerang (settings)
 	let Fun = settings.function
 	let close = menu_settings.close
 	" ---- selection
-	let selection = wheel#upstream#addresses ()
+	let selection = wheel#upstream#components ()
 	if empty(selection[0])
 		return v:false
 	endif

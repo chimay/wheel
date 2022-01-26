@@ -249,13 +249,13 @@ if ! exists('s:layer_fields')
 	" options : local options
 	" mappings : mappings
 	" autocmds : local autocommands
-	" nature : empty mandala ? has_filter ?
+	" nature : general qualities ; empty mandala ? has_filter ?
 	" related_buffer : bufnum of related buffer
-	" lines : lines mandala content, without filtering
-	" filtered : filtered mandala content
-	" position : cursor position
-	" address : address associated with cursor line
-	" selection : selection lines
+	" lines : all mandala lines, without filtering
+	" filter : filtered mandala content
+	" selection : selected indexes & lines
+	" preview
+	" cursor : selection & position
 	" settings : mandala settings
 	" reload : reload function
 	let s:layer_fields = [
@@ -268,6 +268,7 @@ if ! exists('s:layer_fields')
 				\ 'lines',
 				\ 'filter',
 				\ 'selection',
+				\ 'preview',
 				\ 'cursor',
 				\ 'settings',
 				\ 'reload',

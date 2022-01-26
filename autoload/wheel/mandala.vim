@@ -183,7 +183,7 @@ fun! wheel#mandala#init ()
 	if ! exists('b:wheel_selection')
 		let b:wheel_selection = {}
 		let b:wheel_selection.indexes = []
-		let b:wheel_selection.addresses = []
+		let b:wheel_selection.components = []
 	endif
 	" -- preview
 	if ! exists('b:wheel_preview')
@@ -217,7 +217,7 @@ fun! wheel#mandala#refresh ()
 	" -- selection
 	let b:wheel_selection = {}
 	let b:wheel_selection.indexes = []
-	let b:wheel_selection.addresses = []
+	let b:wheel_selection.components = []
 endfun
 
 " clearing things
@@ -551,7 +551,7 @@ fun! wheel#mandala#template (...)
 	call wheel#teapot#mappings ()
 	" input history
 	call wheel#scroll#mappings ()
-	" by default, tell line#address it's not a tree buffer
+	" by default, tell line#component it's not a tree buffer
 	" overridden by folding_options
 	setlocal nofoldenable
 endfun

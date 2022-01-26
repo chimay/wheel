@@ -38,71 +38,6 @@ fun! wheel#pencil#has_select_mark (line)
 	return a:line =~ selection_pattern
 endfun
 
-" address at current line
-
-fun! wheel#pencil#default_line ()
-	" If on filter line, put the cursor on line 2 if possible
-	" If on filtering line, put the cursor in default line 2
-	let has_filter = wheel#teapot#has_filter()
-	let is_filtered = wheel#teapot#is_filtered ()
-	if line('$') == 1 && is_filtered
-		call wheel#teapot#clear()
-	endif
-	if line('$') == 1
-		echomsg 'wheel pencil default line : mandala is empty'
-		return v:false
-	endif
-	let cur_line = line('.')
-	let last_line = line('$')
-	if has_filter && cur_line == 1 && last_line > 1
-		call cursor(2, 1)
-	endif
-	return v:true
-endfun
-
-fun! wheel#pencil#address (...)
-	" Return complete information of element at line
-	" Returns [line index in b:wheel_lines, full line information]
-	" Mandala can be :
-	"   - plain : in ordinary mandala buffer
-	"   - treeish : in folded mandala buffer
-	" Optional argument :
-	"   - line number
-	"   - default : current line number
-	" ---- default line if needed
-	" ---- must come before : line('.')
-	if ! wheel#pencil#default_line ()
-		return []
-	endif
-	" ---- arguments
-	if a:0 > 0
-		let linum = a:1
-	else
-		let linum = line('.')
-	endif
-	" ---- plain
-	if ! &foldenable
-		let cursor_line = getline(linum)
-		let line_index = wheel#teapot#line_index (linum)
-		let content = wheel#pencil#erase (cursor_line)
-		let cursor_selection = [line_index, content]
-		return cursor_selection
-	endif
-	" ---- treeish
-	let position = getcurpos()
-	call cursor(linum, 1)
-	let type = wheel#mandala#type ()
-	if type == 'index/tree'
-		let address = wheel#origami#chord ()
-	elseif type == 'tabwins/tree'
-		let address = wheel#origami#tabwin ()
-	else
-		let address = []
-	endif
-	call wheel#gear#restore_cursor (position)
-	return [linum, address]
-endfun
-
 " add / remove mark
 
 fun! wheel#pencil#draw (line)
@@ -146,14 +81,11 @@ fun! wheel#pencil#select (...)
 	endif
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
-	let address = wheel#pencil#address (linum)
-	" -- shift between b:wheel_lines indexes and buffer line numbers
-	let shift = wheel#teapot#first_data_line ()
-	" -- global index of current line in b:wheel_lines
-	let index = wheel#teapot#line_index (linum)
+	let cursor_selection = wheel#pencil#cursor_selection (linum)
+	let index = cursor_selection.indexes[0]
+	let component = cursor_selection.components[0]
 	eval selection.indexes->add(index)
-	" -- address
-	eval selection.addresses->add(address)
+	eval selection.components->add(component)
 	" ---- update buffer line
 	let marked_line = wheel#pencil#draw (line)
 	call setline(linum, marked_line)
@@ -180,12 +112,12 @@ fun! wheel#pencil#clear (...)
 	endif
 	" ---- update b:wheel_selection
 	let selection = b:wheel_selection
-	let address = wheel#pencil#address (linum)
+	let cursor_selection = wheel#pencil#cursor_selection (linum)
 	" -- indexes
-	let index = wheel#teapot#line_index (linum)
+	let index = cursor_selection.indexes[0]
 	let found = selection.indexes->index(index)
 	eval selection.indexes->remove(found)
-	eval selection.addresses->remove(found)
+	eval selection.components->remove(found)
 	" ---- update buffer line
 	let unmarked_line = wheel#pencil#erase (line)
 	call setline(linum, unmarked_line)
@@ -288,25 +220,88 @@ fun! wheel#pencil#show ()
 	return v:true
 endfun
 
+" virtual selection at current line
+
+fun! wheel#pencil#default_line ()
+	" If on filter line, put the cursor on line 2 if possible
+	" If on filtering line, put the cursor in default line 2
+	let has_filter = wheel#teapot#has_filter()
+	let is_filtered = wheel#teapot#is_filtered ()
+	if line('$') == 1 && is_filtered
+		call wheel#teapot#clear()
+	endif
+	if line('$') == 1
+		echomsg 'wheel pencil default line : mandala is empty'
+		return v:false
+	endif
+	let cur_line = line('.')
+	let last_line = line('$')
+	if has_filter && cur_line == 1 && last_line > 1
+		call cursor(2, 1)
+	endif
+	return v:true
+endfun
+
+fun! wheel#pencil#cursor_selection (...)
+	" Return selection as if cursor line was selected
+	" Optional argument :
+	"   - line number
+	"   - default : current line number
+	" Mandala can be :
+	"   - plain : in ordinary mandala buffer
+	"   - treeish : in folded mandala buffer
+	" ---- default line if needed
+	" ---- must come before : line('.')
+	if ! wheel#pencil#default_line ()
+		return []
+	endif
+	" ---- arguments
+	if a:0 > 0
+		let linum = a:1
+	else
+		let linum = line('.')
+	endif
+	" ---- line index
+	let index = wheel#teapot#line_index (linum)
+	" ---- init
+	let cursor_selection = {}
+	let cursor_selection.indexes = [ index ]
+	" ---- component
+	let position = getcurpos()
+	if ! &foldenable
+		" -- plain
+		let cursor_line = getline(linum)
+		let component = wheel#pencil#erase (cursor_line)
+	else
+		" -- treeish
+		call cursor(linum, 1)
+		let type = wheel#mandala#type ()
+		if type == 'index/tree'
+			let component = wheel#origami#chord ()
+		elseif type == 'tabwins/tree'
+			let component = wheel#origami#tabwin ()
+		else
+			let component = []
+		endif
+	endif
+	" ---- coda
+	let cursor_selection.components = [ component ]
+	call wheel#gear#restore_cursor (position)
+	return cursor_selection
+endfun
+
 " selection
 
 fun! wheel#pencil#selection ()
-	" Return selection or line & address of current line
+	" Return selection or line & component of current line
 	" If context menu, look in previous leaf
 	if wheel#boomerang#is_context_menu ()
 		return wheel#upstream#selection ()
 	endif
 	if wheel#pencil#is_selection_empty ()
-		let cursor_selection = wheel#pencil#address ()
-		let index = cursor_selection[0]
-		let address = cursor_selection[1]
-		let selection = {}
-		let selection.indexes = [ index ]
-		let selection.addresses = [ address ]
-	else
-		let selection = b:wheel_selection
+		return wheel#pencil#cursor_selection ()
 	endif
-	return selection
+	return b:wheel_selection
 endfun
 
 " mappings

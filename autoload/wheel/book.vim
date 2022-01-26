@@ -125,7 +125,7 @@ fun! wheel#book#template ()
 	" -- selection
 	let leaf.selection = {}
 	let leaf.selection.indexes = []
-	let leaf.selection.addresses = []
+	let leaf.selection.components = []
 	" -- preview
 	let leaf.preview = {}
 	let leaf.preview.used = v:false
@@ -134,7 +134,7 @@ fun! wheel#book#template ()
 	" -- cursor
 	let leaf.cursor = {}
 	let leaf.cursor.position = []
-	let leaf.cursor.address = ''
+	let leaf.cursor.selection = {}
 	" -- settings for loop & line functions
 	let leaf.settings = {}
 	" -- reload function string
@@ -255,8 +255,8 @@ fun! wheel#book#syncup ()
 	call wheel#pencil#default_line ()
 	let cursor = leaf.cursor
 	let cursor.position = getcurpos()
-	" address of cursor line : useful for context menus
-	let cursor.address = wheel#pencil#address()
+	" selection of cursor line : useful for context menus
+	let cursor.selection = wheel#pencil#cursor_selection()
 	" -- settings
 	let leaf.settings = deepcopy(b:wheel_settings)
 	" -- reload

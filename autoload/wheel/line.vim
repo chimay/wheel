@@ -64,30 +64,31 @@ endfun
 " -- wheel applications
 
 fun! wheel#line#switch (settings)
-	" Switch to settings.selection element in wheel
+	" Switch to element in wheel
 	" settings keys :
 	" - target : current, tab, horizontal_split, vertical_split
 	" - level : torus, circle or location
-	" - selection : place to jump to
+	" - selection : selection item
+	" - selection.component : place to jump to
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
 	let level = settings.level
-	let selection = settings.selection
+	let component = settings.selection.component
 	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
-	call wheel#vortex#switch(level, selection, where)
+	call wheel#vortex#switch(level, component, where)
 	return win_getid ()
 endfun
 
 fun! wheel#line#helix (settings)
-	" Go to settings.selection = torus > circle > location
+	" Go to torus > circle > location
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let coordin = split(selection, s:level_separ)
+	let component = settings.selection.component
+	let coordin = split(component, s:level_separ)
 	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
@@ -97,12 +98,12 @@ fun! wheel#line#helix (settings)
 endfun
 
 fun! wheel#line#grid (settings)
-	" Go to settings.selection = torus > circle
+	" Go to torus > circle
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let coordin = split(selection, s:level_separ)
+	let component = settings.selection.component
+	let coordin = split(component, s:level_separ)
 	" ---- jump
 	let where = wheel#line#where (target)
 	call wheel#line#target (target)
@@ -112,15 +113,15 @@ fun! wheel#line#grid (settings)
 endfun
 
 fun! wheel#line#tree (settings)
-	" Go to settings.selection in tree view
-	" Possible vallues of selection :
+	" Go to torus, circle or location in tree view
+	" Possible vallues of selection component :
 	" - [torus]
 	" - [torus, circle]
 	" - [torus, circle, location]
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let coordin = settings.selection
+	let coordin = settings.selection.component
 	let length = len(coordin)
 	" ---- jump
 	let where = wheel#line#where (target)
@@ -139,12 +140,12 @@ fun! wheel#line#tree (settings)
 endfun
 
 fun! wheel#line#history (settings)
-	" Go to settings.selection history location
+	" Go to location in history
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
 	let coordin = split(fields[1], s:level_separ)
 	" ---- jump
 	let where = wheel#line#where (target)
@@ -157,11 +158,11 @@ endfun
 " -- non wheel applications
 
 fun! wheel#line#buffers (settings)
-	" Go to opened file given by selection
+	" Go to buffer
 	" ---- settings
 	let settings = a:settings
-	let selection = settings.selection
-	let fields = split(selection, s:field_separ, v:true)
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ, v:true)
 	let bufnum = str2nr(fields[0])
 	let filename = fnamemodify(fields[3], ':p')
 	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
@@ -200,10 +201,10 @@ fun! wheel#line#buffers (settings)
 endfun
 
 fun! wheel#line#tabwins (settings)
-	" Go to tab & win given by selection
+	" Go to tab & win
 	" ---- settings
 	let settings = a:settings
-	let selection = settings.selection
+	let component = settings.selection.component
 	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
 	if is_context_menu
 		let action = settings.menu.action
@@ -212,14 +213,14 @@ fun! wheel#line#tabwins (settings)
 	endif
 	" ---- actions
 	if action == 'open'
-		let fields = split(selection, s:field_separ)
+		let fields = split(component, s:field_separ)
 		let tabnum = fields[0]
 		let winum = fields[1]
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
 	elseif action == 'tabclose'
-		let fields = split(selection, s:field_separ)
+		let fields = split(component, s:field_separ)
 		let tabnum = fields[0]
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
@@ -234,10 +235,10 @@ fun! wheel#line#tabwins (settings)
 endfun
 
 fun! wheel#line#tabwins_tree (settings)
-	" Go to tab & win given by selection
+	" Go to tab & win in tree fold
 	" ---- settings
 	let settings = a:settings
-	let hierarchy = settings.selection
+	let hierarchy = settings.selection.component
 	let tabnum = hierarchy[0]
 	let is_context_menu = has_key(settings, 'menu') && settings.menu.kind == 'menu/context'
 	if is_context_menu
@@ -495,7 +496,7 @@ fun! wheel#line#paste_list (...)
 		let content = eval(line)
 	else
 		let selection = wheel#pencil#selection ()
-		let content = deepcopy(selection.addresses)
+		let content = deepcopy(selection.components)
 		eval content->map({ _, list_string -> eval(list_string) })
 		eval content->map({ _, list -> join(list, "\n") })
 	endif
@@ -529,7 +530,7 @@ fun! wheel#line#paste_plain (...)
 		let content = [ getline('.') ]
 	else
 		let selection = wheel#pencil#selection ()
-		let content = deepcopy(selection.addresses)
+		let content = deepcopy(selection.components)
 	endif
 	if empty(content)
 		return v:false
