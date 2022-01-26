@@ -313,12 +313,12 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.cd_project = 1
   " Marker of project root
   "let g:wheel_config.project_markers = '.git'
-  "let g:wheel_config.project_markers = '.racine-projet'
+  "let g:wheel_config.project_markers = '.project-root'
   " List of markers
   " The project dir is found as soon as one marker is found in it
-  let g:wheel_config.project_markers = ['.git', '.racine-projet']
+  let g:wheel_config.project_markers = ['.git', '.project-root']
   " Locate database ; default one if left empty
-  let g:wheel_config.locate_db = '~/racine/index/locate/racine.db'
+  let g:wheel_config.locate_db = '~/index/locate/home.db'
   " Grep command : :grep or :vimpgrep
   let g:wheel_config.grep = 'grep'
 
