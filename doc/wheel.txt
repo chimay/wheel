@@ -857,7 +857,8 @@ Special keywords~
 
 Special filtering keywords are available :
 
-- `=s` or `=selection` : the filtered elements will belong to the current selection
+- `=s` or `=selection`   : the filtered elements will belong to the current selection
+- `!=s` or `!=selection` : the filtered elements will _not_ belong to the current selection
 
 If `small flower` and `big fruit` are selected :
 

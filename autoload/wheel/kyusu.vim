@@ -60,7 +60,7 @@ endfun
 " dedicated buffers
 
 fun! wheel#kyusu#intermix (wordlist, index, value, ternar)
-	" Like kyusu#steep, but take selection switch into account
+	" Like kyusu#steep, but take special keywords into account
 	" =s[selection] enable selection only filter
 	let wordlist = a:wordlist
 	let index = a:index
