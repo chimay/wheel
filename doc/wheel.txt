@@ -299,8 +299,8 @@ MOVING AROUND					     *wheel-sbs-moving-around*
 Cycling~
 
 You can cycle the files of a circle with `<M-w><Left>` and
-`<M-w><Right>`. These are often used bindings, so I suggest you map them
-to more convenient keys, like `<C-PageUp>` and `<C-PageDown>`. See
+`<M-w><Right>`. These are often used bindings, so I suggest you map
+them to more convenient keys, like `<M-PageUp>` and `<M-PageDown>`. See
 |wheel-mappings-level-10|.
 
 To cycle the circles, use `<M-w><C-Left>` and `<M-w><C-Right>`. You can
@@ -796,12 +796,13 @@ Reload~
 
 Press `r` and the dedicated buffer will reload its content.
 
-Available on most dedicated buffers. It is not lost : you can reopen it
-any time with `<m-w><end>`.
+Available on most dedicated buffers.
 
 Quit~
 
 Press `q` to quit the dedicated buffer.
+
+It is not lost : you can reopen it any time with `<m-w><end>`.
 
 ------------------------------------------------------------------------------
 TOOLS						*wheel-dedicated-buffers-tools*
@@ -2453,12 +2454,12 @@ History~
 
 | Prefix +    | With default prefix | Action                                        |
 | ----------- | ------------------- | --------------------------------------------- |
-| <Up>        | <M-w><PageUp>       | Go to newer location in history               |
-| <Down>      | <M-w><PageDown>     | Go to older location in history               |
-| <C-Up>      | <M-w><C-PageUp>     | Go to newer location in circle                |
-| <C-Down>    | <M-w><C-PageDown>   | Go to older location in circle                |
-| <S-Up>      | <M-w><S-PageUp>     | Go to newer location in torus                 |
-| <S-Down>    | <M-w><S-PageDown>   | Go to older location in torus                 |
+| <Up>        | <M-w><Up>           | Go to newer location in history               |
+| <Down>      | <M-w><Down>         | Go to older location in history               |
+| <C-Up>      | <M-w><C-Up>         | Go to newer location in circle                |
+| <C-Down>    | <M-w><C-Down>       | Go to older location in circle                |
+| <S-Up>      | <M-w><S-Up>         | Go to newer location in torus                 |
+| <S-Down>    | <M-w><S-Down>       | Go to older location in torus                 |
 | ----------- | ------------------- | --------------------------------------------- |
 | ^           | <M-w>^              | Alternate menu                                |
 | <C-^>       | <M-w><C-^>          | Alternate anywhere                            |
@@ -2757,12 +2758,12 @@ adapt them to your taste and add them to your init file.
 | <C-$>          | Sync down : jump to current location          |
 | <M-$>          | Sync up : find closest wheel location         |
 | -------------- | --------------------------------------------- |
-| <C-PageUp>     | Go to previous location                       |
-| <C-PageDown>   | Go to next location                           |
-| <C-Home>       | Go to previous circle                         |
-| <C-End>        | Go to next circle                             |
-| <S-Home>       | Go to previous torus                          |
-| <S-End>        | Go to next torus                              |
+| <M-PageUp>     | Go to previous location                       |
+| <M-PageDown>   | Go to next location                           |
+| <C-PageUp>     | Go to previous circle                         |
+| <C-PageDown>   | Go to next circle                             |
+| <S-PageUp>     | Go to previous torus                          |
+| <S-PageDown>   | Go to next torus                              |
 | -------------- | --------------------------------------------- |
 | <M-Enter>      | Prompt for a location to switch to            |
 | <C-Enter>      | Prompt for a circle to switch to              |
@@ -2775,12 +2776,12 @@ adapt them to your taste and add them to your init file.
 | <M-S-x>        | Index of toruses > circles > locations        |
 | <M-C-x>        | Choose element in wheel folding tree          |
 | -------------- | --------------------------------------------- |
-| <M-PageUp>     | Go to newer location in history               |
-| <M-PageDown>   | Go to older location in history               |
-| <M-C-PageUp>   | Go to newer location in same circle           |
-| <M-C-PageDown> | Go to older location in same circle           |
-| <M-S-PageUp>   | Go to newer location in same torus            |
-| <M-S-PageDown> | Go to older location in same torus            |
+| <M-Home>       | Go to newer location in history               |
+| <M-End>        | Go to older location in history               |
+| <C-Home>       | Go to newer location in same circle           |
+| <C-End>        | Go to older location in same circle           |
+| <S-Home>       | Go to newer location in same torus            |
+| <S-End>        | Go to older location in same torus            |
 | <M-h>          | History index in prompt                       |
 | <M-C-h>        | History index in dedicated buffer             |
 | -------------- | --------------------------------------------- |
@@ -2826,8 +2827,8 @@ adapt them to your taste and add them to your init file.
 | <M-g>          | Grep in current circle files                  |
 | <M-S-o>        | Outline in current circle files               |
 | -------------- | --------------------------------------------- |
-| <M-y>          | Paste yank ring element in list mode         |
-| <M-p>          | Paste yank ring element in plain mode        |
+| <M-y>          | Paste yank ring element in list mode          |
+| <M-p>          | Paste yank ring element in plain mode         |
 | -------------- | --------------------------------------------- |
 | <M-S-u>        | Undo list                                     |
 | -------------- | --------------------------------------------- |
@@ -2841,8 +2842,8 @@ adapt them to your taste and add them to your init file.
 | <M-Space>      | Switch dedicated buffer                       |
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
-| <S-PageUp>     | Rotate windows counter clockwise              |
-| <S-PageDown>   | Rotate windows clockwise                      |
+| <M-C-PageUp>   | Rotate windows counter clockwise              |
+| <M-C-PageDown> | Rotate windows clockwise                      |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >

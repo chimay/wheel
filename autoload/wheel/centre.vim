@@ -413,12 +413,12 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-$>          <plug>(wheel-sync-up)'
 		" ---- navigate in the wheel
 		" --  next / previous
-		exe nmap '<c-pageup>     <plug>(wheel-previous-location)'
-		exe nmap '<c-pagedown>   <plug>(wheel-next-location)'
-		exe nmap '<c-home>       <plug>(wheel-previous-circle)'
-		exe nmap '<c-end>        <plug>(wheel-next-circle)'
-		exe nmap '<s-home>       <plug>(wheel-previous-torus)'
-		exe nmap '<s-end>        <plug>(wheel-next-torus)'
+		exe nmap '<m-pageup>   <plug>(wheel-previous-location)'
+		exe nmap '<m-pagedown> <plug>(wheel-next-location)'
+		exe nmap '<c-pageup>   <plug>(wheel-previous-circle)'
+		exe nmap '<c-pagedown> <plug>(wheel-next-circle)'
+		exe nmap '<s-pageup>   <plug>(wheel-previous-torus)'
+		exe nmap '<s-pagedown> <plug>(wheel-next-torus)'
 		" -- switch
 		exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
 		exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
@@ -431,12 +431,12 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-s-x>       <plug>(wheel-dedibuf-index)'
 		exe nmap '<m-c-x>       <plug>(wheel-dedibuf-tree)'
 		" -- history
-		exe nmap '<m-pageup>     <plug>(wheel-history-newer)'
-		exe nmap '<m-pagedown>   <plug>(wheel-history-older)'
-		exe nmap '<m-c-pageup>     <plug>(wheel-history-newer-in-circle)'
-		exe nmap '<m-c-pagedown>   <plug>(wheel-history-older-in-circle)'
-		exe nmap '<m-s-pageup>     <plug>(wheel-history-newer-in-torus)'
-		exe nmap '<m-s-pagedown>   <plug>(wheel-history-older-in-torus)'
+		exe nmap '<m-home>      <plug>(wheel-history-newer)'
+		exe nmap '<m-end>       <plug>(wheel-history-older)'
+		exe nmap '<c-home>      <plug>(wheel-history-newer-in-circle)'
+		exe nmap '<c-end>       <plug>(wheel-history-older-in-circle)'
+		exe nmap '<s-home>      <plug>(wheel-history-newer-in-torus)'
+		exe nmap '<s-end>       <plug>(wheel-history-older-in-torus)'
 		exe nmap '<m-h>         <plug>(wheel-prompt-history)'
 		exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
 		" -- alternate
@@ -504,8 +504,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-space>      <plug>(wheel-mandala-switch)'
 		" ---- layouts
 		exe nmap '<m-z>          <plug>(wheel-zoom)'
-		exe nmap '<s-pageup>     <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap '<s-pagedown>   <plug>(wheel-rotate-clockwise)'
+		exe nmap '<m-c-pageup>   <plug>(wheel-rotate-counter-clockwise)'
+		exe nmap '<m-c-pagedown> <plug>(wheel-rotate-clockwise)'
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
