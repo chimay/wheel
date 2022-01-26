@@ -98,7 +98,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 			break
 		endif
 		let findme = status[from]
-		let target = index(tabindexes, findme)
+		let target = tabindexes->index(findme)
 		if target <= 0
 			echoerr 'wheel reorg tabs & windows : new tab index not found'
 			return v:false
@@ -189,7 +189,7 @@ fun! wheel#cuboctahedron#reorder (level)
 	let new_names = getline(1, '$')
 	let new_list = []
 	for name in new_names
-		let index = index(old_names, name)
+		let index = old_names->index(name)
 		if index >= 0
 			let elem = old_list[index]
 		else
@@ -487,7 +487,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" -- fill the baskets
 	let [tabindexes, tabwindows] = wheel#cuboctahedron#baskets (linelist)
 	" -- find the new tab index of mandala tab page
-	let startpage = index(tabindexes, startpage) + 1
+	let startpage = tabindexes->index(startpage) + 1
 	" -- arrange tabs : reorder, add and remove
 	let [tabindexes, removed] = wheel#cuboctahedron#arrange_tabs (tabindexes)
 	" -- add or remove windows

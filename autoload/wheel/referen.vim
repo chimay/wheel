@@ -98,7 +98,7 @@ fun! wheel#referen#coordin_index (level)
 	" torus -> 0
 	" circle -> 1
 	" location -> 2
-	return index(s:coordin, a:level)
+	return s:coordin->index(a:level)
 endfun
 
 fun! wheel#referen#names ()
@@ -121,7 +121,7 @@ endfun
 
 fun! wheel#referen#upper (level)
 	" Current upper element in hierarchy
-	let index = index(s:levels, a:level)
+	let index = s:levels->index(a:level)
 	if index < 1 || index > 3
 		echomsg 'wheel referen upper : level must be torus, circle or location'
 		return
@@ -132,7 +132,7 @@ endfun
 
 fun! wheel#referen#lower (level)
 	" Current lower element in hierarchy
-	let index = index(s:levels, a:level)
+	let index = s:levels->index(a:level)
 	if index > 2 || index < 0
 		echomsg 'wheel referen lower : level index must be wheel, torus or circle'
 		return
@@ -143,7 +143,7 @@ endfun
 
 fun! wheel#referen#upper_level_name (level)
 	" Level name of upper element in hierarchy
-	let index = index(s:levels, a:level)
+	let index = s:levels->index(a:level)
 	if index < 1 || index > 3
 		echomsg 'wheel referen upper level name : level must be torus, circle or location'
 		return
@@ -154,7 +154,7 @@ endfun
 
 fun! wheel#referen#lower_level_name (level)
 	" Level name of lower element in hierarchy
-	let index = index(s:levels, a:level)
+	let index = s:levels->index(a:level)
 	if index > 2 || index < 0
 		echomsg 'wheel referen lower level name : level index must be wheel, torus or circle'
 		return

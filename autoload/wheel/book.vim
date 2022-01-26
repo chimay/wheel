@@ -445,7 +445,7 @@ fun! wheel#book#switch (...)
 	let name = wheel#mandala#pseudo (name)
 	let filenames = wheel#book#ring ('filename')
 	let ring = b:wheel_ring
-	let current = index(filenames, name)
+	let current = filenames->index(name)
 	if current < 0
 		echomsg 'wheel book switch : mandala leaf' name ' not found in ring'
 		return v:false

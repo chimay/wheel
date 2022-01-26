@@ -126,7 +126,7 @@ fun! wheel#vortex#tune (level, name)
 	let upper = wheel#referen#upper(level)
 	if ! empty(upper) && ! empty(upper.glossary)
 		let glossary = upper.glossary
-		let index = index(glossary, name)
+		let index = glossary->index(name)
 		if index >= 0
 			let upper.current = index
 		else

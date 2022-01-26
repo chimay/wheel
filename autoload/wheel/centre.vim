@@ -166,33 +166,33 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-mandala-backward) <cmd>call wheel#cylinder#backward()<cr>
 	nnoremap <plug>(wheel-mandala-switch) <cmd>call wheel#cylinder#switch()<cr>
 	" ---- layouts
-	nnoremap <plug>(wheel-zoom) <cmd>call wheel#mosaic#zoom()<cr>
+	nnoremap <plug>(wheel-layout-zoom) <cmd>call wheel#mosaic#zoom()<cr>
 	" -- tabs
-	nnoremap <plug>(wheel-tabs-locations) <cmd>call wheel#mosaic#tabs('location')<cr>
-	nnoremap <plug>(wheel-tabs-circles) <cmd>call wheel#mosaic#tabs('circle')<cr>
-	nnoremap <plug>(wheel-tabs-toruses) <cmd>call wheel#mosaic#tabs('torus')<cr>
+	nnoremap <plug>(wheel-layout-tabs-locations) <cmd>call wheel#mosaic#tabs('location')<cr>
+	nnoremap <plug>(wheel-layout-tabs-circles) <cmd>call wheel#mosaic#tabs('circle')<cr>
+	nnoremap <plug>(wheel-layout-tabs-toruses) <cmd>call wheel#mosaic#tabs('torus')<cr>
 	" -- windows
-	nnoremap <plug>(wheel-split-locations) <cmd>call wheel#mosaic#split('location')<cr>
-	nnoremap <plug>(wheel-split-circles) <cmd>call wheel#mosaic#split('circle')<cr>
-	nnoremap <plug>(wheel-split-toruses) <cmd>call wheel#mosaic#split('torus')<cr>
-	nnoremap <plug>(wheel-vsplit-locations) <cmd>call wheel#mosaic#split('location', 'vertical')<cr>
-	nnoremap <plug>(wheel-vsplit-circles) <cmd>call wheel#mosaic#split('circle', 'vertical')<cr>
-	nnoremap <plug>(wheel-vsplit-toruses) <cmd>call wheel#mosaic#split('torus', 'vertical')<cr>
-	nnoremap <plug>(wheel-main-top-locations) <cmd>call wheel#mosaic#split('location', 'main_top')<cr>
-	nnoremap <plug>(wheel-main-top-circles) <cmd>call wheel#mosaic#split('circle', 'main_top')<cr>
-	nnoremap <plug>(wheel-main-top-toruses) <cmd>call wheel#mosaic#split('torus', 'main_top')<cr>
-	nnoremap <plug>(wheel-main-left-locations) <cmd>call wheel#mosaic#split('location', 'main_left')<cr>
-	nnoremap <plug>(wheel-main-left-circles) <cmd>call wheel#mosaic#split('circle', 'main_left')<cr>
-	nnoremap <plug>(wheel-main-left-toruses) <cmd>call wheel#mosaic#split('torus', 'main_left')<cr>
-	nnoremap <plug>(wheel-grid-locations) <cmd>call wheel#mosaic#split_grid('location')<cr>
-	nnoremap <plug>(wheel-grid-circles) <cmd>call wheel#mosaic#split_grid('circle')<cr>
-	nnoremap <plug>(wheel-grid-toruses) <cmd>call wheel#mosaic#split_grid('torus')<cr>
+	nnoremap <plug>(wheel-layout-split-locations) <cmd>call wheel#mosaic#split('location')<cr>
+	nnoremap <plug>(wheel-layout-split-circles) <cmd>call wheel#mosaic#split('circle')<cr>
+	nnoremap <plug>(wheel-layout-split-toruses) <cmd>call wheel#mosaic#split('torus')<cr>
+	nnoremap <plug>(wheel-layout-vsplit-locations) <cmd>call wheel#mosaic#split('location', 'vertical')<cr>
+	nnoremap <plug>(wheel-layout-vsplit-circles) <cmd>call wheel#mosaic#split('circle', 'vertical')<cr>
+	nnoremap <plug>(wheel-layout-vsplit-toruses) <cmd>call wheel#mosaic#split('torus', 'vertical')<cr>
+	nnoremap <plug>(wheel-layout-main-top-locations) <cmd>call wheel#mosaic#split('location', 'main_top')<cr>
+	nnoremap <plug>(wheel-layout-main-top-circles) <cmd>call wheel#mosaic#split('circle', 'main_top')<cr>
+	nnoremap <plug>(wheel-layout-main-top-toruses) <cmd>call wheel#mosaic#split('torus', 'main_top')<cr>
+	nnoremap <plug>(wheel-layout-main-left-locations) <cmd>call wheel#mosaic#split('location', 'main_left')<cr>
+	nnoremap <plug>(wheel-layout-main-left-circles) <cmd>call wheel#mosaic#split('circle', 'main_left')<cr>
+	nnoremap <plug>(wheel-layout-main-left-toruses) <cmd>call wheel#mosaic#split('torus', 'main_left')<cr>
+	nnoremap <plug>(wheel-layout-grid-locations) <cmd>call wheel#mosaic#split_grid('location')<cr>
+	nnoremap <plug>(wheel-layout-grid-circles) <cmd>call wheel#mosaic#split_grid('circle')<cr>
+	nnoremap <plug>(wheel-layout-grid-toruses) <cmd>call wheel#mosaic#split_grid('torus')<cr>
 	" -- tabs & windows
-	nnoremap <plug>(wheel-tab-win-torus) <cmd>call wheel#pyramid#steps('torus')<cr>
-	nnoremap <plug>(wheel-tab-win-circle) <cmd>call wheel#pyramid#steps('circle')<cr>
+	nnoremap <plug>(wheel-layout-tab-win-torus) <cmd>call wheel#pyramid#steps('torus')<cr>
+	nnoremap <plug>(wheel-layout-tab-win-circle) <cmd>call wheel#pyramid#steps('circle')<cr>
 	" -- rotating windows
-	nnoremap <plug>(wheel-rotate-counter-clockwise) <cmd>call wheel#mosaic#rotate_counter_clockwise()<cr>
-	nnoremap <plug>(wheel-rotate-clockwise) <cmd>call wheel#mosaic#rotate_clockwise()<cr>
+	nnoremap <plug>(wheel-layout-rotate-counter-clockwise) <cmd>call wheel#mosaic#rotate_counter_clockwise()<cr>
+	nnoremap <plug>(wheel-layout-rotate-clockwise) <cmd>call wheel#mosaic#rotate_clockwise()<cr>
 	" ---- misc
 	nnoremap <plug>(wheel-spiral-cursor) <cmd>call wheel#spiral#cursor()<cr>
 	" ---- debug
@@ -371,36 +371,36 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<right>  <plug>(wheel-mandala-forward)'
 		exe nmap prefix .. '<m-space> <plug>(wheel-mandala-switch)'
 		" ---- layouts
-		exe nmap prefix .. layout .. 'z <plug>(wheel-zoom)'
+		exe nmap prefix .. layout .. 'z <plug>(wheel-layout-zoom)'
 		" -- tabs
-		exe nmap prefix .. layout .. 't <plug>(wheel-tabs-locations)'
-		exe nmap prefix .. layout .. '<c-t> <plug>(wheel-tabs-circles)'
-		exe nmap prefix .. layout .. 'T <plug>(wheel-tabs-toruses)'
+		exe nmap prefix .. layout .. 't <plug>(wheel-layout-tabs-locations)'
+		exe nmap prefix .. layout .. '<c-t> <plug>(wheel-layout-tabs-circles)'
+		exe nmap prefix .. layout .. 'T <plug>(wheel-layout-tabs-toruses)'
 		" -- windows
-		exe nmap prefix .. layout .. 's <plug>(wheel-split-locations)'
-		exe nmap prefix .. layout .. '<c-s> <plug>(wheel-split-circles)'
-		exe nmap prefix .. layout .. 'S <plug>(wheel-split-toruses)'
-		exe nmap prefix .. layout .. 'v <plug>(wheel-vsplit-locations)'
-		exe nmap prefix .. layout .. '<c-v> <plug>(wheel-vsplit-circles)'
-		exe nmap prefix .. layout .. 'V <plug>(wheel-vsplit-toruses)'
+		exe nmap prefix .. layout .. 's <plug>(wheel-layout-split-locations)'
+		exe nmap prefix .. layout .. '<c-s> <plug>(wheel-layout-split-circles)'
+		exe nmap prefix .. layout .. 'S <plug>(wheel-layout-split-toruses)'
+		exe nmap prefix .. layout .. 'v <plug>(wheel-layout-vsplit-locations)'
+		exe nmap prefix .. layout .. '<c-v> <plug>(wheel-layout-vsplit-circles)'
+		exe nmap prefix .. layout .. 'V <plug>(wheel-layout-vsplit-toruses)'
 		" -- main top
-		exe nmap prefix .. layout .. 'm <plug>(wheel-main-top-locations)'
-		exe nmap prefix .. layout .. '<c-m> <plug>(wheel-main-top-circles)'
-		exe nmap prefix .. layout .. 'M <plug>(wheel-main-top-toruses)'
+		exe nmap prefix .. layout .. 'm <plug>(wheel-layout-main-top-locations)'
+		exe nmap prefix .. layout .. '<c-m> <plug>(wheel-layout-main-top-circles)'
+		exe nmap prefix .. layout .. 'M <plug>(wheel-layout-main-top-toruses)'
 		" -- main left
-		exe nmap prefix .. layout .. 'l <plug>(wheel-main-left-locations)'
-		exe nmap prefix .. layout .. '<c-l> <plug>(wheel-main-left-circles)'
-		exe nmap prefix .. layout .. 'L <plug>(wheel-main-left-toruses)'
+		exe nmap prefix .. layout .. 'l <plug>(wheel-layout-main-left-locations)'
+		exe nmap prefix .. layout .. '<c-l> <plug>(wheel-layout-main-left-circles)'
+		exe nmap prefix .. layout .. 'L <plug>(wheel-layout-main-left-toruses)'
 		" -- grid
-		exe nmap prefix .. layout .. 'g <plug>(wheel-grid-locations)'
-		exe nmap prefix .. layout .. '<c-g> <plug>(wheel-grid-circles)'
-		exe nmap prefix .. layout .. 'G <plug>(wheel-grid-toruses)'
+		exe nmap prefix .. layout .. 'g <plug>(wheel-layout-grid-locations)'
+		exe nmap prefix .. layout .. '<c-g> <plug>(wheel-layout-grid-circles)'
+		exe nmap prefix .. layout .. 'G <plug>(wheel-layout-grid-toruses)'
 		" -- tabs & windows
-		exe nmap prefix .. layout .. '& <plug>(wheel-tab-win-circle)'
-		exe nmap prefix .. layout .. '<M-&> <plug>(wheel-tab-win-torus)'
+		exe nmap prefix .. layout .. '& <plug>(wheel-layout-tab-win-circle)'
+		exe nmap prefix .. layout .. '<M-&> <plug>(wheel-layout-tab-win-torus)'
 		" -- rotating windows
-		exe nmap prefix .. layout .. '<up> <plug>(wheel-rotate-counter-clockwise)'
-		exe nmap prefix .. layout .. '<down> <plug>(wheel-rotate-clockwise)'
+		exe nmap prefix .. layout .. '<up> <plug>(wheel-layout-rotate-counter-clockwise)'
+		exe nmap prefix .. layout .. '<down> <plug>(wheel-layout-rotate-clockwise)'
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10

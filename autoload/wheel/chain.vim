@@ -35,7 +35,7 @@ endfun
 
 fun! wheel#chain#insert_after (list, element, new)
 	" Insert new in list just after element
-	let index = index(a:list, a:element)
+	let index = a:list->index(a:element)
 	return a:list->wheel#chain#insert_next(index, a:new)
 endfun
 

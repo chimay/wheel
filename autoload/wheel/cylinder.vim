@@ -32,7 +32,7 @@ fun! wheel#cylinder#check ()
 	for bufnum in mandalas
 		if ! bufexists(bufnum)
 			echomsg 'wheel : removing deleted' bufnum 'buffer from mandala ring'
-			let index = index(mandalas, bufnum)
+			let index = mandalas->index(bufnum)
 			call remove(mandalas, index)
 			call remove(iden, index)
 			let current = g:wheel_mandalas.current
@@ -401,7 +401,7 @@ fun! wheel#cylinder#switch ()
 		let name = input(prompt, '', complete)
 	endif
 	let filenames = bufnums->map({ _, val->bufname(val) })
-	let mandala = index(filenames, name)
+	let mandala = filenames->index(name)
 	if mandala < 0
 		return v:false
 	endif

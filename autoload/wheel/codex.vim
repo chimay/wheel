@@ -24,7 +24,7 @@ fun! wheel#codex#register (register, move = 'dont-move')
 		return
 	endif
 	let content = split(content, "\n")
-	let index = index(yanks, content)
+	let index = yanks->index(content)
 	if index < 0
 		call insert(yanks, content)
 	else

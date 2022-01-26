@@ -3196,32 +3196,32 @@ Layouts~
 
 | Plug maps                                       | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-zoom)                              | one tab, one window                    |
-| <plug>(wheel-tabs-locations)                    | one location of current circle per tab |
-| <plug>(wheel-tabs-circles)                      | one circle of current torus per tab    |
-| <plug>(wheel-tabs-toruses)                      | one torus per tab                      |
+| <plug>(wheel-layout-zoom)                       | one tab, one window                    |
+| <plug>(wheel-layout-tabs-locations)             | one location of current circle per tab |
+| <plug>(wheel-layout-tabs-circles)               | one circle of current torus per tab    |
+| <plug>(wheel-layout-tabs-toruses)               | one torus per tab                      |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-split-locations)                   | one location per split                 |
-| <plug>(wheel-split-circles)                     | one circle per split                   |
-| <plug>(wheel-split-toruses)                     | one torus per split                    |
-| <plug>(wheel-vsplit-locations)                  | one location per vertical split        |
-| <plug>(wheel-vsplit-circles)                    | one circle per vertical split          |
-| <plug>(wheel-vsplit-toruses)                    | one torus per vertical split           |
+| <plug>(wheel-layout-split-locations)            | one location per split                 |
+| <plug>(wheel-layout-split-circles)              | one circle per split                   |
+| <plug>(wheel-layout-split-toruses)              | one torus per split                    |
+| <plug>(wheel-layout-vsplit-locations)           | one location per vertical split        |
+| <plug>(wheel-layout-vsplit-circles)             | one circle per vertical split          |
+| <plug>(wheel-layout-vsplit-toruses)             | one torus per vertical split           |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-main-top-locations)                | locations in main top layout           |
-| <plug>(wheel-main-top-circles)                  | circles in main top layout             |
-| <plug>(wheel-main-top-toruses)                  | toruses in main top layout             |
-| <plug>(wheel-main-left-locations)               | locations in main top layout           |
-| <plug>(wheel-main-left-circles)                 | circles in main top layout             |
-| <plug>(wheel-main-left-toruses)                 | toruses in main top layout             |
-| <plug>(wheel-grid-locations)                    | locations in grid layout               |
-| <plug>(wheel-grid-circles)                      | circles in grid layout                 |
-| <plug>(wheel-grid-toruses)                      | toruses in grid layout                 |
-| <plug>(wheel-tab-win-torus)                     | torus in tabs, circles in windows      |
-| <plug>(wheel-tab-win-circle)                    | circles in tabs, locations in windows  |
+| <plug>(wheel-layout-main-top-locations)         | locations in main top layout           |
+| <plug>(wheel-layout-main-top-circles)           | circles in main top layout             |
+| <plug>(wheel-layout-main-top-toruses)           | toruses in main top layout             |
+| <plug>(wheel-layout-main-left-locations)        | locations in main top layout           |
+| <plug>(wheel-layout-main-left-circles)          | circles in main top layout             |
+| <plug>(wheel-layout-main-left-toruses)          | toruses in main top layout             |
+| <plug>(wheel-layout-grid-locations)             | locations in grid layout               |
+| <plug>(wheel-layout-grid-circles)               | circles in grid layout                 |
+| <plug>(wheel-layout-grid-toruses)               | toruses in grid layout                 |
+| <plug>(wheel-layout-tab-win-torus)              | torus in tabs, circles in windows      |
+| <plug>(wheel-layout-tab-win-circle)             | circles in tabs, locations in windows  |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-rotate-counter-clockwise)          | rotate windows counter clockwise       |
-| <plug>(wheel-rotate-clockwise)                  | rotate windows clockwise               |
+| <plug>(wheel-layout-rotate-counter-clockwise)   | rotate windows counter clockwise       |
+| <plug>(wheel-layout-rotate-clockwise)           | rotate windows clockwise               |
 
 Miscellaneous~
 

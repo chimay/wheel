@@ -177,7 +177,7 @@ fun! wheel#rectangle#tab_buffers ()
 	" List of buffers in current tab, starting with current one
 	let bufnum = bufnr('%')
 	let buffers = tabpagebuflist()
-	let index = index(buffers, bufnum)
+	let index = buffers->index(bufnum)
 	let buffers = buffers->wheel#chain#roll_left(index)
 	return buffers
 endfun

@@ -487,7 +487,7 @@ fun! wheel#tree#remove (level, name)
 	let elements = wheel#referen#elements (upper)
 	let glossary = upper.glossary
 	" find element index
-	let index = index(glossary, name)
+	let index = glossary->index(name)
 	if index < 0
 		echomsg upper_name 'does not contain' name
 	endif
