@@ -865,6 +865,7 @@ If `small flower` and `big fruit` are selected :
 - the pattern `=s` will narrow down to `small flower`, `big fruit`
 - the patterns `=s fl` will narrow down to `small flower`
 - the patterns `=s bi` will narrow down to `big fruit`
+- the patterns `!=s bi` will narrow down to `big flower`
 
 Input history~
 
