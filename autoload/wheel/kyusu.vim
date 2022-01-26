@@ -61,7 +61,15 @@ endfun
 
 fun! wheel#kyusu#intermix (wordlist, index, value, ternar)
 	" Like kyusu#steep, but take special keywords into account
-	" =s[selection] enable selection only filter
+	" Arguments :
+	"   - wordlist : filtering words
+	"   - index : index in b:wheel_lines of value
+	"   - value : mandala line tested with wordlist
+	"   - ternar : ternary switches
+	"     + selection
+	"       * 1 if selection only
+	"       * 0 if neutral
+	"       * -1 is non-selection only
 	let wordlist = a:wordlist
 	let index = a:index
 	let value = a:value
@@ -138,6 +146,9 @@ endfun
 
 fun! wheel#kyusu#gaiwan ()
 	" Return lines matching words of first line
+	" Special keywords :
+	"   - =s[selection] enable selection only filter
+	"   - !=s[selection] enable non-selection only filter
 	let linelist = copy(b:wheel_lines)
 	let input = wheel#teapot#without_prompt ()
 	if empty(input)
