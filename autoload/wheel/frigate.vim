@@ -99,8 +99,6 @@ fun! wheel#frigate#markers ()
 		call wheel#rectangle#previous ()
 	endif
 	call wheel#frigate#generic('markers')
-	" reload
-	let b:wheel_reload = 'wheel#frigate#markers'
 endfun
 
 fun! wheel#frigate#jumps ()
@@ -144,8 +142,6 @@ endfun
 fun! wheel#frigate#tags ()
 	" Tags file
 	call wheel#frigate#generic('tags')
-	" reload
-	let b:wheel_reload = 'wheel#frigate#tags'
 endfun
 
 " search files
@@ -153,8 +149,6 @@ endfun
 fun! wheel#frigate#mru ()
 	" Most recenty used files
 	call wheel#frigate#generic('mru')
-	" reload
-	let b:wheel_reload = 'wheel#frigate#mru'
 endfun
 
 fun! wheel#frigate#locate (...)
