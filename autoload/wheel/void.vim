@@ -148,6 +148,9 @@ fun! wheel#void#mandalas ()
 	if ! has_key(g:wheel_mandalas, 'iden')
 		let g:wheel_mandalas.iden = []
 	endif
+	if ! has_key(g:wheel_mandalas, 'names')
+		let g:wheel_mandalas.names = []
+	endif
 endfun
 
 fun! wheel#void#signs ()

@@ -25,3 +25,19 @@ fun! wheel#guru#autocomands ()
 	let command = 'autocmd ' .. group
 	call wheel#mandala#command (command)
 endfun
+
+" mandala local help
+
+fun! wheel#guru#mandala ()
+	" Basic local maps in mandalas
+	echomsg 'q : quit           | <M-n> : rename      |'
+	echomsg 'H : previous layer | <M-l> : switch leaf | L : next leaf'
+	echomsg '<F1> : this help   | <F2> : local maps   |'
+endfun
+
+fun! wheel#guru#mandala_mappings ()
+	" List of mappings in a dedicated buffer
+	let command = 'map <buffer>'
+	call wheel#mandala#command (command)
+endfun
+

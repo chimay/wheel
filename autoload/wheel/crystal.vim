@@ -346,6 +346,8 @@ if ! exists('s:menu_help')
 				\ ['current mappings', 'wheel#guru#mappings'],
 				\ ['available mappings (plugs)', 'wheel#guru#plugs'],
 				\ ['autocommands', 'wheel#guru#autocomands'],
+				\ ['dedicated buffer help', 'wheel#guru#mandala'],
+				\ ['local maps', 'wheel#guru#mandala_mappings'],
 				\]
 	lockvar s:menu_help
 endif

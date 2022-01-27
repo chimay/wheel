@@ -470,14 +470,21 @@ endfun
 
 fun! wheel#mandala#common_maps ()
 	" Define mandala common maps
+	" -- help
+	nnoremap <buffer> <f1>   <cmd>call wheel#guru#mandala()<cr>
+	nnoremap <buffer> <m-f1> <cmd>call wheel#guru#mandala_mappings()<cr>
+	" -- quit
 	nnoremap <buffer> q <cmd>call wheel#cylinder#close()<cr>
+	" -- movement
 	nnoremap <buffer> j <cmd>call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> k <cmd>call wheel#mandala#wrap_up()<cr>
 	nnoremap <buffer> <down> <cmd>call wheel#mandala#wrap_down()<cr>
 	nnoremap <buffer> <up> <cmd>call wheel#mandala#wrap_up()<cr>
-	" Reload mandala
+	" -- reload mandala
 	nnoremap <buffer> r <cmd>call wheel#mandala#reload ()<cr>
-	" Navigate in layer ring
+	" -- rename mandala
+	nnoremap <buffer> <m-n> <cmd>call wheel#cylinder#rename ()<cr>
+	" -- navigate in leaf ring
 	nnoremap <buffer> H <cmd>call wheel#book#backward ()<cr>
 	nnoremap <buffer> L <cmd>call wheel#book#forward ()<cr>
 	nnoremap <buffer> <m-l> <cmd>call wheel#book#switch ()<cr>

@@ -79,34 +79,27 @@ endfun
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
 	let oneline = g:wheel_config.display.message == 'one-line'
-	let bufnums = g:wheel_mandalas.ring
-	" -- current leaf type
-	let title = '[' .. wheel#mandala#type () .. ']'
-	" -- type function
-	let Type = function('wheel#status#type')
-	" -- mandala ring status
-	let mandalas = map(copy(bufnums), { _, val -> bufname(val) })
-	eval mandalas->map({ _, val -> Type(val) })
-	let current = g:wheel_mandalas.current
-	let mandalas[current] = title
-	" -- leaf ring status
-	if exists('b:wheel_ring')
-		" we are in a mandala
+	" ---- mandalas
+	let mandalas = g:wheel_mandalas
+	let bufnames = copy(mandalas.names)
+	let cur_mandala = mandalas.current
+	let bufnames[cur_mandala] = '[' .. bufnames[cur_mandala] .. ']'
+	" ---- leaves
+	if wheel#cylinder#is_mandala ()
+		let cur_leaf = b:wheel_ring.current
 		let nature = wheel#book#ring ('nature')
-		let filenames = nature->map({ _, val -> val.type })
-		let current = b:wheel_ring.current
-		let leaves = map(copy(filenames), { _, val -> Type(val) })
-		let leaves[current] = title
+		let leaves = nature->map({ _, val -> val.type })
+		let leaves[cur_leaf] =  '[' .. leaves[cur_leaf] .. ']'
 	else
-		let current = -1
+		let cur_leaf = -1
 	endif
 	" echo
 	call wheel#status#clear ()
-	if current >= 0
+	if cur_leaf >= 0
 		if oneline
 			echo 'wheel buf:' join(mandalas) '/ lay:' join(leaves)
 		else
-			echo 'wheel buffers : ' join(mandalas) "\n"
+			echo 'wheel buffers : ' join(bufnames) "\n"
 			echo '      layers  : ' join(leaves)
 		endif
 	else
