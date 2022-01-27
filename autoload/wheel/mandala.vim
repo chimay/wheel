@@ -434,7 +434,10 @@ endfun
 " content
 
 fun! wheel#mandala#update_var_lines (mood = 'patient')
-	" Update b:wheel_lines from mandala lines
+	" Update lines in local mandala variables, from visible lines
+	" Affected :
+	"   - b:wheel_lines
+	"   - b:wheel_filter.lines
 	" Optional argument :
 	"   - patient (default) : update with all checks
 	"   - hurry : update from rough buffer lines

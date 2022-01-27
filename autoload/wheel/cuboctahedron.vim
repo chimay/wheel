@@ -177,7 +177,7 @@ endfun
 fun! wheel#cuboctahedron#reorder (level)
 	" Reorder current elements at level, after buffer content
 	let level = a:level
-	" -- update b:wheel_lines
+	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- reorder
 	let upper = wheel#referen#upper (level)
@@ -214,7 +214,7 @@ endfun
 fun! wheel#cuboctahedron#rename (level)
 	" Rename current elements at level, after buffer content
 	let level = a:level
-	" -- update b:wheel_lines
+	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- rename
 	let upper = wheel#referen#upper (level)
@@ -251,7 +251,7 @@ endfun
 
 fun! wheel#cuboctahedron#rename_files ()
 	" Rename locations & files of current circle, after buffer content
-	" -- update b:wheel_lines
+	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- init
 	let circle = wheel#referen#circle ()
@@ -333,7 +333,7 @@ endfun
 fun! wheel#cuboctahedron#copy_move (level)
 	" Copy or move selected elements at level
 	let level = a:level
-	" -- update b:wheel_lines
+	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- mode : copy or move
 	let prompt = 'Mode ? '
@@ -429,7 +429,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	if confirm == 1
 		call wheel#disc#write_all ()
 	endif
-	" -- update b:wheel_lines
+	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- start from empty wheel
 	call wheel#gear#unlet ('g:wheel')
@@ -476,7 +476,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" Reorganize tabs & windows
 	" Mandala line list
 	" Keep old layouts if possible
-	" -- update b:wheel_lines
+	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- list of lines
 	let linelist = b:wheel_lines
