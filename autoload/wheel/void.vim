@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Initialization of variables
+"
 " Enter the void, and ride the wheel
 
 " script constants
@@ -133,7 +135,7 @@ fun! wheel#void#yank ()
 endfun
 
 fun! wheel#void#mandalas ()
-	" Initialize mandala buffers
+	" Initialize mandala buffers list
 	if ! exists('g:wheel_mandalas')
 		let g:wheel_mandalas = {}
 	endif
