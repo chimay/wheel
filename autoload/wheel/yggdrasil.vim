@@ -48,7 +48,8 @@ fun! wheel#yggdrasil#reorder (level)
 		return v:false
 	endif
 	call wheel#mandala#blank ('reorder/' .. level)
-	call wheel#mandala#template ()
+	call wheel#mandala#common_maps ()
+	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('reorder', level)
 	call wheel#mandala#fill(lines, 'prompt-first')
 	silent global /^$/ delete
@@ -68,7 +69,8 @@ fun! wheel#yggdrasil#rename (level)
 		return v:false
 	endif
 	call wheel#mandala#blank ('rename/' .. level)
-	call wheel#mandala#template ()
+	call wheel#mandala#common_maps ()
+	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('rename', level)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines, 'prompt-first')
@@ -93,8 +95,9 @@ fun! wheel#yggdrasil#rename_files ()
 	" -- mandala
 	call wheel#mandala#blank ('rename/locations_files')
 	call wheel#mandala#common_maps ()
+	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('rename_files')
-	call wheel#mandala#fill(lines, 'delete-first')
+	call wheel#mandala#fill(lines, 'prompt-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	" reload
@@ -114,9 +117,10 @@ fun! wheel#yggdrasil#copy_move (level)
 	endif
 	call wheel#mandala#blank ('copy_move/' .. level)
 	call wheel#mandala#common_maps ()
+	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('copy_move', level)
 	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'delete-first')
+		call wheel#mandala#fill(lines, 'prompt-first')
 		silent global /^$/ delete
 		setlocal nomodified
 	else
@@ -142,9 +146,10 @@ fun! wheel#yggdrasil#reorganize ()
 	endif
 	call wheel#mandala#blank ('reorganize')
 	call wheel#mandala#common_maps ()
+	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('reorganize')
 	call wheel#mandala#folding_options ()
-	call wheel#mandala#fill(lines, 'delete-first')
+	call wheel#mandala#fill(lines, 'prompt-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
