@@ -413,7 +413,7 @@ fun! wheel#book#delete ()
 	endif
 	" -- delete
 	let current = ring.current
-	call remove(ring.leaves, current)
+	eval ring.leaves->remove(current)
 	let length -= 1
 	let ring.current = wheel#gear#circular_minus (current, length)
 	call wheel#book#syncdown ()

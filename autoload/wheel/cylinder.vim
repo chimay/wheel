@@ -340,7 +340,7 @@ fun! wheel#cylinder#rename ()
 	let mandalas = g:wheel_mandalas
 	let current = mandalas.current
 	let names = mandalas.names
-	let prompt = 'Rename current dedicated buffer as ? '
+	let prompt = 'Relabel current dedicated buffer as ? '
 	let new_name = input(prompt)
 	let names[current] = new_name
 	call wheel#status#mandala_leaf ()

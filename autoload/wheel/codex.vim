@@ -29,8 +29,8 @@ fun! wheel#codex#register (register, move = 'dont-move')
 		eval yanks->insert(content)
 	else
 		if move == 'begin'
-			eval yanks->remove(, index)
-			eval yanks->insert(, content)
+			eval yanks->remove(index)
+			eval yanks->insert(content)
 		endif
 	endif
 endfun

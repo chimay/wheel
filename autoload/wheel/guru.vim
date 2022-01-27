@@ -30,9 +30,9 @@ endfun
 
 fun! wheel#guru#mandala ()
 	" Basic local maps in mandalas
-	echomsg 'q : quit           | <M-n> : rename      |'
-	echomsg 'H : previous layer | <M-l> : switch leaf | L : next leaf'
-	echomsg '<F1> : this help   | <F2> : local maps   |'
+	echomsg 'q : quit           | <M-n> : relabel buffer | <Backspace> : delete layer'
+	echomsg 'H : previous layer | <M-l> : switch layer   | L : next layer'
+	echomsg '<F1> : this help   | <F2> : local maps      |'
 endfun
 
 fun! wheel#guru#mandala_mappings ()
