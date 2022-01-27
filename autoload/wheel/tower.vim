@@ -89,7 +89,7 @@ fun! wheel#tower#staircase (settings)
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)
 	let b:wheel_lines = lines
-	call wheel#mandala#filename (dictname)
+	call wheel#mandala#set_type (dictname)
 	call wheel#mandala#fill (lines, 'blank-first')
 	call wheel#tower#mappings (settings)
 	" save settings

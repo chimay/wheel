@@ -107,14 +107,15 @@ endfun
 
 fun! wheel#mandala#pseudo (type)
 	" Return pseudo filename /wheel/<buf-id>/<type>
-	let current = g:wheel_mandalas.current
-	let iden = g:wheel_mandalas.iden[current]
 	let type = a:type
+	let mandalas = g:wheel_mandalas
+	let current = mandalas.current
+	let iden = mandalas.iden[current]
 	let pseudo = '/wheel/' .. iden .. '/' .. type
 	return pseudo
 endfun
 
-fun! wheel#mandala#filename (type)
+fun! wheel#mandala#set_type (type)
 	" Set type & buffer filename to pseudo filename
 	" Useful as information
 	" We also need a name when writing, even with BufWriteCmd
@@ -123,21 +124,14 @@ fun! wheel#mandala#filename (type)
 	" Add unique buf id, so (n)vim does not complain about existing filename
 	let pseudo = wheel#mandala#pseudo (type)
 	execute 'silent file' pseudo
-	if type != 'empty'
-		" should be false when called
-		" set to true in mandala#set_empty
+	if type == 'empty'
+		let b:wheel_nature.empty = v:true
+	else
 		let b:wheel_nature.empty = v:false
 	endif
 endfun
 
 " nature
-
-fun! wheel#mandala#set_empty ()
-	" Tell wheel to consider this mandala as an empty buffer
-	call wheel#mandala#filename ('empty')
-	" has to be placed after mandala#filename
-	let b:wheel_nature.empty = v:true
-endfun
 
 fun! wheel#mandala#is_empty ()
 	" Whether mandala is empty
@@ -161,7 +155,7 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.type = 'empty'
 		let b:wheel_nature.has_filter = v:false
 		let b:wheel_nature.has_selection = v:false
-		call wheel#mandala#filename ('empty')
+		call wheel#mandala#set_type ('empty')
 	endif
 	" -- related buffer
 	if ! exists('b:wheel_related_buffer')
@@ -300,7 +294,7 @@ fun! wheel#mandala#blank (type)
 	endif
 	" add new leaf, clear mandala, init vars
 	call wheel#book#add ('clear')
-	call wheel#mandala#filename (type)
+	call wheel#mandala#set_type (type)
 	call wheel#mandala#common_options ()
 	" set related buffer
 	let b:wheel_related_buffer = wheel#mandala#guess_related ()
@@ -416,7 +410,7 @@ fun! wheel#mandala#reload ()
 	" -- save pseudo filename
 	let filename = expand('%')
 	" -- mark the buffer as empty, to avoid adding a leaf in wheel#mandala#blank
-	call wheel#mandala#set_empty ()
+	call wheel#mandala#set_type ('empty')
 	" -- reinitialize buffer vars
 	call wheel#mandala#refresh ()
 	" -- delete all lines

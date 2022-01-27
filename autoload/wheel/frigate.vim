@@ -325,7 +325,7 @@ fun! wheel#frigate#outline (...)
 		let lines = wheel#frigate#grep ('^=.*=$', '\.wiki$')
 	endif
 	if ! empty(lines)
-		call wheel#mandala#filename ('outline')
+		call wheel#mandala#set_type ('outline')
 		" reload
 		let b:wheel_reload = "wheel#frigate#outline('" .. mode .. "')"
 	endif
