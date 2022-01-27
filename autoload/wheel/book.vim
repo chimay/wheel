@@ -480,10 +480,9 @@ fun! wheel#book#switch (...)
 	else
 		let name = input(prompt, '', complete)
 	endif
-	let virtual_file = wheel#mandala#pseudo (name)
-	let filenames = wheel#book#ring ('filename')
-	let ring = b:wheel_ring
-	let current = filenames->index(virtual_file)
+	let forest = wheel#book#ring ('nature')
+	let types = map(forest, { _, val -> val.type })
+	let current = types->index(name)
 	if current < 0
 		echomsg 'wheel book switch : mandala leaf' name ' not found in ring'
 		return v:false
