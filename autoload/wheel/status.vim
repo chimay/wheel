@@ -25,20 +25,6 @@ fun! wheel#status#clear ()
 	call feedkeys(':','nx')
 endfun
 
-" Mandala type
-
-fun! wheel#status#type (...)
-	" Type of a mandala buffer, from filename
-	" Optional argument : filename
-	if a:0 > 0
-		let filename = a:1
-	else
-		let filename = expand('%')
-	endif
-	let type = substitute(filename, s:is_mandala_file, '', '')
-	return type
-endfun
-
 " Message
 
 fun! wheel#status#message (message)
