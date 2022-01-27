@@ -377,7 +377,7 @@ fun! wheel#book#add (clear_mandala = 'dont-clear')
 	let leaf = wheel#book#template ()
 	let ring = b:wheel_ring
 	let next = ring.current + 1
-	call insert(ring.leaves, leaf, next)
+	eval ring.leaves->insert(leaf, next)
 	let ring.current = next
 	call wheel#book#limit ()
 	" -- clear mandala

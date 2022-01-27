@@ -26,11 +26,11 @@ fun! wheel#codex#register (register, move = 'dont-move')
 	let content = split(content, "\n")
 	let index = yanks->index(content)
 	if index < 0
-		call insert(yanks, content)
+		eval yanks->insert(content)
 	else
 		if move == 'begin'
-			call remove(yanks, index)
-			call insert(yanks, content)
+			eval yanks->remove(, index)
+			eval yanks->insert(, content)
 		endif
 	endif
 endfun
