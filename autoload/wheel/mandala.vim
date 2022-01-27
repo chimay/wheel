@@ -454,6 +454,8 @@ fun! wheel#mandala#update_var_lines (mood = 'patient')
 			let visible = wheel#pencil#erase (visible)
 			let line_index = wheel#teapot#line_index (linum)
 			let b:wheel_lines[line_index] = visible
+			let local_index = linum - start
+			let b:wheel_filter.lines[local_index] = visible
 		endfor
 	else
 		let lines = getline(start, '$')
