@@ -128,6 +128,7 @@ fun! wheel#teapot#filter (mode = 'normal')
 	"   - insert : end in insert mode
 	let mode = a:mode
 	let words = wheel#teapot#wordlist ()
+	call wheel#mandala#update_var_lines ()
 	if empty(words)
 		let lines = b:wheel_lines
 		let b:wheel_filter.words = []

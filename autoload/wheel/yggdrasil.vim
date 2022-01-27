@@ -43,16 +43,17 @@ fun! wheel#yggdrasil#reorder (level)
 	" Reorder level elements in a buffer
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
+	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape reorder : empty or incomplete' level
 		return v:false
 	endif
+	" -- mandala
 	call wheel#mandala#blank ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('reorder', level)
 	call wheel#mandala#fill(lines, 'prompt-first')
-	silent global /^$/ delete
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
@@ -64,21 +65,18 @@ fun! wheel#yggdrasil#rename (level)
 	" Rename level elements in a buffer
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
+	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape rename : empty or incomplete' level
 		return v:false
 	endif
+	" -- mandala
 	call wheel#mandala#blank ('rename/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('rename', level)
-	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'prompt-first')
-		silent global /^$/ delete
-		setlocal nomodified
-	else
-		echomsg 'wheel shape rename : empty or incomplete' level
-	endif
+	call wheel#mandala#fill(lines, 'prompt-first')
+	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#yggdrasil#rename('" .. level .. "')"
 endfun
@@ -98,7 +96,6 @@ fun! wheel#yggdrasil#rename_files ()
 	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('rename_files')
 	call wheel#mandala#fill(lines, 'prompt-first')
-	silent global /^$/ delete
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = 'wheel#yggdrasil#rename_files()'
@@ -111,26 +108,19 @@ fun! wheel#yggdrasil#copy_move (level)
 	" Copy or move elements at level
 	let level = a:level
 	let lines = wheel#perspective#switch (level)
+	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape copy / move : empty or incomplete' level
 		return v:false
 	endif
+	" -- mandala
 	call wheel#mandala#blank ('copy_move/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
+	call wheel#pencil#mappings ()
 	call wheel#yggdrasil#write ('copy_move', level)
-	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'prompt-first')
-		silent global /^$/ delete
-		setlocal nomodified
-	else
-		echomsg 'wheel shape copy/move : empty or incomplete' level
-	endif
-	" define local selection maps
-	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
-	nnoremap <buffer> & <cmd>call wheel#pencil#toggle_visible()<cr>
-	nnoremap <buffer> * <cmd>call wheel#pencil#select_visible()<cr>
-	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
+	call wheel#mandala#fill(lines, 'prompt-first')
+	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#yggdrasil#copy_move('" .. level .. "')"
 endfun
@@ -140,17 +130,18 @@ endfun
 fun! wheel#yggdrasil#reorganize ()
 	" Reorganize the wheel tree
 	let lines = wheel#perspective#reorganize ()
+	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape reorganize : empty wheel'
 		return v:false
 	endif
+	" -- mandala
 	call wheel#mandala#blank ('reorganize')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	call wheel#yggdrasil#write ('reorganize')
 	call wheel#mandala#folding_options ()
+	call wheel#yggdrasil#write ('reorganize')
 	call wheel#mandala#fill(lines, 'prompt-first')
-	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
 	" reload
