@@ -101,14 +101,14 @@ fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 		return v:true
 	endif
 	" -- find window if mandala is visible
-	let old_tab = tabpagenr()
+	let good_tab = tabpagenr()
 	call wheel#cylinder#goto ()
 	" -- if not in same tab, mandala is open and we are inside
 	" -- close it and go to the right tab
-	let new_tab = tabpagenr()
-	if old_tab != new_tab
+	let mandala_tab = tabpagenr()
+	if good_tab != mandala_tab
 		noautocmd close
-		execute 'noautocmd tabnext' tab
+		execute 'noautocmd tabnext' good_tab
 	endif
 	" -- coda
 	if ! wheel#cylinder#is_mandala ()
