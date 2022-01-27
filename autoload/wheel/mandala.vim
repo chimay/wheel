@@ -391,7 +391,7 @@ endfun
 
 fun! wheel#mandala#template (...)
 	" Template with filter & input history
-	" No fold by default
+	" No selection, preview or fold
 	if a:0 > 0
 		let b:wheel_settings = a:1
 	endif
@@ -524,6 +524,7 @@ fun! wheel#mandala#fill (content, first = 'keep-first')
 	" ---- replace old content, fill if empty
 	call wheel#mandala#replace(a:content, a:first)
 	" -- update b:wheel_lines
+	" -- first time, so content should be unfiltered
 	call wheel#mandala#update_var_lines ('hurry')
 	" ---- update leaf ring
 	call wheel#book#syncup ()
