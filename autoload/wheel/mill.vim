@@ -93,12 +93,16 @@ fun! wheel#mill#narrow_file (...) range
 		let first = str2nr(rangelist[0])
 		let last = str2nr(rangelist[1])
 	endif
+	" -- lines
+	let lines = wheel#perspective#narrow_file (first, last)
+	" -- pre op buffer
 	let bufnum = bufnr('%')
 	let filename = bufname(bufnum)
 	let filename = fnamemodify(filename, ':t')
-	let lines = wheel#perspective#narrow_file (first, last)
+	let filetype = getbufvar(bufnum, '&filetype')
+	" -- mandala
 	call wheel#mandala#blank ('narrow/file/' .. filename)
-	let &filetype = getbufvar(b:wheel_related_buffer, '&filetype')
+	let &filetype = filetype
 	call wheel#mandala#common_maps ()
 	let settings = #{ function : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
 	call wheel#whirl#mappings (settings)
@@ -106,9 +110,9 @@ fun! wheel#mill#narrow_file (...) range
 	call wheel#polyphony#action_maps ('file')
 	call wheel#yggdrasil#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
-	" settings
+	" -- settings
 	let b:wheel_settings = settings
-	" reload
+	" -- reload
 	let b:wheel_reload = "wheel#mill#narrow_file('" .. first .. "', '" .. last .. "')"
 endfun
 
@@ -125,11 +129,14 @@ fun! wheel#mill#narrow_circle (...)
 	else
 		let sieve = '\m.'
 	endif
+	" -- lines
 	let lines = wheel#perspective#narrow_circle (pattern, sieve)
+	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel narrow circle : no match found'
 		return v:false
 	endif
+	" -- mandala
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()
@@ -139,9 +146,9 @@ fun! wheel#mill#narrow_circle (...)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#yggdrasil#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
-	" settings
+	" -- settings
 	let b:wheel_settings = settings
-	" reload
+	" -- reload
 	let b:wheel_reload = "wheel#mill#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
 	echomsg 'adding or removing lines is not supported'
 endfun
