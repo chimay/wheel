@@ -1352,6 +1352,7 @@ The default mappings launching reordering buffers are :
 Additional local maps~
 
 - `<M-s>` : sort the visible lines, except the filter : `2,$sort`
+- `<M-r>` : reversed sort of the visible lines, except the filter : `2,$sort!`
 
 ------------------------------------------------------------------------------
 RENAMING		    		*wheel-dedicated-buffers-renaming*
