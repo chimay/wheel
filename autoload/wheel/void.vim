@@ -4,14 +4,14 @@
 "
 " Enter the void, and ride the wheel
 
-" script constants
+" ---- script constants
 
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
 	lockvar s:mandala_autocmds_group
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#void#template(init)
 	" Generate template to add to g:wheel lists
@@ -23,7 +23,9 @@ fun! wheel#void#template(init)
 	return template
 endfun
 
-" initialize individual variables
+" ---- initialize individual variables
+
+" -- persistent variables
 
 fun! wheel#void#wheel ()
 	" Initialize wheel
@@ -115,54 +117,10 @@ fun! wheel#void#attic ()
 	endif
 endfun
 
-fun! wheel#void#wave ()
-	" Initialize jobs dictionary
-	" for neovim
-	if has('nvim') && ! exists('g:wheel_wave')
-		let g:wheel_wave = []
-	endif
-	" same thing for vim
-	if ! has('nvim') && ! exists('g:wheel_ripple')
-		let g:wheel_ripple = []
-	endif
-endfun
-
 fun! wheel#void#yank ()
 	" Initialize yank history
 	if ! exists('g:wheel_yank')
 		let g:wheel_yank = []
-	endif
-endfun
-
-fun! wheel#void#mandalas ()
-	" Initialize mandala buffers list
-	if ! exists('g:wheel_mandalas')
-		let g:wheel_mandalas = {}
-	endif
-	if ! has_key(g:wheel_mandalas, 'ring')
-		let g:wheel_mandalas.ring = []
-	endif
-	if ! has_key(g:wheel_mandalas, 'current')
-		let g:wheel_mandalas.current = -1
-	endif
-	if ! has_key(g:wheel_mandalas, 'iden')
-		let g:wheel_mandalas.iden = []
-	endif
-	if ! has_key(g:wheel_mandalas, 'names')
-		let g:wheel_mandalas.names = []
-	endif
-endfun
-
-fun! wheel#void#signs ()
-	" Initialize signs list
-	if ! exists('g:wheel_signs')
-		let g:wheel_signs = {}
-	endif
-	if ! has_key(g:wheel_signs, 'iden')
-		let g:wheel_signs.iden = []
-	endif
-	if ! has_key(g:wheel_signs, 'table')
-		let g:wheel_signs.table = []
 	endif
 endfun
 
@@ -180,6 +138,8 @@ fun! wheel#void#shelve ()
 		let g:wheel_shelve.backup = {}
 	endif
 endfun
+
+" -- config
 
 fun! wheel#void#config ()
 	" Initialize config
@@ -273,6 +233,27 @@ fun! wheel#void#config ()
 	endif
 endfun
 
+" -- non persistent variables
+
+fun! wheel#void#mandalas ()
+	" Initialize mandala buffers list
+	if ! exists('g:wheel_mandalas')
+		let g:wheel_mandalas = {}
+	endif
+	if ! has_key(g:wheel_mandalas, 'ring')
+		let g:wheel_mandalas.ring = []
+	endif
+	if ! has_key(g:wheel_mandalas, 'current')
+		let g:wheel_mandalas.current = -1
+	endif
+	if ! has_key(g:wheel_mandalas, 'iden')
+		let g:wheel_mandalas.iden = []
+	endif
+	if ! has_key(g:wheel_mandalas, 'names')
+		let g:wheel_mandalas.names = []
+	endif
+endfun
+
 fun! wheel#void#autogroup ()
 	" Define empty wheel-mandala auto command group
 	execute 'augroup' s:mandala_autocmds_group
@@ -280,11 +261,36 @@ fun! wheel#void#autogroup ()
 	augroup END
 endfun
 
-" initialize all variables & augroup
+fun! wheel#void#signs ()
+	" Initialize signs list
+	if ! exists('g:wheel_signs')
+		let g:wheel_signs = {}
+	endif
+	if ! has_key(g:wheel_signs, 'iden')
+		let g:wheel_signs.iden = []
+	endif
+	if ! has_key(g:wheel_signs, 'table')
+		let g:wheel_signs.table = []
+	endif
+endfun
+
+fun! wheel#void#wave ()
+	" Initialize jobs dictionary
+	" for neovim
+	if has('nvim') && ! exists('g:wheel_wave')
+		let g:wheel_wave = []
+	endif
+	" same thing for vim
+	if ! has('nvim') && ! exists('g:wheel_ripple')
+		let g:wheel_ripple = []
+	endif
+endfun
+
+" ---- initialize all variables & augroup
 
 fun! wheel#void#foundation ()
 	" Initialize wheel
-	" -- init wheel variables
+	" -- persistent wheel variables
 	call wheel#void#wheel ()
 	call wheel#void#helix ()
 	call wheel#void#grid ()
@@ -292,16 +298,18 @@ fun! wheel#void#foundation ()
 	call wheel#void#history ()
 	call wheel#void#input ()
 	call wheel#void#attic ()
-	call wheel#void#wave ()
 	call wheel#void#yank ()
-	call wheel#void#mandalas ()
-	call wheel#void#signs ()
 	call wheel#void#shelve ()
+	" -- config
 	call wheel#void#config ()
+	" -- non persistent wheel variables
+	call wheel#void#mandalas ()
 	call wheel#void#autogroup ()
+	call wheel#void#signs ()
+	call wheel#void#wave ()
 endfun
 
-" clean mandala buffers
+" ---- wipe mandala buffers
 
 fun! wheel#void#wipe_mandalas ()
 	" Wipe mandalas buffers
@@ -315,7 +323,7 @@ fun! wheel#void#wipe_mandalas ()
 	endfor
 endfun
 
-" unlet variables
+" ---- unlet variables
 
 fun! wheel#void#clean ()
 	" Clean variables before writing wheel to file
@@ -348,7 +356,7 @@ fun! wheel#void#lighten ()
 	call wheel#gear#unlet (varlist)
 endfun
 
-" init & exit
+" ---- init & exit
 
 fun! wheel#void#init ()
 	" Main init function
@@ -384,7 +392,7 @@ fun! wheel#void#exit ()
 	call wheel#void#lighten ()
 endfun
 
-" fresh empty wheel, for testing
+" ---- fresh empty wheel, for testing
 
 fun! wheel#void#fresh_wheel ()
 	" Fresh empty wheel variables
