@@ -469,15 +469,15 @@ fun! wheel#mandala#update_var_lines (mood = 'patient')
 	return v:true
 endfun
 
-fun! wheel#mandala#replace (content, first = 'keep-first')
+fun! wheel#mandala#replace (content, first = 'prompt-first')
 	" Replace mandala buffer with content
 	" Content can be :
-	" - a monoline string
-	" - a list of lines
+	"   - a monoline string
+	"   - a list of lines
 	" Optional argument handle the first line filtering input :
-	" - keep-first : keep input
-	" - blank-first : blank input
-	" - delete-first : delete first line
+	"   - prompt-first : keep input, add prompt if not present
+	"   - blank-first : blank first line
+	"   - delete-first : delete first line
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer'
 	endif
@@ -505,7 +505,7 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	call cursor(1, 1)
 	call append('.', content)
 	" -- first line
-	if first == 'keep-first'
+	if first == 'prompt-first'
 		call wheel#teapot#set_prompt ()
 	elseif first == 'blank-first'
 		call setline(1, s:mandala_prompt)
@@ -520,19 +520,14 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	let &foldenable = ampersand
 endfun
 
-fun! wheel#mandala#fill (content, first = 'keep-first')
+fun! wheel#mandala#fill (content, first = 'prompt-first')
 	" Fill mandala buffer with content
-	" Content can be :
-	" - a monoline string
-	" - a list of lines
-	" Optional argument handle the first line filtering input :
-	" - keep-first : keep input
-	" - blank-first : blank input
-	" - delete-first : delete first line
+	" Arguments : see mandala#replace
 	" ---- replace old content, fill if empty
 	call wheel#mandala#replace(a:content, a:first)
 	" -- update b:wheel_lines
-	" -- first time, so content should be unfiltered
+	" -- first fill of the mandala function,
+	" -- content should be unfiltered
 	call wheel#mandala#update_var_lines ('hurry')
 	" ---- update leaf ring
 	call wheel#book#syncup ()

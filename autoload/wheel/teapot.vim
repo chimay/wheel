@@ -141,7 +141,7 @@ fun! wheel#teapot#filter (mode = 'normal')
 		let b:wheel_filter.indexes = indexes
 		let b:wheel_filter.lines = lines
 	endif
-	call wheel#mandala#replace (lines, 'keep-first')
+	call wheel#mandala#replace (lines, 'prompt-first')
 	call wheel#pencil#show ()
 	if mode == 'normal'
 		if line('$') > 1
@@ -170,7 +170,7 @@ fun! wheel#teapot#clear (mode = 'normal')
 		let b:wheel_filter.lines = []
 	endif
 	call wheel#teapot#set_prompt('')
-	call wheel#mandala#replace (lines, 'keep-first')
+	call wheel#mandala#replace (lines, 'prompt-first')
 	call wheel#pencil#show ()
 	if mode == 'normal'
 		if line('$') > 1

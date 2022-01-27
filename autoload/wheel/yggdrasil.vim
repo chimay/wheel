@@ -20,8 +20,9 @@ fun! wheel#yggdrasil#write (fun_name, ...)
 	endif
 	" -- property
 	let b:wheel_nature.is_writable = v:true
-	" -- mandala
+	" -- options
 	setlocal buftype=acwrite
+	" -- autocommand
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
@@ -49,7 +50,7 @@ fun! wheel#yggdrasil#reorder (level)
 	call wheel#mandala#blank ('reorder/' .. level)
 	call wheel#mandala#template ()
 	call wheel#yggdrasil#write ('reorder', level)
-	call wheel#mandala#fill(lines, 'keep-first')
+	call wheel#mandala#fill(lines, 'prompt-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	" reload
@@ -67,10 +68,10 @@ fun! wheel#yggdrasil#rename (level)
 		return v:false
 	endif
 	call wheel#mandala#blank ('rename/' .. level)
-	call wheel#mandala#common_maps ()
+	call wheel#mandala#template ()
 	call wheel#yggdrasil#write ('rename', level)
 	if ! empty(lines)
-		call wheel#mandala#fill(lines, 'delete-first')
+		call wheel#mandala#fill(lines, 'prompt-first')
 		silent global /^$/ delete
 		setlocal nomodified
 	else

@@ -331,7 +331,7 @@ fun! wheel#book#syncdown ()
 			let visible_lines = b:wheel_lines
 			call wheel#teapot#set_prompt ('')
 		endif
-		call wheel#mandala#replace (visible_lines, 'keep-first')
+		call wheel#mandala#replace (visible_lines, 'prompt-first')
 	else
 		" no filter
 		let visible_lines = b:wheel_lines
