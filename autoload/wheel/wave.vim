@@ -60,8 +60,6 @@ let s:callbacks = {
 fun! wheel#wave#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
-	setlocal bufhidden=hide
-	call wheel#mandala#set_type(a:mandala_type)
 	let b:wheel_lines = []
 endfun
 

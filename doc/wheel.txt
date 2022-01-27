@@ -1724,8 +1724,9 @@ files before using a wheel navigation tool.
 
 To enable nice completion in prompting wheel functions : >
 
-    set wildchar=<TAB>
-    set wildmode=longest,full
+    set wildmenu
+    set wildchar=<Tab>
+    set wildmode=full
 <
 
 See |'wildmode'| to adapt it to your taste.

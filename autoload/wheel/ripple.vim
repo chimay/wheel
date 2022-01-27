@@ -31,8 +31,6 @@ endfun
 fun! wheel#ripple#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
-	setlocal bufhidden=hide
-	cal wheel#mandala#set_type (a:mandala_type)
 	call append(0, '')
 endfun
 

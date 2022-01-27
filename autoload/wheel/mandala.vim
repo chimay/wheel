@@ -280,6 +280,131 @@ fun! wheel#mandala#related ()
 	return bufnum
 endfun
 
+" undo, redo
+
+fun! wheel#mandala#undo ()
+	" Undo action in previous window
+	call wheel#rectangle#previous ()
+	undo
+	call wheel#cylinder#recall ()
+endfun
+
+fun! wheel#mandala#redo ()
+	" Redo action in previous window
+	call wheel#rectangle#previous ()
+	redo
+	call wheel#cylinder#recall ()
+endfun
+
+" options
+
+fun! wheel#mandala#common_options ()
+	" Set local common options
+	setlocal filetype=wheel
+	setlocal buftype=nofile
+	setlocal bufhidden=hide
+	setlocal nobuflisted
+	setlocal noswapfile
+	setlocal cursorline
+	setlocal nofoldenable
+endfun
+
+" mappings
+
+fun! wheel#mandala#common_maps ()
+	" Define mandala common maps
+	" -- help
+	nnoremap <buffer> <f1>   <cmd>call wheel#guru#mandala()<cr>
+	nnoremap <buffer> <m-f1> <cmd>call wheel#guru#mandala_mappings()<cr>
+	" -- quit
+	nnoremap <buffer> q <cmd>call wheel#cylinder#close()<cr>
+	" -- movement
+	nnoremap <buffer> j <cmd>call wheel#mandala#wrap_down()<cr>
+	nnoremap <buffer> k <cmd>call wheel#mandala#wrap_up()<cr>
+	nnoremap <buffer> <down> <cmd>call wheel#mandala#wrap_down()<cr>
+	nnoremap <buffer> <up> <cmd>call wheel#mandala#wrap_up()<cr>
+	" -- reload mandala
+	nnoremap <buffer> r <cmd>call wheel#mandala#reload ()<cr>
+	" -- rename mandala
+	nnoremap <buffer> <m-n> <cmd>call wheel#cylinder#rename ()<cr>
+	" -- navigate in leaf ring
+	nnoremap <buffer> H <cmd>call wheel#book#backward ()<cr>
+	nnoremap <buffer> L <cmd>call wheel#book#forward ()<cr>
+	nnoremap <buffer> <m-l> <cmd>call wheel#book#switch ()<cr>
+	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
+endfun
+
+" folding
+
+fun! wheel#mandala#folding_options (...)
+	" Folding options for mandala buffers
+	if a:0 > 0
+		let textfun = a:1
+	else
+		let textfun = 'folding_text'
+	endif
+	setlocal foldenable
+	setlocal foldminlines=1
+	setlocal foldlevel=0
+	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+	setlocal foldclose=
+	setlocal foldmethod=marker
+	let &foldmarker = s:fold_markers
+	setlocal foldcolumn=2
+	execute 'setlocal foldtext=wheel#mandala#' .. textfun .. '()'
+endfun
+
+fun! wheel#mandala#folding_text ()
+	" Folding text for mandala buffers
+	let numlines = v:foldend - v:foldstart
+	let line = getline(v:foldstart)
+	if v:foldlevel == 1
+		let level = 'torus'
+	elseif v:foldlevel == 2
+		let level = 'circle'
+	elseif v:foldlevel == 3
+		let level = 'location'
+	else
+		let level = 'none'
+	endif
+	let marker = s:fold_markers[0]
+	let pattern = '\m' .. marker .. '[12]'
+	let repl = ':: ' .. level
+	let line = substitute(line, pattern, repl, '')
+	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
+	return text
+endfun
+
+fun! wheel#mandala#tabwins_folding_text ()
+	" Folding text for mandala buffers
+	let numlines = v:foldend - v:foldstart
+	let line = getline(v:foldstart)
+	let marker = s:fold_markers[0]
+	let pattern = '\m ' .. marker .. '[12]'
+	let repl = ''
+	let line = substitute(line, pattern, repl, '')
+	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
+	return text
+endfun
+
+" template
+
+fun! wheel#mandala#template (...)
+	" Template with filter & input history
+	" No fold by default
+	if a:0 > 0
+		let b:wheel_settings = a:1
+	endif
+	call wheel#mandala#common_maps ()
+	" filter
+	call wheel#teapot#mappings ()
+	" input history
+	call wheel#scroll#mappings ()
+	" by default, tell line#component it's not a tree buffer
+	" overridden by folding_options
+	setlocal nofoldenable
+endfun
+
 " blank sheet
 
 fun! wheel#mandala#blank (type)
@@ -429,131 +554,6 @@ fun! wheel#mandala#reload ()
 		execute 'silent file' filename
 		echomsg 'wheel : content reloaded'
 	endif
-endfun
-
-" undo, redo
-
-fun! wheel#mandala#undo ()
-	" Undo action in previous window
-	call wheel#rectangle#previous ()
-	undo
-	call wheel#cylinder#recall ()
-endfun
-
-fun! wheel#mandala#redo ()
-	" Redo action in previous window
-	call wheel#rectangle#previous ()
-	redo
-	call wheel#cylinder#recall ()
-endfun
-
-" options
-
-fun! wheel#mandala#common_options ()
-	" Set local common options
-	setlocal filetype=wheel
-	setlocal buftype=nofile
-	setlocal bufhidden=hide
-	setlocal nobuflisted
-	setlocal noswapfile
-	setlocal cursorline
-	setlocal nofoldenable
-endfun
-
-" mappings
-
-fun! wheel#mandala#common_maps ()
-	" Define mandala common maps
-	" -- help
-	nnoremap <buffer> <f1>   <cmd>call wheel#guru#mandala()<cr>
-	nnoremap <buffer> <m-f1> <cmd>call wheel#guru#mandala_mappings()<cr>
-	" -- quit
-	nnoremap <buffer> q <cmd>call wheel#cylinder#close()<cr>
-	" -- movement
-	nnoremap <buffer> j <cmd>call wheel#mandala#wrap_down()<cr>
-	nnoremap <buffer> k <cmd>call wheel#mandala#wrap_up()<cr>
-	nnoremap <buffer> <down> <cmd>call wheel#mandala#wrap_down()<cr>
-	nnoremap <buffer> <up> <cmd>call wheel#mandala#wrap_up()<cr>
-	" -- reload mandala
-	nnoremap <buffer> r <cmd>call wheel#mandala#reload ()<cr>
-	" -- rename mandala
-	nnoremap <buffer> <m-n> <cmd>call wheel#cylinder#rename ()<cr>
-	" -- navigate in leaf ring
-	nnoremap <buffer> H <cmd>call wheel#book#backward ()<cr>
-	nnoremap <buffer> L <cmd>call wheel#book#forward ()<cr>
-	nnoremap <buffer> <m-l> <cmd>call wheel#book#switch ()<cr>
-	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
-endfun
-
-" folding
-
-fun! wheel#mandala#folding_options (...)
-	" Folding options for mandala buffers
-	if a:0 > 0
-		let textfun = a:1
-	else
-		let textfun = 'folding_text'
-	endif
-	setlocal foldenable
-	setlocal foldminlines=1
-	setlocal foldlevel=0
-	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-	setlocal foldclose=
-	setlocal foldmethod=marker
-	let &foldmarker = s:fold_markers
-	setlocal foldcolumn=2
-	execute 'setlocal foldtext=wheel#mandala#' .. textfun .. '()'
-endfun
-
-fun! wheel#mandala#folding_text ()
-	" Folding text for mandala buffers
-	let numlines = v:foldend - v:foldstart
-	let line = getline(v:foldstart)
-	if v:foldlevel == 1
-		let level = 'torus'
-	elseif v:foldlevel == 2
-		let level = 'circle'
-	elseif v:foldlevel == 3
-		let level = 'location'
-	else
-		let level = 'none'
-	endif
-	let marker = s:fold_markers[0]
-	let pattern = '\m' .. marker .. '[12]'
-	let repl = ':: ' .. level
-	let line = substitute(line, pattern, repl, '')
-	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
-	return text
-endfun
-
-fun! wheel#mandala#tabwins_folding_text ()
-	" Folding text for mandala buffers
-	let numlines = v:foldend - v:foldstart
-	let line = getline(v:foldstart)
-	let marker = s:fold_markers[0]
-	let pattern = '\m ' .. marker .. '[12]'
-	let repl = ''
-	let line = substitute(line, pattern, repl, '')
-	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
-	return text
-endfun
-
-" template
-
-fun! wheel#mandala#template (...)
-	" Template with filter & input history
-	" No fold by default
-	if a:0 > 0
-		let b:wheel_settings = a:1
-	endif
-	call wheel#mandala#common_maps ()
-	" filter
-	call wheel#teapot#mappings ()
-	" input history
-	call wheel#scroll#mappings ()
-	" by default, tell line#component it's not a tree buffer
-	" overridden by folding_options
-	setlocal nofoldenable
 endfun
 
 " generic commands
