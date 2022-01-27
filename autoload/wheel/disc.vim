@@ -255,27 +255,27 @@ fun! wheel#disc#tree_script (...)
 		let script_file = wheel#tree#format_filename (script_file)
 	endif
 	let script = []
-	call add(script, '#!/bin/sh')
-	call add(script, 'cd ' .. soil)
-	call add(script, 'mkdir -p wheel')
-	call add(script, 'cd wheel')
+	eval script->add('#!/bin/sh')
+	eval script->add('cd ' .. soil)
+	eval script->add('mkdir -p wheel')
+	eval script->add('cd wheel')
 	for torus in g:wheel.toruses
 		let torus_dir = torus.name
-		call add(script, 'mkdir -p ' .. torus_dir)
-		call add(script, 'cd ' .. torus_dir)
+		eval script->add('mkdir -p ' .. torus_dir)
+		eval script->add('cd ' .. torus_dir)
 		for circle in torus.circles
 			let circle_dir = circle.name
-			call add(script, 'mkdir -p ' .. circle_dir)
-			call add(script, 'cd ' .. circle_dir)
+			eval script->add('mkdir -p ' .. circle_dir)
+			eval script->add('cd ' .. circle_dir)
 			for location in circle.locations
 				let link = substitute(location.name, '/', '-', 'g')
 				let file = location.file
 				let make_link = command .. ' ' .. file .. ' ' .. link
-				call add(script, make_link)
+				eval script->add(make_link)
 			endfor
-			call add(script, 'cd ..')
+			eval script->add('cd ..')
 		endfor
-		call add(script, 'cd ..')
+		eval script->add('cd ..')
 	endfor
 	if filereadable(script_file)
 		let prompt = 'Replace existing ' .. script_file .. ' ?'

@@ -113,7 +113,7 @@ fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	for index in range(len(bufnums))
 		let num = bufnums[index]
 		let title = bufname(num)
-		call add(choices, title)
+		eval choices->add(title)
 	endfor
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
@@ -259,7 +259,7 @@ fun! wheel#complete#tag (arglead, cmdline, cursorpos)
 		let type = printf('%2s', type)
 		let entry = [iden, filename, search, type]
 		let record = join(entry, s:field_separ)
-		call add(choices, record)
+		eval choices->add(record)
 	endfor
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)

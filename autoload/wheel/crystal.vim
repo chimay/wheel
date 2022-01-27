@@ -623,7 +623,7 @@ if ! exists('s:menu_meta')
 	for name in s:menu_list
 		let s:short_name = substitute(name, ' ', '_', 'g')
 		let s:function = "wheel#helm#submenu('" .. s:short_name .. "')"
-		call add(s:menu_meta, [name, s:function])
+		eval s:menu_meta->add([name, s:function])
 	endfor
 	lockvar s:menu_meta
 endif

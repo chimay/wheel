@@ -114,7 +114,7 @@ fun! wheel#helm#main ()
 		let header = elem .. s:fold_1
 		let items = wheel#crystal#fetch('menu/' .. elem)
 		let submenu = wheel#matrix#items2keys (items)
-		call add(menu, header)
+		eval menu->add(header)
 		call extend(menu, submenu)
 	endfor
 	call wheel#mandala#fill(menu)

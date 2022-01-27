@@ -106,11 +106,11 @@ fun! wheel#referen#names ()
 	let [torus, circle, location] = wheel#referen#location('all')
 	let names = []
 	if has_key(torus, 'name')
-		call add(names, torus.name)
+		eval names->add(torus.name)
 		if has_key(circle, 'name')
-			call add(names, circle.name)
+			eval names->add(circle.name)
 			if has_key(location, 'name')
-				call add(names, location.name)
+				eval names->add(location.name)
 			endif
 		endif
 	endif

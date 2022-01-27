@@ -166,8 +166,8 @@ fun! wheel#rectangle#hidden_buffers (scope = 'listed')
 		let not_mandala = ! wheel#chain#is_inside(bufnum, mandalas)
 		let not_wheel_filename = filename !~ s:is_mandala_file
 		if hide && not_alternate && not_mandala && not_wheel_filename
-			call add(hidden_nums, bufnum)
-			call add(hidden_names, filename)
+			eval hidden_nums->add(bufnum)
+			eval hidden_names->add(filename)
 		endif
 	endfor
 	return [hidden_nums, hidden_names]

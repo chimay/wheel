@@ -377,7 +377,7 @@ fun! wheel#gear#save_autocmds (group, events)
 		let autocmds = []
 		for elem in lines
 			let elem = substitute(elem, '\m^\s*', '', '')
-			call add(autocmds, elem)
+			eval autocmds->add(elem)
 		endfor
 		return autocmds
 	elseif kind == v:t_list

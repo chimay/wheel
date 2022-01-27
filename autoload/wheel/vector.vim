@@ -175,7 +175,7 @@ fun! wheel#vector#write_quickfix ()
 	for line in linelist
 		if ! empty(line)
 			let fields = split(line, s:field_separ)
-			call add(newlines, fields[-1])
+			eval newlines->add(fields[-1])
 		else
 			echomsg 'wheel write quickfix : line should not be empty'
 			return v:false

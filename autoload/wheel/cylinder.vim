@@ -162,9 +162,9 @@ fun! wheel#cylinder#first (window = 'furtive')
 	let mandalas.current = 0
 	let iden = mandalas.iden
 	let names = mandalas.names
-	call add(ring, novice)
-	call add(iden, 0)
-	call add(names, 0)
+	eval ring->add(novice)
+	eval iden->add(0)
+	eval names->add(0)
 	" ---- init mandala
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
@@ -311,8 +311,8 @@ fun! wheel#cylinder#delete_unused ()
 		let not_mandala = ! wheel#chain#is_inside(bufnum, ring)
 		let wheel_filename = filename =~ s:is_mandala_file
 		if not_mandala && wheel_filename
-			call add(numlist, bufnum)
-			call add(filelist, filename)
+			eval numlist->add(bufnum)
+			eval filelist->add(filename)
 		endif
 	endfor
 	if empty(numlist)

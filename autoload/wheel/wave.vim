@@ -101,7 +101,7 @@ fun! wheel#wave#start (command, ...)
 		return
 	endif
 	let job.iden = jobid
-	call add(g:wheel_wave, job)
+	eval g:wheel_wave->add(job)
 	return job
 endfun
 

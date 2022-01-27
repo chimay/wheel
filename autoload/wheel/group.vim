@@ -33,7 +33,7 @@ fun! wheel#group#dispatch(dispatcher)
 			if ! has_key(groups, extension)
 				let groups[extension] = [location]
 			else
-				call add(groups[extension], location)
+				eval groups[extension]->add(location)
 			endif
 		endfor
 	endfor

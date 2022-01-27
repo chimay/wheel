@@ -50,7 +50,7 @@ fun! wheel#matrix#dual (nested)
 	" -- inner length
 	let lengthes = []
 	for elem in nested
-		call add(lengthes, len(elem))
+		eval lengthes->add(len(elem))
 	endfor
 	let inner_length = min(lengthes)
 	if inner_length < max(lengthes)
@@ -68,7 +68,7 @@ fun! wheel#matrix#dual (nested)
 	for inner in inner_span
 		let dualelem = dual[inner]
 		for outer in outer_span
-			call add(dualelem, nested[outer][inner])
+			eval dualelem->add(nested[outer][inner])
 		endfor
 	endfor
 	" -- coda
@@ -92,7 +92,7 @@ fun! wheel#matrix#items2keys (items)
 	" Return list of keys from dict given by items list
 	let keylist = []
 	for [key, val] in a:items
-		call add(keylist, key)
+		eval keylist->add(key)
 	endfor
 	return keylist
 endfun
@@ -101,7 +101,7 @@ fun! wheel#matrix#items2values (items)
 	" Return list of values from dict given by items list
 	let valist = []
 	for [key, val] in a:items
-		call add(valist, val)
+		eval valist->add(val)
 	endfor
 	return valist
 endfun

@@ -92,7 +92,7 @@ fun! wheel#perspective#rename_files ()
 	for index in range(len_circle)
 		let entry = [glossary[index], filenames[index]]
 		let record = join(entry, s:field_separ)
-		call add(returnlist, record)
+		eval returnlist->add(record)
 	endfor
 	return returnlist
 endfun
@@ -301,7 +301,7 @@ fun! wheel#perspective#buffers (scope = 'listed')
 		" add to the returnlist
 		let entry = [bufnum, indicator, linum, filename]
 		let record = join(entry, s:field_separ)
-		call add(returnlist, record)
+		eval returnlist->add(record)
 	endfor
 	return returnlist
 endfun
@@ -341,7 +341,7 @@ fun! wheel#perspective#narrow_circle (pattern, sieve)
 		let content = elem.text
 		let entry = [bufnum, linum, filename, content]
 		let record = join(entry, s:field_separ)
-		call add(list, record)
+		eval list->add(record)
 	endfor
 	return list
 endfun
@@ -364,11 +364,11 @@ fun! wheel#perspective#tabwins ()
 			let filename = bufname(bufnum)
 			let filename = fnamemodify(filename, ':p')
 			let entry = []
-			call add(entry, printf('%3d', tabnum))
-			call add(entry, printf('%3d', winum))
-			call add(entry, filename)
+			eval entry->add(printf('%3d', tabnum))
+			eval entry->add(printf('%3d', winum))
+			eval entry->add(filename)
 			let record = join(entry, s:field_separ)
-			call add(returnlist, record)
+			eval returnlist->add(record)
 		endfor
 	endfor
 	return returnlist
@@ -381,7 +381,7 @@ fun! wheel#perspective#tabwins_tree ()
 	let mandalas = g:wheel_mandalas.ring
 	for tabnum in range(1, last_tab)
 		let record = 'tab ' .. tabnum .. s:fold_1
-		call add(returnlist, record)
+		eval returnlist->add(record)
 		let buflist = tabpagebuflist(tabnum)
 		let winum = 0
 		for bufnum in buflist
@@ -392,7 +392,7 @@ fun! wheel#perspective#tabwins_tree ()
 			let filename = bufname(bufnum)
 			let filename = fnamemodify(filename, ':p')
 			let record = filename
-			call add(returnlist, record)
+			eval returnlist->add(record)
 		endfor
 	endfor
 	return returnlist
@@ -447,7 +447,7 @@ fun! wheel#perspective#markers ()
 		let colnum = printf('%2d', colnum)
 		let entry = [mark, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
-		call add(returnlist, record)
+		eval returnlist->add(record)
 	endfor
 	return returnlist
 endfun
@@ -490,7 +490,7 @@ fun! wheel#perspective#jumps ()
 		let colnum = printf('%2d', colnum)
 		let entry = [bufnum, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
-		call add(returnlist, record)
+		eval returnlist->add(record)
 	endfor
 	" newest first
 	call reverse(returnlist)
@@ -509,7 +509,7 @@ fun! wheel#perspective#changes ()
 		let colnum = printf('%2d', colnum)
 		let entry = [linum, colnum, content]
 		let record = join(entry, s:field_separ)
-		call add(returnlist, record)
+		eval returnlist->add(record)
 	endfor
 	" newest first
 	call reverse(returnlist)
@@ -540,7 +540,7 @@ fun! wheel#perspective#grep (pattern, sieve)
 		let content = elem.text
 		let entry = [errnum, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
-		call add(list, record)
+		eval list->add(record)
 	endfor
 	return list
 endfun
@@ -560,7 +560,7 @@ fun! wheel#perspective#tags ()
 		let type = printf('%2s', type)
 		let entry = [type, iden, filename, search]
 		let record = join(entry, s:field_separ)
-		call add(returnlist, record)
+		eval returnlist->add(record)
 	endfor
 	return returnlist
 endfun
@@ -574,14 +574,14 @@ fun! wheel#perspective#yank (mode)
 	let returnlist = []
 	if a:mode == 'list'
 		for elem in g:wheel_yank
-			call add(returnlist, string(elem))
+			eval returnlist->add(string(elem))
 		endfor
 	elseif a:mode == 'plain'
 		for elem in g:wheel_yank
 			let plain = join(elem, "\n")
 			" Only add if some text is there
 			if plain =~ '\m\w'
-				call add(returnlist, plain)
+				eval returnlist->add(plain)
 			endif
 		endfor
 	endif
@@ -608,7 +608,7 @@ fun! wheel#perspective#undolist ()
 		endif
 		let entry = [iden, time, written]
 		let record = join(entry, s:field_separ)
-		call add(returnlist, record)
+		eval returnlist->add(record)
 	endfor
 	" more recent first
 	call reverse(returnlist)

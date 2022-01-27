@@ -39,9 +39,9 @@ fun! wheel#symbol#read (file)
 		let record = substitute(record, regex, '', '')
 		let fields = split(record, "\t")
 		let fields[1] = tagdir .. fields[1]
-		call add(fields, pattern)
-		call add(fields, optional)
-		call add(table, fields)
+		eval fields->add(pattern)
+		eval fields->add(optional)
+		eval table->add(fields)
 	endfor
 	return table
 endfun

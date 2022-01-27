@@ -56,11 +56,11 @@ fun! wheel#cuboctahedron#baskets (linelist)
 				let oldindex = nextab
 				let nextab += 1
 			endif
-			call add(tabindexes, oldindex)
-			call add(tabwindows, [])
+			eval tabindexes->add(oldindex)
+			eval tabwindows->add([])
 		else
 			" window line
-			call add(tabwindows[newindex - 1], line)
+			eval tabwindows[newindex - 1]->add(line)
 		endif
 	endfor
 	return [tabindexes, tabwindows]
@@ -115,7 +115,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 	" Remove trailing unused tabs
 	let lastab = tabpagenr('$')
 	while lastab > lentabindexes
-		call add(removed, lastab)
+		eval removed->add(lastab)
 		tabclose $
 		let lastab = tabpagenr('$')
 	endwhile
@@ -153,7 +153,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 		" Removing windows
 		" buffers in window
 		let winbufs = []
-		windo call add(winbufs, expand('%:p'))
+		windo eval winbufs->add(expand('%:p'))
 		" looping
 		let winum = winnr('$')
 		while winum > 0
@@ -195,7 +195,7 @@ fun! wheel#cuboctahedron#reorder (level)
 		else
 			echomsg 'wheel cuboctahedron reorder : ' name  'not found'
 		endif
-		call add(new_list, elem)
+		eval new_list->add(elem)
 	endfor
 	if len(new_list) < len(old_list)
 		echomsg 'Some elements seem to be missing : changes not written'
