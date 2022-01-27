@@ -48,61 +48,6 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" wrap
-
-fun! wheel#mandala#wrap_up ()
-	" Line up, or line 1 -> end of file
-	" If fold is closed, take the first line of it
-	if &foldenable
-		let line = foldclosed('.')
-		if line < 0
-			let line = line('.')
-		endif
-	else
-		let line = line('.')
-	endif
-	" Wrap
-	if line == 1
-		call cursor(line('$'), 1)
-	else
-		normal! k
-	endif
-	if ! wheel#cylinder#is_mandala ()
-		" can also be mapped in regular buffer
-		return v:true
-	endif
-	if b:wheel_preview.follow
-		call wheel#orbiter#preview ()
-	endif
-	return v:true
-endfun
-
-fun! wheel#mandala#wrap_down ()
-	" Line down, or line end of file -> 1
-	" If fold is closed, take the last line of it
-	if &foldenable
-		let line = foldclosedend('.')
-		if line < 0
-			let line = line('.')
-		endif
-	else
-		let line = line('.')
-	endif
-	if line == line('$')
-		call cursor(1, 1)
-	else
-		normal! j
-	endif
-	if ! wheel#cylinder#is_mandala ()
-		" can also be mapped in regular buffer
-		return v:true
-	endif
-	if b:wheel_preview.follow
-		call wheel#orbiter#preview ()
-	endif
-	return v:true
-endfun
-
 " mandala pseudo filename
 
 fun! wheel#mandala#pseudo (type)
@@ -131,18 +76,6 @@ fun! wheel#mandala#set_type (type)
 	endif
 endfun
 
-" nature
-
-fun! wheel#mandala#is_empty ()
-	" Whether mandala is empty
-	return b:wheel_nature.empty
-endfun
-
-fun! wheel#mandala#type ()
-	" Type of a mandala buffer
-	return b:wheel_nature.type
-endfun
-
 " init
 
 fun! wheel#mandala#init ()
@@ -155,6 +88,7 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.type = 'empty'
 		let b:wheel_nature.has_filter = v:false
 		let b:wheel_nature.has_selection = v:false
+		let b:wheel_nature.is_writable = v:false
 		call wheel#mandala#set_type ('empty')
 	endif
 	" -- related buffer
@@ -211,6 +145,78 @@ fun! wheel#mandala#refresh ()
 	let b:wheel_selection = {}
 	let b:wheel_selection.indexes = []
 	let b:wheel_selection.components = []
+endfun
+
+" wrap
+
+fun! wheel#mandala#wrap_up ()
+	" Line up, or line 1 -> end of file
+	" If fold is closed, take the first line of it
+	if &foldenable
+		let line = foldclosed('.')
+		if line < 0
+			let line = line('.')
+		endif
+	else
+		let line = line('.')
+	endif
+	" Wrap
+	if line == 1
+		call cursor(line('$'), 1)
+	else
+		normal! k
+	endif
+	if ! wheel#cylinder#is_mandala ()
+		" can also be mapped in regular buffer
+		return v:true
+	endif
+	if b:wheel_preview.follow
+		call wheel#orbiter#preview ()
+	endif
+	return v:true
+endfun
+
+fun! wheel#mandala#wrap_down ()
+	" Line down, or line end of file -> 1
+	" If fold is closed, take the last line of it
+	if &foldenable
+		let line = foldclosedend('.')
+		if line < 0
+			let line = line('.')
+		endif
+	else
+		let line = line('.')
+	endif
+	if line == line('$')
+		call cursor(1, 1)
+	else
+		normal! j
+	endif
+	if ! wheel#cylinder#is_mandala ()
+		" can also be mapped in regular buffer
+		return v:true
+	endif
+	if b:wheel_preview.follow
+		call wheel#orbiter#preview ()
+	endif
+	return v:true
+endfun
+
+" nature
+
+fun! wheel#mandala#is_empty ()
+	" Whether mandala is empty
+	return b:wheel_nature.empty
+endfun
+
+fun! wheel#mandala#is_writable ()
+	" Whether mandala has BufWriteCmd autocommand
+	return b:wheel_nature.is_writable
+endfun
+
+fun! wheel#mandala#type ()
+	" Type of a mandala buffer
+	return b:wheel_nature.type
 endfun
 
 " clearing things
@@ -498,7 +504,7 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	call append('.', content)
 	" -- first line
 	if first == 'keep-first'
-		call wheel#teapot#prompt ()
+		call wheel#teapot#set_prompt ()
 	elseif first == 'blank-first'
 		call setline(1, s:mandala_prompt)
 	elseif first == 'delete-first'

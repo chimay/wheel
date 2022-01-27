@@ -24,6 +24,8 @@ fun! wheel#teapot#first_data_line ()
 	endif
 endfun
 
+" global index of visible in line in b:wheel_lines
+
 fun! wheel#teapot#line_index (...)
 	" Return index of line number in b:wheel_lines
 	" Default : current line number
@@ -44,7 +46,16 @@ endfun
 
 " filter line
 
-fun! wheel#teapot#prompt (...)
+fun! wheel#teapot#prompt ()
+	" Return prompt string
+	if wheel#mandala#is_writable ()
+		return g:wheel_config.display.prompt_writable
+	else
+		return g:wheel_config.display.prompt
+	endif
+endfun
+
+fun! wheel#teapot#set_prompt (...)
 	" Add prompt at first line if not already there
 	" Optional argument :
 	"   - line content, as string or word list
@@ -57,7 +68,7 @@ fun! wheel#teapot#prompt (...)
 	else
 		let content = getline(1)
 	endif
-	let mandala_prompt = g:wheel_config.display.prompt
+	let mandala_prompt = wheel#teapot#prompt ()
 	let pattern = '\m^' .. mandala_prompt
 	if content !~ '\m^' .. mandala_prompt
 		let content = mandala_prompt .. content
@@ -78,7 +89,7 @@ fun! wheel#teapot#without_prompt (...)
 	else
 		let content = getline(1)
 	endif
-	let mandala_prompt = g:wheel_config.display.prompt
+	let mandala_prompt = wheel#teapot#prompt ()
 	let pattern = '\m^' .. mandala_prompt
 	let content = substitute(content, pattern, '', '')
 	return content
@@ -86,7 +97,7 @@ endfun
 
 fun! wheel#teapot#wordlist ()
 	" Return words of filtering first line, without prompt
-	let mandala_prompt = g:wheel_config.display.prompt
+	let mandala_prompt = wheel#teapot#prompt ()
 	let pattern = '\m^' .. mandala_prompt
 	let words = getline(1)
 	let words = substitute(words, pattern, '', '')
@@ -158,7 +169,7 @@ fun! wheel#teapot#clear (mode = 'normal')
 		let b:wheel_filter.indexes = []
 		let b:wheel_filter.lines = []
 	endif
-	call wheel#teapot#prompt('')
+	call wheel#teapot#set_prompt('')
 	call wheel#mandala#replace (lines, 'keep-first')
 	call wheel#pencil#show ()
 	if mode == 'normal'
@@ -180,7 +191,7 @@ fun! wheel#teapot#ctrl_u ()
 	if linum != 1
 		return v:false
 	endif
-	let mandala_prompt = g:wheel_config.display.prompt
+	let mandala_prompt = wheel#teapot#prompt ()
 	call setline(1, mandala_prompt)
 	call wheel#teapot#filter('insert')
 endfun

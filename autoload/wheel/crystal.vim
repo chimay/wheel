@@ -7,20 +7,6 @@
 "
 " Useful for menus & context menus
 
-" unicode store
-"
-" enter unicode : in insert mode :
-"
-"   - ctrl-v u 12ab
-"   - ctrl-v U 12ab34cd
-"
-" see :
-"
-"   - :help i_CTRL-V_digit
-"   - https://unicode-table.com/en/
-"
-" ☯ 𑇍 ᚛ ⊗ ⊛ ✶ 🗸 𐄂
-
 " wheel levels
 
 if ! exists('s:referen_levels')
@@ -109,6 +95,11 @@ endif
 if ! exists('s:mandala_prompt')
 	let s:mandala_prompt = '☯ '
 	lockvar s:mandala_prompt
+endif
+
+if ! exists('s:mandala_prompt_writable')
+	let s:mandala_prompt_writable = '☈ '
+	lockvar s:mandala_prompt_writable
 endif
 
 " mandala patterns
@@ -279,7 +270,9 @@ endif
 " folds in mandalas
 
 if ! exists('s:fold_markers')
-	let s:fold_markers = ['⧽', '⧼']
+	let s:fold_markers = ['▷', '◁']
+	"let s:fold_markers = ['▽', '△']
+	"let s:fold_markers = ['⧽', '⧼']
 	lockvar s:fold_markers
 endif
 

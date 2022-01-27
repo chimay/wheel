@@ -10,7 +10,7 @@ endif
 " write commands
 
 fun! wheel#yggdrasil#write (fun_name, ...)
-	" Define BufWriteCmd autocommand
+	" Define BufWriteCmd autocommand & set writable property
 	" -- arguments
 	let fun_name = a:fun_name
 	if a:0 > 0
@@ -18,6 +18,8 @@ fun! wheel#yggdrasil#write (fun_name, ...)
 	else
 		let optional = ''
 	endif
+	" -- property
+	let b:wheel_nature.is_writable = v:true
 	" -- mandala
 	setlocal buftype=acwrite
 	let group = s:mandala_autocmds_group
@@ -32,6 +34,26 @@ fun! wheel#yggdrasil#write (fun_name, ...)
 		let function ..= fun_name .. '(' .. optional .. ')'
 	endif
 	exe 'autocmd' group event '<buffer>' function
+endfun
+
+" reorder
+
+fun! wheel#yggdrasil#reorder (level)
+	" Reorder level elements in a buffer
+	let level = a:level
+	let lines = wheel#perspective#switch (level)
+	if empty(lines)
+		echomsg 'wheel shape reorder : empty or incomplete' level
+		return v:false
+	endif
+	call wheel#mandala#blank ('reorder/' .. level)
+	call wheel#mandala#template ()
+	call wheel#yggdrasil#write ('reorder', level)
+	call wheel#mandala#fill(lines, 'keep-first')
+	silent global /^$/ delete
+	setlocal nomodified
+	" reload
+	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
 endfun
 
 " rename
@@ -77,26 +99,6 @@ fun! wheel#yggdrasil#rename_files ()
 	" reload
 	let b:wheel_reload = 'wheel#yggdrasil#rename_files()'
 	return v:true
-endfun
-
-" reorder
-
-fun! wheel#yggdrasil#reorder (level)
-	" Reorder level elements in a buffer
-	let level = a:level
-	let lines = wheel#perspective#switch (level)
-	if empty(lines)
-		echomsg 'wheel shape reorder : empty or incomplete' level
-		return v:false
-	endif
-	call wheel#mandala#blank ('reorder/' .. level)
-	call wheel#mandala#common_maps ()
-	call wheel#yggdrasil#write ('reorder', level)
-	call wheel#mandala#fill(lines, 'delete-first')
-	silent global /^$/ delete
-	setlocal nomodified
-	" reload
-	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
 endfun
 
 " copy / move

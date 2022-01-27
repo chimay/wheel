@@ -325,11 +325,11 @@ fun! wheel#book#syncdown ()
 		if wheel#teapot#is_filtered ()
 			" filtered
 			let visible_lines = filter.lines
-			call wheel#teapot#prompt (filter.words)
+			call wheel#teapot#set_prompt (filter.words)
 		else
 			" not filtered
 			let visible_lines = b:wheel_lines
-			call wheel#teapot#prompt ('')
+			call wheel#teapot#set_prompt ('')
 		endif
 		call wheel#mandala#replace (visible_lines, 'keep-first')
 	else

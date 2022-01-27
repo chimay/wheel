@@ -1703,7 +1703,7 @@ Max layers in dedicated buffers		|wheel-config-maxim-layers|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
-Filter prompt in dedidcated buffers	|wheel-config-display-prompt|
+Filter prompt in dedicated buffers	|wheel-config-display-prompt|
 Selection marker			|wheel-config-display-selection|
 Signs					|wheel-config-display-sign|
 Tabline					|wheel-config-tabline|
@@ -1992,15 +1992,24 @@ Maximum number of vertical splits in layouts : >
 <
 
 ------------------------------------------------------------------------------
-FILTER PROMPT IN DEDICATED BUFFERS		*wheel-config-display-prompt*
+FILTER PROMPT IN REGULAR DEDICATED BUFFERS	*wheel-config-display-prompt*
 
-You can customize the filter prompt in dedicated buffers : >
+You can customize the filter prompt in dedicated buffers.
 
+For regular dedicated buffer, _without_ `BufWriteCmd` autocommand : >
 
     let g:wheel_config.display.prompt = 'wheel $ '
 <
 
 Default : '☯ '
+
+For writable dedicated buffer, _with_ `BufWriteCmd` autocommand : >
+
+
+    let g:wheel_config.display.prompt = 'wheel # '
+<
+
+Default : '☈ '
 
 ------------------------------------------------------------------------------
 SELECTION MARKER				*wheel-config-display-selection*
@@ -3506,6 +3515,7 @@ of the modules within them.
 | tower.vim         | Menu layer in dedicated buffers              |
 | tree.vim          | Organize wheel element : add, rename, ...    |
 | triangle.vim      | Undo & diff dedicated buffer                 |
+| unicode.vim       | Unicode characters                           |
 | upstream.vim      | Parent leaf of context menu                  |
 | vector.vim        | Batch operations on current group files      |
 | void.vim          | Initiaze & reset variables                   |

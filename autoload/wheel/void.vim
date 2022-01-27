@@ -213,6 +213,9 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.display, 'prompt')
 		let g:wheel_config.display.prompt = wheel#crystal#fetch ('mandala/prompt')
 	endif
+	if ! has_key(g:wheel_config.display, 'prompt_writable')
+		let g:wheel_config.display.prompt_writable = wheel#crystal#fetch ('mandala/prompt/writable')
+	endif
 	if ! has_key(g:wheel_config.display, 'selection')
 		let g:wheel_config.display.selection = wheel#crystal#fetch ('selection/mark')
 	endif
