@@ -1075,9 +1075,9 @@ locations in the wheel.
 
 Filter~
 
-On most writable buffers, the filter line is available. In that case, some
-adjustement are made to the local maps, so that you can edit the buffer with
-the usual vim keys.
+On most writable buffers, a filter line is available. In that case,
+some adjustement are made to the local maps, so that you can edit the
+buffer with the usual vim keys.
 
 Some keys are not mapped :
 
@@ -1096,6 +1096,16 @@ On the other lines :
 
 - `<Enter>`, `<Esc>`, `<Space>` and `<C-w>` have their usual vim meaning
 - `<C-u>` does nothing, to avoid erasing a complete line by accident
+
+Range~
+
+If you use an ex command to perform an operation on all the visible lines
+of a buffer with filter functionality, don't forget to skip the first line.
+
+E.g. :
+
+- `2,$substiture/before/after/g`
+- `2,$sort`
 
 Pressed the wrong button ?~
 
