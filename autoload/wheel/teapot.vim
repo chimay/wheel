@@ -190,7 +190,7 @@ fun! wheel#teapot#ctrl_u ()
 	" Ctrl-U on filter line
 	let linum = line('.')
 	if linum != 1
-		return v:false
+		return
 	endif
 	let mandala_prompt = wheel#teapot#prompt ()
 	call setline(1, mandala_prompt)

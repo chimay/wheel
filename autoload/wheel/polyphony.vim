@@ -290,7 +290,7 @@ fun! wheel#polyphony#crossroad (key, mode = 'normal', angle = 'no-angle')
 endfun
 
 fun! wheel#polyphony#filter_maps ()
-	" Local filter maps for hybrid navigation/write mode
+	" Local filter maps for hybrid filter/write mode
 	" -- normal mode
 	nnoremap <silent> <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
@@ -308,7 +308,7 @@ fun! wheel#polyphony#filter_maps ()
 endfun
 
 fun! wheel#polyphony#input_history_maps ()
-	" Local input history maps for hybrid navigation/write mode
+	" Local input history maps for hybrid filter/write mode
 	" Use M-p / M-n
 	" C-p / C-n is taken by (neo)vim completion
 	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
@@ -319,7 +319,7 @@ fun! wheel#polyphony#input_history_maps ()
 endfun
 
 fun! wheel#polyphony#template ()
-	" Filte & input history maps for hybrid navigation/write mode
+	" Filte & input history maps for hybrid filter/write mode
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#input_history_maps ()
 endfun

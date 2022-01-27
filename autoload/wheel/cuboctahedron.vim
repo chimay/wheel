@@ -235,6 +235,10 @@ fun! wheel#cuboctahedron#rename (level)
 	for index in range(len_names)
 		let old_name = elements[index].name
 		let new_name = names[index]
+		" nothing to do if old == new
+		if old_name == new_name
+			continue
+		endif
 		let elements[index].name = new_name
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename(level, old_name, new_name)
@@ -274,6 +278,10 @@ fun! wheel#cuboctahedron#rename_files ()
 		let fields = split(lines[index], s:field_separ)
 		let old_name = glossary[index]
 		let new_name = wheel#tree#format_name(fields[0])
+		" nothing to do if old == new
+		if old_name == new_name
+			continue
+		endif
 		let found = glossary->index(new_name)
 		if found >= 0 && found != index
 			echomsg 'Location' new_name 'already present in circle'

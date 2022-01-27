@@ -20,7 +20,7 @@ fun! wheel#guru#plugs ()
 endfun
 
 fun! wheel#guru#autocomands ()
-	" List of plugs mappings in a dedicated buffer
+	" List of wheel autocommands in a dedicated buffer
 	let group = input('Name of your wheel autocommand group ? ', 'wheel')
 	let command = 'autocmd ' .. group
 	call wheel#mandala#command (command)
@@ -29,15 +29,15 @@ endfun
 " mandala local help
 
 fun! wheel#guru#mandala ()
-	" Basic local maps in mandalas
-	echomsg 'q : quit           | <M-n> : relabel buffer | <Backspace> : delete layer'
-	echomsg 'H : previous layer | <M-l> : switch layer   | L : next layer'
-	echomsg '<F1> : this help   | <F2> : local maps      |'
+	" Basic help of a dedicated buffer
+	echomsg 'q : quit                   | r : reload           | <M-n> : relabel buffer'
+	echomsg 'H : previous layer         | <M-l> : switch layer | L : next layer'
+	echomsg '<Backspace> : delete layer | <F1> : this help     | <M-F1> : local maps'
 endfun
 
 fun! wheel#guru#mandala_mappings ()
-	" List of mappings in a dedicated buffer
+	" Local maps in a dedicated buffer
+	call wheel#cylinder#recall ()
 	let command = 'map <buffer>'
 	call wheel#mandala#command (command)
 endfun
-

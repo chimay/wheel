@@ -679,9 +679,6 @@ Rename current location & file~
 
 The default mapping is `<M-w><M-n>`.
 
-Before renaming files, it's always a good thing to do a backup of your
-files first, or even better, to work within a VCS repository, like git.
-
 ------------------------------------------------------------------------------
 COPY					    *wheel-prompting-functions-copy*
 
@@ -724,6 +721,7 @@ Layer ring			|wheel-dedicated-buffers-layers|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
+Writable			|wheel-dedicated-buffers-writable|
 Within the wheel		|wheel-dedicated-buffers-within-wheel|
 Buffers				|wheel-dedicated-buffers-buffers|
 Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
@@ -779,6 +777,13 @@ The available actions depend on the buffer type :
   + edit narrow of current file
   + edit narrow of all circle files
 
+Help~
+
+The key `<F1>` display a basic help.
+
+The key `<M-F1>` displays local maps in a new layer. See
+|wheel-dedicated-buffers-layers|.
+
 Wrapping up things~
 
 In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
@@ -808,7 +813,7 @@ It is not lost : you can reopen it any time with `<M-w><Right>`.
 ------------------------------------------------------------------------------
 TOOLS						*wheel-dedicated-buffers-tools*
 
-Select entries~
+Selection~
 
 Some dedicated buffers can act on selected entries. You can hit :
 
@@ -946,29 +951,34 @@ The main menu is triggered with `<M-w><M-m>` by default. From there,
 you can launch an action by pressing `<Enter>` on its line. Same thing
 for `g<Enter>`, but it will leave the dedicated buffer opened.
 
-The available actions are grouped by themes and folded. Just open a fold to
-access its content.
-
-Meta menu~
-
-Press `<M-w>=` to open the meta menu : each line in this buffer will
-launch a sub-menu. Each sub-menu holds actions of the same category :
+The available actions are grouped by themes and folded :
 
 - wheel help
-- add a new element to the wheel
-- rename an element
-- delete an element
-- copy an element
-- move an element
-- navigation
-- alternate last two elements
-- reorganize elements
-- run a command and collect its output
+- wheel status
+- save & load wheel file, session file
+- wheel navigation
+- native navigation
+- organize wheel
+- organize native elements
+- refactoring
+- search file
+- search inside file
 - paste from yank ring
+- undo list
+- run a command and collect its output
 - layouts
   + in tabs
   + in windows
   + in tabs & windows
+
+Just open a fold to access its content.
+
+Meta menu~
+
+Press `<M-w>=` to open the meta menu : each line in this buffer will
+launch a sub-menu. Each sub-menu holds actions of the same category.
+
+These categories are the same as in the main menu.
 
 In these sub-menus, you can use the keys :
 
@@ -1045,11 +1055,58 @@ Folding~
 The map `<M-w><M-x>` opens a dedicated buffer where folds are used to
 reflect the tree structure of the Wheel : toruses, circles and locations.
 
-Filtering in that buffer will keep surrounding folds ; only non mathing
+Filtering in that buffer will keep surrounding folds ; only non matching
 empty folds will be removed.
 
 Similarly, the map `<M-w><M-t>` opens a dedicated buffer where folds
 are used to reflect the tree structure of tabs and windows in (neo)vim.
+
+------------------------------------------------------------------------------
+WRITABLE    				*wheel-dedicated-buffers-writable*
+
+Some dedicated buffers are writable, i.e. they have a |BufWriteCmd|
+autocommand, triggered when you |:write| the buffer.
+
+Saving such a buffer will reflect the changes on the objects represented by
+the buffer lines.
+
+For instance, saving a rename/location buffer will rename the involved
+locations in the wheel.
+
+Filter~
+
+On most writable buffers, the filter line is available. In that case, some
+adjustement are made to the local maps, so that you can edit the buffer with
+the usual vim keys.
+
+Some keys are not mapped :
+
+- `i` and `a` are not mapped in normal mode : press `<M-i>` or `<Ins>` instead
+- the input history is availble only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`
+
+Some keys have a distinct meaning if the cursor is on the first line or in
+another one.
+
+On the first line :
+
+- `<Enter>`, `<Esc>`, `<Space>`, `<C-w>` and `<C-u>` update the filter
+- `<C-u>` does not delete the prompt
+
+On the other lines :
+
+- `<Enter>`, `<Esc>`, `<Space>` and `<C-w>` have their usual vim meaning
+- `<C-u>` does nothing, to avoid erasing a complete line by accident
+
+Pressed the wrong button ?~
+
+If something goes wrong, you can quit the dedicated buffer and :
+
+- re-read the wheel variables with `<M-w>r`, if your changes implied the wheel
+- undo your changes in the buffers, or quit (neo)vim without saving your files
+  with `:qa!` if your changes implied files content
+
+Anyway, it's always a good thing to do a backup of the wheeel and of your
+files first, or even better, to work within a VCS repository, like git.
 
 ------------------------------------------------------------------------------
 WITHIN THE WHEEL			*wheel-dedicated-buffers-within-wheel*
@@ -1292,14 +1349,9 @@ The default mappings launching reordering buffers are :
 - `<M-w>@<C-o>` : reorder circles
 - `<M-w>@O`     : reorder toruses
 
-Menus~
+Additional local maps~
 
-The reordering buffers can also be launched from the main & meta menus.
-
-Pressed the wrong button ?~
-
-If something goes wrong, you can quit the buffer and re-read the wheel
-variables with `<M-w>r`.
+- `<M-s>` : sort the visible lines, except the filter : `2,$sort`
 
 ------------------------------------------------------------------------------
 RENAMING		    		*wheel-dedicated-buffers-renaming*
@@ -1387,11 +1439,6 @@ Menus~
 
 The reorganizing buffer can also be launched from the main & meta menus.
 
-Pressed the wrong button ?~
-
-If something goes wrong, you can quit the buffer and re-read the wheel
-variables with `<M-w>r`.
-
 ------------------------------------------------------------------------------
 REORGANIZE TABS AND WINDOWS		*wheel-dedicated-buffers-reorg-tabwins*
 
@@ -1439,9 +1486,6 @@ Note that :
 
 Default mapping : `<M-w><M-g>`
 
-Anyway, it's always a good thing to do a backup of your files first,
-or even better, to work within a VCS repository, like git.
-
 Fields~
 
 This buffer displays the following columns :
@@ -1454,18 +1498,12 @@ NARROW CURRENT FILE			*wheel-dedicated-buffers-narrow-file*
 This function narrow the current file lines. In the dedicated buffer, you can :
 
 - navigate to the selected line(s)
-- modify filtered lines
+- filter the lines
+- edit visible lines
 
-You can narrow down the lines as much as you want before editing them.
-
-To let you edit the buffer as usual :
-
-- `i` and `a` are not mapped in normal mode : press `<M-i>` or `<Ins>` instead
-- `<Esc>` are `<Space>` are not mapped in insert mode
-  + press `<Enter>` instead of `<Esc>`
-
-You can modify the existing lines as much as you want. There is also a
-limited support to add line with buffer local maps :
+You can edit the existing lines as much as you want, but not the line
+number field. There is also a limited support to add line with buffer
+local maps :
 
 - `o` : add line below current one
 - `O` : add line above current one
@@ -1513,20 +1551,14 @@ This function narrow the lines of all circle files. In the dedicated
 buffer, you can :
 
 - navigate to the selected line(s)
-- modify filtered lines
+- filter the lines
+- edit visible lines
 
 This is similar as |wheel-dedicated-buffers-grep-edit|, but it provides
-a powerful filter in the first line. You can narrow down the lines as
-much as you want before editing them.
+a powerful filter in the first line.
 
-To let you edit the buffer as usual :
-
-- `i` and `a` are not mapped in normal mode : press `<M-i>` or `<Ins>` instead
-- `<Esc>` are `<Space>` are not mapped in insert mode
-  + press `<Enter>` instead of `<Esc>`
-
-You can modify the existing lines as much as you want, but adding or
-removing lines is currently not supported.
+You can edit the lines content as much as you want, but not the other
+fields. Adding or removing lines is currently not supported.
 
 Just |:write| the buffer to propagate your changes to the original file.
 
@@ -1834,7 +1866,7 @@ Number of backup for the wheel file : >
 Assuming your wheel file is `auto.vim`, the backups will be named
 `auto.vim.1`, `auto.vim.2`, `auto.vim.3`, and so on.
 
-Also used for session file.
+Also used for the session file.
 
 It is recommended to use backups, in case things get messed up
 accidentally.

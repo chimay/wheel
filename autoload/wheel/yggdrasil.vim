@@ -57,6 +57,8 @@ fun! wheel#yggdrasil#reorder (level)
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
+	" additional maps
+	nnoremap <m-s> <cmd>2,$sort<cr>
 endfun
 
 " rename
