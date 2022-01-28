@@ -83,7 +83,7 @@ fun! wheel#status#mandala_leaf ()
 	call wheel#status#clear ()
 	if cur_leaf >= 0
 		if oneline
-			echo 'wheel buf:' join(mandalas) '/ lay:' join(leaves)
+			echo 'wheel buf:' join(bufnames) '/ lay:' join(leaves)
 		else
 			echo 'wheel buffers : ' join(bufnames) "\n"
 			echo '      layers  : ' join(leaves)
