@@ -334,10 +334,10 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'
 		exe nmap prefix .. ', <plug>(wheel-prompt-change)'
 		exe nmap prefix .. 't <plug>(wheel-prompt-tag)'
-		exe nmap prefix .. "<m-'> <plug>(wheel-dedibuf-markers)"
-		exe nmap prefix .. '<m-j> <plug>(wheel-dedibuf-jumps)'
-		exe nmap prefix .. '; <plug>(wheel-dedibuf-changes)'
-		exe nmap prefix .. '<m-t> <plug>(wheel-dedibuf-tags)'
+		exe nmap prefix .. "<m-'> <plug>(wheel-dedibuf-marker)"
+		exe nmap prefix .. '<m-j> <plug>(wheel-dedibuf-jump)'
+		exe nmap prefix .. '; <plug>(wheel-dedibuf-change)'
+		exe nmap prefix .. '<m-t> <plug>(wheel-dedibuf-tag)'
 		" ---- reorganize wheel
 		exe nmap prefix .. '<m-r> <plug>(wheel-dedibuf-reorganize)'
 		" ---- reorganize other things
@@ -465,10 +465,10 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-,>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-c>          <plug>(wheel-prompt-change)'
 		exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
-		exe nmap "<m-c-k>        <plug>(wheel-dedibuf-markers)"
-		exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
-		exe nmap '<m-;>          <plug>(wheel-dedibuf-changes)'
-		exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
+		exe nmap "<m-c-k>        <plug>(wheel-dedibuf-marker)"
+		exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jump)'
+		exe nmap '<m-;>          <plug>(wheel-dedibuf-change)'
+		exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tag)'
 		" ---- organize the wheel
 		exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
 		exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
