@@ -3135,21 +3135,21 @@ Navigate with vim native tools~
 | Plug maps                            | Description                              |
 | ------------------------------------ | ---------------------------------------- |
 | <plug>(wheel-prompt-buffer)          | switch to buffer                         |
-| <plug>(wheel-dedibuf-buffers)        | buffers                                  |
-| <plug>(wheel-dedibuf-buffers-all)    | all buffers, including unlisted ones     |
+| <plug>(wheel-dedibuf-buffer)         | buffers                                  |
+| <plug>(wheel-dedibuf-buffer-all)     | all buffers, including unlisted ones     |
 | ------------------------------------ | ---------------------------------------- |
 | <plug>(wheel-prompt-tabwin)          | visible buffers in tabs & windows        |
-| <plug>(wheel-dedibuf-tabwins)        | visible buffers in tabs & windows        |
-| <plug>(wheel-dedibuf-tabwins-tree)   | tabs & windows in tree fold format       |
+| <plug>(wheel-dedibuf-tabwin)         | visible buffers in tabs & windows        |
+| <plug>(wheel-dedibuf-tabwin-tree)    | tabs & windows in tree fold format       |
 | ------------------------------------ | ---------------------------------------- |
 | <plug>(wheel-prompt-marker)          | switch to marker                         |
 | <plug>(wheel-prompt-jump)            | switch to jump                           |
 | <plug>(wheel-prompt-change)          | switch to change                         |
 | <plug>(wheel-prompt-tag)             | switch to tag                            |
-| <plug>(wheel-dedibuf-markers)        | markers                                  |
-| <plug>(wheel-dedibuf-jumps)          | vim jumps                                |
-| <plug>(wheel-dedibuf-changes)        | vim changes                              |
-| <plug>(wheel-dedibuf-tags)           | tags                                     |
+| <plug>(wheel-dedibuf-marker)         | markers                                  |
+| <plug>(wheel-dedibuf-jump)           | vim jumps                                |
+| <plug>(wheel-dedibuf-change)         | vim changes                              |
+| <plug>(wheel-dedibuf-tag)            | tags                                     |
 
 Organize the wheel~
 
@@ -3192,9 +3192,9 @@ Organize the wheel~
 
 Organize other things~
 
-| Plug maps                             | Description                            |
-| ------------------------------------- | -------------------------------------- |
-| <plug>(wheel-dedibuf-reorg-tabwins)   | reorganize tabs & windows              |
+| Plug maps                           | Description                            |
+| ----------------------------------- | -------------------------------------- |
+| <plug>(wheel-dedibuf-reorg-tabwin)  | reorganize tabs & windows              |
 
 Refactoring~
 
@@ -3315,7 +3315,7 @@ Some bindings that you may find useful : >
     nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
 
     nmap <silent> <d-o>       <plug>(wheel-dedibuf-occur)
-    nmap <silent> <d-b>       <plug>(wheel-dedibuf-buffers-all)
+    nmap <silent> <d-b>       <plug>(wheel-dedibuf-buffer-all)
     nmap <silent> <d-k>       <plug>(wheel-dedibuf-markers)
     nmap <silent> <d-j>       <plug>(wheel-dedibuf-jumps)
     nmap <silent> <d-c>       <plug>(wheel-dedibuf-changes)
@@ -3328,7 +3328,7 @@ Some bindings that you may find useful : >
     nmap <silent> <d-u>       <plug>(wheel-dedibuf-undo-list)
 
     " reorganize tabs & windows (visible buffers)
-    nmap <silent> <d-r> <plug>(wheel-reorg-tabwins)
+    nmap <silent> <d-r> <plug>(wheel-reorg-tabwin)
 
     " next/previous dedicated buffer
     nmap <silent> <d-space>   <plug>(wheel-mandala-forward)
