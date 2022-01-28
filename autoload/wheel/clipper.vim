@@ -21,12 +21,13 @@ fun! wheel#clipper#mappings (mode)
 		let function = 'wheel#line#paste_plain'
 	endif
 	" normal mode
-	exe 'nmap <cr> <cmd>call' function "('linewise_after', 'close')<cr>"
-	exe 'nmap g<cr> <cmd>call' function "('linewise_after', 'open')<cr>"
-	exe 'nmap p <cmd>call' function "('linewise_after', 'open')<cr>"
-	exe 'nmap P <cmd>call' function "('linewise_before', 'open')<cr>"
-	exe 'nmap gp <cmd>call' function "('charwise_after', 'open')<cr>"
-	exe 'nmap gP <cmd>call' function "('charwise_before', 'open')<cr>"
+	let nmap = 'nnoremap <buffer>'
+	exe nmap '<cr> <cmd>call' function "('linewise_after', 'close')<cr>"
+	exe nmap 'g<cr> <cmd>call' function "('linewise_after', 'open')<cr>"
+	exe nmap 'p <cmd>call' function "('linewise_after', 'open')<cr>"
+	exe nmap 'P <cmd>call' function "('linewise_before', 'open')<cr>"
+	exe nmap 'gp <cmd>call' function "('charwise_after', 'open')<cr>"
+	exe nmap 'gP <cmd>call' function "('charwise_before', 'open')<cr>"
 	if a:mode == 'plain'
 		" Visual mode
 		vnoremap <silent> <buffer> <cr> :<c-u>call wheel#line#paste_visual('after', 'close')<cr>

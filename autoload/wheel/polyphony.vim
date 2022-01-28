@@ -303,6 +303,7 @@ fun! wheel#polyphony#filter_maps ()
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	" -- insert mode
 	let imap = 'inoremap <silent> <buffer>'
+	let across = ''
 	exe imap "<c-u> <cmd>call wheel#teapot#ctrl_u()<cr>"
 	" insert - insert mode at the end
 	exe imap "<space> <cmd>call wheel#polyphony#crossroad('space', '>', ['i', 'i'])<cr>"
