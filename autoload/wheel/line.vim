@@ -339,18 +339,10 @@ endfun
 
 " -- paste
 
-fun! wheel#line#paste_list (...)
+fun! wheel#line#paste_list (where = 'linewise_after', close = 'close')
 	" Paste line(s) from yank buffer in list mode
-	if a:0 > 0
-		let where = a:1
-	else
-		let where = 'after'
-	endif
-	if a:0 > 1
-		let close = a:2
-	else
-		let close = 'close'
-	endif
+	let where = a:where
+	let close = a:close
 	if wheel#pencil#is_selection_empty ()
 		let line = getline('.')
 		if empty(line)
@@ -364,10 +356,16 @@ fun! wheel#line#paste_list (...)
 		eval content->map({ _, list -> join(list, "\n") })
 	endif
 	call wheel#rectangle#previous ()
-	if where == 'after'
+	if where == 'linewise_after'
 		put =content
-	elseif where == 'before'
+	elseif where == 'linewise_before'
 		put! =content
+	elseif where == 'charwise_after'
+		let @" = content
+		normal! p
+	elseif where == 'charwise_before'
+		let @" = content
+		normal! P
 	endif
 	let @" = join(content, "\n")
 	call wheel#cylinder#recall ()
@@ -377,18 +375,10 @@ fun! wheel#line#paste_list (...)
 	return win_getid ()
 endfun
 
-fun! wheel#line#paste_plain (...)
+fun! wheel#line#paste_plain (where = 'linewise_after', close = 'close')
 	" Paste line(s) from yank buffer in plain mode
-	if a:0 > 0
-		let where = a:1
-	else
-		let where = 'linewise_after'
-	endif
-	if a:0 > 1
-		let close = a:2
-	else
-		let close = 'close'
-	endif
+	let where = a:where
+	let close = a:close
 	if wheel#pencil#is_selection_empty ()
 		let content = [ getline('.') ]
 	else

@@ -14,19 +14,20 @@ endfun
 
 fun! wheel#clipper#mappings (mode)
 	" Define local yank maps
+	let nmap = 'nnoremap <buffer>'
 	if a:mode == 'list'
-		nnoremap <buffer> <cr> <cmd>call wheel#line#paste_list ('after', 'close')<cr>
-		nnoremap <buffer> g<cr> <cmd>call wheel#line#paste_list ('after', 'open')<cr>
-		nnoremap <buffer> p <cmd>call wheel#line#paste_list ('after', 'open')<cr>
-		nnoremap <buffer> P <cmd>call wheel#line#paste_list ('before', 'open')<cr>
+		let function = 'wheel#line#paste_list'
 	elseif a:mode == 'plain'
-		" normal mode
-		nnoremap <buffer> <cr> <cmd>call wheel#line#paste_plain ('linewise_after', 'close')<cr>
-		nnoremap <buffer> g<cr> <cmd>call wheel#line#paste_plain ('linewise_after', 'open')<cr>
-		nnoremap <buffer> p <cmd>call wheel#line#paste_plain ('linewise_after', 'open')<cr>
-		nnoremap <buffer> P <cmd>call wheel#line#paste_plain ('linewise_before', 'open')<cr>
-		nnoremap <buffer> gp <cmd>call wheel#line#paste_plain ('charwise_after', 'open')<cr>
-		nnoremap <buffer> gP <cmd>call wheel#line#paste_plain ('charwise_before', 'open')<cr>
+		let function = 'wheel#line#paste_plain'
+	endif
+	" normal mode
+	exe 'nmap <cr> <cmd>call' function "('linewise_after', 'close')<cr>"
+	exe 'nmap g<cr> <cmd>call' function "('linewise_after', 'open')<cr>"
+	exe 'nmap p <cmd>call' function "('linewise_after', 'open')<cr>"
+	exe 'nmap P <cmd>call' function "('linewise_before', 'open')<cr>"
+	exe 'nmap gp <cmd>call' function "('charwise_after', 'open')<cr>"
+	exe 'nmap gP <cmd>call' function "('charwise_before', 'open')<cr>"
+	if a:mode == 'plain'
 		" Visual mode
 		vnoremap <silent> <buffer> <cr> :<c-u>call wheel#line#paste_visual('after', 'close')<cr>
 		vnoremap <silent> <buffer> g<cr> :<c-u>call wheel#line#paste_visual('after', 'open')<cr>

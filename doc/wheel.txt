@@ -1616,12 +1616,6 @@ The yank ring buffer in list mode is launched by `<M-w><M-y>`.
 Each line of the dedicated buffer is one of your yanks, represented as a
 list, one element per line.
 
-Plain mode~
-
-The yank ring buffer in plain mode is launched by `<M-w><M-p>`.
-
-All your yanks are concatenated and displayed in the dedicated buffer.
-
 In normal mode, the paste is done linewise or characterwise, depending
 on the mapping used :
 
@@ -1630,10 +1624,18 @@ on the mapping used :
  - `gp` : paste a yank characterwise after cursor, leave yank ring opened
  - `gP` : paste a yank characterwise before cursor, leave yank ring opened
 
+Plain mode~
+
+The yank ring buffer in plain mode is launched by `<M-w><M-p>`.
+
+All your yanks are concatenated and displayed in the dedicated buffer.
+
+The mappings are the same as those of the yank ring buffer in list mode.
+
 Visual mode~
 
-You can also go to visual mode and paste your selection. The paste is
-done characterwise.
+You can also go to visual mode and paste your selection with `p`. The
+paste is done characterwise.
 
 Menus~
 
