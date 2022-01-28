@@ -737,11 +737,12 @@ Markers				|wheel-dedicated-buffers-markers|
 Jumps				|wheel-dedicated-buffers-jumps|
 Changes				|wheel-dedicated-buffers-changes|
 Tags				|wheel-dedicated-buffers-tags|
-Reordering		        |wheel-dedicated-buffers-reordering|
-Renaming		        |wheel-dedicated-buffers-renaming|
+Reorder				|wheel-dedicated-buffers-reorder|
+Rename			        |wheel-dedicated-buffers-rename|
+Delete			        |wheel-dedicated-buffers-delete|
 Copy and move		        |wheel-dedicated-buffers-copy-move|
-Reorganizing			|wheel-dedicated-buffers-reorganizing|
-Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwin|
+Reorganize			|wheel-dedicated-buffers-reorganize|
+Reorganize tabs & windows	|wheel-dedicated-buffers-reorg-tabwin|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
 Narrow				|wheel-dedicated-buffers-narrow|
 Yank 				|wheel-dedicated-buffers-yank|
@@ -1046,10 +1047,6 @@ The default mappings launching navigation buffers are :
 - `<M-w>;`         : changes list
 - `<M-w><M-t>`     : tags
 
-Menus~
-
-The navigation buffers can also be launched from the main & meta menus.
-
 Folding~
 
 The map `<M-w><M-x>` opens a dedicated buffer where folds are used to
@@ -1340,7 +1337,7 @@ This buffer displays the following columns :
 tag type | tag iden | filename | search string
 
 ------------------------------------------------------------------------------
-REORDERING				*wheel-dedicated-buffers-reordering*
+REORDER						*wheel-dedicated-buffers-reorder*
 
 The reordering buffers allow you to quickly reorder Wheel elements by
 reordering the buffer lines. You can use yank/delete/paste operations to
@@ -1367,7 +1364,7 @@ Additional local maps~
 - `<M-r>` : reversed sort of the visible lines, except the filter : `2,$sort!`
 
 ------------------------------------------------------------------------------
-RENAMING		    		*wheel-dedicated-buffers-renaming*
+RENAME				    		*wheel-dedicated-buffers-rename*
 
 The renaming buffers allow you to batch rename Wheel elements by editing
 the buffer lines. You can use powerful native tools, like visual block
@@ -1395,31 +1392,39 @@ The default mappings launching renaming buffers are :
 - `<M-w>@N`     : rename toruses
 - `<M-w>@<M-n>` : rename locations & files
 
-Menus~
+------------------------------------------------------------------------------
+DELETE			    		*wheel-dedicated-buffers-delete*
 
-The renaming buffers can also be launched from the main & meta menus.
+The deleting buffers allow you to batch delete Wheel elements by selecting
+the buffer lines.
+
+When you're sure about it, just write the buffer.
+
+Mappings~
+
+The default mappings launching deleting buffers are :
+
+- `<M-w>@d`     : delete locations
+- `<M-w>@<C-d>` : delete circles
+- `<M-w>@D`     : delete toruses
 
 ------------------------------------------------------------------------------
 COPY AND MOVE		    		*wheel-dedicated-buffers-copy-move*
 
-The copy/move buffers allow you to batch copy or move Wheel elements by
+The copy & move buffers allow you to batch copy or move Wheel elements by
 selecting the buffer lines. To validate your selection, simply |:write|
 the buffer. It will ask you if you want to copy or move the selection.
 
 Mappings~
 
-The default mappings launching renaming buffers are :
+The default mappings launching copy & move buffers are :
 
 - `<M-w>@c`     : copy/move locations
 - `<M-w>@<M-c>` : copy/move circles
 - `<M-w>@C`     : copy/move toruses
 
-Menus~
-
-The copy/move buffers can also be launched from the main & meta menus.
-
 ------------------------------------------------------------------------------
-REORGANIZING				*wheel-dedicated-buffers-reorganizing*
+REORGANIZE				*wheel-dedicated-buffers-reorganize*
 
 The reorganizing buffer allows you to quickly reorganize the Wheel
 elements. All elements of the wheel are represented, and folds are used
@@ -1448,10 +1453,6 @@ Mappings~
 
 The default mapping is `<M-w><M-r>`.
 
-Menus~
-
-The reorganizing buffer can also be launched from the main & meta menus.
-
 ------------------------------------------------------------------------------
 REORGANIZE TABS AND WINDOWS		*wheel-dedicated-buffers-reorg-tabwin*
 
@@ -1469,10 +1470,6 @@ To validate your change, simply |:write| the buffer.
 Mappings~
 
 The default mapping is `<M-w><C-r>`.
-
-Menus~
-
-This buffer can also be launched from the main & meta menus.
 
 From context menu~
 
@@ -1638,10 +1635,6 @@ Visual mode~
 
 You can also go to visual mode and paste your selection with `p`. The
 paste is done characterwise.
-
-Menus~
-
-The yank ring buffers can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*

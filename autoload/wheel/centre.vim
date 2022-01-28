@@ -303,6 +303,9 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'd <plug>(wheel-prompt-delete-location)'
 		exe nmap prefix .. '<c-d> <plug>(wheel-prompt-delete-circle)'
 		exe nmap prefix .. 'D <plug>(wheel-prompt-delete-torus)'
+		exe nmap prefix .. batch .. 'd <plug>(wheel-prompt-delete-location)'
+		exe nmap prefix .. batch .. '<c-d> <plug>(wheel-prompt-delete-circle)'
+		exe nmap prefix .. batch .. 'D <plug>(wheel-prompt-delete-torus)'
 		" -- copy
 		exe nmap prefix .. 'c <plug>(wheel-prompt-copy-location)'
 		" <c-c> does not work in maps
