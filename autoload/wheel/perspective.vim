@@ -67,7 +67,7 @@ endfun
 
 " from referen
 
-fun! wheel#perspective#switch (level)
+fun! wheel#perspective#elements (level)
 	" Switch level = torus, circle or location
 	let level = a:level
 	let upper = wheel#referen#upper (level)
