@@ -101,6 +101,13 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-reorder-location) <cmd>call wheel#yggdrasil#reorder('location')<cr>
 	nnoremap <plug>(wheel-dedibuf-reorder-circle) <cmd>call wheel#yggdrasil#reorder('circle')<cr>
 	nnoremap <plug>(wheel-dedibuf-reorder-torus) <cmd>call wheel#yggdrasil#reorder('torus')<cr>
+	" -- delete
+	nnoremap <plug>(wheel-prompt-delete-location) <cmd>call wheel#tree#delete('location')<cr>
+	nnoremap <plug>(wheel-prompt-delete-circle) <cmd>call wheel#tree#delete('circle')<cr>
+	nnoremap <plug>(wheel-prompt-delete-torus) <cmd>call wheel#tree#delete('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-delete-location) <cmd>call wheel#yggdrasil#delete('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-delete-circle) <cmd>call wheel#yggdrasil#delete('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-delete-torus) <cmd>call wheel#yggdrasil#delete('torus')<cr>
 	" -- rename
 	nnoremap <plug>(wheel-prompt-rename-location) <cmd>call wheel#tree#rename('location')<cr>
 	nnoremap <plug>(wheel-prompt-rename-circle) <cmd>call wheel#tree#rename('circle')<cr>
@@ -110,13 +117,6 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-rename-circle) <cmd>call wheel#yggdrasil#rename('circle')<cr>
 	nnoremap <plug>(wheel-dedibuf-rename-torus) <cmd>call wheel#yggdrasil#rename('torus')<cr>
 	nnoremap <plug>(wheel-dedibuf-rename-location-filename) <cmd>call wheel#yggdrasil#rename_files()<cr>
-	" -- delete
-	nnoremap <plug>(wheel-prompt-delete-location) <cmd>call wheel#tree#delete('location')<cr>
-	nnoremap <plug>(wheel-prompt-delete-circle) <cmd>call wheel#tree#delete('circle')<cr>
-	nnoremap <plug>(wheel-prompt-delete-torus) <cmd>call wheel#tree#delete('torus')<cr>
-	nnoremap <plug>(wheel-dedibuf-delete-location) <cmd>call wheel#yggdrasil#delete('location')<cr>
-	nnoremap <plug>(wheel-dedibuf-delete-circle) <cmd>call wheel#yggdrasil#delete('circle')<cr>
-	nnoremap <plug>(wheel-dedibuf-delete-torus) <cmd>call wheel#yggdrasil#delete('torus')<cr>
 	" -- copy & move
 	nnoremap <plug>(wheel-prompt-copy-location) <cmd>call wheel#tree#copy('location')<cr>
 	nnoremap <plug>(wheel-prompt-copy-circle) <cmd>call wheel#tree#copy('circle')<cr>
