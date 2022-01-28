@@ -65,12 +65,12 @@ fun! wheel#frigate#tabwin_tree ()
 	call wheel#mandala#blank ('tabwins/tree')
 	let settings = {'function' : function('wheel#line#tabwin_tree')}
 	call wheel#whirl#template (settings)
-	call wheel#mandala#folding_options ('tabwins_folding_text')
+	call wheel#mandala#folding_options ('tabwin_folding_text')
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#tabwin_tree'
 	" Context menu
-	call wheel#boomerang#launch_map ('tabwins_tree')
+	call wheel#boomerang#launch_map ('tabwin_tree')
 endfun
 
 fun! wheel#frigate#tabwin ()
@@ -88,7 +88,7 @@ fun! wheel#frigate#tabwin ()
 	" reload
 	let b:wheel_reload = 'wheel#frigate#tabwin'
 	" Context menu
-	call wheel#boomerang#launch_map ('tabwins')
+	call wheel#boomerang#launch_map ('tabwin')
 endfun
 
 " vim lists

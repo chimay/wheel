@@ -4,7 +4,7 @@
 
 " reorganize tabs
 
-fun! wheel#shape#reorg_tabwins ()
+fun! wheel#shape#reorg_tabwin ()
 	" Reorganize tabs & windows
 	let lines = wheel#perspective#tabwin_tree ()
 	" -- pre-checks
@@ -22,5 +22,5 @@ fun! wheel#shape#reorg_tabwins ()
 	setlocal nomodified
 	setlocal nocursorline
 	" reload
-	let b:wheel_reload = 'wheel#shape#reorg_tabwins'
+	let b:wheel_reload = 'wheel#shape#reorg_tabwin'
 endfun

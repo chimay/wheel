@@ -453,7 +453,7 @@ endif
 
 if ! exists('s:menu_organize_native')
 	let s:menu_organize_native = [
-				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwins'],
+				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwin'],
 				\]
 	lockvar s:menu_organize_native
 endif
@@ -670,7 +670,7 @@ if ! exists('s:context_tabwins')
 				\ ['open' ,  "wheel#boomerang#tabwin('open')"],
 				\ ['new tab' ,  "wheel#boomerang#tabwin('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin('tabclose')"],
-				\ ['reorganize' ,  'wheel#shape#reorg_tabwins'],
+				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
 				\]
 	lockvar s:context_tabwins
 endif
@@ -680,7 +680,7 @@ if ! exists('s:context_tabwins_tree')
 				\ ['open' ,  "wheel#boomerang#tabwin_tree('open')"],
 				\ ['new tab' ,  "wheel#boomerang#tabwin_tree('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin_tree('tabclose')"],
-				\ ['reorganize' ,  'wheel#shape#reorg_tabwins'],
+				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
 				\]
 	lockvar s:context_tabwins_tree
 endif

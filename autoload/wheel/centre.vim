@@ -130,7 +130,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-reorganize) <cmd>call wheel#yggdrasil#reorganize()<cr>
 	" ---- organize elsewhere
 	" -- tabs & windows
-	nnoremap <plug>(wheel-dedibuf-reorg-tabwin) <cmd>call wheel#shape#reorg_tabwins()<cr>
+	nnoremap <plug>(wheel-dedibuf-reorg-tabwin) <cmd>call wheel#shape#reorg_tabwin()<cr>
 	" ---- refactoring
 	" -- grep edit mode
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#mill#grep_edit()<cr>
