@@ -264,29 +264,37 @@ endfun
 
 " Mandalas
 
-fun! wheel#polyphony#crossroad (key, mode = 'normal', angle = 'no-angle')
-	" Enter on insert mode, or run filter if on first line
+fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
+	" Feed key, or run filter if on first line
 	" Optional argument :
-	"   - no-angle : plain key
-	"   - with-angle, or '>' : special key -> "\<key>"
+	"   - angle :
+	"     - no-angle : plain key
+	"     - with-angle, or '>' : special key -> "\<key>"
+	"   - modes :
+	"     - modes[0] : normal or insert mode at the end if on first line
+	"     - modes[1] : normal or insert mode at the end if on any other line
 	let key = a:key
-	let mode = a:mode
 	let angle = a:angle
+	let modes = copy(a:modes)
+	eval modes->map({ _, val -> wheel#gear#long_mode (val) })
 	if line('.') == 1
-		call wheel#teapot#filter(mode)
-	else
-		let position = getcurpos()
-		if angle == '>' || angle == 'with-angle'
-			execute 'normal' '"\<' .. key .. '>"'
-		else
-			execute 'normal' key
-		endif
-		if mode == 'insert'
-			call wheel#gear#restore_cursor (position)
-			normal l
-			startinsert
-		endif
+		return wheel#teapot#wrapper (key, angle, modes[0])
 	endif
+	if angle == 'with-angle' || angle == '>'
+		execute 'let key =' '"\<' .. key .. '>"'
+	endif
+	if modes[1] == 'insert'
+		"call feedkeys(key, 'intx!')
+		if col('.') != 1
+			normal! l
+		endif
+		execute 'normal! i' .. key
+		startinsert
+	else
+		"call feedkeys(key, 'intx')
+		execute 'normal! ' .. key
+	endif
+	return v:true
 endfun
 
 fun! wheel#polyphony#filter_maps ()
@@ -296,13 +304,14 @@ fun! wheel#polyphony#filter_maps ()
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	" -- insert mode
 	let imap = 'inoremap <silent> <buffer>'
-	" insert mode at the end
-	exe imap "<space> <space><esc>:call wheel#polyphony#crossroad('space', 'insert', '>')<cr>"
-	exe imap "<c-w> <c-w><esc>:call wheel#polyphony#crossroad('c-w', 'insert', '>')<cr>"
-	exe imap "<c-u> <esc>:call wheel#teapot#ctrl_u()<cr>"
-	" normal mode at the end
-	exe imap "<cr> <esc>:call wheel#polyphony#crossroad('cr', 'normal', '>')<cr>"
-	exe imap "<esc> <esc>:call wheel#polyphony#crossroad('esc', 'normal', '>')<cr>"
+	exe imap "<c-u> <cmd>call wheel#teapot#ctrl_u()<cr>"
+	" insert - insert mode at the end
+	exe imap "<space> <cmd>call wheel#polyphony#crossroad('space', '>', ['i', 'i'])<cr>"
+	exe imap "<c-w> <cmd>:call wheel#polyphony#crossroad('c-w', '>', ['i', 'i'])<cr>"
+	" normal - insert mode at the end
+	exe imap "<cr> <cmd>call wheel#polyphony#crossroad('cr', '>', ['n', 'i'])<cr>"
+	" normal - normal mode at the end
+	exe imap "<esc> <esc>:call wheel#polyphony#crossroad('esc', '>', ['n', 'n'])<cr>"
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun

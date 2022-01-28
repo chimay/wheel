@@ -10,11 +10,6 @@
 
 " Script constants
 
-if ! exists('s:mandala_prompt')
-	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
-	lockvar s:mandala_prompt
-endif
-
 if ! exists('s:mandala_options')
 	let s:mandala_options = wheel#crystal#fetch('mandala/options')
 	lockvar s:mandala_options
@@ -329,9 +324,9 @@ fun! wheel#book#syncdown ()
 		else
 			" not filtered
 			let visible_lines = b:wheel_lines
-			call wheel#teapot#set_prompt ('')
+			call wheel#teapot#set_prompt ()
 		endif
-		call wheel#mandala#replace (visible_lines, 'prompt-first')
+		call wheel#mandala#replace (visible_lines, 'keep-first')
 	else
 		" no filter
 		let visible_lines = b:wheel_lines

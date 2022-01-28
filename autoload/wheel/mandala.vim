@@ -12,11 +12,6 @@
 
 " Script constants
 
-if ! exists('s:mandala_prompt')
-	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
-	lockvar s:mandala_prompt
-endif
-
 if ! exists('s:map_keys')
 	let s:map_keys = wheel#crystal#fetch('map/keys')
 	lockvar s:map_keys
@@ -472,12 +467,13 @@ fun! wheel#mandala#update_var_lines (mood = 'patient')
 	return v:true
 endfun
 
-fun! wheel#mandala#replace (content, first = 'prompt-first')
+fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Replace mandala buffer with content
 	" Content can be :
 	"   - a monoline string
 	"   - a list of lines
 	" Optional argument handle the first line filtering input :
+	"   - keep-first (default) : keep first line
 	"   - prompt-first : keep input, add prompt if not present
 	"   - blank-first : blank first line
 	"   - delete-first : delete first line
@@ -509,9 +505,9 @@ fun! wheel#mandala#replace (content, first = 'prompt-first')
 	call append('.', content)
 	" -- first line
 	if first == 'prompt-first'
-		call wheel#teapot#set_prompt ()
+		call wheel#teapot#set_prompt (getline(1))
 	elseif first == 'blank-first'
-		call setline(1, s:mandala_prompt)
+		call wheel#teapot#set_prompt ()
 	elseif first == 'delete-first'
 		silent 1 delete _
 	endif

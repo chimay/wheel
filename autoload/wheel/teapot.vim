@@ -55,18 +55,14 @@ fun! wheel#teapot#prompt ()
 	endif
 endfun
 
-fun! wheel#teapot#set_prompt (...)
+fun! wheel#teapot#set_prompt (content = '')
 	" Add prompt at first line if not already there
 	" Optional argument :
 	"   - line content, as string or word list
-	"   - default : first line content
-	if a:0 > 0
-		let content = a:1
-		if type(content) == v:t_list
-			let content = join(content)
-		endif
-	else
-		let content = getline(1)
+	"   - default : empty
+	let content = a:content
+	if type(content) == v:t_list
+		let content = join(content)
 	endif
 	let mandala_prompt = wheel#teapot#prompt ()
 	let pattern = '\m^' .. mandala_prompt
@@ -113,20 +109,17 @@ fun! wheel#teapot#goto_filter_line (mode = 'normal')
 	"   - normal : end in normal mode
 	"   - insert : end in insert mode
 	let mode = a:mode
+	let mode = wheel#gear#long_mode (mode)
 	call cursor(1, 1)
 	normal! $
 	if mode == 'insert'
-		" ! = insert at the end of line
+		" ! means insert at the end of line
 		startinsert!
 	endif
 endfun
 
-fun! wheel#teapot#filter (mode = 'normal')
+fun! wheel#teapot#filter ()
 	" Filter : keep only lines matching words of first line
-	" Optional argument mode :
-	"   - normal : end in normal mode
-	"   - insert : end in insert mode
-	let mode = a:mode
 	let words = wheel#teapot#wordlist ()
 	call wheel#mandala#update_var_lines ()
 	if empty(words)
@@ -144,25 +137,13 @@ fun! wheel#teapot#filter (mode = 'normal')
 	endif
 	call wheel#mandala#replace (lines, 'prompt-first')
 	call wheel#pencil#show ()
-	if mode == 'normal'
-		if line('$') > 1
-			call cursor(2, 1)
-		endif
-	elseif mode == 'insert'
-		"call cursor(1, 1)
-		" ! = insert at the end of line
-		startinsert!
-	endif
+	return v:true
 endfun
 
 " clear filter
 
-fun! wheel#teapot#clear (mode = 'normal')
+fun! wheel#teapot#clear ()
 	" Filter : keep only lines matching words of first line
-	" Optional argument mode :
-	"   - normal : end in normal mode
-	"   - insert : end in insert mode
-	let mode = a:mode
 	let words = wheel#teapot#wordlist ()
 	if ! empty(words)
 		let lines = b:wheel_lines
@@ -170,21 +151,42 @@ fun! wheel#teapot#clear (mode = 'normal')
 		let b:wheel_filter.indexes = []
 		let b:wheel_filter.lines = []
 	endif
-	call wheel#teapot#set_prompt('')
+	call wheel#teapot#set_prompt()
 	call wheel#mandala#replace (lines, 'prompt-first')
 	call wheel#pencil#show ()
-	if mode == 'normal'
-		if line('$') > 1
-			call cursor(2, 1)
-		endif
-	elseif mode == 'insert'
-		"call cursor(1, 1)
-		" ! = insert at the end of line
-		startinsert!
-	endif
 endfun
 
 " mappings
+
+fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
+	" Filter wrapper for mappings
+	" Optional argument :
+	"   - angle :
+	"     - no-angle : plain key
+	"     - with-angle, or '>' : special key -> "\<key>"
+	"   - mode : normal or insert mode at the end
+	let key = a:key
+	let angle = a:angle
+	let mode = a:mode
+	let mode = wheel#gear#long_mode (mode)
+	if angle == 'with-angle' || angle == '>'
+		execute 'let key =' '"\<' .. key .. '>"'
+	endif
+	if mode == 'insert'
+		execute 'normal! i' .. key
+		call wheel#teapot#filter ()
+		" ! = insert at the end of line
+		"startinsert!
+	else
+		execute 'normal! ' .. key
+		call wheel#teapot#filter ()
+		stopinsert
+		if line('$') > 1
+			call cursor(2, 1)
+		endif
+	endif
+	call cursor(1, col('$'))
+endfun
 
 fun! wheel#teapot#ctrl_u ()
 	" Ctrl-U on filter line
@@ -193,8 +195,8 @@ fun! wheel#teapot#ctrl_u ()
 		return
 	endif
 	let mandala_prompt = wheel#teapot#prompt ()
-	call setline(1, mandala_prompt)
-	call wheel#teapot#filter('insert')
+	call wheel#teapot#set_prompt ()
+	call wheel#teapot#filter()
 endfun
 
 fun! wheel#teapot#mappings ()
@@ -202,13 +204,13 @@ fun! wheel#teapot#mappings ()
 	" -- filter property
 	let b:wheel_nature.has_filter = v:true
 	" -- normal mode
-	nnoremap <silent> <buffer> i <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	nnoremap <silent> <buffer> a <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
+	nnoremap <silent> <buffer> i <cmd>call wheel#teapot#goto_filter_line('i')<cr>
+	nnoremap <silent> <buffer> a <cmd>call wheel#teapot#goto_filter_line('i')<cr>
 	" -- insert mode
-	inoremap <silent> <buffer> <space> <space><esc>:call wheel#teapot#filter('insert')<cr>
-	inoremap <silent> <buffer> <c-w> <c-w><esc>:call wheel#teapot#filter('insert')<cr>
-	inoremap <silent> <buffer> <c-u> <esc>:call wheel#teapot#ctrl_u()<cr>
-	inoremap <silent> <buffer> <cr> <esc>:call wheel#teapot#filter()<cr>
+	inoremap <silent> <buffer> <space> <cmd>call wheel#teapot#wrapper('space', '>', 'i')<cr>
+	inoremap <silent> <buffer> <c-w> <cmd>call wheel#teapot#wrapper('c-w', '>', 'i')<cr>
+	inoremap <silent> <buffer> <c-u> <cmd>call wheel#teapot#ctrl_u()<cr>
+	inoremap <silent> <buffer> <cr> <cmd>call wheel#teapot#wrapper('cr', '>', 'n')<cr>
 	inoremap <silent> <buffer> <esc> <esc>:call wheel#teapot#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
 endfun

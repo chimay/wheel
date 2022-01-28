@@ -4,11 +4,6 @@
 
 " script constants
 
-if ! exists('s:mandala_prompt')
-	let s:mandala_prompt = wheel#crystal#fetch('mandala/prompt')
-	lockvar s:mandala_prompt
-endif
-
 " function
 
 fun! wheel#scroll#record (input)
@@ -39,8 +34,7 @@ fun! wheel#scroll#newer ()
 	if ! empty(line)
 		let g:wheel_input = wheel#chain#rotate_right (g:wheel_input)
 	endif
-	let content = s:mandala_prompt .. g:wheel_input[0]
-	call setline(1, content)
+	call wheel#teapot#set_prompt (g:wheel_input[0])
 	" not necessary with <cmd> maps
 	"startinsert!
 endfun
@@ -54,8 +48,7 @@ fun! wheel#scroll#older ()
 	if ! empty(line)
 		let g:wheel_input = wheel#chain#rotate_left (g:wheel_input)
 	endif
-	let content = s:mandala_prompt .. g:wheel_input[0]
-	call setline(1, content)
+	call wheel#teapot#set_prompt (g:wheel_input[0])
 	" not necessary with <cmd> maps
 	"startinsert!
 endfun
@@ -79,8 +72,7 @@ fun! wheel#scroll#filtered_newer ()
 	if index >= 0
 		let reversed = reversed->wheel#chain#roll_right(index)
 		let g:wheel_input = reverse(copy(reversed))
-		let content = s:mandala_prompt .. g:wheel_input[0]
-		call setline(1, content)
+		call wheel#teapot#set_prompt (g:wheel_input[0])
 	endif
 	call cursor(1, colnum)
 	" not necessary with <cmd> maps
@@ -104,8 +96,7 @@ fun! wheel#scroll#filtered_older ()
 	let index = match(g:wheel_input, pattern, 1)
 	if index >= 0
 		let g:wheel_input = g:wheel_input->wheel#chain#roll_left(index)
-		let content = s:mandala_prompt .. g:wheel_input[0]
-		call setline(1, content)
+		call wheel#teapot#set_prompt (g:wheel_input[0])
 	endif
 	call cursor(1, colnum)
 	" not necessary with <cmd> maps

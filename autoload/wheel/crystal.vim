@@ -36,18 +36,24 @@ endif
 
 if ! exists('s:modes_letters')
 	let s:modes_letters = {
-				\ 'normal': 'n',
-				\ 'insert': 'i',
-				\ 'visual': 'v',
+				\ 'normal'   : 'n',
+				\ 'insert'   : 'i',
+				\ 'replace'  : 'r',
+				\ 'visual'   : 'v',
+				\ 'operator' : 'o',
+				\ 'command'  : 'c',
 				\ }
 	lockvar s:modes_letters
 endif
 
 if ! exists('s:letters_modes')
 	let s:letters_modes = {
-				\ 'n': 'normal',
-				\ 'i': 'insert',
-				\ 'v': 'visual',
+				\ 'n' : 'normal',
+				\ 'i' : 'insert',
+				\ 'r' : 'replace' ,
+				\ 'v' : 'visual',
+				\ 'o' : 'operator',
+				\ 'c' : 'command' ,
 				\ }
 	lockvar s:letters_modes
 endif

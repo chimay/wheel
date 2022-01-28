@@ -199,6 +199,10 @@ endfun
 
 fun! wheel#gear#short_mode (mode)
 	" Returns short one letter name of mode
+	" normal -> n
+	" insert -> i
+	" visual -> v
+	" ...
 	let mode = a:mode
 	if empty(mode)
 		echomsg 'wheel gear short mode : empty argument'
@@ -212,19 +216,22 @@ fun! wheel#gear#short_mode (mode)
 			echomsg 'wheel gear : argument is not a valid mode name'
 			return v:false
 		endif
+	endif
+	let keys = keys(s:letters_modes)
+	if wheel#chain#is_inside(mode, keys)
+		return mode
 	else
-		let keys = keys(s:letters_modes)
-		if wheel#chain#is_inside(mode, keys)
-			return mode
-		else
-			echomsg 'wheel gear : argument is not a valid mode name'
-			return v:false
-		endif
+		echomsg 'wheel gear : argument is not a valid mode name'
+		return v:false
 	endif
 endfun
 
 fun! wheel#gear#long_mode (mode)
 	" Returns long name of mode
+	" n -> normal
+	" i -> insert
+	" v -> visual
+	" ...
 	let mode = a:mode
 	if empty(mode)
 		echomsg 'wheel gear long mode : empty argument'
@@ -238,15 +245,15 @@ fun! wheel#gear#long_mode (mode)
 			echomsg 'wheel gear : argument is not a valid mode name'
 			return v:false
 		endif
-	else
-		let keys = keys(s:modes_letters)
-		if wheel#chain#is_inside(mode, keys)
-			return mode
-		else
-			echomsg 'wheel gear : argument is not a valid mode name'
-			return v:false
-		endif
 	endif
+	let keys = keys(s:modes_letters)
+	if wheel#chain#is_inside(mode, keys)
+		return mode
+	else
+		echomsg 'wheel gear : argument is not a valid mode name'
+		return v:false
+	endif
+endif
 endfun
 
 " -- clear
