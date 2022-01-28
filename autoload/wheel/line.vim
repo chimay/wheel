@@ -85,7 +85,7 @@ fun! wheel#line#tabwin (settings)
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else
-			echomsg 'wheel line tabwins : will not close current tab page'
+			echomsg 'wheel line tabwin : will not close current tab page'
 		endif
 	endif
 	if settings.follow
@@ -120,7 +120,7 @@ fun! wheel#line#tabwin_tree (settings)
 		if tabnum != tabpagenr()
 			execute 'tabclose' tabnum
 		else
-			echomsg 'wheel line tabwins_tree : will not close current tab page'
+			echomsg 'wheel line tabwin_tree : will not close current tab page'
 		endif
 	endif
 	if settings.follow

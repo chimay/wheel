@@ -59,10 +59,10 @@ fun! wheel#frigate#tabwin_tree ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwin_tree ()
 	if empty(lines)
-		echomsg 'wheel frigate tabwins tree : empty result'
+		echomsg 'wheel frigate tabwin tree : empty result'
 		return v:false
 	endif
-	call wheel#mandala#blank ('tabwins/tree')
+	call wheel#mandala#blank ('tabwin/tree')
 	let settings = {'function' : function('wheel#line#tabwin_tree')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ('tabwin_folding_text')
@@ -78,7 +78,7 @@ fun! wheel#frigate#tabwin ()
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwin ()
 	if empty(lines)
-		echomsg 'wheel frigate tabwins : empty result'
+		echomsg 'wheel frigate tabwin : empty result'
 		return v:false
 	endif
 	call wheel#mandala#blank ('tabwin')

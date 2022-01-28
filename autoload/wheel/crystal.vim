@@ -665,24 +665,24 @@ if ! exists('s:context_buffers_all')
 	lockvar s:context_buffers_all
 endif
 
-if ! exists('s:context_tabwins')
-	let s:context_tabwins = [
+if ! exists('s:context_tabwin')
+	let s:context_tabwin = [
 				\ ['open' ,  "wheel#boomerang#tabwin('open')"],
 				\ ['new tab' ,  "wheel#boomerang#tabwin('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin('tabclose')"],
 				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
 				\]
-	lockvar s:context_tabwins
+	lockvar s:context_tabwin
 endif
 
-if ! exists('s:context_tabwins_tree')
-	let s:context_tabwins_tree = [
+if ! exists('s:context_tabwin_tree')
+	let s:context_tabwin_tree = [
 				\ ['open' ,  "wheel#boomerang#tabwin_tree('open')"],
 				\ ['new tab' ,  "wheel#boomerang#tabwin_tree('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin_tree('tabclose')"],
 				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
 				\]
-	lockvar s:context_tabwins_tree
+	lockvar s:context_tabwin_tree
 endif
 
 if ! exists('s:context_grep')

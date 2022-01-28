@@ -13,11 +13,11 @@ fun! wheel#shape#reorg_tabwin ()
 		return v:false
 	endif
 	" -- mandala
-	call wheel#mandala#blank ('reorg/tabwins')
+	call wheel#mandala#blank ('reorg/tabwin')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	call wheel#mandala#folding_options ('tabwins_folding_text')
-	call wheel#yggdrasil#write ('reorg_tabwins')
+	call wheel#mandala#folding_options ('tabwin_folding_text')
+	call wheel#yggdrasil#write ('reorg_tabwin')
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	setlocal nocursorline
