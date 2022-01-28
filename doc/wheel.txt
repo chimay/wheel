@@ -1341,7 +1341,10 @@ REORDER						*wheel-dedicated-buffers-reorder*
 
 The reordering buffers allow you to quickly reorder Wheel elements by
 reordering the buffer lines. You can use yank/delete/paste operations to
-perform the reordering, or sort them with |:sort|.
+perform the reordering.
+
+You can also sort them with |:sort|, but in that case, be sure not to
+include the first line in the range.
 
 Please yank/delete entire lines, or your data could loose their integrity.
 
