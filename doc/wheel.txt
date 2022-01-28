@@ -738,8 +738,8 @@ Jumps				|wheel-dedicated-buffers-jumps|
 Changes				|wheel-dedicated-buffers-changes|
 Tags				|wheel-dedicated-buffers-tags|
 Reorder				|wheel-dedicated-buffers-reorder|
-Rename			        |wheel-dedicated-buffers-rename|
 Delete			        |wheel-dedicated-buffers-delete|
+Rename			        |wheel-dedicated-buffers-rename|
 Copy and move		        |wheel-dedicated-buffers-copy-move|
 Reorganize			|wheel-dedicated-buffers-reorganize|
 Reorganize tabs & windows	|wheel-dedicated-buffers-reorg-tabwin|
@@ -1364,6 +1364,22 @@ Additional local maps~
 - `<M-r>` : reversed sort of the visible lines, except the filter : `2,$sort!`
 
 ------------------------------------------------------------------------------
+DELETE			    		*wheel-dedicated-buffers-delete*
+
+The deleting buffers allow you to batch delete Wheel elements by selecting
+the buffer lines.
+
+When you're sure about it, just write the buffer.
+
+Mappings~
+
+The default mappings launching deleting buffers are :
+
+- `<M-w>@d`     : delete locations
+- `<M-w>@<C-d>` : delete circles
+- `<M-w>@D`     : delete toruses
+
+------------------------------------------------------------------------------
 RENAME				    		*wheel-dedicated-buffers-rename*
 
 The renaming buffers allow you to batch rename Wheel elements by editing
@@ -1391,22 +1407,6 @@ The default mappings launching renaming buffers are :
 - `<M-w>@<C-n>` : rename circles
 - `<M-w>@N`     : rename toruses
 - `<M-w>@<M-n>` : rename locations & files
-
-------------------------------------------------------------------------------
-DELETE			    		*wheel-dedicated-buffers-delete*
-
-The deleting buffers allow you to batch delete Wheel elements by selecting
-the buffer lines.
-
-When you're sure about it, just write the buffer.
-
-Mappings~
-
-The default mappings launching deleting buffers are :
-
-- `<M-w>@d`     : delete locations
-- `<M-w>@<C-d>` : delete circles
-- `<M-w>@D`     : delete toruses
 
 ------------------------------------------------------------------------------
 COPY AND MOVE		    		*wheel-dedicated-buffers-copy-move*
@@ -2965,10 +2965,10 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-,>          <plug>(wheel-prompt-change)'
     exe nmap '<m-c>          <plug>(wheel-prompt-change)'
     exe nmap '<m-t>          <plug>(wheel-prompt-tag)'
-    exe nmap "<m-c-k>        <plug>(wheel-dedibuf-markers)"
-    exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jumps)'
-    exe nmap '<m-;>          <plug>(wheel-dedibuf-changes)'
-    exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tags)'
+    exe nmap "<m-c-k>        <plug>(wheel-dedibuf-marker)"
+    exe nmap '<m-c-j>        <plug>(wheel-dedibuf-jump)'
+    exe nmap '<m-;>          <plug>(wheel-dedibuf-change)'
+    exe nmap '<m-c-t>        <plug>(wheel-dedibuf-tag)'
     " ---- organize the wheel
     exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
     exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
@@ -3309,9 +3309,9 @@ Some bindings that you may find useful : >
 
     nmap <silent> <d-o>       <plug>(wheel-dedibuf-occur)
     nmap <silent> <d-b>       <plug>(wheel-dedibuf-buffer-all)
-    nmap <silent> <d-k>       <plug>(wheel-dedibuf-markers)
-    nmap <silent> <d-j>       <plug>(wheel-dedibuf-jumps)
-    nmap <silent> <d-c>       <plug>(wheel-dedibuf-changes)
+    nmap <silent> <d-k>       <plug>(wheel-dedibuf-marker)
+    nmap <silent> <d-j>       <plug>(wheel-dedibuf-jump)
+    nmap <silent> <d-c>       <plug>(wheel-dedibuf-change)
 
     " narrow
     nmap <silent> <d-n>       <plug>(wheel-dedibuf-narrow-operator)
