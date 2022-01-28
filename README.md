@@ -426,13 +426,13 @@ exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
 exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
 " ---- navigate with vim native tools
 " -- buffers
-exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
-exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers)'
-exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers-all)'
+exe nmap '<m-b>          <plug>(wheel-prompt-buffer)'
+exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffer)'
+exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffer-all)'
 " -- tabs & windows : visible buffers
 exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
-exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
-exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
+exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwin-tree)'
+exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwin)'
 " -- (neo)vim lists
 exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
 exe nmap "<m-k>          <plug>(wheel-prompt-marker)"
@@ -449,7 +449,7 @@ exe nmap '<m-insert>     <plug>(wheel-prompt-add-here)'
 exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
 exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
 " ---- organize other things
-exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
+exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwin)'
 " ---- refactoring
 exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 exe nmap '<m-n>          <plug>(wheel-dedibuf-narrow-operator)'

@@ -549,7 +549,7 @@ Switch buffer~
 | Function         | Completion list                   | Default binding |
 | ---------------- | --------------------------------- | --------------- |
 | switch buffer    | listed buffers                    | <M-w>b          |
-| switch tabwins   | visible buffers in tabs & windows | <M-w>v          |
+| switch tabwin   | visible buffers in tabs & windows | <M-w>v          |
 
 Switch in (neo)vim lists~
 
@@ -724,8 +724,8 @@ Navigation			|wheel-dedicated-buffers-navigation|
 Writable			|wheel-dedicated-buffers-writable|
 Within the wheel		|wheel-dedicated-buffers-within-wheel|
 Buffers				|wheel-dedicated-buffers-buffers|
-Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwins-tree|
-Tabs & windows			|wheel-dedicated-buffers-tabwins|
+Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwin-tree|
+Tabs & windows			|wheel-dedicated-buffers-tabwin|
 Locate	 			|wheel-dedicated-buffers-locate|
 Find 				|wheel-dedicated-buffers-find|
 Async find 			|wheel-dedicated-buffers-async-find|
@@ -741,7 +741,7 @@ Reordering		        |wheel-dedicated-buffers-reordering|
 Renaming		        |wheel-dedicated-buffers-renaming|
 Copy and move		        |wheel-dedicated-buffers-copy-move|
 Reorganizing			|wheel-dedicated-buffers-reorganizing|
-Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwins|
+Reorganizing tabs & windows	|wheel-dedicated-buffers-reorg-tabwin|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
 Narrow				|wheel-dedicated-buffers-narrow|
 Yank 				|wheel-dedicated-buffers-yank|
@@ -1152,7 +1152,7 @@ buffer number | indicator | line number | filename
 For the indicator meaning, see |:buffers|.
 
 ------------------------------------------------------------------------------
-TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwins-tree*
+TABS AND WINDOWS IN TREE MODE		*wheel-dedicated-buffers-tabwin-tree*
 
 Go to visible buffer, displayed in a tab or window. Folding mode
 matching the tree of tabs and windows.
@@ -1160,7 +1160,7 @@ matching the tree of tabs and windows.
 The default mapping is `<M-w><M-v>`.
 
 ------------------------------------------------------------------------------
-TABS AND WINDOWS				*wheel-dedicated-buffers-tabwins*
+TABS AND WINDOWS				*wheel-dedicated-buffers-tabwin*
 
 Go to visible buffer, displayed in a tab or window.
 
@@ -1453,7 +1453,7 @@ Menus~
 The reorganizing buffer can also be launched from the main & meta menus.
 
 ------------------------------------------------------------------------------
-REORGANIZE TABS AND WINDOWS		*wheel-dedicated-buffers-reorg-tabwins*
+REORGANIZE TABS AND WINDOWS		*wheel-dedicated-buffers-reorg-tabwin*
 
 In this buffer, you can :
 
@@ -2958,13 +2958,13 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
     " ---- navigate with vim native tools
     " -- buffers
-    exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
-    exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers)'
-    exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers-all)'
+    exe nmap '<m-b>          <plug>(wheel-prompt-buffer)'
+    exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffer)'
+    exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffer-all)'
     " -- tabs & windows : visible buffers
     exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
-    exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
-    exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
+    exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwin-tree)'
+    exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwin)'
     " -- (neo)vim lists
     exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
     exe nmap "<m-k>          <plug>(wheel-prompt-marker)"
@@ -2981,7 +2981,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
     exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
     " ---- organize other things
-    exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
+    exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwin)'
     " ---- refactoring
     exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
     exe nmap '<m-n>          <plug>(wheel-dedibuf-narrow-operator)'
