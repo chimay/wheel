@@ -130,7 +130,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-reorganize) <cmd>call wheel#yggdrasil#reorganize()<cr>
 	" ---- organize elsewhere
 	" -- tabs & windows
-	nnoremap <plug>(wheel-dedibuf-reorg-tabwins) <cmd>call wheel#shape#reorg_tabwins()<cr>
+	nnoremap <plug>(wheel-dedibuf-reorg-tabwin) <cmd>call wheel#shape#reorg_tabwins()<cr>
 	" ---- refactoring
 	" -- grep edit mode
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#mill#grep_edit()<cr>
@@ -338,7 +338,7 @@ fun! wheel#centre#cables ()
 		" ---- reorganize wheel
 		exe nmap prefix .. '<m-r> <plug>(wheel-dedibuf-reorganize)'
 		" ---- reorganize other things
-		exe nmap prefix .. '<c-r> <plug>(wheel-dedibuf-reorg-tabwins)'
+		exe nmap prefix .. '<c-r> <plug>(wheel-dedibuf-reorg-tabwin)'
 		" ---- refactoring
 		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
 		exe nmap prefix .. '-% <plug>(wheel-dedibuf-narrow)'
@@ -453,8 +453,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffer-all)'
 		" -- tabs & windows : visible buffers
 		exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
-		exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
-		exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwins)'
+		exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwin-tree)'
+		exe nmap '<m-s-v>        <plug>(wheel-dedibuf-tabwin)'
 		" -- (neo)vim lists
 		exe nmap "<m-'>          <plug>(wheel-prompt-marker)"
 		exe nmap "<m-k>          <plug>(wheel-prompt-marker)"
@@ -471,7 +471,7 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-del>        <plug>(wheel-prompt-delete-location)'
 		exe nmap '<m-r>          <plug>(wheel-dedibuf-reorganize)'
 		" ---- organize other things
-		exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwins)'
+		exe nmap '<m-c-r>        <plug>(wheel-dedibuf-reorg-tabwin)'
 		" ---- refactoring
 		exe nmap '<m-c-g>        <plug>(wheel-dedibuf-grep-edit)'
 		exe nmap '<m-n>          <plug>(wheel-dedibuf-narrow-operator)'

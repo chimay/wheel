@@ -376,7 +376,7 @@ fun! wheel#mandala#folding_text ()
 	return text
 endfun
 
-fun! wheel#mandala#tabwins_folding_text ()
+fun! wheel#mandala#tabwin_folding_text ()
 	" Folding text for mandala buffers
 	let numlines = v:foldend - v:foldstart
 	let line = getline(v:foldstart)

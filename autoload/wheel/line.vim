@@ -60,7 +60,7 @@ fun! wheel#line#buffers (settings)
 	return win_getid ()
 endfun
 
-fun! wheel#line#tabwins (settings)
+fun! wheel#line#tabwin (settings)
 	" Go to tab & win
 	" ---- settings
 	let settings = a:settings
@@ -94,7 +94,7 @@ fun! wheel#line#tabwins (settings)
 	return win_getid ()
 endfun
 
-fun! wheel#line#tabwins_tree (settings)
+fun! wheel#line#tabwin_tree (settings)
 	" Go to tab & win in tree fold
 	" ---- settings
 	let settings = a:settings

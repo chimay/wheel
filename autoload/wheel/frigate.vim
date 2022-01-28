@@ -57,18 +57,18 @@ endfun
 fun! wheel#frigate#tabwin_tree ()
 	" Buffers visible in tree of tabs & wins
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#tabwins_tree ()
+	let lines = wheel#perspective#tabwin_tree ()
 	if empty(lines)
 		echomsg 'wheel frigate tabwins tree : empty result'
 		return v:false
 	endif
 	call wheel#mandala#blank ('tabwins/tree')
-	let settings = {'function' : function('wheel#line#tabwins_tree')}
+	let settings = {'function' : function('wheel#line#tabwin_tree')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ('tabwins_folding_text')
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#tabwins_tree'
+	let b:wheel_reload = 'wheel#frigate#tabwin_tree'
 	" Context menu
 	call wheel#boomerang#launch_map ('tabwins_tree')
 endfun
@@ -76,17 +76,17 @@ endfun
 fun! wheel#frigate#tabwin ()
 	" Buffers visible in tabs & wins
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#tabwins ()
+	let lines = wheel#perspective#tabwin ()
 	if empty(lines)
 		echomsg 'wheel frigate tabwins : empty result'
 		return v:false
 	endif
 	call wheel#mandala#blank ('tabwins')
-	let settings = {'function' : function('wheel#line#tabwins')}
+	let settings = {'function' : function('wheel#line#tabwin')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#tabwins'
+	let b:wheel_reload = 'wheel#frigate#tabwin'
 	" Context menu
 	call wheel#boomerang#launch_map ('tabwins')
 endfun

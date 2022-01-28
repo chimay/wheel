@@ -406,8 +406,8 @@ if ! exists('s:menu_native_navigation')
 	let s:menu_native_navigation = [
 				\ ['go to buffer' ,  'wheel#frigate#buffers'],
 				\ ['go to buffer (include unlisted)' ,  "wheel#frigate#buffers('all')"],
-				\ ['go to tab & window' ,  'wheel#frigate#tabwins'],
-				\ ['go to tab & window (fold tree mode)' ,  'wheel#frigate#tabwins_tree'],
+				\ ['go to tab & window' ,  'wheel#frigate#tabwin'],
+				\ ['go to tab & window (fold tree mode)' ,  'wheel#frigate#tabwin_tree'],
 				\ ['go to marker' ,  'wheel#frigate#markers()'],
 				\ ['go to jump' ,  'wheel#frigate#jumps()'],
 				\ ['go to change' ,  'wheel#frigate#changes()'],
@@ -667,9 +667,9 @@ endif
 
 if ! exists('s:context_tabwins')
 	let s:context_tabwins = [
-				\ ['open' ,  "wheel#boomerang#tabwins('open')"],
-				\ ['new tab' ,  "wheel#boomerang#tabwins('tabnew')"],
-				\ ['close tab' ,  "wheel#boomerang#tabwins('tabclose')"],
+				\ ['open' ,  "wheel#boomerang#tabwin('open')"],
+				\ ['new tab' ,  "wheel#boomerang#tabwin('tabnew')"],
+				\ ['close tab' ,  "wheel#boomerang#tabwin('tabclose')"],
 				\ ['reorganize' ,  'wheel#shape#reorg_tabwins'],
 				\]
 	lockvar s:context_tabwins
@@ -677,9 +677,9 @@ endif
 
 if ! exists('s:context_tabwins_tree')
 	let s:context_tabwins_tree = [
-				\ ['open' ,  "wheel#boomerang#tabwins_tree('open')"],
-				\ ['new tab' ,  "wheel#boomerang#tabwins_tree('tabnew')"],
-				\ ['close tab' ,  "wheel#boomerang#tabwins_tree('tabclose')"],
+				\ ['open' ,  "wheel#boomerang#tabwin_tree('open')"],
+				\ ['new tab' ,  "wheel#boomerang#tabwin_tree('tabnew')"],
+				\ ['close tab' ,  "wheel#boomerang#tabwin_tree('tabclose')"],
 				\ ['reorganize' ,  'wheel#shape#reorg_tabwins'],
 				\]
 	lockvar s:context_tabwins_tree

@@ -32,10 +32,10 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" reorganize tabwins helpers
+" reorganize tabs & windows helpers
 
 fun! wheel#cuboctahedron#baskets (linelist)
-	" Fill new tab indexes and windows for reorg_tabwins
+	" Fill new tab indexes and windows for reorg_tabwin
 	let linelist = a:linelist
 	" fold marker
 	let marker = s:fold_markers[0]
@@ -67,7 +67,7 @@ fun! wheel#cuboctahedron#baskets (linelist)
 endfun
 
 fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
-	" Arrange tabs for reorg_tabwins : reorder, add, remove
+	" Arrange tabs for reorg_tabwin : reorder, add, remove
 	" Tie the tabindexes together
 	let tabindexes = a:tabindexes
 	let [tabindexes, removed] = wheel#chain#tie(tabindexes)
@@ -123,7 +123,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 endfun
 
 fun! wheel#cuboctahedron#arrange_windows (tabwindows)
-	" Arrange windows for reorg_tabwins : add, remove
+	" Arrange windows for reorg_tabwin : add, remove
 	let tabwindows = a:tabwindows
 	let lastab = tabpagenr('$')
 	for index in range(lastab)
@@ -523,7 +523,7 @@ endfun
 
 " native
 
-fun! wheel#cuboctahedron#reorg_tabwins ()
+fun! wheel#cuboctahedron#reorg_tabwin ()
 	" Reorganize tabs & windows
 	" Mandala line list
 	" Keep old layouts if possible

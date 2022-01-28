@@ -128,7 +128,7 @@ fun! wheel#boomerang#buffers (action)
 	return v:true
 endfun
 
-fun! wheel#boomerang#tabwins (action)
+fun! wheel#boomerang#tabwin (action)
 	" Buffers visible in tabs & wins
 	let action = a:action
 	let settings = b:wheel_settings
@@ -161,9 +161,9 @@ fun! wheel#boomerang#tabwins (action)
 	return v:false
 endfun
 
-fun! wheel#boomerang#tabwins_tree (action)
+fun! wheel#boomerang#tabwin_tree (action)
 	" Buffers visible in tree of tabs & wins
-	return wheel#boomerang#tabwins (a:action)
+	return wheel#boomerang#tabwin (a:action)
 endfun
 
 fun! wheel#boomerang#grep (action)
