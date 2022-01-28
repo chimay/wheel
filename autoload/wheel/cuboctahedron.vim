@@ -347,7 +347,7 @@ fun! wheel#cuboctahedron#delete (level)
 	let glossary = upper.glossary
 	let upper_level_name = wheel#referen#upper_level_name(level)
 	let key = wheel#referen#list_key (upper_level_name)
-	let old_list = deepcopy(wheel#referen#elements (upper))
+	let elements = wheel#referen#elements (upper)
 	let selection = wheel#pencil#selection ()
 	let components = selection.components
 	if empty(components)
@@ -359,6 +359,7 @@ fun! wheel#cuboctahedron#delete (level)
 			echomsg upper_name 'does not contain' name
 		endif
 		" remove from elements list
+		eval glossary->remove(index)
 		eval elements->remove(index)
 		if empty(elements)
 			let upper.current = -1
@@ -377,7 +378,7 @@ fun! wheel#cuboctahedron#delete (level)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
-	return new_list
+	return elements
 endfun
 
 fun! wheel#cuboctahedron#copy_move (level)
