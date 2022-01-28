@@ -1029,7 +1029,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><M-S-x>`   : index of toruses > circles
-- `<M-w><M-h>`     : history index
+- `<M-w><M-h>`     : history
 - `<M-w>l`         : search files with `locate`
 - `<M-w>f`         : find files in current directory using `**/*pattern*` glob
 - `<M-w>&f`        : search files with `find` in async mode
@@ -1129,7 +1129,7 @@ The dedicated buffers that allow us to navigate in the wheel are :
 - `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><M-x>`     : index with folds (see below)
 - `<M-w><M-S-x>`   : index of toruses > circles
-- `<M-w><M-h>`     : history index
+- `<M-w><M-h>`     : history
 
 ------------------------------------------------------------------------------
 BUFFERS						*wheel-dedicated-buffers-buffers*
@@ -2555,8 +2555,8 @@ Prompting functions :
 | <S-CR>    | <M-w><S-Enter>      | Switch to torus                          |
 | <M-CR>    | <M-w><M-Enter>      | Switch to torus, circle & location       |
 | x         | <M-w>x              | Switch location in index                 |
-| <C-x>     | <M-w><C-x>          | Switch location in index                 |
-| h         | <M-w>h              | History index                            |
+| <C-x>     | <M-w><C-x>          | Switch circle in index                   |
+| h         | <M-w>h              | Switch location in history               |
 
 Dedicated buffers :
 
@@ -2568,7 +2568,7 @@ Dedicated buffers :
 | X         | <M-w>X              | Index of toruses > circles > locations   |
 | <M-x>     | <M-w><M-x>          | Treeish index with folds                 |
 | <M-S-x>   | <M-w><M-S-x>        | Index of toruses > circles               |
-| <M-h>     | <M-w><M-h>          | History index                            |
+| <M-h>     | <M-w><M-h>          | Go to location in history                |
 
 Rename~
 
@@ -2845,8 +2845,8 @@ adapt them to your taste and add them to your init file.
 | <C-End>        | Go to older location in same circle           |
 | <S-Home>       | Go to newer location in same torus            |
 | <S-End>        | Go to older location in same torus            |
-| <M-h>          | History index in prompt                       |
-| <M-C-h>        | History index in dedicated buffer             |
+| <M-h>          | History in prompt                             |
+| <M-C-h>        | History in dedicated buffer                   |
 | -------------- | --------------------------------------------- |
 | <C-^>          | Alternate last two locations                  |
 | <M-^>          | Alternate in the same circle                  |
@@ -3116,7 +3116,7 @@ Navigate in the wheel~
 | <plug>(wheel-history-newer-in-torus)            | go to previous location in torus          |
 | <plug>(wheel-history-older-in-torus)            | go to next location in torus              |
 | <plug>(wheel-prompt-history)                    | switch to element in history              |
-| <plug>(wheel-dedibuf-history)                   | index of locations history                |
+| <plug>(wheel-dedibuf-history)                   | go to location in history                 |
 | ----------------------------------------------- | ----------------------------------------- |
 | <plug>(wheel-alternate-anywhere)                | alternate with last location              |
 | <plug>(wheel-alternate-same-torus)              | alternate locations in same torus         |
