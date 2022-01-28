@@ -250,6 +250,7 @@ fun! wheel#book#syncup ()
 		return v:false
 	endif
 	" ---- sync up
+	call wheel#mandala#update_var_lines ()
 	let ring = b:wheel_ring
 	" -- leaf to fill / update
 	let current = ring.current
