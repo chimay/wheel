@@ -284,7 +284,6 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 		execute 'let key =' '"\<' .. key .. '>"'
 	endif
 	if modes[1] == 'insert'
-		"call feedkeys(key, 'intx!')
 		execute 'normal! i' .. key
 		let colnum = col('.')
 		if colnum != 1
@@ -292,7 +291,6 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 		endif
 		startinsert
 	else
-		"call feedkeys(key, 'intx')
 		execute 'normal! ' .. key
 	endif
 	return v:true

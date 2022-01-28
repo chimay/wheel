@@ -175,17 +175,18 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	if mode == 'insert'
 		execute 'normal! i' .. key
 		call wheel#teapot#filter ()
+		call cursor(1, col('$'))
 		" ! = insert at the end of line
 		"startinsert!
 	else
 		execute 'normal! ' .. key
 		call wheel#teapot#filter ()
 		stopinsert
+		echomsg line('$')
 		if line('$') > 1
 			call cursor(2, 1)
 		endif
 	endif
-	call cursor(1, col('$'))
 endfun
 
 fun! wheel#teapot#ctrl_u ()
