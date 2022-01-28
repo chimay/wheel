@@ -59,9 +59,9 @@ fun! wheel#yggdrasil#reorder (level)
 	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
 	" -- additional maps
 	" sort
-	nnoremap <m-s> <cmd>2,$sort<cr>
+	nnoremap <buffer> <m-s> <cmd>2,$sort<cr>
 	" reverse sort
-	nnoremap <m-r> <cmd>2,$sort!<cr>
+	nnoremap <buffer> <m-r> <cmd>2,$sort!<cr>
 endfun
 
 " rename
