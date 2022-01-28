@@ -69,7 +69,7 @@ endfun
 
 fun! wheel#mill#narrow_file (...) range
 	" Lines matching pattern in current file
-	call wheel#mandala#related ()
+	call wheel#mandala#goto_related ()
 	" 0 or 2 optional arguments
 	if a:0 > 1
 		let first = a:1

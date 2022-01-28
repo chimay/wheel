@@ -363,7 +363,7 @@ fun! wheel#line#paste_list (...)
 		eval content->map({ _, list_string -> eval(list_string) })
 		eval content->map({ _, list -> join(list, "\n") })
 	endif
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	if where == 'after'
 		put =content
 	elseif where == 'before'
@@ -398,7 +398,7 @@ fun! wheel#line#paste_plain (...)
 	if empty(content)
 		return v:false
 	endif
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	if where == 'linewise_after'
 		put =content
 	elseif where == 'linewise_before'
@@ -431,7 +431,7 @@ fun! wheel#line#paste_visual (...)
 		let close = 'close'
 	endif
 	normal! gvy
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	if where == 'after'
 		normal! p
 	elseif where == 'before'

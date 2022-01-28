@@ -263,7 +263,7 @@ fun! wheel#mandala#guess_related ()
 	endif
 endfun
 
-fun! wheel#mandala#related ()
+fun! wheel#mandala#goto_related ()
 	" Go to window of related buffer if visible, or edit it in first window of tab
 	" optional argument :
 	"   - buffer number
@@ -427,6 +427,11 @@ fun! wheel#mandala#blank (type)
 endfun
 
 " content
+
+fun! wheel#mandala#all_lines ()
+	" Return all, unfiltered, lines
+	return b:wheel_lines
+endfun
 
 fun! wheel#mandala#update_var_lines (mood = 'patient')
 	" Update lines in local mandala variables, from visible lines

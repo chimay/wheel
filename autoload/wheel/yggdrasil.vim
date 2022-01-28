@@ -119,15 +119,15 @@ fun! wheel#yggdrasil#delete (level)
 		return v:false
 	endif
 	" -- mandala
-	call wheel#mandala#blank ('copy_move/' .. level)
+	call wheel#mandala#blank ('delete/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#pencil#mappings ()
-	call wheel#yggdrasil#write ('copy_move', level)
+	call wheel#yggdrasil#write ('delete', level)
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	" reload
-	let b:wheel_reload = "wheel#yggdrasil#copy_move('" .. level .. "')"
+	let b:wheel_reload = "wheel#yggdrasil#delete('" .. level .. "')"
 endfun
 
 " copy / move

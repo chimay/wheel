@@ -545,7 +545,6 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	let upper_level_name = wheel#referen#upper_level_name (level)
 	let key = wheel#referen#list_key (upper_level_name)
 	let index = upper.current
-	"let upper[key] = elements->wheel#chain#remove_index(index)
 	eval elements->remove(index)
 	let length -= 1
 	if empty(elements)

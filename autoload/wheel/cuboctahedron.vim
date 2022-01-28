@@ -175,7 +175,7 @@ endfun
 " wheel elements
 
 fun! wheel#cuboctahedron#reorder (level)
-	" Reorder current elements at level, after buffer content
+	" Reorder elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
@@ -186,7 +186,7 @@ fun! wheel#cuboctahedron#reorder (level)
 	let old_list = deepcopy(wheel#referen#elements (upper))
 	let old_names = deepcopy(old_list)
 	let old_names = map(old_names, {_,val -> val.name})
-	let new_names = b:wheel_lines
+	let new_names = wheel#mandala#all_lines ()
 	let new_list = []
 	for name in new_names
 		let index = old_names->index(name)
@@ -199,20 +199,20 @@ fun! wheel#cuboctahedron#reorder (level)
 	endfor
 	if len(new_list) < len(old_list)
 		echomsg 'Some elements seem to be missing : changes not written'
+		return []
 	elseif len(new_list) > len(old_list)
 		echomsg 'Elements in excess : changes not written'
-	else
-		"let upper[key] = []
-		let upper[key] = new_list
-		let upper.glossary = new_names
-		setlocal nomodified
-		echomsg 'Changes written to wheel'
-		return new_list
+		return []
 	endif
+	let upper[key] = new_list
+	let upper.glossary = new_names
+	setlocal nomodified
+	echomsg 'Changes written to wheel'
+	return new_list
 endfun
 
 fun! wheel#cuboctahedron#rename (level)
-	" Rename current elements at level, after buffer content
+	" Rename elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
@@ -221,7 +221,7 @@ fun! wheel#cuboctahedron#rename (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
 	let key = wheel#referen#list_key (upper_level_name)
 	let elements = deepcopy(wheel#referen#elements (upper))
-	let names = b:wheel_lines
+	let names = wheel#mandala#all_lines ()
 	let len_names = len(names)
 	let len_elements = len(elements)
 	if len_names < len_elements
@@ -232,6 +232,7 @@ fun! wheel#cuboctahedron#rename (level)
 		echomsg 'Names in excess : changes not written'
 		return []
 	endif
+	let upper.glossary = names
 	for index in range(len_names)
 		let old_name = elements[index].name
 		let new_name = names[index]
@@ -243,9 +244,7 @@ fun! wheel#cuboctahedron#rename (level)
 		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename(level, old_name, new_name)
 	endfor
-	let upper[key] = elements
-	let upper.glossary = names
-	call wheel#mandala#related()
+	call wheel#rectangle#previous ()
 	call wheel#vortex#jump()
 	call wheel#cylinder#recall()
 	setlocal nomodified
@@ -261,7 +260,7 @@ fun! wheel#cuboctahedron#rename_files ()
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
 	let locations = circle.locations
-	let lines = b:wheel_lines
+	let lines = wheel#mandala#all_lines ()
 	let len_lines = len(lines)
 	let len_locations = len(locations)
 	" -- pre-checks
@@ -330,12 +329,55 @@ fun! wheel#cuboctahedron#rename_files ()
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	endfor
-	call wheel#mandala#related()
+	call wheel#rectangle#previous ()
 	call wheel#vortex#jump()
 	call wheel#cylinder#recall()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
-	return v:true
+	return lines
+endfun
+
+fun! wheel#cuboctahedron#delete (level)
+	" Delete selected elements at level, after buffer content
+	let level = a:level
+	" -- update lines in local vars from visible lines
+	call wheel#mandala#update_var_lines ()
+	" -- delete
+	let upper = wheel#referen#upper (level)
+	let glossary = upper.glossary
+	let upper_level_name = wheel#referen#upper_level_name(level)
+	let key = wheel#referen#list_key (upper_level_name)
+	let old_list = deepcopy(wheel#referen#elements (upper))
+	let selection = wheel#pencil#selection ()
+	let components = selection.components
+	if empty(components)
+		echomsg 'wheel delete : first select element(s)'
+	endif
+	for name in components
+		let index = glossary->index(name)
+		if index < 0
+			echomsg upper_name 'does not contain' name
+		endif
+		" remove from elements list
+		eval elements->remove(index)
+		if empty(elements)
+			let upper.current = -1
+		elseif index <= upper.current
+			" if removed element index is before current one,
+			" the need to decrease current
+			let length = len(elements)
+			let upper.current = wheel#gear#circular_minus(index, length)
+		endif
+		" remove from glossary
+		eval glossary->wheel#chain#remove_element(name)
+	endfor
+	" clean history
+	call wheel#pendulum#broom ()
+	" for index auto update at demand
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
+	setlocal nomodified
+	echomsg 'Changes written to wheel'
+	return new_list
 endfun
 
 fun! wheel#cuboctahedron#copy_move (level)
@@ -371,7 +413,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	let selection = wheel#pencil#selection ()
 	let components = selection.components
 	if empty(components)
-		echomsg 'wheel copy / move : you must first select element(s)'
+		echomsg 'wheel copy / move : first select element(s)'
 	endif
 	if mode == 'move'
 		if level ==# 'torus'
@@ -423,15 +465,15 @@ fun! wheel#cuboctahedron#copy_move (level)
 		endfor
 	endif
 	setlocal nomodified
-	call wheel#mandala#related ()
+	call wheel#rectangle#previous ()
 	call wheel#vortex#jump ()
 	call wheel#cylinder#recall()
 endfun
 
 fun! wheel#cuboctahedron#reorganize ()
-	" Rebuild wheel by adding elements contained in buffer
+	" Reorganize wheel after elements contained in buffer
+	" Rebuild all from scratch
 	" Follow folding tree
-	" The add_* will record new timestamps ; let's keep the old ones
 	let prompt = 'Write old wheel to file before reorganizing ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)
 	if confirm == 1
@@ -443,7 +485,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	call wheel#gear#unlet ('g:wheel')
 	call wheel#void#wheel ()
 	" -- loop over buffer lines
-	let linelist = b:wheel_lines
+	let linelist = wheel#mandala#all_lines ()
 	let marker = s:fold_markers[0]
 	let pat_fold_one = '\m' .. s:fold_1 .. '$'
 	let pat_fold_two = '\m' .. s:fold_2 .. '$'
@@ -460,6 +502,7 @@ fun! wheel#cuboctahedron#reorganize ()
 		elseif line =~ pat_dict
 			" location line
 			let location = eval(line)
+			" no pendulum#record in tree#insert_location
 			call wheel#tree#insert_location(location)
 		endif
 	endfor
@@ -487,7 +530,7 @@ fun! wheel#cuboctahedron#reorg_tabwins ()
 	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- list of lines
-	let linelist = b:wheel_lines
+	let linelist = wheel#mandala#all_lines ()
 	" -- current tab
 	let startpage = tabpagenr()
 	" -- close mandala to work : otherwise it would be added to the list of windows
