@@ -366,8 +366,6 @@ fun! wheel#cuboctahedron#delete (level)
 			let length = len(elements)
 			let upper.current = wheel#gear#circular_minus(index, length)
 		endif
-		" remove from glossary
-		eval glossary->wheel#chain#remove_element(name)
 	endfor
 	" clean history
 	call wheel#pendulum#broom ()
