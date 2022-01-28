@@ -285,10 +285,11 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	endif
 	if modes[1] == 'insert'
 		"call feedkeys(key, 'intx!')
-		if col('.') != 1
+		execute 'normal! i' .. key
+		let colnum = col('.')
+		if colnum != 1
 			normal! l
 		endif
-		execute 'normal! i' .. key
 		startinsert
 	else
 		"call feedkeys(key, 'intx')
