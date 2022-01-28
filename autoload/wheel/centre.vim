@@ -290,6 +290,13 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. batch .. 'o <plug>(wheel-dedibuf-reorder-location)'
 		exe nmap prefix .. batch .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
 		exe nmap prefix .. batch .. 'O <plug>(wheel-dedibuf-reorder-torus)'
+		" -- delete
+		exe nmap prefix .. 'd <plug>(wheel-prompt-delete-location)'
+		exe nmap prefix .. '<c-d> <plug>(wheel-prompt-delete-circle)'
+		exe nmap prefix .. 'D <plug>(wheel-prompt-delete-torus)'
+		exe nmap prefix .. batch .. 'd <plug>(wheel-dedibuf-delete-location)'
+		exe nmap prefix .. batch .. '<c-d> <plug>(wheel-dedibuf-delete-circle)'
+		exe nmap prefix .. batch .. 'D <plug>(wheel-dedibuf-delete-torus)'
 		" -- rename
 		exe nmap prefix .. 'n <plug>(wheel-prompt-rename-location)'
 		exe nmap prefix .. '<c-n> <plug>(wheel-prompt-rename-circle)'
@@ -299,19 +306,11 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. batch .. '<c-n> <plug>(wheel-dedibuf-rename-circle)'
 		exe nmap prefix .. batch .. 'N <plug>(wheel-dedibuf-rename-torus)'
 		exe nmap prefix .. batch .. '<m-n> <plug>(wheel-dedibuf-rename-location-filename)'
-		" -- delete
-		exe nmap prefix .. 'd <plug>(wheel-prompt-delete-location)'
-		exe nmap prefix .. '<c-d> <plug>(wheel-prompt-delete-circle)'
-		exe nmap prefix .. 'D <plug>(wheel-prompt-delete-torus)'
-		exe nmap prefix .. batch .. 'd <plug>(wheel-dedibuf-delete-location)'
-		exe nmap prefix .. batch .. '<c-d> <plug>(wheel-dedibuf-delete-circle)'
-		exe nmap prefix .. batch .. 'D <plug>(wheel-dedibuf-delete-torus)'
-		" -- copy
+		" -- copy & move
 		exe nmap prefix .. 'c <plug>(wheel-prompt-copy-location)'
 		" <c-c> does not work in maps
 		exe nmap prefix .. '<m-c> <plug>(wheel-prompt-copy-circle)'
 		exe nmap prefix .. 'C <plug>(wheel-prompt-copy-torus)'
-		" -- move
 		exe nmap prefix .. 'm <plug>(wheel-prompt-move-location)'
 		exe nmap prefix .. 'M <plug>(wheel-prompt-move-circle)'
 		exe nmap prefix .. batch .. 'c <plug>(wheel-dedibuf-copy-move-location)'
