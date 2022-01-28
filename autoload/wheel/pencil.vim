@@ -278,7 +278,7 @@ fun! wheel#pencil#cursor_selection (...)
 		let type = wheel#mandala#type ()
 		if type == 'index/tree'
 			let component = wheel#origami#chord ()
-		elseif type == 'tabwins/tree'
+		elseif type == 'tabwin/tree'
 			let component = wheel#origami#tabwin ()
 		else
 			let component = []
