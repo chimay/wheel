@@ -3558,7 +3558,7 @@ of the modules within them.
 | tower.vim         | Menu layer in dedicated buffers              |
 | tree.vim          | Organize wheel element : add, rename, ...    |
 | triangle.vim      | Undo & diff dedicated buffer                 |
-| unicode.vim       | Unicode characters                           |
+| unicode.vim       | Unicode characters library                   |
 | upstream.vim      | Parent leaf of context menu                  |
 | vector.vim        | Batch operations on current group files      |
 | void.vim          | Initiaze & reset variables                   |
