@@ -169,7 +169,8 @@ if ! exists('s:normal_map_keys')
 				\ 'p', 'P',
 				\ 'gp', 'gP',
 				\ '<c-s>',
-				\ '<m-s>', 'o', 'O', '<m-y>', '<m-z>',
+				\ '<m-s>', '<m-r>',
+				\ 'o', 'O', '<m-y>', '<m-z>',
 				\ '+', '-', '<kplus>', '<kminus>'
 				\ ]
 	lockvar s:normal_map_keys
