@@ -38,7 +38,7 @@ fun! wheel#orbiter#original ()
 	let original = b:wheel_preview.original
 	call wheel#orbiter#switch_off ()
 	let type = wheel#mandala#type ()
-	if type =~ 'tabwins'
+	if type =~ 'tabwin'
 		call wheel#rectangle#goto_or_load (original)
 		call wheel#cylinder#recall ()
 		return v:true

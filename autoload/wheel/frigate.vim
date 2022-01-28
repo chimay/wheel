@@ -81,7 +81,7 @@ fun! wheel#frigate#tabwin ()
 		echomsg 'wheel frigate tabwins : empty result'
 		return v:false
 	endif
-	call wheel#mandala#blank ('tabwins')
+	call wheel#mandala#blank ('tabwin')
 	let settings = {'function' : function('wheel#line#tabwin')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill (lines)
