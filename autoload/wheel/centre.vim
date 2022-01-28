@@ -201,6 +201,7 @@ fun! wheel#centre#plugs ()
 	" ---- debug
 	nnoremap <plug>(wheel-debug-fresh-wheel) <cmd>call wheel#void#fresh_wheel()<cr>
 	nnoremap <plug>(wheel-debug-clear-echo-area) <cmd>call wheel#status#clear()<cr>
+	nnoremap <plug>(wheel-debug-clear-signs) <cmd>call wheel#chakra#clear()<cr>
 	nnoremap <plug>(wheel-debug-prompt-history-circuit) <cmd>call wheel#vortex#history_circuit()<cr>
 	nnoremap <plug>(wheel-debug-dedibuf-history-circuit) <cmd>call wheel#whirl#history_circuit()<cr>
 endfun
@@ -515,7 +516,8 @@ fun! wheel#centre#cables ()
 	" Debug
 	if g:wheel_config.mappings >= 20
 		exe nmap prefix .. debug .. 'Z <plug>(wheel-debug-fresh-wheel)'
-		exe nmap prefix .. debug .. 'c <plug>(wheel-debug-clear-echo-area)'
+		exe nmap prefix .. debug .. 'e <plug>(wheel-debug-clear-echo-area)'
+		exe nmap prefix .. debug .. 's <plug>(wheel-debug-clear-signs)'
 		exe nmap prefix .. debug .. 'h <plug>(wheel-debug-prompt-history-circuit)'
 		exe nmap prefix .. debug .. '<m-h> <plug>(wheel-debug-dedibuf-history-circuit)'
 	endif
