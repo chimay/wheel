@@ -239,9 +239,9 @@ fun! wheel#cuboctahedron#rename (level)
 			continue
 		endif
 		let elements[index].name = new_name
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename(level, old_name, new_name)
 	endfor
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#rectangle#previous ()
 	call wheel#vortex#jump()
 	call wheel#cylinder#recall()
@@ -286,9 +286,9 @@ fun! wheel#cuboctahedron#rename_files ()
 		endif
 		let glossary[index] = new_name
 		let locations[index].name = new_name
-		let g:wheel.timestamp = wheel#pendulum#timestamp ()
 		call wheel#pendulum#rename('location', old_name, new_name)
 	endfor
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	" -- rename file
 	for index in range(len_lines)
 		let fields = split(lines[index], s:field_separ)
