@@ -75,7 +75,7 @@ fun! wheel#centre#plugs ()
 	" -- buffers
 	nnoremap <plug>(wheel-prompt-buffer) <cmd>call wheel#sailing#buffer()<cr>
 	nnoremap <plug>(wheel-dedibuf-buffer) <cmd>call wheel#frigate#buffer()<cr>
-	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#frigate#buffer('all')<cr>
+	nnoremap <plug>(wheel-dedibuf-buffer-all) <cmd>call wheel#frigate#buffer('all')<cr>
 	" -- tabs & windows : visible buffers
 	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#sailing#tabwin()<cr>
 	nnoremap <plug>(wheel-dedibuf-tabwin) <cmd>call wheel#frigate#tabwin()<cr>
@@ -448,9 +448,9 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
 		" ---- navigate with vim native tools
 		" -- buffers
-		exe nmap '<m-b>          <plug>(wheel-prompt-buffers)'
-		exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffers)'
-		exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffers-all)'
+		exe nmap '<m-b>          <plug>(wheel-prompt-buffer)'
+		exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffer)'
+		exe nmap '<m-s-b>        <plug>(wheel-dedibuf-buffer-all)'
 		" -- tabs & windows : visible buffers
 		exe nmap '<m-v>          <plug>(wheel-prompt-tabwin)'
 		exe nmap '<m-c-v>        <plug>(wheel-dedibuf-tabwins-tree)'
