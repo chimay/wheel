@@ -16,29 +16,31 @@ fun! wheel#clipper#mappings (mode)
 	" Define local yank maps
 	let nmap = 'nnoremap <buffer>'
 	if a:mode == 'list'
-		let function = 'wheel#line#paste_list'
+		let paste = 'wheel#line#paste_list'
 	elseif a:mode == 'plain'
-		let function = 'wheel#line#paste_plain'
+		let paste = 'wheel#line#paste_plain'
 	endif
-	" normal mode
+	" -- normal mode
 	let nmap = 'nnoremap <buffer>'
-	exe nmap '<cr> <cmd>call' function "('linewise_after', 'close')<cr>"
-	exe nmap 'g<cr> <cmd>call' function "('linewise_after', 'open')<cr>"
-	exe nmap 'p <cmd>call' function "('linewise_after', 'open')<cr>"
-	exe nmap 'P <cmd>call' function "('linewise_before', 'open')<cr>"
-	exe nmap 'gp <cmd>call' function "('charwise_after', 'open')<cr>"
-	exe nmap 'gP <cmd>call' function "('charwise_before', 'open')<cr>"
+	exe nmap '<cr>  <cmd>call' paste "('linewise_after', 'close')<cr>"
+	exe nmap 'g<cr> <cmd>call' paste "('linewise_after', 'open')<cr>"
+	exe nmap 'p     <cmd>call' paste "('linewise_after', 'open')<cr>"
+	exe nmap 'P     <cmd>call' paste "('linewise_before', 'open')<cr>"
+	exe nmap 'gp    <cmd>call' paste "('charwise_after', 'open')<cr>"
+	exe nmap 'gP    <cmd>call' paste "('charwise_before', 'open')<cr>"
+	" -- visual mode
 	if a:mode == 'plain'
-		" Visual mode
-		vnoremap <silent> <buffer> <cr> :<c-u>call wheel#line#paste_visual('after', 'close')<cr>
-		vnoremap <silent> <buffer> g<cr> :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
-		vnoremap <silent> <buffer> p :<c-u>call wheel#line#paste_visual('after', 'open')<cr>
-		vnoremap <silent> <buffer> P :<c-u>call wheel#line#paste_visual('before', 'open')<cr>
+		let paste_visual = 'wheel#line#paste_visual'
+		let vmap = 'vnoremap <silent> <buffer>'
+		exe vmap '<cr>  :<c-u>call' paste_visual "('after', 'close')<cr>"
+		exe vmap 'g<cr> :<c-u>call' paste_visual "('after', 'open')<cr>"
+		exe vmap 'p     :<c-u>call' paste_visual "('after', 'open')<cr>"
+		exe vmap 'P     :<c-u>call' paste_visual "('before', 'open')<cr>"
 	endif
-	" Undo, redo
+	" -- undo, redo
 	nnoremap <buffer> u <cmd>call wheel#mandala#undo()<cr>
 	nnoremap <buffer> <c-r> <cmd>call wheel#mandala#redo()<cr>
-	" Context menu
+	" -- context menu
 	let menu = 'yank/' .. a:mode
 	call wheel#boomerang#launch_map (menu)
 endfun

@@ -302,16 +302,14 @@ fun! wheel#polyphony#filter_maps ()
 	nnoremap <silent> <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	" -- insert mode
-	let imap = 'inoremap <silent> <buffer>'
-	let across = ''
+	let imap = 'inoremap <buffer>'
+	let across = 'wheel#polyphony#crossroad'
+	exe imap '<space> <cmd>call' across "('space', '>', ['i', 'i'])<cr>"
+	exe imap '<c-w>   <cmd>call' across "('c-w', '>', ['i', 'i'])<cr>"
+	exe imap "<cr>    <cmd>call" across "('cr', '>', ['n', 'i'])<cr>"
+	exe imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
+	" ctrl-u
 	exe imap "<c-u> <cmd>call wheel#teapot#ctrl_u()<cr>"
-	" insert - insert mode at the end
-	exe imap "<space> <cmd>call wheel#polyphony#crossroad('space', '>', ['i', 'i'])<cr>"
-	exe imap "<c-w> <cmd>:call wheel#polyphony#crossroad('c-w', '>', ['i', 'i'])<cr>"
-	" normal - insert mode at the end
-	exe imap "<cr> <cmd>call wheel#polyphony#crossroad('cr', '>', ['n', 'i'])<cr>"
-	" normal - normal mode at the end
-	exe imap "<esc> <esc>:call wheel#polyphony#crossroad('esc', '>', ['n', 'n'])<cr>"
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun

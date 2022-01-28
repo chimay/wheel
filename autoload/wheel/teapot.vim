@@ -205,13 +205,17 @@ fun! wheel#teapot#mappings ()
 	" -- filter property
 	let b:wheel_nature.has_filter = v:true
 	" -- normal mode
-	nnoremap <silent> <buffer> i <cmd>call wheel#teapot#goto_filter_line('i')<cr>
-	nnoremap <silent> <buffer> a <cmd>call wheel#teapot#goto_filter_line('i')<cr>
+	let nmap = 'nnoremap <buffer>'
+	let goto_filter = 'wheel#teapot#goto_filter_line'
+	exe nmap 'i <cmd>call' goto_filter "('i')<cr>"
+	exe nmap 'a <cmd>call' goto_filter "('i')<cr>"
 	" -- insert mode
-	inoremap <silent> <buffer> <space> <cmd>call wheel#teapot#wrapper('space', '>', 'i')<cr>
-	inoremap <silent> <buffer> <c-w> <cmd>call wheel#teapot#wrapper('c-w', '>', 'i')<cr>
+	let imap = 'inoremap <buffer>'
+	let wrapper = 'wheel#teapot#wrapper'
+	exe imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"
+	exe imap '<c-w>   <cmd>call' wrapper "('c-w', '>', 'i')<cr>"
+	exe imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
 	inoremap <silent> <buffer> <c-u> <cmd>call wheel#teapot#ctrl_u()<cr>
-	inoremap <silent> <buffer> <cr> <cmd>call wheel#teapot#wrapper('cr', '>', 'n')<cr>
 	inoremap <silent> <buffer> <esc> <esc>:call wheel#teapot#filter()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
 endfun

@@ -44,37 +44,37 @@ endfun
 fun! wheel#whirl#mappings (settings)
 	" Define whirl maps
 	let settings = copy(a:settings)
-	let map = 'nnoremap <silent> <buffer>'
+	let nmap = 'nnoremap <buffer>'
 	let pre = '<cmd>call wheel#loop#selection('
 	let post = ')<cr>'
 	" -- close after navigation
 	let settings.close = v:true
 	let settings.target = 'current'
-	exe map '<cr>' pre .. string(settings) .. post
+	exe nmap '<cr>' pre .. string(settings) .. post
 	let settings.target = 'tab'
-	exe map 't' pre .. string(settings) .. post
+	exe nmap 't' pre .. string(settings) .. post
 	let settings.target = 'horizontal_split'
-	exe map 's' pre .. string(settings) .. post
+	exe nmap 's' pre .. string(settings) .. post
 	let settings.target = 'vertical_split'
-	exe map 'v' pre .. string(settings) .. post
+	exe nmap 'v' pre .. string(settings) .. post
 	let settings.target = 'horizontal_golden'
-	exe map 'S' pre .. string(settings) .. post
+	exe nmap 'S' pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
-	exe map 'V' pre .. string(settings) .. post
+	exe nmap 'V' pre .. string(settings) .. post
 	" -- leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'current'
-	exe map 'g<cr>' pre .. string(settings) .. post
+	exe nmap 'g<cr>' pre .. string(settings) .. post
 	let settings.target = 'tab'
-	exe map 'gt' pre .. string(settings) .. post
+	exe nmap 'gt' pre .. string(settings) .. post
 	let settings.target = 'horizontal_split'
-	exe map 'gs' pre .. string(settings) .. post
+	exe nmap 'gs' pre .. string(settings) .. post
 	let settings.target = 'vertical_split'
-	exe map 'gv' pre .. string(settings) .. post
+	exe nmap 'gv' pre .. string(settings) .. post
 	let settings.target = 'horizontal_golden'
-	exe map 'gS' pre .. string(settings) .. post
+	exe nmap 'gS' pre .. string(settings) .. post
 	let settings.target = 'vertical_golden'
-	exe map 'gV' pre .. string(settings) .. post
+	exe nmap 'gV' pre .. string(settings) .. post
 	" -- selection
 	call wheel#pencil#mappings ()
 	" -- preview
