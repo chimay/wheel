@@ -2567,6 +2567,24 @@ Dedicated buffers :
 | <M-S-x>   | <M-w><M-S-x>        | Index of toruses > circles               |
 | <M-h>     | <M-w><M-h>          | Go to location in history                |
 
+Delete~
+
+Prompting functions :
+
+| Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
+| d        | <M-w>d              | Delete current location |
+| <C-d>    | <M-w><C-d>          | Delete current circle   |
+| D        | <M-w>D              | Delete current torus    |
+
+Dedicated buffers :
+
+| Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
+| @d       | <M-w>@d             | Delete current location |
+| @<C-d>   | <M-w>@<C-d>         | Delete current circle   |
+| @D       | <M-w>@D             | Delete current torus    |
+
 Rename~
 
 Prompting functions :
@@ -2584,14 +2602,6 @@ Dedicated buffers :
 | @n         | <M-w>@n               | Rename locations in current circle       |
 | @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus          |
 | @N         | <M-w>@N               | Rename toruses in wheel                  |
-
-Delete~
-
-| Prefix + | With default prefix | Action                  |
-| -------- | ------------------- | ----------------------- |
-| d        | <M-w>d              | Delete current location |
-| <C-d>    | <M-w><C-d>          | Delete current circle   |
-| D        | <M-w>D              | Delete current torus    |
 
 Copy~
 
