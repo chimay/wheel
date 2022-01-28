@@ -208,7 +208,7 @@ endfun
 
 fun! wheel#complete#visible_buffer (arglead, cmdline, cursorpos)
 	" Complete buffer visible in tabs & windows
-	let choices = wheel#perspective#tabwin ()
+	let choices = wheel#perspective#tabwins ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun

@@ -57,7 +57,7 @@ endfun
 fun! wheel#frigate#tabwin_tree ()
 	" Buffers visible in tree of tabs & wins
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#tabwin_tree ()
+	let lines = wheel#perspective#tabwins_tree ()
 	if empty(lines)
 		echomsg 'wheel frigate tabwin tree : empty result'
 		return v:false
@@ -76,7 +76,7 @@ endfun
 fun! wheel#frigate#tabwin ()
 	" Buffers visible in tabs & wins
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#tabwin ()
+	let lines = wheel#perspective#tabwins ()
 	if empty(lines)
 		echomsg 'wheel frigate tabwin : empty result'
 		return v:false

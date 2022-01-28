@@ -348,7 +348,7 @@ endfun
 
 " Tab & windows
 
-fun! wheel#perspective#tabwin ()
+fun! wheel#perspective#tabwins ()
 	" Buffers visible in tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')
@@ -374,7 +374,7 @@ fun! wheel#perspective#tabwin ()
 	return returnlist
 endfun
 
-fun! wheel#perspective#tabwin_tree ()
+fun! wheel#perspective#tabwins_tree ()
 	" Buffers visible in tree of tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')

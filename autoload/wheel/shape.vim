@@ -6,7 +6,7 @@
 
 fun! wheel#shape#reorg_tabwin ()
 	" Reorganize tabs & windows
-	let lines = wheel#perspective#tabwin_tree ()
+	let lines = wheel#perspective#tabwins_tree ()
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape reorganize tabs & windows : empty lines'
