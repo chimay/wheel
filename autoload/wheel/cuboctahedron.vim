@@ -218,8 +218,6 @@ fun! wheel#cuboctahedron#rename (level)
 	call wheel#mandala#update_var_lines ()
 	" -- rename
 	let upper = wheel#referen#upper (level)
-	let upper_level_name = wheel#referen#upper_level_name(level)
-	let key = wheel#referen#list_key (upper_level_name)
 	let elements = wheel#referen#elements (upper)
 	let names = wheel#mandala#all_lines ()
 	let len_names = len(names)
@@ -344,9 +342,8 @@ fun! wheel#cuboctahedron#delete (level)
 	call wheel#mandala#update_var_lines ()
 	" -- delete
 	let upper = wheel#referen#upper (level)
-	let glossary = upper.glossary
 	let upper_level_name = wheel#referen#upper_level_name(level)
-	let key = wheel#referen#list_key (upper_level_name)
+	let glossary = upper.glossary
 	let elements = wheel#referen#elements (upper)
 	let selection = wheel#pencil#selection ()
 	let components = selection.components
@@ -356,7 +353,7 @@ fun! wheel#cuboctahedron#delete (level)
 	for name in components
 		let index = glossary->index(name)
 		if index < 0
-			echomsg upper_name 'does not contain' name
+			echomsg upper_level_name 'does not contain' name
 		endif
 		" remove from elements list
 		eval glossary->remove(index)
