@@ -644,23 +644,23 @@ endif
 
 if ! exists('s:context_buffers')
 	let s:context_buffers = s:context_navigation + [
-				\ ['delete' ,  "wheel#boomerang#buffers('delete')"],
-				\ ['unload' ,  "wheel#boomerang#buffers('unload')"],
-				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
-				\ ['delete hidden buffers' ,  "wheel#boomerang#buffers('delete_hidden')"],
-				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffers('wipe_hidden')"],
+				\ ['delete' ,  "wheel#boomerang#buffer('delete')"],
+				\ ['unload' ,  "wheel#boomerang#buffer('unload')"],
+				\ ['wipe' ,  "wheel#boomerang#buffer('wipe')"],
+				\ ['delete hidden buffers' ,  "wheel#boomerang#buffer('delete_hidden')"],
+				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
 				\]
 	lockvar s:context_buffers
 endif
 
 if ! exists('s:context_buffers_all')
 	let s:context_buffers_all = s:context_navigation + [
-				\ ['delete' ,  "wheel#boomerang#buffers('delete')"],
-				\ ['unload' ,  "wheel#boomerang#buffers('unload')"],
-				\ ['wipe' ,  "wheel#boomerang#buffers('wipe')"],
-				\ ['delete hidden buffers' ,  "wheel#boomerang#buffers('delete_hidden')"],
-				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffers('wipe_hidden')"],
-				\ ['wipe all hidden buffers, including unlisted ones' ,  "wheel#boomerang#buffers('wipe_all_hidden')"],
+				\ ['delete' ,  "wheel#boomerang#buffer('delete')"],
+				\ ['unload' ,  "wheel#boomerang#buffer('unload')"],
+				\ ['wipe' ,  "wheel#boomerang#buffer('wipe')"],
+				\ ['delete hidden buffers' ,  "wheel#boomerang#buffer('delete_hidden')"],
+				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
+				\ ['wipe all hidden buffers, including unlisted ones' ,  "wheel#boomerang#buffer('wipe_all_hidden')"],
 				\]
 	lockvar s:context_buffers_all
 endif
