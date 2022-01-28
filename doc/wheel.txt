@@ -738,8 +738,8 @@ Jumps				|wheel-dedicated-buffers-jumps|
 Changes				|wheel-dedicated-buffers-changes|
 Tags				|wheel-dedicated-buffers-tags|
 Reorder				|wheel-dedicated-buffers-reorder|
-Delete			        |wheel-dedicated-buffers-delete|
 Rename			        |wheel-dedicated-buffers-rename|
+Delete			        |wheel-dedicated-buffers-delete|
 Copy and move		        |wheel-dedicated-buffers-copy-move|
 Reorganize			|wheel-dedicated-buffers-reorganize|
 Reorganize tabs & windows	|wheel-dedicated-buffers-reorg-tabwin|
@@ -1364,22 +1364,6 @@ Additional local maps~
 - `<M-r>` : reversed sort of the visible lines, except the filter : `2,$sort!`
 
 ------------------------------------------------------------------------------
-DELETE			    		*wheel-dedicated-buffers-delete*
-
-The deleting buffers allow you to batch delete Wheel elements by selecting
-the buffer lines.
-
-When you're sure about it, just write the buffer.
-
-Mappings~
-
-The default mappings launching deleting buffers are :
-
-- `<M-w>@d`     : delete locations
-- `<M-w>@<C-d>` : delete circles
-- `<M-w>@D`     : delete toruses
-
-------------------------------------------------------------------------------
 RENAME				    		*wheel-dedicated-buffers-rename*
 
 The renaming buffers allow you to batch rename Wheel elements by editing
@@ -1407,6 +1391,22 @@ The default mappings launching renaming buffers are :
 - `<M-w>@<C-n>` : rename circles
 - `<M-w>@N`     : rename toruses
 - `<M-w>@<M-n>` : rename locations & files
+
+------------------------------------------------------------------------------
+DELETE			    		*wheel-dedicated-buffers-delete*
+
+The deleting buffers allow you to batch delete Wheel elements by selecting
+the buffer lines.
+
+When you're sure about it, just write the buffer.
+
+Mappings~
+
+The default mappings launching deleting buffers are :
+
+- `<M-w>@d`     : delete locations
+- `<M-w>@<C-d>` : delete circles
+- `<M-w>@D`     : delete toruses
 
 ------------------------------------------------------------------------------
 COPY AND MOVE		    		*wheel-dedicated-buffers-copy-move*
@@ -2567,24 +2567,6 @@ Dedicated buffers :
 | <M-S-x>   | <M-w><M-S-x>        | Index of toruses > circles               |
 | <M-h>     | <M-w><M-h>          | Go to location in history                |
 
-Delete~
-
-Prompting functions :
-
-| Prefix + | With default prefix | Action                  |
-| -------- | ------------------- | ----------------------- |
-| d        | <M-w>d              | Delete current location |
-| <C-d>    | <M-w><C-d>          | Delete current circle   |
-| D        | <M-w>D              | Delete current torus    |
-
-Dedicated buffers :
-
-| Prefix + | With default prefix | Action                  |
-| -------- | ------------------- | ----------------------- |
-| @d       | <M-w>@d             | Delete current location |
-| @<C-d>   | <M-w>@<C-d>         | Delete current circle   |
-| @D       | <M-w>@D             | Delete current torus    |
-
 Rename~
 
 Prompting functions :
@@ -2602,6 +2584,24 @@ Dedicated buffers :
 | @n         | <M-w>@n               | Rename locations in current circle       |
 | @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus          |
 | @N         | <M-w>@N               | Rename toruses in wheel                  |
+
+Delete~
+
+Prompting functions :
+
+| Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
+| d        | <M-w>d              | Delete current location |
+| <C-d>    | <M-w><C-d>          | Delete current circle   |
+| D        | <M-w>D              | Delete current torus    |
+
+Dedicated buffers :
+
+| Prefix + | With default prefix | Action                  |
+| -------- | ------------------- | ----------------------- |
+| @d       | <M-w>@d             | Delete current location |
+| @<C-d>   | <M-w>@<C-d>         | Delete current circle   |
+| @D       | <M-w>@D             | Delete current torus    |
 
 Copy & Move~
 
