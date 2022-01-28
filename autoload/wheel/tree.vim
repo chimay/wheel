@@ -76,6 +76,7 @@ endfun
 
 fun! wheel#tree#insert_torus (torus)
 	" Insert torus into wheel
+	" No confirm prompt, no jump : internal use only
 	let torus = a:torus
 	let wheel = g:wheel
 	let index = wheel.current
@@ -100,6 +101,7 @@ endfun
 
 fun! wheel#tree#insert_circle (circle)
 	" Insert circle into current torus
+	" No confirm prompt, no jump : internal use only
 	let circle = a:circle
 	let torus = g:wheel.toruses[g:wheel.current]
 	let index = torus.current
@@ -124,6 +126,7 @@ endfun
 
 fun! wheel#tree#insert_location (location)
 	" Insert location into current circle
+	" No confirm prompt, no jump : internal use only
 	let location = a:location
 	let torus = g:wheel.toruses[g:wheel.current]
 	let circle = torus.circles[torus.current]

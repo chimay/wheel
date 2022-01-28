@@ -190,11 +190,11 @@ fun! wheel#cuboctahedron#reorder (level)
 	let new_list = []
 	for name in new_names
 		let index = old_names->index(name)
-		if index >= 0
-			let elem = old_list[index]
-		else
+		if index < 0
 			echomsg 'wheel cuboctahedron reorder : ' name  'not found'
+			continue
 		endif
+		let elem = old_list[index]
 		eval new_list->add(elem)
 	endfor
 	if len(new_list) < len(old_list)
@@ -354,6 +354,7 @@ fun! wheel#cuboctahedron#delete (level)
 		let index = glossary->index(name)
 		if index < 0
 			echomsg upper_level_name 'does not contain' name
+			continue
 		endif
 		" remove from elements list
 		eval glossary->remove(index)
@@ -460,7 +461,9 @@ fun! wheel#cuboctahedron#copy_move (level)
 			call wheel#tree#insert_location (location)
 		endfor
 	endif
+	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	setlocal nomodified
+	echomsg 'Changes written to wheel'
 	call wheel#rectangle#previous ()
 	call wheel#vortex#jump ()
 	call wheel#cylinder#recall()
