@@ -17,7 +17,7 @@ endif
 
 " -- applications
 
-fun! wheel#line#buffers (settings)
+fun! wheel#line#buffer (settings)
 	" Go to buffer
 	" ---- settings
 	let settings = a:settings
@@ -209,7 +209,7 @@ fun! wheel#line#find (settings)
 	return win_getid ()
 endfun
 
-fun! wheel#line#markers (settings)
+fun! wheel#line#marker (settings)
 	" Go to vim marker
 	" ---- settings
 	let settings = a:settings
@@ -228,7 +228,7 @@ fun! wheel#line#markers (settings)
 	return win_getid ()
 endfun
 
-fun! wheel#line#jumps (settings)
+fun! wheel#line#jump (settings)
 	" Go to element in jumps list
 	" ---- settings
 	let settings = a:settings
@@ -251,7 +251,7 @@ fun! wheel#line#jumps (settings)
 	return win_getid ()
 endfun
 
-fun! wheel#line#changes (settings)
+fun! wheel#line#change (settings)
 	" Go to element in changes list
 	" ---- settings
 	let settings = a:settings
@@ -271,7 +271,7 @@ fun! wheel#line#changes (settings)
 	return win_getid ()
 endfun
 
-fun! wheel#line#tags (settings)
+fun! wheel#line#tag (settings)
 	" Go to tag
 	" ---- settings
 	let settings = a:settings

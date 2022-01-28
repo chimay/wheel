@@ -45,7 +45,7 @@ fun! wheel#frigate#buffer (scope = 'listed')
 		return []
 	endif
 	call wheel#mandala#blank (type)
-	let settings = {'function' : function('wheel#line#buffers')}
+	let settings = {'function' : function('wheel#line#buffer')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" context menu
@@ -113,7 +113,7 @@ fun! wheel#frigate#jump ()
 	endif
 	" mandala buffer
 	call wheel#mandala#blank ('jumps')
-	let settings = {'function' : function('wheel#line#jumps')}
+	let settings = {'function' : function('wheel#line#jump')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -132,7 +132,7 @@ fun! wheel#frigate#change ()
 	endif
 	" mandala buffer
 	call wheel#mandala#blank ('changes')
-	let settings = {'function' : function('wheel#line#changes')}
+	let settings = {'function' : function('wheel#line#change')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
