@@ -304,9 +304,9 @@ fun! wheel#polyphony#filter_maps ()
 	" -- insert mode
 	let imap = 'inoremap <buffer>'
 	let across = 'wheel#polyphony#crossroad'
-	exe imap '<space> <cmd>call' across "('space', '>', ['i', 'i'])<cr>"
-	exe imap '<c-w>   <cmd>call' across "('c-w', '>', ['i', 'i'])<cr>"
-	exe imap "<cr>    <cmd>call" across "('cr', '>', ['n', 'i'])<cr>"
+	exe imap '<space> <cmd>call'  across "('space', '>', ['i', 'i'])<cr>"
+	exe imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
+	exe imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
 	exe imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
 	" ctrl-u
 	exe imap "<c-u> <cmd>call wheel#teapot#ctrl_u()<cr>"

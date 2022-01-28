@@ -1115,8 +1115,10 @@ If something goes wrong, you can quit the dedicated buffer and :
 - undo your changes in the buffers, or quit (neo)vim without saving your files
   with `:qa!` if your changes implied files content
 
-Anyway, it's always a good thing to do a backup of the wheeel and of your
-files first, or even better, to work within a VCS repository, like git.
+Anyway, it's always a good thing to do a backup :
+
+- of the wheel with `<M-w>w`
+- of your files, or even better, to work within a VCS repository, like git
 
 ------------------------------------------------------------------------------
 WITHIN THE WHEEL			*wheel-dedicated-buffers-within-wheel*
