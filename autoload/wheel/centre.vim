@@ -73,22 +73,22 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-alternate-menu) <cmd>call wheel#pendulum#alternate_menu()<cr>
 	" ---- navigate with vim native tools
 	" -- buffers
-	nnoremap <plug>(wheel-prompt-buffers) <cmd>call wheel#sailing#buffer()<cr>
-	nnoremap <plug>(wheel-dedibuf-buffers) <cmd>call wheel#frigate#buffers()<cr>
-	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#frigate#buffers('all')<cr>
+	nnoremap <plug>(wheel-prompt-buffer) <cmd>call wheel#sailing#buffer()<cr>
+	nnoremap <plug>(wheel-dedibuf-buffer) <cmd>call wheel#frigate#buffer()<cr>
+	nnoremap <plug>(wheel-dedibuf-buffers-all) <cmd>call wheel#frigate#buffer('all')<cr>
 	" -- tabs & windows : visible buffers
 	nnoremap <plug>(wheel-prompt-tabwin) <cmd>call wheel#sailing#tabwin()<cr>
-	nnoremap <plug>(wheel-dedibuf-tabwins) <cmd>call wheel#frigate#tabwins()<cr>
-	nnoremap <plug>(wheel-dedibuf-tabwins-tree) <cmd>call wheel#frigate#tabwins_tree()<cr>
+	nnoremap <plug>(wheel-dedibuf-tabwin) <cmd>call wheel#frigate#tabwin()<cr>
+	nnoremap <plug>(wheel-dedibuf-tabwin-tree) <cmd>call wheel#frigate#tabwin_tree()<cr>
 	" -- (neo)vim lists
 	nnoremap <plug>(wheel-prompt-marker) <cmd>call wheel#sailing#marker()<cr>
 	nnoremap <plug>(wheel-prompt-jump) <cmd>call wheel#sailing#jump()<cr>
 	nnoremap <plug>(wheel-prompt-change) <cmd>call wheel#sailing#change()<cr>
 	nnoremap <plug>(wheel-prompt-tag) <cmd>call wheel#sailing#tag()<cr>
-	nnoremap <plug>(wheel-dedibuf-markers) <cmd>call wheel#frigate#markers()<cr>
-	nnoremap <plug>(wheel-dedibuf-jumps) <cmd>call wheel#frigate#jumps()<cr>
-	nnoremap <plug>(wheel-dedibuf-changes) <cmd>call wheel#frigate#changes()<cr>
-	nnoremap <plug>(wheel-dedibuf-tags) <cmd>call wheel#frigate#tags()<cr>
+	nnoremap <plug>(wheel-dedibuf-marker) <cmd>call wheel#frigate#marker()<cr>
+	nnoremap <plug>(wheel-dedibuf-jump) <cmd>call wheel#frigate#jump()<cr>
+	nnoremap <plug>(wheel-dedibuf-change) <cmd>call wheel#frigate#change()<cr>
+	nnoremap <plug>(wheel-dedibuf-tag) <cmd>call wheel#frigate#tag()<cr>
 	" ---- organize the wheel
 	" -- add
 	nnoremap <plug>(wheel-prompt-add-here) <cmd>call wheel#tree#add_here()<cr>
@@ -114,6 +114,9 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-delete-location) <cmd>call wheel#tree#delete('location')<cr>
 	nnoremap <plug>(wheel-prompt-delete-circle) <cmd>call wheel#tree#delete('circle')<cr>
 	nnoremap <plug>(wheel-prompt-delete-torus) <cmd>call wheel#tree#delete('torus')<cr>
+	nnoremap <plug>(wheel-dedibuf-delete-location) <cmd>call wheel#yggdrasil#delete('location')<cr>
+	nnoremap <plug>(wheel-dedibuf-delete-circle) <cmd>call wheel#yggdrasil#delete('circle')<cr>
+	nnoremap <plug>(wheel-dedibuf-delete-torus) <cmd>call wheel#yggdrasil#delete('torus')<cr>
 	" -- copy & move
 	nnoremap <plug>(wheel-prompt-copy-location) <cmd>call wheel#tree#copy('location')<cr>
 	nnoremap <plug>(wheel-prompt-copy-circle) <cmd>call wheel#tree#copy('circle')<cr>
@@ -316,13 +319,13 @@ fun! wheel#centre#cables ()
 	if g:wheel_config.mappings >= 2
 		" ---- navigate with vim native tools
 		" -- buffers
-		exe nmap prefix .. 'b <plug>(wheel-prompt-buffers)'
-		exe nmap prefix .. '<m-b> <plug>(wheel-dedibuf-buffers)'
-		exe nmap prefix .. '<c-b> <plug>(wheel-dedibuf-buffers-all)'
+		exe nmap prefix .. 'b <plug>(wheel-prompt-buffer)'
+		exe nmap prefix .. '<m-b> <plug>(wheel-dedibuf-buffer)'
+		exe nmap prefix .. '<c-b> <plug>(wheel-dedibuf-buffer-all)'
 		" -- tabs & windows : visible buffers
 		exe nmap prefix .. 'v <plug>(wheel-prompt-tabwin)'
-		exe nmap prefix .. '<m-v> <plug>(wheel-dedibuf-tabwins-tree)'
-		exe nmap prefix .. '<c-v> <plug>(wheel-dedibuf-tabwins)'
+		exe nmap prefix .. '<m-v> <plug>(wheel-dedibuf-tabwin-tree)'
+		exe nmap prefix .. '<c-v> <plug>(wheel-dedibuf-tabwin)'
 		" -- (neo)vim lists
 		exe nmap prefix .. "' <plug>(wheel-prompt-marker)"
 		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'

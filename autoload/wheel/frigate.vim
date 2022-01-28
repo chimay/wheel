@@ -23,7 +23,7 @@ endfun
 
 " buffers, tabs, windows
 
-fun! wheel#frigate#buffers (scope = 'listed')
+fun! wheel#frigate#buffer (scope = 'listed')
 	" Buffers
 	" To be run before opening the mandala buffer
 	" Optional argument scope :
@@ -54,7 +54,7 @@ fun! wheel#frigate#buffers (scope = 'listed')
 	let b:wheel_reload = "wheel#frigate#buffers('" .. scope .. "')"
 endfun
 
-fun! wheel#frigate#tabwins_tree ()
+fun! wheel#frigate#tabwin_tree ()
 	" Buffers visible in tree of tabs & wins
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins_tree ()
@@ -73,7 +73,7 @@ fun! wheel#frigate#tabwins_tree ()
 	call wheel#boomerang#launch_map ('tabwins_tree')
 endfun
 
-fun! wheel#frigate#tabwins ()
+fun! wheel#frigate#tabwin ()
 	" Buffers visible in tabs & wins
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#tabwins ()
@@ -93,7 +93,7 @@ endfun
 
 " vim lists
 
-fun! wheel#frigate#markers ()
+fun! wheel#frigate#marker ()
 	" Markers
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
@@ -101,7 +101,7 @@ fun! wheel#frigate#markers ()
 	call wheel#frigate#generic('markers')
 endfun
 
-fun! wheel#frigate#jumps ()
+fun! wheel#frigate#jump ()
 	" Jumps list
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
@@ -120,7 +120,7 @@ fun! wheel#frigate#jumps ()
 	let b:wheel_reload = 'wheel#frigate#jumps'
 endfun
 
-fun! wheel#frigate#changes ()
+fun! wheel#frigate#change ()
 	" Jumps list
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
@@ -139,7 +139,7 @@ fun! wheel#frigate#changes ()
 	let b:wheel_reload = 'wheel#frigate#changes'
 endfun
 
-fun! wheel#frigate#tags ()
+fun! wheel#frigate#tag ()
 	" Tags file
 	call wheel#frigate#generic('tags')
 endfun
