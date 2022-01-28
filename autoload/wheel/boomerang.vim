@@ -64,7 +64,7 @@ fun! wheel#boomerang#navigation (target)
 	return v:false
 endfun
 
-fun! wheel#boomerang#buffers (action)
+fun! wheel#boomerang#buffer (action)
 	" Buffers actions
 	" Only called for non navigation actions
 	let action = a:action

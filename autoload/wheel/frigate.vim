@@ -51,7 +51,7 @@ fun! wheel#frigate#buffer (scope = 'listed')
 	" context menu
 	call wheel#boomerang#launch_map (type)
 	" reload
-	let b:wheel_reload = "wheel#frigate#buffers('" .. scope .. "')"
+	let b:wheel_reload = "wheel#frigate#buffer('" .. scope .. "')"
 endfun
 
 fun! wheel#frigate#tabwin_tree ()
@@ -117,7 +117,7 @@ fun! wheel#frigate#jump ()
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#jumps'
+	let b:wheel_reload = 'wheel#frigate#jump'
 endfun
 
 fun! wheel#frigate#change ()
@@ -136,7 +136,7 @@ fun! wheel#frigate#change ()
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#changes'
+	let b:wheel_reload = 'wheel#frigate#change'
 endfun
 
 fun! wheel#frigate#tag ()

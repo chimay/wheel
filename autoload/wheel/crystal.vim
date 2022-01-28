@@ -404,14 +404,14 @@ endif
 
 if ! exists('s:menu_native_navigation')
 	let s:menu_native_navigation = [
-				\ ['go to buffer' ,  'wheel#frigate#buffers'],
-				\ ['go to buffer (include unlisted)' ,  "wheel#frigate#buffers('all')"],
+				\ ['go to buffer' ,  'wheel#frigate#buffer'],
+				\ ['go to buffer (include unlisted)' ,  "wheel#frigate#buffer('all')"],
 				\ ['go to tab & window' ,  'wheel#frigate#tabwin'],
 				\ ['go to tab & window (fold tree mode)' ,  'wheel#frigate#tabwin_tree'],
-				\ ['go to marker' ,  'wheel#frigate#markers()'],
-				\ ['go to jump' ,  'wheel#frigate#jumps()'],
-				\ ['go to change' ,  'wheel#frigate#changes()'],
-				\ ['go to tag' ,  'wheel#frigate#tags()'],
+				\ ['go to marker' ,  'wheel#frigate#marker()'],
+				\ ['go to jump' ,  'wheel#frigate#jump()'],
+				\ ['go to change' ,  'wheel#frigate#change()'],
+				\ ['go to tag' ,  'wheel#frigate#tag()'],
 				\]
 	lockvar s:menu_native_navigation
 endif
