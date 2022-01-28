@@ -2603,7 +2603,7 @@ Dedicated buffers :
 | @<C-n>     | <M-w>@<C-n>           | Rename circles in current torus          |
 | @N         | <M-w>@N               | Rename toruses in wheel                  |
 
-Copy~
+Copy & Move~
 
 Prompting functions :
 
@@ -2612,6 +2612,8 @@ Prompting functions :
 | c        | <M-w>c              | Copy current location   |
 | <M-c>    | <M-w><M-c>          | Copy current circle     |
 | C        | <M-w>C              | Copy current torus      |
+| m        | <M-w>m              | Move current location   |
+| M        | <M-w>M              | Move current circle     |
 
 Dedicated buffers :
 
@@ -2621,13 +2623,6 @@ Dedicated buffers :
 | @<M-c>     | <M-w>@<M-c>           | Copy or move circles in current torus    |
 | @C         | <M-w>@C               | Copy or move toruses in wheel            |
 
-
-Move~
-
-| Prefix + | With default prefix | Action                  |
-| -------- | ------------------- | ----------------------- |
-| m        | <M-w>m              | Move current location   |
-| M        | <M-w>M              | Move current circle     |
 
 Reorder~
 
