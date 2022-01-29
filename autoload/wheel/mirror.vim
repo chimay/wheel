@@ -51,8 +51,9 @@ fun! wheel#mirror#grep_edit (...)
 	" -- mandala
 	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
+	call wheel#polyphony#template ()
 	call wheel#yggdrasil#write ('wheel#vector#write_quickfix')
-	call wheel#mandala#fill (lines, 'delete-first')
+	call wheel#mandala#fill (lines, 'prompt-first')
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
