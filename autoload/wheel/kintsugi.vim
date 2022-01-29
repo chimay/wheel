@@ -127,6 +127,9 @@ endfun
 
 fun! wheel#kintsugi#config ()
 	" Convert old config keys to new ones
+	if ! exists('g:wheel_config')
+		return v:false
+	endif
 	if has_key(g:wheel_config, 'cd_project')
 		if ! has_key(g:wheel_config, 'auto_chdir_project')
 			let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
@@ -136,4 +139,5 @@ fun! wheel#kintsugi#config ()
 			echomsg info
 		endif
 	endif
+	return v:true
 endfun
