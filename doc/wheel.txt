@@ -3540,7 +3540,7 @@ of the modules within them.
 | loop.vim          | Loops on dedicated buffers lines             |
 | mandala.vim       | Generic dedicated buffers                    |
 | matrix.vim        | Nested lists & dictionaries                  |
-| mill.vim          | Refactoring dedicated buffers                |
+| mirror.vim        | Refactoring dedicated buffers                |
 | mosaic.vim        | Windows & tabs Layouts                       |
 | orbiter.vim       | Preview for dedicated buffers                |
 | origami.vim       | Dedicated buffers folding                    |
