@@ -337,7 +337,7 @@ fun! wheel#perspective#narrow_circle (pattern, sieve)
 		let bufnum = printf('%3d', elem.bufnr)
 		let linum = printf('%5d', elem.lnum)
 		let filename = bufname(elem.bufnr)
-		let filename = wheel#gear#relative_path (filename)
+		let filename = wheel#disc#relative_path (filename)
 		let content = elem.text
 		let entry = [bufnum, linum, filename, content]
 		let record = join(entry, s:field_separ)

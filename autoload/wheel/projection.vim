@@ -109,7 +109,7 @@ fun! wheel#projection#follow (...)
 	call wheel#vortex#chord (coordin)
 	if g:wheel_config.auto_chdir_project > 0
 		let markers = g:wheel_config.project_markers
-		call wheel#gear#project_root (markers)
+		call wheel#disc#project_root (markers)
 	endif
 	call wheel#pendulum#record ()
 	let info = 'wheel follow : '

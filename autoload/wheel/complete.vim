@@ -158,7 +158,7 @@ fun! wheel#complete#current_file (arglead, cmdline, cursorpos)
 	" flavours
 	let root = fnamemodify(basis, ':t:r')
 	let simple = fnamemodify(basis, ':t')
-	let relative = wheel#gear#relative_path(basis)
+	let relative = wheel#disc#relative_path(basis)
 	let absolute = basis
 	let filenames = [root, simple, relative, absolute]
 	let wordlist = split(a:cmdline)
@@ -172,7 +172,7 @@ fun! wheel#complete#current_directory (arglead, cmdline, cursorpos)
 	let basis = substitute(basis, ' ', ' ', 'g')
 	" flavours
 	let simple = fnamemodify(basis, ':t')
-	let relative = wheel#gear#relative_path(basis)
+	let relative = wheel#disc#relative_path(basis)
 	let absolute = basis
 	let directories = [simple, relative, absolute]
 	let wordlist = split(a:cmdline)

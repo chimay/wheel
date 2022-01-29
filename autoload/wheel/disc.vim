@@ -5,16 +5,54 @@
 
 " read & write wheel variables
 
-" helpers
+" ---- file system operations
 
-fun! wheel#disc#argc ()
-	" Number of file args at vim startup
-	return g:wheel_volatile.argc
+" -- directory
+
+fun! wheel#disc#relative_path (...)
+	" Return path of filename relative to current directory
+	" Optional argument :
+	"   - filename
+	"   - default : current filename
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = expand('%:p')
+	endif
+	let directory = '\m^' .. getcwd() .. '/'
+	let filename = substitute(filename, directory, '', '')
+	return filename
+endfun
+
+fun! wheel#disc#project_root (markers)
+	" Change local directory to root of project marked by markers
+	" start in current buffer directory
+	let markers = a:markers
+	if type(a:markers) == v:t_string
+		let markers = [ a:markers ]
+	endif
+	let directory = expand('%:p:h')
+	execute 'lcd' directory
+	let found = 0
+	while v:true
+		for flag in markers
+			if filereadable(flag) || isdirectory(flag)
+				let found = 1
+				break
+			endif
+		endfor
+		if found || directory ==# '/'
+			break
+		endif
+		lcd ..
+		let directory = getcwd()
+	endwhile
+	return directory
 endfun
 
 fun! wheel#disc#mkdir (directory)
 	" Create directory if non existent
-	let directory = expand(a:directory)
+	let directory = fnamemodify(a:directory, ':p')
 	if ! isdirectory(directory)
 		echomsg 'wheel : creating directory' directory
 		let success = mkdir(directory, 'p')
@@ -26,7 +64,70 @@ fun! wheel#disc#mkdir (directory)
 	return v:true
 endfun
 
-" write & read
+" -- file
+
+fun! wheel#disc#rename (source, destination)
+	" Rename file ; check destination is non existent
+	let source = fnamemodify(a:source, ':p')
+	let destination = fnamemodify(a:destination, ':p')
+	" nothing to do if source == destination
+	if source ==# destination
+		echomsg 'wheel disc rename : nothing to do if new filename == old one'
+		return v:true
+	endif
+	" check non existent source
+	if ! filereadable(source)
+		echomsg 'wheel disc rename : source file not readable'
+		return v:false
+	endif
+	" check existent destination
+	if filereadable(destination)
+		let prompt = 'Replace existing ' .. destination .. ' ?'
+		let overwrite = confirm(prompt, "&Yes\n&No", 2)
+		if overwrite != 1
+			return v:true
+		endif
+	endif
+	" create directory if needed
+	let directory = fnamemodify(destination, ':h')
+	if ! wheel#disc#mkdir(directory)
+		return v:false
+	endif
+	" rename
+	let zero = rename(source, destination)
+	if zero != 0
+		echomsg 'wheel disc rename : error renaming' source '->' destination
+		return v:false
+	endif
+	return v:true
+endfun
+
+fun! wheel#disc#copy (source, destination)
+	" Copy file ; check destination is non existent
+	let source = fnamemodify(a:source, ':p')
+	let destination = fnamemodify(a:destination, ':p')
+	if ! filereadable(source)
+		echomsg 'wheel disc copy : source file not readable'
+		return -1
+	endif
+	if filereadable(destination)
+		let prompt = 'Replace existing ' .. destination .. ' ?'
+		let overwrite = confirm(prompt, "&Yes\n&No", 2)
+		if overwrite != 1
+			return -1
+		endif
+	endif
+	let content = readfile(source, 'b')
+	let zero = writefile(content, destination, 'b')
+	return zero
+endfun
+
+fun! wheel#disc#delete (file)
+	" Delete file ; ask confirmation
+	let file = fnamemodify(a:file, ':p')
+endfun
+
+" ---- write & read
 
 fun! wheel#disc#writefile (varname, file, where = '>')
 	" Write variable referenced by varname to file
@@ -86,7 +187,14 @@ fun! wheel#disc#read (file)
 	endif
 endfun
 
-" backups
+" ---- arguments at (neo)vim startup
+
+fun! wheel#disc#argc ()
+	" Number of file args at vim startup
+	return g:wheel_volatile.argc
+endfun
+
+" ---- roll backups
 
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
@@ -112,7 +220,7 @@ fun! wheel#disc#roll_backups (file, backups)
 	endwhile
 endfun
 
-" wheel file
+" ---- wheel file
 
 fun! wheel#disc#write_wheel (...)
 	" Write all wheel variables to file argument
@@ -176,7 +284,7 @@ fun! wheel#disc#read_wheel (...)
 	return v:true
 endfun
 
-" session file : layout of tabs & windows
+" ---- session file : layout of tabs & windows
 
 fun! wheel#disc#write_session (...)
 	" Write session layout to session file
@@ -235,7 +343,7 @@ fun! wheel#disc#read_session (...)
 	return v:true
 endfun
 
-" tree following torus/circle/location hierarchy in the filesystem
+" ---- tree following torus/circle/location hierarchy in the filesystem
 
 fun! wheel#disc#tree_script (...)
 	" Write a shell script which generates a tree of symlinks or copies
