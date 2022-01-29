@@ -171,6 +171,7 @@ fun! wheel#gear#project_root (markers)
 		lcd ..
 		let dir = getcwd()
 	endwhile
+	return dir
 endfun
 
 " ---- location
