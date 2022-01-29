@@ -98,3 +98,28 @@ fun! wheel#kintsugi#mandala_vars ()
 		echomsg varname ': ' string({varname})
 	endfor
 endfun
+
+" conversion from old data structure
+
+fun! wheel#kintsugi#wheel_file ()
+	" Convert old data structure to new one
+	" ---- history
+	if type(g:wheel_history) == v:t_list
+		let new_history = {}
+		let new_history.line = g:wheel_history
+		if exists('g:wheel_track')
+			let new_history.circuit = g:wheel_track
+		else
+			let new_history.circuit = g:wheel_history
+		endif
+		if exists('g:wheel_track')
+			let new_history.alternate = g:wheel_alternate
+		else
+			let new_history.alternate = {}
+		endif
+		let g:wheel_history = new_history
+		unlet g:wheel_track
+		unlet g:wheel_alternate
+	endif
+endfun
+

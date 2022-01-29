@@ -91,30 +91,6 @@ fun! wheel#disc#roll_backups (file, backups)
 	endwhile
 endfun
 
-" conversion from old data structure
-
-fun! wheel#disc#convert ()
-	" Convert old data structure to new one
-	" ---- history
-	if type(g:wheel_history) == v:t_list
-		let new_history = {}
-		let new_history.line = g:wheel_history
-		if exists('g:wheel_track')
-			let new_history.circuit = g:wheel_track
-		else
-			let new_history.circuit = g:wheel_history
-		endif
-		if exists('g:wheel_track')
-			let new_history.alternate = g:wheel_alternate
-		else
-			let new_history.alternate = {}
-		endif
-		let g:wheel_history = new_history
-		unlet g:wheel_track
-		unlet g:wheel_alternate
-	endif
-endfun
-
 " wheel file
 
 fun! wheel#disc#write_all (...)
@@ -134,7 +110,7 @@ fun! wheel#disc#write_all (...)
 		return
 	endif
 	call wheel#vortex#update ()
-	call wheel#disc#convert ()
+	call wheel#kintsugi#wheel_file ()
 	echomsg 'Writing wheel variables to file ..'
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
 	" replace >
@@ -167,7 +143,7 @@ fun! wheel#disc#read_all (...)
 		echomsg 'Reading wheel variables from file ..'
 	endif
 	call wheel#disc#read (wheel_file)
-	call wheel#disc#convert ()
+	call wheel#kintsugi#wheel_file ()
 	if argc() == 0
 		call wheel#vortex#jump ()
 	endif
