@@ -107,7 +107,7 @@ fun! wheel#projection#follow (...)
 		return v:false
 	endif
 	call wheel#vortex#chord (coordin)
-	if g:wheel_config.cd_project > 0
+	if g:wheel_config.auto_chdir_project > 0
 		let markers = g:wheel_config.project_markers
 		call wheel#gear#project_root (markers)
 	endif

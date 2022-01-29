@@ -167,8 +167,8 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'backups')
 		let g:wheel_config.backups = 3
 	endif
-	if ! has_key(g:wheel_config, 'cd_project')
-		let g:wheel_config.cd_project = 1
+	if ! has_key(g:wheel_config, 'auto_chdir_project')
+		let g:wheel_config.auto_chdir_project = 1
 	endif
 	if ! has_key(g:wheel_config, 'project_markers')
 		let g:wheel_config.project_markers = '.git'
