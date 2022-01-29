@@ -309,6 +309,8 @@ fun! wheel#cuboctahedron#rename_files ()
 			echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
 			continue
 		endif
+		" wipe old filename buffer if existent
+		execute 'bwipe' old_filename
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	endfor

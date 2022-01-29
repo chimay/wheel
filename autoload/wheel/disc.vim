@@ -209,6 +209,7 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	" If optional argument is :
 	"   - '>' : replace file content (default)
 	"   - '>>' : append to file content
+	" Uses writefile()
 	let varname = a:varname
 	if ! exists(varname)
 		return
@@ -233,7 +234,7 @@ fun! wheel#disc#write (pointer, file, where = '>')
 	"   - '>' : replace file content (default)
 	"   - '>>' : append to file content
 	" Doesn't work well with some abbreviated echoed variables content in vim
-	" wheel#disc#writefile is more reliable with vim
+	" disc#writefile is more reliable with vim
 	let pointer = a:pointer
 	if ! exists(pointer)
 		return
