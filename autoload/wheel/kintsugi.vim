@@ -123,6 +123,8 @@ fun! wheel#kintsugi#wheel_file ()
 		unlet g:wheel_track
 		unlet g:wheel_alternate
 	endif
+	" ---- coda
+	return v:true
 endfun
 
 fun! wheel#kintsugi#config ()
@@ -130,6 +132,7 @@ fun! wheel#kintsugi#config ()
 	if ! exists('g:wheel_config')
 		return v:false
 	endif
+	" ---- chdir project
 	if has_key(g:wheel_config, 'cd_project')
 		if ! has_key(g:wheel_config, 'auto_chdir_project')
 			let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
@@ -139,5 +142,6 @@ fun! wheel#kintsugi#config ()
 			echomsg info
 		endif
 	endif
+	" ---- coda
 	return v:true
 endfun
