@@ -349,6 +349,7 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.display.message = 'one-line'
   " Filter prompt in dedicated buffers
   let g:wheel_config.display.prompt = 'wheel $ '
+  let g:wheel_config.display.prompt_writable = 'wheel # '
   " Selection marker in dedicated buffers
   let g:wheel_config.display.selection = '-> '
   " Sign text at wheel locations
