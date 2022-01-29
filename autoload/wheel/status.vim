@@ -56,6 +56,7 @@ fun! wheel#status#message (...)
 	if type(message) == v:t_list
 		let message = join(message)
 	endif
+	" does not clear messages, only echo area
 	call wheel#status#clear ()
 	echomsg message
 	return v:true
