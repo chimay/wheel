@@ -281,7 +281,7 @@ fun! wheel#book#syncup ()
 	let cursor = leaf.cursor
 	let cursor.position = getcurpos()
 	" selection of cursor line : useful for context menus
-	let cursor.selection = wheel#pencil#cursor_selection()
+	let cursor.selection = wheel#pencil#virtual()
 	" -- settings
 	let leaf.settings = deepcopy(b:wheel_settings)
 	" -- reload
