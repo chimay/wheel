@@ -1800,6 +1800,11 @@ Note that the directory `~/.local/share/wheel` must exist.
 It is highly recommended to define this file and regularly save it,
 either manually or automatically, using the autowrite config.
 
+Default~
+
+- vim : '~/.vim/wheel/wheel.vim'
+- nvim : '~/.local/share/nvim/wheel/wheel.vim'
+
 ------------------------------------------------------------------------------
 AUTOREAD					    *wheel-config-autoread*
 
@@ -1813,6 +1818,8 @@ To enable it, you need to add an autocommand on vim enter : >
   autocmd VimEnter * call wheel#void#init()
 <
 
+Default : 0
+
 ------------------------------------------------------------------------------
 AUTOWRITE					    *wheel-config-autowrite*
 
@@ -1825,6 +1832,8 @@ To enable it, you need to add an autocommand on vim leave : >
 
     autocmd VimLeave * call wheel#void#exit()
 <
+
+Default : 0
 
 ------------------------------------------------------------------------------
 SESSION FILE					   *wheel-config-session-file*
@@ -1841,6 +1850,11 @@ Note that the directory `~/.local/share/wheel` must exist.
 You can define this file and regularly save it, either manually or
 automatically, using the autowrite_session config.
 
+Default~
+
+- vim : '~/.vim/wheel/session.vim'
+- nvim : '~/.local/share/nvim/wheel/session.vim'
+
 ------------------------------------------------------------------------------
 AUTOREAD SESSION			    *wheel-config-autoread-session*
 
@@ -1854,6 +1868,8 @@ To enable it, you need to add an autocommand on vim enter : >
   autocmd VimEnter * call wheel#void#init()
 <
 
+Default : 0
+
 ------------------------------------------------------------------------------
 AUTOWRITE SESSION			    *wheel-config-autowrite-session*
 
@@ -1866,6 +1882,8 @@ To enable it, you need to add an autocommand on vim leave : >
 
     autocmd VimLeave * call wheel#void#exit()
 <
+
+Default : 0
 
 ------------------------------------------------------------------------------
 BACKUPS						    *wheel-config-backups*
@@ -1883,6 +1901,8 @@ Also used for the session file.
 It is recommended to use backups, in case things get messed up
 accidentally.
 
+Default : 3
+
 ------------------------------------------------------------------------------
 MAPPINGS					    *wheel-config-mappings*
 
@@ -1893,6 +1913,8 @@ Determine how many default mappings are available : >
 
 See |wheel-mappings-levels| for more information.
 
+Default : 0
+
 ------------------------------------------------------------------------------
 PREFIX						    *wheel-config-prefix*
 
@@ -1901,8 +1923,9 @@ Prefix for mappings of level 0, 1, 2 : >
     let g:wheel_config.prefix = '<my-wonderful-prefix>'
 <
 
-It's `<M-w>` by default.  See |wheel-mappings-prefix| for more
-information.
+See |wheel-mappings-prefix| for more information.
+
+Default : `<M-w>`
 
 ------------------------------------------------------------------------------
 AUTO CHDIR PROJECT				*wheel-config-auto-chdir-project*
@@ -1914,6 +1937,8 @@ Try to change directory to project root if > 0 : >
 
 To find the right folder, the plugin looks at files or dirs listed in
 `g:wheel_config.project_markers`, see below.
+
+Default : 0
 
 Deprecated~
 
@@ -1934,6 +1959,8 @@ list value. : >
     let g:wheel_config.project_markers = ['.git', '.my-project-root']
 <
 
+Default : `'.git'`
+
 ------------------------------------------------------------------------------
 LOCATE DATABASE			    		*wheel-config-locate-db*
 
@@ -1941,6 +1968,8 @@ If you want to use a custom database when using `locate` : >
 
   let g:wheel_config.locate_db = '~/my_locate.db'
 <
+
+Default : empty
 
 ------------------------------------------------------------------------------
 GREP EX COMMAND			    		*wheel-config-grep*
@@ -1952,7 +1981,7 @@ Whether to use internal |:vimgrep| or external |:grep| to grep files : >
   let g:wheel_config.grep = 'grep'
 <
 
-Defaults to internal vimgrep, in case external grep is not available.
+Default : internal vimgrep, in case external grep is not available.
 
 ------------------------------------------------------------------------------
 MESSAGES				    		*wheel-config-message*
@@ -1964,7 +1993,7 @@ Whether you accept multi-line messages or not : >
   let g:wheel_config.message = 'multi-line'
 <
 
-Defaults to `one-line`.
+Default : `one-line`
 
 if you set this option to multi-line, I recommend you set |'cmdheight'|
 option to a minimum of 3 : >
@@ -1980,6 +2009,8 @@ Maximum number of elements in the wheel history : >
     let g:wheel_config.maxim.history = 400
 <
 
+Default : 500
+
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN INPUT HISTORY		   *wheel-config-maxim-input*
 
@@ -1987,6 +2018,8 @@ Maximum number of elements in the input history : >
 
     let g:wheel_config.maxim.input = 200
 <
+
+Default : 500
 
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN MRU			*wheel-config-maxim-mru*
@@ -1996,29 +2029,37 @@ Maximum number of elements in mru : >
   let g:wheel_config.maxim.mru = 300
 <
 
+Default : 500
+
 ------------------------------------------------------------------------------
-MAX NUMBER OF ELEMENTS IN YANK WHEEL		   *wheel-config-maxim-yanks*
+MAX NUMBER OF ELEMENTS IN YANK RING		   *wheel-config-maxim-yanks*
 
 Maximum number of elements in the yank ring : >
 
     let g:wheel_config.maxim.yanks = 500
 <
 
+Default : 500
+
 ------------------------------------------------------------------------------
-MAX SIZE OF A YANK IN YANK WHEEL	   *wheel-config-maxim-yank-size*
+MAX SIZE OF A YANK IN YANK RING			   *wheel-config-maxim-yank-size*
 
 Maximum size of each element in the yank ring, in bytes : >
 
     let g:wheel_config.maxim.yank_size = 3000
 <
 
+Default : 3000
+
 ------------------------------------------------------------------------------
-MAX LAYERS IN dedicated bufferS		    *wheel-config-maxim-layers*
+MAX LAYERS IN DEDICATED BUFFERS		    *wheel-config-maxim-layers*
 
 Maximum size of layer ring in dedicated buffers : >
 
 	let g:wheel_config.maxim.layers = 5
 <
+
+Default : 5
 
 ------------------------------------------------------------------------------
 MAX NUMBER OF TABS			    *wheel-config-maxim-tabs*
@@ -2028,6 +2069,8 @@ Maximum number of tabs in tab layouts : >
   let g:wheel_config.maxim.tabs = 12
 <
 
+Default : 15
+
 ------------------------------------------------------------------------------
 MAX NUMBER OR HORIZONTAL SPLITS		    *wheel-config-maxim-horizontal*
 
@@ -2036,6 +2079,8 @@ Maximum number of horizontal splits in layouts : >
   let g:wheel_config.maxim.horizontal = 3
 <
 
+Default : 3
+
 ------------------------------------------------------------------------------
 MAX NUMBER OR VERTICAL SPLITS		    *wheel-config-maxim-vertical*
 
@@ -2043,6 +2088,8 @@ Maximum number of vertical splits in layouts : >
 
   let g:wheel_config.maxim.vertical = 4
 <
+
+Default : 4
 
 ------------------------------------------------------------------------------
 FILTER PROMPT IN REGULAR DEDICATED BUFFERS	*wheel-config-display-prompt*

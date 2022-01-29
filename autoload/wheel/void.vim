@@ -200,22 +200,31 @@ fun! wheel#void#config ()
 		let g:wheel_config.maxim = {}
 	endif
 	if ! has_key(g:wheel_config.maxim, 'history')
-		let g:wheel_config.maxim.history = 50
+		let g:wheel_config.maxim.history = 500
 	endif
 	if ! has_key(g:wheel_config.maxim, 'input')
-		let g:wheel_config.maxim.input = 50
-	endif
-	if ! has_key(g:wheel_config.maxim, 'yanks')
-		let g:wheel_config.maxim.yanks = 50
-	endif
-	if ! has_key(g:wheel_config.maxim, 'yank_size')
-		let g:wheel_config.maxim.yank_size = 500
+		let g:wheel_config.maxim.input = 500
 	endif
 	if ! has_key(g:wheel_config.maxim, 'mru')
-		let g:wheel_config.maxim.mru = 50
+		let g:wheel_config.maxim.mru = 500
+	endif
+	if ! has_key(g:wheel_config.maxim, 'yanks')
+		let g:wheel_config.maxim.yanks = 500
+	endif
+	if ! has_key(g:wheel_config.maxim, 'yank_size')
+		let g:wheel_config.maxim.yank_size = 3000
 	endif
 	if ! has_key(g:wheel_config.maxim, 'layers')
 		let g:wheel_config.maxim.layers = 5
+	endif
+	if ! has_key(g:wheel_config.maxim, 'tabs')
+		let g:wheel_config.maxim.tabs = 15
+	endif
+	if ! has_key(g:wheel_config.maxim, 'horizontal')
+		let g:wheel_config.maxim.horizontal = 3
+	endif
+	if ! has_key(g:wheel_config.maxim, 'vertical')
+		let g:wheel_config.maxim.vertical = 4
 	endif
 	" ---- display
 	if ! has_key(g:wheel_config, 'display')
