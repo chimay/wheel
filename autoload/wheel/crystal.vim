@@ -343,7 +343,7 @@ endif
 if ! exists('s:menu_help')
 	let s:menu_help = [
 				\ ['inline help', 'wheel#guru#help'],
-				\ ['current mappings', 'wheel#guru#mappings'],
+				\ ['current prefix mappings', 'wheel#guru#mappings'],
 				\ ['available mappings (plugs)', 'wheel#guru#plugs'],
 				\ ['autocommands', 'wheel#guru#autocomands'],
 				\ ['dedicated buffer help', 'wheel#guru#mandala'],

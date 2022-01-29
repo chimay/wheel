@@ -301,6 +301,7 @@ fun! wheel#void#volatile ()
 		let g:wheel_volatile = {}
 	endif
 	" Remember number of file args at startup
+	" before :argadd, :argdel or similar command
 	let g:wheel_volatile.argc = argc()
 	let g:wheel_volatile.argv = argv()
 endfun
