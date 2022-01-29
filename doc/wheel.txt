@@ -819,7 +819,7 @@ Selection~
 Some dedicated buffers can act on selected entries. You can hit :
 
 - `<Space>` to toggle the selection of a line
-- `&` to reverse the selection of all visible lines
+- `#` to reverse the selection of all visible lines
 - `*` to select all visible lines
 - `|` to clear the selection of all visible lines
 
@@ -2160,7 +2160,7 @@ Here is an example of a complete configuration : >
   " Prefix for mappings
   let g:wheel_config.prefix = '<M-w>'
   " Auto cd to project root if > 0
-  let g:wheel_config.cd_project = 1
+  let g:wheel_config.auto_chdir_project = 1
   " Marker of project root
   "let g:wheel_config.project_markers = '.git'
   "let g:wheel_config.project_markers = '.project-root'
