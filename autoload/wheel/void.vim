@@ -147,7 +147,11 @@ fun! wheel#void#config ()
 		let g:wheel_config = {}
 	endif
 	if ! has_key(g:wheel_config, 'file')
-		let g:wheel_config.file = ''
+		if has('nvim')
+			let g:wheel_config.file = '~/.local/share/nvim/wheel/wheel.vim'
+		else
+			let g:wheel_config.file = '~/.vim/wheel/wheel.vim'
+		endif
 	endif
 	if ! has_key(g:wheel_config, 'autowrite')
 		let g:wheel_config.autowrite = 0
@@ -156,7 +160,11 @@ fun! wheel#void#config ()
 		let g:wheel_config.autoread = 0
 	endif
 	if ! has_key(g:wheel_config, 'session_file')
-		let g:wheel_config.session_file = ''
+		if has('nvim')
+			let g:wheel_config.session_file = '~/.local/share/nvim/wheel/session.vim'
+		else
+			let g:wheel_config.session_file = '~/.vim/wheel/session.vim'
+		endif
 	endif
 	if ! has_key(g:wheel_config, 'autowrite_session')
 		let g:wheel_config.autowrite_session = 0

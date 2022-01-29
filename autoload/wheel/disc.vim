@@ -1,7 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
 " Storage
-" Note : use expand to expand '~' in filenames
 
 " read & write wheel variables
 
@@ -212,10 +211,16 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	" Uses writefile()
 	let varname = a:varname
 	if ! exists(varname)
-		return
+		return v:false
 	endif
-	let file = expand(a:file)
+	let file = fnamemodify(a:file, ':p')
 	let where = a:where
+	" create directory if needed
+	let directory = fnamemodify(file, ':h')
+	if ! wheel#disc#mkdir(directory)
+		return v:false
+	endif
+	" write
 	let string = 'let ' .. varname .. ' = ' .. string({varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
@@ -239,8 +244,14 @@ fun! wheel#disc#write (pointer, file, where = '>')
 	if ! exists(pointer)
 		return
 	endif
-	let file = expand(a:file)
+	let file = fnamemodify(a:file, ':p')
 	let where = a:where
+	" create directory if needed
+	let directory = fnamemodify(file, ':h')
+	if ! wheel#disc#mkdir(directory)
+		return v:false
+	endif
+	" write
 	let var = {pointer}
 	redir => content
 	silent! echo 'let' pointer '=' var
@@ -254,7 +265,7 @@ endfun
 
 fun! wheel#disc#read (file)
 	" Read file
-	let file = expand(a:file)
+	let file = fnamemodify(a:file, ':p')
 	if filereadable(file)
 		execute 'source' file
 	else
@@ -273,7 +284,7 @@ endfun
 
 fun! wheel#disc#roll_backups (file, backups)
 	" Roll backups number of file
-	let file = expand(a:file)
+	let file = fnamemodify(a:file, ':p')
 	let backups = a:backups
 	let padding = len(string(backups))
 	let format = '%0' .. padding .. 'd'
@@ -301,13 +312,13 @@ fun! wheel#disc#write_wheel (...)
 	" Write all wheel variables to file argument
 	" File defaults to g:wheel_config.file
 	if a:0 > 0
-		let wheel_file = expand(a:1)
+		let wheel_file = fnamemodify(a:1, ':p')
 	else
 		if empty(g:wheel_config.file)
 			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 			return v:false
 		else
-			let wheel_file = expand(g:wheel_config.file)
+			let wheel_file = fnamemodify(g:wheel_config.file, ':p')
 		endif
 	endif
 	if wheel#referen#is_empty ('wheel')
@@ -337,13 +348,13 @@ fun! wheel#disc#read_wheel (...)
 	" Read all wheel variables from file argument
 	" File defaults to g:wheel_config.file
 	if a:0 > 0
-		let wheel_file = expand(a:1)
+		let wheel_file = fnamemodify(a:1, ':p')
 	else
 		if empty(g:wheel_config.file)
 			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 			return v:false
 		else
-			let wheel_file = expand(g:wheel_config.file)
+			let wheel_file = fnamemodify(g:wheel_config.file, ':p')
 		endif
 	endif
 	let init_argc = wheel#disc#argc ()
@@ -364,18 +375,23 @@ endfun
 fun! wheel#disc#write_session (...)
 	" Write session layout to session file
 	if a:0 > 0
-		let session_file = expand(a:1)
+		let session_file = fnamemodify(a:1, ':p')
 	else
 		if empty(g:wheel_config.session_file)
 			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
 			return v:false
 		else
-			let session_file = expand(g:wheel_config.session_file)
+			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
 		endif
 	endif
 	" backup value of sessionoptions
 	let ampersand = &sessionoptions
 	set sessionoptions=tabpages,winsize
+	" create directory if needed
+	let directory = fnamemodify(session_file, ':h')
+	if ! wheel#disc#mkdir(directory)
+		return v:false
+	endif
 	" backup old sessions
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
 	" writing session
@@ -390,13 +406,13 @@ endfun
 fun! wheel#disc#read_session (...)
 	" Read session layout from session file
 	if a:0 > 0
-		let session_file = expand(a:1)
+		let session_file = fnamemodify(a:1, ':p')
 	else
 		if empty(g:wheel_config.session_file)
 			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
 			return v:false
 		else
-			let session_file = expand(g:wheel_config.session_file)
+			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
 		endif
 	endif
 	let init_argc = wheel#disc#argc ()
