@@ -12,6 +12,20 @@ fun! wheel#disc#argc ()
 	return g:wheel_volatile.argc
 endfun
 
+fun! wheel#disc#mkdir (directory)
+	" Create directory if non existent
+	let directory = expand(a:directory)
+	if ! isdirectory(directory)
+		echomsg 'wheel : creating directory' directory
+		let success = mkdir(directory, 'p')
+		if ! success
+			echomsg 'wheel disc mkdir : error creating directory' directory
+			return v:false
+		endif
+	endif
+	return v:true
+endfun
+
 " write & read
 
 fun! wheel#disc#writefile (varname, file, where = '>')

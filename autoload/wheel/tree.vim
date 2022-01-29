@@ -458,12 +458,8 @@ fun! wheel#tree#rename_file (...)
 	endif
 	" create directory if needed
 	let directory = fnamemodify(new_filename, ':h')
-	if ! isdirectory(directory)
-		let success = mkdir(directory, 'p')
-		if success == v:false
-			echomsg 'wheel batch rename files : error creating directory' directory
-			return v:false
-		endif
+	if ! wheel#disc#mkdir(directory)
+		return v:false
 	endif
 	" rename file
 	let zero = rename(old_filename, new_filename)
