@@ -293,6 +293,8 @@ endfun
 
 fun! wheel#void#foundation ()
 	" Initialize wheel
+	" -- conversion from old config keys
+	call wheel#kintsugi#config ()
 	" -- persistent wheel variables
 	call wheel#void#wheel ()
 	call wheel#void#helix ()

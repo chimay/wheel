@@ -13,7 +13,7 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" Functions
+" Checks
 
 fun! wheel#kintsugi#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
@@ -92,6 +92,8 @@ fun! wheel#kintsugi#glossaries ()
 	return success
 endfun
 
+" Display
+
 fun! wheel#kintsugi#mandala_vars ()
 	" Display mandala vars
 	for varname in s:mandala_vars
@@ -123,3 +125,15 @@ fun! wheel#kintsugi#wheel_file ()
 	endif
 endfun
 
+fun! wheel#kintsugi#config ()
+	" Convert old config keys to new ones
+	if has_key(g:wheel_config, 'cd_project')
+		if ! has_key(g:wheel_config, 'auto_chdir_project')
+			let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
+			unlet g:wheel_config.cd_project
+			let info = 'wheel config : cd_project is deprecated. '
+			let info ..= 'Please use auto_chdir_project instead.'
+			echomsg info
+		endif
+	endif
+endfun
