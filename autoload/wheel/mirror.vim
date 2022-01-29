@@ -11,7 +11,7 @@ endif
 
 " grep edit
 
-fun! wheel#mill#grep_edit (...)
+fun! wheel#mirror#grep_edit (...)
 	" Reorder level elements in a buffer
 	" -- arguments
 	if a:0 > 0
@@ -59,7 +59,7 @@ fun! wheel#mill#grep_edit (...)
 	" copy of original lines
 	let b:wheel_lines = copy(lines)
 	" reload
-	let b:wheel_reload = "wheel#mill#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
+	let b:wheel_reload = "wheel#mirror#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
 	" info
 	echomsg 'adding or removing lines is not supported'
 	return lines
@@ -67,7 +67,7 @@ endfun
 
 " narrow
 
-fun! wheel#mill#narrow_file (...) range
+fun! wheel#mirror#narrow_file (...) range
 	" Lines matching pattern in current file
 	call wheel#mandala#goto_related ()
 	" 0 or 2 optional arguments
@@ -113,10 +113,10 @@ fun! wheel#mill#narrow_file (...) range
 	" -- settings
 	let b:wheel_settings = settings
 	" -- reload
-	let b:wheel_reload = "wheel#mill#narrow_file('" .. first .. "', '" .. last .. "')"
+	let b:wheel_reload = "wheel#mirror#narrow_file('" .. first .. "', '" .. last .. "')"
 endfun
 
-fun! wheel#mill#narrow_circle (...)
+fun! wheel#mirror#narrow_circle (...)
 	" Lines matching pattern in all circle files
 	" Like grep but with filter & edit
 	if a:0 > 0
@@ -149,6 +149,6 @@ fun! wheel#mill#narrow_circle (...)
 	" -- settings
 	let b:wheel_settings = settings
 	" -- reload
-	let b:wheel_reload = "wheel#mill#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
+	let b:wheel_reload = "wheel#mirror#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
 	echomsg 'adding or removing lines is not supported'
 endfun

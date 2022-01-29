@@ -460,9 +460,9 @@ endif
 
 if ! exists('s:menu_refactoring')
 	let s:menu_refactoring = [
-				\ ['grep in edit mode' ,  'wheel#mill#grep_edit'],
-				\ ['narrow current file' ,  'wheel#mill#narrow_file'],
-				\ ['narrow all files in circle' ,  'wheel#mill#narrow_circle'],
+				\ ['grep in edit mode' ,  'wheel#mirror#grep_edit'],
+				\ ['narrow current file' ,  'wheel#mirror#narrow_file'],
+				\ ['narrow all files in circle' ,  'wheel#mirror#narrow_circle'],
 				\]
 	lockvar s:menu_refactoring
 endif
@@ -687,7 +687,7 @@ endif
 
 if ! exists('s:context_grep')
 	let s:context_grep = s:context_navigation + [
-				\ ['edit mode' ,  "wheel#mill#grep_edit()"],
+				\ ['edit mode' ,  "wheel#mirror#grep_edit()"],
 				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
 				\]
 	lockvar s:context_grep
