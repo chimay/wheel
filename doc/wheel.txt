@@ -44,7 +44,7 @@ enhances their interface by using :
 - dedicated buffers, in which you can filter and select elements, besides using
   the full power of your editor
 - edit modes, that allow you to reflect your changes in a dedicated buffer to
-  the original file(s)
+  wheel elements, or into file(s)
 
 All is written in classical Vimscript.
 
@@ -1523,8 +1523,9 @@ local maps :
 - `<M-y>` : duplicate line below current one
 - `<M-z>` : duplicate line above current one
 
-If you need to use the first-line filter, it's important to do it before
-adding new lines, or the numbering could be incorrect.
+If you need to use the first-line filter, it's important to do it
+before adding new lines, or the numbering could be incorrect, which
+means possibly wrong propagation into your file.
 
 Just |:write| the buffer to propagate your changes to the original file.
 
