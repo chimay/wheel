@@ -16,10 +16,8 @@ endif
 
 fun! wheel#status#clear ()
 	" Clear command line space
-	"redraw!
-	"echo "\r"
-	"echo
-	"echon
+	" Does not clear the vim messages, for that use :
+	"   :messages clear
 	" credit :
 	" https://neovim.discourse.group/t/how-to-clear-the-echo-message-in-the-command-line/268/2
 	call feedkeys(':','nx')
@@ -60,6 +58,7 @@ fun! wheel#status#message (...)
 	endif
 	call wheel#status#clear ()
 	echomsg message
+	return v:true
 endfun
 
 " Wheel status
