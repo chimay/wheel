@@ -1732,8 +1732,8 @@ Autowrite session file			|wheel-config-autowrite-session|
 Backups					|wheel-config-backups|
 Mappings				|wheel-config-mappings|
 Prefix					|wheel-config-prefix|
-Cd project				|wheel-config-cd_project|
-Project markers				|wheel-config-project_markers|
+Auto chdir project			|wheel-config-auto-chdir-project|
+Project markers				|wheel-config-project-markers|
 Locate database				|wheel-config-locate-db|
 Grep ex command				|wheel-config-grep|
 Messages				|wheel-config-message|
@@ -1741,7 +1741,7 @@ Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max MRU					|wheel-config-maxim-mru|
 Max yanks 				|wheel-config-maxim-yanks|
-Max yank size 				|wheel-config-maxim-yank_size|
+Max yank size 				|wheel-config-maxim-yank-size|
 Max layers in dedicated buffers		|wheel-config-maxim-layers|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
@@ -1904,18 +1904,27 @@ It's `<M-w>` by default.  See |wheel-mappings-prefix| for more
 information.
 
 ------------------------------------------------------------------------------
-CD PROJECT					*wheel-config-cd_project*
+AUTO CHDIR PROJECT				*wheel-config-auto-chdir-project*
 
 Try to change directory to project root if > 0 : >
 
-    let g:wheel_config.cd_project = 1
+    let g:wheel_config.auto_chdir_project = 1
 <
 
 To find the right folder, the plugin looks at files or dirs listed in
 `g:wheel_config.project_markers`, see below.
 
+Deprecated~
+
+This variable replace the deprecated one : >
+
+    g:wheel_config.cd_project
+<
+
+Automatic conversion is made if dedected at (neo)vim start.
+
 ------------------------------------------------------------------------------
-PROJECT MARKERS				*wheel-config-project_markers*
+PROJECT MARKERS				*wheel-config-project-markers*
 
 File(s) or directories(s) marking a project root. Can take a string or
 list value. : >
@@ -1995,7 +2004,7 @@ Maximum number of elements in the yank ring : >
 <
 
 ------------------------------------------------------------------------------
-MAX SIZE OF A YANK IN YANK WHEEL	   *wheel-config-maxim-yank_size*
+MAX SIZE OF A YANK IN YANK WHEEL	   *wheel-config-maxim-yank-size*
 
 Maximum size of each element in the yank ring, in bytes : >
 
