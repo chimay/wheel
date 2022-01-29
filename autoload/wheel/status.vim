@@ -66,26 +66,25 @@ endfun
 
 fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
-	if has('nvim')
-		let [torus, circle, location] = wheel#referen#location('all')
-		if ! wheel#referen#is_empty('wheel')
-			let dashboard = torus.name .. s:level_separ
-			if ! wheel#referen#is_empty('torus')
-				let dashboard ..= circle.name .. s:level_separ
-				if ! wheel#referen#is_empty('circle')
-					let dashboard ..= location.name .. ' : '
-					let dashboard ..= location.file .. ':' .. location.line .. ':' .. location.col
-				else
-					let dashboard ..= '[Empty circle]'
-				endif
+	let [torus, circle, location] = wheel#referen#location('all')
+	if ! wheel#referen#is_empty('wheel')
+		let dashboard = torus.name .. s:level_separ
+		if ! wheel#referen#is_empty('torus')
+			let dashboard ..= circle.name .. s:level_separ
+			if ! wheel#referen#is_empty('circle')
+				let dashboard ..= location.name .. ' : '
+				let dashboard ..= location.file .. ':' .. location.line .. ':' .. location.col
 			else
-				let dashboard ..= '[Empty torus]'
+				let dashboard ..= '[Empty circle]'
 			endif
 		else
-			let dashboard = 'Empty wheel'
+			let dashboard ..= '[Empty torus]'
 		endif
-		call wheel#status#echo (dashboard)
+	else
+		let dashboard = 'Empty wheel'
 	endif
+	call wheel#status#echo (dashboard)
+	return v:true
 endfun
 
 " Mandala & leaf status
