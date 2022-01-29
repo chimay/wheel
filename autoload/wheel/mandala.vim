@@ -544,11 +544,10 @@ fun! wheel#mandala#reload ()
 	" -- delete all lines
 	silent 1,$ delete _
 	" -- reload content
-	call wheel#status#clear ()
 	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
-		let fun = b:wheel_reload
-		echomsg 'wheel : ' fun 'reloaded'
+		let function = b:wheel_reload
+		call wheel#status#message('wheel :', function, 'reloaded')
 	else
 		" by default, if b:wheel_reload is not defined or empty,
 		" fill the buffer with b:wheel_lines
