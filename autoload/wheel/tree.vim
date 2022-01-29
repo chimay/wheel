@@ -442,29 +442,9 @@ fun! wheel#tree#rename_file (...)
 	let old_filename = location.file
 	" new name
 	let new_filename = wheel#tree#format_filename (new_filename)
-	" nothing to do if old == new
-	if old_filename ==# new_filename
-		call wheel#status#clear ()
-		echomsg 'wheel tree rename file : new filename must be distinct from old one'
-		return v:false
-	endif
-	" check existent file
-	if filereadable(new_filename)
-		let prompt = 'Replace existing ' .. new_filename .. ' ?'
-		let overwrite = confirm(prompt, "&Yes\n&No", 2)
-		if overwrite != 1
-			return v:false
-		endif
-	endif
-	" create directory if needed
-	let directory = fnamemodify(new_filename, ':h')
-	if ! wheel#disc#mkdir(directory)
-		return v:false
-	endif
 	" rename file
-	let zero = rename(old_filename, new_filename)
-	if zero != 0
-		echomsg 'wheel rename file : error renaming' old_filename '->' new_filename
+	let success = wheel#disc#rename (old_filename, new_filename)
+	if ! success
 		return v:false
 	endif
 	" link buffer to new file name

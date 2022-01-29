@@ -275,15 +275,22 @@ fun! wheel#cuboctahedron#rename_files ()
 		let fields = split(lines[index], s:field_separ)
 		let old_name = glossary[index]
 		let new_name = wheel#tree#format_name(fields[0])
+		" check not empty
+		if empty(old_name) || empty(new_name)
+			echomsg 'wheel cuboctahedron rename : location name cannot be empty'
+			continue
+		endif
 		" nothing to do if old == new
 		if old_name == new_name
 			continue
 		endif
+		" search for location
 		let found = glossary->index(new_name)
 		if found >= 0 && found != index
 			echomsg 'Location' new_name 'already present in circle'
 			continue
 		endif
+		" rename location
 		let glossary[index] = new_name
 		let locations[index].name = new_name
 		call wheel#pendulum#rename('location', old_name, new_name)
@@ -294,30 +301,13 @@ fun! wheel#cuboctahedron#rename_files ()
 		let fields = split(lines[index], s:field_separ)
 		let old_filename = locations[index].file
 		let new_filename = wheel#tree#format_filename (fields[1])
-		" nothing to do if old == new
-		if old_filename ==# new_filename
-			continue
-		endif
-		" check existent file
-		if filereadable(new_filename)
-			let prompt = 'Replace existing ' .. new_filename .. ' ?'
-			let overwrite = confirm(prompt, "&Yes\n&No", 2)
-			if overwrite != 1
-				continue
-			endif
-		endif
-		" create directory if needed
-		let directory = fnamemodify(new_filename, ':h')
-		if ! wheel#disc#mkdir(directory)
-			continue
-		endif
 		" old -> new
 		echomsg 'wheel : renaming' old_filename '->' new_filename
 		let locations[index].file = new_filename
-		let zero = rename(old_filename, new_filename)
-		if zero != 0
+		let success = wheel#disc#rename(old_filename, new_filename)
+		if ! success
 			echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
-			return v:false
+			continue
 		endif
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_to_filename (old_filename, new_filename)

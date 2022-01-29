@@ -53,13 +53,16 @@ endfun
 fun! wheel#disc#mkdir (directory)
 	" Create directory if non existent
 	let directory = fnamemodify(a:directory, ':p')
-	if ! isdirectory(directory)
-		echomsg 'wheel : creating directory' directory
-		let success = mkdir(directory, 'p')
-		if ! success
-			echomsg 'wheel disc mkdir : error creating directory' directory
-			return v:false
-		endif
+	" nothing to do if directory already exists
+	if isdirectory(directory)
+		return v:true
+	endif
+	" create directory
+	echomsg 'wheel : creating directory' directory
+	let success = mkdir(directory, 'p')
+	if ! success
+		echomsg 'wheel disc mkdir : error creating directory' directory
+		return v:false
 	endif
 	return v:true
 endfun
@@ -68,12 +71,25 @@ endfun
 
 fun! wheel#disc#rename (source, destination)
 	" Rename file ; check destination is non existent
-	let source = fnamemodify(a:source, ':p')
-	let destination = fnamemodify(a:destination, ':p')
+	let source = a:source
+	let destination = a:destination
+	" check not empty
+	if empty(source) || empty(destination)
+		echomsg 'wheel disc rename : file name cannot be empty'
+		return v:false
+	endif
+	" full path
+	let source = fnamemodify(source, ':p')
+	let destination = fnamemodify(destination, ':p')
 	" nothing to do if source == destination
 	if source ==# destination
 		echomsg 'wheel disc rename : nothing to do if new filename == old one'
 		return v:true
+	endif
+	" check source is directory
+	if isdirectory(source)
+		echomsg 'wheel disc rename : source must be a regular file'
+		return v:false
 	endif
 	" check non existent source
 	if ! filereadable(source)
@@ -104,27 +120,85 @@ endfun
 
 fun! wheel#disc#copy (source, destination)
 	" Copy file ; check destination is non existent
-	let source = fnamemodify(a:source, ':p')
-	let destination = fnamemodify(a:destination, ':p')
+	let source = a:source
+	let destination = a:destination
+	" check not empty
+	if empty(source) || empty(destination)
+		echomsg 'wheel disc copy : file name cannot be empty'
+		return v:false
+	endif
+	" full path
+	let source = fnamemodify(source, ':p')
+	let destination = fnamemodify(destination, ':p')
+	" nothing to do if source == destination
+	if source ==# destination
+		echomsg 'wheel disc copy : nothing to do if new filename == old one'
+		return v:true
+	endif
+	" check source is directory
+	if isdirectory(source)
+		echomsg 'wheel disc copy : source must be a regular file'
+		return v:false
+	endif
+	" check non existent source
 	if ! filereadable(source)
 		echomsg 'wheel disc copy : source file not readable'
-		return -1
+		return v:false
 	endif
+	" check existent destination
 	if filereadable(destination)
 		let prompt = 'Replace existing ' .. destination .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
 		if overwrite != 1
-			return -1
+			return v:true
 		endif
 	endif
+	" create directory if needed
+	let directory = fnamemodify(destination, ':h')
+	if ! wheel#disc#mkdir(directory)
+		return v:false
+	endif
+	" copy
 	let content = readfile(source, 'b')
 	let zero = writefile(content, destination, 'b')
-	return zero
+	if zero != 0
+		return v:false
+	endif
+	return v:true
 endfun
 
 fun! wheel#disc#delete (file)
 	" Delete file ; ask confirmation
-	let file = fnamemodify(a:file, ':p')
+	let file = a:file
+	" check not empty
+	if empty(file)
+		echomsg 'wheel disc delete : file name cannot be empty'
+		return v:false
+	endif
+	" full path
+	let file = fnamemodify(file, ':p')
+	" check file is directory
+	if isdirectory(file)
+		echomsg 'wheel disc delete : file must be a regular file'
+		return v:false
+	endif
+	" check non existent file
+	if ! filereadable(file)
+		echomsg 'wheel disc delete : file not readable'
+		return v:false
+	endif
+	" ask confirmation
+	let prompt = 'Delete ' .. file .. ' ?'
+	let overwrite = confirm(prompt, "&Yes\n&No", 2)
+	if overwrite != 1
+		return v:true
+	endif
+	" delete
+	let zero = delete(file)
+	if zero != 0
+		return v:false
+	endif
+	return v:true
 endfun
 
 " ---- write & read
