@@ -186,7 +186,7 @@ fun! wheel#cuboctahedron#reorder (level)
 	let old_list = deepcopy(wheel#referen#elements (upper))
 	let old_names = deepcopy(old_list)
 	let old_names = map(old_names, {_,val -> val.name})
-	let new_names = wheel#mandala#all_lines ()
+	let new_names = wheel#teapot#all_lines ()
 	let new_list = []
 	for name in new_names
 		let index = old_names->index(name)
@@ -219,7 +219,7 @@ fun! wheel#cuboctahedron#rename (level)
 	" -- rename
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
-	let names = wheel#mandala#all_lines ()
+	let names = wheel#teapot#all_lines ()
 	let len_names = len(names)
 	let len_elements = len(elements)
 	if len_names < len_elements
@@ -258,7 +258,7 @@ fun! wheel#cuboctahedron#rename_files ()
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
 	let locations = circle.locations
-	let lines = wheel#mandala#all_lines ()
+	let lines = wheel#teapot#all_lines ()
 	let len_lines = len(lines)
 	let len_locations = len(locations)
 	" -- pre-checks
@@ -484,7 +484,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	call wheel#gear#unlet ('g:wheel')
 	call wheel#void#wheel ()
 	" -- loop over buffer lines
-	let linelist = wheel#mandala#all_lines ()
+	let linelist = wheel#teapot#all_lines ()
 	let marker = s:fold_markers[0]
 	let pat_fold_one = '\m' .. s:fold_1 .. '$'
 	let pat_fold_two = '\m' .. s:fold_2 .. '$'
@@ -529,7 +529,7 @@ fun! wheel#cuboctahedron#reorg_tabwin ()
 	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()
 	" -- list of lines
-	let linelist = wheel#mandala#all_lines ()
+	let linelist = wheel#teapot#all_lines ()
 	" -- current tab
 	let startpage = tabpagenr()
 	" -- close mandala to work : otherwise it would be added to the list of windows

@@ -156,6 +156,13 @@ fun! wheel#teapot#clear ()
 	call wheel#pencil#show ()
 endfun
 
+" all lines, unfiltered and without selection mark
+
+fun! wheel#teapot#all_lines ()
+	" Return all, unfiltered, lines
+	return b:wheel_lines
+endfun
+
 " mappings
 
 fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')

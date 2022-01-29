@@ -161,7 +161,7 @@ fun! wheel#vector#write_quickfix ()
 	" -- list of (modified) lines
 	let linelist = getline(1, '$')
 	" -- number of original lines must be equal to number of modified lines
-	let elder_len = len(wheel#mandala#all_lines ())
+	let elder_len = len(wheel#teapot#all_lines ())
 	let new_len = len(linelist)
 	if new_len > elder_len
 		echomsg 'wheel quickfix write : there are too much line(s)'

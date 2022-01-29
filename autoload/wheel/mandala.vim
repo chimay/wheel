@@ -428,11 +428,6 @@ endfun
 
 " content
 
-fun! wheel#mandala#all_lines ()
-	" Return all, unfiltered, lines
-	return b:wheel_lines
-endfun
-
 fun! wheel#mandala#update_var_lines (mood = 'patient')
 	" Update lines in local mandala variables, from visible lines
 	" Affected :
