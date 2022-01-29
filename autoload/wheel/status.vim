@@ -27,16 +27,39 @@ endfun
 
 " Message
 
-fun! wheel#status#echo (message)
+fun! wheel#status#echo (...)
 	" Echo message
+	if a:0 == 0
+		let message = ''
+	endif
+	if a:0 > 1
+		let message = join(a:000)
+		return call('wheel#status#echo', [ message ])
+	endif
+	let message = a:1
+	if type(message) == v:t_list
+		let message = join(message)
+	endif
 	call wheel#status#clear ()
-	echo a:message
+	echo message
+	return v:true
 endfun
 
-fun! wheel#status#message (message)
+fun! wheel#status#message (...)
 	" Echomsg message
+	if a:0 == 0
+		let message = ''
+	endif
+	if a:0 > 1
+		let message = join(a:000)
+		return call('wheel#status#message', [ message ])
+	endif
+	let message = a:1
+	if type(message) == v:t_list
+		let message = join(message)
+	endif
 	call wheel#status#clear ()
-	echomsg a:message
+	echomsg message
 endfun
 
 " Wheel status
