@@ -114,8 +114,7 @@ fun! wheel#projection#follow (...)
 	call wheel#pendulum#record ()
 	let info = 'wheel follow : '
 	let info ..= coordin[0] .. s:level_separ .. coordin[1] .. s:level_separ .. coordin[2]
-	call wheel#status#clear ()
-	echo info
+	call wheel#status#echo (info)
 	" update location to cursor position
 	call wheel#vortex#update ()
 	return v:true

@@ -27,8 +27,14 @@ endfun
 
 " Message
 
-fun! wheel#status#message (message)
+fun! wheel#status#echo (message)
 	" Echo message
+	call wheel#status#clear ()
+	echo a:message
+endfun
+
+fun! wheel#status#message (message)
+	" Echomsg message
 	call wheel#status#clear ()
 	echomsg a:message
 endfun
@@ -40,23 +46,22 @@ fun! wheel#status#dashboard ()
 	if has('nvim')
 		let [torus, circle, location] = wheel#referen#location('all')
 		if ! wheel#referen#is_empty('wheel')
-			let string = torus.name .. s:level_separ
+			let dashboard = torus.name .. s:level_separ
 			if ! wheel#referen#is_empty('torus')
-				let string ..= circle.name .. s:level_separ
+				let dashboard ..= circle.name .. s:level_separ
 				if ! wheel#referen#is_empty('circle')
-					let string ..= location.name .. ' : '
-					let string ..= location.file .. ':' .. location.line .. ':' .. location.col
+					let dashboard ..= location.name .. ' : '
+					let dashboard ..= location.file .. ':' .. location.line .. ':' .. location.col
 				else
-					let string ..= '[Empty circle]'
+					let dashboard ..= '[Empty circle]'
 				endif
 			else
-				let string ..= '[Empty torus]'
+				let dashboard ..= '[Empty torus]'
 			endif
 		else
-			let string = 'Empty wheel'
+			let dashboard = 'Empty wheel'
 		endif
-		call wheel#status#clear ()
-		echo string
+		call wheel#status#echo (dashboard)
 	endif
 endfun
 

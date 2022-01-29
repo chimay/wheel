@@ -161,20 +161,17 @@ fun! wheel#tree#add_torus (...)
 	endif
 	let torus_name = wheel#tree#format_name (torus_name)
 	if empty(torus_name)
-		call wheel#status#clear ()
-		echomsg 'Torus name cannot be empty'
+		call wheel#status#message('Torus name cannot be empty')
 		return v:false
 	endif
 	" check if not already present
 	if wheel#chain#is_inside(torus_name, g:wheel.glossary)
-		call wheel#status#clear ()
-		echomsg 'Torus' torus_name 'already exists in wheel'
+		let info = 'Torus ' .. torus_name .. ' already exists in wheel'
+		call wheel#status#message(info)
 		return v:false
 	endif
 	" add torus
-	redraw!
-	call wheel#status#clear ()
-	echomsg "Adding torus" torus_name
+	call wheel#status#message('Adding torus ' .. torus_name)
 	let index = g:wheel.current
 	let toruses = g:wheel.toruses
 	let glossary = g:wheel.glossary
@@ -202,21 +199,20 @@ fun! wheel#tree#add_circle (...)
 	" replace spaces by non-breaking spaces
 	let circle_name = wheel#tree#format_name (circle_name)
 	if empty(circle_name)
-		call wheel#status#clear ()
-		echomsg 'Circle name cannot be empty'
+		call wheel#status#message('Circle name cannot be empty')
 		return v:false
 	endif
 	" check if not already present
 	let torus = g:wheel.toruses[g:wheel.current]
 	if wheel#chain#is_inside(circle_name, torus.glossary)
-		call wheel#status#clear ()
-		echomsg 'Circle' circle_name 'already exists in torus' torus.name
+		let info = 'Circle ' .. circle_name
+		let info ..= ' already exists in torus ' .. torus.name
+		call wheel#status#message (info)
 		return v:false
 	endif
 	" add circle
 	redraw!
-	call wheel#status#clear ()
-	echomsg "Adding circle" circle_name
+	call wheel#status#message ('Adding circle ' .. circle_name)
 	let index = torus.current
 	let circles = torus.circles
 	let glossary = torus.glossary
@@ -249,22 +245,20 @@ fun! wheel#tree#add_location (location, ...)
 	" add a name to the location
 	let name = wheel#tree#add_name (location)
 	if empty(name)
-		call wheel#status#clear ()
-		echomsg 'Location name cannot be empty'
+		call wheel#status#message ('Location name cannot be empty')
 		return v:false
 	endif
 	" check location name is not in circle
 	if wheel#chain#is_inside(name, circle.glossary)
-		call wheel#status#clear ()
-		echomsg 'Location named' name 'already exists in circle'
+		let info = 'Location named ' .. name .. ' already exists in circle'
+		call wheel#status#message (info)
 		return v:false
 	endif
 	" add the location to the circle
-	call wheel#status#clear ()
 	let info = 'Adding location ' .. location.name .. ' : '
 	let info ..= location.file .. ':' .. location.line .. ':' .. location.col
 	let info ..= ' in torus ' .. torus.name .. ' circle ' .. circle.name
-	echomsg info
+	call wheel#status#message (info)
 	let index = circle.current
 	let locationlist = circle.locations
 	let glossary = circle.glossary
@@ -382,22 +376,21 @@ fun! wheel#tree#rename (level, ...)
 	" replace spaces by non-breaking spaces
 	let new = wheel#tree#format_name (new)
 	if empty(new)
-		call wheel#status#clear ()
-		echomsg level 'name cannot be empty'
+		call wheel#status#message (level .. ' name cannot be empty')
 		return v:false
 	endif
 	" check new is not present in upper list
 	if wheel#chain#is_inside(new, upper.glossary)
-		call wheel#status#clear ()
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
-		echomsg level new 'already exists in' upper_level_name
+		let info = level .. ' ' .. new .. ' already exists in ' .. upper_level_name
+		call wheel#status#message (info)
 		return v:false
 	endif
 	" rename
 	let old = current.name
 	let current.name = new
-	call wheel#status#clear ()
-	echomsg 'Renaming' level old '->' new
+	let info = 'Renaming ' .. level .. ' ' .. old .. ' -> ' .. new
+	call wheel#status#message (info)
 	let glossary = upper.glossary
 	let upper.glossary = glossary->wheel#chain#replace(old, new)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
