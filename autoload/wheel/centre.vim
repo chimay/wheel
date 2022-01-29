@@ -27,8 +27,8 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-sync-up) <cmd>call wheel#projection#follow()<cr>
 	" ---- load / save
 	" -- load / save wheel
-	nnoremap <plug>(wheel-read-wheel) <cmd>call wheel#disc#read_all()<cr>
-	nnoremap <plug>(wheel-write-wheel) <cmd>call wheel#disc#write_all()<cr>
+	nnoremap <plug>(wheel-read-wheel) <cmd>call wheel#disc#read_wheel()<cr>
+	nnoremap <plug>(wheel-write-wheel) <cmd>call wheel#disc#write_wheel()<cr>
 	" -- load / save session
 	nnoremap <plug>(wheel-read-session) <cmd>call wheel#disc#read_session()<cr>
 	nnoremap <plug>(wheel-write-session) <cmd>call wheel#disc#write_session()<cr>

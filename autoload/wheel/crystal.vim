@@ -363,8 +363,8 @@ endif
 
 if ! exists('s:menu_save_and_load')
 	let s:menu_save_and_load = [
-				\ ['save wheel', 'wheel#disc#write_all'],
-				\ ['load wheel', 'wheel#disc#read_all'],
+				\ ['save wheel', 'wheel#disc#write_wheel'],
+				\ ['load wheel', 'wheel#disc#read_wheel'],
 				\ ['save session', 'wheel#disc#write_session'],
 				\ ['load session', 'wheel#disc#read_session'],
 				\]

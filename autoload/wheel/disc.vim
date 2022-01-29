@@ -5,6 +5,18 @@
 
 " read & write wheel variables
 
+" helpers
+
+fun! wheel#disc#argc ()
+	" Number of file args at vim startup
+	if has_key(g:wheel_shelve, 'argc')
+		return g:wheel_shelve.argc
+	else
+		" we are at init
+		return argc()
+	endif
+endfun
+
 " write & read
 
 fun! wheel#disc#writefile (varname, file, where = '>')
@@ -93,21 +105,22 @@ endfun
 
 " wheel file
 
-fun! wheel#disc#write_all (...)
+fun! wheel#disc#write_wheel (...)
 	" Write all wheel variables to file argument
 	" File defaults to g:wheel_config.file
 	if a:0 > 0
 		let wheel_file = expand(a:1)
 	else
-		if has_key(g:wheel_config, 'file')
-			let wheel_file = expand(g:wheel_config.file)
-		else
+		if empty(g:wheel_config.file)
 			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+			return v:false
+		else
+			let wheel_file = expand(g:wheel_config.file)
 		endif
 	endif
 	if wheel#referen#is_empty ('wheel')
 		echomsg 'Not writing empty wheel'
-		return
+		return v:false
 	endif
 	call wheel#vortex#update ()
 	call wheel#kintsugi#wheel_file ()
@@ -125,28 +138,33 @@ fun! wheel#disc#write_all (...)
 	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_shelve', wheel_file, '>>')
 	echomsg 'Writing done !'
+	return v:true
 endfun
 
-fun! wheel#disc#read_all (...)
+fun! wheel#disc#read_wheel (...)
 	" Read all wheel variables from file argument
 	" File defaults to g:wheel_config.file
 	if a:0 > 0
 		let wheel_file = expand(a:1)
 	else
-		if has_key(g:wheel_config, 'file')
-			let wheel_file = expand(g:wheel_config.file)
-		else
+		if empty(g:wheel_config.file)
 			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+			return v:false
+		else
+			let wheel_file = expand(g:wheel_config.file)
 		endif
 	endif
-	if argc() == 0
+	let init_argc = wheel#disc#argc ()
+	if init_argc == 0
 		echomsg 'Reading wheel variables from file ..'
 	endif
 	call wheel#disc#read (wheel_file)
 	call wheel#kintsugi#wheel_file ()
-	if argc() == 0
+	if init_argc == 0
 		call wheel#vortex#jump ()
+		echomsg 'Reading done !'
 	endif
+	return v:true
 endfun
 
 " session file : layout of tabs & windows
@@ -156,10 +174,11 @@ fun! wheel#disc#write_session (...)
 	if a:0 > 0
 		let session_file = expand(a:1)
 	else
-		if has_key(g:wheel_config, 'session_file')
-			let session_file = expand(g:wheel_config.session_file)
+		if empty(g:wheel_config.session_file)
+			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
+			return v:false
 		else
-			echomsg 'Please configure g:wheel_config.session_file = my_wheel_file'
+			let session_file = expand(g:wheel_config.session_file)
 		endif
 	endif
 	" backup value of sessionoptions
@@ -173,6 +192,7 @@ fun! wheel#disc#write_session (...)
 	" restore value of sessionoptions
 	let &sessionoptions=ampersand
 	echomsg 'Writing done !'
+	return v:true
 endfun
 
 fun! wheel#disc#read_session (...)
@@ -180,13 +200,15 @@ fun! wheel#disc#read_session (...)
 	if a:0 > 0
 		let session_file = expand(a:1)
 	else
-		if has_key(g:wheel_config, 'session_file')
-			let session_file = expand(g:wheel_config.session_file)
+		if empty(g:wheel_config.session_file)
+			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
+			return v:false
 		else
-			echomsg 'Please configure g:wheel_config.session_file = my_wheel_file'
+			let session_file = expand(g:wheel_config.session_file)
 		endif
 	endif
-	if argc() == 0 && has('nvim')
+	let init_argc = wheel#disc#argc ()
+	if init_argc == 0 && has('nvim')
 		echomsg 'Reading session from file ..'
 	endif
 	if filereadable(session_file)
@@ -198,6 +220,10 @@ fun! wheel#disc#read_session (...)
 	" does not work
 	"tabdo wincmd =
 	"tabnext 1
+	if init_argc == 0 && has('nvim')
+		echomsg 'Reading done !'
+	endif
+	return v:true
 endfun
 
 " tree following torus/circle/location hierarchy in the filesystem

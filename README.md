@@ -310,7 +310,7 @@ if ! exists("g:wheel_loaded")
   " Prefix for mappings
   let g:wheel_config.prefix = '<M-w>'
   " Auto cd to project root if > 0
-  let g:wheel_config.cd_project = 1
+  let g:wheel_config.auto_chdir_project = 1
   " Marker of project root
   "let g:wheel_config.project_markers = '.git'
   "let g:wheel_config.project_markers = '.project-root'

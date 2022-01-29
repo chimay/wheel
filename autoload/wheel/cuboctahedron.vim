@@ -476,7 +476,7 @@ fun! wheel#cuboctahedron#reorganize ()
 	let prompt = 'Write old wheel to file before reorganizing ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)
 	if confirm == 1
-		call wheel#disc#write_all ()
+		call wheel#disc#write_wheel ()
 	endif
 	" -- update lines in local vars from visible lines
 	call wheel#mandala#update_var_lines ()

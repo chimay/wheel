@@ -45,7 +45,7 @@ fun! wheel#group#torus(method)
 	let prompt = 'Write old wheel to file before autogrouping ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)
 	if confirm == 1
-		call wheel#disc#write_all ()
+		call wheel#disc#write_wheel ()
 	endif
 	let method = a:method
 	let name = wheel#referen#current('torus').name

@@ -137,6 +137,9 @@ fun! wheel#void#shelve ()
 	if ! has_key(g:wheel_shelve, 'backup')
 		let g:wheel_shelve.backup = {}
 	endif
+	" Remember number of file args at startup
+	let g:wheel_shelve.argc = argc()
+	let g:wheel_shelve.argv = argv()
 endfun
 
 " -- config
@@ -146,11 +149,17 @@ fun! wheel#void#config ()
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
 	endif
+	if ! has_key(g:wheel_config, 'file')
+		let g:wheel_config.file = ''
+	endif
 	if ! has_key(g:wheel_config, 'autowrite')
 		let g:wheel_config.autowrite = 0
 	endif
 	if ! has_key(g:wheel_config, 'autoread')
 		let g:wheel_config.autoread = 0
+	endif
+	if ! has_key(g:wheel_config, 'session_file')
+		let g:wheel_config.session_file = ''
 	endif
 	if ! has_key(g:wheel_config, 'autowrite_session')
 		let g:wheel_config.autowrite_session = 0
@@ -168,7 +177,7 @@ fun! wheel#void#config ()
 		let g:wheel_config.backups = 3
 	endif
 	if ! has_key(g:wheel_config, 'auto_chdir_project')
-		let g:wheel_config.auto_chdir_project = 1
+		let g:wheel_config.auto_chdir_project = 0
 	endif
 	if ! has_key(g:wheel_config, 'project_markers')
 		let g:wheel_config.project_markers = '.git'
@@ -370,7 +379,7 @@ fun! wheel#void#init ()
 	endif
 	" -- read wheel
 	if g:wheel_config.autoread > 0
-		call wheel#disc#read_all ()
+		call wheel#disc#read_wheel ()
 	endif
 	" -- read session
 	if g:wheel_config.autoread_session > 0
@@ -391,7 +400,7 @@ fun! wheel#void#exit ()
 	endif
 	" -- save wheel, and unlet
 	if g:wheel_config.autowrite > 0
-		call wheel#disc#write_all()
+		call wheel#disc#write_wheel()
 	endif
 	call wheel#void#wipe_mandalas ()
 	call wheel#void#lighten ()
@@ -404,7 +413,7 @@ fun! wheel#void#fresh_wheel ()
 	let prompt = 'Write old wheel to file before emptying wheel ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)
 	if confirm == 1
-		call wheel#disc#write_all ()
+		call wheel#disc#write_wheel ()
 	endif
 	let varlist = [
 				\ 'g:wheel',
