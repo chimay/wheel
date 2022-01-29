@@ -159,7 +159,7 @@ fun! wheel#vector#write_quickfix ()
 	" -- update b:wheel_lines
 	call wheel#mandala#update_var_lines ()
 	" -- list of (modified) lines
-	let linelist = getline(1, '$')
+	let linelist = wheel#teapot#all_lines ()
 	" -- number of original lines must be equal to number of modified lines
 	let elder_len = len(wheel#teapot#all_lines ())
 	let new_len = len(linelist)
@@ -182,7 +182,7 @@ fun! wheel#vector#write_quickfix ()
 		endif
 	endfor
 	" -- propagate
-	call wheel#mandala#goto_related ()
+	call wheel#rectangle#previous ()
 	silent cdo call wheel#vector#cdo(newlines)
 	call wheel#cylinder#recall ()
 	" -- info

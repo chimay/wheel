@@ -6,7 +6,7 @@
 
 fun! wheel#pencil#has_selection ()
 	" Whether mandala has selection
-	return ! empty(b:wheel_nature.has_selection)
+	return b:wheel_nature.has_selection
 endfun
 
 fun! wheel#pencil#is_selection_empty ()
@@ -148,6 +148,9 @@ fun! wheel#pencil#select (...)
 	" Select line
 	" Optional argument : line number
 	" Default : current line number
+	if ! wheel#pencil#has_selection ()
+		return v:false
+	endif
 	if a:0 > 0
 		let linum = a:1
 	else
@@ -179,6 +182,9 @@ fun! wheel#pencil#clear (...)
 	" Deselect line
 	" Optional argument : line number
 	" Default : current line number
+	if ! wheel#pencil#has_selection ()
+		return v:false
+	endif
 	if a:0 > 0
 		let linum = a:1
 	else
@@ -211,6 +217,9 @@ fun! wheel#pencil#toggle (...)
 	" Toggle selection of line
 	" Optional argument : line number
 	" Default : current line number
+	if ! wheel#pencil#has_selection ()
+		return v:false
+	endif
 	if a:0 > 0
 		let linum = a:1
 	else
