@@ -9,12 +9,7 @@
 
 fun! wheel#disc#argc ()
 	" Number of file args at vim startup
-	if has_key(g:wheel_shelve, 'argc')
-		return g:wheel_shelve.argc
-	else
-		" we are at init
-		return argc()
-	endif
+	return g:wheel_volatile.argc
 endfun
 
 " write & read

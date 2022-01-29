@@ -137,9 +137,6 @@ fun! wheel#void#shelve ()
 	if ! has_key(g:wheel_shelve, 'backup')
 		let g:wheel_shelve.backup = {}
 	endif
-	" Remember number of file args at startup
-	let g:wheel_shelve.argc = argc()
-	let g:wheel_shelve.argv = argv()
 endfun
 
 " -- config
@@ -298,6 +295,16 @@ fun! wheel#void#wave ()
 	endif
 endfun
 
+fun! wheel#void#volatile ()
+	" Store (neo)vim state
+	if ! exists('g:wheel_volatile')
+		let g:wheel_volatile = {}
+	endif
+	" Remember number of file args at startup
+	let g:wheel_volatile.argc = argc()
+	let g:wheel_volatile.argv = argv()
+endfun
+
 " ---- initialize all variables & augroup
 
 fun! wheel#void#foundation ()
@@ -321,6 +328,7 @@ fun! wheel#void#foundation ()
 	call wheel#void#autogroup ()
 	call wheel#void#signs ()
 	call wheel#void#wave ()
+	call wheel#void#volatile ()
 endfun
 
 " ---- wipe mandala buffers
