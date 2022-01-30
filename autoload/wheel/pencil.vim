@@ -291,6 +291,7 @@ fun! wheel#pencil#show ()
 	" Add selection mark to all selected lines
 	" This does not alter the selection
 	if ! wheel#pencil#has_selection ()
+		" avoid useless computing
 		return v:false
 	endif
 	let start = wheel#teapot#first_data_line ()
