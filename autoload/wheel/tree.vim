@@ -435,8 +435,8 @@ fun! wheel#tree#rename_file (...)
 	" new name
 	let new_filename = wheel#tree#format_filename (new_filename)
 	" rename file
-	let success = wheel#disc#rename (old_filename, new_filename)
-	if ! success
+	let returnstring = wheel#disc#rename (old_filename, new_filename)
+	if returnstring == 'failure'
 		return v:false
 	endif
 	" link buffer to new file name

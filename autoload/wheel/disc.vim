@@ -54,28 +54,32 @@ fun! wheel#disc#mkdir (directory)
 	let directory = fnamemodify(a:directory, ':p')
 	" nothing to do if directory already exists
 	if isdirectory(directory)
-		return v:true
+		return 'nothing-to-do'
 	endif
 	" create directory
 	echomsg 'wheel : creating directory' directory
 	let success = mkdir(directory, 'p')
 	if ! success
 		echomsg 'wheel disc mkdir : error creating directory' directory
-		return v:false
+		return 'failure'
 	endif
-	return v:true
+	return 'success'
 endfun
 
 " -- file
 
-fun! wheel#disc#rename (source, destination)
-	" Rename file ; check destination is non existent
+fun! wheel#disc#rename (source, destination, ask = 'confirm')
+	" Rename file ; perform some checks
 	let source = a:source
 	let destination = a:destination
 	" check not empty
-	if empty(source) || empty(destination)
+	if empty(source)
 		echomsg 'wheel disc rename : file name cannot be empty'
-		return v:false
+		return 'empty-source-file-name'
+	endif
+	if empty(destination)
+		echomsg 'wheel disc rename : file name cannot be empty'
+		return 'empty-destination-file-name'
 	endif
 	" full path
 	let source = fnamemodify(source, ':p')
@@ -83,48 +87,53 @@ fun! wheel#disc#rename (source, destination)
 	" nothing to do if source == destination
 	if source ==# destination
 		echomsg 'wheel disc rename : nothing to do if new filename == old one'
-		return v:true
+		return 'nothing-to-do'
 	endif
 	" check source is directory
 	if isdirectory(source)
 		echomsg 'wheel disc rename : source must be a regular file'
-		return v:false
+		return 'source-is-directory'
 	endif
 	" check non existent source
 	if ! filereadable(source)
 		echomsg 'wheel disc rename : source file not readable'
-		return v:false
+		return 'source-not-readable'
 	endif
 	" check existent destination
-	if filereadable(destination)
+	if ask == 'confirm' && filereadable(destination)
 		let prompt = 'Replace existing ' .. destination .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
 		if overwrite != 1
-			return v:true
+			return 'confirm-replace-destination-no'
 		endif
 	endif
 	" create directory if needed
 	let directory = fnamemodify(destination, ':h')
-	if ! wheel#disc#mkdir(directory)
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring == 'failure'
 		return v:false
 	endif
 	" rename
 	let zero = rename(source, destination)
 	if zero != 0
 		echomsg 'wheel disc rename : error renaming' source '->' destination
-		return v:false
+		return 'failure'
 	endif
-	return v:true
+	return 'success'
 endfun
 
-fun! wheel#disc#copy (source, destination)
-	" Copy file ; check destination is non existent
+fun! wheel#disc#copy (source, destination, ask = 'confirm')
+	" Copy file ; perform some checks
 	let source = a:source
 	let destination = a:destination
 	" check not empty
-	if empty(source) || empty(destination)
-		echomsg 'wheel disc copy : file name cannot be empty'
-		return v:false
+	if empty(source)
+		echomsg 'wheel disc rename : file name cannot be empty'
+		return 'empty-source-file-name'
+	endif
+	if empty(destination)
+		echomsg 'wheel disc rename : file name cannot be empty'
+		return 'empty-destination-file-name'
 	endif
 	" full path
 	let source = fnamemodify(source, ':p')
@@ -132,72 +141,75 @@ fun! wheel#disc#copy (source, destination)
 	" nothing to do if source == destination
 	if source ==# destination
 		echomsg 'wheel disc copy : nothing to do if new filename == old one'
-		return v:true
+		return 'nothing-to-do'
 	endif
 	" check source is directory
 	if isdirectory(source)
 		echomsg 'wheel disc copy : source must be a regular file'
-		return v:false
+		return 'source-is-directory'
 	endif
 	" check non existent source
 	if ! filereadable(source)
 		echomsg 'wheel disc copy : source file not readable'
-		return v:false
+		return 'source-not-readable'
 	endif
 	" check existent destination
-	if filereadable(destination)
+	if ask == 'confirm' && filereadable(destination)
 		let prompt = 'Replace existing ' .. destination .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
 		if overwrite != 1
-			return v:true
+			return 'confirm-replace-destination-no'
 		endif
 	endif
 	" create directory if needed
 	let directory = fnamemodify(destination, ':h')
-	if ! wheel#disc#mkdir(directory)
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring == 'failure'
 		return v:false
 	endif
 	" copy
 	let content = readfile(source, 'b')
 	let zero = writefile(content, destination, 'b')
 	if zero != 0
-		return v:false
+		return 'failure'
 	endif
-	return v:true
+	return 'success'
 endfun
 
-fun! wheel#disc#delete (file)
-	" Delete file ; ask confirmation
+fun! wheel#disc#delete (file, ask = 'confirm')
+	" Delete file ; perform some checks
 	let file = a:file
 	" check not empty
 	if empty(file)
 		echomsg 'wheel disc delete : file name cannot be empty'
-		return v:false
+		return 'empty-file-name'
 	endif
 	" full path
 	let file = fnamemodify(file, ':p')
 	" check file is directory
 	if isdirectory(file)
 		echomsg 'wheel disc delete : file must be a regular file'
-		return v:false
+		return 'file-is-directory'
 	endif
 	" check non existent file
 	if ! filereadable(file)
 		echomsg 'wheel disc delete : file not readable'
-		return v:false
+		return 'file-not-readable'
 	endif
 	" ask confirmation
-	let prompt = 'Delete ' .. file .. ' ?'
-	let overwrite = confirm(prompt, "&Yes\n&No", 2)
-	if overwrite != 1
-		return v:true
+	if ask == 'confirm'
+		let prompt = 'Delete ' .. file .. ' ?'
+		let overwrite = confirm(prompt, "&Yes\n&No", 2)
+		if overwrite != 1
+			return 'confirm-no'
+		endif
 	endif
 	" delete
 	let zero = delete(file)
 	if zero != 0
-		return v:false
+		return 'failure'
 	endif
-	return v:true
+	return 'success'
 endfun
 
 " ---- write & read
@@ -296,9 +308,9 @@ fun! wheel#disc#roll_backups (file, backups)
 		let second = remove(filelist, 0)
 		let first = filelist[0]
 		if filereadable(first)
-			"echomsg 'renaming' first '->' second
-			let zero = rename(first, second)
-			if zero != 0
+			echomsg 'renaming' first '->' second
+			let returnstring = wheel#disc#rename(first, second)
+			if returnstring == 'failure'
 				echomsg 'wheel batch rename files : error renaming' first '->' second
 				return v:false
 			endif
