@@ -112,7 +112,7 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 	let directory = fnamemodify(destination, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
 	if returnstring == 'failure'
-		return v:false
+		return 'failure'
 	endif
 	" rename
 	let zero = rename(source, destination)
@@ -167,7 +167,7 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 	let directory = fnamemodify(destination, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
 	if returnstring == 'failure'
-		return v:false
+		return 'failure'
 	endif
 	" copy
 	let content = readfile(source, 'b')
