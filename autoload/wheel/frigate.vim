@@ -106,13 +106,13 @@ fun! wheel#frigate#jump ()
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
 	endif
-	let lines = wheel#perspective#jumps ()
+	let lines = wheel#perspective#jump ()
 	if empty(lines)
 		echomsg 'wheel frigate jump : empty result'
 		return v:false
 	endif
 	" mandala buffer
-	call wheel#mandala#blank ('jumps')
+	call wheel#mandala#blank ('jump')
 	let settings = {'function' : function('wheel#line#jump')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
@@ -131,7 +131,7 @@ fun! wheel#frigate#change ()
 		return v:false
 	endif
 	" mandala buffer
-	call wheel#mandala#blank ('changes')
+	call wheel#mandala#blank ('change')
 	let settings = {'function' : function('wheel#line#change')}
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
