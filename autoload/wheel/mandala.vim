@@ -409,8 +409,6 @@ fun! wheel#mandala#blank (type)
 	call wheel#vortex#update ()
 	let related_buffer = bufnr('%')
 	if ! wheel#cylinder#recall()
-		" first mandala
-		" split is done in the routine
 		call wheel#cylinder#first ('split')
 	endif
 	" add new leaf, clear mandala, init vars
@@ -441,7 +439,7 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Optional argument handle the first line filtering input :
 	"   - keep-first (default) : keep first line
 	"   - prompt-first : keep input, add prompt if not present
-	"   - blank-first : blank first line
+	"   - empty-prompt-first : blank first line
 	"   - delete-first : delete first line
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer'
@@ -472,7 +470,7 @@ fun! wheel#mandala#replace (content, first = 'keep-first')
 	" -- first line
 	if first == 'prompt-first'
 		call wheel#teapot#set_prompt (getline(1))
-	elseif first == 'blank-first'
+	elseif first == 'empty-prompt-first'
 		call wheel#teapot#set_prompt ()
 	elseif first == 'delete-first'
 		silent 1 delete _
@@ -515,7 +513,7 @@ fun! wheel#mandala#reload ()
 	else
 		" by default, if b:wheel_reload is not defined or empty,
 		" fill the buffer with b:wheel_lines
-		call wheel#mandala#fill (b:wheel_lines, 'blank-first')
+		call wheel#mandala#fill (b:wheel_lines, 'empty-prompt-first')
 		" restore
 		execute 'silent file' filename
 		echomsg 'wheel : content reloaded'
