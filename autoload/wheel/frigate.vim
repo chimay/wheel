@@ -125,7 +125,7 @@ fun! wheel#frigate#change ()
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
 	endif
-	let lines = wheel#perspective#changes ()
+	let lines = wheel#perspective#change ()
 	if empty(lines)
 		echomsg 'wheel frigate change : empty result'
 		return v:false
