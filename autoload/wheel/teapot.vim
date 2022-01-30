@@ -48,7 +48,7 @@ endfun
 
 fun! wheel#teapot#prompt ()
 	" Return prompt string
-	if wheel#mandala#is_writable ()
+	if wheel#cuboctahedron#is_writable ()
 		return g:wheel_config.display.prompt_writable
 	else
 		return g:wheel_config.display.prompt

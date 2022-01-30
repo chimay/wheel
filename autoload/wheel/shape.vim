@@ -17,7 +17,7 @@ fun! wheel#shape#reorg_tabwin ()
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#mandala#folding_options ('tabwin_folding_text')
-	call wheel#yggdrasil#write ('reorg_tabwin')
+	call wheel#cuboctahedron#write ('reorg_tabwin')
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	setlocal nocursorline

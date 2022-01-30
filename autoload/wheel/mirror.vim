@@ -52,7 +52,7 @@ fun! wheel#mirror#grep_edit (...)
 	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	call wheel#yggdrasil#write ('wheel#vector#write_quickfix')
+	call wheel#cuboctahedron#write ('wheel#vector#write_quickfix')
 	call wheel#mandala#fill (lines, 'prompt-first')
 	silent global /^$/ delete
 	setlocal nomodified
@@ -109,7 +109,7 @@ fun! wheel#mirror#narrow_file (...) range
 	call wheel#whirl#mappings (settings)
 	call wheel#polyphony#template ()
 	call wheel#polyphony#action_maps ('file')
-	call wheel#yggdrasil#write ('wheel#polyphony#harmony')
+	call wheel#cuboctahedron#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings
@@ -145,7 +145,7 @@ fun! wheel#mirror#narrow_circle (...)
 	let settings = {'function' : function('wheel#line#narrow_circle')}
 	call wheel#whirl#mappings (settings)
 	call wheel#polyphony#action_maps ('circle')
-	call wheel#yggdrasil#write ('wheel#polyphony#counterpoint')
+	call wheel#cuboctahedron#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings

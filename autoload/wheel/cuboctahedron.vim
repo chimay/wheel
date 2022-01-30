@@ -32,6 +32,11 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+	lockvar s:mandala_autocmds_group
+endif
+
 " reorganize tabs & windows helpers
 
 fun! wheel#cuboctahedron#baskets (linelist)
@@ -547,4 +552,39 @@ fun! wheel#cuboctahedron#reorg_tabwin ()
 	echomsg 'tabs & windows reorganized'
 	" -- return value
 	return [tabindexes, tabwindows, removed]
+endfun
+
+" mandala
+
+fun! wheel#cuboctahedron#is_writable ()
+	" Whether mandala has BufWriteCmd autocommand
+	return b:wheel_nature.is_writable
+endfun
+
+fun! wheel#cuboctahedron#write (fun_name, ...)
+	" Define BufWriteCmd autocommand & set writable property
+	" -- arguments
+	let fun_name = a:fun_name
+	if a:0 > 0
+		let optional = string(a:1)
+	else
+		let optional = ''
+	endif
+	" -- property
+	let b:wheel_nature.is_writable = v:true
+	" -- options
+	setlocal buftype=acwrite
+	" -- autocommand
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	if fun_name =~ '#'
+		" fun_name is the complete function name
+		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
+	else
+		" fun_name is the last part of the function
+		let function = 'call wheel#cuboctahedron#'
+		let function ..= fun_name .. '(' .. optional .. ')'
+	endif
+	exe 'autocmd' group event '<buffer>' function
 endfun

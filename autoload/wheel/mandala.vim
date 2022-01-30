@@ -204,11 +204,6 @@ fun! wheel#mandala#is_empty ()
 	return b:wheel_nature.empty
 endfun
 
-fun! wheel#mandala#is_writable ()
-	" Whether mandala has BufWriteCmd autocommand
-	return b:wheel_nature.is_writable
-endfun
-
 fun! wheel#mandala#type ()
 	" Type of a mandala buffer
 	return b:wheel_nature.type
@@ -428,23 +423,22 @@ endfun
 
 " content
 
-fun! wheel#mandala#update_var_lines (mood = 'patient')
+fun! wheel#mandala#set_var_lines ()
+	" Set lines in local mandala variables, from visible lines
+	" Affected :
+	"   - b:wheel_lines
+	let start = wheel#teapot#first_data_line ()
+	let lines = getline(start, '$')
+	let b:wheel_lines = lines
+	return v:true
+endfun
+
+fun! wheel#mandala#update_var_lines ()
 	" Update lines in local mandala variables, from visible lines
 	" Affected :
 	"   - b:wheel_lines
 	"   - b:wheel_filter.lines
-	" Optional argument :
-	"   - patient (default) : update with all checks
-	"   - hurry : update from rough buffer lines
-	"             works only if selction is empty and
-	"             content if _not_ filtered
-	let mood = a:mood
 	let start = wheel#teapot#first_data_line ()
-	if mood == 'hurry'
-		let lines = getline(start, '$')
-		let b:wheel_lines = lines
-		return v:true
-	endif
 	if wheel#teapot#is_filtered ()
 		let lastline = line('$')
 		for linum in range(start, lastline)
@@ -524,10 +518,8 @@ fun! wheel#mandala#fill (content, first = 'prompt-first')
 	" Arguments : see mandala#replace
 	" ---- replace old content, fill if empty
 	call wheel#mandala#replace(a:content, a:first)
-	" -- update b:wheel_lines
-	" -- first fill of the mandala function,
-	" -- content should be unfiltered
-	call wheel#mandala#update_var_lines ('hurry')
+	" -- fill b:wheel_lines
+	call wheel#mandala#set_var_lines ()
 	" ---- update leaf ring
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()

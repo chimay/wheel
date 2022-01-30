@@ -2,41 +2,6 @@
 
 " Organize the wheel, dedicated buffers
 
-if ! exists('s:mandala_autocmds_group')
-	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
-	lockvar s:mandala_autocmds_group
-endif
-
-" write commands
-
-fun! wheel#yggdrasil#write (fun_name, ...)
-	" Define BufWriteCmd autocommand & set writable property
-	" -- arguments
-	let fun_name = a:fun_name
-	if a:0 > 0
-		let optional = string(a:1)
-	else
-		let optional = ''
-	endif
-	" -- property
-	let b:wheel_nature.is_writable = v:true
-	" -- options
-	setlocal buftype=acwrite
-	" -- autocommand
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	if fun_name =~ '#'
-		" fun_name is the complete function name
-		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
-	else
-		" fun_name is the last part of the function
-		let function = 'call wheel#cuboctahedron#'
-		let function ..= fun_name .. '(' .. optional .. ')'
-	endif
-	exe 'autocmd' group event '<buffer>' function
-endfun
-
 " reorder
 
 fun! wheel#yggdrasil#reorder (level)
@@ -52,7 +17,7 @@ fun! wheel#yggdrasil#reorder (level)
 	call wheel#mandala#blank ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	call wheel#yggdrasil#write ('reorder', level)
+	call wheel#cuboctahedron#write ('reorder', level)
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	" -- reload
@@ -79,7 +44,7 @@ fun! wheel#yggdrasil#rename (level)
 	call wheel#mandala#blank ('rename/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	call wheel#yggdrasil#write ('rename', level)
+	call wheel#cuboctahedron#write ('rename', level)
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	" reload
@@ -99,7 +64,7 @@ fun! wheel#yggdrasil#rename_files ()
 	call wheel#mandala#blank ('rename/locations_files')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	call wheel#yggdrasil#write ('rename_files')
+	call wheel#cuboctahedron#write ('rename_files')
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	" reload
@@ -123,7 +88,7 @@ fun! wheel#yggdrasil#delete (level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#pencil#mappings ()
-	call wheel#yggdrasil#write ('delete', level)
+	call wheel#cuboctahedron#write ('delete', level)
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	" reload
@@ -146,7 +111,7 @@ fun! wheel#yggdrasil#copy_move (level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#pencil#mappings ()
-	call wheel#yggdrasil#write ('copy_move', level)
+	call wheel#cuboctahedron#write ('copy_move', level)
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	" reload
@@ -168,7 +133,7 @@ fun! wheel#yggdrasil#reorganize ()
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#mandala#folding_options ()
-	call wheel#yggdrasil#write ('reorganize')
+	call wheel#cuboctahedron#write ('reorganize')
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	setlocal nocursorline
