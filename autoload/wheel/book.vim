@@ -324,7 +324,7 @@ fun! wheel#book#syncdown ()
 	let mappings = deepcopy(leaf.mappings)
 	call wheel#gear#restore_maps (mappings)
 	" -- autocommands
-	let autodict = copy(leaf.autocmds)
+	let autodict = deepcopy(leaf.autocmds)
 	call wheel#book#restore_autocmds (autodict)
 	" -- general qualities
 	let b:wheel_nature = copy(leaf.nature)
