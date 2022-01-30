@@ -76,7 +76,7 @@ endfun
 fun! wheel#frigate#tabwin ()
 	" Buffers visible in tabs & wins
 	" To be run before opening the mandala buffer
-	let lines = wheel#perspective#tabwins ()
+	let lines = wheel#perspective#tabwin ()
 	if empty(lines)
 		echomsg 'wheel frigate tabwin : empty result'
 		return v:false
