@@ -433,34 +433,6 @@ fun! wheel#mandala#set_var_lines ()
 	return v:true
 endfun
 
-fun! wheel#mandala#update_var_lines ()
-	" Update lines in local mandala variables, from visible lines
-	" Affected :
-	"   - b:wheel_lines
-	"   - b:wheel_filter.lines
-	let start = wheel#teapot#first_data_line ()
-	if wheel#teapot#is_filtered ()
-		let lastline = line('$')
-		for linum in range(start, lastline)
-			let visible = getline(linum)
-			let visible = wheel#pencil#erase (visible)
-			let line_index = wheel#teapot#line_index (linum)
-			let b:wheel_lines[line_index] = visible
-			let local_index = linum - start
-			let b:wheel_filter.lines[local_index] = visible
-		endfor
-	else
-		let lines = getline(start, '$')
-		let length = len(lines)
-		for index in range(length)
-			let visible = lines[index]
-			let lines[index] = wheel#pencil#erase (visible)
-		endfor
-		let b:wheel_lines = lines
-	endif
-	return v:true
-endfun
-
 fun! wheel#mandala#replace (content, first = 'keep-first')
 	" Replace mandala buffer with content
 	" Content can be :

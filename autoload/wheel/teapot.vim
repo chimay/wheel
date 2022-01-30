@@ -121,7 +121,7 @@ endfun
 fun! wheel#teapot#filter ()
 	" Filter : keep only lines matching words of first line
 	let words = wheel#teapot#wordlist ()
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	if empty(words)
 		let lines = b:wheel_lines
 		let b:wheel_filter.words = []

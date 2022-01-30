@@ -245,12 +245,13 @@ endfun
 fun! wheel#book#syncup ()
 	" Sync mandala state to current leaf in ring
 	" state = vars, options, maps, autocmds
-	" ---- empty mandala ?
+	" -- empty mandala ?
 	if wheel#mandala#is_empty()
 		return v:false
 	endif
-	" ---- sync up
-	call wheel#mandala#update_var_lines ()
+	" -- update visible lines -> local vars lines
+	call wheel#cuboctahedron#update_var_lines ()
+	" -- leaves ring
 	let ring = b:wheel_ring
 	" -- leaf to fill / update
 	let current = ring.current
@@ -292,8 +293,9 @@ endfun
 fun! wheel#book#syncdown ()
 	" Sync current leaf in ring to mandala state
 	" state = vars, options, maps, autocmds
-	" -- leaf to activate
+	" -- leaves ring
 	let ring = b:wheel_ring
+	" -- leaf to activate
 	let current = ring.current
 	let leaf = ring.leaves[current]
 	" -- pseudo filename

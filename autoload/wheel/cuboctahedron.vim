@@ -37,6 +37,72 @@ if ! exists('s:mandala_autocmds_group')
 	lockvar s:mandala_autocmds_group
 endif
 
+" mandala helpers
+
+fun! wheel#cuboctahedron#is_writable ()
+	" Whether mandala has BufWriteCmd autocommand
+	return b:wheel_nature.is_writable
+endfun
+
+fun! wheel#cuboctahedron#update_var_lines ()
+	" Update lines in local mandala variables, from visible lines
+	" Affected :
+	"   - b:wheel_lines
+	"   - b:wheel_filter.lines
+	if ! wheel#cuboctahedron#is_writable ()
+		return v:false
+	endif
+	let start = wheel#teapot#first_data_line ()
+	if wheel#teapot#is_filtered ()
+		let lastline = line('$')
+		for linum in range(start, lastline)
+			let visible = getline(linum)
+			let visible = wheel#pencil#erase (visible)
+			let line_index = wheel#teapot#line_index (linum)
+			let b:wheel_lines[line_index] = visible
+			let local_index = linum - start
+			let b:wheel_filter.lines[local_index] = visible
+		endfor
+	else
+		let lines = getline(start, '$')
+		let length = len(lines)
+		for index in range(length)
+			let visible = lines[index]
+			let lines[index] = wheel#pencil#erase (visible)
+		endfor
+		let b:wheel_lines = lines
+	endif
+	return v:true
+endfun
+
+fun! wheel#cuboctahedron#write (fun_name, ...)
+	" Define BufWriteCmd autocommand & set writable property
+	" -- arguments
+	let fun_name = a:fun_name
+	if a:0 > 0
+		let optional = string(a:1)
+	else
+		let optional = ''
+	endif
+	" -- property
+	let b:wheel_nature.is_writable = v:true
+	" -- options
+	setlocal buftype=acwrite
+	" -- autocommand
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	if fun_name =~ '#'
+		" fun_name is the complete function name
+		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
+	else
+		" fun_name is the last part of the function
+		let function = 'call wheel#cuboctahedron#'
+		let function ..= fun_name .. '(' .. optional .. ')'
+	endif
+	exe 'autocmd' group event '<buffer>' function
+endfun
+
 " reorganize tabs & windows helpers
 
 fun! wheel#cuboctahedron#baskets (linelist)
@@ -183,7 +249,7 @@ fun! wheel#cuboctahedron#reorder (level)
 	" Reorder elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	" -- reorder
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
@@ -220,7 +286,7 @@ fun! wheel#cuboctahedron#rename (level)
 	" Rename elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	" -- rename
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -258,7 +324,7 @@ endfun
 fun! wheel#cuboctahedron#rename_files ()
 	" Rename locations & files of current circle, after buffer content
 	" -- update lines in local vars from visible lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	" -- init
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
@@ -331,7 +397,7 @@ fun! wheel#cuboctahedron#delete (level)
 	" Delete selected elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	" -- delete
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
@@ -373,7 +439,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	" Copy or move selected elements at level
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	" -- mode : copy or move
 	let prompt = 'Mode ? '
 	let answer = confirm(prompt, "&Copy\n&Move", 1)
@@ -471,7 +537,7 @@ fun! wheel#cuboctahedron#reorganize ()
 		call wheel#disc#write_wheel ()
 	endif
 	" -- update lines in local vars from visible lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	" -- start from empty wheel
 	call wheel#gear#unlet ('g:wheel')
 	call wheel#void#wheel ()
@@ -519,7 +585,7 @@ fun! wheel#cuboctahedron#reorg_tabwin ()
 	" Mandala line list
 	" Keep old layouts if possible
 	" -- update lines in local vars from visible lines
-	call wheel#mandala#update_var_lines ()
+	call wheel#cuboctahedron#update_var_lines ()
 	" -- list of lines
 	let linelist = wheel#teapot#all_lines ()
 	" -- current tab
@@ -552,39 +618,4 @@ fun! wheel#cuboctahedron#reorg_tabwin ()
 	echomsg 'tabs & windows reorganized'
 	" -- return value
 	return [tabindexes, tabwindows, removed]
-endfun
-
-" mandala
-
-fun! wheel#cuboctahedron#is_writable ()
-	" Whether mandala has BufWriteCmd autocommand
-	return b:wheel_nature.is_writable
-endfun
-
-fun! wheel#cuboctahedron#write (fun_name, ...)
-	" Define BufWriteCmd autocommand & set writable property
-	" -- arguments
-	let fun_name = a:fun_name
-	if a:0 > 0
-		let optional = string(a:1)
-	else
-		let optional = ''
-	endif
-	" -- property
-	let b:wheel_nature.is_writable = v:true
-	" -- options
-	setlocal buftype=acwrite
-	" -- autocommand
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	if fun_name =~ '#'
-		" fun_name is the complete function name
-		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
-	else
-		" fun_name is the last part of the function
-		let function = 'call wheel#cuboctahedron#'
-		let function ..= fun_name .. '(' .. optional .. ')'
-	endif
-	exe 'autocmd' group event '<buffer>' function
 endfun
