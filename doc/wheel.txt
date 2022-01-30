@@ -3378,6 +3378,7 @@ Some bindings that you may find useful : >
     nmap <silent> <d-k>       <plug>(wheel-dedibuf-marker)
     nmap <silent> <d-j>       <plug>(wheel-dedibuf-jump)
     nmap <silent> <d-c>       <plug>(wheel-dedibuf-change)
+    nmap <silent> <d-t>       <plug>(wheel-dedibuf-tag)
 
     " narrow
     nmap <silent> <d-n>       <plug>(wheel-dedibuf-narrow-operator)
