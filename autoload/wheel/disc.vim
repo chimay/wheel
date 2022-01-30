@@ -312,13 +312,14 @@ fun! wheel#disc#roll_backups (file, backups)
 	while len(filelist) > 1
 		let second = remove(filelist, 0)
 		let first = filelist[0]
-		if filereadable(first)
-			"echomsg 'backup' first '->' second
-			let returnstring = wheel#disc#rename(first, second, 'force')
-			if returnstring == 'failure'
-				echomsg 'wheel batch rename files : error renaming' first '->' second
-				return v:false
-			endif
+		if ! filereadable(first)
+			continue
+		endif
+		"echomsg 'backup' first '->' second
+		let returnstring = wheel#disc#rename(first, second, 'force')
+		if returnstring == 'failure'
+			echomsg 'wheel batch rename files : error renaming' first '->' second
+			return v:false
 		endif
 	endwhile
 endfun
