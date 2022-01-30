@@ -374,14 +374,16 @@ fun! wheel#cuboctahedron#rename_files ()
 		let old_filename = locations[index].file
 		let new_filename = wheel#tree#format_filename (fields[1])
 		" old -> new
-		echomsg 'wheel : renaming' old_filename '->' new_filename
-		let locations[index].file = new_filename
 		let returnstring = wheel#disc#rename(old_filename, new_filename)
 		if returnstring != 'success'
 			continue
 		endif
+		echomsg 'wheel : renaming' old_filename '->' new_filename
+		let locations[index].file = new_filename
 		" wipe old filename buffer if existent
-		execute 'bwipe' old_filename
+		if bufexists(old_filename)
+			execute 'bwipe' old_filename
+		endif
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	endfor
