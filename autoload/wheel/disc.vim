@@ -58,8 +58,8 @@ fun! wheel#disc#mkdir (directory)
 	endif
 	" create directory
 	echomsg 'wheel : creating directory' directory
-	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring == 'failure'
+	let success = mkdir(directory, 'p')
+	if ! success
 		echomsg 'wheel disc mkdir : error creating directory' directory
 		return 'failure'
 	endif
