@@ -322,7 +322,7 @@ fun! wheel#cuboctahedron#rename (level)
 	return elements
 endfun
 
-fun! wheel#cuboctahedron#rename_files ()
+fun! wheel#cuboctahedron#rename_file ()
 	" Rename locations & files of current circle, after buffer content
 	" -- update lines in local vars from visible lines
 	call wheel#cuboctahedron#update_var_lines ()

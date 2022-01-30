@@ -117,7 +117,7 @@ fun! wheel#whirl#switch (level)
 		echomsg 'wheel whirl switch : empty' upper
 		return v:false
 	endif
-	let lines = wheel#perspective#elements (level)
+	let lines = wheel#perspective#element (level)
 	call wheel#mandala#blank ('switch/' .. level)
 	let settings = {'level' : level}
 	call wheel#whirl#template (settings)

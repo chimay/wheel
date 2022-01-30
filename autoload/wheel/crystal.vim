@@ -434,7 +434,7 @@ if ! exists('s:menu_organize_wheel')
 				\ ['rename toruses' ,  "wheel#yggdrasil#rename('torus')"],
 				\ ['rename circles' ,  "wheel#yggdrasil#rename('circle')"],
 				\ ['rename locations' ,  "wheel#yggdrasil#rename('location')"],
-				\ ['rename locations & filenames' ,  'wheel#yggdrasil#rename_files'],
+				\ ['rename locations & filenames' ,  'wheel#yggdrasil#rename_file'],
 				\ ['delete torus' ,  "wheel#tree#delete('torus')"],
 				\ ['delete circle' ,  "wheel#tree#delete('circle')"],
 				\ ['delete location' ,  "wheel#tree#delete('location')"],

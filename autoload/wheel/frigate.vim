@@ -98,7 +98,7 @@ fun! wheel#frigate#marker ()
 	if wheel#cylinder#is_mandala ()
 		call wheel#rectangle#previous ()
 	endif
-	call wheel#frigate#generic('markers')
+	call wheel#frigate#generic('marker')
 endfun
 
 fun! wheel#frigate#jump ()
@@ -108,7 +108,7 @@ fun! wheel#frigate#jump ()
 	endif
 	let lines = wheel#perspective#jumps ()
 	if empty(lines)
-		echomsg 'wheel frigate jumps : empty result'
+		echomsg 'wheel frigate jump : empty result'
 		return v:false
 	endif
 	" mandala buffer
@@ -127,7 +127,7 @@ fun! wheel#frigate#change ()
 	endif
 	let lines = wheel#perspective#changes ()
 	if empty(lines)
-		echomsg 'wheel frigate changes : empty result'
+		echomsg 'wheel frigate change : empty result'
 		return v:false
 	endif
 	" mandala buffer
@@ -141,7 +141,7 @@ endfun
 
 fun! wheel#frigate#tag ()
 	" Tags file
-	call wheel#frigate#generic('tags')
+	call wheel#frigate#generic('tag')
 endfun
 
 " search files

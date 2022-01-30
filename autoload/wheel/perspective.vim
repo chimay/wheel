@@ -67,7 +67,7 @@ endfun
 
 " from referen
 
-fun! wheel#perspective#elements (level)
+fun! wheel#perspective#element (level)
 	" Switch level = torus, circle or location
 	let level = a:level
 	let upper = wheel#referen#upper (level)
@@ -78,7 +78,7 @@ fun! wheel#perspective#elements (level)
 	endif
 endfun
 
-fun! wheel#perspective#rename_files ()
+fun! wheel#perspective#rename_file ()
 	" Locations & files names
 	let circle = deepcopy(wheel#referen#circle())
 	if empty(circle) || empty(circle.glossary)
@@ -374,7 +374,7 @@ fun! wheel#perspective#tabwins ()
 	return returnlist
 endfun
 
-fun! wheel#perspective#tabwins_tree ()
+fun! wheel#perspective#tabwin_tree ()
 	" Buffers visible in tree of tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')
@@ -421,7 +421,7 @@ fun! wheel#perspective#occur (pattern)
 	return returnlist
 endfun
 
-fun! wheel#perspective#markers ()
+fun! wheel#perspective#marker ()
 	" Markers
 	let returnlist = []
 	let bufnum = bufnr('%')
@@ -452,7 +452,7 @@ fun! wheel#perspective#markers ()
 	return returnlist
 endfun
 
-fun! wheel#perspective#jumps ()
+fun! wheel#perspective#jump ()
 	" Jumps
 	let returnlist = []
 	let mandalas = g:wheel_mandalas.ring
@@ -497,7 +497,7 @@ fun! wheel#perspective#jumps ()
 	return returnlist
 endfun
 
-fun! wheel#perspective#changes ()
+fun! wheel#perspective#change ()
 	" Changes
 	let returnlist = []
 	let changelist = getchangelist()[0]
@@ -547,7 +547,7 @@ endfun
 
 " from symbol
 
-fun! wheel#perspective#tags ()
+fun! wheel#perspective#tag ()
 	" Tags
 	let table = wheel#symbol#table ()
 	let returnlist = []

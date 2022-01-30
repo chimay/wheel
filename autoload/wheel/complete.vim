@@ -201,14 +201,14 @@ endfun
 
 fun! wheel#complete#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
-	let choices = wheel#perspective#buffers ('all')
+	let choices = wheel#perspective#buffer ('all')
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
 fun! wheel#complete#visible_buffer (arglead, cmdline, cursorpos)
 	" Complete buffer visible in tabs & windows
-	let choices = wheel#perspective#tabwins ()
+	let choices = wheel#perspective#tabwin ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
@@ -227,21 +227,21 @@ endfun
 
 fun! wheel#complete#marker (arglead, cmdline, cursorpos)
 	" Complete marker
-	let choices = wheel#perspective#markers ()
+	let choices = wheel#perspective#marker ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
 fun! wheel#complete#jump (arglead, cmdline, cursorpos)
 	" Complete jump
-	let choices = wheel#perspective#jumps ()
+	let choices = wheel#perspective#jump ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
 fun! wheel#complete#change (arglead, cmdline, cursorpos)
 	" Complete change
-	let choices = wheel#perspective#changes ()
+	let choices = wheel#perspective#change ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun

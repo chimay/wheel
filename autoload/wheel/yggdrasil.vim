@@ -7,7 +7,7 @@
 fun! wheel#yggdrasil#reorder (level)
 	" Reorder level elements in a buffer
 	let level = a:level
-	let lines = wheel#perspective#elements (level)
+	let lines = wheel#perspective#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape reorder : empty or incomplete' level
@@ -34,7 +34,7 @@ endfun
 fun! wheel#yggdrasil#rename (level)
 	" Rename level elements in a buffer
 	let level = a:level
-	let lines = wheel#perspective#elements (level)
+	let lines = wheel#perspective#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape rename : empty or incomplete' level
@@ -51,24 +51,24 @@ fun! wheel#yggdrasil#rename (level)
 	let b:wheel_reload = "wheel#yggdrasil#rename('" .. level .. "')"
 endfun
 
-fun! wheel#yggdrasil#rename_files ()
+fun! wheel#yggdrasil#rename_file ()
 	" Rename locations & files of current circle, after buffer content
 	" -- lines
-	let lines = wheel#perspective#rename_files ()
+	let lines = wheel#perspective#rename_file ()
 	" -- pre-checks
 	if empty(lines)
-		echomsg 'wheel shape rename_files : empty or incomplete circle'
+		echomsg 'wheel shape rename_file : empty or incomplete circle'
 		return v:false
 	endif
 	" -- mandala
 	call wheel#mandala#blank ('rename/locations_files')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	call wheel#cuboctahedron#write ('rename_files')
+	call wheel#cuboctahedron#write ('rename_file')
 	call wheel#mandala#fill(lines, 'prompt-first')
 	setlocal nomodified
 	" reload
-	let b:wheel_reload = 'wheel#yggdrasil#rename_files()'
+	let b:wheel_reload = 'wheel#yggdrasil#rename_file()'
 	return v:true
 endfun
 
@@ -77,7 +77,7 @@ endfun
 fun! wheel#yggdrasil#delete (level)
 	" Copy or move elements at level
 	let level = a:level
-	let lines = wheel#perspective#elements (level)
+	let lines = wheel#perspective#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape copy / move : empty or incomplete' level
@@ -100,7 +100,7 @@ endfun
 fun! wheel#yggdrasil#copy_move (level)
 	" Copy or move elements at level
 	let level = a:level
-	let lines = wheel#perspective#elements (level)
+	let lines = wheel#perspective#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape copy / move : empty or incomplete' level
