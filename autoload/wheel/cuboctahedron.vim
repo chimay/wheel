@@ -50,6 +50,7 @@ fun! wheel#cuboctahedron#update_var_lines ()
 	"   - b:wheel_lines
 	"   - b:wheel_filter.lines
 	if ! wheel#cuboctahedron#is_writable ()
+		" if mandala is not writable, lines are not supposed to be modified
 		return v:false
 	endif
 	let start = wheel#teapot#first_data_line ()
