@@ -30,18 +30,18 @@ fun! wheel#frigate#buffer (scope = 'listed')
 	"   - listed (default) : don't return unlisted buffers
 	"   - all : also return unlisted buffers
 	let scope = a:scope
-	let lines = wheel#perspective#buffers (scope)
+	let lines = wheel#perspective#buffer (scope)
 	if empty(lines)
-		echomsg 'wheel frigate buffers : empty result'
+		echomsg 'wheel frigate buffer : empty result'
 		return v:false
 	endif
 	" mandala buffer
 	if scope == 'listed'
-		let type = 'buffers'
+		let type = 'buffer'
 	elseif scope == 'all'
-		let type = 'buffers/all'
+		let type = 'buffer/all'
 	else
-		echomsg 'wheel frigate buffers : bad optional argument'
+		echomsg 'wheel frigate buffer : bad optional argument'
 		return []
 	endif
 	call wheel#mandala#blank (type)

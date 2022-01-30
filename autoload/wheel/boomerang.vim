@@ -72,8 +72,8 @@ fun! wheel#boomerang#buffer (action)
 	let settings.menu.action = action
 	if action == 'delete'
 		call wheel#loop#boomerang (settings)
-		" dont remove parent selection on buffers/all
-		if wheel#mandala#type () == 'buffers'
+		" dont remove parent selection on buffer/all
+		if wheel#mandala#type () == 'buffer'
 			call wheel#upstream#remove_selection ()
 		endif
 	elseif action == 'unload'

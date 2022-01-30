@@ -247,7 +247,7 @@ endfun
 
 " Buffers
 
-fun! wheel#perspective#buffers (scope = 'listed')
+fun! wheel#perspective#buffer (scope = 'listed')
 	" Buffers
 	" Optional argument :
 	"   - listed (default) : don't return unlisted buffers
@@ -261,7 +261,7 @@ fun! wheel#perspective#buffers (scope = 'listed')
 	elseif scope == 'all'
 		let buflist = getbufinfo()
 	else
-		echomsg 'wheel perspective buffers : bad optional argument'
+		echomsg 'wheel perspective buffer : bad optional argument'
 		return []
 	endif
 	let returnlist = []
