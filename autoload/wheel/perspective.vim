@@ -348,7 +348,7 @@ endfun
 
 " Tab & windows
 
-fun! wheel#perspective#tabwins ()
+fun! wheel#perspective#tabwin ()
 	" Buffers visible in tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')
