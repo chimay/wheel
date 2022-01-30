@@ -58,8 +58,8 @@ fun! wheel#disc#mkdir (directory)
 	endif
 	" create directory
 	echomsg 'wheel : creating directory' directory
-	let success = mkdir(directory, 'p')
-	if ! success
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring == 'failure'
 		echomsg 'wheel disc mkdir : error creating directory' directory
 		return 'failure'
 	endif
@@ -72,6 +72,7 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 	" Rename file ; perform some checks
 	let source = a:source
 	let destination = a:destination
+	let ask = a:ask
 	" check not empty
 	if empty(source)
 		echomsg 'wheel disc rename : file name cannot be empty'
@@ -126,6 +127,7 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 	" Copy file ; perform some checks
 	let source = a:source
 	let destination = a:destination
+	let ask = a:ask
 	" check not empty
 	if empty(source)
 		echomsg 'wheel disc rename : file name cannot be empty'
@@ -179,6 +181,7 @@ endfun
 fun! wheel#disc#delete (file, ask = 'confirm')
 	" Delete file ; perform some checks
 	let file = a:file
+	let ask = a:ask
 	" check not empty
 	if empty(file)
 		echomsg 'wheel disc delete : file name cannot be empty'
@@ -229,7 +232,8 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	let where = a:where
 	" create directory if needed
 	let directory = fnamemodify(file, ':h')
-	if ! wheel#disc#mkdir(directory)
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring == 'failure'
 		return v:false
 	endif
 	" write
@@ -260,7 +264,8 @@ fun! wheel#disc#write (pointer, file, where = '>')
 	let where = a:where
 	" create directory if needed
 	let directory = fnamemodify(file, ':h')
-	if ! wheel#disc#mkdir(directory)
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring == 'failure'
 		return v:false
 	endif
 	" write
@@ -308,8 +313,8 @@ fun! wheel#disc#roll_backups (file, backups)
 		let second = remove(filelist, 0)
 		let first = filelist[0]
 		if filereadable(first)
-			echomsg 'renaming' first '->' second
-			let returnstring = wheel#disc#rename(first, second)
+			"echomsg 'backup' first '->' second
+			let returnstring = wheel#disc#rename(first, second, 'force')
 			if returnstring == 'failure'
 				echomsg 'wheel batch rename files : error renaming' first '->' second
 				return v:false
@@ -401,7 +406,8 @@ fun! wheel#disc#write_session (...)
 	set sessionoptions=tabpages,winsize
 	" create directory if needed
 	let directory = fnamemodify(session_file, ':h')
-	if ! wheel#disc#mkdir(directory)
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring == 'failure'
 		return v:false
 	endif
 	" backup old sessions
