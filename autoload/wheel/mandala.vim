@@ -490,7 +490,7 @@ fun! wheel#mandala#fill (content, first = 'prompt-first')
 	call wheel#mandala#replace(a:content, a:first)
 	" -- fill b:wheel_lines
 	call wheel#mandala#set_var_lines ()
-	" ---- update leaf ring
+	" ---- sync mandala -> leaf ring
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()
 endfun

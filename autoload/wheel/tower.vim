@@ -64,15 +64,15 @@ fun! wheel#tower#mappings (settings)
 	call wheel#mandala#template ()
 	" Menu specific maps
 	let map = 'nnoremap <silent> <buffer>'
-	let pre = '<cmd>call wheel#tower#menu('
-	let post = ')<cr>'
+	let linefun = '<cmd>call wheel#tower#menu('
+	let coda = ')<cr>'
 	" Open / Close : default in settings
-	exe map '<cr>' pre .. string(settings) .. post
-	exe map '<tab>' pre .. string(settings) .. post
+	exe map '<cr>' linefun .. string(settings) .. coda
+	exe map '<tab>' linefun .. string(settings) .. coda
 	" Leave the mandala Open
 	let menu_settings.close = v:false
-	exe map 'g<cr>' pre .. string(settings) .. post
-	exe map '<space>' pre .. string(settings) .. post
+	exe map 'g<cr>' linefun .. string(settings) .. coda
+	exe map '<space>' linefun .. string(settings) .. coda
 endfun
 
 fun! wheel#tower#staircase (settings)

@@ -45,36 +45,36 @@ fun! wheel#whirl#mappings (settings)
 	" Define whirl maps
 	let settings = copy(a:settings)
 	let nmap = 'nnoremap <buffer>'
-	let pre = '<cmd>call wheel#loop#selection('
-	let post = ')<cr>'
+	let loopselection = '<cmd>call wheel#loop#selection('
+	let coda = ')<cr>'
 	" -- close after navigation
 	let settings.close = v:true
 	let settings.target = 'current'
-	exe nmap '<cr>' pre .. string(settings) .. post
+	exe nmap '<cr>' loopselection .. string(settings) .. coda
 	let settings.target = 'tab'
-	exe nmap 't' pre .. string(settings) .. post
+	exe nmap 't' loopselection .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap 's' pre .. string(settings) .. post
+	exe nmap 's' loopselection .. string(settings) .. coda
 	let settings.target = 'vertical_split'
-	exe nmap 'v' pre .. string(settings) .. post
+	exe nmap 'v' loopselection .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap 'S' pre .. string(settings) .. post
+	exe nmap 'S' loopselection .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
-	exe nmap 'V' pre .. string(settings) .. post
+	exe nmap 'V' loopselection .. string(settings) .. coda
 	" -- leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'current'
-	exe nmap 'g<cr>' pre .. string(settings) .. post
+	exe nmap 'g<cr>' loopselection .. string(settings) .. coda
 	let settings.target = 'tab'
-	exe nmap 'gt' pre .. string(settings) .. post
+	exe nmap 'gt' loopselection .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap 'gs' pre .. string(settings) .. post
+	exe nmap 'gs' loopselection .. string(settings) .. coda
 	let settings.target = 'vertical_split'
-	exe nmap 'gv' pre .. string(settings) .. post
+	exe nmap 'gv' loopselection .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap 'gS' pre .. string(settings) .. post
+	exe nmap 'gS' loopselection .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
-	exe nmap 'gV' pre .. string(settings) .. post
+	exe nmap 'gV' loopselection .. string(settings) .. coda
 	" -- selection
 	call wheel#pencil#mappings ()
 	" -- preview

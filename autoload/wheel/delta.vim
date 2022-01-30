@@ -84,25 +84,25 @@ fun! wheel#delta#mappings ()
 	" Maps for undo list mandala
 	let bufnum = b:wheel_related_buffer
 	let map = 'nnoremap <silent> <buffer>'
-	let post = ')<cr>'
+	let coda = ')<cr>'
 	" earlier or later
-	let pre = '<cmd>call wheel#delta#earlier('
-	execute map '-' pre .. bufnum .. post
-	execute map '<kminus>' pre .. bufnum .. post
-	let pre = '<cmd>call wheel#delta#later('
-	execute map '+' pre .. bufnum .. post
-	execute map '<kplus>' pre .. bufnum .. post
+	let earlier = '<cmd>call wheel#delta#earlier('
+	execute map '-' earlier .. bufnum .. coda
+	execute map '<kminus>' earlier .. bufnum .. coda
+	let later = '<cmd>call wheel#delta#later('
+	execute map '+' later .. bufnum .. coda
+	execute map '<kplus>' later .. bufnum .. coda
 	" go to undo given by line
-	let pre = '<cmd>call wheel#line#undolist('
-	execute map '<cr>' pre .. bufnum .. post
+	let undolist = '<cmd>call wheel#line#undolist('
+	execute map '<cr>' undolist .. bufnum .. coda
 	" view diff between undo state and last one
-	let pre = '<cmd>call wheel#line#undo_diff('
+	let undodiff = '<cmd>call wheel#line#undo_diff('
 	" d does not work for it puts vim in operator pending mode
-	execute map 'D' pre .. bufnum .. post
+	execute map 'D' undodiff .. bufnum .. coda
 	" close diff
-	let pre = '<cmd>call wheel#delta#close_diff('
-	execute map 'x' pre .. bufnum .. post
+	let closediff = '<cmd>call wheel#delta#close_diff('
+	execute map 'x' closediff .. bufnum .. coda
 	" undo, go to last state
-	let pre = '<cmd>call wheel#delta#last('
-	execute map 'u' pre .. bufnum .. post
+	let last = '<cmd>call wheel#delta#last('
+	execute map 'u' last .. bufnum .. coda
 endfun
