@@ -436,11 +436,12 @@ fun! wheel#tree#rename_file (...)
 	let new_filename = wheel#tree#format_filename (new_filename)
 	" rename file
 	let returnstring = wheel#disc#rename (old_filename, new_filename)
-	if returnstring == 'failure'
+	if returnstring != 'success'
 		return v:false
 	endif
 	" link buffer to new file name
-	execute 'saveas!' new_filename
+	execute 'silent file' new_filename
+	silent write!
 	" adapt wheel variables to new_filename
 	call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	" rename location

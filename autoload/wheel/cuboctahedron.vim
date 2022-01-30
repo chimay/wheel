@@ -377,8 +377,7 @@ fun! wheel#cuboctahedron#rename_files ()
 		echomsg 'wheel : renaming' old_filename '->' new_filename
 		let locations[index].file = new_filename
 		let returnstring = wheel#disc#rename(old_filename, new_filename)
-		if returnstring == 'failure'
-			echomsg 'wheel batch rename files : error renaming' old_filename '->' new_filename
+		if returnstring != 'success'
 			continue
 		endif
 		" wipe old filename buffer if existent
