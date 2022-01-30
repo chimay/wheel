@@ -192,6 +192,23 @@ fun! wheel#book#previous (...)
 	return ring.leaves[previous][fieldname]
 endfun
 
+fun! wheel#book#current (...)
+	" Return current field given by optional argument
+	" Return current leaf if no argument is given
+	let ring = b:wheel_ring
+	let length = len(ring.leaves)
+	if length == 0
+		echomsg 'wheel book previous : empty leaf ring (should not happen)'
+		return v:false
+	endif
+	let current = ring.current
+	if a:0 == 0
+		return ring.leaves[current]
+	endif
+	let fieldname = a:1
+	return ring.leaves[current][fieldname]
+endfun
+
 fun! wheel#book#next (...)
 	" Return next field given by optional argument
 	" Return next leaf if no argument is given
