@@ -2348,27 +2348,6 @@ To enable autowrite, you need to add an autocommand on vim leave : >
 <
 
 ------------------------------------------------------------------------------
-UPDATE						*wheel-autocommands-update*
-
-By default, locations are only updated manually, with `<M-w><M-$>`. This
-way, you can update the wheel only when you want to do so.
-
-Nevertheless, it is possible to update automatically your locations each
-time you use a wheel navigation function. Just add the update function to
-the `WheelUpdate` user event : >
-
-    autocmd User WheelUpdate call wheel#vortex#update()
-<
-
-This autocmd is run before any jump to a wheel location, as soon as you
-use a wheel navigation function :
-
-- next/previous element
-- switch to element
-- switch in index, history, frecency
-- ...
-
-------------------------------------------------------------------------------
 AFTER JUMP				*wheel-autocommands-after-jump*
 
 The `WheelAfterJump` user event happens after any jump to a wheel
@@ -2443,9 +2422,28 @@ Same thing when you enter a buffer with a native vim command (like
 <
 
 ------------------------------------------------------------------------------
-AUTO UPDATE				*wheel-autocommands-auto-update*
+AUTO UPDATE					*wheel-autocommands-auto-update*
 
-If you want to update your cursor position each time you leave a buffer : >
+By default, locations are only updated manually, with `<M-w><M-$>`. This
+way, you can update the wheel only when you want to do so.
+
+Nevertheless, it is possible to update automatically your locations each
+time you use a wheel navigation function. Just add the update function to
+the `WheelUpdate` user event : >
+
+    autocmd User WheelUpdate call wheel#vortex#update()
+<
+
+This autocmd is run before any jump to a wheel location, as soon as you
+use a wheel navigation function :
+
+- next/previous element
+- switch to element
+- switch in index, history, frecency
+- ...
+
+If you want to update your cursor position each time you leave a buffer, you
+can also use the classic BufLeave event : >
 
   autocmd BufLeave * call wheel#vortex#update()
 <
