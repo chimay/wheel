@@ -207,8 +207,8 @@ fun! wheel#tree#add_circle (...)
 	" check if not already present
 	let torus = g:wheel.toruses[g:wheel.current]
 	if wheel#chain#is_inside(circle_name, torus.glossary)
-		call wheel#status#clear ()
-		echomsg 'Circle' circle_name 'already exists in torus' torus.name
+		let infolist = ['Circle', circle_name, 'already exists in torus', torus.name]
+		call wheel#status#message(info)
 		return v:false
 	endif
 	" add circle

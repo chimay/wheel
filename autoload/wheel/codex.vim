@@ -29,12 +29,13 @@ fun! wheel#codex#register (register, move = 'dont-move')
 	let index = yanks->index(content)
 	if index < 0
 		eval yanks->insert(content)
-	else
-		if move == 'begin'
-			eval yanks->remove(index)
-			eval yanks->insert(content)
-		endif
+		return v:true
 	endif
+	if move == 'begin'
+		eval yanks->remove(index)
+		eval yanks->insert(content)
+	endif
+	return v:true
 endfun
 
 fun! wheel#codex#add ()
@@ -45,6 +46,19 @@ fun! wheel#codex#add ()
 	call wheel#codex#register ('"', 'begin')
 	let max = g:wheel_config.maxim.yanks
 	let g:wheel_yank = g:wheel_yank[:max - 1]
+endfun
+
+fun! wheel#codex#climb (content)
+	" Move content at beginning of yank ring
+	let content = a:content
+	let yanks = g:wheel_yank
+	let index = yanks->index(content)
+	if index < 0
+		return v:false
+	endif
+	eval yanks->remove(index)
+	eval yanks->insert(content)
+	return v:true
 endfun
 
 fun! wheel#codex#yank_list (where = 'linewise-after')
@@ -64,6 +78,7 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
+	call wheel#codex#climb(content)
 endfun
 
 fun! wheel#codex#yank_plain (where = 'charwise-after')
@@ -82,4 +97,5 @@ fun! wheel#codex#yank_plain (where = 'charwise-after')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
+	call wheel#codex#climb(content)
 endfun

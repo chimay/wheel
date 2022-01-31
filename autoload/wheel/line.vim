@@ -368,6 +368,7 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
+	call wheel#codex#climb(content)
 	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#cylinder#close ()
@@ -399,6 +400,7 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
+	call wheel#codex#climb(content)
 	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#cylinder#close ()
