@@ -274,13 +274,13 @@ endfun
 
 fun! wheel#tree#add_here ()
 	" Add here to circle
+	silent doautocmd User WheelUpdate
 	let here = wheel#vortex#here()
 	call wheel#tree#add_location(here)
 endfun
 
 fun! wheel#tree#add_file (...)
 	" Add file to circle
-	call wheel#vortex#update ()
 	if a:0 > 0
 		let file = a:1
 	else
@@ -288,13 +288,13 @@ fun! wheel#tree#add_file (...)
 		let complete = 'customlist,wheel#complete#file'
 		let file = input(prompt, '', complete)
 	endif
+	silent doautocmd User WheelUpdate
 	execute 'edit' fnameescape(file)
 	call wheel#tree#add_here()
 endfun
 
 fun! wheel#tree#add_buffer (...)
 	" Add buffer to circle
-	call wheel#vortex#update ()
 	if a:0 > 0
 		let buffer = a:1
 	else
@@ -304,6 +304,7 @@ fun! wheel#tree#add_buffer (...)
 		let fields = split(choice, s:field_separ)
 		let buffer = fields[3]
 	endif
+	silent doautocmd User WheelUpdate
 	execute 'buffer' buffer
 	call wheel#tree#add_here()
 endfun

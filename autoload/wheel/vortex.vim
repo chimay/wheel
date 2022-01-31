@@ -143,9 +143,9 @@ fun! wheel#vortex#tune (level, name)
 endfun
 
 fun! wheel#vortex#voice (level, name)
-	" Adjust variables of level to name & perform user before jump autocmd
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" Adjust variables of level to name & perform user update autocmd
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- tune
 	return wheel#vortex#tune (a:level, a:name)
 endfun
@@ -158,8 +158,8 @@ fun! wheel#vortex#interval (coordin)
 	if len(coordin) != 2
 		echomsg 'wheel vortex interval : [' join(coordin) '] should contain 2 elements'
 	endif
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- tune
 	let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
 	if indexes[0] >= 0
@@ -177,8 +177,8 @@ fun! wheel#vortex#chord (coordin)
 		echomsg 'wheel vortex chord : [' join(coordin) '] should contain 3 elements'
 		return indexes
 	endif
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- tune
 	let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
 	if indexes[0] >= 0
@@ -202,8 +202,8 @@ fun! wheel#vortex#previous (level, where = 'search-window')
 	if empty(upper) || empty(upper.glossary)
 		return -1
 	endif
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- tune
 	let index = upper.current
 	let elements = wheel#referen#elements(upper)
@@ -222,8 +222,8 @@ fun! wheel#vortex#next (level, where = 'search-window')
 	if empty(upper) || empty(upper.glossary)
 		return -1
 	endif
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- tune
 	let index = upper.current
 	let elements = wheel#referen#elements(upper)
@@ -238,7 +238,6 @@ fun! wheel#vortex#switch (level, ...)
 	" Switch to element with completion
 	" Optional argument 0 : name of element
 	" Optional argument 1 : see vortex#jump optional argument
-	call wheel#vortex#update ()
 	let level = a:level
 	if a:0 > 0
 		let name = a:1
@@ -262,8 +261,8 @@ fun! wheel#vortex#multi_switch(where = 'search-window')
 	" Switch torus, circle & location
 	" Optional argument : see vortex#jump optional argument
 	let where = a:where
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- tune
 	let indexes = [-1, -1, -1]
 	for level in s:referen_coordin

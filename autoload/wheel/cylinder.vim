@@ -66,8 +66,8 @@ fun! wheel#cylinder#goto (...)
 		" already there
 		return v:false
 	endif
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- go to mandala
 	let mandalas = g:wheel_mandalas
 	let ring = mandalas.ring

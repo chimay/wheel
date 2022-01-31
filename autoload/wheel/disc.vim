@@ -345,8 +345,8 @@ fun! wheel#disc#write_wheel (...)
 		echomsg 'Not writing empty wheel'
 		return v:false
 	endif
-	" ---- user before jump autocmd
-	silent doautocmd User WheelBeforeJump
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
 	" ---- write
 	call wheel#kintsugi#wheel_file ()
 	echomsg 'Writing wheel variables to file ..'

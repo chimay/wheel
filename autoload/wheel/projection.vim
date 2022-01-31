@@ -117,6 +117,6 @@ fun! wheel#projection#follow (...)
 	let infolist = [ 'wheel follow :', join(coordin, s:level_separ) ]
 	call wheel#status#echo (infolist)
 	" update location to cursor position
-	call wheel#vortex#update ()
+	silent doautocmd User WheelUpdate
 	return v:true
 endfun
