@@ -2478,6 +2478,8 @@ Here is an example of a complete autocommands configuration : >
 	autocmd VimEnter * call wheel#void#init()
 	" On vim leave, for autowriting
 	autocmd VimLeave * call wheel#void#exit()
+	" Executed before jumping to a location
+	autocmd User WheelUpdate call wheel#vortex#update()
 	" Executed after jumping to a location
 	autocmd User WheelAfterJump norm zMzx
 	" For current wheel location to auto follow window changes
