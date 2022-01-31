@@ -364,15 +364,23 @@ if ! exists("g:wheel_loaded")
 endif
 
 augroup wheel
+	" Clear the group
 	autocmd!
+	" On vim enter, for autoreading
 	autocmd VimEnter * call wheel#void#init()
+	" On vim leave, for autowriting
 	autocmd VimLeave * call wheel#void#exit()
-	autocmd User WheelAfterJump silent! normal! zCzO
+	" Executed before jumping to a location
+	autocmd User WheelUpdate call wheel#vortex#update()
+	" Executed after jumping to a location
+	autocmd User WheelAfterJump norm zMzx
+	" For current wheel location to auto follow window changes
 	autocmd WinEnter * call wheel#projection#follow()
-	"autocmd BufRead * call wheel#projection#follow()
-	"autocmd BufEnter * call wheel#projection#follow()
+	" Update location line & col before leaving a window
 	autocmd BufLeave * call wheel#vortex#update()
+	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
+	" To record your yanks in the yank ring
 	autocmd TextYankPost * call wheel#codex#add()
 augroup END
 ~~~
