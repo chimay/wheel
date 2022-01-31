@@ -4,13 +4,12 @@
 "
 " Wheel navigation, straightforward and prompt functions
 
-" Variables
+" ---- script constants
 
 if ! exists('s:referen_coordin')
 	let s:referen_coordin = ['torus', 'circle', 'location']
 	lockvar s:referen_coordin
 endif
-" Script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
@@ -22,7 +21,7 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" Functions
+" ---- sync up & down
 
 fun! wheel#vortex#here ()
 	" Location of cursor
@@ -59,31 +58,32 @@ endfun
 
 fun! wheel#vortex#jump (where = 'search-window')
 	" Jump to current location
+	" Perform user post-jump autocmd
 	" Optional argument :
 	"   - search-window (default) : search for active buffer
 	"                               in tabs & windows
 	"   - here : load the buffer in current window,
 	"            do not search in tabs & windows
 	let where = a:where
-	" -- check location
+	" ---- check location
 	let location = wheel#referen#location ()
 	if empty(location)
 		return win_getid ()
 	endif
-	" -- jump
+	" ---- jump
 	let window = wheel#rectangle#tour ()
 	if where == 'search-window' && window >= 0
-		" switch to window containing location buffer
+		" -- switch to window containing location buffer
 		call win_gotoid(window)
 		call cursor(location.line, location.col)
 	elseif bufloaded(location.file)
-		" load buffer in current window
+		" -- load buffer in current window
 		let buffer = bufname(location.file)
 		execute 'noautocmd silent buffer' buffer
 		call cursor(location.line, location.col)
 		doautocmd BufEnter
 	else
-		" edit location file
+		" -- edit location file
 		let filename = location.file
 		if ! filereadable (filename)
 			let prompt = 'File not found. Delete broken location ?'
@@ -98,59 +98,72 @@ fun! wheel#vortex#jump (where = 'search-window')
 		doautocmd BufRead
 		doautocmd BufEnter
 	endif
-	" -- auto change dir to project root
+	" ---- auto change dir to project root
 	if g:wheel_config.auto_chdir_project > 0
 		let markers = g:wheel_config.project_markers
 		call wheel#disc#project_root(markers)
 	endif
-	" -- record in history
+	" ---- record in history
 	call wheel#pendulum#record ()
-	" -- view in fold
+	" ---- view in fold
 	normal! zv
-	" -- user autocmd
+	" ---- user autocmd
 	silent doautocmd User WheelAfterJump
-	" -- cursor
+	" ---- cursor
 	call wheel#spiral#cursor ()
-	" -- update signs
+	" ---- update signs
 	call wheel#chakra#update ()
-	" -- dashboard
+	" ---- dashboard
 	call wheel#status#dashboard ()
-	" -- coda
+	" ---- coda
 	return win_getid ()
 endfun
 
-" Tune
+" ---- tune
 
 fun! wheel#vortex#tune (level, name)
-	" Adjust wheel variables of level to name
+	" Adjust variables of level to name ; internal use
 	let level = a:level
 	let name = a:name
 	let upper = wheel#referen#upper(level)
-	if ! empty(upper) && ! empty(upper.glossary)
-		let glossary = upper.glossary
-		let index = glossary->index(name)
-		if index >= 0
-			let upper.current = index
-		else
-			echomsg 'wheel vortex tune :' name 'not found'
-		endif
-		return index
-	else
+	let glossary = upper.glossary
+	" ---- check
+	if empty(upper) || empty(glossary)
 		echomsg 'wheel vortex tune : empty or incomplete' level
 		return -1
 	endif
+	" ---- tune
+	let index = glossary->index(name)
+	if index < 0
+		echomsg 'wheel vortex tune :' name 'not found'
+		return -1
+	endif
+	let upper.current = index
+	return index
+endfun
+
+fun! wheel#vortex#voice (level, name)
+	" Adjust variables of level to name & perform user before jump autocmd
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- tune
+	return wheel#vortex#tune (a:level, a:name)
 endfun
 
 fun! wheel#vortex#interval (coordin)
 	" Adjust wheel to circle coordin = [torus, circle]
+	let coordin = a:coordin
 	let indexes = [-1, -1]
-	if len(a:coordin) == 2
-		let indexes[0] = wheel#vortex#tune ('torus', a:coordin[0])
-		if indexes[0] >= 0
-			let indexes[1] = wheel#vortex#tune ('circle', a:coordin[1])
-		endif
-	else
-		echomsg 'wheel vortex interval : [' join(a:coordin) '] should contain 2 elements'
+	" ---- check
+	if len(coordin) != 2
+		echomsg 'wheel vortex interval : [' join(coordin) '] should contain 2 elements'
+	endif
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- tune
+	let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
+	if indexes[0] >= 0
+		let indexes[1] = wheel#vortex#tune ('circle', coordin[1])
 	endif
 	return indexes
 endfun
@@ -158,22 +171,26 @@ endfun
 fun! wheel#vortex#chord (coordin)
 	" Adjust wheel to location coordin = [torus, circle, location]
 	let coordin = a:coordin
+	" ---- check
 	let indexes = [-1, -1, -1]
-	if len(coordin) == 3
-		let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
-		if indexes[0] >= 0
-			let indexes[1] = wheel#vortex#tune ('circle', coordin[1])
-		endif
-		if indexes[1] >= 0
-			let indexes[2] = wheel#vortex#tune ('location', coordin[2])
-		endif
-	else
+	if len(coordin) != 3
 		echomsg 'wheel vortex chord : [' join(coordin) '] should contain 3 elements'
+		return indexes
+	endif
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- tune
+	let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
+	if indexes[0] >= 0
+		let indexes[1] = wheel#vortex#tune ('circle', coordin[1])
+	endif
+	if indexes[1] >= 0
+		let indexes[2] = wheel#vortex#tune ('location', coordin[2])
 	endif
 	return indexes
 endfun
 
-" Next / Previous
+" ---- next / previous
 
 fun! wheel#vortex#previous (level, where = 'search-window')
 	" Previous element in level
@@ -181,18 +198,18 @@ fun! wheel#vortex#previous (level, where = 'search-window')
 	let level = a:level
 	let where = a:where
 	let upper = wheel#referen#upper(level)
-	if ! empty(upper)
-		call wheel#vortex#update ()
-		let index = upper.current
-		let elements = wheel#referen#elements(upper)
-		let length = len(elements)
-		if empty(elements)
-			let upper.current = -1
-		else
-			let upper.current = wheel#gear#circular_minus(index, length)
-		endif
-		call wheel#vortex#jump(where)
+	" ---- check
+	if empty(upper) || empty(upper.glossary)
+		return -1
 	endif
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- tune
+	let index = upper.current
+	let elements = wheel#referen#elements(upper)
+	let length = len(elements)
+	let upper.current = wheel#gear#circular_minus(index, length)
+	return wheel#vortex#jump(where)
 endfun
 
 fun! wheel#vortex#next (level, where = 'search-window')
@@ -201,21 +218,21 @@ fun! wheel#vortex#next (level, where = 'search-window')
 	let level = a:level
 	let where = a:where
 	let upper = wheel#referen#upper(level)
-	if ! empty(upper)
-		call wheel#vortex#update ()
-		let index = upper.current
-		let elements = wheel#referen#elements(upper)
-		let length = len(elements)
-		if empty(elements)
-			let upper.current = -1
-		else
-			let upper.current = wheel#gear#circular_plus(index, length)
-		endif
-		call wheel#vortex#jump(where)
+	" ---- check
+	if empty(upper) || empty(upper.glossary)
+		return -1
 	endif
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- tune
+	let index = upper.current
+	let elements = wheel#referen#elements(upper)
+	let length = len(elements)
+	let upper.current = wheel#gear#circular_plus(index, length)
+	return wheel#vortex#jump(where)
 endfun
 
-" Switch : tune and jump
+" ---- switch : tune and jump
 
 fun! wheel#vortex#switch (level, ...)
 	" Switch to element with completion
@@ -235,7 +252,7 @@ fun! wheel#vortex#switch (level, ...)
 	else
 		let where = 'search-window'
 	endif
-	let index = wheel#vortex#tune (level, name)
+	let index = wheel#vortex#voice (level, name)
 	if index >= 0
 		call wheel#vortex#jump (where)
 	endif
@@ -245,7 +262,9 @@ fun! wheel#vortex#multi_switch(where = 'search-window')
 	" Switch torus, circle & location
 	" Optional argument : see vortex#jump optional argument
 	let where = a:where
-	call wheel#vortex#update ()
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- tune
 	let indexes = [-1, -1, -1]
 	for level in s:referen_coordin
 		let prompt = 'Switch to ' .. level .. ' : '

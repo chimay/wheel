@@ -18,7 +18,9 @@ fun! wheel#orbiter#preview ()
 	let settings.follow = v:false
 	call wheel#rectangle#previous ()
 	call wheel#projection#follow ()
-	call wheel#vortex#update ()
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- call mandala function
 	let Fun = settings.function
 	let winiden = wheel#gear#call (Fun, settings)
 	call wheel#cylinder#recall ()

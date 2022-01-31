@@ -14,7 +14,7 @@
 "
 " To insert a non-breaking space : C-v x a 0
 
-" script constants
+" ---- script constants
 
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
@@ -26,7 +26,7 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#tree#is_in_circle (location, circle)
 	" Whether file & cursor position is in circle
@@ -74,7 +74,7 @@ fun! wheel#tree#add_name (location)
 	return location.name
 endfun
 
-" insert existent element
+" ---- insert existent element
 
 fun! wheel#tree#insert_torus (torus)
 	" Insert torus into wheel
@@ -152,7 +152,7 @@ fun! wheel#tree#insert_location (location)
 	return v:true
 endfun
 
-" add new element
+" ---- add new element
 
 fun! wheel#tree#add_torus (...)
 	" Add torus
@@ -161,18 +161,18 @@ fun! wheel#tree#add_torus (...)
 	else
 		let torus_name = input('New torus name ? ')
 	endif
+	" ---- torus name
 	let torus_name = wheel#tree#format_name (torus_name)
 	if empty(torus_name)
 		call wheel#status#message('Torus name cannot be empty')
 		return v:false
 	endif
-	" check if not already present
+	" ---- check name is not already present
 	if wheel#chain#is_inside(torus_name, g:wheel.glossary)
 		call wheel#status#message('Torus', torus_name, 'already exists in wheel')
 		return v:false
 	endif
-	" add torus
-	redraw!
+	" ---- add torus
 	call wheel#status#message('Adding torus', torus_name)
 	let index = g:wheel.current
 	let toruses = g:wheel.toruses
@@ -194,25 +194,24 @@ fun! wheel#tree#add_circle (...)
 		let circle_name = input('New circle name ? ', '', complete)
 	endif
 	let circle_name = wheel#tree#format_name (circle_name)
-	" add first torus if needed
+	" ---- add first torus if needed
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
-	" replace spaces by non-breaking spaces
+	" ---- circle name
 	let circle_name = wheel#tree#format_name (circle_name)
 	if empty(circle_name)
 		call wheel#status#message('Circle name cannot be empty')
 		return v:false
 	endif
-	" check if not already present
+	" ---- check name is not already present
 	let torus = g:wheel.toruses[g:wheel.current]
 	if wheel#chain#is_inside(circle_name, torus.glossary)
 		let infolist = ['Circle', circle_name, 'already exists in torus', torus.name]
 		call wheel#status#message(infolist)
 		return v:false
 	endif
-	" add circle
-	redraw!
+	" ---- add circle
 	call wheel#status#message('Adding circle', circle_name)
 	let index = torus.current
 	let circles = torus.circles
@@ -233,29 +232,29 @@ fun! wheel#tree#add_location (location, ...)
 	else
 		let optional = 'default'
 	endif
-	" add first torus if needed
+	" ---- add first torus if needed
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
 	endif
 	let torus = g:wheel.toruses[g:wheel.current]
-	" add first circle if needed
+	" ---- add first circle if needed
 	if empty(torus.circles)
 		call wheel#tree#add_circle()
 	endif
 	let circle = torus.circles[torus.current]
-	" add a name to the location
+	" ---- location name
 	let name = wheel#tree#add_name (location)
 	if empty(name)
 		call wheel#status#message('Location name cannot be empty')
 		return v:false
 	endif
-	" check location name is not in circle
+	" ---- check name is not already present
 	if wheel#chain#is_inside(name, circle.glossary)
 		let infolist = ['Location named', name, 'already exists in circle']
 		call wheel#status#message(infolist)
 		return v:false
 	endif
-	" add the location to the circle
+	" ---- add the location to the circle
 	let infolist = [ 'Adding location', location.name, ':', location.file ]
 	let infolist += [ ':', location.line, ':', location.col ]
 	let infolist += [ 'in torus', torus.name, 'circle', circle.name ]
@@ -264,10 +263,10 @@ fun! wheel#tree#add_location (location, ...)
 	let locationlist = circle.locations
 	let glossary = circle.glossary
 	eval locationlist->wheel#chain#insert_next(index, location)
-	let circle.current += 1
 	eval glossary->wheel#chain#insert_next(index, name)
+	let circle.current += 1
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
-	if optional !=# 'norecord'
+	if optional !=# 'dont-record'
 		call wheel#pendulum#record ()
 	endif
 	return v:true
@@ -351,7 +350,7 @@ fun! wheel#tree#add_glob (...)
 	return filelist
 endfun
 
-" rename
+" ---- rename
 
 fun! wheel#tree#rename (level, ...)
 	" Rename current element at level -> new
@@ -398,7 +397,7 @@ fun! wheel#tree#rename (level, ...)
 	return v:true
 endfun
 
-" rename file
+" -- rename file
 
 fun! wheel#tree#adapt_to_filename (old_filename, new_filename)
 	" Adapt wheel variables to new_filename
@@ -450,7 +449,7 @@ fun! wheel#tree#rename_file (...)
 	return v:true
 endfun
 
-" remove
+" ---- remove
 
 fun! wheel#tree#remove (level, name)
 	" Remove element given by name at level
@@ -486,7 +485,7 @@ fun! wheel#tree#remove (level, name)
 	return v:true
 endfun
 
-" delete
+" -- delete
 
 fun! wheel#tree#delete (level, ask = 'confirm')
 	" Delete current element at level
@@ -533,7 +532,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	return v:true
 endfun
 
-" copy / move
+" ---- copy / move
 
 fun! wheel#tree#copy_move (level, mode, ...)
 	" Copy or move element of level
@@ -583,7 +582,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 		" mode must be copy at this stage
 		call wheel#tree#insert_torus (element)
 	elseif level ==# 'circle'
-		call wheel#vortex#tune ('torus', destination)
+		call wheel#vortex#voice ('torus', destination)
 		call wheel#tree#insert_circle (element)
 	elseif level ==# 'location'
 		call wheel#vortex#interval (coordin)

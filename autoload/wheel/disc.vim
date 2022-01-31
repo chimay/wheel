@@ -345,13 +345,15 @@ fun! wheel#disc#write_wheel (...)
 		echomsg 'Not writing empty wheel'
 		return v:false
 	endif
-	call wheel#vortex#update ()
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- write
 	call wheel#kintsugi#wheel_file ()
 	echomsg 'Writing wheel variables to file ..'
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
-	" replace >
+	" -- replace >
 	call wheel#disc#writefile('g:wheel', wheel_file, '>')
-	" append >>
+	" -- append >>
 	call wheel#disc#writefile('g:wheel_helix', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_grid', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_files', wheel_file, '>>')

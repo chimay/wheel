@@ -58,7 +58,7 @@ fun! wheel#group#torus(method)
 		for [key, localist] in items(groups)
 			call wheel#tree#add_circle (key)
 			for location in localist
-				call wheel#tree#add_location (location, 'norecord')
+				call wheel#tree#add_location (location, 'dont-record')
 			endfor
 		endfor
 	endif

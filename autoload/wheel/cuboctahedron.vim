@@ -513,7 +513,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	endif
 	" -- destination
 	if level ==# 'circle'
-		call wheel#vortex#tune ('torus', destination)
+		call wheel#vortex#voice ('torus', destination)
 		for circle in travellers
 			call wheel#tree#insert_circle (circle)
 		endfor

@@ -66,7 +66,9 @@ fun! wheel#cylinder#goto (...)
 		" already there
 		return v:false
 	endif
-	call wheel#vortex#update ()
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- go to mandala
 	let mandalas = g:wheel_mandalas
 	let ring = mandalas.ring
 	if empty(ring)

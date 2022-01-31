@@ -408,16 +408,17 @@ endfun
 fun! wheel#mandala#blank (type)
 	" Open a mandala buffer
 	let type = a:type
-	call wheel#vortex#update ()
-	let related_buffer = bufnr('%')
+	" ---- user before jump autocmd
+	silent doautocmd User WheelBeforeJump
+	" ---- create / open current mandala
 	if ! wheel#cylinder#recall()
 		call wheel#cylinder#first ('split')
 	endif
-	" add new leaf, clear mandala, init vars
+	" ---- add new leaf, clear mandala, init vars
 	call wheel#book#add ('clear')
 	call wheel#mandala#set_type (type)
 	call wheel#mandala#common_options ()
-	" set related buffer
+	" ---- set related buffer
 	let b:wheel_related_buffer = wheel#mandala#guess_related ()
 endfun
 

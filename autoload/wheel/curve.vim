@@ -129,7 +129,7 @@ fun! wheel#curve#tree (settings)
 	elseif length == 2
 		call wheel#vortex#interval (coordin)
 	elseif length == 1
-		call wheel#vortex#tune('torus', coordin[0])
+		call wheel#vortex#voice('torus', coordin[0])
 	else
 		return v:false
 	endif

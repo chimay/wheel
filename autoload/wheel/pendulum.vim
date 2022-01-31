@@ -249,7 +249,6 @@ endfun
 
 fun! wheel#pendulum#newer_anywhere ()
 	" Go to newer entry in g:wheel_history.circuit
-	call wheel#vortex#update ()
 	let timeloop = g:wheel_history.circuit
 	let timeloop = wheel#chain#rotate_right (timeloop)
 	let coordin = timeloop[0].coordin
@@ -261,7 +260,6 @@ endfun
 
 fun! wheel#pendulum#older_anywhere ()
 	" Go to older entry in g:wheel_history.circuit
-	call wheel#vortex#update ()
 	let timeloop = g:wheel_history.circuit
 	let timeloop = wheel#chain#rotate_left (timeloop)
 	let coordin = timeloop[0].coordin
@@ -281,7 +279,6 @@ fun! wheel#pendulum#newer (level = 'wheel')
 	if level == 'wheel'
 		return wheel#pendulum#newer_anywhere ()
 	endif
-	call wheel#vortex#update ()
 	" current coordin
 	let names = wheel#referen#names ()
 	" index for range in coordin
@@ -319,7 +316,6 @@ fun! wheel#pendulum#older (level = 'wheel')
 	if level == 'wheel'
 		return wheel#pendulum#older_anywhere ()
 	endif
-	call wheel#vortex#update ()
 	" current coordin
 	let names = wheel#referen#names ()
 	" index for range in coordin
@@ -363,7 +359,6 @@ fun! wheel#pendulum#alternate (mode)
 		return wheel#vortex#jump ()
 	endif
 	if has_key(g:wheel_history.alternate, a:mode)
-		call wheel#vortex#update ()
 		let coordin = g:wheel_history.alternate[a:mode]
 		call wheel#vortex#chord(coordin)
 	endif
