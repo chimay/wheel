@@ -97,5 +97,5 @@ fun! wheel#codex#yank_plain (where = 'charwise-after')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
-	call wheel#codex#climb(content)
+	call wheel#codex#climb([ content ])
 endfun
