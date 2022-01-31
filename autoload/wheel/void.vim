@@ -103,6 +103,9 @@ fun! wheel#void#history ()
 	if ! has_key(g:wheel_history, 'alternate')
 		let g:wheel_history.alternate = {}
 	endif
+	if ! has_key(g:wheel_history, 'frecency')
+		let g:wheel_history.frecency = []
+	endif
 endfun
 
 fun! wheel#void#input ()

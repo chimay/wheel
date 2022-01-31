@@ -164,6 +164,8 @@ fun! wheel#pendulum#record ()
 	eval timeloop->wheel#chain#push_max(entry, maxim)
 	" -- alternate history
 	call wheel#pendulum#update_alternate ()
+	" -- frecency
+	call wheel#cuckoo#record ()
 endfun
 
 fun! wheel#pendulum#rename (level, old, new)

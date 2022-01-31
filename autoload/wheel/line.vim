@@ -358,18 +358,16 @@ fun! wheel#line#paste_list (where = 'linewise_after', close = 'close')
 		eval content->map({ _, list -> join(list, "\n") })
 	endif
 	call wheel#rectangle#previous ()
+	let @" = join(content, "\n")
 	if where == 'linewise_after'
 		put =content
 	elseif where == 'linewise_before'
 		put! =content
 	elseif where == 'charwise_after'
-		let @" = content
 		normal! p
 	elseif where == 'charwise_before'
-		let @" = content
 		normal! P
 	endif
-	let @" = join(content, "\n")
 	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#cylinder#close ()
@@ -391,18 +389,16 @@ fun! wheel#line#paste_plain (where = 'linewise_after', close = 'close')
 		return v:false
 	endif
 	call wheel#rectangle#previous ()
+	let @" = join(content, "\n")
 	if where == 'linewise_after'
 		put =content
 	elseif where == 'linewise_before'
 		put! =content
 	elseif where == 'charwise_after'
-		let @" = content
 		normal! p
 	elseif where == 'charwise_before'
-		let @" = content
 		normal! P
 	endif
-	let @" = join(content)
 	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#cylinder#close ()

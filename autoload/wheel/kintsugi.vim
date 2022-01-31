@@ -125,6 +125,9 @@ fun! wheel#kintsugi#wheel_file ()
 		unlet g:wheel_track
 		unlet g:wheel_alternate
 	endif
+	if ! has_key(g:wheel_history, 'frecency')
+		let g:wheel_history.frecency = []
+	endif
 	" ---- coda
 	return v:true
 endfun

@@ -47,19 +47,41 @@ fun! wheel#codex#add ()
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
 
-fun! wheel#codex#yank_list (...)
+fun! wheel#codex#yank_list (where = 'linewise_after')
 	" Paste yank from yank ring in list mode
 	let prompt = 'Yank element (list mode) : '
 	let complete = 'customlist,wheel#complete#yank_list'
 	let line = input(prompt, '', complete)
 	let content = eval(line)
+	let @" = join(content, "\n")
+	if where == 'linewise_after'
+		put =content
+	elseif where == 'linewise_before'
+		put! =content
+	elseif where == 'charwise_after'
+		normal! p
+	elseif where == 'charwise_before'
+		normal! P
+	endif
 	put =content
 endfun
 
-fun! wheel#codex#yank_plain (...)
+fun! wheel#codex#yank_plain (where = 'charwise_after')
 	" Paste yank from yank ring in plain mode
 	let prompt = 'Yank element (plain mode) : '
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
+	let @" = join(content, "\n")
+	if where == 'linewise_after'
+		put =content
+	elseif where == 'linewise_before'
+		put! =content
+	elseif where == 'charwise_after'
+		let @" = content
+		normal! p
+	elseif where == 'charwise_before'
+		let @" = content
+		normal! P
+	endif
 	put =content
 endfun
