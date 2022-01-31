@@ -3584,6 +3584,7 @@ of the modules within them.
 | complete.vim      | Completion functions                         |
 | crystal.vim       | Internal variables                           |
 | cuboctahedron.vim | Organize : order, name, copy, move, ...      |
+| cuckoo.vim        | Frecency                                     |
 | cylinder.vim      | Dedicated buffers ring                       |
 | delta.vim         | Undo & diff                                  |
 | disc.vim          | Read & write wheel & session file            |

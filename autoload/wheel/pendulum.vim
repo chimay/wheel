@@ -19,9 +19,10 @@
 " - alternate : coordinates of alternates locations
 
 " other names ideas for this file :
-" sundial
-" hourglass, sandglass
-" longcase clock
+"   - sundial
+"   - hourglass, sandglass
+"   - cuckoo
+"   - longcase clock
 
 " timestamps
 

@@ -34,7 +34,26 @@ if ! exists('s:referen_list_keys')
 	lockvar s:referen_list_keys
 endif
 
-" ---- modes
+" ---- golden ratio
+
+if ! exists('s:golden_ratio')
+	let s:golden_ratio = (1 + sqrt(5)) / 2
+	lockvar s:golden_ratio
+endif
+
+" ---- frecency
+
+if ! exists('s:frecency_stair')
+	let s:frecency_stair = 60
+	lockvar s:frecency_stair
+endif
+
+if ! exists('s:frecency_slope')
+	let s:frecency_slope = 1
+	lockvar s:frecency_slope
+endif
+
+" ---- vim modes
 
 if ! exists('s:modes_letters')
 	let s:modes_letters = {
@@ -58,13 +77,6 @@ if ! exists('s:letters_modes')
 				\ 'c' : 'command' ,
 				\ }
 	lockvar s:letters_modes
-endif
-
-" ---- golden ratio
-
-if ! exists('s:golden_ratio')
-	let s:golden_ratio = (1 + sqrt(5)) / 2
-	lockvar s:golden_ratio
 endif
 
 " ---- signs
