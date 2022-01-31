@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" find & follow the closest element in wheel
+" Projection
+"
+" Find & follow the closest element in wheel
 
 " scripts constants
 

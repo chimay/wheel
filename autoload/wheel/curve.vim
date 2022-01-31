@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Curve
+"
 " Wheel action on the cursor line :
 "
 " - switching element

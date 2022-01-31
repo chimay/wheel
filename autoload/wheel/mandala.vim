@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Mandala
+"
 " Generic wheel dedicated buffers = mandala buffers
 "
 " A mandala is made of lines, like a buffer
@@ -431,15 +433,15 @@ fun! wheel#mandala#set_var_lines ()
 	return v:true
 endfun
 
-fun! wheel#mandala#replace (content, first = 'keep-first')
+fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	" Replace mandala buffer with content
 	" Content can be :
 	"   - a monoline string
 	"   - a list of lines
 	" Optional argument handle the first line filtering input :
-	"   - keep-first (default) : keep first line
+	"   - empty-prompt-first (default) : blank first line with just a prompt
 	"   - prompt-first : keep input, add prompt if not present
-	"   - empty-prompt-first : blank first line
+	"   - keep-first  : keep first line
 	"   - delete-first : delete first line
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer'

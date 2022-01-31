@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Crystal
+"
 " Internal Constants made crystal clear
 
 " Dictionaries are defined as list of items to preserve the order
@@ -7,7 +9,7 @@
 "
 " Useful for menus & context menus
 
-" wheel levels
+" ---- wheel levels
 
 if ! exists('s:referen_levels')
 	if exists(':const')
@@ -32,7 +34,7 @@ if ! exists('s:referen_list_keys')
 	lockvar s:referen_list_keys
 endif
 
-" modes
+" ---- modes
 
 if ! exists('s:modes_letters')
 	let s:modes_letters = {
@@ -58,14 +60,14 @@ if ! exists('s:letters_modes')
 	lockvar s:letters_modes
 endif
 
-" golden ratio
+" ---- golden ratio
 
 if ! exists('s:golden_ratio')
 	let s:golden_ratio = (1 + sqrt(5)) / 2
 	lockvar s:golden_ratio
 endif
 
-" signs
+" ---- signs
 
 if ! exists('s:sign_name')
 	let s:sign_name = 'wheel-sign-name'
@@ -96,7 +98,9 @@ endif
 " 				\ numhl : 'Normal',
 " 				\ linehl : 'Normal',
 
-" mandala prompt
+" ---- mandala
+
+" -- mandala prompt
 
 if ! exists('s:mandala_prompt')
 	let s:mandala_prompt = '☯ '
@@ -108,7 +112,7 @@ if ! exists('s:mandala_prompt_writable')
 	lockvar s:mandala_prompt_writable
 endif
 
-" mandala patterns
+" -- mandala patterns
 
 if ! exists('s:is_mandala_file')
 	" mandala filename pattern
@@ -133,7 +137,7 @@ if ! exists('s:mandala_empty')
 	lockvar s:mandala_empty
 endif
 
-" mandalas options
+" -- mandalas options
 
 if ! exists('s:mandala_options')
 	let s:mandala_options = [
@@ -156,7 +160,7 @@ if ! exists('s:mandala_options')
 	lockvar s:mandala_options
 endif
 
-" mandalas maps
+" -- mandalas maps
 
 if ! exists('s:normal_map_keys')
 	let s:normal_map_keys = [
@@ -211,7 +215,7 @@ if ! exists('s:map_keys')
 	lockvar s:map_keys
 endif
 
-" mandala autocmds
+" -- mandala autocmds
 
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = 'wheel-mandala'
@@ -225,7 +229,7 @@ if ! exists('s:mandala_autocmds_events')
 	lockvar s:mandala_autocmds_events
 endif
 
-" mandalas variables
+" -- mandalas variables
 
 if ! exists('s:mandala_vars')
 	let s:mandala_vars = [
@@ -240,7 +244,7 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" leaf : layer fields in mandalas
+" -- leaf : layer fields in mandalas
 
 if ! exists('s:layer_fields')
 	" filename : pseudo filename of the mandala
@@ -274,7 +278,7 @@ if ! exists('s:layer_fields')
 	lockvar s:layer_fields
 endif
 
-" folds in mandalas
+" -- folds in mandalas
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = ['▷', '◁']
@@ -298,7 +302,7 @@ if ! exists('s:fold_pattern')
 	lockvar s:fold_pattern
 endif
 
-" separators in mandalas
+" -- separators in mandalas
 
 if ! exists('s:separator_field')
 	let s:separator_field = ' │ '
@@ -317,14 +321,14 @@ if ! exists('s:separator_level')
 	lockvar s:separator_level
 endif
 
-" selections in mandalas
+" -- selections in mandalas
 
 if ! exists('s:selection_mark')
 	let s:selection_mark = '☰ '
 	lockvar s:selection_mark
 endif
 
-" targets in mandalas
+" -- targets in mandalas
 
 if ! exists('s:mandala_targets')
 	let s:mandala_targets = [
@@ -338,7 +342,7 @@ if ! exists('s:mandala_targets')
 	lockvar s:mandala_targets
 endif
 
-" menus
+" ---- menus
 
 if ! exists('s:menu_help')
 	let s:menu_help = [
@@ -580,7 +584,7 @@ if ! exists('s:menu_layout_mixed')
 	lockvar s:menu_layout_mixed
 endif
 
-" list of menu variables
+" -- list of menu variables
 
 if ! exists('s:menu_list')
 	let s:menu_list = [
@@ -605,7 +609,7 @@ if ! exists('s:menu_list')
 	lockvar s:menu_list
 endif
 
-" main menu
+" -- main menu
 
 if ! exists('s:menu_main')
 	let s:menu_main = []
@@ -616,7 +620,7 @@ if ! exists('s:menu_main')
 	lockvar s:menu_main
 endif
 
-" meta menu
+" -- meta menu
 
 if ! exists('s:menu_meta')
 	let s:menu_meta = []
@@ -628,7 +632,7 @@ if ! exists('s:menu_meta')
 	lockvar s:menu_meta
 endif
 
-" contextual menus
+" -- contextual menus
 
 if ! exists('s:context_navigation')
 	let s:context_navigation = [
@@ -715,7 +719,7 @@ if ! exists('s:context_yank_plain')
 	lockvar s:context_yank_plain
 endif
 
-" undo & diff
+" ---- undo & diff
 
 if ! exists('s:diff_options')
 	let s:diff_options = [
@@ -730,7 +734,7 @@ if ! exists('s:diff_options')
 	lockvar s:diff_options
 endif
 
-" public interface
+" ---- public interface
 
 fun! wheel#crystal#clear (varname)
 	" Unlet script variable called varname

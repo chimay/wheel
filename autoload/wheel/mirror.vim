@@ -1,6 +1,10 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Mirror
+"
 " Refactoring, dedicated buffers
+"
+" Reflect your changes
 
 " script constants
 

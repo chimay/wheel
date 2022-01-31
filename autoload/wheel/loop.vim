@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Loop
+"
 " Loops on mandala lines
 "
 " other names ideas for this file :

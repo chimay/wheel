@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Chain
+"
 " Lists operations
 
 " Booleans

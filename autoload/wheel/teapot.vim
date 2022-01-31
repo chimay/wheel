@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Teapot
+"
 " Filter aspect of mandalas
 
 " helpers

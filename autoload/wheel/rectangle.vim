@@ -1,5 +1,9 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Rectangle
+"
+" Tabs, Windows & buffers
+
 " Script constants
 
 if ! exists('s:field_separ')
@@ -16,8 +20,6 @@ if ! exists('s:is_mandala_file')
 	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
 	lockvar s:is_mandala_file
 endif
-
-" Tabs, Windows & buffers
 
 " helpers
 

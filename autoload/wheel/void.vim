@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Void
+"
 " Initialization of variables
 "
 " Enter the void, and ride the wheel

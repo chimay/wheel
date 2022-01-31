@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Codex
+"
 " Yank ring
 "
 " Takes advantage of TextYankPost event

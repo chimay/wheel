@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Storage
+" Disc
+"
+" Persistent storage
 
 " read & write wheel variables
 

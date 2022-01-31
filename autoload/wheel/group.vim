@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Group
+"
 " Auto grouping
 
 fun! wheel#group#extension(location)

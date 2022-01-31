@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Cylinder
+"
 " Mandala buffers ring
 "
 " A cylinder is a stack of discs =~ circles =~ mandalas

@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Sailing
+"
 " Non wheel navigation, prompt functions
 "
 " Switch with native (neo)vim functions

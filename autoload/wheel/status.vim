@@ -1,5 +1,9 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Status
+"
+" Echo status info
+
 " Script constants
 
 if ! exists('s:is_mandala_file')

@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Shape
+"
 " Organize non-wheel elements, dedicated buffers
 
 " reorganize tabs

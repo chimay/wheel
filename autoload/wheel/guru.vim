@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Guru
+"
 " Help
 
 fun! wheel#guru#help ()

@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Spiral
+"
 " Golden ratio
 
 " Script constants

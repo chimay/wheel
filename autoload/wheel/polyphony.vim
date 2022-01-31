@@ -1,10 +1,10 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Multi-line operations on a buffer
+" Polyphony
+"
+" Multi-line operations on buffer(s)
 "
 " Narrow, filter, edit and apply
-
-" Range of original buffer
 
 " Script constants
 

@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Tree
+"
 " Organize wheel elements, prompt functions
 "
 " Tree = toruses / circles / locations

@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Centre
+"
 " Command, Mappings
 
 fun! wheel#centre#commands ()

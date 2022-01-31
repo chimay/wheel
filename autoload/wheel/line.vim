@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Line
+"
 " Non-wheel action on the cursor line :
 "
 " - going to an element

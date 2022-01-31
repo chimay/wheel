@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Mosaic
+"
 " Tabs & windows layouts Helpers
 
 fun! wheel#mosaic#one_tab ()

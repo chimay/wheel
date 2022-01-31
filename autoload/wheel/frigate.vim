@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-"  Non-wheel navigation, dedicated buffers
+" Frigate
+"
+" Non-wheel navigation, dedicated buffers
 
 " helpers
 

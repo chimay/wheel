@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Yggdrasil
+"
 " Organize the wheel, dedicated buffers
 
 " reorder

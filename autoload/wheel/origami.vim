@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Origami
+"
 " Folding in mandalas
 
 " Script constants

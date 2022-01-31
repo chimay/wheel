@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Boomerang
+"
 " Context menu
 " Act back on parent, previous leaf of mandala
 

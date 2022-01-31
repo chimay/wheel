@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" unicode store
+" Unicode
+"
+" Unicode store
 
 " enter unicode in insert mode :
 "

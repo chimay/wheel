@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Wave
+"
 " Job control, neovim
 
 if ! has('unix')

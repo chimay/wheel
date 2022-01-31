@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Perspective
+"
 " Content generators for :
 "
 "   - completion of prompting function

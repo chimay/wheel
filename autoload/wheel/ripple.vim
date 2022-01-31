@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Ripple
+"
 " Job control, vim 8
 
 if ! has('unix')

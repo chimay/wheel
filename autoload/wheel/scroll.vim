@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Scroll
+"
 " Input history
 
 " script constants

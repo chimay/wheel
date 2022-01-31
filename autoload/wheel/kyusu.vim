@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Kyusu
+"
 " Filter for :
 "   - prompt completion
 "   - dedicated buffers (mandalas)

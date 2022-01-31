@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Kintsugi
+"
 " Check & fix
 "
 " Kintsugi is a traditional japanese art

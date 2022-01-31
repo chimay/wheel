@@ -1,7 +1,9 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Completion list functions
+" Complete
 "
+" Completion list functions
+
 " Return entries as list
 "
 " vim does not filter the entries,

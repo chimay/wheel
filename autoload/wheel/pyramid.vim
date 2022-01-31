@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Pyramid
+"
 " Mixed layouts of tabs and windows
 
 fun! wheel#pyramid#steps (level, ...)

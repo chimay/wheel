@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Attic
+"
 " Most recently used files
 
 " Script constants

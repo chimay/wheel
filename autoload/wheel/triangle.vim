@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Triangle
+"
 " Undo list dedicated buffer
 
 fun! wheel#triangle#undolist ()

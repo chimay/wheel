@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Vortex
+"
 " Wheel navigation, straightforward and prompt functions
 
 " Variables

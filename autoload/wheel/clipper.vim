@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Yank mandala buffers
+" Clipper
+"
+" Yank dedicated buffers
 
 " Helpers
 

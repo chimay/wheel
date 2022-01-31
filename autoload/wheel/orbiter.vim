@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Orbiter
+"
 " Preview for dedicated buffers
 
 fun! wheel#orbiter#preview ()
