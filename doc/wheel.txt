@@ -2116,6 +2116,8 @@ and the penalty : >
   let g:wheel_config.frecency.penalty = 1
 <
 
+The higher the reward/penaly ratio, the bigger your frecency list will be.
+
 Default~
 
 - reward : 100

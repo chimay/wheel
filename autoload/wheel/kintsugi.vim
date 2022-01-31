@@ -105,8 +105,29 @@ endfun
 
 " conversion from old data structure
 
+fun! wheel#kintsugi#config ()
+	" Convert old config keys to new ones
+	" Run in void foundation, before vars initialization
+	if ! exists('g:wheel_config')
+		return v:false
+	endif
+	" ---- chdir project
+	if has_key(g:wheel_config, 'cd_project')
+		if ! has_key(g:wheel_config, 'auto_chdir_project')
+			let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
+			unlet g:wheel_config.cd_project
+			let info = 'wheel config : cd_project is deprecated. '
+			let info ..= 'Please use auto_chdir_project instead.'
+			echomsg info
+		endif
+	endif
+	" ---- coda
+	return v:true
+endfun
+
 fun! wheel#kintsugi#wheel_file ()
 	" Convert old data structure to new one
+	" Run in r/w wheel file
 	" ---- history
 	if type(g:wheel_history) == v:t_list
 		let new_history = {}
@@ -127,25 +148,6 @@ fun! wheel#kintsugi#wheel_file ()
 	endif
 	if ! has_key(g:wheel_history, 'frecency')
 		let g:wheel_history.frecency = []
-	endif
-	" ---- coda
-	return v:true
-endfun
-
-fun! wheel#kintsugi#config ()
-	" Convert old config keys to new ones
-	if ! exists('g:wheel_config')
-		return v:false
-	endif
-	" ---- chdir project
-	if has_key(g:wheel_config, 'cd_project')
-		if ! has_key(g:wheel_config, 'auto_chdir_project')
-			let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
-			unlet g:wheel_config.cd_project
-			let info = 'wheel config : cd_project is deprecated. '
-			let info ..= 'Please use auto_chdir_project instead.'
-			echomsg info
-		endif
 	endif
 	" ---- coda
 	return v:true
