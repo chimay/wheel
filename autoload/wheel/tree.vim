@@ -318,6 +318,7 @@ fun! wheel#tree#add_glob (...)
 		let complete = 'customlist,wheel#complete#file'
 		let glob = input(prompt, '', complete)
 	endif
+	silent doautocmd User WheelUpdate
 	" add first torus if needed
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
@@ -374,20 +375,22 @@ fun! wheel#tree#rename (level, ...)
 	endif
 	let upper = wheel#referen#upper (level)
 	let current = wheel#referen#current (level)
-	" replace spaces by non-breaking spaces
+	" ---- name
 	let new = wheel#tree#format_name (new)
 	if empty(new)
 		call wheel#status#message(level, 'name cannot be empty')
 		return v:false
 	endif
-	" check new is not present in upper list
+	" ---- check new is not present in upper list
 	if wheel#chain#is_inside(new, upper.glossary)
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
 		let infolist = [level, new, 'already exists in', upper_level_name]
 		call wheel#status#message(infolist)
 		return v:false
 	endif
-	" rename
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
+	" ---- rename
 	let old = current.name
 	let current.name = new
 	call wheel#status#message('Renaming', level, old, '->', new)
@@ -404,7 +407,7 @@ fun! wheel#tree#adapt_to_filename (old_filename, new_filename)
 	" Adapt wheel variables to new_filename
 	let old_filename = a:old_filename
 	let new_filename = a:new_filename
-	" rename file in all involved locations of the wheel
+	" ---- rename file in all involved locations of the wheel
 	for torus in g:wheel.toruses
 		for circle in torus.circles
 			for location in circle.locations
@@ -414,7 +417,7 @@ fun! wheel#tree#adapt_to_filename (old_filename, new_filename)
 			endfor
 		endfor
 	endfor
-	" rename file in wheel index
+	" ---- rename file in wheel index
 	let g:wheel.timestamp = wheel#pendulum#timestamp()
 	call wheel#helix#rename_file(old_filename, new_filename)
 endfun
@@ -430,22 +433,24 @@ fun! wheel#tree#rename_file (...)
 		let complete = 'customlist,wheel#complete#file'
 		let new_filename = input(prompt, dir, complete)
 	endif
-	" old name
+	" ---- old name
 	let location = wheel#referen#location ()
 	let old_filename = location.file
-	" new name
+	" ---- new name
 	let new_filename = wheel#tree#format_filename (new_filename)
-	" rename file
+	" ---- rename file
 	let returnstring = wheel#disc#rename (old_filename, new_filename)
 	if returnstring != 'success'
 		return v:false
 	endif
-	" link buffer to new file name
+	" ---- link buffer to new file name
 	execute 'silent file' new_filename
 	silent write!
-	" adapt wheel variables to new_filename
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
+	" ---- adapt wheel variables to new_filename
 	call wheel#tree#adapt_to_filename (old_filename, new_filename)
-	" rename location
+	" ---- rename location
 	call wheel#tree#rename('location')
 	return v:true
 endfun
@@ -461,14 +466,17 @@ fun! wheel#tree#remove (level, name)
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let glossary = upper.glossary
-	" find element index
+	" ---- find element index
 	let index = glossary->index(name)
 	if index < 0
 		echomsg upper_name 'does not contain' name
+		return v:false
 	endif
-	" remove from elements list
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
+	" ---- remove from elements list
 	eval elements->remove(index)
-	" adjust current index if necessary
+	" ---- adjust current index if necessary
 	if empty(elements)
 		let upper.current = -1
 	elseif index <= upper.current
@@ -477,11 +485,11 @@ fun! wheel#tree#remove (level, name)
 		let length = len(elements)
 		let upper.current = wheel#gear#circular_minus(index, length)
 	endif
-	" remove from glossary
+	" ---- remove from glossary
 	eval glossary->wheel#chain#remove_element(name)
-	" for index auto update at demand
+	" ---- for index auto update at demand
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
-	" adjust history
+	" ---- adjust history
 	call wheel#pendulum#delete (level, old_names)
 	return v:true
 endfun
@@ -504,9 +512,9 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 			return v:false
 		endif
 	endif
-	" For history
+	" ---- for history
 	let old_names = wheel#referen#names ()
-	" Remove
+	" ---- check
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	if empty(elements)
@@ -514,6 +522,9 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 		echomsg upper_name 'is already empty'
 		return v:false
 	endif
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
+	" ---- remove
 	let length = len(elements)
 	let upper_level_name = wheel#referen#upper_level_name (level)
 	let key = wheel#referen#list_key (upper_level_name)
@@ -528,7 +539,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	eval upper.glossary->wheel#chain#remove_element(name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#vortex#jump ()
-	" Adjust history
+	" ---- adjust history
 	call wheel#pendulum#delete (level, old_names)
 	return v:true
 endfun
@@ -562,7 +573,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 	endif
 	let element = deepcopy(wheel#referen#{level}())
 	let coordin = split(destination, s:level_separ)
-	" -- pre checks
+	" ---- pre checks
 	if mode == 'move'
 		if level ==# 'torus'
 			echomsg 'wheel : move torus in wheel = noop'
@@ -578,7 +589,9 @@ fun! wheel#tree#copy_move (level, mode, ...)
 	elseif mode !=# 'copy'
 		echomsg 'wheel copy/move : mode must be copy or move'
 	endif
-	" -- copy / move
+	" ---- user update autocmd
+	silent doautocmd User WheelUpdate
+	" ---- copy / move
 	if level ==# 'torus'
 		" mode must be copy at this stage
 		call wheel#tree#insert_torus (element)
