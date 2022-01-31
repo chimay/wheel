@@ -480,10 +480,15 @@ manually launch the sync-up process. The default mapping is : >
     <M-w><M-$>
 <
 
-This process can be partly automated, see :
+This process can be partly automated, see |wheel-autocommands-auto-follow|.
 
-- |wheel-autocommands-update|
-- |wheel-autocommands-auto-follow|
+Sync up : update current location line & column~
+
+The `update` function updates current location to match cursor line & column.
+It is called by the `follow` routine, so you can also use `<M-w><M-$>` to
+launch it.
+
+This process can be partly automated, see |wheel-autocommands-update|.
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
@@ -2446,7 +2451,7 @@ If you want to update your cursor position each time you leave a buffer : >
 <
 
 ------------------------------------------------------------------------------
-MRU files				    *wheel-autocommands-mru-files*
+MRU FILES				    *wheel-autocommands-mru-files*
 
 If you want to record a list of the files you edited without adding them
 to the wheel : >
