@@ -819,7 +819,7 @@ Selection~
 
 Some dedicated buffers can act on selected entries. You can hit :
 
-- `<Space>` to toggle the selection of a line
+- `<Space>` or `=` to toggle the selection of a line
 - `#` to reverse the selection of all visible lines
 - `*` to select all visible lines
 - `|` to clear the selection of all visible lines

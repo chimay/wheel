@@ -335,7 +335,8 @@ fun! wheel#pencil#mappings ()
 	let b:wheel_nature.has_selection = v:true
 	" -- normal mode
 	nnoremap <buffer> <space> <cmd>call wheel#pencil#toggle()<cr>
-	nnoremap <buffer> # <cmd>call wheel#pencil#toggle_visible()<cr>
-	nnoremap <buffer> * <cmd>call wheel#pencil#select_visible()<cr>
-	nnoremap <buffer> <bar> <cmd>call wheel#pencil#clear_visible()<cr>
+	nnoremap <buffer> =       <cmd>call wheel#pencil#toggle()<cr>
+	nnoremap <buffer> #       <cmd>call wheel#pencil#toggle_visible()<cr>
+	nnoremap <buffer> *       <cmd>call wheel#pencil#select_visible()<cr>
+	nnoremap <buffer> <bar>   <cmd>call wheel#pencil#clear_visible()<cr>
 endfun
