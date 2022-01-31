@@ -198,10 +198,17 @@ fun! wheel#pendulum#rename (level, old, new)
 			let elem.coordin[index] = a:new
 		endif
 	endfor
+	" -- frecency
+	for elem in g:wheel_history.frecency
+		let coordin = elem.coordin
+		if coordin[:index] == old_names[:index]
+			let elem.coordin[index] = a:new
+		endif
+	endfor
 endfun
 
 fun! wheel#pendulum#delete (level, old_names)
-	" Delete all occurences of old_names in history
+	" Delete all occurences of old_names coordin in history
 	" level = 0 or torus    : delete torus
 	" level = 1 or circle   : delete circle
 	" level = 2 or location : delete location
@@ -220,6 +227,9 @@ fun! wheel#pendulum#delete (level, old_names)
 	" -- history circuit
 	let timeloop = g:wheel_history.circuit
 	eval timeloop->filter(function('wheel#pendulum#distinct_coordin', [index, old_names]))
+	" -- frecency
+	let frecency = g:wheel_history.frecency
+	eval frecency->filter(function('wheel#pendulum#distinct_coordin', [index, old_names]))
 endfun
 
 fun! wheel#pendulum#broom ()
@@ -230,6 +240,9 @@ fun! wheel#pendulum#broom ()
 	" -- history circuit
 	let timeloop = g:wheel_history.circuit
 	eval timeloop->filter(function('wheel#pendulum#coordin_inside_wheel'))
+	" -- frecency
+	let frecency = g:wheel_history.frecency
+	eval frecency->filter(function('wheel#pendulum#coordin_inside_wheel'))
 endfun
 
 " newer & older
