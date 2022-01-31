@@ -341,7 +341,7 @@ endfun
 
 " -- paste
 
-fun! wheel#line#paste_list (where = 'linewise_after', close = 'close')
+fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in list mode
 	let where = a:where
 	let close = a:close
@@ -359,13 +359,13 @@ fun! wheel#line#paste_list (where = 'linewise_after', close = 'close')
 	endif
 	call wheel#rectangle#previous ()
 	let @" = join(content, "\n")
-	if where == 'linewise_after'
+	if where == 'linewise-after'
 		put =content
-	elseif where == 'linewise_before'
+	elseif where == 'linewise-before'
 		put! =content
-	elseif where == 'charwise_after'
+	elseif where == 'charwise-after'
 		normal! p
-	elseif where == 'charwise_before'
+	elseif where == 'charwise-before'
 		normal! P
 	endif
 	call wheel#cylinder#recall ()
@@ -375,7 +375,7 @@ fun! wheel#line#paste_list (where = 'linewise_after', close = 'close')
 	return win_getid ()
 endfun
 
-fun! wheel#line#paste_plain (where = 'linewise_after', close = 'close')
+fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in plain mode
 	let where = a:where
 	let close = a:close
@@ -390,13 +390,13 @@ fun! wheel#line#paste_plain (where = 'linewise_after', close = 'close')
 	endif
 	call wheel#rectangle#previous ()
 	let @" = join(content, "\n")
-	if where == 'linewise_after'
+	if where == 'linewise-after'
 		put =content
-	elseif where == 'linewise_before'
+	elseif where == 'linewise-before'
 		put! =content
-	elseif where == 'charwise_after'
+	elseif where == 'charwise-after'
 		normal! p
-	elseif where == 'charwise_before'
+	elseif where == 'charwise-before'
 		normal! P
 	endif
 	call wheel#cylinder#recall ()

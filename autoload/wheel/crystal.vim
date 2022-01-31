@@ -721,10 +721,10 @@ endif
 
 if ! exists('s:context_yank_plain')
 	let s:context_yank_plain = [
-				\ ['linewise paste before' ,  "wheel#boomerang#yank('linewise_before')"],
-				\ ['linewise paste after' ,  "wheel#boomerang#yank('linewise_after')"],
-				\ ['characterwise paste before' ,  "wheel#boomerang#yank('charwise_before')"],
-				\ ['characterwise paste after' ,  "wheel#boomerang#yank('charwise_after')"],
+				\ ['linewise paste before' ,  "wheel#boomerang#yank('linewise-before')"],
+				\ ['linewise paste after' ,  "wheel#boomerang#yank('linewise-after')"],
+				\ ['characterwise paste before' ,  "wheel#boomerang#yank('charwise-before')"],
+				\ ['characterwise paste after' ,  "wheel#boomerang#yank('charwise-after')"],
 				\ ['undo' ,  'wheel#mandala#undo()'],
 				\ ['redo' ,  'wheel#mandala#redo()'],
 				\]

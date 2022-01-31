@@ -47,39 +47,41 @@ fun! wheel#codex#add ()
 	let g:wheel_yank = g:wheel_yank[:max - 1]
 endfun
 
-fun! wheel#codex#yank_list (where = 'linewise_after')
+fun! wheel#codex#yank_list (where = 'linewise-after')
 	" Paste yank from yank ring in list mode
+	let where = a:where
 	let prompt = 'Yank element (list mode) : '
 	let complete = 'customlist,wheel#complete#yank_list'
 	let line = input(prompt, '', complete)
 	let content = eval(line)
 	let @" = join(content, "\n")
-	if where == 'linewise_after'
+	if where == 'linewise-after'
 		put =content
-	elseif where == 'linewise_before'
+	elseif where == 'linewise-before'
 		put! =content
-	elseif where == 'charwise_after'
+	elseif where == 'charwise-after'
 		normal! p
-	elseif where == 'charwise_before'
+	elseif where == 'charwise-before'
 		normal! P
 	endif
 	put =content
 endfun
 
-fun! wheel#codex#yank_plain (where = 'charwise_after')
+fun! wheel#codex#yank_plain (where = 'charwise-after')
 	" Paste yank from yank ring in plain mode
+	let where = a:where
 	let prompt = 'Yank element (plain mode) : '
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
 	let @" = join(content, "\n")
-	if where == 'linewise_after'
+	if where == 'linewise-after'
 		put =content
-	elseif where == 'linewise_before'
+	elseif where == 'linewise-before'
 		put! =content
-	elseif where == 'charwise_after'
+	elseif where == 'charwise-after'
 		let @" = content
 		normal! p
-	elseif where == 'charwise_before'
+	elseif where == 'charwise-before'
 		let @" = content
 		normal! P
 	endif
