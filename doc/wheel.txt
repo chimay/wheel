@@ -480,7 +480,10 @@ manually launch the sync-up process. The default mapping is : >
     <M-w><M-$>
 <
 
-This process can be partly automated, see |wheel-autocommands-auto-follow|.
+This process can be partly automated, see :
+
+- |wheel-autocommands-update|
+- |wheel-autocommands-auto-follow|
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
@@ -2340,18 +2343,45 @@ To enable autowrite, you need to add an autocommand on vim leave : >
 <
 
 ------------------------------------------------------------------------------
+UPDATE						*wheel-autocommands-update*
+
+By default, locations are only updated manually, with `<M-w><M-$>`. This
+way, you can update the wheel only when you want to do so.
+
+Nevertheless, it is possible to update automatically your locations each
+time you use a wheel navigation function. Just add the update function to
+the `WheelUpdate` user event : >
+
+    autocmd User WheelUpdate call wheel#vortex#update()
+<
+
+This autocmd is run before any jump to a wheel location, as soon as you
+use a wheel navigation function :
+
+- next/previous element
+- switch to element
+- switch in index, history, frecency
+- ...
+
+------------------------------------------------------------------------------
 AFTER JUMP				*wheel-autocommands-after-jump*
 
-The user autocommands `WheelAfterJump` are executed at the end of each
-navigation operation in the Wheel ; basically, each time you jump to
-another file using wheel group functions.
+The `WheelAfterJump` user event happens after any jump to a wheel
+location, as soon as you use a wheel navigation function :
 
-This example fold everything except the cursor line : >
+- next/previous element
+- switch to element
+- switch in index, history, frecency
+- ...
+
+You can use it to add a post-jump operation.
+
+This example folds everything except the cursor line : >
 
     autocmd User WheelAfterJump norm zMzx
 <
 
-This example open recursively the folds under the cursor line : >
+This example opens recursively the folds under the cursor line : >
 
     autocmd User WheelAfterJump norm zCzO
 <
