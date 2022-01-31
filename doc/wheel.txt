@@ -3020,6 +3020,9 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
     exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
     exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+    " -- frecency
+    exe nmap '<m-e>         <plug>(wheel-prompt-frecency)'
+    exe nmap '<m-c-e>       <plug>(wheel-dedibuf-frecency)'
     " ---- navigate with vim native tools
     " -- buffers
     exe nmap '<m-b>          <plug>(wheel-prompt-buffer)'
