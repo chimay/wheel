@@ -60,7 +60,7 @@ fun! wheel#cuboctahedron#update_var_lines ()
 		let lastline = line('$')
 		for linum in range(start, lastline)
 			let visible = getline(linum)
-			let visible = wheel#pencil#erase (visible)
+			let visible = wheel#pencil#unmarked (visible)
 			let line_index = wheel#teapot#line_index (linum)
 			let b:wheel_lines[line_index] = visible
 			let local_index = linum - start
@@ -71,7 +71,7 @@ fun! wheel#cuboctahedron#update_var_lines ()
 		let length = len(lines)
 		for index in range(length)
 			let visible = lines[index]
-			let lines[index] = wheel#pencil#erase (visible)
+			let lines[index] = wheel#pencil#unmarked (visible)
 		endfor
 		let b:wheel_lines = lines
 	endif

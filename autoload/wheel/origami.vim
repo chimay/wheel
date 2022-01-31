@@ -52,7 +52,7 @@ fun! wheel#origami#chord ()
 	" Return wheel coordinates of line in folded mandala buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
-	let cursor_line = wheel#pencil#erase (cursor_line)
+	let cursor_line = wheel#pencil#unmarked (cursor_line)
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
 		return []
@@ -67,7 +67,7 @@ fun! wheel#origami#chord ()
 		let circle = cursor_list[0]
 		call wheel#origami#chord_parent ()
 		let line = getline('.')
-		let line = wheel#pencil#erase (line)
+		let line = wheel#pencil#unmarked (line)
 		let fields = split(line)
 		let torus = fields[0]
 		let coordin = [torus, circle]
@@ -76,12 +76,12 @@ fun! wheel#origami#chord ()
 		let location = cursor_line
 		call wheel#origami#chord_parent ()
 		let line = getline('.')
-		let line = wheel#pencil#erase (line)
+		let line = wheel#pencil#unmarked (line)
 		let fields = split(line)
 		let circle = fields[0]
 		call wheel#origami#chord_parent ()
 		let line = getline('.')
-		let line = wheel#pencil#erase (line)
+		let line = wheel#pencil#unmarked (line)
 		let fields = split(line)
 		let torus = fields[0]
 		let coordin = [torus, circle, location]
@@ -124,7 +124,7 @@ fun! wheel#origami#tabwin ()
 	" Return tab & filename of line in folded mandala buffer
 	let position = getcurpos()
 	let cursor_line = getline('.')
-	let cursor_line = wheel#pencil#erase (cursor_line)
+	let cursor_line = wheel#pencil#unmarked (cursor_line)
 	let cursor_list = split(cursor_line)
 	if empty(cursor_line)
 		return []
@@ -142,7 +142,7 @@ fun! wheel#origami#tabwin ()
 		let tabline = line('.')
 		let winum = fileline - tabline
 		let line = getline('.')
-		let line = wheel#pencil#erase (line)
+		let line = wheel#pencil#unmarked (line)
 		let fields = split(line)
 		let tabnum = str2nr(fields[1])
 		let coordin = [tabnum, winum, filename]

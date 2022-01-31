@@ -42,7 +42,7 @@ endfun
 
 " add / remove mark
 
-fun! wheel#pencil#draw (line)
+fun! wheel#pencil#marked (line)
 	" Return marked line
 	let line = a:line
 	if wheel#pencil#has_select_mark (line)
@@ -52,7 +52,7 @@ fun! wheel#pencil#draw (line)
 	return substitute(line, '\m^', selection_mark, '')
 endfun
 
-fun! wheel#pencil#erase (line)
+fun! wheel#pencil#unmarked (line)
 	" Return unmarked line
 	let line = a:line
 	if ! wheel#pencil#has_select_mark (line)
@@ -111,7 +111,7 @@ fun! wheel#pencil#cursor (...)
 	if ! &foldenable
 		" -- plain
 		let cursor_line = getline(linum)
-		let component = wheel#pencil#erase (cursor_line)
+		let component = wheel#pencil#unmarked (cursor_line)
 	else
 		" -- treeish
 		call cursor(linum, 1)
@@ -173,7 +173,7 @@ fun! wheel#pencil#select (...)
 	eval selection.indexes->add(index)
 	eval selection.components->add(component)
 	" ---- update buffer line
-	let marked_line = wheel#pencil#draw (line)
+	let marked_line = wheel#pencil#marked (line)
 	call setline(linum, marked_line)
 	" ---- coda
 	setlocal nomodified
@@ -208,7 +208,7 @@ fun! wheel#pencil#clear (...)
 	eval selection.indexes->remove(found)
 	eval selection.components->remove(found)
 	" ---- update buffer line
-	let unmarked_line = wheel#pencil#erase (line)
+	let unmarked_line = wheel#pencil#unmarked (line)
 	call setline(linum, unmarked_line)
 	" ---- coda
 	setlocal nomodified
@@ -282,7 +282,7 @@ fun! wheel#pencil#hide ()
 	let linelist = getline(start, '$')
 	for linum in range(start, lastline)
 		let line = getline(linum)
-		let cleared = wheel#pencil#erase (line)
+		let cleared = wheel#pencil#unmarked (line)
 		call setline(linum, cleared)
 	endfor
 	setlocal nomodified
@@ -305,7 +305,7 @@ fun! wheel#pencil#show ()
 		let inside = index->wheel#chain#is_inside(reference)
 		if inside
 			let line = getline(linum)
-			let drawed = wheel#pencil#draw (line)
+			let drawed = wheel#pencil#marked (line)
 			call setline(linum, drawed)
 		endif
 	endfor
