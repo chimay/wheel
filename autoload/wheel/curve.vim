@@ -157,3 +157,19 @@ fun! wheel#curve#history_circuit (settings)
 	" Go to location in history circuit
 	return wheel#curve#history (a:settings)
 endfun
+
+fun! wheel#curve#frecency (settings)
+	" Go to location in history
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
+	let coordin = split(fields[1], s:level_separ)
+	" ---- jump
+	let where = wheel#curve#where (target)
+	call wheel#curve#target (target)
+	call wheel#vortex#chord(coordin)
+	call wheel#vortex#jump (where)
+	return win_getid ()
+endfun

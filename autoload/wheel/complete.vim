@@ -103,6 +103,13 @@ fun! wheel#complete#history_circuit (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
+fun! wheel#complete#frecency (arglead, cmdline, cursorpos)
+	" Complete coordinates in history timeline
+	let choices = wheel#perspective#frecency ()
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
 " mandalas = dedicated buffers
 
 fun! wheel#complete#mandala (arglead, cmdline, cursorpos)

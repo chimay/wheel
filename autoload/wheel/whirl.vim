@@ -191,3 +191,9 @@ fun! wheel#whirl#history_circuit ()
 	" Each coordinate = [torus, circle, location]
 	call wheel#whirl#generic('history_circuit')
 endfun
+
+fun! wheel#whirl#frecency ()
+	" Choose a location coordinate in frecency
+	" Each coordinate = [torus, circle, location]
+	call wheel#whirl#generic('frecency')
+endfun

@@ -7,7 +7,7 @@
 "   - completion of prompting function
 "   - dedicated buffers (mandalas)
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
@@ -44,7 +44,7 @@ if ! exists('s:is_mandala_tabs')
 	lockvar s:is_mandala_tabs
 endif
 
-" Helpers
+" ---- helpers
 
 fun! wheel#perspective#execute (runme, ...)
 	" Ex or system command
@@ -65,9 +65,9 @@ fun! wheel#perspective#execute (runme, ...)
 	return returnlist
 endfun
 
-" Wheel elements
+" ---- wheel elements
 
-" from referen
+" -- from referen
 
 fun! wheel#perspective#element (level)
 	" Switch level = torus, circle or location
@@ -99,30 +99,20 @@ fun! wheel#perspective#rename_file ()
 	return returnlist
 endfun
 
-" from helix
+" -- from helix
 
 fun! wheel#perspective#helix ()
 	" Locations index
 	" Each coordinate is a string torus > circle > location
-	let helix = wheel#helix#helix ()
-	let returnlist = []
-	for coordin in helix
-		let entry = join(coordin, s:level_separ)
-		let returnlist = add(returnlist, entry)
-	endfor
-	return returnlist
+	let helix = deepcopy(wheel#helix#helix ())
+	return helix->map({ _, val -> join(val, s:level_separ) })
 endfun
 
 fun! wheel#perspective#grid ()
 	" Circle index
 	" Each coordinate is a string torus > circle
-	let grid = wheel#helix#grid ()
-	let returnlist = []
-	for coordin in grid
-		let entry = join(coordin, s:level_separ)
-		let returnlist = add(returnlist, entry)
-	endfor
-	return returnlist
+	let grid = deepcopy(wheel#helix#grid ())
+	return grid->map({ _, val -> join(val, s:level_separ) })
 endfun
 
 fun! wheel#perspective#tree ()
@@ -161,10 +151,10 @@ fun! wheel#perspective#reorganize ()
 	return returnlist
 endfun
 
-" from pendulum
+" -- from pendulum
 
 fun! wheel#perspective#history ()
-	" Sorted timeline index
+	" Naturally sorted timeline index
 	" Each entry is a string : date hour | torus > circle > location
 	let timeline = g:wheel_history.line
 	" should not be necessary
@@ -175,8 +165,7 @@ fun! wheel#perspective#history ()
 		let coordin = entry.coordin
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour .. s:field_separ
-		let entry ..= coordin[0] .. s:level_separ .. coordin[1] .. s:level_separ .. coordin[2]
+		let entry = date_hour .. s:field_separ .. join(coordin, s:level_separ)
 		let returnlist = add(returnlist, entry)
 	endfor
 	return returnlist
@@ -194,60 +183,28 @@ fun! wheel#perspective#history_circuit ()
 		let coordin = entry.coordin
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour .. s:field_separ
-		let entry ..= coordin[0] .. s:level_separ .. coordin[1] .. s:level_separ .. coordin[2]
+		let entry = date_hour .. s:field_separ .. join(coordin, s:level_separ)
 		let returnlist = add(returnlist, entry)
 	endfor
 	return returnlist
 endfun
 
-" Search file
+" -- from cuckoo
 
-fun! wheel#perspective#find (pattern)
-	" Find files in current directory using **/*pattern* glob
-	let pattern = a:pattern
-	return glob(pattern, v:false, v:true)
-endfun
-
-fun! wheel#perspective#locate (pattern)
-	" Locate
-	if ! has('unix')
-		echomsg 'wheel perspective locate : this function is only supported on Unix systems'
-		return v:false
-	endif
-	let pattern = a:pattern
-	let database = g:wheel_config.locate_db
-	if empty(database)
-		let runme = 'locate ' .. pattern
-	else
-		let runme = 'locate -d ' .. expand(database) .. ' ' .. pattern
-	endif
-	let returnlist = systemlist(runme)
-	return returnlist
-endfun
-
-" from attic
-
-fun! wheel#perspective#mru ()
-	" Sorted most recenty used files
-	" Each entry is a string : date hour | filename
-	let attic = deepcopy(g:wheel_attic)
-	" should not be necessary
-	"let Compare = function('wheel#pendulum#compare')
-	"let attic = sort(attic, Compare)
+fun! wheel#perspective#frecency ()
+	" Frecency : frequent & recent
+	let frecency = g:wheel_history.frecency
 	let returnlist = []
-	for entry in attic
-		let filename = entry.file
-		let timestamp = entry.timestamp
-		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour .. s:field_separ
-		let entry ..= filename
+	for entry in frecency
+		let score = printf('%4d', entry.score)
+		let coordin = entry.coordin
+		let entry = score .. s:field_separ .. join(coordin, s:level_separ)
 		let returnlist = add(returnlist, entry)
 	endfor
 	return returnlist
 endfun
 
-" Buffers
+" ---- buffers
 
 fun! wheel#perspective#buffer (scope = 'listed')
 	" Buffers
@@ -348,7 +305,7 @@ fun! wheel#perspective#narrow_circle (pattern, sieve)
 	return list
 endfun
 
-" Tab & windows
+" ---- tab & windows
 
 fun! wheel#perspective#tabwin ()
 	" Buffers visible in tabs & wins
@@ -400,7 +357,53 @@ fun! wheel#perspective#tabwin_tree ()
 	return returnlist
 endfun
 
-" Search inside file
+" ---- search file
+
+fun! wheel#perspective#find (pattern)
+	" Find files in current directory using glob pattern
+	let pattern = a:pattern
+	return glob(pattern, v:false, v:true)
+endfun
+
+fun! wheel#perspective#locate (pattern)
+	" Locate
+	if ! has('unix')
+		echomsg 'wheel perspective locate : this function is only supported on Unix systems'
+		return v:false
+	endif
+	let pattern = a:pattern
+	let database = g:wheel_config.locate_db
+	if empty(database)
+		let runme = 'locate ' .. pattern
+	else
+		let runme = 'locate -d ' .. expand(database) .. ' ' .. pattern
+	endif
+	let returnlist = systemlist(runme)
+	return returnlist
+endfun
+
+" -- from attic
+
+fun! wheel#perspective#mru ()
+	" Sorted most recenty used files
+	" Each entry is a string : date hour | filename
+	let attic = deepcopy(g:wheel_attic)
+	" should not be necessary
+	"let Compare = function('wheel#pendulum#compare')
+	"let attic = sort(attic, Compare)
+	let returnlist = []
+	for entry in attic
+		let filename = entry.file
+		let timestamp = entry.timestamp
+		let date_hour = wheel#pendulum#date_hour (timestamp)
+		let entry = date_hour .. s:field_separ
+		let entry ..= filename
+		let returnlist = add(returnlist, entry)
+	endfor
+	return returnlist
+endfun
+
+" ---- search inside file
 
 fun! wheel#perspective#occur (pattern)
 	" Occur
@@ -518,7 +521,7 @@ fun! wheel#perspective#change ()
 	return returnlist
 endfun
 
-" from vector
+" -- from vector
 
 fun! wheel#perspective#grep (pattern, sieve)
 	" Quickfix list
@@ -547,7 +550,7 @@ fun! wheel#perspective#grep (pattern, sieve)
 	return list
 endfun
 
-" from symbol
+" -- from symbol
 
 fun! wheel#perspective#tag ()
 	" Tags
@@ -567,9 +570,7 @@ fun! wheel#perspective#tag ()
 	return returnlist
 endfun
 
-" Yanks
-
-" from codex
+" ---- yanks
 
 fun! wheel#perspective#yank (mode)
 	" Yank wheel
@@ -590,7 +591,7 @@ fun! wheel#perspective#yank (mode)
 	return returnlist
 endfun
 
-" Undo list
+" ---- undo list
 
 fun! wheel#perspective#undolist ()
 	" Undo list

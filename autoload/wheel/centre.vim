@@ -73,6 +73,9 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-alternate-other-circle) <cmd>call wheel#pendulum#alternate('other_circle')<cr>
 	nnoremap <plug>(wheel-alternate-same-torus-other-circle) <cmd>call wheel#pendulum#alternate('same_torus_other_circle')<cr>
 	nnoremap <plug>(wheel-alternate-menu) <cmd>call wheel#pendulum#alternate_menu()<cr>
+	" -- frecency
+	nnoremap <plug>(wheel-prompt-frecency) <cmd>call wheel#vortex#frecency()<cr>
+	nnoremap <plug>(wheel-dedibuf-frecency) <cmd>call wheel#whirl#frecency()<cr>
 	" ---- navigate with vim native tools
 	" -- buffers
 	nnoremap <plug>(wheel-prompt-buffer) <cmd>call wheel#sailing#buffer()<cr>
@@ -287,8 +290,11 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<m-s-x> <plug>(wheel-dedibuf-index-circles)'
 		" -- history
 		exe nmap prefix .. 'h <plug>(wheel-prompt-history)'
-		" ---- organize wheel
 		exe nmap prefix .. '<m-h> <plug>(wheel-dedibuf-history)'
+		" -- frecency
+		exe nmap prefix .. 'e <plug>(wheel-prompt-frecency)'
+		exe nmap prefix .. '<m-e> <plug>(wheel-dedibuf-frecency)'
+		" ---- organize wheel
 		" -- reorder
 		exe nmap prefix .. batch .. 'o <plug>(wheel-dedibuf-reorder-location)'
 		exe nmap prefix .. batch .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
@@ -451,6 +457,9 @@ fun! wheel#centre#cables ()
 		exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
 		exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
 		exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+		" -- frecency
+		exe nmap '<m-e>         <plug>(wheel-prompt-frecency)'
+		exe nmap '<m-c-e>       <plug>(wheel-dedibuf-frecency)'
 		" ---- navigate with vim native tools
 		" -- buffers
 		exe nmap '<m-b>          <plug>(wheel-prompt-buffer)'

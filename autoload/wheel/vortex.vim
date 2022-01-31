@@ -315,3 +315,17 @@ fun! wheel#vortex#history_circuit (where = 'search-window')
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (where)
 endfun
+
+fun! wheel#vortex#frecency (where = 'search-window')
+	" Switch to coordinates in frecency
+	" Optional argument : see vortex#jump optional argument
+	let where = a:where
+	let prompt = 'Switch to frecency element : '
+	let complete = 'customlist,wheel#complete#frecency'
+	let record = input(prompt, '', complete)
+	let fields = split(record, s:field_separ)
+	let entry = fields[1]
+	let coordin = split(entry, s:level_separ)
+	call wheel#vortex#chord(coordin)
+	call wheel#vortex#jump (where)
+endfun
