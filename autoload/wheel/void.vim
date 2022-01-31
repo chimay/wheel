@@ -231,6 +231,16 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'vertical')
 		let g:wheel_config.maxim.vertical = 4
 	endif
+	" ---- frecency
+	if ! has_key(g:wheel_config, 'frecency')
+		let g:wheel_config.frecency = {}
+	endif
+	if ! has_key(g:wheel_config.frecency, 'reward')
+		let g:wheel_config.frecency.reward = 100
+	endif
+	if ! has_key(g:wheel_config.frecency, 'penalty')
+		let g:wheel_config.frecency.penalty = 1
+	endif
 	" ---- display
 	if ! has_key(g:wheel_config, 'display')
 		let g:wheel_config.display = {}

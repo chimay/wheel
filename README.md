@@ -288,6 +288,7 @@ if ! exists("g:wheel_loaded")
   " Init
   let g:wheel_config              = {}
   let g:wheel_config.maxim        = {}
+  let g:wheel_config.frecency     = {}
   let g:wheel_config.display      = {}
   let g:wheel_config.display.sign = {}
 
@@ -344,6 +345,10 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.maxim.horizontal = 3
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
+
+  " Frecency
+  let g:wheel_config.frecency.reward = 120
+  let g:wheel_config.frecency.penalty = 1
 
   " Wheel message : all in one-line or accept multi-line
   let g:wheel_config.display.message = 'one-line'

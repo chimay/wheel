@@ -926,7 +926,7 @@ as a kind of local history. You can :
 - switch to another layer with `<M-l>`, completion is available
 - destroy current layer and go back to the previous one by pressing `<Backspace>`
 
-The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers`
+The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers`.
 
 So, there are two levels :
 
@@ -1750,6 +1750,7 @@ Max layers in dedicated buffers		|wheel-config-maxim-layers|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
+Frecency                     		|wheel-config-frecency|
 Filter prompt in dedicated buffers	|wheel-config-display-prompt|
 Selection marker			|wheel-config-display-selection|
 Signs					|wheel-config-display-sign|
@@ -1786,6 +1787,7 @@ first initialize it : >
 
     let g:wheel_config              = {}
     let g:wheel_config.maxim        = {}
+    let g:wheel_config.frecency     = {}
     let g:wheel_config.display      = {}
     let g:wheel_config.display.sign = {}
 <
@@ -2095,6 +2097,31 @@ Maximum number of vertical splits in layouts : >
 Default : 4
 
 ------------------------------------------------------------------------------
+FRECENCY					      *wheel-config-frecency*
+
+The frecency (frequent & recent) algorithm is very simple :
+
+- when you jump to a location, its score is increased by a reward
+- the scores of all the other locations of the frecency list are decreased
+  by a penalty
+- when a score dives below 0, the location is removed from the list
+
+You can customize the reward : >
+
+  let g:wheel_config.frecency.reward = 150
+<
+
+and the penalty : >
+
+  let g:wheel_config.frecency.penalty = 1
+<
+
+Default~
+
+- reward : 100
+- penalty : 1
+
+------------------------------------------------------------------------------
 FILTER PROMPT IN REGULAR DEDICATED BUFFERS	*wheel-config-display-prompt*
 
 You can customize the filter prompt in dedicated buffers.
@@ -2188,6 +2215,7 @@ Here is an example of a complete configuration : >
   " Init
   let g:wheel_config              = {}
   let g:wheel_config.maxim        = {}
+  let g:wheel_config.frecency     = {}
   let g:wheel_config.display      = {}
   let g:wheel_config.display.sign = {}
 
@@ -2241,6 +2269,10 @@ Here is an example of a complete configuration : >
   let g:wheel_config.maxim.horizontal = 3
   " Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
+
+  " Frecency
+  let g:wheel_config.frecency.reward = 120
+  let g:wheel_config.frecency.penalty = 1
 
   " Wheel message : all in one-line or accept multi-line
   let g:wheel_config.display.message = 'one-line'
