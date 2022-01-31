@@ -45,7 +45,6 @@ fun! wheel#cuckoo#record ()
 		let entry.coordin = coordin
 		let entry.score = s:frecency_stair
 	endif
-	echomsg entry
 	eval frecency->map({ _, val -> wheel#cuckoo#slide (val) })
 	eval frecency->filter({ _, val -> val.score >= 0 })
 	for index in range(length)

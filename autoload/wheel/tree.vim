@@ -208,7 +208,7 @@ fun! wheel#tree#add_circle (...)
 	let torus = g:wheel.toruses[g:wheel.current]
 	if wheel#chain#is_inside(circle_name, torus.glossary)
 		let infolist = ['Circle', circle_name, 'already exists in torus', torus.name]
-		call wheel#status#message(info)
+		call wheel#status#message(infolist)
 		return v:false
 	endif
 	" add circle
@@ -251,12 +251,11 @@ fun! wheel#tree#add_location (location, ...)
 	endif
 	" check location name is not in circle
 	if wheel#chain#is_inside(name, circle.glossary)
-		call wheel#status#clear ()
-		echomsg 'Location named' name 'already exists in circle'
+		let infolist = ['Location named', name, 'already exists in circle']
+		call wheel#status#message(infolist)
 		return v:false
 	endif
 	" add the location to the circle
-	call wheel#status#clear ()
 	let infolist = [ 'Adding location', location.name, ':', location.file ]
 	let infolist += [ ':', location.line, ':', location.col ]
 	let infolist += [ 'in torus', torus.name, 'circle', circle.name ]
@@ -384,8 +383,8 @@ fun! wheel#tree#rename (level, ...)
 	" check new is not present in upper list
 	if wheel#chain#is_inside(new, upper.glossary)
 		let upper_level_name = wheel#referen#upper_level_name(a:level)
-		call wheel#status#clear ()
-		echomsg level new 'already exists in' upper_level_name
+		let infolist = [level, new, 'already exists in', upper_level_name]
+		call wheel#status#message(infolist)
 		return v:false
 	endif
 	" rename

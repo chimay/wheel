@@ -3382,6 +3382,8 @@ Some bindings that you may find useful : >
 
     " alternate
     nmap <silent> <d-^>       <plug>(wheel-alternate-other-torus)
+    " frecency
+    nmap <silent> <d-e>       <plug>(wheel-dedibuf-frecency)
 
     " index of locations in torus > circle > location format
     nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
