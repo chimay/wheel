@@ -64,7 +64,6 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
-	put =content
 endfun
 
 fun! wheel#codex#yank_plain (where = 'charwise-after')
@@ -73,17 +72,14 @@ fun! wheel#codex#yank_plain (where = 'charwise-after')
 	let prompt = 'Yank element (plain mode) : '
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
-	let @" = join(content, "\n")
+	let @" = content
 	if where == 'linewise-after'
 		put =content
 	elseif where == 'linewise-before'
 		put! =content
 	elseif where == 'charwise-after'
-		let @" = content
 		normal! p
 	elseif where == 'charwise-before'
-		let @" = content
 		normal! P
 	endif
-	put =content
 endfun
