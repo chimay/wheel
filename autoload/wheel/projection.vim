@@ -86,28 +86,30 @@ fun! wheel#projection#follow (...)
 	else
 		let level = 'wheel'
 	endif
-	" if torus or circle is empty, assume the user
-	" wants to add something before switching
+	" ---- if torus or circle is empty, assume the user
+	" ---- wants to add something before switching
 	if level == 'wheel' && wheel#referen#is_empty ('torus')
 		echomsg 'wheel follow : torus is empty'
 		return v:false
 	endif
-	" first add some locations before leaving empty circle
+	" ---- first add some locations before leaving empty circle
 	if wheel#chain#is_inside(level, ['wheel', 'torus']) && wheel#referen#is_empty ('circle')
 		echomsg 'wheel follow : circle is empty'
 		return v:false
 	endif
-	" follow
+	" ---- follow
 	let coordin = wheel#projection#closest (level)
 	if empty(coordin)
 		" outside of the wheel
 		return v:false
 	endif
+	" ---- are we already there N
 	if coordin == wheel#referen#names()
 		" already there : let's update location line & col
 		call wheel#vortex#update ('verbose')
 		return v:false
 	endif
+	" ---- jump
 	call wheel#vortex#chord (coordin)
 	if g:wheel_config.auto_chdir_project > 0
 		let markers = g:wheel_config.project_markers
@@ -116,7 +118,7 @@ fun! wheel#projection#follow (...)
 	call wheel#pendulum#record ()
 	let infolist = [ 'wheel follow :', join(coordin, s:level_separ) ]
 	call wheel#status#echo (infolist)
-	" update location to cursor position
-	silent doautocmd User WheelUpdate
+	" ---- update location to cursor position
+	call wheel#vortex#update ()
 	return v:true
 endfun
