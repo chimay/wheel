@@ -2920,6 +2920,9 @@ adapt them to your taste and add them to your init file.
 | <M-^>          | Alternate in the same circle                  |
 | <M-C-^>        | Alternate in another circle of the same torus |
 | -------------- | --------------------------------------------- |
+| <M-e>          | Frecency in prompt                            |
+| <M-C-e>        | Frecency in dedicated buffer                  |
+| -------------- | --------------------------------------------- |
 | <M-b>          | Buffers, prompting function                   |
 | <M-C-b>        | Buffers, dedicated buffer                     |
 | <M-S-b>        | All buffers, including unlisted ones          |
