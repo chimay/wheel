@@ -648,19 +648,19 @@ if ! exists('s:context_navigation')
 	lockvar s:context_navigation
 endif
 
-if ! exists('s:context_buffers')
-	let s:context_buffers = s:context_navigation + [
+if ! exists('s:context_buffer')
+	let s:context_buffer = s:context_navigation + [
 				\ ['delete' ,  "wheel#boomerang#buffer('delete')"],
 				\ ['unload' ,  "wheel#boomerang#buffer('unload')"],
 				\ ['wipe' ,  "wheel#boomerang#buffer('wipe')"],
 				\ ['delete hidden buffers' ,  "wheel#boomerang#buffer('delete_hidden')"],
 				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
 				\]
-	lockvar s:context_buffers
+	lockvar s:context_buffer
 endif
 
-if ! exists('s:context_buffers_all')
-	let s:context_buffers_all = s:context_navigation + [
+if ! exists('s:context_buffer_all')
+	let s:context_buffer_all = s:context_navigation + [
 				\ ['delete' ,  "wheel#boomerang#buffer('delete')"],
 				\ ['unload' ,  "wheel#boomerang#buffer('unload')"],
 				\ ['wipe' ,  "wheel#boomerang#buffer('wipe')"],
@@ -668,7 +668,7 @@ if ! exists('s:context_buffers_all')
 				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
 				\ ['wipe all hidden buffers, including unlisted ones' ,  "wheel#boomerang#buffer('wipe_all_hidden')"],
 				\]
-	lockvar s:context_buffers_all
+	lockvar s:context_buffer_all
 endif
 
 if ! exists('s:context_tabwin')

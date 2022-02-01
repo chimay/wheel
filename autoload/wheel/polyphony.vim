@@ -304,14 +304,13 @@ fun! wheel#polyphony#last_field (key)
 		normal! $
 		return v:true
 	endif
+	let last_field_pattern = '[^' .. s:field_separ_bar .. ']*$'
 	if key == '^'
 		call cursor(linum, 1)
-		let last_field_pattern = '[^│]*$'
 		call search(last_field_pattern, 'c', linum)
 		return v:true
 	endif
 	if linum != 1
-		let last_field_pattern = '[^│]*$'
 		call search(last_field_pattern, 'c', linum)
 	endif
 	let insert = key->wheel#chain#is_inside(['i', 'a'])

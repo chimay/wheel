@@ -186,6 +186,7 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	if angle == 'with-angle' || angle == '>'
 		execute 'let key =' '"\<' .. key .. '>"'
 	endif
+	call wheel#mandala#pre_edit ()
 	if mode == 'insert'
 		execute 'normal! i' .. key
 		call wheel#teapot#filter ()

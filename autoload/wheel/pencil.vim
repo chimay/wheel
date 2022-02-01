@@ -174,7 +174,9 @@ fun! wheel#pencil#select (...)
 	eval selection.components->add(component)
 	" ---- update buffer line
 	let marked_line = wheel#pencil#marked (line)
+	call wheel#mandala#pre_edit ()
 	call setline(linum, marked_line)
+	call wheel#mandala#post_edit ()
 	" ---- coda
 	setlocal nomodified
 	return v:true
@@ -209,7 +211,9 @@ fun! wheel#pencil#clear (...)
 	eval selection.components->remove(found)
 	" ---- update buffer line
 	let unmarked_line = wheel#pencil#unmarked (line)
+	call wheel#mandala#pre_edit ()
 	call setline(linum, unmarked_line)
+	call wheel#mandala#post_edit ()
 	" ---- coda
 	setlocal nomodified
 	return v:true
@@ -280,12 +284,14 @@ fun! wheel#pencil#hide ()
 	let start = wheel#teapot#first_data_line ()
 	let lastline = line('$')
 	let linelist = getline(start, '$')
+	call wheel#mandala#pre_edit ()
 	for linum in range(start, lastline)
 		let line = getline(linum)
 		let cleared = wheel#pencil#unmarked (line)
 		call setline(linum, cleared)
 	endfor
 	setlocal nomodified
+	call wheel#mandala#post_edit ()
 	return v:true
 endfun
 
@@ -300,6 +306,7 @@ fun! wheel#pencil#show ()
 	let lastline = line('$')
 	let linelist = getline(start, '$')
 	let reference = b:wheel_selection.indexes
+	call wheel#mandala#pre_edit ()
 	for linum in range(start, lastline)
 		let index = wheel#teapot#line_index (linum)
 		let inside = index->wheel#chain#is_inside(reference)
@@ -310,6 +317,7 @@ fun! wheel#pencil#show ()
 		endif
 	endfor
 	setlocal nomodified
+	call wheel#mandala#post_edit ()
 	return v:true
 endfun
 

@@ -534,9 +534,8 @@ fun! wheel#mandala#reload ()
 		let function = b:wheel_reload
 		call wheel#status#message('wheel :', function, 'reloaded')
 	else
-		" by default, if b:wheel_reload is not defined or empty,
-		" fill the buffer with b:wheel_lines
-		call wheel#mandala#fill (b:wheel_lines, 'empty-prompt-first')
+		" if b:wheel_reload is empty, replace the buffer with b:wheel_lines
+		call wheel#mandala#replace (b:wheel_lines, 'empty-prompt-first')
 		" restore
 		execute 'silent file' filename
 		echomsg 'wheel : content reloaded'

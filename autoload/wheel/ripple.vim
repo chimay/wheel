@@ -33,6 +33,8 @@ endfun
 fun! wheel#ripple#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
+	setlocal noreadonly
+	setlocal modifiable
 	call append(0, '')
 endfun
 

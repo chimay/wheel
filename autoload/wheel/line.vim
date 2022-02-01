@@ -457,7 +457,7 @@ fun! wheel#line#undo_diff (bufnum)
 	read #
 	1 delete _
 	let diff_buf = bufnr('%')
-	set buftype=nofile
+	setlocal buftype=nofile
 	execute 'file' 'wheel diff : ' save.name
 	let &filetype = save.filetype
 	diffthis
