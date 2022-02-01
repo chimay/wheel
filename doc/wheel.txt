@@ -702,23 +702,21 @@ MOVE					    *wheel-prompting-functions-move*
 - `<M-w>M`   : copy circle to another torus
 
 ------------------------------------------------------------------------------
-YANK						*wheel-prompting-functions-yank*
+YANK RING					*wheel-prompting-functions-yank*
 
-List mode~
+- `<M-w>y` : paste from yank ring linewise, after the sursor
+- `<M-w>p` : paste from yank ring charwise, after the sursor
+- `<M-w>Y` : paste from yank ring linewise, before the sursor
+- `<M-w>P` : paste from yank ring charwise, before the sursor
 
-The yank ring buffer in list mode is launched by `<M-w>y`.
+Linewise means that the paste is inserted after the current line.
 
-Each candidate of the completion list is one of your yanks, represented as a
-list, one element per line.
+Charwise means that the paste is inserted into the current line.
 
-The action is to paste it, of course.
+See also |linewise| and |charwise|.
 
-Plain mode~
-
-The yank ring buffer in plain mode is launched by `<M-w>p`.
-
-Each candidate of the completion list is one of your yanks, represented as a
-concatened string.
+Each candidate of the completion list is one of your yanks, represented
+as a string.
 
 ==============================================================================
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
@@ -754,7 +752,7 @@ Reorganize			|wheel-dedicated-buffers-reorganize|
 Reorganize tabs & windows	|wheel-dedicated-buffers-reorg-tabwin|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
 Narrow				|wheel-dedicated-buffers-narrow|
-Yank 				|wheel-dedicated-buffers-yank|
+Yank ring			|wheel-dedicated-buffers-yank|
 Undo list			|wheel-dedicated-buffers-undolist|
 Batch buffer			|wheel-dedicated-buffers-batch|
 Command output buffer		|wheel-dedicated-buffers-command|
@@ -1613,43 +1611,34 @@ ask you confirmation before running the substitution. So, you can avoid
 confusion in variable names, for instance.
 
 ------------------------------------------------------------------------------
-YANK						*wheel-dedicated-buffers-yank*
+YANK RING					*wheel-dedicated-buffers-yank*
 
 As usual, you can filter the elements in insert mode.
 The available local maps are :
 
  - `<Enter>` : paste a yank after cursor
  - `g<Enter>` : paste a yank after cursor, leave yank ring opened
- - `p` : paste a yank after cursor, leave yank ring opened
- - `P` : paste a yank before cursor, leave yank ring opened
+ - `p` : paste a yank linewise after cursor, leave yank ring opened
+ - `P` : paste a yank linewise before cursor, leave yank ring opened
+ - `gp` : paste a yank characterwise after cursor, leave yank ring opened
+ - `gP` : paste a yank characterwise before cursor, leave yank ring opened
 
 List mode~
 
 The yank ring buffer in list mode is launched by `<M-w><M-y>`.
 
 Each line of the dedicated buffer is one of your yanks, represented as a
-list, one element per line.
-
-In normal mode, the paste is done linewise or characterwise, depending
-on the mapping used :
-
- - `p` : paste a yank linewise after cursor, leave yank ring opened
- - `P` : paste a yank linewise before cursor, leave yank ring opened
- - `gp` : paste a yank characterwise after cursor, leave yank ring opened
- - `gP` : paste a yank characterwise before cursor, leave yank ring opened
+list.
 
 Plain mode~
 
 The yank ring buffer in plain mode is launched by `<M-w><M-p>`.
 
-All your yanks are concatenated and displayed in the dedicated buffer.
+Each line of the dedicated buffer is one of your yanks, represented as a
+string.
 
-The mappings are the same as those of the yank ring buffer in list mode.
-
-Visual mode~
-
-You can also go to visual mode and paste your selection with `p`. The
-paste is done characterwise.
+Besides the usual yank maps, you can go to visual mode and paste your
+selection with `p`. The paste is done characterwise.
 
 ------------------------------------------------------------------------------
 UNDO LIST				*wheel-dedicated-buffers-undolist*
@@ -3370,23 +3359,31 @@ Search inside files~
 
 Yank ring~
 
-| Plug maps                                       | Description                              |
-| ----------------------------------------------- | --------------------------------------   |
-| <plug>(wheel-dedibuf-yank-list)                 | yank ring in list format                |
-| <plug>(wheel-dedibuf-yank-plain)                | yank ring in plain format               |
+| Plug maps                                       | Description                            |
+| ----------------------------------------------- | -------------------------------------- |
+| <plug>(wheel-prompt-yank-list-linewise-after)   | yank ring list, paste linewise after   |
+| <plug>(wheel-prompt-yank-list-linewise-before)  | yank ring list, paste linewise before  |
+| <plug>(wheel-prompt-yank-list-charwise-after)   | yank ring list, paste charwise after   |
+| <plug>(wheel-prompt-yank-list-charwise-before)  | yank ring list, paste charwise before  |
+| <plug>(wheel-prompt-yank-plain-linewise-after)  | yank ring plain, paste linewise after  |
+| <plug>(wheel-prompt-yank-plain-linewise-before) | yank ring plain, paste linewise before |
+| <plug>(wheel-prompt-yank-plain-charwise-after)  | yank ring plain, paste charwise after  |
+| <plug>(wheel-prompt-yank-plain-charwise-before) | yank ring plain, paste charwise before |
+| <plug>(wheel-dedibuf-yank-list)                 | yank ring in list format               |
+| <plug>(wheel-dedibuf-yank-plain)                | yank ring in plain format              |
 
 Undo list~
 
-| Plug maps                                       | Description                              |
-| ----------------------------------------------- | --------------------------------------   |
-| <plug>(wheel-dedibuf-undo-list)                 | go to undo state, compare with diff      |
+| Plug maps                        | Description                           |
+| -------------------------------- | ------------------------------------- |
+| <plug>(wheel-dedibuf-undo-list)  | go to undo state, compare with diff   |
 
 Ex or shell command output~
 
-| Plug maps                                       | Description                              |
-| ----------------------------------------------- | --------------------------------------   |
-| <plug>(wheel-dedibuf-command)                   | output of ex or shell command            |
-| <plug>(wheel-dedibuf-async)                     | output of shell command in async mode    |
+| Plug maps                        | Description                             |
+| -------------------------------- | --------------------------------------- |
+| <plug>(wheel-dedibuf-command)    | output of ex or shell command           |
+| <plug>(wheel-dedibuf-async)      | output of shell command in async mode   |
 
 Handling dedicated buffers~
 
@@ -3467,6 +3464,10 @@ Some bindings that you may find useful : >
     " narrow
     nmap <silent> <d-n>       <plug>(wheel-dedibuf-narrow-operator)
     vmap <silent> <d-n>       <plug>(wheel-dedibuf-narrow)
+
+    " yank ring
+    nmap <silent> <d-y>       <plug>(wheel-dedibuf-yank-list)
+    nmap <silent> <d-p>       <plug>(wheel-dedibuf-yank-plain)
 
     " undo list
     nmap <silent> <d-u>       <plug>(wheel-dedibuf-undo-list)

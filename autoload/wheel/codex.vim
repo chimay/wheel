@@ -81,7 +81,7 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	call wheel#codex#climb(content)
 endfun
 
-fun! wheel#codex#yank_plain (where = 'charwise-after')
+fun! wheel#codex#yank_plain (where = 'linewise-after')
 	" Paste yank from yank ring in plain mode
 	let where = a:where
 	let prompt = 'Yank element (plain mode) : '
