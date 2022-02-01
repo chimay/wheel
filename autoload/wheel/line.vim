@@ -182,7 +182,7 @@ fun! wheel#line#mru (settings)
 	let filename = fields[1]
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'edit' filename
+	execute 'hide edit' filename
 	return win_getid ()
 endfun
 
@@ -194,7 +194,7 @@ fun! wheel#line#locate (settings)
 	let filename = settings.selection.component
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'edit' filename
+	execute 'hide edit' filename
 	return win_getid ()
 endfun
 
@@ -207,7 +207,7 @@ fun! wheel#line#find (settings)
 	let filename = trim(filename, ' ')
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'edit' filename
+	execute 'hide edit' filename
 	return win_getid ()
 endfun
 
@@ -284,7 +284,7 @@ fun! wheel#line#tag (settings)
 	let search = fields[3][1:]
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'edit' file
+	execute 'hide edit' file
 	let found = search(search, 'sw')
 	if found == 0
 		echomsg 'wheel : tag not found : maybe you should update your tag file'

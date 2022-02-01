@@ -26,7 +26,7 @@ fun! wheel#sailing#mru ()
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let filename = fields[1]
-	execute 'edit' filename
+	execute 'hide edit' filename
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
@@ -143,7 +143,7 @@ fun! wheel#sailing#tag ()
 	let ident = fields[0]
 	let file = fields[1]
 	let line = fields[2][1:]
-	execute 'edit' file
+	execute 'hide edit' file
 	let found = search(line, 'sw')
 	if found == 0
 		echomsg 'wheel : tag not found : maybe you should update your tag file'

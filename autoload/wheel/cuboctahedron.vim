@@ -211,7 +211,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 		for winum in range(1, minim)
 			execute winum 'wincmd w'
 			let filename = basket[winum - 1]
-			execute 'silent edit' filename
+			execute 'silent hide edit' filename
 		endfor
 		" if more buffers in basket than windows
 		for winum in range(minim + 1, lastbasket)
@@ -222,7 +222,7 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 				split
 			endif
 			let filename = basket[winum - 1]
-			execute 'silent edit' filename
+			execute 'silent hide edit' filename
 		endfor
 		" Removing windows
 		" buffers in window
