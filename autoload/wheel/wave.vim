@@ -98,6 +98,7 @@ fun! wheel#wave#start (command, ...)
 	call wheel#mandala#blank (mandala_type)
 	call wheel#wave#template (mandala_type)
 	call wheel#mandala#fill('')
+	2 delete _
 	" job
 	let job = {}
 	let job.name = fnamemodify(command[0], ':t:r')

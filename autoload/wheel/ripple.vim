@@ -69,6 +69,7 @@ fun! wheel#ripple#start (command, ...)
 	call wheel#mandala#blank (mandala_type)
 	call wheel#ripple#template (mandala_type)
 	call wheel#mandala#fill('')
+	2 delete _
 	" job
 	let jobopts = {}
 	let jobopts.out_io = 'buffer'
