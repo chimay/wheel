@@ -53,7 +53,7 @@ endfun
 
 fun! wheel#cylinder#split ()
 	" Create a new split window and put it at the bottom
-	noautocmd hide split
+	noautocmd split
 	wincmd J
 endfun
 
