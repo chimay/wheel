@@ -103,9 +103,8 @@ fun! wheel#projection#follow (...)
 		" outside of the wheel
 		return v:false
 	endif
-	" ---- are we already there N
+	" ---- if we are already there, just update location line & col
 	if coordin == wheel#referen#names()
-		" already there : let's update location line & col
 		call wheel#vortex#update ('verbose')
 		return v:false
 	endif

@@ -484,9 +484,9 @@ This process can be partly automated, see |wheel-autocommands-auto-follow|.
 
 Sync up : update current location line & column~
 
-The `update` function updates current location to match cursor line & column.
-It is called by the `follow` routine, so you can also use `<M-w><M-$>` to
-launch it.
+The `update` function updates the current location to match cursor line
+& column.  It is called by the `follow` routine, so you can also use
+`<M-w><M-$>` to launch it.
 
 This process can be partly automated, see |wheel-autocommands-update|.
 
@@ -2291,8 +2291,8 @@ Auto group			|wheel-autocommands-auto-group|
 Auto read			|wheel-autocommands-auto-read|
 Auto write			|wheel-autocommands-auto-write|
 After jump			|wheel-autocommands-after-jump|
-Auto follow			|wheel-autocommands-auto-follow|
 Auto update			|wheel-autocommands-auto-update|
+Auto follow			|wheel-autocommands-auto-follow|
 MRU files			|wheel-autocommands-mru-files|
 Yank ring			|wheel-autocommands-yank|
 Example				|wheel-autocommands-example|
@@ -2360,12 +2360,39 @@ This example opens recursively the folds under the cursor line : >
 <
 
 ------------------------------------------------------------------------------
+AUTO UPDATE					*wheel-autocommands-auto-update*
+
+By default, locations are only updated manually, with `<M-w><M-$>`. This
+way, you can update the wheel only when you want to do so.
+
+Nevertheless, it is possible to update automatically your locations each
+time you use a wheel navigation function. Just add the update function to
+the `WheelUpdate` user event : >
+
+    autocmd User WheelUpdate call wheel#vortex#update()
+<
+
+This autocmd is run before any jump to a wheel location, as soon as you
+use a wheel navigation function :
+
+- next/previous element
+- switch to element
+- switch in index, history, frecency
+- ...
+
+If you want to update your cursor position each time you leave a buffer, you
+can also use the classic BufLeave event : >
+
+  autocmd BufLeave * call wheel#vortex#update()
+<
+
+------------------------------------------------------------------------------
 AUTO FOLLOW		    		*wheel-autocommands-auto-follow*
 
 On switching tab or window~
 
-If you wish the wheel state to auto-follow the (neo)vim windows you enter,
-you can add this autocommand : >
+If you wish the wheel location to auto-follow the current buffer each
+time you enter a window, you can add this autocommand : >
 
     autocmd WinEnter * call wheel#projection#follow()
 <
@@ -2374,12 +2401,6 @@ This means that each time you enter a tab or a window by using a native
 command (like |gt|, |:tabnext|, |CTRL-W_CTRL-W| and so on), the plugin
 will check if the current file name is in the wheel. If true, it will
 adjust its state to match the file and cursor position.
-
-Be aware that it will update the wheel cursor position of your previous
-window, which makes sense.
-
-Also note that if the file is not in the wheel, the auto-follow routine
-will do nothing.
 
 Launch it manually~
 
@@ -2408,33 +2429,6 @@ Same thing when you enter a buffer with a native vim command (like
 |:buffer|), just add it to the `BufEnter` event : >
 
     autocmd BufEnter * call wheel#projection#follow()
-<
-
-------------------------------------------------------------------------------
-AUTO UPDATE					*wheel-autocommands-auto-update*
-
-By default, locations are only updated manually, with `<M-w><M-$>`. This
-way, you can update the wheel only when you want to do so.
-
-Nevertheless, it is possible to update automatically your locations each
-time you use a wheel navigation function. Just add the update function to
-the `WheelUpdate` user event : >
-
-    autocmd User WheelUpdate call wheel#vortex#update()
-<
-
-This autocmd is run before any jump to a wheel location, as soon as you
-use a wheel navigation function :
-
-- next/previous element
-- switch to element
-- switch in index, history, frecency
-- ...
-
-If you want to update your cursor position each time you leave a buffer, you
-can also use the classic BufLeave event : >
-
-  autocmd BufLeave * call wheel#vortex#update()
 <
 
 ------------------------------------------------------------------------------
