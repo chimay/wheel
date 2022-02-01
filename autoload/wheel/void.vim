@@ -236,7 +236,7 @@ fun! wheel#void#config ()
 		let g:wheel_config.frecency = {}
 	endif
 	if ! has_key(g:wheel_config.frecency, 'reward')
-		let g:wheel_config.frecency.reward = 100
+		let g:wheel_config.frecency.reward = 50
 	endif
 	if ! has_key(g:wheel_config.frecency, 'penalty')
 		let g:wheel_config.frecency.penalty = 1
