@@ -108,7 +108,7 @@ fun! wheel#projection#follow (...)
 		call wheel#vortex#update ('verbose')
 		return v:false
 	endif
-	" ---- jump
+	" ---- tune
 	call wheel#vortex#chord (coordin)
 	if g:wheel_config.auto_chdir_project > 0
 		let markers = g:wheel_config.project_markers
