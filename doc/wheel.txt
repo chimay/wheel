@@ -488,7 +488,7 @@ The `update` function updates the current location to match cursor line
 & column.  It is called by the `follow` routine, so you can also use
 `<M-w><M-$>` to launch it.
 
-This process can be partly automated, see |wheel-autocommands-update|.
+This process can be partly automated, see |wheel-autocommands-auto-update|.
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
@@ -2365,9 +2365,9 @@ AUTO UPDATE					*wheel-autocommands-auto-update*
 By default, locations are only updated manually, with `<M-w><M-$>`. This
 way, you can update the wheel only when you want to do so.
 
-Nevertheless, it is possible to update automatically your locations each
-time you use a wheel navigation function. Just add the update function to
-the `WheelUpdate` user event : >
+Nevertheless, it is possible to update automatically your locations
+before each jump in a wheel navigation function. Just add the update
+function to the `WheelUpdate` user event : >
 
     autocmd User WheelUpdate call wheel#vortex#update()
 <
