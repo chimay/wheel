@@ -190,6 +190,7 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 		execute 'normal! i' .. key
 		call wheel#teapot#filter ()
 		call cursor(1, col('$'))
+		" to continue editing
 		call wheel#mandala#pre_edit ()
 		" ! = insert at the end of line
 		"startinsert!
