@@ -100,7 +100,7 @@ fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 	" -- already there ?
 	if wheel#cylinder#is_mandala ()
 		if load_buffer == 'load-buffer'
-			execute 'silent buffer' goto
+			execute 'silent hide buffer' goto
 		endif
 		return v:true
 	endif
@@ -118,7 +118,7 @@ fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 	if ! wheel#cylinder#is_mandala ()
 		call wheel#cylinder#split ()
 		if load_buffer == 'load-buffer'
-			execute 'silent buffer' goto
+			execute 'silent hide buffer' goto
 		endif
 	endif
 	return v:true
@@ -180,7 +180,7 @@ fun! wheel#cylinder#first (window = 'furtive')
 			" :new has opened a split, close it
 			noautocmd close
 		else
-			execute 'silent buffer' cur_buffer
+			execute 'silent hide buffer' cur_buffer
 		endif
 	endif
 	return v:true
@@ -258,7 +258,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 			" :new has opened a split, close it
 			noautocmd close
 		else
-			silent buffer #
+			silent hide buffer #
 		endif
 	endif
 	return v:true
@@ -294,7 +294,7 @@ fun! wheel#cylinder#delete ()
 	let bufnum = bufnr('%')
 	if bufnum == removed || wheel#cylinder#is_mandala ()
 		let goto = ring[current]
-		execute 'silent buffer' goto
+		execute 'silent hide buffer' goto
 	endif
 	execute 'silent bwipe!' removed
 	call wheel#status#mandala_leaf ()

@@ -56,8 +56,7 @@ fun! wheel#status#message (...)
 		let message = join(a:000)
 		return call('wheel#status#message', [ message ])
 	endif
-	let message = a:1
-	if type(message) == v:t_list
+	let message = a:1 if type(message) == v:t_list
 		let message = join(message)
 	endif
 	" does not clear messages, only echo area
@@ -120,7 +119,7 @@ fun! wheel#status#mandala_leaf ()
 			echo '      layers  : ' join(leaves)
 		endif
 	else
-		echo 'wheel buffers: ' join(mandalas) "\n"
+		echo 'wheel buffers: ' join(bufnames) "\n"
 	endif
 endfun
 

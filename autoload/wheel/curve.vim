@@ -71,7 +71,6 @@ fun! wheel#curve#switch (settings)
 	let settings = a:settings
 	let target = settings.target
 	let level = settings.level
-	echomsg settings
 	let component = settings.selection.component
 	" ---- jump
 	let where = wheel#curve#where (target)
