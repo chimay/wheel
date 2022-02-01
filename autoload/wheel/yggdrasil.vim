@@ -20,7 +20,7 @@ fun! wheel#yggdrasil#reorder (level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#cuboctahedron#write ('reorder', level)
-	call wheel#mandala#fill(lines, 'prompt-first')
+	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" -- reload
 	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
@@ -47,7 +47,7 @@ fun! wheel#yggdrasil#rename (level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#cuboctahedron#write ('rename', level)
-	call wheel#mandala#fill(lines, 'prompt-first')
+	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#yggdrasil#rename('" .. level .. "')"
@@ -67,7 +67,7 @@ fun! wheel#yggdrasil#rename_file ()
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#cuboctahedron#write ('rename_file')
-	call wheel#mandala#fill(lines, 'prompt-first')
+	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = 'wheel#yggdrasil#rename_file()'
@@ -91,7 +91,7 @@ fun! wheel#yggdrasil#delete (level)
 	call wheel#polyphony#template ()
 	call wheel#pencil#mappings ()
 	call wheel#cuboctahedron#write ('delete', level)
-	call wheel#mandala#fill(lines, 'prompt-first')
+	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#yggdrasil#delete('" .. level .. "')"
@@ -114,7 +114,7 @@ fun! wheel#yggdrasil#copy_move (level)
 	call wheel#polyphony#template ()
 	call wheel#pencil#mappings ()
 	call wheel#cuboctahedron#write ('copy_move', level)
-	call wheel#mandala#fill(lines, 'prompt-first')
+	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = "wheel#yggdrasil#copy_move('" .. level .. "')"
@@ -136,7 +136,7 @@ fun! wheel#yggdrasil#reorganize ()
 	call wheel#polyphony#template ()
 	call wheel#mandala#folding_options ()
 	call wheel#cuboctahedron#write ('reorganize')
-	call wheel#mandala#fill(lines, 'prompt-first')
+	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	setlocal nocursorline
 	" reload
