@@ -503,7 +503,7 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	let &foldenable = ampersand
 endfun
 
-fun! wheel#mandala#fill (content, first = 'prompt-first')
+fun! wheel#mandala#fill (content, first = 'empty-prompt-first')
 	" Fill mandala buffer with content
 	" Arguments : see mandala#replace
 	" ---- replace old content, fill if empty
