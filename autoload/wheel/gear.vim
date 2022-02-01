@@ -263,7 +263,7 @@ fun! wheel#gear#save_options (optlist)
 	" Return dictionary with options whose names are in optlist
 	let ampersands = {}
 	for optname in a:optlist
-		let runme = 'let ampersands.' .. optname .. '=' .. '&' .. optname
+		let runme = 'let ampersands.' .. optname .. '=' .. '&l:' .. optname
 		execute runme
 	endfor
 	return ampersands
