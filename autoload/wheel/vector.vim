@@ -40,11 +40,12 @@ endfun
 
 fun! wheel#vector#reset ()
 	" Reset argument list
-	if argc() > 0
-		let confirm = confirm('Overwrite old argument list ?', "&Yes\n&No", 2)
-		if confirm != 1
-			return v:false
-		endif
+	if argc() == 0
+		return v:true
+	endif
+	let confirm = confirm('Overwrite old argument list ?', "&Yes\n&No", 2)
+	if confirm != 1
+		return v:false
 	endif
 	% argdelete
 	return v:true
@@ -74,10 +75,12 @@ fun! wheel#vector#argdo (command, ...)
 	if yield
 		let runme = 'silent! argdo ' .. command
 		let output = execute(runme)
-		call wheel#mandala#blank('argdo')
+		let output = split(output, '\n')
+		let type = 'batch/' .. split(command)[0]
+		call wheel#mandala#blank(type)
 		call wheel#mandala#common_maps ()
+		call wheel#mandala#fill (output)
 		setlocal nofoldenable
-		put =output
 	endif
 endfun
 
