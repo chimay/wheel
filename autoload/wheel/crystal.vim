@@ -16,13 +16,13 @@ if ! exists('s:referen_levels')
 		const s:referen_levels = ['wheel', 'torus', 'circle', 'location']
 	else
 		let s:referen_levels = ['wheel', 'torus', 'circle', 'location']
-		lockvar s:referen_levels
+		lockvar! s:referen_levels
 	endif
 endif
 
 if ! exists('s:referen_coordin')
 	let s:referen_coordin = ['torus', 'circle', 'location']
-	lockvar s:referen_coordin
+	lockvar! s:referen_coordin
 endif
 
 if ! exists('s:referen_list_keys')
@@ -31,14 +31,14 @@ if ! exists('s:referen_list_keys')
 				\ 'torus' : 'circles',
 				\ 'circle' : 'locations',
 				\ }
-	lockvar s:referen_list_keys
+	lockvar! s:referen_list_keys
 endif
 
 " ---- golden ratio
 
 if ! exists('s:golden_ratio')
 	let s:golden_ratio = (1 + sqrt(5)) / 2
-	lockvar s:golden_ratio
+	lockvar! s:golden_ratio
 endif
 
 " ---- vim modes
@@ -52,7 +52,7 @@ if ! exists('s:modes_letters')
 				\ 'operator' : 'o',
 				\ 'command'  : 'c',
 				\ }
-	lockvar s:modes_letters
+	lockvar! s:modes_letters
 endif
 
 if ! exists('s:letters_modes')
@@ -64,33 +64,33 @@ if ! exists('s:letters_modes')
 				\ 'o' : 'operator',
 				\ 'c' : 'command' ,
 				\ }
-	lockvar s:letters_modes
+	lockvar! s:letters_modes
 endif
 
 " ---- signs
 
 if ! exists('s:sign_name')
 	let s:sign_name = 'wheel-sign-name'
-	lockvar s:sign_name
+	lockvar! s:sign_name
 endif
 
 if ! exists('s:sign_group')
 	let s:sign_group = 'wheel-sign-group'
-	lockvar s:sign_group
+	lockvar! s:sign_group
 endif
 
 if ! exists('s:sign_text')
 	let s:sign_text = '☯'
 	" sign text must be 2 chars or a space will be added by vim
 	" an extra space is added by chakra#define to avoid confusion
-	lockvar s:sign_text
+	lockvar! s:sign_text
 endif
 
 if ! exists('s:sign_settings')
 	let s:sign_settings = #{
 				\ text : s:sign_text,
 				\ }
-	lockvar s:sign_settings
+	lockvar! s:sign_settings
 endif
 
 " highlight groups for sign
@@ -104,12 +104,12 @@ endif
 
 if ! exists('s:mandala_prompt')
 	let s:mandala_prompt = '☯ '
-	lockvar s:mandala_prompt
+	lockvar! s:mandala_prompt
 endif
 
 if ! exists('s:mandala_prompt_writable')
 	let s:mandala_prompt_writable = '☈ '
-	lockvar s:mandala_prompt_writable
+	lockvar! s:mandala_prompt_writable
 endif
 
 " -- mandala patterns
@@ -117,24 +117,24 @@ endif
 if ! exists('s:is_mandala_file')
 	" mandala filename pattern
 	let s:is_mandala_file = '\m^/wheel/[0-9]\+/'
-	lockvar s:is_mandala_file
+	lockvar! s:is_mandala_file
 endif
 
 if ! exists('s:is_buffer_tabs')
 	" for output line of :tabs
 	let s:is_buffer_tabs = '\m^\%(\s\|>\|#\)'
-	lockvar s:is_buffer_tabs
+	lockvar! s:is_buffer_tabs
 endif
 
 if ! exists('s:is_mandala_tabs')
 	" for output line of :tabs
 	let s:is_mandala_tabs = '\m^>\?\s*+\?\s*' .. s:is_mandala_file
-	lockvar s:is_mandala_tabs
+	lockvar! s:is_mandala_tabs
 endif
 
 if ! exists('s:mandala_empty')
 	let s:mandala_empty = '\m/wheel/[0-9]\+/empty'
-	lockvar s:mandala_empty
+	lockvar! s:mandala_empty
 endif
 
 " -- mandalas options
@@ -159,7 +159,7 @@ if ! exists('s:mandala_options')
 				\ 'foldminlines',
 				\ 'foldcolumn',
 				\ ]
-	lockvar s:mandala_options
+	lockvar! s:mandala_options
 endif
 
 " -- mandalas maps
@@ -185,7 +185,7 @@ if ! exists('s:normal_map_keys')
 				\ 'o', 'O', '<m-y>', '<m-z>',
 				\ '+', '-', '<kplus>', '<kminus>'
 				\ ]
-	lockvar s:normal_map_keys
+	lockvar! s:normal_map_keys
 endif
 
 if ! exists('s:insert_map_keys')
@@ -195,7 +195,7 @@ if ! exists('s:insert_map_keys')
 				\ '<up>', '<down>', '<m-p>', '<m-n>',
 				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',
 				\ ]
-	lockvar s:insert_map_keys
+	lockvar! s:insert_map_keys
 endif
 
 if ! exists('s:visual_map_keys')
@@ -205,7 +205,7 @@ if ! exists('s:visual_map_keys')
 				\  'g<cr>',
 				\ 'gp', 'gP',
 				\ ]
-	lockvar s:visual_map_keys
+	lockvar! s:visual_map_keys
 endif
 
 if ! exists('s:map_keys')
@@ -214,21 +214,21 @@ if ! exists('s:map_keys')
 				\ 'insert' : s:insert_map_keys,
 				\ 'visual' : s:visual_map_keys,
 				\ }
-	lockvar s:map_keys
+	lockvar! s:map_keys
 endif
 
 " -- mandala autocmds
 
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = 'wheel-mandala'
-	lockvar s:mandala_autocmds_group
+	lockvar! s:mandala_autocmds_group
 endif
 
 if ! exists('s:mandala_autocmds_events')
 	let s:mandala_autocmds_events = [
 				\ 'BufWriteCmd',
 				\ ]
-	lockvar s:mandala_autocmds_events
+	lockvar! s:mandala_autocmds_events
 endif
 
 " -- mandalas variables
@@ -243,7 +243,7 @@ if ! exists('s:mandala_vars')
 				\ 'b:wheel_settings',
 				\ 'b:wheel_reload',
 				\ ]
-	lockvar s:mandala_vars
+	lockvar! s:mandala_vars
 endif
 
 " -- leaf : layer fields in mandalas
@@ -277,7 +277,7 @@ if ! exists('s:layer_fields')
 				\ 'settings',
 				\ 'reload',
 				\ ]
-	lockvar s:layer_fields
+	lockvar! s:layer_fields
 endif
 
 " -- folds in mandalas
@@ -286,22 +286,22 @@ if ! exists('s:fold_markers')
 	let s:fold_markers = ['▷', '◁']
 	"let s:fold_markers = ['▽', '△']
 	"let s:fold_markers = ['⧽', '⧼']
-	lockvar s:fold_markers
+	lockvar! s:fold_markers
 endif
 
 if ! exists('s:fold_one')
 	let s:fold_one = ' ' .. s:fold_markers[0] .. '1'
-	lockvar s:fold_one
+	lockvar! s:fold_one
 endif
 
 if ! exists('s:fold_two')
 	let s:fold_two = ' ' .. s:fold_markers[0] .. '2'
-	lockvar s:fold_two
+	lockvar! s:fold_two
 endif
 
 if ! exists('s:fold_pattern')
 	let s:fold_pattern = '\m' .. s:fold_markers[0] .. '[12]$'
-	lockvar s:fold_pattern
+	lockvar! s:fold_pattern
 endif
 
 " -- separators in mandalas
@@ -309,25 +309,25 @@ endif
 if ! exists('s:separator_field')
 	let s:separator_field = ' │ '
 	" digraph : in insert mode : ctrl-k vv -> │ != usual | == <bar>
-	lockvar s:separator_field
+	lockvar! s:separator_field
 endif
 
 if ! exists('s:separator_field_bar')
 	" digraph : ctrl-k vv ->
 	let s:separator_field_bar = '│'
-	lockvar s:separator_field_bar
+	lockvar! s:separator_field_bar
 endif
 
 if ! exists('s:separator_level')
 	let s:separator_level = ' ⧽ '
-	lockvar s:separator_level
+	lockvar! s:separator_level
 endif
 
 " -- selections in mandalas
 
 if ! exists('s:selection_mark')
 	let s:selection_mark = '☰ '
-	lockvar s:selection_mark
+	lockvar! s:selection_mark
 endif
 
 " -- targets in mandalas
@@ -341,7 +341,7 @@ if ! exists('s:mandala_targets')
 				\ 'horizontal_golden',
 				\ 'vertical_golden',
 				\]
-	lockvar s:mandala_targets
+	lockvar! s:mandala_targets
 endif
 
 " ---- menus
@@ -355,7 +355,7 @@ if ! exists('s:menu_help')
 				\ ['dedicated buffer help', 'wheel#guru#mandala'],
 				\ ['local maps', 'wheel#guru#mandala_mappings'],
 				\]
-	lockvar s:menu_help
+	lockvar! s:menu_help
 endif
 
 if ! exists('s:menu_status')
@@ -364,7 +364,7 @@ if ! exists('s:menu_status')
 				\ ['jump to current wheel location', 'wheel#vortex#jump'],
 				\ ['find closest wheel location to cursor', 'wheel#projection#follow'],
 				\]
-	lockvar s:menu_status
+	lockvar! s:menu_status
 endif
 
 if ! exists('s:menu_save_and_load')
@@ -374,7 +374,7 @@ if ! exists('s:menu_save_and_load')
 				\ ['save session', 'wheel#disc#write_session'],
 				\ ['load session', 'wheel#disc#read_session'],
 				\]
-	lockvar s:menu_save_and_load
+	lockvar! s:menu_save_and_load
 endif
 
 if ! exists('s:menu_wheel_navigation')
@@ -405,7 +405,7 @@ if ! exists('s:menu_wheel_navigation')
 				\ ['alternate in same torus, other circle' ,  "wheel#pendulum#alternate('same_torus_other_circle')"],
 				\ ['go to location in history' ,  'wheel#whirl#history'],
 				\]
-	lockvar s:menu_wheel_navigation
+	lockvar! s:menu_wheel_navigation
 endif
 
 if ! exists('s:menu_native_navigation')
@@ -419,7 +419,7 @@ if ! exists('s:menu_native_navigation')
 				\ ['go to change' ,  'wheel#frigate#change()'],
 				\ ['go to tag' ,  'wheel#frigate#tag()'],
 				\]
-	lockvar s:menu_native_navigation
+	lockvar! s:menu_native_navigation
 endif
 
 if ! exists('s:menu_organize_wheel')
@@ -454,14 +454,14 @@ if ! exists('s:menu_organize_wheel')
 				\ ['copy or move locations' ,  "wheel#yggdrasil#copy_move('location')"],
 				\ ['reorganize wheel' ,  'wheel#yggdrasil#reorganize'],
 				\]
-	lockvar s:menu_organize_wheel
+	lockvar! s:menu_organize_wheel
 endif
 
 if ! exists('s:menu_organize_native')
 	let s:menu_organize_native = [
 				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwin'],
 				\]
-	lockvar s:menu_organize_native
+	lockvar! s:menu_organize_native
 endif
 
 if ! exists('s:menu_refactoring')
@@ -470,7 +470,7 @@ if ! exists('s:menu_refactoring')
 				\ ['narrow current file' ,  'wheel#mirror#narrow_file'],
 				\ ['narrow all files in circle' ,  'wheel#mirror#narrow_circle'],
 				\]
-	lockvar s:menu_refactoring
+	lockvar! s:menu_refactoring
 endif
 
 if ! exists('s:menu_search_file')
@@ -480,7 +480,7 @@ if ! exists('s:menu_search_file')
 				\ ['go to find result' ,  'wheel#frigate#find'],
 				\ ['go to async find result' ,  'wheel#frigate#async_find'],
 				\]
-	lockvar s:menu_search_file
+	lockvar! s:menu_search_file
 endif
 
 if ! exists('s:menu_search_inside_file')
@@ -489,7 +489,7 @@ if ! exists('s:menu_search_inside_file')
 				\ ['go to grep result' ,  'wheel#frigate#grep()'],
 				\ ['go to outline result' ,  'wheel#frigate#outline()'],
 				\]
-	lockvar s:menu_search_inside_file
+	lockvar! s:menu_search_inside_file
 endif
 
 if ! exists('s:menu_yank')
@@ -497,14 +497,14 @@ if ! exists('s:menu_yank')
 				\ ['yank wheel in list mode' ,  "wheel#clipper#yank('list')"],
 				\ ['yank wheel in plain mode' ,  "wheel#clipper#yank('plain')"],
 				\]
-	lockvar s:menu_yank
+	lockvar! s:menu_yank
 endif
 
 if ! exists('s:menu_undo')
 	let s:menu_undo = [
 				\ ['undo list' ,  'wheel#triangle#undolist'],
 				\]
-	lockvar s:menu_undo
+	lockvar! s:menu_undo
 endif
 
 if ! exists('s:menu_command')
@@ -512,7 +512,7 @@ if ! exists('s:menu_command')
 				\ [':ex or !shell command output', 'wheel#mandala#command'],
 				\ ['async shell command output' ,  'wheel#mandala#async'],
 				\]
-	lockvar s:menu_command
+	lockvar! s:menu_command
 endif
 
 if ! exists('s:menu_dedicated_buffers')
@@ -521,7 +521,7 @@ if ! exists('s:menu_dedicated_buffers')
 				\ ['delete current dedicated buffer', 'wheel#cylinder#add()'],
 				\ ['switch dedicated buffer', 'wheel#cylinder#switch()'],
 				\]
-	lockvar s:menu_dedicated_buffers
+	lockvar! s:menu_dedicated_buffers
 endif
 
 if ! exists('s:menu_layout')
@@ -530,7 +530,7 @@ if ! exists('s:menu_layout')
 				\ ['rotate windows clockwise' ,  'wheel#mosaic#rotate_clockwise()'],
 				\ ['rotate windows counter-clockwise' ,  'wheel#mosaic#rotate_counter_clockwise()'],
 				\]
-	lockvar s:menu_layout
+	lockvar! s:menu_layout
 endif
 
 if ! exists('s:menu_layout_tabs')
@@ -539,7 +539,7 @@ if ! exists('s:menu_layout_tabs')
 				\ ['circles on tabs' ,  "wheel#mosaic#tabs('circle')"],
 				\ ['locations on tabs' ,  "wheel#mosaic#tabs('location')"],
 				\]
-	lockvar s:menu_layout_tabs
+	lockvar! s:menu_layout_tabs
 endif
 
 if ! exists('s:menu_layout_windows')
@@ -575,7 +575,7 @@ if ! exists('s:menu_layout_windows')
 				\ ['circles on splits, golden top layout' ,  "wheel#mosaic#golden('circle', 'main_top')"],
 				\ ['locations on splits, golden top layout' ,  "wheel#mosaic#golden('location', 'main_top')"],
 				\]
-	lockvar s:menu_layout_windows
+	lockvar! s:menu_layout_windows
 endif
 
 if ! exists('s:menu_layout_mixed')
@@ -583,7 +583,7 @@ if ! exists('s:menu_layout_mixed')
 				\ ['mix : toruses on tabs & circles on splits', "wheel#pyramid#steps('torus')"],
 				\ ['mix : circles on tabs & locations on splits', "wheel#pyramid#steps('circle')"],
 				\]
-	lockvar s:menu_layout_mixed
+	lockvar! s:menu_layout_mixed
 endif
 
 " -- list of menu variables
@@ -608,7 +608,7 @@ if ! exists('s:menu_list')
 				\ 'layout_windows',
 				\ 'layout_mixed',
 				\]
-	lockvar s:menu_list
+	lockvar! s:menu_list
 endif
 
 " -- main menu
@@ -619,7 +619,7 @@ if ! exists('s:menu_main')
 		let s:short_name = substitute(name, ' ', '_', 'g')
 		call extend(s:menu_main, s:menu_{s:short_name})
 	endfor
-	lockvar s:menu_main
+	lockvar! s:menu_main
 endif
 
 " -- meta menu
@@ -631,7 +631,7 @@ if ! exists('s:menu_meta')
 		let s:function = "wheel#helm#submenu('" .. s:short_name .. "')"
 		eval s:menu_meta->add([name, s:function])
 	endfor
-	lockvar s:menu_meta
+	lockvar! s:menu_meta
 endif
 
 " -- contextual menus
@@ -645,7 +645,7 @@ if ! exists('s:context_navigation')
 				\ ['open in horizontal golden split(s)' ,  "wheel#boomerang#navigation('horizontal_golden')"],
 				\ ['open in vertical golden split(s)' ,  "wheel#boomerang#navigation('vertical_golden')"],
 				\]
-	lockvar s:context_navigation
+	lockvar! s:context_navigation
 endif
 
 if ! exists('s:context_buffer')
@@ -656,7 +656,7 @@ if ! exists('s:context_buffer')
 				\ ['delete hidden buffers' ,  "wheel#boomerang#buffer('delete_hidden')"],
 				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
 				\]
-	lockvar s:context_buffer
+	lockvar! s:context_buffer
 endif
 
 if ! exists('s:context_buffer_all')
@@ -668,7 +668,7 @@ if ! exists('s:context_buffer_all')
 				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
 				\ ['wipe all hidden buffers, including unlisted ones' ,  "wheel#boomerang#buffer('wipe_all_hidden')"],
 				\]
-	lockvar s:context_buffer_all
+	lockvar! s:context_buffer_all
 endif
 
 if ! exists('s:context_tabwin')
@@ -678,7 +678,7 @@ if ! exists('s:context_tabwin')
 				\ ['close tab' ,  "wheel#boomerang#tabwin('tabclose')"],
 				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
 				\]
-	lockvar s:context_tabwin
+	lockvar! s:context_tabwin
 endif
 
 if ! exists('s:context_tabwin_tree')
@@ -688,7 +688,7 @@ if ! exists('s:context_tabwin_tree')
 				\ ['close tab' ,  "wheel#boomerang#tabwin_tree('tabclose')"],
 				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
 				\]
-	lockvar s:context_tabwin_tree
+	lockvar! s:context_tabwin_tree
 endif
 
 if ! exists('s:context_grep')
@@ -696,7 +696,7 @@ if ! exists('s:context_grep')
 				\ ['edit mode' ,  "wheel#mirror#grep_edit()"],
 				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
 				\]
-	lockvar s:context_grep
+	lockvar! s:context_grep
 endif
 
 if ! exists('s:context_yank_list')
@@ -706,7 +706,7 @@ if ! exists('s:context_yank_list')
 				\ ['undo' ,  'wheel#mandala#undo()'],
 				\ ['redo' ,  'wheel#mandala#redo()'],
 				\]
-	lockvar s:context_yank_list
+	lockvar! s:context_yank_list
 endif
 
 if ! exists('s:context_yank_plain')
@@ -718,7 +718,7 @@ if ! exists('s:context_yank_plain')
 				\ ['undo' ,  'wheel#mandala#undo()'],
 				\ ['redo' ,  'wheel#mandala#redo()'],
 				\]
-	lockvar s:context_yank_plain
+	lockvar! s:context_yank_plain
 endif
 
 " ---- undo & diff
@@ -733,7 +733,7 @@ if ! exists('s:diff_options')
 				\ 'foldmethod',
 				\ 'foldcolumn',
 				\]
-	lockvar s:diff_options
+	lockvar! s:diff_options
 endif
 
 " ---- public interface
