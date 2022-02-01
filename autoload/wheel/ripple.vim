@@ -24,7 +24,7 @@ endif
 fun! wheel#ripple#callback_exit (chan, code)
 	" Callback ou exit event
 	let text = printf('%s %s', a:chan, a:code)
-	call wheel#chain#pop (g:wheel_ripple)
+	eval g:wheel_ripple->remove(-1)
 	echomsg text
 endfun
 
@@ -59,7 +59,7 @@ fun! wheel#ripple#start (command, ...)
 	" mandala
 	let mandala_type = options.mandala_type
 	call wheel#mandala#blank (mandala_type)
-	call wheel#mandala#fill('', 'delete-first')
+	call wheel#mandala#fill('')
 	call wheel#ripple#template (mandala_type)
 	" expand tilde in filenames
 	eval command->map({ _, val -> expand(val) })
@@ -87,5 +87,5 @@ fun! wheel#ripple#stop (...)
 		endif
 	endif
 	call job_stop(job)
-	eval g:wheel_ripple->wheel#chain#remove_element(job)
+	" remove of job in g:wheel_ripple is done in callback_exit
 endfun
