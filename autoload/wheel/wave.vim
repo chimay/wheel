@@ -78,26 +78,26 @@ endfun
 
 fun! wheel#wave#start (command, ...)
 	" Start a new job
+	let command = a:command
+	let kind = type(command)
+	if kind == v:t_list
+		let command = command
+	elseif kind == v:t_string
+		let command = split(command)
+	else
+		echomsg 'wheel wave start : bad command format'
+		return
+	endif
 	if a:0 > 0
 		let options = a:1
 	else
 		let options = {'mandala_type' : 'wave'}
-	endif
-	if type(a:command) == v:t_list
-		let command = a:command
-	elseif type(a:command) == v:t_string
-		let command = split(a:command)
-	else
-		echomsg 'wheel wave new : bad command format'
-		return
 	endif
 	" mandala
 	let mandala_type = options.mandala_type
 	call wheel#mandala#blank (mandala_type)
 	call wheel#mandala#fill('')
 	call wheel#wave#template (mandala_type)
-	" expand tilde in filenames
-	eval command->map({ _, val -> expand(val) })
 	" job
 	let job = {}
 	let job.name = fnamemodify(command[0], ':t:r')

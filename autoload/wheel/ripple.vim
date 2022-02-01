@@ -36,7 +36,6 @@ fun! wheel#ripple#template (mandala_type)
 	let b:wheel_nature.is_writable = v:true
 	setlocal noreadonly
 	setlocal modifiable
-	call append(0, '')
 endfun
 
 fun! wheel#ripple#stop_map ()
@@ -50,26 +49,26 @@ endfun
 
 fun! wheel#ripple#start (command, ...)
 	" Start a new job
+	let command = a:command
+	let kind = type(a:command)
+	if kind == v:t_list
+		let command = a:command
+	elseif kind == v:t_string
+		let command = split(a:command)
+	else
+		echomsg 'wheel ripple start : bad command format'
+		return
+	endif
 	if a:0 > 0
 		let options = a:1
 	else
 		let options = {'mandala_type' : 'ripple'}
-	endif
-	if type(a:command) == v:t_list
-		let command = a:command
-	elseif type(a:command) == v:t_string
-		let command = split(a:command)
-	else
-		echomsg 'wheel ripple new : bad command format'
-		return
 	endif
 	" mandala
 	let mandala_type = options.mandala_type
 	call wheel#mandala#blank (mandala_type)
 	call wheel#mandala#fill('')
 	call wheel#ripple#template (mandala_type)
-	" expand tilde in filenames
-	eval command->map({ _, val -> expand(val) })
 	" job
 	let jobopts = {}
 	let jobopts.out_io = 'buffer'

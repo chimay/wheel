@@ -220,25 +220,17 @@ fun! wheel#frigate#async_find (...)
 	endif
 	echomsg 'wheel async find : using pattern' pattern
 	" mandala
-	call wheel#mandala#blank ('async_find')
 	let settings = {'function' : function('wheel#line#find')}
-	call wheel#whirl#template (settings)
 	" job
 	let command = ['find', '.', '-type', 'f', '-path', pattern]
-	let settings = {'mandala_type' : 'async_find'}
+	let settings = #{ mandala_type : 'async_find' }
 	if has('nvim')
 		let job = wheel#wave#start(command, settings)
 	else
 		let job = wheel#ripple#start(command, settings)
 	endif
-	" map to stop the job
-	let map = 'nnoremap <silent> <buffer>'
-	if has('nvim')
-		let callme = '<cmd>call wheel#wave#stop()<cr>'
-	else
-		let callme = '<cmd>call wheel#ripple#stop()<cr>'
-	endif
-	exe map '<c-s>' callme
+	let settings = #{ function : 'wheel#line#find' }
+	call wheel#whirl#template (settings)
 	" reload
 	let b:wheel_reload = "wheel#frigate#async_find('" .. pattern .. "')"
 endfun
