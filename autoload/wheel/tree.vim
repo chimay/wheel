@@ -305,7 +305,7 @@ fun! wheel#tree#add_buffer (...)
 		let buffer = fields[3]
 	endif
 	silent doautocmd User WheelUpdate
-	execute 'buffer' buffer
+	execute 'hide buffer' buffer
 	call wheel#tree#add_here()
 endfun
 

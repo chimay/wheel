@@ -44,7 +44,7 @@ fun! wheel#line#buffer (settings)
 			call wheel#vortex#jump (where)
 		else
 			call wheel#curve#target (target)
-			execute 'buffer' bufnum
+			execute 'hide buffer' bufnum
 		endif
 	elseif action == 'delete'
 		execute 'silent bdelete' bufnum
@@ -142,7 +142,7 @@ fun! wheel#line#occur (settings)
 	let fields = split(component, s:field_separ)
 	let line = str2nr(fields[0])
 	call wheel#curve#target (target)
-	execute 'buffer' bufnum
+	execute 'hide buffer' bufnum
 	call cursor(line, 1)
 	if &foldopen =~ 'jump'
 		normal! zv
@@ -166,7 +166,7 @@ fun! wheel#line#grep (settings)
 	"let bufnum = fields[1]
 	"let line = fields[3]
 	"let col = fields[4]
-	"execute 'buffer' bufnum
+	"execute 'hide buffer' bufnum
 	"call cursor(line, col)
 	" ---- coda
 	return win_getid ()
@@ -242,7 +242,7 @@ fun! wheel#line#jump (settings)
 	let colnum = str2nr(fields[2])
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'buffer' bufnum
+	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
 		normal! zv
@@ -265,7 +265,7 @@ fun! wheel#line#change (settings)
 	let bufnum = a:settings.related_buffer
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'buffer' bufnum
+	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
 		normal! zv
@@ -309,7 +309,7 @@ fun! wheel#line#narrow_file (settings)
 	let linum = str2nr(fields[0])
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'buffer' bufnum
+	execute 'hide buffer' bufnum
 	call cursor(linum, 1)
 	return win_getid ()
 endfun
@@ -330,7 +330,7 @@ fun! wheel#line#narrow_circle (settings)
 	let errnum = index + 1
 	execute 'cc' errnum
 	" -- using buffer, line & col
-	"execute 'buffer' bufnum
+	"execute 'hide buffer' bufnum
 	"call cursor(linum, 1)
 	" ---- coda
 	if settings.follow

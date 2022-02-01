@@ -54,7 +54,7 @@ fun! wheel#sailing#buffer ()
 	let record = input(prompt, '', complete)
 	let fields = split(record, s:field_separ)
 	let bufnum = fields[0]
-	execute 'buffer' bufnum
+	execute 'hide buffer' bufnum
 	let linum = fields[1]
 	call cursor(linum, 1)
 	if &foldopen =~ 'jump'
@@ -106,7 +106,7 @@ fun! wheel#sailing#jump ()
 	let bufnum = fields[0]
 	let linum = str2nr(fields[1])
 	let colnum = str2nr(fields[2])
-	execute 'buffer' bufnum
+	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
 	if &foldopen =~ 'jump'
 		normal! zv

@@ -48,7 +48,7 @@ fun! wheel#orbiter#original ()
 		return v:true
 	endif
 	call wheel#rectangle#previous ()
-	execute 'buffer' original
+	execute 'hide buffer' original
 	call wheel#projection#follow ()
 	call wheel#vortex#jump ()
 	call wheel#cylinder#recall ()

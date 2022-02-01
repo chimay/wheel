@@ -134,7 +134,7 @@ fun! wheel#rectangle#goto_or_load (bufnum)
 	let bufnum = a:bufnum
 	if ! wheel#rectangle#goto (bufnum)
 		noautocmd 1 wincmd w
-		execute 'buffer' bufnum
+		execute 'hide buffer' bufnum
 	endif
 	return v:true
 endfun
