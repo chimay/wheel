@@ -2833,8 +2833,10 @@ Yank ring~
 
 | Prefix + | With default prefix | Action                                    |
 | -------- | ------------------- | ----------------------------------------- |
-| y        | <M-w>y              | Yank ring in list mode, prompt            |
-| p        | <M-w>p              | Yank ring in plain mode, prompt           |
+| y        | <M-w>y              | Yank ring prompt, linewise after          |
+| p        | <M-w>p              | Yank ring prompt, charwise after          |
+| Y        | <M-w>Y              | Yank ring prompt, linewise before         |
+| P        | <M-w>P              | Yank ring prompt, charwise before         |
 | <M-y>    | <M-w><M-y>          | Yank ring in list mode, dedicated buffer  |
 | <M-p>    | <M-w><M-p>          | Yank ring in plain mode, dedicated buffer |
 
