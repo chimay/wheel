@@ -1506,6 +1506,8 @@ Note that :
     buffers as usual with |:wall|.
 - you can of course undo the changes you made if you are not happy with it
 
+Uses |:cdo| under the hood.
+
 Default mapping : `<M-w><M-g>`
 
 Fields~
@@ -1719,6 +1721,8 @@ The command : >
 uses the argument list to execute `my_command` on each location of the
 current circle. The command can be a vim `:command` or an external shell
 `!command`. The ouput is displayed in a dedicated buffer.
+
+Uses |:argdo| under the hood.
 
 ==============================================================================
 CONFIGURATION					    *wheel-configuration*
