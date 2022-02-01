@@ -291,7 +291,35 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 		endif
 		startinsert
 	else
-		execute 'normal! ' .. key
+		execute 'normal!' key
+	endif
+	return v:true
+endfun
+
+fun! wheel#polyphony#last_field (key)
+	" Go to last field of the line and start insert mode
+	let key = a:key
+	let linum = line('.')
+	if key == '$'
+		normal! $
+		return v:true
+	endif
+	if key == '^'
+		call cursor(linum, 1)
+		let last_field_pattern = '[^│]*$'
+		call search(last_field_pattern, 'c', linum)
+		return v:true
+	endif
+	if linum != 1
+		let last_field_pattern = '[^│]*$'
+		call search(last_field_pattern, 'c', linum)
+	endif
+	let insert = key->wheel#chain#is_inside(['i', 'a'])
+	if insert
+		if key == 'a'
+			normal! l
+		endif
+		startinsert
 	endif
 	return v:true
 endfun
@@ -301,17 +329,28 @@ fun! wheel#polyphony#filter_maps ()
 	" -- normal mode
 	nnoremap <silent> <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	" -- insert mode
+	let imap = 'inoremap <buffer>'
+	execute imap "<c-u> <cmd>call wheel#teapot#ctrl_u()<cr>"
+	" <C-c> is not mapped, in case you need a regular escape
+	let b:wheel_nature.has_filter = v:true
+endfun
+
+fun! wheel#polyphony#hybrid_maps ()
+	" Local filter maps for hybrid filter/write mode
+	" ---- normal maps
+	let nmap = 'nnoremap <buffer>'
+	let last_field = 'wheel#polyphony#last_field'
+	exe nmap 'i <cmd>call' last_field "('i')<cr>"
+	exe nmap 'a <cmd>call' last_field "('a')<cr>"
+	exe nmap '^ <cmd>call' last_field "('^')<cr>"
+	exe nmap '$ <cmd>call' last_field "('$')<cr>"
+	" ---- insert maps
 	let imap = 'inoremap <buffer>'
 	let across = 'wheel#polyphony#crossroad'
 	exe imap '<space> <cmd>call'  across "('space', '>', ['i', 'i'])<cr>"
 	exe imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
 	exe imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
 	exe imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
-	" ctrl-u
-	exe imap "<c-u> <cmd>call wheel#teapot#ctrl_u()<cr>"
-	" <C-c> is not mapped, in case you need a regular escape
-	let b:wheel_nature.has_filter = v:true
 endfun
 
 fun! wheel#polyphony#input_history_maps ()
@@ -328,6 +367,7 @@ endfun
 fun! wheel#polyphony#template ()
 	" Filte & input history maps for hybrid filter/write mode
 	call wheel#polyphony#filter_maps ()
+	call wheel#polyphony#hybrid_maps ()
 	call wheel#polyphony#input_history_maps ()
 endfun
 

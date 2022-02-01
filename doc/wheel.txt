@@ -1084,10 +1084,9 @@ On most writable buffers, a filter line is available. In that case,
 some adjustement are made to the local maps, so that you can edit the
 buffer with the usual vim keys.
 
-Some keys are not mapped :
+To access the filter line, press `<M-i>` or `<Ins>` instead of `i` and `a`.
 
-- `i` and `a` are not mapped in normal mode : press `<M-i>` or `<Ins>` instead
-- the input history is availble only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`
+The input history is availble only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`.
 
 Some keys have a distinct meaning if the cursor is on the first line or in
 another one.

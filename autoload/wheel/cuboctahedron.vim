@@ -87,11 +87,13 @@ fun! wheel#cuboctahedron#write (fun_name, ...)
 	else
 		let optional = ''
 	endif
-	" -- property
+	" ---- property
 	let b:wheel_nature.is_writable = v:true
-	" -- options
+	" ---- options
+	setlocal noreadonly
+	setlocal modifiable
 	setlocal buftype=acwrite
-	" -- autocommand
+	" ---- autocommand
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)

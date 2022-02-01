@@ -71,7 +71,9 @@ fun! wheel#teapot#set_prompt (content = '')
 	if content !~ '\m^' .. mandala_prompt
 		let content = mandala_prompt .. content
 	endif
+	call wheel#mandala#pre_edit ()
 	call setline(1, content)
+	call wheel#mandala#post_edit ()
 endfun
 
 fun! wheel#teapot#without_prompt (...)
@@ -114,6 +116,7 @@ fun! wheel#teapot#goto_filter_line (mode = 'normal')
 	let mode = wheel#gear#long_mode (mode)
 	call cursor(1, 1)
 	normal! $
+	call wheel#mandala#pre_edit ()
 	if mode == 'insert'
 		" ! means insert at the end of line
 		startinsert!
@@ -137,8 +140,10 @@ fun! wheel#teapot#filter ()
 		let b:wheel_filter.indexes = indexes
 		let b:wheel_filter.lines = lines
 	endif
+	call wheel#mandala#pre_edit ()
 	call wheel#mandala#replace (lines, 'prompt-first')
 	call wheel#pencil#show ()
+	call wheel#mandala#post_edit ()
 	return v:true
 endfun
 
@@ -188,7 +193,7 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 		" ! = insert at the end of line
 		"startinsert!
 	else
-		execute 'normal! ' .. key
+		execute 'normal!' key
 		call wheel#teapot#filter ()
 		stopinsert
 		echomsg line('$')
@@ -216,8 +221,10 @@ fun! wheel#teapot#mappings ()
 	" -- normal mode
 	let nmap = 'nnoremap <buffer>'
 	let goto_filter = 'wheel#teapot#goto_filter_line'
-	exe nmap 'i <cmd>call' goto_filter "('i')<cr>"
-	exe nmap 'a <cmd>call' goto_filter "('i')<cr>"
+	exe nmap 'i     <cmd>call' goto_filter "('i')<cr>"
+	exe nmap 'a     <cmd>call' goto_filter "('i')<cr>"
+	exe nmap '<m-i> <cmd>call' goto_filter "('i')<cr>"
+	exe nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
 	" -- insert mode
 	let imap = 'inoremap <buffer>'
 	let wrapper = 'wheel#teapot#wrapper'

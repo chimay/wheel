@@ -305,6 +305,9 @@ fun! wheel#mandala#common_options ()
 	setlocal noswapfile
 	setlocal cursorline
 	setlocal nofoldenable
+	" non writable by default
+	setlocal readonly
+	setlocal nomodifiable
 endfun
 
 " mappings
@@ -434,6 +437,23 @@ fun! wheel#mandala#set_var_lines ()
 	return v:true
 endfun
 
+fun! wheel#mandala#pre_edit ()
+	" Set local options to edit mandala
+	setlocal noreadonly
+	setlocal modifiable
+endfun
+
+fun! wheel#mandala#post_edit ()
+	" Restore local options after edition
+	if wheel#cuboctahedron#is_writable ()
+		setlocal noreadonly
+		setlocal modifiable
+	else
+		setlocal readonly
+		setlocal nomodifiable
+	endif
+endfun
+
 fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	" Replace mandala buffer with content
 	" Content can be :
@@ -447,10 +467,9 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer'
 	endif
-	" -- disable folding
-	" if fold is enabled during replacement, we lose the first line
+	" -- local options
 	let ampersand = &foldenable
-	set nofoldenable
+	call wheel#mandala#pre_edit ()
 	" -- arguments
 	let content = a:content
 	let first = a:first
@@ -482,8 +501,9 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	setlocal nomodified
 	" -- restore cursor if possible, else place it on line 1
 	call wheel#gear#restore_cursor (position, 1)
-	" -- restore folding
+	" -- restore local options
 	let &foldenable = ampersand
+	call wheel#mandala#post_edit ()
 endfun
 
 fun! wheel#mandala#fill (content, first = 'prompt-first')

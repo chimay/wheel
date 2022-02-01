@@ -223,7 +223,7 @@ fun! wheel#line#marker (settings)
 	"let column = fields[2]
 	" ---- go
 	call wheel#curve#target (target)
-	execute "normal `" .. mark
+	execute "normal! `" .. mark
 	if settings.follow
 		call wheel#projection#follow ()
 	endif

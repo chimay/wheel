@@ -147,6 +147,8 @@ if ! exists('s:mandala_options')
 				\ 'buflisted',
 				\ 'swapfile',
 				\ 'cursorline',
+				\ 'readonly',
+				\ 'modifiable',
 				\ 'foldenable',
 				\ 'foldmethod',
 				\ 'foldmarker',
