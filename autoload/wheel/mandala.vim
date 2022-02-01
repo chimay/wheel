@@ -580,12 +580,4 @@ fun! wheel#mandala#async ()
 	else
 		let job = wheel#ripple#start(command)
 	endif
-	" Map to stop the job
-	let map = 'nnoremap <silent> <buffer>'
-	if has('nvim')
-		let callme = '<cmd>call wheel#wave#stop()<cr>'
-	else
-		let callme = '<cmd>call wheel#ripple#stop()<cr>'
-	endif
-	execute map '<c-s>' callme
 endfun

@@ -28,7 +28,7 @@ fun! wheel#ripple#callback_exit (chan, code)
 	echomsg text
 endfun
 
-" Buffer
+" Mandala
 
 fun! wheel#ripple#template (mandala_type)
 	" Job buffer template
@@ -37,6 +37,13 @@ fun! wheel#ripple#template (mandala_type)
 	setlocal noreadonly
 	setlocal modifiable
 	call append(0, '')
+endfun
+
+fun! wheel#ripple#stop_map ()
+	" Map to stop the job
+	let map = 'nnoremap <silent> <buffer>'
+	let callme = '<cmd>call wheel#ripple#stop()<cr>'
+	execute map '<c-s>' callme
 endfun
 
 " Main
@@ -71,6 +78,7 @@ fun! wheel#ripple#start (command, ...)
 	let jobopts.exit_cb = 'wheel#ripple#callback_exit'
 	let job = job_start(command, jobopts)
 	eval g:wheel_ripple->add(job)
+	call wheel#ripple#stop_map ()
 	return job
 endfun
 

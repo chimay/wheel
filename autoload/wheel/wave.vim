@@ -57,7 +57,7 @@ let s:callbacks = {
 			\ 'on_exit' : function('s:Exit')
 			\}
 
-" Buffer
+" Mandala
 
 fun! wheel#wave#template (mandala_type)
 	" Job buffer template
@@ -65,6 +65,13 @@ fun! wheel#wave#template (mandala_type)
 	let b:wheel_nature.is_writable = v:true
 	setlocal noreadonly
 	setlocal modifiable
+endfun
+
+fun! wheel#wave#stop_map ()
+	" Map to stop the job
+	let map = 'nnoremap <silent> <buffer>'
+	let callme = '<cmd>call wheel#wave#stop()<cr>'
+	execute map '<c-s>' callme
 endfun
 
 " Main
@@ -105,6 +112,7 @@ fun! wheel#wave#start (command, ...)
 	endif
 	let job.iden = jobid
 	eval g:wheel_wave->add(job)
+	call wheel#wave#stop_map ()
 	return job
 endfun
 
