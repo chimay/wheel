@@ -96,8 +96,8 @@ fun! wheel#wave#start (command, ...)
 	" mandala
 	let mandala_type = options.mandala_type
 	call wheel#mandala#blank (mandala_type)
-	call wheel#mandala#fill('')
 	call wheel#wave#template (mandala_type)
+	call wheel#mandala#fill('')
 	" job
 	let job = {}
 	let job.name = fnamemodify(command[0], ':t:r')

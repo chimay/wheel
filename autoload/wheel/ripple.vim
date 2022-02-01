@@ -67,8 +67,8 @@ fun! wheel#ripple#start (command, ...)
 	" mandala
 	let mandala_type = options.mandala_type
 	call wheel#mandala#blank (mandala_type)
-	call wheel#mandala#fill('')
 	call wheel#ripple#template (mandala_type)
+	call wheel#mandala#fill('')
 	" job
 	let jobopts = {}
 	let jobopts.out_io = 'buffer'
