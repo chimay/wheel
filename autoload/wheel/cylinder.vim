@@ -151,14 +151,14 @@ fun! wheel#cylinder#first (window = 'furtive')
 	" ---- new buffer
 	if window == 'split'
 		call wheel#cylinder#split ()
-		enew
+		hide enew
 	else
 		if empty_cur_buffer
 			" :enew does not create a new buffer if current one has no name
 			" so we need to use :new
 			new
 		else
-			enew
+			hide enew
 		endif
 	endif
 	let novice = bufnr('%')
@@ -221,14 +221,14 @@ fun! wheel#cylinder#add (window = 'furtive')
 	" -- new buffer
 	if window == 'split'
 		call wheel#cylinder#split ()
-		enew
+		hide enew
 	else
 		if empty_cur_buffer
 			" :enew does not create a new buffer if current want has no name
 			" so we need to use :new
 			new
 		else
-			enew
+			hide enew
 		endif
 	endif
 	let novice = bufnr('%')
