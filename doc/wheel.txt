@@ -3436,13 +3436,15 @@ OTHER IDEAS				*wheel-mappings-ideas*
 
 Some bindings that you may find useful : >
 
+    " index of locations in torus > circle > location format
+    nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
+
+    " history
+    nmap <silent> <d-h>       <plug>(wheel-dedibuf-history)
     " alternate
     nmap <silent> <d-^>       <plug>(wheel-alternate-other-torus)
     " frecency
     nmap <silent> <d-e>       <plug>(wheel-dedibuf-frecency)
-
-    " index of locations in torus > circle > location format
-    nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
 
     nmap <silent> <d-o>       <plug>(wheel-dedibuf-occur)
     nmap <silent> <d-b>       <plug>(wheel-dedibuf-buffer-all)
