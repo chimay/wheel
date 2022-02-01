@@ -38,28 +38,29 @@ fun! wheel#attic#record (...)
 	else
 		let filename = expand('%:p')
 	endif
+	" ---- do not add empty filenames
 	if empty(filename)
-		" Do not add empty filenames
 		return v:false
 	endif
+	" ---- only add non wheel files
 	if wheel#referen#is_in_wheel ()
-		" Only add non wheel files
 		return v:false
 	endif
+	" ---- do not add mandala buffer
 	let bufnum = bufnr('%')
 	let mandalas = g:wheel_mandalas.ring
 	if wheel#chain#is_inside(bufnum, mandalas)
-		" Do not add mandala buffer
 		return v:false
 	endif
+	" ---- do not add mandala filename
 	if filename =~ s:is_mandala_file
-		" Do not add mandala filename
 		return v:false
 	endif
+	" ---- do not add term buffer
 	if filename =~ '^term://'
-		" Do not add term buffer
 		return v:false
 	endif
+	" ---- record file
 	let attic = g:wheel_attic
 	let entry = {}
 	let entry.file = filename
