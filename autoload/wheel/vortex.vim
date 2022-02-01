@@ -79,7 +79,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 	elseif bufloaded(location.file)
 		" -- load buffer in current window
 		let buffer = bufname(location.file)
-		execute 'noautocmd silent buffer' buffer
+		execute 'noautocmd silent hide buffer' buffer
 		call cursor(location.line, location.col)
 		doautocmd BufEnter
 	else
@@ -93,7 +93,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 			endif
 			return v:false
 		endif
-		exe 'noautocmd silent edit' filename
+		exe 'noautocmd silent hide edit' filename
 		call cursor(location.line, location.col)
 		doautocmd BufRead
 		doautocmd BufEnter
