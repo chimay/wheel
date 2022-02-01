@@ -323,13 +323,25 @@ fun! wheel#polyphony#last_field (key)
 	return v:true
 endfun
 
+fun! wheel#polyphony#ctrl_u ()
+	" Ctrl-U on mandala with filter & write command
+	let linum = line('.')
+	if linum == 1
+		call wheel#teapot#set_prompt ()
+		call wheel#teapot#filter()
+		return
+	endif
+	let last_field = '[^' .. s:field_separ_bar .. ']*$'
+	let content = getline(linum)
+	let content = substitute(content, last_field, '', '')
+	call setline(linum, content)
+endfun
+
 fun! wheel#polyphony#filter_maps ()
 	" Local filter maps for hybrid filter/write mode
 	" -- normal mode
 	nnoremap <silent> <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	let imap = 'inoremap <buffer>'
-	execute imap "<c-u> <cmd>call wheel#teapot#ctrl_u()<cr>"
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun
@@ -350,6 +362,7 @@ fun! wheel#polyphony#hybrid_maps ()
 	exe imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
 	exe imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
 	exe imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
+	exe imap '<c-u> <cmd>call wheel#polyphony#ctrl_u()<cr>'
 endfun
 
 fun! wheel#polyphony#input_history_maps ()

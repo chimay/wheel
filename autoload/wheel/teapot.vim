@@ -183,22 +183,24 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	let angle = a:angle
 	let mode = a:mode
 	let mode = wheel#gear#long_mode (mode)
+	if line('.') != 1
+		call cursor(1, 1)
+		call cursor(1, col('$'))
+	endif
 	if angle == 'with-angle' || angle == '>'
 		execute 'let key =' '"\<' .. key .. '>"'
 	endif
+	call wheel#mandala#pre_edit ()
 	if mode == 'insert'
 		execute 'normal! i' .. key
 		call wheel#teapot#filter ()
 		call cursor(1, col('$'))
-		" to continue editing
+		" continue editing
 		call wheel#mandala#pre_edit ()
-		" ! = insert at the end of line
-		"startinsert!
 	else
 		execute 'normal!' key
 		call wheel#teapot#filter ()
 		stopinsert
-		echomsg line('$')
 		if line('$') > 1
 			call cursor(2, 1)
 		endif
@@ -206,14 +208,15 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 endfun
 
 fun! wheel#teapot#ctrl_u ()
-	" Ctrl-U on filter line
+	" Ctrl-U in mandala with filter
 	let linum = line('.')
 	if linum != 1
 		return
 	endif
-	let mandala_prompt = wheel#teapot#prompt ()
 	call wheel#teapot#set_prompt ()
 	call wheel#teapot#filter()
+	" continue editing
+	call wheel#mandala#pre_edit ()
 endfun
 
 fun! wheel#teapot#mappings ()
@@ -232,8 +235,8 @@ fun! wheel#teapot#mappings ()
 	let wrapper = 'wheel#teapot#wrapper'
 	exe imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"
 	exe imap '<c-w>   <cmd>call' wrapper "('c-w', '>', 'i')<cr>"
+	exe imap '<c-u>   <cmd>call wheel#teapot#ctrl_u()<cr>'
 	exe imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
-	inoremap <silent> <buffer> <c-u> <cmd>call wheel#teapot#ctrl_u()<cr>
-	inoremap <silent> <buffer> <esc> <esc>:call wheel#teapot#filter()<cr>
+	exe imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
 	" <C-c> is not mapped, in case you need a regular escape
 endfun
