@@ -107,7 +107,7 @@ fun! wheel#mirror#narrow_file (...) range
 	let filetype = getbufvar(bufnum, '&filetype')
 	" -- mandala
 	call wheel#mandala#blank ('narrow/file/' .. filename)
-	let &filetype = filetype
+	let &l:filetype = filetype
 	call wheel#mandala#common_maps ()
 	let settings = #{ function : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
 	call wheel#whirl#mappings (settings)

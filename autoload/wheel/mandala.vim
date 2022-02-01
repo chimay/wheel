@@ -149,7 +149,7 @@ endfun
 fun! wheel#mandala#wrap_up ()
 	" Line up, or line 1 -> end of file
 	" If fold is closed, take the first line of it
-	if &foldenable
+	if &l:foldenable
 		let line = foldclosed('.')
 		if line < 0
 			let line = line('.')
@@ -176,7 +176,7 @@ endfun
 fun! wheel#mandala#wrap_down ()
 	" Line down, or line end of file -> 1
 	" If fold is closed, take the last line of it
-	if &foldenable
+	if &l:foldenable
 		let line = foldclosedend('.')
 		if line < 0
 			let line = line('.')
@@ -500,7 +500,7 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	" ---- restore cursor if possible, else place it on line 1
 	call wheel#gear#restore_cursor (position, 1)
 	" ---- restore local options
-	let &foldenable = ampersand
+	let &l:foldenable = ampersand
 endfun
 
 fun! wheel#mandala#fill (content, first = 'empty-prompt-first')

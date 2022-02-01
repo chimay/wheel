@@ -108,7 +108,7 @@ fun! wheel#pencil#cursor (...)
 	let index = wheel#teapot#line_index (linum)
 	" ---- component
 	let position = getcurpos()
-	if ! &foldenable
+	if ! &l:foldenable
 		" -- plain
 		let cursor_line = getline(linum)
 		let component = wheel#pencil#unmarked (cursor_line)

@@ -407,7 +407,7 @@ fun! wheel#disc#write_session (...)
 		endif
 	endif
 	" backup value of sessionoptions
-	let ampersand = &l:sessionoptions
+	let ampersand = &sessionoptions
 	set sessionoptions=tabpages,winsize
 	" create directory if needed
 	let directory = fnamemodify(session_file, ':h')
@@ -421,7 +421,7 @@ fun! wheel#disc#write_session (...)
 	echomsg 'Writing session to file ..'
 	execute 'mksession!' session_file
 	" restore value of sessionoptions
-	let &l:sessionoptions=ampersand
+	let &sessionoptions=ampersand
 	echomsg 'Writing done !'
 	return v:true
 endfun
@@ -536,7 +536,7 @@ fun! wheel#disc#symlink_tree (...)
 		let complete = 'customlist,wheel#complete#directory'
 		let soil = input(prompt, '', complete)
 	endif
-	let old_cdpath = &l:cdpath
+	let old_cdpath = &cdpath
 	set cdpath=,,
 	let cd_parent = 'cd ..'
 	" chop newline at beginning of pwd output
@@ -579,7 +579,7 @@ fun! wheel#disc#symlink_tree (...)
 	let cd_old_dir = 'cd ' .. old_dir
 	echo cd_old_dir
 	call execute(cd_old_dir)
-	let &l:cdpath = old_cdpath
+	let &cdpath = old_cdpath
 	return v:true
 endfun
 
@@ -598,7 +598,7 @@ fun! wheel#disc#copied_tree ()
 		let complete = 'customlist,wheel#complete#directory'
 		let soil = input(prompt, '', complete)
 	endif
-	let old_cdpath = &l:cdpath
+	let old_cdpath = &cdpath
 	set cdpath=,,
 	let cd_parent = 'cd ..'
 	" chop newline at beginning of pwd output
@@ -641,6 +641,6 @@ fun! wheel#disc#copied_tree ()
 	let cd_old_dir = 'cd ' .. old_dir
 	echo cd_old_dir
 	call execute(cd_old_dir)
-	let &l:cdpath = old_cdpath
+	let &cdpath = old_cdpath
 	return v:true
 endfun

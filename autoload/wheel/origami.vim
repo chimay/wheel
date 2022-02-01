@@ -20,7 +20,7 @@ endif
 
 fun! wheel#origami#chord_level ()
 	" Wheel level of fold line : torus, circle or location
-	if ! &foldenable
+	if ! &l:foldenable
 		echomsg 'wheel gear fold level : fold is disabled in buffer'
 		return v:false
 	endif
@@ -96,7 +96,7 @@ endfun
 
 fun! wheel#origami#tabwin_level ()
 	" Tab & window : level of fold line, tab or filename
-	if ! &foldenable
+	if ! &l:foldenable
 		echomsg 'wheel gear fold level : fold is disabled in buffer'
 		return v:false
 	endif

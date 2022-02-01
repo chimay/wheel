@@ -86,9 +86,8 @@ fun! wheel#wave#start (command, ...)
 	endif
 	" mandala
 	let mandala_type = options.mandala_type
-	if ! wheel#cylinder#is_mandala ()
-		call wheel#mandala#blank (mandala_type)
-	endif
+	call wheel#mandala#blank (mandala_type)
+	call wheel#mandala#fill('')
 	call wheel#wave#template (mandala_type)
 	" expand tilde in filenames
 	eval command->map({ _, val -> expand(val) })

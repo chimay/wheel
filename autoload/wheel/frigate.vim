@@ -313,9 +313,9 @@ fun! wheel#frigate#outline (...)
 		let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
 	endif
 	if mode == 1
-		let marker = split(&foldmarker, ',')[0]
+		let marker = split(&l:foldmarker, ',')[0]
 		let grep_ex_command = g:wheel_config.grep
-		if grep_ex_command =~ '^:\?grep' && &grepprg !~ '^grep'
+		if grep_ex_command =~ '^:\?grep' && &greppr !~ '^grep'
 			let marker = escape(marker, '{')
 		endif
 		let lines = wheel#frigate#grep (marker)
