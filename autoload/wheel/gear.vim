@@ -334,7 +334,7 @@ endfun
 fun! wheel#gear#restore_options (optdict)
 	" Restore options whose names and values are given by optdict
 	for [optname, value] in items(a:optdict)
-		let runme = 'let &' .. optname .. '=' .. string(value)
+		let runme = 'let &l:' .. optname .. '=' .. string(value)
 		execute runme
 	endfor
 endfun

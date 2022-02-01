@@ -62,9 +62,9 @@ let s:callbacks = {
 fun! wheel#wave#template (mandala_type)
 	" Job buffer template
 	call wheel#mandala#template ()
+	let b:wheel_nature.is_writable = v:true
 	setlocal noreadonly
 	setlocal modifiable
-	let b:wheel_lines = []
 endfun
 
 " Main

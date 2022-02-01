@@ -350,7 +350,7 @@ fun! wheel#mandala#folding_options (...)
 	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 	setlocal foldclose=
 	setlocal foldmethod=marker
-	let &foldmarker = s:fold_markers
+	let &l:foldmarker = s:fold_markers
 	setlocal foldcolumn=2
 	execute 'setlocal foldtext=wheel#mandala#' .. textfun .. '()'
 endfun
@@ -467,29 +467,25 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer'
 	endif
-	" -- local options
-	let ampersand = &foldenable
-	call wheel#mandala#pre_edit ()
-	" -- arguments
+	" ---- local options
+	let ampersand = &l:foldenable
+	" ---- arguments
 	let content = a:content
 	let first = a:first
-	" -- cursor
+	" ---- cursor
 	let position = getcurpos()
-	" -- delete old content
+	" ---- options to edit
+	call wheel#mandala#pre_edit ()
+	" ---- delete old content
 	if exists('*deletebufline')
 		silent! call deletebufline('%', 2, '$')
 	else
 		silent! 2,$ delete
 	endif
-	" -- new content
-	" ============================================================
-	" alternative : use :silent put =content
-	" setline() or append() did not used to work with yank lists
-	" note : append() / :put add stuff after current line
-	" ============================================================
+	" ---- append content
 	call cursor(1, 1)
 	call append('.', content)
-	" -- first line
+	" ---- first line
 	if first == 'prompt-first'
 		call wheel#teapot#set_prompt (getline(1))
 	elseif first == 'empty-prompt-first'
@@ -497,13 +493,14 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	elseif first == 'delete-first'
 		silent 1 delete _
 	endif
-	" -- tell (neo)vim the buffer is unmodified
-	setlocal nomodified
-	" -- restore cursor if possible, else place it on line 1
-	call wheel#gear#restore_cursor (position, 1)
-	" -- restore local options
-	let &foldenable = ampersand
+	" ---- restore edit options
 	call wheel#mandala#post_edit ()
+	" ---- tell (neo)vim the buffer is unmodified
+	setlocal nomodified
+	" ---- restore cursor if possible, else place it on line 1
+	call wheel#gear#restore_cursor (position, 1)
+	" ---- restore local options
+	let &foldenable = ampersand
 endfun
 
 fun! wheel#mandala#fill (content, first = 'prompt-first')
@@ -526,8 +523,6 @@ fun! wheel#mandala#reload ()
 	call wheel#mandala#set_type ('empty')
 	" -- reinitialize buffer vars
 	call wheel#mandala#refresh ()
-	" -- delete all lines
-	silent 1,$ delete _
 	" -- reload content
 	if ! empty(b:wheel_reload)
 		call wheel#gear#call (b:wheel_reload)
