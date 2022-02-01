@@ -64,7 +64,7 @@ endfun
 fun! wheel#codex#yank_list (where = 'linewise-after')
 	" Paste yank from yank ring in list mode
 	let where = a:where
-	let prompt = 'Yank element (list mode) : '
+	let prompt = 'Yank list element (' .. where .. ') : '
 	let complete = 'customlist,wheel#complete#yank_list'
 	let line = input(prompt, '', complete)
 	let content = eval(line)
@@ -84,7 +84,7 @@ endfun
 fun! wheel#codex#yank_plain (where = 'linewise-after')
 	" Paste yank from yank ring in plain mode
 	let where = a:where
-	let prompt = 'Yank element (plain mode) : '
+	let prompt = 'Yank element (' .. where .. ') : '
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
 	let @" = content
