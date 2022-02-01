@@ -56,7 +56,8 @@ fun! wheel#status#message (...)
 		let message = join(a:000)
 		return call('wheel#status#message', [ message ])
 	endif
-	let message = a:1 if type(message) == v:t_list
+	let message = a:1
+	if type(message) == v:t_list
 		let message = join(message)
 	endif
 	" does not clear messages, only echo area
