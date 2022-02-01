@@ -443,8 +443,9 @@ fun! wheel#perspective#marker ()
 		let linum = position[1]
 		let colnum = position[2]
 		let bufnum = bufnr(filename)
-		if bufnum > 0 && bufloaded(bufnum)
-			let content = getbufline(bufnum, linum)[0]
+		let buflinelist = getbufline(bufnum, linum)
+		if ! empty(buflinelist)
+			let content = buflinelist[0]
 		else
 			let content = ' '
 		endif

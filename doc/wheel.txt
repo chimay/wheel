@@ -2367,12 +2367,7 @@ can also use the classic BufLeave event : >
 AFTER JUMP				*wheel-autocommands-after-jump*
 
 The `WheelAfterJump` user event happens after any jump to a wheel
-location, as soon as you use a wheel navigation function :
-
-- next/previous element
-- switch to element
-- switch in index, history, frecency
-- ...
+location, as soon as you use a wheel navigation function.
 
 You can use it to add a post-jump operation.
 
@@ -2404,15 +2399,7 @@ adjust its state to match the file and cursor position.
 
 Launch it manually~
 
-You can launch the follow routine manually with `<M-w><M-f>` by default.
-
-Edit & add~
-
-If you want to edit a file and add it to the current group (circle),
-you can use `<plug>(wheel-add-file)`. It is bound to `<M-w>+f` by default.
-
-To add a buffer, you can use `<plug>(wheel-add-buffer)`, bound to
-`<M-w>+b` by default.
+You can launch the follow routine manually with `<M-w><M-$>` by default.
 
 Other events~
 
