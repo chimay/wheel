@@ -265,46 +265,6 @@ fun! wheel#perspective#buffer (scope = 'listed')
 	return returnlist
 endfun
 
-fun! wheel#perspective#narrow_file (first, last)
-	" Narrow file
-	" Optional argument :
-	"   - range of lines
-	"   - default : all buffer
-	let first = a:first
-	let last = a:last
-	let numlist = range(first, last)
-	let linelist = getline(first, last)
-	let returnlist = wheel#matrix#dual([numlist, linelist])
-	eval returnlist->map({ _, elem -> [ printf('%5d', elem[0]), elem[1] ] })
-	eval returnlist->map({ _, elem -> join(elem, s:field_separ) })
-	return returnlist
-endfun
-
-fun! wheel#perspective#narrow_circle (pattern, sieve)
-	" Narrow circle files. Use quickfix list
-	" Each line has the format :
-	" buffer-number | line | file | text
-	let bool = wheel#vector#grep (a:pattern, a:sieve)
-	if ! bool
-		" no file matching a:sieve
-		return []
-	endif
-	let quickfix = getqflist()
-	let list = []
-	for index in wheel#chain#rangelen(quickfix)
-		let elem = quickfix[index]
-		let bufnum = printf('%3d', elem.bufnr)
-		let linum = printf('%5d', elem.lnum)
-		let filename = bufname(elem.bufnr)
-		let filename = wheel#disc#relative_path (filename)
-		let content = elem.text
-		let entry = [bufnum, linum, filename, content]
-		let record = join(entry, s:field_separ)
-		eval list->add(record)
-	endfor
-	return list
-endfun
-
 " ---- tab & windows
 
 fun! wheel#perspective#tabwin ()
@@ -534,7 +494,7 @@ fun! wheel#perspective#grep (pattern, sieve)
 		return []
 	endif
 	let quickfix = getqflist()
-	let list = []
+	let returnlist = []
 	for index in wheel#chain#rangelen(quickfix)
 		let elem = quickfix[index]
 		" elem.nr does not work
@@ -546,9 +506,51 @@ fun! wheel#perspective#grep (pattern, sieve)
 		let content = elem.text
 		let entry = [errnum, linum, colnum, filename, content]
 		let record = join(entry, s:field_separ)
-		eval list->add(record)
+		eval returnlist->add(record)
 	endfor
-	return list
+	return returnlist
+endfun
+
+" -- narrow
+
+fun! wheel#perspective#narrow_file (first, last)
+	" Narrow file
+	" Optional argument :
+	"   - range of lines
+	"   - default : all buffer
+	let first = a:first
+	let last = a:last
+	let numlist = range(first, last)
+	let linelist = getline(first, last)
+	let returnlist = wheel#matrix#dual([numlist, linelist])
+	eval returnlist->map({ _, elem -> [ printf('%5d', elem[0]), elem[1] ] })
+	eval returnlist->map({ _, elem -> join(elem, s:field_separ) })
+	return returnlist
+endfun
+
+fun! wheel#perspective#narrow_circle (pattern, sieve)
+	" Narrow circle files. Use quickfix list
+	" Each line has the format :
+	" buffer-number | line | file | text
+	let bool = wheel#vector#grep (a:pattern, a:sieve)
+	if ! bool
+		" no file matching a:sieve
+		return []
+	endif
+	let quickfix = getqflist()
+	let returnlist = []
+	for index in wheel#chain#rangelen(quickfix)
+		let elem = quickfix[index]
+		let bufnum = printf('%3d', elem.bufnr)
+		let linum = printf('%5d', elem.lnum)
+		let filename = bufname(elem.bufnr)
+		let filename = wheel#disc#relative_path (filename)
+		let content = elem.text
+		let entry = [bufnum, linum, filename, content]
+		let record = join(entry, s:field_separ)
+		eval returnlist->add(record)
+	endfor
+	return returnlist
 endfun
 
 " -- from symbol
