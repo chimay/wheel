@@ -16,7 +16,7 @@ endif
 " grep edit
 
 fun! wheel#mirror#grep_edit (...)
-	" Reorder level elements in a buffer
+	" Grep in edit mode
 	" -- arguments
 	if a:0 > 0
 		let pattern = a:1

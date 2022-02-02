@@ -7,7 +7,7 @@
 " reorder
 
 fun! wheel#yggdrasil#reorder (level)
-	" Reorder level elements in a buffer
+	" Reorder level elements
 	let level = a:level
 	let lines = wheel#perspective#element (level)
 	" -- pre-checks
@@ -34,7 +34,7 @@ endfun
 " rename
 
 fun! wheel#yggdrasil#rename (level)
-	" Rename level elements in a buffer
+	" Rename level elements
 	let level = a:level
 	let lines = wheel#perspective#element (level)
 	" -- pre-checks
@@ -54,7 +54,7 @@ fun! wheel#yggdrasil#rename (level)
 endfun
 
 fun! wheel#yggdrasil#rename_file ()
-	" Rename locations & files of current circle, after buffer content
+	" Rename locations & files of current circle
 	" -- lines
 	let lines = wheel#perspective#rename_file ()
 	" -- pre-checks

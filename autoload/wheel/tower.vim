@@ -18,7 +18,7 @@ fun! wheel#tower#menu (settings)
 	let dict = wheel#crystal#fetch (menu_settings.linefun, 'dict')
 	let travel = menu_settings.travel
 	let close = menu_settings.close
-	" ---- cursor line
+	" ---- pre checks
 	let cursor_line = getline('.')
 	if empty(cursor_line)
 		echomsg 'wheel line menu : you selected an empty line'
@@ -85,14 +85,17 @@ fun! wheel#tower#staircase (settings)
 	"   - context menu leaf
 	let settings = a:settings
 	let dictname = settings.menu.linefun
-	" blank mandala
+	" ---- blank mandala
 	call wheel#mandala#blank (dictname)
-	" save settings
+	" ---- properties
+	let b:wheel_nature.has_filter = v:true
+	let b:wheel_nature.has_selection = v:false
+	" ---- save settings
 	let b:wheel_settings = settings
-	" fill with dict keys
+	" ---- fill with dict keys
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)
-	call wheel#mandala#fill (lines, 'empty-prompt-first')
-	" mappings
+	call wheel#mandala#fill (lines)
+	" ---- mappings
 	call wheel#tower#mappings (settings)
 endfun

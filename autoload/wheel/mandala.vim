@@ -479,7 +479,7 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	if exists('*deletebufline')
 		silent! call deletebufline('%', 2, '$')
 	else
-		silent! 2,$ delete
+		silent! 2,$ delete _
 	endif
 	" ---- append content
 	call cursor(1, 1)
