@@ -68,12 +68,12 @@ endfun
 fun! wheel#pencil#default_line ()
 	" If on filter line, put the cursor on line 2 if possible
 	" If on filtering line, put the cursor in default line 2
-	let has_filter = wheel#teapot#has_filter()
 	let is_filtered = wheel#teapot#is_filtered ()
-	if line('$') == 1 && is_filtered
+	let has_filter = wheel#teapot#has_filter()
+	if is_filtered && line('$') == 1
 		call wheel#teapot#clear()
 	endif
-	if line('$') == 1
+	if has_filter && line('$') == 1
 		echomsg 'wheel pencil default line : mandala is empty'
 		return v:false
 	endif
@@ -96,7 +96,7 @@ fun! wheel#pencil#cursor (...)
 	" ---- default line if needed
 	" ---- must come before : line('.')
 	if ! wheel#pencil#default_line ()
-		return []
+		return {}
 	endif
 	" ---- arguments
 	if a:0 > 0
@@ -138,6 +138,9 @@ fun! wheel#pencil#virtual (...)
 	"   - line number
 	"   - default : current line number
 	let info = wheel#pencil#cursor ()
+	if empty(info)
+		return #{ indexes : [], components : []}
+	endif
 	let cursor_selection = {}
 	let cursor_selection.indexes = [ info.index ]
 	let cursor_selection.components = [ info.component ]
