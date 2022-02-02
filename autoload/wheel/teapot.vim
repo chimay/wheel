@@ -220,6 +220,12 @@ fun! wheel#teapot#ctrl_u ()
 	call wheel#mandala#unlock ()
 endfun
 
+fun! wheel#teapot#normal_cc ()
+	" Normal command cc in mandala with filter
+	call wheel#teapot#goto_filter_line ('insert')
+	call wheel#teapot#ctrl_u ()
+endfun
+
 fun! wheel#teapot#mappings ()
 	" Define filter maps & set property
 	" -- filter property
@@ -231,6 +237,7 @@ fun! wheel#teapot#mappings ()
 	exe nmap 'a     <cmd>call' goto_filter "('i')<cr>"
 	exe nmap '<m-i> <cmd>call' goto_filter "('i')<cr>"
 	exe nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
+	exe nmap 'cc   <cmd>call wheel#teapot#normal_cc()<cr>'
 	" -- insert mode
 	let imap = 'inoremap <buffer>'
 	let wrapper = 'wheel#teapot#wrapper'

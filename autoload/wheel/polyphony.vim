@@ -337,6 +337,12 @@ fun! wheel#polyphony#ctrl_u ()
 	call setline(linum, content)
 endfun
 
+fun! wheel#polyphony#normal_cc ()
+	" Normal command cc in hybrid mandala
+	startinsert!
+	call wheel#polyphony#ctrl_u ()
+endfun
+
 fun! wheel#polyphony#filter_maps ()
 	" Local filter maps for hybrid filter/write mode
 	" -- normal mode
@@ -351,10 +357,11 @@ fun! wheel#polyphony#hybrid_maps ()
 	" ---- normal maps
 	let nmap = 'nnoremap <buffer>'
 	let last_field = 'wheel#polyphony#last_field'
-	exe nmap 'i <cmd>call' last_field "('i')<cr>"
-	exe nmap 'a <cmd>call' last_field "('a')<cr>"
-	exe nmap '^ <cmd>call' last_field "('^')<cr>"
-	exe nmap '$ <cmd>call' last_field "('$')<cr>"
+	exe nmap 'i  <cmd>call' last_field "('i')<cr>"
+	exe nmap 'a  <cmd>call' last_field "('a')<cr>"
+	exe nmap '^  <cmd>call' last_field "('^')<cr>"
+	exe nmap '$  <cmd>call' last_field "('$')<cr>"
+	exe nmap 'cc <cmd>call wheel#polyphony#normal_cc()<cr>'
 	" ---- insert maps
 	let imap = 'inoremap <buffer>'
 	let across = 'wheel#polyphony#crossroad'
@@ -362,7 +369,7 @@ fun! wheel#polyphony#hybrid_maps ()
 	exe imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
 	exe imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
 	exe imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
-	exe imap '<c-u> <cmd>call wheel#polyphony#ctrl_u()<cr>'
+	exe imap '<c-u>   <cmd>call wheel#polyphony#ctrl_u()<cr>'
 endfun
 
 fun! wheel#polyphony#input_history_maps ()
