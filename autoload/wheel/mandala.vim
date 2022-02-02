@@ -83,9 +83,10 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.empty = v:true
 		let b:wheel_nature.class = 'generic'
 		let b:wheel_nature.type = 'empty'
+		let b:wheel_nature.is_treeish = v:false
+		let b:wheel_nature.is_writable = v:false
 		let b:wheel_nature.has_filter = v:false
 		let b:wheel_nature.has_selection = v:false
-		let b:wheel_nature.is_writable = v:false
 		call wheel#mandala#set_type ('empty')
 	endif
 	" -- related buffer
@@ -95,6 +96,11 @@ fun! wheel#mandala#init ()
 	" -- all original lines
 	if ! exists('b:wheel_lines')
 		let b:wheel_lines = []
+	endif
+	" -- all original full information
+	" -- useful for treeish buffers
+	if ! exists('b:wheel_full')
+		let b:wheel_full = []
 	endif
 	" -- filter
 	if ! exists('b:wheel_filter')

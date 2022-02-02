@@ -12,6 +12,15 @@
 " - treeish index : [torus, circle, coordin]
 " - tabs & wins : [tab number, window number, file name]
 
+" helpers
+
+fun! wheel#shadow#is_treeish ()
+	" Whether mandala has a folded treeish structure
+	return b:wheel_nature.is_treeish
+endfun
+
+" information
+
 fun! wheel#shadow#tree ()
 	" Tree representation of the wheel index
 	let returnlist = []

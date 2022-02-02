@@ -116,7 +116,7 @@ fun! wheel#perspective#grid ()
 endfun
 
 fun! wheel#perspective#tree ()
-	" Tree representation of the wheel index
+	" Folded tree representation of the wheel index
 	let returnlist = []
 	for torus in g:wheel.toruses
 		let entry = torus.name .. s:fold_1
@@ -295,7 +295,7 @@ fun! wheel#perspective#tabwin ()
 endfun
 
 fun! wheel#perspective#tabwin_tree ()
-	" Buffers visible in tree of tabs & wins
+	" Buffers visible in folded tree of tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')
 	let mandalas = g:wheel_mandalas.ring

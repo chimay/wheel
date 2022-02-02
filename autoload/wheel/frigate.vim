@@ -69,6 +69,8 @@ fun! wheel#frigate#tabwin_tree ()
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ('tabwin_folding_text')
 	call wheel#mandala#fill (lines)
+	" full information
+	let b:wheel_full = wheel#shadow#tabwin ()
 	" reload
 	let b:wheel_reload = 'wheel#frigate#tabwin_tree'
 	" Context menu

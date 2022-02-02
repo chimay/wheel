@@ -165,7 +165,7 @@ fun! wheel#whirl#grid ()
 endfun
 
 fun! wheel#whirl#tree ()
-	" Choose an element in the wheel tree
+	" Choose an element in the wheel index tree
 	let lines = wheel#perspective#tree ()
 	if empty(lines)
 		echomsg 'wheel whirl tree : empty wheel'
@@ -176,6 +176,8 @@ fun! wheel#whirl#tree ()
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
+	" full information
+	let b:wheel_full = wheel#shadow#tree ()
 	" reload
 	let b:wheel_reload = 'wheel#whirl#tree'
 endfun
