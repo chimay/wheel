@@ -218,17 +218,9 @@ endfun
 
 " Range of indexes
 
-fun! wheel#chain#range (argument)
-	" Return range of list indexes to be used in a loop
-	" If argument is a number, return a range from 0 -> number - 1
-	" If argument is a list, return a range from 0 -> length list - 1
-	let argument = a:argument
-	let kind = type(argument)
-	if kind == v:t_number
-		return range(argument)
-	else
-		return range(len(argument))
-	endif
+fun! wheel#chain#rangelen (list)
+	" Return range from 0 -> length list - 1
+	return range(len(a:list))
 endfun
 
 " List indexes from filtered sublist
@@ -265,7 +257,7 @@ fun! wheel#chain#argmin (list)
 	let list = a:list
 	let minimum = min(list)
 	let indexes = []
-	for ind in range(len(list))
+	for ind in wheel#chain#rangelen(list)
 		if list[ind] == minimum
 			eval indexes->add(ind)
 		endif
@@ -278,7 +270,7 @@ fun! wheel#chain#argmax (list)
 	let list = a:list
 	let maximum = max(list)
 	let indexes = []
-	for ind in range(len(list))
+	for ind in wheel#chain#rangelen(list)
 		if list[ind] == maximum
 			eval indexes->add(ind)
 		endif
@@ -294,7 +286,7 @@ fun! wheel#chain#filter (list, function, indexes = [])
 	let Fun = wheel#gear#function(a:function)
 	let indexes = deepcopy(a:indexes)
 	if empty(indexes)
-		let indexes = range(len(list))
+		let indexes = wheel#chain#rangelen(list)
 	endif
 	let matrix = [indexes, list]
 	" list of pairs [ind, elem]
@@ -357,7 +349,7 @@ fun! wheel#chain#sort (list, ...)
 		let Cmp = 'wheel#chain#compare_first'
 	endif
 	let list = deepcopy(a:list)
-	let indexes = range(len(list))
+	let indexes = wheel#chain#rangelen(list)
 	let dual = wheel#matrix#dual([list, indexes])
 	call sort(dual, Cmp)
 	let [sorted, indexes] = wheel#matrix#dual(dual)

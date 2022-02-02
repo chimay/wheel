@@ -152,7 +152,7 @@ fun! wheel#kyusu#gaiwan ()
 	let linelist = copy(b:wheel_lines)
 	let input = wheel#teapot#without_prompt ()
 	if empty(input)
-		let filtered_indexes = range(len(linelist))
+		let filtered_indexes = wheel#chain#rangelen(linelist)
 		let filtered_values = linelist
 		return [filtered_indexes, filtered_values]
 	endif
@@ -161,7 +161,7 @@ fun! wheel#kyusu#gaiwan ()
 	" ---- special words
 	let ternar = {}
 	let ternar.selection = 0
-	for index in range(len(wordlist))
+	for index in wheel#chain#rangelen(wordlist)
 		if wordlist[index] =~ '^=s'
 			let ternar.selection = 1
 			eval wordlist->remove(index)
@@ -175,7 +175,7 @@ fun! wheel#kyusu#gaiwan ()
 	" ---- filter
 	let filtered_indexes = []
 	let filtered_values = []
-	for index in wheel#chain#range(linelist)
+	for index in wheel#chain#rangelen(linelist)
 		let value = linelist[index]
 		let pass = wheel#kyusu#intermix (wordlist, index, value, ternar)
 		let pass = pass || value =~ s:fold_pattern

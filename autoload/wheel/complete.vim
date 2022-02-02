@@ -119,7 +119,7 @@ fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 		return []
 	endif
 	let choices = []
-	for index in range(len(bufnums))
+	for index in wheel#chain#rangelen(bufnums)
 		let num = bufnums[index]
 		let title = bufname(num)
 		eval choices->add(title)

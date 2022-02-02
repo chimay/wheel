@@ -291,7 +291,7 @@ fun! wheel#perspective#narrow_circle (pattern, sieve)
 	endif
 	let quickfix = getqflist()
 	let list = []
-	for index in range(len(quickfix))
+	for index in wheel#chain#rangelen(quickfix)
 		let elem = quickfix[index]
 		let bufnum = printf('%3d', elem.bufnr)
 		let linum = printf('%5d', elem.lnum)
@@ -412,7 +412,7 @@ fun! wheel#perspective#occur (pattern)
 	let runme = 'global /' .. pattern .. '/number'
 	let returnlist = execute(runme)
 	let returnlist = split(returnlist, "\n")
-	for index in range(len(returnlist))
+	for index in wheel#chain#rangelen(returnlist)
 		let elem = returnlist[index]
 		let fields = split(elem, ' ')
 		let linum = fields[0]
@@ -535,7 +535,7 @@ fun! wheel#perspective#grep (pattern, sieve)
 	endif
 	let quickfix = getqflist()
 	let list = []
-	for index in range(len(quickfix))
+	for index in wheel#chain#rangelen(quickfix)
 		let elem = quickfix[index]
 		" elem.nr does not work
 		" let's take the index instead
