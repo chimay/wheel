@@ -722,7 +722,10 @@ as a string.
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
 
 Introduction			|wheel-dedicated-buffers-introduction|
-Tools				|wheel-dedicated-buffers-tools|
+Tools				|wheel-dedicated-buffers-selection|
+Tools				|wheel-dedicated-buffers-filtering|
+Tools				|wheel-dedicated-buffers-input-history|
+Tools				|wheel-dedicated-buffers-preview|
 Buffer ring			|wheel-dedicated-buffers-ring|
 Layer ring			|wheel-dedicated-buffers-layers|
 Menu				|wheel-dedicated-buffers-menus|
@@ -820,13 +823,11 @@ Press `q` to quit the dedicated buffer.
 It is not lost : you can reopen it any time with `<M-w><Right>`.
 
 ------------------------------------------------------------------------------
-TOOLS						*wheel-dedicated-buffers-tools*
-
-Selection~
+SELECTION				*wheel-dedicated-buffers-selection*
 
 Some dedicated buffers can act on selected entries. You can hit :
 
-- `<Space>` or `=` to toggle the selection of a line
+- `=` or `<Space>` to toggle the selection of a line
 - `#` to reverse the selection of all visible lines
 - `*` to select all visible lines
 - `|` to clear the selection of all visible lines
@@ -835,17 +836,39 @@ If a line is selected, it will begin with a distinctive marker.
 
 You can open all selected files in tabs, splits or vertical splits.
 
-Filtering~
+------------------------------------------------------------------------------
+FILTERING				    *wheel-dedicated-buffers-filtering*
 
 In most dedicated buffers, the first line is left almost empty, with
 just a prompt : it is used as an input line to filter the buffer. You
 can go to insert mode and filter the elements with each pattern you
-enter on the input (first) line. Typing `<Space>`, `<Esc>` or `<Enter>`
-will update the candidates. Note that `<C-c>` is not mapped, in case
-you need to go to normal mode without triggering the filter function.
+enter on the input (first) line.
 
-Pressing `i` or `a` will move the cursor to the first line and go to
-insert mode.
+Going to filter line~
+
+- pressing `i` or `a` moves the cursor to the first line
+  and starts insert mode
+  + same thing with `<M-i>` and `<Ins>`
+- pressing `cc` moves the cursor to the first line,
+  starts insert mode and clear the line content, except the prompt
+
+Update candidates~
+
+Typing :
+
+- `<Space>`
+- `<C-w>`
+- `<C-u>`
+- `<Esc>`
+- `<Enter>`
+
+updates the candidates. Note that `<C-w>` and `<C-u>` do not delete
+the prompt.
+
+The key `<C-c>` is not mapped, in case you need to go to normal mode
+without triggering the filter function.
+
+Patterns~
 
 A space between two patterns is a logical and. So, `one two` will
 display lines containing both `one` and `two`.
@@ -881,7 +904,8 @@ If `small flower` and `big fruit` are selected :
 - the patterns `=s bi` will narrow down to `big fruit`
 - the patterns `!=s bi` will narrow down to `big flower`
 
-Input history~
+------------------------------------------------------------------------------
+INPUT HISTORY				*wheel-dedicated-buffers-input-history*
 
 An input history is available in the filter line. You can insert the
 previous/next input in insert mode with `<Up>`/`<Down>` or `<M-p>`/`<M-n>`.
@@ -890,7 +914,8 @@ The keys `<PageUp>`/`PageDown` or `<M-r>`/`<M-s>` will insert the
 previous/next input matching the beginning of the inserted line, until
 the cursor.
 
-Preview~
+------------------------------------------------------------------------------
+PREVIEW						*wheel-dedicated-buffers-preview*
 
 In navigation buffers, you can preview the buffer/location matching the
 cursor line with `p`. It is displayed in the previous window.
@@ -952,13 +977,12 @@ Action~
 In menu buffers, `<Tab>` is a synonym for `<Enter>` : trigger action.
 
 Since there is no need to select multiple elements, `<Space>` is a
-shortcut for `g<Enter>` : launch action and leave the menu opened.
+shortcut for `g<Enter>`.
 
 Main menu~
 
 The main menu is triggered with `<M-w><M-m>` by default. From there,
-you can launch an action by pressing `<Enter>` on its line. Same thing
-for `g<Enter>`, but it will leave the dedicated buffer opened.
+you can launch an action by pressing `<Enter>` on its line.
 
 The available actions are grouped by themes and folded :
 
@@ -984,15 +1008,16 @@ Just open a fold to access its content.
 
 Meta menu~
 
-Press `<M-w>=` to open the meta menu : each line in this buffer will
-launch a sub-menu. Each sub-menu holds actions of the same category.
+Press `<M-w>=` to open the meta menu.
+
+Hitting `<Enter>` on a line launches a sub-menu. Each sub-menu holds
+actions of the same category.
 
 These categories are the same as in the main menu.
 
 In these sub-menus, you can use the keys :
 
 - `<Enter>`             : launch the action on the cursor line
-- `g<Enter>`, `<Space>`   : launch action and leave the menu opened
 - `<Backspace>`         : leads you back to the meta menu
 
 ------------------------------------------------------------------------------
@@ -1108,12 +1133,12 @@ another one.
 On the first line :
 
 - `<Enter>`, `<Esc>`, `<Space>`, `<C-w>` and `<C-u>` update the filter
-- `<C-u>` does not delete the prompt
+- `cc` and `<C-u>` do not delete the prompt
 
 On the other lines :
 
 - `<Enter>`, `<Esc>`, `<Space>` and `<C-w>` have their usual vim meaning
-- `<C-u>` does nothing, to avoid erasing a complete line by accident
+- `cc` and `<C-u>` delete only the last field of the line
 
 Range~
 
@@ -1136,7 +1161,9 @@ If something goes wrong, you can quit the dedicated buffer and :
 Anyway, it's always a good thing to do a backup :
 
 - of the wheel with `<M-w>w`
-- of your files, or even better, to work within a VCS repository, like git
+- of your files
+
+Working within a VCS repository, like git, is also a safety net.
 
 ------------------------------------------------------------------------------
 WITHIN THE WHEEL			*wheel-dedicated-buffers-within-wheel*

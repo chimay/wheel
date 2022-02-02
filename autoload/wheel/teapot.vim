@@ -208,42 +208,30 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	endif
 endfun
 
-fun! wheel#teapot#ctrl_u ()
-	" Ctrl-U in mandala with filter
-	let linum = line('.')
-	if linum != 1
-		return
-	endif
-	call wheel#teapot#set_prompt ()
-	call wheel#teapot#filter()
-	" continue editing
-	call wheel#mandala#unlock ()
-endfun
-
 fun! wheel#teapot#normal_cc ()
 	" Normal command cc in mandala with filter
-	call wheel#teapot#goto_filter_line ('insert')
-	call wheel#teapot#ctrl_u ()
+	call wheel#teapot#wrapper ('c-u', '>', 'i')
+	startinsert!
 endfun
 
 fun! wheel#teapot#mappings ()
 	" Define filter maps & set property
 	" -- filter property
 	let b:wheel_nature.has_filter = v:true
+	let goto_filter = 'wheel#teapot#goto_filter_line'
+	let wrapper = 'wheel#teapot#wrapper'
 	" -- normal mode
 	let nmap = 'nnoremap <buffer>'
-	let goto_filter = 'wheel#teapot#goto_filter_line'
 	exe nmap 'i     <cmd>call' goto_filter "('i')<cr>"
 	exe nmap 'a     <cmd>call' goto_filter "('i')<cr>"
 	exe nmap '<m-i> <cmd>call' goto_filter "('i')<cr>"
 	exe nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
-	exe nmap 'cc   <cmd>call wheel#teapot#normal_cc()<cr>'
+	exe nmap 'cc    <cmd>call wheel#teapot#normal_cc()<cr>'
 	" -- insert mode
 	let imap = 'inoremap <buffer>'
-	let wrapper = 'wheel#teapot#wrapper'
 	exe imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"
 	exe imap '<c-w>   <cmd>call' wrapper "('c-w', '>', 'i')<cr>"
-	exe imap '<c-u>   <cmd>call wheel#teapot#ctrl_u()<cr>'
+	exe imap '<c-u>   <cmd>call' wrapper "('c-u', '>', 'i')<cr>"
 	exe imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
 	exe imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
 	" <C-c> is not mapped, in case you need a regular escape

@@ -166,24 +166,21 @@ endif
 
 if ! exists('s:normal_map_keys')
 	let s:normal_map_keys = [
-				\ 'q',
+				\ '<f1>', 'r', 'q',
+				\ '<cr>', 'g<cr>',
 				\ 'j', 'k', '<down>', '<up>',
-				\ 'i', 'a',
-				\ '<m-i>', '<ins>',
-				\ '<cr>', '<space>', '<tab>',
-				\ 't', 's', 'v',
-				\ 'S', 'V',
-				\ '&', '*', '<bar>',
-				\ 'u', '<c-r>',
-				\ 'g<cr>',
-				\ 'gt', 'gs', 'gv',
-				\ 'gS', 'gV',
-				\ 'p', 'P',
-				\ 'gp', 'gP',
-				\ '<c-s>',
+				\ '<space>', '=', '#', '*', '<bar>',
+				\ 'i', 'a', '<m-i>', '<ins>', 'cc',
+				\ 'f',
+				\ 'H', 'L', '<m-l>',
+				\ '<tab>',
+				\ 't', 's', 'v', 'S', 'V',
+				\ 'gt', 'gs', 'gv', 'gS', 'gV',
 				\ '<m-s>', '<m-r>',
 				\ 'o', 'O', '<m-y>', '<m-z>',
-				\ '+', '-', '<kplus>', '<kminus>'
+				\ 'p', 'P', 'gp', 'gP',
+				\ 'u', '<c-r>', '+', '-', '<kplus>', '<kminus>', 'D', 'x',
+				\ '<c-s>',
 				\ ]
 	lockvar! s:normal_map_keys
 endif
