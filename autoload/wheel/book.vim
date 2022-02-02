@@ -114,7 +114,7 @@ fun! wheel#book#template ()
 	let leaf.related_buffer = 'undefined'
 	" -- all original lines
 	let leaf.lines = []
-	" -- all original full information
+	" -- all original full lines information
 	let leaf.full = []
 	" -- filter
 	let leaf.filter = {}
@@ -291,7 +291,7 @@ fun! wheel#book#syncup ()
 	let leaf.related_buffer = b:wheel_related_buffer
 	" -- all original lines
 	let leaf.lines = copy(b:wheel_lines)
-	" -- all original full information
+	" -- all original full lines information
 	let leaf.full = copy(b:wheel_full)
 	" -- filter
 	let leaf.filter = deepcopy(b:wheel_filter)
@@ -338,7 +338,7 @@ fun! wheel#book#syncdown ()
 	let b:wheel_related_buffer = leaf.related_buffer
 	" -- all original lines
 	let b:wheel_lines = copy(leaf.lines)
-	" -- all original full information
+	" -- all original full lines information
 	let b:wheel_full = copy(leaf.full)
 	" -- filter
 	let filter = deepcopy(leaf.filter)
