@@ -389,7 +389,7 @@ fun! wheel#void#clean ()
 	let g:wheel_shelve.layout.tabnames = []
 endfun
 
-fun! wheel#void#lighten ()
+fun! wheel#void#vanish ()
 	" Unlet wheel variables
 	" No need to save them in viminfo or shada file
 	" since you can save them in g:wheel_config.file
@@ -444,7 +444,7 @@ fun! wheel#void#exit ()
 		call wheel#disc#write_wheel()
 	endif
 	call wheel#void#wipe_mandalas ()
-	call wheel#void#lighten ()
+	call wheel#void#vanish ()
 endfun
 
 " ---- fresh empty wheel, for testing
