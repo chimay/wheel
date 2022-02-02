@@ -17,17 +17,12 @@ endif
 
 fun! wheel#mirror#grep_edit (...)
 	" Grep in edit mode
-	" -- arguments
+	" ---- arguments
 	if a:0 > 0
 		let pattern = a:1
 	else
-		let file = expand('%')
-		if file =~ s:is_mandala_file .. 'context/grep'
-			" called from context menu
-			" original pattern is in the previous leaf of the ring
+		if wheel#boomerang#is_context_menu ()
 			let settings = wheel#book#previous ('settings')
-			" old layer stack implementation
-			"let settings = wheel#layer#top_field ('settings')
 			let pattern = settings.pattern
 		else
 			let pattern = input('Grep circle files for pattern [edit mode] : ')
@@ -36,36 +31,29 @@ fun! wheel#mirror#grep_edit (...)
 	if a:0 > 1
 		let sieve = a:2
 	else
-		if file =~ s:is_mandala_file .. 'context/grep'
+		if wheel#boomerang#is_context_menu ()
 			let settings = wheel#book#previous ('settings')
-			" old layer stack implementation
-			"let settings = wheel#layer#top_field ('settings')
 			let sieve = settings.sieve
 		else
 			let sieve = '\m.'
 		endif
 	endif
-	" -- lines
+	" ---- lines
 	let lines = wheel#perspective#grep (pattern, sieve)
-	" -- pre-checks
+	" ---- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape grep edit : no match found'
 		return v:false
 	endif
-	" -- mandala
+	" ---- mandala
 	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#cuboctahedron#write ('wheel#vector#write_quickfix')
 	call wheel#mandala#fill (lines)
-	silent global /^$/ delete
-	setlocal nomodified
-	setlocal nocursorline
-	" copy of original lines
-	let b:wheel_lines = copy(lines)
-	" reload
+	" ---- reload
 	let b:wheel_reload = "wheel#mirror#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
-	" info
+	" ---- coda
 	echomsg 'adding or removing lines is not supported'
 	return lines
 endfun

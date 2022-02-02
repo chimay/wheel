@@ -21,6 +21,9 @@ endif
 
 fun! wheel#boomerang#is_context_menu ()
 	" Whether mandala leaf is a context menu
+	if ! wheel#cylinder#is_mandala ()
+		return v:false
+	endif
 	return b:wheel_nature.class == 'menu/context'
 endfun
 
