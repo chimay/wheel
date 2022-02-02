@@ -29,7 +29,8 @@ endfun
 " global index of visible in line in b:wheel_lines
 
 fun! wheel#teapot#line_index (...)
-	" Return index of line number in b:wheel_lines
+	" Return index of visible line number in b:wheel_lines
+	" Visible line may be filtered
 	" Default : current line number
 	if a:0 > 0
 		let linum = a:1

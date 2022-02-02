@@ -20,11 +20,16 @@ endif
 
 fun! wheel#status#clear ()
 	" Clear command line space
-	" Does not clear the vim messages, for that use :
-	"   :messages clear
+	" Does not clear the vim messages
 	" credit :
 	" https://neovim.discourse.group/t/how-to-clear-the-echo-message-in-the-command-line/268/2
 	call feedkeys(':','nx')
+endfun
+
+fun! wheel#status#clear_messages ()
+	" Clear vim messages
+	messages clear
+	echo 'messages cleared'
 endfun
 
 " Message

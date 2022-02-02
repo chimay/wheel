@@ -468,8 +468,6 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer'
 	endif
-	" ---- local options
-	let ampersand = &l:foldenable
 	" ---- arguments
 	let content = a:content
 	let first = a:first
@@ -500,8 +498,6 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	setlocal nomodified
 	" ---- restore cursor if possible, else place it on line 1
 	call wheel#gear#restore_cursor (position, 1)
-	" ---- restore local options
-	let &l:foldenable = ampersand
 endfun
 
 fun! wheel#mandala#fill (content, first = 'empty-prompt-first')
