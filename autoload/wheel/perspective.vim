@@ -116,17 +116,17 @@ fun! wheel#perspective#grid ()
 endfun
 
 fun! wheel#perspective#tree ()
-	" Tree representation of the wheel
+	" Tree representation of the wheel index
 	let returnlist = []
 	for torus in g:wheel.toruses
 		let entry = torus.name .. s:fold_1
-		let returnlist = add(returnlist, entry)
+		eval returnlist->add(entry)
 		for circle in torus.circles
 			let entry = circle.name .. s:fold_2
-			let returnlist = add(returnlist, entry)
+			eval returnlist->add(entry)
 			for location in circle.locations
 				let entry = location.name
-				let returnlist = add(returnlist, entry)
+				eval returnlist->add(entry)
 			endfor
 		endfor
 	endfor
@@ -135,16 +135,17 @@ endfun
 
 fun! wheel#perspective#reorganize ()
 	" Content for reorganize buffer
+	" Return complete locations, not only the names
 	let returnlist = []
 	for torus in g:wheel.toruses
 		let entry = torus.name .. s:fold_1
-		let returnlist = add(returnlist, entry)
+		eval returnlist->add(entry)
 		for circle in torus.circles
 			let entry = circle.name .. s:fold_2
-			let returnlist = add(returnlist, entry)
+			eval returnlist->add(entry)
 			for location in circle.locations
 				let entry = string(location)
-				let returnlist = add(returnlist, entry)
+				eval returnlist->add(entry)
 			endfor
 		endfor
 	endfor

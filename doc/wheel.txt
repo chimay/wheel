@@ -183,6 +183,8 @@ This project is inspired by :
 
 - narrow : https://github.com/chrisbra/NrrwRgn, for the narrow dedicated buffers
 
+- yankring : https://github.com/vim-scripts/YankRing.vim
+
 ------------------------------------------------------------------------------
 PREREQUISITES				*wheel-introduction-prerequisites*
 
@@ -3733,6 +3735,7 @@ of the modules within them.
 | ripple.vim        | Async job for vim                            |
 | sailing.vim       | Non wheel navigation                         |
 | scroll.vim        | Input history in dedicated buffers           |
+| shadow.vim        | Full information of each mandala line        |
 | shape.vim         | Organize native vim elements                 |
 | spiral.vim        | Golden ratio                                 |
 | status.vim        | Print wheel status                           |

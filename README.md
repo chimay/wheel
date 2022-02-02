@@ -201,6 +201,8 @@ This project is inspired by :
 
 - [narrow](https://github.com/chrisbra/NrrwRgn), for the narrow dedicated buffers
 
+- [yankring](https://github.com/vim-scripts/YankRing.vim)
+
 ## Prerequisites
 
 Some functions assume a Unix-like OS, like Linux or BSD :
