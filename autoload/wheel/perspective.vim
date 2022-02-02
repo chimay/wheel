@@ -167,7 +167,7 @@ fun! wheel#perspective#history ()
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
 		let entry = date_hour .. s:field_separ .. join(coordin, s:level_separ)
-		let returnlist = add(returnlist, entry)
+		eval returnlist->add(entry)
 	endfor
 	return returnlist
 endfun
@@ -185,7 +185,7 @@ fun! wheel#perspective#history_circuit ()
 		let timestamp = entry.timestamp
 		let date_hour = wheel#pendulum#date_hour (timestamp)
 		let entry = date_hour .. s:field_separ .. join(coordin, s:level_separ)
-		let returnlist = add(returnlist, entry)
+		eval returnlist->add(entry)
 	endfor
 	return returnlist
 endfun
@@ -200,7 +200,7 @@ fun! wheel#perspective#frecency ()
 		let score = printf('%6d', entry.score)
 		let coordin = entry.coordin
 		let entry = score .. s:field_separ .. join(coordin, s:level_separ)
-		let returnlist = add(returnlist, entry)
+		eval returnlist->add(entry)
 	endfor
 	return returnlist
 endfun
@@ -359,7 +359,7 @@ fun! wheel#perspective#mru ()
 		let date_hour = wheel#pendulum#date_hour (timestamp)
 		let entry = date_hour .. s:field_separ
 		let entry ..= filename
-		let returnlist = add(returnlist, entry)
+		eval returnlist->add(entry)
 	endfor
 	return returnlist
 endfun
