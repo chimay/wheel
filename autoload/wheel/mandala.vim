@@ -441,7 +441,7 @@ fun! wheel#mandala#blank (type)
 	if ! wheel#cylinder#recall()
 		call wheel#cylinder#first ('split')
 	endif
-	" ---- add new leaf, clear mandala, init vars
+	" ---- add new leaf, clear mandala, set type & options
 	call wheel#book#add ('clear')
 	call wheel#mandala#set_type (type)
 	call wheel#mandala#common_options ()
