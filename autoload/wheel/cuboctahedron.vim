@@ -90,8 +90,7 @@ fun! wheel#cuboctahedron#write (fun_name, ...)
 	" ---- property
 	let b:wheel_nature.is_writable = v:true
 	" ---- options
-	setlocal noreadonly
-	setlocal modifiable
+	call wheel#mandala#unlock ()
 	setlocal buftype=acwrite
 	" ---- autocommand
 	let group = s:mandala_autocmds_group

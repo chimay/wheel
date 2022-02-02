@@ -728,6 +728,7 @@ Layer ring			|wheel-dedicated-buffers-layers|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
+Non writable			|wheel-dedicated-buffers-non-writable|
 Writable			|wheel-dedicated-buffers-writable|
 Within the wheel		|wheel-dedicated-buffers-within-wheel|
 Buffers				|wheel-dedicated-buffers-buffers|
@@ -1067,10 +1068,23 @@ Similarly, the map `<M-w><M-t>` opens a dedicated buffer where folds
 are used to reflect the tree structure of tabs and windows in (neo)vim.
 
 ------------------------------------------------------------------------------
+NON WRITABLE   				*wheel-dedicated-buffers-non-writable*
+
+Some dedicated buffers are not intended to be edited, except on the filter
+line.
+
+The |'readonly'| and |'nomodifiable'| are set, except when you use the
+filter on the first line.
+
+For example, navigation-only mandalas are non writable.
+
+------------------------------------------------------------------------------
 WRITABLE    				*wheel-dedicated-buffers-writable*
 
-Some dedicated buffers are writable, i.e. they have a |BufWriteCmd|
-autocommand, triggered when you |:write| the buffer.
+Some dedicated buffers are writable, i.e. :
+
+- you can edit all the lines
+- they have a |BufWriteCmd| autocommand, triggered when you |:write| the buffer
 
 Saving such a buffer will reflect the changes on the objects represented by
 the buffer lines.

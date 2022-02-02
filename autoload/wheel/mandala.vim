@@ -296,6 +296,25 @@ endfun
 
 " options
 
+fun! wheel#mandala#unlock ()
+	" Set local options to be able to edit mandala
+	setlocal noreadonly
+	setlocal modifiable
+endfun
+
+fun! wheel#mandala#lock ()
+	" Set local options to prevent mandala edition
+	setlocal readonly
+	setlocal nomodifiable
+endfun
+
+fun! wheel#mandala#post_edit ()
+	" Restore local options after edition
+	if ! wheel#cuboctahedron#is_writable ()
+		call wheel#mandala#lock ()
+	endif
+endfun
+
 fun! wheel#mandala#common_options ()
 	" Set local common options
 	setlocal filetype=wheel
@@ -306,8 +325,7 @@ fun! wheel#mandala#common_options ()
 	setlocal cursorline
 	setlocal nofoldenable
 	" non writable by default
-	setlocal readonly
-	setlocal nomodifiable
+	call wheel#mandala#lock ()
 endfun
 
 " mappings
@@ -437,23 +455,6 @@ fun! wheel#mandala#set_var_lines ()
 	return v:true
 endfun
 
-fun! wheel#mandala#pre_edit ()
-	" Set local options to edit mandala
-	setlocal noreadonly
-	setlocal modifiable
-endfun
-
-fun! wheel#mandala#post_edit ()
-	" Restore local options after edition
-	if wheel#cuboctahedron#is_writable ()
-		setlocal noreadonly
-		setlocal modifiable
-	else
-		setlocal readonly
-		setlocal nomodifiable
-	endif
-endfun
-
 fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	" Replace mandala buffer with content
 	" Content can be :
@@ -475,7 +476,7 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	" ---- cursor
 	let position = getcurpos()
 	" ---- options to edit
-	call wheel#mandala#pre_edit ()
+	call wheel#mandala#unlock ()
 	" ---- delete old content
 	if exists('*deletebufline')
 		silent! call deletebufline('%', 2, '$')
