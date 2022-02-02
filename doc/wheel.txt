@@ -3489,6 +3489,9 @@ Some bindings that you may find useful : >
     " frecency
     nmap <silent> <d-e>       <plug>(wheel-dedibuf-frecency)
 
+    " visible buffers in tabs & windows
+    nmap <silent> <d-v>       <plug>(wheel-dedibuf-tabwin)
+
     nmap <silent> <d-o>       <plug>(wheel-dedibuf-occur)
     nmap <silent> <d-b>       <plug>(wheel-dedibuf-buffer-all)
     nmap <silent> <d-k>       <plug>(wheel-dedibuf-marker)

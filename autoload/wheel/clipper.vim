@@ -17,9 +17,10 @@ endfun
 fun! wheel#clipper#mappings (mode)
 	" Define local yank maps
 	let nmap = 'nnoremap <buffer>'
-	if a:mode == 'list'
+	let mode = a:mode
+	if mode == 'list'
 		let paste = 'wheel#line#paste_list'
-	elseif a:mode == 'plain'
+	elseif mode == 'plain'
 		let paste = 'wheel#line#paste_plain'
 	endif
 	" -- normal mode
@@ -31,7 +32,7 @@ fun! wheel#clipper#mappings (mode)
 	exe nmap 'gp    <cmd>call' paste "('charwise-after', 'open')<cr>"
 	exe nmap 'gP    <cmd>call' paste "('charwise-before', 'open')<cr>"
 	" -- visual mode
-	if a:mode == 'plain'
+	if mode == 'plain'
 		let paste_visual = 'wheel#line#paste_visual'
 		let vmap = 'vnoremap <silent> <buffer>'
 		exe vmap '<cr>  :<c-u>call' paste_visual "('after', 'close')<cr>"
@@ -43,7 +44,7 @@ fun! wheel#clipper#mappings (mode)
 	nnoremap <buffer> u <cmd>call wheel#mandala#undo()<cr>
 	nnoremap <buffer> <c-r> <cmd>call wheel#mandala#redo()<cr>
 	" -- context menu
-	let menu = 'yank/' .. a:mode
+	let menu = 'yank/' .. mode
 	call wheel#boomerang#launch_map (menu)
 endfun
 

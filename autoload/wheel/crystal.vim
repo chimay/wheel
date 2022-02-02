@@ -698,8 +698,10 @@ endif
 
 if ! exists('s:context_yank_list')
 	let s:context_yank_list = [
-				\ ['paste before' ,  "wheel#boomerang#yank('before')"],
-				\ ['paste after' ,  "wheel#boomerang#yank('after')"],
+				\ ['linewise paste before' ,  "wheel#boomerang#yank('linewise-before')"],
+				\ ['linewise paste after' ,  "wheel#boomerang#yank('linewise-after')"],
+				\ ['characterwise paste before' ,  "wheel#boomerang#yank('charwise-before')"],
+				\ ['characterwise paste after' ,  "wheel#boomerang#yank('charwise-after')"],
 				\ ['undo' ,  'wheel#mandala#undo()'],
 				\ ['redo' ,  'wheel#mandala#redo()'],
 				\]
