@@ -106,25 +106,14 @@ fun! wheel#pencil#cursor (...)
 	" ---- line index
 	let index = wheel#teapot#line_index (linum)
 	" ---- component
-	let position = getcurpos()
-	if ! &l:foldenable
-		" -- plain
+	if wheel#shadow#is_treeish ()
+		let full_index = wheel#teapot#line_index(linum)
+		let component = b:wheel_full[full_index]
+	else
 		let cursor_line = getline(linum)
 		let component = wheel#pencil#unmarked (cursor_line)
-	else
-		" -- treeish
-		call cursor(linum, 1)
-		let type = wheel#mandala#type ()
-		if type == 'index/tree'
-			let component = wheel#origami#chord ()
-		elseif type == 'tabwin/tree'
-			let component = wheel#origami#tabwin ()
-		else
-			let component = []
-		endif
 	endif
 	" ---- coda
-	call wheel#gear#restore_cursor (position)
 	let info = {}
 	let info.index = index
 	let info.component = component

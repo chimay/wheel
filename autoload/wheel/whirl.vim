@@ -176,6 +176,8 @@ fun! wheel#whirl#tree ()
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)
+	" properties
+	let b:wheel_nature.is_treeish = v:true
 	" full information
 	let b:wheel_full = wheel#shadow#tree ()
 	" reload

@@ -25,7 +25,11 @@ fun! wheel#shadow#tree ()
 	" Tree representation of the wheel index
 	let returnlist = []
 	for torus in g:wheel.toruses
+		let entry = [torus.name]
+		eval returnlist->add(entry)
 		for circle in torus.circles
+			let entry = [torus.name, circle.name]
+			eval returnlist->add(entry)
 			for location in circle.locations
 				let entry = [torus.name, circle.name, location.name]
 				eval returnlist->add(entry)
@@ -41,6 +45,8 @@ fun! wheel#shadow#tabwin ()
 	let last_tab = tabpagenr('$')
 	let mandalas = g:wheel_mandalas.ring
 	for tabnum in range(1, last_tab)
+		let entry = [tabnum]
+		eval returnlist->add(entry)
 		let buflist = tabpagebuflist(tabnum)
 		let winum = 0
 		for bufnum in buflist

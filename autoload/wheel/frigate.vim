@@ -69,6 +69,8 @@ fun! wheel#frigate#tabwin_tree ()
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ('tabwin_folding_text')
 	call wheel#mandala#fill (lines)
+	" properties
+	let b:wheel_nature.is_treeish = v:true
 	" full information
 	let b:wheel_full = wheel#shadow#tabwin ()
 	" reload
