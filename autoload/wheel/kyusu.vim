@@ -11,7 +11,7 @@
 "
 " A gaiwan is a chinese tea cup
 
-" script constants
+" ---- script constants
 
 if ! exists('s:fold_pattern')
 	let s:fold_pattern = wheel#crystal#fetch('fold/pattern')
@@ -23,7 +23,7 @@ if ! exists('s:unused')
 	lockvar s:unused
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#kyusu#steep (wordlist, unused, value)
 	" Whether value matches all words of wordlist
@@ -49,7 +49,7 @@ fun! wheel#kyusu#steep (wordlist, unused, value)
 	return match
 endfun
 
-" prompt completion
+" ---- prompt completion
 
 fun! wheel#kyusu#pour (wordlist, list)
 	" Return elements of list matching words of wordlist
@@ -59,7 +59,7 @@ fun! wheel#kyusu#pour (wordlist, list)
 	return candidates
 endfun
 
-" dedicated buffers
+" ---- dedicated buffers
 
 fun! wheel#kyusu#intermix (wordlist, index, value, ternar)
 	" Like kyusu#steep, but take special keywords into account
@@ -144,8 +144,6 @@ fun! wheel#kyusu#remove_folds (wordlist, matrix, ternar)
 	return [filtered_indexes, filtered_values]
 endfun
 
-" indexes & lines
-
 fun! wheel#kyusu#gaiwan ()
 	" Return lines matching words of first line
 	" Special keywords :
@@ -160,7 +158,7 @@ fun! wheel#kyusu#gaiwan ()
 	endif
 	call wheel#scroll#record(input)
 	let wordlist = split(input)
-	" special words
+	" ---- special words
 	let ternar = {}
 	let ternar.selection = 0
 	for index in range(len(wordlist))
@@ -174,10 +172,10 @@ fun! wheel#kyusu#gaiwan ()
 			break
 		endif
 	endfor
-	" filter
+	" ---- filter
 	let filtered_indexes = []
 	let filtered_values = []
-	for index in range(len(linelist))
+	for index in wheel#chain#range(linelist)
 		let value = linelist[index]
 		let pass = wheel#kyusu#intermix (wordlist, index, value, ternar)
 		let pass = pass || value =~ s:fold_pattern
@@ -187,9 +185,9 @@ fun! wheel#kyusu#gaiwan ()
 		endif
 	endfor
 	let matrix = [filtered_indexes, filtered_values]
-	" remove folds two times : cleans a level each time
+	" ---- remove folds two times : cleans a level each time
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, ternar)
 	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, ternar)
-	" return
+	" ---- coda
 	return matrix
 endfun

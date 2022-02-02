@@ -216,6 +216,21 @@ fun! wheel#chain#sublist (list, indexes)
 	return sublist
 endfun
 
+" Range of indexes
+
+fun! wheel#chain#range (argument)
+	" Return range of list indexes to be used in a loop
+	" If argument is a number, return a range from 0 -> number - 1
+	" If argument is a list, return a range from 0 -> length list - 1
+	let argument = a:argument
+	let kind = type(argument)
+	if kind == v:t_number
+		return range(argument)
+	else
+		return range(len(argument))
+	endif
+endfun
+
 " List indexes from filtered sublist
 
 fun! wheel#chain#indexes (list, sublist)

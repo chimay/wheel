@@ -67,7 +67,6 @@ endfun
 
 fun! wheel#pencil#default_line ()
 	" If on filter line, put the cursor on line 2 if possible
-	" If on filtering line, put the cursor in default line 2
 	let is_filtered = wheel#teapot#is_filtered ()
 	let has_filter = wheel#teapot#has_filter()
 	if is_filtered && line('$') == 1

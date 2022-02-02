@@ -507,6 +507,11 @@ fun! wheel#mandala#fill (content, first = 'empty-prompt-first')
 	call wheel#mandala#replace(a:content, a:first)
 	" -- fill b:wheel_lines
 	call wheel#mandala#set_var_lines ()
+	" ---- cursor on first data line
+	let first_data_line = wheel#teapot#first_data_line ()
+	if line('$') > 1
+		call cursor(first_data_line, 1)
+	endif
 	" ---- sync mandala -> leaf ring
 	call wheel#book#syncup ()
 	call wheel#status#mandala_leaf ()
