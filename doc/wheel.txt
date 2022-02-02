@@ -757,7 +757,8 @@ Copy and move		        |wheel-dedicated-buffers-copy-move|
 Reorganize			|wheel-dedicated-buffers-reorganize|
 Reorganize tabs & windows	|wheel-dedicated-buffers-reorg-tabwin|
 Grep edit mode			|wheel-dedicated-buffers-grep-edit|
-Narrow				|wheel-dedicated-buffers-narrow|
+Narrow current file		|wheel-dedicated-buffers-narrow-file|
+Narrow all circle files		|wheel-dedicated-buffers-narrow-circle|
 Yank ring			|wheel-dedicated-buffers-yank|
 Undo list			|wheel-dedicated-buffers-undolist|
 Batch buffer			|wheel-dedicated-buffers-batch|
@@ -1563,13 +1564,14 @@ NARROW CURRENT FILE			*wheel-dedicated-buffers-narrow-file*
 
 This function narrow the current file lines. In the dedicated buffer, you can :
 
-- navigate to the selected line(s)
 - filter the lines
+- select lines
+- navigate to current or selected line(s)
 - edit visible lines
 
-You can edit the existing lines as much as you want, but not the line
-number field. There is also a limited support to add line with buffer
-local maps :
+You can edit the existing lines contents as much as you want, but avoid
+modifying the line number field. There is also a limited support to add
+line with buffer local maps :
 
 - `o` : add line below current one
 - `O` : add line above current one
@@ -1617,15 +1619,16 @@ NARROW ALL CIRCLE FILES			*wheel-dedicated-buffers-narrow-circle*
 This function narrow the lines of all circle files. In the dedicated
 buffer, you can :
 
-- navigate to the selected line(s)
 - filter the lines
+- select lines
+- navigate to current or selected line(s)
 - edit visible lines
 
 You can see it as a combination of |wheel-dedicated-buffers-grep| and
 |wheel-dedicated-buffers-grep-edit|.
 
-You can edit the lines content as much as you want, but not the other
-fields. Adding or removing lines is currently not supported.
+You can edit the lines content as much as you want, but avoid modifying
+the other fields. Adding or removing lines is currently not supported.
 
 Just |:write| the buffer to propagate your changes to the original file.
 
