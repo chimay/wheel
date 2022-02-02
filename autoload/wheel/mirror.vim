@@ -57,7 +57,7 @@ fun! wheel#mirror#grep_edit (...)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	call wheel#cuboctahedron#write ('wheel#vector#write_quickfix')
-	call wheel#mandala#fill (lines, 'prompt-first')
+	call wheel#mandala#fill (lines)
 	silent global /^$/ delete
 	setlocal nomodified
 	setlocal nocursorline
