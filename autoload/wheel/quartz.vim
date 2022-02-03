@@ -69,6 +69,7 @@ if ! exists('s:menu_wheel_navigation')
 				\ ['alternate in other circle' ,  "wheel#pendulum#alternate('other_circle')"],
 				\ ['alternate in same torus, other circle' ,  "wheel#pendulum#alternate('same_torus_other_circle')"],
 				\ ['go to location in history' ,  'wheel#whirl#history'],
+				\ ['go to location in frecency' ,  'wheel#whirl#frecency'],
 				\]
 	lockvar! s:menu_wheel_navigation
 endif
