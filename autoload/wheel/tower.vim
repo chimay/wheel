@@ -35,7 +35,7 @@ fun! wheel#tower#is_navigation (function)
 endfun
 
 fun! wheel#tower#opens_mandala (function)
-	" Whether function uses a mandala
+	" Whether function opens a mandala
 	let function = a:function
 	for pattern in s:fun_opens_mandala
 		if function =~ pattern
@@ -46,7 +46,7 @@ fun! wheel#tower#opens_mandala (function)
 endfun
 
 fun! wheel#tower#needs_mandala (function)
-	" Whether function uses a mandala
+	" Whether function needs a mandala
 	let function = a:function
 	for pattern in s:fun_needs_mandala
 		if function =~ pattern
