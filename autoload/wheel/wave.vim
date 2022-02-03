@@ -21,7 +21,7 @@ endif
 
 " Callback
 
-fun! s:Out (chan, data, event) dict
+fun! s:out (chan, data, event) dict
 	" Callback ou stdout event
 	let bufnum = self.bufnum
 	let data = join(a:data)
@@ -32,7 +32,7 @@ fun! s:Out (chan, data, event) dict
 	call extend(b:wheel_lines, text)
 endfun
 
-fun! s:Err (chan, data, event) dict
+fun! s:err (chan, data, event) dict
 	" Callback ou stderr event
 	let bufnum = self.bufnum
 	let data = join(a:data)
@@ -42,7 +42,7 @@ fun! s:Err (chan, data, event) dict
 	call extend(b:wheel_lines, text)
 endfun
 
-fun! s:Exit (chan, data, event) dict
+fun! s:exit (chan, data, event) dict
 	" Callback ou exit event
 	let bufnum = self.bufnum
 	let code = a:data
@@ -52,9 +52,9 @@ fun! s:Exit (chan, data, event) dict
 endfun
 
 let s:callbacks = {
-			\ 'on_stdout' : function('s:Out'),
-			\ 'on_stderr' : function('s:Err'),
-			\ 'on_exit' : function('s:Exit')
+			\ 'on_stdout' : function('s:out'),
+			\ 'on_stderr' : function('s:err'),
+			\ 'on_exit' : function('s:exit')
 			\}
 
 " Mandala

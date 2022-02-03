@@ -19,7 +19,7 @@ if ! exists('*appendbufline')
 	finish
 endif
 
-" Callback
+" ---- callback
 
 fun! wheel#ripple#callback_exit (chan, code)
 	" Callback ou exit event
@@ -28,7 +28,7 @@ fun! wheel#ripple#callback_exit (chan, code)
 	echomsg text
 endfun
 
-" Mandala
+" ---- mandala
 
 fun! wheel#ripple#template (mandala_type)
 	" Job buffer template
@@ -45,7 +45,7 @@ fun! wheel#ripple#stop_map ()
 	execute map '<c-s>' callme
 endfun
 
-" Main
+" ---- main
 
 fun! wheel#ripple#start (command, ...)
 	" Start a new job
