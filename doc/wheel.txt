@@ -947,7 +947,7 @@ Wheel manages a dedicated buffers ring. You can :
 - add a new dedicated buffer as default one with `<M-w><Tab>`
 - switch to another dedicated buffer with `<M-w><Up>`, completion is available
 - cycle the dedicated buffers with `<M-w><Left>` or `<M-w><Right>`
-    + reopen the current dedicated buffer in a new window if it is closed
+    + reopens the current dedicated buffer in a new window if it is closed
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
 

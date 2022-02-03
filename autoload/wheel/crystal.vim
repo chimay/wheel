@@ -177,7 +177,7 @@ if ! exists('s:normal_map_keys')
 				\ 't', 's', 'v', 'S', 'V',
 				\ 'gt', 'gs', 'gv', 'gS', 'gV',
 				\ '<m-s>', '<m-r>',
-				\ 'o', 'O', '<m-y>', '<m-z>',
+				\ 'o', 'O', '<m-y>', '<m-z>', '^', '$',
 				\ 'p', 'P', 'gp', 'gP',
 				\ 'u', '<c-r>', '+', '-', '<kplus>', '<kminus>', 'D', 'x',
 				\ '<c-s>',
