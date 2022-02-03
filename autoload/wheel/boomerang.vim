@@ -51,8 +51,6 @@ fun! wheel#boomerang#menu (dictname)
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)
 	" ---- properties ; must come after tower#staircase
-	" -- class : context menu
-	let b:wheel_nature.class = 'menu/context'
 	" -- let loop#menu handle open / close, tell loop#navigation to forget it
 	let settings.close = v:false
 	" -- reload function
