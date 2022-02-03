@@ -158,9 +158,6 @@ fun! wheel#perspective#history ()
 	" Naturally sorted timeline index
 	" Each entry is a string : date hour | torus > circle > location
 	let timeline = g:wheel_history.line
-	" should not be necessary
-	"let Compare = function('wheel#pendulum#compare')
-	"let timeline = sort(timeline, Compare)
 	let returnlist = []
 	for entry in timeline
 		let coordin = entry.coordin
@@ -176,9 +173,6 @@ fun! wheel#perspective#history_circuit ()
 	" History circuit
 	" Each entry is a string : date hour | torus > circle > location
 	let timeloop = g:wheel_history.circuit
-	" should not be necessary
-	"let Compare = function('wheel#pendulum#compare')
-	"let timeloop = sort(timeloop, Compare)
 	let returnlist = []
 	for entry in timeloop
 		let coordin = entry.coordin

@@ -80,12 +80,13 @@ endfun
 fun! wheel#pendulum#remove_if_present (entry)
 	" Remove entry from history if coordinates are already there
 	let entry = a:entry
+	let Filter = function('wheel#pendulum#distinct_coordin', [2, entry])
 	" history line
 	let timeline = g:wheel_history.line
-	eval timeline->filter(function('wheel#pendulum#distinct_coordin', [2, entry]))
+	eval timeline->filter(Filter)
 	" history circuit
 	let timeloop = g:wheel_history.circuit
-	eval timeloop->filter(function('wheel#pendulum#distinct_coordin', [2, entry]))
+	eval timeloop->filter(Filter)
 endfun
 
 fun! wheel#pendulum#update_alternate ()
@@ -221,28 +222,30 @@ fun! wheel#pendulum#delete (level, old_names)
 		return
 	end
 	let old_names = a:old_names
+	let Filter = function('wheel#pendulum#distinct_coordin', [index, old_names])
 	" -- history line
 	let timeline = g:wheel_history.line
-	eval timeline->filter(function('wheel#pendulum#distinct_coordin', [index, old_names]))
+	eval timeline->filter(Filter)
 	" -- history circuit
 	let timeloop = g:wheel_history.circuit
-	eval timeloop->filter(function('wheel#pendulum#distinct_coordin', [index, old_names]))
+	eval timeloop->filter(Filter)
 	" -- frecency
 	let frecency = g:wheel_history.frecency
-	eval frecency->filter(function('wheel#pendulum#distinct_coordin', [index, old_names]))
+	eval frecency->filter(Filter)
 endfun
 
 fun! wheel#pendulum#broom ()
 	" Remove history entries that do not belong to the wheel anymore
+	let Filter = function('wheel#pendulum#coordin_inside_wheel')
 	" -- history line
 	let timeline = g:wheel_history.line
-	eval timeline->filter(function('wheel#pendulum#coordin_inside_wheel'))
+	eval timeline->filter(Filter)
 	" -- history circuit
 	let timeloop = g:wheel_history.circuit
-	eval timeloop->filter(function('wheel#pendulum#coordin_inside_wheel'))
+	eval timeloop->filter(Filter)
 	" -- frecency
 	let frecency = g:wheel_history.frecency
-	eval frecency->filter(function('wheel#pendulum#coordin_inside_wheel'))
+	eval frecency->filter(Filter)
 endfun
 
 " newer & older
