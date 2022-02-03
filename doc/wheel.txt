@@ -728,13 +728,13 @@ Tools				|wheel-dedicated-buffers-selection|
 Tools				|wheel-dedicated-buffers-filtering|
 Tools				|wheel-dedicated-buffers-input-history|
 Tools				|wheel-dedicated-buffers-preview|
+Non writable			|wheel-dedicated-buffers-non-writable|
+Writable			|wheel-dedicated-buffers-writable|
 Buffer ring			|wheel-dedicated-buffers-ring|
 Layer ring			|wheel-dedicated-buffers-layers|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
-Non writable			|wheel-dedicated-buffers-non-writable|
-Writable			|wheel-dedicated-buffers-writable|
 Within the wheel		|wheel-dedicated-buffers-within-wheel|
 Buffers				|wheel-dedicated-buffers-buffers|
 Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwin-tree|
@@ -940,6 +940,84 @@ It's a toggle key : press `f` again and the follow mode is disabled. You
 should go back automatically to the original buffer.
 
 ------------------------------------------------------------------------------
+NON WRITABLE   				*wheel-dedicated-buffers-non-writable*
+
+Some dedicated buffers are not intended to be edited, except on the filter
+line.
+
+The |'readonly'| and |'nomodifiable'| are set, except when you use the
+filter on the first line.
+
+For example, navigation-only mandalas are non writable.
+
+------------------------------------------------------------------------------
+WRITABLE    				*wheel-dedicated-buffers-writable*
+
+Some dedicated buffers are writable, i.e. :
+
+- you can edit all the lines
+- they have a |BufWriteCmd| autocommand, triggered when you |:write| the buffer
+
+Saving such a buffer will reflect the changes on the objects represented by
+the buffer lines.
+
+For instance, saving a rename/location buffer will rename the involved
+locations in the wheel.
+
+Prompt~
+
+To distinguish non-writable and writable dedicated buffers, the prompt are
+different. You can customize them, see |wheel-config-display-prompt|.
+
+Filter~
+
+On most writable buffers, a filter line is available. In that case,
+some adjustement are made to the local maps, so that you can edit the
+buffer with the usual vim keys.
+
+To access the filter line, press `<M-i>` or `<Ins>` instead of `i` and `a`.
+
+The input history is availble only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`.
+
+Some keys have a distinct meaning if the cursor is on the first line or in
+another one.
+
+On the first line :
+
+- `<Enter>`, `<Esc>`, `<Space>`, `<C-w>` and `<C-u>` update the filter
+- `cc` and `<C-u>` do not delete the prompt
+
+On the other lines :
+
+- `<Enter>`, `<Esc>`, `<Space>` and `<C-w>` have their usual vim meaning
+- `cc` and `<C-u>` delete only the last field of the line
+
+Range~
+
+If you use an ex command to perform an operation on all the visible lines
+of a buffer with filter functionality, don't forget to skip the first line.
+
+E.g. :
+
+- `2,$substiture/before/after/g`
+- `2,$sort`
+
+Pressed the wrong button ?~
+
+If something goes wrong, you can quit the dedicated buffer and :
+
+- re-read the wheel variables with `<M-w>r`, if your changes implied the wheel
+- undo your changes in the buffers, or quit (neo)vim without saving your files
+  with `:qa!` if your changes implied files content
+
+Anyway, it's always a good thing to do a backup :
+
+- of the wheel with `<M-w>w`
+- of your files
+
+Working within a VCS repository, like git, is also a safety net.
+
+------------------------------------------------------------------------------
 BUFFER RING	    				*wheel-dedicated-buffers-ring*
 
 Wheel manages a dedicated buffers ring. You can :
@@ -1029,7 +1107,8 @@ In these sub-menus, you can use the keys :
 
 - `<Enter>`                      : launch the action on the cursor line
 - `g<Enter>`, `<Tab>`, `<Space>`     : launch action, leave the menu opened
-- `<Backspace>`                  : leads you back to the meta menu
+- `H`                            : leads you back to the meta menu
+- `<Backspace>`                  : back to the meta menu, delete submenu layer
 
 ------------------------------------------------------------------------------
 CONTEXT MENUS				*wheel-dedicated-buffers-context*
@@ -1038,7 +1117,8 @@ Some dedicated buffers have context menu support. In that case, pressing
 `<Tab>` will open a menu where you can choose the action you want to
 apply to the selected or cursor line(s).
 
-If you change your mind and wish to come back, just press `<Backspace>`.
+If you change your mind and wish to come back, just press `H` or
+`<Backspace>`.
 
 Navigation~
 
@@ -1111,81 +1191,8 @@ reflect the tree structure of the Wheel : toruses, circles and locations.
 Filtering in that buffer will keep surrounding folds ; only non matching
 empty folds will be removed.
 
-Similarly, the map `<M-w><M-t>` opens a dedicated buffer where folds
+Similarly, the map `<M-w><M-v>` opens a dedicated buffer where folds
 are used to reflect the tree structure of tabs and windows in (neo)vim.
-
-------------------------------------------------------------------------------
-NON WRITABLE   				*wheel-dedicated-buffers-non-writable*
-
-Some dedicated buffers are not intended to be edited, except on the filter
-line.
-
-The |'readonly'| and |'nomodifiable'| are set, except when you use the
-filter on the first line.
-
-For example, navigation-only mandalas are non writable.
-
-------------------------------------------------------------------------------
-WRITABLE    				*wheel-dedicated-buffers-writable*
-
-Some dedicated buffers are writable, i.e. :
-
-- you can edit all the lines
-- they have a |BufWriteCmd| autocommand, triggered when you |:write| the buffer
-
-Saving such a buffer will reflect the changes on the objects represented by
-the buffer lines.
-
-For instance, saving a rename/location buffer will rename the involved
-locations in the wheel.
-
-Filter~
-
-On most writable buffers, a filter line is available. In that case,
-some adjustement are made to the local maps, so that you can edit the
-buffer with the usual vim keys.
-
-To access the filter line, press `<M-i>` or `<Ins>` instead of `i` and `a`.
-
-The input history is availble only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`.
-
-Some keys have a distinct meaning if the cursor is on the first line or in
-another one.
-
-On the first line :
-
-- `<Enter>`, `<Esc>`, `<Space>`, `<C-w>` and `<C-u>` update the filter
-- `cc` and `<C-u>` do not delete the prompt
-
-On the other lines :
-
-- `<Enter>`, `<Esc>`, `<Space>` and `<C-w>` have their usual vim meaning
-- `cc` and `<C-u>` delete only the last field of the line
-
-Range~
-
-If you use an ex command to perform an operation on all the visible lines
-of a buffer with filter functionality, don't forget to skip the first line.
-
-E.g. :
-
-- `2,$substiture/before/after/g`
-- `2,$sort`
-
-Pressed the wrong button ?~
-
-If something goes wrong, you can quit the dedicated buffer and :
-
-- re-read the wheel variables with `<M-w>r`, if your changes implied the wheel
-- undo your changes in the buffers, or quit (neo)vim without saving your files
-  with `:qa!` if your changes implied files content
-
-Anyway, it's always a good thing to do a backup :
-
-- of the wheel with `<M-w>w`
-- of your files
-
-Working within a VCS repository, like git, is also a safety net.
 
 ------------------------------------------------------------------------------
 WITHIN THE WHEEL			*wheel-dedicated-buffers-within-wheel*
@@ -2207,7 +2214,7 @@ Default : '☯ '
 For writable dedicated buffer, _with_ `BufWriteCmd` autocommand : >
 
 
-    let g:wheel_config.display.prompt = 'wheel # '
+    let g:wheel_config.display.prompt_writable = 'wheel # '
 <
 
 Default : '☈ '

@@ -77,7 +77,7 @@ fun! wheel#mirror#narrow_file (...) range
 		if empty(range)
 			let rangelist = [1, line('$')]
 		endif
-		for separ in [',', ';', '-', ' ']
+		for separ in [',', ';', ':', '-', ' ']
 			if range =~ separ
 				let rangelist = split(range, separ)
 				break
