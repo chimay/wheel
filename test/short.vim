@@ -5,3 +5,5 @@ fun! s:local (arg)
 endfun
 
 echo s:local (6)
+
+echo exists('*s:local')

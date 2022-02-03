@@ -3764,6 +3764,7 @@ of the modules within them.
 | polyphony.vim     | Narrow, edit & apply dedicated buffers       |
 | projection.vim    | Find wheel location of current buffer        |
 | pyramid.vim       | Mix of tabs & splits layouts                 |
+| quartz.vim        | Internal variables for mandalas menus        |
 | rectangle.vim     | Tabs, windows & buffers                      |
 | referen.vim       | References to current wheel elements         |
 | ripple.vim        | Async job for vim                            |
