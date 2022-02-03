@@ -107,7 +107,7 @@ fun! wheel#pencil#cursor (...)
 	let index = wheel#teapot#line_index (linum)
 	" ---- component
 	if wheel#shadow#is_treeish ()
-		let component = b:wheel_full[index]
+		let component = copy(b:wheel_full[index])
 	else
 		let cursor_line = getline(linum)
 		let component = wheel#pencil#unmarked (cursor_line)
