@@ -89,7 +89,7 @@ fun! wheel#kyusu#intermix (wordlist, index, value, ternar)
 	return pass
 endfun
 
-fun! wheel#kyusu#remove_folds (wordlist, matrix, ternar)
+fun! wheel#kyusu#unfold (wordlist, matrix, ternar)
 	" Remove non-matching empty folds
 	let wordlist = a:wordlist
 	let matrix = a:matrix
@@ -186,8 +186,8 @@ fun! wheel#kyusu#gaiwan ()
 	endfor
 	let matrix = [filtered_indexes, filtered_values]
 	" ---- remove folds two times : cleans a level each time
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, ternar)
-	let matrix = wheel#kyusu#remove_folds (wordlist, matrix, ternar)
+	let matrix = wheel#kyusu#unfold (wordlist, matrix, ternar)
+	let matrix = wheel#kyusu#unfold (wordlist, matrix, ternar)
 	" ---- coda
 	return matrix
 endfun
