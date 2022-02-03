@@ -281,7 +281,7 @@ endfun
 " Filter
 
 fun! wheel#chain#filter (list, function, indexes = [])
-	" Return filtered [indexes, elements]
+	" Return filtered [indexes, elements] of list
 	let list = deepcopy(a:list)
 	let Fun = wheel#gear#function(a:function)
 	let indexes = deepcopy(a:indexes)
