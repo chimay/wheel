@@ -102,27 +102,27 @@ endif
 
 if ! exists('s:function_pattern_navigation')
 	let s:function_pattern_navigation = [
-				\ '#vortex#',
-				\ '#whirl#',
-				\ '#sailing#',
-				\ '#frigate#',
-				\ '#pendulum#',
+				\ '\m#vortex#',
+				\ '\m#whirl#',
+				\ '\m#sailing#',
+				\ '\m#frigate#',
+				\ '\m#pendulum#',
 				\]
 	lockvar! s:function_pattern_navigation
 endif
 
 if ! exists('s:function_pattern_mandala_opens')
 	let s:function_pattern_mandala_opens = [
-				\ '#mandala#',
-				\ '#helm#',
-				\ '#guru#',
-				\ '#whirl#',
-				\ '#frigate#',
-				\ '#yggdrasil#',
-				\ '#shape#',
-				\ '#mirror#',
-				\ '#clipper#',
-				\ '#triangle#',
+				\ '\m#mandala#',
+				\ '\m#helm#',
+				\ '\m#guru#',
+				\ '\m#whirl#',
+				\ '\m#frigate#',
+				\ '\m#yggdrasil#',
+				\ '\m#shape#',
+				\ '\m#mirror#',
+				\ '\m#clipper#',
+				\ '\m#triangle#',
 				\]
 	" functions that uses mandala
 	lockvar! s:function_pattern_mandala_opens
@@ -130,10 +130,9 @@ endif
 
 if ! exists('s:function_pattern_mandala_needs')
 	let s:function_pattern_mandala_needs = [
-				\ '#boomerang#\%(navigation\|tabwin\)\@!',
-				\ "#boomerang#tabwin('tabclose')",
+				\ '\m#boomerang#\%(navigation\|tabwin\)\@!',
+				\ "\m#boomerang#tabwin('tabclose')",
 				\]
-	" functions that uses mandala
 	lockvar! s:function_pattern_mandala_needs
 endif
 
@@ -154,7 +153,6 @@ endif
 " -- mandala patterns
 
 if ! exists('s:is_mandala_file')
-	" mandala filename pattern
 	let s:is_mandala_file = '\m^/wheel/[0-9]\+/'
 	lockvar! s:is_mandala_file
 endif
