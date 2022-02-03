@@ -6,7 +6,7 @@
 
 " functions
 
-fun! wheel#tower#menu (settings)
+fun! wheel#tower#action (settings)
 	" Calls function given by the key = cursor line
 	" settings is a dictionary containing settings.menu
 	" settings.menu keys can be :
@@ -66,7 +66,7 @@ fun! wheel#tower#mappings (settings)
 	call wheel#mandala#template ()
 	" ---- menu specific maps
 	let map = 'nnoremap <silent> <buffer>'
-	let linefun = '<cmd>call wheel#tower#menu('
+	let linefun = '<cmd>call wheel#tower#action('
 	let coda = ')<cr>'
 	" ---- open / close : default in settings
 	exe map '<cr>' linefun .. string(settings) .. coda

@@ -92,10 +92,6 @@ fun! wheel#loop#boomerang (settings)
 		let settings.selection.index = selection.indexes[ind]
 		let settings.selection.component = selection.components[ind]
 		let winiden = wheel#gear#call(Fun, settings)
-		if &foldopen =~ 'jump'
-			normal! zv
-		endif
-		call wheel#spiral#cursor ()
 	endfor
 	" ---- coda
 	if close
