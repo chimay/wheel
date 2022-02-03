@@ -1250,7 +1250,7 @@ tab number | window number | filename
 ------------------------------------------------------------------------------
 LOCATE						*wheel-dedicated-buffers-locate*
 
-Search files with locate.
+Search files with unix `locate` command.
 
 The default mapping is `<M-w>l`.
 
@@ -2564,16 +2564,16 @@ The functions used as User Interface are listed :
 ASYNC PROCESS					*wheel-functions-async-process*
 
 wheel#wave#start({command}, {settings})		*wheel-wave-start*
-	Neovim only.
+	For Unix systems only. Neovim version.
 	Start an async command and display its output in a dedicated buffer.
 	You can filter buffer content, as usual.
 	{settings} is a dictionary containing the following keys :
-	- new_buffer : whether to open a dedicated buffer
-	  before launching the process (true by default)
+	  - new_buffer : whether to open a dedicated buffer
+	    before launching the process (true by default)
 
 wheel#ripple#start({command}, {settings})		*wheel-ripple-start*
-	Vim only.
-	Same as |wheel#wave#start|, but for Vim only.
+	For Unix systems only. Vim version.
+	Same usage as |wheel#wave#start|.
 
 ==============================================================================
 MAPPINGS						    *wheel-mappings*
@@ -3577,6 +3577,7 @@ COMMANDS					*wheel-commands*
 :WheelTreeScript				*:WheelTreeScript*
 	Write a shell script that generates a tree of links or copies
 	following the wheel hierarchy : torus/circle/location.
+	Unix systems only.
 	The generated script is a lot faster than
 	|:WheelSymlinkTree| or |:WheelCopiedTree|.
 
@@ -3584,11 +3585,13 @@ COMMANDS					*wheel-commands*
 :WheelSymlinkTree				*:WheelSymlinkTree*
 	Generate a tree of symlinks following the wheel hierarchy :
 	torus/circle/link-to-location-file.
+	Unix systems only.
 
 
 :WheelCopiedTree				*:WheelCopiedTree*
 	Generate a tree of copies following the wheel hierarchy :
 	torus/circle/link-to-location-file.
+	Unix systems only.
 	Useful to make a backup of the wheel files.
 
 ==============================================================================
