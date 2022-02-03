@@ -100,7 +100,12 @@ fun! wheel#chakra#place ()
 	let linum = location.line
 	let dict = #{ lnum : linum }
 	let coordin = wheel#referen#names ()
-	let entry = #{ iden : new_iden, coordin : coordin, buffer : bufnum, line : linum }
+	let entry = #{
+				\ iden : new_iden,
+				\ coordin : coordin,
+				\ buffer : bufnum,
+				\ line : linum
+				\ }
 	call sign_place(new_iden, group, name, bufnum, dict)
 	eval iden->add(new_iden)
 	eval table->filter({ _, val -> val.coordin != coordin })

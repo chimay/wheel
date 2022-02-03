@@ -97,7 +97,10 @@ fun! wheel#mirror#narrow_file (...) range
 	call wheel#mandala#blank ('narrow/file/' .. filename)
 	let &l:filetype = filetype
 	call wheel#mandala#common_maps ()
-	let settings = #{ function : function('wheel#line#narrow_file'), bufnum : b:wheel_related_buffer}
+	let settings = #{
+				\ function : function('wheel#line#narrow_file'),
+				\ bufnum : b:wheel_related_buffer
+				\ }
 	call wheel#whirl#mappings (settings)
 	call wheel#polyphony#template ()
 	call wheel#polyphony#action_maps ('file')
