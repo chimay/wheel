@@ -98,6 +98,35 @@ endif
 " 				\ numhl : 'Normal',
 " 				\ linehl : 'Normal',
 
+" ---- functions
+
+if ! exists('s:function_pattern_navigation')
+	let s:function_pattern_navigation = [
+				\ '.*#vortex#.*',
+				\ '.*#whirl#.*',
+				\ '.*#sailing#.*',
+				\ '.*#frigate#.*',
+				\ '.*#pendulum#.*',
+				\]
+	lockvar! s:function_pattern_navigation
+endif
+
+if ! exists('s:function_pattern_mandala')
+	let s:function_pattern_mandala = [
+				\ '.*#mandala#.*',
+				\ '.*#helm#.*',
+				\ '.*#whirl#.*',
+				\ '.*#frigate#.*',
+				\ '.*#yggdrasil#.*',
+				\ '.*#shape#.*',
+				\ '.*#mirror#.*',
+				\ '.*#clipper#.*',
+				\ '.*#triangle#.*',
+				\]
+	" functions that uses mandala
+	lockvar! s:function_pattern_mandala
+endif
+
 " ---- mandalas
 
 " -- mandala prompt

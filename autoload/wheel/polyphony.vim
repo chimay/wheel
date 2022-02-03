@@ -388,6 +388,7 @@ fun! wheel#polyphony#template ()
 	call wheel#polyphony#filter_maps ()
 	call wheel#polyphony#hybrid_maps ()
 	call wheel#polyphony#input_history_maps ()
+	setlocal nocursorline
 endfun
 
 fun! wheel#polyphony#action_maps (mandala = 'file')

@@ -4,6 +4,42 @@
 "
 " Menu leaf for mandalas
 
+" script constants
+
+if ! exists('s:nav_fun_patterns')
+	let s:nav_fun_patterns = wheel#crystal#fetch('function/pattern/navigation')
+	lockvar s:nav_fun_patterns
+endif
+
+if ! exists('s:mandala_fun_patterns')
+	let s:mandala_fun_patterns = wheel#crystal#fetch('function/pattern/mandala')
+	lockvar s:mandala_fun_patterns
+endif
+
+" booleans
+
+fun! wheel#tower#is_navigation (function)
+	" Whether function is a navigation one
+	let function = a:function
+	for pattern in s:nav_fun_patterns
+		if function =~ pattern
+			return v:true
+		endif
+	endfor
+	return v:false
+endfun
+
+fun! wheel#tower#uses_mandala (function)
+	" Whether function uses a mandala
+	let function = a:function
+	for pattern in s:mandala_fun_patterns
+		if function =~ pattern
+			return v:true
+		endif
+	endfor
+	return v:false
+endfun
+
 " functions
 
 fun! wheel#tower#action (settings)
@@ -29,17 +65,18 @@ fun! wheel#tower#action (settings)
 		echomsg 'wheel line menu : key not found'
 		return v:false
 	endif
+	" ---- function to use
+	let function = dict[key]
 	" ---- tab page of mandala before processing
 	let elder_tab = tabpagenr()
 	" ---- travel before processing ?
 	" true for helm menus
 	" false for context menus
 	" in case of navigation, it's managed by loop#navigation
-	if travel
-		call wheel#rectangle#previous ()
+	if wheel#tower#is_navigation (function)
+		call wheel#cylinder#previous ()
 	endif
 	" ---- call function linked to cursor line
-	let function = dict[key]
 	let winiden = wheel#gear#call (function)
 	" ---- coda
 	if close
