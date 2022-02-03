@@ -98,7 +98,7 @@ fun! wheel#mirror#narrow_file (...) range
 	let &l:filetype = filetype
 	call wheel#mandala#common_maps ()
 	let settings = #{
-				\ function : function('wheel#line#narrow_file'),
+				\ function : 'wheel#line#narrow_file',
 				\ bufnum : b:wheel_related_buffer
 				\ }
 	call wheel#whirl#mappings (settings)
@@ -137,7 +137,7 @@ fun! wheel#mirror#narrow_circle (...)
 	call wheel#mandala#blank ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
-	let settings = {'function' : function('wheel#line#narrow_circle')}
+	let settings = #{ function : 'wheel#line#narrow_circle' }
 	call wheel#whirl#mappings (settings)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#cuboctahedron#write ('wheel#polyphony#counterpoint')
