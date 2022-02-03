@@ -85,7 +85,7 @@ fun! wheel#line#tabwin (settings)
 		let fields = split(component, s:field_separ)
 		let tabnum = fields[0]
 		if tabnum != tabpagenr()
-			execute 'tabclose' tabnum
+			execute 'noautocmd tabclose' tabnum
 		else
 			echomsg 'wheel line tabwin : will not close current tab page'
 		endif
@@ -117,10 +117,10 @@ fun! wheel#line#tabwin_tree (settings)
 		endif
 		doautocmd WinEnter
 	elseif action == 'tabnew'
-		tabnew
+		noautocmd tabnew
 	elseif action == 'tabclose'
 		if tabnum != tabpagenr()
-			execute 'tabclose' tabnum
+			execute 'noautocmd tabclose' tabnum
 		else
 			echomsg 'wheel line tabwin_tree : will not close current tab page'
 		endif

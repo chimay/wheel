@@ -130,7 +130,8 @@ endif
 
 if ! exists('s:function_pattern_mandala_needs')
 	let s:function_pattern_mandala_needs = [
-				\ '#boomerang#\%(navigation\)\@!',
+				\ '#boomerang#\%(navigation\|tabwin\)\@!',
+				\ "#boomerang#tabwin('tabclose')",
 				\]
 	" functions that uses mandala
 	lockvar! s:function_pattern_mandala_needs
