@@ -283,7 +283,7 @@ if ! exists('s:menu_main')
 	let s:menu_main = []
 	for name in s:menu_list
 		let s:formated = substitute(name, ' ', '_', 'g')
-		call extend(s:menu_main, s:menu_{s:formated})
+		eval s:menu_main->extend(s:menu_{s:formated})
 	endfor
 	lockvar! s:menu_main
 endif

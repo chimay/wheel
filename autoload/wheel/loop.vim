@@ -78,7 +78,6 @@ fun! wheel#loop#boomerang (settings)
 	call wheel#whirl#default (settings)
 	let menu_settings = settings.menu
 	let Fun = settings.function
-	let close = menu_settings.close
 	" ---- selection
 	let selection = wheel#upstream#selection ()
 	let indexes = selection.indexes
@@ -94,10 +93,5 @@ fun! wheel#loop#boomerang (settings)
 		let winiden = wheel#gear#call(Fun, settings)
 	endfor
 	" ---- coda
-	if close
-		call wheel#cylinder#close ()
-	else
-		call wheel#cylinder#recall ()
-	endif
 	return winiden
 endfun

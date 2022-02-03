@@ -6,14 +6,19 @@
 
 " script constants
 
-if ! exists('s:nav_fun_patterns')
-	let s:nav_fun_patterns = wheel#crystal#fetch('function/pattern/navigation')
-	lockvar s:nav_fun_patterns
+if ! exists('s:fun_is_navigation')
+	let s:fun_is_navigation = wheel#crystal#fetch('function/pattern/navigation')
+	lockvar s:fun_is_navigation
 endif
 
-if ! exists('s:mandala_fun_patterns')
-	let s:mandala_fun_patterns = wheel#crystal#fetch('function/pattern/mandala')
-	lockvar s:mandala_fun_patterns
+if ! exists('s:fun_opens_mandala')
+	let s:fun_opens_mandala = wheel#crystal#fetch('function/pattern/mandala/opens')
+	lockvar s:fun_opens_mandala
+endif
+
+if ! exists('s:fun_needs_mandala')
+	let s:fun_needs_mandala = wheel#crystal#fetch('function/pattern/mandala/needs')
+	lockvar s:fun_needs_mandala
 endif
 
 " booleans
@@ -21,7 +26,7 @@ endif
 fun! wheel#tower#is_navigation (function)
 	" Whether function is a navigation one
 	let function = a:function
-	for pattern in s:nav_fun_patterns
+	for pattern in s:fun_is_navigation
 		if function =~ pattern
 			return v:true
 		endif
@@ -29,10 +34,21 @@ fun! wheel#tower#is_navigation (function)
 	return v:false
 endfun
 
-fun! wheel#tower#uses_mandala (function)
+fun! wheel#tower#opens_mandala (function)
 	" Whether function uses a mandala
 	let function = a:function
-	for pattern in s:mandala_fun_patterns
+	for pattern in s:fun_opens_mandala
+		if function =~ pattern
+			return v:true
+		endif
+	endfor
+	return v:false
+endfun
+
+fun! wheel#tower#needs_mandala (function)
+	" Whether function uses a mandala
+	let function = a:function
+	for pattern in s:fun_needs_mandala
 		if function =~ pattern
 			return v:true
 		endif
@@ -71,8 +87,10 @@ fun! wheel#tower#action (settings)
 	if wheel#tower#is_navigation (function)
 		call wheel#rectangle#previous ()
 	endif
-	" --- if functions needs a mandala, overrides the close setting
-	if wheel#tower#uses_mandala (function)
+	" --- if functions opens or needs a mandala, overrides the close setting
+	let uses_mandala = wheel#tower#opens_mandala (function)
+	let uses_mandala = uses_mandala || wheel#tower#needs_mandala (function)
+	if uses_mandala
 		let close = v:false
 	endif
 	" ---- call function linked to cursor line
