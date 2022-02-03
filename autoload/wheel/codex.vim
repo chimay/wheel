@@ -6,7 +6,7 @@
 "
 " Takes advantage of TextYankPost event
 
-" codex were rewritten by copists
+" codex were written by copists
 "
 " other names ideas for this file :
 "
