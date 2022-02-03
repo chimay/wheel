@@ -362,13 +362,9 @@ endfun
 
 " folding
 
-fun! wheel#mandala#folding_options (...)
+fun! wheel#mandala#folding_options (textfun = 'folding_text')
 	" Folding options for mandala buffers
-	if a:0 > 0
-		let textfun = a:1
-	else
-		let textfun = 'folding_text'
-	endif
+	let textfun = a:textfun
 	setlocal foldenable
 	setlocal foldminlines=1
 	setlocal foldlevel=0
