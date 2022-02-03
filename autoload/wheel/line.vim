@@ -347,18 +347,10 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in list mode
 	let where = a:where
 	let close = a:close
-	if wheel#pencil#is_selection_empty ()
-		let line = getline('.')
-		if empty(line)
-			return v:false
-		endif
-		let content = eval(line)
-	else
-		let selection = wheel#pencil#selection ()
-		let content = deepcopy(selection.components)
-		eval content->map({ _, list_string -> eval(list_string) })
-		eval content->map({ _, list -> join(list, "\n") })
-	endif
+	let selection = wheel#pencil#selection ()
+	let content = deepcopy(selection.components)
+	eval content->map({ _, list_string -> eval(list_string) })
+	eval content->map({ _, list -> join(list, "\n") })
 	call wheel#rectangle#previous ()
 	let @" = join(content, "\n")
 	if where == 'linewise-after'
