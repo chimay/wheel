@@ -81,13 +81,11 @@ fun! wheel#tower#action (settings)
 	endif
 	" ---- function to use
 	let function = dict[key]
-	" ---- tab page of mandala before processing
-	let elder_tab = tabpagenr()
 	" ---- navigation functions needs to be on the previous, regular window
 	if wheel#tower#is_navigation (function)
 		call wheel#rectangle#previous ()
 	endif
-	" --- if functions opens or needs a mandala, overrides the close setting
+	" --- if functions opens or needs a mandala, override the close setting
 	let uses_mandala = wheel#tower#opens_mandala (function)
 	let uses_mandala = uses_mandala || wheel#tower#needs_mandala (function)
 	if uses_mandala
@@ -102,11 +100,6 @@ fun! wheel#tower#action (settings)
 		call wheel#gear#win_gotoid (winiden)
 	else
 		call wheel#gear#win_gotoid (winiden)
-		let new_tab = tabpagenr()
-		" -- tab changed, move mandala to new tab
-		if elder_tab != new_tab
-			execute 'tabnext' new_tab
-		endif
 		call wheel#cylinder#recall()
 	endif
 	return v:true
