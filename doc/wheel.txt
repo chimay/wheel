@@ -767,8 +767,9 @@ Command output buffer		|wheel-dedicated-buffers-command|
 ------------------------------------------------------------------------------
 INTRODUCTION				*wheel-dedicated-buffers-introduction*
 
-Dedicated buffers allow you to perform Wheel operations intuitively, using
-full power of your editor : search, yank, paste, completion, and so on.
+Wheel dedicated buffers, aka mandalas, allow you to perform Wheel
+operations intuitively, using full power of your editor : search, yank,
+paste, completion, and so on.
 
 The available actions depend on the buffer type :
 
@@ -799,13 +800,6 @@ The key `<F1>` display a basic help.
 The key `<M-F1>` displays local maps in a new layer. See
 |wheel-dedicated-buffers-layers|.
 
-Wrapping up things~
-
-In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
-
-- if on the first line, `k` or `<up>` will go to the last line
-- if on the last line, `j` or `<down>` will go to the first line
-
 Action~
 
 The main keys are :
@@ -823,7 +817,19 @@ Quit~
 
 Press `q` to quit the dedicated buffer.
 
-It is not lost : you can reopen it any time with `<M-w><Right>`.
+Recall~
+
+When you quit a dedicated buffer, its window is closed but it's not
+lost : it's still there, hidden. You can reopen it in a new split with
+`<M-w><left>` or `<M-w><Right>`. See |wheel-dedicated-buffers-ring|
+for more information.
+
+Wrapping up things~
+
+In normal mode, the keys `j`/`k` and `<up>`/`<down>` wrap the buffer :
+
+- if on the first line, `k` or `<up>` will go to the last line
+- if on the last line, `j` or `<down>` will go to the first line
 
 ------------------------------------------------------------------------------
 SELECTION				*wheel-dedicated-buffers-selection*
@@ -941,7 +947,7 @@ Wheel manages a dedicated buffers ring. You can :
 - add a new dedicated buffer as default one with `<M-w><Tab>`
 - switch to another dedicated buffer with `<M-w><Up>`, completion is available
 - cycle the dedicated buffers with `<M-w><Left>` or `<M-w><Right>`
-    + open the current dedicated buffer if it is closed
+    + reopen the current dedicated buffer in a new window if it is closed
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
 
