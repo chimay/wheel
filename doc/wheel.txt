@@ -983,10 +983,11 @@ You can filter the menu lines by entering patterns in insert mode.
 
 Action~
 
-In menu buffers, `<Tab>` is a synonym for `<Enter>` : trigger action.
+In menu buffers, `<Tab>` is a shortcut for `g<Enter>` : trigger action,
+and leave the menu opened.
 
-Since there is no need to select multiple elements, `<Space>` is a
-shortcut for `g<Enter>`.
+Since there is no need to select multiple elements, `<Space>` is also
+a synonym of `g<Enter>`.
 
 Main menu~
 
@@ -1026,8 +1027,9 @@ These categories are the same as in the main menu.
 
 In these sub-menus, you can use the keys :
 
-- `<Enter>`             : launch the action on the cursor line
-- `<Backspace>`         : leads you back to the meta menu
+- `<Enter>`                      : launch the action on the cursor line
+- `g<Enter>`, `<Tab>`, `<Space>`     : launch action, leave the menu opened
+- `<Backspace>`                  : leads you back to the meta menu
 
 ------------------------------------------------------------------------------
 CONTEXT MENUS				*wheel-dedicated-buffers-context*
@@ -1037,6 +1039,17 @@ Some dedicated buffers have context menu support. In that case, pressing
 apply to the selected or cursor line(s).
 
 If you change your mind and wish to come back, just press `<Backspace>`.
+
+Navigation~
+
+Context menu of a navigation buffer :
+
+- open selection
+- open in tab(s)
+- open in horizontal split(s)
+- open in vertical split(s)
+- open in horizontal golden split(s)
+- open in vertical golden split(s)
 
 ------------------------------------------------------------------------------
 NAVIGATION				*wheel-dedicated-buffers-navigation*
