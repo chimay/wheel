@@ -426,9 +426,6 @@ fun! wheel#mandala#template (...)
 	call wheel#teapot#mappings ()
 	" input history
 	call wheel#scroll#mappings ()
-	" by default, tell line#component it's not a tree buffer
-	" overridden by folding_options
-	setlocal nofoldenable
 endfun
 
 " blank sheet

@@ -235,6 +235,7 @@ if ! exists('s:mandala_vars')
 				\ 'b:wheel_nature',
 				\ 'b:wheel_related_buffer',
 				\ 'b:wheel_lines',
+				\ 'b:wheel_full',
 				\ 'b:wheel_filter',
 				\ 'b:wheel_selection',
 				\ 'b:wheel_settings',
@@ -348,7 +349,7 @@ if ! exists('s:menu_help')
 				\ ['inline help', 'wheel#guru#help'],
 				\ ['current prefix mappings', 'wheel#guru#mappings'],
 				\ ['available mappings (plugs)', 'wheel#guru#plugs'],
-				\ ['autocommands', 'wheel#guru#autocomands'],
+				\ ['autocommands', 'wheel#guru#autocommands'],
 				\ ['dedicated buffer help', 'wheel#guru#mandala'],
 				\ ['local maps', 'wheel#guru#mandala_mappings'],
 				\]

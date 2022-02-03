@@ -34,7 +34,7 @@ fun! wheel#tower#menu (settings)
 	" ---- travel before processing ?
 	" true for helm menus
 	" false for context menus
-	" in case of navigation, it's managed by loop#selection
+	" in case of navigation, it's managed by loop#navigation
 	if travel
 		call wheel#rectangle#previous ()
 	endif
@@ -81,23 +81,22 @@ fun! wheel#tower#staircase (settings)
 	" Replace buffer content by a {line -> fun} leaf
 	" Define dict maps
 	" Used for :
-	"   - submenu of meta menu
+	"   - meta menu & submenus
 	"   - context menu leaf
 	let settings = deepcopy(a:settings)
 	let dictname = settings.menu.linefun
 	" ---- blank mandala
 	call wheel#mandala#blank (dictname)
-	call wheel#mandala#template ()
-	" ---- properties
-	let b:wheel_nature.class = settings.menu.class
-	let b:wheel_nature.has_filter = v:true
-	let b:wheel_nature.has_selection = v:false
+	" ---- mappings
+	call wheel#tower#mappings (settings)
 	" ---- fill with dict keys
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)
 	call wheel#mandala#fill (lines)
+	" ---- properties
+	let b:wheel_nature.class = settings.menu.class
+	let b:wheel_nature.has_filter = v:true
+	let b:wheel_nature.has_selection = v:false
 	" ---- save settings
 	let b:wheel_settings = settings
-	" ---- mappings
-	call wheel#tower#mappings (settings)
 endfun

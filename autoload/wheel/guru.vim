@@ -21,7 +21,7 @@ fun! wheel#guru#plugs ()
 	call wheel#mandala#command ('map <plug>(wheel-')
 endfun
 
-fun! wheel#guru#autocomands ()
+fun! wheel#guru#autocommands ()
 	" List of wheel autocommands in a dedicated buffer
 	let group = input('Name of your wheel autocommand group ? ', 'wheel')
 	let command = 'autocmd ' .. group

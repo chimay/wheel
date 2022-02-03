@@ -290,7 +290,7 @@ fun! wheel#book#syncup ()
 	" -- all original lines
 	let leaf.lines = copy(b:wheel_lines)
 	" -- all original full lines information
-	let leaf.full = copy(b:wheel_full)
+	let leaf.full = deepcopy(b:wheel_full)
 	" -- filter
 	let leaf.filter = deepcopy(b:wheel_filter)
 	" -- selection
@@ -337,7 +337,7 @@ fun! wheel#book#syncdown ()
 	" -- all original lines
 	let b:wheel_lines = copy(leaf.lines)
 	" -- all original full lines information
-	let b:wheel_full = copy(leaf.full)
+	let b:wheel_full = deepcopy(leaf.full)
 	" -- filter
 	let filter = deepcopy(leaf.filter)
 	let b:wheel_filter = filter

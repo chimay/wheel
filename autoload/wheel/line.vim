@@ -8,7 +8,7 @@
 " - paste
 " - undo & diff
 "
-" called by loop#selection, and sometimes loop#boomerang
+" called by loop#navigation, and sometimes loop#boomerang
 
 " ---- script constants
 

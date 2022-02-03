@@ -75,12 +75,8 @@ fun! wheel#helm#main ()
 	" ---- blank mandala
 	call wheel#mandala#blank ('menu/main')
 	call wheel#mandala#template ()
-	" -- properties
-	let b:wheel_nature.class = 'menu/main'
-	let b:wheel_nature.has_filter = v:true
-	let b:wheel_nature.has_selection = v:false
-	" ---- folding
-	call wheel#helm#folding_options ()
+	" ---- mappings
+	call wheel#tower#mappings (settings)
 	" ---- fill
 	let menu = []
 	for category in s:menu_list
@@ -91,10 +87,14 @@ fun! wheel#helm#main ()
 		eval menu->extend(submenu)
 	endfor
 	call wheel#mandala#fill(menu)
+	" ---- folding
+	call wheel#helm#folding_options ()
+	" -- properties
+	let b:wheel_nature.class = 'menu/main'
+	let b:wheel_nature.has_filter = v:true
+	let b:wheel_nature.has_selection = v:false
 	" ---- save settings
 	let b:wheel_settings = settings
-	" ---- mappings
-	call wheel#tower#mappings (settings)
 endfun
 
 fun! wheel#helm#meta ()

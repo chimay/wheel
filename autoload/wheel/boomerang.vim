@@ -53,7 +53,7 @@ fun! wheel#boomerang#menu (dictname)
 	" ---- properties ; must come after tower#staircase
 	" -- class : context menu
 	let b:wheel_nature.class = 'menu/context'
-	" -- let loop#menu handle open / close, tell loop#selection to forget it
+	" -- let loop#menu handle open / close, tell loop#navigation to forget it
 	let settings.close = v:false
 	" -- reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
@@ -144,7 +144,7 @@ fun! wheel#boomerang#tabwin (action)
 	let settings = b:wheel_settings
 	let settings.menu.action = action
 	if action == 'open'
-		" loop#selection will process the first selected line
+		" loop#navigation will process the first selected line
 		let settings.target = 'current'
 		return wheel#loop#navigation (settings)
 	elseif action == 'tabnew'
