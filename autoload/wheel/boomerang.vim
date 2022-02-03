@@ -70,7 +70,7 @@ fun! wheel#boomerang#navigation (target)
 		return v:false
 	endif
 	let settings.target = target
-	call wheel#loop#selection (settings)
+	call wheel#loop#navigation (settings)
 	return v:true
 endfun
 
@@ -146,7 +146,7 @@ fun! wheel#boomerang#tabwin (action)
 	if action == 'open'
 		" loop#selection will process the first selected line
 		let settings.target = 'current'
-		return wheel#loop#selection (settings)
+		return wheel#loop#navigation (settings)
 	elseif action == 'tabnew'
 		tabnew
 		return v:true

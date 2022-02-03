@@ -10,7 +10,7 @@
 
 " looping
 
-fun! wheel#loop#selection (settings)
+fun! wheel#loop#navigation (settings)
 	" Navigation loop for element(s) in cursor line or selection line(s)
 	" settings keys :
 	"   - function : navigation function name or funcref

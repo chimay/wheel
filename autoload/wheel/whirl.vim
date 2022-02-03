@@ -47,7 +47,7 @@ fun! wheel#whirl#mappings (settings)
 	" Define whirl maps
 	let settings = copy(a:settings)
 	let nmap = 'nnoremap <buffer>'
-	let loopselection = '<cmd>call wheel#loop#selection('
+	let loopselection = '<cmd>call wheel#loop#navigation('
 	let coda = ')<cr>'
 	" -- close after navigation
 	let settings.close = v:true
@@ -102,7 +102,7 @@ fun! wheel#whirl#generic (type)
 		return v:false
 	endif
 	call wheel#mandala#blank (type)
-	let settings = {'function' : function('wheel#curve#' .. type)}
+	let settings = #{ function : 'wheel#curve#' .. type }
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -141,7 +141,7 @@ fun! wheel#whirl#helix ()
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/location')
-	let settings = {'function' : function('wheel#curve#helix')}
+	let settings = #{ function : 'wheel#curve#helix' }
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
@@ -157,7 +157,7 @@ fun! wheel#whirl#grid ()
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/circle')
-	let settings = {'function' : function('wheel#curve#grid')}
+	let settings = #{ function : 'wheel#curve#grid' }
 	call wheel#whirl#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
@@ -172,7 +172,7 @@ fun! wheel#whirl#tree ()
 		return v:false
 	endif
 	call wheel#mandala#blank ('index/tree')
-	let settings = {'function' : function('wheel#curve#tree')}
+	let settings = #{ function : 'wheel#curve#tree' }
 	call wheel#whirl#template (settings)
 	call wheel#mandala#folding_options ()
 	call wheel#mandala#fill(lines)

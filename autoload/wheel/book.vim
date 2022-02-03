@@ -302,7 +302,7 @@ fun! wheel#book#syncup ()
 	call wheel#pencil#default_line ()
 	let cursor = leaf.cursor
 	let cursor.position = getcurpos()
-	" selection of cursor line : useful for context menus
+	" virtual selection of cursor line : useful for context menus
 	let cursor.selection = wheel#pencil#virtual()
 	" -- settings
 	let leaf.settings = deepcopy(b:wheel_settings)
