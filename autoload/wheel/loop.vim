@@ -19,7 +19,7 @@ fun! wheel#loop#navigation (settings)
 	"   - related buffer of current mandala
 	"   - follow : whether to find closest wheel location after arrival
 	"   - close : whether to close mandala
-	let settings = copy(a:settings)
+	let settings = deepcopy(a:settings)
 	call wheel#whirl#default (settings)
 	let Fun = settings.function
 	let target = settings.target
@@ -39,7 +39,7 @@ fun! wheel#loop#navigation (settings)
 	if target == 'current'
 		let settings.selection.index = selection.indexes[0]
 		let settings.selection.component = selection.components[0]
-		let winiden = wheel#gear#call(Fun, settings)
+		let winiden = Fun->wheel#gear#call(settings)
 		if &foldopen =~ 'jump'
 			normal! zv
 		endif
@@ -49,7 +49,7 @@ fun! wheel#loop#navigation (settings)
 		for ind in range(length)
 			let settings.selection.index = selection.indexes[ind]
 			let settings.selection.component = selection.components[ind]
-			let winiden = wheel#gear#call(Fun, settings)
+			let winiden = Fun->wheel#gear#call(settings)
 			if &foldopen =~ 'jump'
 				normal! zv
 			endif
@@ -74,7 +74,7 @@ fun! wheel#loop#boomerang (settings)
 	" settings.menu keys can be :
 	"   - action : action name or funcref
 	"   - close : whether to close mandala
-	let settings = copy(a:settings)
+	let settings = deepcopy(a:settings)
 	call wheel#whirl#default (settings)
 	let menu_settings = settings.menu
 	let Fun = settings.function
@@ -90,7 +90,7 @@ fun! wheel#loop#boomerang (settings)
 	for ind in range(length)
 		let settings.selection.index = selection.indexes[ind]
 		let settings.selection.component = selection.components[ind]
-		let winiden = wheel#gear#call(Fun, settings)
+		let winiden = Fun->wheel#gear#call(settings)
 	endfor
 	" ---- coda
 	return winiden

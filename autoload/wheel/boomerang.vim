@@ -163,6 +163,7 @@ fun! wheel#boomerang#tabwin (action)
 		call wheel#loop#boomerang (settings)
 		let selection.indexes = original_indexes
 		let selection.components = original_components
+		call wheel#upstream#remove_selection ()
 		return v:true
 	endif
 	return v:false
