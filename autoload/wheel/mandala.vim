@@ -561,6 +561,7 @@ fun! wheel#mandala#command (...)
 		let alter = getreg('#')
 		let command = substitute(command, ' %', ' ' .. current, 'g')
 		let command = substitute(command, ' #', ' ' .. alter, 'g')
+		let command = substitute(command, '\~', $HOME, 'g')
 		let lines = wheel#perspective#execute (command, 'system')
 	else
 		let lines = wheel#perspective#execute (command)
