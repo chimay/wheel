@@ -46,7 +46,6 @@ fun! wheel#boomerang#menu (dictname)
 				\ class : 'menu/context',
 				\ linefun : dictname,
 				\ close : v:true,
-				\ travel : v:false
 				\ }
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (settings)

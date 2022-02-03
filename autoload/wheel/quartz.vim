@@ -282,8 +282,8 @@ endif
 if ! exists('s:menu_main')
 	let s:menu_main = []
 	for name in s:menu_list
-		let s:short_name = substitute(name, ' ', '_', 'g')
-		call extend(s:menu_main, s:menu_{s:short_name})
+		let s:formated = substitute(name, ' ', '_', 'g')
+		call extend(s:menu_main, s:menu_{s:formated})
 	endfor
 	lockvar! s:menu_main
 endif
@@ -293,8 +293,8 @@ endif
 if ! exists('s:menu_meta')
 	let s:menu_meta = []
 	for name in s:menu_list
-		let s:short_name = substitute(name, ' ', '_', 'g')
-		let s:function = "wheel#helm#submenu('" .. s:short_name .. "')"
+		let s:formated = substitute(name, ' ', '_', 'g')
+		let s:function = "wheel#helm#submenu('" .. s:formated .. "')"
 		eval s:menu_meta->add([name, s:function])
 	endfor
 	lockvar! s:menu_meta
