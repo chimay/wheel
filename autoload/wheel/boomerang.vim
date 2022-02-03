@@ -153,16 +153,12 @@ fun! wheel#boomerang#tabwin (action)
 		let selection = wheel#upstream#selection()
 		let indexes = selection.indexes
 		let components = selection.components
-		let original_indexes = copy(indexes)
-		let original_components = copy(components)
 		let [indexlist, indexes] = wheel#chain#sort(indexes)
 		call reverse(indexes)
 		call reverse(indexlist)
 		let selection.indexes = indexes
 		let selection.components = components->wheel#chain#sublist(indexlist)
 		call wheel#loop#boomerang (settings)
-		let selection.indexes = original_indexes
-		let selection.components = original_components
 		call wheel#upstream#remove_selection ()
 		return v:true
 	endif

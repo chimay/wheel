@@ -81,6 +81,8 @@ fun! wheel#line#tabwin (settings)
 		execute 'noautocmd tabnext' tabnum
 		execute 'noautocmd' winum 'wincmd w'
 		doautocmd WinEnter
+	elseif action == 'tabnew'
+		noautocmd tabnew
 	elseif action == 'tabclose'
 		let fields = split(component, s:field_separ)
 		let tabnum = fields[0]
@@ -380,12 +382,8 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in plain mode
 	let where = a:where
 	let close = a:close
-	if wheel#pencil#is_selection_empty ()
-		let content = [ getline('.') ]
-	else
-		let selection = wheel#pencil#selection ()
-		let content = deepcopy(selection.components)
-	endif
+	let selection = wheel#pencil#selection ()
+	let content = deepcopy(selection.components)
 	if empty(content)
 		return v:false
 	endif
