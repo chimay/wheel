@@ -72,8 +72,8 @@ fun! wheel#tower#mappings (settings)
 	exe map '<cr>' linefun .. string(settings) .. coda
 	" ---- leave the mandala opened
 	let menu_settings.close = v:false
-	exe map 'g<cr>' linefun .. string(settings) .. coda
-	exe map '<tab>' linefun .. string(settings) .. coda
+	exe map 'g<cr>'   linefun .. string(settings) .. coda
+	exe map '<tab>'   linefun .. string(settings) .. coda
 	exe map '<space>' linefun .. string(settings) .. coda
 endfun
 
@@ -83,19 +83,21 @@ fun! wheel#tower#staircase (settings)
 	" Used for :
 	"   - submenu of meta menu
 	"   - context menu leaf
-	let settings = a:settings
+	let settings = deepcopy(a:settings)
 	let dictname = settings.menu.linefun
 	" ---- blank mandala
 	call wheel#mandala#blank (dictname)
+	call wheel#mandala#template ()
 	" ---- properties
+	let b:wheel_nature.class = settings.menu.class
 	let b:wheel_nature.has_filter = v:true
 	let b:wheel_nature.has_selection = v:false
-	" ---- save settings
-	let b:wheel_settings = settings
 	" ---- fill with dict keys
 	let items = wheel#crystal#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)
 	call wheel#mandala#fill (lines)
+	" ---- save settings
+	let b:wheel_settings = settings
 	" ---- mappings
 	call wheel#tower#mappings (settings)
 endfun

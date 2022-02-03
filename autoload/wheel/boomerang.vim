@@ -39,11 +39,13 @@ endfun
 fun! wheel#boomerang#menu (dictname)
 	" Build context menu
 	let dictname = 'context/' .. a:dictname
-	let settings = b:wheel_settings
+	let settings = deepcopy(b:wheel_settings)
+	" close is false for space & tab
+	" within tower#staircase -> tower#mappings
 	let settings.menu = #{
 				\ class : 'menu/context',
 				\ linefun : dictname,
-				\ close : v:false,
+				\ close : v:true,
 				\ travel : v:false
 				\ }
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
@@ -52,7 +54,7 @@ fun! wheel#boomerang#menu (dictname)
 	" -- class : context menu
 	let b:wheel_nature.class = 'menu/context'
 	" -- let loop#menu handle open / close, tell loop#selection to forget it
-	let b:wheel_settings.close = v:false
+	let settings.close = v:false
 	" -- reload function
 	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
 endfun
@@ -64,12 +66,12 @@ fun! wheel#boomerang#navigation (target)
 	let target = a:target
 	let settings = b:wheel_settings
 	let settings.menu.action = 'navigation'
-	if target->wheel#chain#is_inside(s:mandala_targets)
-		let settings.target = target
-		call wheel#loop#selection (settings)
-		return v:true
+	if ! target->wheel#chain#is_inside(s:mandala_targets)
+		return v:false
 	endif
-	return v:false
+	let settings.target = target
+	call wheel#loop#selection (settings)
+	return v:true
 endfun
 
 fun! wheel#boomerang#buffer (action)

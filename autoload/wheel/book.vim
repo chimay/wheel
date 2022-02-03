@@ -4,11 +4,9 @@
 "
 " Leaf (layer) ring in each mandala buffer
 "
-" A book contains leaves, sheets, layers
-
-" second implementation
+" Each leaf contains all information about a mandala
 "
-" the ring contain the current mandala lines & settings
+" A book contains leaves, sheets, layers
 
 " Script constants
 

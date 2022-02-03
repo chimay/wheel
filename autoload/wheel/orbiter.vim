@@ -4,6 +4,15 @@
 "
 " Preview for dedicated buffers
 
+" booleans
+
+fun! wheel#orbiter#has_preview ()
+	" Whether current mandala has preview
+	return b:wheel_nature.has_preview
+endfun
+
+" functions
+
 fun! wheel#orbiter#preview ()
 	" Preview buffer matching current line
 	if ! b:wheel_preview.used
@@ -84,4 +93,6 @@ fun! wheel#orbiter#mappings ()
 	nnoremap <buffer> p <cmd>call wheel#orbiter#preview()<cr>
 	nnoremap <buffer> o <cmd>call wheel#orbiter#original()<cr>
 	nnoremap <buffer> f <cmd>call wheel#orbiter#toggle_follow()<cr>
+	" ---- properties
+	let b:wheel_nature.has_preview = v:true
 endfun

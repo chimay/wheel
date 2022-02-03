@@ -22,45 +22,14 @@ if ! exists('s:menu_list')
 	lockvar s:menu_list
 endif
 
-" booleans
+" ---- booleans
 
 fun! wheel#helm#is_menu ()
-	" Whether mandala leaf is a context menu
-	return b:wheel_nature.menu
+	" Whether mandala leaf is a menu
+	return b:wheel_nature.class =~ '^menu'
 endfun
 
-" maps
-
-fun! wheel#helm#menu_maps (dictname)
-	" Define local maps for menus
-	let dictname = 'menu/' .. a:dictname
-	let settings = {}
-	let settings.menu = #{
-				\ class : 'menu',
-				\ linefun : dictname,
-				\ close : v:true,
-				\ travel : v:true
-				\ }
-	call wheel#tower#mappings (settings)
-	let b:wheel_settings = settings
-endfun
-
-fun! wheel#helm#meta_maps (dictname)
-	" Define local maps for meta menu
-	let dictname = 'menu/' .. a:dictname
-	let settings = {}
-	let settings.menu = #{
-				\ class : 'menu/meta',
-				\ linefun : dictname,
-				\ close : v:false,
-				\ travel : v:false
-				\ }
-	call wheel#tower#mappings (settings)
-	let b:wheel_settings = settings
-	return
-endfun
-
-" folding
+" ---- folding
 
 fun! wheel#helm#folding_options ()
 	" Folding options for menu
@@ -92,18 +61,52 @@ fun! wheel#helm#folding_text ()
 	return text
 endfun
 
-" menus
+" ---- menus
 
-fun! wheel#helm#menu (dictname)
-	" Menu in mandala buffer
-	let dictname = a:dictname
-	let string = 'menu/' .. dictname
-	call wheel#mandala#blank (string)
+fun! wheel#helm#main ()
+	" Main menu in mandala buffer
+	let settings = {}
+	let settings.menu = #{
+				\ class : 'menu/main',
+				\ linefun : 'menu/main',
+				\ close : v:true,
+				\ travel : v:true
+				\ }
+	" ---- blank mandala
+	call wheel#mandala#blank ('menu/main')
 	call wheel#mandala#template ()
-	" -- class
-	let b:wheel_nature.class = 'menu'
-	" -- selection property
+	" -- properties
+	let b:wheel_nature.class = 'menu/main'
+	let b:wheel_nature.has_filter = v:true
 	let b:wheel_nature.has_selection = v:false
+	" ---- folding
+	call wheel#helm#folding_options ()
+	" ---- fill
+	let menu = []
+	for category in s:menu_list
+		let header = category .. s:fold_1
+		let items = wheel#crystal#fetch('menu/' .. category)
+		let submenu = wheel#matrix#items2keys (items)
+		eval menu->add(header)
+		eval menu->extend(submenu)
+	endfor
+	call wheel#mandala#fill(menu)
+	" ---- save settings
+	let b:wheel_settings = settings
+	" ---- mappings
+	call wheel#tower#mappings (settings)
+endfun
+
+fun! wheel#helm#meta ()
+	" Meta menu in mandala buffer
+	let settings = {}
+	let settings.menu = #{
+				\ class : 'menu/meta',
+				\ linefun : 'menu/meta',
+				\ close : v:false,
+				\ travel : v:false
+				\ }
+	call wheel#tower#staircase(settings)
 endfun
 
 fun! wheel#helm#submenu (dictname)
@@ -117,31 +120,4 @@ fun! wheel#helm#submenu (dictname)
 				\ travel : v:true
 				\ }
 	call wheel#tower#staircase (settings)
-	" -- class
-	let b:wheel_nature.class = 'menu/submenu'
-endfun
-
-fun! wheel#helm#main ()
-	" Main menu in mandala buffer
-	call wheel#helm#menu('main')
-	call wheel#helm#menu_maps ('main')
-	call wheel#helm#folding_options ()
-	let menu = []
-	for elem in s:menu_list
-		let header = elem .. s:fold_1
-		let items = wheel#crystal#fetch('menu/' .. elem)
-		let submenu = wheel#matrix#items2keys (items)
-		eval menu->add(header)
-		call extend(menu, submenu)
-	endfor
-	call wheel#mandala#fill(menu)
-endfun
-
-fun! wheel#helm#meta ()
-	" Meta menu in mandala buffer
-	call wheel#helm#menu('meta')
-	call wheel#helm#meta_maps('meta')
-	let items = wheel#crystal#fetch('menu/meta')
-	let menu = wheel#matrix#items2keys (items)
-	call wheel#mandala#fill(menu)
 endfun
