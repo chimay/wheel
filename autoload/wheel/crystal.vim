@@ -115,6 +115,7 @@ if ! exists('s:function_pattern_mandala')
 	let s:function_pattern_mandala = [
 				\ '.*#mandala#.*',
 				\ '.*#helm#.*',
+				\ '.*#guru#.*',
 				\ '.*#whirl#.*',
 				\ '.*#frigate#.*',
 				\ '.*#yggdrasil#.*',

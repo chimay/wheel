@@ -47,12 +47,10 @@ fun! wheel#tower#action (settings)
 	" settings is a dictionary containing settings.menu
 	" settings.menu keys can be :
 	" - linefun : name of a dictionary variable in storage.vim
-	" - travel : whether to go back to pre-mandala window before applying action
 	" - close : whether to close mandala buffer
 	let settings = a:settings
 	let menu_settings = settings.menu
 	let dict = wheel#crystal#fetch (menu_settings.linefun, 'dict')
-	let travel = menu_settings.travel
 	let close = menu_settings.close
 	" ---- pre checks
 	let cursor_line = getline('.')
@@ -69,12 +67,13 @@ fun! wheel#tower#action (settings)
 	let function = dict[key]
 	" ---- tab page of mandala before processing
 	let elder_tab = tabpagenr()
-	" ---- travel before processing ?
-	" true for helm menus
-	" false for context menus
-	" in case of navigation, it's managed by loop#navigation
+	" ---- navigation functions needs to be on the previous, regular window
 	if wheel#tower#is_navigation (function)
-		call wheel#cylinder#previous ()
+		call wheel#rectangle#previous ()
+	endif
+	" --- if functions needs a mandala, overrides the close setting
+	if wheel#tower#uses_mandala (function)
+		let close = v:false
 	endif
 	" ---- call function linked to cursor line
 	let winiden = wheel#gear#call (function)
@@ -88,7 +87,6 @@ fun! wheel#tower#action (settings)
 		let new_tab = tabpagenr()
 		" -- tab changed, move mandala to new tab
 		if elder_tab != new_tab
-			" go back in new tab
 			execute 'tabnext' new_tab
 		endif
 		call wheel#cylinder#recall()

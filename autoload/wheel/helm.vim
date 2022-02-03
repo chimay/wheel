@@ -70,7 +70,6 @@ fun! wheel#helm#main ()
 				\ class : 'menu/main',
 				\ linefun : 'menu/main',
 				\ close : v:true,
-				\ travel : v:true
 				\ }
 	" ---- blank mandala
 	call wheel#mandala#blank ('menu/main')
@@ -104,7 +103,6 @@ fun! wheel#helm#meta ()
 				\ class : 'menu/meta',
 				\ linefun : 'menu/meta',
 				\ close : v:false,
-				\ travel : v:false
 				\ }
 	call wheel#tower#staircase(settings)
 endfun
@@ -117,7 +115,6 @@ fun! wheel#helm#submenu (dictname)
 				\ class : 'menu/submenu',
 				\ linefun : dictname,
 				\ close : v:true,
-				\ travel : v:true
 				\ }
 	call wheel#tower#staircase (settings)
 endfun
