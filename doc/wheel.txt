@@ -1057,8 +1057,6 @@ A layer in a dedicated buffer is also called a leaf.
 ------------------------------------------------------------------------------
 MENU						*wheel-dedicated-buffers-menus*
 
-You can filter the menu lines by entering patterns in insert mode.
-
 Action~
 
 In menu buffers, `<Tab>` is a shortcut for `g<Enter>` : trigger action,
@@ -1066,6 +1064,9 @@ and leave the menu opened.
 
 Since there is no need to select multiple elements, `<Space>` is also
 a synonym of `g<Enter>`.
+
+Note that `<Enter>` closes the menu, except if the action needs an opened
+dedicated buffer.
 
 Main menu~
 
