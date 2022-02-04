@@ -89,7 +89,6 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.has_selection = v:false
 		let b:wheel_nature.has_preview = v:false
 		let b:wheel_nature.has_navigation = v:false
-		call wheel#mandala#set_type ('empty')
 	endif
 	" -- related buffer
 	if ! exists('b:wheel_related_buffer')

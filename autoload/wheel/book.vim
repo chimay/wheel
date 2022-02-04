@@ -103,11 +103,14 @@ fun! wheel#book#template ()
 	" -- general qualities
 	let leaf.nature = {}
 	let leaf.nature.empty = v:true
+	let leaf.nature.class = 'generic'
 	let leaf.nature.type = 'empty'
+	let leaf.nature.is_treeish = v:false
+	let leaf.nature.is_writable = v:false
 	let leaf.nature.has_filter = v:false
 	let leaf.nature.has_selection = v:false
-	let leaf.nature.menu = v:false
-	let leaf.nature.context_menu = v:false
+	let leaf.nature.has_preview = v:false
+	let leaf.nature.has_navigation = v:false
 	" -- related buffer
 	let leaf.related_buffer = 'undefined'
 	" -- all original lines
