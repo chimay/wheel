@@ -65,8 +65,7 @@ endfun
 
 fun! wheel#helm#main ()
 	" Main menu in mandala buffer
-	let settings = {}
-	let settings.menu = #{
+	let menuset = #{
 				\ class : 'menu/main',
 				\ linefun : 'menu/main',
 				\ close : v:true,
@@ -75,17 +74,19 @@ fun! wheel#helm#main ()
 	call wheel#mandala#blank ('menu/main')
 	call wheel#mandala#template ()
 	" ---- mappings
+	let settings = {}
+	let settings.menu = menuset
 	call wheel#tower#mappings (settings)
 	" ---- fill
-	let menu = []
+	let mainmenu = []
 	for category in s:menu_list
 		let header = category .. s:fold_1
 		let items = wheel#crystal#fetch('menu/' .. category)
 		let submenu = wheel#matrix#items2keys (items)
-		eval menu->add(header)
-		eval menu->extend(submenu)
+		eval mainmenu->add(header)
+		eval mainmenu->extend(submenu)
 	endfor
-	call wheel#mandala#fill(menu)
+	call wheel#mandala#fill(mainmenu)
 	" ---- folding
 	call wheel#helm#folding_options ()
 	" -- properties
@@ -98,23 +99,21 @@ endfun
 
 fun! wheel#helm#meta ()
 	" Meta menu in mandala buffer
-	let settings = {}
-	let settings.menu = #{
+	let menuset = #{
 				\ class : 'menu/meta',
 				\ linefun : 'menu/meta',
 				\ close : v:false,
 				\ }
-	call wheel#tower#staircase(settings)
+	call wheel#tower#staircase(menuset)
 endfun
 
 fun! wheel#helm#submenu (dictname)
 	" Submenu
 	let dictname = 'menu/' .. a:dictname
-	let settings = {}
-	let settings.menu = #{
+	let menuset = #{
 				\ class : 'menu/submenu',
 				\ linefun : dictname,
 				\ close : v:true,
 				\ }
-	call wheel#tower#staircase (settings)
+	call wheel#tower#staircase (menuset)
 endfun

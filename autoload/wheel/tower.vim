@@ -123,14 +123,16 @@ fun! wheel#tower#mappings (settings)
 	exe map '<space>' linefun .. string(settings) .. coda
 endfun
 
-fun! wheel#tower#staircase (settings)
+fun! wheel#tower#staircase (menuset, settings = {})
 	" Replace buffer content by a {line -> fun} leaf
 	" Define dict maps
 	" Used for :
 	"   - meta menu & submenus
 	"   - context menu leaf
+	let menuset = a:menuset
 	let settings = deepcopy(a:settings)
-	let dictname = settings.menu.linefun
+	let dictname = menuset.linefun
+	let settings.menu = menuset
 	" ---- blank mandala
 	call wheel#mandala#blank (dictname)
 	" ---- mappings
@@ -140,7 +142,7 @@ fun! wheel#tower#staircase (settings)
 	let lines = wheel#matrix#items2keys (items)
 	call wheel#mandala#fill (lines)
 	" ---- properties
-	let b:wheel_nature.class = settings.menu.class
+	let b:wheel_nature.class = menuset.class
 	let b:wheel_nature.has_filter = v:true
 	let b:wheel_nature.has_selection = v:false
 	" ---- save settings

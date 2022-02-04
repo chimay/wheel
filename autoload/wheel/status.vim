@@ -128,7 +128,7 @@ fun! wheel#status#statusline ()
 	" Statusline for mandala
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel statusline : should not be called outside of mandala'
-		return ''
+		return &g:statusline
 	endif
 	let mandalas = wheel#status#mandalas ()
 	let mandalas = join(mandalas)

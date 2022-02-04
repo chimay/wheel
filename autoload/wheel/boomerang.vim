@@ -42,13 +42,13 @@ fun! wheel#boomerang#menu (dictname)
 	let settings = deepcopy(b:wheel_settings)
 	" close is false for space & tab
 	" within tower#staircase -> tower#mappings
-	let settings.menu = #{
+	let menuset = #{
 				\ class : 'menu/context',
 				\ linefun : dictname,
 				\ close : v:true,
 				\ }
 	" ---- add new leaf, replace mandala content by a {line->fun} leaf
-	call wheel#tower#staircase (settings)
+	call wheel#tower#staircase (menuset, settings)
 	" ---- properties ; must come after tower#staircase
 	" -- let loop#menu handle open / close, tell loop#navigation to forget it
 	let settings.close = v:false
