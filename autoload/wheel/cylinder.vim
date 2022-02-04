@@ -30,12 +30,21 @@ fun! wheel#cylinder#is_mandala (...)
 	return wheel#chain#is_inside(bufnum, ring)
 endfun
 
+fun! wheel#cylinder#update_type ()
+	" Update type of current mandala
+	let mandalas = g:wheel_mandalas
+	let current = mandalas.current
+	let types = mandalas.types
+	let types[current] = b:wheel_nature.type
+endfun
+
 fun! wheel#cylinder#check ()
 	" Remove non existent mandalas buffers from ring
 	let mandalas = g:wheel_mandalas
 	let ring = mandalas.ring
 	let iden = mandalas.iden
 	let names = mandalas.names
+	let types = mandalas.types
 	for bufnum in ring
 		if ! bufexists(bufnum)
 			echomsg 'wheel : removing deleted' bufnum 'buffer from mandala ring'
@@ -43,6 +52,7 @@ fun! wheel#cylinder#check ()
 			eval ring->remove(index)
 			eval iden->remove(index)
 			eval names->remove(index)
+			eval types->remove(index)
 			let current = mandalas.current
 			if current == index
 				let mandalas.current = 0
@@ -184,9 +194,11 @@ fun! wheel#cylinder#first (window = 'furtive')
 	let mandalas.current = 0
 	let iden = mandalas.iden
 	let names = mandalas.names
+	let types = mandalas.types
 	eval ring->add(novice)
 	eval iden->add(0)
 	eval names->add(0)
+	eval types->add('')
 	" ---- set filename
 	call wheel#cylinder#filename ()
 	" ---- init mandala
@@ -262,9 +274,11 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let mandalas.current = next
 	let iden = mandalas.iden
 	let names = mandalas.names
+	let types = mandalas.types
 	let novice_iden = wheel#chain#lowest_outside (iden)
 	eval iden->insert(novice_iden, next)
 	eval names->insert(novice_iden, next)
+	eval types->insert('', next)
 	" -- set filename
 	call wheel#cylinder#filename ()
 	" -- init mandala
@@ -307,8 +321,10 @@ fun! wheel#cylinder#delete ()
 	let removed = ring->remove(current)
 	let iden = mandalas.iden
 	let names = mandalas.names
+	let types = mandalas.types
 	eval iden->remove(current)
 	eval names->remove(current)
+	eval types->remove(current)
 	let length = len(ring)
 	let current = wheel#gear#circular_minus(current, length)
 	let g:wheel_mandalas.current = current
@@ -412,6 +428,7 @@ fun! wheel#cylinder#forward ()
 	" Go forward in mandalas buffers
 	let mandalas = g:wheel_mandalas
 	let ring = mandalas.ring
+	let types = mandalas.types
 	let length = len(ring)
 	if length == 0
 		echomsg 'wheel mandala forward : empty ring'
@@ -431,6 +448,7 @@ fun! wheel#cylinder#backward ()
 	" Go backward in mandalas buffers
 	let mandalas = g:wheel_mandalas
 	let ring = mandalas.ring
+	let types = mandalas.types
 	let length = len(ring)
 	if length == 0
 		echomsg 'wheel mandala backward : empty ring'
@@ -451,9 +469,8 @@ endfun
 fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion
 	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
-	let bufnums = copy(ring)
-	if empty(bufnums)
+	let iden = mandalas.iden
+	if empty(iden)
 		echomsg 'wheel cylinder switch : empty buffer ring'
 		return v:false
 	endif
@@ -464,8 +481,10 @@ fun! wheel#cylinder#switch ()
 	else
 		let name = input(prompt, '', complete)
 	endif
-	let filenames = bufnums->map({ _, val->bufname(val) })
-	let mandala = filenames->index(name)
+	let pattern = '/wheel/\([0-9]\+\).*'
+	let chosen = substitute(name, pattern, '\1', '')
+	let chosen = str2nr(chosen)
+	let mandala = iden->index(chosen)
 	if mandala < 0
 		return v:false
 	endif

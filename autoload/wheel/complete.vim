@@ -114,14 +114,17 @@ endfun
 
 fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	" Complete mandala buffer name
-	let bufnums = g:wheel_mandalas.ring
+	let mandalas = g:wheel_mandalas
+	let bufnums = mandalas.ring
+	let types = mandalas.types
 	if empty(bufnums)
 		return []
 	endif
 	let choices = []
 	for index in wheel#chain#rangelen(bufnums)
 		let num = bufnums[index]
-		let title = bufname(num)
+		let description = types[index]
+		let title = bufname(num) .. ' : ' .. description
 		eval choices->add(title)
 	endfor
 	let wordlist = split(a:cmdline)

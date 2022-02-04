@@ -240,6 +240,7 @@ fun! wheel#mandala#set_type (type)
 		let b:wheel_nature.empty = v:true
 	else
 		let b:wheel_nature.empty = v:false
+		call wheel#cylinder#update_type ()
 	endif
 endfun
 

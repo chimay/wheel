@@ -461,6 +461,7 @@ fun! wheel#book#forward ()
 	let current = ring.current
 	let ring.current = wheel#gear#circular_plus (current, length)
 	call wheel#book#syncdown ()
+	call wheel#cylincer#update_type ()
 endfun
 
 fun! wheel#book#backward ()
@@ -479,6 +480,7 @@ fun! wheel#book#backward ()
 	let current = ring.current
 	let ring.current = wheel#gear#circular_minus (current, length)
 	call wheel#book#syncdown ()
+	call wheel#cylincer#update_type ()
 endfun
 
 " Switch
@@ -512,4 +514,5 @@ fun! wheel#book#switch (...)
 	endif
 	let ring.current = current
 	call wheel#book#syncdown ()
+	call wheel#cylincer#update_type ()
 endfun

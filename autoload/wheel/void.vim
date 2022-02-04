@@ -296,6 +296,9 @@ fun! wheel#void#mandalas ()
 	if ! has_key(g:wheel_mandalas, 'names')
 		let g:wheel_mandalas.names = []
 	endif
+	if ! has_key(g:wheel_mandalas, 'types')
+		let g:wheel_mandalas.types = []
+	endif
 endfun
 
 fun! wheel#void#autogroup ()
