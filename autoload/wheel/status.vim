@@ -133,7 +133,7 @@ fun! wheel#status#statusline ()
 	let mandalas = join(mandalas)
 	let leaves = wheel#status#leaves ()
 	let leaves = join(leaves)
-	let statusline = 'mandalas: '
+	let statusline = ' mandalas: '
 	let statusline ..= mandalas
 	let statusline ..= s:field_separ
 	let statusline ..= 'leaves: '

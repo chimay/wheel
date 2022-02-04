@@ -3526,7 +3526,8 @@ Debug~
 ------------------------------------------------------------------------------
 OTHER IDEAS				*wheel-mappings-ideas*
 
-Some bindings that you may find useful : >
+Some maps that you may find useful if the `<D-*>` bindings work in your
+setup : >
 
     " index of locations in torus > circle > location format
     nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
