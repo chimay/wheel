@@ -144,7 +144,6 @@ fun! wheel#tower#staircase (menuset, settings = {})
 	" ---- properties
 	let b:wheel_nature.class = menuset.class
 	let b:wheel_nature.has_filter = v:true
-	let b:wheel_nature.has_selection = v:false
 	" ---- save settings
 	let b:wheel_settings = settings
 endfun

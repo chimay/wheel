@@ -992,6 +992,26 @@ On the other lines :
 - `<Enter>`, `<Esc>`, `<Space>` and `<C-w>` have their usual vim meaning
 - `cc` and `<C-u>` delete only the last field of the line
 
+Navigation~
+
+When a writable dedicated buffer has navigation abilities, maps are adapted :
+
+- `<Enter>` : open element in current window
+- `<M-t>`   : open element in a new tab
+- `<M-h>`   : open element in a new split
+- `<M-v>`   : open element in a new vsplit
+- `<M-S-h>` : open element in a new split with golden ratio
+- `<M-S-v>` : open element in a new vsplit with golden ratio
+
+Same keys as above, but leave the navigation buffer opened :
+
+- `g<Enter>` : same as `<Enter>`
+- `g<M-t>`   : same as `<M-t>`
+- `g<M-h>`   : same as `<M-h>`
+- `g<M-v>`   : same as `<M-v>`
+- `g<M-S-h>` : same as `<M-S-h>`
+- `g<M-S-v>` : same as `<M-S-v>`
+
 Range~
 
 If you use an ex command to perform an operation on all the visible lines

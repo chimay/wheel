@@ -6,7 +6,7 @@
 "
 " Narrow, filter, edit and apply
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
@@ -18,7 +18,7 @@ if ! exists('s:field_separ_bar')
 	lockvar s:field_separ_bar
 endif
 
-" Operator
+" ---- operator
 
 fun! wheel#polyphony#operator (argument = '')
 	" Operator waiting for a movement or text object to select range
@@ -37,7 +37,7 @@ fun! wheel#polyphony#operator (argument = '')
 	call wheel#mirror#narrow_file (first, last)
 endfun
 
-" Actions
+" ---- actions
 
 fun! wheel#polyphony#substitute (mandala = 'file')
 	" Substitute in narrow mandala
@@ -162,7 +162,7 @@ fun! wheel#polyphony#duplicate (where = 'below')
 	call wheel#pencil#show ()
 endfun
 
-" Propagate mandala changes -> original buffer(s)
+" ---- propagate mandala changes -> original buffer(s)
 
 fun! wheel#polyphony#harmony ()
 	" Write function for shape#narrow_file
@@ -262,7 +262,7 @@ fun! wheel#polyphony#counterpoint ()
 	return v:true
 endfun
 
-" Mandalas
+" ---- helpers for mandalas
 
 fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	" Feed key, or run filter if on first line
@@ -343,6 +343,8 @@ fun! wheel#polyphony#normal_cc ()
 	call wheel#polyphony#ctrl_u ()
 endfun
 
+" ---- mandalas
+
 fun! wheel#polyphony#filter_maps ()
 	" Local filter maps for hybrid filter/write mode
 	" -- normal mode
@@ -350,6 +352,17 @@ fun! wheel#polyphony#filter_maps ()
 	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
+endfun
+
+fun! wheel#polyphony#input_history_maps ()
+	" Local input history maps for hybrid filter/write mode
+	" Use M-p / M-n
+	" C-p / C-n is taken by (neo)vim completion
+	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
+	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
+	" M-r / M-s : next / prev matching line
+	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
+	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
 endfun
 
 fun! wheel#polyphony#hybrid_maps ()
@@ -372,23 +385,48 @@ fun! wheel#polyphony#hybrid_maps ()
 	exe imap '<c-u>   <cmd>call wheel#polyphony#ctrl_u()<cr>'
 endfun
 
-fun! wheel#polyphony#input_history_maps ()
-	" Local input history maps for hybrid filter/write mode
-	" Use M-p / M-n
-	" C-p / C-n is taken by (neo)vim completion
-	inoremap <buffer> <M-p> <cmd>call wheel#scroll#older()<cr>
-	inoremap <buffer> <M-n> <cmd>call wheel#scroll#newer()<cr>
-	" M-r / M-s : next / prev matching line
-	inoremap <buffer> <M-r> <cmd>call wheel#scroll#filtered_older()<cr>
-	inoremap <buffer> <M-s> <cmd>call wheel#scroll#filtered_newer()<cr>
-endfun
-
-fun! wheel#polyphony#template ()
-	" Filte & input history maps for hybrid filter/write mode
-	call wheel#polyphony#filter_maps ()
-	call wheel#polyphony#hybrid_maps ()
-	call wheel#polyphony#input_history_maps ()
-	setlocal nocursorline
+fun! wheel#polyphony#navigation_maps (settings)
+	" Define whirl maps
+	let settings = copy(a:settings)
+	let nmap = 'nnoremap <buffer>'
+	let loopnav = '<cmd>call wheel#loop#navigation('
+	let coda = ')<cr>'
+	" -- close after navigation
+	let settings.close = v:true
+	let settings.target = 'current'
+	exe nmap '<cr>' loopnav .. string(settings) .. coda
+	let settings.target = 'tab'
+	exe nmap '<m-t>' loopnav .. string(settings) .. coda
+	let settings.target = 'horizontal_split'
+	exe nmap '<m-h>' loopnav .. string(settings) .. coda
+	let settings.target = 'vertical_split'
+	exe nmap '<m-v>' loopnav .. string(settings) .. coda
+	let settings.target = 'horizontal_golden'
+	exe nmap '<m-s-h>' loopnav .. string(settings) .. coda
+	let settings.target = 'vertical_golden'
+	exe nmap '<m-s-v>' loopnav .. string(settings) .. coda
+	" -- leave open after navigation
+	let settings.close = v:false
+	let settings.target = 'current'
+	exe nmap 'g<cr>' loopnav .. string(settings) .. coda
+	let settings.target = 'tab'
+	exe nmap 'g<m-t>' loopnav .. string(settings) .. coda
+	let settings.target = 'horizontal_split'
+	exe nmap 'g<m-h>' loopnav .. string(settings) .. coda
+	let settings.target = 'vertical_split'
+	exe nmap 'g<m-v>' loopnav .. string(settings) .. coda
+	let settings.target = 'horizontal_golden'
+	exe nmap 'g<m-s-h>' loopnav .. string(settings) .. coda
+	let settings.target = 'vertical_golden'
+	exe nmap 'g<m-s-v>' loopnav .. string(settings) .. coda
+	" -- selection
+	call wheel#pencil#mappings ()
+	" -- preview
+	call wheel#orbiter#mappings ()
+	" -- context menu
+	call wheel#boomerang#launch_map ('navigation')
+	" -- property
+	let b:wheel_nature.has_navigation = v:true
 endfun
 
 fun! wheel#polyphony#action_maps (mandala = 'file')
@@ -404,4 +442,21 @@ fun! wheel#polyphony#action_maps (mandala = 'file')
 		exe "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"
 		exe "nnoremap <buffer> <m-z> <cmd>call wheel#polyphony#duplicate('above')<cr>"
 	endif
+endfun
+
+fun! wheel#polyphony#temple ()
+	" Filter hybrid & input history for writable mandalas
+	call wheel#polyphony#filter_maps ()
+	call wheel#polyphony#input_history_maps ()
+	call wheel#polyphony#hybrid_maps ()
+	setlocal nocursorline
+endfun
+
+fun! wheel#polyphony#template (settings)
+	" Filter, hybrid, input history & navigation maps for writable mandalas
+	call wheel#polyphony#filter_maps ()
+	call wheel#polyphony#input_history_maps ()
+	call wheel#polyphony#hybrid_maps ()
+	call wheel#polyphony#navigation_maps (a:settings)
+	setlocal nocursorline
 endfun

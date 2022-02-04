@@ -17,12 +17,10 @@ fun! wheel#shape#reorg_tabwin ()
 	" -- mandala
 	call wheel#mandala#blank ('reorg/tabwin')
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#mandala#folding_options ('tabwin_folding_text')
 	call wheel#cuboctahedron#write ('reorg_tabwin')
 	call wheel#mandala#fill(lines)
-	setlocal nomodified
-	setlocal nocursorline
 	" reload
 	let b:wheel_reload = 'wheel#shape#reorg_tabwin'
 endfun

@@ -77,7 +77,7 @@ fun! wheel#helm#main ()
 	let settings = {}
 	let settings.menu = menuset
 	call wheel#tower#mappings (settings)
-	" ---- fill
+	" ---- build menu lines
 	let mainmenu = []
 	for category in s:menu_list
 		let header = category .. s:fold_1
@@ -86,13 +86,13 @@ fun! wheel#helm#main ()
 		eval mainmenu->add(header)
 		eval mainmenu->extend(submenu)
 	endfor
+	" ---- fill
 	call wheel#mandala#fill(mainmenu)
 	" ---- folding
 	call wheel#helm#folding_options ()
 	" -- properties
 	let b:wheel_nature.class = 'menu/main'
 	let b:wheel_nature.has_filter = v:true
-	let b:wheel_nature.has_selection = v:false
 	" ---- save settings
 	let b:wheel_settings = settings
 endfun

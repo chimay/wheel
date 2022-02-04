@@ -18,10 +18,9 @@ fun! wheel#yggdrasil#reorder (level)
 	" -- mandala
 	call wheel#mandala#blank ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#cuboctahedron#write ('reorder', level)
 	call wheel#mandala#fill(lines)
-	setlocal nomodified
 	" -- reload
 	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
 	" -- additional maps
@@ -45,7 +44,7 @@ fun! wheel#yggdrasil#rename (level)
 	" -- mandala
 	call wheel#mandala#blank ('rename/' .. level)
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#cuboctahedron#write ('rename', level)
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
@@ -65,7 +64,7 @@ fun! wheel#yggdrasil#rename_file ()
 	" -- mandala
 	call wheel#mandala#blank ('rename/locations_files')
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#cuboctahedron#write ('rename_file')
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
@@ -88,7 +87,7 @@ fun! wheel#yggdrasil#delete (level)
 	" -- mandala
 	call wheel#mandala#blank ('delete/' .. level)
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#pencil#mappings ()
 	call wheel#cuboctahedron#write ('delete', level)
 	call wheel#mandala#fill(lines)
@@ -111,7 +110,7 @@ fun! wheel#yggdrasil#copy_move (level)
 	" -- mandala
 	call wheel#mandala#blank ('copy_move/' .. level)
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#pencil#mappings ()
 	call wheel#cuboctahedron#write ('copy_move', level)
 	call wheel#mandala#fill(lines)
@@ -133,7 +132,7 @@ fun! wheel#yggdrasil#reorganize ()
 	" -- mandala
 	call wheel#mandala#blank ('reorganize')
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#mandala#folding_options ()
 	call wheel#cuboctahedron#write ('reorganize')
 	call wheel#mandala#fill(lines)

@@ -48,7 +48,7 @@ fun! wheel#mirror#grep_edit (...)
 	" ---- mandala
 	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
+	call wheel#polyphony#temple ()
 	call wheel#cuboctahedron#write ('wheel#vector#write_quickfix')
 	call wheel#mandala#fill (lines)
 	" ---- reload
@@ -101,8 +101,7 @@ fun! wheel#mirror#narrow_file (...) range
 				\ function : 'wheel#line#narrow_file',
 				\ bufnum : b:wheel_related_buffer
 				\ }
-	call wheel#river#mappings (settings)
-	call wheel#polyphony#template ()
+	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('file')
 	call wheel#cuboctahedron#write ('wheel#polyphony#harmony')
 	call wheel#mandala#fill (lines)
@@ -136,9 +135,8 @@ fun! wheel#mirror#narrow_circle (...)
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()
-	call wheel#polyphony#template ()
 	let settings = #{ function : 'wheel#line#narrow_circle' }
-	call wheel#river#mappings (settings)
+	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#cuboctahedron#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)
