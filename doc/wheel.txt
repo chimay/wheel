@@ -2195,6 +2195,11 @@ option to zero : >
 
 Default : 1
 
+The highlight group is `WheelStatusLine`. You can customize it : >
+
+    highlight WheelStatusLine guifg=#5b3c11 guibg=#0 gui=bold,reverse
+<
+
 ------------------------------------------------------------------------------
 MESSAGES				    	*wheel-config-display_message*
 
