@@ -57,6 +57,24 @@ fun! wheel#cylinder#split ()
 	wincmd J
 endfun
 
+" filename
+
+fun! wheel#cylinder#pseudo ()
+	" Return pseudo filename /wheel/<buf-id>
+	let mandalas = g:wheel_mandalas
+	let current = mandalas.current
+	let iden = mandalas.iden[current]
+	let pseudo = '/wheel/' .. iden
+	return pseudo
+endfun
+
+fun! wheel#cylinder#filename ()
+	" Set buffer filename to pseudo filename
+	" Add unique buf id, so (n)vim does not complain about existing filename
+	let pseudo = wheel#cylinder#pseudo ()
+	execute 'silent file' pseudo
+endfun
+
 " window
 
 fun! wheel#cylinder#goto (...)
@@ -169,6 +187,8 @@ fun! wheel#cylinder#first (window = 'furtive')
 	eval ring->add(novice)
 	eval iden->add(0)
 	eval names->add(0)
+	" ---- set filename
+	call wheel#cylinder#filename ()
 	" ---- init mandala
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
@@ -245,11 +265,11 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let novice_iden = wheel#chain#lowest_outside (iden)
 	eval iden->insert(novice_iden, next)
 	eval names->insert(novice_iden, next)
-	" init mandala
+	" -- set filename
+	call wheel#cylinder#filename ()
+	" -- init mandala
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
-	" -- call status before going back to previous buffer
-	call wheel#status#mandala_leaf ()
 	" -- coda
 	if window == 'furtive' && ! was_mandala
 		" in furtive window, if not in mandala buffer at start,
@@ -261,6 +281,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 			silent hide buffer #
 		endif
 	endif
+	call wheel#status#mandala_leaf ()
 	return v:true
 endfun
 

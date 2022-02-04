@@ -127,28 +127,35 @@ endfun
 fun! wheel#status#statusline ()
 	" Statusline for mandala
 	if ! wheel#cylinder#is_mandala ()
-		return v:false
+		echomsg 'wheel statusline : should not be called outside of mandala'
+		return ''
 	endif
 	let mandalas = wheel#status#mandalas ()
 	let mandalas = join(mandalas)
 	let leaves = wheel#status#leaves ()
 	let leaves = join(leaves)
-	let statusline = ' mandalas: '
+	let statusline = ' '
+	let statusline ..= 'mandalas: '
 	let statusline ..= mandalas
 	let statusline ..= s:field_separ
 	let statusline ..= 'leaves: '
 	let statusline ..= leaves
+	let statusline ..=' %='
+	let statusline ..= '%F'
 	let statusline ..= s:field_separ
-	let &l:statusline = statusline
-	setlocal statusline+=buf\ %n
-	return v:true
+	let statusline ..= 'buf %n'
+	let statusline ..= s:field_separ
+	let statusline ..= '%L lines %y%r%m'
+	let statusline ..= '   %<'
+	return statusline
 endfun
 
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
 	let in_status = g:wheel_config.display.statusline
-	if in_status > 0
-		return wheel#status#statusline ()
+	if in_status > 0 && wheel#cylinder#is_mandala ()
+		setlocal statusline=%!wheel#status#statusline()
+		return v:true
 	endif
 	let oneline = g:wheel_config.display.message == 'one-line'
 	let mandalas = wheel#status#mandalas()
@@ -164,6 +171,7 @@ fun! wheel#status#mandala_leaf ()
 		echo 'wheel buffers : ' join(mandalas) "\n"
 		echo '      layers  : ' join(leaves)
 	endif
+	return v:true
 endfun
 
 " ---- tab line
