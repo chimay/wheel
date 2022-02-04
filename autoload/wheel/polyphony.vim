@@ -454,9 +454,6 @@ endfun
 
 fun! wheel#polyphony#template (settings)
 	" Filter, hybrid, input history & navigation maps for writable mandalas
-	call wheel#polyphony#filter_maps ()
-	call wheel#polyphony#input_history_maps ()
-	call wheel#polyphony#hybrid_maps ()
+	call wheel#polyphony#temple ()
 	call wheel#polyphony#navigation_maps (a:settings)
-	setlocal nocursorline
 endfun
