@@ -16,7 +16,7 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" Clear cmd line
+" ---- clear cmd line
 
 fun! wheel#status#clear ()
 	" Clear command line space
@@ -32,7 +32,7 @@ fun! wheel#status#clear_messages ()
 	echo 'messages cleared'
 endfun
 
-" Message
+" ---- echo
 
 fun! wheel#status#echo (...)
 	" Echo message
@@ -71,7 +71,7 @@ fun! wheel#status#message (...)
 	return v:true
 endfun
 
-" Wheel status
+" ---- wheel
 
 fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
@@ -96,40 +96,52 @@ fun! wheel#status#dashboard ()
 	return v:true
 endfun
 
-" Mandala & leaf status
+" ---- mandala & leaf
+
+fun! wheel#status#mandalas ()
+	" Return mandalas status
+	let mandalas = g:wheel_mandalas
+	let names = copy(mandalas.names)
+	let current = mandalas.current
+	let names[current] = '[' .. names[current] .. ']'
+	return names
+endfun
+
+fun! wheel#status#leaves ()
+	" Return leaves status
+	if ! wheel#cylinder#is_mandala ()
+		return []
+	endif
+	let nature = wheel#book#ring ('nature')
+	let types = nature->map({ _, val -> val.type })
+	let current = b:wheel_ring.current
+	let types[current] =  '[' .. types[current] .. ']'
+	return types
+endfun
+
+fun! wheel#status#mandala_statusline ()
+	" Statusline for mandala
+endfun
 
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
 	let oneline = g:wheel_config.display.message == 'one-line'
-	" ---- mandalas
-	let mandalas = g:wheel_mandalas
-	let bufnames = copy(mandalas.names)
-	let cur_mandala = mandalas.current
-	let bufnames[cur_mandala] = '[' .. bufnames[cur_mandala] .. ']'
-	" ---- leaves
-	if wheel#cylinder#is_mandala ()
-		let cur_leaf = b:wheel_ring.current
-		let nature = wheel#book#ring ('nature')
-		let leaves = nature->map({ _, val -> val.type })
-		let leaves[cur_leaf] =  '[' .. leaves[cur_leaf] .. ']'
-	else
-		let cur_leaf = -1
-	endif
-	" echo
+	let mandalas = wheel#status#mandalas()
+	let leaves = wheel#status#leaves()
 	call wheel#status#clear ()
-	if cur_leaf >= 0
-		if oneline
-			echo 'wheel buf:' join(bufnames) '/ lay:' join(leaves)
-		else
-			echo 'wheel buffers : ' join(bufnames) "\n"
-			echo '      layers  : ' join(leaves)
-		endif
+	if empty(leaves)
+		echo 'wheel buffers: ' join(mandalas) "\n"
+		return v:true
+	endif
+	if oneline
+		echo 'wheel buf:' join(mandalas) '/ lay:' join(leaves)
 	else
-		echo 'wheel buffers: ' join(bufnames) "\n"
+		echo 'wheel buffers : ' join(mandalas) "\n"
+		echo '      layers  : ' join(leaves)
 	endif
 endfun
 
-" Tab line
+" ---- tab line
 
 fun! wheel#status#tablabel (tabnum)
 	" Label of a tab
