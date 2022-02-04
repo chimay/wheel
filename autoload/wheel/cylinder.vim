@@ -15,6 +15,11 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 " helpers
 
 fun! wheel#cylinder#is_mandala (...)
@@ -469,22 +474,20 @@ endfun
 fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion
 	let mandalas = g:wheel_mandalas
-	let iden = mandalas.iden
-	if empty(iden)
+	let names = mandalas.names
+	if empty(names)
 		echomsg 'wheel cylinder switch : empty buffer ring'
 		return v:false
 	endif
 	let prompt = 'Switch to mandala : '
 	let complete = 'customlist,wheel#complete#mandala'
 	if a:0 > 0
-		let name = a:1
+		let chosen = a:1
 	else
-		let name = input(prompt, '', complete)
+		let chosen = input(prompt, '', complete)
 	endif
-	let pattern = '\([0-9]\+\).*'
-	let chosen = substitute(name, pattern, '\1', '')
-	let chosen = str2nr(chosen)
-	let mandala = iden->index(chosen)
+	let chosen = split(chosen, s:field_separ)[0]
+	let mandala = names->index(chosen)
 	if mandala < 0
 		return v:false
 	endif
