@@ -109,7 +109,6 @@ fun! wheel#tower#mappings (settings)
 	" Define maps
 	let settings = deepcopy(a:settings)
 	let menu_settings = settings.menu
-	call wheel#mandala#template ()
 	" ---- menu specific maps
 	let map = 'nnoremap <silent> <buffer>'
 	let linefun = '<cmd>call wheel#tower#action('
@@ -135,6 +134,7 @@ fun! wheel#tower#staircase (menuset, settings = {})
 	let settings.menu = menuset
 	" ---- blank mandala
 	call wheel#mandala#blank (dictname)
+	call wheel#mandala#template ()
 	" ---- mappings
 	call wheel#tower#mappings (settings)
 	" ---- fill with dict keys
