@@ -45,34 +45,6 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" mandala pseudo filename
-
-fun! wheel#mandala#pseudo (type)
-	" Return pseudo filename /wheel/<buf-id>/<type>
-	let type = a:type
-	let mandalas = g:wheel_mandalas
-	let current = mandalas.current
-	let iden = mandalas.iden[current]
-	let pseudo = '/wheel/' .. iden .. '/' .. type
-	return pseudo
-endfun
-
-fun! wheel#mandala#set_type (type)
-	" Set type & buffer filename to pseudo filename
-	" Useful as information
-	" We also need a name when writing, even with BufWriteCmd
-	let type = a:type
-	let b:wheel_nature.type = type
-	" Add unique buf id, so (n)vim does not complain about existing filename
-	let pseudo = wheel#mandala#pseudo (type)
-	execute 'silent file' pseudo
-	if type == 'empty'
-		let b:wheel_nature.empty = v:true
-	else
-		let b:wheel_nature.empty = v:false
-	endif
-endfun
-
 " init
 
 fun! wheel#mandala#init ()
@@ -254,6 +226,34 @@ fun! wheel#mandala#clear ()
 	silent! 1,$ delete _
 	" -- init vars
 	call wheel#mandala#init ()
+endfun
+
+" mandala pseudo filename
+
+fun! wheel#mandala#pseudo (type)
+	" Return pseudo filename /wheel/<buf-id>/<type>
+	let type = a:type
+	let mandalas = g:wheel_mandalas
+	let current = mandalas.current
+	let iden = mandalas.iden[current]
+	let pseudo = '/wheel/' .. iden .. '/' .. type
+	return pseudo
+endfun
+
+fun! wheel#mandala#set_type (type)
+	" Set type & buffer filename to pseudo filename
+	" Useful as information
+	" We also need a name when writing, even with BufWriteCmd
+	let type = a:type
+	let b:wheel_nature.type = type
+	" Add unique buf id, so (n)vim does not complain about existing filename
+	let pseudo = wheel#mandala#pseudo (type)
+	execute 'silent file' pseudo
+	if type == 'empty'
+		let b:wheel_nature.empty = v:true
+	else
+		let b:wheel_nature.empty = v:false
+	endif
 endfun
 
 " related buffer

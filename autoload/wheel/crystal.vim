@@ -37,7 +37,8 @@ endif
 " ---- golden ratio
 
 if ! exists('s:golden_ratio')
-	let s:golden_ratio = (1 + sqrt(5)) / 2
+	let s:golden_ratio = 1.618034
+	"let s:golden_ratio = (1 + sqrt(5)) / 2
 	lockvar! s:golden_ratio
 endif
 
@@ -92,11 +93,6 @@ if ! exists('s:sign_settings')
 				\ }
 	lockvar! s:sign_settings
 endif
-
-" highlight groups for sign
-" 				\ texthl : 'Normal',
-" 				\ numhl : 'Normal',
-" 				\ linehl : 'Normal',
 
 " ---- functions
 
@@ -281,46 +277,10 @@ if ! exists('s:mandala_vars')
 	lockvar! s:mandala_vars
 endif
 
-" -- leaf : layer fields in mandalas
-
-if ! exists('s:layer_fields')
-	" filename : pseudo filename of the mandala
-	" options : local options
-	" mappings : mappings
-	" autocmds : local autocommands
-	" nature : general qualities ; empty mandala ? has_filter ?
-	" related_buffer : bufnum of related buffer
-	" lines : all mandala lines, without filtering
-	" filter : filtered mandala content
-	" selection : selected indexes & lines
-	" preview
-	" cursor : selection & position
-	" settings : mandala settings
-	" reload : reload function
-	let s:layer_fields = [
-				\ 'filename',
-				\ 'options',
-				\ 'mappings',
-				\ 'autocmds',
-				\ 'nature',
-				\ 'related_buffer',
-				\ 'lines',
-				\ 'filter',
-				\ 'selection',
-				\ 'preview',
-				\ 'cursor',
-				\ 'settings',
-				\ 'reload',
-				\ ]
-	lockvar! s:layer_fields
-endif
-
 " -- folds in mandalas
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = ['▷', '◁']
-	"let s:fold_markers = ['▽', '△']
-	"let s:fold_markers = ['⧽', '⧼']
 	lockvar! s:fold_markers
 endif
 
@@ -348,8 +308,8 @@ if ! exists('s:separator_field')
 endif
 
 if ! exists('s:separator_field_bar')
-	" digraph : ctrl-k vv ->
 	let s:separator_field_bar = '│'
+	" digraph : ctrl-k vv ->
 	lockvar! s:separator_field_bar
 endif
 

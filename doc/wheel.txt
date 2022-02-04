@@ -3769,6 +3769,7 @@ of the modules within them.
 | rectangle.vim     | Tabs, windows & buffers                      |
 | referen.vim       | References to current wheel elements         |
 | ripple.vim        | Async job for vim                            |
+| river.vim         | Navigation aspect of dedicated buffers       |
 | sailing.vim       | Non wheel navigation                         |
 | scroll.vim        | Input history in dedicated buffers           |
 | shadow.vim        | Full information of each mandala line        |

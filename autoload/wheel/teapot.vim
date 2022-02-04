@@ -69,7 +69,7 @@ fun! wheel#teapot#set_prompt (content = '')
 	endif
 	let mandala_prompt = wheel#teapot#prompt ()
 	let pattern = '\m^' .. mandala_prompt
-	if content !~ '\m^' .. mandala_prompt
+	if content !~ pattern
 		let content = mandala_prompt .. content
 	endif
 	call wheel#mandala#unlock ()
