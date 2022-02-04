@@ -33,11 +33,7 @@ endfun
 
 fun! wheel#pendulum#date_hour (timestamp)
 	" Timestamp in date & hour format
-	if g:wheel_config.debug > 0
-		return strftime('%Y %B %d %A %H:%M:%S', a:timestamp)
-	else
-		return strftime('%Y %B %d %A %H:%M', a:timestamp)
-	endif
+	return strftime('%Y %B %d %A %H:%M', a:timestamp)
 endfun
 
 fun! wheel#pendulum#compare (one, two)

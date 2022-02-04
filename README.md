@@ -352,7 +352,9 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.frecency.reward = 120
   let g:wheel_config.frecency.penalty = 1
 
-  " Wheel message : all in one-line or accept multi-line
+  " Mandala & leaf status in statusline ?
+  let g:wheel_config.display.statusline = 1
+  " Wheel messages : one-line or multi-line
   let g:wheel_config.display.message = 'one-line'
   " Filter prompt in dedicated buffers
   let g:wheel_config.display.prompt = 'wheel $ '
@@ -360,6 +362,7 @@ if ! exists("g:wheel_loaded")
   " Selection marker in dedicated buffers
   let g:wheel_config.display.selection = '-> '
   " Sign text at wheel locations
+  let g:wheel_config.display.sign.switch = 1
   let g:wheel_config.display.sign.settings = { 'text' : '@' }
 
   let g:wheel_config.debug = 0

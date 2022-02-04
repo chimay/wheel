@@ -11,6 +11,11 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
 	lockvar s:level_separ
@@ -119,12 +124,32 @@ fun! wheel#status#leaves ()
 	return types
 endfun
 
-fun! wheel#status#mandala_statusline ()
+fun! wheel#status#statusline ()
 	" Statusline for mandala
+	if ! wheel#cylinder#is_mandala ()
+		return v:false
+	endif
+	let mandalas = wheel#status#mandalas ()
+	let mandalas = join(mandalas)
+	let leaves = wheel#status#leaves ()
+	let leaves = join(leaves)
+	let statusline = 'mandalas: '
+	let statusline ..= mandalas
+	let statusline ..= s:field_separ
+	let statusline ..= 'leaves: '
+	let statusline ..= leaves
+	let statusline ..= s:field_separ
+	let &l:statusline = statusline
+	"set statusline+=\ \ buf\ %n
+	return v:true
 endfun
 
 fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
+	let in_status = g:wheel_config.display.statusline
+	if in_status > 0
+		return wheel#status#statusline ()
+	endif
 	let oneline = g:wheel_config.display.message == 'one-line'
 	let mandalas = wheel#status#mandalas()
 	let leaves = wheel#status#leaves()

@@ -245,6 +245,9 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'display')
 		let g:wheel_config.display = {}
 	endif
+	if ! has_key(g:wheel_config.display, 'statusline')
+		let g:wheel_config.display.statusline = 1
+	endif
 	if ! has_key(g:wheel_config.display, 'message')
 		let g:wheel_config.display.message = 'one-line'
 	endif

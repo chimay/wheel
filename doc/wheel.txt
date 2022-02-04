@@ -1817,7 +1817,6 @@ Auto chdir project			|wheel-config-auto-chdir-project|
 Project markers				|wheel-config-project-markers|
 Locate database				|wheel-config-locate-db|
 Grep ex command				|wheel-config-grep|
-Messages				|wheel-config-message|
 Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max MRU					|wheel-config-maxim-mru|
@@ -1828,6 +1827,8 @@ Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
 Frecency                     		|wheel-config-frecency|
+Messages				|wheel-config-display-message|
+Statusline in dedicated buffers		|wheel-config-display-statusline|
 Filter prompt in dedicated buffers	|wheel-config-display-prompt|
 Selection marker			|wheel-config-display-selection|
 Signs					|wheel-config-display-sign|
@@ -2066,24 +2067,6 @@ Whether to use internal |:vimgrep| or external |:grep| to grep files : >
 Default : internal vimgrep, in case external grep is not available.
 
 ------------------------------------------------------------------------------
-MESSAGES				    		*wheel-config-message*
-
-Whether you accept multi-line messages or not : >
-
-  let g:wheel_config.message = 'one-line'
-  " or
-  let g:wheel_config.message = 'multi-line'
-<
-
-Default : `one-line`
-
-if you set this option to multi-line, I recommend you set |'cmdheight'|
-option to a minimum of 3 : >
-
-    set cmdheight=3
-<
-
-------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN HISTORY		   *wheel-config-maxim-history*
 
 Maximum number of elements in the wheel history : >
@@ -2201,6 +2184,39 @@ Default~
 - penalty : 1
 
 ------------------------------------------------------------------------------
+STATUSLINE IN DEDICATED BUFFERS		    	*wheel-config-display-statusline*
+
+By default, dedicated buffers status is displayed in the statusline. If
+you'd rather have it printed in the echo area, just set the statusline
+option to zero : >
+
+  let g:wheel_config.display.statusline = 0
+<
+
+Default : 1
+
+------------------------------------------------------------------------------
+MESSAGES				    	*wheel-config-display_message*
+
+You can ask wheel to print one-line messages when possible : >
+
+    let g:wheel_config.display.message = 'one-line'
+<
+
+or to accept multi-line messages : >
+
+    let g:wheel_config.display.message = 'multi-line'
+<
+
+Default : `one-line`
+
+if you set this option to multi-line, I recommend you set |'cmdheight'|
+option to a minimum of 3 : >
+
+    set cmdheight=3
+<
+
+------------------------------------------------------------------------------
 FILTER PROMPT IN REGULAR DEDICATED BUFFERS	*wheel-config-display-prompt*
 
 You can customize the filter prompt in dedicated buffers.
@@ -2237,7 +2253,7 @@ SIGNS						*wheel-config-display-sign*
 By default, signs are displayed at wheel locations. You can disable it
 if you want : >
 
-    let g:wheel_config.display.sign.switch = v:false
+    let g:wheel_config.display.sign.switch = 0
 <
 
 The sign settings for wheel location can also be modified : >
@@ -2353,7 +2369,9 @@ Here is an example of a complete configuration : >
   let g:wheel_config.frecency.reward = 120
   let g:wheel_config.frecency.penalty = 1
 
-  " Wheel message : all in one-line or accept multi-line
+  " Mandala & leaf status in statusline ?
+  let g:wheel_config.display.statusline = 1
+  " Wheel message : one-line or multi-line
   let g:wheel_config.display.message = 'one-line'
   " Filter prompt in dedicated buffers
   let g:wheel_config.display.prompt = 'wheel $ '
@@ -2361,6 +2379,7 @@ Here is an example of a complete configuration : >
   " Selection marker in dedicated buffers
   let g:wheel_config.display.selection = '-> '
   " Sign text at wheel locations
+  let g:wheel_config.display.sign.switch = 1
   let g:wheel_config.display.sign.settings = { 'text' : '@' }
 <
 

@@ -162,7 +162,6 @@ endfun
 fun! wheel#book#ring (...)
 	" Return ring of field given by optional argument
 	" Return all book (leaves ring) if no argument is given
-	" Useful for debugging
 	if a:0 == 0
 		return b:wheel_ring.leaves
 	endif
