@@ -61,6 +61,8 @@ fun! wheel#codex#climb (content)
 	return v:true
 endfun
 
+" prompt
+
 fun! wheel#codex#yank_list (where = 'linewise-after')
 	" Paste yank from yank ring in list mode
 	let where = a:where
@@ -98,4 +100,59 @@ fun! wheel#codex#yank_plain (where = 'linewise-after')
 		normal! P
 	endif
 	call wheel#codex#climb([ content ])
+endfun
+
+" mandala
+
+fun! wheel#codex#options (mode)
+	" Set local yank options
+	setlocal nowrap
+	if a:mode == 'plain'
+		setlocal nocursorline
+	endif
+endfun
+
+fun! wheel#codex#mappings (mode)
+	" Define local yank maps
+	let nmap = 'nnoremap <buffer>'
+	let mode = a:mode
+	if mode == 'list'
+		let paste = 'wheel#line#paste_list'
+	elseif mode == 'plain'
+		let paste = 'wheel#line#paste_plain'
+	endif
+	" -- normal mode
+	let nmap = 'nnoremap <buffer>'
+	exe nmap '<cr>  <cmd>call' paste "('linewise-after', 'close')<cr>"
+	exe nmap 'g<cr> <cmd>call' paste "('linewise-after', 'open')<cr>"
+	exe nmap 'p     <cmd>call' paste "('linewise-after', 'open')<cr>"
+	exe nmap 'P     <cmd>call' paste "('linewise-before', 'open')<cr>"
+	exe nmap 'gp    <cmd>call' paste "('charwise-after', 'open')<cr>"
+	exe nmap 'gP    <cmd>call' paste "('charwise-before', 'open')<cr>"
+	" -- visual mode
+	if mode == 'plain'
+		let paste_visual = 'wheel#line#paste_visual'
+		let vmap = 'vnoremap <silent> <buffer>'
+		exe vmap '<cr>  :<c-u>call' paste_visual "('after', 'close')<cr>"
+		exe vmap 'g<cr> :<c-u>call' paste_visual "('after', 'open')<cr>"
+		exe vmap 'p     :<c-u>call' paste_visual "('after', 'open')<cr>"
+		exe vmap 'P     :<c-u>call' paste_visual "('before', 'open')<cr>"
+	endif
+	" -- undo, redo
+	nnoremap <buffer> u <cmd>call wheel#mandala#undo()<cr>
+	nnoremap <buffer> <c-r> <cmd>call wheel#mandala#redo()<cr>
+	" -- context menu
+	let menu = 'yank/' .. mode
+	call wheel#boomerang#launch_map (menu)
+endfun
+
+fun! wheel#codex#template (settings)
+	" Template
+	let settings = a:settings
+	let mode = settings.mode
+	call wheel#mandala#template (settings)
+	call wheel#codex#options (mode)
+	call wheel#codex#mappings (mode)
+	" selection
+	call wheel#pencil#mappings ()
 endfun

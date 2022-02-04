@@ -20,7 +20,7 @@ fun! wheel#orbiter#preview ()
 		let b:wheel_preview.original = wheel#rectangle#previous_buffer ()
 	endif
 	let settings = b:wheel_settings
-	call wheel#whirl#default (settings)
+	call wheel#river#default (settings)
 	let cursor_info = wheel#pencil#cursor ()
 	let settings.selection.index = cursor_info.index
 	let settings.selection.component = cursor_info.component

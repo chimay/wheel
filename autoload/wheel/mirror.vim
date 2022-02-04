@@ -101,7 +101,7 @@ fun! wheel#mirror#narrow_file (...) range
 				\ function : 'wheel#line#narrow_file',
 				\ bufnum : b:wheel_related_buffer
 				\ }
-	call wheel#whirl#mappings (settings)
+	call wheel#river#mappings (settings)
 	call wheel#polyphony#template ()
 	call wheel#polyphony#action_maps ('file')
 	call wheel#cuboctahedron#write ('wheel#polyphony#harmony')
@@ -138,7 +138,7 @@ fun! wheel#mirror#narrow_circle (...)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#template ()
 	let settings = #{ function : 'wheel#line#narrow_circle' }
-	call wheel#whirl#mappings (settings)
+	call wheel#river#mappings (settings)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#cuboctahedron#write ('wheel#polyphony#counterpoint')
 	call wheel#mandala#fill (lines)

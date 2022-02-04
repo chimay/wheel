@@ -17,7 +17,7 @@ fun! wheel#frigate#generic (type)
 	endif
 	call wheel#mandala#blank (type)
 	let settings = #{ function : 'wheel#line#' .. type }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#' .. type
@@ -48,7 +48,7 @@ fun! wheel#frigate#buffer (scope = 'listed')
 	endif
 	call wheel#mandala#blank (type)
 	let settings = #{ function : 'wheel#line#buffer' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" context menu
 	call wheel#boomerang#launch_map (type)
@@ -66,7 +66,7 @@ fun! wheel#frigate#tabwin_tree ()
 	endif
 	call wheel#mandala#blank ('tabwin/tree')
 	let settings = #{ function : 'wheel#line#tabwin_tree' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#folding_options ('tabwin_folding_text')
 	call wheel#mandala#fill (lines)
 	" properties
@@ -89,7 +89,7 @@ fun! wheel#frigate#tabwin ()
 	endif
 	call wheel#mandala#blank ('tabwin')
 	let settings = #{ function : 'wheel#line#tabwin' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#tabwin'
@@ -120,7 +120,7 @@ fun! wheel#frigate#jump ()
 	" mandala buffer
 	call wheel#mandala#blank ('jump')
 	let settings = #{ function : 'wheel#line#jump' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#jump'
@@ -139,7 +139,7 @@ fun! wheel#frigate#change ()
 	" mandala buffer
 	call wheel#mandala#blank ('change')
 	let settings = #{ function : 'wheel#line#change' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#frigate#change'
@@ -172,7 +172,7 @@ fun! wheel#frigate#locate (...)
 	endif
 	call wheel#mandala#blank ('locate')
 	let settings = #{ function : 'wheel#line#locate' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#locate('" .. pattern .. "')"
@@ -198,7 +198,7 @@ fun! wheel#frigate#find (...)
 	endif
 	call wheel#mandala#blank ('find')
 	let settings = #{ function : 'wheel#line#find' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#find('" .. pattern .. "')"
@@ -234,7 +234,7 @@ fun! wheel#frigate#async_find (...)
 		let job = wheel#ripple#start(command, settings)
 	endif
 	let settings = #{ function : 'wheel#line#find' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	" reload
 	let b:wheel_reload = "wheel#frigate#async_find('" .. pattern .. "')"
 endfun
@@ -259,7 +259,7 @@ fun! wheel#frigate#occur (...)
 	endif
 	call wheel#mandala#blank ('occur')
 	let settings = #{ function : 'wheel#line#occur' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#occur('" .. pattern .. "')"
@@ -288,7 +288,7 @@ fun! wheel#frigate#grep (...)
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('grep/' .. word)
 	let settings = #{ function : 'wheel#line#grep' }
-	call wheel#whirl#template (settings)
+	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
 	let b:wheel_reload = "wheel#frigate#grep('" .. pattern .. "', '" .. sieve .. "')"
