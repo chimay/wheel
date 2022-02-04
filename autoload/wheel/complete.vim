@@ -20,21 +20,6 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-if ! exists('s:level_separ')
-	let s:level_separ = wheel#crystal#fetch('separator/level')
-	lockvar s:level_separ
-endif
-
-if ! exists('s:is_buffer_tabs')
-	let s:is_buffer_tabs = wheel#crystal#fetch('is_buffer/tabs')
-	lockvar s:is_buffer_tabs
-endif
-
-if ! exists('s:is_mandala_tabs')
-	let s:is_mandala_tabs = wheel#crystal#fetch('is_mandala/tabs')
-	lockvar s:is_mandala_tabs
-endif
-
 " empty
 
 fun! wheel#complete#empty (arglead, cmdline, cursorpos)
@@ -115,16 +100,14 @@ endfun
 fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	" Complete mandala buffer name
 	let mandalas = g:wheel_mandalas
-	let bufnums = mandalas.ring
+	let names = mandalas.names
 	let types = mandalas.types
-	if empty(bufnums)
+	if empty(names)
 		return []
 	endif
 	let choices = []
-	for index in wheel#chain#rangelen(bufnums)
-		let num = bufnums[index]
-		let description = types[index]
-		let title = bufname(num) .. ' : ' .. description
+	for index in wheel#chain#rangelen(names)
+		let title = names[index] .. s:field_separ .. types[index]
 		eval choices->add(title)
 	endfor
 	let wordlist = split(a:cmdline)

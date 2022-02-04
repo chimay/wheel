@@ -481,7 +481,7 @@ fun! wheel#cylinder#switch ()
 	else
 		let name = input(prompt, '', complete)
 	endif
-	let pattern = '/wheel/\([0-9]\+\).*'
+	let pattern = '\([0-9]\+\).*'
 	let chosen = substitute(name, pattern, '\1', '')
 	let chosen = str2nr(chosen)
 	let mandala = iden->index(chosen)
