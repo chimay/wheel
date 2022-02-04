@@ -140,7 +140,7 @@ fun! wheel#status#statusline ()
 	let statusline ..= leaves
 	let statusline ..= s:field_separ
 	let &l:statusline = statusline
-	"set statusline+=\ \ buf\ %n
+	setlocal statusline+=buf\ %n
 	return v:true
 endfun
 
