@@ -3581,19 +3581,73 @@ setup : >
 ==============================================================================
 COMMANDS					*wheel-commands*
 
+Wheel status				|wheel-commands-status|
+Read and write				|wheel-commands-read-and-write|
+Batch					|wheel-commands-batch|
+Autogroup				|wheel-commands-autogroup|
+Disc operations				|wheel-commands-disc-operations|
+Wheel tree in disc			|wheel-commands-tree-in-disc|
+
+------------------------------------------------------------------------------
+WHEEL STATUS						*wheel-commands-status*
+
 :WheelDashboard					*:WheelDashboard*
 	Print information of the current wheel status in the format
 	`torus > circle > location`.
 
+:WheelJump
+	Jump to current wheel location
+
+:WheelFollow
+	Find closest location in wheel matching current file & cursor
+
+------------------------------------------------------------------------------
+READ AND WRITE					*wheel-commands-read-and-write*
+
+:WheelRead
+	Load wheel from file
+
+:WheelWrite
+	Save wheel in file
+
+:WheelReadSession
+	Load session from file
+
+:WheelWriteSession
+	Save session in file
+
+------------------------------------------------------------------------------
+BATCH							*wheel-commands-batch*
 
 :WheelBatch {my_command}		       *:WheelBatch*
 	Use the argument list to execute {my_command} on each location of the
 	current circle. The command can be a vim `:command` or an external shell
 	`!command`. The ouput is displayed in a dedicated buffer.
 
+------------------------------------------------------------------------------
+AUTOGROUP						*wheel-commands-autogroup*
+
 :WheelAutogroup				       *:WheelAutogroup*
 	Autogroup locations of current torus using filename extensions or directories.
 	Creates a new torus where each group will occupy a circle.
+
+------------------------------------------------------------------------------
+DISC OPERATIONS					*wheel-commands-disc-operations*
+
+:WheelMkdir {dirname}
+	Create recursively a directory if non existent
+
+:WheelRename {source} {dest}
+	Rename a file
+
+:WheelCopy {source} {dest}
+	Copy a file
+
+:WheelDelete {filename}
+	Delete a file
+
+------------------------------------------------------------------------------
+WHEEL TREE IN DISC				*wheel-commands-tree-in-disc*
 
 :WheelTreeScript				*:WheelTreeScript*
 	Write a shell script that generates a tree of links or copies
