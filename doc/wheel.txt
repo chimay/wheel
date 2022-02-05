@@ -1760,15 +1760,9 @@ buffer number | line number | filename | line content
 
 Substitution~
 
-The map `<M-s>` launch a |:substitute| wrapper. There are a few advantages
-to use it instead of a plain `:s/.../.../g`.
-
-First, only the line contents are modified, the other fields remain
-intact. If you are curious about how it is done, check |/\@<=|.
-
-Second, if the replacing word is already present in the buffer, it will
-ask you confirmation before running the substitution. So, you can avoid
-confusion in variable names, for instance.
+The map `<M-s>` launch a |:substitute| wrapper. There are a
+few advantages to use it instead of a plain `:s/.../.../g`, see
+|wheel-dedicated-buffers-narrow-file|.
 
 ------------------------------------------------------------------------------
 YANK RING					*wheel-dedicated-buffers-yank*
