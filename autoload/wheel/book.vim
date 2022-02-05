@@ -491,7 +491,7 @@ endfun
 " ---- switch
 
 fun! wheel#book#switch (...)
-	" Switch to layer with completion
+	" Switch to leaf with completion
 	if wheel#mandala#is_empty()
 		echomsg 'wheel book switch : deleting empty leaf'
 		call wheel#book#delete ()
@@ -503,7 +503,7 @@ fun! wheel#book#switch (...)
 		echomsg 'wheel layer switch : empty layer ring'
 		return v:false
 	endif
-	let prompt = 'Switch to layer : '
+	let prompt = 'Switch to leaf : '
 	let complete = 'customlist,wheel#complete#leaf'
 	if a:0 > 0
 		let chosen = a:1
