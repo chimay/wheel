@@ -405,7 +405,7 @@ See |wheel-prompting-functions-switch|.
 ==============================================================================
 WORKFLOW						*wheel-workflow*
 
-Wheel offer you a threefold approach :
+Wheel offers a threefold approach :
 
 - straightforward functions : for action that does not require any user input
 - prompting functions : require user input at prompt, advanced completion is available
