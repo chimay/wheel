@@ -5,6 +5,7 @@ CONTENTS			*wheel*
 
 Introduction			|wheel-introduction|
 Step by step			|wheel-step-by-step|
+Workflow			|wheel-workflow|
 Straightforward functions	|wheel-straightforward-functions|
 Prompting functions		|wheel-prompting-functions|
 Dedicated buffers		|wheel-dedicated-buffers|
@@ -400,6 +401,15 @@ You can also search for a tag in a dedicated buffer with `<M-w><M-t>`.
 
 There are also functions for buffers, marks, jumps or changes.
 See |wheel-prompting-functions-switch|.
+
+==============================================================================
+WORKFLOW						*wheel-workflow*
+
+Wheel offer you a threefold approach :
+
+- straightforward functions : for action that does not require any user input
+- prompting functions : require user input at prompt, advanced completion is available
+- dedicated buffers : for more advanced operations
 
 ==============================================================================
 STRAIGHTFORWARD FUNCTIONS			*wheel-straightforward-functions*
