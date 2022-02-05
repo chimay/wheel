@@ -933,6 +933,35 @@ It's a toggle key : press `f` again and the follow mode is disabled. You
 should go back automatically to the original buffer.
 
 ------------------------------------------------------------------------------
+FOLDS						*wheel-dedicated-buffers-folds*
+
+Some dedicated buffers use folding to reflect the treeish structure of the
+represented objects.
+
+Filtering in these buffers will keep surrounding folds ; only non matching
+empty folds will be removed.
+
+Main menu~
+
+In the main menu, each fold contains a category of actions.
+
+Default map : `<M-w>m`
+
+Wheel tree~
+
+The index/tree buffer use folds to reflect the tree structure of the
+Wheel : toruses, circles and locations.
+
+Default map : `<M-w><M-x>`
+
+Tabs & windows~
+
+The tabwin/tree buffer use folds to reflect the tree structure of tabs
+and windows in (neo)vim.
+
+Default map : `<M-w><M-v>`
+
+------------------------------------------------------------------------------
 NON WRITABLE   				*wheel-dedicated-buffers-non-writable*
 
 Some dedicated buffers are not intended to be edited, except on the filter
@@ -1054,35 +1083,6 @@ So, there are two levels :
 - a layer ring in each dedicated buffer
 
 A layer in a dedicated buffer is also called a leaf.
-
-------------------------------------------------------------------------------
-FOLDS						*wheel-dedicated-buffers-folds*
-
-Some dedicated buffers use folding to reflect the treeish structure of the
-represented objects.
-
-Filtering in these buffers will keep surrounding folds ; only non matching
-empty folds will be removed.
-
-Main menu~
-
-In the main menu, each fold contains a category of actions.
-
-Default map : `<M-w>m`
-
-Wheel tree~
-
-The index/tree buffer use folds to reflect the tree structure of the
-Wheel : toruses, circles and locations.
-
-Default map : `<M-w><M-x>`
-
-Tabs & windows~
-
-The tabwin/tree buffer use folds to reflect the tree structure of tabs
-and windows in (neo)vim.
-
-Default map : `<M-w><M-v>`
 
 ------------------------------------------------------------------------------
 MENU						*wheel-dedicated-buffers-menus*
