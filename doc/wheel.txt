@@ -716,15 +716,15 @@ as a string.
 DEDICATED BUFFERS				    *wheel-dedicated-buffers*
 
 Introduction			|wheel-dedicated-buffers-introduction|
-Tools				|wheel-dedicated-buffers-selection|
-Tools				|wheel-dedicated-buffers-filtering|
-Tools				|wheel-dedicated-buffers-input-history|
-Tools				|wheel-dedicated-buffers-preview|
+Selection			|wheel-dedicated-buffers-selection|
+Filtering			|wheel-dedicated-buffers-filtering|
+Input history			|wheel-dedicated-buffers-input-history|
+Preview				|wheel-dedicated-buffers-preview|
+Folds				|wheel-dedicated-buffers-folds|
 Non writable			|wheel-dedicated-buffers-non-writable|
 Writable			|wheel-dedicated-buffers-writable|
 Buffer ring			|wheel-dedicated-buffers-ring|
 Layer ring			|wheel-dedicated-buffers-layers|
-Folds				|wheel-dedicated-buffers-folds|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
@@ -1138,7 +1138,7 @@ In these sub-menus, you can use the keys :
 
 - `<Enter>`                      : launch the action on the cursor line
 - `g<Enter>`, `<Tab>`, `<Space>`     : launch action, leave the menu opened
-- `H`                            : leads you back to the meta menu
+- `<M-k>`                        : leads you back to the meta menu
 - `<Backspace>`                  : back to the meta menu, delete submenu layer
 
 ------------------------------------------------------------------------------
@@ -1148,7 +1148,7 @@ Some dedicated buffers have context menu support. In that case, pressing
 `<Tab>` will open a menu where you can choose the action you want to
 apply to the selected or cursor line(s).
 
-If you change your mind and wish to come back, just press `H` or
+If you change your mind and wish to come back, just press `<M-k>` or
 `<Backspace>`.
 
 Navigation~
