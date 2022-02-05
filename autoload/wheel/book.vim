@@ -511,6 +511,7 @@ fun! wheel#book#switch (...)
 		let chosen = input(prompt, '', complete)
 	endif
 	let current = split(chosen, s:field_separ)[0]
+	let current = str2nr(current)
 	let ring.current = current
 	call wheel#book#syncdown ()
 	call wheel#cylinder#update_type ()

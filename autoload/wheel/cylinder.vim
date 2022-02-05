@@ -202,7 +202,7 @@ fun! wheel#cylinder#first (window = 'furtive')
 	let types = mandalas.types
 	eval ring->add(novice)
 	eval iden->add(0)
-	eval names->add(0)
+	eval names->add('0')
 	eval types->add('')
 	" ---- set filename
 	call wheel#cylinder#filename ()
@@ -282,7 +282,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let types = mandalas.types
 	let novice_iden = wheel#chain#lowest_outside (iden)
 	eval iden->insert(novice_iden, next)
-	eval names->insert(novice_iden, next)
+	eval names->insert(string(novice_iden), next)
 	eval types->insert('', next)
 	" -- set filename
 	call wheel#cylinder#filename ()

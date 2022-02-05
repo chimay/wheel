@@ -600,7 +600,8 @@ Example of pseudo-filenames :
 
 Switch layer in ring~
 
-You must be in a dedicated buffer to launch it. The local mapping is `<M-Down>`.
+You must be in a dedicated buffer to launch it. The local mapping is
+`<M-l>`, or `<C-Down>`.
 
 See also |wheel-dedicated-buffers-layers|.
 
@@ -1062,7 +1063,7 @@ as a kind of local history. You can :
 
 - go back to the previous layer (and associated wheel function) by pressing `H`
 - go forward to the next layer by pressing `L`
-- switch to another layer with `<M-Down>`, completion is available
+- switch to another layer with `<M-l>`, or `<C-Down>`, completion is available
 - destroy current layer and go back to the previous one by pressing `<Backspace>`
 
 The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers`.
@@ -3141,8 +3142,6 @@ adapt them to your taste and add them to your init file.
 | <M-Up>         | Switch dedicated buffer                       |
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
-| <C-Up>         | Rotate windows counter clockwise              |
-| <C-Down>       | Rotate windows clockwise                      |
 
 Below is the default level 10. To customize it, first set your
 mapping level to less than 10, then copy and adapt the following lines : >
@@ -3252,8 +3251,6 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-up>         <plug>(wheel-mandala-switch)'
     " ---- layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
-    exe nmap '<c-up>         <plug>(wheel-rotate-counter-clockwise)'
-    exe nmap '<c-down>       <plug>(wheel-rotate-clockwise)'
 <
 
 ------------------------------------------------------------------------------
