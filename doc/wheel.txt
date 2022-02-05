@@ -589,15 +589,6 @@ The default mapping is `<M-w><Up>`.
 
 See |wheel-dedicated-buffers-ring|.
 
-You can complete by dedicated buffer pseudo-filename, wich will lead
-you to the buffer you want.
-
-Example of pseudo-filenames :
-
-- /wheel/0/tree
-- /wheel/1/history
-- ...
-
 Switch layer in ring~
 
 You must be in a dedicated buffer to launch it. The local mapping is
@@ -1049,6 +1040,14 @@ Wheel manages a dedicated buffers ring. You can :
     + reopens the current dedicated buffer in a new window if it is closed
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
+
+When switching, you can complete by dedicated buffer labels & types, wich
+will lead you to the buffer you want. Example of completion candidates : >
+
+    0 | index/tree
+    1 | history
+    2 | yank/plain
+<
 
 A wheel dedicated buffer is also called a mandala.
 
