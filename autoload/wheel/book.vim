@@ -8,7 +8,7 @@
 "
 " A book contains leaves, sheets, layers
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:mandala_options')
 	let s:mandala_options = wheel#crystal#fetch('mandala/options')
@@ -35,7 +35,12 @@ if ! exists('s:mandala_vars')
 	lockvar s:mandala_vars
 endif
 
-" Helpers
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
+" ---- helpers
 
 fun! wheel#book#indexes_to_keep ()
 	" Return list of indexes to keep & new current index
@@ -143,7 +148,7 @@ fun! wheel#book#template ()
 	return leaf
 endfun
 
-" Init ring
+" ---- init ring
 
 fun! wheel#book#init ()
 	" Init ring
@@ -157,7 +162,7 @@ fun! wheel#book#init ()
 	return v:true
 endfun
 
-" Access elements
+" ---- access elements
 
 fun! wheel#book#ring (...)
 	" Return ring of field given by optional argument
@@ -234,7 +239,7 @@ fun! wheel#book#next (...)
 	return ring.leaves[next][fieldname]
 endfun
 
-" Saving things
+" ---- saving things
 
 fun! wheel#book#save_options ()
 	" Save options
@@ -253,7 +258,7 @@ fun! wheel#book#save_autocmds ()
 	return wheel#gear#save_autocmds (group, events)
 endfun
 
-" Restoring things
+" ---- restoring things
 
 fun! wheel#book#restore_autocmds (autodict)
 	" Restore autocommands
@@ -378,7 +383,7 @@ fun! wheel#book#syncdown ()
 	call wheel#status#mandala_leaf ()
 endfun
 
-" Add & delete
+" ---- add & delete
 
 fun! wheel#book#add (clear_mandala = 'dont-clear')
 	" Add empty leaf in ring
@@ -443,7 +448,7 @@ fun! wheel#book#delete ()
 	return v:true
 endfun
 
-" Forward & backward
+" ---- forward & backward
 
 fun! wheel#book#forward ()
 	" Go forward in layer ring
@@ -483,7 +488,7 @@ fun! wheel#book#backward ()
 	call wheel#cylinder#update_type ()
 endfun
 
-" Switch
+" ---- switch
 
 fun! wheel#book#switch (...)
 	" Switch to layer with completion
@@ -501,17 +506,11 @@ fun! wheel#book#switch (...)
 	let prompt = 'Switch to layer : '
 	let complete = 'customlist,wheel#complete#leaf'
 	if a:0 > 0
-		let name = a:1
+		let chosen = a:1
 	else
-		let name = input(prompt, '', complete)
+		let chosen = input(prompt, '', complete)
 	endif
-	let forest = wheel#book#ring ('nature')
-	let types = map(forest, { _, val -> val.type })
-	let current = types->index(name)
-	if current < 0
-		echomsg 'wheel book switch : mandala leaf' name ' not found in ring'
-		return v:false
-	endif
+	let current = split(chosen, s:field_separ)[0]
 	let ring.current = current
 	call wheel#book#syncdown ()
 	call wheel#cylinder#update_type ()

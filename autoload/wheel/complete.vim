@@ -122,7 +122,7 @@ fun! wheel#complete#leaf (arglead, cmdline, cursorpos)
 	if empty(forest)
 		return []
 	endif
-	let choices = map(forest, { _, val -> val.type })
+	let choices = map(forest, { ind, val -> ind .. s:field_separ .. val.type })
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
