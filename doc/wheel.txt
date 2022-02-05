@@ -1064,6 +1064,10 @@ represented objects.
 Filtering in these buffers will keep surrounding folds ; only non matching
 empty folds will be removed.
 
+Main menu~
+
+In the main menu, each fold contains a category of actions.
+
 Wheel tree~
 
 The index/tree buffer use folds to reflect the tree structure of the
