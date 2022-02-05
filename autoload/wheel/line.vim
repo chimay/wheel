@@ -8,7 +8,7 @@
 " - paste
 " - undo & diff
 "
-" called by loop#navigation, and sometimes loop#boomerang
+" called by loop#navigation
 
 " ---- script constants
 
@@ -24,37 +24,20 @@ fun! wheel#line#buffer (settings)
 	" ---- settings
 	let settings = a:settings
 	let component = settings.selection.component
-	let fields = split(component, s:field_separ, v:true)
+	let fields = split(component, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let filename = fnamemodify(fields[3], ':p')
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.class == 'menu/context'
-	if is_context_menu
-		let action = settings.menu.action
+	let target = settings.target
+	" ---- navigation
+	let coordin = wheel#projection#closest ('wheel', filename)
+	if ! empty(coordin)
+		let where = wheel#curve#where (target)
+		call wheel#curve#target (target)
+		call wheel#vortex#chord (coordin)
+		call wheel#vortex#jump (where)
 	else
-		let action = 'navigation'
-	endif
-	" ---- actions
-	if action == 'navigation'
-		let target = settings.target
-		let coordin = wheel#projection#closest ('wheel', filename)
-		if ! empty(coordin)
-			let where = wheel#curve#where (target)
-			call wheel#curve#target (target)
-			call wheel#vortex#chord (coordin)
-			call wheel#vortex#jump (where)
-		else
-			call wheel#curve#target (target)
-			execute 'hide buffer' bufnum
-		endif
-	elseif action == 'delete'
-		execute 'silent bdelete' bufnum
-		echomsg 'buffer' bufnum 'deleted'
-	elseif action == 'unload'
-		execute 'silent bunload' bufnum
-		echomsg 'buffer' bufnum 'unloaded'
-	elseif action == 'wipe'
-		execute 'silent bwipe' bufnum
-		echomsg 'buffer' bufnum 'wiped'
+		call wheel#curve#target (target)
+		execute 'hide buffer' bufnum
 	endif
 	if settings.follow
 		call wheel#projection#follow ()
@@ -67,31 +50,13 @@ fun! wheel#line#tabwin (settings)
 	" ---- settings
 	let settings = a:settings
 	let component = settings.selection.component
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.class == 'menu/context'
-	if is_context_menu
-		let action = settings.menu.action
-	else
-		let action = 'open'
-	endif
-	" ---- actions
-	if action == 'open'
-		let fields = split(component, s:field_separ)
-		let tabnum = fields[0]
-		let winum = fields[1]
-		execute 'noautocmd tabnext' tabnum
-		execute 'noautocmd' winum 'wincmd w'
-		doautocmd WinEnter
-	elseif action == 'tabnew'
-		noautocmd tabnew
-	elseif action == 'tabclose'
-		let fields = split(component, s:field_separ)
-		let tabnum = fields[0]
-		if tabnum != tabpagenr()
-			execute 'noautocmd tabclose' tabnum
-		else
-			echomsg 'wheel line tabwin : will not close current tab page'
-		endif
-	endif
+	let fields = split(component, s:field_separ)
+	let tabnum = fields[0]
+	let winum = fields[1]
+	" ---- navigation
+	execute 'noautocmd tabnext' tabnum
+	execute 'noautocmd' winum 'wincmd w'
+	doautocmd WinEnter
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -104,29 +69,13 @@ fun! wheel#line#tabwin_tree (settings)
 	let settings = a:settings
 	let hierarchy = settings.selection.component
 	let tabnum = hierarchy[0]
-	let is_context_menu = has_key(settings, 'menu') && settings.menu.class == 'menu/context'
-	if is_context_menu
-		let action = settings.menu.action
-	else
-		let action = 'open'
-	endif
 	" ---- actions
-	if action == 'open'
-		execute 'noautocmd tabnext' tabnum
-		if len(hierarchy) > 1
-			let winum = hierarchy[1]
-			execute 'noautocmd' winum 'wincmd w'
-		endif
-		doautocmd WinEnter
-	elseif action == 'tabnew'
-		noautocmd tabnew
-	elseif action == 'tabclose'
-		if tabnum != tabpagenr()
-			execute 'noautocmd tabclose' tabnum
-		else
-			echomsg 'wheel line tabwin_tree : will not close current tab page'
-		endif
+	execute 'noautocmd tabnext' tabnum
+	if len(hierarchy) > 1
+		let winum = hierarchy[1]
+		execute 'noautocmd' winum 'wincmd w'
 	endif
+	doautocmd WinEnter
 	if settings.follow
 		call wheel#projection#follow ()
 	endif

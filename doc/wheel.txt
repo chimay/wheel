@@ -600,7 +600,7 @@ Example of pseudo-filenames :
 
 Switch layer in ring~
 
-You must be in a dedicated buffer to launch it. The local mapping is `<M-l>`.
+You must be in a dedicated buffer to launch it. The local mapping is `<M-Down>`.
 
 See also |wheel-dedicated-buffers-layers|.
 
@@ -1062,7 +1062,7 @@ as a kind of local history. You can :
 
 - go back to the previous layer (and associated wheel function) by pressing `H`
 - go forward to the next layer by pressing `L`
-- switch to another layer with `<M-l>`, completion is available
+- switch to another layer with `<M-Down>`, completion is available
 - destroy current layer and go back to the previous one by pressing `<Backspace>`
 
 The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers`.

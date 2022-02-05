@@ -8,7 +8,7 @@
 " - element in index
 " - element in history
 "
-" called by loop#navigation, and sometimes loop#boomerang
+" called by loop#navigation
 
 " ---- script constants
 

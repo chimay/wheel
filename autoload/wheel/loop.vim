@@ -2,16 +2,23 @@
 
 " Loop
 "
-" Loops on mandala lines
+" Loops on mandala selections
 "
 " other names ideas for this file :
 "
 " ouroboros
 
-" looping
+" ---- script constants
+
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
+" ---- navigation
 
 fun! wheel#loop#navigation (settings)
-	" Navigation loop for element(s) in cursor line or selection line(s)
+	" Call navigation function
 	" settings keys :
 	"   - function : navigation function name or funcref
 	"   - target : current window, tab, horizontal or vertical split,
@@ -68,30 +75,76 @@ fun! wheel#loop#navigation (settings)
 	return winiden
 endfun
 
-fun! wheel#loop#boomerang (settings)
-	" Loop for non-navigation actions in boomerang
-	" settings is a dictionary containing settings.menu
-	" settings.menu keys can be :
-	"   - action : action name or funcref
-	"   - close : whether to close mandala
-	let settings = deepcopy(a:settings)
-	call wheel#river#default (settings)
-	let menu_settings = settings.menu
-	let Fun = settings.function
-	" ---- selection
+" ---- context menus
+
+fun! wheel#loop#buffer_delete ()
+	" Delete buffers
 	let selection = wheel#upstream#selection ()
+	let components = selection.components
+	for elem in components
+		let fields = split(elem, s:field_separ)
+		let bufnum = str2nr(fields[0])
+		execute 'silent bdelete' bufnum
+		echomsg 'buffer' bufnum 'deleted'
+	endfor
+	" dont remove parent selection on buffer/all
+	if wheel#mandala#type () == 'buffer'
+		call wheel#upstream#remove_selection ()
+	endif
+endfun
+
+fun! wheel#loop#buffer_unload ()
+	" Unload buffers
+	let selection = wheel#upstream#selection ()
+	let components = selection.components
+	for elem in components
+		let fields = split(elem, s:field_separ)
+		let bufnum = str2nr(fields[0])
+		execute 'silent bunload' bufnum
+		echomsg 'buffer' bufnum 'unloaded'
+	endfor
+endfun
+
+fun! wheel#loop#buffer_wipe ()
+	" Wipe buffers
+	let selection = wheel#upstream#selection ()
+	let components = selection.components
+	for elem in components
+		let fields = split(elem, s:field_separ)
+		let bufnum = str2nr(fields[0])
+		execute 'silent bwipe' bufnum
+		echomsg 'buffer' bufnum 'wiped'
+	endfor
+	call wheel#upstream#remove_selection ()
+endfun
+
+fun! wheel#loop#tabclose ()
+	" Close tabs
+	let selection = wheel#upstream#selection()
 	let indexes = selection.indexes
 	let components = selection.components
-	if empty(indexes)
-		return v:false
-	endif
-	" ---- loop
-	let length = len(indexes)
-	for ind in range(length)
-		let settings.selection.index = selection.indexes[ind]
-		let settings.selection.component = selection.components[ind]
-		let winiden = Fun->wheel#gear#call(settings)
+	let [shuffled, indexes] = wheel#chain#sort(indexes)
+	call reverse(indexes)
+	call reverse(shuffled)
+	let selection.indexes = indexes
+	let selection.components = components->wheel#chain#sublist(shuffled)
+	let components = selection.components
+	let cur_tab = tabpagenr()
+	for elem in components
+		if type(elem) == v:t_string
+			" plain, unfolded, tabs & wins
+			let fields = split(elem, s:field_separ)
+			let tabnum = str2nr(fields[0])
+		else
+			" tree, folded tabs & wins
+			let tabnum = elem[0]
+		endif
+		if tabnum == cur_tab
+			echomsg 'wheel line tabwin : will not close current tab page'
+			continue
+		endif
+		echomsg 'noautocmd tabclose' tabnum
+		execute 'noautocmd tabclose' tabnum
 	endfor
-	" ---- coda
-	return winiden
+	call wheel#upstream#remove_selection ()
 endfun

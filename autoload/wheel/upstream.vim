@@ -64,21 +64,31 @@ fun! wheel#upstream#remove_selection ()
 	" removed = selection lines or cursor component
 	" e.g. : deleted buffers, closed tabs
 	let lines = wheel#book#previous ('lines')
+	let full = wheel#book#previous ('full')
+	let not_empty_full = ! empty(full)
 	let filter = wheel#book#previous ('filter')
-	let selection = wheel#book#previous ('selection')
-	let selection_or_cursor = wheel#upstream#selection ()
+	let filt_indexes = filter.indexes
+	let filt_lines = filter.lines
+	let filtered = ! empty(filt_indexes)
 	" -- remove selection in lines & filter
-	let indexlist = sort(copy(selection_or_cursor.indexes))
+	let selection_or_cursor = wheel#upstream#selection ()
+	let indexlist = copy(selection_or_cursor.indexes)
+	let indexlist = sort(indexlist, 'n')
+	" last index first, to not confuse lines indexes
 	let indexlist = reverse(indexlist)
 	for index in indexlist
 		eval lines->remove(index)
-		if ! empty(filter.indexes)
-			let where = filter.indexes->index(index)
-			eval filter.indexes->remove(where)
-			eval filter.lines->remove(where)
+		if not_empty_full
+			eval full->remove(index)
+		endif
+		if filtered
+			let where = filt_indexes->index(index)
+			eval filt_indexes->remove(where)
+			eval filt_lines->remove(where)
 		endif
 	endfor
 	" -- clear selection
+	let selection = wheel#book#previous ('selection')
 	let selection.indexes = []
 	let selection.components = []
 endfun

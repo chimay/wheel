@@ -332,10 +332,10 @@ fun! wheel#chain#fun_cmp_1st (...)
 	else
 		lef Fun = funcref('wheel#chain#compare')
 	endif
-	fun! s:Compare (first, second) closure
+	fun! s:compare (first, second) closure
 		return Fun(a:first[0], a:second[0])
 	endfun
-	return funcref('s:Compare')
+	return funcref('s:compare')
 endfun
 
 fun! wheel#chain#sort (list, ...)

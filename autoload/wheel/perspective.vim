@@ -343,9 +343,6 @@ fun! wheel#perspective#mru ()
 	" Sorted most recenty used files
 	" Each entry is a string : date hour | filename
 	let attic = deepcopy(g:wheel_attic)
-	" should not be necessary
-	"let Compare = function('wheel#pendulum#compare')
-	"let attic = sort(attic, Compare)
 	let returnlist = []
 	for entry in attic
 		let filename = entry.file

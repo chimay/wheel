@@ -17,7 +17,7 @@ if ! exists('s:mandala_targets')
 	lockvar s:mandala_targets
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#boomerang#is_context_menu ()
 	" Whether mandala leaf is a context menu
@@ -27,7 +27,54 @@ fun! wheel#boomerang#is_context_menu ()
 	return b:wheel_nature.class == 'menu/context'
 endfun
 
-" mandalas
+fun! wheel#boomerang#hidden_buffers (action)
+	" Execute action on hidden buffers
+	let action = a:action
+	let lines = wheel#book#previous ('lines')
+	let filter = wheel#book#previous ('filter')
+	" ---- hidden buffers
+	if action == 'delete_hidden' || action == 'wipe_hidden'
+		let hidden = wheel#rectangle#hidden_buffers ()[0]
+	elseif action == 'wipe_all_hidden'
+		let hidden = wheel#rectangle#hidden_buffers ('all')[0]
+	else
+		echomsg 'wheel boomerang buffer : bad action format'
+	endif
+	if empty(hidden)
+		echomsg 'no hidden buffer'
+		return v:false
+	endif
+	let hidden = reverse(hidden)
+	let rangelines = reverse(range(len(lines)))
+	" ---- remove lines
+	for index in rangelines
+		let record = lines[index]
+		let fields = split(record, s:field_separ)
+		let bufnum = str2nr(fields[0])
+		if bufnum->wheel#chain#is_inside(hidden)
+			eval lines->remove(index)
+			if ! empty(filter.indexes)
+				let where = filter.indexes->index(index)
+				eval filter.indexes->remove(where)
+				eval filter.lines->remove(where)
+			endif
+		endif
+	endfor
+	" ---- remove buffers
+	if action == 'delete_hidden'
+		for bufnum in hidden
+			execute 'silent bdelete' bufnum
+		endfor
+		echomsg 'hidden buffers deleted'
+	elseif  action =~ 'wipe.*hidden'
+		for bufnum in hidden
+			execute 'silent bwipe!' bufnum
+		endfor
+		echomsg 'hidden buffers wiped'
+	endif
+endfun
+
+" ---- mandalas
 
 fun! wheel#boomerang#launch_map (type)
 	" Define map to launch context menu
@@ -47,7 +94,6 @@ fun! wheel#boomerang#menu (dictname)
 				\ linefun : dictname,
 				\ close : v:true,
 				\ }
-	" ---- add new leaf, replace mandala content by a {line->fun} leaf
 	call wheel#tower#staircase (menuset, settings)
 	" ---- properties ; must come after tower#staircase
 	" -- let loop#menu handle open / close, tell loop#navigation to forget it
@@ -56,7 +102,7 @@ fun! wheel#boomerang#menu (dictname)
 	let b:wheel_reload = "wheel#boomerang#menu('" .. a:dictname .. "')"
 endfun
 
-" applications
+" ---- applications
 
 fun! wheel#boomerang#navigation (target)
 	" Navigation actions
@@ -78,59 +124,13 @@ fun! wheel#boomerang#buffer (action)
 	let settings = b:wheel_settings
 	let settings.menu.action = action
 	if action == 'delete'
-		call wheel#loop#boomerang (settings)
-		" dont remove parent selection on buffer/all
-		if wheel#mandala#type () == 'buffer'
-			call wheel#upstream#remove_selection ()
-		endif
+		call wheel#loop#buffer_delete ()
 	elseif action == 'unload'
-		call wheel#loop#boomerang (settings)
+		call wheel#loop#buffer_unload ()
 	elseif action == 'wipe'
-		call wheel#loop#boomerang (settings)
-		call wheel#upstream#remove_selection ()
+		call wheel#loop#buffer_wipe ()
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
-		let lines = wheel#book#previous ('lines')
-		let filter = wheel#book#previous ('filter')
-		" hidden buffers
-		if action == 'delete_hidden' || action == 'wipe_hidden'
-			let hidden = wheel#rectangle#hidden_buffers ()[0]
-		elseif action == 'wipe_all_hidden'
-			let hidden = wheel#rectangle#hidden_buffers ('all')[0]
-		else
-			echomsg 'wheel boomerang buffer : bad action format'
-		endif
-		if empty(hidden)
-			echomsg 'no hidden buffer'
-			return v:false
-		endif
-		let hidden = reverse(hidden)
-		let rangelines = reverse(range(len(lines)))
-		" remove lines
-		for index in rangelines
-			let record = lines[index]
-			let fields = split(record, s:field_separ)
-			let bufnum = str2nr(fields[0])
-			if bufnum->wheel#chain#is_inside(hidden)
-				eval lines->remove(index)
-				if ! empty(filter.indexes)
-					let where = filter.indexes->index(index)
-					eval filter.indexes->remove(where)
-					eval filter.lines->remove(where)
-				endif
-			endif
-		endfor
-		" remove buffers
-		if action == 'delete_hidden'
-			for bufnum in hidden
-				execute 'silent bdelete' bufnum
-			endfor
-			echomsg 'hidden buffers deleted'
-		elseif  action =~ 'wipe.*hidden'
-			for bufnum in hidden
-				execute 'silent bwipe!' bufnum
-			endfor
-			echomsg 'hidden buffers wiped'
-		endif
+		call wheel#boomerang#hidden_buffers (action)
 	endif
 	return v:true
 endfun
@@ -141,25 +141,15 @@ fun! wheel#boomerang#tabwin (action)
 	let settings = b:wheel_settings
 	let settings.menu.action = action
 	if action == 'open'
-		" loop#navigation will process the first selected line
+		" tell loop#navigation to not care about opening a new
+		" target tab or window
 		let settings.target = 'current'
 		return wheel#loop#navigation (settings)
 	elseif action == 'tabnew'
 		tabnew
 		return v:true
 	elseif action == 'tabclose'
-		" closing last tab first
-		let settings.menu.class = 'menu/context'
-		let selection = wheel#upstream#selection()
-		let indexes = selection.indexes
-		let components = selection.components
-		let [indexlist, indexes] = wheel#chain#sort(indexes)
-		call reverse(indexes)
-		call reverse(indexlist)
-		let selection.indexes = indexes
-		let selection.components = components->wheel#chain#sublist(indexlist)
-		call wheel#loop#boomerang (settings)
-		call wheel#upstream#remove_selection ()
+		call wheel#loop#tabclose ()
 		return v:true
 	endif
 	return v:false
