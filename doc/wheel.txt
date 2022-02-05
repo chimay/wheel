@@ -1718,7 +1718,11 @@ to use it instead of a plain `:s/.../.../g`.
 First, only the line contents are modified, the other fields remain
 intact. If you are curious about how it is done, check |/\@<=|.
 
-Second, if the replacing word is already present in the buffer, it will
+Second, it asks you if you mean to replace only full word matches.
+This is useful if you want to replace e.g. the word `foo` but not `foo`
+in `foobar`.
+
+Third, if the replacing word is already present in the buffer, it will
 ask you confirmation before running the substitution. So, you can avoid
 confusion in variable names, for instance.
 

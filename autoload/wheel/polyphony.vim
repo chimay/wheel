@@ -49,6 +49,11 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	" -- user input
 	let prompt = 'Substitute pattern ? '
 	let before = input(prompt)
+	let prompt = 'Replace full word matches only ?'
+	let word = confirm(prompt, "&Yes\n&No", 1)
+	if word == 1
+		let before = '\<' .. before .. '\>'
+	endif
 	let prompt = 'Substitute with ? '
 	let after = input(prompt)
 	" -- patterns bricks
@@ -86,7 +91,7 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	let before = escape(before, '/')
 	let after = escape(after, '/')
 	" -- run substitution
-	let runme = 'silent %substitute/' .. before .. '/' .. after .. '/g'
+	let runme = 'silent % substitute/' .. before .. '/' .. after .. '/g'
 	execute runme
 	call wheel#pencil#show ()
 	return v:true
