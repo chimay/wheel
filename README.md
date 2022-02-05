@@ -501,7 +501,7 @@ exe nmap '<m-tab>        <plug>(wheel-mandala-add)'
 exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
 exe nmap '<m-left>       <plug>(wheel-mandala-backward)'
 exe nmap '<m-right>      <plug>(wheel-mandala-forward)'
-exe nmap '<m-up>         <plug>(wheel-mandala-switch)'
+exe nmap '<c-up>         <plug>(wheel-mandala-switch)'
 " ---- layouts
 exe nmap '<m-z>          <plug>(wheel-zoom)'
 exe nmap '<c-up>         <plug>(wheel-rotate-counter-clockwise)'

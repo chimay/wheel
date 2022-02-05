@@ -3139,7 +3139,7 @@ adapt them to your taste and add them to your init file.
 | <M-Backspace>  | Delete current dedicated buffer               |
 | <M-Left>       | Cycle dedicated buffers, leftward             |
 | <M-Right>      | Cycle dedicated buffers, rightward            |
-| <M-Up>         | Switch dedicated buffer                       |
+| <C-Up>         | Switch dedicated buffer                       |
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
 
@@ -3248,7 +3248,7 @@ mapping level to less than 10, then copy and adapt the following lines : >
     exe nmap '<m-backspace>  <plug>(wheel-mandala-delete)'
     exe nmap '<m-left>       <plug>(wheel-mandala-backward)'
     exe nmap '<m-right>      <plug>(wheel-mandala-forward)'
-    exe nmap '<m-up>         <plug>(wheel-mandala-switch)'
+    exe nmap '<c-up>         <plug>(wheel-mandala-switch)'
     " ---- layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
 <
