@@ -342,10 +342,10 @@ fun! wheel#mandala#common_maps ()
 	" -- rename mandala
 	nnoremap <buffer> <m-n>  <cmd>call wheel#cylinder#rename ()<cr>
 	" -- navigate in leaf ring
-	nnoremap <buffer> H           <cmd>call wheel#book#backward ()<cr>
-	nnoremap <buffer> L           <cmd>call wheel#book#forward ()<cr>
-	nnoremap <buffer> <m-up>      <cmd>call wheel#book#backward ()<cr>
+	nnoremap <buffer> <m-j>       <cmd>call wheel#book#forward ()<cr>
+	nnoremap <buffer> <m-k>       <cmd>call wheel#book#backward ()<cr>
 	nnoremap <buffer> <m-down>    <cmd>call wheel#book#forward ()<cr>
+	nnoremap <buffer> <m-up>      <cmd>call wheel#book#backward ()<cr>
 	nnoremap <buffer> <m-l>       <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <c-down>    <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>

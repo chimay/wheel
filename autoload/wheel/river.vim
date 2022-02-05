@@ -50,11 +50,11 @@ fun! wheel#river#mappings (settings)
 	let settings.target = 'tab'
 	exe nmap 't' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap 's' loopnav .. string(settings) .. coda
+	exe nmap 'h' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_split'
 	exe nmap 'v' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap 'S' loopnav .. string(settings) .. coda
+	exe nmap 'H' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
 	exe nmap 'V' loopnav .. string(settings) .. coda
 	" -- leave open after navigation
@@ -64,11 +64,11 @@ fun! wheel#river#mappings (settings)
 	let settings.target = 'tab'
 	exe nmap 'gt' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap 'gs' loopnav .. string(settings) .. coda
+	exe nmap 'gh' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_split'
 	exe nmap 'gv' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap 'gS' loopnav .. string(settings) .. coda
+	exe nmap 'gH' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
 	exe nmap 'gV' loopnav .. string(settings) .. coda
 	" -- selection

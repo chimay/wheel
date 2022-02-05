@@ -724,6 +724,7 @@ Non writable			|wheel-dedicated-buffers-non-writable|
 Writable			|wheel-dedicated-buffers-writable|
 Buffer ring			|wheel-dedicated-buffers-ring|
 Layer ring			|wheel-dedicated-buffers-layers|
+Folds				|wheel-dedicated-buffers-folds|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
 Navigation			|wheel-dedicated-buffers-navigation|
@@ -984,26 +985,6 @@ On the other lines :
 - `<Enter>`, `<Esc>`, `<Space>` and `<C-w>` have their usual vim meaning
 - `cc` and `<C-u>` delete only the last field of the line
 
-Navigation~
-
-When a writable dedicated buffer has navigation abilities, maps are adapted :
-
-- `<Enter>` : open element in current window
-- `<M-t>`   : open element in a new tab
-- `<M-h>`   : open element in a new split
-- `<M-v>`   : open element in a new vsplit
-- `<M-S-h>` : open element in a new split with golden ratio
-- `<M-S-v>` : open element in a new vsplit with golden ratio
-
-Same keys as above, but leave the navigation buffer opened :
-
-- `g<Enter>` : same as `<Enter>`
-- `g<M-t>`   : same as `<M-t>`
-- `g<M-h>`   : same as `<M-h>`
-- `g<M-v>`   : same as `<M-v>`
-- `g<M-S-h>` : same as `<M-S-h>`
-- `g<M-S-v>` : same as `<M-S-v>`
-
 Range~
 
 If you use an ex command to perform an operation on all the visible lines
@@ -1073,6 +1054,29 @@ So, there are two levels :
 - a layer ring in each dedicated buffer
 
 A layer in a dedicated buffer is also called a leaf.
+
+------------------------------------------------------------------------------
+FOLDS						*wheel-dedicated-buffers-folds*
+
+Some dedicated buffers use folding to reflect the treeish structure of the
+represented objects.
+
+Filtering in these buffers will keep surrounding folds ; only non matching
+empty folds will be removed.
+
+Wheel tree~
+
+The index/tree buffer use folds to reflect the tree structure of the
+Wheel : toruses, circles and locations.
+
+Default map : `<M-w><M-x>`
+
+Tabs & windows~
+
+The tabwin/tree buffer use folds to reflect the tree structure of tabs
+and windows in (neo)vim.
+
+Default map : `<M-w><M-v>`
 
 ------------------------------------------------------------------------------
 MENU						*wheel-dedicated-buffers-menus*
@@ -1159,31 +1163,52 @@ The navigation buffers allow you to quickly switch to a Wheel location
 by pressing `<Enter>` on the matching line. You can also use the keys :
 
 - `t` : open element in a new tab
-- `s` : open element in a new split
+- `h` : open element in a new split
 - `v` : open element in a new vsplit
-- `S` : open element in a new split with golden ratio
+- `H` : open element in a new split with golden ratio
 - `V` : open element in a new vsplit with golden ratio
 
 Same keys as above, but leave the navigation buffer opened :
 
 - `g<Enter>` : same as `<Enter>`
 - `gt` : same as `t`
-- `gs` : same as `s`
+- `gh` : same as `h`
 - `gv` : same as `v`
-- `gS` : same as `S`
+- `gH` : same as `H`
 - `gV` : same as `V`
 
 The navigation buffers also have context menus support.
 See |wheel-dedicated-buffers-context|.
 
-Mappings~
+Writable dedicated buffers~
+
+When a writable dedicated buffer has navigation abilities, local maps
+are adapted :
+
+- `<Enter>` : open element in current window
+- `<M-t>`   : open element in a new tab
+- `<M-h>`   : open element in a new split
+- `<M-v>`   : open element in a new vsplit
+- `<M-S-h>` : open element in a new split with golden ratio
+- `<M-S-v>` : open element in a new vsplit with golden ratio
+
+Same keys as above, but leave the navigation buffer opened :
+
+- `g<Enter>` : same as `<Enter>`
+- `g<M-t>`   : same as `<M-t>`
+- `g<M-h>`   : same as `<M-h>`
+- `g<M-v>`   : same as `<M-v>`
+- `g<M-S-h>` : same as `<M-S-h>`
+- `g<M-S-v>` : same as `<M-S-v>`
+
+Launching maps~
 
 The default mappings launching navigation buffers are :
 
 - `<M-w><Space>`   : go to location
 - `<M-w><C-space>` : go to current location of the chosen circle
 - `<M-w><S-space>` : go to current location of the chosen torus
-- `<M-w><M-x>`     : index with folds (see below)
+- `<M-w><M-x>`     : treeish index with folds
 - `<M-w>X`         : index of toruses > circles > locations
 - `<M-w><M-S-x>`   : index of toruses > circles
 - `<M-w><M-h>`     : history
@@ -1203,17 +1228,6 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-j>`     : jumps list
 - `<M-w>;`         : changes list
 - `<M-w><M-t>`     : tags
-
-Folding~
-
-The map `<M-w><M-x>` opens a dedicated buffer where folds are used to
-reflect the tree structure of the Wheel : toruses, circles and locations.
-
-Filtering in that buffer will keep surrounding folds ; only non matching
-empty folds will be removed.
-
-Similarly, the map `<M-w><M-v>` opens a dedicated buffer where folds
-are used to reflect the tree structure of tabs and windows in (neo)vim.
 
 ------------------------------------------------------------------------------
 WITHIN THE WHEEL			*wheel-dedicated-buffers-within-wheel*
