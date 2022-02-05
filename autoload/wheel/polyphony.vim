@@ -212,7 +212,7 @@ fun! wheel#polyphony#harmony ()
 			let newline =  newnum .. s:field_separ .. content
 			call setline(mandala_linum, newline)
 		else
-			" unchanged or modified line
+			" existing line
 			let linum = str2nr(object)
 			let newnum = linum + shift
 			call setbufline(bufnum, newnum, content)
