@@ -191,6 +191,7 @@ PREREQUISITES				*wheel-introduction-prerequisites*
 Some functions assume a Unix-like OS, like Linux or BSD :
 
 - async functions
+- locate and find commands
 - generation of a script to symlink or copy the wheel as a filesystem tree
 
 Most of it should work out of the box on other OSes, however. If you
@@ -219,13 +220,10 @@ mapping prefix : >
 ONE MAP TO RING THEM ALL		*wheel-sbs-one-map-to-ring-them-all*
 
 To get an overview of the Wheel, I suggest you take a look at the main
-menu. Press `<M-w><M-m>` and a new buffer will appear, listing the actions
+menu. Press `<M-w><M-m>` and a new window will appear, listing the actions
 you can perform. Insert mode is used to filter the lines. Press enter
 in normal mode to trigger an action (if you know what you're doing),
 or `q` to quit the menu.
-
-If you prefer the meta menu leading you to thematic sub-menus, you can
-launch it with `<M-w>=`.
 
 To learn more about menus, see |wheel-dedicated-buffers-menus|.
 
@@ -276,7 +274,8 @@ simply launch `<M-w><S-a>`, and answer `Books` to the prompt.
 Adding quicker~
 
 If you want to edit a file and add it at the same time, you can use
-`<M-w>+f` ; a file completion is available at the prompt.
+`<M-w>+f` ; a file completion is available at the prompt. This map can
+also be used to edit a new file and add it to the wheel at once.
 
 If you want to add a buffer, you can use `<M-w>+b` ; a buffer completion
 is available.
@@ -316,9 +315,9 @@ Switching~
 
 You can also switch wheel element by name :
 
-- `<M-w><Enter>` : switch location by name
-- circle with `<M-w><C-Enter>` : switch circle by name
-- torus with `<M-w><S-Enter>` : switch torus by name
+- `<M-w><Enter>`   : switch location by name
+- `<M-w><C-Enter>` : switch circle by name
+- `<M-w><S-Enter>` : switch torus by name
 
 A completion is available, see |wheel-prompting-functions-completion|.
 
@@ -371,18 +370,12 @@ probably prefer the alternate functions :
 | <M-w><C-^>     | alternate anywhere                            |
 | <M-w><M-^>     | alternate in the same circle                  |
 | <M-w><M-C-^>   | alternate in in same torus but another circle |
-|                | alternate in the same torus                   |
-|                | alternate in another circle                   |
-|                | alternate in another torus                    |
 | <M-w>^         | alternate menu                                |
 
-You can also use the meta or main menu.
-
-I strongly suggest you map a convenient key, like `<C-^>`,
-to `<plug>(wheel-alternate-anywhere)`, it's one of the
-most often used binding. Same thing with `<M-C-^>` and
-`<plug>(wheel-alternate-same-torus-other-circle)`.  See
-|wheel-mappings-level-10| for more information.
+I strongly suggest you map a convenient key, like `<C-^>`, to
+alternate-anywhere, it's one of the most often used binding. Same
+thing with `<M-C-^>` and alternate-same-torus-other-circle.
+See |wheel-mappings-level-10| for more information.
 
 A common case is to alternate two files in the same circle, and two
 circles in the same torus. So, you have the square :
@@ -579,9 +572,9 @@ Search file~
 
 Search inside file~
 
-| Function            | Completion list                   | Default binding |
-| ------------------- | --------------------------------- | --------------- |
-| occur : switch line | lines of current buffer           | <M-w>o          |
+| Function            | Completion list          | Default binding |
+| ------------------- | ------------------------ | --------------- |
+| occur : switch line | lines of current buffer  | <M-w>o          |
 
 Switch dedicated buffer~
 
@@ -595,16 +588,6 @@ You must be in a dedicated buffer to launch it. The local mapping is
 `<M-l>`, or `<C-Down>`.
 
 See also |wheel-dedicated-buffers-layers|.
-
-You can complete by layer types, wich will lead you to the layer you want.
-
-Example of layer type :
-
-- tree
-- history
-- buffers
-- yank/plain
-- ...
 
 ------------------------------------------------------------------------------
 ADD					    *wheel-prompting-functions-add*
@@ -1054,9 +1037,10 @@ Wheel manages a dedicated buffers ring. You can :
 When switching, you can complete by dedicated buffer labels & types, wich
 will lead you to the buffer you want. Example of completion candidates : >
 
-    0 | index/tree
-    1 | history
-    2 | yank/plain
+    0    | index/tree
+    1    | history
+    yank | yank/plain
+    menu | menu/main
 <
 
 A wheel dedicated buffer is also called a mandala.
@@ -1075,6 +1059,14 @@ as a kind of local history. You can :
 - switch to another layer with `<M-l>` or `<C-Down>`, completion is available
 - destroy current layer and go back to the previous one by pressing `<Backspace>`
 
+When switching, you can complete by layer index & types, wich will lead
+you to the layer you want. Example of completion candidates : >
+
+    0 | index/tree
+    1 | history
+    2 | yank/plain
+<
+
 The maximum size of the layer ring is determined by `g:wheel_config.maxim.layers`.
 
 So, there are two levels :
@@ -1089,14 +1081,14 @@ MENU						*wheel-dedicated-buffers-menus*
 
 Action~
 
+The local map `<Enter>` triggers the action and closes the menu, except
+if it needs an opened dedicated buffer.
+
 In menu buffers, `<Tab>` is a shortcut for `g<Enter>` : trigger action,
 and leave the menu opened.
 
 Since there is no need to select multiple elements, `<Space>` is also
 a synonym of `g<Enter>`.
-
-Note that `<Enter>` closes the menu, except if the action needs an opened
-dedicated buffer.
 
 Main menu~
 
@@ -1165,8 +1157,9 @@ Context menu of a navigation buffer :
 ------------------------------------------------------------------------------
 NAVIGATION				*wheel-dedicated-buffers-navigation*
 
-The navigation buffers allow you to quickly switch to a Wheel location
-by pressing `<Enter>` on the matching line. You can also use the keys :
+The navigation buffers allow you to quickly switch to a Wheel or native
+location by pressing `<Enter>` on the matching line. You can also use
+the keys :
 
 - `t` : open element in a new tab
 - `h` : open element in a new split
