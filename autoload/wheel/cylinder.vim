@@ -210,8 +210,6 @@ fun! wheel#cylinder#first (window = 'furtive')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" ---- coda
-	" call status before going back to previous buffer
-	call wheel#status#mandala_leaf ()
 	if window == 'furtive'
 		if empty_cur_buffer
 			" :new has opened a split, close it
@@ -220,6 +218,7 @@ fun! wheel#cylinder#first (window = 'furtive')
 			execute 'silent hide buffer' cur_buffer
 		endif
 	endif
+	call wheel#status#mandala_leaf ()
 	return v:true
 endfun
 
