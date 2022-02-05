@@ -505,8 +505,6 @@ exe nmap '<m-right>      <plug>(wheel-mandala-forward)'
 exe nmap '<c-up>         <plug>(wheel-mandala-switch)'
 " ---- layouts
 exe nmap '<m-z>          <plug>(wheel-zoom)'
-exe nmap '<c-up>         <plug>(wheel-rotate-counter-clockwise)'
-exe nmap '<c-down>       <plug>(wheel-rotate-clockwise)'
 ~~~
 
 # Examples
