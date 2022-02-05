@@ -281,8 +281,9 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let names = mandalas.names
 	let types = mandalas.types
 	let novice_iden = wheel#chain#lowest_outside (iden)
+	let novice_name = string(novice_iden)
 	eval iden->insert(novice_iden, next)
-	eval names->insert(string(novice_iden), next)
+	eval names->insert(novice_name, next)
 	eval types->insert('', next)
 	" -- set filename
 	call wheel#cylinder#filename ()
