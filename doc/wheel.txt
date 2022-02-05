@@ -1723,8 +1723,8 @@ This is useful if you want to replace e.g. the word `foo` but not `foo`
 in `foobar`.
 
 Third, if the replacing word is already present in the buffer, it will
-ask you confirmation before running the substitution. So, you can avoid
-confusion in variable names, for instance.
+ask you confirmation before running the substitution. That way, you can
+avoid confusion in variable names, for instance.
 
 ------------------------------------------------------------------------------
 NARROW ALL CIRCLE FILES			*wheel-dedicated-buffers-narrow-circle*
