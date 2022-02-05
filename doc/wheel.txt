@@ -405,11 +405,48 @@ See |wheel-prompting-functions-switch|.
 ==============================================================================
 WORKFLOW						*wheel-workflow*
 
+Threefold approach			|wheel-workflow-threefold-approach|
+Mappings				|wheel-workflow-mappings|
+
+------------------------------------------------------------------------------
+THREEFOLD APPROACH			*wheel-workflow-threefold-approach*
+
 Wheel offers a threefold approach :
 
 - straightforward functions : for action that does not require any user input
-- prompting functions : require user input at prompt, advanced completion is available
+- prompting functions : require user input at prompt
+    + advanced completion is available
 - dedicated buffers : for more advanced operations
+    + full power of (neo)vim buffer
+    + filter
+    + selection
+    + context menus
+    + edit mode
+
+------------------------------------------------------------------------------
+MAPPINGS					    *wheel-workflow-mappings*
+
+To avoid conflict with your personal bindings, wheel mappings until
+level 2 included are all using a generic prefix.
+
+This is useful, but can quickly become tedious for often used
+functions. In that case, prefix-less shortcuts are welcome.
+
+All of these shortcuts are inside level 10. There is a lot of them,
+so they would most likely interfere with your config. However, they
+can be used to choose functions you're interested in, or as a source
+of inspiration.
+
+So, two solutions :
+
+- you're happy with all these shortcuts, and set `g:wheel_config.mappings` to 10
+- you set `g:wheel_config.mappings` to 2 or less, and cherrypick in level 10
+
+If you wonder how to define your own quick maps, see
+|wheel-mappings-define-your-own-maps|.
+
+If you're looking for a specific Wheel function, see
+|wheel-mappings-exhaustive-list|.
 
 ==============================================================================
 STRAIGHTFORWARD FUNCTIONS			*wheel-straightforward-functions*
@@ -2656,6 +2693,7 @@ Level 1				|wheel-mappings-level-1|
 Level 2				|wheel-mappings-level-2|
 Level 10			|wheel-mappings-level-10|
 Level 20			|wheel-mappings-level-20|
+Define your own maps		|wheel-mappings-define-your-own-maps|
 Exhaustive list			|wheel-mappings-exhaustive-list|
 Other ideas			|wheel-mappings-ideas|
 
@@ -3167,8 +3205,8 @@ adapt them to your taste and add them to your init file.
 | -------------- | --------------------------------------------- |
 | <M-z>          | Zoom : one tab, one window                    |
 
-Below is the default level 10. To customize it, first set your
-mapping level to less than 10, then copy and adapt the following lines : >
+Below is the default level 10. To customize it, first set your mapping
+level to less than 10, then copy and adapt some of the following lines : >
 
     let nmap = 'nmap <silent>'
     let vmap = 'vmap <silent>'
@@ -3283,7 +3321,25 @@ LEVEL 20						*wheel-mappings-level-20*
 For debugging only.
 
 | Prefix + | With default prefix | Action                               |
-| Z        | <M-w>Z              | Reset wheel variables to empty wheel |
+| -------- | ------------------- | ------------------------------------ |
+| ZZ       | <M-w>ZZ             | Reset wheel variables to empty wheel |
+| Ze       | <M-w>Ze             | Clear echo area                      |
+| Zm       | <M-w>Zm             | Clear (neo)vim messages              |
+| Zs       | <M-w>Zs             | Clear locations margin signs         |
+| Zh       | <M-w>Zh             | History circuit, prompt              |
+| Z<M-h>   | <M-w>Z<M-h>         | History circuit, mandala             |
+
+------------------------------------------------------------------------------
+DEFINE YOUR OWN MAPS			*wheel-mappings-define-your-own-maps*
+
+The recommended approach is to use plug maps. Example : >
+
+    nmap <silent> <M-m> <Plug>(wheel-menu-main)
+<
+
+Plug maps are middle men between wheel autoload functions and user
+mappings, so you have to use recursive maps. The above example would
+not work with |:nnoremap|.
 
 ------------------------------------------------------------------------------
 EXHAUSTIVE LIST					*wheel-mappings-exhaustive-list*
@@ -3302,18 +3358,6 @@ Convention~
 - prompting functions plugs : contain `-prompt-`
 - dedicated buffer functions plugs : contain `-dedibuf-`
 - layout functions plugs : contain `-layout-`
-
-Plug maps~
-
-Plug maps are middle men between wheel autoload functions and user
-mappings. Example of key binding using a plug map : >
-
-    nmap <silent> <M-m> <Plug>(wheel-menu-main)
-<
-
-Do not use no-recursive maps like |:nnoremap|, it would not work.
-
-All of these plugs are listed below.
 
 Menus~
 
@@ -3517,8 +3561,8 @@ Handling dedicated buffers~
 
 | Plug maps                                       | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-mandala-add)                       | push a new dedicated buffer            |
-| <plug>(wheel-mandala-delete)                    | pop current dedicated buffer           |
+| <plug>(wheel-mandala-add)                       | add a new dedicated buffer             |
+| <plug>(wheel-mandala-delete)                    | delete current dedicated buffer        |
 | <plug>(wheel-mandala-forward)                   | go to next dedicated buffer            |
 | <plug>(wheel-mandala-backward)                  | go to previous dedicated buffer        |
 | <plug>(wheel-mandala-switch)                    | switch to another dedicated buffer     |
@@ -3572,8 +3616,8 @@ Debug~
 ------------------------------------------------------------------------------
 OTHER IDEAS				*wheel-mappings-ideas*
 
-Some maps that you may find useful if the `<D-*>` bindings work in your
-setup : >
+Some maps that you may find useful if the super key `<D-*>` bindings
+work in your setup : >
 
     " index of locations in torus > circle > location format
     nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
