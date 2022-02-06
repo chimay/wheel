@@ -2,10 +2,16 @@
 
 " Ouput to reproduce tabs & windows layouts
 
-fun! wheel#labyrinth#windows (layout, command = 'undefined')
+fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 	" Ouput to reproduce layout of a tab
 	let layout = a:layout
-	let command = a:command
+	let direction = a:direction
+	" ---- split command
+	if direction == 'row'
+		let command = 'noautocmd silent vsplit'
+	elseif direction == 'col'
+		let command = 'noautocmd silent split'
+	endif
 	" ---- first element = leaf, row, col
 	let first = layout[0]
 	let second = layout[1]
@@ -18,23 +24,37 @@ fun! wheel#labyrinth#windows (layout, command = 'undefined')
 			endif
 			let filename = bufname->fnamemodify(':p')
 			return [ 'silent edit ' .. filename ]
-		elseif first == 'row'
-			let command = 'noautocmd silent vsplit'
-			return wheel#labyrinth#windows (second, command)
-		elseif first == 'col'
-			let command = 'noautocmd silent split'
-			return wheel#labyrinth#windows (second, command)
+		else
+			return wheel#labyrinth#windows (second, first)
 		endif
 	endif
 	" ---- layout = nested list
 	let returnlist = []
 	let length = len(layout)
+	let splitnum = length - 1
+	" -- add splits
+	for index in range(splitnum)
+		eval returnlist->add(command)
+	endfor
+	" -- rewind to pre operation window
+	if direction == 'row'
+		let rewind = 'noautocmd ' .. splitnum .. ' wincmd h'
+	elseif direction == 'col'
+		let rewind = 'noautocmd ' .. splitnum .. ' wincmd k'
+	endif
+	eval returnlist->add(rewind)
+	" -- edit files
+	if direction == 'row'
+		let next_window = 'noautocmd wincmd l'
+	elseif direction == 'col'
+		let next_window = 'noautocmd wincmd j'
+	endif
 	for index in range(length)
 		let dive = layout[index]
 		let sublist = wheel#labyrinth#windows (dive, command)
 		eval returnlist->extend(sublist)
-		if index < length - 1
-			eval returnlist->add(command)
+		if index < splitnum
+			eval returnlist->add(next_window)
 		endif
 	endfor
 	" ---- coda
@@ -53,6 +73,7 @@ fun! wheel#labyrinth#layout ()
 		let winlayout = winlayout(tabnum)
 		let tab_layout = wheel#labyrinth#windows(winlayout)
 		eval returnlist->extend(tab_layout)
+		eval returnlist->add('noautocmd silent wincmd t')
 		if tabnum < last
 			eval returnlist->add('noautocmd silent tabnew')
 		endif
