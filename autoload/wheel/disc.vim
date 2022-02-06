@@ -484,10 +484,6 @@ fun! wheel#disc#read_session (...)
 	else
 		echomsg 'wheel disc read session : session file does not exist'
 	endif
-	" even windows in each tab
-	" does not work
-	"tabdo wincmd =
-	"tabnext 1
 	if init_argc == 0 && has('nvim')
 		echomsg 'Reading done !'
 	endif
