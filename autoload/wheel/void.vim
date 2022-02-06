@@ -443,8 +443,7 @@ fun! wheel#void#exit ()
 	call wheel#void#clean ()
 	" -- save session
 	if g:wheel_config.autowrite_session > 0
-		call wheel#disc#write_session ()
-		"call wheel#disc#write_layout ()
+		call wheel#disc#write_layout ()
 	endif
 	" -- save wheel, and unlet
 	if g:wheel_config.autowrite > 0

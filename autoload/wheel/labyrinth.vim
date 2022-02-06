@@ -15,15 +15,14 @@ fun! wheel#labyrinth#windows (layout, command = 'undefined')
 			let bufname = second->winbufnr()->bufname()
 			if empty(bufname)
 				return []
-			else
-				let filename = bufname->fnamemodify(':p')
-				return [ 'silent edit ' .. filename ]
 			endif
+			let filename = bufname->fnamemodify(':p')
+			return [ 'silent edit ' .. filename ]
 		elseif first == 'row'
-			let command = 'silent vsplit'
+			let command = 'noautocmd silent vsplit'
 			return wheel#labyrinth#windows (second, command)
 		elseif first == 'col'
-			let command = 'silent split'
+			let command = 'noautocmd silent split'
 			return wheel#labyrinth#windows (second, command)
 		endif
 	endif
@@ -38,6 +37,7 @@ fun! wheel#labyrinth#windows (layout, command = 'undefined')
 			eval returnlist->add(command)
 		endif
 	endfor
+	" ---- coda
 	return returnlist
 endfun
 
@@ -45,8 +45,10 @@ fun! wheel#labyrinth#layout ()
 	" Ouput commands list to reproduce layout
 	let last = tabpagenr('$')
 	let returnlist = []
-	eval returnlist->add('silent tabonly')
-	eval returnlist->add('silent only')
+	" ---- keep only one tab & window to start
+	eval returnlist->add('noautocmd silent tabonly')
+	eval returnlist->add('noautocmd silent only')
+	" ---- loop on tabs
 	for tabnum in range(1, last)
 		let winlayout = winlayout(tabnum)
 		let tab_layout = wheel#labyrinth#windows(winlayout)
@@ -55,7 +57,11 @@ fun! wheel#labyrinth#layout ()
 			eval returnlist->add('noautocmd silent tabnew')
 		endif
 	endfor
+	" ---- set all windows equal
+	" does not work
 	"eval returnlist->add('silent tabdo wincmd =')
-	eval returnlist->add('silent tabnext 1')
+	" ---- return to tab 1
+	eval returnlist->add('silent tabrewind')
+	" ---- coda
 	return returnlist
 endfun

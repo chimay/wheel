@@ -264,8 +264,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'w <plug>(wheel-write-wheel)'
 		" -- session file
 		exe nmap prefix .. 'R <plug>(wheel-read-session)'
-		exe nmap prefix .. 'W <plug>(wheel-write-session)'
-		"exe nmap prefix .. 'W <plug>(wheel-write-layout)'
+		exe nmap prefix .. 'W <plug>(wheel-write-layout)'
 		" ---- navigate in the wheel
 		" -- next / previous
 		exe nmap prefix .. '<pageup>     <plug>(wheel-previous-location)'
