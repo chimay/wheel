@@ -17,12 +17,14 @@ fun! wheel#labyrinth#windows (layout, command = 'undefined')
 				return []
 			else
 				let filename = bufname->fnamemodify(':p')
-				return [ 'edit ' .. filename ]
+				return [ 'silent edit ' .. filename ]
 			endif
 		elseif first == 'row'
-			return wheel#labyrinth#windows (second, 'vsplit')
+			let command = 'silent vsplit'
+			return wheel#labyrinth#windows (second, command)
 		elseif first == 'col'
-			return wheel#labyrinth#windows (second, 'split')
+			let command = 'silent split'
+			return wheel#labyrinth#windows (second, command)
 		endif
 	endif
 	" ---- layout = nested list
@@ -43,15 +45,17 @@ fun! wheel#labyrinth#layout ()
 	" Ouput commands list to reproduce layout
 	let last = tabpagenr('$')
 	let returnlist = []
+	eval returnlist->add('silent tabonly')
+	eval returnlist->add('silent only')
 	for tabnum in range(1, last)
 		let winlayout = winlayout(tabnum)
 		let tab_layout = wheel#labyrinth#windows(winlayout)
 		eval returnlist->extend(tab_layout)
 		if tabnum < last
-			eval returnlist->add('tabnew')
+			eval returnlist->add('noautocmd silent tabnew')
 		endif
 	endfor
-	eval returnlist->add('tabdo wincmd =')
-	eval returnlist->add('tabnext 1')
+	"eval returnlist->add('silent tabdo wincmd =')
+	eval returnlist->add('silent tabnext 1')
 	return returnlist
 endfun
