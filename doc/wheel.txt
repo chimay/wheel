@@ -3914,6 +3914,7 @@ of the modules within them.
 | helm.vim          | Menus in dedicated buffers                   |
 | kintsugi.vim      | Check & fix wheel variables                  |
 | kyusu.vim         | Filter for prompt & dedicated buffers        |
+| labyrinth.vim     | Ouput commands to reproduce tab & win layout |
 | line.vim          | Activate non-wheel line in dedicated buffers |
 | loop.vim          | Loops on dedicated buffers lines             |
 | mandala.vim       | Generic dedicated buffers                    |
