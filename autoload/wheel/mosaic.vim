@@ -2,7 +2,10 @@
 
 " Mosaic
 "
-" Tabs & windows layouts Helpers
+" Tabs & windows layouts
+
+
+" ---- helpers
 
 fun! wheel#mosaic#one_tab ()
 	" One tab
@@ -67,7 +70,7 @@ fun! wheel#mosaic#rowcol (level)
 	return [rows, cols]
 endfun
 
-" Rotate window buffers, like in bspwm
+" ---- rotate window buffers, like in bspwm
 
 fun! wheel#mosaic#rotate_clockwise ()
 	" Rotate buffers of current tab page clockwise
@@ -93,7 +96,7 @@ fun! wheel#mosaic#rotate_counter_clockwise ()
 	endfor
 endfun
 
-" Layouts
+" ---- layouts
 
 fun! wheel#mosaic#zoom (...)
 	" One tab, one window
@@ -192,7 +195,7 @@ fun! wheel#mosaic#split_transposed_grid (level)
 	call wheel#mosaic#split(a:level, 'transposed_grid', settings)
 endfun
 
-" Split flavors
+" ---- split flavors
 
 fun! wheel#mosaic#horizontal (...)
 	" Horizontal split
