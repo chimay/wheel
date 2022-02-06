@@ -243,9 +243,15 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
 	if where == '>>'
-		call writefile(list, file, 'a')
+		let zero = writefile(list, file, 'a')
+		if zero != 0
+			return 'failure'
+		endif
 	else
-		call writefile(list, file)
+		let zero = writefile(list, file)
+		if zero != 0
+			return 'failure'
+		endif
 	endif
 endfun
 
@@ -422,6 +428,37 @@ fun! wheel#disc#write_session (...)
 	execute 'mksession!' session_file
 	" restore value of sessionoptions
 	let &sessionoptions=ampersand
+	echomsg 'Writing done !'
+	return v:true
+endfun
+
+fun! wheel#disc#write_layout (...)
+	" Write session layout to session file
+	if a:0 > 0
+		let session_file = fnamemodify(a:1, ':p')
+	else
+		if empty(g:wheel_config.session_file)
+			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
+			return v:false
+		else
+			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
+		endif
+	endif
+	" create directory if needed
+	let directory = fnamemodify(session_file, ':h')
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring == 'failure'
+		return v:false
+	endif
+	" backup old sessions
+	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
+	" writing session
+	echomsg 'Writing layout to file ..'
+	let commandlist = wheel#labyrinth#layout ()
+	let zero = writefile(commandlist, session_file)
+	if zero != 0
+		return 'failure'
+	endif
 	echomsg 'Writing done !'
 	return v:true
 endfun

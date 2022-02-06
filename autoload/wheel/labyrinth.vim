@@ -2,34 +2,56 @@
 
 " Ouput to reproduce tabs & windows layouts
 
-fun! wheel#labyrinth#tab_windows (layout = [], command = 'edit')
+fun! wheel#labyrinth#windows (layout, command = 'undefined')
 	" Ouput to reproduce layout of a tab
 	let layout = a:layout
 	let command = a:command
-	if empty(layout)
-		let layout = winlayout()
-	endif
+	" ---- first element = leaf, row, col
 	let first = layout[0]
+	let second = layout[1]
 	let kind = type(first)
 	if kind == v:t_string
 		if first == 'leaf'
-			let bufname = layout[1]->winbufnr()->bufname()
-			let filename = bufname->fnamemodify(':p')
-			return [ command .. ' ' .. filename ]
+			let bufname = second->winbufnr()->bufname()
+			if empty(bufname)
+				return []
+			else
+				let filename = bufname->fnamemodify(':p')
+				return [ 'edit ' .. filename ]
+			endif
 		elseif first == 'row'
-			let command = 'vsplit'
+			return wheel#labyrinth#windows (second, 'vsplit')
 		elseif first == 'col'
-			let command = 'split'
+			return wheel#labyrinth#windows (second, 'split')
 		endif
-		return wheel#labyrinth#tab_windows (layout[1], command)
 	endif
 	" ---- layout = nested list
 	let returnlist = []
 	let length = len(layout)
-	for index in range(1, length - 1)
+	for index in range(length)
 		let dive = layout[index]
-		let sublist = wheel#labyrinth#tab_windows (dive, command)
+		let sublist = wheel#labyrinth#windows (dive, command)
 		eval returnlist->extend(sublist)
+		if index < length - 1
+			eval returnlist->add(command)
+		endif
 	endfor
+	return returnlist
+endfun
+
+fun! wheel#labyrinth#layout ()
+	" Ouput commands list to reproduce layout
+	let last = tabpagenr('$')
+	let returnlist = []
+	for tabnum in range(1, last)
+		let winlayout = winlayout(tabnum)
+		let tab_layout = wheel#labyrinth#windows(winlayout)
+		eval returnlist->extend(tab_layout)
+		if tabnum < last
+			eval returnlist->add('tabnew')
+		endif
+	endfor
+	eval returnlist->add('tabdo wincmd =')
+	eval returnlist->add('tabnext 1')
 	return returnlist
 endfun

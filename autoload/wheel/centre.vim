@@ -48,6 +48,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-write-wheel) <cmd>call wheel#disc#write_wheel()<cr>
 	" -- load / save session
 	nnoremap <plug>(wheel-read-session) <cmd>call wheel#disc#read_session()<cr>
+	nnoremap <plug>(wheel-write-layout) <cmd>call wheel#disc#write_layout()<cr>
 	nnoremap <plug>(wheel-write-session) <cmd>call wheel#disc#write_session()<cr>
 	" ---- navigate in the wheel
 	" -- next / previous
@@ -264,6 +265,7 @@ fun! wheel#centre#cables ()
 		" -- session file
 		exe nmap prefix .. 'R <plug>(wheel-read-session)'
 		exe nmap prefix .. 'W <plug>(wheel-write-session)'
+		"exe nmap prefix .. 'W <plug>(wheel-write-layout)'
 		" ---- navigate in the wheel
 		" -- next / previous
 		exe nmap prefix .. '<pageup>     <plug>(wheel-previous-location)'
