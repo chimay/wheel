@@ -48,7 +48,7 @@ fun! wheel#attic#record (...)
 	endif
 	" ---- do not add mandala buffer
 	let bufnum = bufnr('%')
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	if wheel#chain#is_inside(bufnum, mandalas)
 		return v:false
 	endif

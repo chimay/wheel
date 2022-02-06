@@ -219,7 +219,7 @@ fun! wheel#perspective#buffer (scope = 'listed')
 		return []
 	endif
 	let returnlist = []
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	for buffer in buflist
 		let bufnum = printf('%3d', buffer.bufnr)
 		let linum = printf('%5d', buffer.lnum)
@@ -266,7 +266,7 @@ fun! wheel#perspective#tabwin ()
 	" Buffers visible in tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	for tabnum in range(1, last_tab)
 		let buflist = tabpagebuflist(tabnum)
 		let winum = 0
@@ -292,7 +292,7 @@ fun! wheel#perspective#tabwin_tree ()
 	" Buffers visible in folded tree of tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	for tabnum in range(1, last_tab)
 		let record = 'tab ' .. tabnum .. s:fold_1
 		eval returnlist->add(record)
@@ -413,7 +413,7 @@ endfun
 fun! wheel#perspective#jump ()
 	" Jumps
 	let returnlist = []
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	let jumplist = getjumplist()[0]
 	for jump in jumplist
 		let bufnum = jump.bufnr

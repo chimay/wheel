@@ -104,10 +104,10 @@ endfun
 " ---- mandala & leaf
 
 fun! wheel#status#mandalas ()
-	" Return mandalas status
-	let mandalas = g:wheel_mandalas
-	let names = copy(mandalas.names)
-	let current = mandalas.current
+	" Return bufring status
+	let bufring = g:wheel_bufring
+	let names = copy(bufring.names)
+	let current = bufring.current
 	let names[current] = '[' .. names[current] .. ']'
 	return names
 endfun

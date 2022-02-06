@@ -23,44 +23,44 @@ endif
 " helpers
 
 fun! wheel#cylinder#is_mandala (...)
-	" Return true if current buffer is a mandala buffer, false otherwise
+	" Return true if current buffer is a mandala, false otherwise
 	" Optional argument : number of buffer to test
 	if a:0 > 0
 		let bufnum = a:1
 	else
 		let bufnum = bufnr('%')
 	endif
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
-	return wheel#chain#is_inside(bufnum, ring)
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
+	return wheel#chain#is_inside(bufnum, mandalas)
 endfun
 
 fun! wheel#cylinder#update_type ()
-	" Update type of current mandala
-	let mandalas = g:wheel_mandalas
-	let current = mandalas.current
-	let types = mandalas.types
+	" Update last used type of current mandala buffer
+	let bufring = g:wheel_bufring
+	let current = bufring.current
+	let types = bufring.types
 	let types[current] = b:wheel_nature.type
 endfun
 
 fun! wheel#cylinder#check ()
-	" Remove non existent mandalas buffers from ring
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
-	let iden = mandalas.iden
-	let names = mandalas.names
-	let types = mandalas.types
-	for bufnum in ring
+	" Remove non existent mandala buffers from ring
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
+	let iden = bufring.iden
+	let names = bufring.names
+	let types = bufring.types
+	for bufnum in mandalas
 		if ! bufexists(bufnum)
 			echomsg 'wheel : removing deleted' bufnum 'buffer from mandala ring'
-			let index = ring->index(bufnum)
-			eval ring->remove(index)
+			let index = mandalas->index(bufnum)
+			eval mandalas->remove(index)
 			eval iden->remove(index)
 			eval names->remove(index)
 			eval types->remove(index)
-			let current = mandalas.current
+			let current = bufring.current
 			if current == index
-				let mandalas.current = 0
+				let bufring.current = 0
 			endif
 		endif
 	endfor
@@ -76,9 +76,9 @@ endfun
 
 fun! wheel#cylinder#pseudo ()
 	" Return pseudo filename /wheel/<buf-id>
-	let mandalas = g:wheel_mandalas
-	let current = mandalas.current
-	let iden = mandalas.iden[current]
+	let bufring = g:wheel_bufring
+	let current = bufring.current
+	let iden = bufring.iden[current]
 	let pseudo = '/wheel/' .. iden
 	return pseudo
 endfun
@@ -102,13 +102,13 @@ fun! wheel#cylinder#goto (...)
 	" ---- user update autocmd
 	silent doautocmd User WheelUpdate
 	" ---- go to mandala
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
-	if empty(ring)
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
+	if empty(mandalas)
 		return v:false
 	endif
-	let current = mandalas.current
-	let bufnum = ring[current]
+	let current = bufring.current
+	let bufnum = mandalas[current]
 	return call('wheel#rectangle#goto', [bufnum] + a:000)
 endfun
 
@@ -121,15 +121,15 @@ fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 	"    don't load current mandala
 	let load_buffer = a:load_buffer
 	" -- ring
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
 	" -- any mandala ?
-	if empty(ring)
+	if empty(mandalas)
 		return v:false
 	endif
 	" -- current mandala
-	let current = g:wheel_mandalas.current
-	let goto = ring[current]
+	let current = g:wheel_bufring.current
+	let goto = mandalas[current]
 	" -- already there ?
 	if wheel#cylinder#is_mandala ()
 		if load_buffer == 'load-buffer'
@@ -165,15 +165,15 @@ fun! wheel#cylinder#first (window = 'furtive')
 	"   - furtive (default) : use current window and go back to previous buffer at the end
 	"   - split : use a split
 	let window = a:window
-	let mandalas = g:wheel_mandalas
-	let ring = g:wheel_mandalas.ring
+	let bufring = g:wheel_bufring
+	let mandalas = g:wheel_bufring.mandalas
 	" ---- pre-checks
 	if ! window->wheel#chain#is_inside(['split', 'furtive'])
 		echomsg 'wheel cylinder first : bad window argument'
 		return v:false
 	endif
 	" -- empty ring ?
-	if ! empty(ring)
+	if ! empty(mandalas)
 		echomsg 'wheel cylinder first : mandala ring is not empty'
 		return v:false
 	endif
@@ -196,11 +196,11 @@ fun! wheel#cylinder#first (window = 'furtive')
 	endif
 	let novice = bufnr('%')
 	" ---- add
-	let mandalas.current = 0
-	let iden = mandalas.iden
-	let names = mandalas.names
-	let types = mandalas.types
-	eval ring->add(novice)
+	let bufring.current = 0
+	let iden = bufring.iden
+	let names = bufring.names
+	let types = bufring.types
+	eval mandalas->add(novice)
 	eval iden->add(0)
 	eval names->add('0')
 	eval types->add('')
@@ -228,7 +228,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 	"   - furtive (default) : use current window and go back to previous buffer at the end
 	"   - split : use a split
 	let window = a:window
-	let mandalas = g:wheel_mandalas
+	let bufring = g:wheel_bufring
 	" ---- pre-checks
 	if ! window->wheel#chain#is_inside(['split', 'furtive'])
 		echomsg 'wheel cylinder first : bad window argument'
@@ -237,16 +237,16 @@ fun! wheel#cylinder#add (window = 'furtive')
 	call wheel#cylinder#check ()
 	call wheel#cylinder#delete_unused ()
 	" ---- first one
-	let ring = mandalas.ring
-	if empty(ring)
+	let mandalas = bufring.mandalas
+	if empty(mandalas)
 		return wheel#cylinder#first (window)
 	endif
 	" ---- not the first one
 	" -- is current buffer a mandala buffer ?
 	let was_mandala = wheel#cylinder#is_mandala ()
 	" -- previous current mandala
-	let current = mandalas.current
-	let elder = ring[current]
+	let current = bufring.current
+	let elder = mandalas[current]
 	" -- mandala window
 	if window == 'split'
 		call wheel#cylinder#window ('window')
@@ -274,11 +274,11 @@ fun! wheel#cylinder#add (window = 'furtive')
 	endif
 	" -- add
 	let next = current + 1
-	eval ring->insert(novice, next)
-	let mandalas.current = next
-	let iden = mandalas.iden
-	let names = mandalas.names
-	let types = mandalas.types
+	eval mandalas->insert(novice, next)
+	let bufring.current = next
+	let iden = bufring.iden
+	let names = bufring.names
+	let types = bufring.types
 	let novice_iden = wheel#chain#lowest_outside (iden)
 	let novice_name = string(novice_iden)
 	eval iden->insert(novice_iden, next)
@@ -291,8 +291,6 @@ fun! wheel#cylinder#add (window = 'furtive')
 	call wheel#mandala#common_maps ()
 	" -- coda
 	if window == 'furtive' && ! was_mandala
-		" in furtive window, if not in mandala buffer at start,
-		" go back to previous buffer
 		if empty_cur_buffer
 			" :new has opened a split, close it
 			noautocmd close
@@ -309,33 +307,33 @@ endfun
 fun! wheel#cylinder#delete ()
 	" Delete mandala buffer
 	call wheel#cylinder#check ()
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
 	" do not delete element from empty ring
-	if empty(ring)
+	if empty(mandalas)
 		echomsg 'wheel mandala delete : empty buffer ring'
 		return v:false
 	endif
 	" do not delete element from one element ring
-	if len(ring) == 1
-		echomsg 'wheel mandala delete :' ring[0] 'is the last remaining dedicated buffer'
+	if len(mandalas) == 1
+		echomsg 'wheel mandala delete :' mandalas[0] 'is the last remaining dedicated buffer'
 		return v:false
 	endif
 	" delete
-	let current = mandalas.current
-	let removed = ring->remove(current)
-	let iden = mandalas.iden
-	let names = mandalas.names
-	let types = mandalas.types
+	let current = bufring.current
+	let removed = mandalas->remove(current)
+	let iden = bufring.iden
+	let names = bufring.names
+	let types = bufring.types
 	eval iden->remove(current)
 	eval names->remove(current)
 	eval types->remove(current)
-	let length = len(ring)
+	let length = len(mandalas)
 	let current = wheel#gear#circular_minus(current, length)
-	let g:wheel_mandalas.current = current
+	let g:wheel_bufring.current = current
 	let bufnum = bufnr('%')
 	if bufnum == removed || wheel#cylinder#is_mandala ()
-		let goto = ring[current]
+		let goto = mandalas[current]
 		execute 'silent hide buffer' goto
 	endif
 	execute 'silent bwipe!' removed
@@ -344,9 +342,9 @@ fun! wheel#cylinder#delete ()
 endfun
 
 fun! wheel#cylinder#delete_unused ()
-	" Delete old, unused mandalas
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
+	" Delete old, unused mandala
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
 	" -- unused buffer list
 	let buflist = getbufinfo({'buflisted' : 1})
 	let numlist = []
@@ -354,7 +352,7 @@ fun! wheel#cylinder#delete_unused ()
 	for buffer in buflist
 		let bufnum = buffer.bufnr
 		let filename = buffer.name
-		let not_mandala = ! wheel#chain#is_inside(bufnum, ring)
+		let not_mandala = ! wheel#chain#is_inside(bufnum, mandalas)
 		let wheel_filename = filename =~ s:is_mandala_file
 		if not_mandala && wheel_filename
 			eval numlist->add(bufnum)
@@ -383,9 +381,9 @@ endfun
 fun! wheel#cylinder#rename ()
 	" Rename current mandala
 	" Used in status#mandala_leaf
-	let mandalas = g:wheel_mandalas
-	let current = mandalas.current
-	let names = mandalas.names
+	let bufring = g:wheel_bufring
+	let current = bufring.current
+	let names = bufring.names
 	let prompt = 'Relabel current dedicated buffer as ? '
 	let new_name = input(prompt)
 	let names[current] = new_name
@@ -430,40 +428,40 @@ endfun
 " forward & backward
 
 fun! wheel#cylinder#forward ()
-	" Go forward in mandalas buffers
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
-	let types = mandalas.types
-	let length = len(ring)
+	" Go forward in mandalas ring
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
+	let types = bufring.types
+	let length = len(mandalas)
 	if length == 0
 		echomsg 'wheel mandala forward : empty ring'
 		return v:false
 	endif
-	let current = g:wheel_mandalas.current
+	let current = g:wheel_bufring.current
 	let bufnum = bufnr('%')
-	if wheel#chain#is_inside(bufnum, ring)
+	if wheel#chain#is_inside(bufnum, mandalas)
 		let current = wheel#gear#circular_plus (current, length)
-		let g:wheel_mandalas.current = current
+		let g:wheel_bufring.current = current
 	endif
 	call wheel#cylinder#recall ()
 	call wheel#status#mandala_leaf ()
 endfun
 
 fun! wheel#cylinder#backward ()
-	" Go backward in mandalas buffers
-	let mandalas = g:wheel_mandalas
-	let ring = mandalas.ring
-	let types = mandalas.types
-	let length = len(ring)
+	" Go backward in mandalas ring
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
+	let types = bufring.types
+	let length = len(mandalas)
 	if length == 0
 		echomsg 'wheel mandala backward : empty ring'
 		return v:false
 	endif
-	let current = g:wheel_mandalas.current
+	let current = g:wheel_bufring.current
 	let bufnum = bufnr('%')
-	if wheel#chain#is_inside(bufnum, ring)
+	if wheel#chain#is_inside(bufnum, mandalas)
 		let current = wheel#gear#circular_minus (current, length)
-		let g:wheel_mandalas.current = current
+		let g:wheel_bufring.current = current
 	endif
 	call wheel#cylinder#recall ()
 	call wheel#status#mandala_leaf ()
@@ -473,8 +471,8 @@ endfun
 
 fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion
-	let mandalas = g:wheel_mandalas
-	let names = mandalas.names
+	let bufring = g:wheel_bufring
+	let names = bufring.names
 	if empty(names)
 		echomsg 'wheel cylinder switch : empty buffer ring'
 		return v:false
@@ -487,11 +485,11 @@ fun! wheel#cylinder#switch ()
 		let chosen = input(prompt, '', complete)
 	endif
 	let chosen = split(chosen, s:field_separ)[0]
-	let mandala = names->index(chosen)
-	if mandala < 0
+	let index = names->index(chosen)
+	if index < 0
 		return v:false
 	endif
-	let g:wheel_mandalas.current = mandala
+	let g:wheel_bufring.current = index
 	call wheel#cylinder#recall ()
 	call wheel#status#mandala_leaf ()
 endfun

@@ -281,23 +281,23 @@ endfun
 
 fun! wheel#void#mandalas ()
 	" Initialize mandala buffers list
-	if ! exists('g:wheel_mandalas')
-		let g:wheel_mandalas = {}
+	if ! exists('g:wheel_bufring')
+		let g:wheel_bufring = {}
 	endif
-	if ! has_key(g:wheel_mandalas, 'ring')
-		let g:wheel_mandalas.ring = []
+	if ! has_key(g:wheel_bufring, 'mandalas')
+		let g:wheel_bufring.mandalas = []
 	endif
-	if ! has_key(g:wheel_mandalas, 'current')
-		let g:wheel_mandalas.current = -1
+	if ! has_key(g:wheel_bufring, 'current')
+		let g:wheel_bufring.current = -1
 	endif
-	if ! has_key(g:wheel_mandalas, 'iden')
-		let g:wheel_mandalas.iden = []
+	if ! has_key(g:wheel_bufring, 'iden')
+		let g:wheel_bufring.iden = []
 	endif
-	if ! has_key(g:wheel_mandalas, 'names')
-		let g:wheel_mandalas.names = []
+	if ! has_key(g:wheel_bufring, 'names')
+		let g:wheel_bufring.names = []
 	endif
-	if ! has_key(g:wheel_mandalas, 'types')
-		let g:wheel_mandalas.types = []
+	if ! has_key(g:wheel_bufring, 'types')
+		let g:wheel_bufring.types = []
 	endif
 endfun
 
@@ -375,7 +375,7 @@ endfun
 fun! wheel#void#wipe_mandalas ()
 	" Wipe mandalas buffers
 	let buflist = getbufinfo()
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	for buffer in buflist
 		let bufnum = buffer.bufnr
 		if wheel#chain#is_inside(bufnum, mandalas)
@@ -410,7 +410,7 @@ fun! wheel#void#vanish ()
 				\ 'g:wheel_wave',
 				\ 'g:wheel_ripple',
 				\ 'g:wheel_yank',
-				\ 'g:wheel_mandalas',
+				\ 'g:wheel_bufring',
 				\ 'g:wheel_shelve',
 				\ 'g:wheel_config',
 				\]
@@ -473,7 +473,7 @@ fun! wheel#void#fresh_wheel ()
 				\ 'g:wheel_wave',
 				\ 'g:wheel_ripple',
 				\ 'g:wheel_yank',
-				\ 'g:wheel_mandalas',
+				\ 'g:wheel_bufring',
 				\ 'g:wheel_signs',
 				\ 'g:wheel_shelve',
 				\]

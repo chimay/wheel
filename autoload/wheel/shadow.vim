@@ -43,7 +43,7 @@ fun! wheel#shadow#tabwin ()
 	" Buffers visible in tabs & wins
 	let returnlist = []
 	let last_tab = tabpagenr('$')
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	for tabnum in range(1, last_tab)
 		let entry = [tabnum]
 		eval returnlist->add(entry)

@@ -157,7 +157,7 @@ fun! wheel#rectangle#hidden_buffers (scope = 'listed')
 		return []
 	endif
 	let alternate = bufname('#')
-	let mandalas = g:wheel_mandalas.ring
+	let mandalas = g:wheel_bufring.mandalas
 	let hidden_nums = []
 	let hidden_names = []
 	for buffer in buflist

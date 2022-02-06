@@ -99,9 +99,9 @@ endfun
 
 fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	" Complete mandala buffer name
-	let mandalas = g:wheel_mandalas
-	let names = mandalas.names
-	let types = mandalas.types
+	let bufring = g:wheel_bufring
+	let names = bufring.names
+	let types = bufring.types
 	if empty(names)
 		return []
 	endif
