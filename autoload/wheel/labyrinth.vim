@@ -3,7 +3,7 @@
 " Commands to reproduce tabs & windows layouts
 
 fun! wheel#labyrinth#windows (layout, direction = 'undefined')
-	" Ouput to reproduce layout of a tab
+	" Commands to reproduce layout of a tab
 	let layout = a:layout
 	let direction = a:direction
 	" ---- split command
@@ -62,7 +62,7 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 endfun
 
 fun! wheel#labyrinth#layout ()
-	" Ouput commands list to reproduce layout
+	" Commands to reproduce layout of all tabs
 	let last = tabpagenr('$')
 	let returnlist = []
 	" ---- keep only one tab & window to start

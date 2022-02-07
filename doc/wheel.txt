@@ -884,6 +884,11 @@ Going to filter line~
 - pressing `cc` moves the cursor to the first line,
   starts insert mode and clear the line content, except the prompt
 
+Reset filter~
+
+Pressing `dd` clear the filter line, except the prompt, and show all
+unfiltered lines.
+
 Update candidates~
 
 Typing :
