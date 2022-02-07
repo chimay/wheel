@@ -3918,7 +3918,7 @@ of the modules within them.
 | group.vim         | Auto grouping of files                         |
 | guru.vim          | Help                                           |
 | helix.vim         | Wheel indexes                                  |
-| helm.vim          | Menus in dedicated buffers                     |
+| helm.vim          | Main & meta menus in dedicated buffers         |
 | kintsugi.vim      | Check & fix wheel variables                    |
 | kyusu.vim         | Filters for prompt & dedicated buffers         |
 | labyrinth.vim     | Commands to reproduce tab & win layout         |
