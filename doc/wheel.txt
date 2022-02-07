@@ -883,7 +883,7 @@ In normal mode :
 - pressing `i` or `a` moves the cursor to the first line and starts insert mode
   + same thing with `<M-i>` and `<Ins>`
 - pressing `cc` moves the cursor to the first line,
-  starts insert mode and clear the line content, except the prompt
+  starts insert mode and clears the line content, except the prompt
 
 Reset filter~
 
