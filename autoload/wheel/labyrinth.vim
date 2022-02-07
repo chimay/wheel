@@ -83,6 +83,8 @@ fun! wheel#labyrinth#layout ()
 	eval returnlist->add('noautocmd silent tabdo wincmd =')
 	" ---- return to tab 1
 	eval returnlist->add('noautocmd silent tabrewind')
+	" ---- jump
+	eval returnlist->add('call wheel#vortex#jump()')
 	" ---- coda
 	return returnlist
 endfun
