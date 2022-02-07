@@ -49,7 +49,7 @@ fun! wheel#mirror#grep_edit (...)
 	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#harmony#write ('wheel#vector#write_quickfix')
+	call wheel#harmony#write ('wheel#harmony#grep_edit')
 	call wheel#mandala#fill (lines)
 	" ---- reload
 	let b:wheel_reload = "wheel#mirror#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
