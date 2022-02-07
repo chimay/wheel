@@ -133,9 +133,9 @@ fun! wheel#polyphony#delete_in_var_lines (line)
 	let index = line - start
 	let filter_indexes = b:wheel_filter.indexes
 	let filter_lines = b:wheel_filter.lines
-	let length = len(filter_indexes)
 	eval filter_indexes->remove(index)
 	eval filter_lines->remove(index)
+	let length = len(filter_indexes)
 	for iter in range(index + 1, length - 1)
 		let filter_indexes[iter] -= 1
 	endfor
