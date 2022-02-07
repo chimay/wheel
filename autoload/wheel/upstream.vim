@@ -34,13 +34,13 @@ fun! wheel#upstream#is_selection_empty ()
 	return empty(selection.indexes)
 endfun
 
-fun! wheel#upstream#line_index (linum)
+fun! wheel#upstream#line_index (line)
 	" Return index of parent line number in parent b:wheel_lines
-	let linum = a:linum
+	let line = a:line
 	let shift = wheel#upstream#first_data_line ()
-	let index = linum - shift
-	let filter = wheel#book#previous('filter')
+	let index = line - shift
 	if wheel#upstream#is_filtered ()
+		let filter = wheel#book#previous('filter')
 		let indexlist = filter.indexes
 		return indexlist[index]
 	else

@@ -18,6 +18,32 @@ if ! exists('s:field_separ_bar')
 	lockvar s:field_separ_bar
 endif
 
+" ---- helpers
+
+fun! wheel#polyphony#append_in_var_lines (line, content)
+	" Append content after line in local mandala variables
+	let line = a:line
+	let content = a:content
+	" ---- all lines
+	let line_index = wheel#teapot#line_index (line)
+	eval b:wheel_lines->insert(content, line_index + 1)
+	" ---- filtered lines
+	if ! wheel#teapot#is_filtered ()
+		return v:true
+	endif
+	let start = wheel#teapot#first_data_line ()
+	let next = line - start + 1
+	let filter_indexes = b:wheel_filter.indexes
+	let filter_lines = b:wheel_filter.lines
+	let length = len(filter_indexes)
+	eval filter_indexes->insert(line_index + 1, next)
+	eval filter_lines->insert(content, next)
+	for index in range(next + 1, length)
+		let filter_indexes[index] += 1
+	endfor
+	return v:true
+endfun
+
 " ---- operator
 
 fun! wheel#polyphony#operator (argument = '')
@@ -107,25 +133,26 @@ fun! wheel#polyphony#append (where = 'below')
 		echomsg 'wheel polyphony append : bad argument where' where
 	endif
 	call wheel#pencil#hide ()
-	let mandala_linum = line('.')
+	let linum = line('.')
 	let fields = split(getline('.'), s:field_separ)
 	let object = fields[0]
 	if object =~ '^[+-]'
 		let object = object[1:]
 	endif
-	let linum = str2nr(object)
+	let linum_field = str2nr(object)
 	if where == 'above'
-		let mandala_linum -= 1
+		let linum -= 1
 	endif
 	if where == 'below'
-		let linum = printf('+%4d', linum)
+		let linum_field = printf('+%4d', linum_field)
 	else
-		let linum = printf('-%4d', linum)
+		let linum_field = printf('-%4d', linum_field)
 	endif
-	let columns = linum  .. s:field_separ
-	call append(mandala_linum, columns)
-	let mandala_linum += 1
-	call cursor(mandala_linum, 1)
+	let columns = linum_field  .. s:field_separ
+	call append(linum, columns)
+	call wheel#polyphony#append_in_var_lines (linum, columns)
+	let linum += 1
+	call cursor(linum, 1)
 	call wheel#pencil#show ()
 	startinsert!
 endfun
@@ -139,13 +166,13 @@ fun! wheel#polyphony#duplicate (where = 'below')
 		echomsg 'wheel polyphony duplicate : bad where' where
 	endif
 	call wheel#pencil#hide ()
-	let mandala_linum = line('.')
+	let linum = line('.')
 	let fields = split(getline('.'), s:field_separ)
 	let object = fields[0]
 	if object =~ '^[+-]'
 		let object = object[1:]
 	endif
-	let linum = str2nr(object)
+	let linum_field = str2nr(object)
 	let length = len(fields)
 	if length > 1
 		let content = fields[1]
@@ -153,17 +180,18 @@ fun! wheel#polyphony#duplicate (where = 'below')
 		let content = ''
 	endif
 	if where == 'above'
-		let mandala_linum -= 1
+		let linum -= 1
 	endif
 	if where == 'below'
-		let linum = printf('+%4d', linum)
+		let linum_field = printf('+%4d', linum_field)
 	else
-		let linum = printf('-%4d', linum)
+		let linum_field = printf('-%4d', linum_field)
 	endif
-	let columns = linum .. s:field_separ .. content
-	call append(mandala_linum, columns)
-	let mandala_linum += 1
-	call cursor(mandala_linum, 1)
+	let columns = linum_field .. s:field_separ .. content
+	call append(linum, columns)
+	call wheel#polyphony#append_in_var_lines (linum, columns)
+	let linum += 1
+	call cursor(linum, 1)
 	call wheel#pencil#show ()
 endfun
 
@@ -267,7 +295,7 @@ fun! wheel#polyphony#counterpoint ()
 	return v:true
 endfun
 
-" ---- helpers for mandalas
+" ---- helpers for mandalas maps
 
 fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	" Feed key, or run filter if on first line
