@@ -43,7 +43,7 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 		let rewind = 'noautocmd ' .. splitnum .. ' wincmd k'
 	endif
 	eval returnlist->add(rewind)
-	" -- edit files
+	" -- treat sublists
 	if direction == 'row'
 		let next_window = 'noautocmd wincmd l'
 	elseif direction == 'col'
@@ -80,9 +80,9 @@ fun! wheel#labyrinth#layout ()
 	endfor
 	" ---- set all windows equal
 	" does not work
-	"eval returnlist->add('silent tabdo wincmd =')
+	eval returnlist->add('noautocmd silent tabdo wincmd =')
 	" ---- return to tab 1
-	eval returnlist->add('silent tabrewind')
+	eval returnlist->add('noautocmd silent tabrewind')
 	" ---- coda
 	return returnlist
 endfun
