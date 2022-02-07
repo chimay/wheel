@@ -445,13 +445,16 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- update b:wheel_lines
-	call wheel#polyphony#update_var_lines ()
 	" -- buffer
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'undefined'
 		return v:false
 	endif
+	" -- update b:wheel_lines
+	call wheel#polyphony#update_var_lines ()
+	" -- reset filter
+	call wheel#teapot#set_prompt ()
+	call wheel#teapot#filter()
 	" -- modify file lines
 	let linelist = wheel#teapot#all_lines ()
 	let linum = wheel#teapot#first_data_line ()
@@ -494,6 +497,9 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 		endif
 		let linum += 1
 	endfor
+	" -- lines have been modified again
+	call wheel#polyphony#update_var_lines ()
+	" -- coda
 	setlocal nomodified
 	echomsg 'changes written to file'
 	return v:true
