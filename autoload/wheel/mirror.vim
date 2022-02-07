@@ -6,7 +6,7 @@
 
 " reorganize tabs
 
-fun! wheel#shape#reorg_tabwin ()
+fun! wheel#mirror#reorg_tabwin ()
 	" Reorganize tabs & windows
 	let lines = wheel#perspective#tabwin_tree ()
 	" -- pre-checks
@@ -22,5 +22,5 @@ fun! wheel#shape#reorg_tabwin ()
 	call wheel#polyphony#counterpoint ('reorg_tabwin')
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#shape#reorg_tabwin'
+	let b:wheel_reload = 'wheel#mirror#reorg_tabwin'
 endfun

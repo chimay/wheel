@@ -72,7 +72,7 @@ fun! wheel#whirl#tree ()
 	" properties
 	let b:wheel_nature.is_treeish = v:true
 	" full information
-	let b:wheel_full = wheel#shadow#tree ()
+	let b:wheel_full = wheel#cuboctahedron#tree ()
 	" reload
 	let b:wheel_reload = 'wheel#whirl#tree'
 endfun

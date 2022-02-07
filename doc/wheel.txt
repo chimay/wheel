@@ -3903,7 +3903,6 @@ of the modules within them.
 | centre.vim        | Commands & mappings                            |
 | chain.vim         | List helpers                                   |
 | chakra.vim        | Signs on wheel locations                       |
-| chart.vim         | Refactoring dedicated buffers                  |
 | clipper.vim       | Yank dedicated buffer                          |
 | codex.vim         | Yank ring                                      |
 | complete.vim      | Completion functions                           |
@@ -3927,6 +3926,7 @@ of the modules within them.
 | loop.vim          | Loops on dedicated buffers lines               |
 | mandala.vim       | Generic dedicated buffers                      |
 | matrix.vim        | Nested lists & dictionaries                    |
+| mirror.vim        | Organize native vim elements                   |
 | mosaic.vim        | Windows & tabs Layouts                         |
 | orbiter.vim       | Preview for dedicated buffers                  |
 | pencil.vim        | Selection in dedicated buffers                 |
@@ -3942,8 +3942,8 @@ of the modules within them.
 | river.vim         | Navigation aspect of dedicated buffers         |
 | sailing.vim       | Non wheel navigation                           |
 | scroll.vim        | Input history in dedicated buffers             |
-| shadow.vim        | Full information of each mandala line          |
-| shape.vim         | Organize native vim elements                   |
+| cuboctahedron.vim | Full information of each mandala line          |
+| shadow.vim        | Refactoring dedicated buffers                  |
 | spiral.vim        | Golden ratio                                   |
 | status.vim        | Print wheel status                             |
 | symbol.vim        | Tags                                           |

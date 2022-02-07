@@ -125,16 +125,16 @@ endif
 
 if ! exists('s:menu_organize_native')
 	let s:menu_organize_native = [
-				\ ['reorganize tabs & windows' ,  'wheel#shape#reorg_tabwin'],
+				\ ['reorganize tabs & windows' ,  'wheel#mirror#reorg_tabwin'],
 				\]
 	lockvar! s:menu_organize_native
 endif
 
 if ! exists('s:menu_refactoring')
 	let s:menu_refactoring = [
-				\ ['grep in edit mode' ,  'wheel#chart#grep_edit'],
-				\ ['narrow current file' ,  'wheel#chart#narrow_file'],
-				\ ['narrow all files in circle' ,  'wheel#chart#narrow_circle'],
+				\ ['grep in edit mode' ,  'wheel#shadow#grep_edit'],
+				\ ['narrow current file' ,  'wheel#shadow#narrow_file'],
+				\ ['narrow all files in circle' ,  'wheel#shadow#narrow_circle'],
 				\]
 	lockvar! s:menu_refactoring
 endif
@@ -342,7 +342,7 @@ if ! exists('s:context_tabwin')
 				\ ['open' ,  "wheel#boomerang#tabwin('open')"],
 				\ ['new tab' ,  "wheel#boomerang#tabwin('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin('tabclose')"],
-				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
+				\ ['reorganize' ,  'wheel#mirror#reorg_tabwin'],
 				\]
 	lockvar! s:context_tabwin
 endif
@@ -352,14 +352,14 @@ if ! exists('s:context_tabwin_tree')
 				\ ['open' ,  "wheel#boomerang#tabwin_tree('open')"],
 				\ ['new tab' ,  "wheel#boomerang#tabwin_tree('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin_tree('tabclose')"],
-				\ ['reorganize' ,  'wheel#shape#reorg_tabwin'],
+				\ ['reorganize' ,  'wheel#mirror#reorg_tabwin'],
 				\]
 	lockvar! s:context_tabwin_tree
 endif
 
 if ! exists('s:context_grep')
 	let s:context_grep = s:context_navigation + [
-				\ ['edit mode' ,  "wheel#chart#grep_edit()"],
+				\ ['edit mode' ,  "wheel#shadow#grep_edit()"],
 				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
 				\]
 	lockvar! s:context_grep

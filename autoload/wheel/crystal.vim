@@ -115,8 +115,8 @@ if ! exists('s:function_pattern_mandala_opens')
 				\ '\m#whirl#',
 				\ '\m#frigate#',
 				\ '\m#yggdrasil#',
-				\ '\m#shape#',
-				\ '\m#chart#',
+				\ '\m#mirror#',
+				\ '\m#shadow#',
 				\ '\m#clipper#',
 				\ '\m#triangle#',
 				\]
