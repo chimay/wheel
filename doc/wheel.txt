@@ -1018,15 +1018,15 @@ locations in the wheel.
 
 Confirmation before writing~
 
-A confirmation is asked if you use |:w|, but not if you use the bang
-version |:w!|.
+A confirmation is asked if you use |:write|, but not if you use the bang
+version `:write!`.
 
-There are also the local maps :
+These buffer local maps are also defined :
 
-- `<leader>w`, equivalent to |:w|
-- `<leader>W`, equivalent to |:w!|
+- `<leader>w`, equivalent to |:write|
+- `<leader>W`, equivalent to `:write!`
 
-Be careful with |:wa!| though, for it would save without warning any
+Be careful with `:wall!` though, for it would save without warning any
 modified writable mandala.
 
 Prompt~
