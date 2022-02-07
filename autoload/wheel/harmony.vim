@@ -454,7 +454,7 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 	endif
 	" -- modify file lines
 	let linelist = wheel#teapot#all_lines ()
-	let mandala_linum = 2
+	let linum = wheel#teapot#first_data_line ()
 	let shift = 0
 	for line in linelist
 		let fields = split(line, s:field_separ)
@@ -467,35 +467,35 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 		endif
 		if object =~ '^+'
 			" line added below
-			let linum = str2nr(object[1:])
+			let linum_field = str2nr(object[1:])
 			let shift += 1
-			let newnum = linum + shift
+			let newnum = linum_field + shift
 			call appendbufline(bufnum, newnum - 1, content)
 			let newnum = printf('%5d', newnum)
 			let newline =  newnum .. s:field_separ .. content
-			call setline(mandala_linum, newline)
+			call setline(linum, newline)
 		elseif object =~ '^-'
 			" line added above
-			let linum = str2nr(object[1:])
+			let linum_field = str2nr(object[1:])
 			let shift += 1
-			let newnum = linum + shift - 1
+			let newnum = linum_field + shift - 1
 			call appendbufline(bufnum, newnum - 1, content)
 			let newnum = printf('%5d', newnum)
 			let newline =  newnum .. s:field_separ .. content
-			call setline(mandala_linum, newline)
+			call setline(linum, newline)
 		else
 			" existing line
-			let linum = str2nr(object)
-			let newnum = linum + shift
+			let linum_field = str2nr(object)
+			let newnum = linum_field + shift
 			call setbufline(bufnum, newnum, content)
 			let newnum = printf('%5d', newnum)
 			let newline = newnum .. s:field_separ .. content
-			call setline(mandala_linum, newline)
+			call setline(linum, newline)
 		endif
-		let mandala_linum += 1
+		let linum += 1
 	endfor
 	setlocal nomodified
-	echomsg 'changes propagated'
+	echomsg 'changes written to file'
 	return v:true
 endfun
 
@@ -525,7 +525,7 @@ fun! wheel#harmony#narrow_circle (ask = 'confirm')
 		call setbufline(bufnum, linum, content)
 	endfor
 	setlocal nomodified
-	echomsg 'changes propagated to circle'
+	echomsg 'changes written to circle files'
 	return v:true
 endfun
 

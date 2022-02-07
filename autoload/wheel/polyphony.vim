@@ -30,7 +30,7 @@ fun! wheel#polyphony#is_writable ()
 	return b:wheel_nature.is_writable
 endfun
 
-" ---- write maps & autocommand
+" ---- write autocommand & maps
 
 fun! wheel#polyphony#score (fun_name, arguments)
 	" Return string to call fun_name with arguments
@@ -74,7 +74,7 @@ fun! wheel#polyphony#voicing (fun_name, arguments)
 endfun
 
 fun! wheel#polyphony#counterpoint (fun_name, ...)
-	" Define BufWriteCmd autocommand & set writable property
+	" Enable writable mandala : autocommand, maps, properties, options
 	" Optional arguments : arguments to pass to fun_name
 	" -- arguments
 	let fun_name = a:fun_name
