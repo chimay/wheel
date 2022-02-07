@@ -3,8 +3,6 @@
 " Mirror
 "
 " Refactoring, dedicated buffers
-"
-" Reflect your changes
 
 " script constants
 
@@ -13,7 +11,7 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
-" grep edit
+" ---- grep edit
 
 fun! wheel#mirror#grep_edit (...)
 	" Grep in edit mode
@@ -58,7 +56,28 @@ fun! wheel#mirror#grep_edit (...)
 	return lines
 endfun
 
-" narrow
+" ---- narrow
+
+" -- operator
+
+fun! wheel#mirror#operator (argument = '')
+	" Operator waiting for a movement or text object to select range
+	" Use in a map like this :
+	"   map <expr> <mykey> wheel#mirror#operator()
+	let argument = a:argument
+	" -- when called to find the rhs of the map
+	if argument == ''
+		set operatorfunc=wheel#mirror#operator
+		return 'g@'
+	endif
+	" -- when called to execute wheel#mirror#operator
+	" -- then, argument is 'line', 'block' or 'char'
+	let first = line("'[")
+	let last = line("']")
+	call wheel#mirror#narrow_file (first, last)
+endfun
+
+" -- mandalas
 
 fun! wheel#mirror#narrow_file (...) range
 	" Lines matching pattern in current file

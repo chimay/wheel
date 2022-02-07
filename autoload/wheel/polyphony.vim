@@ -18,7 +18,9 @@ if ! exists('s:field_separ_bar')
 	lockvar s:field_separ_bar
 endif
 
-" ---- helpers
+" ---- actions
+
+" -- helpers
 
 fun! wheel#polyphony#append_in_var_lines (line, content)
 	" Append content after line in local mandala variables
@@ -67,7 +69,7 @@ fun! wheel#polyphony#delete_in_var_lines (line)
 	return v:true
 endfun
 
-" ---- actions
+" -- main
 
 fun! wheel#polyphony#substitute (mandala = 'file')
 	" Substitute in narrow mandala
@@ -208,25 +210,6 @@ fun! wheel#polyphony#delete ()
 	. delete
 	let linum = line('.')
 	call wheel#polyphony#delete_in_var_lines (linum)
-endfun
-
-" ---- operator
-
-fun! wheel#polyphony#operator (argument = '')
-	" Operator waiting for a movement or text object to select range
-	" Use in a map like this :
-	"   map <expr> <mykey> wheel#polyphony#operator()
-	let argument = a:argument
-	" -- when called to find the rhs of the map
-	if argument == ''
-		set operatorfunc=wheel#polyphony#operator
-		return 'g@'
-	endif
-	" -- when called to execute wheel#polyphony#operator
-	" -- then, argument is 'line', 'block' or 'char'
-	let first = line("'[")
-	let last = line("']")
-	call wheel#mirror#narrow_file (first, last)
 endfun
 
 " ---- helpers for mandalas maps

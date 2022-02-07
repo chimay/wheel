@@ -157,7 +157,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#mirror#grep_edit()<cr>
 	" -- narrow
 	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#mirror#narrow_file()<cr>
-	nnoremap <expr> <plug>(wheel-dedibuf-narrow-operator) wheel#polyphony#operator()
+	nnoremap <expr> <plug>(wheel-dedibuf-narrow-operator) wheel#mirror#operator()
 	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#mirror#narrow_circle()<cr>
 	" use colon instead of <cmd> to catch the range
 	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#mirror#narrow_file()<cr>
