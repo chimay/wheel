@@ -47,7 +47,7 @@ fun! wheel#mirror#grep_edit (...)
 	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#polyphony#write ('wheel#polyphony#grep_edit')
+	call wheel#polyphony#counterpoint ('grep_edit')
 	call wheel#mandala#fill (lines)
 	" ---- reload
 	let b:wheel_reload = "wheel#mirror#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
@@ -111,7 +111,7 @@ fun! wheel#mirror#narrow_file (...) range
 	let bufnum = bufnr('%')
 	let filename = bufname(bufnum)
 	let filename = fnamemodify(filename, ':t')
-	let filetype = getbufvar(bufnum, '&filetype')
+	let filetype = &l:filetype
 	" -- mandala
 	call wheel#mandala#blank ('narrow/file/' .. filename)
 	let &l:filetype = filetype
@@ -122,7 +122,7 @@ fun! wheel#mirror#narrow_file (...) range
 				\ }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('file')
-	call wheel#polyphony#write ('wheel#polyphony#narrow_file')
+	call wheel#polyphony#counterpoint ('narrow_file')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings
@@ -157,7 +157,7 @@ fun! wheel#mirror#narrow_circle (...)
 	let settings = #{ function : 'wheel#line#narrow_circle' }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('circle')
-	call wheel#polyphony#write ('wheel#polyphony#narrow_circle')
+	call wheel#polyphony#counterpoint ('narrow_circle')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings

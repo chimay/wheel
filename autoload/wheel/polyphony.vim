@@ -8,6 +8,11 @@
 
 " ---- script constants
 
+if ! exists('s:mandala_autocmds_group')
+	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+	lockvar s:mandala_autocmds_group
+endif
+
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ
@@ -23,6 +28,37 @@ endif
 fun! wheel#polyphony#is_writable ()
 	" Whether mandala has BufWriteCmd autocommand
 	return b:wheel_nature.is_writable
+endfun
+
+" ---- write autocommand
+
+fun! wheel#polyphony#counterpoint (fun_name, ...)
+	" Define BufWriteCmd autocommand & set writable property
+	" -- arguments
+	let fun_name = a:fun_name
+	if a:0 > 0
+		let optional = string(a:1)
+	else
+		let optional = ''
+	endif
+	" ---- property
+	let b:wheel_nature.is_writable = v:true
+	" ---- options
+	call wheel#mandala#unlock ()
+	setlocal buftype=acwrite
+	" ---- autocommand
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	if fun_name =~ '#'
+		" fun_name is the complete function name
+		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
+	else
+		" fun_name is the last part of the function
+		let function = 'call wheel#harmony#'
+		let function ..= fun_name .. '(' .. optional .. ')'
+	endif
+	exe 'autocmd' group event '<buffer>' function
 endfun
 
 " ---- local mandala variables
@@ -104,37 +140,6 @@ fun! wheel#polyphony#delete_in_var_lines (line)
 		let filter_indexes[iter] -= 1
 	endfor
 	return v:true
-endfun
-
-" ---- write autocommand
-
-fun! wheel#polyphony#write (fun_name, ...)
-	" Define BufWriteCmd autocommand & set writable property
-	" -- arguments
-	let fun_name = a:fun_name
-	if a:0 > 0
-		let optional = string(a:1)
-	else
-		let optional = ''
-	endif
-	" ---- property
-	let b:wheel_nature.is_writable = v:true
-	" ---- options
-	call wheel#mandala#unlock ()
-	setlocal buftype=acwrite
-	" ---- autocommand
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	if fun_name =~ '#'
-		" fun_name is the complete function name
-		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
-	else
-		" fun_name is the last part of the function
-		let function = 'call wheel#harmony#'
-		let function ..= fun_name .. '(' .. optional .. ')'
-	endif
-	exe 'autocmd' group event '<buffer>' function
 endfun
 
 " ---- actions

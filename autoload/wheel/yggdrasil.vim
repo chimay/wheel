@@ -19,7 +19,7 @@ fun! wheel#yggdrasil#reorder (level)
 	call wheel#mandala#blank ('reorder/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#polyphony#write ('reorder', level)
+	call wheel#polyphony#counterpoint ('reorder', level)
 	call wheel#mandala#fill(lines)
 	" -- reload
 	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
@@ -45,7 +45,7 @@ fun! wheel#yggdrasil#rename (level)
 	call wheel#mandala#blank ('rename/' .. level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#polyphony#write ('rename', level)
+	call wheel#polyphony#counterpoint ('rename', level)
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
@@ -62,10 +62,10 @@ fun! wheel#yggdrasil#rename_file ()
 		return v:false
 	endif
 	" -- mandala
-	call wheel#mandala#blank ('rename/locations_files')
+	call wheel#mandala#blank ('rename/loc_files')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#polyphony#write ('rename_file')
+	call wheel#polyphony#counterpoint ('rename_file')
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
@@ -89,7 +89,7 @@ fun! wheel#yggdrasil#delete (level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
 	call wheel#pencil#mappings ()
-	call wheel#polyphony#write ('delete', level)
+	call wheel#polyphony#counterpoint ('delete', level)
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
@@ -112,7 +112,7 @@ fun! wheel#yggdrasil#copy_move (level)
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
 	call wheel#pencil#mappings ()
-	call wheel#polyphony#write ('copy_move', level)
+	call wheel#polyphony#counterpoint ('copy_move', level)
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
@@ -134,7 +134,7 @@ fun! wheel#yggdrasil#reorganize ()
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
 	call wheel#mandala#folding_options ()
-	call wheel#polyphony#write ('reorganize')
+	call wheel#polyphony#counterpoint ('reorganize')
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	setlocal nocursorline

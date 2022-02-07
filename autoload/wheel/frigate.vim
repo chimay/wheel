@@ -257,7 +257,9 @@ fun! wheel#frigate#occur (...)
 		echomsg 'wheel frigate occur : no match found'
 		return v:false
 	endif
+	let filetype = &l:filetype
 	call wheel#mandala#blank ('occur')
+	let &l:filetype = filetype
 	let settings = #{ function : 'wheel#line#occur' }
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)

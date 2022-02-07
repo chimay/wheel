@@ -32,11 +32,6 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-if ! exists('s:mandala_autocmds_group')
-	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
-	lockvar s:mandala_autocmds_group
-endif
-
 " ---- wheel elements
 
 fun! wheel#harmony#reorder (level)
