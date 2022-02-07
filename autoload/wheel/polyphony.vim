@@ -44,7 +44,7 @@ fun! wheel#polyphony#motion (fun_name, arguments)
 		let funcall = "call call('" .. fun_name .. "', " .. arguments .. ')'
 	else
 		" fun_name is the last part of the function
-		let funcall = "call call ('wheel#harmony#"
+		let funcall = "call call('wheel#harmony#"
 		let funcall ..= fun_name .. "', " .. arguments .. ')'
 	endif
 	return funcall
