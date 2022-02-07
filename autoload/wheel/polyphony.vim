@@ -208,13 +208,12 @@ fun! wheel#polyphony#harmony ()
 	" -- update b:wheel_lines
 	call wheel#cuboctahedron#update_var_lines ()
 	" -- buffer
-	call wheel#pencil#hide ()
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'undefined'
 		return v:false
 	endif
 	" -- modify file lines
-	let linelist = getline(2, '$')
+	let linelist = wheel#teapot#all_lines ()
 	let mandala_linum = 2
 	let shift = 0
 	for line in linelist
@@ -257,7 +256,6 @@ fun! wheel#polyphony#harmony ()
 	endfor
 	setlocal nomodified
 	echomsg 'changes propagated'
-	call wheel#pencil#show ()
 	return v:true
 endfun
 
@@ -272,8 +270,7 @@ fun! wheel#polyphony#counterpoint ()
 	" -- update b:wheel_lines
 	call wheel#cuboctahedron#update_var_lines ()
 	" -- modify file lines
-	call wheel#pencil#hide ()
-	let linelist = getline(2, '$')
+	let linelist = wheel#teapot#all_lines ()
 	for line in linelist
 		let fields = split(line, s:field_separ)
 		let length = len(fields)
@@ -291,7 +288,6 @@ fun! wheel#polyphony#counterpoint ()
 	endfor
 	setlocal nomodified
 	echomsg 'changes propagated to circle'
-	call wheel#pencil#show ()
 	return v:true
 endfun
 

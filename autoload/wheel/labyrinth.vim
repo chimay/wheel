@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Ouput to reproduce tabs & windows layouts
+" Commands to reproduce tabs & windows layouts
 
 fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 	" Ouput to reproduce layout of a tab
