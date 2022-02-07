@@ -1693,9 +1693,6 @@ means possibly wrong propagation into your file.
 
 Just |:write| the buffer to propagate your changes to the original file.
 
-Be aware that only the visible lines will be reflected to the original
-file : this is intended.
-
 Default mappings :
 
 - `<M-w>--` : depends on the mode :
@@ -1744,9 +1741,6 @@ You can edit the lines content as much as you want, but avoid modifying
 the other fields. Adding or removing lines is currently not supported.
 
 Just |:write| the buffer to propagate your changes to the original file.
-
-Be aware that only the visible lines will be reflected back to the
-original files : this is intended.
 
 It uses and fill the vim quickfix list under the hood.
 
