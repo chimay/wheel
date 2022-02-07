@@ -276,7 +276,7 @@ fun! wheel#book#syncup ()
 		return v:false
 	endif
 	" -- update visible lines -> local vars lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- leaves ring
 	let ring = b:wheel_ring
 	" -- leaf to fill / update

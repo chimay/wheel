@@ -3907,7 +3907,7 @@ of the modules within them.
 | helix.vim         | Wheel indexes                                |
 | helm.vim          | Menus in dedicated buffers                   |
 | kintsugi.vim      | Check & fix wheel variables                  |
-| kyusu.vim         | Filter for prompt & dedicated buffers        |
+| kyusu.vim         | Filters for prompt & dedicated buffers       |
 | labyrinth.vim     | Commands to reproduce tab & win layout       |
 | line.vim          | Activate non-wheel line in dedicated buffers |
 | loop.vim          | Loops on dedicated buffers lines             |

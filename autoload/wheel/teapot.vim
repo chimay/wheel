@@ -51,7 +51,7 @@ endfun
 
 fun! wheel#teapot#prompt ()
 	" Return prompt string
-	if wheel#cuboctahedron#is_writable ()
+	if wheel#harmony#is_writable ()
 		return g:wheel_config.display.prompt_writable
 	else
 		return g:wheel_config.display.prompt
@@ -127,7 +127,7 @@ endfun
 fun! wheel#teapot#filter ()
 	" Filter : keep only lines matching words of first line
 	let words = wheel#teapot#wordlist ()
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	if empty(words)
 		let lines = b:wheel_lines
 		let b:wheel_filter.words = []
@@ -214,6 +214,12 @@ fun! wheel#teapot#normal_cc ()
 	startinsert!
 endfun
 
+fun! wheel#teapot#normal_dd ()
+	" Normal command dd in mandala with filter
+	call wheel#teapot#set_prompt ()
+	call wheel#teapot#filter()
+endfun
+
 fun! wheel#teapot#mappings ()
 	" Define filter maps & set property
 	" -- filter property
@@ -227,6 +233,7 @@ fun! wheel#teapot#mappings ()
 	exe nmap '<m-i> <cmd>call' goto_filter "('i')<cr>"
 	exe nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
 	exe nmap 'cc    <cmd>call wheel#teapot#normal_cc()<cr>'
+	exe nmap 'dd    <cmd>call wheel#teapot#normal_dd()<cr>'
 	" -- insert mode
 	let imap = 'inoremap <buffer>'
 	exe imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"

@@ -162,7 +162,7 @@ fun! wheel#vector#write_quickfix ()
 		return v:false
 	endif
 	" -- update b:wheel_lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- list of (modified) lines
 	let linelist = wheel#teapot#all_lines ()
 	" -- number of original lines must be equal to number of modified lines

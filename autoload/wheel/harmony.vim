@@ -41,17 +41,17 @@ endif
 
 " ---- mandala helpers
 
-fun! wheel#cuboctahedron#is_writable ()
+fun! wheel#harmony#is_writable ()
 	" Whether mandala has BufWriteCmd autocommand
 	return b:wheel_nature.is_writable
 endfun
 
-fun! wheel#cuboctahedron#update_var_lines ()
+fun! wheel#harmony#update_var_lines ()
 	" Update lines in local mandala variables, from visible lines
 	" Affected :
 	"   - b:wheel_lines
 	"   - b:wheel_filter.lines
-	if ! wheel#cuboctahedron#is_writable ()
+	if ! wheel#harmony#is_writable ()
 		" if mandala is not writable, lines are not supposed to be modified
 		return v:false
 	endif
@@ -78,7 +78,7 @@ fun! wheel#cuboctahedron#update_var_lines ()
 	return v:true
 endfun
 
-fun! wheel#cuboctahedron#write (fun_name, ...)
+fun! wheel#harmony#write (fun_name, ...)
 	" Define BufWriteCmd autocommand & set writable property
 	" -- arguments
 	let fun_name = a:fun_name
@@ -101,7 +101,7 @@ fun! wheel#cuboctahedron#write (fun_name, ...)
 		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
 	else
 		" fun_name is the last part of the function
-		let function = 'call wheel#cuboctahedron#'
+		let function = 'call wheel#harmony#'
 		let function ..= fun_name .. '(' .. optional .. ')'
 	endif
 	exe 'autocmd' group event '<buffer>' function
@@ -109,11 +109,11 @@ endfun
 
 " ---- wheel elements
 
-fun! wheel#cuboctahedron#reorder (level)
+fun! wheel#harmony#reorder (level)
 	" Reorder elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- reorder
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
@@ -146,11 +146,11 @@ fun! wheel#cuboctahedron#reorder (level)
 	return new_list
 endfun
 
-fun! wheel#cuboctahedron#rename (level)
+fun! wheel#harmony#rename (level)
 	" Rename elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- rename
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -185,10 +185,10 @@ fun! wheel#cuboctahedron#rename (level)
 	return elements
 endfun
 
-fun! wheel#cuboctahedron#rename_file ()
+fun! wheel#harmony#rename_file ()
 	" Rename locations & files of current circle, after buffer content
 	" -- update lines in local vars from visible lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- init
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
@@ -258,11 +258,11 @@ fun! wheel#cuboctahedron#rename_file ()
 	return lines
 endfun
 
-fun! wheel#cuboctahedron#delete (level)
+fun! wheel#harmony#delete (level)
 	" Delete selected elements at level, after buffer content
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- delete
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
@@ -300,11 +300,11 @@ fun! wheel#cuboctahedron#delete (level)
 	return elements
 endfun
 
-fun! wheel#cuboctahedron#copy_move (level)
+fun! wheel#harmony#copy_move (level)
 	" Copy or move selected elements at level
 	let level = a:level
 	" -- update lines in local vars from visible lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- mode : copy or move
 	let prompt = 'Mode ? '
 	let answer = confirm(prompt, "&Copy\n&Move", 1)
@@ -392,7 +392,7 @@ fun! wheel#cuboctahedron#copy_move (level)
 	call wheel#cylinder#recall()
 endfun
 
-fun! wheel#cuboctahedron#reorganize ()
+fun! wheel#harmony#reorganize ()
 	" Reorganize wheel after elements contained in buffer
 	" Rebuild all from scratch
 	" Follow folding tree
@@ -402,7 +402,7 @@ fun! wheel#cuboctahedron#reorganize ()
 		call wheel#disc#write_wheel ()
 	endif
 	" -- update lines in local vars from visible lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- start from empty wheel
 	call wheel#gear#unlet ('g:wheel')
 	call wheel#void#wheel ()
@@ -447,7 +447,7 @@ endfun
 
 " -- reorganize tabs & windows
 
-fun! wheel#cuboctahedron#baskets (linelist)
+fun! wheel#harmony#baskets (linelist)
 	" Fill new tab indexes and windows for reorg_tabwin
 	let linelist = a:linelist
 	" fold marker
@@ -479,7 +479,7 @@ fun! wheel#cuboctahedron#baskets (linelist)
 	return [tabindexes, tabwindows]
 endfun
 
-fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
+fun! wheel#harmony#arrange_tabs (tabindexes)
 	" Arrange tabs for reorg_tabwin : reorder, add, remove
 	" Tie the tabindexes together
 	let tabindexes = a:tabindexes
@@ -535,7 +535,7 @@ fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
 	return [tabindexes, removed]
 endfun
 
-fun! wheel#cuboctahedron#arrange_windows (tabwindows)
+fun! wheel#harmony#arrange_windows (tabwindows)
 	" Arrange windows for reorg_tabwin : add, remove
 	let tabwindows = a:tabwindows
 	let lastab = tabpagenr('$')
@@ -585,12 +585,12 @@ fun! wheel#cuboctahedron#arrange_windows (tabwindows)
 	endfor
 endfun
 
-fun! wheel#cuboctahedron#reorg_tabwin ()
+fun! wheel#harmony#reorg_tabwin ()
 	" Reorganize tabs & windows
 	" Mandala line list
 	" Keep old layouts if possible
 	" -- update lines in local vars from visible lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- list of lines
 	let linelist = wheel#teapot#all_lines ()
 	" -- current tab
@@ -598,13 +598,13 @@ fun! wheel#cuboctahedron#reorg_tabwin ()
 	" -- close mandala to work : otherwise it would be added to the list of windows
 	call wheel#cylinder#close ()
 	" -- fill the baskets
-	let [tabindexes, tabwindows] = wheel#cuboctahedron#baskets (linelist)
+	let [tabindexes, tabwindows] = wheel#harmony#baskets (linelist)
 	" -- find the new tab index of mandala tab page
 	let startpage = tabindexes->index(startpage) + 1
 	" -- arrange tabs : reorder, add and remove
-	let [tabindexes, removed] = wheel#cuboctahedron#arrange_tabs (tabindexes)
+	let [tabindexes, removed] = wheel#harmony#arrange_tabs (tabindexes)
 	" -- add or remove windows
-	call wheel#cuboctahedron#arrange_windows (tabwindows)
+	call wheel#harmony#arrange_windows (tabwindows)
 	" -- back to mandala
 	let lastab = tabpagenr('$')
 	if startpage >= 1 && startpage <= lastab

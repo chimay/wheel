@@ -240,7 +240,7 @@ fun! wheel#polyphony#harmony ()
 		return v:false
 	endif
 	" -- update b:wheel_lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- buffer
 	let bufnum = b:wheel_related_buffer
 	if bufnum == 'undefined'
@@ -302,7 +302,7 @@ fun! wheel#polyphony#counterpoint ()
 		return v:false
 	endif
 	" -- update b:wheel_lines
-	call wheel#cuboctahedron#update_var_lines ()
+	call wheel#harmony#update_var_lines ()
 	" -- modify file lines
 	let linelist = wheel#teapot#all_lines ()
 	for line in linelist
