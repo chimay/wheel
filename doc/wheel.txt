@@ -1023,8 +1023,8 @@ version `:write!`.
 
 These buffer local maps are also defined :
 
-- `<leader>w`, equivalent to |:write|
-- `<leader>W`, equivalent to `:write!`
+- `<leader>w` : equivalent to |:write|
+- `<leader>W` : equivalent to `:write!`
 
 Be careful with `:wall!` though, for it would save without warning any
 modified writable mandala.
