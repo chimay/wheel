@@ -878,16 +878,17 @@ enter on the input (first) line.
 
 Going to filter line~
 
-- pressing `i` or `a` moves the cursor to the first line
-  and starts insert mode
+In normal mode :
+
+- pressing `i` or `a` moves the cursor to the first line and starts insert mode
   + same thing with `<M-i>` and `<Ins>`
 - pressing `cc` moves the cursor to the first line,
   starts insert mode and clear the line content, except the prompt
 
 Reset filter~
 
-Pressing `dd` clear the filter line, except the prompt, and show all
-unfiltered lines.
+Pressing `dd` in normal mode clears the filter line, except the prompt,
+and show all unfiltered lines.
 
 Update candidates~
 

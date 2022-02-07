@@ -241,5 +241,5 @@ fun! wheel#teapot#mappings ()
 	exe imap '<c-u>   <cmd>call' wrapper "('c-u', '>', 'i')<cr>"
 	exe imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
 	exe imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
-	" <C-c> is not mapped, in case you need a regular escape
+	" <c-c> is not mapped, in case you need a regular escape
 endfun
