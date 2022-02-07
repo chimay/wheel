@@ -6,7 +6,7 @@
 "
 " Changes of internal structure
 
-" script constants
+" ---- script constants
 
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
@@ -39,7 +39,7 @@ if ! exists('s:mandala_autocmds_group')
 	lockvar s:mandala_autocmds_group
 endif
 
-" mandala helpers
+" ---- mandala helpers
 
 fun! wheel#cuboctahedron#is_writable ()
 	" Whether mandala has BufWriteCmd autocommand
@@ -107,147 +107,7 @@ fun! wheel#cuboctahedron#write (fun_name, ...)
 	exe 'autocmd' group event '<buffer>' function
 endfun
 
-" reorganize tabs & windows helpers
-
-fun! wheel#cuboctahedron#baskets (linelist)
-	" Fill new tab indexes and windows for reorg_tabwin
-	let linelist = a:linelist
-	" fold marker
-	let marker = s:fold_markers[0]
-	let pat_fold_one = '\m' .. s:fold_1 .. '$'
-	" tabs & windows
-	let tabindexes = []
-	let tabwindows = []
-	let lastab = tabpagenr('$')
-	let nextab = lastab + 1
-	let oldindex = -1
-	let newindex = 0
-	for line in linelist
-		if line =~ pat_fold_one
-			" tab line
-			let oldindex = str2nr(split(line)[1])
-			let newindex += 1
-			if wheel#chain#is_inside(oldindex, tabindexes)
-				let oldindex = nextab
-				let nextab += 1
-			endif
-			eval tabindexes->add(oldindex)
-			eval tabwindows->add([])
-		else
-			" window line
-			eval tabwindows[newindex - 1]->add(line)
-		endif
-	endfor
-	return [tabindexes, tabwindows]
-endfun
-
-fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
-	" Arrange tabs for reorg_tabwin : reorder, add, remove
-	" Tie the tabindexes together
-	let tabindexes = a:tabindexes
-	let [tabindexes, removed] = wheel#chain#tie(tabindexes)
-	" tabindexes : start from 0
-	let minim = min(tabindexes)
-	eval tabindexes->map({ _, val -> val - minim })
-	" Remove inner tabs
-	for index in removed
-		execute 'tabclose' index
-	endfor
-	" Add new tabs if necessary
-	let lentabindexes = len(tabindexes)
-	while tabpagenr('$') < lentabindexes
-		$ tabnew
-	endwhile
-	" Reorder
-	let l:count = 0
-	let max_iter = 2 * g:wheel_config.maxim.tabs
-	let from = 0
-	" status : start from 0
-	" its elements will follow the reordering
-	let status = range(lentabindexes)
-	while v:true
-		while from < lentabindexes && status[from] == tabindexes[from]
-			let from += 1
-		endwhile
-		if from >= lentabindexes
-			break
-		endif
-		let findme = status[from]
-		let target = tabindexes->index(findme)
-		if target <= 0
-			echoerr 'wheel reorg tabs & windows : new tab index not found'
-			return v:false
-		endif
-		execute 'tabnext' from + 1
-		execute 'tabmove' target + 1
-		let status = wheel#chain#move(status, from, target)
-		let l:count += 1
-		if l:count > max_iter
-			echomsg 'wheel reorg tabs & windows : reached max iter'
-			break
-		endif
-	endwhile
-	" Remove trailing unused tabs
-	let lastab = tabpagenr('$')
-	while lastab > lentabindexes
-		eval removed->add(lastab)
-		tabclose $
-		let lastab = tabpagenr('$')
-	endwhile
-	return [tabindexes, removed]
-endfun
-
-fun! wheel#cuboctahedron#arrange_windows (tabwindows)
-	" Arrange windows for reorg_tabwin : add, remove
-	let tabwindows = a:tabwindows
-	let lastab = tabpagenr('$')
-	for index in range(lastab)
-		let tabind = index + 1
-		execute 'tabnext' tabind
-		" Adding windows
-		let lastwin = winnr('$')
-		let basket = tabwindows[index]
-		let lastbasket = len(basket)
-		let minim = min([lastwin, lastbasket])
-		for winum in range(1, minim)
-			execute winum 'wincmd w'
-			let filename = basket[winum - 1]
-			execute 'silent hide edit' filename
-		endfor
-		" if more buffers in basket than windows
-		for winum in range(minim + 1, lastbasket)
-			$ wincmd w
-			if winwidth(0) >= winheight(0)
-				vsplit
-			else
-				split
-			endif
-			let filename = basket[winum - 1]
-			execute 'silent hide edit' filename
-		endfor
-		" Removing windows
-		" buffers in window
-		let winbufs = []
-		windo eval winbufs->add(expand('%:p'))
-		" looping
-		let winum = winnr('$')
-		while winum > 0
-			execute winum 'wincmd w'
-			let filename = expand('%:p')
-			let shadow_win = copy(winbufs)
-			let shadow_bas = copy(basket)
-			let occur_win = len(filter(shadow_win, { _, val -> val == filename }))
-			let occur_bas = len(filter(shadow_bas, { _, val -> val == filename }))
-			if occur_bas < occur_win && winnr('$') > 1
-				eval winbufs->wheel#chain#remove_element(filename)
-				close
-			endif
-			let winum -= 1
-		endwhile
-	endfor
-endfun
-
-" wheel elements
+" ---- wheel elements
 
 fun! wheel#cuboctahedron#reorder (level)
 	" Reorder elements at level, after buffer content
@@ -583,7 +443,147 @@ fun! wheel#cuboctahedron#reorganize ()
 	call wheel#vortex#chord(g:wheel_history.line[0].coordin)
 endfun
 
-" native
+" ---- native
+
+" -- reorganize tabs & windows
+
+fun! wheel#cuboctahedron#baskets (linelist)
+	" Fill new tab indexes and windows for reorg_tabwin
+	let linelist = a:linelist
+	" fold marker
+	let marker = s:fold_markers[0]
+	let pat_fold_one = '\m' .. s:fold_1 .. '$'
+	" tabs & windows
+	let tabindexes = []
+	let tabwindows = []
+	let lastab = tabpagenr('$')
+	let nextab = lastab + 1
+	let oldindex = -1
+	let newindex = 0
+	for line in linelist
+		if line =~ pat_fold_one
+			" tab line
+			let oldindex = str2nr(split(line)[1])
+			let newindex += 1
+			if wheel#chain#is_inside(oldindex, tabindexes)
+				let oldindex = nextab
+				let nextab += 1
+			endif
+			eval tabindexes->add(oldindex)
+			eval tabwindows->add([])
+		else
+			" window line
+			eval tabwindows[newindex - 1]->add(line)
+		endif
+	endfor
+	return [tabindexes, tabwindows]
+endfun
+
+fun! wheel#cuboctahedron#arrange_tabs (tabindexes)
+	" Arrange tabs for reorg_tabwin : reorder, add, remove
+	" Tie the tabindexes together
+	let tabindexes = a:tabindexes
+	let [tabindexes, removed] = wheel#chain#tie(tabindexes)
+	" tabindexes : start from 0
+	let minim = min(tabindexes)
+	eval tabindexes->map({ _, val -> val - minim })
+	" Remove inner tabs
+	for index in removed
+		execute 'tabclose' index
+	endfor
+	" Add new tabs if necessary
+	let lentabindexes = len(tabindexes)
+	while tabpagenr('$') < lentabindexes
+		$ tabnew
+	endwhile
+	" Reorder
+	let l:count = 0
+	let max_iter = 2 * g:wheel_config.maxim.tabs
+	let from = 0
+	" status : start from 0
+	" its elements will follow the reordering
+	let status = range(lentabindexes)
+	while v:true
+		while from < lentabindexes && status[from] == tabindexes[from]
+			let from += 1
+		endwhile
+		if from >= lentabindexes
+			break
+		endif
+		let findme = status[from]
+		let target = tabindexes->index(findme)
+		if target <= 0
+			echoerr 'wheel reorg tabs & windows : new tab index not found'
+			return v:false
+		endif
+		execute 'tabnext' from + 1
+		execute 'tabmove' target + 1
+		let status = wheel#chain#move(status, from, target)
+		let l:count += 1
+		if l:count > max_iter
+			echomsg 'wheel reorg tabs & windows : reached max iter'
+			break
+		endif
+	endwhile
+	" Remove trailing unused tabs
+	let lastab = tabpagenr('$')
+	while lastab > lentabindexes
+		eval removed->add(lastab)
+		tabclose $
+		let lastab = tabpagenr('$')
+	endwhile
+	return [tabindexes, removed]
+endfun
+
+fun! wheel#cuboctahedron#arrange_windows (tabwindows)
+	" Arrange windows for reorg_tabwin : add, remove
+	let tabwindows = a:tabwindows
+	let lastab = tabpagenr('$')
+	for index in range(lastab)
+		let tabind = index + 1
+		execute 'tabnext' tabind
+		" Adding windows
+		let lastwin = winnr('$')
+		let basket = tabwindows[index]
+		let lastbasket = len(basket)
+		let minim = min([lastwin, lastbasket])
+		for winum in range(1, minim)
+			execute winum 'wincmd w'
+			let filename = basket[winum - 1]
+			execute 'silent hide edit' filename
+		endfor
+		" if more buffers in basket than windows
+		for winum in range(minim + 1, lastbasket)
+			$ wincmd w
+			if winwidth(0) >= winheight(0)
+				vsplit
+			else
+				split
+			endif
+			let filename = basket[winum - 1]
+			execute 'silent hide edit' filename
+		endfor
+		" Removing windows
+		" buffers in window
+		let winbufs = []
+		windo eval winbufs->add(expand('%:p'))
+		" looping
+		let winum = winnr('$')
+		while winum > 0
+			execute winum 'wincmd w'
+			let filename = expand('%:p')
+			let shadow_win = copy(winbufs)
+			let shadow_bas = copy(basket)
+			let occur_win = len(filter(shadow_win, { _, val -> val == filename }))
+			let occur_bas = len(filter(shadow_bas, { _, val -> val == filename }))
+			if occur_bas < occur_win && winnr('$') > 1
+				eval winbufs->wheel#chain#remove_element(filename)
+				close
+			endif
+			let winum -= 1
+		endwhile
+	endfor
+endfun
 
 fun! wheel#cuboctahedron#reorg_tabwin ()
 	" Reorganize tabs & windows
