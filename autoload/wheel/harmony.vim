@@ -487,6 +487,8 @@ fun! wheel#harmony#grep_edit ()
 	echomsg 'quickfix changes propagated'
 endfun
 
+" -- narrow
+
 fun! wheel#harmony#narrow_file ()
 	" Write function for shape#narrow_file
 	" -- confirm
@@ -580,8 +582,6 @@ fun! wheel#harmony#narrow_circle ()
 	echomsg 'changes propagated to circle'
 	return v:true
 endfun
-
-" -- narrow
 
 " -- reorganize tabs & windows
 
