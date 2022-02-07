@@ -51,7 +51,7 @@ fun! wheel#harmony#reorder (level)
 	for name in new_names
 		let index = old_names->index(name)
 		if index < 0
-			echomsg 'wheel cuboctahedron reorder : ' name  'not found'
+			echomsg 'wheel harmony reorder : ' name  'not found'
 			continue
 		endif
 		let elem = old_list[index]
@@ -137,7 +137,7 @@ fun! wheel#harmony#rename_file ()
 		let new_name = wheel#tree#format_name(fields[0])
 		" check not empty
 		if empty(old_name) || empty(new_name)
-			echomsg 'wheel cuboctahedron rename : location name cannot be empty'
+			echomsg 'wheel harmony rename : location name cannot be empty'
 			continue
 		endif
 		" nothing to do if old == new

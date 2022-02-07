@@ -154,13 +154,13 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-reorg-tabwin) <cmd>call wheel#shape#reorg_tabwin()<cr>
 	" ---- refactoring
 	" -- grep edit mode
-	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#mirror#grep_edit()<cr>
+	nnoremap <plug>(wheel-dedibuf-grep-edit) <cmd>call wheel#chart#grep_edit()<cr>
 	" -- narrow
-	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#mirror#narrow_file()<cr>
-	nnoremap <expr> <plug>(wheel-dedibuf-narrow-operator) wheel#mirror#narrow_file_operator()
-	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#mirror#narrow_circle()<cr>
+	nnoremap <plug>(wheel-dedibuf-narrow) <cmd>call wheel#chart#narrow_file()<cr>
+	nnoremap <expr> <plug>(wheel-dedibuf-narrow-operator) wheel#chart#narrow_file_operator()
+	nnoremap <plug>(wheel-dedibuf-narrow-circle) <cmd>call wheel#chart#narrow_circle()<cr>
 	" use colon instead of <cmd> to catch the range
-	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#mirror#narrow_file()<cr>
+	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#chart#narrow_file()<cr>
 	" ---- search
 	" -- files
 	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#sailing#mru()<cr>

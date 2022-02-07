@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Mirror
+" Chart
 "
 " Refactoring, dedicated buffers
 
@@ -13,7 +13,7 @@ endif
 
 " ---- grep edit
 
-fun! wheel#mirror#grep_edit (...)
+fun! wheel#chart#grep_edit (...)
 	" Grep in edit mode
 	" ---- arguments
 	if a:0 > 0
@@ -50,7 +50,7 @@ fun! wheel#mirror#grep_edit (...)
 	call wheel#polyphony#counterpoint ('grep_edit')
 	call wheel#mandala#fill (lines)
 	" ---- reload
-	let b:wheel_reload = "wheel#mirror#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
+	let b:wheel_reload = "wheel#chart#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
 	" ---- coda
 	echomsg 'adding or removing lines is not supported'
 	return lines
@@ -58,28 +58,24 @@ endfun
 
 " ---- narrow
 
-" -- operator
-
-fun! wheel#mirror#narrow_file_operator (argument = '')
+fun! wheel#chart#narrow_file_operator (argument = '')
 	" Operator waiting for a movement or text object to select range
 	" Use in a map like this :
-	"   map <expr> <mykey> wheel#mirror#narrow_file_operator()
+	"   map <expr> <mykey> wheel#chart#narrow_file_operator()
 	let argument = a:argument
 	" -- when called to find the rhs of the map
 	if argument == ''
-		set operatorfunc=wheel#mirror#narrow_file_operator
+		set operatorfunc=wheel#chart#narrow_file_operator
 		return 'g@'
 	endif
-	" -- when called to execute wheel#mirror#narrow_file_operator
+	" -- when called to execute wheel#chart#narrow_file_operator
 	" -- then, argument is 'line', 'block' or 'char'
 	let first = line("'[")
 	let last = line("']")
-	call wheel#mirror#narrow_file (first, last)
+	call wheel#chart#narrow_file (first, last)
 endfun
 
-" -- mandalas
-
-fun! wheel#mirror#narrow_file (...) range
+fun! wheel#chart#narrow_file (...) range
 	" Lines matching pattern in current file
 	call wheel#mandala#goto_related ()
 	" 0 or 2 optional arguments
@@ -127,10 +123,10 @@ fun! wheel#mirror#narrow_file (...) range
 	" -- settings
 	let b:wheel_settings = settings
 	" -- reload
-	let b:wheel_reload = "wheel#mirror#narrow_file('" .. first .. "', '" .. last .. "')"
+	let b:wheel_reload = "wheel#chart#narrow_file('" .. first .. "', '" .. last .. "')"
 endfun
 
-fun! wheel#mirror#narrow_circle (...)
+fun! wheel#chart#narrow_circle (...)
 	" Lines matching pattern in all circle files
 	" Like grep but with filter & edit
 	if a:0 > 0
@@ -162,6 +158,6 @@ fun! wheel#mirror#narrow_circle (...)
 	" -- settings
 	let b:wheel_settings = settings
 	" -- reload
-	let b:wheel_reload = "wheel#mirror#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
+	let b:wheel_reload = "wheel#chart#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
 	echomsg 'adding or removing lines is not supported'
 endfun

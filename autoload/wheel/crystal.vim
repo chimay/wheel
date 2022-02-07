@@ -116,7 +116,7 @@ if ! exists('s:function_pattern_mandala_opens')
 				\ '\m#frigate#',
 				\ '\m#yggdrasil#',
 				\ '\m#shape#',
-				\ '\m#mirror#',
+				\ '\m#chart#',
 				\ '\m#clipper#',
 				\ '\m#triangle#',
 				\]

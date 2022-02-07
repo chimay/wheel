@@ -3890,11 +3890,12 @@ of the modules within them.
 | centre.vim        | Commands & mappings                            |
 | chain.vim         | List helpers                                   |
 | chakra.vim        | Signs on wheel locations                       |
-| curve.vim         | Activate wheel line in dedicated buffers       |
+| chart.vim         | Refactoring dedicated buffers                  |
 | clipper.vim       | Yank dedicated buffer                          |
 | codex.vim         | Yank ring                                      |
 | complete.vim      | Completion functions                           |
 | crystal.vim       | Internal variables                             |
+| curve.vim         | Activate wheel line in dedicated buffers       |
 | harmony.vim       | Write functions for mandalas autocommands      |
 | cuckoo.vim        | Frecency : frequent & recent                   |
 | cylinder.vim      | Dedicated buffers ring                         |
@@ -3913,7 +3914,6 @@ of the modules within them.
 | loop.vim          | Loops on dedicated buffers lines               |
 | mandala.vim       | Generic dedicated buffers                      |
 | matrix.vim        | Nested lists & dictionaries                    |
-| mirror.vim        | Refactoring dedicated buffers                  |
 | mosaic.vim        | Windows & tabs Layouts                         |
 | orbiter.vim       | Preview for dedicated buffers                  |
 | pencil.vim        | Selection in dedicated buffers                 |
