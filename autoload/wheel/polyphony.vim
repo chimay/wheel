@@ -2,7 +2,7 @@
 
 " Polyphony
 "
-" Multi-line operations on buffer(s)
+" Write aspect of mandalas
 "
 " Narrow, filter, edit and apply
 

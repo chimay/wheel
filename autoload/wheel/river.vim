@@ -4,8 +4,7 @@
 "
 " Navigation aspect of mandala
 
-
-" default values
+" ---- default values
 
 fun! wheel#river#default (settings)
 	" Default settings values
@@ -35,7 +34,7 @@ fun! wheel#river#default (settings)
 	endif
 endfun
 
-" helpers
+" ---- helpers
 
 fun! wheel#river#mappings (settings)
 	" Define whirl maps
