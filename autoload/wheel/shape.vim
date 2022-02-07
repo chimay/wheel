@@ -19,7 +19,7 @@ fun! wheel#shape#reorg_tabwin ()
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
 	call wheel#mandala#folding_options ('tabwin_folding_text')
-	call wheel#harmony#write ('reorg_tabwin')
+	call wheel#polyphony#write ('reorg_tabwin')
 	call wheel#mandala#fill(lines)
 	" reload
 	let b:wheel_reload = 'wheel#shape#reorg_tabwin'

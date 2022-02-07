@@ -290,7 +290,7 @@ endfun
 
 fun! wheel#mandala#post_edit ()
 	" Restore local options after edition
-	if ! wheel#harmony#is_writable ()
+	if ! wheel#polyphony#is_writable ()
 		call wheel#mandala#lock ()
 	endif
 endfun

@@ -47,7 +47,7 @@ fun! wheel#mirror#grep_edit (...)
 	call wheel#mandala#blank ('grep/edit')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#harmony#write ('wheel#harmony#grep_edit')
+	call wheel#polyphony#write ('wheel#polyphony#grep_edit')
 	call wheel#mandala#fill (lines)
 	" ---- reload
 	let b:wheel_reload = "wheel#mirror#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
@@ -60,17 +60,17 @@ endfun
 
 " -- operator
 
-fun! wheel#mirror#operator (argument = '')
+fun! wheel#mirror#narrow_file_operator (argument = '')
 	" Operator waiting for a movement or text object to select range
 	" Use in a map like this :
-	"   map <expr> <mykey> wheel#mirror#operator()
+	"   map <expr> <mykey> wheel#mirror#narrow_file_operator()
 	let argument = a:argument
 	" -- when called to find the rhs of the map
 	if argument == ''
-		set operatorfunc=wheel#mirror#operator
+		set operatorfunc=wheel#mirror#narrow_file_operator
 		return 'g@'
 	endif
-	" -- when called to execute wheel#mirror#operator
+	" -- when called to execute wheel#mirror#narrow_file_operator
 	" -- then, argument is 'line', 'block' or 'char'
 	let first = line("'[")
 	let last = line("']")
@@ -122,7 +122,7 @@ fun! wheel#mirror#narrow_file (...) range
 				\ }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('file')
-	call wheel#harmony#write ('wheel#harmony#narrow_file')
+	call wheel#polyphony#write ('wheel#polyphony#narrow_file')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings
@@ -157,7 +157,7 @@ fun! wheel#mirror#narrow_circle (...)
 	let settings = #{ function : 'wheel#line#narrow_circle' }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('circle')
-	call wheel#harmony#write ('wheel#harmony#narrow_circle')
+	call wheel#polyphony#write ('wheel#polyphony#narrow_circle')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings

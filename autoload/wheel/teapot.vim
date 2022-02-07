@@ -51,7 +51,7 @@ endfun
 
 fun! wheel#teapot#prompt ()
 	" Return prompt string
-	if wheel#harmony#is_writable ()
+	if wheel#polyphony#is_writable ()
 		return g:wheel_config.display.prompt_writable
 	else
 		return g:wheel_config.display.prompt
@@ -127,7 +127,7 @@ endfun
 fun! wheel#teapot#filter ()
 	" Filter : keep only lines matching words of first line
 	let words = wheel#teapot#wordlist ()
-	call wheel#harmony#update_var_lines ()
+	call wheel#polyphony#update_var_lines ()
 	if empty(words)
 		let lines = b:wheel_lines
 		let b:wheel_filter.words = []

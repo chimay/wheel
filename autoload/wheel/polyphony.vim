@@ -18,9 +18,46 @@ if ! exists('s:field_separ_bar')
 	lockvar s:field_separ_bar
 endif
 
-" ---- actions
+" ---- booleans
 
-" -- helpers
+fun! wheel#polyphony#is_writable ()
+	" Whether mandala has BufWriteCmd autocommand
+	return b:wheel_nature.is_writable
+endfun
+
+" ---- local mandala variables
+
+fun! wheel#polyphony#update_var_lines ()
+	" Update lines in local mandala variables, from visible lines
+	" Affected :
+	"   - b:wheel_lines
+	"   - b:wheel_filter.lines
+	if ! wheel#polyphony#is_writable ()
+		" if mandala is not writable, lines are not supposed to be modified
+		return v:false
+	endif
+	let start = wheel#teapot#first_data_line ()
+	if wheel#teapot#is_filtered ()
+		let lastline = line('$')
+		for linum in range(start, lastline)
+			let visible = getline(linum)
+			let visible = wheel#pencil#unmarked (visible)
+			let line_index = wheel#teapot#line_index (linum)
+			let b:wheel_lines[line_index] = visible
+			let local_index = linum - start
+			let b:wheel_filter.lines[local_index] = visible
+		endfor
+	else
+		let lines = getline(start, '$')
+		let length = len(lines)
+		for index in range(length)
+			let visible = lines[index]
+			let lines[index] = wheel#pencil#unmarked (visible)
+		endfor
+		let b:wheel_lines = lines
+	endif
+	return v:true
+endfun
 
 fun! wheel#polyphony#append_in_var_lines (line, content)
 	" Append content after line in local mandala variables
@@ -69,7 +106,38 @@ fun! wheel#polyphony#delete_in_var_lines (line)
 	return v:true
 endfun
 
-" -- main
+" ---- write autocommand
+
+fun! wheel#polyphony#write (fun_name, ...)
+	" Define BufWriteCmd autocommand & set writable property
+	" -- arguments
+	let fun_name = a:fun_name
+	if a:0 > 0
+		let optional = string(a:1)
+	else
+		let optional = ''
+	endif
+	" ---- property
+	let b:wheel_nature.is_writable = v:true
+	" ---- options
+	call wheel#mandala#unlock ()
+	setlocal buftype=acwrite
+	" ---- autocommand
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	if fun_name =~ '#'
+		" fun_name is the complete function name
+		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
+	else
+		" fun_name is the last part of the function
+		let function = 'call wheel#harmony#'
+		let function ..= fun_name .. '(' .. optional .. ')'
+	endif
+	exe 'autocmd' group event '<buffer>' function
+endfun
+
+" ---- actions
 
 fun! wheel#polyphony#substitute (mandala = 'file')
 	" Substitute in narrow mandala
