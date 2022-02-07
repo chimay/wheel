@@ -1026,6 +1026,9 @@ There are also the local maps :
 - `<leader>w`, equivalent to |:w|
 - `<leader>W`, equivalent to |:w!|
 
+Be careful with |:wa!| though, for it would save also any modified
+writable mandala.
+
 Prompt~
 
 To distinguish non-writable and writable dedicated buffers, the prompt are
