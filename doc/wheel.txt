@@ -1016,6 +1016,16 @@ the buffer lines.
 For instance, saving a rename/location buffer will rename the involved
 locations in the wheel.
 
+Confirmation before writing~
+
+A confirmation is asked if you use |:w|, but not if you use the bang
+version |:w!|.
+
+There are also the local maps :
+
+- `<leader>w`, equivalent to |:w|
+- `<leader>W`, equivalent to |:w!|
+
 Prompt~
 
 To distinguish non-writable and writable dedicated buffers, the prompt are

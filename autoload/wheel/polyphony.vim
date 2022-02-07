@@ -30,35 +30,82 @@ fun! wheel#polyphony#is_writable ()
 	return b:wheel_nature.is_writable
 endfun
 
-" ---- write autocommand
+" ---- write maps & autocommand
+
+fun! wheel#polyphony#motion (fun_name, arguments)
+	" Return string to call fun_name with arguments
+	" fun_name can be :
+	"   - the full function name
+	"   - the last part of wheel#harmony#fun_name
+	let fun_name = a:fun_name
+	let arguments = string(a:arguments)
+	if fun_name =~ '#'
+		" fun_name is the complete function name
+		let funcall = "call call('" .. fun_name .. "', " .. arguments .. ')'
+	else
+		" fun_name is the last part of the function
+		let funcall = "call call ('wheel#harmony#"
+		let funcall ..= fun_name .. "', " .. arguments .. ')'
+	endif
+	return funcall
+endfun
+
+fun! wheel#polyphony#voicing (fun_name, arguments)
+	" Define maps to trigger the writing function
+	let fun_name = a:fun_name
+	let arguments = deepcopy(a:arguments)
+	let funcall = wheel#polyphony#motion (fun_name, arguments)
+	let nmap = 'nnoremap <buffer>'
+	exe nmap '<leader>w' '<cmd>' .. funcall .. '<cr>'
+	eval arguments->add('force')
+	let funcall = wheel#polyphony#motion (fun_name, arguments)
+	exe nmap '<leader>W' '<cmd>' .. funcall .. '<cr>'
+endfun
+
+fun! wheel#polyphony#score (fun_name, arguments)
+	" Define autocommand to write the mandala
+	let fun_name = a:fun_name
+	let arguments = deepcopy(a:arguments)
+	let group = s:mandala_autocmds_group
+	let event = 'BufWriteCmd'
+	call wheel#gear#clear_autocmds(group, event)
+	let funcall = wheel#polyphony#motion (fun_name, arguments)
+	exe 'autocmd' group event '<buffer>' funcall
+endfun
 
 fun! wheel#polyphony#counterpoint (fun_name, ...)
 	" Define BufWriteCmd autocommand & set writable property
+	" Optional arguments : arguments to pass to fun_name
 	" -- arguments
 	let fun_name = a:fun_name
-	if a:0 > 0
-		let optional = string(a:1)
-	else
-		let optional = ''
-	endif
+	let arguments = deepcopy(a:000)
 	" ---- property
 	let b:wheel_nature.is_writable = v:true
 	" ---- options
 	call wheel#mandala#unlock ()
 	setlocal buftype=acwrite
+	" --- maps to trigger the funcall
+	call wheel#polyphony#voicing (fun_name, arguments)
 	" ---- autocommand
-	let group = s:mandala_autocmds_group
-	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
-	if fun_name =~ '#'
-		" fun_name is the complete function name
-		let function = 'call ' .. fun_name .. '(' .. optional .. ')'
-	else
-		" fun_name is the last part of the function
-		let function = 'call wheel#harmony#'
-		let function ..= fun_name .. '(' .. optional .. ')'
+	call wheel#polyphony#score (fun_name, arguments)
+endfun
+
+" ---- confirmation prompt
+
+fun! wheel#polyphony#confirm (ask)
+	" Confirmation prompt before writing
+	if a:ask == 'force'
+		return v:true
 	endif
-	exe 'autocmd' group event '<buffer>' function
+	if exists('v:cmdbang') && v:cmdbang == 1
+		return v:true
+	endif
+	let prompt = 'Reflect mandala changes to original elements ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm != 1
+		return v:false
+	endif
+	return v:true
 endfun
 
 " ---- local mandala variables

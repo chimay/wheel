@@ -34,9 +34,13 @@ endif
 
 " ---- wheel elements
 
-fun! wheel#harmony#reorder (level)
+fun! wheel#harmony#reorder (level, ask = 'confirm')
 	" Reorder elements at level, after buffer content
 	let level = a:level
+	" -- confirm
+	if ! wheel#polyphony#confirm (a:ask)
+		return v:false
+	endif
 	" -- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" -- reorder
@@ -71,9 +75,13 @@ fun! wheel#harmony#reorder (level)
 	return new_list
 endfun
 
-fun! wheel#harmony#rename (level)
+fun! wheel#harmony#rename (level, ask = 'confirm')
 	" Rename elements at level, after buffer content
 	let level = a:level
+	" -- confirm
+	if ! wheel#polyphony#confirm (a:ask)
+		return v:false
+	endif
 	" -- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" -- rename
@@ -110,8 +118,12 @@ fun! wheel#harmony#rename (level)
 	return elements
 endfun
 
-fun! wheel#harmony#rename_file ()
+fun! wheel#harmony#rename_file (ask = 'confirm')
 	" Rename locations & files of current circle, after buffer content
+	" -- confirm
+	if ! wheel#polyphony#confirm (a:ask)
+		return v:false
+	endif
 	" -- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" -- init
@@ -183,9 +195,13 @@ fun! wheel#harmony#rename_file ()
 	return lines
 endfun
 
-fun! wheel#harmony#delete (level)
+fun! wheel#harmony#delete (level, ask = 'confirm')
 	" Delete selected elements at level, after buffer content
 	let level = a:level
+	" -- confirm
+	if ! wheel#polyphony#confirm (a:ask)
+		return v:false
+	endif
 	" -- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" -- delete
@@ -225,9 +241,13 @@ fun! wheel#harmony#delete (level)
 	return elements
 endfun
 
-fun! wheel#harmony#copy_move (level)
+fun! wheel#harmony#copy_move (level, ask = 'confirm')
 	" Copy or move selected elements at level
 	let level = a:level
+	" -- confirm
+	if ! wheel#polyphony#confirm (a:ask)
+		return v:false
+	endif
 	" -- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" -- mode : copy or move
@@ -317,10 +337,15 @@ fun! wheel#harmony#copy_move (level)
 	call wheel#cylinder#recall()
 endfun
 
-fun! wheel#harmony#reorganize ()
+fun! wheel#harmony#reorganize (ask = 'confirm')
 	" Reorganize wheel after elements contained in buffer
 	" Rebuild all from scratch
 	" Follow folding tree
+	" -- confirm
+	if ! wheel#polyphony#confirm (a:ask)
+		return v:false
+	endif
+	" -- save old wheel before reorganizing
 	let prompt = 'Write old wheel to file before reorganizing ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)
 	if confirm == 1
@@ -372,12 +397,10 @@ endfun
 
 " -- grep edit
 
-fun! wheel#harmony#grep_edit ()
+fun! wheel#harmony#grep_edit (ask = 'confirm')
 	" Apply changes done in grep mandala
 	" -- confirm
-	let prompt = 'Propagate changes to grepped files ?'
-	let confirm = confirm(prompt, "&Yes\n&No", 2)
-	if confirm == 2
+	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
 	" -- update b:wheel_lines
@@ -416,12 +439,10 @@ endfun
 
 " -- narrow
 
-fun! wheel#harmony#narrow_file ()
+fun! wheel#harmony#narrow_file (ask = 'confirm')
 	" Write function for shape#narrow_file
 	" -- confirm
-	let prompt = 'Propagate changes to file ?'
-	let confirm = confirm(prompt, "&Yes\n&No", 2)
-	if confirm == 2
+	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
 	" -- update b:wheel_lines
@@ -478,17 +499,15 @@ fun! wheel#harmony#narrow_file ()
 	return v:true
 endfun
 
-fun! wheel#harmony#narrow_circle ()
+fun! wheel#harmony#narrow_circle (ask = 'confirm')
 	" Write function for shape#narrow_circle
 	" -- confirm
-	let prompt = 'Propagate changes to circle files ?'
-	let confirm = confirm(prompt, "&Yes\n&No", 2)
-	if confirm == 2
+	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
 	" -- update b:wheel_lines
 	call wheel#polyphony#update_var_lines ()
-	" -- modify file lines
+	" -- modify circle files lines
 	let linelist = wheel#teapot#all_lines ()
 	for line in linelist
 		let fields = split(line, s:field_separ)
@@ -650,10 +669,14 @@ fun! wheel#harmony#arrange_windows (tabwindows)
 	endfor
 endfun
 
-fun! wheel#harmony#reorg_tabwin ()
+fun! wheel#harmony#reorg_tabwin (ask = 'confirm')
 	" Reorganize tabs & windows
 	" Mandala line list
 	" Keep old layouts if possible
+	" -- confirm
+	if ! wheel#polyphony#confirm (a:ask)
+		return v:false
+	endif
 	" -- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" -- list of lines
