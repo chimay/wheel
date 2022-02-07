@@ -872,9 +872,8 @@ You can open all selected files in tabs, splits or vertical splits.
 FILTERING				    *wheel-dedicated-buffers-filtering*
 
 In most dedicated buffers, the first line is left almost empty, with
-just a prompt : it is used as an input line to filter the buffer. You
-can go to insert mode and filter the elements with each pattern you
-enter on the input (first) line.
+just a prompt. In insert mode, it is used as an input line to filter
+all the other lines with each pattern you enter.
 
 Going to filter line~
 
@@ -892,7 +891,7 @@ and show all unfiltered lines.
 
 Update candidates~
 
-Typing :
+In insert mode, typing :
 
 - `<Space>`
 - `<C-w>`
