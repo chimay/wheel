@@ -409,7 +409,7 @@ fun! wheel#mandala#blank (type)
 	silent doautocmd User WheelUpdate
 	" ---- create / open current mandala
 	if ! wheel#cylinder#recall()
-		call wheel#cylinder#first ('split')
+		call wheel#cylinder#first ()
 	endif
 	" ---- add new leaf, clear mandala, set type & options
 	call wheel#book#add ('clear')

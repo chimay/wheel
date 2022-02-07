@@ -157,43 +157,31 @@ fun! wheel#cylinder#window (load_buffer = 'load-buffer')
 	return v:true
 endfun
 
+fun! wheel#cylinder#recall ()
+	" Recall mandala buffer : find its window or load it in a split
+	call wheel#cylinder#check ()
+	return wheel#cylinder#window ()
+endfun
+
 " add
 
-fun! wheel#cylinder#first (window = 'furtive')
+fun! wheel#cylinder#first (mood = 'linger')
 	" Add first mandala buffer
 	" Optional argument :
-	"   - furtive (default) : use current window and go back to previous buffer at the end
-	"   - split : use a split
-	let window = a:window
+	"   - linger (default) : stay opened after operation
+	"   - furtive : close after operation
+	let mood = a:mood
 	let bufring = g:wheel_bufring
 	let mandalas = g:wheel_bufring.mandalas
-	" ---- pre-checks
-	if ! window->wheel#chain#is_inside(['split', 'furtive'])
-		echomsg 'wheel cylinder first : bad window argument'
-		return v:false
-	endif
 	" -- empty ring ?
 	if ! empty(mandalas)
 		echomsg 'wheel cylinder first : mandala ring is not empty'
 		return v:false
 	endif
 	call wheel#cylinder#delete_unused ()
-	" ---- pre op buffer
-	let cur_buffer = bufnr('%')
-	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" ---- new buffer
-	if window == 'split'
-		call wheel#cylinder#split ()
-		hide enew
-	else
-		if empty_cur_buffer
-			" :enew does not create a new buffer if current one has no name
-			" so we need to use :new
-			new
-		else
-			hide enew
-		endif
-	endif
+	call wheel#cylinder#split ()
+	hide enew
 	let novice = bufnr('%')
 	" ---- add
 	let bufring.current = 0
@@ -210,36 +198,27 @@ fun! wheel#cylinder#first (window = 'furtive')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" ---- coda
-	if window == 'furtive'
-		if empty_cur_buffer
-			" :new has opened a split, close it
-			noautocmd close
-		else
-			execute 'silent hide buffer' cur_buffer
-		endif
+	if mood == 'furtive'
+		noautocmd close
 	endif
 	call wheel#status#mandala_leaf ()
 	return v:true
 endfun
 
-fun! wheel#cylinder#add (window = 'furtive')
+fun! wheel#cylinder#add (mood = 'linger')
 	" Add new mandala buffer
 	" Optional argument :
-	"   - furtive (default) : use current window and go back to previous buffer at the end
-	"   - split : use a split
-	let window = a:window
+	"   - linger (default) : stay opened after operation
+	"   - furtive : close after operation
+	let mood = a:mood
 	let bufring = g:wheel_bufring
 	" ---- pre-checks
-	if ! window->wheel#chain#is_inside(['split', 'furtive'])
-		echomsg 'wheel cylinder first : bad window argument'
-		return v:false
-	endif
 	call wheel#cylinder#check ()
 	call wheel#cylinder#delete_unused ()
 	" ---- first one
 	let mandalas = bufring.mandalas
 	if empty(mandalas)
-		return wheel#cylinder#first (window)
+		return wheel#cylinder#first (mood)
 	endif
 	" ---- not the first one
 	" -- is current buffer a mandala buffer ?
@@ -248,25 +227,9 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let current = bufring.current
 	let elder = mandalas[current]
 	" -- mandala window
-	if window == 'split'
-		call wheel#cylinder#window ('window')
-	endif
-	" -- pre op buffer
-	let cur_buffer = bufnr('%')
-	let empty_cur_buffer = empty(bufname(cur_buffer))
+	call wheel#cylinder#window ('dont-load-buffer')
 	" -- new buffer
-	if window == 'split'
-		call wheel#cylinder#split ()
-		hide enew
-	else
-		if empty_cur_buffer
-			" :enew does not create a new buffer if current want has no name
-			" so we need to use :new
-			new
-		else
-			hide enew
-		endif
-	endif
+	hide enew
 	let novice = bufnr('%')
 	if novice == elder
 		echomsg 'wheel mandala add : buffer' novice 'already in ring'
@@ -290,13 +253,8 @@ fun! wheel#cylinder#add (window = 'furtive')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" -- coda
-	if window == 'furtive' && ! was_mandala
-		if empty_cur_buffer
-			" :new has opened a split, close it
-			noautocmd close
-		else
-			silent hide buffer #
-		endif
+	if mood == 'furtive' && ! was_mandala
+		noautocmd close
 	endif
 	call wheel#status#mandala_leaf ()
 	return v:true
@@ -388,14 +346,6 @@ fun! wheel#cylinder#rename ()
 	let new_name = input(prompt)
 	let names[current] = new_name
 	call wheel#status#mandala_leaf ()
-endfun
-
-" recall
-
-fun! wheel#cylinder#recall ()
-	" Recall mandala buffer : find its window or load it in a split
-	call wheel#cylinder#check ()
-	return wheel#cylinder#window ()
 endfun
 
 " close

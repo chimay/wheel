@@ -190,7 +190,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-command) <cmd>call wheel#mandala#command()<cr>
 	nnoremap <plug>(wheel-dedibuf-async) <cmd>call wheel#mandala#async()<cr>
 	" ---- dedicated buffer
-	nnoremap <plug>(wheel-mandala-add) <cmd>call wheel#cylinder#add()<cr>
+	nnoremap <plug>(wheel-mandala-add) <cmd>call wheel#cylinder#add('furtive')<cr>
 	nnoremap <plug>(wheel-mandala-delete) <cmd>call wheel#cylinder#delete()<cr>
 	nnoremap <plug>(wheel-mandala-forward) <cmd>call wheel#cylinder#forward()<cr>
 	nnoremap <plug>(wheel-mandala-backward) <cmd>call wheel#cylinder#backward()<cr>
