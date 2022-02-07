@@ -32,7 +32,7 @@ endfun
 
 " ---- write maps & autocommand
 
-fun! wheel#polyphony#motion (fun_name, arguments)
+fun! wheel#polyphony#score (fun_name, arguments)
 	" Return string to call fun_name with arguments
 	" fun_name can be :
 	"   - the full function name
@@ -50,27 +50,27 @@ fun! wheel#polyphony#motion (fun_name, arguments)
 	return funcall
 endfun
 
-fun! wheel#polyphony#voicing (fun_name, arguments)
-	" Define maps to trigger the writing function
-	let fun_name = a:fun_name
-	let arguments = deepcopy(a:arguments)
-	let funcall = wheel#polyphony#motion (fun_name, arguments)
-	let nmap = 'nnoremap <buffer>'
-	exe nmap '<leader>w' '<cmd>' .. funcall .. '<cr>'
-	eval arguments->add('force')
-	let funcall = wheel#polyphony#motion (fun_name, arguments)
-	exe nmap '<leader>W' '<cmd>' .. funcall .. '<cr>'
-endfun
-
-fun! wheel#polyphony#score (fun_name, arguments)
+fun! wheel#polyphony#motion (fun_name, arguments)
 	" Define autocommand to write the mandala
 	let fun_name = a:fun_name
 	let arguments = deepcopy(a:arguments)
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#gear#clear_autocmds(group, event)
-	let funcall = wheel#polyphony#motion (fun_name, arguments)
+	let funcall = wheel#polyphony#score (fun_name, arguments)
 	exe 'autocmd' group event '<buffer>' funcall
+endfun
+
+fun! wheel#polyphony#voicing (fun_name, arguments)
+	" Define maps to trigger the writing function
+	let fun_name = a:fun_name
+	let arguments = deepcopy(a:arguments)
+	let funcall = wheel#polyphony#score (fun_name, arguments)
+	let nmap = 'nnoremap <buffer>'
+	exe nmap '<leader>w' '<cmd>' .. funcall .. '<cr>'
+	eval arguments->add('force')
+	let funcall = wheel#polyphony#score (fun_name, arguments)
+	exe nmap '<leader>W' '<cmd>' .. funcall .. '<cr>'
 endfun
 
 fun! wheel#polyphony#counterpoint (fun_name, ...)
@@ -84,10 +84,10 @@ fun! wheel#polyphony#counterpoint (fun_name, ...)
 	" ---- options
 	call wheel#mandala#unlock ()
 	setlocal buftype=acwrite
+	" ---- autocommand
+	call wheel#polyphony#motion (fun_name, arguments)
 	" --- maps to trigger the funcall
 	call wheel#polyphony#voicing (fun_name, arguments)
-	" ---- autocommand
-	call wheel#polyphony#score (fun_name, arguments)
 endfun
 
 " ---- confirmation prompt
