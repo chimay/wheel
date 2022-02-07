@@ -35,32 +35,36 @@ fun! wheel#polyphony#append_in_var_lines (line, content)
 	let next = line - start + 1
 	let filter_indexes = b:wheel_filter.indexes
 	let filter_lines = b:wheel_filter.lines
-	let length = len(filter_indexes)
 	eval filter_indexes->insert(line_index + 1, next)
 	eval filter_lines->insert(content, next)
-	for index in range(next + 1, length)
+	let length = len(filter_indexes)
+	for index in range(next + 1, length - 1)
 		let filter_indexes[index] += 1
 	endfor
 	return v:true
 endfun
 
-" ---- operator
-
-fun! wheel#polyphony#operator (argument = '')
-	" Operator waiting for a movement or text object to select range
-	" Use in a map like this :
-	"   map <expr> <mykey> wheel#polyphony#operator()
-	let argument = a:argument
-	" -- when called to find the rhs of the map
-	if argument == ''
-		set operatorfunc=wheel#polyphony#operator
-		return 'g@'
+fun! wheel#polyphony#delete_in_var_lines (line)
+	" Delete line in local mandala variables
+	let line = a:line
+	" ---- delete in all lines
+	let line_index = wheel#teapot#line_index (line)
+	eval b:wheel_lines->remove(line_index)
+	" ---- delete in filtered lines
+	if ! wheel#teapot#is_filtered ()
+		return v:true
 	endif
-	" -- when called to execute wheel#polyphony#operator
-	" -- then, argument is 'line', 'block' or 'char'
-	let first = line("'[")
-	let last = line("']")
-	call wheel#mirror#narrow_file (first, last)
+	let start = wheel#teapot#first_data_line ()
+	let index = line - start
+	let filter_indexes = b:wheel_filter.indexes
+	let filter_lines = b:wheel_filter.lines
+	let length = len(filter_indexes)
+	eval filter_indexes->remove(index)
+	eval filter_lines->remove(index)
+	for iter in range(index + 1, length - 1)
+		let filter_indexes[iter] -= 1
+	endfor
+	return v:true
 endfun
 
 " ---- actions
@@ -199,6 +203,32 @@ fun! wheel#polyphony#duplicate (where = 'below')
 	call wheel#pencil#show ()
 endfun
 
+fun! wheel#polyphony#delete ()
+	" Delete current line in narrow mandala
+	. delete
+	let linum = line('.')
+	call wheel#polyphony#delete_in_var_lines (linum)
+endfun
+
+" ---- operator
+
+fun! wheel#polyphony#operator (argument = '')
+	" Operator waiting for a movement or text object to select range
+	" Use in a map like this :
+	"   map <expr> <mykey> wheel#polyphony#operator()
+	let argument = a:argument
+	" -- when called to find the rhs of the map
+	if argument == ''
+		set operatorfunc=wheel#polyphony#operator
+		return 'g@'
+	endif
+	" -- when called to execute wheel#polyphony#operator
+	" -- then, argument is 'line', 'block' or 'char'
+	let first = line("'[")
+	let last = line("']")
+	call wheel#mirror#narrow_file (first, last)
+endfun
+
 " ---- propagate mandala changes -> original buffer(s)
 
 fun! wheel#polyphony#harmony ()
@@ -310,7 +340,8 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	let angle = a:angle
 	let modes = copy(a:modes)
 	eval modes->map({ _, val -> wheel#gear#long_mode (val) })
-	if line('.') == 1
+	let linum = line('.')
+	if linum == 1
 		return wheel#teapot#wrapper (key, angle, modes[0])
 	endif
 	if angle == 'with-angle' || angle == '>'
@@ -376,6 +407,17 @@ fun! wheel#polyphony#normal_cc ()
 	call wheel#polyphony#ctrl_u ()
 endfun
 
+fun! wheel#polyphony#normal_dd ()
+	" Normal command dd in hybrid mandala
+	let linum = line('.')
+	if linum == 1
+		call wheel#teapot#set_prompt ()
+		call wheel#teapot#filter()
+		return
+	endif
+	call wheel#polyphony#delete ()
+endfun
+
 " ---- mandalas
 
 fun! wheel#polyphony#filter_maps ()
@@ -400,17 +442,18 @@ endfun
 
 fun! wheel#polyphony#hybrid_maps ()
 	" Local filter maps for hybrid filter/write mode
+	let last_field = 'wheel#polyphony#last_field'
+	let across = 'wheel#polyphony#crossroad'
 	" ---- normal maps
 	let nmap = 'nnoremap <buffer>'
-	let last_field = 'wheel#polyphony#last_field'
 	exe nmap 'i  <cmd>call' last_field "('i')<cr>"
 	exe nmap 'a  <cmd>call' last_field "('a')<cr>"
 	exe nmap '^  <cmd>call' last_field "('^')<cr>"
 	exe nmap '$  <cmd>call' last_field "('$')<cr>"
 	exe nmap 'cc <cmd>call wheel#polyphony#normal_cc()<cr>'
+	exe nmap 'dd <cmd>call wheel#polyphony#normal_dd()<cr>'
 	" ---- insert maps
 	let imap = 'inoremap <buffer>'
-	let across = 'wheel#polyphony#crossroad'
 	exe imap '<space> <cmd>call'  across "('space', '>', ['i', 'i'])<cr>"
 	exe imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
 	exe imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
