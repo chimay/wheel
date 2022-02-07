@@ -423,6 +423,12 @@ Wheel offers a threefold approach :
     + context menus
     + edit mode
 
+See :
+
+- |wheel-straightforward-functions|
+- |wheel-prompting-functions|
+- |wheel-dedicated-buffers|
+
 ------------------------------------------------------------------------------
 MAPPINGS					    *wheel-workflow-mappings*
 
