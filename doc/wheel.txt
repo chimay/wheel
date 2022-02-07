@@ -3914,9 +3914,9 @@ of the modules within them.
 | codex.vim         | Yank ring                                      |
 | complete.vim      | Completion functions                           |
 | crystal.vim       | Internal variables                             |
-| curve.vim         | Activate wheel line in dedicated buffers       |
-| harmony.vim       | Write functions for mandalas autocommands      |
+| cuboctahedron.vim | Full information of each mandala line          |
 | cuckoo.vim        | Frecency : frequent & recent                   |
+| curve.vim         | Activate wheel line in dedicated buffers       |
 | cylinder.vim      | Dedicated buffers ring                         |
 | delta.vim         | Undo & diff                                    |
 | disc.vim          | Read & write wheel & session file              |
@@ -3924,6 +3924,7 @@ of the modules within them.
 | gear.vim          | Generic helpers                                |
 | group.vim         | Auto grouping of files                         |
 | guru.vim          | Help                                           |
+| harmony.vim       | Write functions for mandalas autocommands      |
 | helix.vim         | Wheel indexes                                  |
 | helm.vim          | Main & meta menus in dedicated buffers         |
 | kintsugi.vim      | Check & fix wheel variables                    |
@@ -3949,7 +3950,6 @@ of the modules within them.
 | river.vim         | Navigation aspect of dedicated buffers         |
 | sailing.vim       | Non wheel navigation                           |
 | scroll.vim        | Input history in dedicated buffers             |
-| cuboctahedron.vim | Full information of each mandala line          |
 | shadow.vim        | Refactoring dedicated buffers                  |
 | spiral.vim        | Golden ratio                                   |
 | status.vim        | Print wheel status                             |

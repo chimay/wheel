@@ -154,6 +154,7 @@ fun! wheel#status#mandala_leaf ()
 	" Mandala & leaf dashboard
 	let in_status = g:wheel_config.display.statusline
 	if in_status > 0 && wheel#cylinder#is_mandala ()
+		call wheel#status#clear ()
 		setlocal statusline=%!wheel#status#statusline()
 		return v:true
 	endif
