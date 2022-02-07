@@ -47,9 +47,6 @@ fun! wheel#loop#navigation (settings)
 		let settings.selection.index = selection.indexes[0]
 		let settings.selection.component = selection.components[0]
 		let winiden = Fun->wheel#gear#call(settings)
-		if &foldopen =~ 'jump'
-			normal! zv
-		endif
 		call wheel#spiral#cursor ()
 	else
 		let length = len(indexes)
@@ -57,9 +54,6 @@ fun! wheel#loop#navigation (settings)
 			let settings.selection.index = selection.indexes[ind]
 			let settings.selection.component = selection.components[ind]
 			let winiden = Fun->wheel#gear#call(settings)
-			if &foldopen =~ 'jump'
-				normal! zv
-			endif
 			call wheel#spiral#cursor ()
 		endfor
 	endif
