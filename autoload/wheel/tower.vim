@@ -110,7 +110,7 @@ fun! wheel#tower#mappings (settings)
 	let settings = deepcopy(a:settings)
 	let menu_settings = settings.menu
 	" ---- menu specific maps
-	let map = 'nnoremap <silent> <buffer>'
+	let map = 'nnoremap <buffer>'
 	let linefun = '<cmd>call wheel#tower#action('
 	let coda = ')<cr>'
 	" ---- open / close : default in settings

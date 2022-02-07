@@ -40,7 +40,7 @@ endfun
 
 fun! wheel#ripple#stop_map ()
 	" Map to stop the job
-	let map = 'nnoremap <silent> <buffer>'
+	let map = 'nnoremap <buffer>'
 	let callme = '<cmd>call wheel#ripple#stop()<cr>'
 	execute map '<c-s>' callme
 endfun

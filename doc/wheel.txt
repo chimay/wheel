@@ -1047,8 +1047,6 @@ buffer with the usual vim keys.
 
 To access the filter line, press `<M-i>` or `<Ins>` instead of `i` and `a`.
 
-The key `dd` deletes the current lines, it doesn't reset the filter.
-
 The input history is availble only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`.
 
 Some keys have a distinct meaning if the cursor is on the first line or in

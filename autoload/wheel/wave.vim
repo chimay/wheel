@@ -69,7 +69,7 @@ endfun
 
 fun! wheel#wave#stop_map ()
 	" Map to stop the job
-	let map = 'nnoremap <silent> <buffer>'
+	let map = 'nnoremap <buffer>'
 	let callme = '<cmd>call wheel#wave#stop()<cr>'
 	execute map '<c-s>' callme
 endfun

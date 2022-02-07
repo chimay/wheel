@@ -325,13 +325,6 @@ fun! wheel#polyphony#duplicate (where = 'below')
 	call wheel#pencil#show ()
 endfun
 
-fun! wheel#polyphony#delete ()
-	" Delete current line in narrow mandala
-	. delete
-	let linum = line('.')
-	call wheel#polyphony#delete_in_var_lines (linum)
-endfun
-
 " ---- helpers for mandalas maps
 
 fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
@@ -414,24 +407,14 @@ fun! wheel#polyphony#normal_cc ()
 	call wheel#polyphony#ctrl_u ()
 endfun
 
-fun! wheel#polyphony#normal_dd ()
-	" Normal command dd in hybrid mandala
-	let linum = line('.')
-	if linum == 1
-		call wheel#teapot#set_prompt ()
-		call wheel#teapot#filter()
-		return
-	endif
-	call wheel#polyphony#delete ()
-endfun
-
 " ---- mandalas
 
 fun! wheel#polyphony#filter_maps ()
 	" Local filter maps for hybrid filter/write mode
 	" -- normal mode
-	nnoremap <silent> <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	nnoremap <silent> <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
+	nnoremap <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
+	nnoremap <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
+	nnoremap <buffer> dd    <cmd>call wheel#teapot#normal_dd()<cr>
 	" <C-c> is not mapped, in case you need a regular escape
 	let b:wheel_nature.has_filter = v:true
 endfun
@@ -458,7 +441,6 @@ fun! wheel#polyphony#hybrid_maps ()
 	exe nmap '^  <cmd>call' last_field "('^')<cr>"
 	exe nmap '$  <cmd>call' last_field "('$')<cr>"
 	exe nmap 'cc <cmd>call wheel#polyphony#normal_cc()<cr>'
-	exe nmap 'dd <cmd>call wheel#polyphony#normal_dd()<cr>'
 	" ---- insert maps
 	let imap = 'inoremap <buffer>'
 	exe imap '<space> <cmd>call'  across "('space', '>', ['i', 'i'])<cr>"
