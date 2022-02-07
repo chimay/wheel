@@ -1026,8 +1026,8 @@ There are also the local maps :
 - `<leader>w`, equivalent to |:w|
 - `<leader>W`, equivalent to |:w!|
 
-Be careful with |:wa!| though, for it would save also any modified
-writable mandala.
+Be careful with |:wa!| though, for it would save also without warning
+any modified writable mandala.
 
 Prompt~
 
