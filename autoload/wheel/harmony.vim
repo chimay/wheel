@@ -453,9 +453,10 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 	" -- update b:wheel_lines
 	call wheel#polyphony#update_var_lines ()
 	" -- reset filter
+	" -- easier since some lines are potentially added
 	call wheel#teapot#set_prompt ()
 	call wheel#teapot#filter()
-	" -- modify file lines
+	" -- modify file & mandala lines
 	let linelist = wheel#teapot#all_lines ()
 	let linum = wheel#teapot#first_data_line ()
 	let shift = 0
@@ -497,7 +498,7 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 		endif
 		let linum += 1
 	endfor
-	" -- lines have been modified again
+	" -- mandala lines have been modified again in this function
 	call wheel#polyphony#update_var_lines ()
 	" -- coda
 	setlocal nomodified
@@ -530,6 +531,7 @@ fun! wheel#harmony#narrow_circle (ask = 'confirm')
 		endif
 		call setbufline(bufnum, linum, content)
 	endfor
+	" -- coda
 	setlocal nomodified
 	echomsg 'changes written to circle files'
 	return v:true
