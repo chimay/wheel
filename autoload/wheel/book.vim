@@ -435,7 +435,7 @@ fun! wheel#book#delete ()
 	let next_class = next_nature.class
 	if next_class  == 'menu/context'
 		let info = 'Please delete child context menu first. '
-		let info ..= 'Press L to access it, backspace to remove.'
+		let info ..= 'Press <M-j> to access it, backspace to remove.'
 		echomsg info
 		return v:false
 	endif
