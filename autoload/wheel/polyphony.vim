@@ -414,7 +414,6 @@ fun! wheel#polyphony#filter_maps ()
 	" -- normal mode
 	nnoremap <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	nnoremap <buffer> dd    <cmd>call wheel#teapot#normal_dd()<cr>
 	let b:wheel_nature.has_filter = v:true
 endfun
 

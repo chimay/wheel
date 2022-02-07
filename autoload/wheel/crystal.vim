@@ -198,7 +198,7 @@ if ! exists('s:normal_map_keys')
 				\ '<cr>', 'g<cr>',
 				\ 'j', 'k', '<down>', '<up>',
 				\ '<space>', '=', '#', '*', '<bar>',
-				\ 'i', 'a', '<m-i>', '<ins>', 'cc',
+				\ 'i', 'a', '<m-i>', '<ins>', 'cc', 'dd',
 				\ 'f',
 				\ '<m-j>', '<m-k>', '<m-l>',
 				\ '<tab>',

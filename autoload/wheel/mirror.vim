@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Shape
+" Mirror
 "
 " Organize non-wheel elements, dedicated buffers
 

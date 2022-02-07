@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Shadow
+" Cuboctahedron
 "
 " Components generators for dedicated buffers (mandalas)
 "
@@ -12,14 +12,14 @@
 " - treeish index : [torus, circle, coordin]
 " - tabs & wins : [tab number, window number, file name]
 
-" helpers
+" ---- helpers
 
 fun! wheel#cuboctahedron#is_treeish ()
 	" Whether mandala has a folded treeish structure
 	return b:wheel_nature.is_treeish
 endfun
 
-" information
+" ---- information
 
 fun! wheel#cuboctahedron#tree ()
 	" Tree representation of the wheel index

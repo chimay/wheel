@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Chart
+" Shadow
 "
 " Refactoring, dedicated buffers
 
