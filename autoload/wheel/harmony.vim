@@ -487,6 +487,100 @@ fun! wheel#harmony#grep_edit ()
 	echomsg 'quickfix changes propagated'
 endfun
 
+fun! wheel#harmony#narrow_file ()
+	" Write function for shape#narrow_file
+	" -- confirm
+	let prompt = 'Propagate changes to file ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm == 2
+		return v:false
+	endif
+	" -- update b:wheel_lines
+	call wheel#harmony#update_var_lines ()
+	" -- buffer
+	let bufnum = b:wheel_related_buffer
+	if bufnum == 'undefined'
+		return v:false
+	endif
+	" -- modify file lines
+	let linelist = wheel#teapot#all_lines ()
+	let mandala_linum = 2
+	let shift = 0
+	for line in linelist
+		let fields = split(line, s:field_separ)
+		let length = len(fields)
+		let object = fields[0]
+		if length > 1
+			let content = fields[1]
+		else
+			let content = ''
+		endif
+		if object =~ '^+'
+			" line added below
+			let linum = str2nr(object[1:])
+			let shift += 1
+			let newnum = linum + shift
+			call appendbufline(bufnum, newnum - 1, content)
+			let newnum = printf('%5d', newnum)
+			let newline =  newnum .. s:field_separ .. content
+			call setline(mandala_linum, newline)
+		elseif object =~ '^-'
+			" line added above
+			let linum = str2nr(object[1:])
+			let shift += 1
+			let newnum = linum + shift - 1
+			call appendbufline(bufnum, newnum - 1, content)
+			let newnum = printf('%5d', newnum)
+			let newline =  newnum .. s:field_separ .. content
+			call setline(mandala_linum, newline)
+		else
+			" existing line
+			let linum = str2nr(object)
+			let newnum = linum + shift
+			call setbufline(bufnum, newnum, content)
+			let newnum = printf('%5d', newnum)
+			let newline = newnum .. s:field_separ .. content
+			call setline(mandala_linum, newline)
+		endif
+		let mandala_linum += 1
+	endfor
+	setlocal nomodified
+	echomsg 'changes propagated'
+	return v:true
+endfun
+
+fun! wheel#harmony#narrow_circle ()
+	" Write function for shape#narrow_circle
+	" -- confirm
+	let prompt = 'Propagate changes to circle files ?'
+	let confirm = confirm(prompt, "&Yes\n&No", 2)
+	if confirm == 2
+		return v:false
+	endif
+	" -- update b:wheel_lines
+	call wheel#harmony#update_var_lines ()
+	" -- modify file lines
+	let linelist = wheel#teapot#all_lines ()
+	for line in linelist
+		let fields = split(line, s:field_separ)
+		let length = len(fields)
+		let bufnum = str2nr(fields[0])
+		if ! bufloaded(bufnum)
+			call bufload(bufnum)
+		endif
+		let linum = str2nr(fields[1])
+		if length > 3
+			let content = fields[3]
+		else
+			let content = ''
+		endif
+		call setbufline(bufnum, linum, content)
+	endfor
+	setlocal nomodified
+	echomsg 'changes propagated to circle'
+	return v:true
+endfun
+
 " -- narrow
 
 " -- reorganize tabs & windows

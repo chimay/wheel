@@ -103,7 +103,7 @@ fun! wheel#mirror#narrow_file (...) range
 				\ }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('file')
-	call wheel#harmony#write ('wheel#polyphony#harmony')
+	call wheel#harmony#write ('wheel#harmony#narrow_file')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings
@@ -138,7 +138,7 @@ fun! wheel#mirror#narrow_circle (...)
 	let settings = #{ function : 'wheel#line#narrow_circle' }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('circle')
-	call wheel#harmony#write ('wheel#polyphony#counterpoint')
+	call wheel#harmony#write ('wheel#harmony#narrow_circle')
 	call wheel#mandala#fill (lines)
 	" -- settings
 	let b:wheel_settings = settings
