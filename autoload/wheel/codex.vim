@@ -104,6 +104,20 @@ endfun
 
 " mandala
 
+fun! wheel#codex#undo ()
+	" Undo action in previous window
+	call wheel#rectangle#previous ()
+	undo
+	call wheel#cylinder#recall ()
+endfun
+
+fun! wheel#codex#redo ()
+	" Redo action in previous window
+	call wheel#rectangle#previous ()
+	redo
+	call wheel#cylinder#recall ()
+endfun
+
 fun! wheel#codex#options (mode)
 	" Set local yank options
 	setlocal nowrap
@@ -139,8 +153,8 @@ fun! wheel#codex#mappings (mode)
 		exe vmap 'P     :<c-u>call' paste_visual "('before', 'open')<cr>"
 	endif
 	" -- undo, redo
-	nnoremap <buffer> u <cmd>call wheel#mandala#undo()<cr>
-	nnoremap <buffer> <c-r> <cmd>call wheel#mandala#redo()<cr>
+	nnoremap <buffer> u <cmd>call wheel#codex#undo()<cr>
+	nnoremap <buffer> <c-r> <cmd>call wheel#codex#redo()<cr>
 	" -- context menu
 	let menu = 'yank/' .. mode
 	call wheel#boomerang#launch_map (menu)

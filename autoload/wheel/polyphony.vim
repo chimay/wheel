@@ -75,11 +75,6 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	" -- user input
 	let prompt = 'Substitute pattern ? '
 	let before = input(prompt)
-	let prompt = 'Replace full word matches only ?'
-	let word = confirm(prompt, "&Yes\n&No", 1)
-	if word == 1
-		let before = '\<' .. before .. '\>'
-	endif
 	let prompt = 'Substitute with ? '
 	let after = input(prompt)
 	" -- patterns bricks
@@ -111,6 +106,15 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 		let columns = prelude .. field .. coda
 	elseif mandala == 'circle'
 		let columns = prelude .. field .. field .. field .. coda
+	endif
+	" -- replace pattern is a full word ?
+	echomsg before
+	if before !~ '\\<'
+		let prompt = 'Replace full word matches only ?'
+		let word = confirm(prompt, "&Yes\n&No", 1)
+		if word == 1
+			let before = '\<' .. before .. '\>'
+		endif
 	endif
 	let before = columns .. before
 	" -- escape separator of substitution
