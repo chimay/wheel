@@ -224,8 +224,8 @@ Simply add this line after `packager#init()` to your initialisation file :
 call packager#add('chimay/wheel', { 'type' : 'start' })
 ~~~
 
-and run `:PackagerInstall` (see [the vim-packager
-readme](https://github.com/kristijanhusak/vim-packager)).
+and run `:PackagerInstall` (see the
+[vim-packager readme](https://github.com/kristijanhusak/vim-packager)).
 
 ## Using minpac
 
@@ -235,8 +235,8 @@ Simply add this line after `minpac#init()` to your initialisation file :
 call minpac#add('chimay/wheel', { 'type' : 'start' })
 ~~~
 
-and run `:PackUpdate` (see [the minpac readme](https://github.com/k-takata/minpac))
-to install.
+and run `:PackUpdate` (see the
+[minpac readme](https://github.com/k-takata/minpac)).
 
 ## Using vim-plug
 
