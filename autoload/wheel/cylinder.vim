@@ -112,55 +112,60 @@ fun! wheel#cylinder#goto (...)
 	return call('wheel#rectangle#goto', [bufnum] + a:000)
 endfun
 
-fun! wheel#cylinder#window (load_buffer = 'load-buffer')
-	" Find window of current mandala or display it in a new split
-	" Optional argument load_buffer :
-	"  - load-buffer (default) : find or create the mandala window &
-	"    load current mandala
-	"  - dont-load-buffer : just find or create the mandala window,
-	"    don't load current mandala
-	let load_buffer = a:load_buffer
-	" -- ring
-	let bufring = g:wheel_bufring
-	let mandalas = bufring.mandalas
-	" -- any mandala ?
-	if empty(mandalas)
-		return v:false
-	endif
-	" -- current mandala
-	let current = g:wheel_bufring.current
-	let goto = mandalas[current]
+fun! wheel#cylinder#goto_or_split ()
+	" Find window of current mandala or create a new split for it
 	" -- already there ?
 	if wheel#cylinder#is_mandala ()
-		if load_buffer == 'load-buffer'
-			execute 'silent hide buffer' goto
-		endif
 		return v:true
 	endif
+	" -- pre op tab
+	let base_tab = tabpagenr()
 	" -- find window if mandala is visible
-	let good_tab = tabpagenr()
-	call wheel#cylinder#goto ()
+	" -- else, just split
+	if ! wheel#cylinder#goto ()
+		call wheel#cylinder#split ()
+		return v:true
+	endif
 	" -- if not in same tab, mandala is open and we are inside
 	" -- close it and go to the right tab
 	let mandala_tab = tabpagenr()
-	if good_tab != mandala_tab
+	if base_tab != mandala_tab
 		noautocmd close
-		execute 'noautocmd tabnext' good_tab
+		execute 'noautocmd tabnext' base_tab
 	endif
-	" -- coda
+	" -- if tab has changed, window was closed and we need
+	" -- to create a new split
 	if ! wheel#cylinder#is_mandala ()
 		call wheel#cylinder#split ()
-		if load_buffer == 'load-buffer'
-			execute 'silent hide buffer' goto
-		endif
 	endif
+	" -- coda
+	return v:true
+endfun
+
+fun! wheel#cylinder#goto_or_load ()
+	" Go to current mandala window or load the buffer in a new split
+	let bufring = g:wheel_bufring
+	let mandalas = bufring.mandalas
+	let current = bufring.current
+	" -- check
+	if empty(mandalas)
+		return v:false
+	endif
+	" -- goto existing mandala window or create it
+	call wheel#cylinder#goto_or_split ()
+	" -- buffer
+	let bufnum = mandalas[current]
+	if bufnum == bufnr('%')
+		return v:true
+	endif
+	execute 'silent hide buffer' bufnum
 	return v:true
 endfun
 
 fun! wheel#cylinder#recall ()
 	" Recall mandala buffer : find its window or load it in a split
 	call wheel#cylinder#check ()
-	return wheel#cylinder#window ()
+	return wheel#cylinder#goto_or_load ()
 endfun
 
 " add
@@ -227,7 +232,7 @@ fun! wheel#cylinder#add (mood = 'linger')
 	let current = bufring.current
 	let elder = mandalas[current]
 	" -- mandala window
-	call wheel#cylinder#window ('dont-load-buffer')
+	call wheel#cylinder#goto_or_split ()
 	" -- new buffer
 	hide enew
 	let novice = bufnr('%')
