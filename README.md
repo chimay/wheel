@@ -356,7 +356,8 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.maxim.mru = 300
 
   " Maximum number of elements in yank ring
-  let g:wheel_config.maxim.yanks = 500
+  let g:wheel_config.maxim.default_yanks = 700
+  let g:wheel_config.maxim.other_yanks = 100
   " Maximum size of elements in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 

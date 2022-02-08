@@ -2475,7 +2475,8 @@ Here is an example of a complete configuration : >
   let g:wheel_config.maxim.mru = 120
 
   " Maximum number of elements in yank ring
-  let g:wheel_config.maxim.yanks = 300
+  let g:wheel_config.maxim.default_yanks = 700
+  let g:wheel_config.maxim.other_yanks = 100
   " Maximum size of elements in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 

@@ -46,11 +46,10 @@ fun! wheel#codex#register (register = 'default')
 	" ---- vim symbol of register
 	let symbol = s:registers_symbols[register]
 	" ---- content
-	let content = getreg(symbol)
-	if strchars(content) > g:wheel_config.maxim.yank_size
+	let content = getreg(symbol, 1, v:true)
+	if strchars(join(content)) > g:wheel_config.maxim.yank_size
 		return v:false
 	endif
-	let content = split(content, "\n")
 	" ---- add
 	let index = yanks->index(content)
 	if index >= 0
