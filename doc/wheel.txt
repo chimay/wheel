@@ -759,7 +759,7 @@ Preview				|wheel-dedicated-buffers-preview|
 Folds				|wheel-dedicated-buffers-folds|
 Non writable			|wheel-dedicated-buffers-non-writable|
 Writable			|wheel-dedicated-buffers-writable|
-Buffer ring			|wheel-dedicated-buffers-ring|
+Dedicated buffers ring		|wheel-dedicated-buffers-ring|
 Layer ring			|wheel-dedicated-buffers-layers|
 Menu				|wheel-dedicated-buffers-menus|
 Context menus			|wheel-dedicated-buffers-context|
@@ -1096,7 +1096,7 @@ Anyway, it's always a good thing to do a backup :
 Working within a VCS repository, like git, is also a safety net.
 
 ------------------------------------------------------------------------------
-BUFFER RING	    				*wheel-dedicated-buffers-ring*
+DEDICATED BUFFERS RING  			*wheel-dedicated-buffers-ring*
 
 Wheel manages a dedicated buffers ring. You can :
 
@@ -1106,6 +1106,7 @@ Wheel manages a dedicated buffers ring. You can :
   + reopens the current dedicated buffer in a new window if it is closed
 - change the buffer label with `<M-n>`
   + defaults to a unique buffer id
+  + displayed in dedicated buffer statusline, or in the echo area
 - remove the current dedicated buffer with `<M-w><Backspace>`
   + it is removed from the stack and wiped from vim buffers
 
