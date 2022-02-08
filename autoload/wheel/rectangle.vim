@@ -104,7 +104,7 @@ fun! wheel#rectangle#tour ()
 	return -1
 endfun
 
-fun! wheel#rectangle#goto (bufnum, scope = 'all')
+fun! wheel#rectangle#find_buffer (bufnum, scope = 'all')
 	" Go to window of buffer given by bufnum
 	" The window is the first one displaying bufnum buffer
 	" Optional argument :
@@ -131,10 +131,10 @@ fun! wheel#rectangle#goto (bufnum, scope = 'all')
 	return v:true
 endfun
 
-fun! wheel#rectangle#goto_or_load (bufnum)
+fun! wheel#rectangle#find_or_load (bufnum)
 	" Go to window of buffer if visible, or load it in first window of tab
 	let bufnum = a:bufnum
-	if ! wheel#rectangle#goto (bufnum)
+	if ! wheel#rectangle#find_buffer (bufnum)
 		noautocmd 1 wincmd w
 		execute 'hide buffer' bufnum
 	endif

@@ -33,14 +33,14 @@ endfun
 
 fun! wheel#delta#earlier (bufnum)
 	" Go to earlier state
-	call wheel#rectangle#goto_or_load (a:bufnum)
+	call wheel#rectangle#find_or_load (a:bufnum)
 	earlier
 	call wheel#cylinder#recall ()
 endfun
 
 fun! wheel#delta#later (bufnum)
 	" Go to later state
-	call wheel#rectangle#goto_or_load (a:bufnum)
+	call wheel#rectangle#find_or_load (a:bufnum)
 	later
 	call wheel#cylinder#recall ()
 endfun
@@ -63,7 +63,7 @@ fun! wheel#delta#close_diff (bufnum)
 	" Wipe copy or original buffer
 	let diff_buf = b:wheel_settings.diff_buf
 	execute 'bwipe!' diff_buf
-	call wheel#rectangle#goto_or_load (a:bufnum)
+	call wheel#rectangle#find_or_load (a:bufnum)
 	call wheel#delta#restore_options ()
 	call wheel#cylinder#recall ()
 endfun
@@ -75,7 +75,7 @@ fun! wheel#delta#last (bufnum)
 	else
 		let iden = wheel#delta#undo_iden (1)
 	endif
-	call wheel#rectangle#goto_or_load (a:bufnum)
+	call wheel#rectangle#find_or_load (a:bufnum)
 	execute 'undo' iden
 	call wheel#cylinder#recall ()
 endfun

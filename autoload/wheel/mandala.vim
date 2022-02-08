@@ -277,7 +277,7 @@ fun! wheel#mandala#goto_related ()
 		wincmd p
 		return 'undefined'
 	endif
-	call wheel#rectangle#goto_or_load (bufnum)
+	call wheel#rectangle#find_or_load (bufnum)
 	return bufnum
 endfun
 

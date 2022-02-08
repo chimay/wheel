@@ -378,7 +378,7 @@ endfun
 fun! wheel#line#undolist (bufnum)
 	" Apply change in undo list
 	let iden = wheel#delta#undo_iden ()
-	call wheel#rectangle#goto_or_load (a:bufnum)
+	call wheel#rectangle#find_or_load (a:bufnum)
 	execute 'undo' iden
 	call wheel#cylinder#recall ()
 endfun
@@ -387,7 +387,7 @@ fun! wheel#line#undo_diff (bufnum)
 	" Visualize diff between last state & undo
 	let iden = wheel#delta#undo_iden ()
 	" original buffer
-	call wheel#rectangle#goto_or_load (a:bufnum)
+	call wheel#rectangle#find_or_load (a:bufnum)
 	let save = {}
 	let save.name = expand('%')
 	let save.filetype = &l:filetype
@@ -402,7 +402,7 @@ fun! wheel#line#undo_diff (bufnum)
 	diffthis
 	setlocal nomodifiable readonly
 	" original buffer
-	call wheel#rectangle#goto_or_load (a:bufnum)
+	call wheel#rectangle#find_or_load (a:bufnum)
 	execute 'undo' iden
 	call wheel#delta#save_options ()
 	diffthis

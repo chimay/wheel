@@ -109,7 +109,7 @@ fun! wheel#cylinder#goto (...)
 	endif
 	let current = bufring.current
 	let bufnum = mandalas[current]
-	return call('wheel#rectangle#goto', [bufnum] + a:000)
+	return call('wheel#rectangle#find_buffer', [bufnum] + a:000)
 endfun
 
 fun! wheel#cylinder#goto_or_split ()
@@ -368,7 +368,7 @@ fun! wheel#cylinder#close ()
 		return v:false
 	endif
 	" -- if preview was used, go to original buffer
-	call wheel#orbiter#original ()
+	let original = wheel#orbiter#original ()
 	" -- mandala buffer
 	if winnr('$') > 1
 		noautocmd close
@@ -376,6 +376,13 @@ fun! wheel#cylinder#close ()
 		" only one window in tab, we can't close it
 		" just jump to current wheel location
 		call wheel#vortex#jump ()
+	endif
+	if empty(original)
+		return v:true
+	endif
+	let winum = original.winum
+	if winum != winnr()
+		execute 'noautocmd' winum 'wincmd w'
 	endif
 	return v:true
 endfun

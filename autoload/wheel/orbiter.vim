@@ -46,9 +46,9 @@ endfun
 fun! wheel#orbiter#original ()
 	" Restore original buffer
 	if ! b:wheel_preview.used
-		return v:true
+		return {}
 	endif
-	let original = b:wheel_preview.original
+	let original = copy(b:wheel_preview.original)
 	let tabnum = original.tabnum
 	let winum = original.winum
 	let bufnum = original.bufnum
@@ -64,7 +64,7 @@ fun! wheel#orbiter#original ()
 	endif
 	call wheel#projection#follow ()
 	call wheel#cylinder#recall ()
-	return v:true
+	return original
 endfun
 
 fun! wheel#orbiter#follow ()
@@ -79,7 +79,7 @@ endfun
 
 fun! wheel#orbiter#unfollow ()
 	" Cancel preview following
-	call wheel#orbiter#original ()
+	return wheel#orbiter#original ()
 endfun
 
 fun! wheel#orbiter#toggle_follow ()
