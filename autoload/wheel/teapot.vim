@@ -133,6 +133,7 @@ fun! wheel#teapot#filter ()
 		let b:wheel_filter.words = []
 		let b:wheel_filter.indexes = []
 		let b:wheel_filter.lines = []
+		setlocal foldlevel=0
 	else
 		let matrix = wheel#kyusu#gaiwan ()
 		let indexes = matrix[0]
@@ -140,6 +141,7 @@ fun! wheel#teapot#filter ()
 		let b:wheel_filter.words = words
 		let b:wheel_filter.indexes = indexes
 		let b:wheel_filter.lines = lines
+		setlocal foldlevel=2
 	endif
 	call wheel#mandala#unlock ()
 	call wheel#mandala#replace (lines, 'prompt-first')

@@ -202,6 +202,8 @@ fun! wheel#pendulum#rename (level, old, new)
 			let elem.coordin[index] = a:new
 		endif
 	endfor
+	" -- alternate
+	call wheel#pendulum#update_alternate ()
 endfun
 
 fun! wheel#pendulum#delete (level, old_names)
@@ -228,6 +230,8 @@ fun! wheel#pendulum#delete (level, old_names)
 	" -- frecency
 	let frecency = g:wheel_history.frecency
 	eval frecency->filter(Filter)
+	" -- alternate
+	call wheel#pendulum#update_alternate ()
 endfun
 
 fun! wheel#pendulum#broom ()
@@ -242,6 +246,8 @@ fun! wheel#pendulum#broom ()
 	" -- frecency
 	let frecency = g:wheel_history.frecency
 	eval frecency->filter(Filter)
+	" -- alternate
+	call wheel#pendulum#update_alternate ()
 endfun
 
 " newer & older

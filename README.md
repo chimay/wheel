@@ -217,7 +217,7 @@ you encounter some problem, please let me know.
 # Installation
 ## Using minpac
 
-Simply add this line to your initialisation file :
+Simply add this line after `minpac#init()` to your initialisation file :
 
 ~~~vim
 call minpac#add('chimay/wheel', { 'type' : 'start' })
