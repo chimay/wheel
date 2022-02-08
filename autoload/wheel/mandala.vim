@@ -97,7 +97,7 @@ fun! wheel#mandala#init ()
 		let b:wheel_preview = {}
 		let b:wheel_preview.used = v:false
 		let b:wheel_preview.follow = v:false
-		let b:wheel_preview.original = 'undefined'
+		let b:wheel_preview.original = {}
 	endif
 	" -- settings for action on line
 	if ! exists('b:wheel_settings')
@@ -252,20 +252,14 @@ endfun
 
 fun! wheel#mandala#guess_related ()
 	" Guess related buffer
-	let related = {}
 	if wheel#cylinder#is_mandala ()
-		let was_mandala = v:true
-		call wheel#rectangle#goto_previous ()
-	else
-		let was_mandala = v:false
+		return wheel#rectangle#previous ()
 	endif
+	let related = {}
 	let related.tabnum = tabpagenr()
 	let related.winum = winnr()
 	let related.winiden = win_getid()
 	let related.bufnum = bufnr('%')
-	if was_mandala
-		call wheel#rectangle#goto_previous ()
-	endif
 	return related
 endfun
 

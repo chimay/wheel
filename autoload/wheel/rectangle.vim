@@ -28,12 +28,16 @@ fun! wheel#rectangle#goto_previous ()
 	noautocmd wincmd p
 endfun
 
-fun! wheel#rectangle#previous_bufnum ()
-	" Return previous buffer number
+fun! wheel#rectangle#previous ()
+	" Return previous tab, window & buffer number
+	let previous = {}
 	call wheel#rectangle#goto_previous ()
-	let original = bufnr('%')
+	let previous.tabnum = tabpagenr()
+	let previous.winum = winnr()
+	let previous.winiden = win_getid()
+	let previous.bufnum = bufnr('%')
 	call wheel#rectangle#goto_previous ()
-	return original
+	return previous
 endfun
 
 fun! wheel#rectangle#glasses (filename, scope = 'all')

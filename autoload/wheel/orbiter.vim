@@ -17,7 +17,7 @@ fun! wheel#orbiter#preview ()
 	" Preview buffer matching current line
 	if ! b:wheel_preview.used
 		let b:wheel_preview.used = v:true
-		let b:wheel_preview.original = wheel#rectangle#previous_bufnum ()
+		let b:wheel_preview.original = wheel#rectangle#previous ()
 	endif
 	let settings = b:wheel_settings
 	call wheel#river#default (settings)
@@ -40,7 +40,7 @@ fun! wheel#orbiter#switch_off ()
 	" Switch off preview local variables
 	let b:wheel_preview.used = v:false
 	let b:wheel_preview.follow = v:false
-	let b:wheel_preview.original = 'undefined'
+	let b:wheel_preview.original = {}
 endfun
 
 fun! wheel#orbiter#original ()
@@ -49,13 +49,18 @@ fun! wheel#orbiter#original ()
 		return v:true
 	endif
 	let original = b:wheel_preview.original
+	let tabnum = original.tabnum
+	let winum = original.winum
+	let bufnum = original.bufnum
 	call wheel#orbiter#switch_off ()
-	let type = wheel#mandala#type ()
-	if type =~ 'tabwin'
-		call wheel#rectangle#goto_or_load (original)
-	else
-		call wheel#rectangle#goto_previous ()
-		execute 'hide buffer' original
+	if tabnum != tabpagenr()
+		execute 'noautocmd tabnext' tabnum
+	endif
+	if winum != winnr()
+		execute 'noautocmd' winum 'wincmd w'
+	endif
+	if bufnum != bufnr()
+		execute 'hide buffer' bufnum
 	endif
 	call wheel#projection#follow ()
 	call wheel#cylinder#recall ()
@@ -66,7 +71,7 @@ fun! wheel#orbiter#follow ()
 	" Preview current line each time the cursor move with j/k
 	if ! b:wheel_preview.used
 		let b:wheel_preview.used = v:true
-		let b:wheel_preview.original = wheel#rectangle#previous_bufnum ()
+		let b:wheel_preview.original = wheel#rectangle#previous ()
 	endif
 	call wheel#orbiter#preview ()
 	let b:wheel_preview.follow = v:true
