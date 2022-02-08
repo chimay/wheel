@@ -48,7 +48,7 @@ fun! wheel#codex#register (register = 'default')
 	" ---- content
 	let content = getreg(symbol)
 	if strchars(content) > g:wheel_config.maxim.yank_size
-		return
+		return v:false
 	endif
 	let content = split(content, "\n")
 	" ---- add

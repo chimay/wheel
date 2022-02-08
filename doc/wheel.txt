@@ -1797,6 +1797,14 @@ The available local maps are :
  - `P` : paste a yank linewise before cursor, leave yank ring opened
  - `gp` : paste a yank characterwise after cursor, leave yank ring opened
  - `gP` : paste a yank characterwise before cursor, leave yank ring opened
+ - `s` : switch register
+
+Switching register~
+
+A yank dedicated buffer starts with the default, unnamed register.
+
+When you switch, the buffer content is replaced by the yank ring of the
+new register.
 
 List mode~
 
@@ -2200,12 +2208,19 @@ Default : 500
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN YANK RING		   *wheel-config-maxim-yanks*
 
-Maximum number of elements in the yank ring : >
+Maximum number of elements in the yank ring for default (unnamed) register : >
 
-    let g:wheel_config.maxim.yanks = 500
+    let g:wheel_config.maxim.default_yanks = 700
 <
 
 Default : 500
+
+Maximum number of elements in the yank ring for other registers : >
+
+    let g:wheel_config.maxim.other_yanks = 100
+<
+
+Default : 50
 
 ------------------------------------------------------------------------------
 MAX SIZE OF A YANK IN YANK RING			   *wheel-config-maxim-yank-size*
