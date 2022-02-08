@@ -49,19 +49,8 @@ fun! wheel#orbiter#original ()
 		return {}
 	endif
 	let original = copy(b:wheel_preview.original)
-	let tabnum = original.tabnum
-	let winum = original.winum
-	let bufnum = original.bufnum
 	call wheel#orbiter#switch_off ()
-	if tabnum != tabpagenr()
-		execute 'noautocmd tabnext' tabnum
-	endif
-	if winum != winnr()
-		execute 'noautocmd' winum 'wincmd w'
-	endif
-	if bufnum != bufnr()
-		execute 'hide buffer' bufnum
-	endif
+	call wheel#rectangle#goto (original)
 	call wheel#projection#follow ()
 	call wheel#cylinder#recall ()
 	return original

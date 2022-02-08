@@ -367,8 +367,8 @@ fun! wheel#cylinder#close ()
 	if ! wheel#cylinder#is_mandala()
 		return v:false
 	endif
-	" -- if preview was used, go to original buffer
-	let original = wheel#orbiter#original ()
+	" -- original window & buffer before preview
+	let original = copy(b:wheel_preview.original)
 	" -- mandala buffer
 	if winnr('$') > 1
 		noautocmd close
@@ -377,13 +377,11 @@ fun! wheel#cylinder#close ()
 		" just jump to current wheel location
 		call wheel#vortex#jump ()
 	endif
+	" -- if preview was used, go to original buffer
 	if empty(original)
 		return v:true
 	endif
-	let winum = original.winum
-	if winum != winnr()
-		execute 'noautocmd' winum 'wincmd w'
-	endif
+	call wheel#rectangle#goto (original)
 	return v:true
 endfun
 

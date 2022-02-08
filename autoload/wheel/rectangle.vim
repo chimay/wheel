@@ -21,88 +21,63 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#rectangle#goto_previous ()
 	" Go to previous window in tab
 	noautocmd wincmd p
 endfun
 
-fun! wheel#rectangle#previous ()
-	" Return previous tab, window & buffer number
-	let previous = {}
-	call wheel#rectangle#goto_previous ()
-	let previous.tabnum = tabpagenr()
-	let previous.winum = winnr()
-	let previous.winiden = win_getid()
-	let previous.bufnum = bufnr('%')
-	call wheel#rectangle#goto_previous ()
-	return previous
-endfun
-
-fun! wheel#rectangle#glasses (filename, scope = 'all')
-	" Return list of window(s) id(s) displaying filename
-	" Optional argument :
-	"   - all : search in all tabs & windows
-	"   - tab : search only in current tab
-	let filename = a:filename
-	let scope = a:scope
-	let wins = win_findbuf(bufnr(filename))
-	if scope == 'tab'
-		let tabnum = tabpagenr()
-		eval wins->filter({ _, val -> win_id2tabwin(val)[0] == tabnum })
-	endif
-	return wins
-endfun
-
 fun! wheel#rectangle#ratio ()
 	" Window width / height
 	" Real usable window width
 	" Credit : https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script
-	let width=winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn
+	let width = winwidth(0)
+	let width -= ( (&number || &relativenumber) ? &numberwidth : 0 ) + &foldcolumn
 	let height = winheight(0)
-	" Use round as nr2float
-	" Where is nr2float btw ?
+	" use round as nr2float
 	return round(width) / round(height)
 endfun
 
-" main
+" ---- tab, win, buffer number
 
-fun! wheel#rectangle#tour ()
-	" Return closest candidate amongst windows displaying current location
-	" by exploring each one
-	" Search order :
-	"   - windows in current tab page
-	"   - windows anywhere
-	" Return v:false if no window display filename
-	let original = win_getid()
-	let coordin = wheel#referen#names ()
-	let filename = wheel#referen#location().file
-	" ---- find window where closest = current wheel location
-	" -- current tab
-	let glasses = wheel#rectangle#glasses (filename, 'tab')
-	for window in glasses
-		noautocmd call win_gotoid(window)
-		let closest = wheel#projection#closest ()
-		if ! empty(closest) && closest == coordin
-			noautocmd call win_gotoid(original)
-			return window
-		endif
-	endfor
-	" -- anywhere
-	let glasses = wheel#rectangle#glasses (filename, 'all')
-	for window in glasses
-		noautocmd call win_gotoid(window)
-		let closest = wheel#projection#closest ()
-		if ! empty(closest) && closest == coordin
-			noautocmd call win_gotoid(original)
-			return window
-		endif
-	endfor
-	" ---- not found
-	noautocmd call win_gotoid(original)
-	return -1
+fun! wheel#rectangle#current ()
+	" Return dict with tab, window and buffer numbers of current window
+	let rectangle = {}
+	let rectangle.tabnum = tabpagenr()
+	let rectangle.winum = winnr()
+	let rectangle.winiden = win_getid()
+	let rectangle.bufnum = bufnr('%')
+	return rectangle
 endfun
+
+fun! wheel#rectangle#previous ()
+	" Return tab, window & buffer number of previous window
+	call wheel#rectangle#goto_previous ()
+	let previous = wheel#rectangle#current ()
+	call wheel#rectangle#goto_previous ()
+	return previous
+endfun
+
+fun! wheel#rectangle#goto (where)
+	" Go to window given by where
+	let where = a:where
+	let tabnum = where.tabnum
+	let winum = where.winum
+	let bufnum = where.bufnum
+	if tabnum != tabpagenr()
+		execute 'noautocmd tabnext' tabnum
+	endif
+	if winum != winnr()
+		execute 'noautocmd' winum 'wincmd w'
+	endif
+	if bufnum != bufnr()
+		execute 'hide buffer' bufnum
+	endif
+	return v:true
+endfun
+
+" ---- window containing a given buffer
 
 fun! wheel#rectangle#find_buffer (bufnum, scope = 'all')
 	" Go to window of buffer given by bufnum
@@ -140,6 +115,61 @@ fun! wheel#rectangle#find_or_load (bufnum)
 	endif
 	return v:true
 endfun
+
+" ---- window(s) containing a given file
+
+fun! wheel#rectangle#glasses (filename, scope = 'all')
+	" Return list of window(s) id(s) displaying filename
+	" Optional argument :
+	"   - all : search in all tabs & windows
+	"   - tab : search only in current tab
+	let filename = a:filename
+	let scope = a:scope
+	let wins = win_findbuf(bufnr(filename))
+	if scope == 'tab'
+		let tabnum = tabpagenr()
+		eval wins->filter({ _, val -> win_id2tabwin(val)[0] == tabnum })
+	endif
+	return wins
+endfun
+
+fun! wheel#rectangle#tour ()
+	" Return closest candidate amongst windows displaying current location
+	" by exploring each one
+	" Search order :
+	"   - windows in current tab page
+	"   - windows anywhere
+	" Return v:false if no window display filename
+	let original = win_getid()
+	let coordin = wheel#referen#names ()
+	let filename = wheel#referen#location().file
+	" ---- find window where closest = current wheel location
+	" -- current tab
+	let glasses = wheel#rectangle#glasses (filename, 'tab')
+	for window in glasses
+		noautocmd call win_gotoid(window)
+		let closest = wheel#projection#closest ()
+		if ! empty(closest) && closest == coordin
+			noautocmd call win_gotoid(original)
+			return window
+		endif
+	endfor
+	" -- anywhere
+	let glasses = wheel#rectangle#glasses (filename, 'all')
+	for window in glasses
+		noautocmd call win_gotoid(window)
+		let closest = wheel#projection#closest ()
+		if ! empty(closest) && closest == coordin
+			noautocmd call win_gotoid(original)
+			return window
+		endif
+	endfor
+	" ---- not found
+	noautocmd call win_gotoid(original)
+	return -1
+endfun
+
+" ---- lists of buffers
 
 fun! wheel#rectangle#hidden_buffers (scope = 'listed')
 	" Return list of hidden or unlisted buffers, with some exceptions
