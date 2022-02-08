@@ -19,20 +19,24 @@ fun! wheel#codex#register (register, move = 'dont-move')
 	"   - dont-move : register content
 	"   - begin : register and, if register content is already in yank wheel,
 	"             move it at the beginning of the list
+	let register = a:register
 	let move = a:move
+	" ---- ring
 	let yanks = g:wheel_yank
-	let content = getreg(a:register)
+	" ---- content
+	let content = getreg(register)
 	if strchars(content) > g:wheel_config.maxim.yank_size
 		return
 	endif
 	let content = split(content, "\n")
+	" ---- add
 	let index = yanks->index(content)
-	if index < 0
+	if index >= 0 && move == 'begin'
+		eval yanks->remove(index)
 		eval yanks->insert(content)
 		return v:true
 	endif
-	if move == 'begin'
-		eval yanks->remove(index)
+	if index < 0
 		eval yanks->insert(content)
 	endif
 	return v:true
@@ -40,12 +44,13 @@ endfun
 
 fun! wheel#codex#add ()
 	" Insert most used registers in yank wheel
-	call wheel#codex#register (':', 'end')
-	call wheel#codex#register ('/', 'end')
-	call wheel#codex#register ('%', 'end')
-	call wheel#codex#register ('#', 'end')
-	call wheel#codex#register ('=', 'end')
+	call wheel#codex#register ('%')
+	call wheel#codex#register ('#')
+	call wheel#codex#register ('=')
+	call wheel#codex#register (':')
+	call wheel#codex#register ('/')
 	call wheel#codex#register ('.')
+	call wheel#codex#register ('-')
 	call wheel#codex#register ('+')
 	call wheel#codex#register ('*')
 	call wheel#codex#register ('"', 'begin')
