@@ -37,3 +37,4 @@ let g:wheel_loaded = 1
 call wheel#void#foundation ()
 call wheel#centre#commands ()
 call wheel#centre#plugs ()
+call wheel#centre#cables ()

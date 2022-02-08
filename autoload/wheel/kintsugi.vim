@@ -121,13 +121,25 @@ fun! wheel#kintsugi#config ()
 			echomsg info
 		endif
 	endif
+	" ---- default_yanks, other_yanks
+	if has_key(g:wheel_config.maxim, 'yanks')
+		if ! has_key(g:wheel_config, 'default_yanks')
+			let max_yanks = g:wheel_config.maxim.yanks
+			let g:wheel_config.maxim.default_yanks = max_yanks
+			let g:wheel_config.maxim.other_yanks = float2nr(round(max_yanks/10))
+			unlet g:wheel_config.maxim.yanks
+			let info = 'wheel config : maxim.yanks is deprecated. '
+			let info ..= 'Please use maxim.default_yanks and maxim.other_yanks instead.'
+			echomsg info
+		endif
+	endif
 	" ---- coda
 	return v:true
 endfun
 
 fun! wheel#kintsugi#wheel_file ()
 	" Convert old data structure to new one
-	" Run in r/w wheel file
+	" Run in read / write wheel file
 	" ---- history
 	if type(g:wheel_history) == v:t_list
 		let new_history = {}
@@ -148,6 +160,21 @@ fun! wheel#kintsugi#wheel_file ()
 	endif
 	if ! has_key(g:wheel_history, 'frecency')
 		let g:wheel_history.frecency = []
+	endif
+	" ---- yank
+	if type(g:wheel_yank) == v:t_list
+		let new_yank = {}
+		let new_yank.default = g:wheel_yank
+		let new_yank.clipboard = []
+		let new_yank.primary = []
+		let new_yank.small = []
+		let new_yank.inserted = []
+		let new_yank.search = []
+		let new_yank.command = []
+		let new_yank.expression = []
+		let new_yank.file = []
+		let new_yank.alternate = []
+		let g:wheel_yank = new_yank
 	endif
 	" ---- coda
 	return v:true

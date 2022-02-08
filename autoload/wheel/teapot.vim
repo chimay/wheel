@@ -150,6 +150,12 @@ fun! wheel#teapot#filter ()
 	return v:true
 endfun
 
+fun! wheel#teapot#reset ()
+	" Reset filter
+	call wheel#teapot#set_prompt ()
+	call wheel#teapot#filter()
+endfun
+
 " clear filter
 
 fun! wheel#teapot#clear ()
@@ -218,8 +224,7 @@ endfun
 
 fun! wheel#teapot#normal_dd ()
 	" Normal command dd in mandala with filter
-	call wheel#teapot#set_prompt ()
-	call wheel#teapot#filter()
+	call wheel#teapot#reset ()
 endfun
 
 fun! wheel#teapot#mappings ()

@@ -68,6 +68,40 @@ if ! exists('s:letters_modes')
 	lockvar! s:letters_modes
 endif
 
+" ---- register
+
+if ! exists('s:registers_symbols')
+	let s:registers_symbols = {
+				\ 'default'    : '"',
+				\ 'clipboard'  : '+',
+				\ 'primary'    : '*' ,
+				\ 'small'      : '-',
+				\ 'inserted'   : '.',
+				\ 'search'     : '/',
+				\ 'command'    : ':',
+				\ 'expression' : '=',
+				\ 'file'       : '%',
+				\ 'alternate'  : '#',
+				\ }
+	lockvar! s:registers_symbols
+endif
+
+if ! exists('s:symbols_registers')
+	let s:symbols_registers = {
+				\ '"' : 'default',
+				\ '+' : 'clipboard',
+				\ '*' : 'primary' ,
+				\ '-' : 'small',
+				\ '.' : 'inserted',
+				\ '/' : 'search',
+				\ ':' : 'command',
+				\ '=' : 'expression',
+				\ '%' : 'file',
+				\ '#' : 'alternate',
+				\ }
+	lockvar! s:symbols_registers
+endif
+
 " ---- signs
 
 if ! exists('s:sign_name')
@@ -359,6 +393,7 @@ fun! wheel#crystal#clear (varname)
 	let varname = a:varname
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
+	let varname = substitute(varname, ' ', '_', 'g')
 	if varname !~ '\m^s:'
 		let varname = 's:' .. varname
 	endif

@@ -101,9 +101,11 @@ fun! wheel#void#history ()
 		let g:wheel_history.circuit = []
 	endif
 	if ! has_key(g:wheel_history, 'alternate')
+		" alternate locations
 		let g:wheel_history.alternate = {}
 	endif
 	if ! has_key(g:wheel_history, 'frecency')
+		" frequent + recent
 		let g:wheel_history.frecency = []
 	endif
 endfun
@@ -125,7 +127,37 @@ endfun
 fun! wheel#void#yank ()
 	" Initialize yank history
 	if ! exists('g:wheel_yank')
-		let g:wheel_yank = []
+		let g:wheel_yank = {}
+	endif
+	if ! has_key(g:wheel_yank, 'default')
+		let g:wheel_yank.default = []
+	endif
+	if ! has_key(g:wheel_yank, 'clipboard')
+		let g:wheel_yank.clipboard = []
+	endif
+	if ! has_key(g:wheel_yank, 'primary')
+		let g:wheel_yank.primary = []
+	endif
+	if ! has_key(g:wheel_yank, 'small')
+		let g:wheel_yank.small = []
+	endif
+	if ! has_key(g:wheel_yank, 'inserted')
+		let g:wheel_yank.inserted = []
+	endif
+	if ! has_key(g:wheel_yank, 'search')
+		let g:wheel_yank.search = []
+	endif
+	if ! has_key(g:wheel_yank, 'command')
+		let g:wheel_yank.command = []
+	endif
+	if ! has_key(g:wheel_yank, 'expression')
+		let g:wheel_yank.expression = []
+	endif
+	if ! has_key(g:wheel_yank, 'file')
+		let g:wheel_yank.file = []
+	endif
+	if ! has_key(g:wheel_yank, 'alternate')
+		let g:wheel_yank.alternate = []
 	endif
 endfun
 
@@ -213,8 +245,11 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'mru')
 		let g:wheel_config.maxim.mru = 500
 	endif
-	if ! has_key(g:wheel_config.maxim, 'yanks')
-		let g:wheel_config.maxim.yanks = 500
+	if ! has_key(g:wheel_config.maxim, 'default_yanks')
+		let g:wheel_config.maxim.default_yanks = 500
+	endif
+	if ! has_key(g:wheel_config.maxim, 'other_yanks')
+		let g:wheel_config.maxim.other_yanks = 50
 	endif
 	if ! has_key(g:wheel_config.maxim, 'yank_size')
 		let g:wheel_config.maxim.yank_size = 3000

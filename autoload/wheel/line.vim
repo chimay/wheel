@@ -296,10 +296,14 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in list mode
 	let where = a:where
 	let close = a:close
+	" ---- register
+	let register = b:wheel_nature.yank.register
+	" ---- format selection
 	let selection = wheel#pencil#selection ()
 	let content = deepcopy(selection.components)
 	eval content->map({ _, list_string -> eval(list_string) })
 	eval content->map({ _, list -> join(list, "\n") })
+	" ---- paste
 	call wheel#rectangle#goto_previous ()
 	let @" = join(content, "\n")
 	if where == 'linewise-after'
@@ -311,7 +315,9 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
+	" --- climbing content
 	call wheel#codex#climb(content)
+	" ---- coda
 	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#cylinder#close ()
@@ -323,11 +329,15 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in plain mode
 	let where = a:where
 	let close = a:close
+	" ---- register
+	let register = b:wheel_nature.yank.register
+	" ---- format selection
 	let selection = wheel#pencil#selection ()
 	let content = deepcopy(selection.components)
 	if empty(content)
 		return v:false
 	endif
+	" ---- paste
 	call wheel#rectangle#goto_previous ()
 	let @" = join(content, "\n")
 	if where == 'linewise-after'
@@ -339,7 +349,9 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	elseif where == 'charwise-before'
 		normal! P
 	endif
+	" --- climbing content
 	call wheel#codex#climb(content)
+	" ---- coda
 	call wheel#cylinder#recall ()
 	if close == 'close'
 		call wheel#cylinder#close ()

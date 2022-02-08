@@ -13,6 +13,9 @@ fun! wheel#clipper#yank (mode)
 	call wheel#codex#template(settings)
 	call wheel#mandala#fill (lines)
 	setlocal nomodified
-	" reload
+	" --- property
+	let b:wheel_nature.yank = {}
+	let b:wheel_nature.yank.register = 'default'
+	" ---- reload
 	let b:wheel_reload = 'wheel#clipper#yank(' .. string(mode) .. ')'
 endfun

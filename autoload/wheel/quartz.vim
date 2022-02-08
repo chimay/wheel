@@ -397,6 +397,7 @@ fun! wheel#quartz#clear (varname)
 	let varname = a:varname
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
+	let varname = substitute(varname, ' ', '_', 'g')
 	if varname !~ '\m^s:'
 		let varname = 's:' .. varname
 	endif

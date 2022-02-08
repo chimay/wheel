@@ -13,20 +13,25 @@
 " Note : kyusu#pour makes a deepcopy of the list before
 " processing, no need to do it here
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ
 endif
 
-" empty
+if ! exists('s:registers_symbols')
+	let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
+	lockvar s:registers_symbols
+endif
+
+" ---- empty
 
 fun! wheel#complete#empty (arglead, cmdline, cursorpos)
 	return []
 endfun
 
-" wheel
+" ---- wheel
 
 fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	" Complete torus name
@@ -95,7 +100,7 @@ fun! wheel#complete#frecency (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
-" mandalas = dedicated buffers
+" ---- mandalas = dedicated buffers
 
 fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	" Complete mandala buffer name
@@ -114,7 +119,7 @@ fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
-" leaves = mandala layers, implemented as a ring
+" ---- leaves = mandala layers, implemented as a ring
 
 fun! wheel#complete#leaf (arglead, cmdline, cursorpos)
 	" Complete leaf type
@@ -127,7 +132,7 @@ fun! wheel#complete#leaf (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
-" files & dirs
+" ---- files & dirs
 
 fun! wheel#complete#file (arglead, cmdline, cursorpos)
 	" Complete with file name
@@ -183,7 +188,7 @@ fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, commands)
 endfun
 
-" mru non wheel files
+" ---- mru non wheel files
 
 fun! wheel#complete#mru (arglead, cmdline, cursorpos)
 	" Complete mru file
@@ -192,7 +197,7 @@ fun! wheel#complete#mru (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, files)
 endfun
 
-" buffers
+" ---- buffers
 
 fun! wheel#complete#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
@@ -208,7 +213,7 @@ fun! wheel#complete#visible_buffer (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
-" buffer lines
+" ---- buffer lines
 
 fun! wheel#complete#line (arglead, cmdline, cursorpos)
 	" Complete buffer line
@@ -218,7 +223,7 @@ fun! wheel#complete#line (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, linelist)
 endfun
 
-" vim lists
+" ---- vim lists
 
 fun! wheel#complete#marker (arglead, cmdline, cursorpos)
 	" Complete marker
@@ -260,7 +265,14 @@ fun! wheel#complete#tag (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
-" yank ring
+" ---- yank ring
+
+fun! wheel#complete#register (arglead, cmdline, cursorpos)
+	" Complete register name
+	let choices = keys(s:registers_symbols)
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
 
 fun! wheel#complete#yank_list (arglead, cmdline, cursorpos)
 	" Complete yank from yank ring in list mode
@@ -275,4 +287,3 @@ fun! wheel#complete#yank_plain (arglead, cmdline, cursorpos)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
-

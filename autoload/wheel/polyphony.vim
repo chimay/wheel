@@ -391,8 +391,7 @@ fun! wheel#polyphony#ctrl_u ()
 	" Ctrl-U on mandala with filter & write command
 	let linum = line('.')
 	if linum == 1
-		call wheel#teapot#set_prompt ()
-		call wheel#teapot#filter()
+		call wheel#teapot#reset ()
 		return
 	endif
 	let last_field = '[^' .. s:field_separ_bar .. ']*$'

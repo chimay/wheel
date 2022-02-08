@@ -567,15 +567,18 @@ endfun
 
 " ---- yanks
 
-fun! wheel#perspective#yank (mode)
+fun! wheel#perspective#yank (mode, register = 'default')
 	" Yank wheel
+	let mode = a:mode
+	let register = a:register
+	let yanks = g:wheel_yank[register]
 	let returnlist = []
-	if a:mode == 'list'
-		for elem in g:wheel_yank
+	if mode == 'list'
+		for elem in yanks
 			eval returnlist->add(string(elem))
 		endfor
 	elseif a:mode == 'plain'
-		for elem in g:wheel_yank
+		for elem in yanks
 			let plain = join(elem, "\n")
 			" Only add if some text is there
 			if plain =~ '\m\w'
