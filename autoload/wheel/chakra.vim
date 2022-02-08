@@ -4,10 +4,6 @@
 "
 " Signs at locations
 
-" other names :
-"
-" caduceus
-
 " script constants
 
 if ! exists('s:sign_name')

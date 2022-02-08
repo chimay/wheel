@@ -7,6 +7,7 @@
 " other names ideas for this file :
 "
 " ouroboros
+" caduceus
 
 " ---- script constants
 
