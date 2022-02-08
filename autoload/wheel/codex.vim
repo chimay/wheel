@@ -40,12 +40,17 @@ endfun
 
 fun! wheel#codex#add ()
 	" Insert most used registers in yank wheel
+	call wheel#codex#register (':', 'end')
+	call wheel#codex#register ('/', 'end')
+	call wheel#codex#register ('%', 'end')
+	call wheel#codex#register ('#', 'end')
+	call wheel#codex#register ('=', 'end')
 	call wheel#codex#register ('.')
 	call wheel#codex#register ('+')
 	call wheel#codex#register ('*')
 	call wheel#codex#register ('"', 'begin')
-	let max = g:wheel_config.maxim.yanks
-	let g:wheel_yank = g:wheel_yank[:max - 1]
+	let maxim = g:wheel_config.maxim.yanks
+	let g:wheel_yank = g:wheel_yank[:maxim - 1]
 endfun
 
 fun! wheel#codex#climb (content)
