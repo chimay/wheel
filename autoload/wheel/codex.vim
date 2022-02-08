@@ -16,7 +16,7 @@
 fun! wheel#codex#register (register, move = 'dont-move')
 	" Add register to yank wheel
 	" Optional argument :
-	"   - dont-move : register content
+	"   - dont-move (default) : register content
 	"   - begin : register and, if register content is already in yank wheel,
 	"             move it at the beginning of the list
 	let register = a:register
@@ -31,12 +31,12 @@ fun! wheel#codex#register (register, move = 'dont-move')
 	let content = split(content, "\n")
 	" ---- add
 	let index = yanks->index(content)
-	if index >= 0 && move == 'begin'
-		eval yanks->remove(index)
+	if index < 0
 		eval yanks->insert(content)
 		return v:true
 	endif
-	if index < 0
+	if move == 'begin'
+		eval yanks->remove(index)
 		eval yanks->insert(content)
 	endif
 	return v:true
