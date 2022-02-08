@@ -1803,8 +1803,21 @@ Switching register~
 
 A yank dedicated buffer starts with the default, unnamed register.
 
-When you switch, the buffer content is replaced by the yank ring of the
-new register.
+If you press `s`, a prompt asks you to which register you want to switch.
+Completion is available with the register full names as candidates :
+
+default    : "
+clipboard  : +
+primary    : *
+small      : -
+inserted   : .
+search     : /
+command    : :
+expression : =
+file       : %
+alternate  : #
+
+The buffer content is then replaced by the yank ring of the new register.
 
 List mode~
 
