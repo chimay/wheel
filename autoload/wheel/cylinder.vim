@@ -371,10 +371,10 @@ fun! wheel#cylinder#close ()
 	call wheel#orbiter#original ()
 	" -- mandala buffer
 	if winnr('$') > 1
-		" more than one window in tab ? close it.
 		noautocmd close
 	else
-		" only one window in tab ? jump to current wheel location
+		" only one window in tab, we can't close it
+		" just jump to current wheel location
 		call wheel#vortex#jump ()
 	endif
 	return v:true
