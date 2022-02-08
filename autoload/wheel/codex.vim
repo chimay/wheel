@@ -106,14 +106,14 @@ endfun
 
 fun! wheel#codex#undo ()
 	" Undo action in previous window
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	undo
 	call wheel#cylinder#recall ()
 endfun
 
 fun! wheel#codex#redo ()
 	" Redo action in previous window
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	redo
 	call wheel#cylinder#recall ()
 endfun

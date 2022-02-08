@@ -88,7 +88,7 @@ fun! wheel#line#occur (settings)
 	let settings = a:settings
 	let target = settings.target
 	let component = settings.selection.component
-	let bufnum = a:settings.related_buffer
+	let bufnum = a:settings.related.bufnum
 	" ---- go
 	let fields = split(component, s:field_separ)
 	let line = str2nr(fields[0])
@@ -213,7 +213,7 @@ fun! wheel#line#change (settings)
 	let fields = split(component, s:field_separ)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
-	let bufnum = a:settings.related_buffer
+	let bufnum = a:settings.related.bufnum
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'hide buffer' bufnum
@@ -300,7 +300,7 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	let content = deepcopy(selection.components)
 	eval content->map({ _, list_string -> eval(list_string) })
 	eval content->map({ _, list -> join(list, "\n") })
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	let @" = join(content, "\n")
 	if where == 'linewise-after'
 		put =content
@@ -328,7 +328,7 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	if empty(content)
 		return v:false
 	endif
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	let @" = join(content, "\n")
 	if where == 'linewise-after'
 		put =content
@@ -360,7 +360,7 @@ fun! wheel#line#paste_visual (...)
 		let close = 'close'
 	endif
 	normal! gvy
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	if where == 'after'
 		normal! p
 	elseif where == 'before'

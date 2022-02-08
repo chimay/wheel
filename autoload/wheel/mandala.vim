@@ -63,8 +63,12 @@ fun! wheel#mandala#init ()
 		let b:wheel_nature.has_navigation = v:false
 	endif
 	" -- related buffer
-	if ! exists('b:wheel_related_buffer')
-		let b:wheel_related_buffer = 'undefined'
+	if ! exists('b:wheel_related')
+		let b:wheel_related = {}
+		let b:wheel_related.tabnum = 'undefined'
+		let b:wheel_related.winum = 'undefined'
+		let b:wheel_related.winiden = 'undefined'
+		let b:wheel_related.bufnum = 'undefined'
 	endif
 	" -- all original lines
 	if ! exists('b:wheel_lines')
@@ -248,11 +252,21 @@ endfun
 
 fun! wheel#mandala#guess_related ()
 	" Guess related buffer
+	let related = {}
 	if wheel#cylinder#is_mandala ()
-		return wheel#rectangle#previous_buffer ()
+		let was_mandala = v:true
+		call wheel#rectangle#goto_previous ()
 	else
-		return bufnr('%')
+		let was_mandala = v:false
 	endif
+	let related.tabnum = tabpagenr()
+	let related.winum = winnr()
+	let related.winiden = win_getid()
+	let related.bufnum = bufnr('%')
+	if was_mandala
+		call wheel#rectangle#goto_previous ()
+	endif
+	return related
 endfun
 
 fun! wheel#mandala#goto_related ()
@@ -264,7 +278,7 @@ fun! wheel#mandala#goto_related ()
 	if ! wheel#cylinder#is_mandala ()
 		return v:false
 	endif
-	let bufnum = b:wheel_related_buffer
+	let bufnum = b:wheel_related.bufnum
 	if bufnum == 'undefined'
 		wincmd p
 		return 'undefined'
@@ -416,7 +430,7 @@ fun! wheel#mandala#blank (type)
 	call wheel#mandala#set_type (type)
 	call wheel#mandala#common_options ()
 	" ---- set related buffer
-	let b:wheel_related_buffer = wheel#mandala#guess_related ()
+	let b:wheel_related = wheel#mandala#guess_related ()
 endfun
 
 " content

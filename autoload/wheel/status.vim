@@ -78,27 +78,32 @@ endfun
 
 " ---- wheel
 
+fun! wheel#status#dashboard_text ()
+	" Return dashboard text
+	if wheel#referen#is_empty('wheel')
+		return 'empty wheel'
+	endif
+	let [torus, circle, location] = wheel#referen#location('all')
+	let dashboard = torus.name .. s:level_separ
+	if wheel#referen#is_empty('torus')
+		let dashboard ..= '[empty torus]'
+		return dashboard
+	endif
+	let dashboard ..= circle.name .. s:level_separ
+	if wheel#referen#is_empty('circle')
+		let dashboard ..= '[empty circle]'
+		return dashboard
+	endif
+	let dashboard ..= location.name .. ' : '
+	let file = wheel#disc#relative_path(location.file)
+	let dashboard ..= file .. ':' .. location.line .. ':' .. location.col
+	return dashboard
+endfun
+
 fun! wheel#status#dashboard ()
 	" Display dashboard, summary of current wheel status
-	let [torus, circle, location] = wheel#referen#location('all')
-	if ! wheel#referen#is_empty('wheel')
-		let dashboard = torus.name .. s:level_separ
-		if ! wheel#referen#is_empty('torus')
-			let dashboard ..= circle.name .. s:level_separ
-			if ! wheel#referen#is_empty('circle')
-				let dashboard ..= location.name .. ' : '
-				let dashboard ..= location.file .. ':' .. location.line .. ':' .. location.col
-			else
-				let dashboard ..= '[Empty circle]'
-			endif
-		else
-			let dashboard ..= '[Empty torus]'
-		endif
-	else
-		let dashboard = 'Empty wheel'
-	endif
+	let dashboard = wheel#status#dashboard_text ()
 	call wheel#status#echo (dashboard)
-	return v:true
 endfun
 
 " ---- mandala & leaf
@@ -143,9 +148,11 @@ fun! wheel#status#statusline ()
 	let statusline ..=' %='
 	let statusline ..= '%F'
 	let statusline ..= s:field_separ
+	let statusline ..= '%L lines %y%r%m'
+	let statusline ..= s:field_separ
 	let statusline ..= 'buf %n'
 	let statusline ..= s:field_separ
-	let statusline ..= '%L lines %y%r%m'
+	let statusline ..=' win %{winnr()}/%{win_getid()}'
 	let statusline ..= '   %<'
 	return statusline
 endfun

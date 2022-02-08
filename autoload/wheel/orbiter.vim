@@ -17,7 +17,7 @@ fun! wheel#orbiter#preview ()
 	" Preview buffer matching current line
 	if ! b:wheel_preview.used
 		let b:wheel_preview.used = v:true
-		let b:wheel_preview.original = wheel#rectangle#previous_buffer ()
+		let b:wheel_preview.original = wheel#rectangle#previous_bufnum ()
 	endif
 	let settings = b:wheel_settings
 	call wheel#river#default (settings)
@@ -25,7 +25,7 @@ fun! wheel#orbiter#preview ()
 	let settings.selection.index = cursor_info.index
 	let settings.selection.component = cursor_info.component
 	let settings.follow = v:false
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	call wheel#projection#follow ()
 	" ---- user update autocmd
 	silent doautocmd User WheelUpdate
@@ -53,13 +53,11 @@ fun! wheel#orbiter#original ()
 	let type = wheel#mandala#type ()
 	if type =~ 'tabwin'
 		call wheel#rectangle#goto_or_load (original)
-		call wheel#cylinder#recall ()
-		return v:true
+	else
+		call wheel#rectangle#goto_previous ()
+		execute 'hide buffer' original
 	endif
-	call wheel#rectangle#previous ()
-	execute 'hide buffer' original
 	call wheel#projection#follow ()
-	call wheel#vortex#jump ()
 	call wheel#cylinder#recall ()
 	return v:true
 endfun
@@ -68,7 +66,7 @@ fun! wheel#orbiter#follow ()
 	" Preview current line each time the cursor move with j/k
 	if ! b:wheel_preview.used
 		let b:wheel_preview.used = v:true
-		let b:wheel_preview.original = wheel#rectangle#previous_buffer ()
+		let b:wheel_preview.original = wheel#rectangle#previous_bufnum ()
 	endif
 	call wheel#orbiter#preview ()
 	let b:wheel_preview.follow = v:true

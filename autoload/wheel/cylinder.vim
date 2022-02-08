@@ -83,7 +83,7 @@ fun! wheel#cylinder#pseudo ()
 	return pseudo
 endfun
 
-fun! wheel#cylinder#filename ()
+fun! wheel#cylinder#set_filename ()
 	" Set buffer filename to pseudo filename
 	" Add unique buf id, so (n)vim does not complain about existing filename
 	let pseudo = wheel#cylinder#pseudo ()
@@ -193,7 +193,7 @@ fun! wheel#cylinder#first (mood = 'linger')
 	eval names->add('0')
 	eval types->add('')
 	" ---- set filename
-	call wheel#cylinder#filename ()
+	call wheel#cylinder#set_filename ()
 	" ---- init mandala
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
@@ -248,7 +248,7 @@ fun! wheel#cylinder#add (mood = 'linger')
 	eval names->insert(novice_name, next)
 	eval types->insert('', next)
 	" -- set filename
-	call wheel#cylinder#filename ()
+	call wheel#cylinder#set_filename ()
 	" -- init mandala
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()

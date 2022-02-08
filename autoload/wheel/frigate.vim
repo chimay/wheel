@@ -102,7 +102,7 @@ endfun
 fun! wheel#frigate#marker ()
 	" Markers
 	if wheel#cylinder#is_mandala ()
-		call wheel#rectangle#previous ()
+		call wheel#rectangle#goto_previous ()
 	endif
 	call wheel#frigate#generic('marker')
 endfun
@@ -110,7 +110,7 @@ endfun
 fun! wheel#frigate#jump ()
 	" Jumps list
 	if wheel#cylinder#is_mandala ()
-		call wheel#rectangle#previous ()
+		call wheel#rectangle#goto_previous ()
 	endif
 	let lines = wheel#perspective#jump ()
 	if empty(lines)
@@ -129,7 +129,7 @@ endfun
 fun! wheel#frigate#change ()
 	" Jumps list
 	if wheel#cylinder#is_mandala ()
-		call wheel#rectangle#previous ()
+		call wheel#rectangle#goto_previous ()
 	endif
 	let lines = wheel#perspective#change ()
 	if empty(lines)
@@ -249,7 +249,7 @@ fun! wheel#frigate#occur (...)
 		let pattern = input('Lines matching pattern : ')
 	endif
 	if wheel#cylinder#is_mandala ()
-		call wheel#rectangle#previous ()
+		call wheel#rectangle#goto_previous ()
 	endif
 	" To be run before opening the mandala buffer
 	let lines = wheel#perspective#occur (pattern)
@@ -285,7 +285,7 @@ fun! wheel#frigate#grep (...)
 		return v:false
 	endif
 	if wheel#cylinder#is_mandala ()
-		call wheel#rectangle#previous ()
+		call wheel#rectangle#goto_previous ()
 	endif
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('grep/' .. word)

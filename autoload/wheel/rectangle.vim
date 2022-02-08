@@ -23,16 +23,16 @@ endif
 
 " helpers
 
-fun! wheel#rectangle#previous ()
+fun! wheel#rectangle#goto_previous ()
 	" Go to previous window in tab
 	noautocmd wincmd p
 endfun
 
-fun! wheel#rectangle#previous_buffer ()
+fun! wheel#rectangle#previous_bufnum ()
 	" Return previous buffer number
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	let original = bufnr('%')
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	return original
 endfun
 
@@ -110,22 +110,20 @@ fun! wheel#rectangle#goto (bufnum, scope = 'all')
 	let scope = a:scope
 	" -- search in current tab
 	if scope == 'tab'
-		let winnr = bufwinnr(bufnum)
-		if winnr > 0
-			execute winnr 'noautocmd wincmd w'
-			return v:true
-		else
+		let winum = bufwinnr(bufnum)
+		if winum < 0
 			return v:false
 		endif
+		execute 'noautocmd' winum  'wincmd w'
+		return v:true
 	endif
 	" -- search everywhere
 	let winds = win_findbuf(bufnum)
-	if ! empty(winds)
-		let winiden = winds[0]
-		noautocmd call win_gotoid(winiden)
-	else
+	if empty(winds)
 		return v:false
 	endif
+	let winiden = winds[0]
+	noautocmd call win_gotoid(winiden)
 	return v:true
 endfun
 

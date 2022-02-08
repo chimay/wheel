@@ -110,7 +110,7 @@ fun! wheel#harmony#rename (level, ask = 'confirm')
 		call wheel#pendulum#rename(level, old_name, new_name)
 	endfor
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	call wheel#vortex#jump()
 	call wheel#cylinder#recall()
 	setlocal nomodified
@@ -187,7 +187,7 @@ fun! wheel#harmony#rename_file (ask = 'confirm')
 		" rename file in all involved locations of the wheel
 		call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	endfor
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	call wheel#vortex#jump()
 	call wheel#cylinder#recall()
 	setlocal nomodified
@@ -332,7 +332,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	call wheel#vortex#jump ()
 	call wheel#cylinder#recall()
 endfun
@@ -429,7 +429,7 @@ fun! wheel#harmony#grep_edit (ask = 'confirm')
 		endif
 	endfor
 	" -- propagate
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	silent cdo call wheel#vector#cdo(newlines)
 	call wheel#cylinder#recall ()
 	" -- info
@@ -446,7 +446,7 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 		return v:false
 	endif
 	" -- buffer
-	let bufnum = b:wheel_related_buffer
+	let bufnum = b:wheel_related.bufnum
 	if bufnum == 'undefined'
 		return v:false
 	endif

@@ -114,7 +114,7 @@ fun! wheel#shadow#narrow_file (...) range
 	call wheel#mandala#common_maps ()
 	let settings = #{
 				\ function : 'wheel#line#narrow_file',
-				\ bufnum : b:wheel_related_buffer
+				\ bufnum : b:wheel_related.bufnum
 				\ }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('file')

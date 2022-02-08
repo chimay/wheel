@@ -23,8 +23,8 @@ fun! wheel#river#default (settings)
 	if ! has_key(settings, 'target')
 		let settings.target = 'current'
 	endif
-	if ! has_key(settings, 'related_buffer')
-		let settings.related_buffer = b:wheel_related_buffer
+	if ! has_key(settings, 'related')
+		let settings.related = b:wheel_related
 	endif
 	if ! has_key(settings, 'follow')
 		let settings.follow = v:true

@@ -41,7 +41,7 @@ fun! wheel#loop#navigation (settings)
 	" ---- switch off preview
 	call wheel#orbiter#switch_off ()
 	" ---- go to previous window before processing
-	call wheel#rectangle#previous ()
+	call wheel#rectangle#goto_previous ()
 	" ---- target : current window or not ?
 	if target == 'current'
 		let settings.selection.index = selection.indexes[0]

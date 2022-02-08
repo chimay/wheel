@@ -12,8 +12,6 @@ fun! wheel#clipper#yank (mode)
 	let settings = {'mode' : mode}
 	call wheel#codex#template(settings)
 	call wheel#mandala#fill (lines)
-	" yank ring is not related to any particular buffer
-	let b:wheel_related_buffer = 'undefined'
 	setlocal nomodified
 	" reload
 	let b:wheel_reload = 'wheel#clipper#yank(' .. string(mode) .. ')'

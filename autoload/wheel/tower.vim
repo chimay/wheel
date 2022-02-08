@@ -83,7 +83,7 @@ fun! wheel#tower#action (settings)
 	let function = dict[key]
 	" ---- navigation functions needs to be on the previous, regular window
 	if wheel#tower#is_navigation (function)
-		call wheel#rectangle#previous ()
+		call wheel#rectangle#goto_previous ()
 	endif
 	" --- if functions opens or needs a mandala, override the close setting
 	let uses_mandala = wheel#tower#opens_mandala (function)

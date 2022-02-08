@@ -116,8 +116,12 @@ fun! wheel#book#template ()
 	let leaf.nature.has_selection = v:false
 	let leaf.nature.has_preview = v:false
 	let leaf.nature.has_navigation = v:false
-	" -- related buffer
-	let leaf.related_buffer = 'undefined'
+	" -- related
+	let leaf.related = {}
+	let leaf.related.tabnum = 'undefined'
+	let leaf.related.winum = 'undefined'
+	let leaf.related.winiden = 'undefined'
+	let leaf.related.bufnum = 'undefined'
 	" -- all original lines
 	let leaf.lines = []
 	" -- all original full lines information
@@ -292,8 +296,8 @@ fun! wheel#book#syncup ()
 	let leaf.autocmds = wheel#book#save_autocmds ()
 	" -- general qualities
 	let leaf.nature = copy(b:wheel_nature)
-	" -- related buffer
-	let leaf.related_buffer = b:wheel_related_buffer
+	" -- related
+	let leaf.related = b:wheel_related
 	" -- all original lines
 	let leaf.lines = copy(b:wheel_lines)
 	" -- all original full lines information
@@ -339,8 +343,8 @@ fun! wheel#book#syncdown ()
 	call wheel#book#restore_autocmds (autodict)
 	" -- general qualities
 	let b:wheel_nature = copy(leaf.nature)
-	" -- related buffer
-	let b:wheel_related_buffer = leaf.related_buffer
+	" -- related
+	let b:wheel_related = leaf.related
 	" -- all original lines
 	let b:wheel_lines = copy(leaf.lines)
 	" -- all original full lines information

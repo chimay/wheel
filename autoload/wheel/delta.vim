@@ -84,7 +84,7 @@ endfun
 
 fun! wheel#delta#mappings ()
 	" Maps for undo list mandala
-	let bufnum = b:wheel_related_buffer
+	let bufnum = b:wheel_related.bufnum
 	let map = 'nnoremap <buffer>'
 	let coda = ')<cr>'
 	" earlier or later
