@@ -382,6 +382,7 @@ fun! wheel#cylinder#close ()
 		return v:true
 	endif
 	call wheel#rectangle#goto (original)
+	call wheel#projection#follow ()
 	return v:true
 endfun
 

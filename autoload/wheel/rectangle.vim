@@ -4,7 +4,7 @@
 "
 " Tabs, Windows & buffers
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
@@ -146,7 +146,7 @@ fun! wheel#rectangle#tour ()
 	" ---- find window where closest = current wheel location
 	" -- current tab
 	let rosace = wheel#rectangle#rosace (filename, 'tab')
-	for window in glasses
+	for window in rosace
 		noautocmd call win_gotoid(window)
 		let closest = wheel#projection#closest ()
 		if ! empty(closest) && closest == coordin
@@ -156,7 +156,7 @@ fun! wheel#rectangle#tour ()
 	endfor
 	" -- anywhere
 	let rosace = wheel#rectangle#rosace (filename, 'all')
-	for window in glasses
+	for window in rosace
 		noautocmd call win_gotoid(window)
 		let closest = wheel#projection#closest ()
 		if ! empty(closest) && closest == coordin
