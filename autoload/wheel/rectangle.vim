@@ -118,7 +118,7 @@ endfun
 
 " ---- window(s) containing a given file
 
-fun! wheel#rectangle#glasses (filename, scope = 'all')
+fun! wheel#rectangle#rosace (filename, scope = 'all')
 	" Return list of window(s) id(s) displaying filename
 	" Optional argument :
 	"   - all : search in all tabs & windows
@@ -145,7 +145,7 @@ fun! wheel#rectangle#tour ()
 	let filename = wheel#referen#location().file
 	" ---- find window where closest = current wheel location
 	" -- current tab
-	let glasses = wheel#rectangle#glasses (filename, 'tab')
+	let rosace = wheel#rectangle#rosace (filename, 'tab')
 	for window in glasses
 		noautocmd call win_gotoid(window)
 		let closest = wheel#projection#closest ()
@@ -155,7 +155,7 @@ fun! wheel#rectangle#tour ()
 		endif
 	endfor
 	" -- anywhere
-	let glasses = wheel#rectangle#glasses (filename, 'all')
+	let rosace = wheel#rectangle#rosace (filename, 'all')
 	for window in glasses
 		noautocmd call win_gotoid(window)
 		let closest = wheel#projection#closest ()
