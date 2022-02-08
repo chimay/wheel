@@ -14,6 +14,7 @@
 	* [History](#history)
 	* [Prerequisites](#prerequisites)
 + [Installation](#installation)
+	* [Using vim-packager](#using-vim-packager)
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
 	* [Plain](#plain)
@@ -215,6 +216,17 @@ Most of the plugin should work out of the box on other OSes, however. If
 you encounter some problem, please let me know.
 
 # Installation
+## Using vim-packager
+
+Simply add this line after `packager#init()` to your initialisation file :
+
+~~~vim
+call packager#add('chimay/wheel', { 'type' : 'start' })
+~~~
+
+and run `:PackagerInstall` (see [the vim-packager
+readme](https://github.com/kristijanhusak/vim-packager)).
+
 ## Using minpac
 
 Simply add this line after `minpac#init()` to your initialisation file :
