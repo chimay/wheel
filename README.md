@@ -165,7 +165,7 @@ it’s easy to add new functionalities.
   + :ex or !shell command
   + async shell command
   + result can be filtered, as usual
-- dedicated buffers stack to save your searches
+- dedicated buffers ring to save your searches
   + layer ring in each dedicated buffer
 - batch operations
 - autogroup files by extension or directory
