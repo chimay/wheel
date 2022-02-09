@@ -85,6 +85,8 @@ fun! wheel#labyrinth#layout ()
 	eval returnlist->add('noautocmd silent tabrewind')
 	" ---- jump
 	eval returnlist->add('call wheel#vortex#jump()')
+	" ---- unfold to view cursor
+	eval returnlist->add('normal! zv')
 	" ---- coda
 	return returnlist
 endfun
