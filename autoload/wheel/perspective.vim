@@ -579,6 +579,7 @@ fun! wheel#perspective#yank (mode, register = 'default')
 	let yank_dict = g:wheel_yank
 	" ---- yank list
 	if register == 'overview'
+		" -- overview all registers
 		let returnlist = []
 		let register_list = wheel#matrix#items2keys(s:registers_symbols)
 		for register in register_list
@@ -590,6 +591,7 @@ fun! wheel#perspective#yank (mode, register = 'default')
 			endfor
 		endfor
 	else
+		" -- regular registers
 		let returnlist = deepcopy(yank_dict[register])
 	endif
 	" ---- format yanks
