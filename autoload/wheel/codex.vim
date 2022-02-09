@@ -44,7 +44,8 @@ fun! wheel#codex#register (register = 'default')
 	" ---- ring
 	let yanks = g:wheel_yank[register]
 	" ---- vim symbol of register
-	let symbol = s:registers_symbols[register]
+	let symbols_dict = wheel#matrix#items2dict(s:registers_symbols)
+	let symbol = symbols_dict[register]
 	" ---- content
 	let content = getreg(symbol, 1, v:true)
 	if strchars(join(content)) > g:wheel_config.maxim.yank_size
@@ -69,8 +70,9 @@ endfun
 " --- add : for TextYankPost
 
 fun! wheel#codex#add ()
-	" Insert most used registers in yank wheel
-	for register in keys(s:registers_symbols)
+	" Insert registers in yank wheel
+	let register_list = wheel#matrix#items2keys(s:registers_symbols)
+	for register in register_list
 		call wheel#codex#register (register)
 	endfor
 endfun

@@ -576,31 +576,27 @@ fun! wheel#perspective#yank (mode, register = 'default')
 	" Yank ring
 	let mode = a:mode
 	let register = a:register
-	let yanks = g:wheel_yank[register]
-	let returnlist = []
-	if mode == 'list'
-		for elem in yanks
-			eval returnlist->add(string(elem))
+	let yank_dict = g:wheel_yank
+	" ---- yank list
+	if register == 'overview'
+		let returnlist = []
+		let register_list = wheel#matrix#items2keys(s:registers_symbols)
+		for register in register_list
+			let yanks = yank_dict[register][:2]
+			eval returnlist->extend(yanks)
 		endfor
-	elseif a:mode == 'plain'
-		for elem in yanks
-			let plain = join(elem, "\n")
-			" Only add if some text is there
-			if plain =~ '\m\w'
-				eval returnlist->add(plain)
-			endif
-		endfor
+	else
+		let returnlist = deepcopy(yank_dict[register])
 	endif
-	return returnlist
-endfun
-
-fun! wheel#perspective#yank_overview ()
-	" Yank ring overview of all registers
-	let returnlist = []
-	for register in keys(s:registers_symbols)
-		let yanks = g:wheel_yank[register][:3]
-		eval returnlist->extend(yanks)
-	endfor
+	" ---- format yanks
+	if mode == 'list'
+		eval returnlist->filter({ _, val -> ! empty(val) })
+		eval returnlist->map({ _, val -> string(val) })
+	elseif mode == 'plain'
+		eval returnlist->map({ _, val -> join(val, "\n") })
+		eval returnlist->filter({ _, val -> val =~ '\m.' })
+	endif
+	" ---- coda
 	return returnlist
 endfun
 

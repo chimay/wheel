@@ -269,7 +269,8 @@ endfun
 
 fun! wheel#complete#register (arglead, cmdline, cursorpos)
 	" Complete register name
-	let choices = keys(s:registers_symbols)
+	let choices = wheel#matrix#items2keys(s:registers_symbols)
+	eval choices->add('overview')
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun

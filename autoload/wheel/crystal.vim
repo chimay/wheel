@@ -71,34 +71,34 @@ endif
 " ---- register
 
 if ! exists('s:registers_symbols')
-	let s:registers_symbols = {
-				\ 'default'    : '"',
-				\ 'clipboard'  : '+',
-				\ 'primary'    : '*' ,
-				\ 'small'      : '-',
-				\ 'inserted'   : '.',
-				\ 'search'     : '/',
-				\ 'command'    : ':',
-				\ 'expression' : '=',
-				\ 'file'       : '%',
-				\ 'alternate'  : '#',
-				\ }
+	let s:registers_symbols = [
+				\ ['default'    , '"'] ,
+				\ ['clipboard'  , '+'] ,
+				\ ['primary'    , '*'] ,
+				\ ['small'      , '-'] ,
+				\ ['inserted'   , '.'] ,
+				\ ['search'     , '/'] ,
+				\ ['command'    , ':'] ,
+				\ ['expression' , '='] ,
+				\ ['file'       , '%'] ,
+				\ ['alternate'  , '#'] ,
+				\ ]
 	lockvar! s:registers_symbols
 endif
 
 if ! exists('s:symbols_registers')
-	let s:symbols_registers = {
-				\ '"' : 'default',
-				\ '+' : 'clipboard',
-				\ '*' : 'primary' ,
-				\ '-' : 'small',
-				\ '.' : 'inserted',
-				\ '/' : 'search',
-				\ ':' : 'command',
-				\ '=' : 'expression',
-				\ '%' : 'file',
-				\ '#' : 'alternate',
-				\ }
+	let s:symbols_registers = [
+				\ ['"' , 'default'    ] ,
+				\ ['+' , 'clipboard'  ] ,
+				\ ['*' , 'primary'    ] ,
+				\ ['-' , 'small'      ] ,
+				\ ['.' , 'inserted'   ] ,
+				\ ['/' , 'search'     ] ,
+				\ [':' , 'command'    ] ,
+				\ ['=' , 'expression' ] ,
+				\ ['%' , 'file'       ] ,
+				\ ['#' , 'alternate'  ] ,
+				\ ]
 	lockvar! s:symbols_registers
 endif
 
@@ -243,7 +243,7 @@ if ! exists('s:normal_map_keys')
 				\ 'g<m-t>', 'g<m-h>', 'g<m-v>', 'g<m-s-h>', 'g<m-s-v>',
 				\ '<m-s>', '<m-r>',
 				\ 'o', 'O', '<m-y>', '<m-z>', '^', '$',
-				\ 'p', 'P', 'gp', 'gP',
+				\ 's', 'p', 'P', 'gp', 'gP',
 				\ 'u', '<c-r>', '+', '-', '<kplus>', '<kminus>', 'D', 'x',
 				\ '<c-s>',
 				\ ]

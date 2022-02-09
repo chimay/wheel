@@ -1816,6 +1816,7 @@ command    : :
 expression : =
 file       : %
 alternate  : #
+overview   : first three yanks of each register
 
 The buffer content is then replaced by the yank ring of the new register.
 
