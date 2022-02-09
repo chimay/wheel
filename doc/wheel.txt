@@ -744,11 +744,11 @@ MOVE					    *wheel-prompting-functions-move*
 ------------------------------------------------------------------------------
 YANK RING					*wheel-prompting-functions-yank*
 
+- `<M-w><C-y>` : switch default register to use in yank functions
 - `<M-w>y`     : paste from yank ring linewise, after the sursor
 - `<M-w>p`     : paste from yank ring charwise, after the sursor
 - `<M-w>Y`     : paste from yank ring linewise, before the sursor
 - `<M-w>P`     : paste from yank ring charwise, before the sursor
-- `<M-w><C-y>` : switch register to use in yank prompts (default : unnamed)
 
 Linewise means that the paste is inserted after the current line.
 
@@ -1812,10 +1812,12 @@ The available local maps are :
 
 Switching register~
 
-A yank dedicated buffer starts with the default, unnamed register.
+A yank dedicated buffer starts with the yank ring of the wheel default
+register.
 
-If you press `s`, a prompt asks you to which register you want to switch.
-Completion is available with the register full names as candidates :
+If you press `s`, a prompt asks you towards which register you want
+to switch. Completion is available with the register full names as
+candidates :
 
 unnamed    : "
 clipboard  : +
@@ -1830,6 +1832,10 @@ alternate  : #
 overview   : first three yanks of each register
 
 The buffer content is then replaced by the yank ring of the new register.
+
+If you press `<M-w><C-y>`, a prompt will ask you for a new starting
+default register. Register completion is there to help you. This map is
+also available in any regular buffer.
 
 List mode~
 
@@ -3059,14 +3065,15 @@ Dedicated buffers :
 
 Yank ring~
 
-| Prefix + | With default prefix | Action                                    |
-| -------- | ------------------- | ----------------------------------------- |
-| y        | <M-w>y              | Yank ring prompt, linewise after          |
-| p        | <M-w>p              | Yank ring prompt, charwise after          |
-| Y        | <M-w>Y              | Yank ring prompt, linewise before         |
-| P        | <M-w>P              | Yank ring prompt, charwise before         |
-| <M-y>    | <M-w><M-y>          | Yank ring in list mode, dedicated buffer  |
-| <M-p>    | <M-w><M-p>          | Yank ring in plain mode, dedicated buffer |
+| Prefix + | With default prefix | Action                                           |
+| -------- | ------------------- | ------------------------------------------------ |
+| <C-y>    | <M-w><C-y>          | Switch default register to use in yank functions |
+| y        | <M-w>y              | Yank ring prompt, linewise after                 |
+| p        | <M-w>p              | Yank ring prompt, charwise after                 |
+| Y        | <M-w>Y              | Yank ring prompt, linewise before                |
+| P        | <M-w>P              | Yank ring prompt, charwise before                |
+| <M-y>    | <M-w><M-y>          | Yank ring in list mode, dedicated buffer         |
+| <M-p>    | <M-w><M-p>          | Yank ring in plain mode, dedicated buffer        |
 
 Reorganizing buffers~
 

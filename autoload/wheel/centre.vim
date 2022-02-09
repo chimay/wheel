@@ -393,11 +393,11 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
 		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-outline)'
 		" ---- yank ring
+		exe nmap prefix .. '<C-y> <plug>(wheel-prompt-switch-register)'
 		exe nmap prefix .. 'y <plug>(wheel-prompt-yank-plain-linewise-after)'
 		exe nmap prefix .. 'p <plug>(wheel-prompt-yank-plain-charwise-after)'
 		exe nmap prefix .. 'Y <plug>(wheel-prompt-yank-plain-linewise-before)'
 		exe nmap prefix .. 'P <plug>(wheel-prompt-yank-plain-charwise-before)'
-		exe nmap prefix .. '<C-y> <plug>(wheel-prompt-switch-register)'
 		exe nmap prefix .. '<m-y> <plug>(wheel-dedibuf-yank-list)'
 		exe nmap prefix .. '<m-p> <plug>(wheel-dedibuf-yank-plain)'
 		" ---- undo list
