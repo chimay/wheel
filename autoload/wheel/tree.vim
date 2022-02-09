@@ -224,14 +224,9 @@ fun! wheel#tree#add_circle (...)
 	return v:true
 endfun
 
-fun! wheel#tree#add_location (location, ...)
+fun! wheel#tree#add_location (location, optional = 'default')
 	" Add location
 	let location = a:location
-	if a:0 > 0
-		let optional = a:1
-	else
-		let optional = 'default'
-	endif
 	" ---- add first torus if needed
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()

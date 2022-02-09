@@ -129,8 +129,8 @@ fun! wheel#void#yank ()
 	if ! exists('g:wheel_yank')
 		let g:wheel_yank = {}
 	endif
-	if ! has_key(g:wheel_yank, 'default')
-		let g:wheel_yank.default = []
+	if ! has_key(g:wheel_yank, 'unnamed')
+		let g:wheel_yank.unnamed = []
 	endif
 	if ! has_key(g:wheel_yank, 'clipboard')
 		let g:wheel_yank.clipboard = []

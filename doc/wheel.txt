@@ -1816,7 +1816,7 @@ A yank dedicated buffer starts with the default, unnamed register.
 If you press `s`, a prompt asks you to which register you want to switch.
 Completion is available with the register full names as candidates :
 
-default    : "
+unnamed    : "
 clipboard  : +
 primary    : *
 small      : -
@@ -2232,9 +2232,9 @@ Default : 500
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN YANK RING		   *wheel-config-maxim-yanks*
 
-Maximum number of elements in the yank ring for default (unnamed) register : >
+Maximum number of elements in the yank ring for unnamed register : >
 
-    let g:wheel_config.maxim.default_yanks = 700
+    let g:wheel_config.maxim.unnamed_yanks = 700
 <
 
 Default : 500
@@ -2499,7 +2499,7 @@ Here is an example of a complete configuration : >
   let g:wheel_config.maxim.mru = 120
 
   " Maximum number of elements in yank ring
-  let g:wheel_config.maxim.default_yanks = 700
+  let g:wheel_config.maxim.unnamed_yanks = 700
   let g:wheel_config.maxim.other_yanks = 100
   " Maximum size of elements in yank ring
   let g:wheel_config.maxim.yank_size = 3000

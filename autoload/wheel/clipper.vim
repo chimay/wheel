@@ -15,7 +15,7 @@ fun! wheel#clipper#yank (mode)
 	setlocal nomodified
 	" --- property
 	let b:wheel_nature.yank = {}
-	let b:wheel_nature.yank.register = 'default'
+	let b:wheel_nature.yank.register = 'unnamed'
 	" ---- reload
 	let b:wheel_reload = 'wheel#clipper#yank(' .. string(mode) .. ')'
 endfun

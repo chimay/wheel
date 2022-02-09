@@ -125,13 +125,19 @@ fun! wheel#kintsugi#config ()
 	if has_key(g:wheel_config.maxim, 'yanks')
 		if ! has_key(g:wheel_config, 'default_yanks')
 			let max_yanks = g:wheel_config.maxim.yanks
-			let g:wheel_config.maxim.default_yanks = max_yanks
+			let g:wheel_config.maxim.unnamed_yanks = max_yanks
 			let g:wheel_config.maxim.other_yanks = float2nr(round(max_yanks/10))
 			unlet g:wheel_config.maxim.yanks
 			let info = 'wheel config : maxim.yanks is deprecated. '
 			let info ..= 'Please use maxim.default_yanks and maxim.other_yanks instead.'
 			echomsg info
 		endif
+	endif
+	if has_key(g:wheel_config.maxim, 'default_yanks')
+		let max_yanks = g:wheel_config.maxim.default_yanks
+		let g:wheel_config.maxim.default_yanks = max_yanks
+		let info = 'wheel config : maxim.default_yanks is deprecated. '
+		let info ..= 'Please use maxim.unnamed_yanks instead.'
 	endif
 	" ---- coda
 	return v:true
@@ -164,7 +170,7 @@ fun! wheel#kintsugi#wheel_file ()
 	" ---- yank
 	if type(g:wheel_yank) == v:t_list
 		let new_yank = {}
-		let new_yank.default = g:wheel_yank
+		let new_yank.unnamed = g:wheel_yank
 		let new_yank.clipboard = []
 		let new_yank.primary = []
 		let new_yank.small = []

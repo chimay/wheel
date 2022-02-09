@@ -72,7 +72,7 @@ endif
 
 if ! exists('s:registers_symbols')
 	let s:registers_symbols = [
-				\ ['default'    , '"'] ,
+				\ ['unnamed'    , '"'] ,
 				\ ['clipboard'  , '+'] ,
 				\ ['primary'    , '*'] ,
 				\ ['small'      , '-'] ,
@@ -88,7 +88,7 @@ endif
 
 if ! exists('s:symbols_registers')
 	let s:symbols_registers = [
-				\ ['"' , 'default'    ] ,
+				\ ['"' , 'unnamed'    ] ,
 				\ ['+' , 'clipboard'  ] ,
 				\ ['*' , 'primary'    ] ,
 				\ ['-' , 'small'      ] ,

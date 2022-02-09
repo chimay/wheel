@@ -22,7 +22,7 @@ endif
 
 " ---- helpers
 
-fun! wheel#codex#climb (content, register = 'default')
+fun! wheel#codex#climb (content, register = 'unnamed')
 	" Move content at beginning of yank ring
 	let content = a:content
 	let register = a:register
@@ -38,7 +38,7 @@ endfun
 
 " ---- register
 
-fun! wheel#codex#register (register = 'default')
+fun! wheel#codex#register (register = 'unnamed')
 	" Add register to yank wheel
 	let register = a:register
 	" ---- ring
@@ -58,8 +58,8 @@ fun! wheel#codex#register (register = 'default')
 	endif
 	eval yanks->insert(content)
 	" ---- truncate if too big
-	if register == 'default'
-		let maxim = g:wheel_config.maxim.default_yanks
+	if register == 'unnamed'
+		let maxim = g:wheel_config.maxim.unnamed_yanks
 	else
 		let maxim = g:wheel_config.maxim.other_yanks
 	endif
@@ -81,8 +81,15 @@ endfun
 
 " ---- prompt
 
-fun! wheel#codex#prompt_switch ()
+fun! wheel#codex#prompt_switch (register = '')
 	" Switch register in yank prompting functions
+	let register = a:register
+	if empty(register)
+		let prompt = 'Register to use in yank ring prompting functions : '
+		let complete = 'customlist,wheel#complete#register'
+		let register = input(prompt, '', complete)
+	endif
+	let g:wheel_shelve.yank.default_register = register
 endfun
 
 fun! wheel#codex#yank_list (where = 'linewise-after')
