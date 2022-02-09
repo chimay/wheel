@@ -266,7 +266,7 @@ fun! wheel#pendulum#older_anywhere ()
 endfun
 
 fun! wheel#pendulum#newer (level = 'wheel')
-	" Go to newer entry in g:wheel_history.circuit
+	" Go to newer entry in g:wheel_history.circuit, same level
 	let level = a:level
 	if wheel#referen#is_empty(level)
 		echomsg 'wheel newer :' level 'is empty'
@@ -303,7 +303,7 @@ fun! wheel#pendulum#newer (level = 'wheel')
 endfun
 
 fun! wheel#pendulum#older (level = 'wheel')
-	" Go to older entry in g:wheel_history.circuit
+	" Go to older entry in g:wheel_history.circuit, same level
 	let level = a:level
 	if wheel#referen#is_empty(level)
 		echomsg 'wheel older :' level 'is empty'
