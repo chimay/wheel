@@ -56,16 +56,16 @@ fun! wheel#gear#call (fun, ...)
 	if empty(a:fun)
 		return v:false
 	endif
-	let arg = a:000
+	let arguments = a:000
 	let Fun = a:fun
 	let kind = type(Fun)
 	if kind == v:t_func
-		if empty(arg)
+		if empty(arguments)
 			" form : Fun = function('name') without argument
 			return Fun()
 		else
 			" form : Fun = function('name') with arguments
-			return call(Fun, arg)
+			return call(Fun, arguments)
 		endif
 	elseif kind == v:t_string
 		if Fun =~ '\m)$'
@@ -74,17 +74,17 @@ fun! wheel#gear#call (fun, ...)
 			return eval(Fun)
 			" works, but less elegant
 			"execute 'let value =' Fun
-		elseif empty(arg)
+		elseif empty(arguments)
 			" form : Fun = 'function' without argument
 			return {Fun}()
 		else
 			" form : Fun = 'function' with arguments
-			return call(Fun, arg)
+			return call(Fun, arguments)
 		endif
 	else
 		" likely not a representation of a function
 		" simply forward concatened arguments
-		return [Fun] + arg
+		return [Fun] + arguments
 	endif
 endfun
 

@@ -276,28 +276,27 @@ fun! wheel#pendulum#newer (level = 'wheel')
 		return wheel#pendulum#newer_anywhere ()
 	endif
 	" ---- current coordin
-	let names = wheel#referen#coordinates ()
+	let present_coordin = wheel#referen#coordinates ()
 	" ---- index for range in coordin
 	let level_index = wheel#referen#level_index_in_coordin (level)
-	" back in history
+	" ---- back to the future
 	let timeloop = g:wheel_history.circuit
-	let timeloop = wheel#chain#rotate_right (timeloop)
-	let coordin = timeloop[0].coordin
-	let counter = 0
-	let length = len(timeloop)
-	while names[:level_index] != coordin[:level_index] && counter < length
-		let timeloop = wheel#chain#rotate_right (timeloop)
-		let coordin = timeloop[0].coordin
-		let counter += 1
-	endwhile
-	" newer found in same torus or circle ?
-	if names[:level_index] != coordin[:level_index]
+	let timeloop = timeloop->wheel#chain#rotate_right()
+	for index in wheel#chain#rangelen(timeloop)
+		let coordin = timeloop[index].coordin
+		if present_coordin[:level_index] == coordin[:level_index]
+			let timeloop = timeloop->wheel#chain#roll_right(index)
+			break
+		endif
+	endfor
+	" ---- newer found in same torus or circle ?
+	if present_coordin[:level_index] != coordin[:level_index]
 		echomsg 'wheel newer : no location found in same' level
 		return v:false
 	endif
-	" update timeloop : rotate left / right return a deepcopy
+	" ---- update timeloop : rotate return a deepcopy
 	let g:wheel_history.circuit = timeloop
-	" jump
+	" ---- jump
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
@@ -312,29 +311,28 @@ fun! wheel#pendulum#older (level = 'wheel')
 	if level == 'wheel'
 		return wheel#pendulum#older_anywhere ()
 	endif
-	" current coordin
-	let names = wheel#referen#coordinates ()
-	" index for range in coordin
+	" ---- current coordin
+	let present_coordin = wheel#referen#coordinates ()
+	" ---- index for range in coordin
 	let level_index = wheel#referen#level_index_in_coordin (level)
-	" back in history
+	" ---- back in history
 	let timeloop = g:wheel_history.circuit
-	let timeloop = wheel#chain#rotate_left (timeloop)
-	let coordin = timeloop[0].coordin
-	let counter = 0
-	let length = len(timeloop)
-	while names[:level_index] != coordin[:level_index] && counter < length
-		let timeloop = wheel#chain#rotate_left (timeloop)
-		let coordin = timeloop[0].coordin
-		let counter += 1
-	endwhile
-	" older found in same torus or circle ?
-	if names[:level_index] != coordin[:level_index]
+	let timeloop = timeloop->wheel#chain#rotate_left()
+	for index in wheel#chain#rangelen(timeloop)
+		let coordin = timeloop[index].coordin
+		if present_coordin[:level_index] == coordin[:level_index]
+			let timeloop = timeloop->wheel#chain#roll_left(index)
+			break
+		endif
+	endfor
+	" ---- older found in same torus or circle ?
+	if present_coordin[:level_index] != coordin[:level_index]
 		echomsg 'wheel older : no location found in same' level
 		return v:false
 	endif
-	" update timeloop : rotate left / right return a copy
+	" ---- update timeloop : rotate return a deepcopy
 	let g:wheel_history.circuit = timeloop
-	" jump
+	" ---- jump
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
 endfun
