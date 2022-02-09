@@ -303,14 +303,17 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	eval content->map({ _, list -> join(list, "\n") })
 	" ---- paste
 	call wheel#rectangle#goto_previous ()
-	let @" = join(content, "\n")
 	if where ==# 'linewise-after'
+		call setreg('"', content, 'l')
 		put =content
 	elseif where ==# 'linewise-before'
+		call setreg('"', content, 'l')
 		put! =content
 	elseif where ==# 'charwise-after'
+		call setreg('"', content, 'c')
 		normal! p
 	elseif where ==# 'charwise-before'
+		call setreg('"', content, 'c')
 		normal! P
 	endif
 	" --- climbing content
@@ -335,14 +338,17 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	endif
 	" ---- paste
 	call wheel#rectangle#goto_previous ()
-	let @" = join(content, "\n")
 	if where ==# 'linewise-after'
+		call setreg('"', content, 'l')
 		put =content
 	elseif where ==# 'linewise-before'
+		call setreg('"', content, 'l')
 		put! =content
 	elseif where ==# 'charwise-after'
+		call setreg('"', content, 'c')
 		normal! p
 	elseif where ==# 'charwise-before'
+		call setreg('"', content, 'c')
 		normal! P
 	endif
 	" --- climbing content
