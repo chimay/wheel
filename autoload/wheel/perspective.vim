@@ -44,6 +44,11 @@ if ! exists('s:is_mandala_tabs')
 	lockvar s:is_mandala_tabs
 endif
 
+if ! exists('s:registers_symbols')
+	let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
+	lockvar s:registers_symbols
+endif
+
 " ---- helpers
 
 fun! wheel#perspective#execute (runme, ...)
@@ -568,7 +573,7 @@ endfun
 " ---- yanks
 
 fun! wheel#perspective#yank (mode, register = 'default')
-	" Yank wheel
+	" Yank ring
 	let mode = a:mode
 	let register = a:register
 	let yanks = g:wheel_yank[register]
@@ -586,6 +591,16 @@ fun! wheel#perspective#yank (mode, register = 'default')
 			endif
 		endfor
 	endif
+	return returnlist
+endfun
+
+fun! wheel#perspective#yank_overview ()
+	" Yank ring overview of all registers
+	let returnlist = []
+	for register in keys(s:registers_symbols)
+		let yanks = g:wheel_yank[register][:3]
+		eval returnlist->extend(yanks)
+	endfor
 	return returnlist
 endfun
 
