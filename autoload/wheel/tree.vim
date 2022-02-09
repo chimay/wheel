@@ -569,7 +569,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 	let element = deepcopy(wheel#referen#{level}())
 	let coordin = split(destination, s:level_separ)
 	" ---- pre checks
-	if mode == 'move'
+	if mode ==# 'move'
 		if level ==# 'torus'
 			echomsg 'wheel : move torus in wheel = noop'
 			return v:false

@@ -38,9 +38,9 @@ fun! wheel#frigate#buffer (scope = 'listed')
 		return v:false
 	endif
 	" mandala buffer
-	if scope == 'listed'
+	if scope ==# 'listed'
 		let type = 'buffer'
-	elseif scope == 'all'
+	elseif scope ==# 'all'
 		let type = 'buffer/all'
 	else
 		echomsg 'wheel frigate buffer : bad optional argument'

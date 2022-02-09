@@ -118,7 +118,7 @@ fun! wheel#teapot#goto_filter_line (mode = 'normal')
 	call cursor(1, 1)
 	normal! $
 	call wheel#mandala#unlock ()
-	if mode == 'insert'
+	if mode ==# 'insert'
 		" ! means insert at the end of line
 		startinsert!
 	endif
@@ -196,11 +196,11 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 		call cursor(1, 1)
 		call cursor(1, col('$'))
 	endif
-	if angle == 'with-angle' || angle == '>'
+	if angle ==# 'with-angle' || angle ==# '>'
 		execute 'let key =' '"\<' .. key .. '>"'
 	endif
 	call wheel#mandala#unlock ()
-	if mode == 'insert'
+	if mode ==# 'insert'
 		execute 'normal! i' .. key
 		call wheel#teapot#filter ()
 		call cursor(1, col('$'))
@@ -222,11 +222,6 @@ fun! wheel#teapot#normal_cc ()
 	startinsert!
 endfun
 
-fun! wheel#teapot#normal_dd ()
-	" Normal command dd in mandala with filter
-	call wheel#teapot#reset ()
-endfun
-
 fun! wheel#teapot#mappings ()
 	" Define filter maps & set property
 	" -- filter property
@@ -240,7 +235,7 @@ fun! wheel#teapot#mappings ()
 	exe nmap '<m-i> <cmd>call' goto_filter "('i')<cr>"
 	exe nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
 	exe nmap 'cc    <cmd>call wheel#teapot#normal_cc()<cr>'
-	exe nmap 'dd    <cmd>call wheel#teapot#normal_dd()<cr>'
+	exe nmap 'dd    <cmd>call wheel#teapot#reset()<cr>'
 	" -- insert mode
 	let imap = 'inoremap <buffer>'
 	exe imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"

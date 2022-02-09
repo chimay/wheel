@@ -413,7 +413,7 @@ fun! wheel#book#add (clear_mandala = 'dont-clear')
 	let ring.current = next
 	call wheel#book#limit ()
 	" -- clear mandala
-	if clear_mandala == 'clear'
+	if clear_mandala ==# 'clear'
 		call wheel#mandala#clear ()
 	endif
 	return v:true
@@ -437,7 +437,7 @@ fun! wheel#book#delete ()
 	" -- do not delete if child context menu is next
 	let next_nature = wheel#book#next('nature')
 	let next_class = next_nature.class
-	if next_class  == 'menu/context'
+	if next_class  ==# 'menu/context'
 		let info = 'Please delete child context menu first. '
 		let info ..= 'Press <M-j> to access it, backspace to remove.'
 		echomsg info

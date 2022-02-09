@@ -24,7 +24,7 @@ fun! wheel#boomerang#is_context_menu ()
 	if ! wheel#cylinder#is_mandala ()
 		return v:false
 	endif
-	return b:wheel_nature.class == 'menu/context'
+	return b:wheel_nature.class ==# 'menu/context'
 endfun
 
 fun! wheel#boomerang#hidden_buffers (action)
@@ -33,9 +33,9 @@ fun! wheel#boomerang#hidden_buffers (action)
 	let lines = wheel#book#previous ('lines')
 	let filter = wheel#book#previous ('filter')
 	" ---- hidden buffers
-	if action == 'delete_hidden' || action == 'wipe_hidden'
+	if action ==# 'delete_hidden' || action ==# 'wipe_hidden'
 		let hidden = wheel#rectangle#hidden_buffers ()[0]
-	elseif action == 'wipe_all_hidden'
+	elseif action ==# 'wipe_all_hidden'
 		let hidden = wheel#rectangle#hidden_buffers ('all')[0]
 	else
 		echomsg 'wheel boomerang buffer : bad action format'
@@ -61,7 +61,7 @@ fun! wheel#boomerang#hidden_buffers (action)
 		endif
 	endfor
 	" ---- remove buffers
-	if action == 'delete_hidden'
+	if action ==# 'delete_hidden'
 		for bufnum in hidden
 			execute 'silent bdelete' bufnum
 		endfor
@@ -123,11 +123,11 @@ fun! wheel#boomerang#buffer (action)
 	let action = a:action
 	let settings = b:wheel_settings
 	let settings.menu.action = action
-	if action == 'delete'
+	if action ==# 'delete'
 		call wheel#loop#buffer_delete ()
-	elseif action == 'unload'
+	elseif action ==# 'unload'
 		call wheel#loop#buffer_unload ()
-	elseif action == 'wipe'
+	elseif action ==# 'wipe'
 		call wheel#loop#buffer_wipe ()
 	elseif action =~ 'delete.*hidden' || action =~ 'wipe.*hidden'
 		call wheel#boomerang#hidden_buffers (action)
@@ -140,15 +140,15 @@ fun! wheel#boomerang#tabwin (action)
 	let action = a:action
 	let settings = b:wheel_settings
 	let settings.menu.action = action
-	if action == 'open'
+	if action ==# 'open'
 		" tell loop#navigation to not care about opening a new
 		" target tab or window
 		let settings.target = 'current'
 		return wheel#loop#navigation (settings)
-	elseif action == 'tabnew'
+	elseif action ==# 'tabnew'
 		tabnew
 		return v:true
-	elseif action == 'tabclose'
+	elseif action ==# 'tabclose'
 		call wheel#loop#tabclose ()
 		return v:true
 	endif
@@ -165,7 +165,7 @@ fun! wheel#boomerang#grep (action)
 	let action = a:action
 	let settings = b:wheel_settings
 	let settings.menu.action = action
-	if action == 'quickfix'
+	if action ==# 'quickfix'
 		call wheel#cylinder#close ()
 		call wheel#vector#copen ()
 	endif

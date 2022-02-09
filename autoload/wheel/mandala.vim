@@ -240,7 +240,7 @@ fun! wheel#mandala#set_type (type)
 	" We also need a name when writing, even with BufWriteCmd
 	let type = a:type
 	let b:wheel_nature.type = type
-	if type == 'empty'
+	if type ==# 'empty'
 		let b:wheel_nature.empty = v:true
 	else
 		let b:wheel_nature.empty = v:false
@@ -273,7 +273,7 @@ fun! wheel#mandala#goto_related ()
 		return v:false
 	endif
 	let bufnum = b:wheel_related.bufnum
-	if bufnum == 'undefined'
+	if bufnum ==# 'undefined'
 		wincmd p
 		return 'undefined'
 	endif
@@ -469,11 +469,11 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	call cursor(1, 1)
 	call append('.', content)
 	" ---- first line
-	if first == 'prompt-first'
+	if first ==# 'prompt-first'
 		call wheel#teapot#set_prompt (getline(1))
-	elseif first == 'empty-prompt-first'
+	elseif first ==# 'empty-prompt-first'
 		call wheel#teapot#set_prompt ()
-	elseif first == 'delete-first'
+	elseif first ==# 'delete-first'
 		silent 1 delete _
 	endif
 	" ---- restore edit options
@@ -533,7 +533,7 @@ fun! wheel#mandala#command (...)
 	else
 		let command = input('Ex or !shell command : ')
 	endif
-	if command[0] == '!'
+	if command[0] ==# '!'
 		let command = command[1:]
 		let current = getreg('%')
 		let alter = getreg('#')

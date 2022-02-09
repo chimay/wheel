@@ -88,7 +88,7 @@ fun! wheel#rectangle#find_buffer (bufnum, scope = 'all')
 	let bufnum = a:bufnum
 	let scope = a:scope
 	" -- search in current tab
-	if scope == 'tab'
+	if scope ==# 'tab'
 		let winum = bufwinnr(bufnum)
 		if winum < 0
 			return v:false
@@ -126,7 +126,7 @@ fun! wheel#rectangle#rosace (filename, scope = 'all')
 	let filename = a:filename
 	let scope = a:scope
 	let wins = win_findbuf(bufnr(filename))
-	if scope == 'tab'
+	if scope ==# 'tab'
 		let tabnum = tabpagenr()
 		eval wins->filter({ _, val -> win_id2tabwin(val)[0] == tabnum })
 	endif
@@ -180,9 +180,9 @@ fun! wheel#rectangle#hidden_buffers (scope = 'listed')
 	"   - alternate buffer
 	"   - wheel dedicated buffers (mandalas)
 	let scope = a:scope
-	if scope == 'listed'
+	if scope ==# 'listed'
 		let buflist = getbufinfo({'buflisted' : 1})
-	elseif scope == 'all'
+	elseif scope ==# 'all'
 		let buflist = getbufinfo()
 	else
 		echomsg 'wheel rectangle hidden buffers : bad optional argument'

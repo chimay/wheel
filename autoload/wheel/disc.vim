@@ -103,7 +103,7 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 		return 'source-not-readable'
 	endif
 	" check existent destination
-	if ask == 'confirm' && filereadable(destination)
+	if ask ==# 'confirm' && filereadable(destination)
 		let prompt = 'Replace existing ' .. destination .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
 		if overwrite != 1
@@ -113,7 +113,7 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 	" create directory if needed
 	let directory = fnamemodify(destination, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring == 'failure'
+	if returnstring ==# 'failure'
 		return 'failure'
 	endif
 	" rename
@@ -158,7 +158,7 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 		return 'source-not-readable'
 	endif
 	" check existent destination
-	if ask == 'confirm' && filereadable(destination)
+	if ask ==# 'confirm' && filereadable(destination)
 		let prompt = 'Replace existing ' .. destination .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
 		if overwrite != 1
@@ -168,7 +168,7 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 	" create directory if needed
 	let directory = fnamemodify(destination, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring == 'failure'
+	if returnstring ==# 'failure'
 		return 'failure'
 	endif
 	" copy
@@ -202,7 +202,7 @@ fun! wheel#disc#delete (file, ask = 'confirm')
 		return 'file-not-readable'
 	endif
 	" ask confirmation
-	if ask == 'confirm'
+	if ask ==# 'confirm'
 		let prompt = 'Delete ' .. file .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
 		if overwrite != 1
@@ -235,14 +235,14 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	" create directory if needed
 	let directory = fnamemodify(file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring == 'failure'
+	if returnstring ==# 'failure'
 		return v:false
 	endif
 	" write
 	let string = 'let ' .. varname .. ' = ' .. string({varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
-	if where == '>>'
+	if where ==# '>>'
 		let zero = writefile(list, file, 'a')
 		if zero != 0
 			return 'failure'
@@ -273,7 +273,7 @@ fun! wheel#disc#write (pointer, file, where = '>')
 	" create directory if needed
 	let directory = fnamemodify(file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring == 'failure'
+	if returnstring ==# 'failure'
 		return v:false
 	endif
 	" write
@@ -325,7 +325,7 @@ fun! wheel#disc#roll_backups (file, backups)
 		endif
 		"echomsg 'backup' first '->' second
 		let returnstring = wheel#disc#rename(first, second, 'force')
-		if returnstring == 'failure'
+		if returnstring ==# 'failure'
 			echomsg 'wheel batch rename files : error renaming' first '->' second
 			return v:false
 		endif
@@ -418,7 +418,7 @@ fun! wheel#disc#write_session (...)
 	" create directory if needed
 	let directory = fnamemodify(session_file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring == 'failure'
+	if returnstring ==# 'failure'
 		return v:false
 	endif
 	" backup old sessions
@@ -447,7 +447,7 @@ fun! wheel#disc#write_layout (...)
 	" create directory if needed
 	let directory = fnamemodify(session_file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring == 'failure'
+	if returnstring ==# 'failure'
 		return v:false
 	endif
 	" backup old sessions

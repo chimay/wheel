@@ -94,7 +94,7 @@ endfun
 
 fun! wheel#polyphony#confirm (ask)
 	" Confirmation prompt before writing
-	if a:ask == 'force'
+	if a:ask ==# 'force'
 		return v:true
 	endif
 	if exists('v:cmdbang') && v:cmdbang == 1
@@ -210,9 +210,9 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	" -- check replacing pattern is not present if buffer
 	" -- unless back references chars are included
 	if after !~ '[&\\]'
-		if mandala == 'file'
+		if mandala ==# 'file'
 			let columns = prelude .. field .. coda
-		elseif mandala == 'circle'
+		elseif mandala ==# 'circle'
 			let columns = prelude .. field .. field .. field .. coda
 		else
 			echomsg 'wheel polyphony substitute : mandala argument must be file or circle'
@@ -228,9 +228,9 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 		endif
 	endif
 	" -- skip non-content columns
-	if mandala == 'file'
+	if mandala ==# 'file'
 		let columns = prelude .. field .. coda
-	elseif mandala == 'circle'
+	elseif mandala ==# 'circle'
 		let columns = prelude .. field .. field .. field .. coda
 	endif
 	" -- replace pattern is a full word ?
@@ -270,10 +270,10 @@ fun! wheel#polyphony#append (where = 'below')
 		let object = object[1:]
 	endif
 	let linum_field = str2nr(object)
-	if where == 'above'
+	if where ==# 'above'
 		let linum -= 1
 	endif
-	if where == 'below'
+	if where ==# 'below'
 		let linum_field = printf('+%4d', linum_field)
 	else
 		let linum_field = printf('-%4d', linum_field)
@@ -309,10 +309,10 @@ fun! wheel#polyphony#duplicate (where = 'below')
 	else
 		let content = ''
 	endif
-	if where == 'above'
+	if where ==# 'above'
 		let linum -= 1
 	endif
-	if where == 'below'
+	if where ==# 'below'
 		let linum_field = printf('+%4d', linum_field)
 	else
 		let linum_field = printf('-%4d', linum_field)
@@ -344,10 +344,10 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	if linum == 1
 		return wheel#teapot#wrapper (key, angle, modes[0])
 	endif
-	if angle == 'with-angle' || angle == '>'
+	if angle ==# 'with-angle' || angle ==# '>'
 		execute 'let key =' '"\<' .. key .. '>"'
 	endif
-	if modes[1] == 'insert'
+	if modes[1] ==# 'insert'
 		execute 'normal! i' .. key
 		let colnum = col('.')
 		if colnum != 1
@@ -364,12 +364,12 @@ fun! wheel#polyphony#last_field (key)
 	" Go to last field of the line and start insert mode
 	let key = a:key
 	let linum = line('.')
-	if key == '$'
+	if key ==# '$'
 		normal! $
 		return v:true
 	endif
 	let last_field_pattern = '[^' .. s:field_separ_bar .. ']*$'
-	if key == '^'
+	if key ==# '^'
 		call cursor(linum, 1)
 		call search(last_field_pattern, 'c', linum)
 		return v:true
@@ -379,7 +379,7 @@ fun! wheel#polyphony#last_field (key)
 	endif
 	let insert = key->wheel#chain#is_inside(['i', 'a'])
 	if insert
-		if key == 'a'
+		if key ==# 'a'
 			normal! l
 		endif
 		startinsert
@@ -413,6 +413,7 @@ fun! wheel#polyphony#filter_maps ()
 	" -- normal mode
 	nnoremap <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
+	nnoremap <buffer> dd    <cmd>call wheel#teapot#reset()<cr>
 	let b:wheel_nature.has_filter = v:true
 endfun
 
@@ -498,7 +499,7 @@ fun! wheel#polyphony#action_maps (mandala = 'file')
 	"   - circle : for narrow circle mandala
 	let mandala = a:mandala
 	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mandala .. "')<cr>"
-	if mandala == 'file'
+	if mandala ==# 'file'
 		exe "nnoremap <buffer> o <cmd>call wheel#polyphony#append('below')<cr>"
 		exe "nnoremap <buffer> O <cmd>call wheel#polyphony#append('above')<cr>"
 		exe "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"

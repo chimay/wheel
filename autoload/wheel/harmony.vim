@@ -280,7 +280,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 	if empty(components)
 		echomsg 'wheel copy / move : first select element(s)'
 	endif
-	if mode == 'move'
+	if mode ==# 'move'
 		if level ==# 'torus'
 			echomsg 'wheel : move torus in wheel = noop'
 			return v:false
@@ -312,7 +312,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 			let index = glossary->index(name)
 			let elem = deepcopy(elements[index])
 			eval travellers->add(elem)
-			if mode == 'move'
+			if mode ==# 'move'
 				call wheel#tree#remove (level, elem.name)
 			endif
 		endfor
@@ -447,7 +447,7 @@ fun! wheel#harmony#narrow_file (ask = 'confirm')
 	endif
 	" -- buffer
 	let bufnum = b:wheel_related.bufnum
-	if bufnum == 'undefined'
+	if bufnum ==# 'undefined'
 		return v:false
 	endif
 	" -- update b:wheel_lines

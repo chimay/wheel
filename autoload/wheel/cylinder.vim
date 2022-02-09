@@ -203,7 +203,7 @@ fun! wheel#cylinder#first (mood = 'linger')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" ---- coda
-	if mood == 'furtive'
+	if mood ==# 'furtive'
 		noautocmd close
 	endif
 	call wheel#status#mandala_leaf ()
@@ -258,7 +258,7 @@ fun! wheel#cylinder#add (mood = 'linger')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" -- coda
-	if mood == 'furtive' && ! was_mandala
+	if mood ==# 'furtive' && ! was_mandala
 		noautocmd close
 	endif
 	call wheel#status#mandala_leaf ()

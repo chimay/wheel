@@ -88,7 +88,7 @@ fun! wheel#projection#follow (...)
 	endif
 	" ---- if torus or circle is empty, assume the user
 	" ---- wants to add something before switching
-	if level == 'wheel' && wheel#referen#is_empty ('torus')
+	if level ==# 'wheel' && wheel#referen#is_empty ('torus')
 		echomsg 'wheel follow : torus is empty'
 		return v:false
 	endif

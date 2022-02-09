@@ -272,7 +272,7 @@ fun! wheel#pendulum#newer (level = 'wheel')
 		echomsg 'wheel newer :' level 'is empty'
 		return v:false
 	endif
-	if level == 'wheel'
+	if level ==# 'wheel'
 		return wheel#pendulum#newer_anywhere ()
 	endif
 	" ---- current coordin
@@ -309,7 +309,7 @@ fun! wheel#pendulum#older (level = 'wheel')
 		echomsg 'wheel older :' level 'is empty'
 		return v:false
 	endif
-	if level == 'wheel'
+	if level ==# 'wheel'
 		return wheel#pendulum#older_anywhere ()
 	endif
 	" ---- current coordin

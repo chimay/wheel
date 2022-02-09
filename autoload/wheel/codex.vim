@@ -58,7 +58,7 @@ fun! wheel#codex#register (register = 'unnamed')
 	endif
 	eval yanks->insert(content)
 	" ---- truncate if too big
-	if register == 'unnamed'
+	if register ==# 'unnamed'
 		let maxim = g:wheel_config.maxim.unnamed_yanks
 	else
 		let maxim = g:wheel_config.maxim.other_yanks
@@ -100,13 +100,13 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	let line = input(prompt, '', complete)
 	let content = eval(line)
 	let @" = join(content, "\n")
-	if where == 'linewise-after'
+	if where ==# 'linewise-after'
 		put =content
-	elseif where == 'linewise-before'
+	elseif where ==# 'linewise-before'
 		put! =content
-	elseif where == 'charwise-after'
+	elseif where ==# 'charwise-after'
 		normal! p
-	elseif where == 'charwise-before'
+	elseif where ==# 'charwise-before'
 		normal! P
 	endif
 	call wheel#codex#climb(content)
@@ -119,13 +119,13 @@ fun! wheel#codex#yank_plain (where = 'linewise-after')
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
 	let @" = content
-	if where == 'linewise-after'
+	if where ==# 'linewise-after'
 		put =content
-	elseif where == 'linewise-before'
+	elseif where ==# 'linewise-before'
 		put! =content
-	elseif where == 'charwise-after'
+	elseif where ==# 'charwise-after'
 		normal! p
-	elseif where == 'charwise-before'
+	elseif where ==# 'charwise-before'
 		normal! P
 	endif
 	call wheel#codex#climb([ content ])
@@ -166,7 +166,7 @@ endfun
 fun! wheel#codex#options (mode)
 	" Set local yank options
 	setlocal nowrap
-	if a:mode == 'plain'
+	if a:mode ==# 'plain'
 		setlocal nocursorline
 	endif
 endfun
@@ -175,9 +175,9 @@ fun! wheel#codex#mappings (mode)
 	" Define local yank maps
 	let nmap = 'nnoremap <buffer>'
 	let mode = a:mode
-	if mode == 'list'
+	if mode ==# 'list'
 		let paste = 'wheel#line#paste_list'
-	elseif mode == 'plain'
+	elseif mode ==# 'plain'
 		let paste = 'wheel#line#paste_plain'
 	endif
 	" ---- normal mode
@@ -191,7 +191,7 @@ fun! wheel#codex#mappings (mode)
 	" -- switch register
 	exe nmap 's     <cmd>call wheel#codex#mandala_switch(' .. string(mode) .. ')<cr>'
 	" ---- visual mode
-	if mode == 'plain'
+	if mode ==# 'plain'
 		let paste_visual = 'wheel#line#paste_visual'
 		let vmap = 'vnoremap <silent> <buffer>'
 		exe vmap '<cr>  :<c-u>call' paste_visual "('after', 'close')<cr>"

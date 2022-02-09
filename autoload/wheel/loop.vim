@@ -44,7 +44,7 @@ fun! wheel#loop#navigation (settings)
 	" ---- go to previous window before processing
 	call wheel#rectangle#goto_previous ()
 	" ---- target : current window or not ?
-	if target == 'current'
+	if target ==# 'current'
 		let settings.selection.index = selection.indexes[0]
 		let settings.selection.component = selection.components[0]
 		let winiden = Fun->wheel#gear#call(settings)
@@ -83,7 +83,7 @@ fun! wheel#loop#buffer_delete ()
 		echomsg 'buffer' bufnum 'deleted'
 	endfor
 	" dont remove parent selection on buffer/all
-	if wheel#mandala#type () == 'buffer'
+	if wheel#mandala#type () ==# 'buffer'
 		call wheel#upstream#remove_selection ()
 	endif
 endfun

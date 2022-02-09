@@ -7,9 +7,9 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 	let layout = a:layout
 	let direction = a:direction
 	" ---- split command
-	if direction == 'row'
+	if direction ==# 'row'
 		let command = 'noautocmd silent vsplit'
-	elseif direction == 'col'
+	elseif direction ==# 'col'
 		let command = 'noautocmd silent split'
 	endif
 	" ---- first element = leaf, row, col
@@ -17,7 +17,7 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 	let second = layout[1]
 	let kind = type(first)
 	if kind == v:t_string
-		if first == 'leaf'
+		if first ==# 'leaf'
 			let bufname = second->winbufnr()->bufname()
 			if empty(bufname)
 				return []
@@ -37,16 +37,16 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 		eval returnlist->add(command)
 	endfor
 	" -- rewind to pre operation window
-	if direction == 'row'
+	if direction ==# 'row'
 		let rewind = 'noautocmd ' .. splitnum .. ' wincmd h'
-	elseif direction == 'col'
+	elseif direction ==# 'col'
 		let rewind = 'noautocmd ' .. splitnum .. ' wincmd k'
 	endif
 	eval returnlist->add(rewind)
 	" -- treat sublists
-	if direction == 'row'
+	if direction ==# 'row'
 		let next_window = 'noautocmd wincmd l'
-	elseif direction == 'col'
+	elseif direction ==# 'col'
 		let next_window = 'noautocmd wincmd j'
 	endif
 	for index in range(length)

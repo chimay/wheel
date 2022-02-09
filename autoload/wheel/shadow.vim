@@ -64,7 +64,7 @@ fun! wheel#shadow#narrow_file_operator (argument = '')
 	"   map <expr> <mykey> wheel#shadow#narrow_file_operator()
 	let argument = a:argument
 	" -- when called to find the rhs of the map
-	if argument == ''
+	if argument ==# ''
 		set operatorfunc=wheel#shadow#narrow_file_operator
 		return 'g@'
 	endif

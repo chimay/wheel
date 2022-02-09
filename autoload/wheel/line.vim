@@ -306,20 +306,20 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	" ---- paste
 	call wheel#rectangle#goto_previous ()
 	let @" = join(content, "\n")
-	if where == 'linewise-after'
+	if where ==# 'linewise-after'
 		put =content
-	elseif where == 'linewise-before'
+	elseif where ==# 'linewise-before'
 		put! =content
-	elseif where == 'charwise-after'
+	elseif where ==# 'charwise-after'
 		normal! p
-	elseif where == 'charwise-before'
+	elseif where ==# 'charwise-before'
 		normal! P
 	endif
 	" --- climbing content
 	call wheel#codex#climb(content)
 	" ---- coda
 	call wheel#cylinder#recall ()
-	if close == 'close'
+	if close ==# 'close'
 		call wheel#cylinder#close ()
 	endif
 	return win_getid ()
@@ -340,20 +340,20 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	" ---- paste
 	call wheel#rectangle#goto_previous ()
 	let @" = join(content, "\n")
-	if where == 'linewise-after'
+	if where ==# 'linewise-after'
 		put =content
-	elseif where == 'linewise-before'
+	elseif where ==# 'linewise-before'
 		put! =content
-	elseif where == 'charwise-after'
+	elseif where ==# 'charwise-after'
 		normal! p
-	elseif where == 'charwise-before'
+	elseif where ==# 'charwise-before'
 		normal! P
 	endif
 	" --- climbing content
 	call wheel#codex#climb(content)
 	" ---- coda
 	call wheel#cylinder#recall ()
-	if close == 'close'
+	if close ==# 'close'
 		call wheel#cylinder#close ()
 	endif
 	return win_getid ()
@@ -373,13 +373,13 @@ fun! wheel#line#paste_visual (...)
 	endif
 	normal! gvy
 	call wheel#rectangle#goto_previous ()
-	if where == 'after'
+	if where ==# 'after'
 		normal! p
-	elseif where == 'before'
+	elseif where ==# 'before'
 		normal! P
 	endif
 	call wheel#cylinder#recall ()
-	if close == 'close'
+	if close ==# 'close'
 		call wheel#cylinder#close ()
 	endif
 	return win_getid ()

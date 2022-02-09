@@ -50,7 +50,7 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	let location.line = cur_line
 	let location.col = cur_col
 	call wheel#chakra#update ()
-	if verbose == 'verbose'
+	if verbose ==# 'verbose'
 		echo 'wheel : location updated'
 	endif
 	return v:true
@@ -72,7 +72,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 	endif
 	" ---- jump
 	let window = wheel#rectangle#tour ()
-	if where == 'search-window' && window >= 0
+	if where ==# 'search-window' && window >= 0
 		" -- switch to window containing location buffer
 		call win_gotoid(window)
 		call cursor(location.line, location.col)

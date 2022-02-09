@@ -215,9 +215,9 @@ fun! wheel#perspective#buffer (scope = 'listed')
 	"   - buffers without name
 	"   - wheel dedicated buffers (mandalas)
 	let scope = a:scope
-	if scope == 'listed'
+	if scope ==# 'listed'
 		let buflist = getbufinfo({'buflisted' : 1})
-	elseif scope == 'all'
+	elseif scope ==# 'all'
 		let buflist = getbufinfo()
 	else
 		echomsg 'wheel perspective buffer : bad optional argument'
@@ -578,7 +578,7 @@ fun! wheel#perspective#yank (mode, register = 'unnamed')
 	let register = a:register
 	let yank_dict = g:wheel_yank
 	" ---- yank list
-	if register == 'overview'
+	if register ==# 'overview'
 		" -- overview all registers
 		let returnlist = []
 		let register_list = wheel#matrix#items2keys(s:registers_symbols)
@@ -595,10 +595,10 @@ fun! wheel#perspective#yank (mode, register = 'unnamed')
 		let returnlist = deepcopy(yank_dict[register])
 	endif
 	" ---- format yanks
-	if mode == 'list'
+	if mode ==# 'list'
 		eval returnlist->filter({ _, val -> ! empty(val) })
 		eval returnlist->map({ _, val -> string(val) })
-	elseif mode == 'plain'
+	elseif mode ==# 'plain'
 		eval returnlist->map({ _, val -> join(val, "\n") })
 		eval returnlist->filter({ _, val -> val =~ '\m.' })
 	endif
