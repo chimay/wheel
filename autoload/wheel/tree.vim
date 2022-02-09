@@ -462,7 +462,7 @@ fun! wheel#tree#remove (level, name)
 	" No confirm prompt, no jump : internal use only
 	let level = a:level
 	let name = a:name
-	let old_names = wheel#referen#names ()
+	let coordin = wheel#referen#coordinates ()
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let glossary = upper.glossary
@@ -490,7 +490,7 @@ fun! wheel#tree#remove (level, name)
 	" ---- for index auto update at demand
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	" ---- adjust history
-	call wheel#pendulum#delete (level, old_names)
+	call wheel#pendulum#delete (level, coordin)
 	return v:true
 endfun
 
@@ -513,7 +513,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 		endif
 	endif
 	" ---- for history
-	let old_names = wheel#referen#names ()
+	let coordin = wheel#referen#coordinates ()
 	" ---- check
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
@@ -540,7 +540,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	call wheel#vortex#jump ()
 	" ---- adjust history
-	call wheel#pendulum#delete (level, old_names)
+	call wheel#pendulum#delete (level, coordin)
 	return v:true
 endfun
 
@@ -581,7 +581,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 		elseif level ==# 'circle' && destination ==# wheel#referen#torus().name
 			echomsg 'wheel : move circle to current torus = noop'
 			return v:false
-		elseif level ==# 'location' && coordin ==# wheel#referen#names()[:1]
+		elseif level ==# 'location' && coordin ==# wheel#referen#coordinates()[:1]
 			echomsg 'wheel : move location to current circle = noop'
 			return v:false
 		endif

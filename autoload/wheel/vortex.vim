@@ -269,10 +269,10 @@ fun! wheel#vortex#multi_switch(where = 'search-window')
 		let prompt = 'Switch to ' .. level .. ' : '
 		let complete = 'customlist,wheel#complete#' .. level
 		let name = input(prompt, '', complete)
-		let levind = wheel#referen#coordin_index(level)
+		let level_index = wheel#referen#level_index_in_coordin(level)
 		let found = wheel#vortex#tune (level, name)
 		if found >= 0
-			let indexes[levind] = found
+			let indexes[level_index] = found
 		else
 			echomsg 'wheel vortex multi switch : name' name 'not found'
 			return indexes

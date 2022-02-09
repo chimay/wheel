@@ -18,7 +18,7 @@ endfun
 fun! wheel#cuckoo#record ()
 	" Record current torus, circle, location in frecency
 	let frecency = g:wheel_history.frecency
-	let coordin = wheel#referen#names()
+	let coordin = wheel#referen#coordinates()
 	let entry = {}
 	let length = len(frecency)
 	for index in range(length)

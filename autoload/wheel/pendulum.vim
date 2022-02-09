@@ -147,7 +147,7 @@ fun! wheel#pendulum#record ()
 	" Move existing entry at the beginning of the list
 	" Update alternate coordinates
 	" -- new entry
-	let coordin = wheel#referen#names()
+	let coordin = wheel#referen#coordinates()
 	let maxim = g:wheel_config.maxim.history
 	let entry = {}
 	let entry.coordin = coordin
@@ -170,57 +170,48 @@ fun! wheel#pendulum#rename (level, old, new)
 	" level = 0 or torus    : rename torus
 	" level = 1 or circle   : rename circle
 	" level = 2 or location : rename location
-	if type(a:level) == v:t_number
-		let index = a:level
-	elseif type(a:level) == v:t_string
-		let index = wheel#referen#coordin_index (a:level)
-	else
-		echomsg 'Pendulum rename : level arg must be number or string'
-		return
-	end
-	let new_names = wheel#referen#names ()
+	let level = a:level
+	let old = a:old
+	let new = a:new
+	let level_index = wheel#referen#level_index_in_coordin (level)
+	let new_names = wheel#referen#coordinates ()
 	let old_names = copy(new_names)
-	let old_names[index] = a:old
+	let old_names[level_index] = old
 	" -- history line
 	for elem in g:wheel_history.line
 		let coordin = elem.coordin
-		if coordin[:index] == old_names[:index]
-			let elem.coordin[index] = a:new
+		if coordin[:level_index] == old_names[:level_index]
+			let elem.coordin[level_index] = new
 		endif
 	endfor
 	" -- history circuit
 	for elem in g:wheel_history.circuit
 		let coordin = elem.coordin
-		if coordin[:index] == old_names[:index]
-			let elem.coordin[index] = a:new
+		if coordin[:level_index] == old_names[:level_index]
+			let elem.coordin[level_index] = new
 		endif
 	endfor
 	" -- frecency
 	for elem in g:wheel_history.frecency
 		let coordin = elem.coordin
-		if coordin[:index] == old_names[:index]
-			let elem.coordin[index] = a:new
+		if coordin[:level_index] == old_names[:level_index]
+			let elem.coordin[level_index] = new
 		endif
 	endfor
 	" -- alternate
 	call wheel#pendulum#update_alternate ()
 endfun
 
-fun! wheel#pendulum#delete (level, old_names)
-	" Delete all occurences of old_names coordin in history
+fun! wheel#pendulum#delete (level, coordin)
+	" Delete all occurences of coordin coordin in history
 	" level = 0 or torus    : delete torus
 	" level = 1 or circle   : delete circle
 	" level = 2 or location : delete location
-	if type(a:level) == v:t_number
-		let index = a:level
-	elseif type(a:level) == v:t_string
-		let index = wheel#referen#coordin_index (a:level)
-	else
-		echomsg 'Pendulum delete : level arg must be number or string'
-		return
-	end
-	let old_names = a:old_names
-	let Filter = function('wheel#pendulum#distinct_coordin', [index, old_names])
+	let level = a:level
+	let coordin = a:coordin
+	let level_index = wheel#referen#level_index_in_coordin (level)
+	let coordin = coordin
+	let Filter = function('wheel#pendulum#distinct_coordin', [level_index, coordin])
 	" -- history line
 	let timeline = g:wheel_history.line
 	eval timeline->filter(Filter)
@@ -284,10 +275,10 @@ fun! wheel#pendulum#newer (level = 'wheel')
 	if level == 'wheel'
 		return wheel#pendulum#newer_anywhere ()
 	endif
-	" current coordin
-	let names = wheel#referen#names ()
-	" index for range in coordin
-	let level_index = wheel#referen#coordin_index (level)
+	" ---- current coordin
+	let names = wheel#referen#coordinates ()
+	" ---- index for range in coordin
+	let level_index = wheel#referen#level_index_in_coordin (level)
 	" back in history
 	let timeloop = g:wheel_history.circuit
 	let timeloop = wheel#chain#rotate_right (timeloop)
@@ -322,9 +313,9 @@ fun! wheel#pendulum#older (level = 'wheel')
 		return wheel#pendulum#older_anywhere ()
 	endif
 	" current coordin
-	let names = wheel#referen#names ()
+	let names = wheel#referen#coordinates ()
 	" index for range in coordin
-	let level_index = wheel#referen#coordin_index (level)
+	let level_index = wheel#referen#level_index_in_coordin (level)
 	" back in history
 	let timeloop = g:wheel_history.circuit
 	let timeloop = wheel#chain#rotate_left (timeloop)

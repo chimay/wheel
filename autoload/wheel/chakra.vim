@@ -45,7 +45,7 @@ fun! wheel#chakra#same ()
 	" Whether current location is the same as when the sign has been placed
 	let signs = g:wheel_signs
 	let subtable = deepcopy(signs.table)
-	let coordin = wheel#referen#names ()
+	let coordin = wheel#referen#coordinates ()
 	eval subtable->filter({ _, val -> val.coordin == coordin })
 	if empty(subtable)
 		return v:false
@@ -95,7 +95,7 @@ fun! wheel#chakra#place ()
 	let bufnum = bufnr('%')
 	let linum = location.line
 	let dict = #{ lnum : linum }
-	let coordin = wheel#referen#names ()
+	let coordin = wheel#referen#coordinates ()
 	let entry = #{
 				\ iden : new_iden,
 				\ coordin : coordin,
@@ -137,7 +137,7 @@ fun! wheel#chakra#unplace ()
 	let signs = g:wheel_signs
 	let iden = signs.iden
 	let subtable = deepcopy(signs.table)
-	let coordin = wheel#referen#names ()
+	let coordin = wheel#referen#coordinates ()
 	eval subtable->filter({ _, val -> val.coordin == coordin })
 	if empty(subtable)
 		return v:true

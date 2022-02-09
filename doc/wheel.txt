@@ -433,22 +433,33 @@ See :
 MAPPINGS					    *wheel-workflow-mappings*
 
 To avoid conflict with your personal bindings, wheel mappings until
-level 2 included are all using a generic prefix.
+level 2 included are all using a generic prefix. The first step is to
+choose a prefix you are comfortable with : >
 
-This is useful, but can quickly become tedious for often used
-functions. In that case, prefix-less shortcuts are welcome.
+ " default
+ let g:wheel_config.prefix = '<M-w>'
 
-All of these shortcuts are inside level 10. There is a lot of them,
-so they would most likely interfere with your config. However, they
-can be used to choose functions you're interested in, or as a source
+ " works on nvim-qt, not on gvim or in terminal
+ let g:wheel_config.prefix = '<D-w>'
+
+ " great if you don't use space as map leader
+ let g:wheel_config.prefix = '<Space>'
+<
+
+This is fine, but can quickly become tedious for often used functions. In
+that case, prefix-less shortcuts are welcome.
+
+A whole set of these shortcuts is defined in level 10. There is a lot
+of them, so they would most likely interfere with your config. However,
+they can be used to choose functions you're interested in, or as a source
 of inspiration.
 
 So, two solutions :
 
-- you're happy with all these shortcuts, and set `g:wheel_config.mappings` to 10
+- you're happy with all of them : you can set `g:wheel_config.mappings` to 10
 - you set `g:wheel_config.mappings` to 2 or less, and cherrypick in level 10
 
-If you wonder how to define your own quick maps, see
+If you wonder how to define your own maps, see
 |wheel-mappings-define-your-own-maps|.
 
 If you're looking for a specific Wheel function, see

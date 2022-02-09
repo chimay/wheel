@@ -11,9 +11,9 @@ if ! exists('s:levels')
 	lockvar s:levels
 endif
 
-if ! exists('s:coordin')
-	let s:coordin = wheel#crystal#fetch('referen/coordin')
-	lockvar s:coordin
+if ! exists('s:coordinates_levels')
+	let s:coordinates_levels = wheel#crystal#fetch('referen/coordinates/levels')
+	lockvar s:coordinates_levels
 endif
 
 if ! exists('s:list_keys')
@@ -94,7 +94,7 @@ endfun
 
 " Coordinates
 
-fun! wheel#referen#coordin_index (level)
+fun! wheel#referen#level_index_in_coordin (level)
 	" Return index of level in coordinates
 	" wheel -> -1
 	" torus -> 0
@@ -103,8 +103,8 @@ fun! wheel#referen#coordin_index (level)
 	return s:coordin->index(a:level)
 endfun
 
-fun! wheel#referen#names ()
-	" Names of current torus, circle and location
+fun! wheel#referen#coordinates ()
+	" Wheel coordinates : names of current torus, circle and location
 	let [torus, circle, location] = wheel#referen#location('all')
 	let names = []
 	if has_key(torus, 'name')

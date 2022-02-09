@@ -20,9 +20,9 @@ if ! exists('s:referen_levels')
 	endif
 endif
 
-if ! exists('s:referen_coordin')
-	let s:referen_coordin = ['torus', 'circle', 'location']
-	lockvar! s:referen_coordin
+if ! exists('s:referen_coordinates_levels')
+	let s:referen_coordinates_levels = ['torus', 'circle', 'location']
+	lockvar! s:referen_coordinates_levels
 endif
 
 if ! exists('s:referen_list_keys')

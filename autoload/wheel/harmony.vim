@@ -287,7 +287,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 		elseif level ==# 'circle' && destination ==# wheel#referen#torus().name
 			echomsg 'wheel : move circle to current torus = noop'
 			return v:false
-		elseif level ==# 'location' && coordin ==# wheel#referen#names()[:1]
+		elseif level ==# 'location' && coordin ==# wheel#referen#coordinates()[:1]
 			echomsg 'wheel : move location to current circle = noop'
 			return v:false
 		endif

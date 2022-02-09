@@ -141,7 +141,7 @@ fun! wheel#rectangle#tour ()
 	"   - windows anywhere
 	" Return v:false if no window display filename
 	let original = win_getid()
-	let coordin = wheel#referen#names ()
+	let coordin = wheel#referen#coordinates ()
 	let filename = wheel#referen#location().file
 	" ---- find window where closest = current wheel location
 	" -- current tab

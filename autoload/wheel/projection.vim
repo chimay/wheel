@@ -50,11 +50,11 @@ fun! wheel#projection#closest (...)
 	let album = wheel#helix#album ()
 	eval album->filter({ _,value -> value[2].file ==# filename })
 	" narrow down to current level
-	let narrow = wheel#referen#coordin_index(level)
+	let narrow = wheel#referen#level_index_in_coordin(level)
 	if narrow >= 0
-		let narrow_names = wheel#referen#names()
+		let narrow_coordin = wheel#referen#coordinates ()
 		for index in range(0, narrow)
-			eval album->filter({ _,value -> value[index] == narrow_names[index] })
+			eval album->filter({ _,value -> value[index] == narrow_coordin[index] })
 		endfor
 	endif
 	if empty(album)
@@ -104,7 +104,7 @@ fun! wheel#projection#follow (...)
 		return v:false
 	endif
 	" ---- if we are already there, just update location line & col
-	if coordin == wheel#referen#names()
+	if coordin == wheel#referen#coordinates()
 		call wheel#vortex#update ('verbose')
 		return v:false
 	endif
