@@ -1066,7 +1066,7 @@ To access the filter line, press `<M-i>` or `<Ins>` instead of `i` and `a`.
 
 The key `dd` is not mapped.
 
-The input history is availble only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`.
+The input history is available only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`.
 
 Some keys have a distinct meaning if the cursor is on the first line or in
 another one.
@@ -1760,6 +1760,9 @@ in `foobar`.
 Third, if the replacing word is already present in the buffer, it will
 ask you confirmation before running the substitution. That way, you can
 avoid confusion in variable names, for instance.
+
+Only visible lines are affected for this function : it's just a wrapper
+for |:substitute|
 
 ------------------------------------------------------------------------------
 NARROW ALL CIRCLE FILES			*wheel-dedicated-buffers-narrow-circle*

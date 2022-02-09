@@ -449,12 +449,12 @@ fun! wheel#void#vanish ()
 				\ 'g:wheel_history',
 				\ 'g:wheel_input',
 				\ 'g:wheel_attic',
-				\ 'g:wheel_wave',
-				\ 'g:wheel_ripple',
 				\ 'g:wheel_yank',
-				\ 'g:wheel_bufring',
 				\ 'g:wheel_shelve',
 				\ 'g:wheel_config',
+				\ 'g:wheel_bufring',
+				\ 'g:wheel_wave',
+				\ 'g:wheel_ripple',
 				\]
 	call wheel#gear#unlet (varlist)
 endfun
