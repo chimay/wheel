@@ -155,8 +155,7 @@ it’s easy to add new functionalities.
   + all circle file with a pattern
 - yank ring using TextYankPost event
   + paste before or after, linewise or characterwise
-  + plain mode : each buffer line is a yanked line
-  + list mode : each buffer line is a yank
+  + switch register ring
 - reorganizing
   + wheel elements
   + tabs & windows
