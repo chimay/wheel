@@ -23,7 +23,13 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 				return []
 			endif
 			let filename = bufname->fnamemodify(':p')
-			return [ 'silent edit ' .. filename ]
+			let edit = [ 'silent edit ' .. filename ]
+			" -- go to last position in file
+			let last_position = "'" .. '"'
+			eval edit->add(last_position)
+			" -- unfold to view cursor
+			eval edit->add('normal! zv')
+			return edit
 		else
 			return wheel#labyrinth#windows (second, first)
 		endif
@@ -63,18 +69,18 @@ endfun
 
 fun! wheel#labyrinth#layout ()
 	" Commands to reproduce layout of all tabs
-	let last = tabpagenr('$')
+	let last_tab = tabpagenr('$')
 	let returnlist = []
 	" ---- keep only one tab & window to start
 	eval returnlist->add('noautocmd silent tabonly')
 	eval returnlist->add('noautocmd silent only')
 	" ---- loop on tabs
-	for tabnum in range(1, last)
+	for tabnum in range(1, last_tab)
 		let winlayout = winlayout(tabnum)
 		let tab_layout = wheel#labyrinth#windows(winlayout)
 		eval returnlist->extend(tab_layout)
 		eval returnlist->add('noautocmd silent wincmd t')
-		if tabnum < last
+		if tabnum < last_tab
 			eval returnlist->add('noautocmd silent tabnew')
 		endif
 	endfor
@@ -85,8 +91,6 @@ fun! wheel#labyrinth#layout ()
 	eval returnlist->add('noautocmd silent tabrewind')
 	" ---- jump
 	eval returnlist->add('call wheel#vortex#jump()')
-	" ---- unfold to view cursor
-	eval returnlist->add('normal! zv')
 	" ---- coda
 	return returnlist
 endfun
