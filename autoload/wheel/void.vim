@@ -170,6 +170,9 @@ fun! wheel#void#shelve ()
 	if ! has_key(g:wheel_shelve, 'yank')
 		let g:wheel_shelve.yank = {}
 	endif
+	if ! has_key(g:wheel_shelve.yank, 'default_register')
+		let g:wheel_shelve.yank.default_register = 'unnamed'
+	endif
 	" ---- tabs and windows layouts
 	if ! has_key(g:wheel_shelve, 'layout')
 		let g:wheel_shelve.layout = {}
@@ -249,8 +252,8 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'mru')
 		let g:wheel_config.maxim.mru = 500
 	endif
-	if ! has_key(g:wheel_config.maxim, 'default_yanks')
-		let g:wheel_config.maxim.default_yanks = 500
+	if ! has_key(g:wheel_config.maxim, 'unnamed_yanks')
+		let g:wheel_config.maxim.unnamed_yanks = 500
 	endif
 	if ! has_key(g:wheel_config.maxim, 'other_yanks')
 		let g:wheel_config.maxim.other_yanks = 50

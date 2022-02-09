@@ -4,7 +4,7 @@
 "
 " Non-wheel navigation, dedicated buffers
 
-" helpers
+" ---- helpers
 
 fun! wheel#frigate#generic (type)
 	" Generic whirl buffer
@@ -23,7 +23,7 @@ fun! wheel#frigate#generic (type)
 	let b:wheel_reload = 'wheel#frigate#' .. type
 endfun
 
-" buffers, tabs, windows
+" ---- buffers, tabs, windows
 
 fun! wheel#frigate#buffer (scope = 'listed')
 	" Buffers
@@ -97,7 +97,7 @@ fun! wheel#frigate#tabwin ()
 	call wheel#boomerang#launch_map ('tabwin')
 endfun
 
-" vim lists
+" ---- vim lists
 
 fun! wheel#frigate#marker ()
 	" Markers
@@ -150,7 +150,7 @@ fun! wheel#frigate#tag ()
 	call wheel#frigate#generic('tag')
 endfun
 
-" search files
+" ---- search files
 
 fun! wheel#frigate#mru ()
 	" Most recenty used files
@@ -239,7 +239,7 @@ fun! wheel#frigate#async_find (...)
 	let b:wheel_reload = "wheel#frigate#async_find('" .. pattern .. "')"
 endfun
 
-" search inside files
+" ---- search inside files
 
 fun! wheel#frigate#occur (...)
 	" Lines matching pattern

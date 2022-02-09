@@ -2,7 +2,7 @@
 
 " Rectangle
 "
-" Tabs, Windows & buffers
+" Tabs, windows & buffers
 
 " ---- script constants
 

@@ -4,8 +4,6 @@
 "
 " Organize non-wheel elements, dedicated buffers
 
-" reorganize tabs
-
 fun! wheel#mirror#reorg_tabwin ()
 	" Reorganize tabs & windows
 	let lines = wheel#perspective#tabwin_tree ()

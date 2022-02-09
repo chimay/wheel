@@ -744,10 +744,11 @@ MOVE					    *wheel-prompting-functions-move*
 ------------------------------------------------------------------------------
 YANK RING					*wheel-prompting-functions-yank*
 
-- `<M-w>y` : paste from yank ring linewise, after the sursor
-- `<M-w>p` : paste from yank ring charwise, after the sursor
-- `<M-w>Y` : paste from yank ring linewise, before the sursor
-- `<M-w>P` : paste from yank ring charwise, before the sursor
+- `<M-w>y`     : paste from yank ring linewise, after the sursor
+- `<M-w>p`     : paste from yank ring charwise, after the sursor
+- `<M-w>Y`     : paste from yank ring linewise, before the sursor
+- `<M-w>P`     : paste from yank ring charwise, before the sursor
+- `<M-w><C-y>` : switch register to use in yank prompts (default : unnamed)
 
 Linewise means that the paste is inserted after the current line.
 
@@ -1807,7 +1808,7 @@ The available local maps are :
  - `P` : paste a yank linewise before cursor, leave yank ring opened
  - `gp` : paste a yank characterwise after cursor, leave yank ring opened
  - `gP` : paste a yank characterwise before cursor, leave yank ring opened
- - `s` : switch register
+ - `s` : switch register ring to display
 
 Switching register~
 
@@ -2673,7 +2674,7 @@ to the wheel : >
 <
 
 ------------------------------------------------------------------------------
-YANK WHEEL					*wheel-autocommands-yank*
+YANK RING					*wheel-autocommands-yank*
 
 If you want to record your yanks/delete, you can add this autommand to
 your init file : >

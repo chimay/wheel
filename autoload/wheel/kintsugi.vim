@@ -113,31 +113,29 @@ fun! wheel#kintsugi#config ()
 	endif
 	" ---- chdir project
 	if has_key(g:wheel_config, 'cd_project')
-		if ! has_key(g:wheel_config, 'auto_chdir_project')
-			let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
-			unlet g:wheel_config.cd_project
-			let info = 'wheel config : cd_project is deprecated. '
-			let info ..= 'Please use auto_chdir_project instead.'
-			echomsg info
-		endif
+		let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
+		unlet g:wheel_config.cd_project
+		let info = 'wheel config : cd_project is deprecated. '
+		let info ..= 'Please use auto_chdir_project instead.'
+		echomsg info
 	endif
 	" ---- default_yanks, other_yanks
 	if has_key(g:wheel_config.maxim, 'yanks')
-		if ! has_key(g:wheel_config, 'default_yanks')
-			let max_yanks = g:wheel_config.maxim.yanks
-			let g:wheel_config.maxim.unnamed_yanks = max_yanks
-			let g:wheel_config.maxim.other_yanks = float2nr(round(max_yanks/10))
-			unlet g:wheel_config.maxim.yanks
-			let info = 'wheel config : maxim.yanks is deprecated. '
-			let info ..= 'Please use maxim.default_yanks and maxim.other_yanks instead.'
-			echomsg info
-		endif
+		let max_yanks = g:wheel_config.maxim.yanks
+		let g:wheel_config.maxim.unnamed_yanks = max_yanks
+		let g:wheel_config.maxim.other_yanks = float2nr(round(max_yanks/10))
+		unlet g:wheel_config.maxim.yanks
+		let info = 'wheel config : maxim.yanks is deprecated. '
+		let info ..= 'Please use maxim.unnamed_yanks and maxim.other_yanks instead.'
+		echomsg info
 	endif
 	if has_key(g:wheel_config.maxim, 'default_yanks')
 		let max_yanks = g:wheel_config.maxim.default_yanks
-		let g:wheel_config.maxim.default_yanks = max_yanks
+		let g:wheel_config.maxim.unnamed_yanks = max_yanks
+		unlet g:wheel_config.maxim.default_yanks
 		let info = 'wheel config : maxim.default_yanks is deprecated. '
 		let info ..= 'Please use maxim.unnamed_yanks instead.'
+		echomsg info
 	endif
 	" ---- coda
 	return v:true
@@ -152,12 +150,9 @@ fun! wheel#kintsugi#wheel_file ()
 		let new_history.line = g:wheel_history
 		if exists('g:wheel_track')
 			let new_history.circuit = g:wheel_track
-		else
-			let new_history.circuit = g:wheel_history
-		endif
-		if exists('g:wheel_track')
 			let new_history.alternate = g:wheel_alternate
 		else
+			let new_history.circuit = g:wheel_history
 			let new_history.alternate = {}
 		endif
 		let g:wheel_history = new_history
@@ -182,8 +177,15 @@ fun! wheel#kintsugi#wheel_file ()
 		let new_yank.alternate = []
 		let g:wheel_yank = new_yank
 	endif
+	if ! has_key(g:wheel_yank, 'unnamed')
+		let g:wheel_yank.unnamed = g:wheel_yank.default
+		unlet g:wheel_yank.default
+	endif
 	if ! has_key(g:wheel_shelve, 'yank')
 		let g:wheel_shelve.yank = {}
+	endif
+	if ! has_key(g:wheel_shelve.yank, 'default_register')
+		let g:wheel_shelve.yank.default_register = 'unnamed'
 	endif
 	" ---- coda
 	return v:true

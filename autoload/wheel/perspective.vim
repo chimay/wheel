@@ -572,7 +572,7 @@ endfun
 
 " ---- yanks
 
-fun! wheel#perspective#yank (mode, register = 'default')
+fun! wheel#perspective#yank (mode, register = 'unnamed')
 	" Yank ring
 	let mode = a:mode
 	let register = a:register
