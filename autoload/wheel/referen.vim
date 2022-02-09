@@ -100,7 +100,7 @@ fun! wheel#referen#level_index_in_coordin (level)
 	" torus -> 0
 	" circle -> 1
 	" location -> 2
-	return s:coordin->index(a:level)
+	return s:coordinates_levels->index(a:level)
 endfun
 
 fun! wheel#referen#coordinates ()
