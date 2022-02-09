@@ -166,11 +166,15 @@ fun! wheel#void#shelve ()
 	if ! exists('g:wheel_shelve')
 		let g:wheel_shelve = {}
 	endif
-	" For tabs and windows layouts
+	" ---- yank ring
+	if ! has_key(g:wheel_shelve, 'yank')
+		let g:wheel_shelve.yank = {}
+	endif
+	" ---- tabs and windows layouts
 	if ! has_key(g:wheel_shelve, 'layout')
 		let g:wheel_shelve.layout = {}
 	endif
-	" Backup some vars if needed
+	" ---- backup some vars if needed
 	if ! has_key(g:wheel_shelve, 'backup')
 		let g:wheel_shelve.backup = {}
 	endif

@@ -176,6 +176,9 @@ fun! wheel#kintsugi#wheel_file ()
 		let new_yank.alternate = []
 		let g:wheel_yank = new_yank
 	endif
+	if ! has_key(g:wheel_shelve, 'yank')
+		let g:wheel_shelve.yank = {}
+	endif
 	" ---- coda
 	return v:true
 endfun

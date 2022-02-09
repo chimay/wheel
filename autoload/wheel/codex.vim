@@ -63,7 +63,9 @@ fun! wheel#codex#register (register = 'default')
 	else
 		let maxim = g:wheel_config.maxim.other_yanks
 	endif
-	let yanks = yanks[:maxim - 1]
+	" we need to use g:wheel_yank here
+	" because yanks[:maxim - 1] makes a copy
+	let g:wheel_yank[register] = yanks[:maxim - 1]
 	return v:true
 endfun
 
@@ -78,6 +80,10 @@ fun! wheel#codex#add ()
 endfun
 
 " ---- prompt
+
+fun! wheel#codex#prompt_switch ()
+	" Switch register in yank prompting functions
+endfun
 
 fun! wheel#codex#yank_list (where = 'linewise-after')
 	" Paste yank from yank ring in list mode
@@ -120,7 +126,7 @@ endfun
 
 " ---- mandala
 
-fun! wheel#codex#switch (mode, register = '')
+fun! wheel#codex#mandala_switch (mode, register = '')
 	" Switch register in yank mandala
 	let mode = a:mode
 	let register = a:register
@@ -131,8 +137,7 @@ fun! wheel#codex#switch (mode, register = '')
 	endif
 	let lines = wheel#perspective#yank(mode, register)
 	call wheel#teapot#reset ()
-	call wheel#mandala#replace(lines)
-	call wheel#mandala#set_var_lines ()
+	call wheel#mandala#fill(lines)
 	" --- property
 	let b:wheel_nature.yank.register = register
 endfun
@@ -177,7 +182,7 @@ fun! wheel#codex#mappings (mode)
 	exe nmap 'gp    <cmd>call' paste "('charwise-after', 'open')<cr>"
 	exe nmap 'gP    <cmd>call' paste "('charwise-before', 'open')<cr>"
 	" -- switch register
-	exe nmap 's     <cmd>call wheel#codex#switch(' .. string(mode) .. ')<cr>'
+	exe nmap 's     <cmd>call wheel#codex#mandala_switch(' .. string(mode) .. ')<cr>'
 	" ---- visual mode
 	if mode == 'plain'
 		let paste_visual = 'wheel#line#paste_visual'
