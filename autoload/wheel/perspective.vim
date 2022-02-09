@@ -582,8 +582,12 @@ fun! wheel#perspective#yank (mode, register = 'default')
 		let returnlist = []
 		let register_list = wheel#matrix#items2keys(s:registers_symbols)
 		for register in register_list
-			let yanks = yank_dict[register][:2]
-			eval returnlist->extend(yanks)
+			for yank in yank_dict[register][:2]
+				let found = yank->wheel#chain#is_inside(returnlist)
+				if ! found
+					eval returnlist->add(yank)
+				endif
+			endfor
 		endfor
 	else
 		let returnlist = deepcopy(yank_dict[register])
