@@ -99,14 +99,17 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	let complete = 'customlist,wheel#complete#yank_list'
 	let line = input(prompt, '', complete)
 	let content = eval(line)
-	let @" = join(content, "\n")
 	if where ==# 'linewise-after'
+		call setreg('"', content, 'l')
 		put =content
 	elseif where ==# 'linewise-before'
+		call setreg('"', content, 'l')
 		put! =content
 	elseif where ==# 'charwise-after'
+		call setreg('"', content, 'c')
 		normal! p
 	elseif where ==# 'charwise-before'
+		call setreg('"', content, 'c')
 		normal! P
 	endif
 	call wheel#codex#climb(content)
@@ -118,14 +121,17 @@ fun! wheel#codex#yank_plain (where = 'linewise-after')
 	let prompt = 'Yank element (' .. where .. ') : '
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
-	let @" = content
 	if where ==# 'linewise-after'
+		call setreg('"', content, 'l')
 		put =content
 	elseif where ==# 'linewise-before'
+		call setreg('"', content, 'l')
 		put! =content
 	elseif where ==# 'charwise-after'
+		call setreg('"', content, 'c')
 		normal! p
 	elseif where ==# 'charwise-before'
+		call setreg('"', content, 'c')
 		normal! P
 	endif
 	call wheel#codex#climb([ content ])
