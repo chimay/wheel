@@ -281,8 +281,9 @@ fun! wheel#pendulum#newer (level = 'wheel')
 	let level_index = wheel#referen#level_index_in_coordin (level)
 	" ---- back to the future
 	let timeloop = g:wheel_history.circuit
-	let timeloop = timeloop->wheel#chain#rotate_right()
-	for index in wheel#chain#rangelen(timeloop)
+	let range = wheel#chain#rangelen(timeloop)
+	let range = reverse(range)
+	for index in range[:-2]
 		let coordin = timeloop[index].coordin
 		if present_coordin[:level_index] == coordin[:level_index]
 			let timeloop = timeloop->wheel#chain#roll_right(index)
@@ -317,8 +318,8 @@ fun! wheel#pendulum#older (level = 'wheel')
 	let level_index = wheel#referen#level_index_in_coordin (level)
 	" ---- back in history
 	let timeloop = g:wheel_history.circuit
-	let timeloop = timeloop->wheel#chain#rotate_left()
-	for index in wheel#chain#rangelen(timeloop)
+	let range = wheel#chain#rangelen(timeloop)
+	for index in range[1:]
 		let coordin = timeloop[index].coordin
 		if present_coordin[:level_index] == coordin[:level_index]
 			let timeloop = timeloop->wheel#chain#roll_left(index)
