@@ -151,6 +151,7 @@ if ! exists('s:function_pattern_mandala_opens')
 				\ '\m#yggdrasil#',
 				\ '\m#mirror#',
 				\ '\m#shadow#',
+				\ '\m#codex#',
 				\ '\m#clipper#',
 				\ '\m#triangle#',
 				\]

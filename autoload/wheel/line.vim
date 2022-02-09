@@ -296,8 +296,6 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in list mode
 	let where = a:where
 	let close = a:close
-	" ---- register
-	let register = b:wheel_nature.yank.register
 	" ---- format selection
 	let selection = wheel#pencil#selection ()
 	let content = deepcopy(selection.components)
@@ -329,8 +327,6 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in plain mode
 	let where = a:where
 	let close = a:close
-	" ---- register
-	let register = b:wheel_nature.yank.register
 	" ---- format selection
 	let selection = wheel#pencil#selection ()
 	let content = deepcopy(selection.components)
