@@ -175,15 +175,16 @@ This project is inspired by :
 - ctrlspace : https://github.com/vim-ctrlspace/vim-ctrlspace, a similar
   plugin for Vim
 
-- unite : https://github.com/Shougo/unite.vim and its successor denite
-  (Shougo/denite.nvim), a search & filter plugin for arbitrary sources
+- unite : https://github.com/Shougo/unite.vim, a search & filter plugin
+  for arbitrary sources
 
 - quickfix-reflector : https://github.com/stefandtw/quickfix-reflector.vim,
   for the grep edit mode
 
 - narrow : https://github.com/chrisbra/NrrwRgn, for the narrow dedicated buffers
 
-- yankring : https://github.com/vim-scripts/YankRing.vim
+- yankring : https://github.com/vim-scripts/YankRing.vim, whose name is
+  self-explanatory
 
 ------------------------------------------------------------------------------
 PREREQUISITES				*wheel-introduction-prerequisites*

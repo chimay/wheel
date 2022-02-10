@@ -192,16 +192,15 @@ This project is inspired by :
 - [ctrlspace](https://github.com/vim-ctrlspace/vim-ctrlspace), a workspace
   plugin for Vim
 
-- [unite](https://github.com/Shougo/unite.vim) and its successor
-  [denite](https://github.com/Shougo/denite.nvim), a search plugin for
-  arbitrary sources
+- [unite](https://github.com/Shougo/unite.vim), a search plugin for arbitrary sources
 
 - [quickfix-reflector](https://github.com/stefandtw/quickfix-reflector.vim),
   for the grep edit mode
 
 - [narrow](https://github.com/chrisbra/NrrwRgn), for the narrow dedicated buffers
 
-- [yankring](https://github.com/vim-scripts/YankRing.vim)
+- [yankring](https://github.com/vim-scripts/YankRing.vim), whose name is
+  self-explanatory
 
 ## Prerequisites
 
