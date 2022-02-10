@@ -94,7 +94,7 @@ fun! wheel#codex#prompt_switch (register = '')
 	" Switch register in yank prompting functions
 	let register = a:register
 	if empty(register)
-		let prompt = 'Register to use in yank ring prompting functions : '
+		let prompt = 'Default register for wheel yank ring functions : '
 		let complete = 'customlist,wheel#complete#register'
 		let register = input(prompt, '', complete)
 	endif
