@@ -167,6 +167,50 @@ if ! exists('s:function_pattern_mandala_needs')
 	lockvar! s:function_pattern_mandala_needs
 endif
 
+" ---- commands
+
+if ! exists('s:command_meta_actions')
+	let s:command_meta_actions = #{
+				\ info : 'wheel#status#dashboard',
+				\ jump : 'wheel#vortex#jump',
+				\ follow : 'wheel#projection#follow',
+				\ read : 'wheel#disc#read_wheel',
+				\ write : 'wheel#disc#write_wheel',
+				\ read-session : 'wheel#disc#read_session',
+				\ write-session : 'wheel#disc#write_session',
+				\ mkdir : 'wheel#disc#mkdir',
+				\ rename : 'wheel#disc#rename',
+				\ copy : 'wheel#disc#copy',
+				\ delete : 'wheel#disc#delete',
+				\ autogroup : 'wheel#group#menu',
+				\ batch : 'wheel#vector#argdo',
+				\ tree-script : 'wheel#disc#tree_script',
+				\ symlink-tree : 'wheel#disc#symlink_tree',
+				\ copied-tree : 'wheel#disc#copied_tree',
+				\}
+	lockvar! s:command_meta_actions
+endif
+
+if ! exists('s:command_meta_subcommands')
+	let s:command_meta_subcommands = [
+				\ 'info', 'follow', 'jump',
+				\ 'write', 'read',
+				\ 'write-session', 'read-session',
+				\ 'mkdir', 'rename', 'copy', 'delete',
+				\ 'autogroup',
+				\ 'batch',
+				\ 'tree-script', 'symlink-tree', 'copied-tree',
+				\]
+	lockvar! s:command_meta_subcommands
+endif
+
+if ! exists('s:command_meta_subcommands_file')
+	let s:command_meta_subcommands_file = [
+				\ 'mkdir', 'rename', 'copy', 'delete',
+				\]
+	lockvar! s:command_meta_subcommands_file
+endif
+
 " ---- mandalas
 
 " -- mandala prompt

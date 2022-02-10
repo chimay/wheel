@@ -3805,6 +3805,7 @@ work in your setup : >
 ==============================================================================
 COMMANDS					*wheel-commands*
 
+Meta command				|wheel-commands-meta|
 Wheel status				|wheel-commands-status|
 Read and write				|wheel-commands-read-and-write|
 Batch					|wheel-commands-batch|
@@ -3813,37 +3814,46 @@ Disc operations				|wheel-commands-disc-operations|
 Wheel tree in disc			|wheel-commands-tree-in-disc|
 
 ------------------------------------------------------------------------------
+META COMMAND						*wheel-commands-meta*
+
+The main command is :
+
+:Wheel							*:Wheel*
+    Meta command that accepts a serie of sub-commands, described in the
+    following sections.
+
+------------------------------------------------------------------------------
 WHEEL STATUS						*wheel-commands-status*
 
-:WheelDashboard					*:WheelDashboard*
+:Wheel info						*:Wheel-info*
 	Print information of the current wheel status in the format
 	`torus > circle > location`.
 
-:WheelJump
+:Wheel jump						*:Wheel-jump*
 	Jump to current wheel location
 
-:WheelFollow
+:Wheel follow						*:Wheel-follow*
 	Find closest location in wheel matching current file & cursor
 
 ------------------------------------------------------------------------------
 READ AND WRITE					*wheel-commands-read-and-write*
 
-:WheelRead
+:Wheel read						*:Wheel-read*
 	Load wheel from file
 
-:WheelWrite
+:Wheel write						*:Wheel-write*
 	Save wheel in file
 
-:WheelReadSession
+:Wheel read-session					*:Wheel-read-session*
 	Load session from file
 
-:WheelWriteSession
+:Wheel write-session					*:Wheel-write-session*
 	Save session in file
 
 ------------------------------------------------------------------------------
 BATCH							*wheel-commands-batch*
 
-:WheelBatch {my_command}		       *:WheelBatch*
+:Wheel batch {my_command}			      *:Wheel-batch*
 	Use the argument list to execute {my_command} on each location of the
 	current circle. The command can be a vim `:command` or an external shell
 	`!command`. The ouput is displayed in a dedicated buffer.
@@ -3851,7 +3861,7 @@ BATCH							*wheel-commands-batch*
 ------------------------------------------------------------------------------
 AUTOGROUP						*wheel-commands-autogroup*
 
-:WheelAutogroup				       *:WheelAutogroup*
+:Wheel-autogroup				       *:Wheel-autogroup*
 	Autogroup locations of current torus using filename extensions or directories.
 	Creates a new torus where each group will occupy a circle.
 

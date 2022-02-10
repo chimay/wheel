@@ -4,31 +4,35 @@
 "
 " Command, Mappings
 
+" ---- script constants
+
+if ! exists('s:meta_actions')
+	let s:meta_actions = wheel#crystal#fetch('command/meta/actions')
+	lockvar s:meta_actions
+endif
+
+" ---- commands
+
+fun! wheel#centre#meta (subcommand, ...)
+	" Function for meta command
+	let subcommand = a:subcommand
+	let arguments = a:000
+	let action = s:meta_actions[subcommand]
+	if subcommand ==# 'batch'
+		let arguments = join(arguments)
+		return call(action, [ arguments ])
+	endif
+	return call(action, arguments)
+endfun
+
 fun! wheel#centre#commands ()
 	" Define commands
-	" ---- status
-	command! WheelDashboard call wheel#status#dashboard()
-	command! WheelJump      call wheel#vortex#jump()
-	command! WheelFollow    call wheel#projection#follow()
-	" ---- read / write
-	command! WheelRead         call wheel#disc#read_wheel()
-	command! WheelWrite        call wheel#disc#write_wheel()
-	command! WheelReadSession  call wheel#disc#read_session()
-	command! WheelWriteSession call wheel#disc#write_session()
-	" ---- batch
-	command! -nargs=+ WheelBatch call wheel#vector#argdo(<q-args>)
-	" ---- autogroup
-	command! WheelAutogroup call wheel#group#menu()
-	" ---- disc
-	command! -nargs=+ -complete=file WheelMkdir  call wheel#disc#mkdir(<f-args>)
-	command! -nargs=+ -complete=file WheelRename call wheel#disc#rename(<f-args>)
-	command! -nargs=+ -complete=file WheelCopy   call wheel#disc#copy(<f-args>)
-	command! -nargs=+ -complete=file WheelDelete call wheel#disc#delete(<f-args>)
-	" ---- tree of symlinks/files reflecting wheel structure
-	command! WheelTreeScript  call wheel#disc#tree_script()
-	command! WheelSymlinkTree call wheel#disc#symlink_tree()
-	command! WheelCopiedTree  call wheel#disc#copied_tree()
+	" ---- meta command
+	command! -nargs=* -complete=customlist,wheel#complete#meta_command
+				\ Wheel call wheel#centre#meta(<f-args>)
 endfun
+
+" ---- maps
 
 fun! wheel#centre#plugs ()
 	" Link <plug> mappings to wheel functions

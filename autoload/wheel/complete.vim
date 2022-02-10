@@ -25,6 +25,16 @@ if ! exists('s:registers_symbols')
 	lockvar s:registers_symbols
 endif
 
+if ! exists('s:subcommands')
+	let s:subcommands = wheel#crystal#fetch('command/meta/subcommands')
+	lockvar s:subcommands
+endif
+
+if ! exists('s:file_subcommands')
+	let s:file_subcommands = wheel#crystal#fetch('command/meta/subcommands/file')
+	lockvar s:file_subcommands
+endif
+
 " ---- empty
 
 fun! wheel#complete#empty (arglead, cmdline, cursorpos)
@@ -289,4 +299,37 @@ fun! wheel#complete#yank_plain (arglead, cmdline, cursorpos)
 	let choices = wheel#perspective#yank ('plain', register)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
+" ---- meta command
+
+fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
+	" Completion for :Wheel meta command
+	let cmdline = a:cmdline
+	let arglead = a:arglead
+	let cursorpos = a:cursorpos
+	" ---- words
+	let wordlist = split(cmdline)
+	let length =  len(wordlist)
+	" ---- checks
+	if length == 0
+		return []
+	endif
+	if wordlist[0] !=# 'Wheel'
+		return []
+	endif
+	" ---- subcommand
+	let is_partial = cmdline[cursorpos - 1] !~ '\m\s'
+	if length == 1 || (length == 2 && is_partial)
+		return wheel#kyusu#pour(wordlist[1:], s:subcommands)
+	endif
+	" ---- file
+	let subcommand = wordlist[1]
+	let wants_file = subcommand->wheel#chain#is_inside(s:file_subcommands)
+	if wants_file
+		let partial = wordlist[2:]
+		let partial = join(partial)
+		return wheel#complete#file (arglead, partial, cursorpos)
+	endif
+	return []
 endfun
