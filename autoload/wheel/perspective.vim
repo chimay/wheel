@@ -571,7 +571,7 @@ fun! wheel#perspective#tag ()
 	return returnlist
 endfun
 
-" ---- yanks
+" ---- yank ring
 
 fun! wheel#perspective#yank (mode, register = 'unnamed')
 	" Yank ring
@@ -596,12 +596,12 @@ fun! wheel#perspective#yank (mode, register = 'unnamed')
 		let returnlist = deepcopy(yank_dict[register])
 	endif
 	" ---- format yanks
-	if mode ==# 'list'
-		eval returnlist->filter({ _, val -> ! empty(val) })
-		eval returnlist->map({ _, val -> string(val) })
-	elseif mode ==# 'plain'
+	if mode ==# 'plain'
 		eval returnlist->map({ _, val -> join(val, "\n") })
 		eval returnlist->filter({ _, val -> val =~ '\m.' })
+	elseif mode ==# 'list'
+		eval returnlist->filter({ _, val -> ! empty(val) })
+		eval returnlist->map({ _, val -> string(val) })
 	endif
 	" ---- coda
 	return returnlist

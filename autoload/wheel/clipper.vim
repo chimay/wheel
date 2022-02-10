@@ -19,10 +19,10 @@ fun! wheel#clipper#yank (mode)
 	let default_register = g:wheel_shelve.yank.default_register
 	let lines = wheel#perspective#yank (mode, default_register)
 	" ---- type from mode & register
-	if mode ==# 'list'
-		let type = 'yank/list/'
-	else
+	if mode ==# 'plain'
 		let type = 'yank/'
+	elseif mode ==# 'list'
+		let type = 'yank/list/'
 	endif
 	if default_register ==# 'overview'
 		let type ..= 'overview'

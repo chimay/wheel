@@ -1872,23 +1872,12 @@ Advantages :
 
 - flexible : you can use visual line, char or block mode
 
-Drawbacks :
-
-- more keystrockes to paste multiple lines :
-  + hit `p` on each one
-  + or select them all and `p` next
-  + or use visual mode
-
 List mode~
 
 The yank ring buffer in list mode is launched by `<M-w><M-y>`.
 
 Each line of the dedicated buffer is one of your yanks, represented as a
 list.
-
-Advantages :
-
-- you can paste a full yank with a single keystroke, `<Enter>`, `p` or so
 
 Drawbacks :
 

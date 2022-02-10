@@ -158,10 +158,10 @@ fun! wheel#codex#mandala_switch (mode, register = '')
 		let register = input(prompt, '', complete)
 	endif
 	" ---- type
-	if mode ==# 'list'
-		let type = 'yank/list/'
-	else
+	if mode ==# 'plain'
 		let type = 'yank/'
+	elseif mode ==# 'list'
+		let type = 'yank/list/'
 	endif
 	if register ==# 'overview'
 		let type ..= 'overview'
