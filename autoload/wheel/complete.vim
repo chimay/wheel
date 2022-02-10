@@ -318,24 +318,23 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 	if wordlist[0] !=# 'Wheel'
 		return []
 	endif
+	" ---- last word
+	let last = wordlist[-1]
 	" ---- subcommand
 	let is_partial = cmdline[cursorpos - 1] !~ '\m\s'
 	if length == 1 || (length == 2 && is_partial)
-		return wheel#kyusu#pour(wordlist[1:], s:subcommands)
+		return wheel#kyusu#pour([ last ], s:subcommands)
 	endif
 	" ---- file
 	let subcommand = wordlist[1]
 	let wants_file = subcommand->wheel#chain#is_inside(s:file_subcommands)
 	if wants_file
-		let last = wordlist[-1]
 		if last =~ '\m/'
 			let glob = glob(last .. '*', v:false, v:true)
 			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 			return glob
 		endif
-		let partial = wordlist[2:]
-		let partial = join(partial)
-		return wheel#complete#file (arglead, partial, cursorpos)
+		return wheel#complete#file (arglead, last, cursorpos)
 	endif
 	return []
 endfun
