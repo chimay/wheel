@@ -35,6 +35,11 @@ if ! exists('s:command_meta_prompt_actions')
 				\ [ 'switch-location', "wheel#vortex#switch('location')" ],
 				\ [ 'switch-circle', "wheel#vortex#switch('circle')" ],
 				\ [ 'switch-torus', "wheel#vortex#switch('torus')" ],
+				\ [ 'multi-switch', 'wheel#vortex#multi_switch()' ],
+				\ [ 'index-locations', 'wheel#vortex#helix()' ],
+				\ [ 'index-circles', 'wheel#vortex#grid()' ],
+				\ [ 'history', 'wheel#vortex#history()' ],
+				\ [ 'frecency', 'wheel#vortex#frecency()' ],
 				\ ]
 	lockvar! s:command_meta_prompt_actions
 endif
@@ -44,6 +49,10 @@ if ! exists('s:command_meta_dedibuf_actions')
 				\ [ 'switch-location', "wheel#whirl#switch('location')" ],
 				\ [ 'switch-circle', "wheel#whirl#switch('circle')" ],
 				\ [ 'switch-torus', "wheel#whirl#switch('torus')" ],
+				\ [ 'index-locations', 'wheel#whirl#helix()' ],
+				\ [ 'index-circles', 'wheel#whirl#grid()' ],
+				\ [ 'history', 'wheel#whirl#history()' ],
+				\ [ 'frecency', 'wheel#whirl#frecency()' ],
 				\ ]
 	lockvar! s:command_meta_dedibuf_actions
 endif
