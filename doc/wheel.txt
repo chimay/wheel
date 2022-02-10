@@ -433,9 +433,9 @@ See :
 ------------------------------------------------------------------------------
 MAPPINGS					    *wheel-workflow-mappings*
 
-To avoid conflict with your personal bindings, wheel mappings until
-level 2 included are all using a generic prefix. The first step is to
-choose a prefix you are comfortable with : >
+To avoid conflict with your personal bindings, wheel mappings until level
+2 included are all using a generic prefix. The first step is to choose
+a prefix you are comfortable with. Here are some ideas you could use : >
 
  " default
  let g:wheel_config.prefix = '<M-w>'
