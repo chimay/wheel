@@ -100,7 +100,7 @@ fun! wheel#polyphony#confirm (ask)
 	if exists('v:cmdbang') && v:cmdbang == 1
 		return v:true
 	endif
-	let prompt = 'Reflect mandala changes to original elements ?'
+	let prompt = 'Reflect your changes to original elements ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 2)
 	if confirm != 1
 		return v:false
