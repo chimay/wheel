@@ -3758,8 +3758,8 @@ work in your setup : >
     vmap <silent> <d-n>       <plug>(wheel-dedibuf-narrow)
 
     " yank ring
-    nmap <silent> <d-y>       <plug>(wheel-dedibuf-yank-list)
-    nmap <silent> <d-p>       <plug>(wheel-dedibuf-yank-plain)
+    nmap <silent> <d-y>       <plug>(wheel-dedibuf-yank-plain)
+    nmap <silent> <d-p>       <plug>(wheel-dedibuf-yank-list)
 
     " undo list
     nmap <silent> <d-u>       <plug>(wheel-dedibuf-undo-list)
