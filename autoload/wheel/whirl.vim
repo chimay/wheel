@@ -8,13 +8,13 @@ fun! wheel#whirl#switch (level)
 	" Choose an element of level to switch to
 	let level = a:level
 	if wheel#referen#is_upper_empty (level)
-		let upper = wheel#referen#upper_level_name (level)
-		echomsg 'wheel whirl switch : empty' upper
+		let upper_name = wheel#referen#upper_level_name (level)
+		echomsg 'wheel whirl switch : empty' upper_name
 		return v:false
 	endif
 	let lines = wheel#perspective#element (level)
 	call wheel#mandala#blank ('switch/' .. level)
-	let settings = {'level' : level}
+	let settings = { 'level' : level }
 	call wheel#river#template (settings)
 	if ! empty(lines)
 		call wheel#mandala#fill(lines)

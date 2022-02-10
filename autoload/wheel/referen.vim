@@ -169,7 +169,7 @@ endfun
 
 fun! wheel#referen#is_empty (level)
 	" Whether current level element is empty
-	" Wheel can be wheel, torus, circle or location
+	" Level can be wheel, torus, circle or location
 	let level = a:level
 	let elem = wheel#referen#current (level)
 	if level ==# 'location'
@@ -188,8 +188,14 @@ endfun
 
 fun! wheel#referen#is_upper_empty (level)
 	" Whether upper level element is empty
-	" Wheel can be torus, circle or location
-	return empty(wheel#referen#current (a:level))
+	" Level can be torus, circle or location
+	let level = a:level
+	let elem = wheel#referen#upper (level)
+	if empty(elem) || empty(elem.glossary)
+		return v:true
+	else
+		return v:false
+	endif
 endfun
 
 " ---- current file in wheel ?
