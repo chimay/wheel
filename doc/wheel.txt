@@ -445,6 +445,9 @@ choose a prefix you are comfortable with : >
 
  " great if you don't use space as map leader
  let g:wheel_config.prefix = '<Space>'
+
+ " if you don't use backslash as map leader
+ let g:wheel_config.prefix = '\'
 <
 
 This is fine, but can quickly become tedious for often used functions. In

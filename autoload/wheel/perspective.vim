@@ -580,7 +580,7 @@ fun! wheel#perspective#yank (mode, register = 'unnamed')
 	let yank_dict = g:wheel_yank
 	" ---- yank list
 	if register ==# 'overview'
-		" -- overview all registers
+		" -- overview of all registers
 		let returnlist = []
 		let register_list = wheel#matrix#items2keys(s:registers_symbols)
 		for register in register_list
