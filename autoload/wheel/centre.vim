@@ -7,8 +7,18 @@
 " ---- script constants
 
 if ! exists('s:meta_actions')
-	let s:meta_actions = wheel#crystal#fetch('command/meta/actions')
+	let s:meta_actions = wheel#crystal#fetch('command/meta/actions', 'dict')
 	lockvar s:meta_actions
+endif
+
+if ! exists('s:meta_prompt_actions')
+	let s:meta_prompt_actions = wheel#crystal#fetch('command/meta/prompt/actions', 'dict')
+	lockvar s:meta_prompt_actions
+endif
+
+if ! exists('s:meta_dedibuf_actions')
+	let s:meta_dedibuf_actions = wheel#crystal#fetch('command/meta/dedibuf/actions', 'dict')
+	lockvar s:meta_dedibuf_actions
 endif
 
 " ---- commands
@@ -17,6 +27,19 @@ fun! wheel#centre#meta (subcommand, ...)
 	" Function for meta command
 	let subcommand = a:subcommand
 	let arguments = a:000
+	" ---- prompt
+	if subcommand ==# 'prompt'
+		let subcom = arguments[0]
+		let action = s:meta_prompt_actions[subcom]
+		return eval(action)
+	endif
+	" ---- dedibuf
+	if subcommand ==# 'dedibuf'
+		let subcom = arguments[0]
+		let action = s:meta_dedibuf_actions[subcom]
+		return eval(action)
+	endif
+	" ---- others actions
 	let action = s:meta_actions[subcommand]
 	if subcommand ==# 'batch'
 		let arguments = join(arguments)

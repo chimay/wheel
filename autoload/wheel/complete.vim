@@ -25,19 +25,19 @@ if ! exists('s:registers_symbols')
 	lockvar s:registers_symbols
 endif
 
-if ! exists('s:subcommands')
-	let s:subcommands = wheel#crystal#fetch('command/meta/subcommands')
-	lockvar s:subcommands
+if ! exists('s:subcommands_actions')
+	let s:subcommands_actions = wheel#crystal#fetch('command/meta/actions')
+	lockvar s:subcommands_actions
 endif
 
-if ! exists('s:prompt_subcommands')
-	let s:prompt_subcommands = wheel#crystal#fetch('command/meta/subcommands/prompt')
-	lockvar s:prompt_subcommands
+if ! exists('s:prompt_actions')
+	let s:prompt_actions = wheel#crystal#fetch('command/meta/prompt/actions')
+	lockvar s:prompt_actions
 endif
 
-if ! exists('s:dedibuf_subcommands')
-	let s:dedibuf_subcommands = wheel#crystal#fetch('command/meta/subcommands/dedibuf')
-	lockvar s:dedibuf_subcommands
+if ! exists('s:dedibuf_actions')
+	let s:dedibuf_actions = wheel#crystal#fetch('command/meta/dedibuf/actions')
+	lockvar s:dedibuf_actions
 endif
 
 if ! exists('s:file_subcommands')
@@ -334,27 +334,30 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 	" ---- cursor after a partial word ?
 	let blank = cmdline[cursorpos - 1] =~ '\m\s'
 	" ---- subcommand
+	let subcommands = wheel#matrix#items2keys(s:subcommands_actions)
 	if length == 1 && blank
-		return s:subcommands
+		return subcommands
 	endif
 	if length == 2 && ! blank
-		return wheel#kyusu#pour(last_list, s:subcommands)
+		return wheel#kyusu#pour(last_list, subcommands)
 	endif
 	let subcommand = wordlist[1]
 	" ---- prompting functions
+	let prompt_subcmds = wheel#matrix#items2keys(s:prompt_actions)
 	if subcommand ==# 'prompt'
 		if blank
-			return s:prompt_subcommands
+			return prompt_subcmds
 		else
-			return wheel#kyusu#pour(last_list, s:prompt_subcommands)
+			return wheel#kyusu#pour(last_list, prompt_subcmds)
 		endif
 	endif
 	" ---- dedicated buffers
+	let dedibuf_subcmds = wheel#matrix#items2keys(s:dedibuf_actions)
 	if subcommand ==# 'dedibuf'
 		if blank
-			return s:dedibuf_subcommands
+			return dedibuf_subcmds
 		else
-			return wheel#kyusu#pour(last_list, s:dedibuf_subcommands)
+			return wheel#kyusu#pour(last_list, dedibuf_subcmds)
 		endif
 	endif
 	" ---- file

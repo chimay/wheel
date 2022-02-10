@@ -389,21 +389,7 @@ if ! exists('s:context_yank_plain')
 	lockvar! s:context_yank_plain
 endif
 
-
 " ---- public interface
-
-fun! wheel#quartz#clear (varname)
-	" Unlet script variable called varname
-	let varname = a:varname
-	let varname = substitute(varname, '/', '_', 'g')
-	let varname = substitute(varname, '-', '_', 'g')
-	let varname = substitute(varname, ' ', '_', 'g')
-	if varname !~ '\m^s:'
-		let varname = 's:' .. varname
-	endif
-	unlet {varname}
-	return varname
-endfun
 
 fun! wheel#quartz#fetch (varname, conversion = 'no-conversion')
 	" Return script variable called varname
@@ -413,28 +399,21 @@ fun! wheel#quartz#fetch (varname, conversion = 'no-conversion')
 	"   - dict : if varname points to an items list, convert it to a dictionary
 	let varname = a:varname
 	let conversion = a:conversion
+	" ---- variable name
 	let varname = substitute(varname, '/', '_', 'g')
 	let varname = substitute(varname, '-', '_', 'g')
 	let varname = substitute(varname, ' ', '_', 'g')
 	if varname !~ '\m^s:'
 		let varname = 's:' .. varname
 	endif
+	" ---- delegate to pearl for commands
+	if ! exists(varname)
+		return wheel#pearl#fetch (varname, conversion)
+	endif
+	" ---- raw or conversion
 	if conversion ==# 'dict' && wheel#matrix#is_nested_list ({varname})
 		return wheel#matrix#items2dict ({varname})
 	else
 		return {varname}
 	endif
-endfun
-
-fun! wheel#quartz#rainbow ()
-	" Returns list of current script vars
-	let position = getcurpos ()
-	let command = 'global /^\s*let s:/ print'
-	let lines = execute(command)
-	call setpos('.', position)
-	let varnames = split(lines, '\n')
-	eval varnames->map({ _, val -> substitute(val, '^.*let ', '', '') })
-	eval varnames->map({ _, val -> substitute(val, '\s*=.*', '', '') })
-	eval varnames->map({ _, val -> substitute(val, '^s:', '', '') })
-	return wheel#chain#unique (varnames)
 endfun

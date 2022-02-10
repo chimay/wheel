@@ -3819,8 +3819,16 @@ META COMMAND						*wheel-commands-meta*
 The main command is :
 
 :Wheel							*:Wheel*
-    Meta command that accepts a serie of sub-commands, described in the
-    following sections.
+    Meta command that accepts a serie of sub-commands, described in
+    the following sections. Completion of sub-commands and subsequent
+    is available.
+
+There is a slight difference with the usual completion however : if you
+want to filter with multi-patterns, separate them with a comma instead
+of a space, e.g. : >
+
+    :Wheel c,y<tab> -> :Wheel copy
+<
 
 ------------------------------------------------------------------------------
 WHEEL STATUS						*wheel-commands-status*
@@ -4045,7 +4053,7 @@ of the modules within them.
 | clipper.vim       | Yank dedicated buffer                          |
 | codex.vim         | Yank ring                                      |
 | complete.vim      | Completion functions                           |
-| crystal.vim       | Internal variables                             |
+| crystal.vim       | Internal constants                             |
 | cuboctahedron.vim | Full information of each mandala line          |
 | cuckoo.vim        | Frecency : frequent & recent                   |
 | curve.vim         | Activate wheel line in dedicated buffers       |
@@ -4069,13 +4077,14 @@ of the modules within them.
 | mirror.vim        | Organize native vim elements                   |
 | mosaic.vim        | Windows & tabs Layouts                         |
 | orbiter.vim       | Preview for dedicated buffers                  |
+| pearl.vim         | Internal constants for commands                |
 | pencil.vim        | Selection in dedicated buffers                 |
 | pendulum.vim      | Wheel history                                  |
 | perspective.vim   | Content generators for dedicated buffers       |
 | polyphony.vim     | Writable aspect of dedicated buffers           |
 | projection.vim    | Find wheel location of current buffer          |
 | pyramid.vim       | Mix of tabs & splits layouts                   |
-| quartz.vim        | Internal variables for dedicated buffers menus |
+| quartz.vim        | Internal constants for dedicated buffers menus |
 | rectangle.vim     | Tabs, windows & buffers                        |
 | referen.vim       | References to current wheel elements           |
 | ripple.vim        | Async job for vim                              |
