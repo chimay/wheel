@@ -117,6 +117,28 @@ fun! wheel#void#input ()
 	endif
 endfun
 
+fun! wheel#void#shelve ()
+	" Initialize shelve : misc status variables
+	if ! exists('g:wheel_shelve')
+		let g:wheel_shelve = {}
+	endif
+	" ---- yank ring
+	if ! has_key(g:wheel_shelve, 'yank')
+		let g:wheel_shelve.yank = {}
+	endif
+	if ! has_key(g:wheel_shelve.yank, 'default_register')
+		let g:wheel_shelve.yank.default_register = 'unnamed'
+	endif
+	" ---- tabs and windows layouts
+	if ! has_key(g:wheel_shelve, 'layout')
+		let g:wheel_shelve.layout = {}
+	endif
+	" ---- backup some vars if needed
+	if ! has_key(g:wheel_shelve, 'backup')
+		let g:wheel_shelve.backup = {}
+	endif
+endfun
+
 fun! wheel#void#attic ()
 	" Initialize most recently used files
 	if ! exists('g:wheel_attic')
@@ -158,28 +180,6 @@ fun! wheel#void#yank ()
 	endif
 	if ! has_key(g:wheel_yank, 'alternate')
 		let g:wheel_yank.alternate = []
-	endif
-endfun
-
-fun! wheel#void#shelve ()
-	" Initialize shelve : misc status variables
-	if ! exists('g:wheel_shelve')
-		let g:wheel_shelve = {}
-	endif
-	" ---- yank ring
-	if ! has_key(g:wheel_shelve, 'yank')
-		let g:wheel_shelve.yank = {}
-	endif
-	if ! has_key(g:wheel_shelve.yank, 'default_register')
-		let g:wheel_shelve.yank.default_register = 'unnamed'
-	endif
-	" ---- tabs and windows layouts
-	if ! has_key(g:wheel_shelve, 'layout')
-		let g:wheel_shelve.layout = {}
-	endif
-	" ---- backup some vars if needed
-	if ! has_key(g:wheel_shelve, 'backup')
-		let g:wheel_shelve.backup = {}
 	endif
 endfun
 
@@ -399,9 +399,9 @@ fun! wheel#void#foundation ()
 	call wheel#void#files ()
 	call wheel#void#history ()
 	call wheel#void#input ()
+	call wheel#void#shelve ()
 	call wheel#void#attic ()
 	call wheel#void#yank ()
-	call wheel#void#shelve ()
 	" -- config
 	call wheel#void#config ()
 	" -- non persistent wheel variables

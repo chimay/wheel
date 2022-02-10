@@ -365,9 +365,9 @@ fun! wheel#disc#write_wheel (...)
 	call wheel#disc#writefile('g:wheel_files', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_history', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_input', wheel_file, '>>')
+	call wheel#disc#writefile('g:wheel_shelve', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_attic', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
-	call wheel#disc#writefile('g:wheel_shelve', wheel_file, '>>')
 	echomsg 'Writing done !'
 	return v:true
 endfun
