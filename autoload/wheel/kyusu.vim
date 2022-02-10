@@ -6,8 +6,9 @@
 "   - prompt completion
 "   - dedicated buffers (mandalas)
 "
-" A kyusu is a japanese traditional teapot,
-" often provided with a filter inside
+" A kyusu is a japanese traditional teapot, often provided with a filter inside
+"
+" A kabusecha is a shaded japanese tea
 "
 " A gaiwan is a chinese tea cup
 
@@ -89,7 +90,7 @@ fun! wheel#kyusu#intermix (wordlist, index, value, ternar)
 	return pass
 endfun
 
-fun! wheel#kyusu#unfold (wordlist, matrix, ternar)
+fun! wheel#kyusu#kabusecha (wordlist, matrix, ternar)
 	" Remove non-matching empty folds
 	let wordlist = a:wordlist
 	let matrix = a:matrix
@@ -186,8 +187,8 @@ fun! wheel#kyusu#gaiwan ()
 	endfor
 	let matrix = [filtered_indexes, filtered_values]
 	" ---- remove folds two times : cleans a level each time
-	let matrix = wheel#kyusu#unfold (wordlist, matrix, ternar)
-	let matrix = wheel#kyusu#unfold (wordlist, matrix, ternar)
+	let matrix = wheel#kyusu#kabusecha (wordlist, matrix, ternar)
+	let matrix = wheel#kyusu#kabusecha (wordlist, matrix, ternar)
 	" ---- coda
 	return matrix
 endfun
