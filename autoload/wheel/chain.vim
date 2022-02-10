@@ -165,20 +165,22 @@ endfun
 
 fun! wheel#chain#rotate_left (list)
 	" Rotate list to the left
-	if len(a:list) > 1
-		let rotated = deepcopy(a:list[1:]) + deepcopy([a:list[0]])
+	let list = a:list
+	if len(list) > 1
+		let rotated = deepcopy(list[1:]) + deepcopy([list[0]])
 	else
-		let rotated = deepcopy(a:list)
+		let rotated = deepcopy(list)
 	endif
 	return rotated
 endfun
 
 fun! wheel#chain#rotate_right (list)
 	" Rotate list to the right
-	if len(a:list) > 1
-		let rotated = deepcopy([a:list[-1]]) + deepcopy(a:list[:-2])
+	let list = a:list
+	if len(list) > 1
+		let rotated = deepcopy([list[-1]]) + deepcopy(list[:-2])
 	else
-		let rotated = deepcopy(a:list)
+		let rotated = deepcopy(list)
 	endif
 	return rotated
 endfun
@@ -209,10 +211,11 @@ endfun
 
 fun! wheel#chain#swap_first_two (list)
 	" Swap first and second element of list
-	if len(a:list) > 1
-		return deepcopy([a:list[1]]) + deepcopy([a:list[0]]) + deepcopy(a:list[2:])
+	let list = a:list
+	if len(list) > 1
+		return deepcopy([list[1]]) + deepcopy([list[0]]) + deepcopy(list[2:])
 	else
-		return deepcopy(a:list)
+		return deepcopy(list)
 	endif
 endfun
 
@@ -220,9 +223,11 @@ endfun
 
 fun! wheel#chain#sublist (list, indexes)
 	" Returns list[indexes]
+	let list = a:list
+	let indexes = a:indexes
 	let sublist = []
-	for ind in a:indexes
-		eval sublist->add(deepcopy(a:list[ind]))
+	for ind in indexes
+		eval sublist->add(deepcopy(list[ind]))
 	endfor
 	return sublist
 endfun
