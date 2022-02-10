@@ -236,7 +236,7 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	let directory = fnamemodify(file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
 	if returnstring ==# 'failure'
-		return v:false
+		return 'failure'
 	endif
 	" write
 	let string = 'let ' .. varname .. ' = ' .. string({varname})
@@ -253,49 +253,35 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 			return 'failure'
 		endif
 	endif
+	return 'success'
 endfun
 
-fun! wheel#disc#write (pointer, file, where = '>')
-	" Write variable referenced by pointer to file
-	" in a format that can be :sourced
-	" Note : pointer = variable name in vim script
-	" If optional argument 1 is :
-	"   - '>' : replace file content (default)
-	"   - '>>' : append to file content
-	" Doesn't work well with some abbreviated echoed variables content in vim
-	" disc#writefile is more reliable with vim
-	let pointer = a:pointer
-	if ! exists(pointer)
-		return
-	endif
-	let file = fnamemodify(a:file, ':p')
-	let where = a:where
-	" create directory if needed
-	let directory = fnamemodify(file, ':h')
-	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring ==# 'failure'
-		return v:false
-	endif
-	" write
-	let var = {pointer}
-	redir => content
-	silent! echo 'let' pointer '=' var
-	redir END
-	let content = substitute(content, '\m[=,]', '\0\n\\', 'g')
-	let content = substitute(content, '\m\n\{2,\}', '\n', 'g')
-	exec 'redir!' where file
-	silent! echo content
-	redir END
-endfun
-
-fun! wheel#disc#read (file)
+fun! wheel#disc#readfile (file)
 	" Read file
 	let file = fnamemodify(a:file, ':p')
-	if filereadable(file)
-		execute 'source' file
-	else
+	if ! filereadable(file)
 		echomsg 'Could not read' file
 	endif
+	let lines = readfile(file)
+	" ---- loop on variables
+	let start = lines->match('^let g:wheel')
+	while start >= 0
+		let end = lines->match('^let g:wheel', start + 1) - 1
+		if end < 0
+			let slice = lines[start:]
+		else
+			let slice = lines[start:end]
+		endif
+		if len(slice) > 1
+			let following = slice[1:]
+			" -- remove the backslashes at beginning of each line
+			eval following->map({ _, val -> val[1:] })
+			let slice = [ slice[0] ] + following
+		endif
+		let string = join(slice)
+		execute string
+		let start = end + 1
+	endwhile
 endfun
 
 " ---- arguments at (neo)vim startup
@@ -389,7 +375,7 @@ fun! wheel#disc#read_wheel (...)
 	if init_argc == 0
 		echomsg 'Reading wheel variables from file ..'
 	endif
-	call wheel#disc#read (wheel_file)
+	call wheel#disc#readfile (wheel_file)
 	call wheel#kintsugi#wheel_file ()
 	if init_argc == 0
 		call wheel#vortex#jump ()
