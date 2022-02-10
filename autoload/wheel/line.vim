@@ -292,40 +292,6 @@ endfun
 
 " -- paste
 
-fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
-	" Paste line(s) from yank buffer in list mode
-	let where = a:where
-	let close = a:close
-	" ---- format selection
-	let selection = wheel#pencil#selection ()
-	let content = deepcopy(selection.components)
-	eval content->map({ _, list_string -> eval(list_string) })
-	eval content->map({ _, list -> join(list, "\n") })
-	" ---- paste
-	call wheel#rectangle#goto_previous ()
-	if where ==# 'linewise-after'
-		call setreg('"', content, 'l')
-		put =content
-	elseif where ==# 'linewise-before'
-		call setreg('"', content, 'l')
-		put! =content
-	elseif where ==# 'charwise-after'
-		call setreg('"', content, 'c')
-		normal! p
-	elseif where ==# 'charwise-before'
-		call setreg('"', content, 'c')
-		normal! P
-	endif
-	" --- climbing content
-	call wheel#codex#climb(content)
-	" ---- coda
-	call wheel#cylinder#recall ()
-	if close ==# 'close'
-		call wheel#cylinder#close ()
-	endif
-	return win_getid ()
-endfun
-
 fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in plain mode
 	let where = a:where
@@ -380,6 +346,40 @@ fun! wheel#line#paste_visual (...)
 	elseif where ==# 'before'
 		normal! P
 	endif
+	call wheel#cylinder#recall ()
+	if close ==# 'close'
+		call wheel#cylinder#close ()
+	endif
+	return win_getid ()
+endfun
+
+fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
+	" Paste line(s) from yank buffer in list mode
+	let where = a:where
+	let close = a:close
+	" ---- format selection
+	let selection = wheel#pencil#selection ()
+	let content = deepcopy(selection.components)
+	eval content->map({ _, list_string -> eval(list_string) })
+	eval content->map({ _, list -> join(list, "\n") })
+	" ---- paste
+	call wheel#rectangle#goto_previous ()
+	if where ==# 'linewise-after'
+		call setreg('"', content, 'l')
+		put =content
+	elseif where ==# 'linewise-before'
+		call setreg('"', content, 'l')
+		put! =content
+	elseif where ==# 'charwise-after'
+		call setreg('"', content, 'c')
+		normal! p
+	elseif where ==# 'charwise-before'
+		call setreg('"', content, 'c')
+		normal! P
+	endif
+	" --- climbing content
+	call wheel#codex#climb(content)
+	" ---- coda
 	call wheel#cylinder#recall ()
 	if close ==# 'close'
 		call wheel#cylinder#close ()

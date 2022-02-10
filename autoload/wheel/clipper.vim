@@ -4,12 +4,34 @@
 "
 " Yank dedicated buffers
 
+" ---- script constants
+
+if ! exists('s:registers_symbols')
+	let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
+	lockvar s:registers_symbols
+endif
+
+" ---- functions
+
 fun! wheel#clipper#yank (mode)
 	" Choose yank and paste
 	let mode = a:mode
 	let default_register = g:wheel_shelve.yank.default_register
 	let lines = wheel#perspective#yank (mode, default_register)
-	call wheel#mandala#blank ('yank/' .. mode)
+	" ---- type from mode & register
+	if mode ==# 'list'
+		let type = 'yank/list/'
+	else
+		let type = 'yank/'
+	endif
+	if default_register ==# 'overview'
+		let type ..= 'overview'
+	else
+		let symbols_dict = wheel#matrix#items2dict(s:registers_symbols)
+		let type ..= symbols_dict[default_register]
+	endif
+	" ---- mandala
+	call wheel#mandala#blank (type)
 	let settings = {'mode' : mode}
 	call wheel#codex#template(settings)
 	call wheel#mandala#fill (lines)

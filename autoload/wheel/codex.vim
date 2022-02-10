@@ -92,6 +92,28 @@ fun! wheel#codex#prompt_switch (register = '')
 	let g:wheel_shelve.yank.default_register = register
 endfun
 
+fun! wheel#codex#yank_plain (where = 'linewise-after')
+	" Paste yank from yank ring in plain mode
+	let where = a:where
+	let prompt = 'Yank element (' .. where .. ') : '
+	let complete = 'customlist,wheel#complete#yank_plain'
+	let content = input(prompt, '', complete)
+	if where ==# 'linewise-after'
+		call setreg('"', content, 'l')
+		put =content
+	elseif where ==# 'linewise-before'
+		call setreg('"', content, 'l')
+		put! =content
+	elseif where ==# 'charwise-after'
+		call setreg('"', content, 'c')
+		normal! p
+	elseif where ==# 'charwise-before'
+		call setreg('"', content, 'c')
+		normal! P
+	endif
+	call wheel#codex#climb([ content ])
+endfun
+
 fun! wheel#codex#yank_list (where = 'linewise-after')
 	" Paste yank from yank ring in list mode
 	let where = a:where
@@ -115,28 +137,6 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	call wheel#codex#climb(content)
 endfun
 
-fun! wheel#codex#yank_plain (where = 'linewise-after')
-	" Paste yank from yank ring in plain mode
-	let where = a:where
-	let prompt = 'Yank element (' .. where .. ') : '
-	let complete = 'customlist,wheel#complete#yank_plain'
-	let content = input(prompt, '', complete)
-	if where ==# 'linewise-after'
-		call setreg('"', content, 'l')
-		put =content
-	elseif where ==# 'linewise-before'
-		call setreg('"', content, 'l')
-		put! =content
-	elseif where ==# 'charwise-after'
-		call setreg('"', content, 'c')
-		normal! p
-	elseif where ==# 'charwise-before'
-		call setreg('"', content, 'c')
-		normal! P
-	endif
-	call wheel#codex#climb([ content ])
-endfun
-
 " ---- mandala
 
 fun! wheel#codex#mandala_switch (mode, register = '')
@@ -148,11 +148,28 @@ fun! wheel#codex#mandala_switch (mode, register = '')
 		let complete = 'customlist,wheel#complete#register'
 		let register = input(prompt, '', complete)
 	endif
+	" ---- type
+	if mode ==# 'list'
+		let type = 'yank/list/'
+	else
+		let type = 'yank/'
+	endif
+	if register ==# 'overview'
+		let type ..= 'overview'
+	else
+		let symbols_dict = wheel#matrix#items2dict(s:registers_symbols)
+		let type ..= symbols_dict[register]
+	endif
+	" ---- properties
+	let b:wheel_nature.type = type
+	let b:wheel_nature.yank.register = register
+	" ---- lines
 	let lines = wheel#perspective#yank(mode, register)
 	call wheel#teapot#reset ()
 	call wheel#mandala#fill(lines)
-	" --- property
-	let b:wheel_nature.yank.register = register
+	" ---- status
+	call wheel#cylinder#update_type ()
+	call wheel#status#mandala_leaf ()
 endfun
 
 fun! wheel#codex#undo ()

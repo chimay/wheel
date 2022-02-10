@@ -232,12 +232,10 @@ fun! wheel#mandala#clear ()
 	call wheel#mandala#init ()
 endfun
 
-" mandala pseudo filename
+" mandala type
 
 fun! wheel#mandala#set_type (type)
-	" Set type & buffer filename to pseudo filename
-	" Useful as information
-	" We also need a name when writing, even with BufWriteCmd
+	" Set mandala type
 	let type = a:type
 	let b:wheel_nature.type = type
 	if type ==# 'empty'
@@ -503,8 +501,8 @@ endfun
 
 fun! wheel#mandala#reload ()
 	" Reload current mandala
-	" -- save pseudo filename
-	let filename = expand('%')
+	" -- save type
+	let type = b:wheel_nature.type
 	" -- mark the buffer as empty, to avoid adding a leaf in wheel#mandala#blank
 	call wheel#mandala#set_type ('empty')
 	" -- reinitialize buffer vars
@@ -516,9 +514,9 @@ fun! wheel#mandala#reload ()
 		call wheel#status#message('wheel :', function, 'reloaded')
 	else
 		" if b:wheel_reload is empty, replace the buffer with b:wheel_lines
-		call wheel#mandala#replace (b:wheel_lines, 'empty-prompt-first')
-		" restore
-		execute 'silent file' filename
+		call wheel#mandala#replace (b:wheel_lines)
+		" restore type
+		call wheel#mandala#set_type ('empty')
 		echomsg 'wheel : content reloaded'
 	endif
 endfun
