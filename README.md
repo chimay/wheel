@@ -197,9 +197,9 @@ This project is inspired by :
 - [quickfix-reflector](https://github.com/stefandtw/quickfix-reflector.vim),
   for the grep edit mode
 
-- [narrow](https://github.com/chrisbra/NrrwRgn), for the narrow dedicated buffers
+- [NrrwRgn](https://github.com/chrisbra/NrrwRgn), for the narrow dedicated buffers
 
-- [yankring](https://github.com/vim-scripts/YankRing.vim), whose name is
+- [YankRing](https://github.com/vim-scripts/YankRing.vim), whose name is
   self-explanatory
 
 ## Prerequisites
