@@ -156,6 +156,8 @@ fun! wheel#codex#mandala_switch (mode, register = '')
 	endif
 	if register ==# 'overview'
 		let type ..= 'overview'
+	elseif register ==# 'file'
+		let type ..= '%%'
 	else
 		let symbols_dict = wheel#matrix#items2dict(s:registers_symbols)
 		let type ..= symbols_dict[register]

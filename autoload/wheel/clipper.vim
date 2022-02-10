@@ -26,6 +26,8 @@ fun! wheel#clipper#yank (mode)
 	endif
 	if default_register ==# 'overview'
 		let type ..= 'overview'
+	elseif default_register ==# 'file'
+		let type ..= '%%'
 	else
 		let symbols_dict = wheel#matrix#items2dict(s:registers_symbols)
 		let type ..= symbols_dict[default_register]
