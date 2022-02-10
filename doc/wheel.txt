@@ -3046,12 +3046,20 @@ Dedicated buffers :
 
 Search for files~
 
+Prompting functions :
+
 | Prefix + | With default prefix | Action                                      |
 | -------- | ------------------- | ------------------------------------------- |
-| f        | <M-w>f              | Find file in current directory tree, prompt |
-| <M-f>    | <M-w><M-f>          | Find file, dedicated buffer                 |
+| f        | <M-w>f              | Find file in current directory tree         |
+| u        | <M-w>u              | Most recently used files not found in wheel |
+
+Dedicated buffers :
+
+| Prefix + | With default prefix | Action                                      |
+| -------- | ------------------- | ------------------------------------------- |
+| <M-f>    | <M-w><M-f>          | Find file in current directory tree         |
 | &f       | <M-w>&f             | Search files with find in async mode        |
-| u        | <M-w><M-u>          | Most recently used files not found in wheel |
+| <M-u>    | <M-w><M-u>          | Most recently used files not found in wheel |
 | l        | <M-w>l              | Search files with locate                    |
 
 Search inside files~
