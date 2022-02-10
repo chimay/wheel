@@ -41,7 +41,7 @@ fun! wheel#polyphony#score (fun_name, arguments)
 	let arguments = string(a:arguments)
 	if fun_name =~ '#'
 		" fun_name is the complete function name
-		let funcall = "call call('" .. fun_name .. "', " .. arguments .. ')'
+		let funcall = 'call call(' .. string(fun_name) .. ', ' .. arguments .. ')'
 	else
 		" fun_name is the last part of the function
 		let funcall = "call call('wheel#harmony#"

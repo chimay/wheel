@@ -22,7 +22,7 @@ fun! wheel#whirl#switch (level)
 		echomsg 'wheel whirl switch : empty or incomplete' level
 	endif
 	" reload
-	let b:wheel_reload = "wheel#whirl#switch('" .. level .. "')"
+	let b:wheel_reload = 'wheel#whirl#switch(' .. string(level) .. ')'
 endfun
 
 fun! wheel#whirl#helix ()

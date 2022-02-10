@@ -50,7 +50,7 @@ fun! wheel#shadow#grep_edit (...)
 	call wheel#polyphony#counterpoint ('grep_edit')
 	call wheel#mandala#fill (lines)
 	" ---- reload
-	let b:wheel_reload = "wheel#shadow#grep_edit('" .. pattern .. "', '" .. sieve .. "')"
+	let b:wheel_reload = 'wheel#shadow#grep_edit(' .. string(pattern) .. ', ' .. string(sieve) .. ')'
 	" ---- coda
 	echomsg 'adding or removing lines is not supported'
 	return lines
@@ -123,7 +123,7 @@ fun! wheel#shadow#narrow_file (...) range
 	" -- settings
 	let b:wheel_settings = settings
 	" -- reload
-	let b:wheel_reload = "wheel#shadow#narrow_file('" .. first .. "', '" .. last .. "')"
+	let b:wheel_reload = 'wheel#shadow#narrow_file(' .. string(first) .. ', ' .. string(last) .. ')'
 endfun
 
 fun! wheel#shadow#narrow_circle (...)
@@ -158,6 +158,6 @@ fun! wheel#shadow#narrow_circle (...)
 	" -- settings
 	let b:wheel_settings = settings
 	" -- reload
-	let b:wheel_reload = "wheel#shadow#narrow_circle('" .. pattern .. "', '" .. sieve .. "')"
+	let b:wheel_reload = 'wheel#shadow#narrow_circle(' .. string(pattern) .. ', ' .. string(sieve) .. ")"
 	echomsg 'adding or removing lines is not supported'
 endfun

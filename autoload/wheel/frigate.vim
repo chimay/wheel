@@ -53,7 +53,7 @@ fun! wheel#frigate#buffer (scope = 'listed')
 	" context menu
 	call wheel#boomerang#launch_map (type)
 	" reload
-	let b:wheel_reload = "wheel#frigate#buffer('" .. scope .. "')"
+	let b:wheel_reload = 'wheel#frigate#buffer(' .. string(scope) .. ')'
 endfun
 
 fun! wheel#frigate#tabwin_tree ()
@@ -175,7 +175,7 @@ fun! wheel#frigate#locate (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = "wheel#frigate#locate('" .. pattern .. "')"
+	let b:wheel_reload = 'wheel#frigate#locate(' .. string(pattern) .. ')'
 endfun
 
 fun! wheel#frigate#find (...)
@@ -196,7 +196,7 @@ fun! wheel#frigate#find (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = "wheel#frigate#find('" .. pattern .. "')"
+	let b:wheel_reload = 'wheel#frigate#find(' .. string(pattern) .. ')'
 endfun
 
 fun! wheel#frigate#async_find (...)
@@ -231,7 +231,7 @@ fun! wheel#frigate#async_find (...)
 	let settings = #{ function : 'wheel#line#find' }
 	call wheel#river#template (settings)
 	" reload
-	let b:wheel_reload = "wheel#frigate#async_find('" .. pattern .. "')"
+	let b:wheel_reload = 'wheel#frigate#async_find(' .. string(pattern) .. ')'
 endfun
 
 " ---- search inside files
@@ -259,7 +259,7 @@ fun! wheel#frigate#occur (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = "wheel#frigate#occur('" .. pattern .. "')"
+	let b:wheel_reload = 'wheel#frigate#occur(' .. string(pattern) .. ')'
 endfun
 
 fun! wheel#frigate#grep (...)
@@ -288,7 +288,7 @@ fun! wheel#frigate#grep (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = "wheel#frigate#grep('" .. pattern .. "', '" .. sieve .. "')"
+	let b:wheel_reload = 'wheel#frigate#grep(' .. string(pattern) .. ', ' .. string(sieve) .. ')'
 	" Context menu
 	call wheel#boomerang#launch_map ('grep')
 	" Useful if we choose edit mode on the context menu
@@ -322,6 +322,6 @@ fun! wheel#frigate#outline (...)
 	if ! empty(lines)
 		call wheel#mandala#set_type ('outline')
 		" reload
-		let b:wheel_reload = "wheel#frigate#outline('" .. mode .. "')"
+		let b:wheel_reload = 'wheel#frigate#outline(' .. string(mode) .. ")"
 	endif
 endfun

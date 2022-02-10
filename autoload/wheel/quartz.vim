@@ -294,7 +294,7 @@ if ! exists('s:menu_meta')
 	let s:menu_meta = []
 	for name in s:menu_list
 		let s:formated = substitute(name, ' ', '_', 'g')
-		let s:function = "wheel#helm#submenu('" .. s:formated .. "')"
+		let s:function = 'wheel#helm#submenu(' .. string(s:formated) .. ')'
 		eval s:menu_meta->add([name, s:function])
 	endfor
 	lockvar! s:menu_meta

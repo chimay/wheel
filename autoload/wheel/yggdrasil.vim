@@ -22,7 +22,7 @@ fun! wheel#yggdrasil#reorder (level)
 	call wheel#polyphony#counterpoint ('reorder', level)
 	call wheel#mandala#fill(lines)
 	" -- reload
-	let b:wheel_reload = "wheel#yggdrasil#reorder('" .. level .. "')"
+	let b:wheel_reload = 'wheel#yggdrasil#reorder(' .. string(level) .. ')'
 	" -- additional maps
 	" sort
 	nnoremap <buffer> <m-s> <cmd>2,$sort<cr>
@@ -49,7 +49,7 @@ fun! wheel#yggdrasil#rename (level)
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
-	let b:wheel_reload = "wheel#yggdrasil#rename('" .. level .. "')"
+	let b:wheel_reload = 'wheel#yggdrasil#rename(' .. string(level) .. ')'
 endfun
 
 fun! wheel#yggdrasil#rename_file ()
@@ -93,7 +93,7 @@ fun! wheel#yggdrasil#delete (level)
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
-	let b:wheel_reload = "wheel#yggdrasil#delete('" .. level .. "')"
+	let b:wheel_reload = 'wheel#yggdrasil#delete(' .. string(level) .. ')'
 endfun
 
 " copy / move
@@ -116,7 +116,7 @@ fun! wheel#yggdrasil#copy_move (level)
 	call wheel#mandala#fill(lines)
 	setlocal nomodified
 	" reload
-	let b:wheel_reload = "wheel#yggdrasil#copy_move('" .. level .. "')"
+	let b:wheel_reload = 'wheel#yggdrasil#copy_move(' .. string(level) .. ')'
 endfun
 
 " reorganize
