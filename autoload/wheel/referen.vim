@@ -172,6 +172,13 @@ fun! wheel#referen#is_empty (level)
 	" Wheel can be wheel, torus, circle or location
 	let level = a:level
 	let elem = wheel#referen#current (level)
+	if level ==# 'location'
+		if empty(elem)
+			return v:true
+		else
+			return v:false
+		endif
+	endif
 	if empty(elem) || empty(elem.glossary)
 		return v:true
 	else
