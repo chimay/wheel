@@ -4,7 +4,7 @@
 "
 " Lists operations
 
-" Booleans
+" ---- booleans
 
 fun! wheel#chain#is_inside (element, list)
 	" Whether element is in list
@@ -16,7 +16,7 @@ fun! wheel#chain#is_inside (element, list)
 	endif
 endfun
 
-" Insert
+" ---- insert
 
 fun! wheel#chain#insert_next (list, index, new)
 	" Insert new element in list just after index
@@ -52,7 +52,7 @@ fun! wheel#chain#insert_sublist (list, sublist, index)
 	return deepcopy(list[:index - 1]) + deepcopy(sublist) + deepcopy(list[index:])
 endfun
 
-" Remove
+" ---- remove
 
 fun! wheel#chain#remove_index (list, index)
 	" Remove element at index from list ; return list
@@ -85,7 +85,7 @@ fun! wheel#chain#remove_all_elements (list, element)
 	return list
 endfun
 
-" Move
+" ---- move
 
 fun! wheel#chain#move (list, from, target)
 	" Move element at index from -> target in list
@@ -108,7 +108,7 @@ fun! wheel#chain#move (list, from, target)
 	return list
 endfun
 
-" Replace
+" ---- replace
 
 fun! wheel#chain#replace (list, old, new)
 	" Replace old by new in list
@@ -135,7 +135,7 @@ fun! wheel#chain#replace_all (list, old, new)
 	return list
 endfun
 
-" Stack
+" ---- stack
 
 fun! wheel#chain#push_unique (list, element)
 	" Push element at beginning of list and remove duplicates
@@ -161,7 +161,7 @@ fun! wheel#chain#pop (list)
 	return remove(a:list, 0)
 endfun
 
-" Rotation
+" ---- rotation
 
 fun! wheel#chain#rotate_left (list)
 	" Rotate list to the left
@@ -205,7 +205,7 @@ fun! wheel#chain#roll_right (list, index)
 	endif
 endfun
 
-" Swap
+" ---- swap
 
 fun! wheel#chain#swap_first_two (list)
 	" Swap first and second element of list
@@ -216,7 +216,7 @@ fun! wheel#chain#swap_first_two (list)
 	endif
 endfun
 
-" Sublist at indexes of list
+" ---- sublist at indexes of list
 
 fun! wheel#chain#sublist (list, indexes)
 	" Returns list[indexes]
@@ -227,14 +227,14 @@ fun! wheel#chain#sublist (list, indexes)
 	return sublist
 endfun
 
-" Range of indexes
+" ---- range of indexes
 
 fun! wheel#chain#rangelen (list)
 	" Return range from 0 -> length list - 1
 	return range(len(a:list))
 endfun
 
-" List indexes from filtered sublist
+" ---- list indexes from filtered sublist
 
 fun! wheel#chain#indexes (list, sublist)
 	" Returns indexes of list that give sublist
@@ -261,7 +261,7 @@ fun! wheel#chain#indexes (list, sublist)
 	return indexes
 endfun
 
-" Extrema
+" ---- extrema
 
 fun! wheel#chain#argmin (list)
 	" Returns indexes where list[index] = min(list)
@@ -289,7 +289,7 @@ fun! wheel#chain#argmax (list)
 	return indexes
 endfun
 
-" Filter
+" ---- filter
 
 fun! wheel#chain#filter (list, function, indexes = [])
 	" Return filtered [indexes, elements] of list
@@ -310,7 +310,7 @@ fun! wheel#chain#filter (list, function, indexes = [])
 	return matrix
 endfun
 
-" Sort
+" ---- sort
 
 fun! wheel#chain#compare (first, second)
 	" Compare arguments ; used to sort
@@ -383,7 +383,7 @@ fun! wheel#chain#revert_sort (list, indexes)
 	return [revert_indexes, list]
 endfun
 
-" Unique
+" ---- unique
 
 fun! wheel#chain#unique (list, ...)
 	" Remove duplicates elements, preserve original order
@@ -406,7 +406,7 @@ fun! wheel#chain#unique (list, ...)
 	return unique
 endfun
 
-" Fill the gaps
+" ---- fill the gaps
 
 fun! wheel#chain#tie (list)
 	" Shift integer elements of the list to fill the gaps

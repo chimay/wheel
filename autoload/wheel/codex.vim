@@ -55,11 +55,11 @@ fun! wheel#codex#register (register = 'unnamed')
 	if register == 'inserted'
 		for iter in wheel#chain#rangelen(content)
 			let elem = content[iter]
-			let content[iter] = substitute(elem, ".\<bs>", '', 'g')
-			let sublist = split(content[iter], "\n")
+			let sublist = split(elem, "\n")
+			eval content->remove(iter)
+			let content = content->wheel#chain#insert_sublist(sublist, iter)
 		endfor
 	endif
-	echomsg content
 	" ---- add
 	let index = yanks->index(content)
 	if index >= 0
