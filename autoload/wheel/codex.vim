@@ -51,6 +51,15 @@ fun! wheel#codex#register (register = 'unnamed')
 	if strchars(join(content)) > g:wheel_config.maxim.yank_size
 		return v:false
 	endif
+	" -- treat special chars in inserted register
+	if register == 'inserted'
+		for iter in wheel#chain#rangelen(content)
+			let elem = content[iter]
+			let content[iter] = substitute(elem, ".\<bs>", '', 'g')
+			let sublist = split(content[iter], "\n")
+		endfor
+	endif
+	echomsg content
 	" ---- add
 	let index = yanks->index(content)
 	if index >= 0

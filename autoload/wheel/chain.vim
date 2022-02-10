@@ -41,6 +41,17 @@ fun! wheel#chain#insert_after (list, element, new)
 	return a:list->wheel#chain#insert_next(index, a:new)
 endfun
 
+fun! wheel#chain#insert_sublist (list, sublist, index)
+	" Insert sublist at index in sublist
+	let list = a:list
+	let sublist = a:sublist
+	let index = a:index
+	if index == 0
+		return deepcopy(sublist) + deepcopy(list)
+	endif
+	return deepcopy(list[:index - 1]) + deepcopy(sublist) + deepcopy(list[index:])
+endfun
+
 " Remove
 
 fun! wheel#chain#remove_index (list, index)
@@ -177,9 +188,9 @@ fun! wheel#chain#roll_left (list, index)
 	let index = a:index
 	let list = a:list
 	if index > 0 && index < len(list)
-		return list[index:] + list[0:index-1]
+		return deepcopy(list[index:]) + deepcopy(list[0:index - 1])
 	else
-		return list
+		return deepcopy(list)
 	endif
 endfun
 
@@ -188,9 +199,9 @@ fun! wheel#chain#roll_right (list, index)
 	let index = a:index
 	let list = a:list
 	if index >= 0 && index < len(list) - 1
-		return list[index+1:-1] + list[0:index]
+		return deepcopy(list[index + 1:-1]) + deepcopy(list[0:index])
 	else
-		return list
+		return deepcopy(list)
 	endif
 endfun
 
@@ -199,9 +210,9 @@ endfun
 fun! wheel#chain#swap_first_two (list)
 	" Swap first and second element of list
 	if len(a:list) > 1
-		return [a:list[1]] + [a:list[0]] + a:list[2:]
+		return deepcopy([a:list[1]]) + deepcopy([a:list[0]]) + deepcopy(a:list[2:])
 	else
-		return a:list
+		return deepcopy(a:list)
 	endif
 endfun
 
