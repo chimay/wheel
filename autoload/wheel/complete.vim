@@ -327,6 +327,12 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 	let subcommand = wordlist[1]
 	let wants_file = subcommand->wheel#chain#is_inside(s:file_subcommands)
 	if wants_file
+		let last = wordlist[-1]
+		if last =~ '\m/'
+			let glob = glob(last .. '*', v:false, v:true)
+			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
+			return glob
+		endif
 		let partial = wordlist[2:]
 		let partial = join(partial)
 		return wheel#complete#file (arglead, partial, cursorpos)
