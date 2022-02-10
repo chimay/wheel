@@ -406,6 +406,7 @@ WORKFLOW						*wheel-workflow*
 
 Threefold approach			|wheel-workflow-threefold-approach|
 Mappings				|wheel-workflow-mappings|
+Autoread & write wheel			|wheel-workflow-auto-read-write|
 
 ------------------------------------------------------------------------------
 THREEFOLD APPROACH			*wheel-workflow-threefold-approach*
@@ -463,6 +464,24 @@ If you wonder how to define your own maps, see
 
 If you're looking for a specific Wheel function, see
 |wheel-mappings-exhaustive-list|.
+
+------------------------------------------------------------------------------
+AUTO READ AND WRITE				*wheel-workflow-auto-read-write*
+
+You probably want to make your files groups persistent. For that, you
+need to enable auto read & write : >
+
+    let g:wheel_config.autoread = 1
+    let g:wheel_config.autowrite = 1
+    augroup wheel
+        autocmd!
+        autocmd VimEnter * call wheel#void#init()
+        autocmd VimLeave * call wheel#void#exit()
+    augroup END
+>
+
+Don't worry about the size : I have 450+ files in my groups, and it is
+still fluid, thanks to on-demand file loading.
 
 ==============================================================================
 STRAIGHTFORWARD FUNCTIONS			*wheel-straightforward-functions*
@@ -2058,7 +2077,7 @@ Auto read wheel file on startup if non null : >
 
 To enable it, you need to add an autocommand on vim enter : >
 
-  autocmd VimEnter * call wheel#void#init()
+    autocmd VimEnter * call wheel#void#init()
 <
 
 Default : 0
