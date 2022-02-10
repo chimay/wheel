@@ -200,6 +200,7 @@ if ! exists('s:command_meta_subcommands')
 				\ 'autogroup',
 				\ 'batch',
 				\ 'tree-script', 'symlink-tree', 'copied-tree',
+				\ 'prompt', 'dedibuf',
 				\]
 	lockvar! s:command_meta_subcommands
 endif
@@ -209,6 +210,20 @@ if ! exists('s:command_meta_subcommands_file')
 				\ 'mkdir', 'rename', 'copy', 'delete',
 				\]
 	lockvar! s:command_meta_subcommands_file
+endif
+
+if ! exists('s:command_meta_subcommands_prompt')
+	let s:command_meta_subcommands_prompt = [
+				\ 'switch-location',
+				\]
+	lockvar! s:command_meta_subcommands_prompt
+endif
+
+if ! exists('s:command_meta_subcommands_dedibuf')
+	let s:command_meta_subcommands_dedibuf = [
+				\ 'switch-location',
+				\]
+	lockvar! s:command_meta_subcommands_dedibuf
 endif
 
 " ---- mandalas

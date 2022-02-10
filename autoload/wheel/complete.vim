@@ -30,6 +30,16 @@ if ! exists('s:subcommands')
 	lockvar s:subcommands
 endif
 
+if ! exists('s:prompt_subcommands')
+	let s:prompt_subcommands = wheel#crystal#fetch('command/meta/subcommands/prompt')
+	lockvar s:prompt_subcommands
+endif
+
+if ! exists('s:dedibuf_subcommands')
+	let s:dedibuf_subcommands = wheel#crystal#fetch('command/meta/subcommands/dedibuf')
+	lockvar s:dedibuf_subcommands
+endif
+
 if ! exists('s:file_subcommands')
 	let s:file_subcommands = wheel#crystal#fetch('command/meta/subcommands/file')
 	lockvar s:file_subcommands
@@ -320,13 +330,34 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 	endif
 	" ---- last word
 	let last = wordlist[-1]
+	let last_list = split(last, ',')
+	" ---- cursor after a partial word ?
+	let blank = cmdline[cursorpos - 1] =~ '\m\s'
 	" ---- subcommand
-	let is_partial = cmdline[cursorpos - 1] !~ '\m\s'
-	if length == 1 || (length == 2 && is_partial)
-		return wheel#kyusu#pour([ last ], s:subcommands)
+	if length == 1 && blank
+		return s:subcommands
+	endif
+	if length == 2 && ! blank
+		return wheel#kyusu#pour(last_list, s:subcommands)
+	endif
+	let subcommand = wordlist[1]
+	" ---- prompting functions
+	if subcommand ==# 'prompt'
+		if blank
+			return s:prompt_subcommands
+		else
+			return wheel#kyusu#pour(last_list, s:prompt_subcommands)
+		endif
+	endif
+	" ---- dedicated buffers
+	if subcommand ==# 'dedibuf'
+		if blank
+			return s:dedibuf_subcommands
+		else
+			return wheel#kyusu#pour(last_list, s:dedibuf_subcommands)
+		endif
 	endif
 	" ---- file
-	let subcommand = wordlist[1]
 	let wants_file = subcommand->wheel#chain#is_inside(s:file_subcommands)
 	if wants_file
 		if last =~ '\m/'
@@ -334,7 +365,11 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 			return glob
 		endif
-		return wheel#complete#file (arglead, last, cursorpos)
+		if blank
+			return glob('**', v:false, v:true)
+		else
+			return wheel#complete#file (arglead, join(last_list), cursorpos)
+		endif
 	endif
 	return []
 endfun
