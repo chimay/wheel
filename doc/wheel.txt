@@ -553,6 +553,7 @@ PROMPTING FUNCTIONS				*wheel-prompting-functions*
 
 Completion			    |wheel-prompting-functions-completion|
 Switch				    |wheel-prompting-functions-switch|
+Search				    |wheel-prompting-functions-search|
 Add				    |wheel-prompting-functions-add|
 Delete				    |wheel-prompting-functions-delete|
 Rename				    |wheel-prompting-functions-rename|
@@ -627,18 +628,6 @@ Switch in (neo)vim lists~
 | switch in change list | changes            | <M-w>,          |
 | switch tag            | tags               | <M-w>t          |
 
-Search file~
-
-| Function         | Completion list                     | Default binding |
-| ---------------- | ----------------------------------- | --------------- |
-| switch mru file  | most recently used, non wheel files | <M-w>u          |
-
-Search inside file~
-
-| Function            | Completion list          | Default binding |
-| ------------------- | ------------------------ | --------------- |
-| occur : switch line | lines of current buffer  | <M-w>o          |
-
 Switch dedicated buffer~
 
 The default mapping is `<M-w><Up>`.
@@ -651,6 +640,22 @@ You must be in a dedicated buffer to launch it. The local mapping is
 `<M-l>`, or `<C-Down>`.
 
 See also |wheel-dedicated-buffers-layers|.
+
+------------------------------------------------------------------------------
+SEARCH					    *wheel-prompting-functions-search*
+
+Search file~
+
+| Function         | Completion list                     | Default binding |
+| ---------------- | ----------------------------------- | --------------- |
+| find file        | find file in current dir tree       | <M-w>f          |
+| mru file         | most recently used, non wheel files | <M-w>u          |
+
+Search inside file~
+
+| Function            | Completion list          | Default binding |
+| ------------------- | ------------------------ | --------------- |
+| occur : switch line | lines of current buffer  | <M-w>o          |
 
 ------------------------------------------------------------------------------
 ADD					    *wheel-prompting-functions-add*
@@ -779,10 +784,10 @@ Within the wheel		|wheel-dedicated-buffers-within-wheel|
 Buffers				|wheel-dedicated-buffers-buffers|
 Tabs & windows in tree mode	|wheel-dedicated-buffers-tabwin-tree|
 Tabs & windows			|wheel-dedicated-buffers-tabwin|
-Locate	 			|wheel-dedicated-buffers-locate|
 Find 				|wheel-dedicated-buffers-find|
 Async find 			|wheel-dedicated-buffers-async-find|
 MRU files			|wheel-dedicated-buffers-mru|
+Locate	 			|wheel-dedicated-buffers-locate|
 Occur				|wheel-dedicated-buffers-occur|
 Grep				|wheel-dedicated-buffers-grep|
 Outline				|wheel-dedicated-buffers-outline|
@@ -1300,7 +1305,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><M-h>`     : history
 - `<M-w><M-e>`     : frecency
 - `<M-w>l`         : search files with `locate`
-- `<M-w>f`         : find files in current directory using `**/*pattern*` glob
+- `<M-w><M-f>`     : find files in current directory tree using pattern
 - `<M-w>&f`        : search files with `find` in async mode
 - `<M-w><M-u>`     : most recently used files not found in wheel (mru)
 - `<M-w><M-b>`     : switch to buffer (opened file)
@@ -1369,29 +1374,15 @@ This buffer displays the following columns :
 tab number | window number | filename
 
 ------------------------------------------------------------------------------
-LOCATE						*wheel-dedicated-buffers-locate*
-
-Search files with unix `locate` command.
-
-The default mapping is `<M-w>l`.
-
-------------------------------------------------------------------------------
 FIND						*wheel-dedicated-buffers-find*
 
-Search files with |glob()|.
+Search files in current directory tree with |glob()|.
 
-If you enter `pattern` at the prompt, the glob used to find files will be : >
+You can enter a single or multiple word(s) pattern at the
+prompt : the files are filtered by each word. See
+|wheel-prompting-functions-completion|.
 
-    **/*pattern*
-<
-
-If you enter several words at the prompt, say `word-1 word-2` , the glob
-used to find files will be : >
-
-    **/*word-1*word-2*
-<
-
-The default mapping is `<M-w>f`.
+The default mapping is `<M-w><M-f>`.
 
 ------------------------------------------------------------------------------
 ASYNC FIND				*wheel-dedicated-buffers-async-find*
@@ -1428,6 +1419,13 @@ Fields~
 This buffer displays the following columns :
 
 date & time of last edit | filename
+
+------------------------------------------------------------------------------
+LOCATE						*wheel-dedicated-buffers-locate*
+
+Search files with unix `locate` command.
+
+The default mapping is `<M-w>l`.
 
 ------------------------------------------------------------------------------
 OCCUR						*wheel-dedicated-buffers-occur*
@@ -2928,6 +2926,14 @@ Dedicated buffers :
 | <M-h>     | <M-w><M-h>          | Go to location in history                |
 | <M-e>     | <M-w><M-e>          | Go to location in frecency               |
 
+Reorder~
+
+| Prefix +   | With default prefix   | Action                                   |
+| ---------- | --------------------- | ---------------------------------------- |
+| @o         | <M-w>@o               | Reorder locations in current circle      |
+| @<C-o>     | <M-w>@<C-o>           | Reorder circles in current torus         |
+| @O         | <M-w>@O               | Reorder toruses in wheel                 |
+
 Rename~
 
 Prompting functions :
@@ -2984,49 +2990,22 @@ Dedicated buffers :
 | @<M-c>     | <M-w>@<M-c>           | Copy or move circles in current torus    |
 | @C         | <M-w>@C               | Copy or move toruses in wheel            |
 
-
-Reorder~
-
-| Prefix +   | With default prefix   | Action                                   |
-| ---------- | --------------------- | ---------------------------------------- |
-| @o         | <M-w>@o               | Reorder locations in current circle      |
-| @<C-o>     | <M-w>@<C-o>           | Reorder circles in current torus         |
-| @O         | <M-w>@O               | Reorder toruses in wheel                 |
-
 ------------------------------------------------------------------------------
 LEVEL 2						*wheel-mappings-level-2*
 
-Search for files~
-
-| Prefix + | With default prefix | Action                                      |
-| -------- | ------------------- | ------------------------------------------- |
-| l        | <M-w>l              | Search files with locate                    |
-| f        | <M-w>f              | Find files in current directory using glob  |
-| &f       | <M-w>&f             | Search files with find in async mode        |
-| u        | <M-w><M-u>          | Most recently used files not found in wheel |
-| b        | <M-w>b              | Buffers (opened files)                      |
-
-Search inside files~
+Buffers~
 
 Prompting functions :
 
-| Prefix + | With default prefix | Action                                |
-| -------- | ------------------- | ------------------------------------- |
-| o        | <M-w>o              | Occur : search lines in current file  |
+| Prefix + | With default prefix | Action                               |
+| -------- | ------------------- | ------------------------------------ |
+| b        | <M-w>b              | Buffers (opened files)               |
 
-Dedicated buffer :
-
-| Prefix + | With default prefix | Action                                |
-| -------- | ------------------- | ------------------------------------- |
-| <M-o>    | <M-w><M-o>          | Occur : search lines in current file  |
-| g        | <M-w>g              | Search in circle files with grep      |
-| <C-o>    | <M-w><C-o>          | Outline : folds, markdown, org mode   |
-
-Buffers~
+Dedicated buffers :
 
 | Prefix + | With default prefix | Action                               |
 | -------- | ------------------- | ------------------------------------ |
-| b        | <M-w>b              | Buffers                              |
+| <M-b>    | <M-w><M-b>          | Buffers                              |
 | <C-b>    | <M-w><C-b>          | All buffers, including unlisted ones |
 
 Tabs & windows~
@@ -3045,6 +3024,32 @@ Dedicated buffers :
 | -------- | ------------------- | --------------------------------- |
 | <M-v>    | <M-w><M-v>          | Tree view of tabs & windows       |
 | <C-v>    | <M-w><C-v>          | Visible buffers in tabs & windows |
+
+Search for files~
+
+| Prefix + | With default prefix | Action                                      |
+| -------- | ------------------- | ------------------------------------------- |
+| f        | <M-w>f              | Find file in current directory tree, prompt |
+| <M-f>    | <M-w><M-f>          | Find file, dedicated buffer                 |
+| &f       | <M-w>&f             | Search files with find in async mode        |
+| u        | <M-w><M-u>          | Most recently used files not found in wheel |
+| l        | <M-w>l              | Search files with locate                    |
+
+Search inside files~
+
+Prompting functions :
+
+| Prefix + | With default prefix | Action                                |
+| -------- | ------------------- | ------------------------------------- |
+| o        | <M-w>o              | Occur : search lines in current file  |
+
+Dedicated buffer :
+
+| Prefix + | With default prefix | Action                                |
+| -------- | ------------------- | ------------------------------------- |
+| <M-o>    | <M-w><M-o>          | Occur : search lines in current file  |
+| g        | <M-w>g              | Search in circle files with grep      |
+| <C-o>    | <M-w><C-o>          | Outline : folds, markdown, org mode   |
 
 (Neo)vim lists~
 
@@ -3066,27 +3071,20 @@ Dedicated buffers :
 | ,        | <M-w>;              | Changes    |
 | <M-t>    | <M-w><M-t>          | Tags       |
 
-Yank ring~
-
-| Prefix + | With default prefix | Action                                           |
-| -------- | ------------------- | ------------------------------------------------ |
-| <C-y>    | <M-w><C-y>          | Switch default register to use in yank functions |
-| y        | <M-w>y              | Yank ring prompt, linewise after                 |
-| p        | <M-w>p              | Yank ring prompt, charwise after                 |
-| Y        | <M-w>Y              | Yank ring prompt, linewise before                |
-| P        | <M-w>P              | Yank ring prompt, charwise before                |
-| <M-y>    | <M-w><M-y>          | Yank ring in list mode, dedicated buffer         |
-| <M-p>    | <M-w><M-p>          | Yank ring in plain mode, dedicated buffer        |
-
-Reorganizing buffers~
+Reorganize~
 
 | Prefix + | With default prefix | Action                    |
 | -------- | ------------------- | ------------------------- |
 | <M-r>    | <M-w><M-r>          | Reorganize wheel elements |
 | <C-r>    | <M-w><C-r>          | Reorganize tabs & windows |
-| <M-g>    | <M-w><M-g>          | Grep edit mode            |
+
+Narrow~
+
+| Prefix + | With default prefix | Action                    |
+| -------- | ------------------- | ------------------------- |
 | -%       | <M-w>-%             | Narrow current file       |
 | -c       | <M-w>-c             | Narrow all circle files   |
+| <M-g>    | <M-w><M-g>          | Grep edit mode            |
 
 Operator command, waiting for a move :
 
@@ -3099,6 +3097,18 @@ Visual mode :
 | Prefix + | With default prefix | Action               |
 | -------- | ------------------- | -------------------- |
 | --       | <M-w>--             | Narrow current file  |
+
+Yank ring~
+
+| Prefix + | With default prefix | Action                                           |
+| -------- | ------------------- | ------------------------------------------------ |
+| <C-y>    | <M-w><C-y>          | Switch default register to use in yank functions |
+| y        | <M-w>y              | Yank ring prompt, linewise after                 |
+| p        | <M-w>p              | Yank ring prompt, charwise after                 |
+| Y        | <M-w>Y              | Yank ring prompt, linewise before                |
+| P        | <M-w>P              | Yank ring prompt, charwise before                |
+| <M-y>    | <M-w><M-y>          | Yank ring in list mode, dedicated buffer         |
+| <M-p>    | <M-w><M-p>          | Yank ring in plain mode, dedicated buffer        |
 
 Undo~
 
@@ -3184,8 +3194,8 @@ adapt them to your taste and add them to your init file.
 | <M-m>          | Main menu                                     |
 | -------------- | --------------------------------------------- |
 | <M-i>          | Wheel dashboard : torus > circle > location   |
-| <C-$>          | Sync down : jump to current location          |
 | <M-$>          | Sync up : find closest wheel location         |
+| <C-$>          | Sync down : jump to current location          |
 | -------------- | --------------------------------------------- |
 | <M-PageUp>     | Go to previous location                       |
 | <M-PageDown>   | Go to next location                           |
@@ -3249,10 +3259,11 @@ adapt them to your taste and add them to your init file.
 | <M-n>          | Narrow current file                           |
 | <M-C-n>        | Narrow all circle files                       |
 | -------------- | --------------------------------------------- |
-| <M-l>          | Locate                                        |
-| <M-f>          | Find                                          |
-| <M-C-f>        | Async find                                    |
+| <M-f>          | Find, prompting function                      |
+| <M-C-f>        | Find, dedicated buffer                        |
+| <M-C-&>        | Async find                                    |
 | <M-u>          | Most Recently Used files not found in wheel   |
+| <M-l>          | Locate                                        |
 | -------------- | --------------------------------------------- |
 | <M-o>          | Occur in current file, prompting function     |
 | <M-C-o>        | Occur in current file, dedicated buffer       |
@@ -3285,8 +3296,8 @@ level to less than 10, then copy and adapt some of the following lines : >
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
     " Sync
     exe nmap '<m-i>          <plug>(wheel-dashboard)'
-    exe nmap '<c-$>          <plug>(wheel-sync-down)'
     exe nmap '<m-$>          <plug>(wheel-sync-up)'
+    exe nmap '<c-$>          <plug>(wheel-sync-down)'
     " ---- navigate in the wheel
     " --  next / previous
     exe nmap '<m-pageup>   <plug>(wheel-previous-location)'
@@ -3355,11 +3366,12 @@ level to less than 10, then copy and adapt some of the following lines : >
     exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
     " ---- search
     " -- files
-    exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
-    exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
-    exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
+    exe nmap '<m-f>          <plug>(wheel-prompt-find)'
+    exe nmap '<m-c-f>        <plug>(wheel-dedibuf-find)'
+    exe nmap '<m-c-&>        <plug>(wheel-dedibuf-async-find)'
     exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
     exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
+    exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
     " -- inside files
     exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
     exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'

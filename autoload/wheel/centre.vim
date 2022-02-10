@@ -38,10 +38,10 @@ fun! wheel#centre#plugs ()
 	" ---- dashboard
 	nnoremap <plug>(wheel-dashboard) <cmd>call wheel#status#dashboard()<cr>
 	" ---- sync
-	" -- sync down : jump
-	nnoremap <plug>(wheel-sync-down) <cmd>call wheel#vortex#jump()<cr>
 	" -- sync up : follow
 	nnoremap <plug>(wheel-sync-up) <cmd>call wheel#projection#follow()<cr>
+	" -- sync down : jump
+	nnoremap <plug>(wheel-sync-down) <cmd>call wheel#vortex#jump()<cr>
 	" ---- load / save
 	" -- load / save wheel
 	nnoremap <plug>(wheel-read-wheel) <cmd>call wheel#disc#read_wheel()<cr>
@@ -163,11 +163,12 @@ fun! wheel#centre#plugs ()
 	vnoremap <plug>(wheel-dedibuf-narrow) :call wheel#shadow#narrow_file()<cr>
 	" ---- search
 	" -- files
+	nnoremap <plug>(wheel-prompt-find) <cmd>call wheel#sailing#find()<cr>
+	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#frigate#find()<cr>
+	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#frigate#async_find()<cr>
 	nnoremap <plug>(wheel-prompt-mru) <cmd>call wheel#sailing#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-mru) <cmd>call wheel#frigate#mru()<cr>
 	nnoremap <plug>(wheel-dedibuf-locate) <cmd>call wheel#frigate#locate()<cr>
-	nnoremap <plug>(wheel-dedibuf-find) <cmd>call wheel#frigate#find()<cr>
-	nnoremap <plug>(wheel-dedibuf-async-find) <cmd>call wheel#frigate#async_find()<cr>
 	" -- inside files
 	nnoremap <plug>(wheel-prompt-occur) <cmd>call wheel#sailing#occur()<cr>
 	nnoremap <plug>(wheel-dedibuf-occur) <cmd>call wheel#frigate#occur()<cr>
@@ -255,10 +256,10 @@ fun! wheel#centre#cables ()
 		" ---- dashboard, info
 		exe nmap prefix .. 'i <plug>(wheel-dashboard)'
 		" ---- sync
-		" -- down : jump
-		exe nmap prefix .. '$ <plug>(wheel-sync-down)'
 		" -- up : follow
 		exe nmap prefix .. '<m-$> <plug>(wheel-sync-up)'
+		" -- down : jump
+		exe nmap prefix .. '$ <plug>(wheel-sync-down)'
 		" ---- load / Save
 		" -- wheel
 		exe nmap prefix .. 'r <plug>(wheel-read-wheel)'
@@ -382,11 +383,12 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '-c <plug>(wheel-dedibuf-narrow-circle)'
 		" ---- search
 		" -- files
-		exe nmap prefix .. 'l <plug>(wheel-dedibuf-locate)'
-		exe nmap prefix .. 'f <plug>(wheel-dedibuf-find)'
+		exe nmap prefix .. 'f <plug>(wheel-prompt-find)'
+		exe nmap prefix .. '<m-f> <plug>(wheel-dedibuf-find)'
 		exe nmap prefix .. async .. 'f <plug>(wheel-dedibuf-async-find)'
 		exe nmap prefix .. 'u <plug>(wheel-prompt-mru)'
 		exe nmap prefix .. '<m-u> <plug>(wheel-dedibuf-mru)'
+		exe nmap prefix .. 'l <plug>(wheel-dedibuf-locate)'
 		" -- inside files
 		exe nmap prefix .. 'o <plug>(wheel-prompt-occur)'
 		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-occur)'
@@ -446,20 +448,20 @@ fun! wheel#centre#cables ()
 	" Without prefix
 	if g:wheel_config.mappings >= 10
 		" Menus
-		exe nmap '<m-m>          <plug>(wheel-menu-main)'
-		exe nmap '<m-=>          <plug>(wheel-menu-meta)'
+		exe nmap '<m-m>         <plug>(wheel-menu-main)'
+		exe nmap '<m-=>         <plug>(wheel-menu-meta)'
 		" Sync
-		exe nmap '<m-i>          <plug>(wheel-dashboard)'
-		exe nmap '<c-$>          <plug>(wheel-sync-down)'
-		exe nmap '<m-$>          <plug>(wheel-sync-up)'
+		exe nmap '<m-i>         <plug>(wheel-dashboard)'
+		exe nmap '<m-$>         <plug>(wheel-sync-up)'
+		exe nmap '<c-$>         <plug>(wheel-sync-down)'
 		" ---- navigate in the wheel
 		" --  next / previous
-		exe nmap '<m-pageup>   <plug>(wheel-previous-location)'
-		exe nmap '<m-pagedown> <plug>(wheel-next-location)'
-		exe nmap '<c-pageup>   <plug>(wheel-previous-circle)'
-		exe nmap '<c-pagedown> <plug>(wheel-next-circle)'
-		exe nmap '<s-pageup>   <plug>(wheel-previous-torus)'
-		exe nmap '<s-pagedown> <plug>(wheel-next-torus)'
+		exe nmap '<m-pageup>    <plug>(wheel-previous-location)'
+		exe nmap '<m-pagedown>  <plug>(wheel-next-location)'
+		exe nmap '<c-pageup>    <plug>(wheel-previous-circle)'
+		exe nmap '<c-pagedown>  <plug>(wheel-next-circle)'
+		exe nmap '<s-pageup>    <plug>(wheel-previous-torus)'
+		exe nmap '<s-pagedown>  <plug>(wheel-next-torus)'
 		" -- switch
 		exe nmap '<m-cr>        <plug>(wheel-prompt-location)'
 		exe nmap '<c-cr>        <plug>(wheel-prompt-circle)'
@@ -481,9 +483,9 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-h>         <plug>(wheel-prompt-history)'
 		exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
 		" -- alternate
-		exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
-		exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
-		exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
+		exe nmap '<c-^>         <plug>(wheel-alternate-anywhere)'
+		exe nmap '<m-^>         <plug>(wheel-alternate-same-circle)'
+		exe nmap '<m-c-^>       <plug>(wheel-alternate-same-torus-other-circle)'
 		" -- frecency
 		exe nmap '<m-e>         <plug>(wheel-prompt-frecency)'
 		exe nmap '<m-c-e>       <plug>(wheel-dedibuf-frecency)'
@@ -520,11 +522,12 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
 		" ---- search
 		" -- files
-		exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
-		exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
-		exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
+		exe nmap '<m-f>          <plug>(wheel-prompt-find)'
+		exe nmap '<m-c-f>        <plug>(wheel-dedibuf-find)'
+		exe nmap '<m-c-&>        <plug>(wheel-dedibuf-async-find)'
 		exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
 		exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
+		exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
 		" -- inside files
 		exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
 		exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'

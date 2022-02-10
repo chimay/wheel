@@ -184,13 +184,8 @@ fun! wheel#frigate#find (...)
 		let pattern = a:1
 	else
 		let prompt = 'Find file matching : '
-		let wordlist = split(input(prompt))
-		let pattern = '**/*'
-		for word in wordlist
-			let pattern ..= word .. '*'
-		endfor
+		let pattern = input(prompt)
 	endif
-	echomsg 'wheel find : using pattern' pattern
 	let lines = wheel#perspective#find (pattern)
 	if empty(lines)
 		echomsg 'wheel frigate find : no match found'

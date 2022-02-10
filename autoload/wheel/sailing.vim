@@ -19,6 +19,18 @@ endif
 
 " main
 
+fun! wheel#sailing#find (...)
+	" Add file to circle
+	if a:0 > 0
+		let file = a:1
+	else
+		let prompt = 'File to edit ? '
+		let complete = 'customlist,wheel#complete#file'
+		let file = input(prompt, '', complete)
+	endif
+	execute 'hide edit' fnameescape(file)
+endfun
+
 fun! wheel#sailing#mru ()
 	" Switch to most recently used non-wheel file
 	let prompt = 'Switch to mru file : '

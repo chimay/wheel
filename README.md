@@ -431,8 +431,8 @@ exe nmap '<m-m>          <plug>(wheel-menu-main)'
 exe nmap '<m-=>          <plug>(wheel-menu-meta)'
 " Sync
 exe nmap '<m-i>          <plug>(wheel-dashboard)'
-exe nmap '<c-$>          <plug>(wheel-sync-down)'
 exe nmap '<m-$>          <plug>(wheel-sync-up)'
+exe nmap '<c-$>          <plug>(wheel-sync-down)'
 " ---- navigate in the wheel
 " --  next / previous
 exe nmap '<m-pageup>   <plug>(wheel-previous-location)'
@@ -498,11 +498,12 @@ exe vmap '<m-n>          <plug>(wheel-dedibuf-narrow)'
 exe nmap '<m-c-n>        <plug>(wheel-dedibuf-narrow-circle)'
 " ---- search
 " -- files
-exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
-exe nmap '<m-f>          <plug>(wheel-dedibuf-find)'
-exe nmap '<m-c-f>        <plug>(wheel-dedibuf-async-find)'
+exe nmap '<m-f>          <plug>(wheel-prompt-find)'
+exe nmap '<m-c-f>        <plug>(wheel-dedibuf-find)'
+exe nmap '<m-c-&>        <plug>(wheel-dedibuf-async-find)'
 exe nmap '<m-u>          <plug>(wheel-prompt-mru)'
 exe nmap '<m-c-u>        <plug>(wheel-dedibuf-mru)'
+exe nmap '<m-l>          <plug>(wheel-dedibuf-locate)'
 " -- inside files
 exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
 exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'

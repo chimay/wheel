@@ -321,8 +321,9 @@ endfun
 
 fun! wheel#perspective#find (pattern)
 	" Find files in current directory using glob pattern
-	let pattern = a:pattern
-	return glob(pattern, v:false, v:true)
+	let tree = glob('**', v:false, v:true)
+	let wordlist = split(a:pattern)
+	return wheel#kyusu#pour(wordlist, tree)
 endfun
 
 fun! wheel#perspective#locate (pattern)
