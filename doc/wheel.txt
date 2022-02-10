@@ -3119,6 +3119,8 @@ Visual mode :
 
 Yank ring~
 
+Prompting functions :
+
 | Prefix + | With default prefix | Action                                           |
 | -------- | ------------------- | ------------------------------------------------ |
 | <C-y>    | <M-w><C-y>          | Switch default register to use in yank functions |
@@ -3126,8 +3128,13 @@ Yank ring~
 | p        | <M-w>p              | Yank ring prompt, charwise after                 |
 | Y        | <M-w>Y              | Yank ring prompt, linewise before                |
 | P        | <M-w>P              | Yank ring prompt, charwise before                |
-| <M-y>    | <M-w><M-y>          | Yank ring in list mode, dedicated buffer         |
-| <M-p>    | <M-w><M-p>          | Yank ring in plain mode, dedicated buffer        |
+
+Dedicated buffers :
+
+| Prefix + | With default prefix | Action                     |
+| -------- | ------------------- | -------------------------- |
+| <M-y>    | <M-w><M-y>          | Yank ring in plain mode    |
+| <M-p>    | <M-w><M-p>          | Yank ring in list mode     |
 
 Undo~
 
@@ -3207,103 +3214,107 @@ The level 10 offers mappings without prefix for the most used wheel
 functions. You can set the mapping level to 10 to activate them, or
 adapt them to your taste and add them to your init file.
 
-| Mapping        | Action                                        |
-| -------------- | --------------------------------------------- |
-| <M-=>          | Meta menu                                     |
-| <M-m>          | Main menu                                     |
-| -------------- | --------------------------------------------- |
-| <M-i>          | Wheel dashboard : torus > circle > location   |
-| <M-$>          | Sync up : find closest wheel location         |
-| <C-$>          | Sync down : jump to current location          |
-| -------------- | --------------------------------------------- |
-| <M-PageUp>     | Go to previous location                       |
-| <M-PageDown>   | Go to next location                           |
-| <C-PageUp>     | Go to previous circle                         |
-| <C-PageDown>   | Go to next circle                             |
-| <S-PageUp>     | Go to previous torus                          |
-| <S-PageDown>   | Go to next torus                              |
-| -------------- | --------------------------------------------- |
-| <M-Enter>      | Prompt for a location to switch to            |
-| <C-Enter>      | Prompt for a circle to switch to              |
-| <S-Enter>      | Prompt for a torus to switch to               |
-| <M-Space>      | Choose location in dedicated buffer           |
-| <C-Space>      | Choose circle in dedicated buffer             |
-| <S-Space>      | Choose torus in dedicated buffer              |
-| -------------- | --------------------------------------------- |
-| <M-x>          | Prompt for a location in index to switch to   |
-| <M-S-x>        | Index of toruses > circles > locations        |
-| <M-C-x>        | Choose element in wheel folding tree          |
-| -------------- | --------------------------------------------- |
-| <M-Home>       | Go to newer location in history               |
-| <M-End>        | Go to older location in history               |
-| <C-Home>       | Go to newer location in same circle           |
-| <C-End>        | Go to older location in same circle           |
-| <S-Home>       | Go to newer location in same torus            |
-| <S-End>        | Go to older location in same torus            |
-| <M-h>          | History in prompt                             |
-| <M-C-h>        | History in dedicated buffer                   |
-| -------------- | --------------------------------------------- |
-| <C-^>          | Alternate last two locations                  |
-| <M-^>          | Alternate in the same circle                  |
-| <M-C-^>        | Alternate in another circle of the same torus |
-| -------------- | --------------------------------------------- |
-| <M-e>          | Frecency in prompt                            |
-| <M-C-e>        | Frecency in dedicated buffer                  |
-| -------------- | --------------------------------------------- |
-| <M-b>          | Buffers, prompting function                   |
-| <M-C-b>        | Buffers, dedicated buffer                     |
-| <M-S-b>        | All buffers, including unlisted ones          |
-| -------------- | --------------------------------------------- |
-| <M-v>          | Go to tab & window, prompt mode               |
-| <M-C-v>        | Tabs & windows in tree mode, dedicated buffer |
-| <M-S-v>        | Tabs & windows, dedicated buffer              |
-| -------------- | --------------------------------------------- |
-| <M-'>          | Markers, prompting function                   |
-| <M-k>          | Markers, prompting function                   |
-| <M-j>          | Jumps, prompting function                     |
-| <M-,>          | Changes, prompting function                   |
-| <M-t>          | Tags, prompting function                      |
-| <M-C-k>        | Markers, dedicated buffer                     |
-| <M-C-j>        | Jumps, dedicated buffer                       |
-| <M-;>          | Changes, dedicated buffer                     |
-| <M-C-t>        | Tags, dedicated buffer                        |
-| -------------- | --------------------------------------------- |
-| <M-Insert>     | Add location to the current circle            |
-| <M-Del>        | Delete current location                       |
-| <M-r>          | Reorganize wheel elements                     |
-| -------------- | --------------------------------------------- |
-| <M-C-r>        | Reorganize tabs and windows                   |
-| -------------- | --------------------------------------------- |
-| <M-C-g>        | Grep in edit mode                             |
-| <M-n>          | Narrow current file                           |
-| <M-C-n>        | Narrow all circle files                       |
-| -------------- | --------------------------------------------- |
-| <M-f>          | Find, prompting function                      |
-| <M-C-f>        | Find, dedicated buffer                        |
-| <M-C-&>        | Async find                                    |
-| <M-u>          | Most Recently Used files not found in wheel   |
-| <M-l>          | Locate                                        |
-| -------------- | --------------------------------------------- |
-| <M-o>          | Occur in current file, prompting function     |
-| <M-C-o>        | Occur in current file, dedicated buffer       |
-| <M-g>          | Grep in current circle files                  |
-| <M-S-o>        | Outline in current circle files               |
-| -------------- | --------------------------------------------- |
-| <M-y>          | Paste yank ring element in list mode          |
-| <M-p>          | Paste yank ring element in plain mode         |
-| -------------- | --------------------------------------------- |
-| <M-S-u>        | Undo list                                     |
-| -------------- | --------------------------------------------- |
-| <M-!>          | Buffer with output of ex or shell command     |
-| <M-&>          | Async shell command in dedicated buffer       |
-| -------------- | --------------------------------------------- |
-| <M-Tab>        | Add a new dedicated buffer                    |
-| <M-Backspace>  | Delete current dedicated buffer               |
-| <M-Left>       | Cycle dedicated buffers, leftward             |
-| <M-Right>      | Cycle dedicated buffers, rightward            |
-| <C-Up>         | Switch dedicated buffer                       |
-| -------------- | --------------------------------------------- |
-| <M-z>          | Zoom : one tab, one window                    |
+| Mapping        | Action                                          |
+| -------------- | ---------------------------------------------   |
+| <M-=>          | Meta menu                                       |
+| <M-m>          | Main menu                                       |
+| -------------- | ---------------------------------------------   |
+| <M-i>          | Wheel dashboard : torus > circle > location     |
+| <M-$>          | Sync up : find closest wheel location           |
+| <C-$>          | Sync down : jump to current location            |
+| -------------- | ---------------------------------------------   |
+| <M-PageUp>     | Go to previous location                         |
+| <M-PageDown>   | Go to next location                             |
+| <C-PageUp>     | Go to previous circle                           |
+| <C-PageDown>   | Go to next circle                               |
+| <S-PageUp>     | Go to previous torus                            |
+| <S-PageDown>   | Go to next torus                                |
+| -------------- | ---------------------------------------------   |
+| <M-Enter>      | Prompt for a location to switch to              |
+| <C-Enter>      | Prompt for a circle to switch to                |
+| <S-Enter>      | Prompt for a torus to switch to                 |
+| <M-Space>      | Choose location in dedicated buffer             |
+| <C-Space>      | Choose circle in dedicated buffer               |
+| <S-Space>      | Choose torus in dedicated buffer                |
+| -------------- | ---------------------------------------------   |
+| <M-x>          | Prompt for a location in index to switch to     |
+| <M-S-x>        | Index of toruses > circles > locations          |
+| <M-C-x>        | Choose element in wheel folding tree            |
+| -------------- | ---------------------------------------------   |
+| <M-Home>       | Go to newer location in history                 |
+| <M-End>        | Go to older location in history                 |
+| <C-Home>       | Go to newer location in same circle             |
+| <C-End>        | Go to older location in same circle             |
+| <S-Home>       | Go to newer location in same torus              |
+| <S-End>        | Go to older location in same torus              |
+| <M-h>          | History in prompt                               |
+| <M-C-h>        | History in dedicated buffer                     |
+| -------------- | ---------------------------------------------   |
+| <C-^>          | Alternate last two locations                    |
+| <M-^>          | Alternate in the same circle                    |
+| <M-C-^>        | Alternate in another circle of the same torus   |
+| -------------- | ---------------------------------------------   |
+| <M-e>          | Frecency in prompt                              |
+| <M-C-e>        | Frecency in dedicated buffer                    |
+| -------------- | ---------------------------------------------   |
+| <M-b>          | Buffers, prompting function                     |
+| <M-C-b>        | Buffers, dedicated buffer                       |
+| <M-S-b>        | All buffers, including unlisted ones            |
+| -------------- | ---------------------------------------------   |
+| <M-v>          | Go to tab & window, prompt mode                 |
+| <M-C-v>        | Tabs & windows in tree mode, dedicated buffer   |
+| <M-S-v>        | Tabs & windows, dedicated buffer                |
+| -------------- | ---------------------------------------------   |
+| <M-'>          | Markers, prompting function                     |
+| <M-k>          | Markers, prompting function                     |
+| <M-j>          | Jumps, prompting function                       |
+| <M-,>          | Changes, prompting function                     |
+| <M-t>          | Tags, prompting function                        |
+| <M-C-k>        | Markers, dedicated buffer                       |
+| <M-C-j>        | Jumps, dedicated buffer                         |
+| <M-;>          | Changes, dedicated buffer                       |
+| <M-C-t>        | Tags, dedicated buffer                          |
+| -------------- | ---------------------------------------------   |
+| <M-Insert>     | Add location to the current circle              |
+| <M-Del>        | Delete current location                         |
+| <M-r>          | Reorganize wheel elements                       |
+| -------------- | ---------------------------------------------   |
+| <M-C-r>        | Reorganize tabs and windows                     |
+| -------------- | ---------------------------------------------   |
+| <M-C-g>        | Grep in edit mode                               |
+| <M-n>          | Narrow current file                             |
+| <M-C-n>        | Narrow all circle files                         |
+| -------------- | ---------------------------------------------   |
+| <M-f>          | Find, prompting function                        |
+| <M-C-f>        | Find, dedicated buffer                          |
+| <M-C-&>        | Async find                                      |
+| <M-u>          | Most Recently Used files not found in wheel     |
+| <M-l>          | Locate                                          |
+| -------------- | ---------------------------------------------   |
+| <M-o>          | Occur in current file, prompting function       |
+| <M-C-o>        | Occur in current file, dedicated buffer         |
+| <M-g>          | Grep in current circle files                    |
+| <M-S-o>        | Outline in current circle files                 |
+| -------------- | ---------------------------------------------   |
+| <M-y>          | Paste yank ring element linewise, after cursor  |
+| <M-p>          | Paste yank ring element charwise, after cursor  |
+| <M-S-y>        | Paste yank ring element linewise, before cursor |
+| <M-S-p>        | Paste yank ring element charwise, before cursor |
+| <M-C-y>        | Yank ring dedicated buffer in plain mode        |
+| <M-C-p>        | Yank ring dedicated buffer in list mode         |
+| -------------- | ---------------------------------------------   |
+| <M-S-u>        | Undo list                                       |
+| -------------- | ---------------------------------------------   |
+| <M-!>          | Buffer with output of ex or shell command       |
+| <M-&>          | Async shell command in dedicated buffer         |
+| -------------- | ---------------------------------------------   |
+| <M-Tab>        | Add a new dedicated buffer                      |
+| <M-Backspace>  | Delete current dedicated buffer                 |
+| <M-Left>       | Cycle dedicated buffers, leftward               |
+| <M-Right>      | Cycle dedicated buffers, rightward              |
+| <C-Up>         | Switch dedicated buffer                         |
+| -------------- | ---------------------------------------------   |
+| <M-z>          | Zoom : one tab, one window                      |
 
 Below is the default level 10. To customize it, first set your mapping
 level to less than 10, then copy and adapt some of the following lines : >
@@ -3397,10 +3408,12 @@ level to less than 10, then copy and adapt some of the following lines : >
     exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
     exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
     " ---- yank ring
-    exe nmap '<m-y>          <plug>(wheel-prompt-yank-list)'
-    exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain)'
-    exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-list)'
-    exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-plain)'
+    exe nmap '<m-y>          <plug>(wheel-prompt-yank-plain-linewise-after)'
+    exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain-charwise-after)'
+    exe nmap '<m-s-y>        <plug>(wheel-prompt-yank-plain-linewise-before)'
+    exe nmap '<m-s-p>        <plug>(wheel-prompt-yank-plain-charwise-before)'
+    exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-plain)'
+    exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-list)'
     " ---- undo list
     exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
     " ---- ex or shell command output

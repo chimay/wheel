@@ -175,17 +175,17 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-dedibuf-grep) <cmd>call wheel#frigate#grep()<cr>
 	nnoremap <plug>(wheel-dedibuf-outline) <cmd>call wheel#frigate#outline()<cr>
 	" ---- yank ring
-	nnoremap <plug>(wheel-prompt-yank-list-linewise-after) <cmd>call wheel#codex#yank_list()<cr>
-	nnoremap <plug>(wheel-prompt-yank-list-charwise-after) <cmd>call wheel#codex#yank_list('charwise-after')<cr>
-	nnoremap <plug>(wheel-prompt-yank-list-linewise-before) <cmd>call wheel#codex#yank_list('linewise-before')<cr>
-	nnoremap <plug>(wheel-prompt-yank-list-charwise-before) <cmd>call wheel#codex#yank_list('charwise-before')<cr>
 	nnoremap <plug>(wheel-prompt-yank-plain-linewise-after) <cmd>call wheel#codex#yank_plain()<cr>
 	nnoremap <plug>(wheel-prompt-yank-plain-charwise-after) <cmd>call wheel#codex#yank_plain('charwise-after')<cr>
 	nnoremap <plug>(wheel-prompt-yank-plain-linewise-before) <cmd>call wheel#codex#yank_plain('linewise-before')<cr>
 	nnoremap <plug>(wheel-prompt-yank-plain-charwise-before) <cmd>call wheel#codex#yank_plain('charwise-before')<cr>
+	nnoremap <plug>(wheel-prompt-yank-list-linewise-after) <cmd>call wheel#codex#yank_list()<cr>
+	nnoremap <plug>(wheel-prompt-yank-list-charwise-after) <cmd>call wheel#codex#yank_list('charwise-after')<cr>
+	nnoremap <plug>(wheel-prompt-yank-list-linewise-before) <cmd>call wheel#codex#yank_list('linewise-before')<cr>
+	nnoremap <plug>(wheel-prompt-yank-list-charwise-before) <cmd>call wheel#codex#yank_list('charwise-before')<cr>
 	nnoremap <plug>(wheel-prompt-switch-register) <cmd>call wheel#codex#prompt_switch()<cr>
-	nnoremap <plug>(wheel-dedibuf-yank-list) <cmd>call wheel#clipper#yank('list')<cr>
 	nnoremap <plug>(wheel-dedibuf-yank-plain) <cmd>call wheel#clipper#yank('plain')<cr>
+	nnoremap <plug>(wheel-dedibuf-yank-list) <cmd>call wheel#clipper#yank('list')<cr>
 	" ---- undo list
 	nnoremap <plug>(wheel-dedibuf-undo-list) <cmd>call wheel#triangle#undolist()<cr>
 	" ---- ex or shell command output
@@ -400,8 +400,8 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. 'p <plug>(wheel-prompt-yank-plain-charwise-after)'
 		exe nmap prefix .. 'Y <plug>(wheel-prompt-yank-plain-linewise-before)'
 		exe nmap prefix .. 'P <plug>(wheel-prompt-yank-plain-charwise-before)'
-		exe nmap prefix .. '<m-y> <plug>(wheel-dedibuf-yank-list)'
-		exe nmap prefix .. '<m-p> <plug>(wheel-dedibuf-yank-plain)'
+		exe nmap prefix .. '<m-y> <plug>(wheel-dedibuf-yank-plain)'
+		exe nmap prefix .. '<m-p> <plug>(wheel-dedibuf-yank-list)'
 		" ---- undo list
 		exe nmap prefix .. '<c-u> <plug>(wheel-dedibuf-undo-list)'
 		" ---- generic ex or shell command
@@ -538,8 +538,8 @@ fun! wheel#centre#cables ()
 		exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain-charwise-after)'
 		exe nmap '<m-s-y>        <plug>(wheel-prompt-yank-plain-linewise-before)'
 		exe nmap '<m-s-p>        <plug>(wheel-prompt-yank-plain-charwise-before)'
-		exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-list)'
-		exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-plain)'
+		exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-plain)'
+		exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-list)'
 		" ---- undo list
 		exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
 		" ---- ex or shell command output

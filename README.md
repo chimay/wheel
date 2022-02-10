@@ -510,10 +510,12 @@ exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
 exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
 exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
 " ---- yank ring
-exe nmap '<m-y>          <plug>(wheel-prompt-yank-list)'
-exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain)'
-exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-list)'
-exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-plain)'
+exe nmap '<m-y>          <plug>(wheel-prompt-yank-plain-linewise-after)'
+exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain-charwise-after)'
+exe nmap '<m-s-y>        <plug>(wheel-prompt-yank-plain-linewise-before)'
+exe nmap '<m-s-p>        <plug>(wheel-prompt-yank-plain-charwise-before)'
+exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-plain)'
+exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-list)'
 " ---- undo list
 exe nmap '<m-s-u>        <plug>(wheel-dedibuf-undo-list)'
 " ---- ex or shell command output
