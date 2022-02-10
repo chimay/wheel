@@ -353,6 +353,10 @@ endfun
 fun! wheel#tree#rename (level, ...)
 	" Rename current element at level -> new
 	let level = a:level
+	if wheel#referen#is_empty (level)
+		echomsg 'wheel rename :' level 'is empty'
+		return v:false
+	endif
 	if a:0 > 0
 		let new = a:1
 	else
@@ -420,6 +424,10 @@ endfun
 
 fun! wheel#tree#rename_file (...)
 	" Rename current file in filesystem & in the wheel
+	if wheel#referen#is_empty ('location')
+		echomsg 'wheel rename file : location is empty'
+		return v:false
+	endif
 	if a:0 > 0
 		let new_filename = a:1
 	else
@@ -499,6 +507,10 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	"   - force : don't ask confirmation
 	let level = a:level
 	let ask = a:ask
+	if wheel#referen#is_empty (level)
+		echomsg 'wheel delete :' level 'is empty'
+		return v:false
+	endif
 	let current = wheel#referen#current (level)
 	let name = current.name
 	if ask != 'force'
@@ -549,9 +561,8 @@ fun! wheel#tree#copy_move (level, mode, ...)
 	"   - location : move location to another circle
 	let level = a:level
 	let mode = a:mode
-	if wheel#referen#is_upper_empty (level)
-		let upper_name = wheel#referen#upper_level_name (level)
-		echomsg 'wheel :' upper_name 'is empty'
+	if wheel#referen#is_empty (level)
+		echomsg 'wheel copy/move :' level 'is empty'
 		return v:false
 	endif
 	if a:0 > 0
