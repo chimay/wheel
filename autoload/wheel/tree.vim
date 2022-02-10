@@ -549,6 +549,11 @@ fun! wheel#tree#copy_move (level, mode, ...)
 	"   - location : move location to another circle
 	let level = a:level
 	let mode = a:mode
+	if wheel#referen#is_upper_empty (level)
+		let upper_name = wheel#referen#upper_level_name (level)
+		echomsg 'wheel :' upper_name 'is empty'
+		return v:false
+	endif
 	if a:0 > 0
 		let destination = a:1
 	else

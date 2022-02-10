@@ -21,7 +21,7 @@ if ! exists('s:list_keys')
 	lockvar s:list_keys
 endif
 
-" Current elements
+" ---- current elements
 
 fun! wheel#referen#wheel ()
 	" Wheel
@@ -92,7 +92,7 @@ fun! wheel#referen#current (level)
 	return wheel#referen#{a:level} ()
 endfun
 
-" Coordinates
+" ---- coordinates
 
 fun! wheel#referen#level_index_in_coordin (level)
 	" Return index of level in coordinates
@@ -119,7 +119,7 @@ fun! wheel#referen#coordinates ()
 	return names
 endfun
 
-" Hierarchy
+" ---- hierarchy
 
 fun! wheel#referen#upper (level)
 	" Current upper element in hierarchy
@@ -165,7 +165,7 @@ fun! wheel#referen#lower_level_name (level)
 	return s:levels[index]
 endfun
 
-" Emptiness
+" ---- emptiness
 
 fun! wheel#referen#is_empty (level)
 	" Whether current level element is empty
@@ -179,13 +179,13 @@ fun! wheel#referen#is_empty (level)
 	endif
 endfun
 
-fun! wheel#referen#is_empty_upper (level)
+fun! wheel#referen#is_upper_empty (level)
 	" Whether upper level element is empty
 	" Wheel can be torus, circle or location
 	return empty(wheel#referen#current (a:level))
 endfun
 
-" Current file in wheel ?
+" ---- current file in wheel ?
 
 fun! wheel#referen#is_in_wheel (...)
 	" Whether filename argument is in wheel
@@ -200,7 +200,7 @@ fun! wheel#referen#is_in_wheel (...)
 	return is_in_wheel
 endfun
 
-" Element lists
+" ---- element lists
 
 fun! wheel#referen#list_key (level)
 	" Name of key containing list of elements
@@ -225,7 +225,7 @@ fun! wheel#referen#elements (dict)
 	endif
 endfun
 
-" Match current buffer
+" ---- match current buffer
 
 fun! wheel#referen#location_matches_file ()
 	" Whether current location matches current file
