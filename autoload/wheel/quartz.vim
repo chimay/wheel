@@ -406,10 +406,6 @@ fun! wheel#quartz#fetch (varname, conversion = 'no-conversion')
 	if varname !~ '\m^s:'
 		let varname = 's:' .. varname
 	endif
-	" ---- delegate to pearl for commands
-	if ! exists(varname)
-		return wheel#pearl#fetch (varname, conversion)
-	endif
 	" ---- raw or conversion
 	if conversion ==# 'dict' && wheel#matrix#is_nested_list ({varname})
 		return wheel#matrix#items2dict ({varname})

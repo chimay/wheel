@@ -66,7 +66,7 @@ fun! wheel#tower#action (settings)
 	" - close : whether to close mandala buffer
 	let settings = a:settings
 	let menu_settings = settings.menu
-	let dict = wheel#crystal#fetch (menu_settings.linefun, 'dict')
+	let dict = wheel#quartz#fetch (menu_settings.linefun, 'dict')
 	let close = menu_settings.close
 	" ---- pre checks
 	let cursor_line = getline('.')
@@ -138,7 +138,7 @@ fun! wheel#tower#staircase (menuset, settings = {})
 	" ---- mappings
 	call wheel#tower#mappings (settings)
 	" ---- fill with dict keys
-	let items = wheel#crystal#fetch (dictname)
+	let items = wheel#quartz#fetch (dictname)
 	let lines = wheel#matrix#items2keys (items)
 	call wheel#mandala#fill (lines)
 	" ---- properties

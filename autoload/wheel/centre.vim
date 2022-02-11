@@ -7,17 +7,17 @@
 " ---- script constants
 
 if ! exists('s:meta_actions')
-	let s:meta_actions = wheel#crystal#fetch('command/meta/actions', 'dict')
+	let s:meta_actions = wheel#pearl#fetch('command/meta/actions', 'dict')
 	lockvar s:meta_actions
 endif
 
 if ! exists('s:meta_prompt_actions')
-	let s:meta_prompt_actions = wheel#crystal#fetch('command/meta/prompt/actions', 'dict')
+	let s:meta_prompt_actions = wheel#pearl#fetch('command/meta/prompt/actions', 'dict')
 	lockvar s:meta_prompt_actions
 endif
 
 if ! exists('s:meta_dedibuf_actions')
-	let s:meta_dedibuf_actions = wheel#crystal#fetch('command/meta/dedibuf/actions', 'dict')
+	let s:meta_dedibuf_actions = wheel#pearl#fetch('command/meta/dedibuf/actions', 'dict')
 	lockvar s:meta_dedibuf_actions
 endif
 

@@ -26,22 +26,22 @@ if ! exists('s:registers_symbols')
 endif
 
 if ! exists('s:subcommands_actions')
-	let s:subcommands_actions = wheel#crystal#fetch('command/meta/actions')
+	let s:subcommands_actions = wheel#pearl#fetch('command/meta/actions')
 	lockvar s:subcommands_actions
 endif
 
 if ! exists('s:prompt_actions')
-	let s:prompt_actions = wheel#crystal#fetch('command/meta/prompt/actions')
+	let s:prompt_actions = wheel#pearl#fetch('command/meta/prompt/actions')
 	lockvar s:prompt_actions
 endif
 
 if ! exists('s:dedibuf_actions')
-	let s:dedibuf_actions = wheel#crystal#fetch('command/meta/dedibuf/actions')
+	let s:dedibuf_actions = wheel#pearl#fetch('command/meta/dedibuf/actions')
 	lockvar s:dedibuf_actions
 endif
 
 if ! exists('s:file_subcommands')
-	let s:file_subcommands = wheel#crystal#fetch('command/meta/subcommands/file')
+	let s:file_subcommands = wheel#pearl#fetch('command/meta/subcommands/file')
 	lockvar s:file_subcommands
 endif
 

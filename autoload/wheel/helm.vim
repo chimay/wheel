@@ -18,7 +18,7 @@ if ! exists('s:fold_1')
 endif
 
 if ! exists('s:menu_list')
-	let s:menu_list = wheel#crystal#fetch('menu/list')
+	let s:menu_list = wheel#quartz#fetch('menu/list')
 	lockvar s:menu_list
 endif
 
@@ -81,7 +81,7 @@ fun! wheel#helm#main ()
 	let mainmenu = []
 	for category in s:menu_list
 		let header = category .. s:fold_1
-		let items = wheel#crystal#fetch('menu/' .. category)
+		let items = wheel#quartz#fetch('menu/' .. category)
 		let submenu = wheel#matrix#items2keys (items)
 		eval mainmenu->add(header)
 		eval mainmenu->extend(submenu)
