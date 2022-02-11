@@ -293,7 +293,10 @@ access to :
 - the inline help (wheel.txt)
 - the list of current wheel mappings
 - the list of available plug mappings
+- the list of :Wheel subcommands and actions
 - the list of autocommands of your wheel group
+- a dedicated buffer basic help
+- local buffer maps
 
 # Configuration
 ## Wiki
