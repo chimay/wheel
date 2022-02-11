@@ -4,7 +4,7 @@
 "
 " Nested lists & dictionaries
 
-" Booleans
+" ---- booleans
 
 fun! wheel#matrix#is_nested_list (argument)
 	" Whether argument is a nested list
@@ -42,7 +42,7 @@ fun! wheel#matrix#is_nested_dict (argument)
 	return v:true
 endfun
 
-" Duality
+" ---- duality
 
 fun! wheel#matrix#dual (nested)
 	" Return transposed of nested list
@@ -77,7 +77,19 @@ fun! wheel#matrix#dual (nested)
 	return dual
 endfun
 
-" Dictionary as nested list of items
+" ---- flatten
+
+fun! wheel#matrix#flatten (nested)
+	" Return concatenated lists of nested
+	let nested = deepcopy(a:nested)
+	let flat = []
+	for list in nested
+		eval flat->extend(list)
+	endfor
+	return flat
+endfun
+
+" ---- dictionary as nested list of items
 "
 " items list = [ [key1, val1], [key2, val2], ...]
 

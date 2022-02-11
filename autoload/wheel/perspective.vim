@@ -597,10 +597,8 @@ fun! wheel#perspective#yank (mode, register = 'unnamed')
 	endif
 	" ---- format yanks
 	if mode ==# 'plain'
-		eval returnlist->map({ _, val -> join(val, "\n") })
-		eval returnlist->filter({ _, val -> val =~ '\m.' })
+		let returnlist = wheel#matrix#flatten(returnlist)
 	elseif mode ==# 'list'
-		eval returnlist->filter({ _, val -> ! empty(val) })
 		eval returnlist->map({ _, val -> string(val) })
 	endif
 	" ---- coda
