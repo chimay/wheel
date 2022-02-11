@@ -2058,7 +2058,7 @@ Uses |:argdo| under the hood.
 ------------------------------------------------------------------------------
 AUTOGROUP						*wheel-commands-autogroup*
 
-:Wheel-autogroup				       *:Wheel-autogroup*
+:Wheel autogroup				       *:Wheel-autogroup*
 	Autogroup locations of current torus using filename extensions or directories.
 	Creates a new torus where each group will occupy a circle.
 
