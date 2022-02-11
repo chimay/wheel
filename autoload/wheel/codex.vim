@@ -48,6 +48,12 @@ fun! wheel#codex#register (register = 'unnamed')
 	let symbol = symbols_dict[register]
 	" ---- content
 	let content = getreg(symbol, 1, v:true)
+	if empty(content)
+		return v:false
+	endif
+	if len(content) == 1 && content[0] !~ '\m\w'
+		return v:false
+	endif
 	if strchars(join(content)) > g:wheel_config.maxim.yank_size
 		return v:false
 	endif
@@ -90,7 +96,7 @@ endfun
 
 " ---- prompt
 
-fun! wheel#codex#switch_default (register = '')
+fun! wheel#codex#switch_default_register (register = '')
 	" Switch register in yank prompting functions
 	let register = a:register
 	if empty(register)

@@ -405,14 +405,14 @@ See |wheel-prompting-functions-switch|.
 ==============================================================================
 WORKFLOW						*wheel-workflow*
 
-Fourfold approach			|wheel-workflow-approach|
+Interfaces				|wheel-workflow-interfaces|
 Mappings				|wheel-workflow-mappings|
 Autoread & write wheel			|wheel-workflow-auto-read-write|
 
 ------------------------------------------------------------------------------
-APPROACH						*wheel-workflow-approach*
+INTERFACES						*wheel-workflow-approach*
 
-Wheel offers a fourfold approach :
+Wheel has four main interfaces :
 
 - straightforward functions : for action that does not require any user input
 - prompting functions : require user input at prompt
@@ -465,8 +465,19 @@ So, two solutions :
 - you're happy with all of them : you can set `g:wheel_config.mappings` to 10
 - you set `g:wheel_config.mappings` to 2 or less, and cherrypick in level 10
 
-If you wonder how to define your own maps, see
-|wheel-mappings-define-your-own-maps|.
+Define your own maps~
+
+Two possibilities here, either you use the plugs, like this : >
+
+    nmap <silent> <M-m> <Plug>(wheel-menu-main)
+<
+
+or the meta-command : >
+
+    nnoremap <silent> <M-m> :Wheel dedibuf menu-main<cr>
+<
+
+Seel also |wheel-mappings-define-your-own-maps|.
 
 If you're looking for a specific Wheel function, see
 |wheel-mappings-exhaustive-list|.
@@ -3596,12 +3607,19 @@ DEFINE YOUR OWN MAPS			*wheel-mappings-define-your-own-maps*
 
 The recommended approach is to use plug maps. Example : >
 
-    nmap <silent> <M-m> <Plug>(wheel-menu-main)
+    nmap <silent> <M-m> <plug>(wheel-menu-main)
 <
 
 Plug maps are middle men between wheel autoload functions and user
 mappings, so you have to use recursive maps. The above example would
 not work with |:nnoremap|.
+
+You can also use the meta-command : >
+
+    nnoremap <silent> <M-m> :Wheel dedibuf menu-main<cr>
+<
+
+In that case, no need for a recursive map.
 
 ------------------------------------------------------------------------------
 EXHAUSTIVE LIST					*wheel-mappings-exhaustive-list*
@@ -3795,16 +3813,17 @@ Yank ring~
 
 | Plug maps                                       | Description                            |
 | ----------------------------------------------- | -------------------------------------- |
-| <plug>(wheel-prompt-yank-list-linewise-after)   | yank ring list, paste linewise after   |
-| <plug>(wheel-prompt-yank-list-linewise-before)  | yank ring list, paste linewise before  |
-| <plug>(wheel-prompt-yank-list-charwise-after)   | yank ring list, paste charwise after   |
-| <plug>(wheel-prompt-yank-list-charwise-before)  | yank ring list, paste charwise before  |
+| <plug>(wheel-prompt-switch-default-register)    | switch default register for yank ring  |
 | <plug>(wheel-prompt-yank-plain-linewise-after)  | yank ring plain, paste linewise after  |
 | <plug>(wheel-prompt-yank-plain-linewise-before) | yank ring plain, paste linewise before |
 | <plug>(wheel-prompt-yank-plain-charwise-after)  | yank ring plain, paste charwise after  |
 | <plug>(wheel-prompt-yank-plain-charwise-before) | yank ring plain, paste charwise before |
-| <plug>(wheel-dedibuf-yank-list)                 | yank ring in list format               |
+| <plug>(wheel-prompt-yank-list-linewise-after)   | yank ring list, paste linewise after   |
+| <plug>(wheel-prompt-yank-list-linewise-before)  | yank ring list, paste linewise before  |
+| <plug>(wheel-prompt-yank-list-charwise-after)   | yank ring list, paste charwise after   |
+| <plug>(wheel-prompt-yank-list-charwise-before)  | yank ring list, paste charwise before  |
 | <plug>(wheel-dedibuf-yank-plain)                | yank ring in plain format              |
+| <plug>(wheel-dedibuf-yank-list)                 | yank ring in list format               |
 
 Undo list~
 
