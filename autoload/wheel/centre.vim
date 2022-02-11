@@ -120,7 +120,7 @@ fun! wheel#centre#cables ()
 		exe nmap prefix .. '<m-m> <plug>(wheel-menu-main)'
 		exe nmap prefix .. '= <plug>(wheel-menu-meta)'
 		" ---- dashboard, info
-		exe nmap prefix .. 'i <plug>(wheel-dashboard)'
+		exe nmap prefix .. 'i <plug>(wheel-info)'
 		" ---- sync
 		" -- up : follow
 		exe nmap prefix .. '<m-$> <plug>(wheel-sync-up)'
