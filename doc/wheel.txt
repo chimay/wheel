@@ -469,7 +469,7 @@ Define your own maps~
 
 Two possibilities here, either you use the plugs, like this : >
 
-    nmap <silent> <M-m> <Plug>(wheel-menu-main)
+    nmap <silent> <M-m> <plug>(wheel-menu-main)
 <
 
 or the meta-command : >
@@ -1990,12 +1990,16 @@ want to filter with multi-patterns, separate them with a comma instead
 of a space, e.g. : >
 
     :Wheel pr,t<tab> -> :Wheel prompt
-    :Wheel c,y<tab> -> :Wheel copy
+<
+
+You can also use a semicolon : >
+
+    :Wheel c;y<tab> -> :Wheel copy
 <
 
 Hitting tab after a space yields all the candidates.
 
-Some subcommands demand a third word : >
+Some subcommands expect a third word : >
 
     :Wheel subcommand {action or file ...}
 <

@@ -330,7 +330,7 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 	endif
 	" ---- last word
 	let last = wordlist[-1]
-	let last_list = split(last, ',')
+	let last_list = split(last, '[,;]')
 	" ---- cursor after a partial word ?
 	let blank = cmdline[cursorpos - 1] =~ '\m\s'
 	" ---- subcommand
