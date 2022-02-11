@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Quartz
+" Pearl
 "
 " Internal Constants for commands in mandalas
 
