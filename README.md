@@ -549,7 +549,7 @@ exe nmap '<m-z>          <plug>(wheel-zoom)'
 
 ## More
 
-More information is available in the
+More examples are available in the
 [wiki examples page](https://github.com/chimay/wheel/wiki/examples).
 
 # Warning
