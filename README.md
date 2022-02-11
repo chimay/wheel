@@ -209,7 +209,7 @@ Some functions assume a Unix-like OS, like Linux or BSD :
 
 - async functions
 - external commands, like locate
-- generation of a script to symlink or copy the wheel as a filesystem tree
+- mirror the wheel structure to the filesystem tree
 
 Most of the plugin should work out of the box on other OSes, however. If
 you encounter some problem, please let me know.
