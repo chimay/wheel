@@ -104,7 +104,7 @@ fun! wheel#guru#meta_command ()
 	nnoremap <cr> <cmd>call wheel#guru#execute_current_line()<cr>
 endfun
 
-" mandala local help
+" ---- mandala local help
 
 fun! wheel#guru#mandala ()
 	" Basic help of a dedicated buffer
