@@ -301,9 +301,11 @@ access to :
 # Configuration
 ## Wiki
 
-For a thorough list of options, see
-[the configuration page](https://github.com/chimay/wheel/wiki/configuration)
-in the wiki.
+For a thorough list of options, see the
+[configuration](https://github.com/chimay/wheel/wiki/configuration)
+and
+[autocommands](https://github.com/chimay/wheel/wiki/autocommands)
+pages in the wiki.
 
 ## Example
 
