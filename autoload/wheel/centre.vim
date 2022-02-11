@@ -36,6 +36,31 @@ if ! exists('s:expr_plugs')
 	lockvar s:expr_plugs
 endif
 
+if ! exists('s:level_0_normal_maps')
+	let s:level_0_normal_maps = wheel#geode#fetch('maps/level_0/normal')
+	lockvar s:level_0_normal_maps
+endif
+
+if ! exists('s:level_1_normal_maps')
+	let s:level_1_normal_maps = wheel#geode#fetch('maps/level_1/normal')
+	lockvar s:level_1_normal_maps
+endif
+
+if ! exists('s:level_2_normal_maps')
+	let s:level_2_normal_maps = wheel#geode#fetch('maps/level_2/normal')
+	lockvar s:level_2_normal_maps
+endif
+
+if ! exists('s:level_2_visual_maps')
+	let s:level_2_visual_maps = wheel#geode#fetch('maps/level_2/visual')
+	lockvar s:level_2_visual_maps
+endif
+
+if ! exists('s:level_20_normal_maps')
+	let s:level_20_normal_maps = wheel#geode#fetch('maps/level_20/normal')
+	lockvar s:level_20_normal_maps
+endif
+
 " ---- commands
 
 fun! wheel#centre#meta (subcommand, ...)
@@ -98,221 +123,53 @@ fun! wheel#centre#plugs ()
 	for item in s:expr_plugs
 		let left = item[0]
 		let right = item[1]
-		exe begin .. left .. middle right
+		execute begin .. left .. middle right
+	endfor
+endfun
+
+fun! wheel#centre#mappings (level, mode = 'normal')
+	" Normal maps of level
+	let level = a:level
+	let mode = a:mode
+	" ---- mode dependent variables
+	if mode ==# 'normal'
+		let mapcmd = 'nmap'
+	elseif mode ==# 'visual'
+		let mapcmd = 'vmap'
+	endif
+	let level_maps = s:level_{level}_{mode}_maps
+	" ---- vars
+	let prefix = g:wheel_config.prefix
+	let begin = mapcmd .. ' <silent> ' .. prefix
+	let middle = '<plug>('
+	let end = ')'
+	" ---- loop
+	for item in level_maps
+		let left = item[0]
+		let right = item[1]
+		execute begin .. left middle .. right .. end
 	endfor
 endfun
 
 fun! wheel#centre#cables ()
 	" Link keys to <plug> mappings
-	" maps arguments
-	let nmap = 'nmap <silent>'
-	let vmap = 'vmap <silent>'
-	" general prefix
-	let prefix = g:wheel_config.prefix
-	" subprefixes
-	let batch = '@'
-	let async = '&'
-	let layout = 'z'
-	let debug = 'Z'
 	" Basic
 	if g:wheel_config.mappings >= 0
-		" ---- menus
-		exe nmap prefix .. '<m-m> <plug>(wheel-menu-main)'
-		exe nmap prefix .. '= <plug>(wheel-menu-meta)'
-		" ---- dashboard, info
-		exe nmap prefix .. 'i <plug>(wheel-info)'
-		" ---- sync
-		" -- up : follow
-		exe nmap prefix .. '<m-$> <plug>(wheel-sync-up)'
-		" -- down : jump
-		exe nmap prefix .. '$ <plug>(wheel-sync-down)'
-		" ---- load / Save
-		" -- wheel
-		exe nmap prefix .. 'r <plug>(wheel-read-wheel)'
-		exe nmap prefix .. 'w <plug>(wheel-write-wheel)'
-		" -- session file
-		exe nmap prefix .. 'R <plug>(wheel-read-session)'
-		exe nmap prefix .. 'W <plug>(wheel-write-layout)'
-		" ---- navigate in the wheel
-		" -- next / previous
-		exe nmap prefix .. '<pageup>     <plug>(wheel-previous-location)'
-		exe nmap prefix .. '<pagedown>   <plug>(wheel-next-location)'
-		exe nmap prefix .. '<c-pageup>   <plug>(wheel-previous-circle)'
-		exe nmap prefix .. '<c-pagedown> <plug>(wheel-next-circle)'
-		exe nmap prefix .. '<s-pageup>   <plug>(wheel-previous-torus)'
-		exe nmap prefix .. '<s-pagedown> <plug>(wheel-next-torus)'
-		" -- history
-		exe nmap prefix .. '<home>   <plug>(wheel-history-newer)'
-		exe nmap prefix .. '<end>    <plug>(wheel-history-older)'
-		exe nmap prefix .. '<c-home> <plug>(wheel-history-newer-in-circle)'
-		exe nmap prefix .. '<c-end>  <plug>(wheel-history-older-in-circle)'
-		exe nmap prefix .. '<s-home> <plug>(wheel-history-newer-in-torus)'
-		exe nmap prefix .. '<s-end>  <plug>(wheel-history-older-in-torus)'
-		" -- alternate
-		exe nmap prefix .. '<c-^> <plug>(wheel-alternate-anywhere)'
-		exe nmap prefix .. '<m-^> <plug>(wheel-alternate-same-circle)'
-		exe nmap prefix .. '<m-c-^> <plug>(wheel-alternate-same-torus-other-circle)'
-		exe nmap prefix .. '^ <plug>(wheel-alternate-menu)'
-		" ---- organize wheel
-		" -- add
-		exe nmap prefix .. 'a <plug>(wheel-prompt-add-here)'
-		exe nmap prefix .. '<c-a> <plug>(wheel-prompt-add-circle)'
-		exe nmap prefix .. 'A <plug>(wheel-prompt-add-torus)'
-		exe nmap prefix .. '+f <plug>(wheel-prompt-add-file)'
-		exe nmap prefix .. '+b <plug>(wheel-prompt-add-buffer)'
-		exe nmap prefix .. '* <plug>(wheel-prompt-add-glob)'
+		call wheel#centre#mappings (0)
 	endif
 	" Common
 	if g:wheel_config.mappings >= 1
-		" ---- navigate in the wheel
-		" -- switch
-		exe nmap prefix .. '<cr> <plug>(wheel-prompt-location)'
-		exe nmap prefix .. '<c-cr> <plug>(wheel-prompt-circle)'
-		exe nmap prefix .. '<s-cr> <plug>(wheel-prompt-torus)'
-		exe nmap prefix .. '<m-cr> <plug>(wheel-prompt-multi-switch)'
-		exe nmap prefix .. '<space> <plug>(wheel-dedibuf-location)'
-		exe nmap prefix .. '<c-space> <plug>(wheel-dedibuf-circle)'
-		exe nmap prefix .. '<s-space> <plug>(wheel-dedibuf-torus)'
-		" -- indexes
-		exe nmap prefix .. 'x <plug>(wheel-prompt-index)'
-		exe nmap prefix .. '<c-x> <plug>(wheel-prompt-index-circles)'
-		exe nmap prefix .. 'X <plug>(wheel-dedibuf-index)'
-		exe nmap prefix .. '<m-x> <plug>(wheel-dedibuf-index-tree)'
-		exe nmap prefix .. '<m-s-x> <plug>(wheel-dedibuf-index-circles)'
-		" -- history
-		exe nmap prefix .. 'h <plug>(wheel-prompt-history)'
-		exe nmap prefix .. '<m-h> <plug>(wheel-dedibuf-history)'
-		" -- frecency
-		exe nmap prefix .. 'e <plug>(wheel-prompt-frecency)'
-		exe nmap prefix .. '<m-e> <plug>(wheel-dedibuf-frecency)'
-		" ---- organize wheel
-		" -- reorder
-		exe nmap prefix .. batch .. 'o <plug>(wheel-dedibuf-reorder-location)'
-		exe nmap prefix .. batch .. '<c-o> <plug>(wheel-dedibuf-reorder-circle)'
-		exe nmap prefix .. batch .. 'O <plug>(wheel-dedibuf-reorder-torus)'
-		" -- rename
-		exe nmap prefix .. 'n <plug>(wheel-prompt-rename-location)'
-		exe nmap prefix .. '<c-n> <plug>(wheel-prompt-rename-circle)'
-		exe nmap prefix .. 'N <plug>(wheel-prompt-rename-torus)'
-		exe nmap prefix .. '<m-n> <plug>(wheel-prompt-rename-file)'
-		exe nmap prefix .. batch .. 'n <plug>(wheel-dedibuf-rename-location)'
-		exe nmap prefix .. batch .. '<c-n> <plug>(wheel-dedibuf-rename-circle)'
-		exe nmap prefix .. batch .. 'N <plug>(wheel-dedibuf-rename-torus)'
-		exe nmap prefix .. batch .. '<m-n> <plug>(wheel-dedibuf-rename-location-filename)'
-		" -- delete
-		exe nmap prefix .. 'd <plug>(wheel-prompt-delete-location)'
-		exe nmap prefix .. '<c-d> <plug>(wheel-prompt-delete-circle)'
-		exe nmap prefix .. 'D <plug>(wheel-prompt-delete-torus)'
-		exe nmap prefix .. batch .. 'd <plug>(wheel-dedibuf-delete-location)'
-		exe nmap prefix .. batch .. '<c-d> <plug>(wheel-dedibuf-delete-circle)'
-		exe nmap prefix .. batch .. 'D <plug>(wheel-dedibuf-delete-torus)'
-		" -- copy & move
-		exe nmap prefix .. 'c <plug>(wheel-prompt-copy-location)'
-		" <c-c> does not work in maps
-		exe nmap prefix .. '<m-c> <plug>(wheel-prompt-copy-circle)'
-		exe nmap prefix .. 'C <plug>(wheel-prompt-copy-torus)'
-		exe nmap prefix .. 'm <plug>(wheel-prompt-move-location)'
-		exe nmap prefix .. 'M <plug>(wheel-prompt-move-circle)'
-		exe nmap prefix .. batch .. 'c <plug>(wheel-dedibuf-copy-move-location)'
-		exe nmap prefix .. batch .. '<m-c> <plug>(wheel-dedibuf-copy-move-circle)'
-		exe nmap prefix .. batch .. 'C <plug>(wheel-dedibuf-copy-move-torus)'
+		call wheel#centre#mappings (1)
 	endif
 	" Advanced
 	if g:wheel_config.mappings >= 2
-		" ---- navigate with vim native tools
-		" -- buffers
-		exe nmap prefix .. 'b <plug>(wheel-prompt-buffer)'
-		exe nmap prefix .. '<m-b> <plug>(wheel-dedibuf-buffer)'
-		exe nmap prefix .. '<c-b> <plug>(wheel-dedibuf-buffer-all)'
-		" -- tabs & windows : visible buffers
-		exe nmap prefix .. 'v <plug>(wheel-prompt-tabwin)'
-		exe nmap prefix .. '<m-v> <plug>(wheel-dedibuf-tabwin-tree)'
-		exe nmap prefix .. '<c-v> <plug>(wheel-dedibuf-tabwin)'
-		" -- (neo)vim lists
-		exe nmap prefix .. "' <plug>(wheel-prompt-marker)"
-		exe nmap prefix .. 'j <plug>(wheel-prompt-jump)'
-		exe nmap prefix .. ', <plug>(wheel-prompt-change)'
-		exe nmap prefix .. 't <plug>(wheel-prompt-tag)'
-		exe nmap prefix .. "<m-'> <plug>(wheel-dedibuf-marker)"
-		exe nmap prefix .. '<m-j> <plug>(wheel-dedibuf-jump)'
-		exe nmap prefix .. '; <plug>(wheel-dedibuf-change)'
-		exe nmap prefix .. '<m-t> <plug>(wheel-dedibuf-tag)'
-		" ---- reorganize wheel
-		exe nmap prefix .. '<m-r> <plug>(wheel-dedibuf-reorganize)'
-		" ---- reorganize other things
-		exe nmap prefix .. '<c-r> <plug>(wheel-dedibuf-reorg-tabwin)'
-		" ---- refactoring
-		exe nmap prefix .. '<m-g> <plug>(wheel-dedibuf-grep-edit)'
-		exe nmap prefix .. '-% <plug>(wheel-dedibuf-narrow)'
-		exe nmap prefix .. '-- <plug>(wheel-dedibuf-narrow-operator)'
-		exe vmap prefix .. '-- <plug>(wheel-dedibuf-narrow)'
-		exe nmap prefix .. '-c <plug>(wheel-dedibuf-narrow-circle)'
-		" ---- search
-		" -- files
-		exe nmap prefix .. 'f <plug>(wheel-prompt-find)'
-		exe nmap prefix .. '<m-f> <plug>(wheel-dedibuf-find)'
-		exe nmap prefix .. async .. 'f <plug>(wheel-dedibuf-async-find)'
-		exe nmap prefix .. 'u <plug>(wheel-prompt-mru)'
-		exe nmap prefix .. '<m-u> <plug>(wheel-dedibuf-mru)'
-		exe nmap prefix .. 'l <plug>(wheel-dedibuf-locate)'
-		" -- inside files
-		exe nmap prefix .. 'o <plug>(wheel-prompt-occur)'
-		exe nmap prefix .. '<m-o> <plug>(wheel-dedibuf-occur)'
-		exe nmap prefix .. 'g <plug>(wheel-dedibuf-grep)'
-		exe nmap prefix .. '<c-o> <plug>(wheel-dedibuf-outline)'
-		" ---- yank ring
-		exe nmap prefix .. '<C-y> <plug>(wheel-prompt-switch-register)'
-		exe nmap prefix .. 'y <plug>(wheel-prompt-yank-plain-linewise-after)'
-		exe nmap prefix .. 'p <plug>(wheel-prompt-yank-plain-charwise-after)'
-		exe nmap prefix .. 'Y <plug>(wheel-prompt-yank-plain-linewise-before)'
-		exe nmap prefix .. 'P <plug>(wheel-prompt-yank-plain-charwise-before)'
-		exe nmap prefix .. '<m-y> <plug>(wheel-dedibuf-yank-plain)'
-		exe nmap prefix .. '<m-p> <plug>(wheel-dedibuf-yank-list)'
-		" ---- undo list
-		exe nmap prefix .. '<c-u> <plug>(wheel-dedibuf-undo-list)'
-		" ---- generic ex or shell command
-		exe nmap prefix .. ': <plug>(wheel-dedibuf-command)'
-		exe nmap prefix .. async .. '& <plug>(wheel-dedibuf-async)'
-		" ---- dedicated buffers
-		exe nmap prefix .. '<tab> <plug>(wheel-mandala-add)'
-		exe nmap prefix .. '<backspace> <plug>(wheel-mandala-delete)'
-		exe nmap prefix .. '<left> <plug>(wheel-mandala-backward)'
-		exe nmap prefix .. '<right>  <plug>(wheel-mandala-forward)'
-		exe nmap prefix .. '<up> <plug>(wheel-mandala-switch)'
-		" ---- layouts
-		exe nmap prefix .. layout .. 'z <plug>(wheel-layout-zoom)'
-		" -- tabs
-		exe nmap prefix .. layout .. 't <plug>(wheel-layout-tabs-locations)'
-		exe nmap prefix .. layout .. '<c-t> <plug>(wheel-layout-tabs-circles)'
-		exe nmap prefix .. layout .. 'T <plug>(wheel-layout-tabs-toruses)'
-		" -- windows
-		exe nmap prefix .. layout .. 's <plug>(wheel-layout-split-locations)'
-		exe nmap prefix .. layout .. '<c-s> <plug>(wheel-layout-split-circles)'
-		exe nmap prefix .. layout .. 'S <plug>(wheel-layout-split-toruses)'
-		exe nmap prefix .. layout .. 'v <plug>(wheel-layout-vsplit-locations)'
-		exe nmap prefix .. layout .. '<c-v> <plug>(wheel-layout-vsplit-circles)'
-		exe nmap prefix .. layout .. 'V <plug>(wheel-layout-vsplit-toruses)'
-		" -- main top
-		exe nmap prefix .. layout .. 'm <plug>(wheel-layout-main-top-locations)'
-		exe nmap prefix .. layout .. '<c-m> <plug>(wheel-layout-main-top-circles)'
-		exe nmap prefix .. layout .. 'M <plug>(wheel-layout-main-top-toruses)'
-		" -- main left
-		exe nmap prefix .. layout .. 'l <plug>(wheel-layout-main-left-locations)'
-		exe nmap prefix .. layout .. '<c-l> <plug>(wheel-layout-main-left-circles)'
-		exe nmap prefix .. layout .. 'L <plug>(wheel-layout-main-left-toruses)'
-		" -- grid
-		exe nmap prefix .. layout .. 'g <plug>(wheel-layout-grid-locations)'
-		exe nmap prefix .. layout .. '<c-g> <plug>(wheel-layout-grid-circles)'
-		exe nmap prefix .. layout .. 'G <plug>(wheel-layout-grid-toruses)'
-		" -- tabs & windows
-		exe nmap prefix .. layout .. '& <plug>(wheel-layout-tab-win-circle)'
-		exe nmap prefix .. layout .. '<M-&> <plug>(wheel-layout-tab-win-torus)'
-		" -- rotating windows
-		exe nmap prefix .. layout .. '<up> <plug>(wheel-layout-rotate-counter-clockwise)'
-		exe nmap prefix .. layout .. '<down> <plug>(wheel-layout-rotate-clockwise)'
+		call wheel#centre#mappings (2)
+		call wheel#centre#mappings (2, 'visual')
 	endif
 	" Without prefix
 	if g:wheel_config.mappings >= 10
+		let nmap = 'nmap <silent>'
+		let vmap = 'vmap <silent>'
 		" Menus
 		exe nmap '<m-m>         <plug>(wheel-menu-main)'
 		exe nmap '<m-=>         <plug>(wheel-menu-meta)'
@@ -422,11 +279,6 @@ fun! wheel#centre#cables ()
 	endif
 	" Debug
 	if g:wheel_config.mappings >= 20
-		exe nmap prefix .. debug .. 'Z <plug>(wheel-debug-fresh-wheel)'
-		exe nmap prefix .. debug .. 'e <plug>(wheel-debug-clear-echo-area)'
-		exe nmap prefix .. debug .. 'm <plug>(wheel-debug-clear-messages)'
-		exe nmap prefix .. debug .. 's <plug>(wheel-debug-clear-signs)'
-		exe nmap prefix .. debug .. 'h <plug>(wheel-debug-prompt-history-circuit)'
-		exe nmap prefix .. debug .. '<m-h> <plug>(wheel-debug-dedibuf-history-circuit)'
+		call wheel#centre#mappings (20)
 	endif
 endfun
