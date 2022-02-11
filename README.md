@@ -208,7 +208,7 @@ This project is inspired by :
 Some functions assume a Unix-like OS, like Linux or BSD :
 
 - async functions
-- locate and async find commands
+- external commands, like locate
 - generation of a script to symlink or copy the wheel as a filesystem tree
 
 Most of the plugin should work out of the box on other OSes, however. If
