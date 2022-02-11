@@ -51,6 +51,7 @@ enhances their interface by using :
 - intuitive completion with multi-pattern support for prompting functions
 - dedicated buffers, in which you can filter and select elements, besides using
   the full power of your editor
+- a meta-command with subcommands, actions and completion
 - edit modes, that allow you to reflect your changes in a dedicated buffer to
   the original file(s)
 
