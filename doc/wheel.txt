@@ -1978,7 +1978,15 @@ There is a slight difference with the usual completion however : if you
 want to filter with multi-patterns, separate them with a comma instead
 of a space, e.g. : >
 
+    :Wheel pr,t<tab> -> :Wheel prompt
     :Wheel c,y<tab> -> :Wheel copy
+<
+
+Hitting tab after a space yield all the candidates.
+
+Some subcommands demand a third word : >
+
+    :Wheel subcommand {action or file ...}
 <
 
 ------------------------------------------------------------------------------
