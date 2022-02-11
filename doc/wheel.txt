@@ -201,12 +201,13 @@ encounter some problem, please let me know.
 ==============================================================================
 STEP BY STEP						*wheel-step-by-step*
 
-Prefix				|wheel-sbs-prefix|
-One map to ring them all	|wheel-sbs-one-map-to-ring-them-all|
-First circles			|wheel-sbs-first-circles|
-Moving around			|wheel-sbs-moving-around|
-Square the circle		|wheel-sbs-square-the-circle|
-Tags				|wheel-sbs-tags|
+Prefix				    |wheel-sbs-prefix|
+One map to ring them all	    |wheel-sbs-one-map-to-ring-them-all|
+One command to launch them all	    |wheel-sbs-one-command-to-launch-them-all|
+First circles			    |wheel-sbs-first-circles|
+Moving around			    |wheel-sbs-moving-around|
+Square the circle		    |wheel-sbs-square-the-circle|
+Tags				    |wheel-sbs-tags|
 
 ------------------------------------------------------------------------------
 PREFIX						*wheel-sbs-prefix*
@@ -227,6 +228,31 @@ in normal mode to trigger an action (if you know what you're doing),
 or `q` to quit the menu.
 
 To learn more about menus, see |wheel-dedicated-buffers-menus|.
+
+------------------------------------------------------------------------------
+ONE COMMAND TO LAUNCH THEM ALL		*wheel-sbs-one-command-to-launch-them-all*
+
+The |:Wheel| command can be used to launch any wheel functionality. The
+general syntax is : >
+
+    :Wheel {subcommand}
+    " or
+    :Wheel {subcommand} {action}
+<
+
+To see all possibilities, just hit tab after a space, e.g. : >
+
+    :Wheel <tab>
+    " or
+    :Wheel {subcommand} <tab>
+<
+
+For example, you can use : >
+
+    :Wheel dedibuf menu-main
+<
+
+to launch the main menu.
 
 ------------------------------------------------------------------------------
 FIRST CIRCLES				    	    *wheel-sbs-first-circles*
@@ -1985,9 +2011,13 @@ The main command is :
     the following sections. Completion of sub-commands and subsequent
     is available.
 
-There is a slight difference with the usual completion however : if you
-want to filter with multi-patterns, separate them with a comma instead
-of a space, e.g. : >
+Hitting tab after a space yields all the candidates.
+
+Hitting tab after a word character filter the candidates with the word.
+
+There is a slight difference with the usual wheel completion, however :
+if you want to filter with multi-patterns, separate them with a comma
+instead of a space, e.g. : >
 
     :Wheel pr,t<tab> -> :Wheel prompt
 <
@@ -1996,8 +2026,6 @@ You can also use a semicolon : >
 
     :Wheel c;y<tab> -> :Wheel copy
 <
-
-Hitting tab after a space yields all the candidates.
 
 Some subcommands expect a third word : >
 
