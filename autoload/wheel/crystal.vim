@@ -137,7 +137,7 @@ if ! exists('s:function_pattern_navigation')
 				\ '\m#sailing#',
 				\ '\m#frigate#',
 				\ '\m#pendulum#',
-				\]
+				\ ]
 	lockvar! s:function_pattern_navigation
 endif
 
@@ -154,7 +154,7 @@ if ! exists('s:function_pattern_mandala_opens')
 				\ '\m#codex#',
 				\ '\m#clipper#',
 				\ '\m#triangle#',
-				\]
+				\ ]
 	" functions that uses mandala
 	lockvar! s:function_pattern_mandala_opens
 endif
@@ -163,7 +163,7 @@ if ! exists('s:function_pattern_mandala_needs')
 	let s:function_pattern_mandala_needs = [
 				\ '\m#boomerang#\%(navigation\|tabwin\)\@!',
 				\ "\m#boomerang#tabwin('tabclose')",
-				\]
+				\ ]
 	lockvar! s:function_pattern_mandala_needs
 endif
 
@@ -368,7 +368,7 @@ if ! exists('s:mandala_targets')
 				\ 'vertical_split',
 				\ 'horizontal_golden',
 				\ 'vertical_golden',
-				\]
+				\ ]
 	lockvar! s:mandala_targets
 endif
 
@@ -383,7 +383,7 @@ if ! exists('s:diff_options')
 				\ 'wrap',
 				\ 'foldmethod',
 				\ 'foldcolumn',
-				\]
+				\ ]
 	lockvar! s:diff_options
 endif
 

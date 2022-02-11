@@ -4,6 +4,30 @@
 "
 " Internal Constants for maps in mandalas
 
+" ---- subprefixes
+
+if ! exists('s:batch')
+	let s:batch = '@'
+	lockvar! s:batch
+endif
+
+if ! exists('s:async')
+	let s:async = '&'
+	lockvar! s:async
+endif
+
+if ! exists('s:layout')
+	let s:layout = 'z'
+	lockvar! s:layout
+endif
+
+if ! exists('s:debug')
+	let s:debug = 'Z'
+	lockvar! s:debug
+endif
+
+" ---- plugs
+
 if ! exists('s:plugs_normal')
 	let s:plugs_normal = [
 		\ [ 'wheel-menu-main',                         'wheel#helm#main()' ],
@@ -176,6 +200,14 @@ if ! exists('s:plugs_expr')
 				\ [ 'wheel-dedibuf-narrow-operator', 'wheel#shadow#narrow_file_operator()' ],
 				\ ]
 	lockvar! s:plugs_expr
+endif
+
+" ---- maps
+
+if ! exists('s:maps_level_1')
+	let s:maps_level_1 = [
+				\ ]
+	lockvar! s:maps_level_1
 endif
 
 " ---- public interface

@@ -19,7 +19,7 @@ if ! exists('s:menu_help')
 				\ ['autocommands', 'wheel#guru#autocommands'],
 				\ ['dedicated buffer help', 'wheel#guru#mandala'],
 				\ ['local maps', 'wheel#guru#mandala_mappings'],
-				\]
+				\ ]
 	lockvar! s:menu_help
 endif
 
@@ -28,7 +28,7 @@ if ! exists('s:menu_status')
 				\ ['dashboard', 'wheel#status#dashboard'],
 				\ ['jump to current wheel location', 'wheel#vortex#jump'],
 				\ ['find closest wheel location to cursor', 'wheel#projection#follow'],
-				\]
+				\ ]
 	lockvar! s:menu_status
 endif
 
@@ -38,7 +38,7 @@ if ! exists('s:menu_save_and_load')
 				\ ['load wheel', 'wheel#disc#read_wheel'],
 				\ ['save session', 'wheel#disc#write_session'],
 				\ ['load session', 'wheel#disc#read_session'],
-				\]
+				\ ]
 	lockvar! s:menu_save_and_load
 endif
 
@@ -70,7 +70,7 @@ if ! exists('s:menu_wheel_navigation')
 				\ ['alternate in same torus, other circle' ,  "wheel#pendulum#alternate('same_torus_other_circle')"],
 				\ ['go to location in history' ,  'wheel#whirl#history'],
 				\ ['go to location in frecency' ,  'wheel#whirl#frecency'],
-				\]
+				\ ]
 	lockvar! s:menu_wheel_navigation
 endif
 
@@ -84,7 +84,7 @@ if ! exists('s:menu_native_navigation')
 				\ ['go to jump' ,  'wheel#frigate#jump()'],
 				\ ['go to change' ,  'wheel#frigate#change()'],
 				\ ['go to tag' ,  'wheel#frigate#tag()'],
-				\]
+				\ ]
 	lockvar! s:menu_native_navigation
 endif
 
@@ -119,14 +119,14 @@ if ! exists('s:menu_organize_wheel')
 				\ ['copy or move circles' ,  "wheel#yggdrasil#copy_move('circle')"],
 				\ ['copy or move locations' ,  "wheel#yggdrasil#copy_move('location')"],
 				\ ['reorganize wheel' ,  'wheel#yggdrasil#reorganize'],
-				\]
+				\ ]
 	lockvar! s:menu_organize_wheel
 endif
 
 if ! exists('s:menu_organize_native')
 	let s:menu_organize_native = [
 				\ ['reorganize tabs & windows' ,  'wheel#mirror#reorg_tabwin'],
-				\]
+				\ ]
 	lockvar! s:menu_organize_native
 endif
 
@@ -135,7 +135,7 @@ if ! exists('s:menu_refactoring')
 				\ ['grep in edit mode' ,  'wheel#shadow#grep_edit'],
 				\ ['narrow current file' ,  'wheel#shadow#narrow_file'],
 				\ ['narrow all files in circle' ,  'wheel#shadow#narrow_circle'],
-				\]
+				\ ]
 	lockvar! s:menu_refactoring
 endif
 
@@ -145,7 +145,7 @@ if ! exists('s:menu_search_file')
 				\ ['go to locate result' ,  'wheel#frigate#locate'],
 				\ ['go to find result' ,  'wheel#frigate#find'],
 				\ ['go to async find result' ,  'wheel#frigate#async_find'],
-				\]
+				\ ]
 	lockvar! s:menu_search_file
 endif
 
@@ -154,7 +154,7 @@ if ! exists('s:menu_search_inside_file')
 				\ ['go to matching line (occur)' ,  'wheel#frigate#occur'],
 				\ ['go to grep result' ,  'wheel#frigate#grep()'],
 				\ ['go to outline result' ,  'wheel#frigate#outline()'],
-				\]
+				\ ]
 	lockvar! s:menu_search_inside_file
 endif
 
@@ -162,14 +162,14 @@ if ! exists('s:menu_yank')
 	let s:menu_yank = [
 				\ ['yank wheel in list mode' ,  "wheel#clipper#yank('list')"],
 				\ ['yank wheel in plain mode' ,  "wheel#clipper#yank('plain')"],
-				\]
+				\ ]
 	lockvar! s:menu_yank
 endif
 
 if ! exists('s:menu_undo')
 	let s:menu_undo = [
 				\ ['undo list' ,  'wheel#triangle#undolist'],
-				\]
+				\ ]
 	lockvar! s:menu_undo
 endif
 
@@ -177,7 +177,7 @@ if ! exists('s:menu_command')
 	let s:menu_command = [
 				\ [':ex or !shell command output', 'wheel#mandala#command'],
 				\ ['async shell command output' ,  'wheel#mandala#async'],
-				\]
+				\ ]
 	lockvar! s:menu_command
 endif
 
@@ -186,7 +186,7 @@ if ! exists('s:menu_dedicated_buffers')
 				\ ['add new dedicated buffer', 'wheel#cylinder#add()'],
 				\ ['delete current dedicated buffer', 'wheel#cylinder#add()'],
 				\ ['switch dedicated buffer', 'wheel#cylinder#switch()'],
-				\]
+				\ ]
 	lockvar! s:menu_dedicated_buffers
 endif
 
@@ -195,7 +195,7 @@ if ! exists('s:menu_layout')
 				\ ['zoom ,  one tab, one window', 'wheel#mosaic#zoom()'],
 				\ ['rotate windows clockwise' ,  'wheel#mosaic#rotate_clockwise()'],
 				\ ['rotate windows counter-clockwise' ,  'wheel#mosaic#rotate_counter_clockwise()'],
-				\]
+				\ ]
 	lockvar! s:menu_layout
 endif
 
@@ -204,7 +204,7 @@ if ! exists('s:menu_layout_tabs')
 				\ ['toruses on tabs' ,  "wheel#mosaic#tabs('torus')"],
 				\ ['circles on tabs' ,  "wheel#mosaic#tabs('circle')"],
 				\ ['locations on tabs' ,  "wheel#mosaic#tabs('location')"],
-				\]
+				\ ]
 	lockvar! s:menu_layout_tabs
 endif
 
@@ -240,7 +240,7 @@ if ! exists('s:menu_layout_windows')
 				\ ['toruses on splits, golden top layout' ,  "wheel#mosaic#golden('torus', 'main_top')"],
 				\ ['circles on splits, golden top layout' ,  "wheel#mosaic#golden('circle', 'main_top')"],
 				\ ['locations on splits, golden top layout' ,  "wheel#mosaic#golden('location', 'main_top')"],
-				\]
+				\ ]
 	lockvar! s:menu_layout_windows
 endif
 
@@ -248,7 +248,7 @@ if ! exists('s:menu_layout_mixed')
 	let s:menu_layout_mixed = [
 				\ ['mix : toruses on tabs & circles on splits', "wheel#pyramid#steps('torus')"],
 				\ ['mix : circles on tabs & locations on splits', "wheel#pyramid#steps('circle')"],
-				\]
+				\ ]
 	lockvar! s:menu_layout_mixed
 endif
 
@@ -273,7 +273,7 @@ if ! exists('s:menu_list')
 				\ 'layout_tabs',
 				\ 'layout_windows',
 				\ 'layout_mixed',
-				\]
+				\ ]
 	lockvar! s:menu_list
 endif
 
@@ -310,7 +310,7 @@ if ! exists('s:context_navigation')
 				\ ['open in vertical split(s)' ,  "wheel#boomerang#navigation('vertical_split')"],
 				\ ['open in horizontal golden split(s)' ,  "wheel#boomerang#navigation('horizontal_golden')"],
 				\ ['open in vertical golden split(s)' ,  "wheel#boomerang#navigation('vertical_golden')"],
-				\]
+				\ ]
 	lockvar! s:context_navigation
 endif
 
@@ -321,7 +321,7 @@ if ! exists('s:context_buffer')
 				\ ['wipe' ,  "wheel#boomerang#buffer('wipe')"],
 				\ ['delete hidden buffers' ,  "wheel#boomerang#buffer('delete_hidden')"],
 				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
-				\]
+				\ ]
 	lockvar! s:context_buffer
 endif
 
@@ -333,7 +333,7 @@ if ! exists('s:context_buffer_all')
 				\ ['delete hidden buffers' ,  "wheel#boomerang#buffer('delete_hidden')"],
 				\ ['wipe hidden buffers' ,  "wheel#boomerang#buffer('wipe_hidden')"],
 				\ ['wipe all hidden buffers, including unlisted ones' ,  "wheel#boomerang#buffer('wipe_all_hidden')"],
-				\]
+				\ ]
 	lockvar! s:context_buffer_all
 endif
 
@@ -343,7 +343,7 @@ if ! exists('s:context_tabwin')
 				\ ['new tab' ,  "wheel#boomerang#tabwin('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin('tabclose')"],
 				\ ['reorganize' ,  'wheel#mirror#reorg_tabwin'],
-				\]
+				\ ]
 	lockvar! s:context_tabwin
 endif
 
@@ -353,7 +353,7 @@ if ! exists('s:context_tabwin_tree')
 				\ ['new tab' ,  "wheel#boomerang#tabwin_tree('tabnew')"],
 				\ ['close tab' ,  "wheel#boomerang#tabwin_tree('tabclose')"],
 				\ ['reorganize' ,  'wheel#mirror#reorg_tabwin'],
-				\]
+				\ ]
 	lockvar! s:context_tabwin_tree
 endif
 
@@ -361,7 +361,7 @@ if ! exists('s:context_grep')
 	let s:context_grep = s:context_navigation + [
 				\ ['edit mode' ,  "wheel#shadow#grep_edit()"],
 				\ ['open quickfix' ,  "wheel#boomerang#grep('quickfix')"],
-				\]
+				\ ]
 	lockvar! s:context_grep
 endif
 
@@ -373,7 +373,7 @@ if ! exists('s:context_yank_list')
 				\ ['characterwise paste after' ,  "wheel#boomerang#yank('charwise-after')"],
 				\ ['undo' ,  'wheel#codex#undo()'],
 				\ ['redo' ,  'wheel#codex#redo()'],
-				\]
+				\ ]
 	lockvar! s:context_yank_list
 endif
 
@@ -385,7 +385,7 @@ if ! exists('s:context_yank_plain')
 				\ ['characterwise paste after' ,  "wheel#boomerang#yank('charwise-after')"],
 				\ ['undo' ,  'wheel#codex#undo()'],
 				\ ['redo' ,  'wheel#codex#redo()'],
-				\]
+				\ ]
 	lockvar! s:context_yank_plain
 endif
 

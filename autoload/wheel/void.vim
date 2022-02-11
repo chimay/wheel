@@ -455,7 +455,7 @@ fun! wheel#void#vanish ()
 				\ 'g:wheel_bufring',
 				\ 'g:wheel_wave',
 				\ 'g:wheel_ripple',
-				\]
+				\ ]
 	call wheel#gear#unlet (varlist)
 endfun
 
@@ -518,7 +518,7 @@ fun! wheel#void#fresh_wheel ()
 				\ 'g:wheel_bufring',
 				\ 'g:wheel_signs',
 				\ 'g:wheel_shelve',
-				\]
+				\ ]
 	call wheel#gear#unlet (varlist)
 	call wheel#void#foundation ()
 endfun

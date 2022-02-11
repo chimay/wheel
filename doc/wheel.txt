@@ -4081,6 +4081,7 @@ of the modules within them.
 | disc.vim          | Read & write wheel & session file              |
 | frigate.vim       | Non-wheel navigation dedicated buffers         |
 | gear.vim          | Generic helpers                                |
+| geode.vim         | Internal constants for plugs & maps            |
 | group.vim         | Auto grouping of files                         |
 | guru.vim          | Help                                           |
 | harmony.vim       | Write functions for mandalas autocommands      |

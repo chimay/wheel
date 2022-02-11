@@ -78,6 +78,8 @@ endif
 
 if ! exists('s:command_meta_dedibuf_actions')
 	let s:command_meta_dedibuf_actions = [
+				\ [ 'menu-main', 'wheel#helm#main()' ],
+				\ [ 'menu-meta', 'wheel#helm#meta()' ],
 				\ [ 'location', "wheel#whirl#switch('location')" ],
 				\ [ 'circle', "wheel#whirl#switch('circle')" ],
 				\ [ 'torus', "wheel#whirl#switch('torus')" ],
@@ -129,7 +131,7 @@ endif
 if ! exists('s:command_meta_subcommands_file')
 	let s:command_meta_subcommands_file = [
 				\ 'mkdir', 'rename', 'copy', 'delete',
-				\]
+				\ ]
 	lockvar! s:command_meta_subcommands_file
 endif
 
