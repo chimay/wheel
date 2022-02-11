@@ -24,11 +24,11 @@ fun! wheel#sailing#find (...)
 	if a:0 > 0
 		let file = a:1
 	else
-		let prompt = 'File to edit ? '
+		let prompt = 'Find file to edit ? '
 		let complete = 'customlist,wheel#complete#file'
 		let file = input(prompt, '', complete)
 	endif
-	execute 'hide edit' fnameescape(file)
+	execute 'hide edit' file
 endfun
 
 fun! wheel#sailing#mru ()

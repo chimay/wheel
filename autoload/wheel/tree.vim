@@ -285,7 +285,7 @@ fun! wheel#tree#add_file (...)
 		let file = input(prompt, '', complete)
 	endif
 	silent doautocmd User WheelUpdate
-	execute 'hide edit' fnameescape(file)
+	execute 'hide edit' file
 	call wheel#tree#add_here()
 endfun
 
