@@ -2065,22 +2065,22 @@ AUTOGROUP						*wheel-commands-autogroup*
 ------------------------------------------------------------------------------
 DISC OPERATIONS					*wheel-commands-disc-operations*
 
-:WheelMkdir {dirname}
+:Wheel mkdir {dirname}
 	Create recursively a directory if non existent
 
-:WheelRename {source} {dest}
+:Wheel rename {source} {dest}
 	Rename a file
 
-:WheelCopy {source} {dest}
+:Wheel copy {source} {dest}
 	Copy a file
 
-:WheelDelete {filename}
+:Wheel delete {filename}
 	Delete a file
 
 ------------------------------------------------------------------------------
 WHEEL TREE IN DISC				*wheel-commands-tree-in-disc*
 
-:WheelTreeScript				*:WheelTreeScript*
+:Wheel tree-script				*:WheelTreeScript*
 	Write a shell script that generates a tree of links or copies
 	following the wheel hierarchy : torus/circle/location.
 	Unix systems only.
@@ -2088,13 +2088,13 @@ WHEEL TREE IN DISC				*wheel-commands-tree-in-disc*
 	|:WheelSymlinkTree| or |:WheelCopiedTree|.
 
 
-:WheelSymlinkTree				*:WheelSymlinkTree*
+:Wheel symlink-tree				*:WheelSymlinkTree*
 	Generate a tree of symlinks following the wheel hierarchy :
 	torus/circle/link-to-location-file.
 	Unix systems only.
 
 
-:WheelCopiedTree				*:WheelCopiedTree*
+:Wheel copied-tree				*:WheelCopiedTree*
 	Generate a tree of copies following the wheel hierarchy :
 	torus/circle/link-to-location-file.
 	Unix systems only.
