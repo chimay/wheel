@@ -878,7 +878,7 @@ Help~
 
 The key `<F1>` display a basic help.
 
-The key `<M-F1>` displays local maps in a new layer. See
+The key `<F2>` displays local maps in a new layer. See
 |wheel-dedicated-buffers-layers|.
 
 Action~

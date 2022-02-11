@@ -320,7 +320,7 @@ fun! wheel#mandala#common_maps ()
 	" Define mandala common maps
 	" -- help
 	nnoremap <buffer> <f1>   <cmd>call wheel#guru#mandala()<cr>
-	nnoremap <buffer> <m-f1> <cmd>call wheel#guru#mandala_mappings()<cr>
+	nnoremap <buffer> <f2>   <cmd>call wheel#guru#mandala_mappings()<cr>
 	" -- quit
 	nnoremap <buffer> q      <cmd>call wheel#cylinder#close()<cr>
 	" -- movement

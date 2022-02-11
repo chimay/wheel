@@ -34,7 +34,7 @@ fun! wheel#guru#mandala ()
 	" Basic help of a dedicated buffer
 	echomsg 'q : quit                   | r : reload           | <M-n> : relabel buffer'
 	echomsg '<M-k> : previous layer     | <M-l> : switch layer | <M-j> : next layer'
-	echomsg '<Backspace> : delete layer | <F1> : this help     | <M-F1> : local maps'
+	echomsg '<Backspace> : delete layer | <F1> : this help     | <F2>  : local maps'
 endfun
 
 fun! wheel#guru#mandala_mappings ()
