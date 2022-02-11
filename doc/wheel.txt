@@ -1974,6 +1974,7 @@ Batch					|wheel-commands-batch|
 Autogroup				|wheel-commands-autogroup|
 Disc operations				|wheel-commands-disc-operations|
 Wheel tree in disc			|wheel-commands-tree-in-disc|
+Subcommands list			|wheel-commands-subcommands-list|
 
 ------------------------------------------------------------------------------
 META COMMAND						*wheel-commands-meta*
@@ -2114,6 +2115,12 @@ WHEEL TREE IN DISC				*wheel-commands-tree-in-disc*
 	torus/circle/link-to-location-file.
 	Unix systems only.
 	Useful to make a backup of the wheel files.
+
+------------------------------------------------------------------------------
+SUBCOMMANDS LIST				*wheel-commands-subcommands-list*
+
+In the help submenu of the main or meta menu, you have access to the
+list of available subcommands and actions for |:Wheel|.
 
 ==============================================================================
 FUNCTIONS					        *wheel-functions*

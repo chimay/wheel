@@ -16,6 +16,7 @@ if ! exists('s:menu_help')
 				\ ['inline help', 'wheel#guru#help'],
 				\ ['current prefix mappings', 'wheel#guru#mappings'],
 				\ ['available mappings (plugs)', 'wheel#guru#plugs'],
+				\ ['meta command and subcommands', 'wheel#guru#meta_command'],
 				\ ['autocommands', 'wheel#guru#autocommands'],
 				\ ['dedicated buffer help', 'wheel#guru#mandala'],
 				\ ['local maps', 'wheel#guru#mandala_mappings'],

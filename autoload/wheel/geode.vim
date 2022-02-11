@@ -371,12 +371,12 @@ endif
 
 if ! exists('s:maps_level_20_normal')
 	let s:maps_level_20_normal = [
-		\ [ s:debug .. 'Z',      'wheel-debug-fresh-wheel)'             ] ,
-		\ [ s:debug .. 'e',      'wheel-debug-clear-echo-area)'         ] ,
-		\ [ s:debug .. 'm',      'wheel-debug-clear-messages)'          ] ,
-		\ [ s:debug .. 's',      'wheel-debug-clear-signs)'             ] ,
-		\ [ s:debug .. 'h',      'wheel-debug-prompt-history-circuit)'  ] ,
-		\ [ s:debug .. '<m-h>',  'wheel-debug-dedibuf-history-circuit)' ] ,
+		\ [ s:debug .. 'Z',      'wheel-debug-fresh-wheel'             ] ,
+		\ [ s:debug .. 'e',      'wheel-debug-clear-echo-area'         ] ,
+		\ [ s:debug .. 'm',      'wheel-debug-clear-messages'          ] ,
+		\ [ s:debug .. 's',      'wheel-debug-clear-signs'             ] ,
+		\ [ s:debug .. 'h',      'wheel-debug-prompt-history-circuit'  ] ,
+		\ [ s:debug .. '<m-h>',  'wheel-debug-dedibuf-history-circuit' ] ,
 		\ ]
 	lockvar! s:maps_level_20_normal
 endif

@@ -2,23 +2,23 @@
 
 " Centre
 "
-" Command, Mappings
+" Meta command, mappings
 
 " ---- script constants
 
-if ! exists('s:meta_actions')
-	let s:meta_actions = wheel#pearl#fetch('command/meta/actions', 'dict')
-	lockvar s:meta_actions
+if ! exists('s:subcommands_actions')
+	let s:subcommands_actions = wheel#pearl#fetch('command/meta/actions')
+	lockvar s:subcommands_actions
 endif
 
-if ! exists('s:meta_prompt_actions')
-	let s:meta_prompt_actions = wheel#pearl#fetch('command/meta/prompt/actions', 'dict')
-	lockvar s:meta_prompt_actions
+if ! exists('s:prompt_actions')
+	let s:prompt_actions = wheel#pearl#fetch('command/meta/prompt/actions')
+	lockvar s:prompt_actions
 endif
 
-if ! exists('s:meta_dedibuf_actions')
-	let s:meta_dedibuf_actions = wheel#pearl#fetch('command/meta/dedibuf/actions', 'dict')
-	lockvar s:meta_dedibuf_actions
+if ! exists('s:dedibuf_actions')
+	let s:dedibuf_actions = wheel#pearl#fetch('command/meta/dedibuf/actions')
+	lockvar s:dedibuf_actions
 endif
 
 if ! exists('s:normal_plugs')
@@ -69,18 +69,21 @@ fun! wheel#centre#meta (subcommand, ...)
 	let arguments = a:000
 	" ---- prompt
 	if subcommand ==# 'prompt'
+		let action_dict = wheel#matrix#items2dict(s:prompt_actions)
 		let subcom = arguments[0]
-		let action = s:meta_prompt_actions[subcom]
+		let action = action_dict[subcom]
 		return eval(action)
 	endif
 	" ---- dedibuf
 	if subcommand ==# 'dedibuf'
+		let action_dict = wheel#matrix#items2dict(s:dedibuf_actions)
 		let subcom = arguments[0]
-		let action = s:meta_dedibuf_actions[subcom]
+		let action = action_dict[subcom]
 		return eval(action)
 	endif
 	" ---- others actions
-	let action = s:meta_actions[subcommand]
+	let action_dict = wheel#matrix#items2dict(s:subcommands_actions)
+	let action = action_dict[subcommand]
 	if subcommand ==# 'batch'
 		let arguments = join(arguments)
 		return call(action, [ arguments ])
