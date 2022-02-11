@@ -405,12 +405,12 @@ See |wheel-prompting-functions-switch|.
 ==============================================================================
 WORKFLOW						*wheel-workflow*
 
-Fourfold approach			|wheel-workflow-threefold-approach|
+Fourfold approach			|wheel-workflow-approach|
 Mappings				|wheel-workflow-mappings|
 Autoread & write wheel			|wheel-workflow-auto-read-write|
 
 ------------------------------------------------------------------------------
-FOURFOLD APPROACH			*wheel-workflow-threefold-approach*
+APPROACH						*wheel-workflow-approach*
 
 Wheel offers a fourfold approach :
 

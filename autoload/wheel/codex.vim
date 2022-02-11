@@ -90,7 +90,7 @@ endfun
 
 " ---- prompt
 
-fun! wheel#codex#prompt_switch (register = '')
+fun! wheel#codex#switch_default (register = '')
 	" Switch register in yank prompting functions
 	let register = a:register
 	if empty(register)

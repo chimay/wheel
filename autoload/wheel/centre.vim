@@ -210,7 +210,7 @@ fun! wheel#centre#plugs ()
 	nnoremap <plug>(wheel-prompt-yank-list-charwise-after) <cmd>call wheel#codex#yank_list('charwise-after')<cr>
 	nnoremap <plug>(wheel-prompt-yank-list-linewise-before) <cmd>call wheel#codex#yank_list('linewise-before')<cr>
 	nnoremap <plug>(wheel-prompt-yank-list-charwise-before) <cmd>call wheel#codex#yank_list('charwise-before')<cr>
-	nnoremap <plug>(wheel-prompt-switch-register) <cmd>call wheel#codex#prompt_switch()<cr>
+	nnoremap <plug>(wheel-prompt-switch-register) <cmd>call wheel#codex#switch_default()<cr>
 	nnoremap <plug>(wheel-dedibuf-yank-plain) <cmd>call wheel#clipper#yank('plain')<cr>
 	nnoremap <plug>(wheel-dedibuf-yank-list) <cmd>call wheel#clipper#yank('list')<cr>
 	" ---- undo list
