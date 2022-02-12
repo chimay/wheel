@@ -8,23 +8,22 @@
 
 " function
 
-fun! wheel#scroll#record (input)
-	" Add input = string or list to beginning of input history
-	let input = a:input
-	if type(input) == v:t_list
-		for elem in input
-			call wheel#scroll#record (elem)
-		endfor
-	elseif type(input) == v:t_string
-		if input->wheel#chain#is_inside(g:wheel_input)
-			eval g:wheel_input->wheel#chain#remove_element(input)
-		endif
-		eval g:wheel_input->insert(input)
-		let max = g:wheel_config.maxim.input
-		let g:wheel_input = g:wheel_input[:max - 1]
-	else
-		echomsg 'wheel scroll record : bad input format'
+fun! wheel#scroll#record (content)
+	" Add content to beginning of input history
+	let content = a:content
+	if type(content) == v:t_list
+		let content = join(content)
 	endif
+	let input = g:wheel_input
+	let index = input->index(content)
+	if index >= 0
+		eval input->remove(index)
+	endif
+	eval input->insert(content)
+	let maxim = g:wheel_config.maxim.input
+	" we need to use g:wheel_input here
+	" because input[:maxim - 1] makes a copy
+	let g:wheel_input = input[:maxim - 1]
 endfun
 
 fun! wheel#scroll#newer ()
@@ -32,13 +31,17 @@ fun! wheel#scroll#newer ()
 	if line('.') != 1
 		return v:false
 	endif
-	let line = getline(1)
-	if ! empty(line)
-		let g:wheel_input = wheel#chain#rotate_right (g:wheel_input)
+	let input = g:wheel_input
+	let line = wheel#teapot#without_prompt ()
+	if empty(line)
+		call wheel#teapot#set_prompt (input[0])
+		call wheel#mandala#unlock ()
+		return v:true
 	endif
+	let g:wheel_input = wheel#chain#rotate_right (input)
 	call wheel#teapot#set_prompt (g:wheel_input[0])
-	" not necessary with <cmd> maps
-	"startinsert!
+	call wheel#mandala#unlock ()
+	return v:true
 endfun
 
 fun! wheel#scroll#older ()
@@ -46,13 +49,17 @@ fun! wheel#scroll#older ()
 	if line('.') != 1
 		return v:false
 	endif
-	let line = getline(1)
-	if ! empty(line)
-		let g:wheel_input = wheel#chain#rotate_left (g:wheel_input)
+	let input = g:wheel_input
+	let line = wheel#teapot#without_prompt ()
+	if empty(line)
+		call wheel#teapot#set_prompt (input[0])
+		call wheel#mandala#unlock ()
+		return v:true
 	endif
+	let g:wheel_input = wheel#chain#rotate_left (input)
 	call wheel#teapot#set_prompt (g:wheel_input[0])
-	" not necessary with <cmd> maps
-	"startinsert!
+	call wheel#mandala#unlock ()
+	return v:true
 endfun
 
 fun! wheel#scroll#filtered_newer ()
@@ -60,25 +67,27 @@ fun! wheel#scroll#filtered_newer ()
 	if line('.') != 1
 		return v:false
 	endif
-	let colnum = col('.')
+	let input = copy(g:wheel_input)
 	let line = getline(1)
+	let colnum = col('.')
 	if empty(line)
 		call wheel#scroll#newer ()
 		return v:true
 	endif
-	let before = strcharpart(line, 0, colnum)
+	let before = strcharpart(line, 0, colnum - 1)
 	let before = wheel#teapot#without_prompt (before)
+	echomsg before
 	let pattern = '\m^' .. before
-	let reversed = reverse(copy(g:wheel_input))
+	let reversed = reverse(input)
 	let index = match(reversed, pattern, 0)
 	if index >= 0
 		let reversed = reversed->wheel#chain#roll_right(index)
 		let g:wheel_input = reverse(copy(reversed))
 		call wheel#teapot#set_prompt (g:wheel_input[0])
+		call wheel#mandala#unlock ()
 	endif
 	call cursor(1, colnum)
-	" not necessary with <cmd> maps
-	"startinsert
+	return v:true
 endfun
 
 fun! wheel#scroll#filtered_older ()
@@ -86,23 +95,25 @@ fun! wheel#scroll#filtered_older ()
 	if line('.') != 1
 		return v:false
 	endif
-	let colnum = col('.')
+	let input = g:wheel_input
 	let line = getline(1)
+	let colnum = col('.')
 	if empty(line)
 		call wheel#scroll#older ()
 		return v:true
 	endif
-	let before = strcharpart(line, 0, colnum)
+	let before = strcharpart(line, 0, colnum - 1)
 	let before = wheel#teapot#without_prompt (before)
+	echomsg before
 	let pattern = '\m^' .. before
-	let index = match(g:wheel_input, pattern, 1)
+	let index = match(input, pattern, 1)
 	if index >= 0
 		let g:wheel_input = g:wheel_input->wheel#chain#roll_left(index)
 		call wheel#teapot#set_prompt (g:wheel_input[0])
+		call wheel#mandala#unlock ()
 	endif
 	call cursor(1, colnum)
-	" not necessary with <cmd> maps
-	"startinsert
+	return v:true
 endfun
 
 " mandala

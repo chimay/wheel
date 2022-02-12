@@ -141,7 +141,7 @@ fun! wheel#teapot#filter (update = 'update')
 		let b:wheel_filter.lines = []
 		setlocal foldlevel=0
 	else
-		call wheel#scroll#record(join(wordlist))
+		call wheel#scroll#record(wordlist)
 		let matrix = wheel#kyusu#gaiwan (wordlist)
 		let indexes = matrix[0]
 		let lines = matrix[1]
@@ -225,7 +225,9 @@ endfun
 
 fun! wheel#teapot#normal_cc ()
 	" Normal command cc in mandala with filter
-	call wheel#teapot#wrapper ('c-u', '>', 'i')
+	call wheel#teapot#reset ()
+	call cursor(1, col('$'))
+	call wheel#mandala#unlock ()
 	startinsert!
 endfun
 
