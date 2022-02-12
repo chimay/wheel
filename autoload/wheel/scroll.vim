@@ -76,7 +76,6 @@ fun! wheel#scroll#filtered_newer ()
 	endif
 	let before = strpart(line, 0, colnum - 1)
 	let before = wheel#teapot#without_prompt (before)
-	echomsg before
 	let pattern = '\m^' .. before
 	let reversed = reverse(input)
 	let index = match(reversed, pattern, 0)
@@ -104,7 +103,6 @@ fun! wheel#scroll#filtered_older ()
 	endif
 	let before = strpart(line, 0, colnum - 1)
 	let before = wheel#teapot#without_prompt (before)
-	echomsg before
 	let pattern = '\m^' .. before
 	let index = match(input, pattern, 1)
 	if index >= 0
