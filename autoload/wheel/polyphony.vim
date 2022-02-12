@@ -142,6 +142,29 @@ fun! wheel#polyphony#update_var_lines ()
 	return v:true
 endfun
 
+fun! wheel#polyphony#update_selection_indexes ()
+	" Update selection indexes to b:wheel_lines / b:wheel_full
+	if empty(b:wheel_full)
+		let all_lines = b:wheel_lines
+	else
+		let all_lines = b:wheel_full
+	endif
+	let selection = b:wheel_selection
+	let indexes = selection.indexes
+	let components = selection.components
+	let range = wheel#chain#rangelen(indexes)
+	for iter in range
+		let content = components[iter]
+		let index = all_lines->index(content)
+		if index >= 0
+			let indexes[iter] = index
+		else
+			eval indexes->remove(iter)
+			eval components->remove(iter)
+		endif
+	endfor
+endfun
+
 fun! wheel#polyphony#append_in_var_lines (line, content)
 	" Append content after line in local mandala variables
 	let line = a:line
@@ -253,17 +276,22 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	return v:true
 endfun
 
-fun! wheel#polyphony#context (context_lines = -1)
+fun! wheel#polyphony#context ()
 	" Add lines of context around grep results
-	let context_lines = a:context_lines
-	if context_lines < 0
-		let prompt = 'Number of context lines : '
-		let lines = input(prompt)
-	endif
+	let prompt = 'Number of context lines : '
+	let context_lines = input(prompt)
+	let context_lines = str2nr(context_lines)
 	call wheel#polyphony#update_var_lines ()
 	" ---- remove previous context
 	let pattern = b:wheel_settings.pattern
 	eval b:wheel_lines->filter({ _, val -> val =~ pattern })
+	" ---- no context
+	if context_lines <= 0
+		call wheel#mandala#fill(b:wheel_lines, 'prompt-first')
+		call wheel#polyphony#update_selection_indexes ()
+		call wheel#teapot#filter ()
+		return b:wheel_lines
+	endif
 	" ---- add new context
 	let contextualized = []
 	let done = []
@@ -290,7 +318,11 @@ fun! wheel#polyphony#context (context_lines = -1)
 		endfor
 	endfor
 	" ---- replace old content
-	call wheel#mandala#fill(contextualized)
+	let b:wheel_lines = contextualized
+	call wheel#mandala#fill(contextualized, 'prompt-first')
+	call wheel#polyphony#update_selection_indexes ()
+	call wheel#teapot#filter ()
+	" ---- coda
 	return contextualized
 endfun
 
