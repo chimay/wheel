@@ -74,7 +74,7 @@ fun! wheel#scroll#filtered_newer ()
 		call wheel#scroll#newer ()
 		return v:true
 	endif
-	let before = strcharpart(line, 0, colnum - 1)
+	let before = strpart(line, 0, colnum - 1)
 	let before = wheel#teapot#without_prompt (before)
 	echomsg before
 	let pattern = '\m^' .. before
@@ -102,7 +102,7 @@ fun! wheel#scroll#filtered_older ()
 		call wheel#scroll#older ()
 		return v:true
 	endif
-	let before = strcharpart(line, 0, colnum - 1)
+	let before = strpart(line, 0, colnum - 1)
 	let before = wheel#teapot#without_prompt (before)
 	echomsg before
 	let pattern = '\m^' .. before
