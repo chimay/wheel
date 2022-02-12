@@ -1859,6 +1859,11 @@ The map `<M-s>` launch a |:substitute| wrapper. There are a
 few advantages to use it instead of a plain `:s/.../.../g`, see
 |wheel-dedicated-buffers-narrow-file|.
 
+Context~
+
+The map `<M-c>` adds context lines to each grep result. You're asked
+how many lines to add.
+
 ------------------------------------------------------------------------------
 YANK RING					*wheel-dedicated-buffers-yank*
 
