@@ -288,8 +288,7 @@ fun! wheel#polyphony#context ()
 	" ---- no context
 	if context_lines <= 0
 		call wheel#polyphony#update_selection_indexes ()
-		call wheel#mandala#replace(b:wheel_lines, 'prompt-first')
-		call wheel#teapot#filter ()
+		call wheel#teapot#filter('dont-update')
 		return b:wheel_lines
 	endif
 	" ---- add new context
@@ -307,7 +306,7 @@ fun! wheel#polyphony#context ()
 						\ printf('%3d', bufnum),
 						\ printf('%5d', new_line),
 						\ filename,
-						\ new_content
+						\ new_content,
 						\ ]
 			let new_record = join(new_fields, s:field_separ)
 			if empty(new_record)
@@ -325,8 +324,7 @@ fun! wheel#polyphony#context ()
 	" ---- replace old content
 	let b:wheel_lines = contextualized
 	call wheel#polyphony#update_selection_indexes ()
-	call wheel#mandala#replace(contextualized, 'prompt-first')
-	call wheel#teapot#filter ()
+	call wheel#teapot#filter('dont-update')
 	" ---- coda
 	return contextualized
 endfun

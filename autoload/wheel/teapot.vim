@@ -124,10 +124,16 @@ fun! wheel#teapot#goto_filter_line (mode = 'normal')
 	endif
 endfun
 
-fun! wheel#teapot#filter ()
+fun! wheel#teapot#filter (update = 'update')
 	" Filter : keep only lines matching words of first line
+	" Optional argument :
+	"   - update : update lines in buffer local variables
+	"   - dont-update : don't update lines in variables
+	let update = a:update
 	let words = wheel#teapot#wordlist ()
-	call wheel#polyphony#update_var_lines ()
+	if update ==# 'update'
+		call wheel#polyphony#update_var_lines ()
+	endif
 	if empty(words)
 		let lines = b:wheel_lines
 		let b:wheel_filter.words = []
