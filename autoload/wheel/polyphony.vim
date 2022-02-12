@@ -253,6 +253,36 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 	return v:true
 endfun
 
+fun! wheel#polyphony#context (context_lines = -1)
+	" Add lines of context around grep results
+	let context_lines = a:context_lines
+	if context_lines < 0
+		let prompt = 'Number of context lines : '
+		let lines = input(prompt)
+	endif
+	call wheel#polyphony#update_var_lines ()
+	let contextualized = []
+	for record in b:wheel_lines
+		let fields = split(record, s:field_separ)
+		let bufnum = str2nr(fields[0])
+		let linum = str2nr(fields[1])
+		let filename = fields[2]
+		let content = fields[3]
+		for new_line in range(linum - context_lines, linum + context_lines)
+			let new_content = getbufline(bufnum, new_line)[0]
+			let new_fields = [bufnum, new_line, filename, new_content]
+			let new_record = join(new_fields, s:field_separ)
+			if empty(new_record)
+				" line < 1 or > last
+				continue
+			endif
+			eval contextualized->add(new_record)
+		endfor
+	endfor
+	call wheel#mandala#fill(contextualized)
+	return contextualized
+endfun
+
 fun! wheel#polyphony#append (where = 'below')
 	" Append a line in narrow file mandala
 	" Optional argument :
