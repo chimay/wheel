@@ -130,21 +130,22 @@ fun! wheel#teapot#filter (update = 'update')
 	"   - update : update lines in buffer local variables
 	"   - dont-update : don't update lines in variables
 	let update = a:update
-	let words = wheel#teapot#wordlist ()
+	let wordlist = wheel#teapot#wordlist ()
 	if update ==# 'update'
 		call wheel#polyphony#update_var_lines ()
 	endif
-	if empty(words)
+	if empty(wordlist)
 		let lines = b:wheel_lines
 		let b:wheel_filter.words = []
 		let b:wheel_filter.indexes = []
 		let b:wheel_filter.lines = []
 		setlocal foldlevel=0
 	else
-		let matrix = wheel#kyusu#gaiwan ()
+		call wheel#scroll#record(join(wordlist))
+		let matrix = wheel#kyusu#gaiwan (wordlist)
 		let indexes = matrix[0]
 		let lines = matrix[1]
-		let b:wheel_filter.words = words
+		let b:wheel_filter.words = wordlist
 		let b:wheel_filter.indexes = indexes
 		let b:wheel_filter.lines = lines
 		setlocal foldlevel=2

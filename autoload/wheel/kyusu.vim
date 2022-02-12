@@ -145,20 +145,18 @@ fun! wheel#kyusu#kabusecha (wordlist, matrix, ternar)
 	return [filtered_indexes, filtered_values]
 endfun
 
-fun! wheel#kyusu#gaiwan ()
+fun! wheel#kyusu#gaiwan (wordlist)
 	" Return lines matching words of first line
 	" Special keywords :
 	"   - =s[selection] enable selection only filter
 	"   - !=s[selection] enable non-selection only filter
+	let wordlist = a:wordlist
 	let linelist = copy(b:wheel_lines)
-	let input = wheel#teapot#without_prompt ()
-	if empty(input)
+	if empty(wordlist)
 		let filtered_indexes = wheel#chain#rangelen(linelist)
 		let filtered_values = linelist
 		return [filtered_indexes, filtered_values]
 	endif
-	call wheel#scroll#record(input)
-	let wordlist = split(input)
 	" ---- special words
 	let ternar = {}
 	let ternar.selection = 0
