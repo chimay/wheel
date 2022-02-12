@@ -139,14 +139,14 @@ fun! wheel#shadow#narrow_circle (...)
 	else
 		let sieve = '\m.'
 	endif
-	" -- lines
+	" ---- lines
 	let lines = wheel#perspective#narrow_circle (pattern, sieve)
-	" -- pre-checks
+	" ---- pre-checks
 	if empty(lines)
 		echomsg 'wheel narrow circle : no match found'
 		return v:false
 	endif
-	" -- mandala
+	" ---- mandala
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()
@@ -155,9 +155,10 @@ fun! wheel#shadow#narrow_circle (...)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#polyphony#counterpoint ('narrow_circle')
 	call wheel#mandala#fill (lines)
-	" -- settings
+	" ---- settings
 	let b:wheel_settings = settings
-	" -- reload
+	let b:wheel_settings.pattern = pattern
+	" ---- reload
 	let b:wheel_reload = 'wheel#shadow#narrow_circle(' .. string(pattern) .. ', ' .. string(sieve) .. ")"
 	echomsg 'adding or removing lines is not supported'
 endfun

@@ -277,8 +277,8 @@ fun! wheel#pencil#hide ()
 	call wheel#mandala#unlock ()
 	for linum in range(start, lastline)
 		let line = getline(linum)
-		let cleared = wheel#pencil#unmarked (line)
-		call setline(linum, cleared)
+		let unmarked = wheel#pencil#unmarked (line)
+		call setline(linum, unmarked)
 	endfor
 	setlocal nomodified
 	call wheel#mandala#post_edit ()
@@ -302,8 +302,37 @@ fun! wheel#pencil#show ()
 		let inside = index->wheel#chain#is_inside(reference)
 		if inside
 			let line = getline(linum)
-			let drawed = wheel#pencil#marked (line)
-			call setline(linum, drawed)
+			let marked = wheel#pencil#marked (line)
+			call setline(linum, marked)
+		endif
+	endfor
+	setlocal nomodified
+	call wheel#mandala#post_edit ()
+	return v:true
+endfun
+
+fun! wheel#pencil#syncdown ()
+	" Sync selection variable -> visible lines
+	if ! wheel#pencil#has_selection ()
+		" avoid useless computing
+		return v:false
+	endif
+	let start = wheel#teapot#first_data_line ()
+	let lastline = line('$')
+	let linelist = getline(start, '$')
+	let reference = b:wheel_selection.indexes
+	call wheel#mandala#unlock ()
+	for linum in range(start, lastline)
+		let index = wheel#teapot#line_index (linum)
+		let inside = index->wheel#chain#is_inside(reference)
+		if inside
+			let line = getline(linum)
+			let marked = wheel#pencil#marked (line)
+			call setline(linum, marked)
+		else
+			let line = getline(linum)
+			let unmarked = wheel#pencil#unmarked (line)
+			call setline(linum, unmarked)
 		endif
 	endfor
 	setlocal nomodified

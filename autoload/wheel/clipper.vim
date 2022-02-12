@@ -17,7 +17,7 @@ fun! wheel#clipper#yank (mode)
 	" Choose yank and paste
 	let mode = a:mode
 	let default_register = g:wheel_shelve.yank.default_register
-	let lines = wheel#perspective#yank (mode, default_register)
+	let lines = wheel#perspective#yank_mandala (mode, default_register)
 	" ---- type from mode & register
 	if mode ==# 'plain'
 		let type = 'yank/'

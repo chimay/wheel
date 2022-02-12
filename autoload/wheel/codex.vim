@@ -96,14 +96,11 @@ endfun
 
 " ---- prompt
 
-fun! wheel#codex#switch_default_register (register = '')
+fun! wheel#codex#switch_default_register ()
 	" Switch register in yank prompting functions
-	let register = a:register
-	if empty(register)
-		let prompt = 'Default register for wheel yank ring functions : '
-		let complete = 'customlist,wheel#complete#register'
-		let register = input(prompt, '', complete)
-	endif
+	let prompt = 'Default register for wheel yank ring functions : '
+	let complete = 'customlist,wheel#complete#register'
+	let register = input(prompt, '', complete)
 	let g:wheel_shelve.yank.default_register = register
 endfun
 
@@ -154,15 +151,12 @@ endfun
 
 " ---- mandala
 
-fun! wheel#codex#mandala_switch (mode, register = '')
+fun! wheel#codex#mandala_switch (mode)
 	" Switch register in yank mandala
 	let mode = a:mode
-	let register = a:register
-	if empty(register)
-		let prompt = 'Switch to register : '
-		let complete = 'customlist,wheel#complete#register'
-		let register = input(prompt, '', complete)
-	endif
+	let prompt = 'Switch to register : '
+	let complete = 'customlist,wheel#complete#register'
+	let register = input(prompt, '', complete)
 	" ---- type
 	if mode ==# 'plain'
 		let type = 'yank/'
@@ -181,7 +175,7 @@ fun! wheel#codex#mandala_switch (mode, register = '')
 	let b:wheel_nature.type = type
 	let b:wheel_nature.yank.register = register
 	" ---- lines
-	let lines = wheel#perspective#yank(mode, register)
+	let lines = wheel#perspective#yank_mandala(mode, register)
 	call wheel#teapot#reset ()
 	call wheel#mandala#fill(lines)
 	" ---- status

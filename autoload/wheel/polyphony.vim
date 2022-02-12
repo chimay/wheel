@@ -261,7 +261,12 @@ fun! wheel#polyphony#context (context_lines = -1)
 		let lines = input(prompt)
 	endif
 	call wheel#polyphony#update_var_lines ()
+	" ---- remove previous context
+	let pattern = b:wheel_settings.pattern
+	eval b:wheel_lines->filter({ _, val -> val =~ pattern })
+	" ---- add new context
 	let contextualized = []
+	let done = []
 	for record in b:wheel_lines
 		let fields = split(record, s:field_separ)
 		let bufnum = str2nr(fields[0])
@@ -276,9 +281,15 @@ fun! wheel#polyphony#context (context_lines = -1)
 				" line < 1 or > last
 				continue
 			endif
+			let pair = [bufnum, new_line]
+			if pair->wheel#chain#is_inside(done)
+				continue
+			endif
+			eval done->add(pair)
 			eval contextualized->add(new_record)
 		endfor
 	endfor
+	" ---- replace old content
 	call wheel#mandala#fill(contextualized)
 	return contextualized
 endfun

@@ -298,7 +298,7 @@ endfun
 fun! wheel#complete#yank_list (arglead, cmdline, cursorpos)
 	" Complete yank from yank ring in list mode
 	let register = g:wheel_shelve.yank.default_register
-	let choices = wheel#perspective#yank ('list', register)
+	let choices = wheel#perspective#yank_prompt ('list', register)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
@@ -306,7 +306,7 @@ endfun
 fun! wheel#complete#yank_plain (arglead, cmdline, cursorpos)
 	" Complete yank from yank ring in plain mode
 	let register = g:wheel_shelve.yank.default_register
-	let choices = wheel#perspective#yank ('plain', register)
+	let choices = wheel#perspective#yank_prompt ('plain', register)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
