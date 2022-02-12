@@ -148,6 +148,9 @@ fun! wheel#pencil#select (...)
 	else
 		let linum = line('.')
 	endif
+	if wheel#teapot#has_filter () && linum == 1
+		return v:false
+	endif
 	let line = getline(linum)
 	if empty(line)
 		return v:false
