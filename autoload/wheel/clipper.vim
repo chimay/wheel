@@ -34,13 +34,13 @@ fun! wheel#clipper#yank (mode)
 	endif
 	" ---- mandala
 	call wheel#mandala#blank (type)
-	let settings = {'mode' : mode}
+	let settings = #{
+				\ mode : mode,
+				\ yank : #{ register : default_register },
+				\ }
 	call wheel#codex#template(settings)
 	call wheel#mandala#fill (lines)
 	setlocal nomodified
-	" --- property
-	let b:wheel_nature.yank = {}
-	let b:wheel_nature.yank.register = default_register
 	" ---- reload
 	let b:wheel_reload = 'wheel#clipper#yank(' .. string(mode) .. ')'
 endfun

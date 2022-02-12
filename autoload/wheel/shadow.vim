@@ -150,14 +150,17 @@ fun! wheel#shadow#narrow_circle (...)
 	let word = substitute(pattern, '\W.*', '', '')
 	call wheel#mandala#blank ('narrow/circle/' .. word)
 	call wheel#mandala#common_maps ()
-	let settings = #{ function : 'wheel#line#narrow_circle' }
+	let settings = #{
+				\ function : 'wheel#line#narrow_circle',
+				\ pattern : pattern,
+				\ has_context : v:false
+				\ }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('circle')
 	call wheel#polyphony#counterpoint ('narrow_circle')
 	call wheel#mandala#fill (lines)
 	" ---- settings
 	let b:wheel_settings = settings
-	let b:wheel_settings.pattern = pattern
 	" ---- reload
 	let b:wheel_reload = 'wheel#shadow#narrow_circle(' .. string(pattern) .. ', ' .. string(sieve) .. ")"
 	echomsg 'adding or removing lines is not supported'

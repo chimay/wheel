@@ -277,12 +277,13 @@ fun! wheel#line#narrow_circle (settings)
 	let linum = str2nr(fields[1])
 	" ---- go
 	call wheel#curve#target (a:settings.target)
-	" -- using error number
-	let errnum = index + 1
-	execute 'cc' errnum
-	" -- using buffer, line & col
-	"execute 'hide buffer' bufnum
-	"call cursor(linum, 1)
+	if settings.has_context
+		execute 'hide buffer' bufnum
+		call cursor(linum, 1)
+	else
+		let errnum = index + 1
+		execute 'cc' errnum
+	endif
 	" ---- coda
 	if settings.follow
 		call wheel#projection#follow ()

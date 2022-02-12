@@ -173,7 +173,7 @@ fun! wheel#codex#mandala_switch (mode)
 	endif
 	" ---- properties
 	let b:wheel_nature.type = type
-	let b:wheel_nature.yank.register = register
+	let b:wheel_settings.yank.register = register
 	" ---- lines
 	let lines = wheel#perspective#yank_mandala(mode, register)
 	call wheel#teapot#reset ()
