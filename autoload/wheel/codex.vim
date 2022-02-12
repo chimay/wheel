@@ -58,14 +58,8 @@ fun! wheel#codex#register (register = 'unnamed')
 		return v:false
 	endif
 	" -- treat special chars in inserted register
-	if register == 'inserted'
-		for iter in wheel#chain#rangelen(content)
-			let elem = content[iter]
-			let sublist = split(elem, "\n")
-			eval content->remove(iter)
-			let content = content->wheel#chain#insert_sublist(sublist, iter)
-		endfor
-	endif
+	eval content->map({ _, val -> split(val, "\n") })
+	let content = wheel#matrix#flatten (content)
 	" ---- add
 	let index = yanks->index(content)
 	if index >= 0
