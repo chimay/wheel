@@ -287,8 +287,8 @@ fun! wheel#polyphony#context ()
 	eval b:wheel_lines->filter({ _, val -> val =~ pattern })
 	" ---- no context
 	if context_lines <= 0
-		call wheel#mandala#fill(b:wheel_lines, 'prompt-first')
 		call wheel#polyphony#update_selection_indexes ()
+		call wheel#mandala#replace(b:wheel_lines, 'prompt-first')
 		call wheel#teapot#filter ()
 		return b:wheel_lines
 	endif
@@ -303,7 +303,12 @@ fun! wheel#polyphony#context ()
 		let content = fields[3]
 		for new_line in range(linum - context_lines, linum + context_lines)
 			let new_content = getbufline(bufnum, new_line)[0]
-			let new_fields = [bufnum, new_line, filename, new_content]
+			let new_fields = [
+						\ printf('%3d', bufnum),
+						\ printf('%5d', new_line),
+						\ filename,
+						\ new_content
+						\ ]
 			let new_record = join(new_fields, s:field_separ)
 			if empty(new_record)
 				" line < 1 or > last
@@ -319,8 +324,8 @@ fun! wheel#polyphony#context ()
 	endfor
 	" ---- replace old content
 	let b:wheel_lines = contextualized
-	call wheel#mandala#fill(contextualized, 'prompt-first')
 	call wheel#polyphony#update_selection_indexes ()
+	call wheel#mandala#replace(contextualized, 'prompt-first')
 	call wheel#teapot#filter ()
 	" ---- coda
 	return contextualized
