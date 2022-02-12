@@ -257,7 +257,6 @@ fun! wheel#polyphony#substitute (mandala = 'file')
 		let columns = prelude .. field .. field .. field .. coda
 	endif
 	" -- replace pattern is a full word ?
-	echomsg before
 	if before !~ '\\<'
 		let prompt = 'Replace full word matches only ?'
 		let word = confirm(prompt, "&Yes\n&No", 1)
@@ -300,19 +299,26 @@ fun! wheel#polyphony#context ()
 		let linum = str2nr(fields[1])
 		let filename = fields[2]
 		let content = fields[3]
-		for new_line in range(linum - context_lines, linum + context_lines)
-			let new_content = getbufline(bufnum, new_line)[0]
+		let low = max([linum - context_lines, 1])
+		let high = linum + context_lines
+		if ! bufloaded(bufnum)
+			call bufload(bufnum)
+		endif
+		let linelist = getbufline(bufnum, low, high)
+		if empty(linelist)
+			" line < 1 or > last
+			continue
+		endif
+		let new_line = low
+		for new_content in linelist
 			let new_fields = [
 						\ printf('%3d', bufnum),
 						\ printf('%5d', new_line),
 						\ filename,
 						\ new_content,
 						\ ]
+			let new_line += 1
 			let new_record = join(new_fields, s:field_separ)
-			if empty(new_record)
-				" line < 1 or > last
-				continue
-			endif
 			let pair = [bufnum, new_line]
 			if pair->wheel#chain#is_inside(done)
 				continue
@@ -580,6 +586,9 @@ fun! wheel#polyphony#action_maps (mandala = 'file')
 		exe "nnoremap <buffer> O <cmd>call wheel#polyphony#append('above')<cr>"
 		exe "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"
 		exe "nnoremap <buffer> <m-z> <cmd>call wheel#polyphony#duplicate('above')<cr>"
+	endif
+	if mandala ==# 'circle'
+		exe 'nnoremap <buffer> <m-c> <cmd>call wheel#polyphony#context()<cr>'
 	endif
 endfun
 
