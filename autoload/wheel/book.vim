@@ -431,7 +431,7 @@ fun! wheel#book#delete ()
 	endif
 	" -- do not delete element from one element ring
 	if length == 1
-		echomsg 'wheel book delete :' leaves[0].filename 'is the last layer in ring'
+		echomsg 'wheel book delete :' leaves[0].nature.type 'is the last layer in ring'
 		return v:false
 	endif
 	" -- do not delete if child context menu is next

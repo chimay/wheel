@@ -153,7 +153,6 @@ fun! wheel#shadow#narrow_circle (...)
 	let settings = #{
 				\ function : 'wheel#line#narrow_circle',
 				\ pattern : pattern,
-				\ has_context : v:false
 				\ }
 	call wheel#polyphony#template (settings)
 	call wheel#polyphony#action_maps ('circle')

@@ -270,19 +270,29 @@ fun! wheel#line#narrow_circle (settings)
 	" ---- settings
 	let settings = a:settings
 	let target = settings.target
+	let pattern = settings.pattern
 	let index = settings.selection.index
 	let component = settings.selection.component
 	let fields = split(component, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
+	if len(fields) == 4
+		let content = fields[3]
+	else
+		let content = ''
+	endif
 	" ---- go
 	call wheel#curve#target (a:settings.target)
-	if settings.has_context
-		execute 'hide buffer' bufnum
-		call cursor(linum, 1)
-	else
+	if content =~ pattern
+		" grep result
+		let texts = getqflist()->map({ _, val -> val.text })
+		let index = texts->index(content)
 		let errnum = index + 1
 		execute 'cc' errnum
+	else
+		" context line
+		execute 'hide buffer' bufnum
+		call cursor(linum, 1)
 	endif
 	" ---- coda
 	if settings.follow

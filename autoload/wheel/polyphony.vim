@@ -288,8 +288,6 @@ fun! wheel#polyphony#context ()
 	if context_lines <= 0
 		call wheel#polyphony#update_selection_indexes ()
 		call wheel#teapot#filter('dont-update')
-		let b:wheel_settings.has_context = v:false
-		call wheel#polyphony#navigation_maps (b:wheel_settings)
 		return b:wheel_lines
 	endif
 	" ---- add new context
@@ -333,10 +331,6 @@ fun! wheel#polyphony#context ()
 	let b:wheel_lines = contextualized
 	call wheel#polyphony#update_selection_indexes ()
 	call wheel#teapot#filter('dont-update')
-	" ---- property
-	let b:wheel_settings.has_context = v:true
-	" ---- redefine maps
-	call wheel#polyphony#navigation_maps (b:wheel_settings)
 	" ---- coda
 	return contextualized
 endfun
@@ -495,7 +489,9 @@ fun! wheel#polyphony#insert_ctrl_k ()
 	" Ctrl-k to delete until end of line in mandala with filter
 	let linum = line('.')
 	if linum != 1
-		execute 'normal! i' .. "\<c-k>"
+		" does not work
+		"execute 'normal! i' .. "\<c-k>"
+		"normal! l
 		return v:true
 	endif
 	let line = getline(1)
