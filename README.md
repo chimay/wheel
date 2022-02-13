@@ -5,7 +5,6 @@
 + [Introduction](#introduction)
 	* [What is it ?](#what-is-it-)
 	* [What does it look like ?](#what-does-it-look-like-)
-		- [Main menu](#main-menu)
 		- [More screenshots](#more-screenshots)
 	* [File groups & categories](#file-groups--categories)
 		- [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
@@ -58,7 +57,6 @@ enhances their interface by using :
 All is written in classical Vimscript.
 
 ## What does it look like ?
-### Main menu
 
 ![Frecency & :Wheel command completion](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/wheel-history-meta-command.jpg)
 
