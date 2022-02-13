@@ -90,11 +90,19 @@ you to organize your files by groups and categories:
 - the wheel contains all the toruses
 - each torus contains a category of files, e.g.:
   + configuration, development, publication
-- each circle contains a project or sub-project, e.g.:
-  + emacs or vifm circles in configuration torus
-  + shell or elisp in development torus
+- each circle contains a project, e.g.:
+  + kitty or vifm circles in configuration torus
+  + shell or vimscript in development torus
   + tea or art in publication torus
-  + autoload files in my-plugin torus
+
+You can also organize a torus in subprojects. For instance, in the wheel
+torus, I have the following groups :
+
+  - plugin/ dir files
+  - autoload/ dir files
+  - doc files
+  - wiki files
+  - test files
 
 ### A wheel that follows you
 
