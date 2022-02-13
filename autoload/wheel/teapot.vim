@@ -58,12 +58,17 @@ fun! wheel#teapot#prompt ()
 	endif
 endfun
 
-fun! wheel#teapot#set_prompt (content = '')
+fun! wheel#teapot#set_prompt (content = '', lock = 'lock')
 	" Add prompt at first line if not already there
-	" Optional argument :
-	"   - line content, as string or word list
-	"   - default : empty
+	" Optional arguments :
+	"   - content :
+	"     + line content, as string or word list
+	"     + default : empty
+	"   - lock :
+	"     + lock : relock if not writable
+	"     + dont-lock : don't lock
 	let content = a:content
+	let lock = a:lock
 	if type(content) == v:t_list
 		let content = join(content)
 	endif
@@ -74,7 +79,7 @@ fun! wheel#teapot#set_prompt (content = '')
 	endif
 	call wheel#mandala#unlock ()
 	call setline(1, content)
-	call wheel#mandala#post_edit ()
+	call wheel#mandala#post_edit (lock)
 endfun
 
 fun! wheel#teapot#without_prompt (...)
@@ -124,12 +129,17 @@ fun! wheel#teapot#goto_filter_line (mode = 'normal')
 	endif
 endfun
 
-fun! wheel#teapot#filter (update = 'update')
+fun! wheel#teapot#filter (update = 'update', lock = 'lock')
 	" Filter : keep only lines matching words of first line
 	" Optional argument :
-	"   - update : update lines in buffer local variables
-	"   - dont-update : don't update lines in variables
+	"   - update :
+	"     + update : update lines in buffer local variables
+	"     + dont-update : don't update lines in variables
+	"   - lock :
+	"     + lock : relock if not writable
+	"     + dont-lock : don't lock
 	let update = a:update
+	let lock = a:lock
 	let wordlist = wheel#teapot#wordlist ()
 	if update ==# 'update'
 		call wheel#polyphony#update_var_lines ()
@@ -150,17 +160,16 @@ fun! wheel#teapot#filter (update = 'update')
 		let b:wheel_filter.lines = lines
 		setlocal foldlevel=2
 	endif
-	call wheel#mandala#unlock ()
-	call wheel#mandala#replace (lines, 'prompt-first')
-	call wheel#pencil#show ()
-	call wheel#mandala#post_edit ()
+	call wheel#mandala#replace (lines, 'prompt-first', lock)
+	call wheel#pencil#show (lock)
+	call wheel#mandala#post_edit (lock)
 	return v:true
 endfun
 
-fun! wheel#teapot#reset ()
+fun! wheel#teapot#reset (update = 'update', lock = 'lock')
 	" Reset filter
-	call wheel#teapot#set_prompt ()
-	call wheel#teapot#filter()
+	call wheel#teapot#set_prompt ('', a:lock)
+	call wheel#teapot#filter(a:update, a:lock)
 endfun
 
 " clear filter
@@ -174,8 +183,7 @@ fun! wheel#teapot#clear ()
 		let b:wheel_filter.indexes = []
 		let b:wheel_filter.lines = []
 	endif
-	call wheel#teapot#set_prompt()
-	call wheel#mandala#replace (lines, 'prompt-first')
+	call wheel#mandala#replace (lines)
 	call wheel#pencil#show ()
 endfun
 
@@ -192,7 +200,7 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	" Filter wrapper for mappings
 	" Optional argument :
 	"   - angle :
-	"     - no-angle : plain key
+	"     - no-angle, or '' : plain key
 	"     - with-angle, or '>' : special key -> "\<key>"
 	"   - mode : normal or insert mode at the end
 	let key = a:key
@@ -209,10 +217,8 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	call wheel#mandala#unlock ()
 	if mode ==# 'insert'
 		execute 'normal! i' .. key
-		call wheel#teapot#filter ()
+		call wheel#teapot#filter ('update', 'dont-lock')
 		call cursor(1, col('$'))
-		" continue editing
-		call wheel#mandala#unlock ()
 	else
 		execute 'normal!' key
 		call wheel#teapot#filter ()
@@ -225,9 +231,19 @@ endfun
 
 fun! wheel#teapot#normal_cc ()
 	" Normal command cc in mandala with filter
-	call wheel#teapot#reset ()
+	call wheel#teapot#reset ('update', 'dont-lock')
+	call cursor(1, 1)
 	call cursor(1, col('$'))
-	call wheel#mandala#unlock ()
+	startinsert!
+endfun
+
+fun! wheel#teapot#insert_ctrl_k ()
+	" Ctrl-k to delete until end of line in mandala with filter
+	let line = getline(1)
+	let colnum = col('.')
+	let before = strpart(line, 0, colnum - 1)
+	call wheel#teapot#set_prompt (before, 'dont-lock')
+	call wheel#teapot#filter('update', 'dont-lock')
 	startinsert!
 endfun
 
@@ -252,5 +268,6 @@ fun! wheel#teapot#mappings ()
 	exe imap '<c-u>   <cmd>call' wrapper "('c-u', '>', 'i')<cr>"
 	exe imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
 	exe imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
+	exe imap '<c-k>   <cmd>call wheel#teapot#insert_ctrl_k()<cr>'
 	" <c-c> is not mapped, in case you need a regular escape
 endfun

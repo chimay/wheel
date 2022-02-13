@@ -271,9 +271,13 @@ endfun
 
 " hide & show
 
-fun! wheel#pencil#hide ()
+fun! wheel#pencil#hide (lock)
 	" Remove selection mark from all visible lines
 	" This does not clear the selection
+	"   - lock :
+	"     + lock : relock if not writable
+	"     + dont-lock : don't lock
+	let lock = a:lock
 	let start = wheel#teapot#first_data_line ()
 	let lastline = line('$')
 	let linelist = getline(start, '$')
@@ -284,17 +288,21 @@ fun! wheel#pencil#hide ()
 		call setline(linum, unmarked)
 	endfor
 	setlocal nomodified
-	call wheel#mandala#post_edit ()
+	call wheel#mandala#post_edit (lock)
 	return v:true
 endfun
 
-fun! wheel#pencil#show ()
+fun! wheel#pencil#show (lock)
 	" Add selection mark to all selected lines
 	" This does not alter the selection
+	"   - lock :
+	"     + lock : relock if not writable
+	"     + dont-lock : don't lock
 	if ! wheel#pencil#has_selection ()
 		" avoid useless computing
 		return v:false
 	endif
+	let lock = a:lock
 	let start = wheel#teapot#first_data_line ()
 	let lastline = line('$')
 	let linelist = getline(start, '$')
@@ -310,7 +318,7 @@ fun! wheel#pencil#show ()
 		endif
 	endfor
 	setlocal nomodified
-	call wheel#mandala#post_edit ()
+	call wheel#mandala#post_edit (lock)
 	return v:true
 endfun
 

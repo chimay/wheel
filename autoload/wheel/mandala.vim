@@ -294,11 +294,19 @@ fun! wheel#mandala#lock ()
 	setlocal nomodifiable
 endfun
 
-fun! wheel#mandala#post_edit ()
+fun! wheel#mandala#post_edit (lock = 'lock')
 	" Restore local options after edition
+	"   Optional argument :
+	"   - lock : relock if not writable
+	"   - dont-lock : don't lock
+	let lock = a:lock
+	if lock ==# 'dont-lock'
+		return v:true
+	endif
 	if ! wheel#polyphony#is_writable ()
 		call wheel#mandala#lock ()
 	endif
+	return v:true
 endfun
 
 fun! wheel#mandala#common_options ()
@@ -437,22 +445,27 @@ fun! wheel#mandala#set_var_lines ()
 	return v:true
 endfun
 
-fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
+fun! wheel#mandala#replace (content, first = 'empty-prompt-first', lock = 'lock')
 	" Replace mandala buffer with content
 	" Content can be :
 	"   - a monoline string
 	"   - a list of lines
-	" Optional argument handle the first line filtering input :
-	"   - empty-prompt-first (default) : blank first line with just a prompt
-	"   - prompt-first : keep input, add prompt if not present
-	"   - keep-first  : keep first line
-	"   - delete-first : delete first line
+	" Optional arguments :
+	"   - first handle the first line filtering input :
+	"     + empty-prompt-first (default) : blank first line with just a prompt
+	"     + prompt-first : keep input, add prompt if not present
+	"     + keep-first  : keep first line
+	"     + delete-first : delete first line
+	"   - lock :
+	"     + lock : relock if not writable
+	"     + dont-lock : don't lock
 	if ! wheel#cylinder#is_mandala ()
 		echomsg 'wheel mandala fill : not in mandala buffer'
 	endif
 	" ---- arguments
 	let content = a:content
 	let first = a:first
+	let lock = a:lock
 	" ---- cursor
 	let position = getcurpos()
 	" ---- options to edit
@@ -468,14 +481,15 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first')
 	call append('.', content)
 	" ---- first line
 	if first ==# 'prompt-first'
-		call wheel#teapot#set_prompt (getline(1))
+		call wheel#teapot#set_prompt (getline(1), lock)
 	elseif first ==# 'empty-prompt-first'
-		call wheel#teapot#set_prompt ()
+		call wheel#teapot#set_prompt ('', lock)
+	elseif  first ==# 'keep-first'
+		call wheel#mandala#post_edit (lock)
 	elseif first ==# 'delete-first'
 		silent 1 delete _
+		call wheel#mandala#post_edit (lock)
 	endif
-	" ---- restore edit options
-	call wheel#mandala#post_edit ()
 	" ---- tell (neo)vim the buffer is unmodified
 	setlocal nomodified
 	" ---- restore cursor if possible, else place it on line 1

@@ -629,9 +629,9 @@ fun! wheel#perspective#yank_prompt (mode, register = 'unnamed')
 	endif
 	" ---- format yanks
 	if mode ==# 'plain'
-		let returnlist = wheel#matrix#flatten(returnlist)
+		"let returnlist = wheel#matrix#flatten(returnlist)
 		" or ?
-		"eval returnlist->map({ _, val -> join(val, "\n") })
+		eval returnlist->map({ _, val -> join(val, "\n") })
 	elseif mode ==# 'list'
 		eval returnlist->map({ _, val -> string(val) })
 	endif

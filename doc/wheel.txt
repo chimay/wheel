@@ -977,11 +977,12 @@ Update candidates~
 
 In insert mode, typing :
 
-- `<Space>`
-- `<C-w>`
-- `<C-u>`
-- `<Esc>`
-- `<Enter>`
+- `<Space>` : plain space
+- `<C-w>`   : delete word before cursor
+- `<C-u>`   : delete until beginning of line
+- `<C-k>`   : delete until end of line
+- `<Esc>`   : leave insert mode
+- `<Enter>` : leave insert mode
 
 updates the candidates. Note that `<C-w>` and `<C-u>` do not delete
 the prompt.

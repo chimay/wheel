@@ -419,23 +419,26 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	" Feed key, or run filter if on first line
 	" Optional argument :
 	"   - angle :
-	"     - no-angle : plain key
-	"     - with-angle, or '>' : special key -> "\<key>"
+	"     + no-angle, or '' : plain key
+	"     + with-angle, or '>' : special key -> "\<key>"
 	"   - modes :
-	"     - modes[0] : normal or insert mode at the end if on first line
-	"     - modes[1] : normal or insert mode at the end if on any other line
+	"     + modes[0] : normal or insert mode at the end if on first line
+	"     + modes[1] : normal or insert mode at the end if on any other line
 	let key = a:key
 	let angle = a:angle
 	let modes = copy(a:modes)
 	eval modes->map({ _, val -> wheel#gear#long_mode (val) })
+	let mode_first = modes[0]
+	let mode_others = modes[1]
 	let linum = line('.')
 	if linum == 1
-		return wheel#teapot#wrapper (key, angle, modes[0])
+		call wheel#teapot#wrapper (key, angle, mode_first)
+		return v:true
 	endif
 	if angle ==# 'with-angle' || angle ==# '>'
 		execute 'let key =' '"\<' .. key .. '>"'
 	endif
-	if modes[1] ==# 'insert'
+	if mode_others ==# 'insert'
 		execute 'normal! i' .. key
 		let colnum = col('.')
 		if colnum != 1
@@ -475,7 +478,7 @@ fun! wheel#polyphony#last_field (key)
 	return v:true
 endfun
 
-fun! wheel#polyphony#ctrl_u ()
+fun! wheel#polyphony#insert_ctrl_u ()
 	" Ctrl-U on mandala with filter & write command
 	let linum = line('.')
 	if linum == 1
@@ -488,10 +491,26 @@ fun! wheel#polyphony#ctrl_u ()
 	call setline(linum, content)
 endfun
 
+fun! wheel#polyphony#insert_ctrl_k ()
+	" Ctrl-k to delete until end of line in mandala with filter
+	let linum = line('.')
+	if linum != 1
+		execute 'normal! i' .. "\<c-k>"
+		return v:true
+	endif
+	let line = getline(1)
+	let colnum = col('.')
+	let before = strpart(line, 0, colnum - 1)
+	call wheel#teapot#set_prompt (before, 'dont-lock')
+	call wheel#teapot#filter('update', 'dont-lock')
+	startinsert!
+	return v:true
+endfun
+
 fun! wheel#polyphony#normal_cc ()
 	" Normal command cc in hybrid mandala
 	startinsert!
-	call wheel#polyphony#ctrl_u ()
+	call wheel#polyphony#insert_ctrl_u ()
 endfun
 
 " ---- mandalas
@@ -533,7 +552,8 @@ fun! wheel#polyphony#hybrid_maps ()
 	exe imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
 	exe imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
 	exe imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
-	exe imap '<c-u>   <cmd>call wheel#polyphony#ctrl_u()<cr>'
+	exe imap '<c-u>   <cmd>call wheel#polyphony#insert_ctrl_u()<cr>'
+	exe imap '<c-k>   <cmd>call wheel#polyphony#insert_ctrl_k()<cr>'
 endfun
 
 fun! wheel#polyphony#navigation_maps (settings)
