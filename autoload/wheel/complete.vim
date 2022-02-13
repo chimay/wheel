@@ -156,7 +156,22 @@ endfun
 
 fun! wheel#complete#file (arglead, cmdline, cursorpos)
 	" Complete with file name
-	" -- get tree of files & directories
+	let cmdline = a:cmdline
+	let arglead = a:arglead
+	let cursorpos = a:cursorpos
+	let firstchar = arglead[0]
+	" ---- ending slash
+	if arglead ==# '~'
+		let glob = glob('~/*', v:false, v:true)
+		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
+		return glob
+	endif
+	if firstchar ==# '/' || firstchar ==# '~'
+		let glob = glob(arglead .. '*', v:false, v:true)
+		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
+		return glob
+	endif
+	" ---- get tree of files & directories
 	let tree = glob('**', v:false, v:true)
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, tree)
@@ -363,7 +378,13 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 	" ---- file
 	let wants_file = subcommand->wheel#chain#is_inside(s:file_subcommands)
 	if wants_file
-		if last =~ '\m/'
+		let firstchar = last[0]
+		if last ==# '~'
+			let glob = glob('~/*', v:false, v:true)
+			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
+			return glob
+		endif
+		if firstchar ==# '/' || firstchar ==# '~'
 			let glob = glob(last .. '*', v:false, v:true)
 			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 			return glob
