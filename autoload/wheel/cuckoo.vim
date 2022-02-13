@@ -35,6 +35,7 @@ fun! wheel#cuckoo#record ()
 	endif
 	eval frecency->map({ _, val -> wheel#cuckoo#slide (val) })
 	eval frecency->filter({ _, val -> val.score >= 0 })
+	let length = len(frecency)
 	for index in range(length)
 		let elem = frecency[index]
 		if entry.score >= elem.score

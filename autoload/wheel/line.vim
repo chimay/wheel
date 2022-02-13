@@ -276,6 +276,7 @@ fun! wheel#line#narrow_circle (settings)
 	let fields = split(component, s:field_separ)
 	let bufnum = str2nr(fields[0])
 	let linum = str2nr(fields[1])
+	let destination = [bufnum, linum]
 	if len(fields) == 4
 		let content = fields[3]
 	else
@@ -285,8 +286,8 @@ fun! wheel#line#narrow_circle (settings)
 	call wheel#curve#target (a:settings.target)
 	if content =~ pattern
 		" grep result
-		let texts = getqflist()->map({ _, val -> val.text })
-		let index = texts->index(content)
+		let pairs = getqflist()->map({ _, val -> [ val.bufnr, val.lnum ] })
+		let index = pairs->index(destination)
 		let errnum = index + 1
 		execute 'cc' errnum
 	else
