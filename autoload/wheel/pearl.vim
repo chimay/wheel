@@ -71,7 +71,7 @@ if ! exists('s:command_meta_prompt_actions')
 				\ [ 'yank-charwise-after', "wheel#codex#yank_plain('charwise-after')" ],
 				\ [ 'yank-linewise-before', "wheel#codex#yank_plain('linewise-before')" ],
 				\ [ 'yank-charwise-before', "wheel#codex#yank_plain('charwise-before')" ],
-				\ [ 'switch-default-register', 'wheel#codex#switch_default_register()' ],
+				\ [ 'default-register', 'wheel#codex#switch_default_register()' ],
 				\ ]
 	lockvar! s:command_meta_prompt_actions
 endif
