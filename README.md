@@ -58,7 +58,7 @@ All is written in classical Vimscript.
 
 ## What does it look like ?
 
-![Frecency & :Wheel command completion](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/wheel-history-meta-command.jpg)
+![Frecency & :Wheel command completion](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/history-meta-command.jpg)
 
 ### More screenshots
 
