@@ -5,6 +5,8 @@
 + [Introduction](#introduction)
 	* [What is it ?](#what-is-it-)
 	* [What does it look like ?](#what-does-it-look-like-)
+		- [Frecency and meta-command](#frecency-and-meta-command)
+		- [Dedicated buffers and layers](#dedicated-buffers-and-layers)
 		- [More screenshots & screencasts](#more-screenshots--screencasts)
 	* [File groups & categories](#file-groups--categories)
 		- [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
@@ -58,7 +60,12 @@ All is written in classical Vimscript.
 
 ## What does it look like ?
 
+### Frecency and meta-command
+
 ![Frecency & :Wheel command completion](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/history-meta-command.jpg)
+
+### Dedicated buffers and layers
+
 ![Dedicated buffers and layers](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/mandalas-and-leaves.jpg)
 
 ### More screenshots & screencasts
