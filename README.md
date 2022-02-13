@@ -5,7 +5,7 @@
 + [Introduction](#introduction)
 	* [What is it ?](#what-is-it-)
 	* [What does it look like ?](#what-does-it-look-like-)
-		- [More screenshots](#more-screenshots)
+		- [More screenshots & screencasts](#more-screenshots--screencasts)
 	* [File groups & categories](#file-groups--categories)
 		- [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
 		- [A wheel that follows you](#a-wheel-that-follows-you)
@@ -59,8 +59,9 @@ All is written in classical Vimscript.
 ## What does it look like ?
 
 ![Frecency & :Wheel command completion](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/history-meta-command.jpg)
+![Dedicated buffers and layers](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/mandalas-and-leaves.jpg)
 
-### More screenshots
+### More screenshots & screencasts
 
 See the [wheel-multimedia repository](https://github.com/chimay/wheel-multimedia).
 
