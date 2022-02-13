@@ -221,7 +221,7 @@ This project is inspired by :
 
 ## Prerequisites
 
-Some functions assume a Unix-like OS, like Linux or BSD :
+Some outer rim functions assume a Unix-like OS, like Linux or BSD :
 
 - async functions
 - external commands, like locate
