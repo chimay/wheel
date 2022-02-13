@@ -60,11 +60,11 @@ All is written in classical Vimscript.
 ## What does it look like ?
 ### Main menu
 
-![Main menu](screencast/menu-main.gif)
+![Frecency & :Wheel command completion](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/wheel-frecency-meta-command.jpg)
 
 ### More screenshots
 
-See the [screenshot page](screenshots.md).
+See the [wheel-multimedia repo](https://github.com/chimay/wheel-multimedia/blob/main/screenshot/wheel-frecency-meta-command.jpg).
 
 ## File groups & categories
 
