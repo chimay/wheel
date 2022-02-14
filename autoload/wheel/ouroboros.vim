@@ -8,10 +8,6 @@
 "   - maps
 "   - autocommands
 
-" other names ideas for this file :
-"
-" caduceus
-
 " ---- script constants
 
 if ! exists('s:modes_letters')
