@@ -208,7 +208,7 @@ fun! wheel#vortex#previous (level, where = 'search-window')
 	let index = upper.current
 	let elements = wheel#referen#elements(upper)
 	let length = len(elements)
-	let upper.current = wheel#gear#circular_minus(index, length)
+	let upper.current = wheel#taijitu#circular_minus(index, length)
 	return wheel#vortex#jump(where)
 endfun
 
@@ -228,7 +228,7 @@ fun! wheel#vortex#next (level, where = 'search-window')
 	let index = upper.current
 	let elements = wheel#referen#elements(upper)
 	let length = len(elements)
-	let upper.current = wheel#gear#circular_plus(index, length)
+	let upper.current = wheel#taijitu#circular_plus(index, length)
 	return wheel#vortex#jump(where)
 endfun
 

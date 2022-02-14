@@ -197,7 +197,7 @@ fun! wheel#book#previous (...)
 		echomsg 'wheel book previous : only one leaf in the ring'
 		return []
 	endif
-	let previous = wheel#gear#circular_minus (ring.current, length)
+	let previous = wheel#taijitu#circular_minus (ring.current, length)
 	if a:0 == 0
 		return ring.leaves[previous]
 	endif
@@ -235,7 +235,7 @@ fun! wheel#book#next (...)
 		echomsg 'wheel book next : only one leaf in the ring'
 		return []
 	endif
-	let next = wheel#gear#circular_plus (ring.current, length)
+	let next = wheel#taijitu#circular_plus (ring.current, length)
 	if a:0 == 0
 		return ring.leaves[next]
 	endif
@@ -447,7 +447,7 @@ fun! wheel#book#delete ()
 	let current = ring.current
 	eval ring.leaves->remove(current)
 	let length -= 1
-	let ring.current = wheel#gear#circular_minus (current, length)
+	let ring.current = wheel#taijitu#circular_minus (current, length)
 	call wheel#book#syncdown ()
 	return v:true
 endfun
@@ -468,7 +468,7 @@ fun! wheel#book#forward ()
 		return v:false
 	endif
 	let current = ring.current
-	let ring.current = wheel#gear#circular_plus (current, length)
+	let ring.current = wheel#taijitu#circular_plus (current, length)
 	call wheel#book#syncdown ()
 	call wheel#cylinder#update_type ()
 endfun
@@ -487,7 +487,7 @@ fun! wheel#book#backward ()
 		return v:false
 	endif
 	let current = ring.current
-	let ring.current = wheel#gear#circular_minus (current, length)
+	let ring.current = wheel#taijitu#circular_minus (current, length)
 	call wheel#book#syncdown ()
 	call wheel#cylinder#update_type ()
 endfun

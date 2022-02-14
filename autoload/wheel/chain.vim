@@ -161,52 +161,6 @@ fun! wheel#chain#pop (list)
 	return remove(a:list, 0)
 endfun
 
-" ---- rotation
-
-fun! wheel#chain#rotate_left (list)
-	" Rotate list to the left
-	let list = a:list
-	if len(list) > 1
-		let rotated = deepcopy(list[1:]) + deepcopy([list[0]])
-	else
-		let rotated = deepcopy(list)
-	endif
-	return rotated
-endfun
-
-fun! wheel#chain#rotate_right (list)
-	" Rotate list to the right
-	let list = a:list
-	if len(list) > 1
-		let rotated = deepcopy([list[-1]]) + deepcopy(list[:-2])
-	else
-		let rotated = deepcopy(list)
-	endif
-	return rotated
-endfun
-
-fun! wheel#chain#roll_left (list, index)
-	" Roll index in list until left = beginning
-	let index = a:index
-	let list = a:list
-	if index > 0 && index < len(list)
-		return deepcopy(list[index:]) + deepcopy(list[0:index - 1])
-	else
-		return deepcopy(list)
-	endif
-endfun
-
-fun! wheel#chain#roll_right (list, index)
-	" Roll index of list until right = end
-	let index = a:index
-	let list = a:list
-	if index >= 0 && index < len(list) - 1
-		return deepcopy(list[index + 1:-1]) + deepcopy(list[0:index])
-	else
-		return deepcopy(list)
-	endif
-endfun
-
 " ---- swap
 
 fun! wheel#chain#swap_first_two (list)

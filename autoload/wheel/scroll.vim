@@ -37,7 +37,7 @@ fun! wheel#scroll#newer ()
 		call wheel#teapot#set_prompt (input[0], 'dont-lock')
 		return v:true
 	endif
-	let g:wheel_input = wheel#chain#rotate_right (input)
+	let g:wheel_input = wheel#taijitu#rotate_right (input)
 	call wheel#teapot#set_prompt (g:wheel_input[0], 'dont-lock')
 	return v:true
 endfun
@@ -53,7 +53,7 @@ fun! wheel#scroll#older ()
 		call wheel#teapot#set_prompt (input[0], 'dont-lock')
 		return v:true
 	endif
-	let g:wheel_input = wheel#chain#rotate_left (input)
+	let g:wheel_input = wheel#taijitu#rotate_left (input)
 	call wheel#teapot#set_prompt (g:wheel_input[0], 'dont-lock')
 	return v:true
 endfun
@@ -76,7 +76,7 @@ fun! wheel#scroll#filtered_newer ()
 	let reversed = reverse(input)
 	let index = match(reversed, pattern, 0)
 	if index >= 0
-		let reversed = reversed->wheel#chain#roll_right(index)
+		let reversed = reversed->wheel#taijitu#roll_right(index)
 		let g:wheel_input = reverse(copy(reversed))
 		call wheel#teapot#set_prompt (g:wheel_input[0], 'dont-lock')
 	endif
@@ -101,7 +101,7 @@ fun! wheel#scroll#filtered_older ()
 	let pattern = '\m^' .. before
 	let index = match(input, pattern, 1)
 	if index >= 0
-		let g:wheel_input = g:wheel_input->wheel#chain#roll_left(index)
+		let g:wheel_input = g:wheel_input->wheel#taijitu#roll_left(index)
 		call wheel#teapot#set_prompt (g:wheel_input[0], 'dont-lock')
 	endif
 	call cursor(1, colnum)

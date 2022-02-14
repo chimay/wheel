@@ -16,22 +16,6 @@ if ! exists('s:letters_modes')
 	lockvar s:letters_modes
 endif
 
-" ---- rotating
-
-fun! wheel#gear#circular_plus (index, length)
-	" Rotate/increase index with modulo
-	return (a:index + 1) % a:length
-endfun
-
-fun! wheel#gear#circular_minus (index, length)
-	" Rotate/decrease index with modulo
-	let index = (a:index - 1) % a:length
-	if index < 0
-		let index += a:length
-	endif
-	return index
-endfun
-
 " ---- functions
 
 fun! wheel#gear#function (function, ...)

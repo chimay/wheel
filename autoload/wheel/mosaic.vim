@@ -77,7 +77,7 @@ fun! wheel#mosaic#rotate_clockwise ()
 	" Useful for main left & main top layouts
 	wincmd t
 	let buffers = wheel#rectangle#tab_buffers ()
-	let buffers = wheel#chain#rotate_right (buffers)
+	let buffers = wheel#taijitu#rotate_right (buffers)
 	for bufnum in buffers
 		execute 'hide buffer' bufnum
 		wincmd w
@@ -89,7 +89,7 @@ fun! wheel#mosaic#rotate_counter_clockwise ()
 	" Useful for main left & main top layouts
 	wincmd t
 	let buffers = wheel#rectangle#tab_buffers ()
-	let buffers = wheel#chain#rotate_left (buffers)
+	let buffers = wheel#taijitu#rotate_left (buffers)
 	for bufnum in buffers
 		execute 'hide buffer' bufnum
 		wincmd w

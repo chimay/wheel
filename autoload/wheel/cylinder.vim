@@ -292,7 +292,7 @@ fun! wheel#cylinder#delete ()
 	eval names->remove(current)
 	eval types->remove(current)
 	let length = len(mandalas)
-	let current = wheel#gear#circular_minus(current, length)
+	let current = wheel#taijitu#circular_minus(current, length)
 	let g:wheel_bufring.current = current
 	let bufnum = bufnr('%')
 	if bufnum == removed || wheel#cylinder#is_mandala ()
@@ -401,7 +401,7 @@ fun! wheel#cylinder#forward ()
 	let current = g:wheel_bufring.current
 	let bufnum = bufnr('%')
 	if wheel#chain#is_inside(bufnum, mandalas)
-		let current = wheel#gear#circular_plus (current, length)
+		let current = wheel#taijitu#circular_plus (current, length)
 		let g:wheel_bufring.current = current
 	endif
 	call wheel#cylinder#recall ()
@@ -421,7 +421,7 @@ fun! wheel#cylinder#backward ()
 	let current = g:wheel_bufring.current
 	let bufnum = bufnr('%')
 	if wheel#chain#is_inside(bufnum, mandalas)
-		let current = wheel#gear#circular_minus (current, length)
+		let current = wheel#taijitu#circular_minus (current, length)
 		let g:wheel_bufring.current = current
 	endif
 	call wheel#cylinder#recall ()

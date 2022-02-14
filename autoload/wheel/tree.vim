@@ -487,7 +487,7 @@ fun! wheel#tree#remove (level, name)
 		" if removed element index is before current one,
 		" the need to decrease current
 		let length = len(elements)
-		let upper.current = wheel#gear#circular_minus(index, length)
+		let upper.current = wheel#taijitu#circular_minus(index, length)
 	endif
 	" ---- remove from glossary
 	eval glossary->wheel#chain#remove_element(name)
@@ -542,7 +542,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	if empty(elements)
 		let upper.current = -1
 	else
-		let upper.current = wheel#gear#circular_minus(index, length)
+		let upper.current = wheel#taijitu#circular_minus(index, length)
 	endif
 	eval upper.glossary->wheel#chain#remove_element(name)
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()

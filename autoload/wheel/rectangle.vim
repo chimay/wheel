@@ -212,6 +212,6 @@ fun! wheel#rectangle#tab_buffers ()
 	let bufnum = bufnr('%')
 	let buffers = tabpagebuflist()
 	let index = buffers->index(bufnum)
-	let buffers = buffers->wheel#chain#roll_left(index)
+	let buffers = buffers->wheel#taijitu#roll_left(index)
 	return buffers
 endfun

@@ -271,7 +271,7 @@ endfun
 
 " hide & show
 
-fun! wheel#pencil#hide (lock)
+fun! wheel#pencil#hide (lock = 'lock')
 	" Remove selection mark from all visible lines
 	" This does not clear the selection
 	"   - lock :
@@ -292,7 +292,7 @@ fun! wheel#pencil#hide (lock)
 	return v:true
 endfun
 
-fun! wheel#pencil#show (lock)
+fun! wheel#pencil#show (lock = 'lock')
 	" Add selection mark to all selected lines
 	" This does not alter the selection
 	"   - lock :

@@ -246,7 +246,7 @@ endfun
 fun! wheel#pendulum#newer_anywhere ()
 	" Go to newer entry in g:wheel_history.circuit
 	let timeloop = g:wheel_history.circuit
-	let timeloop = wheel#chain#rotate_right (timeloop)
+	let timeloop = wheel#taijitu#rotate_right (timeloop)
 	let coordin = timeloop[0].coordin
 	" rotate makes deepcopy
 	let g:wheel_history.circuit = timeloop
@@ -257,7 +257,7 @@ endfun
 fun! wheel#pendulum#older_anywhere ()
 	" Go to older entry in g:wheel_history.circuit
 	let timeloop = g:wheel_history.circuit
-	let timeloop = wheel#chain#rotate_left (timeloop)
+	let timeloop = wheel#taijitu#rotate_left (timeloop)
 	let coordin = timeloop[0].coordin
 	" rotate makes deepcopy
 	let g:wheel_history.circuit = timeloop
@@ -286,7 +286,7 @@ fun! wheel#pendulum#newer (level = 'wheel')
 	for index in range[:-2]
 		let coordin = timeloop[index].coordin
 		if present_coordin[:level_index] == coordin[:level_index]
-			let timeloop = timeloop->wheel#chain#roll_right(index)
+			let timeloop = timeloop->wheel#taijitu#roll_right(index)
 			break
 		endif
 	endfor
@@ -322,7 +322,7 @@ fun! wheel#pendulum#older (level = 'wheel')
 	for index in range[1:]
 		let coordin = timeloop[index].coordin
 		if present_coordin[:level_index] == coordin[:level_index]
-			let timeloop = timeloop->wheel#chain#roll_left(index)
+			let timeloop = timeloop->wheel#taijitu#roll_left(index)
 			break
 		endif
 	endfor

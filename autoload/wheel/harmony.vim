@@ -229,7 +229,7 @@ fun! wheel#harmony#delete (level, ask = 'confirm')
 			" if removed element index is before current one,
 			" the need to decrease current
 			let length = len(elements)
-			let upper.current = wheel#gear#circular_minus(index, length)
+			let upper.current = wheel#taijitu#circular_minus(index, length)
 		endif
 	endfor
 	" clean history
