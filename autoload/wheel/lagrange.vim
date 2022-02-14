@@ -1,11 +1,9 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
 " Joseph-Louis Lagrange is a mathematician, pioneer in :
-"   - extrema
+"   - extrema of a function with constraints
 "   - functionals
 "   - variation calculus
-
-" Extrema
 
 fun! wheel#lagrange#argmin (list)
 	" Returns indexes where list[index] = min(list)
