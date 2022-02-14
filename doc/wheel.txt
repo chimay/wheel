@@ -4009,19 +4009,14 @@ work in your setup : >
     " reorganize tabs & windows (visible buffers)
     nmap <silent> <d-r> <plug>(wheel-reorg-tabwin)
 
-    " next/previous dedicated buffer
-    nmap <silent> <d-space>   <plug>(wheel-mandala-forward)
-    nmap <silent> <d-s-space> <plug>(wheel-mandala-backward)
-
-    " k on the beginning of the buffer -> end
-    nmap <silent> k :call wheel#mandala#wrap_up()<cr>
     " j on the end of the buffer -> beginning
-    nmap <silent> j :call wheel#mandala#wrap_down()<cr>
+    nmap <silent> j <cmd>call wheel#mandala#wrap_down()<cr>
+    " k on the beginning of the buffer -> end
+    nmap <silent> k <cmd>call wheel#mandala#wrap_up()<cr>
 
     " clear search highlight and center the cursor with Fibonacci ratio
-    nmap <silent> <c-l> :nohlsearch<cr><plug>(wheel-spiral-cursor)
-    " same in insert mode
-    imap <silent> <c-l> <esc>:nohlsearch<cr><plug>(wheel-spiral-cursor)a
+    nmap <silent> <c-l> <cmd>nohlsearch<cr><plug>(wheel-spiral-cursor)
+    imap <silent> <c-l> <esc><cmd>nohlsearch<cr><plug>(wheel-spiral-cursor)a
 <
 
 ==============================================================================
