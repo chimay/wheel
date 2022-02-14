@@ -4161,6 +4161,7 @@ of the modules within them.
 | clipper.vim       | Yank dedicated buffer                          |
 | codex.vim         | Yank ring                                      |
 | complete.vim      | Completion functions                           |
+| counterpoint.vim  | Write functions to reorganize native elements  |
 | crystal.vim       | Internal constants                             |
 | cuboctahedron.vim | Full information of each mandala line          |
 | cuckoo.vim        | Frecency : frequent & recent                   |
@@ -4173,7 +4174,7 @@ of the modules within them.
 | geode.vim         | Internal constants for plugs & maps            |
 | group.vim         | Auto grouping of files                         |
 | guru.vim          | Help                                           |
-| harmony.vim       | Write functions for mandalas autocommands      |
+| harmony.vim       | Write functions to reorganize wheel elements   |
 | helix.vim         | Wheel indexes                                  |
 | helm.vim          | Main & meta menus in dedicated buffers         |
 | kintsugi.vim      | Check & fix wheel variables                    |
