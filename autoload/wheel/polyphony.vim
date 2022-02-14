@@ -32,20 +32,28 @@ endfun
 
 " ---- write autocommand & maps
 
-fun! wheel#polyphony#score (fun_name, arguments)
+fun! wheel#polyphony#choir (fun_name, arguments)
 	" Return string to call fun_name with arguments
 	" fun_name can be :
 	"   - the full function name
-	"   - the last part of wheel#harmony#fun_name
+	"   - the last part of :
+	"     + wheel#harmony#fun_name
+	"     + wheel#counterpoint#fun_name
 	let fun_name = a:fun_name
 	let arguments = string(a:arguments)
 	if fun_name =~ '#'
 		" fun_name is the complete function name
 		let funcall = 'call call(' .. string(fun_name) .. ', ' .. arguments .. ')'
 	else
+		" load harmony file
+		runtime autoload/wheel/harmony.vim
 		" fun_name is the last part of the function
-		let funcall = "call call('wheel#harmony#"
-		let funcall ..= fun_name .. "', " .. arguments .. ')'
+		let full_fun_name = 'wheel#harmony#' .. fun_name
+		if ! exists('*' .. full_fun_name)
+			let full_fun_name = 'wheel#counterpoint#' .. fun_name
+		endif
+		let funcall = 'call call(' .. string(full_fun_name)
+		let funcall ..= ', ' .. arguments .. ')'
 	endif
 	return funcall
 endfun
@@ -57,7 +65,7 @@ fun! wheel#polyphony#motion (fun_name, arguments)
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
 	call wheel#ouroboros#clear_autocmds(group, event)
-	let funcall = wheel#polyphony#score (fun_name, arguments)
+	let funcall = wheel#polyphony#choir (fun_name, arguments)
 	exe 'autocmd' group event '<buffer>' funcall
 endfun
 
@@ -65,15 +73,15 @@ fun! wheel#polyphony#voicing (fun_name, arguments)
 	" Define maps to trigger the writing function
 	let fun_name = a:fun_name
 	let arguments = deepcopy(a:arguments)
-	let funcall = wheel#polyphony#score (fun_name, arguments)
+	let funcall = wheel#polyphony#choir (fun_name, arguments)
 	let nmap = 'nnoremap <buffer>'
 	exe nmap '<leader>w' '<cmd>' .. funcall .. '<cr>'
 	eval arguments->add('force')
-	let funcall = wheel#polyphony#score (fun_name, arguments)
+	let funcall = wheel#polyphony#choir (fun_name, arguments)
 	exe nmap '<leader>W' '<cmd>' .. funcall .. '<cr>'
 endfun
 
-fun! wheel#polyphony#counterpoint (fun_name, ...)
+fun! wheel#polyphony#score (fun_name, ...)
 	" Enable writable mandala : autocommand, maps, properties, options
 	" Optional arguments : arguments to pass to fun_name
 	" -- arguments
