@@ -12,9 +12,19 @@
 "
 " caduceus
 
-" ---- status : variables, options, maps, autocommands
+" ---- script constants
 
-" -- map modes
+if ! exists('s:modes_letters')
+	let s:modes_letters = wheel#crystal#fetch('modes-letters')
+	lockvar s:modes_letters
+endif
+
+if ! exists('s:letters_modes')
+	let s:letters_modes = wheel#crystal#fetch('letters-modes')
+	lockvar s:letters_modes
+endif
+
+" ---- map modes
 
 fun! wheel#ouroboros#short_mode (mode)
 	" Returns short one letter name of mode
@@ -75,7 +85,7 @@ fun! wheel#ouroboros#long_mode (mode)
 endif
 endfun
 
-" -- clear
+" ---- clear
 
 fun! wheel#ouroboros#unmap (key, mode = 'normal')
 	" Unmap buffer local mapping key in mode
@@ -143,7 +153,7 @@ fun! wheel#ouroboros#unlet (variable)
 	endif
 endfun
 
-" -- save
+" ---- save
 
 fun! wheel#ouroboros#save_options (optlist)
 	" Return dictionary with options whose names are in optlist
@@ -215,7 +225,7 @@ fun! wheel#ouroboros#save_autocmds (group, events)
 	endif
 endfun
 
-" -- restore
+" ---- restore
 
 fun! wheel#ouroboros#restore_options (optdict)
 	" Restore options whose names and values are given by optdict
@@ -259,4 +269,3 @@ fun! wheel#ouroboros#restore_autocmds (group, autodict)
 		endif
 	endfor
 endfun
-

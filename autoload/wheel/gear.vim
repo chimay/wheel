@@ -4,18 +4,6 @@
 "
 " Generic helpers
 
-" ---- script constants
-
-if ! exists('s:modes_letters')
-	let s:modes_letters = wheel#crystal#fetch('modes-letters')
-	lockvar s:modes_letters
-endif
-
-if ! exists('s:letters_modes')
-	let s:letters_modes = wheel#crystal#fetch('letters-modes')
-	lockvar s:letters_modes
-endif
-
 " ---- functions
 
 fun! wheel#gear#function (function, ...)
