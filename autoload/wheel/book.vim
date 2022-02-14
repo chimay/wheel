@@ -247,19 +247,19 @@ endfun
 
 fun! wheel#book#save_options ()
 	" Save options
-	return wheel#gear#save_options (s:mandala_options)
+	return wheel#ouroboros#save_options (s:mandala_options)
 endfun
 
 fun! wheel#book#save_maps ()
 	" Save maps
-	return wheel#gear#save_maps (s:map_keys)
+	return wheel#ouroboros#save_maps (s:map_keys)
 endfun
 
 fun! wheel#book#save_autocmds ()
 	" Save autocommands
 	let group = s:mandala_autocmds_group
 	let events = s:mandala_autocmds_events
-	return wheel#gear#save_autocmds (group, events)
+	return wheel#ouroboros#save_autocmds (group, events)
 endfun
 
 " ---- restoring things
@@ -267,7 +267,7 @@ endfun
 fun! wheel#book#restore_autocmds (autodict)
 	" Restore autocommands
 	let group = s:mandala_autocmds_group
-	call wheel#gear#restore_autocmds (group, a:autodict)
+	call wheel#ouroboros#restore_autocmds (group, a:autodict)
 endfun
 
 " Sync
@@ -334,10 +334,10 @@ fun! wheel#book#syncdown ()
 	let pseudo_file = leaf.filename
 	execute 'silent file' pseudo_file
 	" -- options
-	call wheel#gear#restore_options (leaf.options)
+	call wheel#ouroboros#restore_options (leaf.options)
 	" -- mappings
 	let mappings = deepcopy(leaf.mappings)
-	call wheel#gear#restore_maps (mappings)
+	call wheel#ouroboros#restore_maps (mappings)
 	" -- autocommands
 	let autodict = deepcopy(leaf.autocmds)
 	call wheel#book#restore_autocmds (autodict)

@@ -354,7 +354,7 @@ fun! wheel#harmony#reorganize (ask = 'confirm')
 	" -- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" -- start from empty wheel
-	call wheel#gear#unlet ('g:wheel')
+	call wheel#ouroboros#unlet ('g:wheel')
 	call wheel#void#wheel ()
 	" -- loop over buffer lines
 	let linelist = wheel#teapot#all_lines ()

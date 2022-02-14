@@ -203,19 +203,19 @@ endfun
 
 fun! wheel#mandala#clear_maps ()
 	" Clear mandala local maps
-	call wheel#gear#unmap(s:map_keys)
+	call wheel#ouroboros#unmap(s:map_keys)
 endfun
 
 fun! wheel#mandala#clear_autocmds ()
 	" Clear mandala local autocommands
 	let group = s:mandala_autocmds_group
 	let events = s:mandala_autocmds_events
-	call wheel#gear#clear_autocmds (group, events)
+	call wheel#ouroboros#clear_autocmds (group, events)
 endfun
 
 fun! wheel#mandala#clear_vars ()
 	" Clear mandala local variables, except the leaves ring
-	call wheel#gear#unlet (s:mandala_vars)
+	call wheel#ouroboros#unlet (s:mandala_vars)
 endfun
 
 fun! wheel#mandala#clear ()

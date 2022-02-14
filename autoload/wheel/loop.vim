@@ -3,11 +3,6 @@
 " Loop
 "
 " Loops on mandala selections
-"
-" other names ideas for this file :
-"
-" ouroboros
-" caduceus
 
 " ---- script constants
 

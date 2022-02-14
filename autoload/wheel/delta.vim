@@ -49,12 +49,12 @@ endfun
 
 fun! wheel#delta#save_options ()
 	" Save options before activating diff
-	let b:wheel_options = wheel#gear#save_options (s:diff_options)
+	let b:wheel_options = wheel#ouroboros#save_options (s:diff_options)
 endfun
 
 fun! wheel#delta#restore_options ()
 	" Restore options to their state before diff
-	call wheel#gear#restore_options (b:wheel_options)
+	call wheel#ouroboros#restore_options (b:wheel_options)
 endfun
 
 " diff windows

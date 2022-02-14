@@ -2,7 +2,7 @@
 
 " Chain
 "
-" Lists operations
+" Lists helpers
 
 " ---- booleans
 

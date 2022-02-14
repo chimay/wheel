@@ -56,7 +56,7 @@ fun! wheel#polyphony#motion (fun_name, arguments)
 	let arguments = deepcopy(a:arguments)
 	let group = s:mandala_autocmds_group
 	let event = 'BufWriteCmd'
-	call wheel#gear#clear_autocmds(group, event)
+	call wheel#ouroboros#clear_autocmds(group, event)
 	let funcall = wheel#polyphony#score (fun_name, arguments)
 	exe 'autocmd' group event '<buffer>' funcall
 endfun
@@ -421,7 +421,7 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	let key = a:key
 	let angle = a:angle
 	let modes = copy(a:modes)
-	eval modes->map({ _, val -> wheel#gear#long_mode (val) })
+	eval modes->map({ _, val -> wheel#ouroboros#long_mode (val) })
 	let mode_first = modes[0]
 	let mode_others = modes[1]
 	let linum = line('.')

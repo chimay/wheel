@@ -4183,7 +4183,7 @@ of the modules within them.
 | helm.vim          | Main & meta menus in dedicated buffers         |
 | kintsugi.vim      | Check & fix wheel variables                    |
 | kyusu.vim         | Filters for prompt & dedicated buffers         |
-| lagrange.vim      | Extrema                                        |
+| lagrange.vim      | Extrema helpers                                |
 | labyrinth.vim     | Commands to reproduce tab & win layout         |
 | line.vim          | Activate non-wheel line in dedicated buffers   |
 | loop.vim          | Loops on dedicated buffers lines               |

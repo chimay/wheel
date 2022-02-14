@@ -119,7 +119,7 @@ fun! wheel#teapot#goto_filter_line (mode = 'normal')
 	"   - normal : end in normal mode
 	"   - insert : end in insert mode
 	let mode = a:mode
-	let mode = wheel#gear#long_mode (mode)
+	let mode = wheel#ouroboros#long_mode (mode)
 	call cursor(1, 1)
 	normal! $
 	call wheel#mandala#unlock ()
@@ -206,7 +206,7 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	let key = a:key
 	let angle = a:angle
 	let mode = a:mode
-	let mode = wheel#gear#long_mode (mode)
+	let mode = wheel#ouroboros#long_mode (mode)
 	if line('.') != 1
 		call cursor(1, 1)
 		call cursor(1, col('$'))

@@ -456,7 +456,7 @@ fun! wheel#void#vanish ()
 				\ 'g:wheel_wave',
 				\ 'g:wheel_ripple',
 				\ ]
-	call wheel#gear#unlet (varlist)
+	call wheel#ouroboros#unlet (varlist)
 endfun
 
 " ---- init & exit
@@ -519,6 +519,6 @@ fun! wheel#void#fresh_wheel ()
 				\ 'g:wheel_signs',
 				\ 'g:wheel_shelve',
 				\ ]
-	call wheel#gear#unlet (varlist)
+	call wheel#ouroboros#unlet (varlist)
 	call wheel#void#foundation ()
 endfun
