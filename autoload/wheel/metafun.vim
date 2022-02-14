@@ -27,14 +27,14 @@ fun! wheel#metafun#function (function, ...)
 	endif
 endfun
 
-fun! wheel#metafun#call (fun, ...)
-	" Call Function depicted as a Funcref or a string
+fun! wheel#metafun#call (function, ...)
+	" Call function depicted as a Funcref or a string
 	" Optional arguments are passed to Fun
 	if empty(a:fun)
 		return v:false
 	endif
 	let arguments = a:000
-	let Fun = a:fun
+	let Fun = a:function
 	let kind = type(Fun)
 	if kind == v:t_func
 		if empty(arguments)
