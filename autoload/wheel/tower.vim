@@ -92,7 +92,7 @@ fun! wheel#tower#action (settings)
 		let close = v:false
 	endif
 	" ---- call function linked to cursor line
-	let winiden = wheel#gear#call (function)
+	let winiden = wheel#metafun#call (function)
 	" ---- coda
 	if close
 		call wheel#cylinder#close ()

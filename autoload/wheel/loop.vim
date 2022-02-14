@@ -42,14 +42,14 @@ fun! wheel#loop#navigation (settings)
 	if target ==# 'current'
 		let settings.selection.index = selection.indexes[0]
 		let settings.selection.component = selection.components[0]
-		let winiden = Fun->wheel#gear#call(settings)
+		let winiden = Fun->wheel#metafun#call(settings)
 		call wheel#spiral#cursor ()
 	else
 		let length = len(indexes)
 		for ind in range(length)
 			let settings.selection.index = selection.indexes[ind]
 			let settings.selection.component = selection.components[ind]
-			let winiden = Fun->wheel#gear#call(settings)
+			let winiden = Fun->wheel#metafun#call(settings)
 			call wheel#spiral#cursor ()
 		endfor
 	endif

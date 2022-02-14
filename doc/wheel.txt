@@ -4185,6 +4185,7 @@ of the modules within them.
 | loop.vim          | Loops on dedicated buffers lines               |
 | mandala.vim       | Generic dedicated buffers                      |
 | matrix.vim        | Nested lists & dictionaries                    |
+| metafun.vim       | Functional helpers : functions of functions    |
 | mirror.vim        | Organize native vim elements                   |
 | mosaic.vim        | Windows & tabs Layouts                         |
 | orbiter.vim       | Preview for dedicated buffers                  |

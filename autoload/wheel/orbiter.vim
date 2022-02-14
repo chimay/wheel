@@ -31,7 +31,7 @@ fun! wheel#orbiter#preview ()
 	silent doautocmd User WheelUpdate
 	" ---- call mandala function
 	let Fun = settings.function
-	let winiden = wheel#gear#call (Fun, settings)
+	let winiden = wheel#metafun#call (Fun, settings)
 	call wheel#cylinder#recall ()
 	return winiden
 endfun

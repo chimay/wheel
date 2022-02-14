@@ -523,7 +523,7 @@ fun! wheel#mandala#reload ()
 	call wheel#mandala#refresh ()
 	" -- reload content
 	if ! empty(b:wheel_reload)
-		call wheel#gear#call (b:wheel_reload)
+		call wheel#metafun#call (b:wheel_reload)
 		let function = b:wheel_reload
 		call wheel#status#message('wheel :', function, 'reloaded')
 	else
