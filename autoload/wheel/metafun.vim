@@ -30,7 +30,7 @@ endfun
 fun! wheel#metafun#call (function, ...)
 	" Call function depicted as a Funcref or a string
 	" Optional arguments are passed to Fun
-	if empty(a:fun)
+	if empty(a:function)
 		return v:false
 	endif
 	let arguments = a:000
