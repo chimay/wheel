@@ -171,6 +171,11 @@ fun! wheel#complete#file (arglead, cmdline, cursorpos)
 		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 		return glob
 	endif
+	if arglead[:1] ==# './'
+		let glob = glob(arglead .. '*', v:false, v:true)
+		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
+		return glob
+	endif
 	" ---- get tree of files & directories
 	let tree = glob('**', v:false, v:true)
 	let wordlist = split(a:cmdline)

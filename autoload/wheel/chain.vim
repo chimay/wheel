@@ -220,34 +220,6 @@ fun! wheel#chain#indexes (list, sublist)
 	return indexes
 endfun
 
-" ---- extrema
-
-fun! wheel#chain#argmin (list)
-	" Returns indexes where list[index] = min(list)
-	let list = a:list
-	let minimum = min(list)
-	let indexes = []
-	for ind in wheel#chain#rangelen(list)
-		if list[ind] == minimum
-			eval indexes->add(ind)
-		endif
-	endfor
-	return indexes
-endfun
-
-fun! wheel#chain#argmax (list)
-	" Returns indexes where list[index] = max(list)
-	let list = a:list
-	let maximum = max(list)
-	let indexes = []
-	for ind in wheel#chain#rangelen(list)
-		if list[ind] == maximum
-			eval indexes->add(ind)
-		endif
-	endfor
-	return indexes
-endfun
-
 " ---- filter
 
 fun! wheel#chain#filter (list, function, indexes = [])

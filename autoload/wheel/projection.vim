@@ -63,12 +63,12 @@ fun! wheel#projection#closest (...)
 	" min diff lines
 	let lines = map(deepcopy(album), {_, val -> val[2].line})
 	let diff = map(copy(lines), {_, val -> abs(val - linum)})
-	let where = wheel#chain#argmin (diff)
+	let where = wheel#lagrange#argmin (diff)
 	let album = album->wheel#chain#sublist(where)
 	" min diff columns
 	let cols = map(deepcopy(album), {_, val -> val[2].col})
 	let diff = map(copy(cols), {_, val -> abs(val - colnum)})
-	let where = wheel#chain#argmin (diff)
+	let where = wheel#lagrange#argmin (diff)
 	let album = album->wheel#chain#sublist(where)
 	" closest
 	let closest = album[0]

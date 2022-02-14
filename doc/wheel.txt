@@ -646,6 +646,8 @@ the nature of the asked entry :
 
 Hitting |'wildchar'| (most likely `<Tab>`), will trigger the completion.
 
+Multi-pattern~
+
 You can enter one or more patterns before hitting |'wildchar'| to narrow
 the completion list :
 
@@ -666,6 +668,18 @@ For example, if you have the completion list `small flower`, `big flower`,
 - the patterns `sm fl` will narrow down to `small flower`
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
+
+File completion~
+
+Files and directories completes in different ways depending on the
+beginning fo your input :
+
+| Beginning of input | Completion list                         | Pattern(s) |
+| ------------------ | --------------------------------------- | ---------- |
+| ./                 | files and subdirs in current directory  | single     |
+| /                  | files and subdirs in root directory     | single     |
+| ~ or ~/            | files and subdirs in home directory     | single     |
+| anything else      | current directory tree, recursive       | multi      |
 
 ------------------------------------------------------------------------------
 SWITCH					    *wheel-prompting-functions-switch*
@@ -4169,6 +4183,7 @@ of the modules within them.
 | helm.vim          | Main & meta menus in dedicated buffers         |
 | kintsugi.vim      | Check & fix wheel variables                    |
 | kyusu.vim         | Filters for prompt & dedicated buffers         |
+| lagrange.vim      | Extrema                                        |
 | labyrinth.vim     | Commands to reproduce tab & win layout         |
 | line.vim          | Activate non-wheel line in dedicated buffers   |
 | loop.vim          | Loops on dedicated buffers lines               |
@@ -4195,6 +4210,7 @@ of the modules within them.
 | spiral.vim        | Golden ratio                                   |
 | status.vim        | Print wheel status                             |
 | symbol.vim        | Tags                                           |
+| taijitu.vim       | Ring helpers, circular routines                |
 | teapot.vim        | Filter aspect of dedicated buffers             |
 | tower.vim         | Menu layer in dedicated buffers                |
 | tree.vim          | Organize wheel element : add, rename, ...      |
