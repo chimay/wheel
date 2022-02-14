@@ -26,11 +26,20 @@ fun! wheel#gear#function (function, ...)
 	let arguments = a:000
 	let kind = type(Fun)
 	if kind == v:t_string
-		return function(Fun, arguments)
+		if Fun =~ '\m)$'
+			" form : Fun = 'function(...)'
+			" a:000 of wheel#gear#call is ignored
+			return eval(Fun)
+		else
+			return function(Fun, arguments)
+		endif
 	elseif kind == v:t_func
 		return Fun
 	else
 		echomsg 'wheel gear function : bad argument'
+		" likely not a representation of a function
+		" simply forward concatened arguments
+		return [Fun] + arguments
 	endif
 endfun
 
@@ -66,6 +75,7 @@ fun! wheel#gear#call (fun, ...)
 			return call(Fun, arguments)
 		endif
 	else
+		echomsg 'wheel gear call : bad argument'
 		" likely not a representation of a function
 		" simply forward concatened arguments
 		return [Fun] + arguments
