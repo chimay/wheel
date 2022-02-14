@@ -2,6 +2,8 @@
 
 " Ring helpers
 " Circular functions
+"
+" Taijitu is the yin-yang symbol, suggesting a rotation
 
 " ---- index rotation
 

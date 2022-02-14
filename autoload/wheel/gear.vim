@@ -100,7 +100,7 @@ fun! wheel#gear#vim_cmd_range (...)
 	return range
 endfun
 
-" ---- location
+" ---- cursor, focus
 
 fun! wheel#gear#restore_cursor (position, default_line = '$')
 	" Restore cursor position

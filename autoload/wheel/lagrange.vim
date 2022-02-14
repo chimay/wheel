@@ -1,5 +1,10 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Joseph-Louis Lagrange is a mathematician, pioneer in :
+"   - extrema
+"   - functionals
+"   - variation calculus
+
 " Extrema
 
 fun! wheel#lagrange#argmin (list)
