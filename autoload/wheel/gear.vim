@@ -23,10 +23,10 @@ fun! wheel#gear#function (function, ...)
 	" Optional arguments are passed to Fun
 	" If already funcref, simply return it
 	let Fun = a:function
-	let arg = a:000
+	let arguments = a:000
 	let kind = type(Fun)
 	if kind == v:t_string
-		return function(Fun, arg)
+		return function(Fun, arguments)
 	elseif kind == v:t_func
 		return Fun
 	else
