@@ -5,9 +5,25 @@
 " Writing functions for local BufWriteCmd autocommand
 " in native elements dedicated buffers
 
-" ---- native
+" ---- script constants
 
-" -- grep edit
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	let s:fold_markers = join(s:fold_markers, ',')
+	lockvar s:fold_markers
+endif
+
+if ! exists('s:fold_1')
+	let s:fold_1 = wheel#crystal#fetch('fold/one')
+	lockvar s:fold_1
+endif
+
+" ---- grep edit
 
 fun! wheel#counterpoint#grep_edit (ask = 'confirm')
 	" Apply changes done in grep mandala
@@ -49,7 +65,7 @@ fun! wheel#counterpoint#grep_edit (ask = 'confirm')
 	echomsg 'quickfix changes propagated'
 endfun
 
-" -- narrow
+" ---- narrow
 
 fun! wheel#counterpoint#narrow_file (ask = 'confirm')
 	" Write function for shape#narrow_file
@@ -149,7 +165,7 @@ fun! wheel#counterpoint#narrow_circle (ask = 'confirm')
 	return v:true
 endfun
 
-" -- reorganize tabs & windows
+" ---- reorganize tabs & windows
 
 fun! wheel#counterpoint#baskets (linelist)
 	" Fill new tab indexes and windows for reorg_tabwin
@@ -306,13 +322,13 @@ fun! wheel#counterpoint#reorg_tabwin (ask = 'confirm')
 	" -- close mandala to work : otherwise it would be added to the list of windows
 	call wheel#cylinder#close ()
 	" -- fill the baskets
-	let [tabindexes, tabwindows] = wheel#harmony#baskets (linelist)
+	let [tabindexes, tabwindows] = wheel#counterpoint#baskets (linelist)
 	" -- find the new tab index of mandala tab page
 	let startpage = tabindexes->index(startpage) + 1
 	" -- arrange tabs : reorder, add and remove
-	let [tabindexes, removed] = wheel#harmony#arrange_tabs (tabindexes)
+	let [tabindexes, removed] = wheel#counterpoint#arrange_tabs (tabindexes)
 	" -- add or remove windows
-	call wheel#harmony#arrange_windows (tabwindows)
+	call wheel#counterpoint#arrange_windows (tabwindows)
 	" -- back to mandala
 	let lastab = tabpagenr('$')
 	if startpage >= 1 && startpage <= lastab

@@ -7,6 +7,11 @@
 
 " ---- script constants
 
+if ! exists('s:field_separ')
+	let s:field_separ = wheel#crystal#fetch('separator/field')
+	lockvar s:field_separ
+endif
+
 if ! exists('s:fold_markers')
 	let s:fold_markers = wheel#crystal#fetch('fold/markers')
 	let s:fold_markers = join(s:fold_markers, ',')
@@ -21,11 +26,6 @@ endif
 if ! exists('s:fold_2')
 	let s:fold_2 = wheel#crystal#fetch('fold/two')
 	lockvar s:fold_2
-endif
-
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
 endif
 
 if ! exists('s:level_separ')

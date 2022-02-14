@@ -42,12 +42,11 @@ fun! wheel#polyphony#choir (fun_name, arguments)
 	let fun_name = a:fun_name
 	let arguments = string(a:arguments)
 	if fun_name =~ '#'
-		" fun_name is the complete function name
+		" -- fun_name is the complete function name
 		let funcall = 'call call(' .. string(fun_name) .. ', ' .. arguments .. ')'
 	else
-		" load harmony file
+		" -- fun_name is the last part of the function
 		runtime autoload/wheel/harmony.vim
-		" fun_name is the last part of the function
 		let full_fun_name = 'wheel#harmony#' .. fun_name
 		if ! exists('*' .. full_fun_name)
 			let full_fun_name = 'wheel#counterpoint#' .. fun_name
