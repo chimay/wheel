@@ -130,6 +130,28 @@ endif
 
 " ---- functions
 
+if ! exists('s:function_write_wheel')
+	let s:function_write_wheel = [
+				\ 'reorder',
+				\ 'rename',
+				\ 'rename_file',
+				\ 'delete',
+				\ 'copy_move',
+				\ 'reorganize',
+				\ ]
+	lockvar! s:function_write_wheel
+endif
+
+if ! exists('s:function_write_native')
+	let s:function_write_native = [
+				\ 'grep_edit',
+				\ 'narrow_file',
+				\ 'narryow_circle',
+				\ 'reorg_tabwin',
+				\ ]
+	lockvar! s:function_write_native
+endif
+
 if ! exists('s:function_pattern_navigation')
 	let s:function_pattern_navigation = [
 				\ '\m#vortex#',

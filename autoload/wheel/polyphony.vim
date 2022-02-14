@@ -8,6 +8,11 @@
 
 " ---- script constants
 
+if ! exists('s:wheel_write_functions')
+	let s:wheel_write_functions = wheel#crystal#fetch('function/write/wheel')
+	lockvar s:wheel_write_functions
+endif
+
 if ! exists('s:mandala_autocmds_group')
 	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
 	lockvar s:mandala_autocmds_group
@@ -46,9 +51,9 @@ fun! wheel#polyphony#choir (fun_name, arguments)
 		let funcall = 'call call(' .. string(fun_name) .. ', ' .. arguments .. ')'
 	else
 		" -- fun_name is the last part of the function
-		runtime autoload/wheel/harmony.vim
-		let full_fun_name = 'wheel#harmony#' .. fun_name
-		if ! exists('*' .. full_fun_name)
+		if fun_name->wheel#chain#is_inside(s:wheel_write_functions)
+			let full_fun_name = 'wheel#harmony#' .. fun_name
+		else
 			let full_fun_name = 'wheel#counterpoint#' .. fun_name
 		endif
 		let funcall = 'call call(' .. string(full_fun_name)
