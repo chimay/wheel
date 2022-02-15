@@ -179,7 +179,7 @@ fun! wheel#flower#frecency ()
 	let frecency = g:wheel_history.frecency
 	let returnlist = []
 	for entry in frecency
-		let score = printf('%6d', entry.score)
+		let score = printf('%7d', entry.score)
 		let coordin = entry.coordin
 		let entry = score .. s:field_separ .. join(coordin, s:level_separ)
 		eval returnlist->add(entry)
