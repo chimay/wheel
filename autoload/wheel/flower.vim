@@ -10,7 +10,7 @@
 " Wheel elements
 "
 " Flower of life is a grid of overlapping circles
-" oftent used when drawing a mandala
+" often used as a frame when drawing a mandala
 
 " ---- script constants
 
