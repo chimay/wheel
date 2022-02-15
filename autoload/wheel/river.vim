@@ -4,6 +4,13 @@
 "
 " Navigation aspect of mandala
 
+" ---- script constants
+
+if ! exists('s:wheel_content_generators')
+	let s:wheel_content_generators = wheel#crystal#fetch('function/generator/wheel')
+	lockvar s:wheel_content_generators
+endif
+
 " ---- default values
 
 fun! wheel#river#default (settings)
@@ -90,8 +97,12 @@ endfun
 fun! wheel#river#generic (type)
 	" Generic whirl buffer
 	let type = a:type
-	let Perspective = function('wheel#perspective#' .. type)
-	let lines = Perspective ()
+	if type->wheel#chain#is_inside(s:wheel_content_generators)
+		let Generator = function('wheel#flower#' .. type)
+	else
+		let Generator = function('wheel#perspective#' .. type)
+	endif
+	let lines = Generator ()
 	if empty(lines)
 		echomsg 'wheel whirl generic : empty lines in' type
 		return v:false
@@ -103,4 +114,3 @@ fun! wheel#river#generic (type)
 	" reload
 	let b:wheel_reload = 'wheel#whirl#' .. type
 endfun
-

@@ -130,6 +130,45 @@ endif
 
 " ---- functions
 
+if ! exists('s:function_generator_wheel')
+	let s:function_generator_wheel = [
+				\ 'execute',
+				\ 'element',
+				\ 'rename',
+				\ 'rename_file',
+				\ 'helix',
+				\ 'grid',
+				\ 'tree',
+				\ 'reorganize',
+				\ 'history',
+				\ 'history_circuit',
+				\ 'frecency',
+				\ ]
+	lockvar! s:function_generator_wheel
+endif
+
+if ! exists('s:function_generator_native')
+	let s:function_generator_native = [
+				\ 'tabwin',
+				\ 'tabwin_tree',
+				\ 'find',
+				\ 'locate',
+				\ 'mru',
+				\ 'occur',
+				\ 'marker',
+				\ 'jump',
+				\ 'change',
+				\ 'grep',
+				\ 'narrow_file',
+				\ 'narrow_circle',
+				\ 'tag',
+				\ 'yank_prompt',
+				\ 'yank_mandala',
+				\ 'undolist',
+				\ ]
+	lockvar! s:function_generator_native
+endif
+
 if ! exists('s:function_write_wheel')
 	let s:function_write_wheel = [
 				\ 'reorder',
