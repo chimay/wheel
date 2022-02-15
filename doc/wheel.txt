@@ -3017,7 +3017,7 @@ The mappings are organized in levels :
 - level 0  : basic
 - level 1  : common
 - level 2  : advanced
-- level 10 : non-prefix mappings
+- level 10 : prefixless mappings
 
 If you set the option `g:wheel_config.mappings` to an integer `N`, all
 mappings of level less or equal to `N` will be bound to keys. So, the
@@ -3030,7 +3030,7 @@ E.g., if you set it to 2 : >
 mappings levels 0, 1 and 2 will be available.
 
 Level 1 or 2 is fine for most usages. Level 10 is interesting if you are
-looking for ideas of non-prefix mappings. See |wheel-mappings-level-0| and
+looking for ideas of prefixless mappings. See |wheel-mappings-level-0| and
 subsequent for more information.
 
 ------------------------------------------------------------------------------
