@@ -7,7 +7,7 @@
 "   - completion of prompting function
 "   - dedicated buffers (mandalas)
 "
-" Non wheel elements
+" Native elements
 
 " ---- script constants
 

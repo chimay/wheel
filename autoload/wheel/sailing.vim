@@ -2,7 +2,7 @@
 
 " Sailing
 "
-" Non wheel navigation, prompt functions
+" Native navigation, prompt functions
 "
 " Switch with native (neo)vim functions
 "
