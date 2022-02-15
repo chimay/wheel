@@ -31,8 +31,6 @@ if ! exists('s:registers_symbols')
 	lockvar s:registers_symbols
 endif
 
-" ---- wheel elements
-
 " ---- buffers
 
 fun! wheel#perspective#buffer (scope = 'listed')

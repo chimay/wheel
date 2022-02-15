@@ -55,7 +55,7 @@ fun! wheel#flower#execute (runme, ...)
 	return returnlist
 endfun
 
-" -- from referen
+" ---- from referen
 
 fun! wheel#flower#element (level)
 	" Switch level = torus, circle or location
@@ -87,7 +87,7 @@ fun! wheel#flower#rename_file ()
 	return returnlist
 endfun
 
-" -- from helix
+" ---- from helix
 
 fun! wheel#flower#helix ()
 	" Locations index
@@ -140,7 +140,7 @@ fun! wheel#flower#reorganize ()
 	return returnlist
 endfun
 
-" -- from pendulum
+" ---- from pendulum
 
 fun! wheel#flower#history ()
 	" Naturally sorted timeline index
@@ -172,7 +172,7 @@ fun! wheel#flower#history_circuit ()
 	return returnlist
 endfun
 
-" -- from cuckoo
+" ---- from cuckoo
 
 fun! wheel#flower#frecency ()
 	" Frecency : frequent & recent
