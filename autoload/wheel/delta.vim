@@ -11,7 +11,7 @@ if ! exists('s:diff_options')
 	lockvar s:diff_options
 endif
 
-" ---- helpers
+" ---- undo state
 
 fun! wheel#delta#undo_iden (...)
 	" Return undo iden at current or given line
@@ -45,17 +45,6 @@ fun! wheel#delta#later (bufnum)
 	call wheel#cylinder#recall ()
 endfun
 
-" ---- diff windows
-
-fun! wheel#delta#close_diff (bufnum)
-	" Wipe copy or original buffer
-	let diff_buf = b:wheel_settings.diff_buf
-	execute 'bwipe!' diff_buf
-	call wheel#rectangle#find_or_load (a:bufnum)
-	diffoff
-	call wheel#cylinder#recall ()
-endfun
-
 fun! wheel#delta#last (bufnum)
 	" Set buffer to last undo state
 	if has_key(b:wheel_settings, 'undo_iden')
@@ -65,6 +54,17 @@ fun! wheel#delta#last (bufnum)
 	endif
 	call wheel#rectangle#find_or_load (a:bufnum)
 	execute 'undo' iden
+	call wheel#cylinder#recall ()
+endfun
+
+" ---- diff windows
+
+fun! wheel#delta#close_diff (bufnum)
+	" Wipe copy or original buffer
+	let diff_buf = b:wheel_settings.diff_buf
+	execute 'bwipe!' diff_buf
+	call wheel#rectangle#find_or_load (a:bufnum)
+	diffoff
 	call wheel#cylinder#recall ()
 endfun
 

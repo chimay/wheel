@@ -429,11 +429,11 @@ fun! wheel#line#undo_diff (bufnum)
 	setlocal buftype=nofile
 	execute 'file' 'wheel diff : ' save.name
 	let &l:filetype = save.filetype
-	execute 'undo' iden
 	diffthis
 	setlocal nomodifiable readonly
 	" ---- original buffer
 	call wheel#rectangle#find_or_load (a:bufnum)
+	execute 'undo' iden
 	diffthis
 	" ---- back to mandala
 	call wheel#cylinder#recall ()
