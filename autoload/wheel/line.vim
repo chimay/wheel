@@ -423,11 +423,11 @@ fun! wheel#line#undo_diff (bufnum)
 	let save.filetype = &l:filetype
 	" ---- copy of original buffer
 	vnew
-	read #
-	1 delete _
+	silent read #
+	silent 1 delete _
 	let diff_buf = bufnr('%')
 	setlocal buftype=nofile
-	execute 'file' 'wheel diff : ' save.name
+	execute 'silent file' 'wheel/diff/' .. save.name
 	let &l:filetype = save.filetype
 	diffthis
 	setlocal nomodifiable readonly

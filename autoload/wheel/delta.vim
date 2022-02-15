@@ -62,7 +62,7 @@ endfun
 fun! wheel#delta#close_diff (bufnum)
 	" Wipe copy or original buffer
 	let diff_buf = b:wheel_settings.diff_buf
-	execute 'bwipe!' diff_buf
+	execute 'silent bwipe!' diff_buf
 	call wheel#rectangle#find_or_load (a:bufnum)
 	diffoff
 	call wheel#cylinder#recall ()
