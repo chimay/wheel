@@ -325,6 +325,7 @@ endfun
 
 fun! wheel#mandala#common_maps ()
 	" Define mandala common maps
+	" ---- normal mode
 	" -- help
 	nnoremap <buffer> <nowait> <f1> <cmd>call wheel#guru#mandala()<cr>
 	nnoremap <buffer> <nowait> <f2> <cmd>call wheel#guru#mandala_mappings()<cr>
@@ -347,6 +348,9 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> <m-l>       <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <c-down>    <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
+	" ---- insert mode
+	inoremap <buffer> <m-f> <c-o>w
+	inoremap <buffer> <m-b> <c-o>b
 endfun
 
 " ---- folding
