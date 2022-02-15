@@ -6,6 +6,8 @@
 "
 "   - completion of prompting function
 "   - dedicated buffers (mandalas)
+"
+" Non wheel elements
 
 " ---- script constants
 
@@ -14,19 +16,9 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-if ! exists('s:level_separ')
-	let s:level_separ = wheel#crystal#fetch('separator/level')
-	lockvar s:level_separ
-endif
-
 if ! exists('s:fold_1')
 	let s:fold_1 = wheel#crystal#fetch('fold/one')
 	lockvar s:fold_1
-endif
-
-if ! exists('s:fold_2')
-	let s:fold_2 = wheel#crystal#fetch('fold/two')
-	lockvar s:fold_2
 endif
 
 if ! exists('s:is_mandala_file')
@@ -34,175 +26,12 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
-if ! exists('s:is_buffer_tabs')
-	let s:is_buffer_tabs = wheel#crystal#fetch('is_buffer/tabs')
-	lockvar s:is_buffer_tabs
-endif
-
-if ! exists('s:is_mandala_tabs')
-	let s:is_mandala_tabs = wheel#crystal#fetch('is_mandala/tabs')
-	lockvar s:is_mandala_tabs
-endif
-
 if ! exists('s:registers_symbols')
 	let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
 	lockvar s:registers_symbols
 endif
 
-" ---- helpers
-
-fun! wheel#perspective#execute (runme, ...)
-	" Ex or system command
-	if a:0 > 0
-		let Execute = a:1
-	else
-		let Execute = function('execute')
-	endif
-	let runme = a:runme
-	if type(Execute) == v:t_func
-		let returnlist = Execute(runme)
-	elseif type(Execute) == v:t_string
-		let returnlist = {Execute}(runme)
-	else
-		echomsg 'wheel perspective execute : bad function argument'
-	endif
-	let returnlist = split(returnlist, "\n")
-	return returnlist
-endfun
-
 " ---- wheel elements
-
-" -- from referen
-
-fun! wheel#perspective#element (level)
-	" Switch level = torus, circle or location
-	let level = a:level
-	let upper = wheel#referen#upper (level)
-	if ! empty(upper) && ! empty(upper.glossary)
-		return upper.glossary
-	else
-		return []
-	endif
-endfun
-
-fun! wheel#perspective#rename_file ()
-	" Locations & files names
-	let circle = deepcopy(wheel#referen#circle())
-	if empty(circle) || empty(circle.glossary)
-		return []
-	endif
-	let glossary = circle.glossary
-	let locations = circle.locations
-	let filenames = locations->map({ _, val -> val.file })
-	let returnlist = []
-	let len_circle = len(locations)
-	for index in range(len_circle)
-		let entry = [glossary[index], filenames[index]]
-		let record = join(entry, s:field_separ)
-		eval returnlist->add(record)
-	endfor
-	return returnlist
-endfun
-
-" -- from helix
-
-fun! wheel#perspective#helix ()
-	" Locations index
-	" Each coordinate is a string torus > circle > location
-	let helix = deepcopy(wheel#helix#helix ())
-	return helix->map({ _, val -> join(val, s:level_separ) })
-endfun
-
-fun! wheel#perspective#grid ()
-	" Circle index
-	" Each coordinate is a string torus > circle
-	let grid = deepcopy(wheel#helix#grid ())
-	return grid->map({ _, val -> join(val, s:level_separ) })
-endfun
-
-fun! wheel#perspective#tree ()
-	" Folded tree representation of the wheel index
-	let returnlist = []
-	for torus in g:wheel.toruses
-		let entry = torus.name .. s:fold_1
-		eval returnlist->add(entry)
-		for circle in torus.circles
-			let entry = circle.name .. s:fold_2
-			eval returnlist->add(entry)
-			for location in circle.locations
-				let entry = location.name
-				eval returnlist->add(entry)
-			endfor
-		endfor
-	endfor
-	return returnlist
-endfun
-
-fun! wheel#perspective#reorganize ()
-	" Content for reorganize buffer
-	" Return complete locations, not only the names
-	let returnlist = []
-	for torus in g:wheel.toruses
-		let entry = torus.name .. s:fold_1
-		eval returnlist->add(entry)
-		for circle in torus.circles
-			let entry = circle.name .. s:fold_2
-			eval returnlist->add(entry)
-			for location in circle.locations
-				let entry = string(location)
-				eval returnlist->add(entry)
-			endfor
-		endfor
-	endfor
-	return returnlist
-endfun
-
-" -- from pendulum
-
-fun! wheel#perspective#history ()
-	" Naturally sorted timeline index
-	" Each entry is a string : date hour | torus > circle > location
-	let timeline = g:wheel_history.line
-	let returnlist = []
-	for entry in timeline
-		let coordin = entry.coordin
-		let timestamp = entry.timestamp
-		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour .. s:field_separ .. join(coordin, s:level_separ)
-		eval returnlist->add(entry)
-	endfor
-	return returnlist
-endfun
-
-fun! wheel#perspective#history_circuit ()
-	" History circuit
-	" Each entry is a string : date hour | torus > circle > location
-	let timeloop = g:wheel_history.circuit
-	let returnlist = []
-	for entry in timeloop
-		let coordin = entry.coordin
-		let timestamp = entry.timestamp
-		let date_hour = wheel#pendulum#date_hour (timestamp)
-		let entry = date_hour .. s:field_separ .. join(coordin, s:level_separ)
-		eval returnlist->add(entry)
-	endfor
-	return returnlist
-endfun
-
-" -- from cuckoo
-
-fun! wheel#perspective#frecency ()
-	" Frecency : frequent & recent
-	let frecency = g:wheel_history.frecency
-	let returnlist = []
-	for entry in frecency
-		let score = printf('%6d', entry.score)
-		let coordin = entry.coordin
-		let entry = score .. s:field_separ .. join(coordin, s:level_separ)
-		eval returnlist->add(entry)
-	endfor
-	return returnlist
-endfun
 
 " ---- buffers
 

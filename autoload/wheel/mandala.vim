@@ -552,9 +552,9 @@ fun! wheel#mandala#command (...)
 		let command = substitute(command, ' %', ' ' .. current, 'g')
 		let command = substitute(command, ' #', ' ' .. alter, 'g')
 		let command = substitute(command, '\~', $HOME, 'g')
-		let lines = wheel#perspective#execute (command, 'system')
+		let lines = wheel#flower#execute (command, 'system')
 	else
-		let lines = wheel#perspective#execute (command)
+		let lines = wheel#flower#execute (command)
 	endif
 	call wheel#mandala#blank ('command')
 	call wheel#mandala#template ()

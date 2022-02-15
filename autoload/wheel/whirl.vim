@@ -12,7 +12,7 @@ fun! wheel#whirl#switch (level)
 		echomsg 'wheel whirl switch : empty' upper_name
 		return v:false
 	endif
-	let lines = wheel#perspective#element (level)
+	let lines = wheel#flower#element (level)
 	call wheel#mandala#blank ('switch/' .. level)
 	let settings = { 'level' : level }
 	call wheel#river#template (settings)
@@ -28,7 +28,7 @@ endfun
 fun! wheel#whirl#helix ()
 	" Choose a location coordinate
 	" Each coordinate = [torus, circle, location]
-	let lines = wheel#perspective#helix ()
+	let lines = wheel#flower#helix ()
 	if empty(lines)
 		echomsg 'wheel whirl helix : empty wheel'
 		return v:false
@@ -44,7 +44,7 @@ endfun
 fun! wheel#whirl#grid ()
 	" Choose a circle coordinate
 	" Each coordinate = [torus, circle]
-	let lines = wheel#perspective#grid ()
+	let lines = wheel#flower#grid ()
 	if empty(lines)
 		echomsg 'wheel whirl grid : empty wheel'
 		return v:false
@@ -59,7 +59,7 @@ endfun
 
 fun! wheel#whirl#tree ()
 	" Choose an element in the wheel index tree
-	let lines = wheel#perspective#tree ()
+	let lines = wheel#flower#tree ()
 	if empty(lines)
 		echomsg 'wheel whirl tree : empty wheel'
 		return v:false

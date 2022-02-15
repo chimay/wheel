@@ -87,35 +87,35 @@ endfun
 
 fun! wheel#complete#helix (arglead, cmdline, cursorpos)
 	" Complete coordinates in index
-	let choices = wheel#perspective#helix ()
+	let choices = wheel#flower#helix ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
 fun! wheel#complete#grid  (arglead, cmdline, cursorpos)
 	" Complete location coordinates in index
-	let choices = wheel#perspective#grid ()
+	let choices = wheel#flower#grid ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
 fun! wheel#complete#history (arglead, cmdline, cursorpos)
 	" Complete coordinates in history timeline
-	let choices = wheel#perspective#history ()
+	let choices = wheel#flower#history ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
 fun! wheel#complete#history_circuit (arglead, cmdline, cursorpos)
 	" Complete coordinates in history circuit
-	let choices = wheel#perspective#history_circuit ()
+	let choices = wheel#flower#history_circuit ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
 fun! wheel#complete#frecency (arglead, cmdline, cursorpos)
 	" Complete coordinates in history timeline
-	let choices = wheel#perspective#frecency ()
+	let choices = wheel#flower#frecency ()
 	let wordlist = split(a:cmdline)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun

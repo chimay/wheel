@@ -9,7 +9,7 @@
 fun! wheel#yggdrasil#reorder (level)
 	" Reorder level elements
 	let level = a:level
-	let lines = wheel#perspective#element (level)
+	let lines = wheel#flower#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape reorder : empty or incomplete' level
@@ -35,7 +35,7 @@ endfun
 fun! wheel#yggdrasil#rename (level)
 	" Rename level elements
 	let level = a:level
-	let lines = wheel#perspective#element (level)
+	let lines = wheel#flower#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape rename : empty or incomplete' level
@@ -55,7 +55,7 @@ endfun
 fun! wheel#yggdrasil#rename_file ()
 	" Rename locations & files of current circle
 	" -- lines
-	let lines = wheel#perspective#rename_file ()
+	let lines = wheel#flower#rename_file ()
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape rename_file : empty or incomplete circle'
@@ -78,7 +78,7 @@ endfun
 fun! wheel#yggdrasil#delete (level)
 	" Copy or move elements at level
 	let level = a:level
-	let lines = wheel#perspective#element (level)
+	let lines = wheel#flower#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape copy / move : empty or incomplete' level
@@ -101,7 +101,7 @@ endfun
 fun! wheel#yggdrasil#copy_move (level)
 	" Copy or move elements at level
 	let level = a:level
-	let lines = wheel#perspective#element (level)
+	let lines = wheel#flower#element (level)
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape copy / move : empty or incomplete' level
@@ -123,7 +123,7 @@ endfun
 
 fun! wheel#yggdrasil#reorganize ()
 	" Reorganize the wheel tree
-	let lines = wheel#perspective#reorganize ()
+	let lines = wheel#flower#reorganize ()
 	" -- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape reorganize : empty wheel'
