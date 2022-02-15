@@ -45,18 +45,6 @@ fun! wheel#delta#later (bufnum)
 	call wheel#cylinder#recall ()
 endfun
 
-" ---- diff options
-
-fun! wheel#delta#save_options ()
-	" Save options before activating diff
-	let b:wheel_options = wheel#ouroboros#save_options (s:diff_options)
-endfun
-
-fun! wheel#delta#restore_options ()
-	" Restore options to their state before diff
-	call wheel#ouroboros#restore_options (b:wheel_options)
-endfun
-
 " ---- diff windows
 
 fun! wheel#delta#close_diff (bufnum)
@@ -64,7 +52,7 @@ fun! wheel#delta#close_diff (bufnum)
 	let diff_buf = b:wheel_settings.diff_buf
 	execute 'bwipe!' diff_buf
 	call wheel#rectangle#find_or_load (a:bufnum)
-	call wheel#delta#restore_options ()
+	diffoff
 	call wheel#cylinder#recall ()
 endfun
 

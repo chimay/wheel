@@ -416,12 +416,12 @@ endfun
 fun! wheel#line#undo_diff (bufnum)
 	" Visualize diff between last state & undo
 	let iden = wheel#delta#undo_iden ()
-	" original buffer
+	" ---- original buffer
 	call wheel#rectangle#find_or_load (a:bufnum)
 	let save = {}
 	let save.name = expand('%')
 	let save.filetype = &l:filetype
-	" copy of original buffer
+	" ---- copy of original buffer
 	vnew
 	read #
 	1 delete _
@@ -429,14 +429,13 @@ fun! wheel#line#undo_diff (bufnum)
 	setlocal buftype=nofile
 	execute 'file' 'wheel diff : ' save.name
 	let &l:filetype = save.filetype
+	execute 'undo' iden
 	diffthis
 	setlocal nomodifiable readonly
-	" original buffer
+	" ---- original buffer
 	call wheel#rectangle#find_or_load (a:bufnum)
-	execute 'undo' iden
-	call wheel#delta#save_options ()
 	diffthis
-	" back to mandala
+	" ---- back to mandala
 	call wheel#cylinder#recall ()
 	let b:wheel_settings.diff_buf = diff_buf
 endfun
