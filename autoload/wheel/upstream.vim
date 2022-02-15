@@ -6,6 +6,8 @@
 "
 " See also boomerang
 
+" ---- booleans
+
 fun! wheel#upstream#has_filter ()
 	" Whether parent leaf has filter
 	let nature = wheel#book#previous('nature')
@@ -17,6 +19,8 @@ fun! wheel#upstream#is_filtered ()
 	let filter = wheel#book#previous('filter')
 	return ! empty(filter.words)
 endfun
+
+" ---- main
 
 fun! wheel#upstream#first_data_line ()
 	" First data line of parent leaf
@@ -57,7 +61,7 @@ fun! wheel#upstream#selection ()
 	return wheel#book#previous('selection')
 endfun
 
-" remove selection & related lines
+" ---- remove selection & related lines
 
 fun! wheel#upstream#remove_selection ()
 	" Parent leaf : remove selection & related lines

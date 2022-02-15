@@ -6,14 +6,14 @@
 " Grep
 " Quickfix
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ
 endif
 
-" Helpers
+" ---- helpers
 
 fun! wheel#vector#files (sieve)
 	" Current circle files
@@ -36,7 +36,7 @@ fun! wheel#vector#files (sieve)
 	return files
 endfun
 
-" Arg list
+" ---- arg list
 
 fun! wheel#vector#reset ()
 	" Reset argument list
@@ -94,7 +94,7 @@ fun! wheel#vector#batch (...)
 	call wheel#vector#argdo(command)
 endfun
 
-" Grep
+" ---- grep
 
 fun! wheel#vector#grep (pattern, ...)
 	" Grep in all files of circle
@@ -140,7 +140,7 @@ fun! wheel#vector#copen ()
 	execute 'copen' height
 endfun
 
-" Propagate changes in quickfix
+" ---- propagate changes in quickfix
 
 fun! wheel#vector#cdo (newlines)
 	" Apply change of current line in grep edit mode

@@ -4,14 +4,14 @@
 "
 " Find & follow the closest element in wheel
 
-" scripts constants
+" ---- scripts constants
 
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
 	lockvar s:level_separ
 endif
 
-" projection
+" ---- projection
 
 fun! wheel#projection#closest (...)
 	" Find closest location to :

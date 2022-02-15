@@ -4,7 +4,7 @@
 "
 " Signs at locations
 
-" script constants
+" ---- script constants
 
 if ! exists('s:sign_name')
 	let s:sign_name = wheel#crystal#fetch('sign/name')
@@ -21,7 +21,7 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#chakra#format ()
 	" Format sign text to ensure it contains 2 chars
@@ -55,7 +55,7 @@ fun! wheel#chakra#same ()
 	return entry.line == location.line
 endfun
 
-" functions
+" ---- functions
 
 fun! wheel#chakra#define ()
 	" Define wheel sign
@@ -166,7 +166,7 @@ fun! wheel#chakra#clear ()
 	call sign_unplace(group)
 endfun
 
-" update sign
+" ---- update sign
 
 fun! wheel#chakra#update ()
 	" Add or update sign at location

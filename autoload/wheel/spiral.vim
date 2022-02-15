@@ -4,14 +4,14 @@
 "
 " Golden ratio
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:golden')
 	let s:golden = wheel#crystal#fetch('golden-ratio')
 	lockvar s:golden
 endif
 
-" Helpers
+" ---- helpers
 
 fun! wheel#spiral#height ()
 	" Window height / (1 + golden ratio)
@@ -27,7 +27,7 @@ fun! wheel#spiral#width ()
 	return winwidth(0) / (1 + s:golden)
 endfun
 
-" Cursor
+" ---- cursor
 
 fun! wheel#spiral#cursor ()
 	" Position cursor so that
@@ -50,7 +50,7 @@ fun! wheel#spiral#cursor ()
 	endif
 endfun
 
-" Splits
+" ---- splits
 
 fun! wheel#spiral#horizontal_split ()
 	" Horizontal split with golden ratio

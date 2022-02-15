@@ -4,10 +4,6 @@
 "
 " Input history
 
-" script constants
-
-" function
-
 fun! wheel#scroll#record (content)
 	" Add content to beginning of input history
 	let content = a:content
@@ -108,7 +104,7 @@ fun! wheel#scroll#filtered_older ()
 	return v:true
 endfun
 
-" mandala
+" ---- mappings
 
 fun! wheel#scroll#mappings ()
 	" Define local input history maps

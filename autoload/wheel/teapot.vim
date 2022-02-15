@@ -4,7 +4,7 @@
 "
 " Filter aspect of mandalas
 
-" helpers
+" ---- helpers
 
 fun! wheel#teapot#has_filter ()
 	" Whether mandala has filter in first line, false otherwise
@@ -26,7 +26,7 @@ fun! wheel#teapot#first_data_line ()
 	endif
 endfun
 
-" global index of visible in line in b:wheel_lines
+" ---- global index of visible in line in b:wheel_lines
 
 fun! wheel#teapot#line_index (...)
 	" Return index of visible line number in b:wheel_lines
@@ -47,7 +47,7 @@ fun! wheel#teapot#line_index (...)
 	endif
 endfun
 
-" filter line
+" ---- filter line
 
 fun! wheel#teapot#prompt ()
 	" Return prompt string
@@ -111,7 +111,7 @@ fun! wheel#teapot#wordlist ()
 	return words
 endfun
 
-" run filter
+" ---- run filter
 
 fun! wheel#teapot#goto_filter_line (mode = 'normal')
 	" Go to filter line
@@ -172,7 +172,7 @@ fun! wheel#teapot#reset (update = 'update', lock = 'lock')
 	call wheel#teapot#filter(a:update, a:lock)
 endfun
 
-" clear filter
+" ---- clear filter
 
 fun! wheel#teapot#clear ()
 	" Filter : keep only lines matching words of first line
@@ -194,7 +194,7 @@ fun! wheel#teapot#all_lines ()
 	return b:wheel_lines
 endfun
 
-" mappings
+" ---- mappings
 
 fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	" Filter wrapper for mappings

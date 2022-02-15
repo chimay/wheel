@@ -4,14 +4,14 @@
 "
 " Undo list & diff
 
-" script constants
+" ---- script constants
 
 if ! exists('s:diff_options')
 	let s:diff_options = wheel#crystal#fetch('diff/options')
 	lockvar s:diff_options
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#delta#undo_iden (...)
 	" Return undo iden at current or given line
@@ -45,7 +45,7 @@ fun! wheel#delta#later (bufnum)
 	call wheel#cylinder#recall ()
 endfun
 
-" diff options
+" ---- diff options
 
 fun! wheel#delta#save_options ()
 	" Save options before activating diff
@@ -57,7 +57,7 @@ fun! wheel#delta#restore_options ()
 	call wheel#ouroboros#restore_options (b:wheel_options)
 endfun
 
-" diff windows
+" ---- diff windows
 
 fun! wheel#delta#close_diff (bufnum)
 	" Wipe copy or original buffer
@@ -80,7 +80,7 @@ fun! wheel#delta#last (bufnum)
 	call wheel#cylinder#recall ()
 endfun
 
-" maps
+" ---- maps
 
 fun! wheel#delta#mappings ()
 	" Maps for undo list mandala

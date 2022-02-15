@@ -19,7 +19,7 @@ if ! exists('*appendbufline')
 	finish
 endif
 
-" Callback
+" ---- callback
 
 fun! s:out (chan, data, event) dict
 	" Callback ou stdout event
@@ -57,7 +57,7 @@ let s:callbacks = {
 			\ 'on_exit' : function('s:exit')
 			\}
 
-" Mandala
+" ---- mandala
 
 fun! wheel#wave#template (mandala_type)
 	" Job buffer template
@@ -74,7 +74,7 @@ fun! wheel#wave#stop_map ()
 	execute map '<c-s>' callme
 endfun
 
-" Main
+" ---- main
 
 fun! wheel#wave#start (command, ...)
 	" Start a new job

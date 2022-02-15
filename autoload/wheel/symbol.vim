@@ -4,8 +4,6 @@
 "
 " Tags
 
-" functions
-
 fun! wheel#symbol#files ()
 	" Tags file(s) related to current directory
 	let files = tagfiles ()

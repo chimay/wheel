@@ -24,7 +24,7 @@
 "   - cuckoo
 "   - longcase clock
 
-" timestamps
+" ---- timestamps
 
 fun! wheel#pendulum#timestamp ()
 	" Timestamp in seconds since epoch
@@ -41,7 +41,7 @@ fun! wheel#pendulum#compare (one, two)
 	return a:two.timestamp - a:one.timestamp
 endfun
 
-" filters
+" ---- filters
 
 fun! wheel#pendulum#distinct_coordin (index, one, unused, two)
 	" Return true if coordin[0:index] of one & two are distinct
@@ -71,7 +71,7 @@ fun! wheel#pendulum#coordin_inside_wheel (unused, entry)
 	return coordin->wheel#chain#is_inside(helix)
 endfun
 
-" helpers
+" ---- helpers
 
 fun! wheel#pendulum#remove_if_present (entry)
 	" Remove entry from history if coordinates are already there
@@ -139,7 +139,7 @@ fun! wheel#pendulum#update_alternate ()
 	return v:true
 endfun
 
-" operations
+" ---- operations
 
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
@@ -241,7 +241,7 @@ fun! wheel#pendulum#broom ()
 	call wheel#pendulum#update_alternate ()
 endfun
 
-" newer & older
+" ---- newer & older
 
 fun! wheel#pendulum#newer_anywhere ()
 	" Go to newer entry in g:wheel_history.circuit
@@ -338,7 +338,7 @@ fun! wheel#pendulum#older (level = 'wheel')
 	return wheel#vortex#jump ()
 endfun
 
-" alternate
+" ---- alternate
 
 fun! wheel#pendulum#alternate (mode)
 	" Alternate entries in history

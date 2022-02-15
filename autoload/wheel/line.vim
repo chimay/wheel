@@ -17,7 +17,7 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" -- applications
+" ---- buffers, tabs, wins
 
 fun! wheel#line#buffer (settings)
 	" Go to buffer
@@ -82,6 +82,49 @@ fun! wheel#line#tabwin_tree (settings)
 	return win_getid ()
 endfun
 
+" ---- search file
+
+fun! wheel#line#mru (settings)
+	" Edit Most Recently Used file
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let component = settings.selection.component
+	let fields = split(component, s:field_separ)
+	let filename = fields[1]
+	" ---- go
+	call wheel#curve#target (target)
+	execute 'hide edit' filename
+	return win_getid ()
+endfun
+
+fun! wheel#line#locate (settings)
+	" Find file with locate command
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let filename = settings.selection.component
+	" ---- go
+	call wheel#curve#target (target)
+	execute 'hide edit' filename
+	return win_getid ()
+endfun
+
+fun! wheel#line#find (settings)
+	" Find file with find command
+	" ---- settings
+	let settings = a:settings
+	let target = settings.target
+	let filename = settings.selection.component
+	let filename = trim(filename, ' ')
+	" ---- go
+	call wheel#curve#target (target)
+	execute 'hide edit' filename
+	return win_getid ()
+endfun
+
+" ---- search in file
+
 fun! wheel#line#occur (settings)
 	" Go to buffer line matching pattern
 	" ---- settings
@@ -120,45 +163,6 @@ fun! wheel#line#grep (settings)
 	"execute 'hide buffer' bufnum
 	"call cursor(line, col)
 	" ---- coda
-	return win_getid ()
-endfun
-
-fun! wheel#line#mru (settings)
-	" Edit Most Recently Used file
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let component = settings.selection.component
-	let fields = split(component, s:field_separ)
-	let filename = fields[1]
-	" ---- go
-	call wheel#curve#target (target)
-	execute 'hide edit' filename
-	return win_getid ()
-endfun
-
-fun! wheel#line#locate (settings)
-	" Find file with locate command
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let filename = settings.selection.component
-	" ---- go
-	call wheel#curve#target (target)
-	execute 'hide edit' filename
-	return win_getid ()
-endfun
-
-fun! wheel#line#find (settings)
-	" Find file with find command
-	" ---- settings
-	let settings = a:settings
-	let target = settings.target
-	let filename = settings.selection.component
-	let filename = trim(filename, ' ')
-	" ---- go
-	call wheel#curve#target (target)
-	execute 'hide edit' filename
 	return win_getid ()
 endfun
 
@@ -302,7 +306,7 @@ fun! wheel#line#narrow_circle (settings)
 	return win_getid ()
 endfun
 
-" -- paste
+" ---- paste
 
 fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	" Paste line(s) from yank buffer in plain mode
@@ -399,7 +403,7 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	return win_getid ()
 endfun
 
-" -- undo list
+" ---- undo list
 
 fun! wheel#line#undolist (bufnum)
 	" Apply change in undo list

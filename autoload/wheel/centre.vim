@@ -268,24 +268,24 @@ endfun
 
 fun! wheel#centre#cables ()
 	" Link keys to <plug> mappings
-	" Basic
+	" ---- basic
 	if g:wheel_config.mappings >= 0
 		call wheel#centre#mappings (0)
 	endif
-	" Common
+	" ---- common
 	if g:wheel_config.mappings >= 1
 		call wheel#centre#mappings (1)
 	endif
-	" Advanced
+	" ---- advanced
 	if g:wheel_config.mappings >= 2
 		call wheel#centre#mappings (2)
 		call wheel#centre#mappings (2, 'visual')
 	endif
-	" Without prefix
+	" ---- without prefix
 	if g:wheel_config.mappings >= 10
 		call wheel#centre#prefixless ()
 	endif
-	" Debug
+	" ---- debug
 	if g:wheel_config.mappings >= 20
 		call wheel#centre#mappings (20)
 	endif

@@ -12,7 +12,7 @@
 " Select
 " Trigger action
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:map_keys')
 	let s:map_keys = wheel#crystal#fetch('map/keys')
@@ -45,7 +45,7 @@ if ! exists('s:fold_markers')
 	lockvar s:fold_markers
 endif
 
-" init
+" ---- init
 
 fun! wheel#mandala#init ()
 	" Init mandala buffer variables
@@ -111,7 +111,7 @@ fun! wheel#mandala#init ()
 	call wheel#book#init ()
 endfun
 
-" refresh
+" ---- refresh
 
 fun! wheel#mandala#refresh ()
 	" Refresh mandala buffer : unfilter & deselect all
@@ -127,7 +127,7 @@ fun! wheel#mandala#refresh ()
 	let b:wheel_selection.components = []
 endfun
 
-" wrap
+" ---- wrap
 
 fun! wheel#mandala#wrap_up ()
 	" Line up, or line 1 -> end of file
@@ -182,7 +182,7 @@ fun! wheel#mandala#wrap_down ()
 	return v:true
 endfun
 
-" nature
+" ---- nature
 
 fun! wheel#mandala#is_empty ()
 	" Whether mandala is empty
@@ -194,7 +194,7 @@ fun! wheel#mandala#type ()
 	return b:wheel_nature.type
 endfun
 
-" clearing things
+" ---- clearing things
 
 fun! wheel#mandala#clear_options ()
 	" Clear mandala local options
@@ -232,7 +232,7 @@ fun! wheel#mandala#clear ()
 	call wheel#mandala#init ()
 endfun
 
-" mandala type
+" ---- mandala type
 
 fun! wheel#mandala#set_type (type)
 	" Set mandala type
@@ -246,7 +246,7 @@ fun! wheel#mandala#set_type (type)
 	endif
 endfun
 
-" related buffer
+" ---- related buffer
 
 fun! wheel#mandala#guess_related ()
 	" Guess related buffer
@@ -279,8 +279,7 @@ fun! wheel#mandala#goto_related ()
 	return bufnum
 endfun
 
-
-" options
+" ---- options
 
 fun! wheel#mandala#unlock ()
 	" Set local options to be able to edit mandala
@@ -322,7 +321,7 @@ fun! wheel#mandala#common_options ()
 	call wheel#mandala#lock ()
 endfun
 
-" mappings
+" ---- mappings
 
 fun! wheel#mandala#common_maps ()
 	" Define mandala common maps
@@ -350,7 +349,7 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
 endfun
 
-" folding
+" ---- folding
 
 fun! wheel#mandala#folding_options (textfun = 'folding_text')
 	" Folding options for mandala buffers
@@ -399,7 +398,7 @@ fun! wheel#mandala#tabwin_folding_text ()
 	return text
 endfun
 
-" template
+" ---- template
 
 fun! wheel#mandala#template (...)
 	" Template with filter & input history
@@ -414,7 +413,7 @@ fun! wheel#mandala#template (...)
 	call wheel#scroll#mappings ()
 endfun
 
-" blank sheet
+" ---- blank sheet
 
 fun! wheel#mandala#blank (type)
 	" Open a mandala buffer
@@ -433,7 +432,7 @@ fun! wheel#mandala#blank (type)
 	let b:wheel_related = wheel#mandala#guess_related ()
 endfun
 
-" content
+" ---- content
 
 fun! wheel#mandala#set_var_lines ()
 	" Set lines in local mandala variables, from visible lines
@@ -535,7 +534,7 @@ fun! wheel#mandala#reload ()
 	endif
 endfun
 
-" generic commands
+" ---- generic commands
 
 fun! wheel#mandala#command (...)
 	" Generic ex or shell command

@@ -21,7 +21,7 @@ if ! exists('s:fun_needs_mandala')
 	lockvar s:fun_needs_mandala
 endif
 
-" booleans
+" ---- booleans
 
 fun! wheel#tower#is_navigation (function)
 	" Whether function is a navigation one
@@ -56,7 +56,7 @@ fun! wheel#tower#needs_mandala (function)
 	return v:false
 endfun
 
-" functions
+" ---- main
 
 fun! wheel#tower#action (settings)
 	" Calls function given by the key = cursor line

@@ -4,14 +4,14 @@
 "
 " Preview for dedicated buffers
 
-" booleans
+" ---- booleans
 
 fun! wheel#orbiter#has_preview ()
 	" Whether current mandala has preview
 	return b:wheel_nature.has_preview
 endfun
 
-" functions
+" ---- functions
 
 fun! wheel#orbiter#preview ()
 	" Preview buffer matching current line

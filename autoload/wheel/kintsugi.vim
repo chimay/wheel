@@ -8,14 +8,14 @@
 " that fixes a broken object by highlighting the joins.
 " The damages are considered a part of the object history
 
-" script constants
+" ---- script constants
 
 if ! exists('s:mandala_vars')
 	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
 	lockvar s:mandala_vars
 endif
 
-" checks
+" ---- checks
 
 fun! wheel#kintsugi#glossaries ()
 	" Check & fix glossaries in wheel & current torus & circle
@@ -94,7 +94,7 @@ fun! wheel#kintsugi#glossaries ()
 	return success
 endfun
 
-" display
+" ---- display
 
 fun! wheel#kintsugi#mandala_vars ()
 	" Display mandala vars
@@ -103,7 +103,7 @@ fun! wheel#kintsugi#mandala_vars ()
 	endfor
 endfun
 
-" conversion from old data structure
+" ---- conversion from old data structure
 
 fun! wheel#kintsugi#config ()
 	" Convert old config keys to new ones

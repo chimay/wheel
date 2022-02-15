@@ -6,14 +6,14 @@
 "
 " Like vortex.vim, but does not involve wheel elements
 
-" script constants
+" ---- script constants
 
 if ! exists('s:field_separ')
 	let s:field_separ = wheel#crystal#fetch('separator/field')
 	lockvar s:field_separ
 endif
 
-" main
+" ---- main
 
 fun! wheel#sailing#find (...)
 	" Add file to circle

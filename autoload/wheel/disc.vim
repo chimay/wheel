@@ -398,9 +398,6 @@ fun! wheel#disc#write_session (...)
 			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
 		endif
 	endif
-	" backup value of sessionoptions
-	let ampersand = &sessionoptions
-	set sessionoptions=tabpages,winsize
 	" create directory if needed
 	let directory = fnamemodify(session_file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
@@ -411,36 +408,7 @@ fun! wheel#disc#write_session (...)
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
 	" writing session
 	echomsg 'Writing session to file ..'
-	execute 'mksession!' session_file
-	" restore value of sessionoptions
-	let &sessionoptions=ampersand
-	echomsg 'Writing done !'
-	return v:true
-endfun
-
-fun! wheel#disc#write_layout (...)
-	" Write session layout to session file
-	if a:0 > 0
-		let session_file = fnamemodify(a:1, ':p')
-	else
-		if empty(g:wheel_config.session_file)
-			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
-			return v:false
-		else
-			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
-		endif
-	endif
-	" create directory if needed
-	let directory = fnamemodify(session_file, ':h')
-	let returnstring = wheel#disc#mkdir(directory)
-	if returnstring ==# 'failure'
-		return v:false
-	endif
-	" backup old sessions
-	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
-	" writing session
-	echomsg 'Writing layout to file ..'
-	let commandlist = wheel#labyrinth#layout ()
+	let commandlist = wheel#labyrinth#session ()
 	let zero = writefile(commandlist, session_file)
 	if zero != 0
 		return 'failure'

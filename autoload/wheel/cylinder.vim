@@ -8,7 +8,7 @@
 "
 " Cylinder of rotary printing press
 
-" script constants
+" ---- script constants
 
 if ! exists('s:is_mandala_file')
 	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
@@ -20,7 +20,7 @@ if ! exists('s:field_separ')
 	lockvar s:field_separ
 endif
 
-" helpers
+" ---- helpers
 
 fun! wheel#cylinder#is_mandala (...)
 	" Return true if current buffer is a mandala, false otherwise
@@ -72,7 +72,7 @@ fun! wheel#cylinder#split ()
 	wincmd J
 endfun
 
-" filename
+" ---- filename
 
 fun! wheel#cylinder#pseudo ()
 	" Return pseudo filename /wheel/<buf-id>
@@ -90,7 +90,7 @@ fun! wheel#cylinder#set_filename ()
 	execute 'silent file' pseudo
 endfun
 
-" window
+" ---- window
 
 fun! wheel#cylinder#goto (...)
 	" Find window of visible current mandala
@@ -168,7 +168,7 @@ fun! wheel#cylinder#recall ()
 	return wheel#cylinder#goto_or_load ()
 endfun
 
-" add
+" ---- add
 
 fun! wheel#cylinder#first (mood = 'linger')
 	" Add first mandala buffer
@@ -265,7 +265,7 @@ fun! wheel#cylinder#add (mood = 'linger')
 	return v:true
 endfun
 
-" delete
+" ---- delete
 
 fun! wheel#cylinder#delete ()
 	" Delete mandala buffer
@@ -339,7 +339,7 @@ fun! wheel#cylinder#delete_unused ()
 	endfor
 endfun
 
-" rename
+" ---- rename
 
 fun! wheel#cylinder#rename ()
 	" Rename current mandala
@@ -353,7 +353,7 @@ fun! wheel#cylinder#rename ()
 	call wheel#status#mandala_leaf ()
 endfun
 
-" close
+" ---- close
 
 fun! wheel#cylinder#close ()
 	" Close the mandala buffer
@@ -386,7 +386,7 @@ fun! wheel#cylinder#close ()
 	return v:true
 endfun
 
-" forward & backward
+" ---- forward & backward
 
 fun! wheel#cylinder#forward ()
 	" Go forward in mandalas ring
@@ -428,7 +428,7 @@ fun! wheel#cylinder#backward ()
 	call wheel#status#mandala_leaf ()
 endfun
 
-" switch
+" ---- switch
 
 fun! wheel#cylinder#switch ()
 	" Switch to mandala with completion

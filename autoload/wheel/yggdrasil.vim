@@ -4,7 +4,7 @@
 "
 " Organize the wheel, dedicated buffers
 
-" reorder
+" ---- reorder
 
 fun! wheel#yggdrasil#reorder (level)
 	" Reorder level elements
@@ -30,7 +30,7 @@ fun! wheel#yggdrasil#reorder (level)
 	nnoremap <buffer> <m-r> <cmd>2,$sort!<cr>
 endfun
 
-" rename
+" ---- rename
 
 fun! wheel#yggdrasil#rename (level)
 	" Rename level elements
@@ -73,7 +73,7 @@ fun! wheel#yggdrasil#rename_file ()
 	return v:true
 endfun
 
-" delete
+" ---- delete
 
 fun! wheel#yggdrasil#delete (level)
 	" Copy or move elements at level
@@ -96,7 +96,7 @@ fun! wheel#yggdrasil#delete (level)
 	let b:wheel_reload = 'wheel#yggdrasil#delete(' .. string(level) .. ')'
 endfun
 
-" copy / move
+" ---- copy / move
 
 fun! wheel#yggdrasil#copy_move (level)
 	" Copy or move elements at level
@@ -119,7 +119,7 @@ fun! wheel#yggdrasil#copy_move (level)
 	let b:wheel_reload = 'wheel#yggdrasil#copy_move(' .. string(level) .. ')'
 endfun
 
-" reorganize
+" ---- reorganize
 
 fun! wheel#yggdrasil#reorganize ()
 	" Reorganize the wheel tree

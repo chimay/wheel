@@ -7,18 +7,18 @@
 fun! wheel#mirror#reorg_tabwin ()
 	" Reorganize tabs & windows
 	let lines = wheel#perspective#tabwin_tree ()
-	" -- pre-checks
+	" ---- pre-checks
 	if empty(lines)
 		echomsg 'wheel shape reorganize tabs & windows : empty lines'
 		return v:false
 	endif
-	" -- mandala
+	" ---- mandala
 	call wheel#mandala#blank ('reorg/tabwin')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
 	call wheel#mandala#folding_options ('tabwin_folding_text')
 	call wheel#polyphony#score ('reorg_tabwin')
 	call wheel#mandala#fill(lines)
-	" reload
+	" ---- reload
 	let b:wheel_reload = 'wheel#mirror#reorg_tabwin'
 endfun

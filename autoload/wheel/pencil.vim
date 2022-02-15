@@ -4,7 +4,7 @@
 "
 " Selection in mandalas
 
-" booleans
+" ---- booleans
 
 fun! wheel#pencil#has_selection ()
 	" Whether mandala has selection
@@ -40,7 +40,7 @@ fun! wheel#pencil#has_select_mark (line)
 	return a:line =~ selection_pattern
 endfun
 
-" add / remove mark
+" ---- marked / unmarked version
 
 fun! wheel#pencil#marked (line)
 	" Return marked line
@@ -63,7 +63,7 @@ fun! wheel#pencil#unmarked (line)
 	return substitute(line, selection_pattern, '', '')
 endfun
 
-" virtual selection at current line
+" ---- virtual selection at current line
 
 fun! wheel#pencil#default_line ()
 	" If on filter line, put the cursor on line 2 if possible
@@ -134,7 +134,7 @@ fun! wheel#pencil#virtual (...)
 	return cursor_selection
 endfun
 
-" one line
+" ---- one line
 
 fun! wheel#pencil#select (...)
 	" Select line
@@ -233,8 +233,8 @@ fun! wheel#pencil#toggle (...)
 	return v:true
 endfun
 
-" all visible lines in the mandala
-" they may be filtered or not
+" ---- all visible lines in the mandala
+" ---- they may be filtered or not
 
 fun! wheel#pencil#select_visible ()
 	" Select all visible, filtered lines
@@ -269,7 +269,7 @@ fun! wheel#pencil#toggle_visible ()
 	return v:true
 endfun
 
-" hide & show
+" ---- hide & show
 
 fun! wheel#pencil#hide (lock = 'lock')
 	" Remove selection mark from all visible lines
@@ -351,7 +351,7 @@ fun! wheel#pencil#syncdown ()
 	return v:true
 endfun
 
-" selection
+" ---- selection
 
 fun! wheel#pencil#selection ()
 	" Return selection or, if empty, virtual selection at cursor line
@@ -365,7 +365,7 @@ fun! wheel#pencil#selection ()
 	return b:wheel_selection
 endfun
 
-" mappings
+" ---- mappings
 
 fun! wheel#pencil#mappings ()
 	" Define selection maps & set property

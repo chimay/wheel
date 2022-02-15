@@ -4,14 +4,14 @@
 "
 " Most recently used files
 
-" Script constants
+" ---- script constants
 
 if ! exists('s:is_mandala_file')
 	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
-" Helpers
+" ---- helpers
 
 fun! wheel#attic#remove_if_present (entry)
 	" Remove entry from mru if file is already there
@@ -24,7 +24,7 @@ fun! wheel#attic#remove_if_present (entry)
 	endfor
 endfun
 
-" Operations
+" ---- operations
 
 fun! wheel#attic#record (...)
 	" Add file path to most recently used file list

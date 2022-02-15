@@ -4,7 +4,7 @@
 "
 " Frecency : frequent + recent
 
-" helpers
+" ---- helpers
 
 fun! wheel#cuckoo#slide (entry)
 	" Decrease score in frecency
@@ -13,7 +13,7 @@ fun! wheel#cuckoo#slide (entry)
 	return entry
 endfun
 
-" functions
+" ---- functions
 
 fun! wheel#cuckoo#record ()
 	" Record current torus, circle, location in frecency

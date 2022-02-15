@@ -9,7 +9,7 @@
 "
 " Useful for menus & context menus
 
-" ---- menus
+" ---- submenus
 
 if ! exists('s:menu_help')
 	let s:menu_help = [
@@ -253,7 +253,7 @@ if ! exists('s:menu_layout_mixed')
 	lockvar! s:menu_layout_mixed
 endif
 
-" -- list of menu variables
+" ---- list of submenus variables
 
 if ! exists('s:menu_list')
 	let s:menu_list = [
@@ -278,7 +278,7 @@ if ! exists('s:menu_list')
 	lockvar! s:menu_list
 endif
 
-" -- main menu
+" ---- main menu
 
 if ! exists('s:menu_main')
 	let s:menu_main = []
@@ -289,7 +289,7 @@ if ! exists('s:menu_main')
 	lockvar! s:menu_main
 endif
 
-" -- meta menu
+" ---- meta menu
 
 if ! exists('s:menu_meta')
 	let s:menu_meta = []
@@ -301,7 +301,7 @@ if ! exists('s:menu_meta')
 	lockvar! s:menu_meta
 endif
 
-" -- contextual menus
+" ---- contextual menus
 
 if ! exists('s:context_navigation')
 	let s:context_navigation = [

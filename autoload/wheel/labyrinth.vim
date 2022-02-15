@@ -67,7 +67,7 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 	return returnlist
 endfun
 
-fun! wheel#labyrinth#layout ()
+fun! wheel#labyrinth#session ()
 	" Commands to reproduce layout of all tabs
 	let last_tab = tabpagenr('$')
 	let returnlist = []
