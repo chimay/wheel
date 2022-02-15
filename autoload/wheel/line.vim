@@ -2,7 +2,7 @@
 
 " Line
 "
-" Non-wheel action on the cursor line :
+" Native action on the cursor line :
 "
 " - going to an element
 " - paste

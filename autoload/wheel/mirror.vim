@@ -2,7 +2,7 @@
 
 " Mirror
 "
-" Organize non-wheel elements, dedicated buffers
+" Organize native elements, dedicated buffers
 
 fun! wheel#mirror#reorg_tabwin ()
 	" Reorganize tabs & windows

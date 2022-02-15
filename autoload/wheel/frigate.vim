@@ -2,7 +2,7 @@
 
 " Frigate
 "
-" Non-wheel navigation, dedicated buffers
+" Native navigation, dedicated buffers
 
 " ---- helpers
 
