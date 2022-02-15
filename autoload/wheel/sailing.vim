@@ -4,10 +4,6 @@
 "
 " Native navigation, prompt functions
 "
-" Switch with native (neo)vim functions
-"
-" Move to file & cursor position
-"
 " Like vortex.vim, but does not involve wheel elements
 
 " script constants
