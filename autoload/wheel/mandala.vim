@@ -351,6 +351,7 @@ fun! wheel#mandala#common_maps ()
 	" ---- insert mode
 	inoremap <buffer> <m-f> <c-o>w
 	inoremap <buffer> <m-b> <c-o>b
+	inoremap <buffer> <c-e> <c-o>$
 endfun
 
 " ---- folding

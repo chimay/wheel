@@ -1010,7 +1010,7 @@ In insert mode, these keys updates the candidates :
 Note that `<C-w>` and `<C-u>` do not delete the prompt.
 
 The keys `<M-f>` and `<M-b>` can be used to move forward or backward
-one word.
+one word. `<C-e>` moves at the end of the line.
 
 The key `<C-c>` is not mapped, in case you need to go to normal mode
 without triggering the filter function.
