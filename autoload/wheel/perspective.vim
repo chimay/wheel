@@ -401,7 +401,7 @@ endfun
 " ---- yank ring
 
 fun! wheel#perspective#yank_prompt (mode, register = 'unnamed')
-	" Yank ring
+	" Yank ring for prompting functions
 	let mode = a:mode
 	let register = a:register
 	let yank_dict = g:wheel_yank
@@ -435,7 +435,7 @@ fun! wheel#perspective#yank_prompt (mode, register = 'unnamed')
 endfun
 
 fun! wheel#perspective#yank_mandala (mode, register = 'unnamed')
-	" Yank ring
+	" Yank ring for mandalas
 	let mode = a:mode
 	let register = a:register
 	let yank_dict = g:wheel_yank
