@@ -12,16 +12,17 @@
 "				- in history dedicated buffer
 "				- to build & update g:wheel_history.alternate
 "
-" - circuit : unsorted list of travelled wheel coordinates
+" - circuit : unsorted list of timestamps & travelled wheel coordinates
 "			  used in newer & older functions
 "			  rotated by newer & older
 "
 " - alternate : coordinates of alternates locations
+"
+" - frecency : coordinates & scores of locations
 
 " other names ideas for this file :
 "   - sundial
 "   - hourglass, sandglass
-"   - cuckoo
 "   - longcase clock
 
 " ---- timestamps
@@ -85,67 +86,13 @@ fun! wheel#pendulum#remove_if_present (entry)
 	eval timeloop->filter(Filter)
 endfun
 
-fun! wheel#pendulum#update_alternate ()
-	" Update g:wheel_history.alternate
-	let timeline = g:wheel_history.line
-	let alternate = g:wheel_history.alternate
-	let length = len(timeline)
-	if length < 2
-		return v:false
-	endif
-	let current = timeline[0].coordin
-	for ind in range(1, length - 1)
-		let coordin = timeline[ind].coordin
-		if coordin != current
-			let alternate.anywhere = coordin
-			break
-		endif
-	endfor
-	for ind in range(1, length - 1)
-		let coordin = timeline[ind].coordin
-		if coordin[0] ==# current[0]
-			let alternate.same_torus = coordin
-			break
-		endif
-	endfor
-	for ind in range(1, length - 1)
-		let coordin = timeline[ind].coordin
-		if coordin[0] ==# current[0] && coordin[1] ==# current[1]
-			let alternate.same_circle = coordin
-			break
-		endif
-	endfor
-	for ind in range(1, length - 1)
-		let coordin = timeline[ind].coordin
-		if coordin[0] !=# current[0]
-			let alternate.other_torus = coordin
-			break
-		endif
-	endfor
-	for ind in range(1, length - 1)
-		let coordin = timeline[ind].coordin
-		if coordin[0] !=# current[0] || coordin[1] !=# current[1]
-			let alternate.other_circle = coordin
-			break
-		endif
-	endfor
-	for ind in range(1, length - 1)
-		let coordin = timeline[ind].coordin
-		if coordin[0] ==# current[0] && coordin[1] !=# current[1]
-			let alternate.same_torus_other_circle = coordin
-			break
-		endif
-	endfor
-	return v:true
-endfun
-
 " ---- operations
 
 fun! wheel#pendulum#record ()
 	" Add current torus, circle, location to history
 	" Add new entry at the beginning of the list
 	" Move existing entry at the beginning of the list
-	" Update alternate coordinates
+	" Update alternate & frecency coordinates
 	" -- new entry
 	let coordin = wheel#referen#coordinates()
 	let maxim = g:wheel_config.maxim.history
@@ -160,7 +107,7 @@ fun! wheel#pendulum#record ()
 	let timeloop = g:wheel_history.circuit
 	eval timeloop->wheel#chain#push_max(entry, maxim)
 	" -- alternate history
-	call wheel#pendulum#update_alternate ()
+	call wheel#caduceus#update_alternate ()
 	" -- frecency
 	call wheel#cuckoo#record ()
 endfun
@@ -199,7 +146,7 @@ fun! wheel#pendulum#rename (level, old, new)
 		endif
 	endfor
 	" -- alternate
-	call wheel#pendulum#update_alternate ()
+	call wheel#caduceus#update_alternate ()
 endfun
 
 fun! wheel#pendulum#delete (level, coordin)
@@ -222,7 +169,7 @@ fun! wheel#pendulum#delete (level, coordin)
 	let frecency = g:wheel_history.frecency
 	eval frecency->filter(Filter)
 	" -- alternate
-	call wheel#pendulum#update_alternate ()
+	call wheel#caduceus#update_alternate ()
 endfun
 
 fun! wheel#pendulum#broom ()
@@ -238,7 +185,7 @@ fun! wheel#pendulum#broom ()
 	let frecency = g:wheel_history.frecency
 	eval frecency->filter(Filter)
 	" -- alternate
-	call wheel#pendulum#update_alternate ()
+	call wheel#caduceus#update_alternate ()
 endfun
 
 " ---- newer & older
@@ -336,45 +283,4 @@ fun! wheel#pendulum#older (level = 'wheel')
 	" ---- jump
 	call wheel#vortex#chord(coordin)
 	return wheel#vortex#jump ()
-endfun
-
-" ---- alternate
-
-fun! wheel#pendulum#alternate (mode)
-	" Alternate entries in history
-	" mode argument can be :
-	" - anywhere : alternate with previous entry anywhere in the wheel
-	" - same_torus : previous entry in same torus
-	" - other_torus : previous entry in another torus
-	" - same_circle : previous entry in same circle
-	" - other_circle : previous entry in another circle
-	" - same_torus_other_circle : previous entry in same torus, but another circle
-	" If not in current location file, just jump to it
-	if ! wheel#referen#location_matches_file ()
-		return wheel#vortex#jump ()
-	endif
-	if has_key(g:wheel_history.alternate, a:mode)
-		let coordin = g:wheel_history.alternate[a:mode]
-		call wheel#vortex#chord(coordin)
-	endif
-	return wheel#vortex#jump ()
-endfun
-
-fun! wheel#pendulum#alternate_menu ()
-	" Alternate prompt menu
-	let prompt = 'Alternate mode ? '
-	let mode = confirm(prompt, "&1 Anywhere\n&2 Same torus\n&3 Same circle\n&4 Other torus\n&5 Other circle\n&6 Same torus, other circle", 1)
-	if mode == 1
-		call wheel#pendulum#alternate ('anywhere')
-	elseif mode == 2
-		call wheel#pendulum#alternate ('same_torus')
-	elseif mode == 3
-		call wheel#pendulum#alternate ('same_circle')
-	elseif mode == 4
-		call wheel#pendulum#alternate ('other_torus')
-	elseif mode == 5
-		call wheel#pendulum#alternate ('other_circle')
-	elseif mode == 6
-		call wheel#pendulum#alternate ('same_torus_other_circle')
-	endif
 endfun
