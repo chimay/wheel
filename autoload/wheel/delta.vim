@@ -4,13 +4,6 @@
 "
 " Undo list & diff
 
-" ---- script constants
-
-if ! exists('s:diff_options')
-	let s:diff_options = wheel#crystal#fetch('diff/options')
-	lockvar s:diff_options
-endif
-
 " ---- undo state
 
 fun! wheel#delta#undo_iden (...)

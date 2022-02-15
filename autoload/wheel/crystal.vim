@@ -433,21 +433,6 @@ if ! exists('s:mandala_targets')
 	lockvar! s:mandala_targets
 endif
 
-" ---- undo & diff
-
-if ! exists('s:diff_options')
-	let s:diff_options = [
-				\ 'diff',
-				\ 'scrollbind',
-				\ 'cursorbind',
-				\ 'scrollopt',
-				\ 'wrap',
-				\ 'foldmethod',
-				\ 'foldcolumn',
-				\ ]
-	lockvar! s:diff_options
-endif
-
 " ---- public interface
 
 fun! wheel#crystal#clear (varname)
