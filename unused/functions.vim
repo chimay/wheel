@@ -51,7 +51,7 @@ fun! wheel#pendulum#older (level = 'wheel')
 		echomsg 'wheel older :' level 'is empty'
 		return v:false
 	endif
-	if level == 'wheel'
+	if level ==# 'wheel'
 		return wheel#pendulum#older_anywhere ()
 	endif
 	" current coordin
@@ -88,7 +88,7 @@ fun! wheel#pendulum#newer (level = 'wheel')
 		echomsg 'wheel newer :' level 'is empty'
 		return v:false
 	endif
-	if level == 'wheel'
+	if level ==# 'wheel'
 		return wheel#pendulum#newer_anywhere ()
 	endif
 	" current coordin
@@ -141,7 +141,7 @@ fun! wheel#cylinder#first (window = 'furtive')
 	let cur_buffer = bufnr('%')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" ---- new buffer
-	if window == 'split'
+	if window ==# 'split'
 		call wheel#cylinder#split ()
 		hide enew
 	else
@@ -169,7 +169,7 @@ fun! wheel#cylinder#first (window = 'furtive')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" ---- coda
-	if window == 'furtive'
+	if window ==# 'furtive'
 		if empty_cur_buffer
 			" :new has opened a split, close it
 			noautocmd close
@@ -207,14 +207,14 @@ fun! wheel#cylinder#add (window = 'furtive')
 	let current = bufring.current
 	let elder = mandalas[current]
 	" -- mandala window
-	if window == 'split'
+	if window ==# 'split'
 		call wheel#cylinder#window ('window')
 	endif
 	" -- pre op buffer
 	let cur_buffer = bufnr('%')
 	let empty_cur_buffer = empty(bufname(cur_buffer))
 	" -- new buffer
-	if window == 'split'
+	if window ==# 'split'
 		call wheel#cylinder#split ()
 		hide enew
 	else
@@ -249,7 +249,7 @@ fun! wheel#cylinder#add (window = 'furtive')
 	call wheel#mandala#init ()
 	call wheel#mandala#common_maps ()
 	" -- coda
-	if window == 'furtive' && ! was_mandala
+	if window ==# 'furtive' && ! was_mandala
 		if empty_cur_buffer
 			" :new has opened a split, close it
 			noautocmd close

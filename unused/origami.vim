@@ -37,9 +37,9 @@ endfun
 fun! wheel#origami#chord_parent ()
 	" Go to line of parent fold in wheel tree
 	let level = wheel#origami#chord_level ()
-	if level == 'circle'
+	if level ==# 'circle'
 		let pattern = '\m' .. s:fold_1 .. '$'
-	elseif level == 'location'
+	elseif level ==# 'location'
 		let pattern = '\m' .. s:fold_2 .. '$'
 	else
 		" torus line : we stay there
@@ -58,11 +58,11 @@ fun! wheel#origami#chord ()
 		return []
 	endif
 	let level = wheel#origami#chord_level ()
-	if level == 'torus'
+	if level ==# 'torus'
 		" torus line
 		let torus = cursor_list[0]
 		let coordin = [torus]
-	elseif level == 'circle'
+	elseif level ==# 'circle'
 		" circle line : search torus
 		let circle = cursor_list[0]
 		call wheel#origami#chord_parent ()
@@ -71,7 +71,7 @@ fun! wheel#origami#chord ()
 		let fields = split(line)
 		let torus = fields[0]
 		let coordin = [torus, circle]
-	elseif level == 'location'
+	elseif level ==# 'location'
 		" location line : search circle & torus
 		let location = cursor_line
 		call wheel#origami#chord_parent ()
@@ -111,7 +111,7 @@ endfun
 fun! wheel#origami#tabwin_parent ()
 	" Go to line of parent fold in tabwin tree
 	let level = wheel#origami#tabwin_level ()
-	if level == 'filename'
+	if level ==# 'filename'
 		let pattern = '\m' .. s:fold_1 .. '$'
 		call search(pattern, 'b')
 	else
@@ -130,11 +130,11 @@ fun! wheel#origami#tabwin ()
 		return []
 	endif
 	let level = wheel#origami#tabwin_level ()
-	if level == 'tab'
+	if level ==# 'tab'
 		" tab line
 		let tabnum = str2nr(cursor_list[1])
 		let coordin = [tabnum]
-	elseif level == 'filename'
+	elseif level ==# 'filename'
 		" filename line : find window tab-local number & tab index
 		let filename = cursor_list[0]
 		let fileline = line('.')
