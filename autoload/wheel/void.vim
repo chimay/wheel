@@ -258,6 +258,9 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.maxim, 'other_yanks')
 		let g:wheel_config.maxim.other_yanks = 50
 	endif
+	if ! has_key(g:wheel_config.maxim, 'yank_lines')
+		let g:wheel_config.maxim.yank_lines = 30
+	endif
 	if ! has_key(g:wheel_config.maxim, 'yank_size')
 		let g:wheel_config.maxim.yank_size = 3000
 	endif

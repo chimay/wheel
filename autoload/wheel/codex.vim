@@ -54,6 +54,9 @@ fun! wheel#codex#register (register = 'unnamed')
 	if len(content) == 1 && content[0] !~ '\m\w'
 		return v:false
 	endif
+	if len(content) > g:wheel_config.maxim.yank_lines
+		return v:false
+	endif
 	if strchars(join(content)) > g:wheel_config.maxim.yank_size
 		return v:false
 	endif

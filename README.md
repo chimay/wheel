@@ -378,7 +378,9 @@ if ! exists("g:wheel_loaded")
   " Maximum number of elements in yank ring
   let g:wheel_config.maxim.default_yanks = 700
   let g:wheel_config.maxim.other_yanks = 100
-  " Maximum size of elements in yank ring
+  " Maximum lines of yank to add in yank ring
+  let g:wheel_config.maxim.yank_lines = 30
+  " Maximum size of yank to add in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 
   " Maximum size of layer ring

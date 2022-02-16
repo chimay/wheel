@@ -2531,9 +2531,19 @@ Maximum number of elements in the yank ring for other registers : >
 Default : 50
 
 ------------------------------------------------------------------------------
-MAX SIZE OF A YANK IN YANK RING			   *wheel-config-maxim-yank-size*
+MAX NUMBER OF LINES OF A YANK			   *wheel-config-maxim-yank-lines*
 
-Maximum size of each element in the yank ring, in bytes : >
+Maximum number of lines of a yank added in the yank ring : >
+
+    let g:wheel_config.maxim.yank_lines = 50
+<
+
+Default : 30
+
+------------------------------------------------------------------------------
+MAX SIZE OF A YANK				   *wheel-config-maxim-yank-size*
+
+Maximum size of a yank added in the yank ring, in bytes : >
 
     let g:wheel_config.maxim.yank_size = 3000
 <
@@ -2785,7 +2795,9 @@ Here is an example of a complete configuration : >
   " Maximum number of elements in yank ring
   let g:wheel_config.maxim.unnamed_yanks = 700
   let g:wheel_config.maxim.other_yanks = 100
-  " Maximum size of elements in yank ring
+  " Maximum lines of yank to add in yank ring
+  let g:wheel_config.maxim.yank_lines = 30
+  " Maximum size of yank to add in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 
   " Maximum number of tabs

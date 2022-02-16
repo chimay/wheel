@@ -339,8 +339,9 @@ fun! wheel#disc#write_wheel (...)
 	endif
 	" ---- user update autocmd
 	silent doautocmd User WheelUpdate
-	" ---- write
+	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
+	" ---- write
 	echomsg 'Writing wheel variables to file ..'
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
 	" -- replace >
@@ -376,7 +377,11 @@ fun! wheel#disc#read_wheel (...)
 		echomsg 'Reading wheel variables from file ..'
 	endif
 	call wheel#disc#readfile (wheel_file)
+	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
+	" ---- complete vars
+	call wheel#void#foundation ()
+	" ---- coda
 	if init_argc == 0
 		call wheel#vortex#jump ()
 		echomsg 'Reading done !'
