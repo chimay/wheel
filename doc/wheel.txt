@@ -677,6 +677,7 @@ beginning fo your input :
 | Beginning of input | Completion list                         | Pattern(s) |
 | ------------------ | --------------------------------------- | ---------- |
 | ./                 | files and subdirs in current directory  | single     |
+| ../                | files and subdirs in parent directory   | single     |
 | /                  | files and subdirs in root directory     | single     |
 | ~ or ~/            | files and subdirs in home directory     | single     |
 | anything else      | current directory tree, recursive       | multi      |
