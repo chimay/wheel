@@ -294,7 +294,7 @@ if ! exists('s:normal_map_keys')
 				\ '<cr>', 'g<cr>',
 				\ 'j', 'k', '<down>', '<up>',
 				\ '<space>', '=', '#', '*', '<bar>',
-				\ 'i', 'a', '<m-i>', '<ins>', 'cc', 'dd',
+				\ 'i', 'a', '<m-i>', '<ins>', 'cc', 'dd', '<m-d>',
 				\ 'f',
 				\ '<m-j>', '<m-k>', '<m-l>',
 				\ '<tab>',
@@ -315,6 +315,7 @@ endif
 if ! exists('s:insert_map_keys')
 	let s:insert_map_keys = [
 				\ '<space>', '<c-w>', '<c-u>',
+				\ '<m-f>', '<m-b>', '<c-a>', '<c-e>', '<m-a>', '<m-e>',
 				\ '<esc>', '<cr>',
 				\ '<up>', '<down>', '<m-p>', '<m-n>',
 				\ '<pageup>', '<pagedown>', '<m-r>', '<m-s>',

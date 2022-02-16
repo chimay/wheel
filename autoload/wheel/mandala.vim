@@ -348,10 +348,6 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> <m-l>       <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <c-down>    <cmd>call wheel#book#switch ()<cr>
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
-	" ---- insert mode
-	inoremap <buffer> <m-f> <c-o>w
-	inoremap <buffer> <m-b> <c-o>b
-	inoremap <buffer> <c-e> <c-o>$
 endfun
 
 " ---- folding

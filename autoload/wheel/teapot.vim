@@ -237,8 +237,16 @@ fun! wheel#teapot#normal_cc ()
 	startinsert!
 endfun
 
+fun! wheel#teapot#insert_ctrl_a ()
+	" Insert ctrl-a : go to begin of line, after prompt
+	let prompt = wheel#teapot#prompt ()
+	let colnum = len(prompt) + 1
+	call cursor(1, 1)
+	call cursor(1, colnum)
+endfun
+
 fun! wheel#teapot#insert_ctrl_k ()
-	" Ctrl-k to delete until end of line in mandala with filter
+	" Insert ctrl-k to delete until end of line in mandala with filter
 	let line = getline(1)
 	let colnum = col('.')
 	let before = strpart(line, 0, colnum - 1)
@@ -270,4 +278,8 @@ fun! wheel#teapot#mappings ()
 	exe imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
 	exe imap '<c-k>   <cmd>call wheel#teapot#insert_ctrl_k()<cr>'
 	" <c-c> is not mapped, in case you need a regular escape
+	inoremap <buffer> <m-f> <c-o>w
+	inoremap <buffer> <m-b> <c-o>b
+	inoremap <buffer> <c-a> <cmd>call wheel#teapot#insert_ctrl_a()<cr>
+	inoremap <buffer> <c-e> <c-o>$
 endfun

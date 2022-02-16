@@ -525,10 +525,16 @@ endfun
 
 fun! wheel#polyphony#filter_maps ()
 	" Local filter maps for hybrid filter/write mode
-	" -- normal mode
+	" ---- normal mode
 	nnoremap <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
-	nnoremap <buffer> DD    <cmd>call wheel#teapot#reset()<cr>
+	nnoremap <buffer> <m-d> <cmd>call wheel#teapot#reset()<cr>
+	" ---- insert mode
+	inoremap <buffer> <m-f> <c-o>w
+	inoremap <buffer> <m-b> <c-o>b
+	inoremap <buffer> <m-a> <cmd>call wheel#teapot#insert_ctrl_a()<cr>
+	inoremap <buffer> <m-e> <c-o>$
+	" ---- property
 	let b:wheel_nature.has_filter = v:true
 endfun
 

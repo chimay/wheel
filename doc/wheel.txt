@@ -1009,11 +1009,15 @@ In insert mode, these keys updates the candidates :
 
 Note that `<C-w>` and `<C-u>` do not delete the prompt.
 
-The keys `<M-f>` and `<M-b>` can be used to move forward or backward
-one word. `<C-e>` moves at the end of the line.
-
 The key `<C-c>` is not mapped, in case you need to go to normal mode
 without triggering the filter function.
+
+Movements~
+
+- `<M-f>` : move forward one word
+- `<M-b>` : move backward one word
+- `<C-a>` : moves at the beginning of the line, just after the prompt
+- `<C-e>` : moves at the end of the line.
 
 Patterns~
 
@@ -1157,7 +1161,10 @@ buffer with the usual vim keys.
 
 To access the filter line, press `<M-i>` or `<Ins>` instead of `i` and `a`.
 
-The key `dd` is not mapped, use `DD` to reset the filter.
+The key `dd` is not mapped, use `<M-d>` to reset the filter.
+
+To move to begin/end of filter line, use `<M-a>` and `<M-e>` instead of
+`<C-a>` and `<C-e>`.
 
 The input history is available only with `<M-p>`/`<M-n>` and `<M-r>`/`<M-s>`.
 
