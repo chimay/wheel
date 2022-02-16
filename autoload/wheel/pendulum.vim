@@ -23,6 +23,7 @@
 " other names ideas for this file :
 "   - sundial
 "   - hourglass, sandglass
+"   - water clock, water glass, clepsydra
 "   - longcase clock
 
 " ---- timestamps
