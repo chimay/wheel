@@ -171,9 +171,8 @@ fun! wheel#complete#file (arglead, cmdline, cursorpos)
 		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 		return glob
 	endif
-	if arglead[:1] ==# './'
+	if arglead[:1] ==# './' || arglead[:2] ==# '../'
 		let glob = glob(arglead .. '*', v:false, v:true)
-		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 		return glob
 	endif
 	" ---- get tree of files & directories
@@ -392,6 +391,10 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 		if firstchar ==# '/' || firstchar ==# '~'
 			let glob = glob(last .. '*', v:false, v:true)
 			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
+			return glob
+		endif
+		if last[:1] ==# './' || last[:2] ==# '../'
+			let glob = glob(last .. '*', v:false, v:true)
 			return glob
 		endif
 		if blank
