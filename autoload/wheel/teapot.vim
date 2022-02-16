@@ -257,11 +257,11 @@ endfun
 
 fun! wheel#teapot#mappings ()
 	" Define filter maps & set property
-	" -- filter property
+	" ---- filter property
 	let b:wheel_nature.has_filter = v:true
 	let goto_filter = 'wheel#teapot#goto_filter_line'
 	let wrapper = 'wheel#teapot#wrapper'
-	" -- normal mode
+	" ---- normal mode
 	let nmap = 'nnoremap <buffer>'
 	exe nmap 'i     <cmd>call' goto_filter "('i')<cr>"
 	exe nmap 'a     <cmd>call' goto_filter "('i')<cr>"
@@ -269,7 +269,7 @@ fun! wheel#teapot#mappings ()
 	exe nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
 	exe nmap 'cc    <cmd>call wheel#teapot#normal_cc()<cr>'
 	exe nmap 'dd    <cmd>call wheel#teapot#reset()<cr>'
-	" -- insert mode
+	" ---- insert mode
 	let imap = 'inoremap <buffer>'
 	exe imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"
 	exe imap '<c-w>   <cmd>call' wrapper "('c-w', '>', 'i')<cr>"

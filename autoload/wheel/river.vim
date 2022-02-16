@@ -44,8 +44,11 @@ endfun
 " ---- helpers
 
 fun! wheel#river#mappings (settings)
-	" Define whirl maps
+	" Define whirl maps & set navigation property
 	let settings = copy(a:settings)
+	" ---- property
+	let b:wheel_nature.has_navigation = v:true
+	" ---- maps
 	let nmap = 'nnoremap <buffer>'
 	let loopnav = '<cmd>call wheel#loop#navigation('
 	let coda = ')<cr>'
@@ -83,8 +86,6 @@ fun! wheel#river#mappings (settings)
 	call wheel#orbiter#mappings ()
 	" -- context menu
 	call wheel#boomerang#launch_map ('navigation')
-	" -- property
-	let b:wheel_nature.has_navigation = v:true
 endfun
 
 fun! wheel#river#template (settings)

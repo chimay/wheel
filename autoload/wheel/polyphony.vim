@@ -525,6 +525,8 @@ endfun
 
 fun! wheel#polyphony#filter_maps ()
 	" Local filter maps for hybrid filter/write mode
+	" ---- property
+	let b:wheel_nature.has_filter = v:true
 	" ---- normal mode
 	nnoremap <buffer> <ins> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
 	nnoremap <buffer> <m-i> <cmd>call wheel#teapot#goto_filter_line('insert')<cr>
@@ -534,8 +536,6 @@ fun! wheel#polyphony#filter_maps ()
 	inoremap <buffer> <m-b> <c-o>b
 	inoremap <buffer> <m-a> <cmd>call wheel#teapot#insert_ctrl_a()<cr>
 	inoremap <buffer> <m-e> <c-o>$
-	" ---- property
-	let b:wheel_nature.has_filter = v:true
 endfun
 
 fun! wheel#polyphony#input_history_maps ()
@@ -571,8 +571,11 @@ fun! wheel#polyphony#hybrid_maps ()
 endfun
 
 fun! wheel#polyphony#navigation_maps (settings)
-	" Define whirl maps
+	" Define whirl maps & set navigation property
 	let settings = copy(a:settings)
+	" ---- property
+	let b:wheel_nature.has_navigation = v:true
+	" ---- maps
 	let nmap = 'nnoremap <buffer>'
 	let loopnav = '<cmd>call wheel#loop#navigation('
 	let coda = ')<cr>'
@@ -610,8 +613,6 @@ fun! wheel#polyphony#navigation_maps (settings)
 	call wheel#orbiter#mappings ()
 	" -- context menu
 	call wheel#boomerang#launch_map ('navigation')
-	" -- property
-	let b:wheel_nature.has_navigation = v:true
 endfun
 
 fun! wheel#polyphony#action_maps (mandala = 'file')
