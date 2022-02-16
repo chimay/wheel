@@ -3,6 +3,10 @@
 " Orbiter
 "
 " Preview for dedicated buffers
+"
+" Note : b:wheel_preview.follow has nothing to do
+" with settings.follow. The latter is used to decide
+" whether to use projection#follow on target locations
 
 " ---- booleans
 
