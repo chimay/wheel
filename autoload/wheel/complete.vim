@@ -177,7 +177,7 @@ fun! wheel#complete#file (arglead, cmdline, cursorpos)
 	endif
 	" ---- get tree of files & directories
 	let tree = glob('**', v:false, v:true)
-	let wordlist = split(a:cmdline)
+	let wordlist = split(cmdline)
 	return wheel#kyusu#pour(wordlist, tree)
 endfun
 
@@ -382,25 +382,13 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 	" ---- file
 	let wants_file = subcommand->wheel#chain#is_inside(s:file_subcommands)
 	if wants_file
-		let firstchar = last[0]
-		if last ==# '~'
-			let glob = glob('~/*', v:false, v:true)
-			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
-			return glob
-		endif
-		if firstchar ==# '/' || firstchar ==# '~'
-			let glob = glob(last .. '*', v:false, v:true)
-			eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
-			return glob
-		endif
-		if last[:1] ==# './' || last[:2] ==# '../'
-			let glob = glob(last .. '*', v:false, v:true)
-			return glob
-		endif
 		if blank
 			return glob('**', v:false, v:true)
 		else
-			return wheel#complete#file (arglead, join(last_list), cursorpos)
+			let file_cmdline = join(last_list)
+			let file_arglead = file_cmdline
+			let file_cursorpos = len(file_cmdline)
+			return wheel#complete#file (file_arglead, file_cmdline, file_cursorpos)
 		endif
 	endif
 	return []
