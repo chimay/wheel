@@ -159,20 +159,21 @@ fun! wheel#complete#file (arglead, cmdline, cursorpos)
 	let cmdline = a:cmdline
 	let arglead = a:arglead
 	let cursorpos = a:cursorpos
-	let firstchar = arglead[0]
+	" ---- first char
+	let firstchar = cmdline[0]
 	" ---- ending slash
-	if arglead ==# '~'
+	if cmdline ==# '~'
 		let glob = glob('~/*', v:false, v:true)
 		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 		return glob
 	endif
 	if firstchar ==# '/' || firstchar ==# '~'
-		let glob = glob(arglead .. '*', v:false, v:true)
+		let glob = glob(cmdline .. '*', v:false, v:true)
 		eval glob->map({ _, val -> substitute(val, $HOME, '~', 'g') })
 		return glob
 	endif
-	if arglead[:1] ==# './' || arglead[:2] ==# '../'
-		let glob = glob(arglead .. '*', v:false, v:true)
+	if cmdline[:1] ==# './' || cmdline[:2] ==# '../'
+		let glob = glob(cmdline .. '*', v:false, v:true)
 		return glob
 	endif
 	" ---- get tree of files & directories
