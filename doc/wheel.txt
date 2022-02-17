@@ -2763,9 +2763,9 @@ Here is an example of a complete configuration : >
 
   " The file where toruses and circles will be stored and read
   let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
-  " Auto read torus file on startup if > 0
+  " Auto read wheel file on startup if > 0
   let g:wheel_config.autoread = 1
-  " Auto write torus file on exit if > 0
+  " Auto write wheel file on exit if > 0
   let g:wheel_config.autowrite = 1
   " The file where session will be stored and read
   let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
