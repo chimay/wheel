@@ -536,7 +536,10 @@ exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
 exe nmap '<m-y>          <plug>(wheel-prompt-yank-plain-linewise-after)'
 exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain-charwise-after)'
 exe nmap '<m-s-y>        <plug>(wheel-prompt-yank-plain-linewise-before)'
-exe nmap '<m-s-p>        <plug>(wheel-prompt-yank-plain-charwise-before)'
+if has('nvim') || has('gui_running')
+	" strange behavior in terminal vim
+	exe nmap '<m-s-p>    <plug>(wheel-prompt-yank-plain-charwise-before)'
+endif
 exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-plain)'
 exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-list)'
 " ---- undo list
