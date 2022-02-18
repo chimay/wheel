@@ -51,6 +51,7 @@ fun! wheel#harmony#reorder (level, ask = 'confirm')
 	let old_list = deepcopy(wheel#referen#elements (upper))
 	let old_names = deepcopy(old_list)
 	let old_names = map(old_names, {_,val -> val.name})
+	let current_name = old_names[upper.current]
 	let new_names = wheel#teapot#all_lines ()
 	let new_list = []
 	for name in new_names
@@ -71,6 +72,7 @@ fun! wheel#harmony#reorder (level, ask = 'confirm')
 	endif
 	let upper[key] = new_list
 	let upper.glossary = new_names
+	let upper.current = new_names->index(current_name)
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	return new_list
