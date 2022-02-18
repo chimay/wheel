@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Lagrange : extrema helpers
+" Lagrange
+"
+" Extrema helpers
 "
 " Joseph-Louis Lagrange is a mathematician, pioneer in :
 "   - extrema of a function with constraints

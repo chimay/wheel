@@ -194,6 +194,7 @@ endif
 if ! exists('s:function_pattern_navigation')
 	let s:function_pattern_navigation = [
 				\ '\m#vortex#',
+				\ '\m#waterclock#',
 				\ '\m#whirl#',
 				\ '\m#sailing#',
 				\ '\m#frigate#',

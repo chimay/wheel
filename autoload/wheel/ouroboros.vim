@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Ouroboros : clear, save & restore
+" Ouroboros
+"
+" Clear, save & restore
 "
 " Manages :
 "

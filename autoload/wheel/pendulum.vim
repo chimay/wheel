@@ -21,9 +21,6 @@
 " - frecency : coordinates & scores of locations
 
 " other names ideas for this file :
-"   - sundial
-"   - hourglass, sandglass
-"   - water clock, water glass, clepsydra
 "   - longcase clock
 
 " ---- timestamps
@@ -187,101 +184,4 @@ fun! wheel#pendulum#broom ()
 	eval frecency->filter(Filter)
 	" -- alternate
 	call wheel#caduceus#update_alternate ()
-endfun
-
-" ---- newer & older
-
-fun! wheel#pendulum#newer_anywhere ()
-	" Go to newer entry in g:wheel_history.circuit
-	let timeloop = g:wheel_history.circuit
-	let timeloop = wheel#taijitu#rotate_right (timeloop)
-	let coordin = timeloop[0].coordin
-	" rotate makes deepcopy
-	let g:wheel_history.circuit = timeloop
-	call wheel#vortex#chord(coordin)
-	return wheel#vortex#jump ()
-endfun
-
-fun! wheel#pendulum#older_anywhere ()
-	" Go to older entry in g:wheel_history.circuit
-	let timeloop = g:wheel_history.circuit
-	let timeloop = wheel#taijitu#rotate_left (timeloop)
-	let coordin = timeloop[0].coordin
-	" rotate makes deepcopy
-	let g:wheel_history.circuit = timeloop
-	call wheel#vortex#chord(coordin)
-	return wheel#vortex#jump ()
-endfun
-
-fun! wheel#pendulum#newer (level = 'wheel')
-	" Go to newer entry in g:wheel_history.circuit, same level
-	let level = a:level
-	if wheel#referen#is_empty(level)
-		echomsg 'wheel newer :' level 'is empty'
-		return v:false
-	endif
-	if level ==# 'wheel'
-		return wheel#pendulum#newer_anywhere ()
-	endif
-	" ---- current coordin
-	let present_coordin = wheel#referen#coordinates ()
-	" ---- index for range in coordin
-	let level_index = wheel#referen#level_index_in_coordin (level)
-	" ---- back to the future
-	let timeloop = g:wheel_history.circuit
-	let range = wheel#chain#rangelen(timeloop)
-	let range = reverse(range)
-	for index in range[:-2]
-		let coordin = timeloop[index].coordin
-		if present_coordin[:level_index] == coordin[:level_index]
-			let timeloop = timeloop->wheel#taijitu#roll_right(index)
-			break
-		endif
-	endfor
-	" ---- newer found in same torus or circle ?
-	if present_coordin[:level_index] != coordin[:level_index]
-		echomsg 'wheel newer : no location found in same' level
-		return v:false
-	endif
-	" ---- update timeloop : rotate return a deepcopy
-	let g:wheel_history.circuit = timeloop
-	" ---- jump
-	call wheel#vortex#chord(coordin)
-	return wheel#vortex#jump ()
-endfun
-
-fun! wheel#pendulum#older (level = 'wheel')
-	" Go to older entry in g:wheel_history.circuit, same level
-	let level = a:level
-	if wheel#referen#is_empty(level)
-		echomsg 'wheel older :' level 'is empty'
-		return v:false
-	endif
-	if level ==# 'wheel'
-		return wheel#pendulum#older_anywhere ()
-	endif
-	" ---- current coordin
-	let present_coordin = wheel#referen#coordinates ()
-	" ---- index for range in coordin
-	let level_index = wheel#referen#level_index_in_coordin (level)
-	" ---- back in history
-	let timeloop = g:wheel_history.circuit
-	let range = wheel#chain#rangelen(timeloop)
-	for index in range[1:]
-		let coordin = timeloop[index].coordin
-		if present_coordin[:level_index] == coordin[:level_index]
-			let timeloop = timeloop->wheel#taijitu#roll_left(index)
-			break
-		endif
-	endfor
-	" ---- older found in same torus or circle ?
-	if present_coordin[:level_index] != coordin[:level_index]
-		echomsg 'wheel older : no location found in same' level
-		return v:false
-	endif
-	" ---- update timeloop : rotate return a deepcopy
-	let g:wheel_history.circuit = timeloop
-	" ---- jump
-	call wheel#vortex#chord(coordin)
-	return wheel#vortex#jump ()
 endfun

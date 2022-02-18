@@ -1,5 +1,7 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
+" Metafun
+"
 " Functional helpers : functions of functions
 
 fun! wheel#metafun#function (function, ...)

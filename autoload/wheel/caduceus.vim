@@ -1,6 +1,8 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Caduceus : alternate locations :
+" Caduceus
+"
+" Alternate locations :
 "
 "   - anywhere
 "   - in same circle

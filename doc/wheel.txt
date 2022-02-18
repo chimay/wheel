@@ -4196,7 +4196,7 @@ of the modules within them.
 | delta.vim         | Undo & diff                                        |
 | disc.vim          | Read & write wheel & session file                  |
 | flower.vim        | Wheel content generators for prompt & mandalas     |
-| frigate.vim       | Non-wheel navigation dedicated buffers             |
+| frigate.vim       | Non-wheel navigation in dedicated buffers          |
 | gear.vim          | Generic helpers                                    |
 | geode.vim         | Internal constants for plugs & maps                |
 | group.vim         | Auto grouping of files                             |
@@ -4245,8 +4245,9 @@ of the modules within them.
 | vector.vim        | Batch operations on current group files            |
 | void.vim          | Initiaze & reset variables                         |
 | vortex.vim        | Navigation in the wheel                            |
+| waterclock.vim    | Navigation in history & frecency                   |
 | wave.vim          | Async job for neovim                               |
-| whirl.vim         | Wheel navigation dedicated buffers                 |
+| whirl.vim         | Wheel navigation in dedicated buffers              |
 | yggdrasil.vim     | Organize wheel in dedicated buffers                |
 
 Doc~

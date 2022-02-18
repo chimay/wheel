@@ -11,11 +11,6 @@ if ! exists('s:referen_coordin')
 	lockvar s:referen_coordin
 endif
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
-endif
-
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
 	lockvar s:level_separ
@@ -303,47 +298,5 @@ fun! wheel#vortex#grid (where = 'search-window')
 	let record = input(prompt, '', complete)
 	let coordin = split(record, s:level_separ)
 	call wheel#vortex#interval (coordin)
-	call wheel#vortex#jump (where)
-endfun
-
-fun! wheel#vortex#history (where = 'search-window')
-	" Switch to coordinates in history
-	" Optional argument : see vortex#jump optional argument
-	let where = a:where
-	let prompt = 'Switch to history element : '
-	let complete = 'customlist,wheel#complete#history'
-	let record = input(prompt, '', complete)
-	let fields = split(record, s:field_separ)
-	let entry = fields[1]
-	let coordin = split(entry, s:level_separ)
-	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (where)
-endfun
-
-fun! wheel#vortex#history_circuit (where = 'search-window')
-	" Switch to coordinates in history
-	" Optional argument : see vortex#jump optional argument
-	let where = a:where
-	let prompt = 'Switch to history circuit element : '
-	let complete = 'customlist,wheel#complete#history_circuit'
-	let record = input(prompt, '', complete)
-	let fields = split(record, s:field_separ)
-	let entry = fields[1]
-	let coordin = split(entry, s:level_separ)
-	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (where)
-endfun
-
-fun! wheel#vortex#frecency (where = 'search-window')
-	" Switch to coordinates in frecency
-	" Optional argument : see vortex#jump optional argument
-	let where = a:where
-	let prompt = 'Switch to frecency element : '
-	let complete = 'customlist,wheel#complete#frecency'
-	let record = input(prompt, '', complete)
-	let fields = split(record, s:field_separ)
-	let entry = fields[1]
-	let coordin = split(entry, s:level_separ)
-	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (where)
 endfun
