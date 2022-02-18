@@ -226,7 +226,7 @@ Versions :
 - vim >= 8.2
 - neovim >= 0.6
 
-Basically, it assumes the existence of |:map-cmd| and `#{...}` syntax
+Basically, it assumes the existence of `:map-cmd` and `#{...}` syntax
 for dictionaries.
 
 Some outer rim functions assume a Unix-like OS, like Linux or BSD :
