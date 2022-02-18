@@ -14,6 +14,8 @@
 	* [Features](#features)
 	* [History](#history)
 	* [Prerequisites](#prerequisites)
+		- [(neo)vim versions](#neovim-versions)
+		- [Operating system](#operating-system)
 + [Installation](#installation)
 	* [Using vim-packager](#using-vim-packager)
 	* [Using minpac](#using-minpac)
@@ -221,13 +223,23 @@ This project is inspired by :
 
 ## Prerequisites
 
-Versions :
+### (neo)vim versions
 
 - vim >= 8.2
 - neovim >= 0.6
 
 Basically, it assumes the existence of `:map-cmd` and `#{...}` syntax
 for dictionaries.
+
+If your distribution uses an older version, you can resort to appimages :
+
+- [vim appimage](https://github.com/vim/vim-appimage)
+- [neovim appimage](https://appimage.github.io/neovim/)
+
+These are fast evolving pieces of software, so it's worth upgrading
+anyway.
+
+### Operating system
 
 Some outer rim functions assume a Unix-like OS, like Linux or BSD :
 
