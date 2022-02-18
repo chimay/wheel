@@ -7,17 +7,22 @@
 " ---- script constants
 
 if ! exists('s:subcommands_actions')
-	let s:subcommands_actions = wheel#pearl#fetch('command/meta/actions')
+	let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
 	lockvar s:subcommands_actions
 endif
 
+if ! exists('s:straightforward_actions')
+	let s:straightforward_actions = wheel#diadem#fetch('command/meta/straightforward/actions')
+	lockvar s:straightforward_actions
+endif
+
 if ! exists('s:prompt_actions')
-	let s:prompt_actions = wheel#pearl#fetch('command/meta/prompt/actions')
+	let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
 	lockvar s:prompt_actions
 endif
 
 if ! exists('s:dedibuf_actions')
-	let s:dedibuf_actions = wheel#pearl#fetch('command/meta/dedibuf/actions')
+	let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
 	lockvar s:dedibuf_actions
 endif
 
@@ -67,6 +72,23 @@ fun! wheel#centre#meta (subcommand, ...)
 	" Function for meta command
 	let subcommand = a:subcommand
 	let arguments = a:000
+	" ---- subcommands without arguments
+	if empty(arguments)
+		let action_dict = wheel#matrix#items2dict(s:subcommands_actions)
+		let action = action_dict[subcommand]
+		if action ==# 'wheel#void#nope'
+			echomsg 'Wheel centre meta-command : this action need a third argument'
+			return v:false
+		endif
+		return call(action, [])
+	endif
+	" ---- straightforward
+	if subcommand ==# 'straightforward'
+		let action_dict = wheel#matrix#items2dict(s:straightforward_actions)
+		let subcom = arguments[0]
+		let action = action_dict[subcom]
+		return eval(action)
+	endif
 	" ---- prompt
 	if subcommand ==# 'prompt'
 		let action_dict = wheel#matrix#items2dict(s:prompt_actions)

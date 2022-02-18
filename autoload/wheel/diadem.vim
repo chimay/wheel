@@ -24,10 +24,29 @@ if ! exists('s:command_meta_actions')
 				\ [ 'tree-script', 'wheel#disc#tree_script' ],
 				\ [ 'symlink-tree', 'wheel#disc#symlink_tree' ],
 				\ [ 'copied-tree', 'wheel#disc#copied_tree' ],
-				\ [ 'prompt', 'winnr' ],
-				\ [ 'dedibuf', 'winnr' ],
+				\ [ 'straightforward', 'wheel#void#nope' ],
+				\ [ 'prompt', 'wheel#void#nope' ],
+				\ [ 'dedibuf', 'wheel#void#nope' ],
 				\ ]
 	lockvar! s:command_meta_actions
+endif
+
+if ! exists('s:command_meta_straightforward_actions')
+	let s:command_meta_straightforward_actions = [
+				\ [ 'next-location', "wheel#vortex#next('location')" ],
+				\ [ 'previous-location', "wheel#vortex#previous('location')" ],
+				\ [ 'next-circle', "wheel#vortex#next('circle')" ],
+				\ [ 'previous-circle', "wheel#vortex#previous('circle')" ],
+				\ [ 'next-torus', "wheel#vortex#next('torus')" ],
+				\ [ 'previous-torus', "wheel#vortex#previous('torus')" ],
+				\ [ 'newer', 'wheel#waterclock#newer_anywhere()' ],
+				\ [ 'older', 'wheel#waterclock#older_anywhere()' ],
+				\ [ 'newer-in-circle', "wheel#waterclock#newer('circle')" ],
+				\ [ 'older-in-circle', "wheel#waterclock#older('circle')" ],
+				\ [ 'newer-in-torus', "wheel#waterclock#newer('torus')" ],
+				\ [ 'older-in-torus', "wheel#waterclock#older('torus')" ],
+				\ ]
+	lockvar! s:command_meta_straightforward_actions
 endif
 
 if ! exists('s:command_meta_prompt_actions')
@@ -137,7 +156,7 @@ endif
 
 " ---- public interface
 
-fun! wheel#pearl#fetch (varname, conversion = 'no-conversion')
+fun! wheel#diadem#fetch (varname, conversion = 'no-conversion')
 	" Return script variable called varname
 	" The leading s: can be omitted
 	" Optional argument :

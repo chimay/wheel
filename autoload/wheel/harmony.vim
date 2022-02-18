@@ -38,13 +38,13 @@ endif
 fun! wheel#harmony#reorder (level, ask = 'confirm')
 	" Reorder elements at level, after buffer content
 	let level = a:level
-	" -- confirm
+	" ---- confirm
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- update lines in local vars from visible lines
+	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
-	" -- reorder
+	" ---- reorder
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
 	let key = wheel#referen#list_key (upper_level_name)
@@ -79,13 +79,13 @@ endfun
 fun! wheel#harmony#rename (level, ask = 'confirm')
 	" Rename elements at level, after buffer content
 	let level = a:level
-	" -- confirm
+	" ---- confirm
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- update lines in local vars from visible lines
+	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
-	" -- rename
+	" ---- rename
 	let upper = wheel#referen#upper (level)
 	let elements = wheel#referen#elements (upper)
 	let names = wheel#teapot#all_lines ()
@@ -121,20 +121,20 @@ endfun
 
 fun! wheel#harmony#rename_file (ask = 'confirm')
 	" Rename locations & files of current circle, after buffer content
-	" -- confirm
+	" ---- confirm
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- update lines in local vars from visible lines
+	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
-	" -- init
+	" ---- init
 	let circle = wheel#referen#circle ()
 	let glossary = circle.glossary
 	let locations = circle.locations
 	let lines = wheel#teapot#all_lines ()
 	let len_lines = len(lines)
 	let len_locations = len(locations)
-	" -- pre-checks
+	" ---- pre-checks
 	if len_lines < len_locations
 		echomsg 'Some names seem to be missing : changes not written'
 		return []
@@ -143,49 +143,49 @@ fun! wheel#harmony#rename_file (ask = 'confirm')
 		echomsg 'Names in excess : changes not written'
 		return []
 	endif
-	" -- rename location
+	" ---- rename location
 	for index in range(len_lines)
 		let fields = split(lines[index], s:field_separ)
 		let old_name = glossary[index]
 		let new_name = wheel#tree#format_name(fields[0])
-		" check not empty
+		" -- check not empty
 		if empty(old_name) || empty(new_name)
 			echomsg 'wheel harmony rename : location name cannot be empty'
 			continue
 		endif
-		" nothing to do if old == new
+		" --- nothing to do if old == new
 		if old_name == new_name
 			continue
 		endif
-		" search for location
+		" -- search for location
 		let found = glossary->index(new_name)
 		if found >= 0 && found != index
 			echomsg 'Location' new_name 'already present in circle'
 			continue
 		endif
-		" rename location
+		" -- rename location
 		let glossary[index] = new_name
 		let locations[index].name = new_name
 		call wheel#pendulum#rename('location', old_name, new_name)
 	endfor
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
-	" -- rename file
+	" ---- rename file
 	for index in range(len_lines)
 		let fields = split(lines[index], s:field_separ)
 		let old_filename = locations[index].file
 		let new_filename = wheel#tree#format_filename (fields[1])
-		" old -> new
+		" -- old -> new
 		let returnstring = wheel#disc#rename(old_filename, new_filename)
 		if returnstring != 'success'
 			continue
 		endif
 		echomsg 'wheel : renaming' old_filename '->' new_filename
 		let locations[index].file = new_filename
-		" wipe old filename buffer if existent
+		" -- wipe old filename buffer if existent
 		if bufexists(old_filename)
 			execute 'bwipe' old_filename
 		endif
-		" rename file in all involved locations of the wheel
+		" -- rename file in all involved locations of the wheel
 		call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	endfor
 	call wheel#rectangle#goto_previous ()
@@ -199,13 +199,13 @@ endfun
 fun! wheel#harmony#delete (level, ask = 'confirm')
 	" Delete selected elements at level, after buffer content
 	let level = a:level
-	" -- confirm
+	" ----  confirm
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- update lines in local vars from visible lines
+	" ----  update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
-	" -- delete
+	" ----  delete
 	let upper = wheel#referen#upper (level)
 	let upper_level_name = wheel#referen#upper_level_name(level)
 	let glossary = upper.glossary
@@ -221,7 +221,7 @@ fun! wheel#harmony#delete (level, ask = 'confirm')
 			echomsg upper_level_name 'does not contain' name
 			continue
 		endif
-		" remove from elements list
+		" -- remove from elements list
 		eval glossary->remove(index)
 		eval elements->remove(index)
 		if empty(elements)
@@ -233,9 +233,9 @@ fun! wheel#harmony#delete (level, ask = 'confirm')
 			let upper.current = wheel#taijitu#circular_minus(index, length)
 		endif
 	endfor
-	" clean history
+	" -- clean history
 	call wheel#pendulum#broom ()
-	" for index auto update at demand
+	" -- for index auto update at demand
 	let g:wheel.timestamp = wheel#pendulum#timestamp ()
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
@@ -245,13 +245,13 @@ endfun
 fun! wheel#harmony#copy_move (level, ask = 'confirm')
 	" Copy or move selected elements at level
 	let level = a:level
-	" -- confirm
+	" ---- confirm
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- update lines in local vars from visible lines
+	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
-	" -- mode : copy or move
+	" ---- mode : copy or move
 	let prompt = 'Mode ? '
 	let answer = confirm(prompt, "&Copy\n&Move", 1)
 	if answer == 1
@@ -259,7 +259,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 	elseif answer == 2
 		let mode = 'move'
 	endif
-	" -- prompt for destination
+	" ---- prompt for destination
 	let upper_name = wheel#referen#upper_level_name (level)
 	let prompt = mode .. ' ' .. level .. ' to ' .. upper_name .. ' ? '
 	if level ==# 'torus'
@@ -275,7 +275,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 		return v:false
 	endif
 	let coordin = split(destination, s:level_separ)
-	" -- pre checks
+	" ---- pre checks
 	let selection = wheel#pencil#selection ()
 	let components = selection.components
 	if empty(components)
@@ -293,7 +293,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 			return v:false
 		endif
 	endif
-	" -- departure
+	" ---- departure
 	if level ==# 'wheel'
 		echomsg 'Cannot copy or move the wheel'
 		return v:false
@@ -318,7 +318,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 			endif
 		endfor
 	endif
-	" -- destination
+	" ---- destination
 	if level ==# 'circle'
 		call wheel#vortex#voice ('torus', destination)
 		for circle in travellers
@@ -342,22 +342,22 @@ fun! wheel#harmony#reorganize (ask = 'confirm')
 	" Reorganize wheel after elements contained in buffer
 	" Rebuild all from scratch
 	" Follow folding tree
-	" -- confirm
+	" ---- confirm
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- save old wheel before reorganizing
+	" ---- save old wheel before reorganizing
 	let prompt = 'Write old wheel to file before reorganizing ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)
 	if confirm == 1
 		call wheel#disc#write_wheel ()
 	endif
-	" -- update lines in local vars from visible lines
+	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
-	" -- start from empty wheel
+	" ---- start from empty wheel
 	call wheel#ouroboros#unlet ('g:wheel')
 	call wheel#void#wheel ()
-	" -- loop over buffer lines
+	" ---- loop over buffer lines
 	let linelist = wheel#teapot#all_lines ()
 	let marker = s:fold_markers[0]
 	let pat_fold_one = '\m' .. s:fold_1 .. '$'
@@ -365,29 +365,29 @@ fun! wheel#harmony#reorganize (ask = 'confirm')
 	let pat_dict = '\m^{.*}'
 	for line in linelist
 		if line =~ pat_fold_one
-			" torus line
+			" -- torus line
 			let torus = split(line)[0]
 			call wheel#tree#add_torus(torus)
 		elseif line =~ pat_fold_two
-			" circle line
+			" -- circle line
 			let circle = split(line)[0]
 			call wheel#tree#add_circle(circle)
 		elseif line =~ pat_dict
-			" location line
+			" -- location line
 			let location = eval(line)
-			" no pendulum#record in tree#insert_location
+			" -- no pendulum#record in tree#insert_location
 			call wheel#tree#insert_location(location)
 		endif
 	endfor
-	" -- rebuild location index
+	" ---- rebuild location index
 	call wheel#helix#helix ()
-	" -- rebuild circle index
+	" ---- rebuild circle index
 	call wheel#helix#grid ()
-	" -- rebuild file index
+	" ---- rebuild file index
 	call wheel#helix#files ()
-	" -- remove invalid entries from history
+	" ---- remove invalid entries from history
 	call wheel#pendulum#broom ()
-	" -- info
+	" ---- info
 	setlocal nomodified
 	echomsg 'Changes written to wheel'
 	" -- tune wheel coordinates to first entry in history

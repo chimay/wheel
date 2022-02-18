@@ -13,6 +13,13 @@ if ! exists('s:mandala_autocmds_group')
 	lockvar s:mandala_autocmds_group
 endif
 
+" ---- no-op function
+
+fun! wheel#void#nope ()
+	" Does nothing : for meta-command subcommands thas need a third argument
+	return v:true
+endfun
+
 " ---- helpers
 
 fun! wheel#void#template(init)

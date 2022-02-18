@@ -26,22 +26,27 @@ if ! exists('s:registers_symbols')
 endif
 
 if ! exists('s:subcommands_actions')
-	let s:subcommands_actions = wheel#pearl#fetch('command/meta/actions')
+	let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
 	lockvar s:subcommands_actions
 endif
 
+if ! exists('s:straightforward_actions')
+	let s:straightforward_actions = wheel#diadem#fetch('command/meta/straightforward/actions')
+	lockvar s:straightforward_actions
+endif
+
 if ! exists('s:prompt_actions')
-	let s:prompt_actions = wheel#pearl#fetch('command/meta/prompt/actions')
+	let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
 	lockvar s:prompt_actions
 endif
 
 if ! exists('s:dedibuf_actions')
-	let s:dedibuf_actions = wheel#pearl#fetch('command/meta/dedibuf/actions')
+	let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
 	lockvar s:dedibuf_actions
 endif
 
 if ! exists('s:file_subcommands')
-	let s:file_subcommands = wheel#pearl#fetch('command/meta/subcommands/file')
+	let s:file_subcommands = wheel#diadem#fetch('command/meta/subcommands/file')
 	lockvar s:file_subcommands
 endif
 
@@ -362,6 +367,15 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 		return wheel#kyusu#pour(last_list, subcommands)
 	endif
 	let subcommand = wordlist[1]
+	" ---- straightforward functions
+	let straightforward_subcmds = wheel#matrix#items2keys(s:straightforward_actions)
+	if subcommand ==# 'straightforward'
+		if blank
+			return straightforward_subcmds
+		else
+			return wheel#kyusu#pour(last_list, straightforward_subcmds)
+		endif
+	endif
 	" ---- prompting functions
 	let prompt_subcmds = wheel#matrix#items2keys(s:prompt_actions)
 	if subcommand ==# 'prompt'

@@ -4194,6 +4194,7 @@ of the modules within them.
 | curve.vim         | Activate wheel line in dedicated buffers           |
 | cylinder.vim      | Dedicated buffers ring                             |
 | delta.vim         | Undo & diff                                        |
+| diadem.vim        | Internal constants for commands                    |
 | disc.vim          | Read & write wheel & session file                  |
 | flower.vim        | Wheel content generators for prompt & mandalas     |
 | frigate.vim       | Non-wheel navigation in dedicated buffers          |
@@ -4217,7 +4218,6 @@ of the modules within them.
 | mosaic.vim        | Windows & tabs Layouts                             |
 | orbiter.vim       | Preview for dedicated buffers                      |
 | ouroboros.vim     | Clear, save & restore vars, maps, autocmds         |
-| pearl.vim         | Internal constants for commands                    |
 | pencil.vim        | Selection in dedicated buffers                     |
 | pendulum.vim      | Wheel history                                      |
 | perspective.vim   | Non wheel content generators for prompt & mandalas |
