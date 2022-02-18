@@ -3470,6 +3470,8 @@ The level 10 offers mappings without prefix for the most used wheel
 functions. You can set the mapping level to 10 to activate them, or
 adapt them to your taste and add them to your init file.
 
+Maps table~
+
 | Mapping        | Action                                          |
 | -------------- | ---------------------------------------------   |
 | <M-=>          | Meta menu                                       |
@@ -3572,6 +3574,8 @@ adapt them to your taste and add them to your init file.
 | -------------- | ---------------------------------------------   |
 | <M-z>          | Zoom : one tab, one window                      |
 
+Excerpt of maps definition in centre.vim~
+
 Below is the default level 10. To customize it, first set your mapping
 level to less than 10, then copy and adapt some of the following lines : >
 
@@ -3667,10 +3671,7 @@ level to less than 10, then copy and adapt some of the following lines : >
     exe nmap '<m-y>          <plug>(wheel-prompt-yank-plain-linewise-after)'
     exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain-charwise-after)'
     exe nmap '<m-s-y>        <plug>(wheel-prompt-yank-plain-linewise-before)'
-    if has('nvim') || has('gui_running')
-	" strange behavior in terminal vim
-	exe nmap '<m-s-p>    <plug>(wheel-prompt-yank-plain-charwise-before)'
-    endif
+    exe nmap '<m-s-p>        <plug>(wheel-prompt-yank-plain-charwise-before)'
     exe nmap '<m-c-y>        <plug>(wheel-dedibuf-yank-plain)'
     exe nmap '<m-c-p>        <plug>(wheel-dedibuf-yank-list)'
     " ---- undo list
@@ -3687,6 +3688,16 @@ level to less than 10, then copy and adapt some of the following lines : >
     " ---- layouts
     exe nmap '<m-z>          <plug>(wheel-zoom)'
 <
+
+Trouble with xterm & fixkey~
+
+If you use vim in a xterm with the fixkey plugin, the map `<M-S-p>`
+can cause a strange in the empty buffer at startup. To avoid it, add : >
+
+    let g:Fixkey_setupDelay = 200
+<
+
+to your vimrc.
 
 ------------------------------------------------------------------------------
 LEVEL 20						*wheel-mappings-level-20*

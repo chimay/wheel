@@ -15,9 +15,10 @@ endif
 
 " ---- no-op function
 
-fun! wheel#void#nope ()
-	" Does nothing : for meta-command subcommands thas need a third argument
-	return v:true
+fun! wheel#void#nope (...)
+	" Does nothing
+	" Application : for meta-command subcommands thas need a third argument
+	return a:000
 endfun
 
 " ---- helpers
