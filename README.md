@@ -221,6 +221,11 @@ This project is inspired by :
 
 ## Prerequisites
 
+Versions :
+
+- vim >= 8.2
+- neovim >= 0.6
+
 Some outer rim functions assume a Unix-like OS, like Linux or BSD :
 
 - async functions
