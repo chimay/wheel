@@ -30,11 +30,6 @@ if ! exists('s:subcommands_actions')
 	lockvar s:subcommands_actions
 endif
 
-if ! exists('s:straightforward_actions')
-	let s:straightforward_actions = wheel#diadem#fetch('command/meta/straightforward/actions')
-	lockvar s:straightforward_actions
-endif
-
 if ! exists('s:prompt_actions')
 	let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
 	lockvar s:prompt_actions
@@ -367,15 +362,6 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 		return wheel#kyusu#pour(last_list, subcommands)
 	endif
 	let subcommand = wordlist[1]
-	" ---- straightforward functions
-	let straightforward_subcmds = wheel#matrix#items2keys(s:straightforward_actions)
-	if subcommand ==# 'straightforward'
-		if blank
-			return straightforward_subcmds
-		else
-			return wheel#kyusu#pour(last_list, straightforward_subcmds)
-		endif
-	endif
 	" ---- prompting functions
 	let prompt_subcmds = wheel#matrix#items2keys(s:prompt_actions)
 	if subcommand ==# 'prompt'

@@ -11,11 +11,6 @@ if ! exists('s:subcommands_actions')
 	lockvar s:subcommands_actions
 endif
 
-if ! exists('s:straightforward_actions')
-	let s:straightforward_actions = wheel#diadem#fetch('command/meta/straightforward/actions')
-	lockvar s:straightforward_actions
-endif
-
 if ! exists('s:prompt_actions')
 	let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
 	lockvar s:prompt_actions
@@ -72,7 +67,7 @@ fun! wheel#centre#meta (subcommand, ...)
 	" Function for meta command
 	let subcommand = a:subcommand
 	let arguments = a:000
-	" ---- subcommands without arguments
+	" ---- subcommands without argument
 	if empty(arguments)
 		let action_dict = wheel#matrix#items2dict(s:subcommands_actions)
 		let action = action_dict[subcommand]
@@ -80,37 +75,30 @@ fun! wheel#centre#meta (subcommand, ...)
 			echomsg 'Wheel centre meta-command : this action need a third argument'
 			return v:false
 		endif
-		return call(action, [])
-	endif
-	" ---- straightforward
-	if subcommand ==# 'straightforward'
-		let action_dict = wheel#matrix#items2dict(s:straightforward_actions)
-		let subcom = arguments[0]
-		let action = action_dict[subcom]
-		return eval(action)
+		return wheel#metafun#call(action)
 	endif
 	" ---- prompt
 	if subcommand ==# 'prompt'
 		let action_dict = wheel#matrix#items2dict(s:prompt_actions)
 		let subcom = arguments[0]
 		let action = action_dict[subcom]
-		return eval(action)
+		return wheel#metafun#call(action)
 	endif
 	" ---- dedibuf
 	if subcommand ==# 'dedibuf'
 		let action_dict = wheel#matrix#items2dict(s:dedibuf_actions)
 		let subcom = arguments[0]
 		let action = action_dict[subcom]
-		return eval(action)
+		return wheel#metafun#call(action)
 	endif
-	" ---- others actions
+	" ---- other subcommand with argument(s)
 	let action_dict = wheel#matrix#items2dict(s:subcommands_actions)
 	let action = action_dict[subcommand]
 	if subcommand ==# 'batch'
 		let arguments = join(arguments)
-		return call(action, [ arguments ])
+		return wheel#metafun#call(action, [ arguments ])
 	endif
-	return call(action, arguments)
+	return wheel#metafun#call(action, arguments)
 endfun
 
 fun! wheel#centre#commands ()
