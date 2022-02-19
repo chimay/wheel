@@ -131,6 +131,9 @@ fun! wheel#centre#plugs ()
 	for item in s:visual_plugs
 		let left = item[0]
 		let right = item[1]
+		if right !~ ')$'
+			let right ..= '()'
+		endif
 		exe begin .. left .. middle right .. end
 	endfor
 	" ---- expr maps
@@ -139,6 +142,9 @@ fun! wheel#centre#plugs ()
 	for item in s:expr_plugs
 		let left = item[0]
 		let right = item[1]
+		if right !~ ')$'
+			let right ..= '()'
+		endif
 		execute begin .. left .. middle right
 	endfor
 endfun
