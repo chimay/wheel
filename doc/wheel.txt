@@ -198,8 +198,6 @@ This project is inspired by :
 ------------------------------------------------------------------------------
 PREREQUISITES				*wheel-introduction-prerequisites*
 
-(neo)vim versions~
-
 - vim >= 8.2
 - neovim >= 0.6
 
@@ -211,8 +209,7 @@ If your distribution uses an older version, you can resort to appimages :
 - https://github.com/vim/vim-appimage
 - https://appimage.github.io/neovim/
 
-These are fast evolving pieces of software, so it's worth upgrading
-anyway.
+These are fast evolving pieces of software, it's worth upgrading anyway.
 
 Operating system~
 
@@ -2061,6 +2058,7 @@ COMMANDS					*wheel-commands*
 
 Meta command				|wheel-commands-meta|
 Wheel status				|wheel-commands-status|
+Straight navigation			|wheel-commands-straight-navigation|
 Read and write				|wheel-commands-read-and-write|
 Prompt					|wheel-commands-prompt|
 Dedicated buffers			|wheel-commands-dedicated-buffers|
@@ -2115,6 +2113,47 @@ WHEEL STATUS						*wheel-commands-status*
 
 :Wheel follow						*:Wheel-follow*
 	Find closest location in wheel matching current file & cursor
+
+------------------------------------------------------------------------------
+STRAIGHT NAVIGATION			*wheel-commands-straight-navigation*
+
+:Wheel next-location
+	Go to next location
+
+:Wheel previous-location
+	Go to previous location
+
+:Wheel next-circle
+	Go to next circle
+
+:Wheel previous-circle
+	Go to previous circle
+
+:Wheel next-torus
+	Go to next torus
+
+:Wheel previous-torus
+	Go to previous torus
+
+History~
+
+:Wheel newer
+	Go to newer location in history
+
+:Wheel older
+	Go to older location in history
+
+:Wheel newer-in-circle
+	Go to newer location in same circle
+
+:Wheel older-in-circle
+	Go to older location in same circle
+
+:Wheel newer-in-torus
+	Go to newer location in same torus
+
+:Wheel older-in-torus
+	Go to older location in same torus
 
 ------------------------------------------------------------------------------
 READ AND WRITE					*wheel-commands-read-and-write*

@@ -14,7 +14,6 @@
 	* [Features](#features)
 	* [History](#history)
 	* [Prerequisites](#prerequisites)
-		- [(neo)vim versions](#neovim-versions)
 		- [Operating system](#operating-system)
 + [Installation](#installation)
 	* [Using vim-packager](#using-vim-packager)
@@ -223,8 +222,6 @@ This project is inspired by :
 
 ## Prerequisites
 
-### (neo)vim versions
-
 - vim >= 8.2
 - neovim >= 0.6
 
@@ -236,8 +233,7 @@ If your distribution uses an older version, you can resort to appimages :
 - [vim appimage](https://github.com/vim/vim-appimage)
 - [neovim appimage](https://appimage.github.io/neovim/)
 
-These are fast evolving pieces of software, so it's worth upgrading
-anyway.
+These are fast evolving pieces of software, it's worth upgrading anyway.
 
 ### Operating system
 
