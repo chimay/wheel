@@ -119,6 +119,9 @@ fun! wheel#centre#plugs ()
 	for item in s:normal_plugs
 		let left = item[0]
 		let right = item[1]
+		if right !~ ')$'
+			let right ..= '()'
+		endif
 		exe begin .. left .. middle right .. end
 	endfor
 	" ---- visual maps
@@ -151,7 +154,7 @@ fun! wheel#centre#mappings (level, mode = 'normal')
 		let mapcmd = 'vmap'
 	endif
 	let level_maps = s:level_{level}_{mode}_maps
-	" ---- vars
+	" ---- variables
 	let prefix = g:wheel_config.prefix
 	let begin = mapcmd .. ' <silent> ' .. prefix
 	let middle = '<plug>('
