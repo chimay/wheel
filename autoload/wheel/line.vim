@@ -39,6 +39,9 @@ fun! wheel#line#buffer (settings)
 		call wheel#curve#target (target)
 		execute 'hide buffer' bufnum
 	endif
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -57,6 +60,9 @@ fun! wheel#line#tabwin (settings)
 	execute 'noautocmd tabnext' tabnum
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -76,6 +82,9 @@ fun! wheel#line#tabwin_tree (settings)
 		execute 'noautocmd' winum 'wincmd w'
 	endif
 	doautocmd WinEnter
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -95,6 +104,9 @@ fun! wheel#line#mru (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
 	return win_getid ()
 endfun
 
@@ -107,6 +119,12 @@ fun! wheel#line#locate (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -120,6 +138,12 @@ fun! wheel#line#find (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -140,6 +164,9 @@ fun! wheel#line#occur (settings)
 	call cursor(line, 1)
 	if &foldopen =~ 'jump'
 		normal! zv
+	endif
+	if settings.follow
+		call wheel#projection#follow ()
 	endif
 	return win_getid ()
 endfun
@@ -163,6 +190,12 @@ fun! wheel#line#grep (settings)
 	"execute 'hide buffer' bufnum
 	"call cursor(line, col)
 	" ---- coda
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -179,6 +212,9 @@ fun! wheel#line#marker (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute "normal! `" .. mark
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -225,6 +261,9 @@ fun! wheel#line#change (settings)
 	if &foldopen =~ 'jump'
 		normal! zv
 	endif
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -266,6 +305,12 @@ fun! wheel#line#narrow_file (settings)
 	call wheel#curve#target (target)
 	execute 'hide buffer' bufnum
 	call cursor(linum, 1)
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
+	if settings.follow
+		call wheel#projection#follow ()
+	endif
 	return win_getid ()
 endfun
 
@@ -300,6 +345,9 @@ fun! wheel#line#narrow_circle (settings)
 		call cursor(linum, 1)
 	endif
 	" ---- coda
+	if &foldopen =~ 'jump'
+		normal! zv
+	endif
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
