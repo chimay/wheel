@@ -20,5 +20,5 @@ fun! wheel#mirror#reorg_tabwin ()
 	call wheel#polyphony#score ('reorg_tabwin')
 	call wheel#mandala#fill(lines)
 	" ---- reload
-	let b:wheel_reload = 'wheel#mirror#reorg_tabwin'
+	call wheel#mandala#set_reload('wheel#mirror#reorg_tabwin')
 endfun

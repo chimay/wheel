@@ -20,7 +20,7 @@ fun! wheel#frigate#generic (type)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#' .. type
+	call wheel#mandala#set_reload('wheel#frigate#' .. type)
 endfun
 
 " ---- buffers, tabs, windows
@@ -53,7 +53,7 @@ fun! wheel#frigate#buffer (scope = 'listed')
 	" context menu
 	call wheel#boomerang#launch_map (type)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#buffer(' .. string(scope) .. ')'
+	call wheel#mandala#set_reload('wheel#frigate#buffer', scope)
 endfun
 
 fun! wheel#frigate#tabwin_tree ()
@@ -74,7 +74,7 @@ fun! wheel#frigate#tabwin_tree ()
 	" full information
 	let b:wheel_full = wheel#cuboctahedron#tabwin ()
 	" reload
-	let b:wheel_reload = 'wheel#frigate#tabwin_tree'
+	call wheel#mandala#set_reload('wheel#frigate#tabwin_tree')
 	" Context menu
 	call wheel#boomerang#launch_map ('tabwin_tree')
 endfun
@@ -92,7 +92,7 @@ fun! wheel#frigate#tabwin ()
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#tabwin'
+	call wheel#mandala#set_reload('wheel#frigate#tabwin')
 	" Context menu
 	call wheel#boomerang#launch_map ('tabwin')
 endfun
@@ -123,7 +123,7 @@ fun! wheel#frigate#jump ()
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#jump'
+	call wheel#mandala#set_reload('wheel#frigate#jump')
 endfun
 
 fun! wheel#frigate#change ()
@@ -142,7 +142,7 @@ fun! wheel#frigate#change ()
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#change'
+	call wheel#mandala#set_reload('wheel#frigate#change')
 endfun
 
 fun! wheel#frigate#tag ()
@@ -175,7 +175,7 @@ fun! wheel#frigate#locate (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#locate(' .. string(pattern) .. ')'
+	call wheel#mandala#set_reload('wheel#frigate#locate', pattern)
 endfun
 
 fun! wheel#frigate#find (...)
@@ -196,7 +196,7 @@ fun! wheel#frigate#find (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#find(' .. string(pattern) .. ')'
+	call wheel#mandala#set_reload('wheel#frigate#find', pattern)
 endfun
 
 fun! wheel#frigate#async_find (...)
@@ -231,7 +231,7 @@ fun! wheel#frigate#async_find (...)
 	let settings = #{ function : 'wheel#line#find' }
 	call wheel#river#template (settings)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#async_find(' .. string(pattern) .. ')'
+	call wheel#mandala#set_reload('wheel#frigate#async_find', pattern)
 endfun
 
 " ---- search inside files
@@ -259,7 +259,7 @@ fun! wheel#frigate#occur (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#occur(' .. string(pattern) .. ')'
+	call wheel#mandala#set_reload('wheel#frigate#occur', pattern)
 endfun
 
 fun! wheel#frigate#grep (...)
@@ -288,7 +288,7 @@ fun! wheel#frigate#grep (...)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#frigate#grep(' .. string(pattern) .. ', ' .. string(sieve) .. ')'
+	call wheel#mandala#set_reload('wheel#frigate#grep', pattern, sieve)
 	" Context menu
 	call wheel#boomerang#launch_map ('grep')
 	" Useful if we choose edit mode on the context menu
@@ -322,6 +322,6 @@ fun! wheel#frigate#outline (...)
 	if ! empty(lines)
 		call wheel#mandala#set_type ('outline')
 		" reload
-		let b:wheel_reload = 'wheel#frigate#outline(' .. string(mode) .. ")"
+		call wheel#mandala#set_reload('wheel#frigate#outline', mode)
 	endif
 endfun

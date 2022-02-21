@@ -16,5 +16,5 @@ fun! wheel#triangle#undolist ()
 	call wheel#mandala#fill (lines)
 	let b:wheel_settings.undo_iden = wheel#delta#undo_iden(1)
 	" reload
-	let b:wheel_reload = 'wheel#triangle#undolist'
+	call wheel#mandala#set_reload('wheel#triangle#undolist')
 endfun

@@ -99,7 +99,7 @@ fun! wheel#boomerang#menu (dictname)
 	" -- let loop#menu handle open / close, tell loop#navigation to forget it
 	let settings.close = v:false
 	" -- reload function
-	let b:wheel_reload = 'wheel#boomerang#menu(' .. string(a:dictname) .. ')'
+	call wheel#mandala#set_reload('wheel#boomerang#menu', a:dictname)
 endfun
 
 " ---- applications
