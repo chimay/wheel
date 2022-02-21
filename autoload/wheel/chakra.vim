@@ -21,6 +21,11 @@ if ! exists('s:sign_group')
 	lockvar s:sign_group
 endif
 
+if ! exists('s:sign_native_group')
+	let s:sign_native_group = wheel#crystal#fetch('sign/group/native')
+	lockvar s:sign_native_group
+endif
+
 if ! exists('s:level_separ')
 	let s:level_separ = wheel#crystal#fetch('separator/level')
 	lockvar s:level_separ
@@ -42,13 +47,12 @@ fun! wheel#chakra#same_location ()
 	return entry.line == location.line
 endfun
 
-fun wheel#chakra#same_place (one, two)
+fun wheel#chakra#same_buffer (one, two)
 	" Whether one & two represent the same buffer & cursor position
 	let one = a:one
 	let two = a:two
 	let same_buffer = one.buffer == two.buffer
-	let same_line = one.line == two.line
-	return same_buffer && same_line
+	return same_buffer
 endfun
 
 " ---- helpers
@@ -123,6 +127,7 @@ endfun
 fun! wheel#chakra#place ()
 	" Place sign at current location
 	let signs = g:wheel_signs
+	" ---- fields
 	let iden = signs.iden
 	let table = signs.table
 	let new_iden = wheel#chain#lowest_outside (iden, 1)
@@ -134,6 +139,7 @@ fun! wheel#chakra#place ()
 	let linum = location.line
 	let dict = #{ lnum : linum }
 	let coordin = wheel#referen#coordinates ()
+	" ---- table
 	let entry = #{
 				\ iden : new_iden,
 				\ coordin : coordin,
@@ -141,14 +147,18 @@ fun! wheel#chakra#place ()
 				\ line : linum
 				\ }
 	call sign_place(new_iden, group, name, bufnum, dict)
-	eval iden->add(new_iden)
 	eval table->filter({ _, val -> val.coordin != coordin })
 	eval table->add(entry)
+	" ---- iden list
+	let round_table = copy(table)
+	let iden = round_table->map({ _, val -> val.iden })
+	let signs.iden = iden
+	" ---- coda
 	return new_iden
 endfun
 
 fun! wheel#chakra#replace_all ()
-	" Replace all signs to adapt to new settings
+	" Replace all locations signs to adapt to new settings
 	let signs = g:wheel_signs
 	let group = s:sign_group
 	let name = s:sign_name
@@ -191,7 +201,7 @@ fun! wheel#chakra#unplace ()
 endfun
 
 fun! wheel#chakra#clear ()
-	" Unplace all wheel signs
+	" Unplace all locations signs
 	let signs = g:wheel_signs
 	if empty(signs.iden)
 		return v:false
@@ -225,23 +235,31 @@ endfun
 fun! wheel#chakra#place_native ()
 	" Place sign for native navigation
 	let signs = g:wheel_signs
+	" ---- fields
 	let iden = signs.native_iden
 	let table = signs.native_table
 	let new_iden = wheel#chain#lowest_outside (iden, 1)
-	let group = s:sign_group
+	let group = s:sign_native_group
 	let name = s:sign_native_name
 	let bufnum = bufnr('%')
 	let linum = line('.')
-	let dict = #{ lnum : linum }
+	" ---- remove other signs in same buffer
+	let buffer_dict = #{ buffer : bufnum }
+	call sign_unplace(group, buffer_dict)
+	" ---- table
 	let entry = #{
 				\ iden : new_iden,
 				\ buffer : bufnum,
 				\ line : linum
 				\ }
-	echomsg new_iden group name bufnum dict
-	call sign_place(new_iden, group, name, bufnum, dict)
+	let line_dict = #{ lnum : linum }
+	call sign_place(new_iden, group, name, bufnum, line_dict)
 	eval iden->add(new_iden)
-	eval table->filter({ _, val -> ! wheel#chakra#same_place(val, entry) })
+	eval table->filter({ _, val -> ! wheel#chakra#same_buffer(val, entry) })
 	eval table->add(entry)
+	" ---- iden list
+	let round_table = copy(table)
+	let iden = round_table->map({ _, val -> val.iden })
+	let signs.native_iden = iden
 	return new_iden
 endfun

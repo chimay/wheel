@@ -115,8 +115,13 @@ if ! exists('s:sign_name_native')
 endif
 
 if ! exists('s:sign_group')
-	let s:sign_group = 'wheel-sign-group'
+	let s:sign_group = 'wheel-sign-group-location'
 	lockvar! s:sign_group
+endif
+
+if ! exists('s:sign_group_native')
+	let s:sign_group_native = 'wheel-sign-group-native'
+	lockvar! s:sign_group_native
 endif
 
 if ! exists('s:sign_text')
