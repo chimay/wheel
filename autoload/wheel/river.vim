@@ -113,5 +113,5 @@ fun! wheel#river#generic (type)
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#whirl#' .. type
+	call wheel#mandala#set_reload('wheel#whirl#' .. type)
 endfun

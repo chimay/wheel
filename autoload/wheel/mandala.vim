@@ -458,24 +458,56 @@ fun! wheel#mandala#fill (content, first = 'empty-prompt-first')
 	call wheel#status#mandala_leaf ()
 endfun
 
+" ---- relaad
+
+fun! wheel#mandala#reload_string (function, ...)
+	" Reload string
+	let function = a:function
+	let arguments = a:000
+	" ---- no argument
+	if empty(arguments)
+		let reload = function
+		return reload
+	endif
+	" ---- with argument(s)
+	let length = len(arguments)
+	let reload = function .. '('
+	for index in range(length - 1)
+		let reload ..= string(arguments[index]) .. ', '
+	endfor
+	let reload ..= string(arguments[-1]) .. ')'
+	return reload
+endfun
+
+fun! wheel#mandala#set_reload(...)
+	" Set reload in local variable
+	if a:0 == 0
+		echomsg 'wheel mandala set_reload : need at least one argument'
+		return ''
+	endif
+	let reload = call('wheel#mandala#reload_string', a:000)
+	let b:wheel_reload = reload
+	return reload
+endfun
+
 fun! wheel#mandala#reload ()
 	" Reload current mandala
-	" -- save type
+	" ---- save type
 	let type = b:wheel_nature.type
-	" -- mark the buffer as empty, to avoid adding a leaf in wheel#mandala#blank
+	" ---- mark the buffer as empty, to avoid adding a leaf in mandala#blank
 	call wheel#mandala#set_type ('empty')
-	" -- reinitialize buffer vars
+	" ---- reinitialize buffer vars
 	call wheel#mandala#refresh ()
-	" -- reload content
+	" ---- reload content
 	if ! empty(b:wheel_reload)
-		call wheel#metafun#call (b:wheel_reload)
 		let function = b:wheel_reload
+		call wheel#metafun#call (function)
 		call wheel#status#message('wheel :', function, 'reloaded')
 	else
 		" if b:wheel_reload is empty, replace the buffer with b:wheel_lines
 		call wheel#mandala#replace (b:wheel_lines)
 		" restore type
-		call wheel#mandala#set_type ('empty')
+		call wheel#mandala#set_type (type)
 		echomsg 'wheel : content reloaded'
 	endif
 endfun

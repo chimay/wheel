@@ -42,5 +42,5 @@ fun! wheel#clipper#yank (mode)
 	call wheel#mandala#fill (lines)
 	setlocal nomodified
 	" ---- reload
-	let b:wheel_reload = 'wheel#clipper#yank(' .. string(mode) .. ')'
+	call wheel#mandala#set_reload('wheel#clipper#yank', mode)
 endfun

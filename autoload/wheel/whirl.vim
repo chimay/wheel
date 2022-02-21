@@ -22,7 +22,7 @@ fun! wheel#whirl#switch (level)
 		echomsg 'wheel whirl switch : empty or incomplete' level
 	endif
 	" reload
-	let b:wheel_reload = 'wheel#whirl#switch(' .. string(level) .. ')'
+	call wheel#mandala#set_reload('wheel#whirl#switch', level)
 endfun
 
 fun! wheel#whirl#helix ()
@@ -38,7 +38,7 @@ fun! wheel#whirl#helix ()
 	call wheel#river#template (settings)
 	call wheel#mandala#fill(lines)
 	" reload
-	let b:wheel_reload = 'wheel#whirl#helix'
+	call wheel#mandala#set_reload('wheel#whirl#helix')
 endfun
 
 fun! wheel#whirl#grid ()
@@ -54,7 +54,7 @@ fun! wheel#whirl#grid ()
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
 	" reload
-	let b:wheel_reload = 'wheel#whirl#grid'
+	call wheel#mandala#set_reload('wheel#whirl#grid')
 endfun
 
 fun! wheel#whirl#tree ()
@@ -74,7 +74,7 @@ fun! wheel#whirl#tree ()
 	" full information
 	let b:wheel_full = wheel#cuboctahedron#tree ()
 	" reload
-	let b:wheel_reload = 'wheel#whirl#tree'
+	call wheel#mandala#set_reload('wheel#whirl#tree')
 endfun
 
 fun! wheel#whirl#history ()
