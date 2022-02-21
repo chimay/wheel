@@ -22,6 +22,9 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 			if empty(bufname)
 				return []
 			endif
+			if bufname =~ '^term://'
+				return []
+			endif
 			let filename = bufname->fnamemodify(':p')
 			let edit = [ 'silent edit ' .. filename ]
 			" -- go to last position in file
