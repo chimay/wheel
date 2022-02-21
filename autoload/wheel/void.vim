@@ -370,11 +370,19 @@ fun! wheel#void#signs ()
 	if ! exists('g:wheel_signs')
 		let g:wheel_signs = {}
 	endif
+	" ---- locations signs
 	if ! has_key(g:wheel_signs, 'iden')
 		let g:wheel_signs.iden = []
 	endif
 	if ! has_key(g:wheel_signs, 'table')
 		let g:wheel_signs.table = []
+	endif
+	" ---- native navigation signs
+	if ! has_key(g:wheel_signs, 'native_iden')
+		let g:wheel_signs.native_iden = []
+	endif
+	if ! has_key(g:wheel_signs, 'native_table')
+		let g:wheel_signs.native_table = []
 	endif
 endfun
 

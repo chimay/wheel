@@ -26,6 +26,31 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
+" ---- booleans
+
+fun! wheel#chakra#same_location ()
+	" Whether current location is the same as when the sign has been placed
+	let signs = g:wheel_signs
+	let subtable = deepcopy(signs.table)
+	let coordin = wheel#referen#coordinates ()
+	eval subtable->filter({ _, val -> val.coordin == coordin })
+	if empty(subtable)
+		return v:false
+	endif
+	let entry = subtable[0]
+	let location = wheel#referen#location ()
+	return entry.line == location.line
+endfun
+
+fun wheel#chakra#same_place (one, two)
+	" Whether one & two represent the same buffer & cursor position
+	let one = a:one
+	let two = a:two
+	let same_buffer = one.buffer == two.buffer
+	let same_line = one.line == two.line
+	return same_buffer && same_line
+endfun
+
 " ---- helpers
 
 fun! wheel#chakra#format_text (settings)
@@ -69,40 +94,31 @@ fun! wheel#chakra#define_sign (name, settings)
 	endif
 	" -- change of settings in g:wheel_config
 	let current_sign = subdef[0]
-	if settings.text != current_sign.text
-		call wheel#chakra#format ()
-		call sign_undefine(name)
-		call sign_define(name, settings)
-		call wheel#chakra#replace_all ()
+	if settings.text == current_sign.text
+		return v:true
 	endif
+	call wheel#chakra#format ()
+	call sign_undefine(name)
+	call sign_define(name, settings)
+	call wheel#chakra#replace_all ()
 	return v:true
 endfun
 
-fun! wheel#chakra#same ()
-	" Whether current location is the same as when the sign has been placed
-	let signs = g:wheel_signs
-	let subtable = deepcopy(signs.table)
-	let coordin = wheel#referen#coordinates ()
-	eval subtable->filter({ _, val -> val.coordin == coordin })
-	if empty(subtable)
-		return v:false
-	endif
-	let entry = subtable[0]
-	let location = wheel#referen#location ()
-	return entry.line == location.line
-endfun
-
-" ---- functions
+" ---- location & native signs
 
 fun! wheel#chakra#define ()
 	" Define wheel sign
+	" ---- location sign
 	let name = s:sign_name
 	let settings = g:wheel_config.display.sign.settings
 	call wheel#chakra#define_sign (name, settings)
+	" ---- native sign
 	let native_name = s:sign_native_name
 	let native_settings = g:wheel_config.display.sign.native_settings
 	call wheel#chakra#define_sign (native_name, native_settings)
 endfun
+
+" ---- location signs
 
 fun! wheel#chakra#place ()
 	" Place sign at current location
@@ -114,7 +130,7 @@ fun! wheel#chakra#place ()
 	let name = s:sign_name
 	let location = wheel#referen#location ()
 	let file = location.file
-	let bufnum = bufnr('%')
+	let bufnum = bufnr(file)
 	let linum = location.line
 	let dict = #{ lnum : linum }
 	let coordin = wheel#referen#coordinates ()
@@ -188,8 +204,6 @@ fun! wheel#chakra#clear ()
 	call sign_unplace(group)
 endfun
 
-" ---- update sign
-
 fun! wheel#chakra#update ()
 	" Add or update sign at location
 	let display_sign = g:wheel_config.display.sign.switch
@@ -198,10 +212,36 @@ fun! wheel#chakra#update ()
 		return v:false
 	endif
 	call wheel#chakra#define ()
-	if wheel#chakra#same ()
+	if wheel#chakra#same_location ()
 		return v:true
 	endif
 	call wheel#chakra#unplace ()
 	call wheel#chakra#place ()
 	return v:true
+endfun
+
+" ---- native signs
+
+fun! wheel#chakra#place_native ()
+	" Place sign for native navigation
+	let signs = g:wheel_signs
+	let iden = signs.native_iden
+	let table = signs.native_table
+	let new_iden = wheel#chain#lowest_outside (iden, 1)
+	let group = s:sign_group
+	let name = s:sign_native_name
+	let bufnum = bufnr('%')
+	let linum = line('.')
+	let dict = #{ lnum : linum }
+	let entry = #{
+				\ iden : new_iden,
+				\ buffer : bufnum,
+				\ line : linum
+				\ }
+	echomsg new_iden group name bufnum dict
+	call sign_place(new_iden, group, name, bufnum, dict)
+	eval iden->add(new_iden)
+	eval table->filter({ _, val -> ! wheel#chakra#same_place(val, entry) })
+	eval table->add(entry)
+	return new_iden
 endfun
