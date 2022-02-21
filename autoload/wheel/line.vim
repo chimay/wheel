@@ -40,6 +40,7 @@ fun! wheel#line#buffer (settings)
 		execute 'hide buffer' bufnum
 	endif
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -59,6 +60,7 @@ fun! wheel#line#tabwin (settings)
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -79,6 +81,7 @@ fun! wheel#line#tabwin_tree (settings)
 	endif
 	doautocmd WinEnter
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -99,6 +102,7 @@ fun! wheel#line#mru (settings)
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	return win_getid ()
 endfun
 
@@ -112,6 +116,7 @@ fun! wheel#line#locate (settings)
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -129,6 +134,7 @@ fun! wheel#line#find (settings)
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -151,6 +157,7 @@ fun! wheel#line#occur (settings)
 	execute 'hide buffer' bufnum
 	call cursor(line, 1)
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -177,6 +184,7 @@ fun! wheel#line#grep (settings)
 	"call cursor(line, col)
 	" ---- coda
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -197,6 +205,7 @@ fun! wheel#line#marker (settings)
 	call wheel#curve#target (target)
 	execute "normal! `" .. mark
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -218,6 +227,7 @@ fun! wheel#line#jump (settings)
 	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -239,6 +249,7 @@ fun! wheel#line#change (settings)
 	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -262,6 +273,7 @@ fun! wheel#line#tag (settings)
 		echomsg 'wheel : tag not found : maybe you should update your tag file'
 	endif
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -282,6 +294,7 @@ fun! wheel#line#narrow_file (settings)
 	execute 'hide buffer' bufnum
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -320,6 +333,7 @@ fun! wheel#line#narrow_circle (settings)
 	endif
 	" ---- coda
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif

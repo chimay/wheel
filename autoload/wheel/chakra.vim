@@ -130,6 +130,16 @@ fun! wheel#chakra#place_native ()
 	let name = s:sign_native_name
 	let bufnum = bufnr('%')
 	let linum = line('.')
+	" ---- any location sign at the same place ?
+	let place = #{
+				\ buffer : bufnum,
+				\ line : linum
+				\ }
+	let location_table = deepcopy(signs.table)
+	eval location_table->filter({ _, val -> wheel#chakra#same_place (val, place) })
+	if ! empty(location_table)
+		return -1
+	endif
 	" ---- remove other signs in same buffer
 	let buffer_dict = #{ buffer : bufnum }
 	call sign_unplace(group, buffer_dict)
@@ -145,7 +155,7 @@ fun! wheel#chakra#place_native ()
 	eval table->filter({ _, val -> ! wheel#chakra#same_buffer(val, entry) })
 	eval table->add(entry)
 	" ---- iden list
-	let round_table = copy(table)
+	let round_table = deepcopy(table)
 	let iden = round_table->map({ _, val -> val.iden })
 	let signs.native_iden = iden
 	return new_iden
@@ -154,28 +164,28 @@ endfun
 fun! wheel#chakra#unplace_native ()
 	" Unplace native sign at current location
 	let signs = g:wheel_signs
-	let native_iden = signs.native_iden
-	let native_subtable = deepcopy(signs.native_table)
+	let iden = signs.native_iden
+	let subtable = deepcopy(signs.native_table)
 	" ---- fields
 	let location = wheel#referen#location ()
-	let buffer = bufnr(location.file)
+	let bufnum = bufnr(location.file)
 	let linum = location.line
 	" ---- subtable
 	let place = #{
-				\ buffer : buffer,
+				\ buffer : bufnum,
 				\ line : linum
 				\ }
-	eval native_subtable->filter({ _, val -> wheel#chakra#same_place (val, place) })
-	if empty(native_subtable)
+	eval subtable->filter({ _, val -> wheel#chakra#same_place (val, place) })
+	if empty(subtable)
 		return v:true
 	endif
 	" ---- unplace
-	let native_group = s:sign_native_group
-	let entry = native_subtable[0]
+	let group = s:sign_native_group
+	let entry = subtable[0]
 	let old_iden = entry.iden
 	let dict = #{ id : old_iden }
-	call sign_unplace(native_group, dict)
-	eval native_iden->wheel#chain#remove_element(old_iden)
+	call sign_unplace(group, dict)
+	eval iden->wheel#chain#remove_element(old_iden)
 	eval g:wheel_signs.native_table->filter({ _, val -> val.iden != old_iden })
 	return old_iden
 endfun
@@ -222,7 +232,7 @@ fun! wheel#chakra#place ()
 	eval table->filter({ _, val -> val.coordin != coordin })
 	eval table->add(entry)
 	" ---- iden list
-	let round_table = copy(table)
+	let round_table = deepcopy(table)
 	let iden = round_table->map({ _, val -> val.iden })
 	let signs.iden = iden
 	" ---- coda

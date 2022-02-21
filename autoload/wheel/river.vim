@@ -34,7 +34,7 @@ fun! wheel#river#default (settings)
 		let settings.related = b:wheel_related
 	endif
 	if ! has_key(settings, 'follow')
-		let settings.follow = v:true
+		let settings.follow = v:false
 	endif
 	if ! has_key(settings, 'close')
 		let settings.close = v:true
