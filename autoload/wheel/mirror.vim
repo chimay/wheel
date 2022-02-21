@@ -16,7 +16,7 @@ fun! wheel#mirror#reorg_tabwin ()
 	call wheel#mandala#blank ('reorg/tabwin')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#mandala#folding_options ('tabwin_folding_text')
+	call wheel#origami#folding_options ('tabwin_folding_text')
 	call wheel#polyphony#score ('reorg_tabwin')
 	call wheel#mandala#fill(lines)
 	" ---- reload

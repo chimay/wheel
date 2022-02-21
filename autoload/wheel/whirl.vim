@@ -67,7 +67,7 @@ fun! wheel#whirl#tree ()
 	call wheel#mandala#blank ('index/tree')
 	let settings = #{ function : 'wheel#curve#tree' }
 	call wheel#river#template (settings)
-	call wheel#mandala#folding_options ()
+	call wheel#origami#folding_options ()
 	call wheel#mandala#fill(lines)
 	" properties
 	let b:wheel_nature.is_treeish = v:true

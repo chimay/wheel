@@ -350,55 +350,6 @@ fun! wheel#mandala#common_maps ()
 	nnoremap <buffer> <backspace> <cmd>call wheel#book#delete ()<cr>
 endfun
 
-" ---- folding
-
-fun! wheel#mandala#folding_options (textfun = 'folding_text')
-	" Folding options for mandala buffers
-	let textfun = a:textfun
-	setlocal foldenable
-	setlocal foldminlines=1
-	setlocal foldlevel=0
-	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-	setlocal foldclose=
-	setlocal foldmethod=marker
-	let &l:foldmarker = s:fold_markers
-	setlocal foldcolumn=2
-	execute 'setlocal foldtext=wheel#mandala#' .. textfun .. '()'
-endfun
-
-fun! wheel#mandala#folding_text ()
-	" Folding text for mandala buffers
-	let numlines = v:foldend - v:foldstart
-	let line = getline(v:foldstart)
-	if v:foldlevel == 1
-		let level = 'torus'
-	elseif v:foldlevel == 2
-		let level = 'circle'
-	elseif v:foldlevel == 3
-		let level = 'location'
-	else
-		let level = 'none'
-	endif
-	let marker = s:fold_markers[0]
-	let pattern = '\m' .. marker .. '[12]'
-	let repl = ':: ' .. level
-	let line = substitute(line, pattern, repl, '')
-	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
-	return text
-endfun
-
-fun! wheel#mandala#tabwin_folding_text ()
-	" Folding text for mandala buffers
-	let numlines = v:foldend - v:foldstart
-	let line = getline(v:foldstart)
-	let marker = s:fold_markers[0]
-	let pattern = '\m ' .. marker .. '[12]'
-	let repl = ''
-	let line = substitute(line, pattern, repl, '')
-	let text = line .. ' :: ' .. numlines .. ' lines ' .. v:folddashes
-	return text
-endfun
-
 " ---- template
 
 fun! wheel#mandala#template (...)

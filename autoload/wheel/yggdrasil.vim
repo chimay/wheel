@@ -133,7 +133,7 @@ fun! wheel#yggdrasil#reorganize ()
 	call wheel#mandala#blank ('reorganize')
 	call wheel#mandala#common_maps ()
 	call wheel#polyphony#temple ()
-	call wheel#mandala#folding_options ()
+	call wheel#origami#folding_options ()
 	call wheel#polyphony#score ('reorganize')
 	call wheel#mandala#fill(lines)
 	setlocal nomodified

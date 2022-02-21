@@ -67,7 +67,7 @@ fun! wheel#frigate#tabwin_tree ()
 	call wheel#mandala#blank ('tabwin/tree')
 	let settings = #{ function : 'wheel#line#tabwin_tree' }
 	call wheel#river#template (settings)
-	call wheel#mandala#folding_options ('tabwin_folding_text')
+	call wheel#origami#folding_options ('tabwin_folding_text')
 	call wheel#mandala#fill (lines)
 	" properties
 	let b:wheel_nature.is_treeish = v:true
