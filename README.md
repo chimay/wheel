@@ -424,7 +424,7 @@ if ! exists("g:wheel_loaded")
   "let g:wheel_config.display.selection = '-> '
   " Signs
   let g:wheel_config.display.sign.switch = 1
-  " Sign text at wheel locations
+  " Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
   " Signs for native navigation
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
