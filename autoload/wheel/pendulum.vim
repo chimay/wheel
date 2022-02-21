@@ -22,6 +22,7 @@
 
 " other names ideas for this file :
 "   - longcase clock
+"   - chime
 
 " ---- timestamps
 
