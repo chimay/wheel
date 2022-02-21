@@ -100,7 +100,9 @@ fun! wheel#cylinder#goto (...)
 		return v:false
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	" causes native navigation signs override by location signs
+	" on some files
+	"silent doautocmd User WheelUpdate
 	" ---- go to mandala
 	let bufring = g:wheel_bufring
 	let mandalas = bufring.mandalas
