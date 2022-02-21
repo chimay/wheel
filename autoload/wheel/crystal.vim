@@ -105,8 +105,13 @@ endif
 " ---- signs
 
 if ! exists('s:sign_name')
-	let s:sign_name = 'wheel-sign-name'
+	let s:sign_name = 'wheel-sign-location'
 	lockvar! s:sign_name
+endif
+
+if ! exists('s:sign_name_native')
+	let s:sign_name_native = 'wheel-sign-native'
+	lockvar! s:sign_name_native
 endif
 
 if ! exists('s:sign_group')
@@ -121,11 +126,23 @@ if ! exists('s:sign_text')
 	lockvar! s:sign_text
 endif
 
+if ! exists('s:sign_text_native')
+	let s:sign_text_native = '✻'
+	lockvar! s:sign_text_native
+endif
+
 if ! exists('s:sign_settings')
 	let s:sign_settings = #{
 				\ text : s:sign_text,
 				\ }
 	lockvar! s:sign_settings
+endif
+
+if ! exists('s:sign_settings_native')
+	let s:sign_settings_native = #{
+				\ text : s:sign_text_native,
+				\ }
+	lockvar! s:sign_settings_native
 endif
 
 " ---- functions

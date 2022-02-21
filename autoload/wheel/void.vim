@@ -324,6 +324,10 @@ fun! wheel#void#config ()
 		let settings = deepcopy(wheel#crystal#fetch ('sign/settings'))
 		let g:wheel_config.display.sign.settings = settings
 	endif
+	if ! has_key(g:wheel_config.display.sign, 'native_settings')
+		let native_settings = deepcopy(wheel#crystal#fetch ('sign/settings/native'))
+		let g:wheel_config.display.sign.native_settings = native_settings
+	endif
 	" ---- debug
 	if ! has_key(g:wheel_config, 'debug')
 		let g:wheel_config.debug = 0

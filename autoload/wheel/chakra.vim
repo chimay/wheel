@@ -26,7 +26,7 @@ endif
 fun! wheel#chakra#format ()
 	" Format sign text to ensure it contains 2 chars
 	" sign text must be 2 chars or a space will be added by vim
-	let signs = g:wheel_signs
+	" ---- wheel locations signs
 	let settings = g:wheel_config.display.sign.settings
 	let text = settings.text
 	if empty(text)
@@ -38,7 +38,20 @@ fun! wheel#chakra#format ()
 	elseif length > 2
 		let settings.text = strcharpart(text, 0, 2)
 	endif
-	return settings
+	" ---- native jumps signs
+	let native_settings = g:wheel_config.display.sign.native_settings
+	let text = native_settings.text
+	if empty(text)
+		let native_settings.text = wheel#crystal#fetch('sign/text/native')
+	endif
+	let length = strchars(text)
+	if length == 1
+		let native_settings.text ..= ' '
+	elseif length > 2
+		let native_settings.text = strcharpart(text, 0, 2)
+	endif
+	" ---- coda
+	return [settings, native_settings]
 endfun
 
 fun! wheel#chakra#same ()
