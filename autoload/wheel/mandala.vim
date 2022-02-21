@@ -39,12 +39,6 @@ if ! exists('s:is_mandala_file')
 	lockvar s:is_mandala_file
 endif
 
-if ! exists('s:fold_markers')
-	let s:fold_markers = wheel#crystal#fetch('fold/markers')
-	let s:fold_markers = join(s:fold_markers, ',')
-	lockvar s:fold_markers
-endif
-
 " ---- init
 
 fun! wheel#mandala#init ()

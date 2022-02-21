@@ -4,6 +4,14 @@
 "
 " Folding
 
+" ---- script constants
+
+if ! exists('s:fold_markers')
+	let s:fold_markers = wheel#crystal#fetch('fold/markers')
+	let s:fold_markers = join(s:fold_markers, ',')
+	lockvar s:fold_markers
+endif
+
 " ---- helpers
 
 fun! wheel#origami#view_cursor ()
