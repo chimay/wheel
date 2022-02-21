@@ -3770,7 +3770,7 @@ Trouble with xterm & fixkey~
 If you use vim in a xterm with the fixkey plugin, the map `<M-S-p>`
 can cause a strange in the empty buffer at startup. To avoid it, add : >
 
-    let g:Fixkey_setupDelay = 300
+    let g:Fixkey_setupDelay = 500
 <
 
 to your vimrc.
