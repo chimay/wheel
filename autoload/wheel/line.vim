@@ -39,9 +39,7 @@ fun! wheel#line#buffer (settings)
 		call wheel#curve#target (target)
 		execute 'hide buffer' bufnum
 	endif
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -60,9 +58,7 @@ fun! wheel#line#tabwin (settings)
 	execute 'noautocmd tabnext' tabnum
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -82,9 +78,7 @@ fun! wheel#line#tabwin_tree (settings)
 		execute 'noautocmd' winum 'wincmd w'
 	endif
 	doautocmd WinEnter
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -104,9 +98,7 @@ fun! wheel#line#mru (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	return win_getid ()
 endfun
 
@@ -119,9 +111,7 @@ fun! wheel#line#locate (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -138,9 +128,7 @@ fun! wheel#line#find (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'hide edit' filename
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -162,9 +150,7 @@ fun! wheel#line#occur (settings)
 	call wheel#curve#target (target)
 	execute 'hide buffer' bufnum
 	call cursor(line, 1)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -190,9 +176,7 @@ fun! wheel#line#grep (settings)
 	"execute 'hide buffer' bufnum
 	"call cursor(line, col)
 	" ---- coda
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -212,9 +196,7 @@ fun! wheel#line#marker (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute "normal! `" .. mark
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -235,9 +217,7 @@ fun! wheel#line#jump (settings)
 	call wheel#curve#target (target)
 	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -258,9 +238,7 @@ fun! wheel#line#change (settings)
 	call wheel#curve#target (target)
 	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -283,9 +261,7 @@ fun! wheel#line#tag (settings)
 	if found == 0
 		echomsg 'wheel : tag not found : maybe you should update your tag file'
 	endif
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -305,9 +281,7 @@ fun! wheel#line#narrow_file (settings)
 	call wheel#curve#target (target)
 	execute 'hide buffer' bufnum
 	call cursor(linum, 1)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif
@@ -345,9 +319,7 @@ fun! wheel#line#narrow_circle (settings)
 		call cursor(linum, 1)
 	endif
 	" ---- coda
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	if settings.follow
 		call wheel#projection#follow ()
 	endif

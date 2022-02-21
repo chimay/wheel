@@ -35,9 +35,7 @@ fun! wheel#sailing#mru ()
 	let fields = split(record, s:field_separ)
 	let filename = fields[1]
 	execute 'hide edit' filename
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	return win_getid ()
 endfun
 
@@ -49,9 +47,7 @@ fun! wheel#sailing#occur ()
 	let fields = split(record, s:field_separ)
 	let linum = fields[0]
 	call cursor(linum, 1)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	return win_getid ()
 endfun
 
@@ -65,9 +61,7 @@ fun! wheel#sailing#buffer ()
 	execute 'hide buffer' bufnum
 	let linum = fields[1]
 	call cursor(linum, 1)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	call wheel#projection#follow ()
 	return win_getid ()
 endfun
@@ -83,9 +77,7 @@ fun! wheel#sailing#tabwin ()
 	execute 'noautocmd tabnext' tabnum
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	call wheel#projection#follow ()
 	return win_getid ()
 endfun
@@ -98,9 +90,7 @@ fun! wheel#sailing#marker ()
 	let fields = split(record, s:field_separ)
 	let mark = fields[0]
 	execute "normal `" .. mark
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	call wheel#projection#follow ()
 	return win_getid ()
 endfun
@@ -116,9 +106,7 @@ fun! wheel#sailing#jump ()
 	let colnum = str2nr(fields[2])
 	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	call wheel#projection#follow ()
 	return win_getid ()
 endfun
@@ -132,9 +120,7 @@ fun! wheel#sailing#change ()
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
 	call cursor(linum, colnum)
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	return win_getid ()
 endfun
 
@@ -156,9 +142,7 @@ fun! wheel#sailing#tag ()
 	if found == 0
 		echomsg 'wheel : tag not found : maybe you should update your tag file'
 	endif
-	if &foldopen =~ 'jump'
-		normal! zv
-	endif
+	call wheel#origami#view_cursor ()
 	call wheel#projection#follow ()
 	return win_getid ()
 endfun
