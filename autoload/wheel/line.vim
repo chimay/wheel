@@ -37,7 +37,7 @@ fun! wheel#line#buffer (settings)
 		call wheel#vortex#jump (where)
 	else
 		call wheel#curve#target (target)
-		execute 'hide buffer' bufnum
+		execute 'noautocmd silent hide buffer' bufnum
 	endif
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -100,7 +100,7 @@ fun! wheel#line#mru (settings)
 	let filename = fields[1]
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'hide edit' filename
+	execute 'noautocmd silent hide edit' filename
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
 	return win_getid ()
@@ -114,7 +114,7 @@ fun! wheel#line#locate (settings)
 	let filename = settings.selection.component
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'hide edit' filename
+	execute 'noautocmd silent hide edit' filename
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
 	if settings.follow
@@ -132,7 +132,7 @@ fun! wheel#line#find (settings)
 	let filename = trim(filename, ' ')
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'hide edit' filename
+	execute 'noautocmd silent hide edit' filename
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
 	if settings.follow
@@ -154,7 +154,7 @@ fun! wheel#line#occur (settings)
 	let fields = split(component, s:field_separ)
 	let line = str2nr(fields[0])
 	call wheel#curve#target (target)
-	execute 'hide buffer' bufnum
+	execute 'noautocmd silent hide buffer' bufnum
 	call cursor(line, 1)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -175,12 +175,12 @@ fun! wheel#line#grep (settings)
 	call wheel#curve#target (target)
 	" -- using error number
 	let errnum = fields[0]
-	execute 'cc' errnum
+	execute 'noautocmd cc' errnum
 	" -- using buffer, line & col
 	"let bufnum = fields[1]
 	"let line = fields[3]
 	"let col = fields[4]
-	"execute 'hide buffer' bufnum
+	"execute 'noautocmd silent hide buffer' bufnum
 	"call cursor(line, col)
 	" ---- coda
 	call wheel#origami#view_cursor ()
@@ -224,7 +224,7 @@ fun! wheel#line#jump (settings)
 	let colnum = str2nr(fields[2])
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'hide buffer' bufnum
+	execute 'noautocmd silent hide buffer' bufnum
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -246,7 +246,7 @@ fun! wheel#line#change (settings)
 	let bufnum = a:settings.related.bufnum
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'hide buffer' bufnum
+	execute 'noautocmd silent hide buffer' bufnum
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -267,7 +267,7 @@ fun! wheel#line#tag (settings)
 	let search = fields[3][1:]
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'hide edit' file
+	execute 'noautocmd silent hide edit' file
 	let found = search(search, 'sw')
 	if found == 0
 		echomsg 'wheel : tag not found : maybe you should update your tag file'
@@ -291,7 +291,7 @@ fun! wheel#line#narrow_file (settings)
 	let linum = str2nr(fields[0])
 	" ---- go
 	call wheel#curve#target (target)
-	execute 'hide buffer' bufnum
+	execute 'noautocmd silent hide buffer' bufnum
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -325,10 +325,10 @@ fun! wheel#line#narrow_circle (settings)
 		let pairs = getqflist()->map({ _, val -> [ val.bufnr, val.lnum ] })
 		let index = pairs->index(destination)
 		let errnum = index + 1
-		execute 'cc' errnum
+		execute 'noautocmd cc' errnum
 	else
 		" context line
-		execute 'hide buffer' bufnum
+		execute 'noautocmd silent hide buffer' bufnum
 		call cursor(linum, 1)
 	endif
 	" ---- coda
