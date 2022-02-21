@@ -4285,6 +4285,7 @@ of the modules within them.
 | mirror.vim        | Organize native vim elements                       |
 | mosaic.vim        | Windows & tabs Layouts                             |
 | orbiter.vim       | Preview for dedicated buffers                      |
+| origami.vim       | Folding                                            |
 | ouroboros.vim     | Clear, save & restore vars, maps, autocmds         |
 | pencil.vim        | Selection in dedicated buffers                     |
 | pendulum.vim      | Wheel history                                      |
