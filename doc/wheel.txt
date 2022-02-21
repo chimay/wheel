@@ -2754,11 +2754,17 @@ Default : '☰ '
 ------------------------------------------------------------------------------
 SIGNS						*wheel-config-display-sign*
 
+Switch~
+
 By default, signs are displayed at wheel locations. You can disable it
 if you want : >
 
     let g:wheel_config.display.sign.switch = 0
 <
+
+Default : 1
+
+Settings~
 
 The sign settings for wheel location can also be modified : >
 
@@ -2767,6 +2773,16 @@ The sign settings for wheel location can also be modified : >
 <
 
 Default : '☯'
+
+Native settings~
+
+Sign settings for native navigation : >
+
+
+    let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
+<
+
+Default : '✻'
 
 See also |sign.txt| and |:sign|.
 
@@ -2881,13 +2897,16 @@ Here is an example of a complete configuration : >
   " Wheel message : one-line or multi-line
   let g:wheel_config.display.message = 'one-line'
   " Filter prompt in dedicated buffers
-  let g:wheel_config.display.prompt = 'wheel $ '
-  let g:wheel_config.display.prompt_writable = 'wheel # '
+  "let g:wheel_config.display.prompt = 'wheel $ '
+  "let g:wheel_config.display.prompt_writable = 'wheel # '
   " Selection marker in dedicated buffers
-  let g:wheel_config.display.selection = '-> '
-  " Sign text at wheel locations
+  "let g:wheel_config.display.selection = '-> '
+  " Signs
   let g:wheel_config.display.sign.switch = 1
-  let g:wheel_config.display.sign.settings = { 'text' : '@' }
+  " Sign text at wheel locations
+  "let g:wheel_config.display.sign.settings = { 'text' : '@' }
+  " Signs for native navigation
+  "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 <
 
 ==============================================================================

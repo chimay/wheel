@@ -418,13 +418,16 @@ if ! exists("g:wheel_loaded")
   " Wheel messages : one-line or multi-line
   let g:wheel_config.display.message = 'one-line'
   " Filter prompt in dedicated buffers
-  let g:wheel_config.display.prompt = 'wheel $ '
-  let g:wheel_config.display.prompt_writable = 'wheel # '
+  "let g:wheel_config.display.prompt = 'wheel $ '
+  "let g:wheel_config.display.prompt_writable = 'wheel # '
   " Selection marker in dedicated buffers
-  let g:wheel_config.display.selection = '-> '
-  " Sign text at wheel locations
+  "let g:wheel_config.display.selection = '-> '
+  " Signs
   let g:wheel_config.display.sign.switch = 1
-  let g:wheel_config.display.sign.settings = { 'text' : '@' }
+  " Sign text at wheel locations
+  "let g:wheel_config.display.sign.settings = { 'text' : '@' }
+  " Signs for native navigation
+  "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 
   let g:wheel_config.debug = 0
 endif
