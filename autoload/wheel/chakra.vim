@@ -11,6 +11,11 @@ if ! exists('s:sign_name')
 	lockvar s:sign_name
 endif
 
+if ! exists('s:sign_native_name')
+	let s:sign_native_name = wheel#crystal#fetch('sign/name/native')
+	lockvar s:sign_native_name
+endif
+
 if ! exists('s:sign_group')
 	let s:sign_group = wheel#crystal#fetch('sign/group')
 	lockvar s:sign_group
@@ -23,11 +28,9 @@ endif
 
 " ---- helpers
 
-fun! wheel#chakra#format ()
-	" Format sign text to ensure it contains 2 chars
-	" sign text must be 2 chars or a space will be added by vim
-	" ---- wheel locations signs
-	let settings = g:wheel_config.display.sign.settings
+fun! wheel#chakra#format_text (settings)
+	" Format text in settings
+	let settings = a:settings
 	let text = settings.text
 	if empty(text)
 		let settings.text = wheel#crystal#fetch('sign/text')
@@ -38,20 +41,41 @@ fun! wheel#chakra#format ()
 	elseif length > 2
 		let settings.text = strcharpart(text, 0, 2)
 	endif
-	" ---- native jumps signs
+	return settings
+endfun
+
+fun! wheel#chakra#format ()
+	" Format sign text to ensure it contains 2 chars
+	" sign text must be 2 chars or a space will be added by vim
+	let settings = g:wheel_config.display.sign.settings
+	call wheel#chakra#format_text (settings)
 	let native_settings = g:wheel_config.display.sign.native_settings
-	let text = native_settings.text
-	if empty(text)
-		let native_settings.text = wheel#crystal#fetch('sign/text/native')
-	endif
-	let length = strchars(text)
-	if length == 1
-		let native_settings.text ..= ' '
-	elseif length > 2
-		let native_settings.text = strcharpart(text, 0, 2)
-	endif
-	" ---- coda
+	call wheel#chakra#format_text (native_settings)
 	return [settings, native_settings]
+endfun
+
+fun! wheel#chakra#define_sign (name, settings)
+	" Define sign from name & settings
+	let name = a:name
+	let settings = a:settings
+	let defined = sign_getdefined()
+	let subdef = defined->filter({ _, val -> val.name == name })
+	" -- first definition
+	if empty(subdef)
+		call wheel#chakra#format ()
+		" define
+		call sign_define(name, settings)
+		return v:true
+	endif
+	" -- change of settings in g:wheel_config
+	let current_sign = subdef[0]
+	if settings.text != current_sign.text
+		call wheel#chakra#format ()
+		call sign_undefine(name)
+		call sign_define(name, settings)
+		call wheel#chakra#replace_all ()
+	endif
+	return v:true
 endfun
 
 fun! wheel#chakra#same ()
@@ -72,27 +96,12 @@ endfun
 
 fun! wheel#chakra#define ()
 	" Define wheel sign
-	let signs = g:wheel_signs
 	let name = s:sign_name
 	let settings = g:wheel_config.display.sign.settings
-	let defined = sign_getdefined()
-	let subdef = defined->filter({ _, val -> val.name == name })
-	" -- first definition
-	if empty(subdef)
-		call wheel#chakra#format ()
-		" define
-		call sign_define(name, settings)
-		return v:true
-	endif
-	" -- change of settings in g:wheel_config
-	let current_sign = subdef[0]
-	if settings.text != current_sign.text
-		call wheel#chakra#format ()
-		call sign_undefine(name)
-		call sign_define(name, settings)
-		call wheel#chakra#replace_all ()
-	endif
-	return v:true
+	call wheel#chakra#define_sign (name, settings)
+	let native_name = s:sign_native_name
+	let native_settings = g:wheel_config.display.sign.native_settings
+	call wheel#chakra#define_sign (native_name, native_settings)
 endfun
 
 fun! wheel#chakra#place ()
