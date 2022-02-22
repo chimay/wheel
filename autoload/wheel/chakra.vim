@@ -64,6 +64,20 @@ fun wheel#chakra#same_place (one, two)
 	return same_buffer && same_line
 endfun
 
+fun! wheel#chakra#location_sign_is_here ()
+	" Whether a location sign is at current line
+	let signs = g:wheel_signs
+	let bufnum = bufnr('%')
+	let linum = line('.')
+	let place = #{
+				\ buffer : bufnum,
+				\ line : linum
+				\ }
+	let location_table = deepcopy(signs.table)
+	eval location_table->filter({ _, val -> wheel#chakra#same_place (val, place) })
+	return ! empty(location_table)
+endfun
+
 " ---- helpers
 
 fun! wheel#chakra#format_text (settings)
@@ -119,8 +133,21 @@ endfun
 
 " ---- native signs
 
+fun! wheel#chakra#unplace_native_in_buffer (bufnum)
+	" Unplace native signs in buffer bufnum
+	let bufnum = a:bufnum
+	let group = s:sign_native_group
+	let buffer_dict = #{ buffer : bufnum }
+	call sign_unplace(group, buffer_dict)
+endfun
+
+
 fun! wheel#chakra#place_native ()
 	" Place sign for native navigation
+	let display_sign = g:wheel_config.display.sign.switch
+	if ! display_sign
+		return -1
+	endif
 	let signs = g:wheel_signs
 	" ---- fields
 	let iden = signs.native_iden
@@ -131,18 +158,11 @@ fun! wheel#chakra#place_native ()
 	let bufnum = bufnr('%')
 	let linum = line('.')
 	" ---- any location sign at the same place ?
-	let place = #{
-				\ buffer : bufnum,
-				\ line : linum
-				\ }
-	let location_table = deepcopy(signs.table)
-	eval location_table->filter({ _, val -> wheel#chakra#same_place (val, place) })
-	if ! empty(location_table)
+	if wheel#chakra#location_sign_is_here ()
 		return -1
 	endif
 	" ---- remove other signs in same buffer
-	let buffer_dict = #{ buffer : bufnum }
-	call sign_unplace(group, buffer_dict)
+	call wheel#chakra#unplace_native_in_buffer (bufnum)
 	" ---- table
 	let entry = #{
 				\ iden : new_iden,
@@ -159,35 +179,6 @@ fun! wheel#chakra#place_native ()
 	let iden = round_table->map({ _, val -> val.iden })
 	let signs.native_iden = iden
 	return new_iden
-endfun
-
-fun! wheel#chakra#unplace_native ()
-	" Unplace native sign at current location
-	let signs = g:wheel_signs
-	let iden = signs.native_iden
-	let subtable = deepcopy(signs.native_table)
-	" ---- fields
-	let location = wheel#referen#location ()
-	let bufnum = bufnr(location.file)
-	let linum = location.line
-	" ---- subtable
-	let place = #{
-				\ buffer : bufnum,
-				\ line : linum
-				\ }
-	eval subtable->filter({ _, val -> wheel#chakra#same_place (val, place) })
-	if empty(subtable)
-		return v:true
-	endif
-	" ---- unplace
-	let group = s:sign_native_group
-	let entry = subtable[0]
-	let old_iden = entry.iden
-	let dict = #{ id : old_iden }
-	call sign_unplace(group, dict)
-	eval iden->wheel#chain#remove_element(old_iden)
-	eval g:wheel_signs.native_table->filter({ _, val -> val.iden != old_iden })
-	return old_iden
 endfun
 
 " ---- location & native signs
@@ -282,6 +273,35 @@ fun! wheel#chakra#unplace ()
 	return old_iden
 endfun
 
+fun! wheel#chakra#unplace_native_at_location ()
+	" Unplace native sign at current location
+	let signs = g:wheel_signs
+	let iden = signs.native_iden
+	let subtable = deepcopy(signs.native_table)
+	" ---- fields
+	let location = wheel#referen#location ()
+	let bufnum = bufnr(location.file)
+	let linum = location.line
+	" ---- subtable
+	let place = #{
+				\ buffer : bufnum,
+				\ line : linum
+				\ }
+	eval subtable->filter({ _, val -> wheel#chakra#same_place (val, place) })
+	if empty(subtable)
+		return v:true
+	endif
+	" ---- unplace
+	let group = s:sign_native_group
+	let entry = subtable[0]
+	let old_iden = entry.iden
+	let dict = #{ id : old_iden }
+	call sign_unplace(group, dict)
+	eval iden->wheel#chain#remove_element(old_iden)
+	eval g:wheel_signs.native_table->filter({ _, val -> val.iden != old_iden })
+	return old_iden
+endfun
+
 fun! wheel#chakra#clear ()
 	" Unplace all locations signs
 	let signs = g:wheel_signs
@@ -308,7 +328,7 @@ fun! wheel#chakra#update ()
 		return v:true
 	endif
 	call wheel#chakra#unplace ()
-	call wheel#chakra#unplace_native ()
+	call wheel#chakra#unplace_native_at_location ()
 	call wheel#chakra#place ()
 	return v:true
 endfun
