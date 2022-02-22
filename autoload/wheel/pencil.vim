@@ -65,25 +65,6 @@ endfun
 
 " ---- virtual selection at current line
 
-fun! wheel#pencil#default_line ()
-	" If on filter line, put the cursor on line 2 if possible
-	let is_filtered = wheel#teapot#is_filtered ()
-	let has_filter = wheel#teapot#has_filter()
-	if is_filtered && line('$') == 1
-		call wheel#teapot#clear()
-	endif
-	if has_filter && line('$') == 1
-		echomsg 'wheel pencil default line : mandala is empty'
-		return v:false
-	endif
-	let cur_line = line('.')
-	let last_line = line('$')
-	if has_filter && cur_line == 1 && last_line > 1
-		call cursor(2, 1)
-	endif
-	return v:true
-endfun
-
 fun! wheel#pencil#cursor (...)
 	" Return dict containing index & component at cursor line
 	" Optional argument :
@@ -94,7 +75,7 @@ fun! wheel#pencil#cursor (...)
 	"   - treeish : in folded mandala buffer
 	" ---- default line if needed
 	" ---- must come before : line('.')
-	if ! wheel#pencil#default_line ()
+	if ! wheel#teapot#filter_to_default_line ()
 		return {}
 	endif
 	" ---- arguments

@@ -310,7 +310,7 @@ fun! wheel#book#syncup ()
 	let leaf.preview = copy(b:wheel_preview)
 	" -- cursor
 	" position
-	call wheel#pencil#default_line ()
+	call wheel#teapot#filter_to_default_line ()
 	let cursor = leaf.cursor
 	let cursor.position = getcurpos()
 	" virtual selection of cursor line : useful for context menus

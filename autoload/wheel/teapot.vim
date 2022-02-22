@@ -105,10 +105,10 @@ fun! wheel#teapot#wordlist ()
 	" Return words of filtering first line, without prompt
 	let mandala_prompt = wheel#teapot#prompt ()
 	let pattern = '\m^' .. mandala_prompt
-	let words = getline(1)
-	let words = substitute(words, pattern, '', '')
-	let words = split(words)
-	return words
+	let wordlist = getline(1)
+	let wordlist = substitute(wordlist, pattern, '', '')
+	let wordlist = split(wordlist)
+	return wordlist
 endfun
 
 " ---- run filter
@@ -166,25 +166,44 @@ fun! wheel#teapot#filter (update = 'update', lock = 'lock')
 	return v:true
 endfun
 
-fun! wheel#teapot#reset (update = 'update', lock = 'lock')
-	" Reset filter
-	call wheel#teapot#set_prompt ('', a:lock)
-	call wheel#teapot#filter(a:update, a:lock)
-endfun
-
 " ---- clear filter
 
-fun! wheel#teapot#clear ()
-	" Filter : keep only lines matching words of first line
-	let words = wheel#teapot#wordlist ()
-	if ! empty(words)
-		let lines = b:wheel_lines
-		let b:wheel_filter.words = []
-		let b:wheel_filter.indexes = []
-		let b:wheel_filter.lines = []
+fun! wheel#teapot#reset (update = 'update', lock = 'lock')
+	" Reset filter
+	let update = a:update
+	let lock = a:lock
+	if update ==# 'update'
+		call wheel#polyphony#update_var_lines ()
 	endif
-	call wheel#mandala#replace (lines)
-	call wheel#pencil#show ()
+	let lines = b:wheel_lines
+	let b:wheel_filter.words = []
+	let b:wheel_filter.indexes = []
+	let b:wheel_filter.lines = []
+	call wheel#mandala#replace (lines, 'empty-prompt-first', lock)
+	call wheel#pencil#show (lock)
+	normal! zMzv
+endfun
+
+" ---- default line
+
+fun! wheel#teapot#filter_to_default_line ()
+	" If on filter line, put the cursor on line 2 if possible
+	let is_filtered = wheel#teapot#is_filtered ()
+	let has_filter = wheel#teapot#has_filter()
+	if is_filtered && line('$') == 1
+		call wheel#teapot#reset()
+	endif
+	if has_filter && line('$') == 1
+		echomsg 'wheel teapot default line : mandala is empty'
+		return v:false
+	endif
+	let cur_line = line('.')
+	let last_line = line('$')
+	if has_filter && cur_line == 1 && last_line > 1
+		call cursor(2, 1)
+	endif
+	call wheel#origami#view_cursor ()
+	return v:true
 endfun
 
 " all lines, unfiltered and without selection mark
@@ -231,8 +250,8 @@ endfun
 
 fun! wheel#teapot#normal_cc ()
 	" Normal command cc in mandala with filter
-	call wheel#teapot#reset ('update', 'dont-lock')
 	call cursor(1, 1)
+	call wheel#teapot#reset ('update', 'dont-lock')
 	call cursor(1, col('$'))
 	startinsert!
 endfun
