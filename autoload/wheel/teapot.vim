@@ -181,7 +181,8 @@ fun! wheel#teapot#reset (update = 'update', lock = 'lock')
 	let b:wheel_filter.lines = []
 	call wheel#mandala#replace (lines, 'empty-prompt-first', lock)
 	call wheel#pencil#show (lock)
-	normal! zMzv
+	setlocal foldlevel=0
+	call wheel#origami#view_cursor ()
 endfun
 
 " ---- default line
@@ -250,8 +251,8 @@ endfun
 
 fun! wheel#teapot#normal_cc ()
 	" Normal command cc in mandala with filter
-	call cursor(1, 1)
 	call wheel#teapot#reset ('update', 'dont-lock')
+	call cursor(1, 1)
 	call cursor(1, col('$'))
 	startinsert!
 endfun
