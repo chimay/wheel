@@ -550,6 +550,9 @@ need to enable auto read & write : >
 Don't worry about the size : I have 450+ files in my groups, and it is
 still fluid, thanks to on-demand file loading.
 
+Generally speaking, this plugin is designed to let the user control the flow.
+If you want to automate more, take a look at |wheel-autocommands|.
+
 ==============================================================================
 STRAIGHTFORWARD FUNCTIONS			*wheel-straightforward-functions*
 
