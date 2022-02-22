@@ -163,7 +163,7 @@ fun! wheel#line#grep (settings)
 	call wheel#curve#target (target)
 	" -- using error number
 	let errnum = fields[0]
-	execute 'noautocmd cc' errnum
+	execute 'cc' errnum
 	" -- using buffer, line & col
 	"let bufnum = fields[1]
 	"let line = fields[3]
@@ -301,7 +301,7 @@ fun! wheel#line#narrow_circle (settings)
 		let pairs = getqflist()->map({ _, val -> [ val.bufnr, val.lnum ] })
 		let index = pairs->index(destination)
 		let errnum = index + 1
-		execute 'noautocmd cc' errnum
+		execute 'cc' errnum
 	else
 		" context line
 		execute 'silent hide buffer' bufnum
