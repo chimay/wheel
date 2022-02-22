@@ -58,8 +58,8 @@ fun! wheel#loop#navigation (settings)
 		" go to last destination
 		call win_gotoid (winiden)
 	else
-		" no need to trigger WheelBeforeNative : the operation is already done
-		" vortex#update causes native navigation signs override
+		" no need to trigger WheelBeforeJump : the operation is already done
+		" vortex#update overrides native navigation signs
 		" by location signs on some files
 		call wheel#cylinder#recall ('dont-trigger')
 	endif
