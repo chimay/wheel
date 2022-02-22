@@ -20,7 +20,6 @@ fun! wheel#loop#navigation (settings)
 	"   - target : current window, tab, horizontal or vertical split,
 	"              even or with golden ratio
 	"   - related buffer of current mandala
-	"   - follow : whether to find closest wheel location after arrival
 	"   - close : whether to close mandala
 	let settings = deepcopy(a:settings)
 	call wheel#river#default (settings)
@@ -59,8 +58,10 @@ fun! wheel#loop#navigation (settings)
 		" go to last destination
 		call win_gotoid (winiden)
 	else
-		call wheel#cylinder#recall ()
-		" let the user clear the selection with <bar> if he chooses to
+		" no need to trigger WheelBeforeNative : the operation is already done
+		" vortex#update causes native navigation signs override
+		" by location signs on some files
+		call wheel#cylinder#recall ('dont-trigger')
 	endif
 	return winiden
 endfun

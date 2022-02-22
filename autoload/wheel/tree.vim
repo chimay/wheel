@@ -270,7 +270,7 @@ endfun
 
 fun! wheel#tree#add_here ()
 	" Add here to circle
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	let here = wheel#vortex#here()
 	call wheel#tree#add_location(here)
 endfun
@@ -284,7 +284,7 @@ fun! wheel#tree#add_file (...)
 		let complete = 'customlist,wheel#complete#file'
 		let file = input(prompt, '', complete)
 	endif
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	execute 'hide edit' file
 	call wheel#tree#add_here()
 endfun
@@ -300,7 +300,7 @@ fun! wheel#tree#add_buffer (...)
 		let fields = split(choice, s:field_separ)
 		let buffer = fields[3]
 	endif
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	execute 'hide buffer' buffer
 	call wheel#tree#add_here()
 endfun
@@ -314,7 +314,7 @@ fun! wheel#tree#add_glob (...)
 		let complete = 'customlist,wheel#complete#file'
 		let glob = input(prompt, '', complete)
 	endif
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" add first torus if needed
 	if empty(g:wheel.toruses)
 		call wheel#tree#add_torus()
@@ -389,7 +389,7 @@ fun! wheel#tree#rename (level, ...)
 		return v:false
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- rename
 	let old = current.name
 	let current.name = new
@@ -451,7 +451,7 @@ fun! wheel#tree#rename_file (...)
 	execute 'silent file' new_filename
 	silent write!
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- adapt wheel variables to new_filename
 	call wheel#tree#adapt_to_filename (old_filename, new_filename)
 	" ---- rename location
@@ -477,7 +477,7 @@ fun! wheel#tree#remove (level, name)
 		return v:false
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- remove from elements list
 	eval elements->remove(index)
 	" ---- adjust current index if necessary
@@ -531,7 +531,7 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 		return v:false
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- remove
 	let length = len(elements)
 	let upper_level_name = wheel#referen#upper_level_name (level)
@@ -602,7 +602,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 		echomsg 'wheel copy/move : mode must be copy or move'
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- copy / move
 	if level ==# 'torus'
 		" mode must be copy at this stage

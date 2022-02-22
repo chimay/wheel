@@ -439,14 +439,20 @@ augroup wheel
 	autocmd VimEnter * call wheel#void#init()
 	" On vim leave, for autowriting
 	autocmd VimLeave * call wheel#void#exit()
-	" Executed before jumping to a location
-	autocmd User WheelUpdate call wheel#vortex#update()
-	" Executed after jumping to a location
-	autocmd User WheelAfterJump norm zMzx
-	" For current wheel location to auto follow window changes
-	autocmd WinEnter * call wheel#projection#follow()
 	" Update location line & col before leaving a window
 	autocmd BufLeave * call wheel#vortex#update()
+	" Executed before jumping to a location
+	autocmd User WheelBeforeJump call wheel#vortex#update()
+	" Executed after jumping to a location
+	"autocmd User WheelAfterJump norm zMzx
+	" For current wheel location to auto follow window changes
+	autocmd WinEnter * call wheel#projection#follow()
+	" For current wheel location to follow on editing, buffer loading
+	"autocmd BufRead * call wheel#projection#follow()
+	" For current wheel location to follow on entering buffer
+	"autocmd BufEnter * call wheel#projection#follow()
+	" For current wheel location to follow after a native jump
+	"autocmd User WheelAfterNative call wheel#projection#follow()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
 	" To record your yanks in the yank ring

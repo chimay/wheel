@@ -338,7 +338,7 @@ fun! wheel#disc#write_wheel (...)
 		return v:false
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
 	" ---- write

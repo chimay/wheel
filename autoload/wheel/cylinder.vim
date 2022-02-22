@@ -99,10 +99,6 @@ fun! wheel#cylinder#goto (...)
 		" already there
 		return v:false
 	endif
-	" ---- user update autocmd
-	" causes native navigation signs override by location signs
-	" on some files
-	"silent doautocmd User WheelUpdate
 	" ---- go to mandala
 	let bufring = g:wheel_bufring
 	let mandalas = bufring.mandalas
@@ -164,9 +160,16 @@ fun! wheel#cylinder#goto_or_load ()
 	return v:true
 endfun
 
-fun! wheel#cylinder#recall ()
+fun! wheel#cylinder#recall (autocmd = 'trigger')
 	" Recall mandala buffer : find its window or load it in a split
+	" Optional argument :
+	"   - trigger : trigger user before jump autocommand
+	"   - dont-trigger : don't trigger update
+	let autocmd = a:autocmd
 	call wheel#cylinder#check ()
+	if autocmd ==# 'trigger'
+		silent doautocmd User WheelBeforeJump
+	endif
 	return wheel#cylinder#goto_or_load ()
 endfun
 

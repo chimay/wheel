@@ -270,8 +270,9 @@ fun! wheel#perspective#jump ()
 			continue
 		endif
 		" loaded ?
-		if bufloaded(bufnum)
-			let content = getbufline(bufnum, linum)[0]
+		let buflinelist = getbufline(bufnum, linum)
+		if ! empty(buflinelist)
+			let content = buflinelist[0]
 		else
 			let content = ' '
 		endif

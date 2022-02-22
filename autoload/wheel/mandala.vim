@@ -365,7 +365,7 @@ fun! wheel#mandala#blank (type)
 	" Open a mandala buffer
 	let type = a:type
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- create / open current mandala
 	if ! wheel#cylinder#recall()
 		call wheel#cylinder#first ()

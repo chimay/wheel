@@ -32,7 +32,7 @@ fun! wheel#orbiter#preview ()
 	call wheel#rectangle#goto_previous ()
 	call wheel#projection#follow ()
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- call mandala function
 	let Fun = settings.function
 	let winiden = wheel#metafun#call (Fun, settings)

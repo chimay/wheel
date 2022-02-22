@@ -41,9 +41,7 @@ fun! wheel#line#buffer (settings)
 	endif
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -61,9 +59,7 @@ fun! wheel#line#tabwin (settings)
 	doautocmd WinEnter
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -82,9 +78,7 @@ fun! wheel#line#tabwin_tree (settings)
 	doautocmd WinEnter
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -117,9 +111,7 @@ fun! wheel#line#locate (settings)
 	execute 'silent hide edit' filename
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -135,9 +127,7 @@ fun! wheel#line#find (settings)
 	execute 'silent hide edit' filename
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -158,9 +148,7 @@ fun! wheel#line#occur (settings)
 	call cursor(line, 1)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -185,9 +173,7 @@ fun! wheel#line#grep (settings)
 	" ---- coda
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -206,9 +192,7 @@ fun! wheel#line#marker (settings)
 	execute "normal! `" .. mark
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -228,9 +212,7 @@ fun! wheel#line#jump (settings)
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -250,9 +232,7 @@ fun! wheel#line#change (settings)
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -274,9 +254,7 @@ fun! wheel#line#tag (settings)
 	endif
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -295,9 +273,7 @@ fun! wheel#line#narrow_file (settings)
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -334,9 +310,7 @@ fun! wheel#line#narrow_circle (settings)
 	" ---- coda
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
-	if settings.follow
-		call wheel#projection#follow ()
-	endif
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 

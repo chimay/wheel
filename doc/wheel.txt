@@ -610,6 +610,8 @@ the sync-down. The default binding is : >
     <M-w>$
 <
 
+This process can be partly automated, see :
+
 Sync up : current file & position -> wheel~
 
 The `follow` function try to find the closest location in the wheel that
@@ -624,7 +626,10 @@ manually launch the sync-up process. The default mapping is : >
     <M-w><M-$>
 <
 
-This process can be partly automated, see |wheel-autocommands-auto-follow|.
+This process can be partly automated, see :
+
+- |wheel-autocommands-auto-follow|.
+- |wheel-autocommands-after-native|.
 
 Sync up : update current location line & column~
 
@@ -632,7 +637,10 @@ The `update` function updates the current location to match cursor line
 & column.  It is called by the `follow` routine, so you can also use
 `<M-w><M-$>` to launch it.
 
-This process can be partly automated, see |wheel-autocommands-auto-update|.
+This process can be partly automated, see :
+
+- |wheel-autocommands-auto-update|.
+- |wheel-autocommands-before-jump|.
 
 ==============================================================================
 PROMPTING FUNCTIONS				*wheel-prompting-functions*
@@ -2756,8 +2764,12 @@ SIGNS						*wheel-config-display-sign*
 
 Switch~
 
-By default, signs are displayed at wheel locations. You can disable it
-if you want : >
+By default, signs are displayed at :
+
+- wheel locations
+- cursor line after a native jump
+
+You can disable it if you want : >
 
     let g:wheel_config.display.sign.switch = 0
 <
@@ -2766,13 +2778,13 @@ Default : 1
 
 Settings~
 
-The sign settings for wheel location can also be modified : >
+The sign settings for wheel location can be modified : >
 
 
     let g:wheel_config.display.sign.settings = { 'text' : '@' }
 <
 
-Default : '☯'
+Default : { 'text' : '☯' }
 
 Native settings~
 
@@ -2782,7 +2794,7 @@ Sign settings for native navigation : >
     let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 <
 
-Default : '✻'
+Default : { 'text' : '✻' }
 
 See also |sign.txt| and |:sign|.
 
@@ -2916,8 +2928,10 @@ Auto group			|wheel-autocommands-auto-group|
 Auto read			|wheel-autocommands-auto-read|
 Auto write			|wheel-autocommands-auto-write|
 Auto update			|wheel-autocommands-auto-update|
+Before jump			|wheel-autocommands-before-jump|
 After jump			|wheel-autocommands-after-jump|
 Auto follow			|wheel-autocommands-auto-follow|
+After native			|wheel-autocommands-after-native|
 MRU files			|wheel-autocommands-mru-files|
 Yank ring			|wheel-autocommands-yank|
 Example				|wheel-autocommands-example|
@@ -2967,11 +2981,24 @@ AUTO UPDATE					*wheel-autocommands-auto-update*
 By default, locations are only updated manually, with `<M-w><M-$>`. This
 way, you can update the wheel only when you want to do so.
 
-Nevertheless, it is possible to update automatically your locations before
-each jump to a new wheel location. Just add the update function to the
-`WheelUpdate` user event : >
+Nevertheless, if you want to update your cursor position each time you
+leave a buffer, you can use the classic BufLeave event : >
 
-    autocmd User WheelUpdate call wheel#vortex#update()
+  autocmd BufLeave * call wheel#vortex#update()
+<
+
+Launch it manually~
+
+You can launch the follow routine manually with `<M-w>$` by default.
+
+------------------------------------------------------------------------------
+BEFORE JUMP					*wheel-autocommands-before-jump*
+
+It is possible to update automatically your locations before each
+jump to a new wheel location. Just add the update function to the
+`WheelBeforeJump` user event : >
+
+    autocmd User WheelBeforeJump call wheel#vortex#update()
 <
 
 This autocmd is run before any jump, as soon as you use a wheel navigation
@@ -2981,12 +3008,6 @@ function :
 - switch to element
 - switch in index, history, frecency
 - ...
-
-If you want to update your cursor position each time you leave a buffer, you
-can also use the classic BufLeave event : >
-
-  autocmd BufLeave * call wheel#vortex#update()
-<
 
 ------------------------------------------------------------------------------
 AFTER JUMP				*wheel-autocommands-after-jump*
@@ -3007,7 +3028,7 @@ This example opens recursively the folds under the cursor line : >
 <
 
 ------------------------------------------------------------------------------
-AUTO FOLLOW		    		*wheel-autocommands-auto-follow*
+AUTO FOLLOW			   		*wheel-autocommands-auto-follow*
 
 On switching tab or window~
 
@@ -3044,6 +3065,17 @@ Same thing when you enter a buffer with a native vim command (like
 <
 
 ------------------------------------------------------------------------------
+AFTER NATIVE					*wheel-autocommands-after-native*
+
+The `WheelAfterNative` user event happens after any jump using a native
+(neo)vim function.
+
+You can use it to auto-follow after a native operation : >
+
+    autocmd User WheelAfterNative call wheel#projection#follow()
+<
+
+------------------------------------------------------------------------------
 MRU FILES				    *wheel-autocommands-mru-files*
 
 If you want to record a list of the files you edited without adding them
@@ -3073,18 +3105,20 @@ Here is an example of a complete autocommands configuration : >
 	autocmd VimEnter * call wheel#void#init()
 	" On vim leave, for autowriting
 	autocmd VimLeave * call wheel#void#exit()
+	" Update location line & col before leaving a window
+	autocmd BufLeave * call wheel#vortex#update()
 	" Executed before jumping to a location
-	autocmd User WheelUpdate call wheel#vortex#update()
+	autocmd User WheelBeforeJump call wheel#vortex#update()
 	" Executed after jumping to a location
-	autocmd User WheelAfterJump norm zMzx
+	"autocmd User WheelAfterJump norm zMzx
 	" For current wheel location to auto follow window changes
 	autocmd WinEnter * call wheel#projection#follow()
 	" For current wheel location to follow on editing, buffer loading
-	autocmd BufRead * call wheel#projection#follow()
+	"autocmd BufRead * call wheel#projection#follow()
 	" For current wheel location to follow on entering buffer
-	autocmd BufEnter * call wheel#projection#follow()
-	" Update location line & col before leaving a window
-	autocmd BufLeave * call wheel#vortex#update()
+	"autocmd BufEnter * call wheel#projection#follow()
+	" For current wheel location to follow after a native jump
+	"autocmd User WheelAfterNative call wheel#projection#follow()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
 	" To record your yanks in the yank ring

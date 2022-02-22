@@ -25,6 +25,10 @@ fun! wheel#sailing#find (...)
 		let file = input(prompt, '', complete)
 	endif
 	execute 'hide edit' file
+	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
+	return win_getid ()
 endfun
 
 fun! wheel#sailing#mru ()
@@ -36,6 +40,8 @@ fun! wheel#sailing#mru ()
 	let filename = fields[1]
 	execute 'hide edit' filename
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -48,6 +54,8 @@ fun! wheel#sailing#occur ()
 	let linum = fields[0]
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -62,7 +70,8 @@ fun! wheel#sailing#buffer ()
 	let linum = fields[1]
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
-	call wheel#projection#follow ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -78,7 +87,8 @@ fun! wheel#sailing#tabwin ()
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter
 	call wheel#origami#view_cursor ()
-	call wheel#projection#follow ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -91,7 +101,8 @@ fun! wheel#sailing#marker ()
 	let mark = fields[0]
 	execute "normal `" .. mark
 	call wheel#origami#view_cursor ()
-	call wheel#projection#follow ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -107,7 +118,8 @@ fun! wheel#sailing#jump ()
 	execute 'hide buffer' bufnum
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
-	call wheel#projection#follow ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -121,6 +133,8 @@ fun! wheel#sailing#change ()
 	let colnum = str2nr(fields[1])
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
 
@@ -143,6 +157,7 @@ fun! wheel#sailing#tag ()
 		echomsg 'wheel : tag not found : maybe you should update your tag file'
 	endif
 	call wheel#origami#view_cursor ()
-	call wheel#projection#follow ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun

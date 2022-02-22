@@ -140,7 +140,7 @@ endfun
 fun! wheel#vortex#voice (level, name)
 	" Adjust variables of level to name & perform user update autocmd
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- tune
 	return wheel#vortex#tune (a:level, a:name)
 endfun
@@ -154,7 +154,7 @@ fun! wheel#vortex#interval (coordin)
 		echomsg 'wheel vortex interval : [' join(coordin) '] should contain 2 elements'
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- tune
 	let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
 	if indexes[0] >= 0
@@ -173,7 +173,7 @@ fun! wheel#vortex#chord (coordin)
 		return indexes
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- tune
 	let indexes[0] = wheel#vortex#tune ('torus', coordin[0])
 	if indexes[0] >= 0
@@ -198,7 +198,7 @@ fun! wheel#vortex#previous (level, where = 'search-window')
 		return -1
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- tune
 	let index = upper.current
 	let elements = wheel#referen#elements(upper)
@@ -218,7 +218,7 @@ fun! wheel#vortex#next (level, where = 'search-window')
 		return -1
 	endif
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- tune
 	let index = upper.current
 	let elements = wheel#referen#elements(upper)
@@ -257,7 +257,7 @@ fun! wheel#vortex#multi_switch(where = 'search-window')
 	" Optional argument : see vortex#jump optional argument
 	let where = a:where
 	" ---- user update autocmd
-	silent doautocmd User WheelUpdate
+	silent doautocmd User WheelBeforeJump
 	" ---- tune
 	let indexes = [-1, -1, -1]
 	for level in s:referen_coordin
