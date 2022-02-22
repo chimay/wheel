@@ -9,16 +9,16 @@
 fun! wheel#delta#undo_iden (...)
 	" Return undo iden at current or given line
 	if a:0 > 0
-		let line = a:1
+		let linum = a:1
 	else
-		let line = '.'
+		let linum = '.'
 	endif
-	if line ==# '.'
+	if linum ==# '.'
 		call wheel#teapot#filter_to_default_line ()
-	elseif line == 1
-		let line = wheel#teapot#first_data_line ()
+	elseif linum == 1
+		let linum = wheel#teapot#first_data_line ()
 	endif
-	let line = getline(line)
+	let line = getline(linum)
 	let fields = split(line)
 	let iden = str2nr(fields[0])
 	return iden
