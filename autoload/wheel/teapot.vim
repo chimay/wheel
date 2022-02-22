@@ -185,7 +185,7 @@ fun! wheel#teapot#reset (update = 'update', lock = 'lock')
 	call wheel#origami#view_cursor ()
 endfun
 
-" ---- default line
+" ---- lines
 
 fun! wheel#teapot#filter_to_default_line ()
 	" If on filter line, put the cursor on line 2 if possible
@@ -207,10 +207,8 @@ fun! wheel#teapot#filter_to_default_line ()
 	return v:true
 endfun
 
-" all lines, unfiltered and without selection mark
-
 fun! wheel#teapot#all_lines ()
-	" Return all, unfiltered, lines
+	" Return all, unfiltered, unmarked lines
 	return b:wheel_lines
 endfun
 
