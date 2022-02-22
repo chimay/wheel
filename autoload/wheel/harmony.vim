@@ -42,6 +42,7 @@ fun! wheel#harmony#reorder (level, ask = 'confirm')
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
+	silent doautocmd User WheelBeforeOrganize
 	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" ---- reorder
@@ -85,6 +86,7 @@ fun! wheel#harmony#rename (level, ask = 'confirm')
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
+	silent doautocmd User WheelBeforeOrganize
 	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" ---- rename
@@ -127,6 +129,7 @@ fun! wheel#harmony#rename_file (ask = 'confirm')
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
+	silent doautocmd User WheelBeforeOrganize
 	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" ---- init
@@ -205,6 +208,7 @@ fun! wheel#harmony#delete (level, ask = 'confirm')
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
+	silent doautocmd User WheelBeforeOrganize
 	" ----  update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" ----  delete
@@ -251,6 +255,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
+	silent doautocmd User WheelBeforeOrganize
 	" ---- update lines in local vars from visible lines
 	call wheel#polyphony#update_var_lines ()
 	" ---- mode : copy or move
@@ -348,6 +353,7 @@ fun! wheel#harmony#reorganize (ask = 'confirm')
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
+	silent doautocmd User WheelBeforeOrganize
 	" ---- save old wheel before reorganizing
 	let prompt = 'Write old wheel to file before reorganizing ?'
 	let confirm = confirm(prompt, "&Yes\n&No", 1)

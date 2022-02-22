@@ -2929,6 +2929,8 @@ Auto read			|wheel-autocommands-auto-read|
 Auto write			|wheel-autocommands-auto-write|
 Auto update			|wheel-autocommands-auto-update|
 Before jump			|wheel-autocommands-before-jump|
+Before organize			|wheel-autocommands-before-organize|
+Before write			|wheel-autocommands-before-write|
 After jump			|wheel-autocommands-after-jump|
 Auto follow			|wheel-autocommands-auto-follow|
 After native			|wheel-autocommands-after-native|
@@ -3008,6 +3010,34 @@ function :
 - switch to element
 - switch in index, history, frecency
 - ...
+
+------------------------------------------------------------------------------
+BEFORE ORGANIZE				*wheel-autocommands-before-organize*
+
+To update automatically your locations before each operation involving a
+wheel element, just add the update function to the `WheelBeforeOrganize`
+user event : >
+
+    autocmd User WheelBeforeOrganize call wheel#vortex#update()
+<
+
+This autocmd is run before each organizing function :
+
+- add
+- rename
+- remove
+- reorder
+- reorganize
+- ...
+
+------------------------------------------------------------------------------
+BEFORE WRITE				*wheel-autocommands-before-write*
+
+To update automatically your locations before writing the wheel to a file,
+just add the update function to the `WheelBeforeWrite` user event : >
+
+    autocmd User WheelBeforeWrite call wheel#vortex#update()
+<
 
 ------------------------------------------------------------------------------
 AFTER JUMP				*wheel-autocommands-after-jump*
@@ -3109,6 +3139,10 @@ Here is an example of a complete autocommands configuration : >
 	autocmd BufLeave * call wheel#vortex#update()
 	" Executed before jumping to a location
 	autocmd User WheelBeforeJump call wheel#vortex#update()
+	" Executed before organizing the wheel
+	autocmd User WheelBeforeOrganize call wheel#vortex#update()
+	" Executed before writing the wheel
+	autocmd User WheelBeforeWrite call wheel#vortex#update()
 	" Executed after jumping to a location
 	"autocmd User WheelAfterJump norm zMzx
 	" For current wheel location to auto follow window changes

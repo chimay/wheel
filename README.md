@@ -443,6 +443,10 @@ augroup wheel
 	autocmd BufLeave * call wheel#vortex#update()
 	" Executed before jumping to a location
 	autocmd User WheelBeforeJump call wheel#vortex#update()
+	" Executed before organizing the wheel
+	autocmd User WheelBeforeOrganize call wheel#vortex#update()
+	" Executed before writing the wheel
+	autocmd User WheelBeforeWrite call wheel#vortex#update()
 	" Executed after jumping to a location
 	"autocmd User WheelAfterJump norm zMzx
 	" For current wheel location to auto follow window changes
