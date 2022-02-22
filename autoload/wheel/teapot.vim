@@ -195,7 +195,7 @@ fun! wheel#teapot#filter_to_default_line ()
 		call wheel#teapot#reset()
 	endif
 	if has_filter && line('$') == 1
-		echomsg 'wheel teapot default line : mandala is empty'
+		echomsg 'wheel teapot filter_to_default_line : mandala is empty'
 		return v:false
 	endif
 	let cur_line = line('.')
