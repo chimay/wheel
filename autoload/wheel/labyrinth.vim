@@ -28,7 +28,7 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 			let filename = bufname->fnamemodify(':p')
 			let edit = [ 'silent edit ' .. filename ]
 			" -- go to last position in file
-			let last_position = "'" .. '"'
+			let last_position = 'normal! ' .. "'" .. '"'
 			eval edit->add(last_position)
 			" -- unfold to view cursor
 			eval edit->add('normal! zv')
