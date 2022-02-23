@@ -3838,13 +3838,13 @@ level to less than 10, then copy and adapt some of the following lines : >
 
 Trouble with xterm & fixkey~
 
-If you use vim in a xterm with the fixkey plugin, the map `<M-S-p>`
+If you use vim in a xterm with the |fixkey| plugin, the map `<M-S-p>`
 can cause a strange in the empty buffer at startup. To avoid it, add : >
 
     let g:Fixkey_setupDelay = 500
 <
 
-to your vimrc.
+to your vimrc. If it doesn't work, try to rise the delay.
 
 ------------------------------------------------------------------------------
 LEVEL 20						*wheel-mappings-level-20*
