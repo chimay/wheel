@@ -39,6 +39,7 @@ fun! wheel#sailing#mru ()
 	let fields = split(record, s:field_separ)
 	let filename = fields[1]
 	execute 'hide edit' filename
+	normal! '"
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
 	silent doautocmd User WheelAfterNative

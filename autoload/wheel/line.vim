@@ -95,6 +95,7 @@ fun! wheel#line#mru (settings)
 	" ---- go
 	call wheel#curve#target (target)
 	execute 'silent hide edit' filename
+	normal! '"
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
 	return win_getid ()
