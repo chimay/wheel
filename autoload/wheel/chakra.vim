@@ -96,16 +96,6 @@ fun! wheel#chakra#format_text (settings)
 	return settings
 endfun
 
-fun! wheel#chakra#format ()
-	" Format sign text to ensure it contains 2 chars
-	" sign text must be 2 chars or a space will be added by vim
-	let settings = g:wheel_config.display.sign.settings
-	call wheel#chakra#format_text (settings)
-	let native_settings = g:wheel_config.display.sign.native_settings
-	call wheel#chakra#format_text (native_settings)
-	return [settings, native_settings]
-endfun
-
 fun! wheel#chakra#define_sign (name, settings)
 	" Define sign from name & settings
 	let name = a:name
@@ -114,7 +104,6 @@ fun! wheel#chakra#define_sign (name, settings)
 	let subdef = defined->filter({ _, val -> val.name == name })
 	" -- first definition
 	if empty(subdef)
-		call wheel#chakra#format ()
 		" define
 		call sign_define(name, settings)
 		return v:true
@@ -128,114 +117,6 @@ fun! wheel#chakra#define_sign (name, settings)
 	call sign_undefine(name)
 	call sign_define(name, settings)
 	return v:true
-endfun
-
-" ---- location & native signs
-
-fun! wheel#chakra#define ()
-	" Define wheel sign
-	" ---- location sign
-	let name = s:sign_name
-	let settings = g:wheel_config.display.sign.settings
-	call wheel#chakra#define_sign (name, settings)
-	call wheel#chakra#replace_all_locations ()
-	" ---- native sign
-	let native_name = s:sign_native_name
-	let native_settings = g:wheel_config.display.sign.native_settings
-	call wheel#chakra#define_sign (native_name, native_settings)
-	call wheel#chakra#replace_all_native ()
-endfun
-
-fun! wheel#chakra#clear ()
-	" Clear all signs
-	call wheel#chakra#clear_locations ()
-	call wheel#chakra#clear_native ()
-endfun
-
-" ---- native signs
-
-fun! wheel#chakra#unplace_native_in_buffer (bufnum)
-	" Unplace native signs in buffer bufnum
-	let bufnum = a:bufnum
-	let group = s:sign_native_group
-	let buffer_dict = #{ buffer : bufnum }
-	call sign_unplace(group, buffer_dict)
-endfun
-
-fun! wheel#chakra#place_native ()
-	" Place sign for native navigation
-	let display_sign = g:wheel_config.display.sign.switch
-	if ! display_sign
-		return -1
-	endif
-	let signs = g:wheel_signs
-	" ---- fields
-	let iden = signs.native_iden
-	let table = signs.native_table
-	let new_iden = wheel#chain#lowest_outside (iden, 1)
-	let group = s:sign_native_group
-	let name = s:sign_native_name
-	let bufnum = bufnr('%')
-	let linum = line('.')
-	" ---- any location sign at the same place ?
-	if wheel#chakra#location_sign_is_here ()
-		return -1
-	endif
-	" ---- remove other signs in same buffer
-	call wheel#chakra#unplace_native_in_buffer (bufnum)
-	" ---- table
-	let entry = #{
-				\ iden : new_iden,
-				\ buffer : bufnum,
-				\ line : linum
-				\ }
-	let line_dict = #{ lnum : linum }
-	call sign_place(new_iden, group, name, bufnum, line_dict)
-	eval iden->add(new_iden)
-	eval table->filter({ _, val -> ! wheel#chakra#same_buffer(val, entry) })
-	eval table->add(entry)
-	" ---- iden list
-	let round_table = deepcopy(table)
-	let iden = round_table->map({ _, val -> val.iden })
-	let signs.native_iden = iden
-	return new_iden
-endfun
-
-fun! wheel#chakra#replace_all_native ()
-	" Replace all native signs to adapt to new settings
-	let signs = g:wheel_signs
-	let group = s:sign_native_group
-	let name = s:sign_native_name
-	let table = signs.native_table
-	for flag in signs.native_iden
-		let subtable = deepcopy(table)
-		eval subtable->filter({ _, val -> val.iden == flag })
-		if empty(subtable)
-			echomsg 'wheel chakra replace all native : no entry found for' flag 'iden'
-			return v:false
-		endif
-		let entry = subtable[0]
-		let bufnum = entry.buffer
-		let linum = entry.line
-		let unplace = #{ id : flag }
-		let place = #{ lnum : linum }
-		call sign_unplace(group, unplace)
-		call sign_place(flag, group, name, bufnum, place)
-	endfor
-endfun
-
-fun! wheel#chakra#clear_native ()
-	" Unplace all native signs
-	let signs = g:wheel_signs
-	if empty(signs.native_iden)
-		return v:false
-	endif
-	" ---- clear wheel var
-	let signs.native_iden = []
-	let signs.native_table = []
-	" ---- unplace
-	let native_group = s:sign_native_group
-	call sign_unplace(native_group)
 endfun
 
 " ---- location signs
@@ -374,4 +255,124 @@ fun! wheel#chakra#update_locations ()
 	call wheel#chakra#unplace_native_at_location ()
 	call wheel#chakra#place_location ()
 	return v:true
+endfun
+
+" ---- native signs
+
+fun! wheel#chakra#unplace_native_in_buffer (bufnum)
+	" Unplace native signs in buffer bufnum
+	let bufnum = a:bufnum
+	let group = s:sign_native_group
+	let buffer_dict = #{ buffer : bufnum }
+	call sign_unplace(group, buffer_dict)
+endfun
+
+fun! wheel#chakra#replace_all_native ()
+	" Replace all native signs to adapt to new settings
+	let signs = g:wheel_signs
+	let group = s:sign_native_group
+	let name = s:sign_native_name
+	let table = signs.native_table
+	for flag in signs.native_iden
+		let subtable = deepcopy(table)
+		eval subtable->filter({ _, val -> val.iden == flag })
+		if empty(subtable)
+			echomsg 'wheel chakra replace all native : no entry found for' flag 'iden'
+			return v:false
+		endif
+		let entry = subtable[0]
+		let bufnum = entry.buffer
+		let linum = entry.line
+		let unplace = #{ id : flag }
+		let place = #{ lnum : linum }
+		call sign_unplace(group, unplace)
+		call sign_place(flag, group, name, bufnum, place)
+	endfor
+endfun
+
+fun! wheel#chakra#clear_native ()
+	" Unplace all native signs
+	let signs = g:wheel_signs
+	if empty(signs.native_iden)
+		return v:false
+	endif
+	" ---- clear wheel var
+	let signs.native_iden = []
+	let signs.native_table = []
+	" ---- unplace
+	let native_group = s:sign_native_group
+	call sign_unplace(native_group)
+endfun
+
+fun! wheel#chakra#place_native ()
+	" Place sign for native navigation
+	let display_sign = g:wheel_config.display.sign.switch
+	if ! display_sign
+		return -1
+	endif
+	let signs = g:wheel_signs
+	" ---- fields
+	let iden = signs.native_iden
+	let table = signs.native_table
+	let new_iden = wheel#chain#lowest_outside (iden, 1)
+	let group = s:sign_native_group
+	let name = s:sign_native_name
+	let bufnum = bufnr('%')
+	let linum = line('.')
+	" ---- any location sign at the same place ?
+	if wheel#chakra#location_sign_is_here ()
+		return -1
+	endif
+	" ---- remove other signs in same buffer
+	call wheel#chakra#unplace_native_in_buffer (bufnum)
+	" ---- table
+	let entry = #{
+				\ iden : new_iden,
+				\ buffer : bufnum,
+				\ line : linum
+				\ }
+	let line_dict = #{ lnum : linum }
+	call sign_place(new_iden, group, name, bufnum, line_dict)
+	eval iden->add(new_iden)
+	eval table->filter({ _, val -> ! wheel#chakra#same_buffer(val, entry) })
+	eval table->add(entry)
+	" ---- iden list
+	let round_table = deepcopy(table)
+	let iden = round_table->map({ _, val -> val.iden })
+	let signs.native_iden = iden
+	return new_iden
+endfun
+
+" ---- location & native signs
+
+fun! wheel#chakra#format ()
+	" Format sign text to ensure it contains 2 chars
+	" sign text must be 2 chars or a space will be added by vim
+	let settings = g:wheel_config.display.sign.settings
+	call wheel#chakra#format_text (settings)
+	let native_settings = g:wheel_config.display.sign.native_settings
+	call wheel#chakra#format_text (native_settings)
+	return [settings, native_settings]
+endfun
+
+fun! wheel#chakra#define ()
+	" Define wheel sign
+	" ---- format text
+	call wheel#chakra#format ()
+	" ---- location sign
+	let name = s:sign_name
+	let settings = g:wheel_config.display.sign.settings
+	call wheel#chakra#define_sign (name, settings)
+	call wheel#chakra#replace_all_locations ()
+	" ---- native sign
+	let native_name = s:sign_native_name
+	let native_settings = g:wheel_config.display.sign.native_settings
+	call wheel#chakra#define_sign (native_name, native_settings)
+	call wheel#chakra#replace_all_native ()
+endfun
+
+fun! wheel#chakra#clear ()
+	" Clear all signs
+	call wheel#chakra#clear_locations ()
+	call wheel#chakra#clear_native ()
 endfun
