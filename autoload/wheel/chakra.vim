@@ -127,8 +127,29 @@ fun! wheel#chakra#define_sign (name, settings)
 	call wheel#chakra#format ()
 	call sign_undefine(name)
 	call sign_define(name, settings)
-	call wheel#chakra#replace_all ()
 	return v:true
+endfun
+
+" ---- location & native signs
+
+fun! wheel#chakra#define ()
+	" Define wheel sign
+	" ---- location sign
+	let name = s:sign_name
+	let settings = g:wheel_config.display.sign.settings
+	call wheel#chakra#define_sign (name, settings)
+	call wheel#chakra#replace_all_locations ()
+	" ---- native sign
+	let native_name = s:sign_native_name
+	let native_settings = g:wheel_config.display.sign.native_settings
+	call wheel#chakra#define_sign (native_name, native_settings)
+	call wheel#chakra#replace_all_native ()
+endfun
+
+fun! wheel#chakra#clear ()
+	" Clear all signs
+	call wheel#chakra#clear_locations ()
+	call wheel#chakra#clear_native ()
 endfun
 
 " ---- native signs
@@ -140,7 +161,6 @@ fun! wheel#chakra#unplace_native_in_buffer (bufnum)
 	let buffer_dict = #{ buffer : bufnum }
 	call sign_unplace(group, buffer_dict)
 endfun
-
 
 fun! wheel#chakra#place_native ()
 	" Place sign for native navigation
@@ -181,23 +201,46 @@ fun! wheel#chakra#place_native ()
 	return new_iden
 endfun
 
-" ---- location & native signs
+fun! wheel#chakra#replace_all_native ()
+	" Replace all native signs to adapt to new settings
+	let signs = g:wheel_signs
+	let group = s:sign_native_group
+	let name = s:sign_native_name
+	let table = signs.native_table
+	for flag in signs.native_iden
+		let subtable = deepcopy(table)
+		eval subtable->filter({ _, val -> val.iden == flag })
+		if empty(subtable)
+			echomsg 'wheel chakra replace all native : no entry found for' flag 'iden'
+			return v:false
+		endif
+		let entry = subtable[0]
+		let bufnum = entry.buffer
+		let linum = entry.line
+		let unplace = #{ id : flag }
+		let place = #{ lnum : linum }
+		call sign_unplace(group, unplace)
+		call sign_place(flag, group, name, bufnum, place)
+	endfor
+endfun
 
-fun! wheel#chakra#define ()
-	" Define wheel sign
-	" ---- location sign
-	let name = s:sign_name
-	let settings = g:wheel_config.display.sign.settings
-	call wheel#chakra#define_sign (name, settings)
-	" ---- native sign
-	let native_name = s:sign_native_name
-	let native_settings = g:wheel_config.display.sign.native_settings
-	call wheel#chakra#define_sign (native_name, native_settings)
+fun! wheel#chakra#clear_native ()
+	" Unplace all native signs
+	let signs = g:wheel_signs
+	if empty(signs.native_iden)
+		return v:false
+	endif
+	" ---- clear wheel var
+	let signs.native_iden = []
+	let signs.native_table = []
+	" ---- unplace
+	let native_group = s:sign_native_group
+	call sign_unplace(native_group)
 endfun
 
 " ---- location signs
 
-fun! wheel#chakra#place ()
+fun! wheel#chakra#place_location ()
 	" Place sign at current location
 	let signs = g:wheel_signs
 	" ---- fields
@@ -230,7 +273,7 @@ fun! wheel#chakra#place ()
 	return new_iden
 endfun
 
-fun! wheel#chakra#replace_all ()
+fun! wheel#chakra#replace_all_locations ()
 	" Replace all locations signs to adapt to new settings
 	let signs = g:wheel_signs
 	let group = s:sign_group
@@ -240,7 +283,7 @@ fun! wheel#chakra#replace_all ()
 		let subtable = deepcopy(table)
 		eval subtable->filter({ _, val -> val.iden == flag })
 		if empty(subtable)
-			echomsg 'wheel chakra replace all : no entry found for' flag 'iden'
+			echomsg 'wheel chakra replace all locations : no entry found for' flag 'iden'
 			return v:false
 		endif
 		let entry = subtable[0]
@@ -253,7 +296,7 @@ fun! wheel#chakra#replace_all ()
 	endfor
 endfun
 
-fun! wheel#chakra#unplace ()
+fun! wheel#chakra#unplace_location ()
 	" Unplace old sign at current location
 	let signs = g:wheel_signs
 	let iden = signs.iden
@@ -302,21 +345,21 @@ fun! wheel#chakra#unplace_native_at_location ()
 	return old_iden
 endfun
 
-fun! wheel#chakra#clear ()
+fun! wheel#chakra#clear_locations ()
 	" Unplace all locations signs
 	let signs = g:wheel_signs
 	if empty(signs.iden)
 		return v:false
 	endif
-	" clear wheel var
+	" ---- clear wheel var
 	let signs.iden = []
 	let signs.table = []
-	" unplace
+	" ---- unplace
 	let group = s:sign_group
 	call sign_unplace(group)
 endfun
 
-fun! wheel#chakra#update ()
+fun! wheel#chakra#update_locations ()
 	" Add or update sign at location
 	let display_sign = g:wheel_config.display.sign.switch
 	if ! display_sign
@@ -327,8 +370,8 @@ fun! wheel#chakra#update ()
 	if wheel#chakra#same_location ()
 		return v:true
 	endif
-	call wheel#chakra#unplace ()
+	call wheel#chakra#unplace_location ()
 	call wheel#chakra#unplace_native_at_location ()
-	call wheel#chakra#place ()
+	call wheel#chakra#place_location ()
 	return v:true
 endfun

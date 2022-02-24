@@ -44,7 +44,7 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	endif
 	let location.line = cur_line
 	let location.col = cur_col
-	call wheel#chakra#update ()
+	call wheel#chakra#update_locations ()
 	if verbose ==# 'verbose'
 		echo 'wheel : location updated'
 	endif
@@ -107,7 +107,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 	" ---- cursor
 	call wheel#spiral#cursor ()
 	" ---- update signs
-	call wheel#chakra#update ()
+	call wheel#chakra#update_locations ()
 	" ---- dashboard
 	call wheel#status#dashboard ()
 	" ---- coda

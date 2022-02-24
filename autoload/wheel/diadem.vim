@@ -36,6 +36,7 @@ if ! exists('s:command_meta_actions')
 				\ [ 'tree-script'       , 'wheel#disc#tree_script'            ] ,
 				\ [ 'symlink-tree'      , 'wheel#disc#symlink_tree'           ] ,
 				\ [ 'copied-tree'       , 'wheel#disc#copied_tree'            ] ,
+				\ [ 'clear-signs'       , 'wheel#chakra#clear'                ] ,
 				\ [ 'prompt'            , 'wheel#void#nope'                   ] ,
 				\ [ 'dedibuf'           , 'wheel#void#nope'                   ] ,
 				\ ]
