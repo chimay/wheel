@@ -148,8 +148,7 @@ fun! wheel#chakra#place_location ()
 	eval table->add(entry)
 	" ---- iden list
 	let round_table = deepcopy(table)
-	let iden = round_table->map({ _, val -> val.iden })
-	let signs.iden = iden
+	let signs.iden = round_table->map({ _, val -> val.iden })
 	" ---- coda
 	return new_iden
 endfun
@@ -169,6 +168,12 @@ fun! wheel#chakra#replace_all_locations ()
 		endif
 		let entry = subtable[0]
 		let bufnum = entry.buffer
+		if ! bufexists(bufnum)
+			eval table->filter({ _, val -> val.buffer != bufnum })
+			let round_table = deepcopy(table)
+			let signs.iden = round_table->map({ _, val -> val.iden })
+			continue
+		endif
 		let linum = entry.line
 		let unplace = #{ id : flag }
 		let place = #{ lnum : linum }
@@ -253,6 +258,12 @@ fun! wheel#chakra#replace_all_native ()
 		endif
 		let entry = subtable[0]
 		let bufnum = entry.buffer
+		if ! bufexists(bufnum)
+			eval table->filter({ _, val -> val.buffer != bufnum })
+			let round_table = deepcopy(table)
+			let signs.native_iden = round_table->map({ _, val -> val.iden })
+			continue
+		endif
 		let linum = entry.line
 		let unplace = #{ id : flag }
 		let place = #{ lnum : linum }
@@ -309,8 +320,7 @@ fun! wheel#chakra#place_native ()
 	eval table->add(entry)
 	" ---- iden list
 	let round_table = deepcopy(table)
-	let iden = round_table->map({ _, val -> val.iden })
-	let signs.native_iden = iden
+	let signs.native_iden = round_table->map({ _, val -> val.iden })
 	return new_iden
 endfun
 
