@@ -197,35 +197,6 @@ fun! wheel#chakra#unplace_location ()
 	return old_iden
 endfun
 
-fun! wheel#chakra#unplace_native_at_location ()
-	" Unplace native sign at current location
-	let signs = g:wheel_signs
-	let iden = signs.native_iden
-	let subtable = deepcopy(signs.native_table)
-	" ---- fields
-	let location = wheel#referen#location ()
-	let bufnum = bufnr(location.file)
-	let linum = location.line
-	" ---- subtable
-	let place = #{
-				\ buffer : bufnum,
-				\ line : linum
-				\ }
-	eval subtable->filter({ _, val -> wheel#chakra#same_place (val, place) })
-	if empty(subtable)
-		return v:true
-	endif
-	" ---- unplace
-	let group = s:sign_native_group
-	let entry = subtable[0]
-	let old_iden = entry.iden
-	let dict = #{ id : old_iden }
-	call sign_unplace(group, dict)
-	eval iden->wheel#chain#remove_element(old_iden)
-	eval g:wheel_signs.native_table->filter({ _, val -> val.iden != old_iden })
-	return old_iden
-endfun
-
 fun! wheel#chakra#clear_locations ()
 	" Unplace all locations signs
 	let signs = g:wheel_signs
@@ -369,6 +340,35 @@ fun! wheel#chakra#define ()
 	let native_settings = g:wheel_config.display.sign.native_settings
 	call wheel#chakra#define_sign (native_name, native_settings)
 	call wheel#chakra#replace_all_native ()
+endfun
+
+fun! wheel#chakra#unplace_native_at_location ()
+	" Unplace native sign at current location
+	let signs = g:wheel_signs
+	let iden = signs.native_iden
+	let subtable = deepcopy(signs.native_table)
+	" ---- fields
+	let location = wheel#referen#location ()
+	let bufnum = bufnr(location.file)
+	let linum = location.line
+	" ---- subtable
+	let place = #{
+				\ buffer : bufnum,
+				\ line : linum
+				\ }
+	eval subtable->filter({ _, val -> wheel#chakra#same_place (val, place) })
+	if empty(subtable)
+		return v:true
+	endif
+	" ---- unplace
+	let group = s:sign_native_group
+	let entry = subtable[0]
+	let old_iden = entry.iden
+	let dict = #{ id : old_iden }
+	call sign_unplace(group, dict)
+	eval iden->wheel#chain#remove_element(old_iden)
+	eval g:wheel_signs.native_table->filter({ _, val -> val.iden != old_iden })
+	return old_iden
 endfun
 
 fun! wheel#chakra#clear ()
