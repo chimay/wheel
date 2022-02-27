@@ -74,9 +74,6 @@ fun! wheel#labyrinth#session ()
 	" Commands to reproduce layout of all tabs
 	let last_tab = tabpagenr('$')
 	let returnlist = []
-	" ---- keep only one tab & window to start
-	eval returnlist->add('noautocmd silent tabonly')
-	eval returnlist->add('noautocmd silent only')
 	" ---- loop on tabs
 	for tabnum in range(1, last_tab)
 		let winlayout = winlayout(tabnum)

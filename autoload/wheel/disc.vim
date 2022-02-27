@@ -337,6 +337,12 @@ fun! wheel#disc#write_wheel (...)
 		echomsg 'Not writing empty wheel'
 		return v:false
 	endif
+	" ---- create directory if needed
+	let directory = fnamemodify(wheel_file, ':h')
+	let returnstring = wheel#disc#mkdir(directory)
+	if returnstring ==# 'failure'
+		return v:false
+	endif
 	" ---- user update autocmd
 	silent doautocmd User WheelBeforeWrite
 	" ---- convert old data
@@ -359,33 +365,41 @@ fun! wheel#disc#write_wheel (...)
 	return v:true
 endfun
 
-fun! wheel#disc#read_wheel (...)
+fun! wheel#disc#read_wheel (wheel_file = '', keep_tabwins = 'dont-keep')
 	" Read all wheel variables from file argument
 	" File defaults to g:wheel_config.file
-	if a:0 > 0
-		let wheel_file = fnamemodify(a:1, ':p')
-	else
+	" Optional argument :
+	"   - keep : keep current tabs & wins
+	"   - dont-keep : don't keep current tabs & wins
+	let wheel_file = a:wheel_file
+	let keep_tabwins = a:keep_tabwins
+	if empty(wheel_file)
 		if empty(g:wheel_config.file)
 			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
 			return v:false
 		else
-			let wheel_file = fnamemodify(g:wheel_config.file, ':p')
+			let wheel_file = g:wheel_config.file
 		endif
 	endif
-	let init_argc = wheel#disc#argc ()
-	if init_argc == 0
-		echomsg 'Reading wheel variables from file ..'
+	let wheel_file = fnamemodify(wheel_file, ':p')
+	" ---- check
+	if ! filereadable(wheel_file)
+		echomsg 'wheel disc read wheel : wheel file does not exist'
+		return v:false
 	endif
+	" ---- read file
+	echomsg 'Reading wheel variables from file ..'
 	call wheel#disc#readfile (wheel_file)
 	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
 	" ---- complete vars
 	call wheel#void#foundation ()
-	" ---- coda
-	if init_argc == 0
+	" ---- keep tabs & wins ?
+	if keep_tabwins == 'dont-keep'
 		call wheel#vortex#jump ()
-		echomsg 'Reading done !'
 	endif
+	" ---- coda
+	echomsg 'Reading done !'
 	return v:true
 endfun
 
@@ -403,15 +417,15 @@ fun! wheel#disc#write_session (...)
 			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
 		endif
 	endif
-	" create directory if needed
+	" ---- create directory if needed
 	let directory = fnamemodify(session_file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
 	if returnstring ==# 'failure'
 		return v:false
 	endif
-	" backup old sessions
+	" ---- backup old sessions
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
-	" writing session
+	" ----- writing session
 	echomsg 'Writing session to file ..'
 	let commandlist = wheel#labyrinth#session ()
 	let zero = writefile(commandlist, session_file)
@@ -422,30 +436,40 @@ fun! wheel#disc#write_session (...)
 	return v:true
 endfun
 
-fun! wheel#disc#read_session (...)
+fun! wheel#disc#read_session (session_file = '', keep_tabwins = 'dont-keep')
 	" Read session layout from session file
-	if a:0 > 0
-		let session_file = fnamemodify(a:1, ':p')
-	else
+	" Optional argument :
+	"   - keep : keep current tabs & wins
+	"   - dont-keep : don't keep current tabs & wins
+	let session_file = a:session_file
+	let keep_tabwins = a:keep_tabwins
+	if empty(session_file)
 		if empty(g:wheel_config.session_file)
 			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
 			return v:false
 		else
-			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
+			let session_file = g:wheel_config.session_file
 		endif
 	endif
-	let init_argc = wheel#disc#argc ()
-	if init_argc == 0 && has('nvim')
-		echomsg 'Reading session from file ..'
-	endif
-	if filereadable(session_file)
-		execute 'source' session_file
-	else
+	let session_file = fnamemodify(session_file, ':p')
+	" ---- check
+	if ! filereadable(session_file)
 		echomsg 'wheel disc read session : session file does not exist'
+		return v:false
 	endif
-	if init_argc == 0 && has('nvim')
-		echomsg 'Reading done !'
+	" ---- keep tabs & wins ?
+	if keep_tabwins == 'dont-keep'
+		silent tabonly
+		silent only
+	else
+		silent tablast
+		silent tabnew
 	endif
+	" ---- read file
+	echomsg 'Reading session from file ..'
+	execute 'source' session_file
+	" ---- coda
+	echomsg 'Reading done !'
 	return v:true
 endfun
 

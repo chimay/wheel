@@ -388,11 +388,11 @@ endfun
 
 fun! wheel#void#wave ()
 	" Initialize jobs dictionary
-	" for neovim
+	" ---- for neovim
 	if has('nvim') && ! exists('g:wheel_wave')
 		let g:wheel_wave = []
 	endif
-	" same thing for vim
+	" ---- same thing for vim
 	if ! has('nvim') && ! exists('g:wheel_ripple')
 		let g:wheel_ripple = []
 	endif
@@ -413,9 +413,9 @@ endfun
 
 fun! wheel#void#foundation ()
 	" Initialize wheel
-	" -- conversion from old config keys
+	" ---- conversion from old config keys
 	call wheel#kintsugi#config ()
-	" -- persistent wheel variables
+	" ---- persistent wheel variables
 	call wheel#void#wheel ()
 	call wheel#void#helix ()
 	call wheel#void#grid ()
@@ -425,9 +425,9 @@ fun! wheel#void#foundation ()
 	call wheel#void#shelve ()
 	call wheel#void#attic ()
 	call wheel#void#yank ()
-	" -- config
+	" ---- config
 	call wheel#void#config ()
-	" -- non persistent wheel variables
+	" ---- non persistent wheel variables
 	call wheel#void#mandalas ()
 	call wheel#void#autogroup ()
 	call wheel#void#signs ()
@@ -453,7 +453,7 @@ endfun
 
 fun! wheel#void#clean ()
 	" Clean variables before writing wheel to file
-	" -- wheel shelve
+	" ---- wheel shelve
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
 	let g:wheel_shelve.layout.tab = 'none'
@@ -486,31 +486,37 @@ endfun
 
 fun! wheel#void#init ()
 	" Main init function
-	if argc() == 0 && has('nvim')
+	if g:wheel_volatile.argc == 0 && has('nvim')
 		echomsg 'wheel hello !'
 	endif
-	" -- read wheel
-	if g:wheel_config.autoread > 0
-		call wheel#disc#read_wheel ()
+	" ---- keep tabs & wins ?
+	if g:wheel_volatile.argc == 0
+		let keep_tabwins = 'dont-keep'
+	else
+		let keep_tabwins = 'keep'
 	endif
-	" -- read session
+	" ---- read wheel
+	if g:wheel_config.autoread > 0
+		call wheel#disc#read_wheel ('', keep_tabwins)
+	endif
+	" ---- read session
 	if g:wheel_config.autoread_session > 0
-		call wheel#disc#read_session ()
+		call wheel#disc#read_session ('', keep_tabwins)
 	endif
 endfun
 
 fun! wheel#void#exit ()
 	" Main exit function
-	if argc() == 0 && has('nvim')
+	if g:wheel_volatile.argc == 0 && has('nvim')
 		echomsg 'wheel bye !'
 	endif
-	" -- clean vars before writing
+	" ---- clean vars before writing
 	call wheel#void#clean ()
-	" -- save session
+	" ---- save session
 	if g:wheel_config.autowrite_session > 0
 		call wheel#disc#write_session ()
 	endif
-	" -- save wheel, and unlet
+	" ---- save wheel, and unlet
 	if g:wheel_config.autowrite > 0
 		call wheel#disc#write_wheel()
 	endif
