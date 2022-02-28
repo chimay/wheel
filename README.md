@@ -482,7 +482,7 @@ let vmap = 'vmap <silent>'
 exe nmap '<m-m>          <plug>(wheel-menu-main)'
 exe nmap '<m-=>          <plug>(wheel-menu-meta)'
 " Sync
-exe nmap '<m-i>          <plug>(wheel-dashboard)'
+exe nmap '<m-i>          <plug>(wheel-info)'
 exe nmap '<m-$>          <plug>(wheel-sync-up)'
 exe nmap '<c-$>          <plug>(wheel-sync-down)'
 " ---- navigate in the wheel

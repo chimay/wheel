@@ -3732,7 +3732,7 @@ level to less than 10, then copy and adapt some of the following lines : >
     exe nmap '<m-m>          <plug>(wheel-menu-main)'
     exe nmap '<m-=>          <plug>(wheel-menu-meta)'
     " Sync
-    exe nmap '<m-i>          <plug>(wheel-dashboard)'
+    exe nmap '<m-i>          <plug>(wheel-info)'
     exe nmap '<m-$>          <plug>(wheel-sync-up)'
     exe nmap '<c-$>          <plug>(wheel-sync-down)'
     " ---- navigate in the wheel
@@ -3906,9 +3906,9 @@ Menus~
 
 Dashboard~
 
-| Plug maps                | Description  |
-| ------------------------ | ------------ |
-| <plug>(wheel-dashboard)  | dashboard    |
+| Plug maps           | Description  |
+| ------------------- | ------------ |
+| <plug>(wheel-info)  | dashboard    |
 
 Sync up & down~
 
