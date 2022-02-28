@@ -13,7 +13,7 @@
 "
 " Caduceus can be interpreted as a symbol of a polarized vortex
 
-fun! wheel#caduceus#update_alternate ()
+fun! wheel#caduceus#update ()
 	" Update g:wheel_history.alternate
 	let timeline = g:wheel_history.line
 	let alternate = g:wheel_history.alternate

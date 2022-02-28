@@ -106,7 +106,7 @@ fun! wheel#pendulum#record ()
 	let timeloop = g:wheel_history.circuit
 	eval timeloop->wheel#chain#push_max(entry, maxim)
 	" -- alternate history
-	call wheel#caduceus#update_alternate ()
+	call wheel#caduceus#update ()
 	" -- frecency
 	call wheel#cuckoo#record ()
 endfun
@@ -145,7 +145,7 @@ fun! wheel#pendulum#rename (level, old, new)
 		endif
 	endfor
 	" -- alternate
-	call wheel#caduceus#update_alternate ()
+	call wheel#caduceus#update ()
 endfun
 
 fun! wheel#pendulum#delete (level, coordin)
@@ -168,7 +168,7 @@ fun! wheel#pendulum#delete (level, coordin)
 	let frecency = g:wheel_history.frecency
 	eval frecency->filter(Filter)
 	" -- alternate
-	call wheel#caduceus#update_alternate ()
+	call wheel#caduceus#update ()
 endfun
 
 fun! wheel#pendulum#broom ()
@@ -184,5 +184,5 @@ fun! wheel#pendulum#broom ()
 	let frecency = g:wheel_history.frecency
 	eval frecency->filter(Filter)
 	" -- alternate
-	call wheel#caduceus#update_alternate ()
+	call wheel#caduceus#update ()
 endfun
