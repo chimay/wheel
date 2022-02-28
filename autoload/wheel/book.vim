@@ -514,6 +514,9 @@ fun! wheel#book#switch (...)
 	else
 		let chosen = input(prompt, '', complete)
 	endif
+	if empty(chosen)
+		return v:false
+	endif
 	let current = split(chosen, s:field_separ)[0]
 	let current = str2nr(current)
 	let ring.current = current

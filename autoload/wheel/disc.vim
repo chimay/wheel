@@ -489,6 +489,9 @@ fun! wheel#disc#tree_script (...)
 		let complete = 'customlist,wheel#complete#directory'
 		let soil = input(prompt, '', complete)
 	endif
+	if empty(soil)
+		return []
+	endif
 	if a:0 > 1
 		let command = a:1
 	else
@@ -496,12 +499,18 @@ fun! wheel#disc#tree_script (...)
 		let complete = 'customlist,wheel#complete#link_copy'
 		let command = input(prompt, 'ln -s', complete)
 	endif
+	if empty(command)
+		return []
+	endif
 	if a:0 > 2
 		let script_file = a:2
 	else
 		let prompt = 'Write script in file ? '
 		let script_file = input(prompt, '', 'file')
 		let script_file = wheel#tree#format_filename (script_file)
+	endif
+	if empty(script_file)
+		return []
 	endif
 	let script = []
 	eval script->add('#!/bin/sh')
@@ -551,6 +560,9 @@ fun! wheel#disc#symlink_tree (...)
 		let prompt = 'Directory to grow tree ? '
 		let complete = 'customlist,wheel#complete#directory'
 		let soil = input(prompt, '', complete)
+	endif
+	if empty(soil)
+		return v:false
 	endif
 	let old_cdpath = &cdpath
 	set cdpath=,,
@@ -613,6 +625,9 @@ fun! wheel#disc#copied_tree ()
 		let prompt = 'Directory to grow tree ? '
 		let complete = 'customlist,wheel#complete#directory'
 		let soil = input(prompt, '', complete)
+	endif
+	if empty(soil)
+		return v:false
 	endif
 	let old_cdpath = &cdpath
 	set cdpath=,,

@@ -281,6 +281,9 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 		echomsg 'wheel' mode ': bad level name'
 		return v:false
 	endif
+	if empty(destination)
+		return v:false
+	endif
 	let coordin = split(destination, s:level_separ)
 	" ---- pre checks
 	let selection = wheel#pencil#selection ()
@@ -343,6 +346,7 @@ fun! wheel#harmony#copy_move (level, ask = 'confirm')
 	call wheel#rectangle#goto_previous ()
 	call wheel#vortex#jump ()
 	call wheel#cylinder#recall()
+	return v:true
 endfun
 
 fun! wheel#harmony#reorganize (ask = 'confirm')

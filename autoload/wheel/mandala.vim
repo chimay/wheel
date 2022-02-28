@@ -545,6 +545,9 @@ fun! wheel#mandala#async ()
 		let complete = 'customlist,wheel#complete#file'
 		let command = input(prompt, '', complete)
 	endif
+	if empty(command)
+		return v:false
+	endif
 	let current = getreg('%')
 	let alter = getreg('#')
 	let command = substitute(command, ' %', ' ' .. current, 'g')
@@ -554,4 +557,5 @@ fun! wheel#mandala#async ()
 	else
 		let job = wheel#ripple#start(command)
 	endif
+	return v:true
 endfun

@@ -98,7 +98,11 @@ fun! wheel#codex#switch_default_register ()
 	let prompt = 'Default register for wheel yank ring functions : '
 	let complete = 'customlist,wheel#complete#register'
 	let register = input(prompt, '', complete)
+	if empty(register)
+		return v:false
+	endif
 	let g:wheel_shelve.yank.default_register = register
+	return v:true
 endfun
 
 fun! wheel#codex#yank_plain (where = 'linewise-after')
@@ -107,6 +111,9 @@ fun! wheel#codex#yank_plain (where = 'linewise-after')
 	let prompt = 'Yank element (' .. where .. ') : '
 	let complete = 'customlist,wheel#complete#yank_plain'
 	let content = input(prompt, '', complete)
+	if empty(content)
+		return v:false
+	endif
 	if where ==# 'linewise-after'
 		call setreg('"', content, 'l')
 		put =content
@@ -121,6 +128,7 @@ fun! wheel#codex#yank_plain (where = 'linewise-after')
 		normal! P
 	endif
 	call wheel#codex#climb([ content ])
+	return v:true
 endfun
 
 fun! wheel#codex#yank_list (where = 'linewise-after')
@@ -129,6 +137,9 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	let prompt = 'Yank list element (' .. where .. ') : '
 	let complete = 'customlist,wheel#complete#yank_list'
 	let line = input(prompt, '', complete)
+	if empty(line)
+		return v:false
+	endif
 	let content = eval(line)
 	if where ==# 'linewise-after'
 		call setreg('"', content, 'l')
@@ -144,6 +155,7 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 		normal! P
 	endif
 	call wheel#codex#climb(content)
+	return v:true
 endfun
 
 " ---- mandala
@@ -154,6 +166,9 @@ fun! wheel#codex#mandala_switch (mode)
 	let prompt = 'Switch to register : '
 	let complete = 'customlist,wheel#complete#register'
 	let register = input(prompt, '', complete)
+	if empty(register)
+		return v:false
+	endif
 	" ---- type
 	if mode ==# 'plain'
 		let type = 'yank/'
@@ -178,6 +193,7 @@ fun! wheel#codex#mandala_switch (mode)
 	" ---- status
 	call wheel#cylinder#update_type ()
 	call wheel#status#mandala_leaf ()
+	return v:true
 endfun
 
 fun! wheel#codex#undo ()

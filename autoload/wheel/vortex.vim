@@ -241,15 +241,20 @@ fun! wheel#vortex#switch (level, ...)
 		let complete = 'customlist,wheel#complete#' .. level
 		let name = input(prompt, '', complete)
 	endif
+	if empty(name)
+		return -1
+	endif
 	if a:0 > 1
 		let where = a:2
 	else
 		let where = 'search-window'
 	endif
 	let index = wheel#vortex#voice (level, name)
-	if index >= 0
-		call wheel#vortex#jump (where)
+	if index < 0
+		return index
 	endif
+	call wheel#vortex#jump (where)
+	return index
 endfun
 
 fun! wheel#vortex#multi_switch(where = 'search-window')
@@ -264,6 +269,9 @@ fun! wheel#vortex#multi_switch(where = 'search-window')
 		let prompt = 'Switch to ' .. level .. ' : '
 		let complete = 'customlist,wheel#complete#' .. level
 		let name = input(prompt, '', complete)
+		if empty(name)
+			return indexes
+		endif
 		let level_index = wheel#referen#level_index_in_coordin(level)
 		let found = wheel#vortex#tune (level, name)
 		if found >= 0
@@ -284,9 +292,13 @@ fun! wheel#vortex#helix (where = 'search-window')
 	let prompt = 'Switch to location in index : '
 	let complete = 'customlist,wheel#complete#helix'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return [-1, -1, -1]
+	endif
 	let coordin = split(record, s:level_separ)
-	call wheel#vortex#chord (coordin)
+	let indexes = wheel#vortex#chord (coordin)
 	call wheel#vortex#jump (where)
+	return indexes
 endfun
 
 fun! wheel#vortex#grid (where = 'search-window')
@@ -296,7 +308,11 @@ fun! wheel#vortex#grid (where = 'search-window')
 	let prompt = 'Switch to circle in index : '
 	let complete = 'customlist,wheel#complete#grid'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return [-1, -1]
+	endif
 	let coordin = split(record, s:level_separ)
-	call wheel#vortex#interval (coordin)
+	let indexes = wheel#vortex#interval (coordin)
 	call wheel#vortex#jump (where)
+	return indexes
 endfun

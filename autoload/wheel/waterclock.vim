@@ -129,11 +129,15 @@ fun! wheel#waterclock#history (where = 'search-window')
 	let prompt = 'Switch to history element : '
 	let complete = 'customlist,wheel#complete#history'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return v:false
+	endif
 	let fields = split(record, s:field_separ)
 	let entry = fields[1]
 	let coordin = split(entry, s:level_separ)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (where)
+	return v:true
 endfun
 
 fun! wheel#waterclock#history_circuit (where = 'search-window')
@@ -143,11 +147,15 @@ fun! wheel#waterclock#history_circuit (where = 'search-window')
 	let prompt = 'Switch to history circuit element : '
 	let complete = 'customlist,wheel#complete#history_circuit'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return v:false
+	endif
 	let fields = split(record, s:field_separ)
 	let entry = fields[1]
 	let coordin = split(entry, s:level_separ)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (where)
+	return v:true
 endfun
 
 fun! wheel#waterclock#frecency (where = 'search-window')
@@ -157,9 +165,13 @@ fun! wheel#waterclock#frecency (where = 'search-window')
 	let prompt = 'Switch to frecency element : '
 	let complete = 'customlist,wheel#complete#frecency'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return v:false
+	endif
 	let fields = split(record, s:field_separ)
 	let entry = fields[1]
 	let coordin = split(entry, s:level_separ)
 	call wheel#vortex#chord(coordin)
 	call wheel#vortex#jump (where)
+	return v:true
 endfun

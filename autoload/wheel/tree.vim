@@ -89,6 +89,10 @@ fun! wheel#tree#insert_torus (torus)
 		let name = input('Clone torus with name ? ', '', complete)
 		let name = wheel#tree#format_name (name)
 	endif
+	if empty(name)
+		call wheel#status#message('Torus name cannot be empty')
+		return v:false
+	endif
 	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Torus named' name 'already exists in wheel'
 		return v:false
@@ -113,6 +117,10 @@ fun! wheel#tree#insert_circle (circle)
 		let complete = 'customlist,wheel#complete#circle'
 		let name = input('Insert circle with name ? ', '', complete)
 		let name = wheel#tree#format_name (name)
+	endif
+	if empty(name)
+		call wheel#status#message('Circle name cannot be empty')
+		return v:false
 	endif
 	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Circle named' name 'already exists in torus' torus.name
@@ -139,6 +147,10 @@ fun! wheel#tree#insert_location (location)
 		let complete = 'customlist,wheel#complete#location'
 		let name = input('Insert location with name ? ', '', complete)
 		let name = wheel#tree#format_name (name)
+	endif
+	if empty(name)
+		call wheel#status#message('Location name cannot be empty')
+		return v:false
 	endif
 	if wheel#chain#is_inside(name, glossary)
 		echomsg 'Location named' name 'already exists in circle' circle.name
@@ -284,9 +296,13 @@ fun! wheel#tree#add_file (...)
 		let complete = 'customlist,wheel#complete#file'
 		let file = input(prompt, '', complete)
 	endif
+	if empty(file)
+		return v:false
+	endif
 	silent doautocmd User WheelBeforeOrganize
 	execute 'hide edit' file
 	call wheel#tree#add_here()
+	return v:true
 endfun
 
 fun! wheel#tree#add_buffer (...)
@@ -297,12 +313,19 @@ fun! wheel#tree#add_buffer (...)
 		let prompt = 'Buffer to add ? '
 		let complete = 'customlist,wheel#complete#buffer'
 		let choice = input(prompt, '', complete)
+		if empty(choice)
+			return v:false
+		endif
 		let fields = split(choice, s:field_separ)
 		let buffer = fields[3]
+	endif
+	if empty(buffer)
+		return v:false
 	endif
 	silent doautocmd User WheelBeforeOrganize
 	execute 'hide buffer' buffer
 	call wheel#tree#add_here()
+	return v:true
 endfun
 
 fun! wheel#tree#add_glob (...)
@@ -313,6 +336,9 @@ fun! wheel#tree#add_glob (...)
 		let prompt = 'Add files matching glob : '
 		let complete = 'customlist,wheel#complete#file'
 		let glob = input(prompt, '', complete)
+	endif
+	if empty(glob)
+		return []
 	endif
 	silent doautocmd User WheelBeforeOrganize
 	" add first torus if needed
@@ -372,6 +398,9 @@ fun! wheel#tree#rename (level, ...)
 			return v:false
 		endif
 		let new = input(prompt, '', complete)
+	endif
+	if empty(new)
+		return v:false
 	endif
 	let upper = wheel#referen#upper (level)
 	let current = wheel#referen#current (level)
@@ -436,6 +465,9 @@ fun! wheel#tree#rename_file (...)
 		let prompt = 'Rename file as ? '
 		let complete = 'customlist,wheel#complete#file'
 		let new_filename = input(prompt, dir, complete)
+	endif
+	if empty(new_filename)
+		return v:false
 	endif
 	" ---- old name
 	let location = wheel#referen#location ()
@@ -583,6 +615,9 @@ fun! wheel#tree#copy_move (level, mode, ...)
 			return v:false
 		endif
 	endif
+	if empty(destination)
+		return v:false
+	endif
 	let element = deepcopy(wheel#referen#{level}())
 	let coordin = split(destination, s:level_separ)
 	" ---- pre checks
@@ -615,6 +650,7 @@ fun! wheel#tree#copy_move (level, mode, ...)
 		call wheel#tree#insert_location (element)
 	endif
 	call wheel#vortex#jump ()
+	return v:true
 endfun
 
 fun! wheel#tree#copy (level)

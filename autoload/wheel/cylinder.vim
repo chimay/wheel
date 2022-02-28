@@ -354,8 +354,12 @@ fun! wheel#cylinder#rename ()
 	let names = bufring.names
 	let prompt = 'Relabel current dedicated buffer as ? '
 	let new_name = input(prompt)
+	if empty(new_name)
+		return v:false
+	endif
 	let names[current] = new_name
 	call wheel#status#mandala_leaf ()
+	return v:true
 endfun
 
 " ---- close
@@ -450,6 +454,9 @@ fun! wheel#cylinder#switch ()
 	else
 		let chosen = input(prompt, '', complete)
 	endif
+	if empty(chosen)
+		return v:false
+	endif
 	let chosen = split(chosen, s:field_separ)[0]
 	let index = names->index(chosen)
 	if index < 0
@@ -458,4 +465,5 @@ fun! wheel#cylinder#switch ()
 	let g:wheel_bufring.current = index
 	call wheel#cylinder#recall ()
 	call wheel#status#mandala_leaf ()
+	return v:true
 endfun

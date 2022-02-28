@@ -24,6 +24,9 @@ fun! wheel#sailing#find (...)
 		let complete = 'customlist,wheel#complete#file'
 		let file = input(prompt, '', complete)
 	endif
+	if empty(file)
+		return -1
+	endif
 	execute 'hide edit' file
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -36,6 +39,9 @@ fun! wheel#sailing#mru ()
 	let prompt = 'Switch to mru file : '
 	let complete = 'customlist,wheel#complete#mru'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	let filename = fields[1]
 	execute 'hide edit' filename
@@ -51,6 +57,9 @@ fun! wheel#sailing#occur ()
 	let prompt = 'Switch to line : '
 	let complete = 'customlist,wheel#complete#line'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	let linum = fields[0]
 	call cursor(linum, 1)
@@ -65,6 +74,9 @@ fun! wheel#sailing#buffer ()
 	let prompt = 'Switch to buffer : '
 	let complete = 'customlist,wheel#complete#buffer'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	let bufnum = fields[0]
 	execute 'hide buffer' bufnum
@@ -81,6 +93,9 @@ fun! wheel#sailing#tabwin ()
 	let prompt = 'Switch to visible buffer : '
 	let complete = 'customlist,wheel#complete#visible_buffer'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	let tabnum = fields[0]
 	let winum = fields[1]
@@ -98,6 +113,9 @@ fun! wheel#sailing#marker ()
 	let prompt = 'Switch to marker : '
 	let complete = 'customlist,wheel#complete#marker'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	let mark = fields[0]
 	execute "normal `" .. mark
@@ -112,6 +130,9 @@ fun! wheel#sailing#jump ()
 	let prompt = 'Switch to jump : '
 	let complete = 'customlist,wheel#complete#jump'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	let bufnum = fields[0]
 	let linum = str2nr(fields[1])
@@ -129,6 +150,9 @@ fun! wheel#sailing#change ()
 	let prompt = 'Switch to change : '
 	let complete = 'customlist,wheel#complete#change'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	let linum = str2nr(fields[0])
 	let colnum = str2nr(fields[1])
@@ -144,6 +168,9 @@ fun! wheel#sailing#tag ()
 	let prompt = 'Switch to tag : '
 	let complete = 'customlist,wheel#complete#tag'
 	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
 	let fields = split(record, s:field_separ)
 	if len(fields) < 4
 		echomsg 'Tag line is too short'
