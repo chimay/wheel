@@ -38,7 +38,7 @@ fun! wheel#loop#navigation (settings)
 	" ---- go to previous window before processing
 	call wheel#rectangle#goto_previous ()
 	" ---- target : current window or not ?
-	if target ==# 'current'
+	if target ==# 'here'
 		let settings.selection.index = selection.indexes[0]
 		let settings.selection.component = selection.components[0]
 		let winiden = Fun->wheel#metafun#call(settings)

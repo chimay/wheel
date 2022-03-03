@@ -31,12 +31,10 @@ fun! wheel#line#buffer (settings)
 	" ---- navigation
 	let coordin = wheel#projection#closest ('wheel', filename)
 	if ! empty(coordin)
-		let where = wheel#curve#where (target)
-		call wheel#curve#target (target)
 		call wheel#vortex#chord (coordin)
-		call wheel#vortex#jump (where)
+		call wheel#vortex#jump (target)
 	else
-		call wheel#curve#target (target)
+		call wheel#vortex#target (target)
 		execute 'silent hide buffer' bufnum
 	endif
 	call wheel#origami#view_cursor ()
@@ -93,7 +91,7 @@ fun! wheel#line#mru (settings)
 	let fields = split(component, s:field_separ)
 	let filename = fields[1]
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide edit' filename
 	normal! '"
 	call wheel#origami#view_cursor ()
@@ -108,7 +106,7 @@ fun! wheel#line#locate (settings)
 	let target = settings.target
 	let filename = settings.selection.component
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide edit' filename
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -124,7 +122,7 @@ fun! wheel#line#find (settings)
 	let filename = settings.selection.component
 	let filename = trim(filename, ' ')
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide edit' filename
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -144,7 +142,7 @@ fun! wheel#line#occur (settings)
 	" ---- go
 	let fields = split(component, s:field_separ)
 	let line = str2nr(fields[0])
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide buffer' bufnum
 	call cursor(line, 1)
 	call wheel#origami#view_cursor ()
@@ -161,7 +159,7 @@ fun! wheel#line#grep (settings)
 	let component = settings.selection.component
 	let fields = split(component, s:field_separ)
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	" -- using error number
 	let errnum = fields[0]
 	execute 'cc' errnum
@@ -189,7 +187,7 @@ fun! wheel#line#marker (settings)
 	"let line = fields[1]
 	"let column = fields[2]
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute "normal! `" .. mark
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -208,7 +206,7 @@ fun! wheel#line#jump (settings)
 	let linum = str2nr(fields[1])
 	let colnum = str2nr(fields[2])
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide buffer' bufnum
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
@@ -228,7 +226,7 @@ fun! wheel#line#change (settings)
 	let colnum = str2nr(fields[1])
 	let bufnum = a:settings.related.bufnum
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide buffer' bufnum
 	call cursor(linum, colnum)
 	call wheel#origami#view_cursor ()
@@ -247,7 +245,7 @@ fun! wheel#line#tag (settings)
 	let file = fields[2]
 	let search = fields[3][1:]
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide edit' file
 	let found = search(search, 'sw')
 	if found == 0
@@ -269,7 +267,7 @@ fun! wheel#line#narrow_file (settings)
 	let fields = split(component, s:field_separ)
 	let linum = str2nr(fields[0])
 	" ---- go
-	call wheel#curve#target (target)
+	call wheel#vortex#target (target)
 	execute 'silent hide buffer' bufnum
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
@@ -296,7 +294,7 @@ fun! wheel#line#narrow_circle (settings)
 		let content = ''
 	endif
 	" ---- go
-	call wheel#curve#target (a:settings.target)
+	call wheel#vortex#target (a:settings.target)
 	if content =~ pattern
 		" grep result
 		let pairs = getqflist()->map({ _, val -> [ val.bufnr, val.lnum ] })

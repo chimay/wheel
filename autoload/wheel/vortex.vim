@@ -51,6 +51,27 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	return v:true
 endfun
 
+" -- jump
+
+fun! wheel#vortex#target (target)
+	" Open target tab / win if needed before navigation
+	let target = a:target
+	if target ==# 'here'
+		return v:true
+	elseif target ==# 'tab'
+		noautocmd tabnew
+	elseif target ==# 'horizontal_split'
+		noautocmd split
+	elseif target ==# 'vertical_split'
+		noautocmd vsplit
+	elseif target ==# 'horizontal_golden'
+		call wheel#spiral#horizontal_split ()
+	elseif target ==# 'vertical_golden'
+		call wheel#spiral#vertical_split ()
+	endif
+	return v:true
+endfun
+
 fun! wheel#vortex#jump (where = 'search-window')
 	" Jump to current location
 	" Perform user post-jump autocmd
@@ -59,14 +80,24 @@ fun! wheel#vortex#jump (where = 'search-window')
 	"                               in tabs & windows
 	"   - here : load the buffer in current window,
 	"            do not search in tabs & windows
+	"   - tab : jump in new tab
+	"   - horizontal_split : jump in new horizontal split
+	"   - vertical_split : jump in new horizontal split
+	"   - horizontal_golden : jump in new horizontal golden split
+	"   - vertical_golden : jump in new horizontal golden split
 	let where = a:where
 	" ---- check location
 	let location = wheel#referen#location ()
 	if empty(location)
 		return win_getid ()
 	endif
+	" ---- target
+	if where == 'search-window'
+		let window = wheel#rectangle#tour ()
+	else
+		call wheel#vortex#target (where)
+	endif
 	" ---- jump
-	let window = wheel#rectangle#tour ()
 	if where ==# 'search-window' && window >= 0
 		" -- switch to window containing location buffer
 		call win_gotoid(window)

@@ -305,7 +305,7 @@ endif
 
 if ! exists('s:context_navigation')
 	let s:context_navigation = [
-				\ ['open' ,  "wheel#boomerang#navigation('current')"],
+				\ ['open' ,  "wheel#boomerang#navigation('here')"],
 				\ ['open in tab(s)' ,  "wheel#boomerang#navigation('tab')"],
 				\ ['open in horizontal split(s)' ,  "wheel#boomerang#navigation('horizontal_split')"],
 				\ ['open in vertical split(s)' ,  "wheel#boomerang#navigation('vertical_split')"],

@@ -581,7 +581,7 @@ fun! wheel#polyphony#navigation_maps (settings)
 	let coda = ')<cr>'
 	" -- close after navigation
 	let settings.close = v:true
-	let settings.target = 'current'
+	let settings.target = 'here'
 	exe nmap '<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
 	exe nmap '<m-t>' loopnav .. string(settings) .. coda
@@ -595,7 +595,7 @@ fun! wheel#polyphony#navigation_maps (settings)
 	exe nmap '<m-s-v>' loopnav .. string(settings) .. coda
 	" -- leave open after navigation
 	let settings.close = v:false
-	let settings.target = 'current'
+	let settings.target = 'here'
 	exe nmap 'g<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
 	exe nmap 'g<m-t>' loopnav .. string(settings) .. coda

@@ -22,42 +22,6 @@ if ! exists('s:level_separ')
 	lockvar s:level_separ
 endif
 
-" ---- target
-
-fun! wheel#curve#where (target)
-	" Where to jump
-	" Return value :
-	"   - search-window : search for active buffer
-	"                     in tabs & windows
-	"   - here : load the buffer in current window,
-	"            do not search in tabs & windows
-	" See also vortex#jump
-	" -- arguments
-	let target = a:target
-	" -- search for window is better with prompt functions
-	"if target ==# 'current'
-		"return 'search-window'
-	"endif
-	" -- coda
-	return 'here'
-endfun
-
-fun! wheel#curve#target (target)
-	" Open target tab / win if needed before navigation
-	let target = a:target
-	if target ==# 'tab'
-		noautocmd tabnew
-	elseif target ==# 'horizontal_split'
-		noautocmd split
-	elseif target ==# 'vertical_split'
-		noautocmd vsplit
-	elseif target ==# 'horizontal_golden'
-		call wheel#spiral#horizontal_split ()
-	elseif target ==# 'vertical_golden'
-		call wheel#spiral#vertical_split ()
-	endif
-endfun
-
 " -- applications
 
 fun! wheel#curve#switch (settings)
@@ -73,9 +37,8 @@ fun! wheel#curve#switch (settings)
 	let level = settings.level
 	let component = settings.selection.component
 	" ---- jump
-	let where = wheel#curve#where (target)
-	call wheel#curve#target (target)
-	call wheel#vortex#switch(level, component, where)
+	call wheel#vortex#voice(level, component)
+	call wheel#vortex#jump(target)
 	return win_getid ()
 endfun
 
@@ -87,10 +50,8 @@ fun! wheel#curve#helix (settings)
 	let component = settings.selection.component
 	let coordin = split(component, s:level_separ)
 	" ---- jump
-	let where = wheel#curve#where (target)
-	call wheel#curve#target (target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (where)
+	call wheel#vortex#jump (target)
 	return win_getid ()
 endfun
 
@@ -102,10 +63,8 @@ fun! wheel#curve#grid (settings)
 	let component = settings.selection.component
 	let coordin = split(component, s:level_separ)
 	" ---- jump
-	let where = wheel#curve#where (target)
-	call wheel#curve#target (target)
 	call wheel#vortex#interval (coordin)
-	call wheel#vortex#jump (where)
+	call wheel#vortex#jump (target)
 	return win_getid ()
 endfun
 
@@ -121,8 +80,6 @@ fun! wheel#curve#tree (settings)
 	let coordin = settings.selection.component
 	let length = len(coordin)
 	" ---- jump
-	let where = wheel#curve#where (target)
-	call wheel#curve#target (a:settings.target)
 	if length == 3
 		call wheel#vortex#chord(coordin)
 	elseif length == 2
@@ -132,7 +89,7 @@ fun! wheel#curve#tree (settings)
 	else
 		return v:false
 	endif
-	call wheel#vortex#jump (where)
+	call wheel#vortex#jump (target)
 	return win_getid ()
 endfun
 
@@ -145,10 +102,8 @@ fun! wheel#curve#history (settings)
 	let fields = split(component, s:field_separ)
 	let coordin = split(fields[1], s:level_separ)
 	" ---- jump
-	let where = wheel#curve#where (target)
-	call wheel#curve#target (target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (where)
+	call wheel#vortex#jump (target)
 	return win_getid ()
 endfun
 
@@ -166,9 +121,7 @@ fun! wheel#curve#frecency (settings)
 	let fields = split(component, s:field_separ)
 	let coordin = split(fields[1], s:level_separ)
 	" ---- jump
-	let where = wheel#curve#where (target)
-	call wheel#curve#target (target)
 	call wheel#vortex#chord(coordin)
-	call wheel#vortex#jump (where)
+	call wheel#vortex#jump (target)
 	return win_getid ()
 endfun

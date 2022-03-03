@@ -447,7 +447,7 @@ endif
 
 if ! exists('s:mandala_targets')
 	let s:mandala_targets = [
-				\ 'current',
+				\ 'here',
 				\ 'tab',
 				\ 'horizontal_split',
 				\ 'vertical_split',

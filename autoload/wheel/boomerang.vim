@@ -143,7 +143,7 @@ fun! wheel#boomerang#tabwin (action)
 	if action ==# 'open'
 		" tell loop#navigation to not care about opening a new
 		" target tab or window
-		let settings.target = 'current'
+		let settings.target = 'here'
 		return wheel#loop#navigation (settings)
 	elseif action ==# 'tabnew'
 		tabnew

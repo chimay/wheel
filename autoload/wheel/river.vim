@@ -28,7 +28,7 @@ fun! wheel#river#default (settings)
 		let settings.level = 'location'
 	endif
 	if ! has_key(settings, 'target')
-		let settings.target = 'current'
+		let settings.target = 'here'
 	endif
 	if ! has_key(settings, 'related')
 		let settings.related = b:wheel_related
@@ -54,7 +54,7 @@ fun! wheel#river#mappings (settings)
 	let coda = ')<cr>'
 	" -- close after navigation
 	let settings.close = v:true
-	let settings.target = 'current'
+	let settings.target = 'here'
 	exe nmap '<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
 	exe nmap 't' loopnav .. string(settings) .. coda
@@ -68,7 +68,7 @@ fun! wheel#river#mappings (settings)
 	exe nmap 'V' loopnav .. string(settings) .. coda
 	" -- leave open after navigation
 	let settings.close = v:false
-	let settings.target = 'current'
+	let settings.target = 'here'
 	exe nmap 'g<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
 	exe nmap 'gt' loopnav .. string(settings) .. coda
