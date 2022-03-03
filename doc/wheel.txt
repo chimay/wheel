@@ -4160,6 +4160,8 @@ work in your setup : >
 
     " index of locations in torus > circle > location format
     nmap <silent> <d-x>       <plug>(wheel-dedibuf-index)
+    " index of locations, open in new tab
+    nmap <silent> <d-cr>      :tabnew<cr><plug>(wheel-prompt-index)
 
     " history
     nmap <silent> <d-h>       <plug>(wheel-dedibuf-history)
