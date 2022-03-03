@@ -260,25 +260,17 @@ endfun
 
 " ---- switch : tune and jump
 
-fun! wheel#vortex#switch (level, ...)
+fun! wheel#vortex#switch (level, where = 'search-window')
 	" Switch to element with completion
 	" Optional argument 0 : name of element
 	" Optional argument 1 : see vortex#jump optional argument
 	let level = a:level
-	if a:0 > 0
-		let name = a:1
-	else
-		let prompt = 'Switch to ' .. level .. ' : '
-		let complete = 'customlist,wheel#complete#' .. level
-		let name = input(prompt, '', complete)
-	endif
+	let where = a:where
+	let prompt = 'Switch to ' .. level .. ' : '
+	let complete = 'customlist,wheel#complete#' .. level
+	let name = input(prompt, '', complete)
 	if empty(name)
 		return -1
-	endif
-	if a:0 > 1
-		let where = a:2
-	else
-		let where = 'search-window'
 	endif
 	let index = wheel#vortex#voice (level, name)
 	if index < 0
@@ -288,7 +280,7 @@ fun! wheel#vortex#switch (level, ...)
 	return index
 endfun
 
-fun! wheel#vortex#multi_switch(where = 'search-window')
+fun! wheel#vortex#multi_switch (where = 'search-window')
 	" Switch torus, circle & location
 	" Optional argument : see vortex#jump optional argument
 	let where = a:where
