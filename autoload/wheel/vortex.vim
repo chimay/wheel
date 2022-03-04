@@ -57,8 +57,12 @@ fun! wheel#vortex#target (target)
 	" Open target tab / win if needed before navigation
 	let target = a:target
 	if target ==# 'here'
-		return v:true
-	elseif target ==# 'tab'
+		return win_getid ()
+	endif
+	if target ==# 'search-window'
+		return wheel#rectangle#tour ()
+	endif
+	if target ==# 'tab'
 		noautocmd tabnew
 	elseif target ==# 'horizontal_split'
 		noautocmd split
@@ -69,7 +73,7 @@ fun! wheel#vortex#target (target)
 	elseif target ==# 'vertical_golden'
 		call wheel#spiral#vertical_split ()
 	endif
-	return v:true
+	return win_getid ()
 endfun
 
 fun! wheel#vortex#jump (where = 'search-window')
@@ -92,11 +96,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 		return win_getid ()
 	endif
 	" ---- target
-	if where == 'search-window'
-		let window = wheel#rectangle#tour ()
-	else
-		call wheel#vortex#target (where)
-	endif
+	let window = wheel#vortex#target (where)
 	" ---- jump
 	if where ==# 'search-window' && window >= 0
 		" -- switch to window containing location buffer
