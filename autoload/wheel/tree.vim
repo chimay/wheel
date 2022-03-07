@@ -43,26 +43,24 @@ endfun
 fun! wheel#tree#format_name (name)
 	" Format element name to avoid annoying characters
 	let name = a:name
-	let filename = trim(name, ' ')
+	if name ==# '%'
+		let name = getreg('%')
+	endif
+	if name ==# '#'
+		let name = getreg('#')
+	endif
+	let name = trim(name, ' ')
 	let name = substitute(name, ' ', '_', 'g')
 	return name
-endfun
-
-fun! wheel#tree#format_filename (filename)
-	" Format filename to avoid annoying characters
-	let filename = a:filename
-	let filename = trim(filename, ' ')
-	let filename = substitute(filename, ' ', '_', 'g')
-	let filename = fnamemodify(filename, ':p')
-	let filename = fnameescape(filename)
-	return filename
 endfun
 
 fun! wheel#tree#name ()
 	" Prompt for a location name and return it
 	let prompt = 'Location name ? '
 	let complete = 'customlist,wheel#complete#current_file'
-	return input(prompt, '', complete)
+	let name = input(prompt, '', complete)
+	let name = wheel#tree#format_name (name)
+	return name
 endfun
 
 fun! wheel#tree#add_name (location)
@@ -211,7 +209,6 @@ fun! wheel#tree#add_circle (...)
 		call wheel#tree#add_torus()
 	endif
 	" ---- circle name
-	let circle_name = wheel#tree#format_name (circle_name)
 	if empty(circle_name)
 		call wheel#status#message('Circle name cannot be empty')
 		return v:false
@@ -473,7 +470,7 @@ fun! wheel#tree#rename_file (...)
 	let location = wheel#referen#location ()
 	let old_filename = location.file
 	" ---- new name
-	let new_filename = wheel#tree#format_filename (new_filename)
+	let new_filename = wheel#disc#format_name (new_filename)
 	" ---- rename file
 	let returnstring = wheel#disc#rename (old_filename, new_filename)
 	if returnstring != 'success'

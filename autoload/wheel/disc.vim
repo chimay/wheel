@@ -6,6 +6,33 @@
 
 " read & write wheel variables
 
+" ---- helpers
+
+fun! wheel#disc#full (filename)
+	" Return filename full path
+	" % -> current filename
+	" # -> alternate filename
+	let filename = a:filename
+	if filename ==# '%'
+		let filename = getreg('%')
+	endif
+	if filename ==# '#'
+		let filename = getreg('#')
+	endif
+	let filename = trim(filename, ' ')
+	let filename = fnamemodify(filename, ':p')
+	let filename = fnameescape(filename)
+	return filename
+endfun
+
+fun! wheel#disc#format_name (filename)
+	" Format filename to avoid annoying characters
+	let filename = a:filename
+	let filename = wheel#disc#full (filename)
+	let filename = substitute(filename, ' ', '_', 'g')
+	return filename
+endfun
+
 " ---- file system operations
 
 " -- directory
@@ -20,7 +47,13 @@ fun! wheel#disc#relative_path (...)
 	else
 		let filename = expand('%:p')
 	endif
+	" ---- check not empty
+	if empty(filename)
+		echomsg 'wheel disc relative_path : file name cannot be empty'
+		return 'empty-file-name'
+	endif
 	let directory = '\m^' .. getcwd() .. '/'
+	let filename = wheel#disc#full (filename)
 	let filename = substitute(filename, directory, '', '')
 	return filename
 endfun
@@ -32,8 +65,10 @@ fun! wheel#disc#project_root (markers)
 	if type(a:markers) == v:t_string
 		let markers = [ a:markers ]
 	endif
+	" ---- current file directory
 	let directory = expand('%:p:h')
 	execute 'lcd' directory
+	" ---- find marker
 	let found = 0
 	while v:true
 		for flag in markers
@@ -48,17 +83,25 @@ fun! wheel#disc#project_root (markers)
 		lcd ..
 		let directory = getcwd()
 	endwhile
+	" ---- project root
 	return directory
 endfun
 
 fun! wheel#disc#mkdir (directory)
 	" Create directory if non existent
 	let directory = fnamemodify(a:directory, ':p')
-	" nothing to do if directory already exists
+	" ---- check not empty
+	if empty(directory)
+		echomsg 'wheel disc mkdir : dir name cannot be empty'
+		return 'empty-dir-name'
+	endif
+	" ---- format dir name
+	let directory = wheel#disc#format_name (directory)
+	" ---- nothing to do if directory already exists
 	if isdirectory(directory)
 		return 'nothing-to-do'
 	endif
-	" create directory
+	" ---- create directory
 	echomsg 'wheel : creating directory' directory
 	let success = mkdir(directory, 'p')
 	if ! success
@@ -75,7 +118,7 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 	let source = a:source
 	let destination = a:destination
 	let ask = a:ask
-	" check not empty
+	" ---- check not empty
 	if empty(source)
 		echomsg 'wheel disc rename : file name cannot be empty'
 		return 'empty-source-file-name'
@@ -84,25 +127,25 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 		echomsg 'wheel disc rename : file name cannot be empty'
 		return 'empty-destination-file-name'
 	endif
-	" full path
-	let source = fnamemodify(source, ':p')
-	let destination = fnamemodify(destination, ':p')
-	" nothing to do if source == destination
+	" ---- full path
+	let source = wheel#disc#full (source)
+	let destination = wheel#disc#format_name (destination)
+	" ---- nothing to do if source == destination
 	if source ==# destination
 		echomsg 'wheel disc rename : nothing to do if new filename == old one'
 		return 'nothing-to-do'
 	endif
-	" check source is directory
+	" ---- check source is directory
 	if isdirectory(source)
 		echomsg 'wheel disc rename : source must be a regular file'
 		return 'source-is-directory'
 	endif
-	" check non existent source
+	" ---- check non existent source
 	if ! filereadable(source)
 		echomsg 'wheel disc rename : source file not readable'
 		return 'source-not-readable'
 	endif
-	" check existent destination
+	" ---- check existent destination
 	if ask ==# 'confirm' && filereadable(destination)
 		let prompt = 'Replace existing ' .. destination .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
@@ -110,13 +153,13 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 			return 'confirm-replace-destination-no'
 		endif
 	endif
-	" create directory if needed
+	" ---- create directory if needed
 	let directory = fnamemodify(destination, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
 	if returnstring ==# 'failure'
 		return 'failure'
 	endif
-	" rename
+	" ---- rename
 	let zero = rename(source, destination)
 	if zero != 0
 		echomsg 'wheel disc rename : error renaming' source '->' destination
@@ -130,7 +173,7 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 	let source = a:source
 	let destination = a:destination
 	let ask = a:ask
-	" check not empty
+	" ---- check not empty
 	if empty(source)
 		echomsg 'wheel disc rename : file name cannot be empty'
 		return 'empty-source-file-name'
@@ -139,25 +182,25 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 		echomsg 'wheel disc rename : file name cannot be empty'
 		return 'empty-destination-file-name'
 	endif
-	" full path
-	let source = fnamemodify(source, ':p')
-	let destination = fnamemodify(destination, ':p')
-	" nothing to do if source == destination
+	" ---- full path
+	let source = wheel#disc#full (source)
+	let destination = wheel#disc#format_name (destination)
+	" ---- nothing to do if source == destination
 	if source ==# destination
 		echomsg 'wheel disc copy : nothing to do if new filename == old one'
 		return 'nothing-to-do'
 	endif
-	" check source is directory
+	" ---- check source is directory
 	if isdirectory(source)
 		echomsg 'wheel disc copy : source must be a regular file'
 		return 'source-is-directory'
 	endif
-	" check non existent source
+	" ---- check non existent source
 	if ! filereadable(source)
 		echomsg 'wheel disc copy : source file not readable'
 		return 'source-not-readable'
 	endif
-	" check existent destination
+	" ---- check existent destination
 	if ask ==# 'confirm' && filereadable(destination)
 		let prompt = 'Replace existing ' .. destination .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
@@ -165,13 +208,13 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 			return 'confirm-replace-destination-no'
 		endif
 	endif
-	" create directory if needed
+	" ---- create directory if needed
 	let directory = fnamemodify(destination, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
 	if returnstring ==# 'failure'
 		return 'failure'
 	endif
-	" copy
+	" ---- copy
 	let content = readfile(source, 'b')
 	let zero = writefile(content, destination, 'b')
 	if zero != 0
@@ -184,24 +227,24 @@ fun! wheel#disc#delete (file, ask = 'confirm')
 	" Delete file ; perform some checks
 	let file = a:file
 	let ask = a:ask
-	" check not empty
+	" ---- check not empty
 	if empty(file)
 		echomsg 'wheel disc delete : file name cannot be empty'
 		return 'empty-file-name'
 	endif
-	" full path
-	let file = fnamemodify(file, ':p')
-	" check file is directory
+	" ---- full path
+	let file = wheel#disc#full (file)
+	" ---- check file is directory
 	if isdirectory(file)
 		echomsg 'wheel disc delete : file must be a regular file'
 		return 'file-is-directory'
 	endif
-	" check non existent file
+	" ---- check non existent file
 	if ! filereadable(file)
 		echomsg 'wheel disc delete : file not readable'
 		return 'file-not-readable'
 	endif
-	" ask confirmation
+	" ---- ask confirmation
 	if ask ==# 'confirm'
 		let prompt = 'Delete ' .. file .. ' ?'
 		let overwrite = confirm(prompt, "&Yes\n&No", 2)
@@ -209,7 +252,7 @@ fun! wheel#disc#delete (file, ask = 'confirm')
 			return 'confirm-no'
 		endif
 	endif
-	" delete
+	" ---- delete
 	let zero = delete(file)
 	if zero != 0
 		return 'failure'
@@ -232,13 +275,13 @@ fun! wheel#disc#writefile (varname, file, where = '>')
 	endif
 	let file = fnamemodify(a:file, ':p')
 	let where = a:where
-	" create directory if needed
+	" ---- create directory if needed
 	let directory = fnamemodify(file, ':h')
 	let returnstring = wheel#disc#mkdir(directory)
 	if returnstring ==# 'failure'
 		return 'failure'
 	endif
-	" write
+	" ---- write
 	let string = 'let ' .. varname .. ' = ' .. string({varname})
 	let string = substitute(string, '\m[=,]', '\0\\', 'g')
 	let list = split(string, '\m[=,]\zs')
@@ -507,7 +550,7 @@ fun! wheel#disc#tree_script (...)
 	else
 		let prompt = 'Write script in file ? '
 		let script_file = input(prompt, '', 'file')
-		let script_file = wheel#tree#format_filename (script_file)
+		let script_file = wheel#disc#format_name (script_file)
 	endif
 	if empty(script_file)
 		return []

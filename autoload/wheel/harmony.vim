@@ -178,7 +178,7 @@ fun! wheel#harmony#rename_file (ask = 'confirm')
 	for index in range(len_lines)
 		let fields = split(lines[index], s:field_separ)
 		let old_filename = locations[index].file
-		let new_filename = wheel#tree#format_filename (fields[1])
+		let new_filename = wheel#disc#format_name (fields[1])
 		" -- old -> new
 		let returnstring = wheel#disc#rename(old_filename, new_filename)
 		if returnstring != 'success'

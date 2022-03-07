@@ -552,6 +552,7 @@ fun! wheel#mandala#async ()
 	let alter = getreg('#')
 	let command = substitute(command, ' %', ' ' .. current, 'g')
 	let command = substitute(command, ' #', ' ' .. alter, 'g')
+	let command = substitute(command, '\~', $HOME, 'g')
 	if has('nvim')
 		let job = wheel#wave#start(command)
 	else

@@ -96,9 +96,9 @@ fun! wheel#centre#meta (subcommand, ...)
 	let action = action_dict[subcommand]
 	if subcommand ==# 'batch'
 		let arguments = join(arguments)
-		return wheel#metafun#call(action, [ arguments ])
+		return call(action, [ arguments ])
 	endif
-	return wheel#metafun#call(action, arguments)
+	return call(action, arguments)
 endfun
 
 fun! wheel#centre#commands ()
