@@ -14,6 +14,16 @@ endif
 
 " ---- helpers
 
+fun! wheel#origami#open ()
+	" Open all folds
+	setlocal foldlevel=2
+endfun
+
+fun! wheel#origami#close ()
+	" Close all folds
+	setlocal foldlevel=0
+endfun
+
 fun! wheel#origami#view_cursor ()
 	" Unfold to view cursor line
 	if &foldopen =~ 'jump'

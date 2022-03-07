@@ -149,7 +149,7 @@ fun! wheel#teapot#filter (update = 'update', lock = 'lock')
 		let b:wheel_filter.words = []
 		let b:wheel_filter.indexes = []
 		let b:wheel_filter.lines = []
-		setlocal foldlevel=0
+		call wheel#origami#close ()
 	else
 		call wheel#scroll#record(wordlist)
 		let matrix = wheel#kyusu#gaiwan (wordlist)
@@ -158,7 +158,7 @@ fun! wheel#teapot#filter (update = 'update', lock = 'lock')
 		let b:wheel_filter.words = wordlist
 		let b:wheel_filter.indexes = indexes
 		let b:wheel_filter.lines = lines
-		setlocal foldlevel=2
+		call wheel#origami#open ()
 	endif
 	call wheel#mandala#replace (lines, 'prompt-first', lock)
 	call wheel#pencil#show (lock)
@@ -181,7 +181,7 @@ fun! wheel#teapot#reset (update = 'update', lock = 'lock')
 	let b:wheel_filter.lines = []
 	call wheel#mandala#replace (lines, 'empty-prompt-first', lock)
 	call wheel#pencil#show (lock)
-	setlocal foldlevel=0
+	call wheel#origami#close ()
 	call wheel#origami#view_cursor ()
 endfun
 
