@@ -8,7 +8,7 @@
 
 " ---- helpers
 
-fun! wheel#disc#full (filename)
+fun! wheel#disc#full_path (filename)
 	" Return filename full path
 	" % -> current filename
 	" # -> alternate filename
@@ -28,7 +28,7 @@ endfun
 fun! wheel#disc#format_name (filename)
 	" Format filename to avoid annoying characters
 	let filename = a:filename
-	let filename = wheel#disc#full (filename)
+	let filename = wheel#disc#full_path (filename)
 	let filename = substitute(filename, ' ', '_', 'g')
 	return filename
 endfun
@@ -53,7 +53,7 @@ fun! wheel#disc#relative_path (...)
 		return 'empty-file-name'
 	endif
 	let directory = '\m^' .. getcwd() .. '/'
-	let filename = wheel#disc#full (filename)
+	let filename = wheel#disc#full_path (filename)
 	let filename = substitute(filename, directory, '', '')
 	return filename
 endfun
@@ -128,7 +128,7 @@ fun! wheel#disc#rename (source, destination, ask = 'confirm')
 		return 'empty-destination-file-name'
 	endif
 	" ---- full path
-	let source = wheel#disc#full (source)
+	let source = wheel#disc#full_path (source)
 	let destination = wheel#disc#format_name (destination)
 	" ---- nothing to do if source == destination
 	if source ==# destination
@@ -183,7 +183,7 @@ fun! wheel#disc#copy (source, destination, ask = 'confirm')
 		return 'empty-destination-file-name'
 	endif
 	" ---- full path
-	let source = wheel#disc#full (source)
+	let source = wheel#disc#full_path (source)
 	let destination = wheel#disc#format_name (destination)
 	" ---- nothing to do if source == destination
 	if source ==# destination
@@ -233,7 +233,7 @@ fun! wheel#disc#delete (file, ask = 'confirm')
 		return 'empty-file-name'
 	endif
 	" ---- full path
-	let file = wheel#disc#full (file)
+	let file = wheel#disc#full_path (file)
 	" ---- check file is directory
 	if isdirectory(file)
 		echomsg 'wheel disc delete : file must be a regular file'
