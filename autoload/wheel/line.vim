@@ -244,6 +244,7 @@ fun! wheel#line#tag (settings)
 	let fields = split(component, s:field_separ)
 	let file = fields[2]
 	let search = fields[3][1:]
+	let search = escape(search, '*')
 	" ---- go
 	call wheel#vortex#target (target)
 	execute 'silent hide edit' file
