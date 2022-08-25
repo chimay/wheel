@@ -63,6 +63,7 @@ if ! exists('s:command_meta_prompt_actions')
 				\ [ 'add-circle'           , 'wheel#tree#add_circle'                     ] ,
 				\ [ 'add-torus'            , 'wheel#tree#add_torus'                      ] ,
 				\ [ 'add-file'             , 'wheel#tree#add_file'                       ] ,
+				\ [ 'add-buffer'           , 'wheel#tree#add_buffer'                     ] ,
 				\ [ 'add-glob'             , 'wheel#tree#add_glob'                       ] ,
 				\ [ 'rename-location'      , "wheel#tree#rename('location')"             ] ,
 				\ [ 'rename-file'          , 'wheel#tree#rename_file'                    ] ,
