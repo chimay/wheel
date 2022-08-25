@@ -98,6 +98,7 @@ if ! exists('s:command_meta_dedibuf_actions')
 				\ [ 'torus'              , "wheel#whirl#switch('torus')"           ] ,
 				\ [ 'index-locations'    , 'wheel#whirl#helix'                     ] ,
 				\ [ 'index-circles'      , 'wheel#whirl#grid'                      ] ,
+				\ [ 'index-tree'         , 'wheel#whirl#tree'                      ] ,
 				\ [ 'history'            , 'wheel#whirl#history'                   ] ,
 				\ [ 'frecency'           , 'wheel#whirl#frecency'                  ] ,
 				\ [ 'buffer'             , 'wheel#frigate#buffer'                  ] ,
