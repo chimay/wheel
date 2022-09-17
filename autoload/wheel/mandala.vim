@@ -362,7 +362,7 @@ endfun
 " ---- blank sheet
 
 fun! wheel#mandala#blank (type)
-	" Open a mandala buffer
+	" Open a mandala buffer, add new blank leaf if needed
 	let type = a:type
 	" ---- create / open current mandala
 	if ! wheel#cylinder#recall()

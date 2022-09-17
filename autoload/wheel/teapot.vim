@@ -17,8 +17,8 @@ fun! wheel#teapot#is_filtered ()
 endfun
 
 fun! wheel#teapot#first_data_line ()
-	" First data line
-	" Return 1 if mandala has no filter, 2 otherwise
+	" First data line number
+	" Return line 1 if mandala has no filter, line 2 otherwise
 	if wheel#teapot#has_filter ()
 		return 2
 	else
