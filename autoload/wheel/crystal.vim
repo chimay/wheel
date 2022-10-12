@@ -398,7 +398,8 @@ endif
 " -- folds in mandalas
 
 if ! exists('s:fold_markers')
-	let s:fold_markers = ['▷', '◁']
+	"let s:fold_markers = ['▷', '◁']
+	let s:fold_markers = ['>', '<']
 	lockvar! s:fold_markers
 endif
 
