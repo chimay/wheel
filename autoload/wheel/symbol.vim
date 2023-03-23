@@ -14,11 +14,7 @@ endfun
 
 fun! wheel#symbol#read (file)
 	" Read tags file
-	let file = expand(a:file)
-	" --- expand('tags') -> TAGS(C-v 0)tags, why ???
-	if file =~ 'TAGS.tags'
-		let file = 'tags'
-	endif
+	let file = fnamemodify(a:file, ':p')
 	if filereadable(file)
 		let lines = readfile(file)
 	else
@@ -52,9 +48,9 @@ endfun
 
 fun! wheel#symbol#table ()
 	" Table containing all records in tags file(s)
-	let tagfiles = wheel#symbol#files ()
+	let tagsfiles = wheel#symbol#files ()
 	let table = []
-	for file in tagfiles
+	for file in tagsfiles
 		let grid = wheel#symbol#read (file)
 		call extend(table, grid)
 	endfor
