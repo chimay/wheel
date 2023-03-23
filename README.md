@@ -455,7 +455,7 @@ augroup wheel
 	"autocmd BufRead * call wheel#projection#follow()
 	" For current wheel location to follow on entering buffer
 	"autocmd BufEnter * call wheel#projection#follow()
-	" Executed after a native jump
+	" Executed after a native (neo)vim jump (buffer, tab, window, marker, jump, change, tag, ...)
 	"autocmd User WheelAfterNative call wheel#projection#follow()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
