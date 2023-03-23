@@ -426,7 +426,7 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.display.sign.switch = 1
   " Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " Signs for Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
+  " Signs after Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 
   let g:wheel_config.debug = 0
