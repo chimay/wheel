@@ -387,7 +387,7 @@ fun! wheel#cylinder#close ()
 		call wheel#vortex#jump ()
 	endif
 	" -- if preview was used, go to original buffer
-	if empty(original)
+	if empty(original) || original == 'undefined'
 		return v:true
 	endif
 	call wheel#rectangle#goto (original)
