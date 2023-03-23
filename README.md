@@ -2,38 +2,38 @@
 
 <!-- vim-markdown-toc GFM -->
 
-+ [Introduction](#introduction)
+* [Introduction](#introduction)
 	* [What is it ?](#what-is-it-)
 	* [What does it look like ?](#what-does-it-look-like-)
-		- [History and meta-command](#history-and-meta-command)
-		- [Frecency, dedicated buffers and layers](#frecency-dedicated-buffers-and-layers)
-		- [More screenshots & screencasts](#more-screenshots--screencasts)
+		* [History and meta-command](#history-and-meta-command)
+		* [Frecency, dedicated buffers and layers](#frecency-dedicated-buffers-and-layers)
+		* [More screenshots & screencasts](#more-screenshots--screencasts)
 	* [File groups & categories](#file-groups--categories)
-		- [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
-		- [A wheel that follows you](#a-wheel-that-follows-you)
+		* [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
+		* [A wheel that follows you](#a-wheel-that-follows-you)
 	* [Features](#features)
 	* [History](#history)
 	* [Prerequisites](#prerequisites)
-		- [Operating system](#operating-system)
-+ [Installation](#installation)
+		* [Operating system](#operating-system)
+* [Installation](#installation)
 	* [Using vim-packager](#using-vim-packager)
 	* [Using minpac](#using-minpac)
 	* [Using vim-plug](#using-vim-plug)
 	* [Plain](#plain)
-+ [Documentation](#documentation)
+* [Documentation](#documentation)
 	* [Vim help](#vim-help)
 	* [Wiki](#wiki)
 	* [In wheel menu](#in-wheel-menu)
-+ [Configuration](#configuration)
+* [Configuration](#configuration)
 	* [Wiki](#wiki-1)
 	* [Example](#example)
-+ [Bindings](#bindings)
+* [Bindings](#bindings)
 	* [Frequently used functions](#frequently-used-functions)
-+ [Examples](#examples)
+* [Examples](#examples)
 	* [Display matching files in splits](#display-matching-files-in-splits)
 	* [More](#more)
-+ [Warning](#warning)
-+ [Licence](#licence)
+* [Warning](#warning)
+* [Licence](#licence)
 
 <!-- vim-markdown-toc -->
 
@@ -426,7 +426,7 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.display.sign.switch = 1
   " Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " Signs for native navigation
+  " Signs for native (neo)vim navigation (buffer, tab, window, marker, jump, change, tag, ...)
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 
   let g:wheel_config.debug = 0

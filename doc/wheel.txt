@@ -1315,9 +1315,9 @@ The available actions are grouped by themes and folded :
 - wheel status
 - save & load wheel file, session file
 - wheel navigation
-- native navigation
+- native (neo)vim navigation (buffer, tab, window, marker, jump, change, tag, ...)
 - organize wheel
-- organize native elements
+- organize native (neo)vim elements (tabs, windows, ...)
 - refactoring
 - search file
 - search inside file
