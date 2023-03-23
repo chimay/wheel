@@ -15,6 +15,10 @@ endfun
 fun! wheel#symbol#read (file)
 	" Read tags file
 	let file = expand(a:file)
+	" --- expand('tags') -> TAGS(C-v 0)tags, why ???
+	if file =~ 'TAGS.tags'
+		let file = 'tags'
+	endif
 	if filereadable(file)
 		let lines = readfile(file)
 	else
