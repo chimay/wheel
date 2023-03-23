@@ -426,7 +426,7 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.display.sign.switch = 1
   " Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " Signs after Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
+  " Signs after using Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 
   let g:wheel_config.debug = 0
@@ -455,7 +455,7 @@ augroup wheel
 	"autocmd BufRead * call wheel#projection#follow()
 	" For current wheel location to follow on entering buffer
 	"autocmd BufEnter * call wheel#projection#follow()
-	" Executed after Wheel interface to a native jump (buffer, marker, jump, change, tag, ...)
+	" Executed after using Wheel interface to a native jump (buffer, marker, jump, change, tag, ...)
 	"autocmd User WheelAfterNative call wheel#projection#follow()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
