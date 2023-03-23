@@ -1315,7 +1315,7 @@ The available actions are grouped by themes and folded :
 - wheel status
 - save & load wheel file, session file
 - wheel navigation
-- native (neo)vim navigation (buffer, tab, window, marker, jump, change, tag, ...)
+- native (neo)vim navigation using Wheel interface (buffer, marker, jump, change, tag, ...)
 - organize wheel
 - organize native (neo)vim elements (tabs, windows, ...)
 - refactoring
@@ -2770,7 +2770,7 @@ Switch~
 By default, signs are displayed at :
 
 - wheel locations
-- cursor line after a (neo)vim native jump
+- cursor line after a (neo)vim native jump using Wheel interface
 
 You can disable it if you want : >
 
@@ -2791,7 +2791,7 @@ Default : { 'text' : '☯' }
 
 Native settings~
 
-Sign settings for (neo)vim native navigation : >
+Sign settings for (neo)vim native navigation using Wheel interface : >
 
 
     let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
@@ -2920,7 +2920,7 @@ Here is an example of a complete configuration : >
   let g:wheel_config.display.sign.switch = 1
   " Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " Signs for native navigation (buffer, tab, window, marker, jump, change, tag, ...)
+  " Signs for native navigation using Wheel interface (buffer, marker, jump, change, tag, ...)
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 <
 
@@ -3154,7 +3154,7 @@ Here is an example of a complete autocommands configuration : >
 	"autocmd BufRead * call wheel#projection#follow()
 	" For current wheel location to follow on entering buffer
 	"autocmd BufEnter * call wheel#projection#follow()
-	" Executed after a native jump (buffer, tab, window, marker, jump, change, tag, ...)
+	" Executed after a native jump using Wheel interface (buffer, marker, jump, change, tag, ...)
 	"autocmd User WheelAfterNative call wheel#projection#follow()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
