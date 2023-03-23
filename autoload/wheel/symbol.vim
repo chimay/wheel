@@ -36,6 +36,7 @@ fun! wheel#symbol#read (file)
 		let optional = matchstr(pattern, final)
 		let optional = substitute(optional, '\m^\t', '', '')
 		let pattern = substitute(pattern, remove, '', '')
+		let pattern = escape(pattern, '*')
 		let record = substitute(record, regex, '', '')
 		let fields = split(record, "\t")
 		let fields[1] = tagdir .. fields[1]
