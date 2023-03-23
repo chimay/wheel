@@ -1371,9 +1371,9 @@ Context menu of a navigation buffer :
 ------------------------------------------------------------------------------
 NAVIGATION				*wheel-dedicated-buffers-navigation*
 
-The navigation buffers allow you to quickly switch to a Wheel or native
-location by pressing `<Enter>` on the matching line. You can also use
-the keys :
+The navigation buffers allow you to quickly switch to a Wheel or (neo)vim
+native location by pressing `<Enter>` on the matching line. You can also
+use the keys :
 
 - `t` : open element in a new tab
 - `h` : open element in a new split
@@ -2770,7 +2770,7 @@ Switch~
 By default, signs are displayed at :
 
 - wheel locations
-- cursor line after a native jump
+- cursor line after a (neo)vim native jump
 
 You can disable it if you want : >
 
@@ -2791,7 +2791,7 @@ Default : { 'text' : '☯' }
 
 Native settings~
 
-Sign settings for native navigation : >
+Sign settings for (neo)vim native navigation : >
 
 
     let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
@@ -2920,7 +2920,7 @@ Here is an example of a complete configuration : >
   let g:wheel_config.display.sign.switch = 1
   " Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " Signs for native navigation
+  " Signs for native navigation (buffer, tab, window, marker, jump, change, tag, ...)
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 <
 
@@ -3100,8 +3100,8 @@ Same thing when you enter a buffer with a native vim command (like
 ------------------------------------------------------------------------------
 AFTER NATIVE					*wheel-autocommands-after-native*
 
-The `WheelAfterNative` user event happens after any jump using a native
-(neo)vim function.
+The `WheelAfterNative` user event happens after any jump using a Wheel
+interface to a native (neo)vim function.
 
 You can use it to auto-follow after a native operation : >
 
@@ -3154,7 +3154,7 @@ Here is an example of a complete autocommands configuration : >
 	"autocmd BufRead * call wheel#projection#follow()
 	" For current wheel location to follow on entering buffer
 	"autocmd BufEnter * call wheel#projection#follow()
-	" Executed after a native jump
+	" Executed after a native jump (buffer, tab, window, marker, jump, change, tag, ...)
 	"autocmd User WheelAfterNative call wheel#projection#follow()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
@@ -3770,7 +3770,7 @@ level to less than 10, then copy and adapt some of the following lines : >
     " -- frecency
     exe nmap '<m-e>         <plug>(wheel-prompt-frecency)'
     exe nmap '<m-c-e>       <plug>(wheel-dedibuf-frecency)'
-    " ---- navigate with vim native tools
+    " ---- navigate using Wheel interface to vim native tools
     " -- buffers
     exe nmap '<m-b>          <plug>(wheel-prompt-buffer)'
     exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffer)'
@@ -3970,7 +3970,7 @@ Navigate in the wheel~
 | <plug>(wheel-alternate-same-torus-other-circle) | alternate in same torus, but other circle |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                         |
 
-Navigate with vim native tools~
+Navigate using Wheel interface to vim native tools~
 
 | Plug maps                            | Description                              |
 | ------------------------------------ | ---------------------------------------- |

@@ -426,7 +426,7 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.display.sign.switch = 1
   " Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " Signs for native (neo)vim navigation (buffer, tab, window, marker, jump, change, tag, ...)
+  " Signs for Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 
   let g:wheel_config.debug = 0
@@ -455,7 +455,7 @@ augroup wheel
 	"autocmd BufRead * call wheel#projection#follow()
 	" For current wheel location to follow on entering buffer
 	"autocmd BufEnter * call wheel#projection#follow()
-	" Executed after a native jump (buffer, tab, window, marker, jump, change, tag, ...)
+	" Executed after Wheel interface to a native jump (buffer, marker, jump, change, tag, ...)
 	"autocmd User WheelAfterNative call wheel#projection#follow()
 	" Add current non-wheel file to MRU files
 	autocmd BufRead * call wheel#attic#record()
@@ -517,7 +517,7 @@ exe nmap '<m-c-h>       <plug>(wheel-dedibuf-history)'
 exe nmap '<c-^>          <plug>(wheel-alternate-anywhere)'
 exe nmap '<m-^>          <plug>(wheel-alternate-same-circle)'
 exe nmap '<m-c-^>        <plug>(wheel-alternate-same-torus-other-circle)'
-" ---- navigate with vim native tools
+" ---- navigate using Wheel interface to vim native tools
 " -- buffers
 exe nmap '<m-b>          <plug>(wheel-prompt-buffer)'
 exe nmap '<m-c-b>        <plug>(wheel-dedibuf-buffer)'
