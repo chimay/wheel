@@ -2,7 +2,7 @@
 
 " Pearl
 "
-" Internal Constants for commands in mandalas
+" Internal Constants for commands
 
 " ---- commands
 

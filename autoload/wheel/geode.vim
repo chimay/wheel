@@ -2,7 +2,7 @@
 
 " Geode
 "
-" Internal Constants for maps in mandalas
+" Internal Constants for plugs & maps
 
 " ---- subprefixes
 
