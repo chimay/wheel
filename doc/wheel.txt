@@ -47,7 +47,7 @@ enhances their interface by using :
 - edit modes, that allow you to reflect your changes in a dedicated buffer to
   wheel elements, or into file(s)
 
-All is written in classical Vimscript.
+All is written in lightweight, classical Vimscript.
 
 ------------------------------------------------------------------------------
 FILE GROUPS				*wheel-introduction-file-groups*

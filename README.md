@@ -58,7 +58,7 @@ enhances their interface by using :
 - edit modes, that allow you to reflect your changes in a dedicated buffer to
   the original file(s)
 
-All is written in classical Vimscript.
+All is written in lightweight, classical Vimscript.
 
 ## What does it look like ?
 
