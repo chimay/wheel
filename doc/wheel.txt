@@ -758,17 +758,17 @@ SEARCH					    *wheel-prompting-functions-search*
 
 Search file~
 
-| Function         | Completion list                           | Default binding |
-| ---------------- | ----------------------------------------- | --------------- |
-| find file        | find file in current dir tree             | <M-w>f          |
-| mru file         | most recently used, non wheel files       | <M-w>u          |
-| outline          | outline for folds, markdown, org, vimwiki | <M-w><C-o>      |
+| Function         | Completion list                      | Default binding |
+| ---------------- | ------------------------------------ | --------------- |
+| find file        | find file in current dir tree        | <M-w>f          |
+| mru file         | most recently used, non wheel files  | <M-w>u          |
 
 Search inside file~
 
-| Function            | Completion list          | Default binding |
-| ------------------- | ------------------------ | --------------- |
-| occur : switch line | lines of current buffer  | <M-w>o          |
+| Function            | Completion list                           | Default binding |
+| ------------------- | ----------------------------------------  | --------------- |
+| occur : switch line | lines of current buffer                   | <M-w>o          |
+| outline             | outline for folds, markdown, org, vimwiki | <M-w><C-o>      |
 
 ------------------------------------------------------------------------------
 ADD					    *wheel-prompting-functions-add*
