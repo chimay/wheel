@@ -282,12 +282,13 @@ and run `:PlugInstall` to install.
 
 ## Cloning the repo in a pack-start directory
 
-You can clone the repository somewhere in your `runtime-search-path`,
-like `~/.config/nvim/pack/myfolder/start/wheel`. You can get a
-minimal version by asking a shallow clone (depth 1) and filtering out
-the screenshots blobs :
+You can clone the repository somewhere in your `runtime-search-path`. You
+can get a minimal version by asking a shallow clone (depth 1) and
+filtering out the screenshots blobs :
 
 ```
+mkdir -p ~/.local/share/nvim/site/pack/foo
+cd ~/.local/share/nvim/site/pack/foo
 git clone --depth 1 --filter=blob:none https://github.com/chimay/wheel
 ```
 
