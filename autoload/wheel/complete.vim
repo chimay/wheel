@@ -305,6 +305,41 @@ fun! wheel#complete#tag (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, choices)
 endfun
 
+" ---- grep
+
+fun! wheel#complete#outline_folds (arglead, cmdline, cursorpos)
+	" Complete folds outline
+	let marker = split(&l:foldmarker, ',')[0]
+	let grep_ex_command = g:wheel_config.grep
+	if grep_ex_command =~ '^:\?grep' && &grepprg !~ '^grep'
+		let marker = escape(marker, '{')
+	endif
+	let choices = wheel#perspective#grep (marker, '\m.')
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
+fun! wheel#complete#outline_markdown (arglead, cmdline, cursorpos)
+	" Complete markdown outline
+	let choices = wheel#perspective#grep ('^#', '\.md$')
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
+fun! wheel#complete#outline_org (arglead, cmdline, cursorpos)
+	" Complete org outline
+	let choices = wheel#perspective#grep ('^\*', '\.org$')
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
+fun! wheel#complete#outline_vimwiki (arglead, cmdline, cursorpos)
+	" Complete vimwiki outline
+	let choices = wheel#perspective#grep ('^=.*=$', '\.wiki$')
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, choices)
+endfun
+
 " ---- yank ring
 
 fun! wheel#complete#register (arglead, cmdline, cursorpos)

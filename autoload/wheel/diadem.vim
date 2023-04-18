@@ -84,6 +84,7 @@ if ! exists('s:command_meta_prompt_actions')
 				\ [ 'mru'                     , 'wheel#sailing#mru'                         ] ,
 				\ [ 'occur'                   , 'wheel#sailing#occur'                       ] ,
 				\ [ 'switch-default-register' , 'wheel#codex#switch_default_register'       ] ,
+				\ [ 'outline'                 , 'wheel#sailing#outline'                     ] ,
 				\ [ 'yank-linewise-after'     , 'wheel#codex#yank_plain'                    ] ,
 				\ [ 'yank-charwise-after'     , "wheel#codex#yank_plain('charwise-after')"  ] ,
 				\ [ 'yank-linewise-before'    , "wheel#codex#yank_plain('linewise-before')" ] ,

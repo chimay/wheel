@@ -758,10 +758,11 @@ SEARCH					    *wheel-prompting-functions-search*
 
 Search file~
 
-| Function         | Completion list                     | Default binding |
-| ---------------- | ----------------------------------- | --------------- |
-| find file        | find file in current dir tree       | <M-w>f          |
-| mru file         | most recently used, non wheel files | <M-w>u          |
+| Function         | Completion list                           | Default binding |
+| ---------------- | ----------------------------------------- | --------------- |
+| find file        | find file in current dir tree             | <M-w>f          |
+| mru file         | most recently used, non wheel files       | <M-w>u          |
+| outline          | outline for folds, markdown, org, vimwiki | <M-w><C-o>      |
 
 Search inside file~
 
@@ -1436,7 +1437,7 @@ The default mappings launching navigation buffers are :
 - `<M-w><C-v>`     : switch to visible buffer in tab & window (plain mode)
 - `<M-w><M-o>`     : occur in current file
 - `<M-w>g`         : grep in circle files
-- `<M-w><C-o>`     : outline headers in circle files
+- `<M-w><S-o>`     : outline headers in circle files
 - `<M-w><M-'>`     : markers
 - `<M-w><M-j>`     : jumps list
 - `<M-w>;`         : changes list
@@ -1587,7 +1588,7 @@ error number | line number | column number | filename | line content
 ------------------------------------------------------------------------------
 OUTLINE					*wheel-dedicated-buffers-outline*
 
-The default mapping is `<M-w><C-o>`.
+The default mapping is `<M-w><S-o>`.
 
 An outline buffer is a grep buffer where all your headers are displayed. You
 can choose between the following header formats :
@@ -3471,7 +3472,7 @@ Dedicated buffer :
 | -------- | ------------------- | ------------------------------------- |
 | <M-o>    | <M-w><M-o>          | Occur : search lines in current file  |
 | g        | <M-w>g              | Search in circle files with grep      |
-| <C-o>    | <M-w><C-o>          | Outline : folds, markdown, org mode   |
+| <C-o>    | <M-w><S-o>          | Outline : folds, markdown, org mode   |
 
 (Neo)vim lists~
 
@@ -3813,7 +3814,8 @@ level to less than 10, then copy and adapt some of the following lines : >
     exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
     exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
     exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-    exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
+    exe nmap '<m-s-o>        <plug>(wheel-prompt-outline)'
+    exe nmap '<c-s-o>        <plug>(wheel-dedibuf-outline)'
     " ---- yank ring
     exe nmap '<m-y>          <plug>(wheel-prompt-yank-plain-linewise-after)'
     exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain-charwise-after)'

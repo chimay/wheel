@@ -262,7 +262,8 @@ fun! wheel#centre#prefixless ()
 	exe nmap '<m-o>          <plug>(wheel-prompt-occur)'
 	exe nmap '<m-c-o>        <plug>(wheel-dedibuf-occur)'
 	exe nmap '<m-g>          <plug>(wheel-dedibuf-grep)'
-	exe nmap '<m-s-o>        <plug>(wheel-dedibuf-outline)'
+	exe nmap '<m-s-o>        <plug>(wheel-prompt-outline)'
+	exe nmap '<c-s-o>        <plug>(wheel-dedibuf-outline)'
 	" ---- yank ring
 	exe nmap '<m-y>          <plug>(wheel-prompt-yank-plain-linewise-after)'
 	exe nmap '<m-p>          <plug>(wheel-prompt-yank-plain-charwise-after)'

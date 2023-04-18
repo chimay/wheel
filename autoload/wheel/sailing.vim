@@ -189,3 +189,39 @@ fun! wheel#sailing#tag ()
 	silent doautocmd User WheelAfterNative
 	return win_getid ()
 endfun
+
+fun! wheel#sailing#outline ()
+	" Go to outline
+	let filetype = &filetype
+	let modedict = { 1 : 'folds', 2 : 'markdown', 3 : 'org', 4 : 'vimwiki' }
+	if filetype == 'markdown'
+		let mode = 2
+	elseif filetype == 'org'
+		let mode = 3
+	elseif filetype == 'vimwiki'
+		let mode = 4
+	else
+		let prompt = 'Outline mode ? '
+		let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
+	endif
+	let prompt = 'Go to outline : '
+	let complete = 'customlist,wheel#complete#outline_' .. modedict[mode]
+	let record = input(prompt, '', complete)
+	if empty(record)
+		return -1
+	endif
+	let fields = split(record, s:field_separ)
+	if len(fields) < 5
+		echomsg 'Outline line is too short'
+		return v:false
+	endif
+	let line = str2nr(fields[1])
+	let col  = str2nr(fields[2])
+	let file = fields[3]
+	execute 'silent hide edit' file
+	call cursor(line, col)
+	call wheel#origami#view_cursor ()
+	call wheel#chakra#place_native ()
+	silent doautocmd User WheelAfterNative
+	return win_getid ()
+endfun
