@@ -20,7 +20,6 @@
     * [Using minpac](#using-minpac)
     * [Using vim-plug](#using-vim-plug)
     * [Cloning the repo in a pack-start directory](#cloning-the-repo-in-a-pack-start-directory)
-    * [Plain](#plain)
 * [Documentation](#documentation)
     * [Vim help](#vim-help)
     * [Wiki](#wiki)
@@ -299,17 +298,6 @@ If you install or update with git, don't forget to run :
 ```
 
 to be able to use the inline help.
-
-## Plain
-
-Just add the :
-
-- plugin
-- after
-- autoload
-- doc
-
-folders somewhere of the (neo)vim runtimepath, and it should work.
 
 # Documentation
 ## Vim help
