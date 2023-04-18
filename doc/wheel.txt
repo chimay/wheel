@@ -3465,6 +3465,7 @@ Prompting functions :
 | Prefix + | With default prefix | Action                                |
 | -------- | ------------------- | ------------------------------------- |
 | o        | <M-w>o              | Occur : search lines in current file  |
+| <C-o>    | <M-w><C-o>          | Outline : folds, markdown, org mode   |
 
 Dedicated buffer :
 
@@ -3472,7 +3473,7 @@ Dedicated buffer :
 | -------- | ------------------- | ------------------------------------- |
 | <M-o>    | <M-w><M-o>          | Occur : search lines in current file  |
 | g        | <M-w>g              | Search in circle files with grep      |
-| <C-o>    | <M-w><S-o>          | Outline : folds, markdown, org mode   |
+| <S-o>    | <M-w><S-o>          | Outline : folds, markdown, org mode   |
 
 (Neo)vim lists~
 
