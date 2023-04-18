@@ -285,9 +285,9 @@ You can clone the repository somewhere in your `runtime-search-path`. You
 can get a minimal version by asking a shallow clone (depth 1) and
 filtering out the screenshots blobs :
 
-```
-mkdir -p ~/.local/share/nvim/site/pack/foo
-cd ~/.local/share/nvim/site/pack/foo
+```vim
+mkdir -p ~/.local/share/nvim/site/pack/foo/start
+cd ~/.local/share/nvim/site/pack/foo/start
 git clone --depth 1 --filter=blob:none https://github.com/chimay/wheel
 ```
 
