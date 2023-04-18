@@ -291,7 +291,7 @@ the screenshots blobs :
 git clone --depth 1 --filter=blob:none https://github.com/chimay/wheel
 ```
 
-If you install or update this way, don't forget to run :
+If you install or update with git, don't forget to run :
 
 ```vim
 :helptags doc
