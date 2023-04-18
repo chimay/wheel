@@ -310,14 +310,6 @@ Just add the :
 
 folders somewhere of the (neo)vim runtimepath, and it should work.
 
-If you install or update this way, don't forget to run :
-
-```vim
-:helptags doc
-```
-
-to be able to use the inline help.
-
 # Documentation
 ## Vim help
 
