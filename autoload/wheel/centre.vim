@@ -108,7 +108,7 @@ fun! wheel#centre#commands ()
 				\ Wheel call wheel#centre#meta(<f-args>)
 endfun
 
-" ---- maps
+" ---- plugs
 
 fun! wheel#centre#plugs ()
 	" Link <plug> mappings to wheel functions
@@ -148,6 +148,8 @@ fun! wheel#centre#plugs ()
 		execute begin .. left .. middle right
 	endfor
 endfun
+
+" ---- maps
 
 fun! wheel#centre#mappings (level, mode = 'normal')
 	" Normal maps of level
@@ -285,6 +287,8 @@ fun! wheel#centre#prefixless ()
 	" ---- layouts
 	exe nmap '<m-z>          <plug>(wheel-zoom)'
 endfun
+
+" ---- link plugs & maps
 
 fun! wheel#centre#cables ()
 	" Link keys to <plug> mappings
