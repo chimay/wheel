@@ -605,6 +605,3 @@ More examples are available in the
 
 Despite abundant testing, some bugs might remain, so be careful.
 
-# Licence
-
-MIT
