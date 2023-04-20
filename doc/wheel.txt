@@ -1316,7 +1316,7 @@ The available actions are grouped by themes and folded :
 - wheel status
 - save & load wheel file, session file
 - wheel navigation
-- native (neo)vim navigation using Wheel interface (buffer, marker, jump, change, tag, ...)
+- native (ie builtin) (neo)vim navigation using Wheel interface (buffer, marker, jump, change, tag, ...)
 - organize wheel
 - organize native (neo)vim elements (tabs, windows, ...)
 - refactoring
@@ -4339,7 +4339,7 @@ Here is a list of files in `autoload/wheel/`, and a brief description
 of the modules within them.
 
 | File              | Description                                        |
-| ----------------- | ----------------------------------------------     |
+| ----------------- | -------------------------------------------------- |
 | attic.vim         | Most Recently Used files                           |
 | book.vim          | Layer ring for each dedicated buffer               |
 | boomerang.vim     | Context menus in dedicated buffers                 |
