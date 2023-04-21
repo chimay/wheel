@@ -281,20 +281,20 @@ fun! wheel#teapot#mappings ()
 	let wrapper = 'wheel#teapot#wrapper'
 	" ---- normal mode
 	let nmap = 'nnoremap <buffer>'
-	exe nmap 'i     <cmd>call' goto_filter "('i')<cr>"
-	exe nmap 'a     <cmd>call' goto_filter "('i')<cr>"
-	exe nmap '<m-i> <cmd>call' goto_filter "('i')<cr>"
-	exe nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
-	exe nmap 'cc    <cmd>call wheel#teapot#normal_cc()<cr>'
-	exe nmap 'dd    <cmd>call wheel#teapot#reset()<cr>'
+	execute nmap 'i     <cmd>call' goto_filter "('i')<cr>"
+	execute nmap 'a     <cmd>call' goto_filter "('i')<cr>"
+	execute nmap '<m-i> <cmd>call' goto_filter "('i')<cr>"
+	execute nmap '<ins> <cmd>call' goto_filter "('i')<cr>"
+	execute nmap 'cc    <cmd>call wheel#teapot#normal_cc()<cr>'
+	execute nmap 'dd    <cmd>call wheel#teapot#reset()<cr>'
 	" ---- insert mode
 	let imap = 'inoremap <buffer>'
-	exe imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"
-	exe imap '<c-w>   <cmd>call' wrapper "('c-w', '>', 'i')<cr>"
-	exe imap '<c-u>   <cmd>call' wrapper "('c-u', '>', 'i')<cr>"
-	exe imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
-	exe imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
-	exe imap '<c-k>   <cmd>call wheel#teapot#insert_ctrl_k()<cr>'
+	execute imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"
+	execute imap '<c-w>   <cmd>call' wrapper "('c-w', '>', 'i')<cr>"
+	execute imap '<c-u>   <cmd>call' wrapper "('c-u', '>', 'i')<cr>"
+	execute imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
+	execute imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
+	execute imap '<c-k>   <cmd>call wheel#teapot#insert_ctrl_k()<cr>'
 	" <c-c> is not mapped, in case you need a regular escape
 	inoremap <buffer> <m-f> <c-o>w
 	inoremap <buffer> <m-b> <c-o>b

@@ -80,7 +80,7 @@ fun! wheel#boomerang#launch_map (type)
 	" Define map to launch context menu
 	" -- navigation by default
 	let type = a:type
-	exe 'nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu(' .. string(type) .. ')<cr>'
+	execute 'nnoremap <buffer> <tab> <cmd>call wheel#boomerang#menu(' .. string(type) .. ')<cr>'
 endfun
 
 fun! wheel#boomerang#menu (dictname)

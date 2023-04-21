@@ -70,7 +70,7 @@ fun! wheel#polyphony#motion (fun_name, arguments)
 	let event = 'BufWriteCmd'
 	call wheel#ouroboros#clear_autocmds(group, event)
 	let funcall = wheel#polyphony#choir (fun_name, arguments)
-	exe 'autocmd' group event '<buffer>' funcall
+	execute 'autocmd' group event '<buffer>' funcall
 endfun
 
 fun! wheel#polyphony#voicing (fun_name, arguments)
@@ -79,10 +79,10 @@ fun! wheel#polyphony#voicing (fun_name, arguments)
 	let arguments = deepcopy(a:arguments)
 	let funcall = wheel#polyphony#choir (fun_name, arguments)
 	let nmap = 'nnoremap <buffer>'
-	exe nmap '<leader>w' '<cmd>' .. funcall .. '<cr>'
+	execute nmap '<leader>w' '<cmd>' .. funcall .. '<cr>'
 	eval arguments->add('force')
 	let funcall = wheel#polyphony#choir (fun_name, arguments)
-	exe nmap '<leader>W' '<cmd>' .. funcall .. '<cr>'
+	execute nmap '<leader>W' '<cmd>' .. funcall .. '<cr>'
 endfun
 
 fun! wheel#polyphony#score (fun_name, ...)
@@ -555,19 +555,19 @@ fun! wheel#polyphony#hybrid_maps ()
 	let across = 'wheel#polyphony#crossroad'
 	" ---- normal maps
 	let nmap = 'nnoremap <buffer>'
-	exe nmap 'i  <cmd>call' last_field "('i')<cr>"
-	exe nmap 'a  <cmd>call' last_field "('a')<cr>"
-	exe nmap '^  <cmd>call' last_field "('^')<cr>"
-	exe nmap '$  <cmd>call' last_field "('$')<cr>"
-	exe nmap 'cc <cmd>call wheel#polyphony#normal_cc()<cr>'
+	execute nmap 'i  <cmd>call' last_field "('i')<cr>"
+	execute nmap 'a  <cmd>call' last_field "('a')<cr>"
+	execute nmap '^  <cmd>call' last_field "('^')<cr>"
+	execute nmap '$  <cmd>call' last_field "('$')<cr>"
+	execute nmap 'cc <cmd>call wheel#polyphony#normal_cc()<cr>'
 	" ---- insert maps
 	let imap = 'inoremap <buffer>'
-	exe imap '<space> <cmd>call'  across "('space', '>', ['i', 'i'])<cr>"
-	exe imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
-	exe imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
-	exe imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
-	exe imap '<c-u>   <cmd>call wheel#polyphony#insert_ctrl_u()<cr>'
-	exe imap '<c-k>   <cmd>call wheel#polyphony#insert_ctrl_k()<cr>'
+	execute imap '<space> <cmd>call'  across "('space', '>', ['i', 'i'])<cr>"
+	execute imap '<c-w>   <cmd>call'  across "('c-w', '>', ['i', 'i'])<cr>"
+	execute imap "<cr>    <cmd>call"  across "('cr', '>', ['n', 'i'])<cr>"
+	execute imap '<esc>   <esc>:call' across "('esc', '>', ['n', 'n'])<cr>"
+	execute imap '<c-u>   <cmd>call wheel#polyphony#insert_ctrl_u()<cr>'
+	execute imap '<c-k>   <cmd>call wheel#polyphony#insert_ctrl_k()<cr>'
 endfun
 
 fun! wheel#polyphony#navigation_maps (settings)
@@ -582,31 +582,31 @@ fun! wheel#polyphony#navigation_maps (settings)
 	" -- close after navigation
 	let settings.close = v:true
 	let settings.target = 'here'
-	exe nmap '<cr>' loopnav .. string(settings) .. coda
+	execute nmap '<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
-	exe nmap '<m-t>' loopnav .. string(settings) .. coda
+	execute nmap '<m-t>' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap '<m-h>' loopnav .. string(settings) .. coda
+	execute nmap '<m-h>' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_split'
-	exe nmap '<m-v>' loopnav .. string(settings) .. coda
+	execute nmap '<m-v>' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap '<m-s-h>' loopnav .. string(settings) .. coda
+	execute nmap '<m-s-h>' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
-	exe nmap '<m-s-v>' loopnav .. string(settings) .. coda
+	execute nmap '<m-s-v>' loopnav .. string(settings) .. coda
 	" -- leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'here'
-	exe nmap 'g<cr>' loopnav .. string(settings) .. coda
+	execute nmap 'g<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
-	exe nmap 'g<m-t>' loopnav .. string(settings) .. coda
+	execute nmap 'g<m-t>' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap 'g<m-h>' loopnav .. string(settings) .. coda
+	execute nmap 'g<m-h>' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_split'
-	exe nmap 'g<m-v>' loopnav .. string(settings) .. coda
+	execute nmap 'g<m-v>' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap 'g<m-s-h>' loopnav .. string(settings) .. coda
+	execute nmap 'g<m-s-h>' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
-	exe nmap 'g<m-s-v>' loopnav .. string(settings) .. coda
+	execute nmap 'g<m-s-v>' loopnav .. string(settings) .. coda
 	" -- selection
 	call wheel#pencil#mappings ()
 	" -- preview
@@ -621,15 +621,15 @@ fun! wheel#polyphony#action_maps (mandala = 'file')
 	"   - file : for narrow file mandala
 	"   - circle : for narrow circle mandala
 	let mandala = a:mandala
-	exe "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mandala .. "')<cr>"
+	execute "nnoremap <buffer> <m-s> <cmd>call wheel#polyphony#substitute('" .. mandala .. "')<cr>"
 	if mandala ==# 'file'
-		exe "nnoremap <buffer> o <cmd>call wheel#polyphony#append('below')<cr>"
-		exe "nnoremap <buffer> O <cmd>call wheel#polyphony#append('above')<cr>"
-		exe "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"
-		exe "nnoremap <buffer> <m-z> <cmd>call wheel#polyphony#duplicate('above')<cr>"
+		execute "nnoremap <buffer> o <cmd>call wheel#polyphony#append('below')<cr>"
+		execute "nnoremap <buffer> O <cmd>call wheel#polyphony#append('above')<cr>"
+		execute "nnoremap <buffer> <m-y> <cmd>call wheel#polyphony#duplicate('below')<cr>"
+		execute "nnoremap <buffer> <m-z> <cmd>call wheel#polyphony#duplicate('above')<cr>"
 	endif
 	if mandala ==# 'circle'
-		exe 'nnoremap <buffer> <m-c> <cmd>call wheel#polyphony#context()<cr>'
+		execute 'nnoremap <buffer> <m-c> <cmd>call wheel#polyphony#context()<cr>'
 	endif
 endfun
 

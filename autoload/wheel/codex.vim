@@ -229,22 +229,22 @@ fun! wheel#codex#mappings (mode)
 	endif
 	" ---- normal mode
 	let nmap = 'nnoremap <buffer>'
-	exe nmap '<cr>  <cmd>call' paste "('linewise-after', 'close')<cr>"
-	exe nmap 'g<cr> <cmd>call' paste "('linewise-after', 'open')<cr>"
-	exe nmap 'p     <cmd>call' paste "('linewise-after', 'open')<cr>"
-	exe nmap 'P     <cmd>call' paste "('linewise-before', 'open')<cr>"
-	exe nmap 'gp    <cmd>call' paste "('charwise-after', 'open')<cr>"
-	exe nmap 'gP    <cmd>call' paste "('charwise-before', 'open')<cr>"
+	execute nmap '<cr>  <cmd>call' paste "('linewise-after', 'close')<cr>"
+	execute nmap 'g<cr> <cmd>call' paste "('linewise-after', 'open')<cr>"
+	execute nmap 'p     <cmd>call' paste "('linewise-after', 'open')<cr>"
+	execute nmap 'P     <cmd>call' paste "('linewise-before', 'open')<cr>"
+	execute nmap 'gp    <cmd>call' paste "('charwise-after', 'open')<cr>"
+	execute nmap 'gP    <cmd>call' paste "('charwise-before', 'open')<cr>"
 	" -- switch register
-	exe nmap 's     <cmd>call wheel#codex#mandala_switch(' .. string(mode) .. ')<cr>'
+	execute nmap 's     <cmd>call wheel#codex#mandala_switch(' .. string(mode) .. ')<cr>'
 	" ---- visual mode
 	if mode ==# 'plain'
 		let paste_visual = 'wheel#line#paste_visual'
 		let vmap = 'vnoremap <silent> <buffer>'
-		exe vmap '<cr>  :<c-u>call' paste_visual "('after', 'close')<cr>"
-		exe vmap 'g<cr> :<c-u>call' paste_visual "('after', 'open')<cr>"
-		exe vmap 'p     :<c-u>call' paste_visual "('after', 'open')<cr>"
-		exe vmap 'P     :<c-u>call' paste_visual "('before', 'open')<cr>"
+		execute vmap '<cr>  :<c-u>call' paste_visual "('after', 'close')<cr>"
+		execute vmap 'g<cr> :<c-u>call' paste_visual "('after', 'open')<cr>"
+		execute vmap 'p     :<c-u>call' paste_visual "('after', 'open')<cr>"
+		execute vmap 'P     :<c-u>call' paste_visual "('before', 'open')<cr>"
 	endif
 	" ---- undo, redo
 	nnoremap <buffer> u <cmd>call wheel#codex#undo()<cr>

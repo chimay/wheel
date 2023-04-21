@@ -114,12 +114,12 @@ fun! wheel#tower#mappings (settings)
 	let linefun = '<cmd>call wheel#tower#action('
 	let coda = ')<cr>'
 	" ---- open / close : default in settings
-	exe map '<cr>' linefun .. string(settings) .. coda
+	execute map '<cr>' linefun .. string(settings) .. coda
 	" ---- leave the mandala opened
 	let menu_settings.close = v:false
-	exe map 'g<cr>'   linefun .. string(settings) .. coda
-	exe map '<tab>'   linefun .. string(settings) .. coda
-	exe map '<space>' linefun .. string(settings) .. coda
+	execute map 'g<cr>'   linefun .. string(settings) .. coda
+	execute map '<tab>'   linefun .. string(settings) .. coda
+	execute map '<space>' linefun .. string(settings) .. coda
 endfun
 
 fun! wheel#tower#staircase (menuset, settings = {})

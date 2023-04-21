@@ -55,31 +55,31 @@ fun! wheel#river#mappings (settings)
 	" -- close after navigation
 	let settings.close = v:true
 	let settings.target = 'here'
-	exe nmap '<cr>' loopnav .. string(settings) .. coda
+	execute nmap '<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
-	exe nmap 't' loopnav .. string(settings) .. coda
+	execute nmap 't' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap 'h' loopnav .. string(settings) .. coda
+	execute nmap 'h' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_split'
-	exe nmap 'v' loopnav .. string(settings) .. coda
+	execute nmap 'v' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap 'H' loopnav .. string(settings) .. coda
+	execute nmap 'H' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
-	exe nmap 'V' loopnav .. string(settings) .. coda
+	execute nmap 'V' loopnav .. string(settings) .. coda
 	" -- leave open after navigation
 	let settings.close = v:false
 	let settings.target = 'here'
-	exe nmap 'g<cr>' loopnav .. string(settings) .. coda
+	execute nmap 'g<cr>' loopnav .. string(settings) .. coda
 	let settings.target = 'tab'
-	exe nmap 'gt' loopnav .. string(settings) .. coda
+	execute nmap 'gt' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_split'
-	exe nmap 'gh' loopnav .. string(settings) .. coda
+	execute nmap 'gh' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_split'
-	exe nmap 'gv' loopnav .. string(settings) .. coda
+	execute nmap 'gv' loopnav .. string(settings) .. coda
 	let settings.target = 'horizontal_golden'
-	exe nmap 'gH' loopnav .. string(settings) .. coda
+	execute nmap 'gH' loopnav .. string(settings) .. coda
 	let settings.target = 'vertical_golden'
-	exe nmap 'gV' loopnav .. string(settings) .. coda
+	execute nmap 'gV' loopnav .. string(settings) .. coda
 	" -- selection
 	call wheel#pencil#mappings ()
 	" -- preview

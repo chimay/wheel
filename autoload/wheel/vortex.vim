@@ -119,7 +119,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 			endif
 			return v:false
 		endif
-		exe 'noautocmd silent hide edit' filename
+		execute 'noautocmd silent hide edit' filename
 		call cursor(location.line, location.col)
 		doautocmd BufRead
 		doautocmd BufEnter
