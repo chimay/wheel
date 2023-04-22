@@ -95,8 +95,12 @@ endfun
 
 fun! wheel#matrix#items2dict (items)
 	" Convert items list -> dictionary
+	let items = a:items
+	if ! wheel#matrix#is_nested_list (items)
+		return {}
+	endif
 	let dict = {}
-	for [key, val] in a:items
+	for [key, val] in items
 		let dict[key] = val
 	endfor
 	return dict
@@ -104,8 +108,12 @@ endfun
 
 fun! wheel#matrix#items2keys (items)
 	" Return list of keys from dict given by items list
+	let items = a:items
+	if ! wheel#matrix#is_nested_list (items)
+		return []
+	endif
 	let keylist = []
-	for [key, val] in a:items
+	for [key, val] in items
 		eval keylist->add(key)
 	endfor
 	return keylist
@@ -113,8 +121,12 @@ endfun
 
 fun! wheel#matrix#items2values (items)
 	" Return list of values from dict given by items list
+	let items = a:items
+	if ! wheel#matrix#is_nested_list (items)
+		return []
+	endif
 	let valist = []
-	for [key, val] in a:items
+	for [key, val] in items
 		eval valist->add(val)
 	endfor
 	return valist
