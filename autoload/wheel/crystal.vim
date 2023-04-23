@@ -418,7 +418,7 @@ if ! exists('s:fold_pattern')
 	lockvar! s:fold_pattern
 endif
 
-" -- separators in mandalas
+" -- separators
 
 if ! exists('s:separator_field')
 	let s:separator_field = ' │ '
