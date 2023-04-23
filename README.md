@@ -27,13 +27,13 @@
 * [Configuration](#configuration)
     * [Wiki](#wiki-1)
     * [Example](#example)
+* [Meta-command](#meta-command)
 * [Bindings](#bindings)
     * [Frequently used functions](#frequently-used-functions)
 * [Examples](#examples)
     * [Display matching files in splits](#display-matching-files-in-splits)
     * [More](#more)
 * [Warning](#warning)
-* [Licence](#licence)
 
 <!-- vim-markdown-toc -->
 
