@@ -470,7 +470,7 @@ augroup END
 The `:Wheel` meta-command gives you access to almost all the plugin
 features. Completion is available for subcommands. For further details,
 see the
-[meta-command wiki page](https://github.com/chimay/wheel/wiki/command)
+[meta-command wiki page](https://github.com/chimay/wheel/wiki/command).
 
 # Bindings
 
