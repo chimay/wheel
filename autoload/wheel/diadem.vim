@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Pearl
+" Diadem
 "
 " Internal Constants for commands
 

@@ -465,10 +465,17 @@ augroup wheel
 augroup END
 ~~~
 
+# Meta-command
+
+The `:Wheel` meta-command gives you access to almost all the plugin
+features. Completion is available for subcommands. For further details,
+see the
+[meta-command wiki page](https://github.com/chimay/wheel/wiki/command)
+
 # Bindings
 
 For a thorough discussion on bindings, see
-[the bingings page](https://github.com/chimay/wheel/wiki/bindings)
+[the bindings page](https://github.com/chimay/wheel/wiki/bindings)
 in the wiki.
 
 ## Frequently used functions
