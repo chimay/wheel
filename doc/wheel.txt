@@ -2167,6 +2167,27 @@ History~
 :Wheel older-in-torus
 	Go to older location in same torus
 
+Alternate~
+
+:Wheel alternate-anywhere
+	Alternate two last locations in history
+
+:Wheel alternate-same-torus
+	Alternate two last locations in the same torus
+
+:Wheel alternate-same-circle
+	Alternate two last locations in the same circle
+
+:Wheel alternate-other-torus
+	Alternate two last locations in distinct torus
+
+:Wheel alternate-other-circle
+	Alternate two last locations in distinct circle
+
+:Wheel alternate-same-torus-other-circle
+	Alternate two last locations in the same torus, but not in the same
+	circle
+
 ------------------------------------------------------------------------------
 READ AND WRITE					*wheel-commands-read-and-write*
 
