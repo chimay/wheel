@@ -61,7 +61,7 @@ fun! wheel#sailing#occur ()
 		return -1
 	endif
 	let fields = split(record, s:field_separ)
-	let linum = fields[0]
+	let linum = str2nr(fields[0])
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()
@@ -80,7 +80,7 @@ fun! wheel#sailing#buffer ()
 	let fields = split(record, s:field_separ)
 	let bufnum = fields[0]
 	execute 'hide buffer' bufnum
-	let linum = fields[1]
+	let linum = str2nr(fields[1])
 	call cursor(linum, 1)
 	call wheel#origami#view_cursor ()
 	call wheel#chakra#place_native ()

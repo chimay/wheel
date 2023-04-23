@@ -164,9 +164,9 @@ fun! wheel#line#grep (settings)
 	let errnum = fields[0]
 	execute 'cc' errnum
 	" -- using buffer, line & col
-	"let bufnum = fields[1]
-	"let line = fields[3]
-	"let col = fields[4]
+	"let bufnum = str2nr(fields[1])
+	"let line = str2nr(fields[3])
+	"let col = str2nr(fields[4])
 	"execute 'silent hide buffer' bufnum
 	"call cursor(line, col)
 	" ---- coda
