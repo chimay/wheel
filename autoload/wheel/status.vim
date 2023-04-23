@@ -84,7 +84,8 @@ fun! wheel#status#dashboard_text ()
 		return 'empty wheel'
 	endif
 	let [torus, circle, location] = wheel#referen#location('all')
-	let dashboard = torus.name .. s:level_separ
+	let dashboard = 'wheel: '
+	let dashboard ..= torus.name .. s:level_separ
 	if wheel#referen#is_empty('torus')
 		let dashboard ..= '[empty torus]'
 		return dashboard
