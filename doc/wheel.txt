@@ -672,6 +672,9 @@ the nature of the asked entry :
 
 Hitting |'wildchar'| (most likely `<Tab>`), will trigger the completion.
 
+If `pum` is in  |'wildoptions'|, the choices will be displayed in a nice
+pop-up menu.
+
 Multi-pattern~
 
 You can enter one or more patterns before hitting |'wildchar'| to narrow
@@ -690,10 +693,23 @@ simply litteral parts of the wanted result.
 For example, if you have the completion list `small flower`, `big flower`,
 `small fruit` and `big fruit` :
 
+- the pattern `fl` will narrow down to `small flower`, `big flower`
 - the pattern `sm` will narrow down to `small flower`, `small fruit`
 - the patterns `sm fl` will narrow down to `small flower`
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
+
+Builtin patterns~
+
+All builtin patterns remain available.
+
+If you want a classic completion matching only at the beginning of the
+string, you can use |/^|. For example, if you have the completion list
+`small flower`, `sunflower`, `flower`, `small fruit`, `big fruit` and
+`fruit` :
+
+- the pattern `^f` will narrow down to `flower`, `fruit`
+- the pattern `^s` will narrow down to `small flower`, `sunflower`, `small fruit`
 
 File completion~
 
