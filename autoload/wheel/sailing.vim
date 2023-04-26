@@ -201,8 +201,9 @@ fun! wheel#sailing#outline ()
 	elseif filetype == 'vimwiki'
 		let mode = 4
 	else
-		let prompt = 'Outline mode ? '
-		let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
+		let mode = 1
+		"let prompt = 'Outline mode ? '
+		"let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
 	endif
 	let prompt = 'Go to outline : '
 	let complete = 'customlist,wheel#complete#outline_' .. modedict[mode]
