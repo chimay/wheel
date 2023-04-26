@@ -140,16 +140,16 @@ it’s easy to add new functionalities.
   + next / previous location, circle or torus
   + single or multi-pattern completion in prompting functions
   + choose file, group or category in dedicated buffer
-    * filter candidates
-    * selection tools
-    * preview
-    * folds matching wheel tree structure
-    * context menus
+    - filter candidates
+    - selection tools
+    - preview
+    - folds matching wheel tree structure
+    - context menus
   + auto `:lcd` to project root of current file
   + history of wheel files
-    * anywhere
-    * in same group
-    * in same category
+    - anywhere
+    - in same group
+    - in same category
   + signs displayed at wheel locations
 - search files
   + using locate
@@ -159,12 +159,12 @@ it’s easy to add new functionalities.
   + visible buffers in tabs & windows
 - search inside files
   + grep on group files
-    * navigate
-    * edit mode : edit and propagate changes by writing the dedicated buffer
+    - navigate
+    - edit mode : edit and propagate changes by writing the dedicated buffer
   + outline
-    * folds headers in group files (based on fold markers)
-    * markdown headers
-    * org mode headers
+    - folds headers in group files (based on fold markers)
+    - markdown headers
+    - org mode headers
   + tags
   + markers
   + jumps & changes lists
@@ -191,14 +191,14 @@ it’s easy to add new functionalities.
 - display files
   + split levels : torus, circle, location
   + split
-    * vertical, golden vertical
-    * horizontal, golden horizontal
-    * main left, golden left
-    * main top, golden top
-    * grid
+    - vertical, golden vertical
+    - horizontal, golden horizontal
+    - main left, golden left
+    - main top, golden top
+    - grid
   + mix of above
-    * circles on tabs, locations on split
-    * toruses on tabs, circles on split
+    - circles on tabs, locations on split
+    - toruses on tabs, circles on split
 
 ## History
 
