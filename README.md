@@ -478,6 +478,12 @@ Completion is available for subcommands. For further details,
 see the
 [meta-command wiki page](https://github.com/chimay/wheel/wiki/command).
 
+I suggest you map it to a convenient key. Example :
+
+```vim
+nnoremap <space> :Wheel<space>
+```
+
 # Bindings
 
 For a thorough discussion on bindings, see
