@@ -428,7 +428,7 @@ fun! wheel#line#undo_diff (bufnum)
 	call wheel#rectangle#find_or_load (a:bufnum)
 	let save = {}
 	let save.name = expand('%')
-	let save.filetype = &filetype
+	let save.filetype = &l:filetype
 	" ---- copy of original buffer
 	vnew
 	silent read #
@@ -436,7 +436,7 @@ fun! wheel#line#undo_diff (bufnum)
 	let diff_buf = bufnr('%')
 	setlocal buftype=nofile
 	execute 'silent file' 'wheel/diff/' .. save.name
-	let &filetype = save.filetype
+	let &l:filetype = save.filetype
 	diffthis
 	setlocal nomodifiable readonly
 	" ---- original buffer

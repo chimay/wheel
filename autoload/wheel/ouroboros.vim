@@ -157,7 +157,7 @@ fun! wheel#ouroboros#save_options (optlist)
 	" Return dictionary with options whose names are in optlist
 	let ampersands = {}
 	for optname in a:optlist
-		let runme = 'let ampersands.' .. optname .. '=' .. '&' .. optname
+		let runme = 'let ampersands.' .. optname .. '=' .. '&l:' .. optname
 		execute runme
 	endfor
 	return ampersands
@@ -228,7 +228,7 @@ endfun
 fun! wheel#ouroboros#restore_options (optdict)
 	" Restore options whose names and values are given by optdict
 	for [optname, value] in items(a:optdict)
-		let runme = 'let &' .. optname .. '=' .. string(value)
+		let runme = 'let &l:' .. optname .. '=' .. string(value)
 		execute runme
 	endfor
 endfun

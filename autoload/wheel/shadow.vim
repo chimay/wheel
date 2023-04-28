@@ -107,10 +107,10 @@ fun! wheel#shadow#narrow_file (...) range
 	let bufnum = bufnr('%')
 	let filename = bufname(bufnum)
 	let filename = fnamemodify(filename, ':t')
-	let filetype = &filetype
+	let filetype = &l:filetype
 	" -- mandala
 	call wheel#mandala#blank ('narrow/file/' .. filename)
-	let &filetype = filetype
+	let &l:filetype = filetype
 	call wheel#mandala#common_maps ()
 	let settings = #{
 				\ function : 'wheel#line#narrow_file',

@@ -217,7 +217,7 @@ fun! wheel#counterpoint#arrange_tabs (tabindexes)
 		$ tabnew
 	endwhile
 	" Reorder
-	let counter = 0
+	let l:count = 0
 	let max_iter = 2 * g:wheel_config.maxim.tabs
 	let from = 0
 	" status : start from 0
@@ -239,8 +239,8 @@ fun! wheel#counterpoint#arrange_tabs (tabindexes)
 		execute 'tabnext' from + 1
 		execute 'tabmove' target + 1
 		let status = wheel#chain#move(status, from, target)
-		let counter += 1
-		if counter > max_iter
+		let l:count += 1
+		if l:count > max_iter
 			echomsg 'wheel reorg tabs & windows : reached max iter'
 			break
 		endif
