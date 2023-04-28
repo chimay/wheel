@@ -220,8 +220,7 @@ fun! wheel#mandala#clear ()
 	call wheel#mandala#clear_autocmds ()
 	call wheel#mandala#clear_vars ()
 	" -- clear lines
-	" delete lines -> underscore _ = no storing register
-	silent! 1,$ delete _
+	call wheel#gear#delete (1, '$')
 	" -- init vars
 	call wheel#mandala#init ()
 endfun
@@ -414,11 +413,7 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first', lock = 'lock'
 	" ---- options to edit
 	call wheel#mandala#unlock ()
 	" ---- delete old content
-	if exists('*deletebufline')
-		silent! call deletebufline('%', 2, '$')
-	else
-		silent! 2,$ delete _
-	endif
+	call wheel#gear#delete (2, '$')
 	" ---- append content
 	call cursor(1, 1)
 	call append('.', content)
@@ -430,7 +425,7 @@ fun! wheel#mandala#replace (content, first = 'empty-prompt-first', lock = 'lock'
 	elseif  first ==# 'keep-first'
 		call wheel#mandala#post_edit (lock)
 	elseif first ==# 'delete-first'
-		silent 1 delete _
+		call wheel#gear#delete (1)
 		call wheel#mandala#post_edit (lock)
 	endif
 	" ---- tell (neo)vim the buffer is unmodified

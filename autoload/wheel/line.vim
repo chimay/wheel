@@ -432,7 +432,7 @@ fun! wheel#line#undo_diff (bufnum)
 	" ---- copy of original buffer
 	vnew
 	silent read #
-	silent 1 delete _
+	call wheel#gear#delete (1)
 	let diff_buf = bufnr('%')
 	setlocal buftype=nofile
 	execute 'silent file' 'wheel/diff/' .. save.name

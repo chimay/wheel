@@ -56,6 +56,7 @@ fun! wheel#gear#delete (first, ...)
 	if exists('*deletebufline')
 		return deletebufline('%', first, last)
 	else
+		" delete lines -> underscore _ = no storing register
 		let range = first .. ',' .. last
 		execute 'silent!' range .. 'delete _'
 		return 0
