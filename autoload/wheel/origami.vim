@@ -42,7 +42,7 @@ fun! wheel#origami#folding_options (textfun = 'folding_text')
 	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 	setlocal foldclose=
 	setlocal foldmethod=marker
-	let &l:foldmarker = s:fold_markers
+	let &foldmarker = s:fold_markers
 	setlocal foldcolumn=2
 	execute 'setlocal foldtext=wheel#origami#' .. textfun .. '()'
 endfun

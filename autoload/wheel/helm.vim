@@ -39,7 +39,7 @@ fun! wheel#helm#folding_options ()
 	setlocal foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 	setlocal foldclose=
 	setlocal foldmethod=marker
-	let &l:foldmarker = s:fold_markers
+	let &foldmarker = s:fold_markers
 	setlocal foldcolumn=2
 	setlocal foldtext=wheel#helm#folding_text()
 endfun

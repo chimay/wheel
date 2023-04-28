@@ -252,9 +252,9 @@ fun! wheel#frigate#occur (...)
 		echomsg 'wheel frigate occur : no match found'
 		return v:false
 	endif
-	let filetype = &l:filetype
+	let filetype = &filetype
 	call wheel#mandala#blank ('occur')
-	let &l:filetype = filetype
+	let &filetype = filetype
 	let settings = #{ function : 'wheel#line#occur' }
 	call wheel#river#template (settings)
 	call wheel#mandala#fill (lines)
@@ -306,7 +306,7 @@ fun! wheel#frigate#outline (...)
 		let mode = confirm(prompt, "&Folds\n&Markdown\n&Org mode\nVimwiki", 1)
 	endif
 	if mode == 1
-		let marker = split(&l:foldmarker, ',')[0]
+		let marker = split(&foldmarker, ',')[0]
 		let grep_ex_command = g:wheel_config.grep
 		if grep_ex_command =~ '^:\?grep' && &grepprg !~ '^grep'
 			let marker = escape(marker, '{')

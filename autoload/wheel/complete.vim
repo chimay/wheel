@@ -309,7 +309,7 @@ endfun
 
 fun! wheel#complete#outline_folds (arglead, cmdline, cursorpos)
 	" Complete folds outline
-	let marker = split(&l:foldmarker, ',')[0]
+	let marker = split(&foldmarker, ',')[0]
 	let grep_ex_command = g:wheel_config.grep
 	if grep_ex_command =~ '^:\?grep' && &grepprg !~ '^grep'
 		let marker = escape(marker, '{')

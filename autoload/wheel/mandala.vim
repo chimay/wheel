@@ -126,7 +126,7 @@ endfun
 fun! wheel#mandala#wrap_up ()
 	" Line up, or line 1 -> end of file
 	" If fold is closed, take the first line of it
-	if &l:foldenable
+	if &foldenable
 		let line = foldclosed('.')
 		if line < 0
 			let line = line('.')
@@ -153,7 +153,7 @@ endfun
 fun! wheel#mandala#wrap_down ()
 	" Line down, or line end of file -> 1
 	" If fold is closed, take the last line of it
-	if &l:foldenable
+	if &foldenable
 		let line = foldclosedend('.')
 		if line < 0
 			let line = line('.')
