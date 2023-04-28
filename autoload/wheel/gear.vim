@@ -43,6 +43,25 @@ fun! wheel#gear#win_gotoid (iden)
 	endif
 endfun
 
+" ---- buffer
+
+fun! wheel#gear#delete (first, ...)
+	" Delete
+	let first = a:first
+	if a:0 > 0
+		let last = a:1
+	else
+		let last = first
+	endif
+	if exists('*deletebufline')
+		return deletebufline('%', first, last)
+	else
+		let range = first .. ',' .. last
+		execute 'silent!' range .. 'delete _'
+		return 0
+	endif
+endfun
+
 " ---- misc
 
 " used by chain#tie
