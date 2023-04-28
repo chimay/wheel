@@ -29,7 +29,7 @@ fun! wheel#disc#write (pointer, file, where = '>')
 	silent! echo 'let' pointer '=' var
 	redir END
 	let content = substitute(content, '\m[=,]', '\0\n\\', 'g')
-	let content = substitute(content, '\m\n\{2,\}', '\n', 'g')
+	let content = substitute(content, '\m\n\{2,}', '\n', 'g')
 	exec 'redir!' where file
 	silent! echo content
 	redir END
