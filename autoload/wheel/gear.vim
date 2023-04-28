@@ -46,7 +46,7 @@ endfun
 " ---- buffer
 
 fun! wheel#gear#delete (first, ...)
-	" Delete
+	" Delete lines to black hole register
 	let first = a:first
 	if a:0 > 0
 		let last = a:1
