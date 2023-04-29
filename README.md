@@ -58,6 +58,8 @@ enhances their interface by using :
 - edit modes, that allow you to reflect your changes in a dedicated buffer to
   the original file(s)
 
+With these tools, any line in any file is only a few keys away.
+
 All is written in lightweight, classical Vimscript.
 
 ## What does it look like ?
