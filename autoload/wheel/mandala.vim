@@ -220,7 +220,9 @@ fun! wheel#mandala#clear ()
 	call wheel#mandala#clear_autocmds ()
 	call wheel#mandala#clear_vars ()
 	" -- clear lines
+	call wheel#mandala#unlock ()
 	call wheel#gear#delete (1, '$')
+	call wheel#mandala#lock ()
 	" -- init vars
 	call wheel#mandala#init ()
 endfun
