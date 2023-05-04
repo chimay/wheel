@@ -487,7 +487,7 @@ endfun
 fun! wheel#void#init ()
 	" Main init function
 	if g:wheel_volatile.argc == 0 && has('nvim')
-		echomsg 'wheel hello !'
+		"echomsg 'wheel hello !'
 	endif
 	" ---- keep tabs & wins ?
 	if g:wheel_volatile.argc == 0
@@ -508,7 +508,7 @@ endfun
 fun! wheel#void#exit ()
 	" Main exit function
 	if g:wheel_volatile.argc == 0 && has('nvim')
-		echomsg 'wheel bye !'
+		"echomsg 'wheel bye !'
 	endif
 	" ---- clean vars before writing
 	call wheel#void#clean ()
