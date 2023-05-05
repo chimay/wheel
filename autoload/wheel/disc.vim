@@ -391,7 +391,7 @@ fun! wheel#disc#write_wheel (...)
 	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
 	" ---- write
-	echomsg 'Writing wheel variables to file ..'
+	"echomsg 'Writing wheel variables to file ..'
 	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
 	" -- replace >
 	call wheel#disc#writefile('g:wheel', wheel_file, '>')
@@ -431,7 +431,7 @@ fun! wheel#disc#read_wheel (wheel_file = '', keep_tabwins = 'dont-keep')
 		return v:false
 	endif
 	" ---- read file
-	echomsg 'Reading wheel variables from file ..'
+	"echomsg 'Reading wheel variables from file ..'
 	call wheel#disc#readfile (wheel_file)
 	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
@@ -509,7 +509,7 @@ fun! wheel#disc#read_session (session_file = '', keep_tabwins = 'dont-keep')
 		silent tabnew
 	endif
 	" ---- read file
-	echomsg 'Reading session from file ..'
+	"echomsg 'Reading session from file ..'
 	execute 'source' session_file
 	" ---- coda
 	"echomsg 'Reading done !'
