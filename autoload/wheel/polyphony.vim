@@ -443,6 +443,7 @@ fun! wheel#polyphony#crossroad (key, angle = 'no-angle', modes = ['n', 'n'])
 	endif
 	if angle ==# 'with-angle' || angle ==# '>'
 		execute 'let key =' '"\<' .. key .. '>"'
+		"let key = wheel#gear#reverse_keytrans(key)
 	endif
 	if mode_others ==# 'insert'
 		execute 'normal! i' .. key

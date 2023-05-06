@@ -43,6 +43,18 @@ fun! wheel#gear#win_gotoid (iden)
 	endif
 endfun
 
+" ---- char representation
+
+fun! wheel#gear#reverse_keytrans(keystring)
+	" Convert char representation like <c-a> -> 
+	let keystring = a:keystring
+	if keystring[0] ==# '<' && keystring[-1:] ==# '>'
+		let keystring = keystring[1:-2]
+		execute 'let keystring =' '"\<' .. keystring .. '>"'
+	endif
+	return keystring
+endfun
+
 " ---- buffer
 
 fun! wheel#gear#delete (first, ...)

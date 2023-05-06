@@ -231,6 +231,7 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 	endif
 	if angle ==# 'with-angle' || angle ==# '>'
 		execute 'let key =' '"\<' .. key .. '>"'
+		"let key = wheel#gear#reverse_keytrans(key)
 	endif
 	call wheel#mandala#unlock ()
 	if mode ==# 'insert'
