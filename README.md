@@ -91,6 +91,8 @@ Note that :
 - a set of file groups, or a category, is called a torus (a circle of circles)
 - the list of toruses is called the wheel
 
+Currently, there are 638 files in my groups, and it runs like a breeze.
+
 ### Why do you need three levels of grouping ?
 
 At first glance, managing groups with circles in a torus seems to be
