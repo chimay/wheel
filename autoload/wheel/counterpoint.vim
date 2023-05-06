@@ -1,6 +1,6 @@
 " vim: set ft=vim fdm=indent iskeyword&:
 
-" Harmony
+" Counterpoint
 "
 " Writing functions for local BufWriteCmd autocommand
 " in native elements dedicated buffers
