@@ -230,8 +230,9 @@ fun! wheel#teapot#wrapper (key, angle = 'no-angle', mode = 'normal')
 		call cursor(1, col('$'))
 	endif
 	if angle ==# 'with-angle' || angle ==# '>'
-		execute 'let key =' '"\<' .. key .. '>"'
-		"let key = wheel#gear#reverse_keytrans(key)
+		"execute 'let key =' '"\<' .. key .. '>"'
+		let fullkey = '<' .. key .. '>'
+		let key = wheel#gear#reverse_keytrans(fullkey)
 	endif
 	call wheel#mandala#unlock ()
 	if mode ==# 'insert'

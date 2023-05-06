@@ -48,10 +48,14 @@ endfun
 fun! wheel#gear#reverse_keytrans(keystring)
 	" Convert char representation like <c-a> -> 
 	let keystring = a:keystring
+	if keystring == '<space>'
+		return ' '
+	endif
 	if keystring[0] ==# '<' && keystring[-1:] ==# '>'
 		let keystring = keystring[1:-2]
 		execute 'let keystring =' '"\<' .. keystring .. '>"'
 	endif
+	let keystring = substitute(keystring, '\m\c<plug>', "\<plug>", '')
 	return keystring
 endfun
 
