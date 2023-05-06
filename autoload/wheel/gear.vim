@@ -54,6 +54,7 @@ fun! wheel#gear#reverse_keytrans(keystring)
 	endif
 	let keystring = substitute(keystring, '\m\c<space>', ' ', '')
 	let keystring = substitute(keystring, '\m\c<plug>', "\<plug>", '')
+	let keystring = substitute(keystring, '\m\c<cmd>', "\<cmd>", '')
 	return keystring
 endfun
 
