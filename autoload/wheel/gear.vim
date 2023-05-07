@@ -48,17 +48,12 @@ endfun
 fun! wheel#gear#reverse_keytrans(keystring)
 	" Convert char representation like <c-a> -> 
 	let keystring = a:keystring
-	if keystring[0] ==# '<' && keystring[-1:] ==# '>'
-		let keystring = keystring[1:-2]
-		execute 'let keystring =' '"\<' .. keystring .. '>"'
-	endif
-	"let keystring = substitute(keystring, '\m\c<space>', ' ', '')
 	let angle_pattern = '\m<[^>]\+>'
 	while v:true
-		if keystring !~ angle_pattern
+		let match = keystring->matchstr(angle_pattern)
+		if empty(match)
 			break
 		endif
-		let match = keystring->matchstr(angle_pattern)
 		execute 'let subst =' '"\<' .. match[1:-2] .. '>"'
 		let keystring = substitute(keystring, match, subst, '')
 	endwhile
