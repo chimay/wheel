@@ -54,7 +54,7 @@ fun! wheel#disc#relative_path (...)
 	endif
 	let directory = '\m^' .. getcwd() .. '/'
 	let filename = wheel#disc#full_path (filename)
-	let filename = substitute(filename, directory, '', '')
+	let filename = fnamemodify(filename, ':.')
 	return filename
 endfun
 

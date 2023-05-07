@@ -73,7 +73,7 @@ fun! wheel#ripple#start (command, ...)
 	" job
 	let jobopts = {}
 	let jobopts.out_io = 'buffer'
-	let bufname = bufname(bufnr('%'))
+	let bufname = bufname('%')
 	let jobopts.out_name = bufname
 	let jobopts.exit_cb = 'wheel#ripple#callback_exit'
 	let job = job_start(command, jobopts)

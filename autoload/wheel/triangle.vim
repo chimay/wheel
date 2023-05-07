@@ -7,7 +7,7 @@
 fun! wheel#triangle#undolist ()
 	" Undo list mandala
 	call wheel#mandala#goto_related ()
-	let bufname = bufname(bufnr('%'))
+	let bufname = bufname('%')
 	let filename = fnamemodify(bufname, ':t')
 	let lines = wheel#perspective#undolist ()
 	call wheel#mandala#blank('undo/' .. filename)
