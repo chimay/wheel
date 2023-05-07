@@ -294,7 +294,7 @@ fun! wheel#teapot#mappings ()
 	execute imap '<space> <cmd>call' wrapper "('space', '>', 'i')<cr>"
 	execute imap '<c-w>   <cmd>call' wrapper "('c-w', '>', 'i')<cr>"
 	execute imap '<c-u>   <cmd>call' wrapper "('c-u', '>', 'i')<cr>"
-	execute imap '<cr>    <cmd>call' wrapper "('c-w', '>', 'n')<cr>"
+	execute imap '<cr>    <cmd>call' wrapper "('cr', '>', 'n')<cr>"
 	execute imap '<esc>   <cmd>call' wrapper "('esc', '>', 'n')<cr>"
 	execute imap '<c-k>   <cmd>call wheel#teapot#insert_ctrl_k()<cr>'
 	" <c-c> is not mapped, in case you need a regular escape
