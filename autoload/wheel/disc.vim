@@ -355,7 +355,7 @@ fun! wheel#disc#roll_backups (file, backups)
 		"echomsg 'backup' first '->' second
 		let returnstring = wheel#disc#rename(first, second, 'force')
 		if returnstring ==# 'failure'
-			echomsg 'wheel batch rename files : error renaming' first '->' second
+			echomsg 'wheel disc roll backups : error renaming' first '->' second
 			return v:false
 		endif
 	endwhile
