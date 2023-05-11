@@ -509,13 +509,15 @@ fun! wheel#void#init ()
 	else
 		let keep_tabwins = 'keep'
 	endif
+	" ---- no message at vim enter
+	let verbose = v:false
 	" ---- read wheel
 	if g:wheel_config.autoread > 0
-		call wheel#disc#read_wheel ('', keep_tabwins)
+		call wheel#disc#read_wheel ('', keep_tabwins, verbose)
 	endif
 	" ---- read session
 	if g:wheel_config.autoread_session > 0
-		call wheel#disc#read_session ('', keep_tabwins)
+		call wheel#disc#read_session ('', keep_tabwins, verbose)
 	endif
 endfun
 
@@ -526,13 +528,15 @@ fun! wheel#void#exit ()
 	"endif
 	" ---- clean vars before writing
 	call wheel#void#clean ()
+	" ---- no message at vim leave
+	let verbose = v:false
 	" ---- save session
 	if g:wheel_config.autowrite_session > 0
-		call wheel#disc#write_session ()
+		call wheel#disc#write_session ('', verbose)
 	endif
 	" ---- save wheel, and unlet
 	if g:wheel_config.autowrite > 0
-		call wheel#disc#write_wheel()
+		call wheel#disc#write_wheel('', verbose)
 	endif
 	call wheel#void#wipe_mandalas ()
 	call wheel#void#vanish ()

@@ -366,15 +366,21 @@ endfun
 fun! wheel#disc#write_wheel (...)
 	" Write all wheel variables to file argument
 	" File defaults to g:wheel_config.file
-	if a:0 > 0
+	" Optional arguments :
+	"   - wheel file
+	"   - verbose
+	if a:0 > 0 && ! empty(a:1)
 		let wheel_file = fnamemodify(a:1, ':p')
+	elseif ! empty(g:wheel_config.file)
+		let wheel_file = fnamemodify(g:wheel_config.file, ':p')
 	else
-		if empty(g:wheel_config.file)
-			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
-			return v:false
-		else
-			let wheel_file = fnamemodify(g:wheel_config.file, ':p')
-		endif
+		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+		return v:false
+	endif
+	if a:0 > 1
+		let verbose = a:2
+	else
+		let verbose = v:true
 	endif
 	if wheel#referen#is_empty ('wheel')
 		"echomsg 'Not writing empty wheel'
@@ -405,31 +411,37 @@ fun! wheel#disc#write_wheel (...)
 	call wheel#disc#writefile('g:wheel_attic', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
 	" ---- coda
-	if g:wheel_volatile.first.write_wheel
-		let g:wheel_volatile.first.write_wheel = v:false
-	else
-		echomsg 'Wheel writing done !'
+	if verbose
+		echomsg 'writing wheel : done'
 	endif
 	return v:true
 endfun
 
-fun! wheel#disc#read_wheel (wheel_file = '', keep_tabwins = 'dont-keep')
+fun! wheel#disc#read_wheel (...)
 	" Read all wheel variables from file argument
 	" File defaults to g:wheel_config.file
-	" Optional argument :
-	"   - keep : keep current tabs & wins
-	"   - dont-keep : don't keep current tabs & wins
-	let wheel_file = a:wheel_file
-	let keep_tabwins = a:keep_tabwins
-	if empty(wheel_file)
-		if empty(g:wheel_config.file)
-			echomsg 'Please configure g:wheel_config.file = my_wheel_file'
-			return v:false
-		else
-			let wheel_file = g:wheel_config.file
-		endif
+	" Optional arguments :
+	"   - wheel file
+	"   - keep_tabwins
+	"   - verbose
+	if a:0 > 0 && ! empty(a:1)
+		let wheel_file = fnamemodify(a:1, ':p')
+	elseif ! empty(g:wheel_config.file)
+		let wheel_file = fnamemodify(g:wheel_config.file, ':p')
+	else
+		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
+		return v:false
 	endif
-	let wheel_file = fnamemodify(wheel_file, ':p')
+	if a:0 > 1
+		let keep_tabwins = a:2
+	else
+		let keep_tabwins = 'dont-keep'
+	endif
+	if a:0 > 2
+		let verbose = a:3
+	else
+		let verbose = v:true
+	endif
 	" ---- check
 	if ! filereadable(wheel_file)
 		echomsg 'wheel disc read wheel : wheel file does not exist'
@@ -447,10 +459,8 @@ fun! wheel#disc#read_wheel (wheel_file = '', keep_tabwins = 'dont-keep')
 		call wheel#vortex#jump ()
 	endif
 	" ---- coda
-	if g:wheel_volatile.first.read_wheel
-		let g:wheel_volatile.first.read_wheel = v:false
-	else
-		echomsg 'Wheel reading done !'
+	if verbose
+		echomsg 'reading wheel : done'
 	endif
 	return v:true
 endfun
@@ -459,15 +469,21 @@ endfun
 
 fun! wheel#disc#write_session (...)
 	" Write session layout to session file
-	if a:0 > 0
+	" Optional arguments :
+	"   - wheel file
+	"   - verbose
+	if a:0 > 0 && ! empty(a:1)
 		let session_file = fnamemodify(a:1, ':p')
+	elseif ! empty(g:wheel_config.session_file)
+		let session_file = fnamemodify(g:wheel_config.session_file, ':p')
 	else
-		if empty(g:wheel_config.session_file)
-			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
-			return v:false
-		else
-			let session_file = fnamemodify(g:wheel_config.session_file, ':p')
-		endif
+		echomsg 'Please configure g:wheel_config.session_file = my_session_file'
+		return v:false
+	endif
+	if a:0 > 1
+		let verbose = a:2
+	else
+		let verbose = v:true
 	endif
 	" ---- create directory if needed
 	let directory = fnamemodify(session_file, ':h')
@@ -485,30 +501,36 @@ fun! wheel#disc#write_session (...)
 		return 'failure'
 	endif
 	" ---- coda
-	if g:wheel_volatile.first.write_session
-		let g:wheel_volatile.first.write_session = v:false
-	else
-		echomsg 'Session writing done !'
+	if verbose
+		echomsg 'writing session : done'
 	endif
 	return v:true
 endfun
 
-fun! wheel#disc#read_session (session_file = '', keep_tabwins = 'dont-keep')
+fun! wheel#disc#read_session (...)
 	" Read session layout from session file
-	" Optional argument :
-	"   - keep : keep current tabs & wins
-	"   - dont-keep : don't keep current tabs & wins
-	let session_file = a:session_file
-	let keep_tabwins = a:keep_tabwins
-	if empty(session_file)
-		if empty(g:wheel_config.session_file)
-			echomsg 'Please configure g:wheel_config.session_file = my_session_file'
-			return v:false
-		else
-			let session_file = g:wheel_config.session_file
-		endif
+	" Optional arguments :
+	"   - wheel file
+	"   - keep_tabwins
+	"   - verbose
+	if a:0 > 0 && ! empty(a:1)
+		let session_file = fnamemodify(a:1, ':p')
+	elseif ! empty(g:wheel_config.session_file)
+		let session_file = fnamemodify(g:wheel_config.session_file, ':p')
+	else
+		echomsg 'Please configure g:wheel_config.session_file = my_session_file'
+		return v:false
 	endif
-	let session_file = fnamemodify(session_file, ':p')
+	if a:0 > 1
+		let keep_tabwins = a:2
+	else
+		let keep_tabwins = 'dont-keep'
+	endif
+	if a:0 > 2
+		let verbose = a:3
+	else
+		let verbose = v:true
+	endif
 	" ---- check
 	if ! filereadable(session_file)
 		echomsg 'wheel disc read session : session file does not exist'
@@ -526,10 +548,8 @@ fun! wheel#disc#read_session (session_file = '', keep_tabwins = 'dont-keep')
 	"echomsg 'Reading session from file ..'
 	execute 'source' session_file
 	" ---- coda
-	if g:wheel_volatile.first.read_session
-		let g:wheel_volatile.first.read_session = v:false
-	else
-		echomsg 'Session reading done !'
+	if verbose
+		echomsg 'reading session : done'
 	endif
 	return v:true
 endfun
