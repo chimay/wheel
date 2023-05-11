@@ -476,6 +476,9 @@ fun! wheel#void#vanish ()
 	" Unlet wheel variables
 	" No need to save them in viminfo or shada file
 	" since you can save them in g:wheel_config.file
+	" ---- should not be necessary, since only
+	" ---- uppercase global vars are stored in viminfo / shada
+	return
 	let varlist = [
 				\ 'g:wheel',
 				\ 'g:wheel_helix',
