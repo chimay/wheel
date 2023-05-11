@@ -377,7 +377,7 @@ fun! wheel#disc#write_wheel (...)
 		endif
 	endif
 	if wheel#referen#is_empty ('wheel')
-		echomsg 'Not writing empty wheel'
+		"echomsg 'Not writing empty wheel'
 		return v:false
 	endif
 	" ---- create directory if needed
@@ -404,7 +404,12 @@ fun! wheel#disc#write_wheel (...)
 	call wheel#disc#writefile('g:wheel_shelve', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_attic', wheel_file, '>>')
 	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
-	"echomsg 'Writing done !'
+	" ---- coda
+	if g:wheel_volatile.first.write_wheel
+		let g:wheel_volatile.first.write_wheel = v:false
+	else
+		echomsg 'Wheel writing done !'
+	endif
 	return v:true
 endfun
 
@@ -442,7 +447,11 @@ fun! wheel#disc#read_wheel (wheel_file = '', keep_tabwins = 'dont-keep')
 		call wheel#vortex#jump ()
 	endif
 	" ---- coda
-	"echomsg 'Reading done !'
+	if g:wheel_volatile.first.read_wheel
+		let g:wheel_volatile.first.read_wheel = v:false
+	else
+		echomsg 'Wheel reading done !'
+	endif
 	return v:true
 endfun
 
@@ -469,13 +478,18 @@ fun! wheel#disc#write_session (...)
 	" ---- backup old sessions
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
 	" ----- writing session
-	echomsg 'Writing session to file ..'
+	"echomsg 'Writing session to file ..'
 	let commandlist = wheel#labyrinth#session ()
 	let zero = writefile(commandlist, session_file)
 	if zero != 0
 		return 'failure'
 	endif
-	"echomsg 'Writing done !'
+	" ---- coda
+	if g:wheel_volatile.first.write_session
+		let g:wheel_volatile.first.write_session = v:false
+	else
+		echomsg 'Session writing done !'
+	endif
 	return v:true
 endfun
 
@@ -512,7 +526,11 @@ fun! wheel#disc#read_session (session_file = '', keep_tabwins = 'dont-keep')
 	"echomsg 'Reading session from file ..'
 	execute 'source' session_file
 	" ---- coda
-	"echomsg 'Reading done !'
+	if g:wheel_volatile.first.read_session
+		let g:wheel_volatile.first.read_session = v:false
+	else
+		echomsg 'Session reading done !'
+	endif
 	return v:true
 endfun
 

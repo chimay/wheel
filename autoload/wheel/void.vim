@@ -399,14 +399,26 @@ fun! wheel#void#wave ()
 endfun
 
 fun! wheel#void#volatile ()
-	" Store (neo)vim state
+	" Store non persistent state
 	if ! exists('g:wheel_volatile')
 		let g:wheel_volatile = {}
 	endif
-	" Remember number of file args at startup
-	" before :argadd, :argdel or similar command
-	let g:wheel_volatile.argc = argc()
-	let g:wheel_volatile.argv = argv()
+	" ---- Remember number of file args at startup
+	" ---- before :argadd, :argdel or similar command
+	if ! has_key(g:wheel_volatile, 'argc')
+		let g:wheel_volatile.argc = argc()
+	endif
+	if ! has_key(g:wheel_volatile, 'argv')
+		let g:wheel_volatile.argv = argv()
+	endif
+	" ---- First time read / write
+	if ! has_key(g:wheel_volatile, 'first')
+		let g:wheel_volatile.first = {}
+		let g:wheel_volatile.first.write_wheel = v:true
+		let g:wheel_volatile.first.read_wheel = v:true
+		let g:wheel_volatile.first.write_session = v:true
+		let g:wheel_volatile.first.read_session = v:true
+	endif
 endfun
 
 " ---- initialize all variables & augroup
@@ -478,6 +490,8 @@ fun! wheel#void#vanish ()
 				\ 'g:wheel_bufring',
 				\ 'g:wheel_wave',
 				\ 'g:wheel_ripple',
+				\ 'g:wheel_volatile',
+				\ 'g:wheel_signs',
 				\ ]
 	call wheel#ouroboros#unlet (varlist)
 endfun
@@ -486,9 +500,9 @@ endfun
 
 fun! wheel#void#init ()
 	" Main init function
-	if g:wheel_volatile.argc == 0 && has('nvim')
+	"if g:wheel_volatile.argc == 0 && has('nvim')
 		"echomsg 'wheel hello !'
-	endif
+	"endif
 	" ---- keep tabs & wins ?
 	if g:wheel_volatile.argc == 0
 		let keep_tabwins = 'dont-keep'
@@ -507,9 +521,9 @@ endfun
 
 fun! wheel#void#exit ()
 	" Main exit function
-	if g:wheel_volatile.argc == 0 && has('nvim')
+	"if g:wheel_volatile.argc == 0 && has('nvim')
 		"echomsg 'wheel bye !'
-	endif
+	"endif
 	" ---- clean vars before writing
 	call wheel#void#clean ()
 	" ---- save session
