@@ -89,7 +89,7 @@ fun! wheel#projection#follow (...)
 	" ---- if torus or circle is empty, assume the user
 	" ---- wants to add something before switching
 	if level ==# 'wheel' && wheel#referen#is_empty ('torus')
-		echomsg 'wheel follow : torus is empty'
+		"echomsg 'wheel follow : torus is empty'
 		return v:false
 	endif
 	" ---- first add some locations before leaving empty circle
