@@ -350,7 +350,7 @@ Here is an example of configuration :
 
 ~~~vim
 if ! exists("g:wheel_loaded")
-  " ---- DONT FORGET to initialize dicts before using them
+  " ---- DONT FORGET TO INITIALIZE DICTS BEFORE USING THEM
   let g:wheel_config              = {}
   let g:wheel_config.maxim        = {}
   let g:wheel_config.frecency     = {}
