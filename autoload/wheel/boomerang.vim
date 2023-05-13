@@ -38,7 +38,7 @@ fun! wheel#boomerang#hidden_buffers (action)
 	elseif action ==# 'wipe_all_hidden'
 		let hidden = wheel#rectangle#hidden_buffers ('all')[0]
 	else
-		echomsg 'wheel boomerang buffer : bad action format'
+		throw 'wheel boomerang buffer : bad action format'
 	endif
 	if empty(hidden)
 		echomsg 'no hidden buffer'

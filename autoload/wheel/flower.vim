@@ -49,7 +49,7 @@ fun! wheel#flower#execute (runme, ...)
 	elseif type(Execute) == v:t_string
 		let returnlist = {Execute}(runme)
 	else
-		echomsg 'wheel perspective execute : bad function argument'
+		throw 'wheel flower execute : bad function argument'
 	endif
 	let returnlist = split(returnlist, "\n")
 	return returnlist
