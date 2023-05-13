@@ -350,88 +350,88 @@ Here is an example of configuration :
 
 ~~~vim
 if ! exists("g:wheel_loaded")
-  " Init
+  " ---- DONT FORGET to initialize dicts before using them
   let g:wheel_config              = {}
   let g:wheel_config.maxim        = {}
   let g:wheel_config.frecency     = {}
   let g:wheel_config.display      = {}
   let g:wheel_config.display.sign = {}
 
-  " The file where toruses and circles will be stored and read
+  " ---- The file where toruses and circles will be stored and read
   let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
-  " Auto read wheel file on startup if > 0
+  " ---- Auto read wheel file on startup if > 0
   let g:wheel_config.autoread = 1
-  " Auto write wheel file on exit if > 0
+  " ---- Auto write wheel file on exit if > 0
   let g:wheel_config.autowrite = 1
-  " The file where session will be stored and read
+  " ---- The file where session will be stored and read
   let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
-  " Auto read session file on startup if > 0
+  " ---- Auto read session file on startup if > 0
   let g:wheel_config.autoread_session = 1
-  " Auto write session file on exit if > 0
+  " ---- Auto write session file on exit if > 0
   let g:wheel_config.autowrite_session = 1
-  " Number of backups for the wheel file
+  " ---- Number of backups for the wheel file
   let g:wheel_config.backups = 5
-  " The bigger it is, the more mappings available
+  " ---- The bigger it is, the more mappings available
   let g:wheel_config.mappings = 10
-  " Prefix for mappings
+  " ---- Prefix for mappings
   let g:wheel_config.prefix = '<M-w>'
-  " Auto cd to project root if > 0
+  " ---- Auto cd to project root if > 0
   let g:wheel_config.auto_chdir_project = 1
-  " Marker of project root
+  " ---- Marker of project root
   "let g:wheel_config.project_markers = '.git'
   "let g:wheel_config.project_markers = '.project-root'
-  " List of markers
-  " The project dir is found as soon as one marker is found in it
+  " ---- List of markers
+  " ---- The project dir is found as soon as one marker is found in it
   let g:wheel_config.project_markers = ['.git', '.project-root']
-  " Locate database ; default one if left empty
+  " ---- Locate database ; default one if left empty
   let g:wheel_config.locate_db = '~/index/locate/home.db'
-  " Grep command : :grep or :vimpgrep
+  " ---- Grep command : :grep or :vimpgrep
   let g:wheel_config.grep = 'grep'
 
-  " Maximum number of elements in history
+  " ---- Maximum number of elements in history
   let g:wheel_config.maxim.history = 400
-  " Maximum number of elements in input history
+  " ---- Maximum number of elements in input history
   let g:wheel_config.maxim.input = 200
 
-  " Maximum number of elements in mru
+  " ---- Maximum number of elements in mru
   let g:wheel_config.maxim.mru = 300
 
-  " Maximum number of elements in yank ring
+  " ---- Maximum number of elements in yank ring
   let g:wheel_config.maxim.default_yanks = 700
   let g:wheel_config.maxim.other_yanks = 100
-  " Maximum lines of yank to add in yank ring
+  " ---- Maximum lines of yank to add in yank ring
   let g:wheel_config.maxim.yank_lines = 30
-  " Maximum size of yank to add in yank ring
+  " ---- Maximum size of yank to add in yank ring
   let g:wheel_config.maxim.yank_size = 3000
 
-  " Maximum size of layer ring
+  " ---- Maximum size of layer ring
   let g:wheel_config.maxim.layers = 10
 
-  " Maximum number of tabs in layouts
+  " ---- Maximum number of tabs in layouts
   let g:wheel_config.maxim.tabs = 12
-  " Maximum number of horizontal splits
+  " ---- Maximum number of horizontal splits
   let g:wheel_config.maxim.horizontal = 3
-  " Maximum number of vertical splits
+  " ---- Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
 
-  " Frecency
+  " ---- Frecency
   let g:wheel_config.frecency.reward = 120
   let g:wheel_config.frecency.penalty = 1
 
-  " Mandala & leaf status in statusline ?
+  " ---- Mandala & leaf status in statusline ?
   let g:wheel_config.display.statusline = 1
-  " Wheel messages : one-line or multi-line
+  " ---- Wheel messages : one-line or multi-line
   let g:wheel_config.display.message = 'one-line'
-  " Filter prompt in dedicated buffers
+  " ---- Filter prompt in dedicated buffers
   "let g:wheel_config.display.prompt = 'wheel $ '
   "let g:wheel_config.display.prompt_writable = 'wheel # '
-  " Selection marker in dedicated buffers
+  " ---- Selection marker in dedicated buffers
   "let g:wheel_config.display.selection = '-> '
-  " Signs
+  " ---- Signs
   let g:wheel_config.display.sign.switch = 1
-  " Signs at wheel locations
+  " ---- Signs at wheel locations
   "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " Signs after using Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
+  " ---- Signs after using Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
   "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
 
   let g:wheel_config.debug = 0
