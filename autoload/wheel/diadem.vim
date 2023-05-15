@@ -40,7 +40,7 @@ if ! exists('s:command_meta_actions')
 		\ [ 'copy'                  , 'wheel#disc#copy'                                                   ] ,
 		\ [ 'delete'                , 'wheel#disc#delete'                                                 ] ,
 		\ [ 'autogroup'             , 'wheel#group#menu'                                                  ] ,
-		\ [ 'batch'                 , 'wheel#vector#argdo'                                                ] ,
+		\ [ 'batch'                 , 'wheel#vector#batch'                                                ] ,
 		\ [ 'tree-script'           , 'wheel#disc#tree_script'                                            ] ,
 		\ [ 'symlink-tree'          , 'wheel#disc#symlink_tree'                                           ] ,
 		\ [ 'copied-tree'           , 'wheel#disc#copied_tree'                                            ] ,
