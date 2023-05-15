@@ -4,7 +4,6 @@
 "
 " Tabs & windows layouts
 
-
 " ---- helpers
 
 fun! wheel#mosaic#one_tab ()

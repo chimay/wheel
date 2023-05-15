@@ -8,10 +8,11 @@
 
 " ---- script constants
 
-if ! exists('s:mandala_autocmds_group')
-	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
-	lockvar s:mandala_autocmds_group
+if exists('s:mandala_autocmds_group')
+	unlockvar s:mandala_autocmds_group
 endif
+let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+lockvar s:mandala_autocmds_group
 
 " ---- no-op function
 

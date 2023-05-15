@@ -6,15 +6,17 @@
 
 " ---- script constants
 
-if ! exists('s:referen_coordin')
-	let s:referen_coordin = ['torus', 'circle', 'location']
-	lockvar s:referen_coordin
+if exists('s:referen_coordin')
+	unlockvar s:referen_coordin
 endif
+let s:referen_coordin = ['torus', 'circle', 'location']
+lockvar s:referen_coordin
 
-if ! exists('s:level_separ')
-	let s:level_separ = wheel#crystal#fetch('separator/level')
-	lockvar s:level_separ
+if exists('s:level_separ')
+	unlockvar s:level_separ
 endif
+let s:level_separ = wheel#crystal#fetch('separator/level')
+lockvar s:level_separ
 
 " ---- sync up & down
 

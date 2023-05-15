@@ -6,10 +6,11 @@
 
 " ---- script constants
 
-if ! exists('s:wheel_content_generators')
-	let s:wheel_content_generators = wheel#crystal#fetch('function/generator/wheel')
-	lockvar s:wheel_content_generators
+if exists('s:wheel_content_generators')
+	unlockvar s:wheel_content_generators
 endif
+let s:wheel_content_generators = wheel#crystal#fetch('function/generator/wheel')
+lockvar s:wheel_content_generators
 
 " ---- default values
 

@@ -7,21 +7,24 @@
 
 " ---- script constants
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
+if exists('s:field_separ')
+	unlockvar s:field_separ
 endif
+let s:field_separ = wheel#crystal#fetch('separator/field')
+lockvar s:field_separ
 
-if ! exists('s:fold_markers')
-	let s:fold_markers = wheel#crystal#fetch('fold/markers')
-	let s:fold_markers = join(s:fold_markers, ',')
-	lockvar s:fold_markers
+if exists('s:fold_markers')
+	unlockvar s:fold_markers
 endif
+let s:fold_markers = wheel#crystal#fetch('fold/markers')
+let s:fold_markers = join(s:fold_markers, ',')
+lockvar s:fold_markers
 
-if ! exists('s:fold_1')
-	let s:fold_1 = wheel#crystal#fetch('fold/one')
-	lockvar s:fold_1
+if exists('s:fold_1')
+	unlockvar s:fold_1
 endif
+let s:fold_1 = wheel#crystal#fetch('fold/one')
+lockvar s:fold_1
 
 " ---- grep edit
 

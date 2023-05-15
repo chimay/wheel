@@ -7,15 +7,17 @@
 
 " Script constants
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
+if exists('s:field_separ')
+	unlockvar s:field_separ
 endif
+let s:field_separ = wheel#crystal#fetch('separator/field')
+lockvar s:field_separ
 
-if ! exists('s:mandala_targets')
-	let s:mandala_targets = wheel#crystal#fetch('mandala/targets')
-	lockvar s:mandala_targets
+if exists('s:mandala_targets')
+	unlockvar s:mandala_targets
 endif
+let s:mandala_targets = wheel#crystal#fetch('mandala/targets')
+lockvar s:mandala_targets
 
 " ---- helpers
 

@@ -15,35 +15,41 @@
 
 " ---- script constants
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
+if exists('s:field_separ')
+	unlockvar s:field_separ
 endif
+let s:field_separ = wheel#crystal#fetch('separator/field')
+lockvar s:field_separ
 
-if ! exists('s:registers_symbols')
-	let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
-	lockvar s:registers_symbols
+if exists('s:registers_symbols')
+	unlockvar s:registers_symbols
 endif
+let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
+lockvar s:registers_symbols
 
-if ! exists('s:subcommands_actions')
-	let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
-	lockvar s:subcommands_actions
+if exists('s:subcommands_actions')
+	unlockvar s:subcommands_actions
 endif
+let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
+lockvar s:subcommands_actions
 
-if ! exists('s:prompt_actions')
-	let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
-	lockvar s:prompt_actions
+if exists('s:prompt_actions')
+	unlockvar s:prompt_actions
 endif
+let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
+lockvar s:prompt_actions
 
-if ! exists('s:dedibuf_actions')
-	let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
-	lockvar s:dedibuf_actions
+if exists('s:dedibuf_actions')
+	unlockvar s:dedibuf_actions
 endif
+let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
+lockvar s:dedibuf_actions
 
-if ! exists('s:file_subcommands')
-	let s:file_subcommands = wheel#diadem#fetch('command/meta/subcommands/file')
-	lockvar s:file_subcommands
+if exists('s:file_subcommands')
+	unlockvar s:file_subcommands
 endif
+let s:file_subcommands = wheel#diadem#fetch('command/meta/subcommands/file')
+lockvar s:file_subcommands
 
 " ---- empty
 

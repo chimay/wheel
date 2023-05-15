@@ -6,20 +6,23 @@
 
 " script constants
 
-if ! exists('s:fun_is_navigation')
-	let s:fun_is_navigation = wheel#crystal#fetch('function/pattern/navigation')
-	lockvar s:fun_is_navigation
+if exists('s:fun_is_navigation')
+	unlockvar s:fun_is_navigation
 endif
+let s:fun_is_navigation = wheel#crystal#fetch('function/pattern/navigation')
+lockvar s:fun_is_navigation
 
-if ! exists('s:fun_opens_mandala')
-	let s:fun_opens_mandala = wheel#crystal#fetch('function/pattern/mandala/opens')
-	lockvar s:fun_opens_mandala
+if exists('s:fun_opens_mandala')
+	unlockvar s:fun_opens_mandala
 endif
+let s:fun_opens_mandala = wheel#crystal#fetch('function/pattern/mandala/opens')
+lockvar s:fun_opens_mandala
 
-if ! exists('s:fun_needs_mandala')
-	let s:fun_needs_mandala = wheel#crystal#fetch('function/pattern/mandala/needs')
-	lockvar s:fun_needs_mandala
+if exists('s:fun_needs_mandala')
+	unlockvar s:fun_needs_mandala
 endif
+let s:fun_needs_mandala = wheel#crystal#fetch('function/pattern/mandala/needs')
+lockvar s:fun_needs_mandala
 
 " ---- booleans
 

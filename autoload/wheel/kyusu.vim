@@ -14,15 +14,17 @@
 
 " ---- script constants
 
-if ! exists('s:fold_pattern')
-	let s:fold_pattern = wheel#crystal#fetch('fold/pattern')
-	lockvar s:fold_pattern
+if exists('s:fold_pattern')
+	unlockvar s:fold_pattern
 endif
+let s:fold_pattern = wheel#crystal#fetch('fold/pattern')
+lockvar s:fold_pattern
 
-if ! exists('s:unused')
-	let s:unused = 0
-	lockvar s:unused
+if exists('s:unused')
+	unlockvar s:unused
 endif
+let s:unused = 0
+lockvar s:unused
 
 " ---- helpers
 

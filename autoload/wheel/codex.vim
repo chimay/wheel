@@ -15,10 +15,11 @@
 
 " ---- script constants
 
-if ! exists('s:registers_symbols')
-	let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
-	lockvar s:registers_symbols
+if exists('s:registers_symbols')
+	unlockvar s:registers_symbols
 endif
+let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
+lockvar s:registers_symbols
 
 " ---- helpers
 

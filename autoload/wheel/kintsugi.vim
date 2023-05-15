@@ -10,10 +10,11 @@
 
 " ---- script constants
 
-if ! exists('s:mandala_vars')
-	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
-	lockvar s:mandala_vars
+if exists('s:mandala_vars')
+	unlockvar s:mandala_vars
 endif
+let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
+lockvar s:mandala_vars
 
 " ---- checks
 

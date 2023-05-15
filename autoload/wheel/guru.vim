@@ -6,25 +6,29 @@
 
 " ---- script constants
 
-if ! exists('s:subcommands_actions')
-	let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
-	lockvar s:subcommands_actions
+if exists('s:subcommands_actions')
+	unlockvar s:subcommands_actions
 endif
+let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
+lockvar s:subcommands_actions
 
-if ! exists('s:prompt_actions')
-	let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
-	lockvar s:prompt_actions
+if exists('s:prompt_actions')
+	unlockvar s:prompt_actions
 endif
+let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
+lockvar s:prompt_actions
 
-if ! exists('s:dedibuf_actions')
-	let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
-	lockvar s:dedibuf_actions
+if exists('s:dedibuf_actions')
+	unlockvar s:dedibuf_actions
 endif
+let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
+lockvar s:dedibuf_actions
 
-if ! exists('s:file_subcommands')
-	let s:file_subcommands = wheel#diadem#fetch('command/meta/subcommands/file')
-	lockvar s:file_subcommands
+if exists('s:file_subcommands')
+	unlockvar s:file_subcommands
 endif
+let s:file_subcommands = wheel#diadem#fetch('command/meta/subcommands/file')
+lockvar s:file_subcommands
 
 " ---- help helpers
 

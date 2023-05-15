@@ -6,20 +6,23 @@
 
 " Script constants
 
-if ! exists('s:levels')
-	let s:levels = wheel#crystal#fetch('referen/levels')
-	lockvar s:levels
+if exists('s:levels')
+	unlockvar s:levels
 endif
+let s:levels = wheel#crystal#fetch('referen/levels')
+lockvar s:levels
 
-if ! exists('s:coordinates_levels')
-	let s:coordinates_levels = wheel#crystal#fetch('referen/coordinates/levels')
-	lockvar s:coordinates_levels
+if exists('s:coordinates_levels')
+	unlockvar s:coordinates_levels
 endif
+let s:coordinates_levels = wheel#crystal#fetch('referen/coordinates/levels')
+lockvar s:coordinates_levels
 
-if ! exists('s:list_keys')
-	let s:list_keys = wheel#crystal#fetch('referen/list_keys')
-	lockvar s:list_keys
+if exists('s:list_keys')
+	unlockvar s:list_keys
 endif
+let s:list_keys = wheel#crystal#fetch('referen/list_keys')
+lockvar s:list_keys
 
 " ---- current elements
 

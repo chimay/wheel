@@ -16,15 +16,17 @@
 
 " ---- script constants
 
-if ! exists('s:level_separ')
-	let s:level_separ = wheel#crystal#fetch('separator/level')
-	lockvar s:level_separ
+if exists('s:level_separ')
+	unlockvar s:level_separ
 endif
+let s:level_separ = wheel#crystal#fetch('separator/level')
+lockvar s:level_separ
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
+if exists('s:field_separ')
+	unlockvar s:field_separ
 endif
+let s:field_separ = wheel#crystal#fetch('separator/field')
+lockvar s:field_separ
 
 " ---- helpers
 

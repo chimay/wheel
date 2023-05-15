@@ -11,25 +11,29 @@
 
 " ---- script constants
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
+if exists('s:field_separ')
+	unlockvar s:field_separ
 endif
+let s:field_separ = wheel#crystal#fetch('separator/field')
+lockvar s:field_separ
 
-if ! exists('s:fold_1')
-	let s:fold_1 = wheel#crystal#fetch('fold/one')
-	lockvar s:fold_1
+if exists('s:fold_1')
+	unlockvar s:fold_1
 endif
+let s:fold_1 = wheel#crystal#fetch('fold/one')
+lockvar s:fold_1
 
-if ! exists('s:is_mandala_file')
-	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
-	lockvar s:is_mandala_file
+if exists('s:is_mandala_file')
+	unlockvar s:is_mandala_file
 endif
+let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+lockvar s:is_mandala_file
 
-if ! exists('s:registers_symbols')
-	let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
-	lockvar s:registers_symbols
+if exists('s:registers_symbols')
+	unlockvar s:registers_symbols
 endif
+let s:registers_symbols = wheel#crystal#fetch('registers-symbols')
+lockvar s:registers_symbols
 
 " ---- buffers
 

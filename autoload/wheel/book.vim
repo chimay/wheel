@@ -10,35 +10,41 @@
 
 " ---- script constants
 
-if ! exists('s:mandala_options')
-	let s:mandala_options = wheel#crystal#fetch('mandala/options')
-	lockvar s:mandala_options
+if exists('s:mandala_options')
+	unlockvar s:mandala_options
 endif
+let s:mandala_options = wheel#crystal#fetch('mandala/options')
+lockvar s:mandala_options
 
-if ! exists('s:map_keys')
-	let s:map_keys = wheel#crystal#fetch('map/keys')
-	lockvar s:map_keys
+if exists('s:map_keys')
+	unlockvar s:map_keys
 endif
+let s:map_keys = wheel#crystal#fetch('map/keys')
+lockvar s:map_keys
 
-if ! exists('s:mandala_autocmds_group')
-	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
-	lockvar s:mandala_autocmds_group
+if exists('s:mandala_autocmds_group')
+	unlockvar s:mandala_autocmds_group
 endif
+let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+lockvar s:mandala_autocmds_group
 
-if ! exists('s:mandala_autocmds_events')
-	let s:mandala_autocmds_events = wheel#crystal#fetch('mandala/autocmds/events')
-	lockvar s:mandala_autocmds_events
+if exists('s:mandala_autocmds_events')
+	unlockvar s:mandala_autocmds_events
 endif
+let s:mandala_autocmds_events = wheel#crystal#fetch('mandala/autocmds/events')
+lockvar s:mandala_autocmds_events
 
-if ! exists('s:mandala_vars')
-	let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
-	lockvar s:mandala_vars
+if exists('s:mandala_vars')
+	unlockvar s:mandala_vars
 endif
+let s:mandala_vars = wheel#crystal#fetch('mandala/vars')
+lockvar s:mandala_vars
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
+if exists('s:field_separ')
+	unlockvar s:field_separ
 endif
+let s:field_separ = wheel#crystal#fetch('separator/field')
+lockvar s:field_separ
 
 " ---- helpers
 

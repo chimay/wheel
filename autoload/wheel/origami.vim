@@ -6,11 +6,12 @@
 
 " ---- script constants
 
-if ! exists('s:fold_markers')
-	let s:fold_markers = wheel#crystal#fetch('fold/markers')
-	let s:fold_markers = join(s:fold_markers, ',')
-	lockvar s:fold_markers
+if exists('s:fold_markers')
+	unlockvar s:fold_markers
 endif
+let s:fold_markers = wheel#crystal#fetch('fold/markers')
+let s:fold_markers = join(s:fold_markers, ',')
+lockvar s:fold_markers
 
 " ---- helpers
 

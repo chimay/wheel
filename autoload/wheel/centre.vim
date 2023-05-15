@@ -6,60 +6,71 @@
 
 " ---- script constants
 
-if ! exists('s:subcommands_actions')
-	let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
-	lockvar s:subcommands_actions
+if exists('s:subcommands_actions')
+	unlockvar s:subcommands_actions
 endif
+let s:subcommands_actions = wheel#diadem#fetch('command/meta/actions')
+lockvar s:subcommands_actions
 
-if ! exists('s:prompt_actions')
-	let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
-	lockvar s:prompt_actions
+if exists('s:prompt_actions')
+	unlockvar s:prompt_actions
 endif
+let s:prompt_actions = wheel#diadem#fetch('command/meta/prompt/actions')
+lockvar s:prompt_actions
 
-if ! exists('s:dedibuf_actions')
-	let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
-	lockvar s:dedibuf_actions
+if exists('s:dedibuf_actions')
+	unlockvar s:dedibuf_actions
 endif
+let s:dedibuf_actions = wheel#diadem#fetch('command/meta/dedibuf/actions')
+lockvar s:dedibuf_actions
 
-if ! exists('s:normal_plugs')
-	let s:normal_plugs = wheel#geode#fetch('plugs/normal')
-	lockvar s:normal_plugs
+if exists('s:normal_plugs')
+	unlockvar s:normal_plugs
 endif
+let s:normal_plugs = wheel#geode#fetch('plugs/normal')
+lockvar s:normal_plugs
 
-if ! exists('s:visual_plugs')
-	let s:visual_plugs = wheel#geode#fetch('plugs/visual')
-	lockvar s:visual_plugs
+if exists('s:visual_plugs')
+	unlockvar s:visual_plugs
 endif
+let s:visual_plugs = wheel#geode#fetch('plugs/visual')
+lockvar s:visual_plugs
 
-if ! exists('s:expr_plugs')
-	let s:expr_plugs = wheel#geode#fetch('plugs/expr')
-	lockvar s:expr_plugs
+if exists('s:expr_plugs')
+	unlockvar s:expr_plugs
 endif
+let s:expr_plugs = wheel#geode#fetch('plugs/expr')
+lockvar s:expr_plugs
 
-if ! exists('s:level_0_normal_maps')
-	let s:level_0_normal_maps = wheel#geode#fetch('maps/level_0/normal')
-	lockvar s:level_0_normal_maps
+if exists('s:level_0_normal_maps')
+	unlockvar s:level_0_normal_maps
 endif
+let s:level_0_normal_maps = wheel#geode#fetch('maps/level_0/normal')
+lockvar s:level_0_normal_maps
 
-if ! exists('s:level_1_normal_maps')
-	let s:level_1_normal_maps = wheel#geode#fetch('maps/level_1/normal')
-	lockvar s:level_1_normal_maps
+if exists('s:level_1_normal_maps')
+	unlockvar s:level_1_normal_maps
 endif
+let s:level_1_normal_maps = wheel#geode#fetch('maps/level_1/normal')
+lockvar s:level_1_normal_maps
 
-if ! exists('s:level_2_normal_maps')
-	let s:level_2_normal_maps = wheel#geode#fetch('maps/level_2/normal')
-	lockvar s:level_2_normal_maps
+if exists('s:level_2_normal_maps')
+	unlockvar s:level_2_normal_maps
 endif
+let s:level_2_normal_maps = wheel#geode#fetch('maps/level_2/normal')
+lockvar s:level_2_normal_maps
 
-if ! exists('s:level_2_visual_maps')
-	let s:level_2_visual_maps = wheel#geode#fetch('maps/level_2/visual')
-	lockvar s:level_2_visual_maps
+if exists('s:level_2_visual_maps')
+	unlockvar s:level_2_visual_maps
 endif
+let s:level_2_visual_maps = wheel#geode#fetch('maps/level_2/visual')
+lockvar s:level_2_visual_maps
 
-if ! exists('s:level_20_normal_maps')
-	let s:level_20_normal_maps = wheel#geode#fetch('maps/level_20/normal')
-	lockvar s:level_20_normal_maps
+if exists('s:level_20_normal_maps')
+	unlockvar s:level_20_normal_maps
 endif
+let s:level_20_normal_maps = wheel#geode#fetch('maps/level_20/normal')
+lockvar s:level_20_normal_maps
 
 " ---- commands
 

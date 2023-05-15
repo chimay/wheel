@@ -6,10 +6,11 @@
 
 " ---- script constants
 
-if ! exists('s:golden')
-	let s:golden = wheel#crystal#fetch('golden-ratio')
-	lockvar s:golden
+if exists('s:golden')
+	unlockvar s:golden
 endif
+let s:golden = wheel#crystal#fetch('golden-ratio')
+lockvar s:golden
 
 " ---- helpers
 

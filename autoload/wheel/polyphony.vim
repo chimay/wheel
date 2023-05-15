@@ -8,25 +8,29 @@
 
 " ---- script constants
 
-if ! exists('s:wheel_write_functions')
-	let s:wheel_write_functions = wheel#crystal#fetch('function/write/wheel')
-	lockvar s:wheel_write_functions
+if exists('s:wheel_write_functions')
+	unlockvar s:wheel_write_functions
 endif
+let s:wheel_write_functions = wheel#crystal#fetch('function/write/wheel')
+lockvar s:wheel_write_functions
 
-if ! exists('s:mandala_autocmds_group')
-	let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
-	lockvar s:mandala_autocmds_group
+if exists('s:mandala_autocmds_group')
+	unlockvar s:mandala_autocmds_group
 endif
+let s:mandala_autocmds_group = wheel#crystal#fetch('mandala/autocmds/group')
+lockvar s:mandala_autocmds_group
 
-if ! exists('s:field_separ')
-	let s:field_separ = wheel#crystal#fetch('separator/field')
-	lockvar s:field_separ
+if exists('s:field_separ')
+	unlockvar s:field_separ
 endif
+let s:field_separ = wheel#crystal#fetch('separator/field')
+lockvar s:field_separ
 
-if ! exists('s:field_separ_bar')
-	let s:field_separ_bar = wheel#crystal#fetch('separator/field/bar')
-	lockvar s:field_separ_bar
+if exists('s:field_separ_bar')
+	unlockvar s:field_separ_bar
 endif
+let s:field_separ_bar = wheel#crystal#fetch('separator/field/bar')
+lockvar s:field_separ_bar
 
 " ---- booleans
 

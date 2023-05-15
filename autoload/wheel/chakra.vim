@@ -6,30 +6,35 @@
 
 " ---- script constants
 
-if ! exists('s:sign_name')
-	let s:sign_name = wheel#crystal#fetch('sign/name')
-	lockvar s:sign_name
+if exists('s:sign_name')
+	unlockvar s:sign_name
 endif
+let s:sign_name = wheel#crystal#fetch('sign/name')
+lockvar s:sign_name
 
-if ! exists('s:sign_native_name')
-	let s:sign_native_name = wheel#crystal#fetch('sign/name/native')
-	lockvar s:sign_native_name
+if exists('s:sign_native_name')
+	unlockvar s:sign_native_name
 endif
+let s:sign_native_name = wheel#crystal#fetch('sign/name/native')
+lockvar s:sign_native_name
 
-if ! exists('s:sign_group')
-	let s:sign_group = wheel#crystal#fetch('sign/group')
-	lockvar s:sign_group
+if exists('s:sign_group')
+	unlockvar s:sign_group
 endif
+let s:sign_group = wheel#crystal#fetch('sign/group')
+lockvar s:sign_group
 
-if ! exists('s:sign_native_group')
-	let s:sign_native_group = wheel#crystal#fetch('sign/group/native')
-	lockvar s:sign_native_group
+if exists('s:sign_native_group')
+	unlockvar s:sign_native_group
 endif
+let s:sign_native_group = wheel#crystal#fetch('sign/group/native')
+lockvar s:sign_native_group
 
-if ! exists('s:level_separ')
-	let s:level_separ = wheel#crystal#fetch('separator/level')
-	lockvar s:level_separ
+if exists('s:level_separ')
+	unlockvar s:level_separ
 endif
+let s:level_separ = wheel#crystal#fetch('separator/level')
+lockvar s:level_separ
 
 " ---- booleans
 

@@ -6,10 +6,11 @@
 
 " ---- scripts constants
 
-if ! exists('s:level_separ')
-	let s:level_separ = wheel#crystal#fetch('separator/level')
-	lockvar s:level_separ
+if exists('s:level_separ')
+	unlockvar s:level_separ
 endif
+let s:level_separ = wheel#crystal#fetch('separator/level')
+lockvar s:level_separ
 
 " ---- projection
 

@@ -6,21 +6,24 @@
 
 " ---- script constants
 
-if ! exists('s:fold_markers')
-	let s:fold_markers = wheel#crystal#fetch('fold/markers')
-	let s:fold_markers = join(s:fold_markers, ',')
-	lockvar s:fold_markers
+if exists('s:fold_markers')
+	unlockvar s:fold_markers
 endif
+let s:fold_markers = wheel#crystal#fetch('fold/markers')
+let s:fold_markers = join(s:fold_markers, ',')
+lockvar s:fold_markers
 
-if ! exists('s:fold_1')
-	let s:fold_1 = wheel#crystal#fetch('fold/one')
-	lockvar s:fold_1
+if exists('s:fold_1')
+	unlockvar s:fold_1
 endif
+let s:fold_1 = wheel#crystal#fetch('fold/one')
+lockvar s:fold_1
 
-if ! exists('s:menu_list')
-	let s:menu_list = wheel#quartz#fetch('menu/list')
-	lockvar s:menu_list
+if exists('s:menu_list')
+	unlockvar s:menu_list
 endif
+let s:menu_list = wheel#quartz#fetch('menu/list')
+lockvar s:menu_list
 
 " ---- booleans
 

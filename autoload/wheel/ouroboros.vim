@@ -12,15 +12,17 @@
 
 " ---- script constants
 
-if ! exists('s:modes_letters')
-	let s:modes_letters = wheel#crystal#fetch('modes-letters')
-	lockvar s:modes_letters
+if exists('s:modes_letters')
+	unlockvar s:modes_letters
 endif
+let s:modes_letters = wheel#crystal#fetch('modes-letters')
+lockvar s:modes_letters
 
-if ! exists('s:letters_modes')
-	let s:letters_modes = wheel#crystal#fetch('letters-modes')
-	lockvar s:letters_modes
+if exists('s:letters_modes')
+	unlockvar s:letters_modes
 endif
+let s:letters_modes = wheel#crystal#fetch('letters-modes')
+lockvar s:letters_modes
 
 " ---- map modes
 

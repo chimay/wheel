@@ -6,10 +6,11 @@
 
 " ---- script constants
 
-if ! exists('s:is_mandala_file')
-	let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
-	lockvar s:is_mandala_file
+if exists('s:is_mandala_file')
+	unlockvar s:is_mandala_file
 endif
+let s:is_mandala_file = wheel#crystal#fetch('is_mandala_file')
+lockvar s:is_mandala_file
 
 " ---- helpers
 
