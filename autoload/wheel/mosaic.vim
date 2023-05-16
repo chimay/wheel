@@ -137,9 +137,9 @@ fun! wheel#mosaic#split (level, action = 'horizontal', ...)
 	" 1. action to obtain split layout
 	" 2. settings to pass as argument -> action(settings)
 	let level = a:level
-	let horizontal = a:horizontal
+	let action = a:action
 	if a:0 > 0
-		let settings = a:2
+		let settings = a:1
 	else
 		let settings = {'golden' : v:false}
 	endif
