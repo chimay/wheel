@@ -105,7 +105,7 @@ fun! wheel#guru#meta_command ()
 	call wheel#mandala#template ()
 	call wheel#mandala#fill (lines)
 	" --- map to execute current line
-	nnoremap <cr> <cmd>call wheel#guru#execute_current_line()<cr>
+	nnoremap <buffer> <cr> <cmd>call wheel#guru#execute_current_line()<cr>
 endfun
 
 " ---- mandala local help
