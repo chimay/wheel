@@ -162,6 +162,7 @@ endfun
 
 fun! wheel#complete#file (arglead, cmdline, cursorpos)
 	" Complete with file name
+	" Use glob(expr, nosuf, list, alllinks)
 	let cmdline = a:cmdline
 	let arglead = a:arglead
 	let cursorpos = a:cursorpos

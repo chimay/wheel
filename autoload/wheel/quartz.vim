@@ -291,9 +291,9 @@ let s:menu_list = [
 			\ 'undo',
 			\ 'command',
 			\ 'layout',
-			\ 'layout_tabs',
-			\ 'layout_windows',
-			\ 'layout_mixed',
+			\ 'layout tabs',
+			\ 'layout windows',
+			\ 'layout mixed',
 			\ ]
 lockvar! s:menu_list
 
@@ -303,8 +303,8 @@ if exists('s:menu_main')
 	unlockvar! s:menu_main
 endif
 let s:menu_main = []
-for name in s:menu_list
-	let s:formated = substitute(name, ' ', '_', 'g')
+for s:name in s:menu_list
+	let s:formated = substitute(s:name, ' ', '_', 'g')
 	eval s:menu_main->extend(s:menu_{s:formated})
 endfor
 lockvar! s:menu_main
@@ -315,10 +315,10 @@ if exists('s:menu_meta')
 	unlockvar! s:menu_meta
 endif
 let s:menu_meta = []
-for name in s:menu_list
-	let s:formated = substitute(name, ' ', '_', 'g')
+for s:name in s:menu_list
+	let s:formated = substitute(s:name, ' ', '_', 'g')
 	let s:function = 'wheel#helm#submenu(' .. string(s:formated) .. ')'
-	eval s:menu_meta->add([name, s:function])
+	eval s:menu_meta->add([s:name, s:function])
 endfor
 lockvar! s:menu_meta
 
