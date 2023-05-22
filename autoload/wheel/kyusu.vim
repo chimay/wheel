@@ -186,7 +186,7 @@ fun! wheel#kyusu#gaiwan (wordlist)
 	" Special keywords :
 	"   - =s[selection] enable selection only filter
 	"   - !=s[selection] enable non-selection only filter
-	let wordlist = a:wordlist
+	let wordlist = copy(a:wordlist)
 	let linelist = copy(b:wheel_lines)
 	if empty(wordlist)
 		let filtered_indexes = wheel#chain#rangelen(linelist)

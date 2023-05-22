@@ -13,8 +13,8 @@ endfun
 
 fun! wheel#teapot#is_filtered ()
 	" Whether mandala is filtered
-	"return ! empty(b:wheel_filter.words)
-	return ! empty(b:wheel_filter.indexes)
+	"return ! empty(b:wheel_filter.indexes)
+	return ! empty(b:wheel_filter.words)
 endfun
 
 fun! wheel#teapot#first_data_line ()
