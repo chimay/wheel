@@ -13,7 +13,8 @@ endfun
 
 fun! wheel#teapot#is_filtered ()
 	" Whether mandala is filtered
-	return ! empty(b:wheel_filter.words)
+	"return ! empty(b:wheel_filter.words)
+	return ! empty(b:wheel_filter.indexes)
 endfun
 
 fun! wheel#teapot#first_data_line ()
@@ -41,6 +42,7 @@ fun! wheel#teapot#line_index (...)
 	let index = linum - shift
 	if wheel#teapot#is_filtered ()
 		let indexlist = b:wheel_filter.indexes
+		"echomsg index indexlist indexlist[index]
 		return indexlist[index]
 	else
 		return index
