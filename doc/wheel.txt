@@ -699,7 +699,19 @@ For example, if you have the completion list `small flower`, `big flower`,
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
 
-Vowels~
+Builtin patterns~
+
+All builtin patterns remain available.
+
+If you want a classic completion matching only at the beginning of the
+string, you can use |/^|. For example, if you have the completion list
+`small flower`, `sunflower`, `flower`, `small fruit`, `big fruit` and
+`fruit` :
+
+- the pattern `^f` will narrow down to `flower`, `fruit`
+- the pattern `^s` will narrow down to `small flower`, `sunflower`, `small fruit`
+
+Vowels fuzzy~
 
 If `g:wheel_config.completion.vocalize` is greater than 0, the plugin adds
 vowels patterns between the chars you enter, to enable a kind of vowels-fuzzy
@@ -712,17 +724,10 @@ and `organize` :
 - the pattern `hl` will narrow down to `wheel`
 - the pattern `gn` will narrow down to `organize`
 
-Builtin patterns~
+Fuzzy~
 
-All builtin patterns remain available.
-
-If you want a classic completion matching only at the beginning of the
-string, you can use |/^|. For example, if you have the completion list
-`small flower`, `sunflower`, `flower`, `small fruit`, `big fruit` and
-`fruit` :
-
-- the pattern `^f` will narrow down to `flower`, `fruit`
-- the pattern `^s` will narrow down to `small flower`, `sunflower`, `small fruit`
+If `g:wheel_config.completion.fuzzy` is greater than 0, a full fuzzy
+completion is enabled.
 
 File completion~
 
@@ -2725,6 +2730,17 @@ To enable a kind of fuzzy-vowels completion : >
 
  let g:wheel_config.completion.vocalize = 1
 <
+
+Default : 0
+
+To enable full fuzzy completion : >
+
+ let g:wheel_config.completion.fuzzy = 1
+<
+
+Overrrides `g:wheel_config.completion.vocalize`.
+
+Default : 0
 
 See |wheel-prompting-functions-completion| for more information.
 
