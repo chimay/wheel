@@ -499,6 +499,14 @@ let s:mandala_targets = [
 			\ ]
 lockvar! s:mandala_targets
 
+" ---- various patterns
+
+if exists('s:completion_pattern_vowels')
+	unlockvar! s:pattern_vowels
+endif
+let s:pattern_vowels = '[[=a=][=e=][=i=][=o=][=u=][=y=]]'
+lockvar! s:pattern_vowels
+
 " ---- public interface
 
 fun! wheel#crystal#clear (varname)

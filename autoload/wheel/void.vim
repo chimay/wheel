@@ -295,6 +295,13 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.frecency, 'penalty')
 		let g:wheel_config.frecency.penalty = 1
 	endif
+	" -- completion
+	if ! has_key(g:wheel_config, 'completion')
+		let g:wheel_config.completion = {}
+	endif
+	if ! has_key(g:wheel_config.completion, 'vocalize')
+		let g:wheel_config.completion.vocalize = 0
+	endif
 	" ---- display
 	if ! has_key(g:wheel_config, 'display')
 		let g:wheel_config.display = {}

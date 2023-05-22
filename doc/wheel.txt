@@ -699,6 +699,19 @@ For example, if you have the completion list `small flower`, `big flower`,
 - the patterns `all !ower` will narrow down to `small fruit`
 - the patterns `al|owe` will narrow down to `small flower`, `small fruit`, `big flower`
 
+Vowels~
+
+If `g:wheel_config.completion.vocalize` is greater than 0, the plugin adds
+vowels patterns between the chars you enter, to enable a kind of vowels-fuzzy
+completion.
+
+This way, if you have the completion list `profile`, `proof`, `wheel`
+and `organize` :
+
+- the pattern `prf` will narrow down to `profile`, `proof`
+- the pattern `hl` will narrow down to `wheel`
+- the pattern `gn` will narrow down to `organize`
+
 Builtin patterns~
 
 All builtin patterns remain available.
@@ -2357,6 +2370,7 @@ Max layers in dedicated buffers		|wheel-config-maxim-layers|
 Max number of tabs			|wheel-config-maxim-tabs|
 Max number of horizontal splits		|wheel-config-maxim-horizontal|
 Max number of vertical splits		|wheel-config-maxim-vertical|
+Completion                     		|wheel-config-completion|
 Frecency                     		|wheel-config-frecency|
 Messages				|wheel-config-display-message|
 Statusline in dedicated buffers		|wheel-config-display-statusline|
@@ -2685,7 +2699,7 @@ Maximum number of tabs in tab layouts : >
 Default : 15
 
 ------------------------------------------------------------------------------
-MAX NUMBER OR HORIZONTAL SPLITS		    *wheel-config-maxim-horizontal*
+MAX NUMBER OR HORIZONTAL SPLITS	    	*wheel-config-maxim-horizontal*
 
 Maximum number of horizontal splits in layouts : >
 
@@ -2705,7 +2719,17 @@ Maximum number of vertical splits in layouts : >
 Default : 4
 
 ------------------------------------------------------------------------------
-FRECENCY					      *wheel-config-frecency*
+COMPLETION					    *wheel-config-completion*
+
+To enable a kind of fuzzy-vowels completion : >
+
+ let g:wheel_config.completion.vocalize = 1
+<
+
+See |wheel-prompting-functions-completion| for more information.
+
+------------------------------------------------------------------------------
+FRECENCY				    	    *wheel-config-frecency*
 
 The frecency (frequent & recent) algorithm is very simple :
 

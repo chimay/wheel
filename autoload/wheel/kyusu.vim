@@ -26,7 +26,29 @@ endif
 let s:unused = 0
 lockvar s:unused
 
+if exists('s:vowels')
+	unlockvar s:vowels
+endif
+let s:vowels = wheel#crystal#fetch('pattern/vowels')
+lockvar s:vowels
+
 " ---- helpers
+
+fun! wheel#kyusu#vocalize(word)
+	" Add vowels patterns between chars
+	let word = a:word
+	let charlist = word->split('\zs')
+	let inter = s:vowels .. '*'
+	let vocalize = []
+	for index in range(len(charlist) - 1)
+		let char = charlist[index]
+		eval vocalize->add(char)
+		eval vocalize->add(inter)
+	endfor
+	eval vocalize->add(charlist[-1])
+	let vocalize = vocalize->join('')
+	return vocalize
+endfun
 
 fun! wheel#kyusu#steep (wordlist, unused, value)
 	" Whether value matches all words of wordlist
@@ -36,6 +58,9 @@ fun! wheel#kyusu#steep (wordlist, unused, value)
 	let wordlist = copy(a:wordlist)
 	eval wordlist->map({ _, val -> substitute(val, '|', '\\|', 'g') })
 	let match = v:true
+	if g:wheel_config.completion.vocalize > 0
+		eval wordlist->map({ _, val -> wheel#kyusu#vocalize(val) })
+	endif
 	for word in wordlist
 		if word !~ '\m^!'
 			if a:value !~ word
