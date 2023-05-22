@@ -727,7 +727,8 @@ and `organize` :
 Fuzzy~
 
 If `g:wheel_config.completion.fuzzy` is greater than 0, a full fuzzy
-completion is enabled.
+completion is enabled, using |matchfuzzy()|. Beware that the or `|` operator
+is not available in this mode.
 
 File completion~
 

@@ -57,11 +57,11 @@ fun! wheel#kyusu#steep (wordlist, unused, value)
 	" unused argument is for compatibility with filter()
 	let wordlist = copy(a:wordlist)
 	let value = a:value
-	eval wordlist->map({ _, val -> substitute(val, '|', '\\|', 'g') })
-	let match = v:true
 	if g:wheel_config.completion.vocalize > 0
 		eval wordlist->map({ _, val -> wheel#kyusu#vocalize(val) })
 	endif
+	eval wordlist->map({ _, val -> substitute(val, '|', '\\|', 'g') })
+	let match = v:true
 	for word in wordlist
 		if word !~ '\m^!'
 			if value !~ word
@@ -85,6 +85,9 @@ fun! wheel#kyusu#pour (wordlist, list)
 	let wordlist = a:wordlist
 	let list = a:list
 	if g:wheel_config.completion.fuzzy > 0
+		if empty(wordlist)
+			return list
+		endif
 		return list->matchfuzzy(join(wordlist))
 	endif
 	let list = deepcopy(list)
