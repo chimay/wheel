@@ -9,6 +9,23 @@
 "
 " Useful for menus & context menus
 
+" ---- golden ratio
+
+if exists('s:golden_ratio')
+	unlockvar! s:golden_ratio
+endif
+let s:golden_ratio = 1.618034
+"let s:golden_ratio = (1 + sqrt(5)) / 2
+lockvar! s:golden_ratio
+
+" ---- various patterns
+
+if exists('s:pattern_vowels')
+	unlockvar! s:pattern_vowels
+endif
+let s:pattern_vowels = '[[=a=][=e=][=i=][=o=][=u=][=y=]]'
+lockvar! s:pattern_vowels
+
 " ---- wheel levels
 
 if exists('s:referen_levels')
@@ -32,15 +49,6 @@ let s:referen_list_keys = {
 			\ 'circle' : 'locations',
 			\ }
 lockvar! s:referen_list_keys
-
-" ---- golden ratio
-
-if exists('s:golden_ratio')
-	unlockvar! s:golden_ratio
-endif
-let s:golden_ratio = 1.618034
-"let s:golden_ratio = (1 + sqrt(5)) / 2
-lockvar! s:golden_ratio
 
 " ---- vim modes
 
@@ -498,14 +506,6 @@ let s:mandala_targets = [
 			\ 'vertical_golden',
 			\ ]
 lockvar! s:mandala_targets
-
-" ---- various patterns
-
-if exists('s:completion_pattern_vowels')
-	unlockvar! s:pattern_vowels
-endif
-let s:pattern_vowels = '[[=a=][=e=][=i=][=o=][=u=][=y=]]'
-lockvar! s:pattern_vowels
 
 " ---- public interface
 
