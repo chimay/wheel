@@ -27,7 +27,11 @@ endfun
 
 fun! wheel#origami#view_cursor ()
 	" Unfold to view cursor line
-	if &foldopen =~ 'jump'
+	let cursor_level = foldlevel(line('.'))
+	let file_level = &l:foldlevel
+	if cursor_level <= 1
+		call wheel#origami#close ()
+	elseif &foldopen =~ 'jump'
 		normal! zv
 	endif
 endfun

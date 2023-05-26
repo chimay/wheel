@@ -453,7 +453,7 @@ fun! wheel#mandala#fill (content, first = 'empty-prompt-first')
 	if line('$') > 1
 		call cursor(first_data_line, 1)
 	endif
-	" ---- folding
+	" ---- folding, to save with syncup
 	call wheel#origami#close ()
 	call wheel#origami#view_cursor ()
 	" ---- sync mandala -> leaf ring

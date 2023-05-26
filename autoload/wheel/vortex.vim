@@ -134,7 +134,7 @@ fun! wheel#vortex#jump (where = 'search-window')
 	" ---- record in history
 	call wheel#pendulum#record ()
 	" ---- view in fold
-	normal! zv
+	call wheel#origami#view_cursor ()
 	" ---- user autocmd
 	silent doautocmd User WheelAfterJump
 	" ---- cursor

@@ -33,7 +33,7 @@ fun! wheel#gear#restore_cursor (position, default_line = '$')
 	else
 		call cursor(default_line, 1)
 	endif
-	normal! zv
+	call wheel#origami#view_cursor ()
 endfun
 
 fun! wheel#gear#win_gotoid (iden)

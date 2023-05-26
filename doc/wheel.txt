@@ -2990,8 +2990,8 @@ Here is an example of a complete configuration : >
 
   " Mandala & leaf status in statusline ?
   let g:wheel_config.display.statusline = 1
-  " Wheel message : one-line or multi-line
-  let g:wheel_config.display.message = 'one-line'
+  " Wheel dedibuf message : one-line or multi-line
+  let g:wheel_config.display.dedibuf = 'one-line'
   " Filter prompt in dedicated buffers
   "let g:wheel_config.display.prompt = 'wheel $ '
   "let g:wheel_config.display.prompt_writable = 'wheel # '
