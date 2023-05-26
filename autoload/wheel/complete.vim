@@ -226,6 +226,15 @@ fun! wheel#complete#current_directory (arglead, cmdline, cursorpos)
 	return wheel#kyusu#pour(wordlist, directories)
 endfun
 
+fun! wheel#complete#dir_or_subdir (arglead, cmdline, cursorpos)
+	" Complete current dir or subdir
+	let current = wheel#complete#current_directory (a:arglead, a:cmdline, a:cursorpos)
+	let tree = wheel#complete#directory (a:arglead, a:cmdline, a:cursorpos)
+	let directories = current + tree
+	let wordlist = split(a:cmdline)
+	return wheel#kyusu#pour(wordlist, directories)
+endfun
+
 fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)
 	" Complete command to generate tree reflecting wheel in filesystem
 	" Link or copy

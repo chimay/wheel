@@ -2792,17 +2792,19 @@ The highlight group is `WheelStatusLine`. You can customize it : >
 ------------------------------------------------------------------------------
 MESSAGES				    	*wheel-config-display_message*
 
-You can ask wheel to print one-line messages when possible : >
+You can ask wheel to print one-line message on dedicated buffers status : >
 
-    let g:wheel_config.display.message = 'one-line'
+    let g:wheel_config.display.dedibuf = 'one-line'
 <
 
 or to accept multi-line messages : >
 
-    let g:wheel_config.display.message = 'multi-line'
+    let g:wheel_config.display.dedibuf = 'multi-line'
 <
 
 Default : `one-line`
+
+Note : it will print nothing if `g:wheel_config.display.statusline > 0`.
 
 if you set this option to multi-line, I recommend you set |'cmdheight'|
 option to a minimum of 3 : >

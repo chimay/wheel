@@ -176,7 +176,7 @@ fun! wheel#status#mandala_leaf ()
 		echo 'wheel buffers: ' join(mandalas) "\n"
 		return v:true
 	endif
-	let oneline = g:wheel_config.display.message ==# 'one-line'
+	let oneline = g:wheel_config.display.dedibuf ==# 'one-line'
 	if oneline
 		echo 'wheel buf:' join(mandalas) '/ lay:' join(leaves)
 	else

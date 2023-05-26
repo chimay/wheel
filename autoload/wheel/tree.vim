@@ -202,7 +202,7 @@ fun! wheel#tree#add_circle (...)
 	if a:0 > 0
 		let circle_name = a:1
 	else
-		let complete = 'customlist,wheel#complete#current_directory'
+		let complete = 'customlist,wheel#complete#dir_or_subdir'
 		let circle_name = input('New circle name ? ', '', complete)
 	endif
 	let circle_name = wheel#tree#format_name (circle_name)
