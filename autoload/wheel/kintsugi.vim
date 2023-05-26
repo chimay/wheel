@@ -138,12 +138,19 @@ fun! wheel#kintsugi#config ()
 		let info ..= 'Please use maxim.unnamed_yanks instead.'
 		echomsg info
 	endif
-	" ---- display message -> display dedibuf
+	" ---- display message -> display dedibuf_msg
 	if has_key(g:wheel_config.display, 'message')
-		let g:wheel_config.display.dedibuf = g:wheel_config.display.message
+		let g:wheel_config.display.dedibuf_msg = g:wheel_config.display.message
 		unlet g:wheel_config.display.message
 		let info = 'wheel config : display.message is deprecated. '
 		let info ..= 'Please use display.dedibuf instead.'
+		echomsg info
+	endif
+	if has_key(g:wheel_config.display, 'dedibuf')
+		let g:wheel_config.display.dedibuf_msg = g:wheel_config.display.dedibuf
+		unlet g:wheel_config.display.dedibuf
+		let info = 'wheel config : display.dedibuf is deprecated. '
+		let info ..= 'Please use display.dedibuf_msg instead.'
 		echomsg info
 	endif
 	" ---- coda

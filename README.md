@@ -421,7 +421,7 @@ if ! exists("g:wheel_loaded")
   " ---- Mandala & leaf status in statusline ?
   let g:wheel_config.display.statusline = 1
   " ---- Wheel dedibuf message : one-line or multi-line
-  let g:wheel_config.display.dedibuf = 'one-line'
+  let g:wheel_config.display.dedibuf_msg = 'one-line'
   " ---- Filter prompt in dedicated buffers
   "let g:wheel_config.display.prompt = 'wheel $ '
   "let g:wheel_config.display.prompt_writable = 'wheel # '

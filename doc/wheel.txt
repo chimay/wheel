@@ -2816,12 +2816,12 @@ MESSAGES				    	*wheel-config-display_message*
 
 You can ask wheel to print one-line message on dedicated buffers status : >
 
-    let g:wheel_config.display.dedibuf = 'one-line'
+    let g:wheel_config.display.dedibuf_msg = 'one-line'
 <
 
 or to accept multi-line messages : >
 
-    let g:wheel_config.display.dedibuf = 'multi-line'
+    let g:wheel_config.display.dedibuf_msg = 'multi-line'
 <
 
 Default : `one-line`
@@ -3013,7 +3013,7 @@ Here is an example of a complete configuration : >
   " Mandala & leaf status in statusline ?
   let g:wheel_config.display.statusline = 1
   " Wheel dedibuf message : one-line or multi-line
-  let g:wheel_config.display.dedibuf = 'one-line'
+  let g:wheel_config.display.dedibuf_msg = 'one-line'
   " Filter prompt in dedicated buffers
   "let g:wheel_config.display.prompt = 'wheel $ '
   "let g:wheel_config.display.prompt_writable = 'wheel # '

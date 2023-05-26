@@ -316,7 +316,7 @@ fun! wheel#void#config ()
 		let g:wheel_config.display.statusline = 1
 	endif
 	if ! has_key(g:wheel_config.display, 'message')
-		let g:wheel_config.display.dedibuf = 'one-line'
+		let g:wheel_config.display.dedibuf_msg = 'one-line'
 	endif
 	if ! has_key(g:wheel_config.display, 'prompt')
 		let g:wheel_config.display.prompt = wheel#crystal#fetch ('mandala/prompt')
