@@ -724,6 +724,19 @@ and `organize` :
 - the pattern `hl` will narrow down to `wheel`
 - the pattern `gn` will narrow down to `organize`
 
+Word fuzzy~
+
+If `g:wheel_config.completion.wordize` is greater than 0, the plugin
+adds word-characterss patterns between the chars you enter, to enable
+a kind of word-fuzzy completion.
+
+This way, if you have the completion list `profile`, `proof`, `wheel`
+and `organize` :
+
+- the pattern `pof` will narrow down to `profile`, `proof`
+- the pattern `we` will narrow down to `wheel`
+- the pattern `oai` will narrow down to `organize`
+
 Fuzzy~
 
 If `g:wheel_config.completion.fuzzy` is greater than 0, a full fuzzy
@@ -2734,12 +2747,21 @@ To enable a kind of fuzzy-vowels completion : >
 
 Default : 0
 
+To enable a kind of fuzzy-word completion : >
+
+ let g:wheel_config.completion.wordize = 1
+<
+
+Overrrides `g:wheel_config.completion.vocalize`.
+
+Default : 0
+
 To enable full fuzzy completion : >
 
  let g:wheel_config.completion.fuzzy = 1
 <
 
-Overrrides `g:wheel_config.completion.vocalize`.
+Overrrides vocalize and wordize settings.
 
 Default : 0
 

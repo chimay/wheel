@@ -50,6 +50,22 @@ fun! wheel#kyusu#vocalize(word)
 	return vocalize
 endfun
 
+fun! wheel#kyusu#wordize(word)
+	" Add word patterns between chars
+	let word = a:word
+	let charlist = word->split('\zs')
+	let inter = '\w*'
+	let wordize = []
+	for index in range(len(charlist) - 1)
+		let char = charlist[index]
+		eval wordize->add(char)
+		eval wordize->add(inter)
+	endfor
+	eval wordize->add(charlist[-1])
+	let wordize = wordize->join('')
+	return wordize
+endfun
+
 fun! wheel#kyusu#steep (wordlist, unused, value)
 	" Whether value matches all words of wordlist
 	" Word beginning by a ! means logical not
@@ -57,7 +73,9 @@ fun! wheel#kyusu#steep (wordlist, unused, value)
 	" unused argument is for compatibility with filter()
 	let wordlist = copy(a:wordlist)
 	let value = a:value
-	if g:wheel_config.completion.vocalize > 0
+	if g:wheel_config.completion.wordize > 0
+		eval wordlist->map({ _, val -> wheel#kyusu#wordize(val) })
+	elseif g:wheel_config.completion.vocalize > 0
 		eval wordlist->map({ _, val -> wheel#kyusu#vocalize(val) })
 	endif
 	eval wordlist->map({ _, val -> substitute(val, '|', '\\|', 'g') })
