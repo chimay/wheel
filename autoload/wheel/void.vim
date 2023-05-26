@@ -315,7 +315,7 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.display, 'statusline')
 		let g:wheel_config.display.statusline = 1
 	endif
-	if ! has_key(g:wheel_config.display, 'message')
+	if ! has_key(g:wheel_config.display, 'dedibuf_msg')
 		let g:wheel_config.display.dedibuf_msg = 'one-line'
 	endif
 	if ! has_key(g:wheel_config.display, 'prompt')
