@@ -20,6 +20,7 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 		if first ==# 'leaf'
 			let bufname = second->winbufnr()->bufname()
 			let linum = line('.', second)
+			let colnum = col('.', second)
 			if empty(bufname)
 				return []
 			endif
@@ -29,7 +30,7 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 			let filename = bufname->fnamemodify(':p')
 			let edit = [ 'silent edit ' .. filename ]
 			" -- go to last position in file
-			let last_position = linum
+			let last_position = 'call cursor(' .. linum .. ', ' .. colnum .. ')'
 			eval edit->add(last_position)
 			" -- unfold to view cursor
 			eval edit->add('normal! zv')
