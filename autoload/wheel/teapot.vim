@@ -205,7 +205,8 @@ fun! wheel#teapot#filter_to_default_line ()
 	if has_filter && cur_line == 1 && last_line > 1
 		call cursor(2, 1)
 	endif
-	call wheel#origami#view_cursor ()
+	" ---- line 1 or 2 does not need this
+	"call wheel#origami#view_cursor ()
 	return v:true
 endfun
 
