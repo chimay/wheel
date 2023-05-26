@@ -538,10 +538,6 @@ fun! wheel#tree#delete (level, ask = 'confirm')
 	"   - force : don't ask confirmation
 	let level = a:level
 	let ask = a:ask
-	if wheel#referen#is_empty (level)
-		echomsg 'wheel delete :' level 'is empty'
-		return v:false
-	endif
 	let current = wheel#referen#current (level)
 	let name = current.name
 	if ask != 'force'
