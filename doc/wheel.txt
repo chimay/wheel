@@ -727,7 +727,7 @@ and `organize` :
 Word fuzzy~
 
 If `g:wheel_config.completion.wordize` is greater than 0, the plugin
-adds word-characterss patterns between the chars you enter, to enable
+adds word-characters patterns between the chars you enter, to enable
 a kind of word-fuzzy completion.
 
 This way, if you have the completion list `profile`, `proof`, `wheel`

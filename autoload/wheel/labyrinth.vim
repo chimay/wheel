@@ -93,6 +93,8 @@ fun! wheel#labyrinth#session ()
 	eval returnlist->add('noautocmd silent tabrewind')
 	" ---- jump
 	eval returnlist->add('call wheel#vortex#jump()')
+	" ---- autocommands
+	eval returnlist->add('doautoall SessionLoadPost')
 	" ---- coda
 	return returnlist
 endfun

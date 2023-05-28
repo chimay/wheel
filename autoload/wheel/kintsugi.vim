@@ -143,7 +143,7 @@ fun! wheel#kintsugi#config ()
 		let g:wheel_config.display.dedibuf_msg = g:wheel_config.display.message
 		unlet g:wheel_config.display.message
 		let info = 'wheel config : display.message is deprecated. '
-		let info ..= 'Please use display.dedibuf instead.'
+		let info ..= 'Please use display.dedibuf_msg instead.'
 		echomsg info
 	endif
 	if has_key(g:wheel_config.display, 'dedibuf')
