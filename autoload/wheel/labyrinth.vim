@@ -97,7 +97,7 @@ fun! wheel#labyrinth#session ()
 	eval returnlist->add('filetype on')
 	" ---- autocommands
 	eval returnlist->add('doautoall BufRead')
-	"eval returnlist->add('doautoall BufReadPost')
+	eval returnlist->add('doautoall BufReadPost')
 	eval returnlist->add('doautoall FileType')
 	" ---- coda
 	return returnlist
