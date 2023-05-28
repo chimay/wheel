@@ -93,6 +93,8 @@ fun! wheel#labyrinth#session ()
 	eval returnlist->add('noautocmd silent tabrewind')
 	" ---- jump
 	eval returnlist->add('call wheel#vortex#jump()')
+	" ---- filetype
+	eval returnlist->add('filetype on')
 	" ---- autocommands
 	eval returnlist->add('doautoall BufRead')
 	eval returnlist->add('doautoall FileType')
