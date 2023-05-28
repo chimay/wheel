@@ -94,7 +94,7 @@ fun! wheel#labyrinth#session ()
 	" ---- jump
 	eval returnlist->add('call wheel#vortex#jump()')
 	" ---- autocommands
-	eval returnlist->add('doautoall SessionLoadPost')
+	eval returnlist->add('doautoall BufRead')
 	" ---- coda
 	return returnlist
 endfun
