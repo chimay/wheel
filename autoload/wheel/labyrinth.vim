@@ -95,6 +95,7 @@ fun! wheel#labyrinth#session ()
 	eval returnlist->add('call wheel#vortex#jump()')
 	" ---- autocommands
 	eval returnlist->add('doautoall BufRead')
+	eval returnlist->add('doautoall FileType')
 	" ---- coda
 	return returnlist
 endfun
