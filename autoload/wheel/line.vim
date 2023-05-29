@@ -331,16 +331,16 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	call wheel#rectangle#goto_previous ()
 	if where ==# 'linewise-after'
 		call setreg('"', content, 'l')
-		put =content
+		silent put =content
 	elseif where ==# 'linewise-before'
 		call setreg('"', content, 'l')
-		put! =content
+		silent put! =content
 	elseif where ==# 'charwise-after'
 		call setreg('"', content, 'c')
-		normal! p
+		silent normal! p
 	elseif where ==# 'charwise-before'
 		call setreg('"', content, 'c')
-		normal! P
+		silent normal! P
 	endif
 	" --- climbing content
 	call wheel#codex#climb(content)
@@ -367,9 +367,9 @@ fun! wheel#line#paste_visual (...)
 	normal! gvy
 	call wheel#rectangle#goto_previous ()
 	if where ==# 'after'
-		normal! p
+		silent normal! p
 	elseif where ==# 'before'
-		normal! P
+		silent normal! P
 	endif
 	call wheel#cylinder#recall ()
 	if close ==# 'close'
@@ -391,16 +391,16 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	call wheel#rectangle#goto_previous ()
 	if where ==# 'linewise-after'
 		call setreg('"', content, 'l')
-		put =content
+		silent put =content
 	elseif where ==# 'linewise-before'
 		call setreg('"', content, 'l')
-		put! =content
+		silent put! =content
 	elseif where ==# 'charwise-after'
 		call setreg('"', content, 'c')
-		normal! p
+		silent normal! p
 	elseif where ==# 'charwise-before'
 		call setreg('"', content, 'c')
-		normal! P
+		silent normal! P
 	endif
 	" --- climbing content
 	call wheel#codex#climb(content)

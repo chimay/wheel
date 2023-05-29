@@ -117,16 +117,16 @@ fun! wheel#codex#yank_plain (where = 'linewise-after')
 	endif
 	if where ==# 'linewise-after'
 		call setreg('"', content, 'l')
-		put =content
+		silent put =content
 	elseif where ==# 'linewise-before'
 		call setreg('"', content, 'l')
-		put! =content
+		silent put! =content
 	elseif where ==# 'charwise-after'
 		call setreg('"', content, 'c')
-		normal! p
+		silent normal! p
 	elseif where ==# 'charwise-before'
 		call setreg('"', content, 'c')
-		normal! P
+		silent normal! P
 	endif
 	call wheel#codex#climb([ content ])
 	return v:true
@@ -144,16 +144,16 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 	let content = eval(line)
 	if where ==# 'linewise-after'
 		call setreg('"', content, 'l')
-		put =content
+		silent put =content
 	elseif where ==# 'linewise-before'
 		call setreg('"', content, 'l')
-		put! =content
+		silent put! =content
 	elseif where ==# 'charwise-after'
 		call setreg('"', content, 'c')
-		normal! p
+		silent normal! p
 	elseif where ==# 'charwise-before'
 		call setreg('"', content, 'c')
-		normal! P
+		silent normal! P
 	endif
 	call wheel#codex#climb(content)
 	return v:true
