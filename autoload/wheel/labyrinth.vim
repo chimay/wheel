@@ -26,7 +26,10 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 			endif
 			if bufname =~ '^term://'
 				let shell = bufname->matchstr(':\zs[^:]*$')
-				return ['terminal ' .. shell]
+				let folder = bufname->matchstr('term://\zs.*/\ze/[0-9]*:' .. shell)
+				let terminal = ['lcd ' .. folder]
+				eval terminal->add('terminal ' .. shell)
+				return terminal
 			endif
 			let filename = bufname->fnamemodify(':p')
 			let edit = [ 'silent edit ' .. filename ]
