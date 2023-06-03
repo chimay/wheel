@@ -243,8 +243,10 @@ endfun
 
 " ---- sort
 
+" -- compare
+
 fun! wheel#chain#compare (first, second)
-	" Compare arguments ; used to sort
+	" Compare arguments ; used to sort in ascending order
 	let first = a:first
 	let second = a:second
 	if first > second
@@ -255,6 +257,47 @@ fun! wheel#chain#compare (first, second)
 		return -1
 	endif
 endfun
+
+fun! wheel#chain#reverse_compare (first, second)
+	" Reverse compare arguments ; used to sort in descending order
+	let first = a:first
+	let second = a:second
+	if first > second
+		return -1
+	elseif first == second
+		return 0
+	else
+		return 1
+	endif
+endfun
+
+" -- compare index
+
+fun! wheel#chain#compare_index (index, first, second)
+	" Compare elements given by index of lists arguments
+	return wheel#chain#compare(a:first[a:index], a:second[a:index])
+endfun
+
+fun! wheel#chain#fun_cmp_index (index, ...)
+	" Returns function that compare elements of lists[index]
+	if a:0 > 0
+		if type(a:1) == v:t_func
+			let Fun = a:1
+		elseif type(a:1) == v:t_string
+			let Fun = funcref(a:1)
+		else
+			echomsg 'wheel chain fun cmp index : bad argument format'
+		endif
+	else
+		lef Fun = funcref('wheel#chain#compare')
+	endif
+	fun! s:compare (first, second) closure
+		return Fun(a:first[a:index], a:second[a:index])
+	endfun
+	return funcref('s:compare')
+endfun
+
+" -- compare first element
 
 fun! wheel#chain#compare_first (first, second)
 	" Compare first elements of lists arguments
@@ -280,6 +323,8 @@ fun! wheel#chain#fun_cmp_1st (...)
 	return funcref('s:compare')
 endfun
 
+" -- sort
+
 fun! wheel#chain#sort (list, ...)
 	" Returns sorted list and indexes to recover the original list
 	" Returns [shuffled_indexes, sorted_list], where :
@@ -298,9 +343,9 @@ fun! wheel#chain#sort (list, ...)
 	return [indexes, sorted]
 endfun
 
-fun! wheel#chain#revert_sort (list, indexes)
-	" Revert sort in list by reordering indexes from smallest to biggest
-	" Returns [revert_indexes, original_list]
+fun! wheel#chain#restore_sorted (list, indexes)
+	" Restore sorted list by reordering indexes from smallest to biggest
+	" Returns [recip_indexes, original_list]
 	let Cmp = 'wheel#chain#compare_first'
 	let list = deepcopy(a:list)
 	let indexes = a:indexes
@@ -309,9 +354,9 @@ fun! wheel#chain#revert_sort (list, indexes)
 	endif
 	let matrix = [indexes, list]
 	let dual = wheel#matrix#dual(matrix)
-	let [revert_indexes, nested] = wheel#chain#sort(dual, Cmp)
+	let [recip_indexes, nested] = wheel#chain#sort(dual, Cmp)
 	let [indexes, list] = wheel#matrix#dual(nested)
-	return [revert_indexes, list]
+	return [recip_indexes, list]
 endfun
 
 " ---- unique
@@ -323,16 +368,16 @@ fun! wheel#chain#unique (list, ...)
 	else
 		let Cmp = 'wheel#chain#compare_first'
 	endif
-	" wheel#chain#sort makes a copy
+	" ---- wheel#chain#sort makes a copy
 	let list = a:list
-	" sort
+	" ---- sort
 	let [indexes, sorted] = call('wheel#chain#sort', [list] + a:000)
-	" uniq
+	" ---- uniq
 	let dual = wheel#matrix#dual ([sorted, indexes])
 	call uniq(dual, Cmp)
-	" revert sort
+	" ---- restore sorted list
 	let [sorted, indexes] = wheel#matrix#dual (dual)
-	let [rev_ind, unique] = wheel#chain#revert_sort (sorted, indexes)
+	let [rec_ind, unique] = wheel#chain#restore_sorted (sorted, indexes)
 	" return
 	return unique
 endfun
