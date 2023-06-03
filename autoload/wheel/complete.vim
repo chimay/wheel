@@ -10,7 +10,7 @@
 " if needed, it has to be done
 " in the function body
 "
-" Note : kyusu#pour makes a deepcopy of the list before
+" Note : kyusu#stream makes a deepcopy of the list before
 " processing, no need to do it here
 
 " ---- script constants
@@ -66,7 +66,7 @@ fun! wheel#complete#torus (arglead, cmdline, cursorpos)
 	endif
 	let toruses = g:wheel.glossary
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, toruses)
+	return wheel#kyusu#stream(wordlist, toruses)
 endfun
 
 fun! wheel#complete#circle (arglead, cmdline, cursorpos)
@@ -77,7 +77,7 @@ fun! wheel#complete#circle (arglead, cmdline, cursorpos)
 	endif
 	let circles = cur_torus.glossary
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, circles)
+	return wheel#kyusu#stream(wordlist, circles)
 endfun
 
 fun! wheel#complete#location (arglead, cmdline, cursorpos)
@@ -88,42 +88,42 @@ fun! wheel#complete#location (arglead, cmdline, cursorpos)
 	endif
 	let locations = cur_circle.glossary
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, locations)
+	return wheel#kyusu#stream(wordlist, locations)
 endfun
 
 fun! wheel#complete#helix (arglead, cmdline, cursorpos)
 	" Complete coordinates in index
 	let choices = wheel#flower#helix ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#grid  (arglead, cmdline, cursorpos)
 	" Complete location coordinates in index
 	let choices = wheel#flower#grid ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#history (arglead, cmdline, cursorpos)
 	" Complete coordinates in history timeline
 	let choices = wheel#flower#history ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#history_circuit (arglead, cmdline, cursorpos)
 	" Complete coordinates in history circuit
 	let choices = wheel#flower#history_circuit ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#frecency (arglead, cmdline, cursorpos)
 	" Complete coordinates in history timeline
 	let choices = wheel#flower#frecency ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 " ---- mandalas = dedicated buffers
@@ -142,7 +142,7 @@ fun! wheel#complete#mandala (arglead, cmdline, cursorpos)
 		eval choices->add(title)
 	endfor
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 " ---- leaves = mandala layers, implemented as a ring
@@ -155,7 +155,7 @@ fun! wheel#complete#leaf (arglead, cmdline, cursorpos)
 	endif
 	let choices = map(forest, { ind, val -> ind .. s:field_separ .. val.type })
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 " ---- files & dirs
@@ -186,7 +186,7 @@ fun! wheel#complete#file (arglead, cmdline, cursorpos)
 	" ---- get tree of files & directories
 	let tree = glob('**', v:false, v:true)
 	let wordlist = split(cmdline)
-	return wheel#kyusu#pour(wordlist, tree)
+	return wheel#kyusu#stream(wordlist, tree)
 endfun
 
 fun! wheel#complete#directory (arglead, cmdline, cursorpos)
@@ -194,7 +194,7 @@ fun! wheel#complete#directory (arglead, cmdline, cursorpos)
 	let tree = wheel#complete#file (a:arglead, a:cmdline, a:cursorpos)
 	eval tree->filter({ _, val -> isdirectory(val) })
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, tree)
+	return wheel#kyusu#stream(wordlist, tree)
 endfun
 
 fun! wheel#complete#current_file (arglead, cmdline, cursorpos)
@@ -209,7 +209,7 @@ fun! wheel#complete#current_file (arglead, cmdline, cursorpos)
 	let absolute = basis
 	let filenames = [root, simple, relative, absolute]
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, filenames)
+	return wheel#kyusu#stream(wordlist, filenames)
 endfun
 
 fun! wheel#complete#current_directory (arglead, cmdline, cursorpos)
@@ -223,7 +223,7 @@ fun! wheel#complete#current_directory (arglead, cmdline, cursorpos)
 	let absolute = basis
 	let directories = [simple, relative, absolute]
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, directories)
+	return wheel#kyusu#stream(wordlist, directories)
 endfun
 
 fun! wheel#complete#dir_or_subdir (arglead, cmdline, cursorpos)
@@ -232,7 +232,7 @@ fun! wheel#complete#dir_or_subdir (arglead, cmdline, cursorpos)
 	let tree = wheel#complete#directory (a:arglead, a:cmdline, a:cursorpos)
 	let directories = current + tree
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, directories)
+	return wheel#kyusu#stream(wordlist, directories)
 endfun
 
 fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)
@@ -241,7 +241,7 @@ fun! wheel#complete#link_copy (arglead, cmdline, cursorpos)
 	" See also wheel#disc#tree_script
 	let commands = ['ln -s', 'cp -n']
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, commands)
+	return wheel#kyusu#stream(wordlist, commands)
 endfun
 
 " ---- mru non wheel files
@@ -250,7 +250,7 @@ fun! wheel#complete#mru (arglead, cmdline, cursorpos)
 	" Complete mru file
 	let files = wheel#perspective#mru ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, files)
+	return wheel#kyusu#stream(wordlist, files)
 endfun
 
 " ---- buffers
@@ -259,14 +259,14 @@ fun! wheel#complete#buffer (arglead, cmdline, cursorpos)
 	" Complete with buffer name
 	let choices = wheel#perspective#buffer ('all')
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#visible_buffer (arglead, cmdline, cursorpos)
 	" Complete buffer visible in tabs & windows
 	let choices = wheel#perspective#tabwin ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 " ---- buffer lines
@@ -276,7 +276,7 @@ fun! wheel#complete#line (arglead, cmdline, cursorpos)
 	let linelist = getline(1,'$')
 	eval linelist->map({ ind, val -> string(ind + 1) .. s:field_separ .. val })
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, linelist)
+	return wheel#kyusu#stream(wordlist, linelist)
 endfun
 
 " ---- vim lists
@@ -285,21 +285,21 @@ fun! wheel#complete#marker (arglead, cmdline, cursorpos)
 	" Complete marker
 	let choices = wheel#perspective#marker ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#jump (arglead, cmdline, cursorpos)
 	" Complete jump
 	let choices = wheel#perspective#jump ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#change (arglead, cmdline, cursorpos)
 	" Complete change
 	let choices = wheel#perspective#change ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#tag (arglead, cmdline, cursorpos)
@@ -318,7 +318,7 @@ fun! wheel#complete#tag (arglead, cmdline, cursorpos)
 		eval choices->add(record)
 	endfor
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 " ---- grep
@@ -332,28 +332,28 @@ fun! wheel#complete#outline_folds (arglead, cmdline, cursorpos)
 	endif
 	let choices = wheel#perspective#grep (marker, '\m.')
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#outline_markdown (arglead, cmdline, cursorpos)
 	" Complete markdown outline
 	let choices = wheel#perspective#grep ('^#', '\.md$')
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#outline_org (arglead, cmdline, cursorpos)
 	" Complete org outline
 	let choices = wheel#perspective#grep ('^\*', '\.org$')
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#outline_vimwiki (arglead, cmdline, cursorpos)
 	" Complete vimwiki outline
 	let choices = wheel#perspective#grep ('^=.*=$', '\.wiki$')
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 " ---- yank ring
@@ -363,7 +363,7 @@ fun! wheel#complete#register (arglead, cmdline, cursorpos)
 	let choices = wheel#matrix#items2keys(s:registers_symbols)
 	eval choices->add('overview')
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#yank_list (arglead, cmdline, cursorpos)
@@ -371,7 +371,7 @@ fun! wheel#complete#yank_list (arglead, cmdline, cursorpos)
 	let register = g:wheel_shelve.yank.default_register
 	let choices = wheel#perspective#yank_prompt ('list', register)
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 fun! wheel#complete#yank_plain (arglead, cmdline, cursorpos)
@@ -379,7 +379,7 @@ fun! wheel#complete#yank_plain (arglead, cmdline, cursorpos)
 	let register = g:wheel_shelve.yank.default_register
 	let choices = wheel#perspective#yank_prompt ('plain', register)
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#stream(wordlist, choices)
 endfun
 
 " ---- meta command
@@ -410,7 +410,7 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 		return subcommands
 	endif
 	if length == 2 && ! blank
-		return wheel#kyusu#pour(last_list, subcommands)
+		return wheel#kyusu#stream(last_list, subcommands)
 	endif
 	let subcommand = wordlist[1]
 	" ---- prompting functions
@@ -419,7 +419,7 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 		if blank
 			return prompt_subcmds
 		else
-			return wheel#kyusu#pour(last_list, prompt_subcmds)
+			return wheel#kyusu#stream(last_list, prompt_subcmds)
 		endif
 	endif
 	" ---- dedicated buffers
@@ -428,7 +428,7 @@ fun! wheel#complete#meta_command (arglead, cmdline, cursorpos)
 		if blank
 			return dedibuf_subcmds
 		else
-			return wheel#kyusu#pour(last_list, dedibuf_subcmds)
+			return wheel#kyusu#stream(last_list, dedibuf_subcmds)
 		endif
 	endif
 	" ---- file
