@@ -179,8 +179,7 @@ fun! wheel#kyusu#stream (wordlist, list)
 	eval candidates->filter({ _, v -> v[0] })
 	eval candidates->map({ _, v -> v[1:2] })
 	eval candidates->sort({ a, b -> wheel#chain#reverse_compare(a[0], b[0]) })
-	"eval candidates->map({ _, v -> v[1] })
-	eval candidates->map({ _, v -> join(v) })
+	eval candidates->map({ _, v -> v[1] })
 	return candidates
 endfun
 
