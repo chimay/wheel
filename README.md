@@ -485,7 +485,7 @@ see the
 I suggest you map it to a convenient key. Example :
 
 ```vim
-nnoremap <space> :Wheel<space>
+nnoremap <space>w :Wheel<space>
 ```
 
 # Bindings
