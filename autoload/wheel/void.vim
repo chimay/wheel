@@ -308,6 +308,9 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config.completion, 'fuzzy')
 		let g:wheel_config.completion.fuzzy = 0
 	endif
+	if ! has_key(g:wheel_config.completion, 'scores')
+		let g:wheel_config.completion.scores = 0
+	endif
 	" ---- display
 	if ! has_key(g:wheel_config, 'display')
 		let g:wheel_config.display = {}

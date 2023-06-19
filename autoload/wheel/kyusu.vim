@@ -101,6 +101,7 @@ fun! wheel#kyusu#steep (wordlist, unused, value)
 endfun
 
 fun! wheel#kyusu#infuse (wordlist, unused, value)
+	" Scores & matches
 	" Whether value matches all words of wordlist
 	" Also returns score & value
 	" Word beginning by a ! means logical not
@@ -147,6 +148,20 @@ endfun
 
 " ---- prompt completion
 
+fun! wheel#kyusu#stream (wordlist, list)
+	" Return elements of list matching words of wordlist
+	let wordlist = a:wordlist
+	let list = a:list
+	let list = deepcopy(list)
+	let Matches = function('wheel#kyusu#infuse', [wordlist])
+	let candidates = map(list, Matches)
+	eval candidates->filter({ _, v -> v[0] })
+	eval candidates->map({ _, v -> v[1:2] })
+	eval candidates->sort({ a, b -> wheel#chain#reverse_compare(a[0], b[0]) })
+	eval candidates->map({ _, v -> v[1] })
+	return candidates
+endfun
+
 fun! wheel#kyusu#pour (wordlist, list)
 	" Return elements of list matching words of wordlist
 	let wordlist = a:wordlist
@@ -157,29 +172,12 @@ fun! wheel#kyusu#pour (wordlist, list)
 		endif
 		return list->matchfuzzy(join(wordlist))
 	endif
+	if g:wheel_config.completion.scores > 0
+		return wheel#kyusu#stream (wordlist, list)
+	endif
 	let list = deepcopy(list)
 	let Matches = function('wheel#kyusu#steep', [wordlist])
 	let candidates = filter(list, Matches)
-	return candidates
-endfun
-
-fun! wheel#kyusu#stream (wordlist, list)
-	" Return elements of list matching words of wordlist
-	let wordlist = a:wordlist
-	let list = a:list
-	if g:wheel_config.completion.fuzzy > 0
-		if empty(wordlist)
-			return list
-		endif
-		return list->matchfuzzy(join(wordlist))
-	endif
-	let list = deepcopy(list)
-	let Matches = function('wheel#kyusu#infuse', [wordlist])
-	let candidates = map(list, Matches)
-	eval candidates->filter({ _, v -> v[0] })
-	eval candidates->map({ _, v -> v[1:2] })
-	eval candidates->sort({ a, b -> wheel#chain#reverse_compare(a[0], b[0]) })
-	eval candidates->map({ _, v -> v[1] })
 	return candidates
 endfun
 

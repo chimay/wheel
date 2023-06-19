@@ -737,6 +737,11 @@ and `organize` :
 - the pattern `we` will narrow down to `wheel`
 - the pattern `oai` will narrow down to `organize`
 
+Scores~
+
+If `g:wheel_config.completion.scores` is greater than 0, scores are computed,
+and matching results are sorted accordingly.
+
 Fuzzy~
 
 If `g:wheel_config.completion.fuzzy` is greater than 0, a full fuzzy
