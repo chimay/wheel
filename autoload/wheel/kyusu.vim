@@ -181,6 +181,23 @@ fun! wheel#kyusu#pour (wordlist, list)
 	return candidates
 endfun
 
+fun! wheel#kyusu#drop (wordlist, list)
+	" Return elements of list matching words of wordlist
+	" Disregard scores
+	let wordlist = a:wordlist
+	let list = a:list
+	if g:wheel_config.completion.fuzzy > 0
+		if empty(wordlist)
+			return list
+		endif
+		return list->matchfuzzy(join(wordlist))
+	endif
+	let list = deepcopy(list)
+	let Matches = function('wheel#kyusu#steep', [wordlist])
+	let candidates = filter(list, Matches)
+	return candidates
+endfun
+
 " ---- dedicated buffers
 
 fun! wheel#kyusu#intermix (wordlist, index, value, ternar)

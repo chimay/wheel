@@ -109,7 +109,7 @@ fun! wheel#complete#history (arglead, cmdline, cursorpos)
 	" Complete coordinates in history timeline
 	let choices = wheel#flower#history ()
 	let wordlist = split(a:cmdline)
-	return wheel#kyusu#pour(wordlist, choices)
+	return wheel#kyusu#drop(wordlist, choices)
 endfun
 
 fun! wheel#complete#history_circuit (arglead, cmdline, cursorpos)
