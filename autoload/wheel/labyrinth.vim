@@ -91,7 +91,6 @@ fun! wheel#labyrinth#session ()
 		endif
 	endfor
 	" ---- set all windows equal
-	" does not work
 	eval returnlist->add('noautocmd silent tabdo wincmd =')
 	" ---- return to tab 1
 	eval returnlist->add('noautocmd silent tabrewind')
