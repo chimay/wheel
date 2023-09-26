@@ -8,11 +8,16 @@
 
 " ---- helpers
 
-fun! wheel#disc#full_path (filename)
+fun! wheel#disc#full_path (...)
 	" Return filename full path
+	" Default : current file name
 	" % -> current filename
 	" # -> alternate filename
-	let filename = a:filename
+	if a:0 > 0
+		let filename = a:1
+	else
+		let filename = expand('%')
+	endif
 	if filename ==# '%'
 		let filename = getreg('%')
 	endif
@@ -52,7 +57,7 @@ fun! wheel#disc#relative_path (...)
 		echomsg 'wheel disc relative_path : file name cannot be empty'
 		return 'empty-file-name'
 	endif
-	let directory = '\m^' .. getcwd() .. '/'
+	"let directory = '\m^' .. getcwd() .. '/'
 	let filename = wheel#disc#full_path (filename)
 	let filename = fnamemodify(filename, ':.')
 	return filename

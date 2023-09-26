@@ -78,6 +78,7 @@ endfun
 
 fun! wheel#labyrinth#session ()
 	" Commands to reproduce layout of all tabs
+	let current_tab = tabpagenr()
 	let last_tab = tabpagenr('$')
 	let returnlist = []
 	" ---- loop on tabs
@@ -93,7 +94,9 @@ fun! wheel#labyrinth#session ()
 	" ---- set all windows equal
 	eval returnlist->add('noautocmd silent tabdo wincmd =')
 	" ---- return to tab 1
-	eval returnlist->add('noautocmd silent tabrewind')
+	"eval returnlist->add('noautocmd silent tabrewind')
+	" ---- return to current tab
+	eval returnlist->add(current_tab .. 'tabnext')
 	" ---- jump
 	eval returnlist->add('call wheel#vortex#jump()')
 	" ---- filetype
