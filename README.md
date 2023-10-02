@@ -3,36 +3,36 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Introduction](#introduction)
-    * [What is it ?](#what-is-it-)
-    * [What does it look like ?](#what-does-it-look-like-)
-        * [History and meta-command](#history-and-meta-command)
-        * [Frecency, dedicated buffers and layers](#frecency-dedicated-buffers-and-layers)
-        * [More screenshots & screencasts](#more-screenshots--screencasts)
-    * [File groups & categories](#file-groups--categories)
-        * [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
-        * [A wheel that follows you](#a-wheel-that-follows-you)
-    * [Features](#features)
-    * [History](#history)
-    * [Prerequisites](#prerequisites)
-        * [Operating system](#operating-system)
+  * [What is it ?](#what-is-it-)
+  * [What does it look like ?](#what-does-it-look-like-)
+    * [History and meta-command](#history-and-meta-command)
+    * [Frecency, dedicated buffers and layers](#frecency-dedicated-buffers-and-layers)
+    * [More screenshots & screencasts](#more-screenshots--screencasts)
+  * [File groups & categories](#file-groups--categories)
+    * [Why do you need three levels of grouping ?](#why-do-you-need-three-levels-of-grouping-)
+    * [A wheel that follows you](#a-wheel-that-follows-you)
+  * [Features](#features)
+  * [History](#history)
+  * [Prerequisites](#prerequisites)
+    * [Operating system](#operating-system)
 * [Installation](#installation)
-    * [Using vim-packager](#using-vim-packager)
-    * [Using minpac](#using-minpac)
-    * [Using vim-plug](#using-vim-plug)
-    * [Cloning the repo in a pack-start directory](#cloning-the-repo-in-a-pack-start-directory)
+  * [Using vim-packager](#using-vim-packager)
+  * [Using minpac](#using-minpac)
+  * [Using vim-plug](#using-vim-plug)
+  * [Cloning the repo in a pack-start directory](#cloning-the-repo-in-a-pack-start-directory)
 * [Documentation](#documentation)
-    * [Vim help](#vim-help)
-    * [Wiki](#wiki)
-    * [In wheel menu](#in-wheel-menu)
+  * [Vim help](#vim-help)
+  * [Wiki](#wiki)
+  * [In wheel menu](#in-wheel-menu)
 * [Configuration](#configuration)
-    * [Wiki](#wiki-1)
-    * [Example](#example)
+  * [Wiki](#wiki-1)
+  * [Example](#example)
 * [Meta-command](#meta-command)
 * [Bindings](#bindings)
-    * [Frequently used functions](#frequently-used-functions)
+  * [Frequently used functions](#frequently-used-functions)
 * [Examples](#examples)
-    * [Display matching files in splits](#display-matching-files-in-splits)
-    * [More](#more)
+  * [Display matching files in splits](#display-matching-files-in-splits)
+  * [More](#more)
 * [Warning](#warning)
 
 <!-- vim-markdown-toc -->
@@ -364,9 +364,9 @@ if ! exists("g:wheel_loaded")
   " ---- Auto write wheel file on exit if > 0
   let g:wheel_config.autowrite = 1
   " ---- The directory where sessions will be stored and read
-  let g:wheel_config.session_dir = '~/.local/share/wheel'
+  let g:wheel_config.session_dir = '~/.local/share/wheel/session'
   " ---- The file where default session will be stored and read
-  let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
+  let g:wheel_config.session_file = '~/.local/share/wheel/session/layout.vim'
   " ---- Auto read default session file on startup if > 0
   let g:wheel_config.autoread_session = 1
   " ---- Auto write default session file on exit if > 0
