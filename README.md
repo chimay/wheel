@@ -371,7 +371,7 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.autoread_session = 1
   " ---- Auto write default session file on exit if > 0
   let g:wheel_config.autowrite_session = 1
-  " ---- Number of backups for the wheel file
+  " ---- Number of backups for wheel & session files
   let g:wheel_config.backups = 5
   " ---- The bigger it is, the more mappings available
   let g:wheel_config.mappings = 10
