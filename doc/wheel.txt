@@ -2524,7 +2524,7 @@ Default~
 ------------------------------------------------------------------------------
 AUTOREAD SESSION			    *wheel-config-autoread-session*
 
-Auto read session file on startup if non null : >
+Auto read default session file on startup if non null : >
 
     let g:wheel_config.autoread_session = 1
 <
@@ -2539,7 +2539,7 @@ Default : 0
 ------------------------------------------------------------------------------
 AUTOWRITE SESSION			    *wheel-config-autowrite-session*
 
-Auto write session file on exit if non null : >
+Auto write default session file on exit if non null : >
 
     let g:wheel_config.autowrite_session = 1
 <
