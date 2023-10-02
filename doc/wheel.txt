@@ -2497,20 +2497,20 @@ a session directory.
 
 Directory where your sessions will be saved : >
 
-    let g:wheel_config.session_dir = '~/.local/share/wheel'
+    let g:wheel_config.session_dir = '~/.local/share/wheel/session'
 <
 
 Default~
 
-- vim : '~/.vim/wheel'
-- nvim : '~/.local/share/nvim/wheel'
+- vim : '~/.vim/wheel/session'
+- nvim : '~/.local/share/nvim/wheel/session'
 
 ------------------------------------------------------------------------------
 SESSION FILE					   *wheel-config-session-file*
 
 File to save or load the default session : >
 
-    let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
+    let g:wheel_config.session_file = '~/.local/share/wheel/session/layout.vim'
 <
 
 You can define this file and regularly save it, either manually or
@@ -2518,8 +2518,8 @@ automatically, using the autowrite_session config.
 
 Default~
 
-- vim : '~/.vim/wheel/session.vim'
-- nvim : '~/.local/share/nvim/wheel/session.vim'
+- vim : '~/.vim/wheel/session/default.vim'
+- nvim : '~/.local/share/nvim/wheel/session/default.vim'
 
 ------------------------------------------------------------------------------
 AUTOREAD SESSION			    *wheel-config-autoread-session*

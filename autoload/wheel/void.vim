@@ -214,16 +214,16 @@ fun! wheel#void#config ()
 	endif
 	if ! has_key(g:wheel_config, 'session_file')
 		if has('nvim')
-			let g:wheel_config.session_file = '~/.local/share/nvim/wheel/session.vim'
+			let g:wheel_config.session_file = '~/.local/share/nvim/wheel/session/default.vim'
 		else
-			let g:wheel_config.session_file = '~/.vim/wheel/session.vim'
+			let g:wheel_config.session_file = '~/.vim/wheel/session/default.vim'
 		endif
 	endif
 	if ! has_key(g:wheel_config, 'session_dir')
 		if has('nvim')
-			let g:wheel_config.session_dir = '~/.local/share/nvim/wheel'
+			let g:wheel_config.session_dir = '~/.local/share/nvim/wheel/session'
 		else
-			let g:wheel_config.session_dir = '~/.vim/wheel'
+			let g:wheel_config.session_dir = '~/.vim/wheel/session'
 		endif
 	endif
 	if ! has_key(g:wheel_config, 'autowrite_session')

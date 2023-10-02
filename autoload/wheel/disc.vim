@@ -559,7 +559,6 @@ fun! wheel#disc#write_session (...)
 			endif
 		endif
 		let arglist = [session_file] + a:000[1:]
-		echomsg arglist
 		return call('wheel#disc#write_session_file', arglist)
 	endif
 	" ---- session dir
