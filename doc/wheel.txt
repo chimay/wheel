@@ -2376,6 +2376,8 @@ Dictionary				|wheel-config-dictionary|
 File					|wheel-config-file|
 Autoread				|wheel-config-autoread|
 Autowrite				|wheel-config-autowrite|
+Session directory			|wheel-config-session-dir|
+Session file				|wheel-config-session-file|
 Autoread session file			|wheel-config-autoread-session|
 Autowrite session file			|wheel-config-autowrite-session|
 Backups					|wheel-config-backups|
@@ -2447,8 +2449,6 @@ File to save or load the wheel : >
     let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
 <
 
-Note that the directory `~/.local/share/wheel` must exist.
-
 It is highly recommended to define this file and regularly save it,
 either manually or automatically, using the autowrite config.
 
@@ -2488,16 +2488,30 @@ To enable it, you need to add an autocommand on vim leave : >
 Default : 0
 
 ------------------------------------------------------------------------------
+SESSION DIRECTORY				   *wheel-config-session-dir*
+
+Wheel can save your tabs & windows layout in session files.
+
+You can have as many session files as you want, they will be stored in
+a session directory.
+
+Directory where your sessions will be saved : >
+
+    let g:wheel_config.session_dir = '~/.local/share/wheel'
+<
+
+Default~
+
+- vim : '~/.vim/wheel'
+- nvim : '~/.local/share/nvim/wheel'
+
+------------------------------------------------------------------------------
 SESSION FILE					   *wheel-config-session-file*
 
-Wheel can save your tabs & windows layout in a session file.
-
-File to save or load the session : >
+File to save or load the default session : >
 
     let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
 <
-
-Note that the directory `~/.local/share/wheel` must exist.
 
 You can define this file and regularly save it, either manually or
 automatically, using the autowrite_session config.
@@ -2963,11 +2977,13 @@ Here is an example of a complete configuration : >
   let g:wheel_config.autoread = 1
   " Auto write wheel file on exit if > 0
   let g:wheel_config.autowrite = 1
-  " The file where session will be stored and read
+  " The directory where sessions will be stored and read
+  let g:wheel_config.session_dir = '~/.local/share/wheel'
+  " The file where default session will be stored and read
   let g:wheel_config.session_file = '~/.local/share/wheel/session.vim'
-  " Auto read session file on startup if > 0
+  " Auto read default session file on startup if > 0
   let g:wheel_config.autoread_session = 1
-  " Auto write session file on exit if > 0
+  " Auto write default session file on exit if > 0
   let g:wheel_config.autowrite_session = 1
   " Number of backups for the wheel file
   let g:wheel_config.backups = 5

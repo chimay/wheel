@@ -17,7 +17,7 @@ lockvar s:mandala_autocmds_group
 " ---- no-op function
 
 fun! wheel#void#nope (...)
-	" Does nothing
+	" Does nothing, returns its argument list
 	" Application : for meta-command subcommands thas need a third argument
 	return a:000
 endfun
@@ -217,6 +217,13 @@ fun! wheel#void#config ()
 			let g:wheel_config.session_file = '~/.local/share/nvim/wheel/session.vim'
 		else
 			let g:wheel_config.session_file = '~/.vim/wheel/session.vim'
+		endif
+	endif
+	if ! has_key(g:wheel_config, 'session_dir')
+		if has('nvim')
+			let g:wheel_config.session_dir = '~/.local/share/nvim/wheel'
+		else
+			let g:wheel_config.session_dir = '~/.vim/wheel'
 		endif
 	endif
 	if ! has_key(g:wheel_config, 'autowrite_session')

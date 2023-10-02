@@ -45,6 +45,8 @@ let s:plugs_normal = [
 			\ [ 'wheel-write-wheel'                       , 'wheel#disc#write_wheel'                              ] ,
 			\ [ 'wheel-read-session'                      , 'wheel#disc#read_session'                             ] ,
 			\ [ 'wheel-write-session'                     , 'wheel#disc#write_session'                            ] ,
+			\ [ 'wheel-prompt-read-session'               , 'wheel#disc#read_session'                             ] ,
+			\ [ 'wheel-prompt-write-session'              , 'wheel#disc#write_session'                            ] ,
 			\ [ 'wheel-previous-location'                 , "wheel#vortex#previous('location')"                   ] ,
 			\ [ 'wheel-next-location'                     , "wheel#vortex#next('location')"                       ] ,
 			\ [ 'wheel-previous-circle'                   , "wheel#vortex#previous('circle')"                     ] ,
