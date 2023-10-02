@@ -537,6 +537,8 @@ fun! wheel#disc#read_session_file (session_file, ...)
 	endif
 	" ---- read file
 	execute 'source' session_file
+	" ---- make the wheel follow the current file
+	call wheel#projection#follow ()
 	" ---- coda
 	if verbose
 		echomsg 'reading session : done'
@@ -546,6 +548,7 @@ endfun
 
 fun! wheel#disc#write_session (...)
 	" Ask where to write current session and do it
+	" Default : g:wheel_config.session_file
 	" ---- automatic mode
 	if a:0 > 0
 		if ! empty(a:1)
@@ -603,6 +606,7 @@ endfun
 
 fun! wheel#disc#read_session (...)
 	" Ask where to read current session and do it
+	" Default : g:wheel_config.session_file
 	" ---- automatic mode
 	if a:0 > 0
 		if ! empty(a:1)
