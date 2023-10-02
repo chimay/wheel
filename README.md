@@ -368,9 +368,9 @@ if ! exists("g:wheel_loaded")
   let g:wheel_config.session_dir = '~/.local/share/wheel/session'
   " ---- The file where default session will be stored and read
   let g:wheel_config.session_file = '~/.local/share/wheel/session/layout.vim'
-  " ---- Auto read default session file on startup if > 0
+  " ---- Auto read current of default session file on startup if > 0
   let g:wheel_config.autoread_session = 1
-  " ---- Auto write default session file on exit if > 0
+  " ---- Auto write current of default session file on exit if > 0
   let g:wheel_config.autowrite_session = 1
   " ---- Number of backups for wheel & session files
   let g:wheel_config.backups = 5

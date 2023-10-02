@@ -554,7 +554,9 @@ fun! wheel#disc#write_session (...)
 		if ! empty(a:1)
 			let session_file = fnamemodify(a:1, ':p')
 		else
-			if ! empty(g:wheel_config.session_file)
+			if ! empty(g:wheel_shelve.session_file)
+				let session_file = fnamemodify(g:wheel_shelve.session_file, ':p')
+			elseif ! empty(g:wheel_config.session_file)
 				let session_file = fnamemodify(g:wheel_config.session_file, ':p')
 			else
 				echomsg 'Please configure g:wheel_config.session_file'
@@ -612,7 +614,9 @@ fun! wheel#disc#read_session (...)
 		if ! empty(a:1)
 			let session_file = fnamemodify(a:1, ':p')
 		else
-			if ! empty(g:wheel_config.session_file)
+			if ! empty(g:wheel_shelve.session_file)
+				let session_file = fnamemodify(g:wheel_shelve.session_file, ':p')
+			elseif ! empty(g:wheel_config.session_file)
 				let session_file = fnamemodify(g:wheel_config.session_file, ':p')
 			else
 				echomsg 'Please configure g:wheel_config.session_file'
@@ -636,7 +640,7 @@ fun! wheel#disc#read_session (...)
 		echomsg 'wheel disc prompt_read_session :' session_dir  'does not exist'
 		return v:false
 	endif
-	if session_dir[-1] ==# '/'
+	if session_dir[-1:] ==# '/'
 		let session_dir = session_dir[:-2]
 	endif
 	" ---- default session file
@@ -656,10 +660,18 @@ fun! wheel#disc#read_session (...)
 		let session_file = default_session
 	endif
 	let session_file = session_dir .. '/' .. session_file
-	echomsg session_file
 	execute 'lcd' current_dir
-	" ---- write session
-	return wheel#disc#read_session_file(session_file)
+	" ---- save last state of previous session
+	if g:wheel_config.autowrite_session > 0
+		let verbose = v:false
+		call wheel#disc#write_session ('', verbose)
+	endif
+	" ---- read session
+	let success = wheel#disc#read_session_file(session_file)
+	" ---- update current session in shelve
+	if success
+		let g:wheel_shelve.session_file = session_file
+	endif
 endfun
 
 fun! wheel#disc#mksession (...)

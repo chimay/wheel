@@ -142,6 +142,10 @@ fun! wheel#void#shelve ()
 	if ! has_key(g:wheel_shelve, 'layout')
 		let g:wheel_shelve.layout = {}
 	endif
+	" ---- current session
+	if ! has_key(g:wheel_shelve, 'session_file')
+		let g:wheel_shelve.session_file = ''
+	endif
 	" ---- backup some vars if needed
 	if ! has_key(g:wheel_shelve, 'backup')
 		let g:wheel_shelve.backup = {}
