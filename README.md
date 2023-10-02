@@ -43,6 +43,7 @@
 Wheel is a :
 
 - file group manager
+- session manager (tabs & windows)
 - navigation plugin
 - refactoring tool
 
