@@ -426,6 +426,12 @@ if ! exists("g:wheel_loaded")
   " ---- Maximum number of vertical splits
   let g:wheel_config.maxim.vertical = 4
 
+  " ---- Completion
+  let g:wheel_config.completion.vocalize = 1
+  let g:wheel_config.completion.wordize = 1
+  let g:wheel_config.completion.fuzzy = 0
+  let g:wheel_config.completion.scores = 1
+
   " ---- Frecency
   let g:wheel_config.frecency.reward = 120
   let g:wheel_config.frecency.penalty = 1
