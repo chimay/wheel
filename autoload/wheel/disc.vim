@@ -510,7 +510,11 @@ fun! wheel#disc#write_wheel (...)
 	" ---- wheel file path
 	let wheel_file = wheel_folder .. wheel_name
 	" ---- write wheel
-	return wheel#disc#write_wheel_file(wheel_file)
+	let success = wheel#disc#write_wheel_file(wheel_file)
+	" ---- update current wheel in shelve
+	if success
+		let g:wheel_shelve.current.wheel = wheel_name
+	endif
 endfun
 
 fun! wheel#disc#read_wheel (...)
@@ -711,7 +715,11 @@ fun! wheel#disc#write_session (...)
 	" ---- session file path
 	let session_file = session_folder .. session_name
 	" ---- write session
-	return wheel#disc#write_session_file(session_file)
+	let success = wheel#disc#write_session_file(session_file)
+	" ---- update current session in shelve
+	if success
+		let g:wheel_shelve.current.session = session_name
+	endif
 endfun
 
 fun! wheel#disc#read_session (...)

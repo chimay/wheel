@@ -2124,8 +2124,8 @@ COMMANDS					*wheel-commands*
 Meta command				|wheel-commands-meta|
 Wheel status				|wheel-commands-status|
 Straight navigation			|wheel-commands-straight-navigation|
-Read and write				|wheel-commands-read-and-write|
 Prompt					|wheel-commands-prompt|
+Read and write				|wheel-commands-read-and-write|
 Dedicated buffers			|wheel-commands-dedicated-buffers|
 Batch					|wheel-commands-batch|
 Autogroup				|wheel-commands-autogroup|
@@ -2242,21 +2242,6 @@ Alternate~
 	circle
 
 ------------------------------------------------------------------------------
-READ AND WRITE					*wheel-commands-read-and-write*
-
-:Wheel read						*:Wheel-read*
-	Load wheel from file
-
-:Wheel write						*:Wheel-write*
-	Save wheel in file
-
-:Wheel read-session					*:Wheel-read-session*
-	Load session from file
-
-:Wheel write-session					*:Wheel-write-session*
-	Save session in file
-
-------------------------------------------------------------------------------
 PROMPT							*wheel-commands-prompt*
 
 :Wheel prompt {action}						*:Wheel-prompt*
@@ -2267,6 +2252,21 @@ Examples : >
     :Wheel prompt location
     :Wheel prompt history
 >
+
+------------------------------------------------------------------------------
+READ AND WRITE					*wheel-commands-read-and-write*
+
+:Wheel prompt read-wheel					*:Wheel-read*
+	Load wheel from file
+
+:Wheel prompt write-wheel					*:Wheel-write*
+	Save wheel in file
+
+:Wheel prompt read-session				*:Wheel-read-session*
+	Load session from file
+
+:Wheel prompt write-session				*:Wheel-write-session*
+	Save session in file
 
 ------------------------------------------------------------------------------
 DEDICATED BUFFERS				*wheel-commands-dedicated-buffers*
