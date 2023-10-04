@@ -160,17 +160,17 @@ endfun
 fun! wheel#kintsugi#post ()
 	" Convert old keys to new ones, called after config init
 	" -- project
-	if has_key(g:wheel_config, 'project.markers')
-		let g:wheel_config.project.markers = g:wheel_config.project.markers
-		unlet g:wheel_config.project.markers
-		let info = 'wheel config : project.markers is deprecated. '
+	if has_key(g:wheel_config, 'project_markers')
+		let g:wheel_config.project.markers = g:wheel_config.project_markers
+		unlet g:wheel_config.project_markers
+		let info = 'wheel config : project_markers is deprecated. '
 		let info ..= 'Please use project.markers instead.'
 		echomsg info
 	endif
-	if has_key(g:wheel_config, 'project.auto_chdir')
-		let g:wheel_config.project.auto_chdir = g:wheel_config.project.auto_chdir
-		unlet g:wheel_config.project.auto_chdir
-		let info = 'wheel config : project.auto_chdir is deprecated. '
+	if has_key(g:wheel_config, 'auto_chdir_project')
+		let g:wheel_config.project.auto_chdir = g:wheel_config.auto_chdir_project
+		unlet g:wheel_config.project.auto_chdir_project
+		let info = 'wheel config : auto_chdir_project is deprecated. '
 		let info ..= 'Please use project.auto_chdir instead.'
 		echomsg info
 	endif
