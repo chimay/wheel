@@ -217,15 +217,6 @@ fun! wheel#void#config ()
 	if ! has_key(g:wheel_config, 'prefix')
 		let g:wheel_config.prefix = '<M-w>'
 	endif
-	if ! has_key(g:wheel_config, 'backups')
-		let g:wheel_config.backups = 3
-	endif
-	if ! has_key(g:wheel_config, 'auto_chdir_project')
-		let g:wheel_config.auto_chdir_project = 0
-	endif
-	if ! has_key(g:wheel_config, 'project_markers')
-		let g:wheel_config.project_markers = '.git'
-	endif
 	if ! has_key(g:wheel_config, 'locate_db')
 		let g:wheel_config.locate_db = ''
 	endif
@@ -233,6 +224,16 @@ fun! wheel#void#config ()
 		" defaults to internal vimgrep,
 		" in case external grep is not available
 		let g:wheel_config.grep = 'vimgrep'
+	endif
+	" ---- project
+	if ! has_key(g:wheel_config, 'project')
+		let g:wheel_config.project = {}
+	endif
+	if ! has_key(g:wheel_config.project, 'markers')
+		let g:wheel_config.project.markers = '.git'
+	endif
+	if ! has_key(g:wheel_config.project, 'auto_chdir')
+		let g:wheel_config.project.auto_chdir = 0
 	endif
 	" ---- storage
 	if ! has_key(g:wheel_config, 'storage')
@@ -277,6 +278,10 @@ fun! wheel#void#config ()
 	endif
 	if ! has_key(g:wheel_config.storage.session, 'autoread')
 		let g:wheel_config.storage.session.autoread = 0
+	endif
+	" -- backups
+	if ! has_key(g:wheel_config.storage, 'backups')
+		let g:wheel_config.storage.backups = 3
 	endif
 	" ---- maxim
 	if ! has_key(g:wheel_config, 'maxim')

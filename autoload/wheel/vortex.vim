@@ -127,8 +127,8 @@ fun! wheel#vortex#jump (where = 'search-window')
 		doautocmd BufEnter
 	endif
 	" ---- auto change dir to project root
-	if g:wheel_config.auto_chdir_project > 0
-		let markers = g:wheel_config.project_markers
+	if g:wheel_config.project.auto_chdir > 0
+		let markers = g:wheel_config.project.markers
 		call wheel#disc#project_root(markers)
 	endif
 	" ---- record in history

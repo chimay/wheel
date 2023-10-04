@@ -111,8 +111,8 @@ fun! wheel#projection#follow (...)
 	endif
 	" ---- tune
 	call wheel#vortex#chord (coordin)
-	if g:wheel_config.auto_chdir_project > 0
-		let markers = g:wheel_config.project_markers
+	if g:wheel_config.project.auto_chdir > 0
+		let markers = g:wheel_config.project.markers
 		call wheel#disc#project_root (markers)
 	endif
 	call wheel#pendulum#record ()

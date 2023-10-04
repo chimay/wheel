@@ -2373,20 +2373,21 @@ CONFIGURATION					    *wheel-configuration*
 
 Vim options				|wheel-config-vim-options|
 Dictionary				|wheel-config-dictionary|
-File					|wheel-config-file|
-Autoread				|wheel-config-autoread|
-Autowrite				|wheel-config-autowrite|
-Session directory			|wheel-config-session-dir|
-Session file				|wheel-config-session-file|
-Autoread session file			|wheel-config-autoread-session|
-Autowrite session file			|wheel-config-autowrite-session|
-Backups					|wheel-config-backups|
 Mappings				|wheel-config-mappings|
 Prefix					|wheel-config-prefix|
-Auto chdir project			|wheel-config-auto-chdir-project|
-Project markers				|wheel-config-project-markers|
 Locate database				|wheel-config-locate-db|
 Grep ex command				|wheel-config-grep|
+Project markers				|wheel-config-project-markers|
+Auto chdir project			|wheel-config-project-auto-chdir|
+Wheel folder				|wheel-config-wheel-folder|
+Wheel name				|wheel-config-wheel-name|
+Autoread wheel				|wheel-config-wheel-autoread|
+Autowrite wheel				|wheel-config-wheel-autowrite|
+Session folder				|wheel-config-session-folder|
+Session file				|wheel-config-session-name|
+Autoread session			|wheel-config-session-autoread|
+Autowrite session			|wheel-config-session-autowrite|
+Backups					|wheel-config-backups|
 Max history 				|wheel-config-maxim-history|
 Max input history 			|wheel-config-maxim-input|
 Max MRU					|wheel-config-maxim-mru|
@@ -2434,140 +2435,18 @@ DICTIONARY					  *wheel-config-dictionary*
 Customization is done using the `g:wheel_config` dictionary. You must
 first initialize it : >
 
-    let g:wheel_config              = {}
-    let g:wheel_config.maxim        = {}
-    let g:wheel_config.frecency     = {}
-    let g:wheel_config.display      = {}
-    let g:wheel_config.display.sign = {}
+	let g:wheel_config                 = {}
+	let g:wheel_config.project         = {}
+	let g:wheel_config.storage         = {}
+	let g:wheel_config.storage.wheel   = {}
+	let g:wheel_config.storage.session = {}
+	let g:wheel_config.maxim           = {}
+	let g:wheel_config.completion      = {}
+	let g:wheel_config.frecency        = {}
+	let g:wheel_config.display         = {}
+	let g:wheel_config.display.sign    = {}
+
 <
-
-------------------------------------------------------------------------------
-FILE						    *wheel-config-file*
-
-File to save or load the wheel : >
-
-    let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
-<
-
-It is highly recommended to define this file and regularly save it,
-either manually or automatically, using the autowrite config.
-
-Default~
-
-- vim : '~/.vim/wheel/wheel.vim'
-- nvim : '~/.local/share/nvim/wheel/wheel.vim'
-
-------------------------------------------------------------------------------
-AUTOREAD					    *wheel-config-autoread*
-
-Auto read wheel file on startup if non null : >
-
-    let g:wheel_config.autoread = 1
-<
-
-To enable it, you need to add an autocommand on vim enter : >
-
-    autocmd VimEnter * call wheel#void#init()
-<
-
-Default : 0
-
-------------------------------------------------------------------------------
-AUTOWRITE					    *wheel-config-autowrite*
-
-Auto write wheel file on exit if non null : >
-
-    let g:wheel_config.autowrite = 1
-<
-
-To enable it, you need to add an autocommand on vim leave : >
-
-    autocmd VimLeave * call wheel#void#exit()
-<
-
-Default : 0
-
-------------------------------------------------------------------------------
-SESSION DIRECTORY				   *wheel-config-session-dir*
-
-Wheel can save your tabs & windows layout in session files.
-
-You can have as many session files as you want, they will be stored in
-a session directory.
-
-Directory where your sessions will be saved : >
-
-    let g:wheel_config.session_dir = '~/.local/share/wheel/session'
-<
-
-Default~
-
-- vim : '~/.vim/wheel/session'
-- nvim : '~/.local/share/nvim/wheel/session'
-
-------------------------------------------------------------------------------
-SESSION FILE					   *wheel-config-session-file*
-
-File to save or load the default session : >
-
-    let g:wheel_config.session_file = '~/.local/share/wheel/session/layout.vim'
-<
-
-You can define this file and regularly save it, either manually or
-automatically, using the autowrite_session config.
-
-Default~
-
-- vim : '~/.vim/wheel/session/default.vim'
-- nvim : '~/.local/share/nvim/wheel/session/default.vim'
-
-------------------------------------------------------------------------------
-AUTOREAD SESSION			    *wheel-config-autoread-session*
-
-Auto read current or default session file on startup if non null : >
-
-    let g:wheel_config.autoread_session = 1
-<
-
-To enable it, you need to add an autocommand on vim enter : >
-
-  autocmd VimEnter * call wheel#void#init()
-<
-
-Default : 0
-
-------------------------------------------------------------------------------
-AUTOWRITE SESSION			    *wheel-config-autowrite-session*
-
-Auto write current or default session file on exit if non null : >
-
-    let g:wheel_config.autowrite_session = 1
-<
-
-To enable it, you need to add an autocommand on vim leave : >
-
-    autocmd VimLeave * call wheel#void#exit()
-<
-
-Default : 0
-
-------------------------------------------------------------------------------
-BACKUPS						    *wheel-config-backups*
-
-Number of backups for wheel and session files : >
-
-    let g:wheel_config.backups = 3
-<
-
-Assuming your wheel file is `auto.vim`, the backups will be named
-`auto.vim.1`, `auto.vim.2`, `auto.vim.3`, and so on.
-
-Also used for the session file.
-
-It is recommended to use backups, in case things get messed up
-accidentally.
-
-Default : 3
 
 ------------------------------------------------------------------------------
 MAPPINGS					    *wheel-config-mappings*
@@ -2594,40 +2473,6 @@ See |wheel-mappings-prefix| for more information.
 Default : `<M-w>`
 
 ------------------------------------------------------------------------------
-AUTO CHDIR PROJECT				*wheel-config-auto-chdir-project*
-
-Try to change directory to project root if > 0 : >
-
-    let g:wheel_config.auto_chdir_project = 1
-<
-
-To find the right folder, the plugin looks at files or dirs listed in
-`g:wheel_config.project_markers`, see below.
-
-Default : 0
-
-Deprecated~
-
-This variable replace the deprecated one : >
-
-    g:wheel_config.cd_project
-<
-
-Automatic conversion is made if dedected at (neo)vim start.
-
-------------------------------------------------------------------------------
-PROJECT MARKERS				*wheel-config-project-markers*
-
-File(s) or directories(s) marking a project root. Can take a string or
-list value. : >
-
-    let g:wheel_config.project_markers = '.git'
-    let g:wheel_config.project_markers = ['.git', '.my-project-root']
-<
-
-Default : `'.git'`
-
-------------------------------------------------------------------------------
 LOCATE DATABASE			    		*wheel-config-locate-db*
 
 If you want to use a custom database when using `locate` : >
@@ -2648,6 +2493,173 @@ Whether to use internal |:vimgrep| or external |:grep| to grep files : >
 <
 
 Default : internal vimgrep, in case external grep is not available.
+
+------------------------------------------------------------------------------
+PROJECT MARKERS				*wheel-config-project-markers*
+
+File(s) or directories(s) marking a project root. Can take a string or
+list value. : >
+
+    let g:wheel_config.project.markers = '.git'
+    let g:wheel_config.project.markers = ['.git', '.my-project-root']
+<
+
+If a list is given, the project directory is found as soon as one marker
+of the list is found in it
+
+Default : `'.git'`
+
+------------------------------------------------------------------------------
+AUTO CHDIR PROJECT			*wheel-config-project-auto-chdir*
+
+Try to change directory to project root if > 0 : >
+
+    let g:wheel_config.project.auto_chdir = 1
+<
+
+To find the right folder, the plugin looks at files or dirs listed in
+`g:wheel_config.project_markers`.
+
+Default : 0
+
+------------------------------------------------------------------------------
+WHEEL FOLDER					   *wheel-config-wheel-folder*
+
+The plugin can save your wheel catégories & groups in wheel files.
+
+You can have as many wheel files as you want, they will be stored in
+a wheel folder.
+
+Folder where your wheels will be saved : >
+
+    let g:wheel_config.storage.wheel.folder = '~/.local/share/wheel'
+<
+
+It is highly recommended to define this folder and regularly save the
+wheel, either manually or automatically, using the autowrite config.
+
+Default~
+
+- vim : '~/.vim/wheel'
+- nvim : '~/.local/share/nvim/wheel'
+
+------------------------------------------------------------------------------
+WHEEL NAME					    *wheel-config-wheel-name*
+
+Name for the default wheel file : >
+
+    let g:wheel_config.storage.wheel.name = 'wheel.vim'
+<
+
+This file will be located in `g:wheel_config.storage.wheel.folder`
+
+Default : `wheel.vim`
+
+------------------------------------------------------------------------------
+AUTOREAD WHEEL				    *wheel-config-wheel-autoread*
+
+Auto read wheel file on startup if non null : >
+
+    let g:wheel_config.storage.wheel.autoread = 1
+<
+
+To enable it, you need to add an autocommand on vim enter : >
+
+    autocmd VimEnter * call wheel#void#init()
+<
+
+Default : 0
+
+------------------------------------------------------------------------------
+AUTOWRITE WHEEL				    *wheel-config-wheel-autowrite*
+
+Auto write wheel file on exit if non null : >
+
+    let g:wheel_config.storage.wheel.autowrite = 1
+<
+
+To enable it, you need to add an autocommand on vim leave : >
+
+    autocmd VimLeave * call wheel#void#exit()
+<
+
+Default : 0
+
+------------------------------------------------------------------------------
+SESSION FOLDER				   *wheel-config-session-folder*
+
+Wheel can save your tabs & windows layout in session files.
+
+You can have as many session files as you want, they will be stored in
+a session folder.
+
+Folder where your sessions will be saved : >
+
+    let g:wheel_config.storage.session.folder = '~/.local/share/wheel/session'
+<
+
+Default~
+
+- vim : '~/.vim/wheel/session'
+- nvim : '~/.local/share/nvim/wheel/session'
+
+------------------------------------------------------------------------------
+SESSION NAME					   *wheel-config-session-name*
+
+Name for the default session file : >
+
+    let g:wheel_config.storage.session.name = 'session.vim'
+<
+
+This file will be located in `g:wheel_config.storage.session.folder`
+
+Default : `session.vim`
+
+------------------------------------------------------------------------------
+AUTOREAD SESSION			    *wheel-config-session-autoread*
+
+Auto read current or default session file on startup if non null : >
+
+    let g:wheel_config.storage.session.autoread = 1
+<
+
+To enable it, you need to add an autocommand on vim enter : >
+
+  autocmd VimEnter * call wheel#void#init()
+<
+
+Default : 0
+
+------------------------------------------------------------------------------
+AUTOWRITE SESSION			    *wheel-config-session-autowrite*
+
+Auto write current or default session file on exit if non null : >
+
+    let g:wheel_config.storage.session.autowrite = 1
+<
+
+To enable it, you need to add an autocommand on vim leave : >
+
+    autocmd VimLeave * call wheel#void#exit()
+<
+
+Default : 0
+
+------------------------------------------------------------------------------
+BACKUPS						    *wheel-config-backups*
+
+Number of backups for wheel and session files : >
+
+    let g:wheel_config.storage.backups = 3
+<
+
+Assuming your wheel file is `wheel.vim`, the backups will be named
+`wheel.vim.1`, `wheel.vim.2`, `wheel.vim.3`, and so on.
+
+It is recommended to use backups, in case things get messed up
+accidentally.
+
+Default : 3
 
 ------------------------------------------------------------------------------
 MAX NUMBER OF ELEMENTS IN HISTORY		   *wheel-config-maxim-history*
@@ -2964,95 +2976,104 @@ EXAMPLE						        *wheel-config-example*
 
 Here is an example of a complete configuration : >
 
- if ! exists("g:wheel_loaded")
-  " ---- DONT FORGET TO INITIALIZE DICTS BEFORE USING THEM
-  let g:wheel_config              = {}
-  let g:wheel_config.maxim        = {}
-  let g:wheel_config.frecency     = {}
-  let g:wheel_config.display      = {}
-  let g:wheel_config.display.sign = {}
+  if ! exists("g:wheel_loaded")
+    " ---- DONT FORGET TO INITIALIZE DICTS BEFORE USING THEM
+    let g:wheel_config                 = {}
+    let g:wheel_config.project         = {}
+    let g:wheel_config.storage         = {}
+    let g:wheel_config.storage.wheel   = {}
+    let g:wheel_config.storage.session = {}
+    let g:wheel_config.maxim           = {}
+    let g:wheel_config.completion      = {}
+    let g:wheel_config.frecency        = {}
+    let g:wheel_config.display         = {}
+    let g:wheel_config.display.sign    = {}
 
-  " ---- The file where toruses and circles will be stored and read
-  let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
-  " ---- Auto read wheel file on startup if > 0
-  let g:wheel_config.autoread = 1
-  " ---- Auto write wheel file on exit if > 0
-  let g:wheel_config.autowrite = 1
-  " ---- The directory where sessions will be stored and read
-  let g:wheel_config.session_dir = '~/.local/share/wheel/session'
-  " ---- The file where default session will be stored and read
-  let g:wheel_config.session_file = '~/.local/share/wheel/session/layout.vim'
-  " ---- Auto read current of default session file on startup if > 0
-  let g:wheel_config.autoread_session = 1
-  " ---- Auto write current of default session file on exit if > 0
-  let g:wheel_config.autowrite_session = 1
-  " ---- Number of backups for wheel & session files
-  let g:wheel_config.backups = 5
-  " ---- The bigger it is, the more mappings available
-  let g:wheel_config.mappings = 10
-  " ---- Prefix for mappings
-  let g:wheel_config.prefix = '<M-w>'
-  " ---- Auto cd to project root if > 0
-  let g:wheel_config.auto_chdir_project = 1
-  " ---- Marker of project root
-  "let g:wheel_config.project_markers = '.git'
-  "let g:wheel_config.project_markers = '.project-root'
-  " ---- List of markers
-  " ---- The project dir is found as soon as one marker is found in it
-  let g:wheel_config.project_markers = ['.git', '.project-root']
-  " ---- Locate database ; default one if left empty
-  let g:wheel_config.locate_db = '~/index/locate/home.db'
-  " ---- Grep command : :grep or :vimpgrep
-  let g:wheel_config.grep = 'grep'
+    " ---- The bigger it is, the more mappings available
+    let g:wheel_config.mappings = 10
+    " ---- Prefix for mappings
+    let g:wheel_config.prefix = '<M-w>'
+    " ---- Locate database ; default one if left empty
+    let g:wheel_config.locate_db = '~/index/locate/home.db'
+    " ---- Grep command : :grep or :vimpgrep
+    let g:wheel_config.grep = 'grep'
 
-  " ---- Maximum number of elements in history
-  let g:wheel_config.maxim.history = 400
-  " ---- Maximum number of elements in input history
-  let g:wheel_config.maxim.input = 200
+    " Marker of project root
+    "let g:wheel_config.project.markers = '.git'
+    "let g:wheel_config.project.markers = '.project-root'
+    " List of markers
+    " The project dir is found as soon as one marker is found in it
+    let g:wheel_config.project.markers = ['.hg' , '.git', '.project-root']
+    " Auto cd to project root if > 0
+    let g:wheel_config.project.auto_chdir = 1
 
-  " ---- Maximum number of elements in mru
-  let g:wheel_config.maxim.mru = 300
+    " The folder where toruses and circles will be stored and read
+    let g:wheel_config.storage.wheel.folder = '~/.local/share/wheel'
+    " Name of the default wheel file
+    let g:wheel_config.storage.wheel.name = 'wheel.vim'
+    " Auto read wheel file on startup if > 0
+    let g:wheel_config.storage.wheel.autoread = 1
+    " Auto write wheel file on exit if > 0
+    let g:wheel_config.storage.wheel.autowrite = 1
+    " The folder where sessions will be stored and read
+    let g:wheel_config.storage.session.folder = '~/.local/share/wheel/session'
+    " Name of the default session file
+    let g:wheel_config.storage.session.name = 'session.vim'
+    " Auto read default session file on startup if > 0
+    let g:wheel_config.storage.session.autoread = 1
+    " Auto write default session file on exit if > 0
+    let g:wheel_config.storage.session.autowrite = 1
+    " Number of backups for wheel & session files
+    let g:wheel_config.storage.backups = 5
 
-  " ---- Maximum number of elements in yank ring
-  let g:wheel_config.maxim.default_yanks = 700
-  let g:wheel_config.maxim.other_yanks = 100
-  " ---- Maximum lines of yank to add in yank ring
-  let g:wheel_config.maxim.yank_lines = 30
-  " ---- Maximum size of yank to add in yank ring
-  let g:wheel_config.maxim.yank_size = 3000
+    " ---- Maximum number of elements in history
+    let g:wheel_config.maxim.history = 400
+    " ---- Maximum number of elements in input history
+    let g:wheel_config.maxim.input = 200
 
-  " ---- Maximum size of layer ring
-  let g:wheel_config.maxim.layers = 10
+    " ---- Maximum number of elements in mru
+    let g:wheel_config.maxim.mru = 300
 
-  " ---- Maximum number of tabs in layouts
-  let g:wheel_config.maxim.tabs = 12
-  " ---- Maximum number of horizontal splits
-  let g:wheel_config.maxim.horizontal = 3
-  " ---- Maximum number of vertical splits
-  let g:wheel_config.maxim.vertical = 4
+    " ---- Maximum number of elements in yank ring
+    let g:wheel_config.maxim.default_yanks = 700
+    let g:wheel_config.maxim.other_yanks = 100
+    " ---- Maximum lines of yank to add in yank ring
+    let g:wheel_config.maxim.yank_lines = 30
+    " ---- Maximum size of yank to add in yank ring
+    let g:wheel_config.maxim.yank_size = 3000
 
-  " ---- Frecency
-  let g:wheel_config.frecency.reward = 120
-  let g:wheel_config.frecency.penalty = 1
+    " ---- Maximum size of layer ring
+    let g:wheel_config.maxim.layers = 10
 
-  " ---- Mandala & leaf status in statusline ?
-  let g:wheel_config.display.statusline = 1
-  " ---- Wheel dedibuf message : one-line or multi-line
-  let g:wheel_config.display.dedibuf_msg = 'one-line'
-  " ---- Filter prompt in dedicated buffers
-  "let g:wheel_config.display.prompt = 'wheel $ '
-  "let g:wheel_config.display.prompt_writable = 'wheel # '
-  " ---- Selection marker in dedicated buffers
-  "let g:wheel_config.display.selection = '-> '
-  " ---- Signs
-  let g:wheel_config.display.sign.switch = 1
-  " ---- Signs at wheel locations
-  "let g:wheel_config.display.sign.settings = { 'text' : '@' }
-  " ---- Signs after using Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
-  "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
+    " ---- Maximum number of tabs in layouts
+    let g:wheel_config.maxim.tabs = 12
+    " ---- Maximum number of horizontal splits
+    let g:wheel_config.maxim.horizontal = 3
+    " ---- Maximum number of vertical splits
+    let g:wheel_config.maxim.vertical = 4
 
-  let g:wheel_config.debug = 0
- endif
+    " ---- Frecency
+    let g:wheel_config.frecency.reward = 120
+    let g:wheel_config.frecency.penalty = 1
+
+    " ---- Mandala & leaf status in statusline ?
+    let g:wheel_config.display.statusline = 1
+    " ---- Wheel dedibuf message : one-line or multi-line
+    let g:wheel_config.display.dedibuf_msg = 'one-line'
+    " ---- Filter prompt in dedicated buffers
+    "let g:wheel_config.display.prompt = 'wheel $ '
+    "let g:wheel_config.display.prompt_writable = 'wheel # '
+    " ---- Selection marker in dedicated buffers
+    "let g:wheel_config.display.selection = '-> '
+    " ---- Signs
+    let g:wheel_config.display.sign.switch = 1
+    " ---- Signs at wheel locations
+    "let g:wheel_config.display.sign.settings = { 'text' : '@' }
+    " ---- Signs after using Wheel interface to native navigation (buffer, marker, jump, change, tag, ...)
+    "let g:wheel_config.display.sign.native_settings = { 'text' : '*' }
+
+    let g:wheel_config.debug = 0
+  endif
 <
 
 ==============================================================================

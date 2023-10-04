@@ -393,7 +393,7 @@ fun! wheel#disc#write_wheel_file (wheel_file, ...)
 	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
 	" ---- backups
-	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
+	call wheel#disc#roll_backups(wheel_file, g:wheel_config.storage.backups)
 	" ---- write
 	"echomsg 'Writing wheel variables to file ..'
 	" -- replace >
@@ -468,7 +468,11 @@ fun! wheel#disc#write_wheel (...)
 			if wheel_folder[-1:] !=# '/'
 				let wheel_folder = wheel_folder .. '/'
 			endif
-			let wheel_name = g:wheel_config.storage.wheel.name
+			if ! empty(g:wheel_shelve.current.wheel)
+				let wheel_name = g:wheel_shelve.current.wheel
+			else
+				let wheel_name = g:wheel_config.storage.wheel.name
+			endif
 			let wheel_file = wheel_folder .. wheel_name
 		endif
 		let arglist = [wheel_file] + a:000[1:]
@@ -486,7 +490,11 @@ fun! wheel#disc#write_wheel (...)
 		return v:false
 	endif
 	" ---- default wheel file
-	let default_wheel = g:wheel_config.storage.wheel.name
+	if ! empty(g:wheel_shelve.current.wheel)
+		let default_wheel = g:wheel_shelve.current.wheel
+	else
+		let default_wheel = g:wheel_config.storage.wheel.name
+	endif
 	let default_wheel = fnamemodify(default_wheel, ':t')
 	" ---- prompt for wheel file
 	let current_dir = getcwd()
@@ -519,7 +527,11 @@ fun! wheel#disc#read_wheel (...)
 			if wheel_folder[-1:] !=# '/'
 				let wheel_folder = wheel_folder .. '/'
 			endif
-			let wheel_name = g:wheel_config.storage.wheel.name
+			if ! empty(g:wheel_shelve.current.wheel)
+				let wheel_name = g:wheel_shelve.current.wheel
+			else
+				let wheel_name = g:wheel_config.storage.wheel.name
+			endif
 			let wheel_file = wheel_folder .. wheel_name
 		endif
 		let arglist = [wheel_file] + a:000[1:]
@@ -541,7 +553,11 @@ fun! wheel#disc#read_wheel (...)
 		return v:false
 	endif
 	" ---- default wheel name
-	let default_wheel = g:wheel_config.storage.wheel.name
+	if ! empty(g:wheel_shelve.current.wheel)
+		let default_wheel = g:wheel_shelve.current.wheel
+	else
+		let default_wheel = g:wheel_config.storage.wheel.name
+	endif
 	let default_wheel = fnamemodify(default_wheel, ':t')
 	" ---- prompt for wheel name
 	let current_dir = getcwd()
@@ -585,7 +601,7 @@ fun! wheel#disc#write_session_file (session_file, ...)
 		return v:false
 	endif
 	" ---- backups
-	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
+	call wheel#disc#roll_backups(session_file, g:wheel_config.storage.backups)
 	" ----- writing session
 	let commandlist = wheel#labyrinth#session ()
 	let zero = writefile(commandlist, session_file)
@@ -653,7 +669,11 @@ fun! wheel#disc#write_session (...)
 			if session_folder[-1:] !=# '/'
 				let session_folder = session_folder .. '/'
 			endif
-			let session_name = g:wheel_config.storage.session.name
+			if ! empty(g:wheel_shelve.current.session)
+				let session_name = g:wheel_shelve.current.session
+			else
+				let session_name = g:wheel_config.storage.session.name
+			endif
 			let session_file = session_folder .. session_name
 		endif
 		let arglist = [session_file] + a:000[1:]
@@ -671,7 +691,11 @@ fun! wheel#disc#write_session (...)
 		return v:false
 	endif
 	" ---- default session file
-	let default_session = g:wheel_config.storage.session.name
+	if ! empty(g:wheel_shelve.current.session)
+		let default_session = g:wheel_shelve.current.session
+	else
+		let default_session = g:wheel_config.storage.session.name
+	endif
 	let default_session = fnamemodify(default_session, ':t')
 	" ---- prompt for session file
 	let current_dir = getcwd()
@@ -702,7 +726,11 @@ fun! wheel#disc#read_session (...)
 			if session_folder[-1:] !=# '/'
 				let session_folder = session_folder .. '/'
 			endif
-			let session_name = g:wheel_config.storage.session.name
+			if ! empty(g:wheel_shelve.current.session)
+				let session_name = g:wheel_shelve.current.session
+			else
+				let session_name = g:wheel_config.storage.session.name
+			endif
 			let session_file = session_folder .. session_name
 		endif
 		let arglist = [session_file] + a:000[1:]
@@ -724,7 +752,11 @@ fun! wheel#disc#read_session (...)
 		return v:false
 	endif
 	" ---- default session file
-	let default_session = g:wheel_config.storage.session.name
+	if ! empty(g:wheel_shelve.current.session)
+		let default_session = g:wheel_shelve.current.session
+	else
+		let default_session = g:wheel_config.storage.session.name
+	endif
 	let default_session = fnamemodify(default_session, ':t')
 	" ---- prompt for session name
 	let current_dir = getcwd()

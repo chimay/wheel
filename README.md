@@ -352,44 +352,53 @@ Here is an example of configuration :
 ~~~vim
 if ! exists("g:wheel_loaded")
   " ---- DONT FORGET TO INITIALIZE DICTS BEFORE USING THEM
-  let g:wheel_config              = {}
-  let g:wheel_config.maxim        = {}
-  let g:wheel_config.frecency     = {}
-  let g:wheel_config.display      = {}
-  let g:wheel_config.display.sign = {}
+  let g:wheel_config                 = {}
+  let g:wheel_config.project         = {}
+  let g:wheel_config.storage         = {}
+  let g:wheel_config.storage.wheel   = {}
+  let g:wheel_config.storage.session = {}
+  let g:wheel_config.maxim           = {}
+  let g:wheel_config.completion      = {}
+  let g:wheel_config.frecency        = {}
+  let g:wheel_config.display         = {}
+  let g:wheel_config.display.sign    = {}
 
-  " ---- The file where toruses and circles will be stored and read
-  let g:wheel_config.file = '~/.local/share/wheel/auto.vim'
-  " ---- Auto read wheel file on startup if > 0
-  let g:wheel_config.autoread = 1
-  " ---- Auto write wheel file on exit if > 0
-  let g:wheel_config.autowrite = 1
-  " ---- The directory where sessions will be stored and read
-  let g:wheel_config.session_dir = '~/.local/share/wheel/session'
-  " ---- The file where default session will be stored and read
-  let g:wheel_config.session_file = '~/.local/share/wheel/session/layout.vim'
-  " ---- Auto read current of default session file on startup if > 0
-  let g:wheel_config.autoread_session = 1
-  " ---- Auto write current of default session file on exit if > 0
-  let g:wheel_config.autowrite_session = 1
-  " ---- Number of backups for wheel & session files
-  let g:wheel_config.backups = 5
   " ---- The bigger it is, the more mappings available
   let g:wheel_config.mappings = 10
   " ---- Prefix for mappings
   let g:wheel_config.prefix = '<M-w>'
-  " ---- Auto cd to project root if > 0
-  let g:wheel_config.auto_chdir_project = 1
-  " ---- Marker of project root
-  "let g:wheel_config.project_markers = '.git'
-  "let g:wheel_config.project_markers = '.project-root'
-  " ---- List of markers
-  " ---- The project dir is found as soon as one marker is found in it
-  let g:wheel_config.project_markers = ['.git', '.project-root']
   " ---- Locate database ; default one if left empty
   let g:wheel_config.locate_db = '~/index/locate/home.db'
   " ---- Grep command : :grep or :vimpgrep
   let g:wheel_config.grep = 'grep'
+
+  " Marker of project root
+  "let g:wheel_config.project.markers = '.git'
+  "let g:wheel_config.project.markers = '.project-root'
+  " List of markers
+  " The project dir is found as soon as one marker is found in it
+  let g:wheel_config.project.markers = ['.hg' , '.git', '.project-root']
+  " Auto cd to project root if > 0
+  let g:wheel_config.project.auto_chdir = 1
+
+  " The folder where toruses and circles will be stored and read
+  let g:wheel_config.storage.wheel.folder = '~/.local/share/wheel'
+  " Name of the default wheel file
+  let g:wheel_config.storage.wheel.name = 'wheel.vim'
+  " Auto read wheel file on startup if > 0
+  let g:wheel_config.storage.wheel.autoread = 1
+  " Auto write wheel file on exit if > 0
+  let g:wheel_config.storage.wheel.autowrite = 1
+  " The folder where sessions will be stored and read
+  let g:wheel_config.storage.session.folder = '~/.local/share/wheel/session'
+  " Name of the default session file
+  let g:wheel_config.storage.session.name = 'session.vim'
+  " Auto read default session file on startup if > 0
+  let g:wheel_config.storage.session.autoread = 1
+  " Auto write default session file on exit if > 0
+  let g:wheel_config.storage.session.autowrite = 1
+  " Number of backups for wheel & session files
+  let g:wheel_config.storage.backups = 5
 
   " ---- Maximum number of elements in history
   let g:wheel_config.maxim.history = 400
@@ -441,34 +450,34 @@ if ! exists("g:wheel_loaded")
 endif
 
 augroup wheel
-	" Clear the group
-	autocmd!
-	" On vim enter, for autoreading
-	autocmd VimEnter * call wheel#void#init()
-	" On vim leave, for autowriting
-	autocmd VimLeave * call wheel#void#exit()
-	" Update location line & col before leaving a window
-	autocmd BufLeave * call wheel#vortex#update()
-	" Executed before jumping to a location
-	autocmd User WheelBeforeJump call wheel#vortex#update()
-	" Executed before organizing the wheel
-	autocmd User WheelBeforeOrganize call wheel#vortex#update()
-	" Executed before writing the wheel
-	autocmd User WheelBeforeWrite call wheel#vortex#update()
-	" Executed after jumping to a location
-	"autocmd User WheelAfterJump norm zMzx
-	" For current wheel location to auto follow window changes
-	autocmd WinEnter * call wheel#projection#follow()
-	" For current wheel location to follow on editing, buffer loading
-	"autocmd BufRead * call wheel#projection#follow()
-	" For current wheel location to follow on entering buffer
-	"autocmd BufEnter * call wheel#projection#follow()
-	" Executed after using Wheel interface to a native jump (buffer, marker, jump, change, tag, ...)
-	"autocmd User WheelAfterNative call wheel#projection#follow()
-	" Add current non-wheel file to MRU files
-	autocmd BufRead * call wheel#attic#record()
-	" To record your yanks in the yank ring
-	autocmd TextYankPost * call wheel#codex#add()
+  " Clear the group
+  autocmd!
+  " On vim enter, for autoreading
+  autocmd VimEnter * call wheel#void#init()
+  " On vim leave, for autowriting
+  autocmd VimLeave * call wheel#void#exit()
+  " Update location line & col before leaving a window
+  autocmd BufLeave * call wheel#vortex#update()
+  " Executed before jumping to a location
+  autocmd User WheelBeforeJump call wheel#vortex#update()
+  " Executed before organizing the wheel
+  autocmd User WheelBeforeOrganize call wheel#vortex#update()
+  " Executed before writing the wheel
+  autocmd User WheelBeforeWrite call wheel#vortex#update()
+  " Executed after jumping to a location
+  "autocmd User WheelAfterJump norm zMzx
+  " For current wheel location to auto follow window changes
+  autocmd WinEnter * call wheel#projection#follow()
+  " For current wheel location to follow on editing, buffer loading
+  "autocmd BufRead * call wheel#projection#follow()
+  " For current wheel location to follow on entering buffer
+  "autocmd BufEnter * call wheel#projection#follow()
+  " Executed after using Wheel interface to a native jump (buffer, marker, jump, change, tag, ...)
+  "autocmd User WheelAfterNative call wheel#projection#follow()
+  " Add current non-wheel file to MRU files
+  autocmd BufRead * call wheel#attic#record()
+  " To record your yanks in the yank ring
+  autocmd TextYankPost * call wheel#codex#add()
 augroup END
 ~~~
 

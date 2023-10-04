@@ -114,10 +114,10 @@ fun! wheel#kintsugi#pre ()
 	endif
 	" ---- chdir project
 	if has_key(g:wheel_config, 'cd_project')
-		let g:wheel_config.auto_chdir_project = g:wheel_config.cd_project
+		let g:wheel_config.project.auto_chdir = g:wheel_config.cd_project
 		unlet g:wheel_config.cd_project
 		let info = 'wheel config : cd_project is deprecated. '
-		let info ..= 'Please use auto_chdir_project instead.'
+		let info ..= 'Please use project.auto_chdir instead.'
 		echomsg info
 	endif
 	" ---- default_yanks, other_yanks
@@ -159,6 +159,21 @@ endfun
 
 fun! wheel#kintsugi#post ()
 	" Convert old keys to new ones, called after config init
+	" -- project
+	if has_key(g:wheel_config, 'project.markers')
+		let g:wheel_config.project.markers = g:wheel_config.project.markers
+		unlet g:wheel_config.project.markers
+		let info = 'wheel config : project.markers is deprecated. '
+		let info ..= 'Please use project.markers instead.'
+		echomsg info
+	endif
+	if has_key(g:wheel_config, 'project.auto_chdir')
+		let g:wheel_config.project.auto_chdir = g:wheel_config.project.auto_chdir
+		unlet g:wheel_config.project.auto_chdir
+		let info = 'wheel config : project.auto_chdir is deprecated. '
+		let info ..= 'Please use project.auto_chdir instead.'
+		echomsg info
+	endif
 	" ---- storage
 	" -- wheel
 	if has_key(g:wheel_config, 'file')
@@ -213,6 +228,14 @@ fun! wheel#kintsugi#post ()
 		unlet g:wheel_config.autowrite_session
 		let info = 'wheel config : autowrite_session is deprecated. '
 		let info ..= 'Please use storage.session.autowrite instead.'
+		echomsg info
+	endif
+	" -- backups
+	if has_key(g:wheel_config, 'backups')
+		let g:wheel_config.storage.backups = g:wheel_config.backups
+		unlet g:wheel_config.backups
+		let info = 'wheel config : backups is deprecated. '
+		let info ..= 'Please use storage.backups instead.'
 		echomsg info
 	endif
 	" ---- shelve session_file
