@@ -97,8 +97,6 @@ fun! wheel#labyrinth#session ()
 	"eval returnlist->add('noautocmd silent tabrewind')
 	" ---- return to current tab
 	eval returnlist->add(current_tab .. 'tabnext')
-	" ---- jump
-	eval returnlist->add('call wheel#vortex#jump()')
 	" ---- filetype
 	eval returnlist->add('filetype on')
 	" ---- autocommands
