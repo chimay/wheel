@@ -131,6 +131,18 @@ fun! wheel#void#shelve ()
 	if ! exists('g:wheel_shelve')
 		let g:wheel_shelve = {}
 	endif
+	" ---- current
+	if ! has_key(g:wheel_shelve, 'current')
+		let g:wheel_shelve.current = {}
+	endif
+	" -- wheel file
+	if ! has_key(g:wheel_shelve.current, 'wheel')
+		let g:wheel_shelve.current.wheel = ''
+	endif
+	" -- session file
+	if ! has_key(g:wheel_shelve.current, 'session')
+		let g:wheel_shelve.current.session = ''
+	endif
 	" ---- yank ring
 	if ! has_key(g:wheel_shelve, 'yank')
 		let g:wheel_shelve.yank = {}
@@ -141,10 +153,6 @@ fun! wheel#void#shelve ()
 	" ---- tabs and windows layouts
 	if ! has_key(g:wheel_shelve, 'layout')
 		let g:wheel_shelve.layout = {}
-	endif
-	" ---- current session
-	if ! has_key(g:wheel_shelve, 'session_file')
-		let g:wheel_shelve.session_file = ''
 	endif
 	" ---- backup some vars if needed
 	if ! has_key(g:wheel_shelve, 'backup')
@@ -203,39 +211,6 @@ fun! wheel#void#config ()
 	if ! exists('g:wheel_config')
 		let g:wheel_config = {}
 	endif
-	if ! has_key(g:wheel_config, 'file')
-		if has('nvim')
-			let g:wheel_config.file = '~/.local/share/nvim/wheel/wheel.vim'
-		else
-			let g:wheel_config.file = '~/.vim/wheel/wheel.vim'
-		endif
-	endif
-	if ! has_key(g:wheel_config, 'autowrite')
-		let g:wheel_config.autowrite = 0
-	endif
-	if ! has_key(g:wheel_config, 'autoread')
-		let g:wheel_config.autoread = 0
-	endif
-	if ! has_key(g:wheel_config, 'session_file')
-		if has('nvim')
-			let g:wheel_config.session_file = '~/.local/share/nvim/wheel/session/default.vim'
-		else
-			let g:wheel_config.session_file = '~/.vim/wheel/session/default.vim'
-		endif
-	endif
-	if ! has_key(g:wheel_config, 'session_dir')
-		if has('nvim')
-			let g:wheel_config.session_dir = '~/.local/share/nvim/wheel/session'
-		else
-			let g:wheel_config.session_dir = '~/.vim/wheel/session'
-		endif
-	endif
-	if ! has_key(g:wheel_config, 'autowrite_session')
-		let g:wheel_config.autowrite_session = 0
-	endif
-	if ! has_key(g:wheel_config, 'autoread_session')
-		let g:wheel_config.autoread_session = 0
-	endif
 	if ! has_key(g:wheel_config, 'mappings')
 		let g:wheel_config.mappings = 0
 	endif
@@ -258,6 +233,50 @@ fun! wheel#void#config ()
 		" defaults to internal vimgrep,
 		" in case external grep is not available
 		let g:wheel_config.grep = 'vimgrep'
+	endif
+	" ---- storage
+	if ! has_key(g:wheel_config, 'storage')
+		let g:wheel_config.storage = {}
+	endif
+	" -- storage wheel
+	if ! has_key(g:wheel_config.storage, 'wheel')
+		let g:wheel_config.storage.wheel = {}
+	endif
+	if ! has_key(g:wheel_config.storage.wheel, 'folder')
+		if has('nvim')
+			let g:wheel_config.storage.wheel.folder = '~/.local/share/nvim/wheel'
+		else
+			let g:wheel_config.storage.wheel.folder = '~/.vim/wheel'
+		endif
+	endif
+	if ! has_key(g:wheel_config.storage.wheel, 'name')
+		let g:wheel_config.storage.wheel.name = 'wheel.vim'
+	endif
+	if ! has_key(g:wheel_config.storage.wheel, 'autowrite')
+		let g:wheel_config.storage.wheel.autowrite = 0
+	endif
+	if ! has_key(g:wheel_config.storage.wheel, 'autoread')
+		let g:wheel_config.storage.wheel.autoread = 0
+	endif
+	" -- storage session
+	if ! has_key(g:wheel_config.storage, 'session')
+		let g:wheel_config.storage.session = {}
+	endif
+	if ! has_key(g:wheel_config.storage.session, 'folder')
+		if has('nvim')
+			let g:wheel_config.storage.session.folder = '~/.local/share/nvim/wheel/session'
+		else
+			let g:wheel_config.storage.session.folder = '~/.vim/wheel/session'
+		endif
+	endif
+	if ! has_key(g:wheel_config.storage.session, 'name')
+		let g:wheel_config.storage.session.name = 'session.vim'
+	endif
+	if ! has_key(g:wheel_config.storage.session, 'autowrite')
+		let g:wheel_config.storage.session.autowrite = 0
+	endif
+	if ! has_key(g:wheel_config.storage.session, 'autoread')
+		let g:wheel_config.storage.session.autoread = 0
 	endif
 	" ---- maxim
 	if ! has_key(g:wheel_config, 'maxim')
@@ -453,8 +472,8 @@ endfun
 
 fun! wheel#void#foundation ()
 	" Initialize wheel
-	" ---- conversion from old config keys
-	call wheel#kintsugi#config ()
+	" ---- pre conversion from old keys
+	call wheel#kintsugi#pre ()
 	" ---- persistent wheel variables
 	call wheel#void#wheel ()
 	call wheel#void#helix ()
@@ -473,6 +492,8 @@ fun! wheel#void#foundation ()
 	call wheel#void#signs ()
 	call wheel#void#wave ()
 	call wheel#void#volatile ()
+	" ---- post conversion from old keys
+	call wheel#kintsugi#post ()
 endfun
 
 " ---- wipe mandala buffers
@@ -503,7 +524,7 @@ endfun
 fun! wheel#void#vanish ()
 	" Unlet wheel variables
 	" No need to save them in viminfo or shada file
-	" since you can save them in g:wheel_config.file
+	" since you can save them in g:wheel_config.storage.wheel.name
 	" ---- should not be necessary, since only
 	" ---- uppercase global vars are stored in viminfo / shada
 	return
@@ -543,11 +564,11 @@ fun! wheel#void#init ()
 	" ---- no message at vim enter
 	let verbose = v:false
 	" ---- read wheel
-	if g:wheel_config.autoread > 0
+	if g:wheel_config.storage.wheel.autoread > 0
 		call wheel#disc#read_wheel ('', keep_tabwins, verbose)
 	endif
 	" ---- read session
-	if g:wheel_config.autoread_session > 0
+	if g:wheel_config.storage.session.autoread > 0
 		call wheel#disc#read_session ('', keep_tabwins, verbose)
 	endif
 endfun
@@ -562,11 +583,11 @@ fun! wheel#void#exit ()
 	" ---- no message at vim leave
 	let verbose = v:false
 	" ---- save session
-	if g:wheel_config.autowrite_session > 0
+	if g:wheel_config.storage.session.autowrite > 0
 		call wheel#disc#write_session ('', verbose)
 	endif
 	" ---- save wheel, and unlet
-	if g:wheel_config.autowrite > 0
+	if g:wheel_config.storage.wheel.autowrite > 0
 		call wheel#disc#write_wheel('', verbose)
 	endif
 	call wheel#void#wipe_mandalas ()

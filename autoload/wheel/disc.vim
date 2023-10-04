@@ -368,22 +368,13 @@ endfun
 
 " ---- wheel file
 
-fun! wheel#disc#write_wheel (...)
+fun! wheel#disc#write_wheel_file (wheel_file, ...)
 	" Write all wheel variables to wheel file
-	" File defaults to g:wheel_config.file
 	" Optional arguments :
-	"   - wheel file
 	"   - verbose
-	if a:0 > 0 && ! empty(a:1)
-		let wheel_file = fnamemodify(a:1, ':p')
-	elseif ! empty(g:wheel_config.file)
-		let wheel_file = fnamemodify(g:wheel_config.file, ':p')
-	else
-		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
-		return v:false
-	endif
-	if a:0 > 1
-		let verbose = a:2
+	let wheel_file = a:wheel_file
+	if a:0 > 0
+		let verbose = a:1
 	else
 		let verbose = v:true
 	endif
@@ -401,9 +392,10 @@ fun! wheel#disc#write_wheel (...)
 	silent doautocmd User WheelBeforeWrite
 	" ---- convert old data
 	call wheel#kintsugi#wheel_file ()
+	" ---- backups
+	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
 	" ---- write
 	"echomsg 'Writing wheel variables to file ..'
-	call wheel#disc#roll_backups(wheel_file, g:wheel_config.backups)
 	" -- replace >
 	call wheel#disc#writefile('g:wheel', wheel_file, '>')
 	" -- append >>
@@ -422,28 +414,20 @@ fun! wheel#disc#write_wheel (...)
 	return v:true
 endfun
 
-fun! wheel#disc#read_wheel (...)
+fun! wheel#disc#read_wheel_file (wheel_file, ...)
 	" Read all wheel variables from wheel file
-	" File defaults to g:wheel_config.file
 	" Optional arguments :
 	"   - wheel file
 	"   - keep_tabwins
 	"   - verbose
-	if a:0 > 0 && ! empty(a:1)
-		let wheel_file = fnamemodify(a:1, ':p')
-	elseif ! empty(g:wheel_config.file)
-		let wheel_file = fnamemodify(g:wheel_config.file, ':p')
-	else
-		echomsg 'Please configure g:wheel_config.file = my_wheel_file'
-		return v:false
-	endif
-	if a:0 > 1
-		let keep_tabwins = a:2
+	let wheel_file = a:wheel_file
+	if a:0 > 0
+		let keep_tabwins = a:1
 	else
 		let keep_tabwins = 'dont-keep'
 	endif
-	if a:0 > 2
-		let verbose = a:3
+	if a:0 > 1
+		let verbose = a:2
 	else
 		let verbose = v:true
 	endif
@@ -470,6 +454,116 @@ fun! wheel#disc#read_wheel (...)
 	return v:true
 endfun
 
+fun! wheel#disc#write_wheel (...)
+	" Write all wheel variables to wheel file, in auto or prompt mode
+	" If given file is empty string, defaults to g:wheel_config.storage.wheel.name
+	" If no file is given, ask which file to use
+	" ---- automatic mode
+	if a:0 > 0
+		if ! empty(a:1)
+			let wheel_file = fnamemodify(a:1, ':p')
+		else
+			let wheel_folder = g:wheel_config.storage.wheel.folder
+			let wheel_folder = fnamemodify(wheel_folder, ':p')
+			if wheel_folder[-1:] !=# '/'
+				let wheel_folder = wheel_folder .. '/'
+			endif
+			let wheel_name = g:wheel_config.storage.wheel.name
+			let wheel_file = wheel_folder .. wheel_name
+		endif
+		let arglist = [wheel_file] + a:000[1:]
+		return call('wheel#disc#write_wheel_file', arglist)
+	endif
+	" ---- wheel folder
+	let wheel_folder = g:wheel_config.storage.wheel.folder
+	let wheel_folder = fnamemodify(wheel_folder, ':p')
+	if wheel_folder[-1:] !=# '/'
+		let wheel_folder = wheel_folder .. '/'
+	endif
+	" ---- create directory if needed
+	let returnstring = wheel#disc#mkdir(wheel_folder)
+	if returnstring ==# 'failure'
+		return v:false
+	endif
+	" ---- default wheel file
+	let default_wheel = g:wheel_config.storage.wheel.name
+	let default_wheel = fnamemodify(default_wheel, ':t')
+	" ---- prompt for wheel file
+	let current_dir = getcwd()
+	execute 'lcd' wheel_folder
+	let prompt = 'Write wheel file ? '
+	let prompt ..= '[' .. default_wheel .. '] '
+	let complete = 'customlist,wheel#complete#file'
+	let wheel_name = input(prompt, '', complete)
+	if empty(wheel_name)
+		let wheel_name = default_wheel
+	endif
+	execute 'lcd' current_dir
+	" ---- wheel file path
+	let wheel_file = wheel_folder .. wheel_name
+	" ---- write wheel
+	return wheel#disc#write_wheel_file(wheel_file)
+endfun
+
+fun! wheel#disc#read_wheel (...)
+	" Read all wheel variables from wheel file, in auto or prompt mode
+	" If given file is empty string, defaults to g:wheel_config.storage.wheel.name
+	" If no file is given, ask which file to use
+	" ---- automatic mode
+	if a:0 > 0
+		if ! empty(a:1)
+			let wheel_file = fnamemodify(a:1, ':p')
+		else
+			let wheel_folder = g:wheel_config.storage.wheel.folder
+			let wheel_folder = fnamemodify(wheel_folder, ':p')
+			if wheel_folder[-1:] !=# '/'
+				let wheel_folder = wheel_folder .. '/'
+			endif
+			let wheel_name = g:wheel_config.storage.wheel.name
+			let wheel_file = wheel_folder .. wheel_name
+		endif
+		let arglist = [wheel_file] + a:000[1:]
+		return call('wheel#disc#read_wheel_file', arglist)
+	endif
+	" ---- save last state of previous wheel
+	if g:wheel_config.storage.wheel.autowrite > 0
+		let verbose = v:false
+		call wheel#disc#write_wheel ('', verbose)
+	endif
+	" ---- wheel folder
+	let wheel_folder = g:wheel_config.storage.wheel.folder
+	let wheel_folder = fnamemodify(wheel_folder, ':p')
+	if wheel_folder[-1:] !=# '/'
+		let wheel_folder = wheel_folder .. '/'
+	endif
+	if ! isdirectory(wheel_folder)
+		echomsg 'wheel disc read wheel :' wheel_folder  'does not exist'
+		return v:false
+	endif
+	" ---- default wheel name
+	let default_wheel = g:wheel_config.storage.wheel.name
+	let default_wheel = fnamemodify(default_wheel, ':t')
+	" ---- prompt for wheel name
+	let current_dir = getcwd()
+	execute 'lcd' wheel_folder
+	let prompt = 'Read wheel file ? '
+	let prompt ..= '[' .. default_wheel .. '] '
+	let complete = 'customlist,wheel#complete#file'
+	let wheel_name = input(prompt, '', complete)
+	if empty(wheel_name)
+		let wheel_name = default_wheel
+	endif
+	execute 'lcd' current_dir
+	" ---- wheel file path
+	let wheel_file = wheel_folder .. wheel_name
+	" ---- read wheel
+	let success = wheel#disc#read_wheel_file(wheel_file)
+	" ---- update current wheel in shelve
+	if success
+		let g:wheel_shelve.current.wheel = wheel_name
+	endif
+endfun
+
 " ---- session file : layout of tabs & windows
 
 fun! wheel#disc#write_session_file (session_file, ...)
@@ -490,7 +584,7 @@ fun! wheel#disc#write_session_file (session_file, ...)
 	if returnstring ==# 'failure'
 		return v:false
 	endif
-	" ---- backup old sessions
+	" ---- backups
 	call wheel#disc#roll_backups(session_file, g:wheel_config.backups)
 	" ----- writing session
 	let commandlist = wheel#labyrinth#session ()
@@ -547,130 +641,109 @@ fun! wheel#disc#read_session_file (session_file, ...)
 endfun
 
 fun! wheel#disc#write_session (...)
-	" Ask where to write current session and do it
-	" Default : g:wheel_config.session_file
+	" Ask where to write current session and write it
+	" File defaults to g:wheel_config.storage.session.name
 	" ---- automatic mode
 	if a:0 > 0
 		if ! empty(a:1)
 			let session_file = fnamemodify(a:1, ':p')
 		else
-			if ! empty(g:wheel_shelve.session_file)
-				let session_file = fnamemodify(g:wheel_shelve.session_file, ':p')
-			elseif ! empty(g:wheel_config.session_file)
-				let session_file = fnamemodify(g:wheel_config.session_file, ':p')
-			else
-				echomsg 'Please configure g:wheel_config.session_file'
-				return v:false
+			let session_folder = g:wheel_config.storage.session.folder
+			let session_folder = fnamemodify(session_folder, ':p')
+			if session_folder[-1:] !=# '/'
+				let session_folder = session_folder .. '/'
 			endif
+			let session_name = g:wheel_config.storage.session.name
+			let session_file = session_folder .. session_name
 		endif
 		let arglist = [session_file] + a:000[1:]
 		return call('wheel#disc#write_session_file', arglist)
 	endif
 	" ---- session dir
-	if ! empty(g:wheel_config.session_dir)
-		let session_dir = g:wheel_config.session_dir
-	elseif ! empty(g:wheel_config.session_file)
-		let session_dir = fnamemodify(g:wheel_config.session_dir, ':h')
-	else
-		echomsg 'Please configure g:wheel_config.session_dir or g:wheel_config.session_file'
-		return v:false
+	let session_folder = g:wheel_config.storage.session.folder
+	let session_folder = fnamemodify(session_folder, ':p')
+	if session_folder[-1:] !=# '/'
+		let session_folder = session_folder .. '/'
 	endif
-	let session_dir = fnamemodify(session_dir, ':p')
 	" ---- create directory if needed
-	let returnstring = wheel#disc#mkdir(session_dir)
+	let returnstring = wheel#disc#mkdir(session_folder)
 	if returnstring ==# 'failure'
 		return v:false
 	endif
-	if session_dir[-1] ==# '/'
-		let session_dir = session_dir[:-2]
-	endif
 	" ---- default session file
-	if ! empty(g:wheel_config.session_file)
-		let default_session = fnamemodify(g:wheel_config.session_file, ':t')
-	endif
-	" ---- session file
+	let default_session = g:wheel_config.storage.session.name
+	let default_session = fnamemodify(default_session, ':t')
+	" ---- prompt for session file
 	let current_dir = getcwd()
-	execute 'lcd' session_dir
+	execute 'lcd' session_folder
 	let prompt = 'Write session file ? '
-	if exists('default_session')
-		let prompt ..= '[' .. default_session .. '] '
-	endif
+	let prompt ..= '[' .. default_session .. '] '
 	let complete = 'customlist,wheel#complete#file'
-	let session_file = input(prompt, '', complete)
-	if empty(session_file) && exists('default_session')
-		let session_file = default_session
+	let session_name = input(prompt, '', complete)
+	if empty(session_name)
+		let session_name = default_session
 	endif
-	let session_file = session_dir .. '/' .. session_file
 	execute 'lcd' current_dir
+	" ---- session file path
+	let session_file = session_folder .. session_name
 	" ---- write session
 	return wheel#disc#write_session_file(session_file)
 endfun
 
 fun! wheel#disc#read_session (...)
-	" Ask where to read current session and do it
-	" Default : g:wheel_config.session_file
+	" Ask where to read current session and read it
+	" File defaults to g:wheel_config.storage.session.name
 	" ---- automatic mode
 	if a:0 > 0
 		if ! empty(a:1)
 			let session_file = fnamemodify(a:1, ':p')
 		else
-			if ! empty(g:wheel_shelve.session_file)
-				let session_file = fnamemodify(g:wheel_shelve.session_file, ':p')
-			elseif ! empty(g:wheel_config.session_file)
-				let session_file = fnamemodify(g:wheel_config.session_file, ':p')
-			else
-				echomsg 'Please configure g:wheel_config.session_file'
-				return v:false
+			let session_folder = fnamemodify(g:wheel_config.storage.session.folder, ':p')
+			if session_folder[-1:] !=# '/'
+				let session_folder = session_folder .. '/'
 			endif
+			let session_name = g:wheel_config.storage.session.name
+			let session_file = session_folder .. session_name
 		endif
 		let arglist = [session_file] + a:000[1:]
 		return call('wheel#disc#read_session_file', arglist)
 	endif
-	" ---- session dir
-	if ! empty(g:wheel_config.session_dir)
-		let session_dir = g:wheel_config.session_dir
-	elseif ! empty(g:wheel_config.session_file)
-		let session_dir = fnamemodify(g:wheel_config.session_dir, ':h')
-	else
-		echomsg 'Please configure g:wheel_config.session_dir or g:wheel_config.session_file'
-		return v:false
-	endif
-	let session_dir = fnamemodify(session_dir, ':p')
-	if ! isdirectory(session_dir)
-		echomsg 'wheel disc prompt_read_session :' session_dir  'does not exist'
-		return v:false
-	endif
-	if session_dir[-1:] ==# '/'
-		let session_dir = session_dir[:-2]
-	endif
-	" ---- default session file
-	if ! empty(g:wheel_config.session_file)
-		let default_session = fnamemodify(g:wheel_config.session_file, ':t')
-	endif
-	" ---- session file
-	let current_dir = getcwd()
-	execute 'lcd' session_dir
-	let prompt = 'Read session file ? '
-	if exists('default_session')
-		let prompt ..= '[' .. default_session .. '] '
-	endif
-	let complete = 'customlist,wheel#complete#file'
-	let session_file = input(prompt, '', complete)
-	if empty(session_file) && exists('default_session')
-		let session_file = default_session
-	endif
-	let session_file = session_dir .. '/' .. session_file
-	execute 'lcd' current_dir
 	" ---- save last state of previous session
-	if g:wheel_config.autowrite_session > 0
+	if g:wheel_config.storage.session.autowrite > 0
 		let verbose = v:false
 		call wheel#disc#write_session ('', verbose)
 	endif
+	" ---- session dir
+	let session_folder = g:wheel_config.storage.session.folder
+	let session_folder = fnamemodify(session_folder, ':p')
+	if session_folder[-1:] !=# '/'
+		let session_folder = session_folder .. '/'
+	endif
+	if ! isdirectory(session_folder)
+		echomsg 'wheel disc read session :' session_folder  'does not exist'
+		return v:false
+	endif
+	" ---- default session file
+	let default_session = g:wheel_config.storage.session.name
+	let default_session = fnamemodify(default_session, ':t')
+	" ---- prompt for session name
+	let current_dir = getcwd()
+	execute 'lcd' session_folder
+	let prompt = 'Read session file ? '
+	let prompt ..= '[' .. default_session .. '] '
+	let complete = 'customlist,wheel#complete#file'
+	let session_name = input(prompt, '', complete)
+	if empty(session_name)
+		let session_name = default_session
+	endif
+	execute 'lcd' current_dir
+	" ---- session file path
+	let session_file = session_folder .. session_name
 	" ---- read session
 	let success = wheel#disc#read_session_file(session_file)
 	" ---- update current session in shelve
 	if success
-		let g:wheel_shelve.session_file = session_file
+		let g:wheel_shelve.current.session = session_name
 	endif
 endfun
 

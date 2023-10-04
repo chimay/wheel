@@ -106,8 +106,8 @@ endfun
 
 " ---- conversion from old data structure
 
-fun! wheel#kintsugi#config ()
-	" Convert old config keys to new ones
+fun! wheel#kintsugi#pre ()
+	" Convert old keys to new ones, called before config init
 	" Run in void foundation, before vars initialization
 	if ! exists('g:wheel_config')
 		return v:false
@@ -155,6 +155,71 @@ fun! wheel#kintsugi#config ()
 	endif
 	" ---- coda
 	return v:true
+endfun
+
+fun! wheel#kintsugi#post ()
+	" Convert old keys to new ones, called after config init
+	" ---- storage
+	" -- wheel
+	if has_key(g:wheel_config, 'file')
+		let path = g:wheel_config.file
+		let g:wheel_config.storage.wheel.folder = fnamemodify(path, ':h')
+		let g:wheel_config.storage.wheel.name = fnamemodify(path, ':t')
+		unlet g:wheel_config.file
+		let info = 'wheel config : file is deprecated. '
+		let info ..= 'Please use storage.wheel.name instead.'
+		echomsg info
+	endif
+	if has_key(g:wheel_config, 'autoread')
+		let g:wheel_config.storage.wheel.autoread = g:wheel_config.autoread
+		unlet g:wheel_config.autoread
+		let info = 'wheel config : autoread is deprecated. '
+		let info ..= 'Please use storage.wheel.autoread instead.'
+		echomsg info
+	endif
+	if has_key(g:wheel_config, 'autowrite')
+		let g:wheel_config.storage.wheel.autowrite = g:wheel_config.autowrite
+		unlet g:wheel_config.autowrite
+		let info = 'wheel config : autowrite is deprecated. '
+		let info ..= 'Please use storage.wheel.autowrite instead.'
+		echomsg info
+	endif
+	" -- session
+	if has_key(g:wheel_config, 'session_file')
+		let path = g:wheel_config.session_file
+		let g:wheel_config.storage.session.folder = fnamemodify(path, ':h')
+		let g:wheel_config.storage.session.name = fnamemodify(path, ':t')
+		unlet g:wheel_config.session_file
+		let info = 'wheel config : session_file is deprecated. '
+		let info ..= 'Please use storage.session.name instead.'
+		echomsg info
+	endif
+	if has_key(g:wheel_config, 'session_dir')
+		let g:wheel_config.storage.session.folder = g:wheel_config.session_dir
+		unlet g:wheel_config.session_dir
+		let info = 'wheel config : session_dir is deprecated. '
+		let info ..= 'Please use storage.session.folder instead.'
+		echomsg info
+	endif
+	if has_key(g:wheel_config, 'autoread_session')
+		let g:wheel_config.storage.session.autoread = g:wheel_config.autoread_session
+		unlet g:wheel_config.autoread_session
+		let info = 'wheel config : autoread_session is deprecated. '
+		let info ..= 'Please use storage.session.autoread instead.'
+		echomsg info
+	endif
+	if has_key(g:wheel_config, 'autowrite_session')
+		let g:wheel_config.storage.session.autowrite = g:wheel_config.autowrite_session
+		unlet g:wheel_config.autowrite_session
+		let info = 'wheel config : autowrite_session is deprecated. '
+		let info ..= 'Please use storage.session.autowrite instead.'
+		echomsg info
+	endif
+	" ---- shelve session_file
+	if has_key(g:wheel_shelve, 'session_file')
+		let g:wheel_shelve.current.session = g:wheel_shelve.session_file
+		unlet g:wheel_shelve.session_file
+	endif
 endfun
 
 fun! wheel#kintsugi#wheel_file ()
