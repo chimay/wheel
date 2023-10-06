@@ -2256,21 +2256,29 @@ Examples : >
 ------------------------------------------------------------------------------
 READ AND WRITE					*wheel-commands-read-and-write*
 
-:Wheel prompt read-wheel					*:Wheel-read*
+:Wheel prompt read-wheel					*:Wheel-prompt-read-wheel*
 	Load wheel from file. The plugin will ask you the file name.
 	File completion in `g:wheel_config.storage.wheel.folder` is available.
+	Leaving empty choose the [file] under brackets.
+	Inserting `=` choose `g:wheel_config.storage.wheel.name`.
 
-:Wheel prompt write-wheel					*:Wheel-write*
+:Wheel prompt write-wheel					*:Wheel-prompt-write-wheel*
 	Save wheel in file. The plugin will ask you the file name.
-	 File completion in `g:wheel_config.storage.wheel.folder` is available.
+	File completion in `g:wheel_config.storage.wheel.folder` is available.
+	Leaving empty choose the [file] under brackets.
+	Inserting `=` choose `g:wheel_config.storage.wheel.name`.
 
-:Wheel prompt read-session				*:Wheel-read-session*
+:Wheel prompt read-session				*:Wheel-prompt-read-session*
 	Load session from file. The plugin will ask you the file name.
-	 File completion in `g:wheel_config.storage.session.folder` is available.
+	File completion in `g:wheel_config.storage.session.folder` is available.
+	Leaving empty choose the [file] under brackets.
+	Inserting `=` choose `g:wheel_config.storage.session.name`.
 
-:Wheel prompt write-session				*:Wheel-write-session*
+:Wheel prompt write-session				*:Wheel-prompt-write-session*
 	Save session in file. The plugin will ask you the file name.
-	 File completion in `g:wheel_config.storage.session.folder` is available.
+	File completion in `g:wheel_config.storage.session.folder` is available.
+	Leaving empty choose the [file] under brackets.
+	Inserting `=` choose `g:wheel_config.storage.session.name`.
 
 ------------------------------------------------------------------------------
 DEDICATED BUFFERS				*wheel-commands-dedicated-buffers*
@@ -4083,12 +4091,12 @@ Sync up & down~
 
 Load & save~
 
-| Plug maps                      | Description            |
-| ------------------------------ | ---------------------- |
-| <plug>(wheel-read-wheel)       | read wheel from file   |
-| <plug>(wheel-write-wheel)      | save wheel to file     |
-| <plug>(wheel-read-session)     | read wheel from file   |
-| <plug>(wheel-write-session)    | save wheel to file     |
+| Plug maps                          | Description            |
+| ---------------------------------- | ---------------------- |
+| <plug>(wheel-prompt-read-wheel)    | read wheel from file   |
+| <plug>(wheel-prompt-write-wheel)   | save wheel to file     |
+| <plug>(wheel-prompt-read-session)  | read wheel from file   |
+| <plug>(wheel-prompt-write-session) | save wheel to file     |
 
 Navigate in the wheel~
 

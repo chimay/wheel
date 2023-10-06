@@ -409,7 +409,9 @@ fun! wheel#disc#write_wheel_file (wheel_file, ...)
 	call wheel#disc#writefile('g:wheel_yank', wheel_file, '>>')
 	" ---- coda
 	if verbose
-		echomsg 'writing wheel : done'
+		call wheel#status#clear ()
+		let wheel_name = fnamemodify(wheel_file, ':t')
+		echomsg 'writing wheel to' wheel_name
 	endif
 	return v:true
 endfun
@@ -449,7 +451,9 @@ fun! wheel#disc#read_wheel_file (wheel_file, ...)
 	endif
 	" ---- coda
 	if verbose
-		echomsg 'reading wheel : done'
+		call wheel#status#clear ()
+		let wheel_name = fnamemodify(wheel_file, ':t')
+		echomsg 'reading wheel from' wheel_name
 	endif
 	return v:true
 endfun
@@ -505,6 +509,8 @@ fun! wheel#disc#write_wheel (...)
 	let wheel_name = input(prompt, '', complete)
 	if empty(wheel_name)
 		let wheel_name = default_wheel
+	elseif wheel_name ==# '='
+		let wheel_name = g:wheel_config.storage.wheel.name
 	endif
 	execute 'lcd' current_dir
 	" ---- wheel file path
@@ -572,6 +578,8 @@ fun! wheel#disc#read_wheel (...)
 	let wheel_name = input(prompt, '', complete)
 	if empty(wheel_name)
 		let wheel_name = default_wheel
+	elseif wheel_name ==# '='
+		let wheel_name = g:wheel_config.storage.wheel.name
 	endif
 	execute 'lcd' current_dir
 	" ---- wheel file path
@@ -614,7 +622,9 @@ fun! wheel#disc#write_session_file (session_file, ...)
 	endif
 	" ---- coda
 	if verbose
-		echomsg 'writing session : done'
+		call wheel#status#clear ()
+		let session_name = fnamemodify(session_file, ':t')
+		echomsg 'writing session to' session_name
 	endif
 	return v:true
 endfun
@@ -655,7 +665,9 @@ fun! wheel#disc#read_session_file (session_file, ...)
 	call wheel#projection#follow ()
 	" ---- coda
 	if verbose
-		echomsg 'reading session : done'
+		call wheel#status#clear ()
+		let session_name = fnamemodify(session_file, ':t')
+		echomsg 'reading session from' session_name
 	endif
 	return v:true
 endfun
@@ -710,6 +722,8 @@ fun! wheel#disc#write_session (...)
 	let session_name = input(prompt, '', complete)
 	if empty(session_name)
 		let session_name = default_session
+	elseif session_name ==# '='
+		let session_name = g:wheel_config.storage.session.name
 	endif
 	execute 'lcd' current_dir
 	" ---- session file path
@@ -775,6 +789,8 @@ fun! wheel#disc#read_session (...)
 	let session_name = input(prompt, '', complete)
 	if empty(session_name)
 		let session_name = default_session
+	elseif session_name ==# '='
+		let session_name = g:wheel_config.storage.session.name
 	endif
 	execute 'lcd' current_dir
 	" ---- session file path
