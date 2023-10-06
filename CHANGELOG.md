@@ -15,7 +15,7 @@ Changes of keys :
 - g:wheel_config.autowrite_session -> g:wheel_config.storage.session.autowrite
 - g:wheel_config.backups -> g:wheel_config.storage.backups
 
-# version 3.7
+# Version 3.7
 
 Manage as many sessions files as you want.
 

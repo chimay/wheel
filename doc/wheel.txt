@@ -2257,16 +2257,20 @@ Examples : >
 READ AND WRITE					*wheel-commands-read-and-write*
 
 :Wheel prompt read-wheel					*:Wheel-read*
-	Load wheel from file
+	Load wheel from file. The plugin will ask you the file name.
+	File completion in `g:wheel_config.storage.wheel.folder` is available.
 
 :Wheel prompt write-wheel					*:Wheel-write*
-	Save wheel in file
+	Save wheel in file. The plugin will ask you the file name.
+	 File completion in `g:wheel_config.storage.wheel.folder` is available.
 
 :Wheel prompt read-session				*:Wheel-read-session*
-	Load session from file
+	Load session from file. The plugin will ask you the file name.
+	 File completion in `g:wheel_config.storage.session.folder` is available.
 
 :Wheel prompt write-session				*:Wheel-write-session*
-	Save session in file
+	Save session in file. The plugin will ask you the file name.
+	 File completion in `g:wheel_config.storage.session.folder` is available.
 
 ------------------------------------------------------------------------------
 DEDICATED BUFFERS				*wheel-commands-dedicated-buffers*
