@@ -2260,25 +2260,25 @@ READ AND WRITE					*wheel-commands-read-and-write*
 	Load wheel from file. The plugin will ask you the file name.
 	File completion in `g:wheel_config.storage.wheel.folder` is available.
 	Leaving empty choose the [file] under brackets.
-	Inserting `=` choose `g:wheel_config.storage.wheel.name`.
+	Inserting the special value `=` choose `g:wheel_config.storage.wheel.name`.
 
 :Wheel prompt write-wheel					*:Wheel-prompt-write-wheel*
 	Save wheel in file. The plugin will ask you the file name.
 	File completion in `g:wheel_config.storage.wheel.folder` is available.
 	Leaving empty choose the [file] under brackets.
-	Inserting `=` choose `g:wheel_config.storage.wheel.name`.
+	Inserting the special value `=` choose `g:wheel_config.storage.wheel.name`.
 
 :Wheel prompt read-session				*:Wheel-prompt-read-session*
 	Load session from file. The plugin will ask you the file name.
 	File completion in `g:wheel_config.storage.session.folder` is available.
 	Leaving empty choose the [file] under brackets.
-	Inserting `=` choose `g:wheel_config.storage.session.name`.
+	Inserting the special value `=` choose `g:wheel_config.storage.session.name`.
 
 :Wheel prompt write-session				*:Wheel-prompt-write-session*
 	Save session in file. The plugin will ask you the file name.
 	File completion in `g:wheel_config.storage.session.folder` is available.
 	Leaving empty choose the [file] under brackets.
-	Inserting `=` choose `g:wheel_config.storage.session.name`.
+	Inserting the special value `=` choose `g:wheel_config.storage.session.name`.
 
 ------------------------------------------------------------------------------
 DEDICATED BUFFERS				*wheel-commands-dedicated-buffers*
