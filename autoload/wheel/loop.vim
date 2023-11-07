@@ -76,7 +76,7 @@ fun! wheel#loop#buffer_delete ()
 	for elem in components
 		let fields = split(elem, s:field_separ)
 		let bufnum = str2nr(fields[0])
-		execute 'silent bdelete' bufnum
+		execute 'silent bdelete!' bufnum
 		echomsg 'buffer' bufnum 'deleted'
 	endfor
 	" dont remove parent selection on buffer/all
@@ -104,7 +104,7 @@ fun! wheel#loop#buffer_wipe ()
 	for elem in components
 		let fields = split(elem, s:field_separ)
 		let bufnum = str2nr(fields[0])
-		execute 'silent bwipe' bufnum
+		execute 'silent bwipe!' bufnum
 		echomsg 'buffer' bufnum 'wiped'
 	endfor
 	call wheel#upstream#remove_selection ()

@@ -65,7 +65,7 @@ fun! wheel#boomerang#hidden_buffers (action)
 	" ---- remove buffers
 	if action ==# 'delete_hidden'
 		for bufnum in hidden
-			execute 'silent bdelete' bufnum
+			execute 'silent bdelete!' bufnum
 		endfor
 		echomsg 'hidden buffers deleted'
 	elseif  action =~ 'wipe.*hidden'

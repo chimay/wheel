@@ -193,7 +193,7 @@ fun! wheel#harmony#rename_file (ask = 'confirm')
 		let locations[index].file = new_filename
 		" -- wipe old filename buffer if existent
 		if bufexists(old_filename)
-			execute 'bwipe' old_filename
+			execute 'bwipe!' old_filename
 		endif
 		" -- rename file in all involved locations of the wheel
 		call wheel#tree#adapt_to_filename (old_filename, new_filename)
