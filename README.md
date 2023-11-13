@@ -14,6 +14,7 @@
   * [Features](#features)
   * [History](#history)
   * [Prerequisites](#prerequisites)
+    * [Software](#software)
     * [Operating system](#operating-system)
 * [Installation](#installation)
   * [Using vim-packager](#using-vim-packager)
@@ -61,7 +62,8 @@ enhances their interface by using :
 
 With these tools, any line in any file is only a few keys away.
 
-All is written in lightweight, classical Vimscript.
+All is written in lightweight, classical Vimscript. No dependency
+required.
 
 ## What does it look like ?
 
@@ -226,6 +228,8 @@ This project is inspired by :
   self-explanatory
 
 ## Prerequisites
+
+### Software
 
 - vim >= 8.2
 - neovim >= 0.6
