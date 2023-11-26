@@ -4008,6 +4008,30 @@ level to less than 10, then copy and adapt some of the following lines : >
     exe nmap '<m-z>          <plug>(wheel-zoom)'
 <
 
+Overwrite some level 10 maps~
+
+If you agree with almost all the proposed level 10 maps, except a few
+one, a simple solution is to overwrite some maps after all plugins have
+been loaded. Example : >
+
+  " your wheel config
+  let g:wheel_config.mappings = 10
+  " ...
+
+  " let's load all plugins
+  packloadall
+
+  " let's overwrite some maps
+  nnoremap <c-left> <c-w>W
+  nnoremap <c-right> <c-w>w
+  nnoremap <c-pageup> gT
+  nnoremap <c-pagedown> gt
+  nnoremap <c-home> <cmd>tabfirst<cr>
+  nnoremap <c-end> <cmd>tablast<cr>
+  nnoremap <c-s-pageup> <cmd>tabmove -1<cr>
+  nnoremap <c-s-pagedown> <cmd>tabmove +1<cr>
+<
+
 Trouble with xterm & fixkey~
 
 If you use vim in a xterm with the |fixkey| plugin, the map `<M-S-p>`
