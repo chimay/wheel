@@ -455,6 +455,7 @@ fun! wheel#book#delete ()
 	let length -= 1
 	let ring.current = wheel#taijitu#circular_minus (current, length)
 	call wheel#book#syncdown ()
+	call wheel#cylinder#update_type ()
 	return v:true
 endfun
 
