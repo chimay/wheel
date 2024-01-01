@@ -38,6 +38,8 @@ fun! wheel#labyrinth#windows (layout, direction = 'undefined')
 			eval edit->add(last_position)
 			" -- unfold to view cursor
 			eval edit->add('normal! zv')
+			" -- center view
+			eval edit->add('normal! zz')
 			return edit
 		else
 			return wheel#labyrinth#windows (second, first)
