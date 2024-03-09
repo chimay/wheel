@@ -85,3 +85,16 @@ fun! wheel#origami#tabwin_folding_text ()
 	return text
 endfun
 
+" ---- suspend & resume during heavy functions that does not need it
+
+fun! wheel#origami#suspend ()
+	" Suspend expr folding
+	tabdo windo set nofoldenable
+	call wheel#cylinder#recall ()
+endfun
+
+fun! wheel#origami#resume ()
+	" Resume expr folding
+	tabdo windo set foldenable
+	call wheel#cylinder#recall ()
+endfun
