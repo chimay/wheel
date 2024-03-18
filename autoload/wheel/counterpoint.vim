@@ -139,14 +139,19 @@ endfun
 
 fun! wheel#counterpoint#narrow_circle (ask = 'confirm')
 	" Write function for shape#narrow_circle
-	" -- confirm
+	" ---- confirm
 	if ! wheel#polyphony#confirm (a:ask)
 		return v:false
 	endif
-	" -- update b:wheel_lines
+	" ---- update b:wheel_lines
 	call wheel#polyphony#update_var_lines ()
-	" -- modify circle files lines
+	" ---- buffers with disabled folds
+	" ---- folding is too slow
+	" ---- on large or heavily hierarchical files
+	let disabled_folds_buffers = []
+	" ---- modify circle files lines
 	let linelist = wheel#teapot#all_lines ()
+	call wheel#cylinder#close ()
 	for line in linelist
 		let fields = split(line, s:field_separ)
 		let length = len(fields)
@@ -154,15 +159,30 @@ fun! wheel#counterpoint#narrow_circle (ask = 'confirm')
 		if ! bufloaded(bufnum)
 			call bufload(bufnum)
 		endif
+		if disabled_folds_buffers->index(bufnum) < 0
+			eval disabled_folds_buffers->add(bufnum)
+			execute 'silent hide buffer' bufnum
+			call wheel#origami#suspend ()
+		endif
 		let linum = str2nr(fields[1])
 		if length > 3
 			let content = fields[3]
 		else
 			let content = ''
 		endif
+		let oldline = getbufoneline(bufnum, linum)
+		if oldline == content
+			continue
+		endif
 		call setbufline(bufnum, linum, content)
 	endfor
-	" -- coda
+	" ---- enable disabled folds buffers
+	for bufnum in disabled_folds_buffers
+		execute 'silent hide buffer' bufnum
+		call wheel#origami#resume ()
+	endfor
+	" ---- coda
+	call wheel#cylinder#recall ()
 	setlocal nomodified
 	echomsg 'changes written to circle files'
 	return v:true

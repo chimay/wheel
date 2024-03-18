@@ -89,12 +89,27 @@ endfun
 
 fun! wheel#origami#suspend ()
 	" Suspend expr folding
-	tabdo windo set nofoldenable
-	call wheel#cylinder#recall ()
+	if ! exists('b:wheel')
+		let b:wheel = {}
+		let b:wheel.foldmethod = {}
+		let b:wheel.foldmethod.locked = v:false
+	endif
+	if b:wheel.foldmethod.locked
+		return v:false
+	endif
+	let b:wheel.foldmethod.value = &l:foldmethod
+	let b:wheel.foldmethod.locked = v:true
+	let &l:foldmethod = 'manual'
+	return v:true
 endfun
 
 fun! wheel#origami#resume ()
 	" Resume expr folding
-	tabdo windo set foldenable
-	call wheel#cylinder#recall ()
+	if ! exists('b:wheel')
+		echomsg 'wheel origami resume : b:wheel does not exist'
+		return v:false
+	endif
+	let &l:foldmethod = b:wheel.foldmethod.value
+	let b:wheel.foldmethod.locked = v:false
+	return v:true
 endfun

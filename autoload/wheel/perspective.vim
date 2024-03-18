@@ -232,10 +232,8 @@ fun! wheel#perspective#marker ()
 		let linum = position[1]
 		let colnum = position[2]
 		let bufnum = bufnr(filename)
-		let buflinelist = getbufline(bufnum, linum)
-		if ! empty(buflinelist)
-			let content = buflinelist[0]
-		else
+		let content = getbufoneline(bufnum, linum)
+		if empty(content)
 			let content = ' '
 		endif
 		let linum = printf('%5d', linum)
@@ -274,10 +272,8 @@ fun! wheel#perspective#jump ()
 			continue
 		endif
 		" loaded ?
-		let buflinelist = getbufline(bufnum, linum)
-		if ! empty(buflinelist)
-			let content = buflinelist[0]
-		else
+		let content = getbufoneline(bufnum, linum)
+		if empty(content)
 			let content = ' '
 		endif
 		" add to the returnlist
