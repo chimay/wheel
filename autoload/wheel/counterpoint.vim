@@ -171,7 +171,7 @@ fun! wheel#counterpoint#narrow_circle (ask = 'confirm')
 			let content = ''
 		endif
 		let oldline = getbufoneline(bufnum, linum)
-		if oldline == content
+		if oldline ==# content
 			continue
 		endif
 		call setbufline(bufnum, linum, content)
