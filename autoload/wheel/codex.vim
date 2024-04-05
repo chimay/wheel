@@ -115,20 +115,31 @@ fun! wheel#codex#yank_plain (where = 'linewise-after')
 	if empty(content)
 		return v:false
 	endif
+	call wheel#codex#climb([ content ])
+	let clipreg = substitute(&clipboard, 'unnamedplus', '+', '')
+	let clipreg = substitute(clipreg, 'unnamed', '*', '')
+	let clipboard = [ '"' ]->extend(split(clipreg, ','))
 	if where ==# 'linewise-after'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put =content
 	elseif where ==# 'linewise-before'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put! =content
 	elseif where ==# 'charwise-after'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! p
 	elseif where ==# 'charwise-before'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! P
 	endif
-	call wheel#codex#climb([ content ])
 	return v:true
 endfun
 
@@ -142,20 +153,31 @@ fun! wheel#codex#yank_list (where = 'linewise-after')
 		return v:false
 	endif
 	let content = eval(line)
+	call wheel#codex#climb(content)
+	let clipreg = substitute(&clipboard, 'unnamedplus', '+', '')
+	let clipreg = substitute(clipreg, 'unnamed', '*', '')
+	let clipboard = [ '"' ]->extend(split(clipreg, ','))
 	if where ==# 'linewise-after'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put =content
 	elseif where ==# 'linewise-before'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put! =content
 	elseif where ==# 'charwise-after'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! p
 	elseif where ==# 'charwise-before'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! P
 	endif
-	call wheel#codex#climb(content)
 	return v:true
 endfun
 

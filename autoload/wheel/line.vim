@@ -327,23 +327,35 @@ fun! wheel#line#paste_plain (where = 'linewise-after', close = 'close')
 	if empty(content)
 		return v:false
 	endif
+	" --- climbing content
+	call wheel#codex#climb(content)
+	" --- clipboard option registers
+	let clipreg = substitute(&clipboard, 'unnamedplus', '+', '')
+	let clipreg = substitute(clipreg, 'unnamed', '*', '')
+	let clipboard = [ '"' ]->extend(split(clipreg, ','))
 	" ---- paste
 	call wheel#rectangle#goto_previous ()
 	if where ==# 'linewise-after'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put =content
 	elseif where ==# 'linewise-before'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put! =content
 	elseif where ==# 'charwise-after'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! p
 	elseif where ==# 'charwise-before'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! P
 	endif
-	" --- climbing content
-	call wheel#codex#climb(content)
 	" ---- coda
 	call wheel#cylinder#recall ()
 	if close ==# 'close'
@@ -387,23 +399,35 @@ fun! wheel#line#paste_list (where = 'linewise-after', close = 'close')
 	let content = deepcopy(selection.components)
 	eval content->map({ _, list_string -> eval(list_string) })
 	eval content->map({ _, list -> join(list, "\n") })
+	" --- climbing content
+	call wheel#codex#climb(content)
+	" --- clipboard option registers
+	let clipreg = substitute(&clipboard, 'unnamedplus', '+', '')
+	let clipreg = substitute(clipreg, 'unnamed', '*', '')
+	let clipboard = [ '"' ]->extend(split(clipreg, ','))
 	" ---- paste
 	call wheel#rectangle#goto_previous ()
 	if where ==# 'linewise-after'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put =content
 	elseif where ==# 'linewise-before'
-		call setreg('"', content, 'l')
+		for register in clipboard
+			call setreg(register, content, 'l')
+		endfor
 		silent put! =content
 	elseif where ==# 'charwise-after'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! p
 	elseif where ==# 'charwise-before'
-		call setreg('"', content, 'c')
+		for register in clipboard
+			call setreg(register, content, 'c')
+		endfor
 		silent normal! P
 	endif
-	" --- climbing content
-	call wheel#codex#climb(content)
 	" ---- coda
 	call wheel#cylinder#recall ()
 	if close ==# 'close'
