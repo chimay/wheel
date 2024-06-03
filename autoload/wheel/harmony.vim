@@ -112,7 +112,7 @@ fun! wheel#harmony#rename (level, ask = 'confirm')
 	for index in range(len_names)
 		let old_name = elements[index].name
 		let new_name = names[index]
-		" nothing to do if old == new
+		" -- nothing to do if old == new
 		if old_name == new_name
 			continue
 		endif
@@ -163,7 +163,7 @@ fun! wheel#harmony#rename_file (ask = 'confirm')
 			echomsg 'wheel harmony rename : location name cannot be empty'
 			continue
 		endif
-		" --- nothing to do if old == new
+		" -- nothing to do if old == new
 		if old_name == new_name
 			continue
 		endif
@@ -184,7 +184,11 @@ fun! wheel#harmony#rename_file (ask = 'confirm')
 		let fields = split(lines[index], s:field_separ)
 		let old_filename = locations[index].file
 		let new_filename = wheel#disc#format_name (fields[1])
-		" -- old -> new
+		" -- nothing to do if old == new
+		if old_filename == new_filename
+			continue
+		endif
+		" -- rename file
 		let returnstring = wheel#disc#rename(old_filename, new_filename)
 		if returnstring != 'success'
 			continue
