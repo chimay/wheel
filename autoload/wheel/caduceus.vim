@@ -78,7 +78,6 @@ fun! wheel#caduceus#update_window ()
 	" Update g:wheel_history.alternate.window
 	" to be called by wheel#vortex#jump ()
 	let g:wheel_history.alternate.window = win_getid ()
-	echomsg g:wheel_history.alternate.window expand('%:p')
 	return v:true
 endfun
 
@@ -106,8 +105,10 @@ fun! wheel#caduceus#alternate_window ()
 	" Alternate with previous window in any tab,
 	" i.e. previous visible buffer
 	" Generalization of native vim : C-w p
+	if ! has_key(g:wheel_history.alternate, 'window')
+		return v:false
+	endif
 	let window = g:wheel_history.alternate.window
-	call wheel#caduceus#update_window ()
 	call win_gotoid(window)
 	return v:true
 endfun

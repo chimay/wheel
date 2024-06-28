@@ -109,9 +109,6 @@ fun! wheel#vortex#jump (where = 'search-window')
 	let window = wheel#vortex#target (where)
 	" ---- jump
 	if where ==# 'search-window' && window >= 0
-		" -- update alternate window
-		" -- done in BufLeave
-		"call wheel#caduceus#update_window ()
 		" -- switch to window containing location buffer
 		call win_gotoid(window)
 		call cursor(location.line, location.col)

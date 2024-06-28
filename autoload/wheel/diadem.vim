@@ -33,6 +33,7 @@ let s:command_meta_actions = [
 			\ [ 'alternate-other-torus' , "wheel#caduceus#alternate('other_torus')"                           ] ,
 			\ [ 'alternate-other-circle' , "wheel#caduceus#alternate('other_circle')"                         ] ,
 			\ [ 'alternate-same-torus-other-circle' , "wheel#caduceus#alternate('same_torus_other_circle')"   ] ,
+			\ [ 'alternate-window'      , 'wheel#caduceus#alternate_window()'                                 ] ,
 			\ [ 'mkdir'                 , 'wheel#disc#mkdir'                                                  ] ,
 			\ [ 'rename'                , 'wheel#disc#rename'                                                 ] ,
 			\ [ 'copy'                  , 'wheel#disc#copy'                                                   ] ,
