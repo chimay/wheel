@@ -101,20 +101,20 @@ fun! wheel#void#history ()
 	if ! exists('g:wheel_history')
 		let g:wheel_history = {}
 	endif
+	" ---- naturally sorted time line
 	if ! has_key(g:wheel_history, 'line')
-		" naturally sorted time line
 		let g:wheel_history.line = []
 	endif
+	" ---- rolled time loop
 	if ! has_key(g:wheel_history, 'circuit')
-		" rolled time loop
 		let g:wheel_history.circuit = []
 	endif
+	" ---- alternate locations
 	if ! has_key(g:wheel_history, 'alternate')
-		" alternate locations
 		let g:wheel_history.alternate = {}
 	endif
+	" ---- frequent + recent
 	if ! has_key(g:wheel_history, 'frecency')
-		" frequent + recent
 		let g:wheel_history.frecency = []
 	endif
 endfun

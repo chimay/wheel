@@ -38,7 +38,7 @@ fun! wheel#rectangle#ratio ()
 	let width = winwidth(0)
 	let width -= ( (&number || &relativenumber) ? &numberwidth : 0 ) + &foldcolumn
 	let height = winheight(0)
-	" use round as nr2float
+	" -- use round as nr2float
 	return round(width) / round(height)
 endfun
 

@@ -34,6 +34,13 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	" Optional argument :
 	"   - quiet (default)
 	"   - verbose
+	" ---- alternate window
+	" -- BufLeave is supposed to happen *before* the buffer/window change
+	" -- why doesn't it work ?
+	" -- because wheel#vortex#update is also called after the window change
+	"call wheel#caduceus#update_window ()
+	"echomsg win_getid () expand('%:p')
+	" ---- location
 	let verbose = a:verbose
 	let location = wheel#referen#location()
 	if empty(location) || location.file !=# expand('%:p')
@@ -50,6 +57,7 @@ fun! wheel#vortex#update (verbose = 'quiet')
 	if verbose ==# 'verbose'
 		echo 'wheel : location updated'
 	endif
+	" ---- coda
 	return v:true
 endfun
 
@@ -101,6 +109,9 @@ fun! wheel#vortex#jump (where = 'search-window')
 	let window = wheel#vortex#target (where)
 	" ---- jump
 	if where ==# 'search-window' && window >= 0
+		" -- update alternate window
+		" -- done in BufLeave
+		"call wheel#caduceus#update_window ()
 		" -- switch to window containing location buffer
 		call win_gotoid(window)
 		call cursor(location.line, location.col)

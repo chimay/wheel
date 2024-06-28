@@ -21,6 +21,7 @@ fun! wheel#caduceus#update ()
 	if length < 2
 		return v:false
 	endif
+	" ---- anywhere
 	let current = timeline[0].coordin
 	for ind in range(1, length - 1)
 		let coordin = timeline[ind].coordin
@@ -29,6 +30,7 @@ fun! wheel#caduceus#update ()
 			break
 		endif
 	endfor
+	" ---- same torus
 	for ind in range(1, length - 1)
 		let coordin = timeline[ind].coordin
 		if coordin[0] ==# current[0]
@@ -36,6 +38,7 @@ fun! wheel#caduceus#update ()
 			break
 		endif
 	endfor
+	" ---- same circle
 	for ind in range(1, length - 1)
 		let coordin = timeline[ind].coordin
 		if coordin[0] ==# current[0] && coordin[1] ==# current[1]
@@ -43,6 +46,7 @@ fun! wheel#caduceus#update ()
 			break
 		endif
 	endfor
+	" ---- other torus
 	for ind in range(1, length - 1)
 		let coordin = timeline[ind].coordin
 		if coordin[0] !=# current[0]
@@ -50,6 +54,7 @@ fun! wheel#caduceus#update ()
 			break
 		endif
 	endfor
+	" ---- other circle
 	for ind in range(1, length - 1)
 		let coordin = timeline[ind].coordin
 		if coordin[0] !=# current[0] || coordin[1] !=# current[1]
@@ -57,6 +62,7 @@ fun! wheel#caduceus#update ()
 			break
 		endif
 	endfor
+	" ---- same torus, other circle
 	for ind in range(1, length - 1)
 		let coordin = timeline[ind].coordin
 		if coordin[0] ==# current[0] && coordin[1] !=# current[1]
@@ -64,6 +70,15 @@ fun! wheel#caduceus#update ()
 			break
 		endif
 	endfor
+	" ---- coda
+	return v:true
+endfun
+
+fun! wheel#caduceus#update_window ()
+	" Update g:wheel_history.alternate.window
+	" to be called by wheel#vortex#jump ()
+	let g:wheel_history.alternate.window = win_getid ()
+	echomsg g:wheel_history.alternate.window expand('%:p')
 	return v:true
 endfun
 
@@ -87,10 +102,20 @@ fun! wheel#caduceus#alternate (mode)
 	return wheel#vortex#jump ()
 endfun
 
+fun! wheel#caduceus#alternate_window ()
+	" Alternate with previous window in any tab,
+	" i.e. previous visible buffer
+	" Generalization of native vim : C-w p
+	let window = g:wheel_history.alternate.window
+	call wheel#caduceus#update_window ()
+	call win_gotoid(window)
+	return v:true
+endfun
+
 fun! wheel#caduceus#alternate_menu ()
 	" Alternate prompt menu
 	let prompt = 'Alternate mode ? '
-	let mode = confirm(prompt, "&1 Anywhere\n&2 Same torus\n&3 Same circle\n&4 Other torus\n&5 Other circle\n&6 Same torus, other circle", 1)
+	let mode = confirm(prompt, "&1 Anywhere\n&2 Same torus\n&3 Same circle\n&4 Other torus\n&5 Other circle\n&6 Same torus, other circle\n&7 Window", 1)
 	if mode == 1
 		call wheel#caduceus#alternate ('anywhere')
 	elseif mode == 2
@@ -103,5 +128,7 @@ fun! wheel#caduceus#alternate_menu ()
 		call wheel#caduceus#alternate ('other_circle')
 	elseif mode == 6
 		call wheel#caduceus#alternate ('same_torus_other_circle')
+	elseif mode == 7
+		call wheel#caduceus#alternate_window ()
 	endif
 endfun

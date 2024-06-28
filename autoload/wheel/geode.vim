@@ -77,6 +77,7 @@ let s:plugs_normal = [
 			\ [ 'wheel-alternate-other-torus'             , "wheel#caduceus#alternate('other_torus')"             ] ,
 			\ [ 'wheel-alternate-other-circle'            , "wheel#caduceus#alternate('other_circle')"            ] ,
 			\ [ 'wheel-alternate-same-torus-other-circle' , "wheel#caduceus#alternate('same_torus_other_circle')" ] ,
+			\ [ 'wheel-alternate-window'                  , 'wheel#caduceus#alternate_window'                     ] ,
 			\ [ 'wheel-alternate-menu'                    , 'wheel#caduceus#alternate_menu'                       ] ,
 			\ [ 'wheel-prompt-frecency'                   , 'wheel#waterclock#frecency'                           ] ,
 			\ [ 'wheel-dedibuf-frecency'                  , 'wheel#whirl#frecency'                                ] ,

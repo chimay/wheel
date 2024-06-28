@@ -536,7 +536,7 @@ If you're looking for a specific Wheel function, see
 AUTO READ AND WRITE				*wheel-workflow-auto-read-write*
 
 You probably want to make your files groups persistent. For that, you
-need to enable auto read & write : >
+need to enable auto read & write of the wheel file : >
 
     let g:wheel_config.autoread = 1
     let g:wheel_config.autowrite = 1
@@ -547,7 +547,7 @@ need to enable auto read & write : >
     augroup END
 >
 
-Don't worry about the size : I have 450+ files in my groups, and it is
+Don't worry about the size : I have 1000+ files in my groups, and it is
 still fluid, thanks to on-demand file loading.
 
 Generally speaking, this plugin is designed to let the user control the flow.
@@ -3101,6 +3101,7 @@ Auto group			|wheel-autocommands-auto-group|
 Auto read			|wheel-autocommands-auto-read|
 Auto write			|wheel-autocommands-auto-write|
 Auto update			|wheel-autocommands-auto-update|
+Auto update alternate window	|wheel-autocommands-auto-update-alternate-window|
 Before jump			|wheel-autocommands-before-jump|
 Before organize			|wheel-autocommands-before-organize|
 Before write			|wheel-autocommands-before-write|
@@ -3117,9 +3118,9 @@ AUTO GROUP				*wheel-autocommands-autogroup*
 It's a good idea to group all your wheel autocommands, e.g. : >
 
     augroup wheel
-	" clear the group
+	" -- clear the group
 	autocmd!
-	" add your autocommands
+	" -- add your autocommands
 	autocmd ...
 	autocmd ...
 	...
@@ -3137,7 +3138,8 @@ local autocommands, so you can't use this name.
 ------------------------------------------------------------------------------
 AUTO READ				*wheel-autocommands-auto-read*
 
-To enable autoread, you need to add an autocommand on vim enter : >
+To enable autoread of the wheel file, you need to add an autocommand
+on vim enter : >
 
     autocmd VimEnter * call wheel#void#init()
 <
@@ -3145,7 +3147,8 @@ To enable autoread, you need to add an autocommand on vim enter : >
 ------------------------------------------------------------------------------
 AUTO WRITE				*wheel-autocommands-auto-write*
 
-To enable autowrite, you need to add an autocommand on vim leave : >
+To enable autowrite of the wheel file, you need to add an autocommand
+on vim leave : >
 
     autocmd VimLeave * call wheel#void#exit()
 <
@@ -3162,9 +3165,14 @@ leave a buffer, you can use the classic BufLeave event : >
   autocmd BufLeave * call wheel#vortex#update()
 <
 
-Launch it manually~
+------------------------------------------------------------------------------
+AUTO UPDATE ALTERNATE WINDOW	*wheel-autocommands-auto-update-alternate-window*
 
-You can launch the follow routine manually with `<M-w>$` by default.
+If you wish to use the generalized alternate window command, for all windows
+in all tabs : >
+
+  autocmd BufLeave * call wheel#caduceus#update_window()
+<
 
 ------------------------------------------------------------------------------
 BEFORE JUMP					*wheel-autocommands-before-jump*
@@ -3310,6 +3318,8 @@ Here is an example of a complete autocommands configuration : >
 	autocmd VimLeave * call wheel#void#exit()
 	" Update location line & col before leaving a window
 	autocmd BufLeave * call wheel#vortex#update()
+	" For the generalized alternate window command, for all windows in all tabs
+	autocmd BufLeave * call wheel#caduceus#update_window()
 	" Executed before jumping to a location
 	autocmd User WheelBeforeJump call wheel#vortex#update()
 	" Executed before organizing the wheel

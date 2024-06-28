@@ -100,6 +100,7 @@ fun! wheel#sailing#tabwin ()
 	let fields = split(record, s:field_separ)
 	let tabnum = fields[0]
 	let winum = fields[1]
+	doautocmd BufLeave
 	execute 'noautocmd tabnext' tabnum
 	execute 'noautocmd' winum 'wincmd w'
 	doautocmd WinEnter

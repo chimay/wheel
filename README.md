@@ -468,6 +468,8 @@ augroup wheel
   autocmd VimLeave * call wheel#void#exit()
   " Update location line & col before leaving a window
   autocmd BufLeave * call wheel#vortex#update()
+  " For the generalized alternate window command, for all windows in all tabs
+  autocmd BufLeave * call wheel#caduceus#update_window()
   " Executed before jumping to a location
   autocmd User WheelBeforeJump call wheel#vortex#update()
   " Executed before organizing the wheel
