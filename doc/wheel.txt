@@ -2241,6 +2241,9 @@ Alternate~
 	Alternate two last locations in the same torus, but not in the same
 	circle
 
+:Wheel alternate-window
+	Alternate two last windows in any tab
+
 ------------------------------------------------------------------------------
 PROMPT							*wheel-commands-prompt*
 
