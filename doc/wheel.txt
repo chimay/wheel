@@ -4177,6 +4177,7 @@ Navigate in the wheel~
 | <plug>(wheel-alternate-other-torus)             | alternate locations in other torus        |
 | <plug>(wheel-alternate-other-circle)            | alternate locations in other circle       |
 | <plug>(wheel-alternate-same-torus-other-circle) | alternate in same torus, but other circle |
+| <plug>(wheel-alternate-window)                  | alternate window in any tab               |
 | <plug>(wheel-alternate-menu)                    | menu to alternate                         |
 
 Navigate using Wheel interface to vim native tools~

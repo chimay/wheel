@@ -519,7 +519,10 @@ endfun
 
 fun! wheel#void#clean ()
 	" Clean variables before writing wheel to file
-	unlet g:wheel_history.alternate.window
+	" ---- wheel history
+	if has_key(g:wheel_history.alternate, 'window')
+		unlet g:wheel_history.alternate.window
+	endif
 	" ---- wheel shelve
 	let g:wheel_shelve.layout.window = 'none'
 	let g:wheel_shelve.layout.split = 'none'
