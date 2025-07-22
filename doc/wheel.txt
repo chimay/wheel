@@ -1175,7 +1175,7 @@ Main menu~
 
 In the main menu, each fold contains a category of actions.
 
-Default map : `<M-w>m`
+Default map : `<M-w><M-m>`
 
 Wheel tree~
 
