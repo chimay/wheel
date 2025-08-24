@@ -76,7 +76,7 @@ endfun
 " ---- delete
 
 fun! wheel#yggdrasil#delete (level)
-	" Copy or move elements at level
+	" Delete elements at level
 	let level = a:level
 	let lines = wheel#flower#element (level)
 	" -- pre-checks
