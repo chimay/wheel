@@ -370,6 +370,7 @@ if ! exists("g:wheel_loaded")
   " ---- The bigger it is, the more mappings available
   let g:wheel_config.mappings = 10
   " ---- Prefix for mappings
+  " ---- Other ideas : '<space>', '<D-w>'
   let g:wheel_config.prefix = '<M-w>'
   " ---- Locate database ; default one if left empty
   let g:wheel_config.locate_db = '~/index/locate/home.db'
