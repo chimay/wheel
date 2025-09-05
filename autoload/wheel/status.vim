@@ -190,7 +190,7 @@ fun! wheel#status#tablabel (tabnum)
 	let winnr = tabpagewinnr(tabnum)
 	let bufnr = buflist[winnr - 1]
 	let filename = bufname(bufnr)
-	let filename = fnamemodify(filename, ':t')
+	let filename = fnamemodify(filename, ':t')[0:14]
 	let modified = ''
 	for bufnum in buflist
 		if getbufvar(bufnum, '&modified')
