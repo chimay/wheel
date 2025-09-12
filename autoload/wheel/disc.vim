@@ -724,6 +724,8 @@ fun! wheel#disc#write_session (...)
 		let session_name = default_session
 	elseif session_name ==# '='
 		let session_name = g:wheel_config.storage.session.name
+	else
+		let session_name = substitute(session_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- session file path
@@ -791,6 +793,8 @@ fun! wheel#disc#read_session (...)
 		let session_name = default_session
 	elseif session_name ==# '='
 		let session_name = g:wheel_config.storage.session.name
+	else
+		let session_name = substitute(session_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- session file path
