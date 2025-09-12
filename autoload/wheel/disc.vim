@@ -511,6 +511,8 @@ fun! wheel#disc#write_wheel (...)
 		let wheel_name = default_wheel
 	elseif wheel_name ==# '='
 		let wheel_name = g:wheel_config.storage.wheel.name
+	else
+		let wheel_name = substitute(wheel_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- wheel file path
@@ -580,6 +582,8 @@ fun! wheel#disc#read_wheel (...)
 		let wheel_name = default_wheel
 	elseif wheel_name ==# '='
 		let wheel_name = g:wheel_config.storage.wheel.name
+	else
+		let wheel_name = substitute(wheel_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- wheel file path
