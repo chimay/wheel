@@ -511,12 +511,13 @@ fun! wheel#disc#write_wheel (...)
 		let wheel_name = default_wheel
 	elseif wheel_name ==# '='
 		let wheel_name = g:wheel_config.storage.wheel.name
-	else
-		let wheel_name = substitute(wheel_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- wheel file path
 	let wheel_file = wheel_folder .. wheel_name
+	" ---- wheel without backup extension
+	let wheel_name = substitute(wheel_name, '\.[0-9]\+$', '', '')
+	let wheel_file = substitute(wheel_file, '\.[0-9]\+$', '', '')
 	" ---- write wheel
 	let success = wheel#disc#write_wheel_file(wheel_file)
 	" ---- update current wheel in shelve
@@ -582,14 +583,14 @@ fun! wheel#disc#read_wheel (...)
 		let wheel_name = default_wheel
 	elseif wheel_name ==# '='
 		let wheel_name = g:wheel_config.storage.wheel.name
-	else
-		let wheel_name = substitute(wheel_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- wheel file path
 	let wheel_file = wheel_folder .. wheel_name
 	" ---- read wheel
 	let success = wheel#disc#read_wheel_file(wheel_file)
+	" ---- wheel without backup extension
+	let wheel_name = substitute(wheel_name, '\.[0-9]\+$', '', '')
 	" ---- update current wheel in shelve
 	if success
 		let g:wheel_shelve.current.wheel = wheel_name
@@ -728,12 +729,13 @@ fun! wheel#disc#write_session (...)
 		let session_name = default_session
 	elseif session_name ==# '='
 		let session_name = g:wheel_config.storage.session.name
-	else
-		let session_name = substitute(session_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- session file path
 	let session_file = session_folder .. session_name
+	" ---- session without backup extension
+	let session_name = substitute(session_name, '\.[0-9]\+$', '', '')
+	let session_file = substitute(session_file, '\.[0-9]\+$', '', '')
 	" ---- write session
 	let success = wheel#disc#write_session_file(session_file)
 	" ---- update current session in shelve
@@ -797,14 +799,14 @@ fun! wheel#disc#read_session (...)
 		let session_name = default_session
 	elseif session_name ==# '='
 		let session_name = g:wheel_config.storage.session.name
-	else
-		let session_name = substitute(session_name, '\.[0-9]$', '', '')
 	endif
 	execute 'lcd' current_dir
 	" ---- session file path
 	let session_file = session_folder .. session_name
 	" ---- read session
 	let success = wheel#disc#read_session_file(session_file)
+	" ---- session without backup extension
+	let session_name = substitute(session_name, '\.[0-9]\+$', '', '')
 	" ---- update current session in shelve
 	if success
 		let g:wheel_shelve.current.session = session_name
