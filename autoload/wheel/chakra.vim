@@ -297,6 +297,7 @@ fun! wheel#chakra#place_native ()
 	if ! display_sign
 		return -1
 	endif
+	call wheel#chakra#define ()
 	let signs = g:wheel_signs
 	" ---- fields
 	let iden = signs.native_iden
@@ -342,7 +343,7 @@ fun! wheel#chakra#format ()
 endfun
 
 fun! wheel#chakra#define ()
-	" Define wheel sign
+	" Define wheel and native sign
 	" ---- format text
 	call wheel#chakra#format ()
 	" ---- location sign
