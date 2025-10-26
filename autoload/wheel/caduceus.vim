@@ -91,6 +91,9 @@ fun! wheel#caduceus#alternate (mode)
 	" - other_circle : previous entry in another circle
 	" - same_torus_other_circle : previous entry in same torus, but another circle
 	" If not in current location file, just jump to it
+	if wheel#referen#is_empty ('wheel')
+		buffer #
+	endif
 	if ! wheel#referen#location_matches_file ()
 		return wheel#vortex#jump ()
 	endif
