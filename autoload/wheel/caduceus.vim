@@ -93,6 +93,7 @@ fun! wheel#caduceus#alternate (mode)
 	" If not in current location file, just jump to it
 	if wheel#referen#is_empty ('wheel')
 		buffer #
+		return 'wheel empty : just alternate buffer'
 	endif
 	if ! wheel#referen#location_matches_file ()
 		return wheel#vortex#jump ()
