@@ -241,12 +241,12 @@ let s:maps_level_0_normal = [
 			\ [ '<m-^>'        , 'wheel-alternate-same-circle'              ] ,
 			\ [ '<m-c-^>'      , 'wheel-alternate-same-torus-other-circle'  ] ,
 			\ [ '^'            , 'wheel-alternate-menu'                     ] ,
-			\ [ 'a'            , 'wheel-prompt-add-here'                    ] ,
-			\ [ '<c-a>'        , 'wheel-prompt-add-circle'                  ] ,
-			\ [ 'A'            , 'wheel-prompt-add-torus'                   ] ,
-			\ [ '+f'           , 'wheel-prompt-add-file'                    ] ,
-			\ [ '+b'           , 'wheel-prompt-add-buffer'                  ] ,
-			\ [ '*'            , 'wheel-prompt-add-glob'                    ] ,
+			\ [ 'ah'           , 'wheel-prompt-add-here'                    ] ,
+			\ [ 'ac'           , 'wheel-prompt-add-circle'                  ] ,
+			\ [ 'at'           , 'wheel-prompt-add-torus'                   ] ,
+			\ [ 'af'           , 'wheel-prompt-add-file'                    ] ,
+			\ [ 'ab'           , 'wheel-prompt-add-buffer'                  ] ,
+			\ [ 'a*'           , 'wheel-prompt-add-glob'                    ] ,
 			\ ]
 lockvar! s:maps_level_0_normal
 

@@ -308,27 +308,27 @@ three files.
 A group can contain more than one location of the same file. Suppose
 that in the `Juice` file, you have a Pineapple and a Mango sections,
 and you want to add both of them in the circle. Just go to the Pineapple
-section, and use `<M-w>a` ; we give it the `Juice-Pineapple` name. The
+section, and use `<M-w>ah` ; we give it the `Juice-Pineapple` name. The
 location `Juice:pineapple-line:pineapple-col` is added to the current
 circle. Then, go to the Mango section, and do the same. Let's say
 we give it the `Juice-Mango` name. The `Juice:mango-line:mango-col`
 is also added to the circle.
 
 If you want to create another group (circle), let's say `Fruits`,
-simply launch `<M-w><C-a>`, and answer `Fruits` to the prompt. You can
+simply launch `<M-w>ac`, and answer `Fruits` to the prompt. You can
 then add the files `Apple`, `Pear` and `Orange` to it. You can even also
 add `Juice`: a file can be added to more than one circle.
 
 If you want to create another category (torus), let's say `Books`,
-simply launch `<M-w><S-a>`, and answer `Books` to the prompt.
+simply launch `<M-w>at`, and answer `Books` to the prompt.
 
 Adding quicker~
 
 If you want to edit a file and add it at the same time, you can use
-`<M-w>+f` ; a file completion is available at the prompt. This map can
+`<M-w>af` ; a file completion is available at the prompt. This map can
 also be used to edit a new file and add it to the wheel at once.
 
-If you want to add a buffer, you can use `<M-w>+b` ; a buffer completion
+If you want to add a buffer, you can use `<M-w>ab` ; a buffer completion
 is available.
 
 What happens if you have a lot of files ? Let's say the `novels`
@@ -863,8 +863,8 @@ long as it is not already in the current circle.
 
 You can also add :
 
-- a file with `<M-w>+f`
-- a buffer with `<M-w>+b`
+- a file with `<M-w>af`
+- a buffer with `<M-w>ab`
 - all files matching a glob with `<M-w>*`
 
 ------------------------------------------------------------------------------
@@ -3488,9 +3488,9 @@ Add~
 | <C-a>      | <M-w><C-a>            | Add circle to the current torus    |
 | A          | <M-w>A                | Add torus to the wheel             |
 | ---------- | --------------------- | ---------------------------------- |
-| +f         | <M-w>+f               | Edit and add a file                |
-| +b         | <M-w>+b               | Edit and add a buffer              |
-| *          | <M-w>*                | Add files matching glob            |
+| af         | <M-w>af               | Edit and add a file                |
+| ab         | <M-w>ab               | Edit and add a buffer              |
+| a*         | <M-w>a*               | Add files matching glob            |
 
 ------------------------------------------------------------------------------
 LEVEL 1						*wheel-mappings-level-1*
