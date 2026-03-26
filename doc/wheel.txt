@@ -226,6 +226,7 @@ encounter some problem, please let me know.
 STEP BY STEP						*wheel-step-by-step*
 
 Prefix				    |wheel-sbs-prefix|
+Help				    |wheel-sbs-help|
 One map to ring them all	    |wheel-sbs-one-map-to-ring-them-all|
 One command to launch them all	    |wheel-sbs-one-command-to-launch-them-all|
 First circles			    |wheel-sbs-first-circles|
@@ -241,6 +242,11 @@ mapping prefix : >
 
  let g:wheel_config.prefix = '<M-w>'
 <
+
+------------------------------------------------------------------------------
+HELP					*wheel-sbs-help*
+
+You can see the list of all wheel mappings, just press `<M-w>?`.
 
 ------------------------------------------------------------------------------
 ONE MAP TO RING THEM ALL		*wheel-sbs-one-map-to-ring-them-all*
@@ -3426,6 +3432,7 @@ for more information.
 
 | Prefix + | With default prefix | Action                  |
 | -------- | ------------------- | ----------------------- |
+| ?        | <M-w>?              | List of mappings        |
 | <M-m>    | <M-w><M-m>          | Main menu               |
 | =        | <M-w>=              | Meta menu               |
 

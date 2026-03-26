@@ -36,6 +36,7 @@ if exists('s:plugs_normal')
 	unlockvar! s:plugs_normal
 endif
 let s:plugs_normal = [
+			\ [ 'wheel-help-mappings'                     , 'wheel#guru#mappings'                                 ] ,
 			\ [ 'wheel-menu-main'                         , 'wheel#helm#main'                                     ] ,
 			\ [ 'wheel-menu-meta'                         , 'wheel#helm#meta'                                     ] ,
 			\ [ 'wheel-info'                              , 'wheel#status#dashboard'                              ] ,
@@ -216,6 +217,7 @@ if exists('s:maps_level_0_normal')
 	unlockvar! s:maps_level_0_normal
 endif
 let s:maps_level_0_normal = [
+			\ [ '?'            , 'wheel-help-mappings'                      ] ,
 			\ [ '<m-m>'        , 'wheel-menu-main'                          ] ,
 			\ [ '='            , 'wheel-menu-meta'                          ] ,
 			\ [ 'i'            , 'wheel-info'                               ] ,
