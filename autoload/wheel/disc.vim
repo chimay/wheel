@@ -767,7 +767,7 @@ fun! wheel#disc#read_session (...)
 		return call('wheel#disc#read_session_file', arglist)
 	endif
 	" ---- save last state of previous session
-	if g:wheel_config.storage.session.autowrite > 0
+	if g:wheel_config.storage.session.autowrite > 0 && ! empty(g:wheel_shelve.current.session)
 		let verbose = v:false
 		call wheel#disc#write_session ('', verbose)
 	endif

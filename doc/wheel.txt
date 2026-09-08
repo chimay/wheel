@@ -246,7 +246,7 @@ mapping prefix : >
 ------------------------------------------------------------------------------
 HELP					*wheel-sbs-help*
 
-You can see the list of all wheel mappings, just press `<M-w>?`.
+To see the list of all wheel mappings, just press `<M-w>?`.
 
 ------------------------------------------------------------------------------
 ONE MAP TO RING THEM ALL		*wheel-sbs-one-map-to-ring-them-all*
