@@ -184,7 +184,9 @@ fun! wheel#ouroboros#save_maps (keysdict)
 				continue
 			endif
 			if maparg.buffer == 1
-				let modemaps[key] = maparg.rhs
+				if has_key(maparg, 'rhs')
+					let modemaps[key] = maparg.rhs
+				endif
 			else
 				let modemaps[key] = ''
 			endif
